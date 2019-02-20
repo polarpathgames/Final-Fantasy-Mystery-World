@@ -1,2 +1,2 @@
-# Polar-Path
+# Final Fantasy: Mystery World
 This is the readme.
