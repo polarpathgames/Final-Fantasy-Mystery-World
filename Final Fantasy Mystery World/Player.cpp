@@ -5,9 +5,25 @@
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "EntityManager.h"
+#include "j1Map.h"
 
 Player::Player()
 {
+
+	pugi::xml_document	config_file;
+	pugi::xml_node		config;
+	pugi::xml_node		app_config;
+	pugi::xml_node		Player;
+
+	config = App->LoadConfig(config_file);
+	app_config = config.child("entity_manager");
+	Player = app_config.child("player");
+	GoLeft = LoadPushbacks(Player, "GoLeft");
+	IdleLeft = LoadPushbacks(Player, "IdleLeft");
+	position.x = 100;
+	position.y = 200;
+	current_animation = &IdleLeft;
+
 }
 
 Player::~Player()
@@ -17,17 +33,12 @@ Player::~Player()
 bool Player::Update(float dt)
 {
 
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += 300 * dt;
-
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= 300 * dt;
-
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += 300 * dt;
-
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 300 * dt;
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+		current_animation = &GoLeft;
+		position.x -= 200 * dt;
+		position.y += 130 * dt;
+	}
+	else current_animation = &IdleLeft;
 
 	return true;
 }

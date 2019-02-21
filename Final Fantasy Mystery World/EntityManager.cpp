@@ -47,6 +47,7 @@ bool EntityManager::Start()
 			(*item)->Start();
 	}
 
+	texture = App->tex->Load("textures/characters.png");
 
 	return ret;
 }
@@ -71,6 +72,11 @@ bool EntityManager::Update(float dt)
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr)
 			(*item)->Update(dt);
+	}
+	std::list<DynamicEntity*>::iterator item2 = entities.begin();
+	for (; item2 != entities.end(); ++item2) {
+		if ((*item2) != nullptr)
+			(*item2)->Draw(texture, dt);
 	}
 	
 	return true;
@@ -100,7 +106,7 @@ bool EntityManager::CleanUp()
 		}
 	}
 	entities.clear();
-
+	App->tex->UnLoad(texture);
 	return true;
 }
 

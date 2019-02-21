@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<game_state>
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<map />
+	<scene />
+	<:anonymous />
+	<entity_manager />
+	<renderer>
+		<camera x="455" y="-6" />
+	</renderer>
+</game_state>

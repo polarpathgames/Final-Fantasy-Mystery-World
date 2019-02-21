@@ -26,6 +26,19 @@
     <folder>maps/</folder>
   </map>
 
+  <entity_manager>
+    <player>
+      <Animations>
+        <GoLeft speed="5.0f" loop="true">
+          <frame x="33" y="15" w="14" h="27"/>
+          <frame x="81" y="15" w="14" h="27"/>
+        </GoLeft>
+        <IdleLeft speed="5.0f" loop="true">
+          <frame x="57" y="16" w="14" h="26"/>
+        </IdleLeft>
+      </Animations>
+    </player>
+  </entity_manager>
 </config>
 
 <!-- Config file for the game -->
