@@ -47,7 +47,7 @@ j1App::~j1App()
 {
 	// release modules
 
-	for (std::list<j1Module*>::iterator item = modules.end(); item != modules.begin(); --item) {
+	for (std::list<j1Module*>::reverse_iterator item = modules.rbegin(); item != modules.rend(); ++item) {
 		RELEASE(*item);
 
 	}
@@ -294,13 +294,13 @@ bool j1App::CleanUp()
 	bool ret = true;
 
 
-	std::list<j1Module*>::iterator item = modules.end();
+	std::list<j1Module*>::reverse_iterator item = modules.rbegin();
 
-	while (item != modules.begin() && ret == true)
+	while (item != modules.rend() && ret == true)
 	{
 		if (*item != NULL)
 			ret = (*item)->CleanUp();
-		--item;
+		++item;
 	}
 
 	PERF_PEEK(ptimer);
