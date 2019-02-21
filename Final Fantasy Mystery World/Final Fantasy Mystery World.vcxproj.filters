@@ -34,6 +34,15 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="j1Main.cpp" />
+    <ClCompile Include="j1UIManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI_Image.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Scene.h" />
@@ -83,6 +92,15 @@
     <ClInclude Include="j1Window.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="j1UIManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI_Image.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\config.xml" />
@@ -93,6 +111,9 @@
     </Filter>
     <Filter Include="Modules">
       <UniqueIdentifier>{804bbdb1-912f-4a2f-9648-b2d6d259c2b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{6f64259e-ef41-4893-a604-31cb0faf9493}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

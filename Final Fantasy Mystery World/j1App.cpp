@@ -13,6 +13,7 @@
 #include "j1Audio.h"
 #include "j1App.h"
 #include "j1Scene.h"
+#include "j1UIManager.h"
 #include "j1Map.h"
 #include "p2Point.h"
 
@@ -29,6 +30,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new j1Audio();
 	map = new j1Map();
 	scene = new j1Scene();
+	ui_manager = new j1UIManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -38,6 +40,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
+	AddModule(ui_manager);
 	// render last to swap buffer
 	AddModule(render);
 
