@@ -14,7 +14,7 @@
     <ProjectGuid>{CA36A83C-2BCF-4BEB-9B41-CD0B834374B8}</ProjectGuid>
     <RootNamespace>programacio_2</RootNamespace>
     <ProjectName>Final Fantasy Mystery World</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -80,6 +80,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DynamicEntity.cpp" />
+    <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="GUI_Image.cpp" />
     <ClCompile Include="j1Main.cpp" />
@@ -95,9 +97,12 @@
     <ClCompile Include="j1Render.cpp" />
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Window.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DynamicEntity.h" />
+    <ClInclude Include="EntityManager.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="GUI_Image.h" />
     <ClInclude Include="j1Map.h" />
@@ -116,6 +121,7 @@
     <ClInclude Include="j1Render.h" />
     <ClInclude Include="j1Textures.h" />
     <ClInclude Include="j1Window.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
   </ItemGroup>

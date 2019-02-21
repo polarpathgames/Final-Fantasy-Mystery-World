@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Map.h"
+#include "EntityManager.h"
 #include "j1Scene.h"
 #include <string>
 
@@ -58,21 +59,10 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame("save_game.xml");
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += 50;
-
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= 50;
-
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += 50;
-
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 50;
-
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		App->map->Grid = !App->map->Grid;
-
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+		App->entity_manager->CreatePlayer();
 
 	App->map->Draw();
 

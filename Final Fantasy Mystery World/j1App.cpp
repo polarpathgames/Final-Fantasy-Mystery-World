@@ -16,7 +16,7 @@
 #include "j1UIManager.h"
 #include "j1Map.h"
 #include "p2Point.h"
-
+#include "EntityManager.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -31,6 +31,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 	scene = new j1Scene();
 	ui_manager = new j1UIManager();
+	entity_manager = new EntityManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -41,6 +42,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(scene);
 	AddModule(ui_manager);
+	AddModule(entity_manager);
 	// render last to swap buffer
 	AddModule(render);
 

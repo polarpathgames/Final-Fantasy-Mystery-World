@@ -43,6 +43,15 @@
     <ClCompile Include="GUI_Image.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="EntityManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicEntity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Scene.h" />
@@ -101,6 +110,15 @@
     <ClInclude Include="GUI_Image.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="EntityManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicEntity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\config.xml" />
@@ -114,6 +132,9 @@
     </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{6f64259e-ef41-4893-a604-31cb0faf9493}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{293d05cb-82cb-4ce2-b8a9-f1269d39697a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
