@@ -84,7 +84,9 @@
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Audio.cpp" />
     <ClCompile Include="j1Input.cpp" />
+    <ClCompile Include="j1Map.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
+    <ClCompile Include="j1Scene.cpp" />
     <ClCompile Include="j1Timer.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="j1Render.cpp" />
@@ -93,7 +95,9 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1PerfTimer.h" />
+    <ClInclude Include="j1Scene.h" />
     <ClInclude Include="j1Timer.h" />
     <ClInclude Include="p2Animation.h" />
     <ClInclude Include="j1Audio.h" />
