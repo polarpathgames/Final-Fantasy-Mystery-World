@@ -3,7 +3,6 @@
 
 #include "j1Module.h"
 #include <string>
-
 struct SDL_Window;
 struct SDL_Surface;
 
@@ -43,7 +42,6 @@ public:
 	uint		width;
 	uint		height;
 	uint		scale;
-
 
 };
 

@@ -1,6 +1,6 @@
 #include "p2Defs.h"
 #include "p2Log.h"
-#include "App.h"
+#include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
 #include <list>
@@ -26,7 +26,7 @@ bool j1Textures::Awake(pugi::xml_node& config)
 	int flags = IMG_INIT_PNG;
 	int init = IMG_Init(flags);
 
-	if((init & flags) != flags)
+	if ((init & flags) != flags)
 	{
 		LOG("Could not initialize Image lib. IMG_Init: %s", IMG_GetError());
 		ret = false;
@@ -50,7 +50,7 @@ bool j1Textures::CleanUp()
 
 
 	for (std::list<SDL_Texture*>::iterator item = textures.begin(); item != textures.end(); ++item) {
-			SDL_DestroyTexture(*item);
+		SDL_DestroyTexture(*item);
 	}
 
 	textures.clear();
@@ -65,7 +65,7 @@ SDL_Texture* const j1Textures::Load(const char* path)
 	SDL_Texture* texture = NULL;
 	SDL_Surface* surface = IMG_Load(path);
 
-	if(surface == NULL)
+	if (surface == NULL)
 	{
 		LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError());
 	}
@@ -78,17 +78,6 @@ SDL_Texture* const j1Textures::Load(const char* path)
 	return texture;
 }
 
-SDL_Surface* const j1Textures::LoadMouse(const char* path)
-{
-	SDL_Surface* surface = IMG_Load(path);
-
-	if (surface == NULL)
-	{
-		LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError());
-	}
-
-	return surface;
-}
 // Unload texture
 bool j1Textures::UnLoad(SDL_Texture* texture)
 {
@@ -101,8 +90,8 @@ bool j1Textures::UnLoad(SDL_Texture* texture)
 			return true;
 		}
 	}
-		
-	
+
+
 
 	return false;
 }
@@ -112,11 +101,11 @@ SDL_Texture* const j1Textures::LoadSurface(SDL_Surface* surface)
 {
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(App->render->renderer, surface);
 
-	if(texture == NULL)
+	if (texture == NULL)
 	{
 		LOG("Unable to create texture from surface! SDL Error: %s\n", SDL_GetError());
 	}
-	else 
+	else
 	{
 		//textures.add(texture);
 		textures.push_back(texture);
@@ -128,6 +117,5 @@ SDL_Texture* const j1Textures::LoadSurface(SDL_Surface* surface)
 // Retrieve size of a texture
 void j1Textures::GetSize(const SDL_Texture* texture, uint& width, uint& height) const
 {
-	SDL_QueryTexture((SDL_Texture*)texture, NULL, NULL, (int*) &width, (int*) &height);
+	SDL_QueryTexture((SDL_Texture*)texture, NULL, NULL, (int*)&width, (int*)&height);
 }
-

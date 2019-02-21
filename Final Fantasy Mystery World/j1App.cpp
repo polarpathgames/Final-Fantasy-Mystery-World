@@ -11,7 +11,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
-#include "App.h"
+#include "j1App.h"
 
 #include "p2Point.h"
 
@@ -49,7 +49,7 @@ j1App::~j1App()
 
 	for (std::list<j1Module*>::iterator item = modules.end(); item != modules.begin(); --item) {
 		RELEASE(*item);
-		
+
 	}
 	modules.clear();
 }
@@ -65,13 +65,13 @@ bool j1App::Awake()
 {
 	PERF_START(ptimer);
 
-	
+
 	pugi::xml_node		app_config;
 
 	bool ret = false;
 
 	config = LoadConfig(config_file);
-	
+
 	if (config.empty() == false)
 	{
 		// self-config
@@ -127,15 +127,13 @@ bool j1App::Start()
 
 	PERF_PEEK(ptimer);
 
-	App->render->surface = App->tex->LoadMouse("textures/pointer.png");
-	LoadGame("save_game.xml");
 	return ret;
 }
 
 // Called each loop iteration
 bool j1App::Update()
 {
-	
+
 	bool ret = true;
 	PrepareUpdate();
 
@@ -207,11 +205,11 @@ void j1App::FinishUpdate()
 	float seconds_since_startup = startup_time.ReadSec();
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
-	
+
 	static char title[256];
 	sprintf_s(title, 256, "Final Fantasy: Mystery World");
 	App->win->SetTitle(title);
-	
+
 
 	if (framerate_cap > 0 && last_frame_ms < framerate_cap&&capactivated)
 	{
@@ -228,7 +226,7 @@ bool j1App::PreUpdate()
 {
 	bool ret = true;
 
-	
+
 
 	j1Module* pModule = NULL;
 
@@ -251,7 +249,7 @@ bool j1App::PreUpdate()
 bool j1App::DoUpdate()
 {
 	bool ret = true;
-	
+
 	j1Module* pModule = NULL;
 
 	for (std::list<j1Module*>::iterator item = modules.begin(); item != modules.end() && ret == true; ++item)
@@ -272,7 +270,7 @@ bool j1App::DoUpdate()
 bool j1App::PostUpdate()
 {
 	bool ret = true;
-	
+
 	j1Module* pModule = NULL;
 
 	for (std::list<j1Module*>::iterator item = modules.begin(); item != modules.end() && ret == true; ++item)
@@ -307,6 +305,7 @@ bool j1App::CleanUp()
 
 	PERF_PEEK(ptimer);
 	return ret;
+
 }
 
 // ---------------------------------------
@@ -333,7 +332,7 @@ const char* j1App::GetTitle() const
 // ---------------------------------------
 const char* j1App::GetOrganization() const
 {
-	
+
 	return organization.data();
 }
 
@@ -367,33 +366,33 @@ bool j1App::LoadGameNow()
 	pugi::xml_node root;
 
 	pugi::xml_parse_result result = data.load_file(load_game.data());
-		if (result != NULL)
+	if (result != NULL)
+	{
+		ret = true;
+
+		LOG("Loading new Game State from %s...", load_game.data());
+
+		root = data.child("game_state");
+
+		std::list<j1Module*>::iterator item = modules.begin();
+
+
+		while (item != modules.end() && ret == true)
 		{
-			ret = true;
-
-			LOG("Loading new Game State from %s...", load_game.data());
-
-			root = data.child("game_state");
-
-			std::list<j1Module*>::iterator item = modules.begin();
-
-
-			while (item != modules.end() && ret == true)
-			{
-				ret = (*item)->Load(root.child((*item)->name.data()));
-				++item;
-			}
-
-			data.reset();
-			if (ret == true)
-				LOG("...finished loading");
-			else
-				LOG("...loading process interrupted with error on module %s", (*item != NULL) ? (*item)->name.data() : "unknown");
-
-
+			ret = (*item)->Load(root.child((*item)->name.data()));
+			++item;
 		}
+
+		data.reset();
+		if (ret == true)
+			LOG("...finished loading");
 		else
-			LOG("Could not parse game state xml file %s. pugi error: %s", load_game.data(), result.description());
+			LOG("...loading process interrupted with error on module %s", (*item != NULL) ? (*item)->name.data() : "unknown");
+
+
+	}
+	else
+		LOG("Could not parse game state xml file %s. pugi error: %s", load_game.data(), result.description());
 
 
 

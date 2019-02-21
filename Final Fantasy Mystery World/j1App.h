@@ -88,7 +88,7 @@ public:
 	j1Render*			render;
 	j1Textures*			tex;
 	j1Audio*			audio;
-	
+
 
 private:
 
@@ -118,7 +118,7 @@ private:
 	float				dt;
 };
 
-extern j1App* App; 
+extern j1App* App;
 
 
 

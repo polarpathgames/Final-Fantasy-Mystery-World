@@ -2,7 +2,7 @@
 
 #include "p2Defs.h"
 #include "p2Log.h"
-#include "App.h"
+#include "j1App.h"
 
 #include "SDL/include/SDL.h"
 #pragma comment( lib, "SDL/libx86/SDL2.lib" )
@@ -79,7 +79,6 @@ int main(int argc, char* args[])
 			// Loop all modules until we are asked to leave ---------------------
 			case LOOP:
 			{
-
 				if (App->Update() == false)
 					state = CLEAN;
 			}break;

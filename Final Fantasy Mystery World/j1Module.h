@@ -9,7 +9,7 @@
 #include <string>
 #include "PugiXml\src\pugixml.hpp"
 
-class App;
+class j1App;
 struct Collider;
 class j1Module
 {
@@ -94,7 +94,7 @@ public:
 
 public:
 
-	std::string name;
+	std::string	name;
 	bool		active;
 
 };
