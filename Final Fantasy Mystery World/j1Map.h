@@ -108,6 +108,8 @@ public:
 	// Destructor
 	virtual ~j1Map();
 
+	bool Start();
+
 	// Called before render is available
 	bool Awake(pugi::xml_node& conf);
 
@@ -137,12 +139,15 @@ private:
 public:
 
 	MapData data;
+	bool	Grid = true;
 
 private:
 
 	pugi::xml_document	map_file;
 	std::string			folder;
 	bool				map_loaded;
+	SDL_Texture*		quad;
+	
 };
 
 #endif // __j1MAP_H__

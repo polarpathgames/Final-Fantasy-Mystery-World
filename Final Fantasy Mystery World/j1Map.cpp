@@ -17,6 +17,12 @@ j1Map::j1Map() : j1Module(), map_loaded(false)
 j1Map::~j1Map()
 {}
 
+bool j1Map::Start()
+{
+	quad = App->tex->Load("maps/cuadradito.png");
+	return true;
+}
+
 // Called before render is available
 bool j1Map::Awake(pugi::xml_node& config)
 {
@@ -24,7 +30,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	folder.assign(config.child("folder").child_value());
-
+	
 	return ret;
 }
 
@@ -55,6 +61,8 @@ void j1Map::Draw()
 					iPoint pos = MapToWorld(x, y);
 
 					App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+					if (Grid)
+						App->render->Blit(quad, pos.x, pos.y);
 				}
 			}
 		}

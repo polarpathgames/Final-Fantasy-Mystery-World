@@ -32,6 +32,7 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	//std::string map("iso_walk.tmx");
+	
 	App->map->Load("iso_walk.tmx");
 
 
@@ -58,16 +59,20 @@ bool j1Scene::Update(float dt)
 		App->SaveGame("save_game.xml");
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += 1;
+		App->render->camera.y += 50;
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= 1;
+		App->render->camera.y -= 50;
 
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += 1;
+		App->render->camera.x += 50;
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 1;
+		App->render->camera.x -= 50;
+
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		App->map->Grid = !App->map->Grid;
+
 
 	App->map->Draw();
 
