@@ -10,14 +10,8 @@
 
 Player::Player()
 {
-	name_file_xml.assign("player_config.xml");
+	LoadXML("player_config.xml");
 
-	
-
-	config = App->LoadConfig(config_file,name_file_xml.data());
-	node = config.child("player");
-
-	
 	GoLeft = LoadPushbacks(node, "GoLeft");
 	IdleLeft = LoadPushbacks(node, "IdleLeft");
 	position.x = 100;

@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Scene.h"
 #include "j1Map.h"
+#include "p2Log.h"
 
 DynamicEntity::DynamicEntity()
 {
@@ -28,7 +29,21 @@ void DynamicEntity::Draw(SDL_Texture * tex, float dt)
 	App->render->Blit(tex, position.x, position.y, &(current_animation->GetCurrentFrame(dt)));
 }
 
+void DynamicEntity::LoadXML(std::string name_xml_file)
+{
 
+	config = App->LoadConfig(config_file, name_xml_file.data());
+	switch (type) {
+	case PLAYER:
+		node = config.child("player");
+		break;
+	default:
+		LOG("Could not LoadXML");
+	}
+
+
+
+}
 
 Animation DynamicEntity::LoadPushbacks(pugi::xml_node &config, std::string NameAnim) const
 {
