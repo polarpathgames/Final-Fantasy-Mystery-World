@@ -122,6 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\config.xml" />
+    <Xml Include="Game\player_config.xml" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Tools">

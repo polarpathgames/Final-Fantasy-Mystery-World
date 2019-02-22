@@ -28,6 +28,8 @@ void DynamicEntity::Draw(SDL_Texture * tex, float dt)
 	App->render->Blit(tex, position.x, position.y, &(current_animation->GetCurrentFrame(dt)));
 }
 
+
+
 Animation DynamicEntity::LoadPushbacks(pugi::xml_node &config, std::string NameAnim) const
 {
 	std::string XML_NAME_ANIM;

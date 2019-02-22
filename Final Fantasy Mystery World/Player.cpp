@@ -6,20 +6,20 @@
 #include "j1Audio.h"
 #include "EntityManager.h"
 #include "j1Map.h"
+#include <string>
 
 Player::Player()
 {
+	name_file_xml.assign("player_config.xml");
 
-	pugi::xml_document	config_file;
-	pugi::xml_node		config;
-	pugi::xml_node		app_config;
-	pugi::xml_node		Player;
+	
 
-	config = App->LoadConfig(config_file);
-	app_config = config.child("entity_manager");
-	Player = app_config.child("player");
-	GoLeft = LoadPushbacks(Player, "GoLeft");
-	IdleLeft = LoadPushbacks(Player, "IdleLeft");
+	config = App->LoadConfig(config_file,name_file_xml.data());
+	node = config.child("player");
+
+	
+	GoLeft = LoadPushbacks(node, "GoLeft");
+	IdleLeft = LoadPushbacks(node, "IdleLeft");
 	position.x = 100;
 	position.y = 200;
 	current_animation = &IdleLeft;

@@ -26,12 +26,15 @@ public:
 	virtual bool Load(pugi::xml_node&) { return true; };
 	virtual bool Save(pugi::xml_node&) const { return true; };
 
+	
 	Animation LoadPushbacks(pugi::xml_node&, std::string NameAnim) const;
 
 public:
 
 	int type = -1;
+	std::string name_file_xml;
 	iPoint position;
+
 	Animation* current_animation = nullptr;
 	Animation GoLeft;
 	Animation GoRight;
@@ -41,6 +44,12 @@ public:
 	Animation IdleRight;
 	Animation IdleUp;
 	Animation IdleDown;
+
+
+	pugi::xml_document	config_file;
+	pugi::xml_node		config;
+	pugi::xml_node		node;
+
 };
 
 #endif

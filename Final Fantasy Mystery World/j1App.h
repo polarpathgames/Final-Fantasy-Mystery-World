@@ -55,7 +55,7 @@ public:
 	void SaveGame(const char* file) const;
 
 
-	pugi::xml_node LoadConfig(pugi::xml_document&) const;
+	pugi::xml_node LoadConfig(pugi::xml_document&, std::string name) const;
 
 	bool capactivated = true;
 
@@ -112,6 +112,7 @@ private:
 
 	pugi::xml_document	config_file;
 	pugi::xml_node		config;
+	std::string			config_name;
 
 	j1PerfTimer			ptimer;
 	uint64				frame_count = 0;
