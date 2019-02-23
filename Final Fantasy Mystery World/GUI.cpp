@@ -1,5 +1,6 @@
 #include "j1App.h"
 #include "j1UIManager.h"
+#include "j1Render.h"
 #include "GUI.h"
 
 GUI::GUI(int x, int y)
@@ -18,5 +19,11 @@ bool GUI::Update(float dt)
 
 void GUI::Draw(SDL_Texture* texture)
 {
+	App->render->Blit(texture, position.x, position.y, &atlas_rect);
+}
 
+bool GUI::CleanUp()
+{
+
+	return true;
 }

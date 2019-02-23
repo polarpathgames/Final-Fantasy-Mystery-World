@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Input.h"
+#include "j1UIManager.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Render.h"
@@ -35,7 +36,6 @@ bool j1Scene::Start()
 	//std::string map("iso_walk.tmx");
 	
 	App->map->Load("iso_walk.tmx");
-
 
 	return true;
 }
@@ -74,6 +74,9 @@ bool j1Scene::Update(float dt)
 		App->map->Grid = !App->map->Grid;
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 		App->entity_manager->CreatePlayer();
+
+	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+		mock_image_ui = App->ui_manager->AddImage(0, 0, &mock_image_rect);
 
 	App->map->Draw();
 

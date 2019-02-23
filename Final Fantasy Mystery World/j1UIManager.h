@@ -3,13 +3,13 @@
 
 #include "j1Module.h"
 #include "p2Animation.h"
-
+#include <list>
 
 enum UI
 {
 	IMAGE,
 	LABEL,
-	NONE,
+	NON,
 };
 
 struct SDL_Texture;
@@ -30,12 +30,14 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
-	//GUI* AddImage(int x, int y, SDL_Rect* rect);
+	GUI* AddImage(int x, int y, SDL_Rect* rect);
 
+	void DestroyUI();
 	const SDL_Texture* GetAtlas() const;
 
 private:
 	SDL_Texture* atlas;
+	std::list<GUI*> ui_list;
 
 public:
 

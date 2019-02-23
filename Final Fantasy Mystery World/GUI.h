@@ -5,6 +5,7 @@
 #include "p2Point.h"
 
 struct SDL_Texture;
+struct SDL_Rect;
 
 class GUI
 {
@@ -14,11 +15,13 @@ public:
 
 	virtual bool Update(float dt);
 	virtual void Draw(SDL_Texture* texture);
+	virtual bool CleanUp();
 
 public:
-	UI type = UI::NONE;
+	UI type = UI::NON;
 	iPoint position;
 
+	SDL_Rect atlas_rect;
 };
 
 

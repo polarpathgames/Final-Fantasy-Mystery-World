@@ -4,6 +4,10 @@
 #include "j1Module.h"
 
 struct SDL_Texture;
+struct SDL_Rect;
+
+class GUI;
+class GUI_Image;
 
 class j1Scene : public j1Module
 {
@@ -32,7 +36,10 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+public:
 
+	GUI* mock_image_ui = nullptr;
+	SDL_Rect mock_image_rect = { 0, 0, 61, 76 };
 };
 
 #endif // __j1SCENE_H__
