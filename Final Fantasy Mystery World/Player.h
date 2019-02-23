@@ -5,6 +5,7 @@
 #include "p2Point.h"
 #include "DynamicEntity.h"
 #include "j1PerfTimer.h"
+#include <vector>
 
 
 
@@ -30,7 +31,11 @@ public:
 	bool CleanUp();
 
 public:
-
+	enum Direction {
+		up, down, right, left, idle
+	};
+	iPoint target_position;
+	Direction direction;
 };
 
 

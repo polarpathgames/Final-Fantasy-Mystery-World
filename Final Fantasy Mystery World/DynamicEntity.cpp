@@ -18,20 +18,13 @@ DynamicEntity::~DynamicEntity()
 }
 
 
-bool DynamicEntity::Update(float dt)
-{
-	return true;
-}
-
 void DynamicEntity::Draw(SDL_Texture * tex, float dt)
 {
-
 	App->render->Blit(tex, position.x, position.y, &(current_animation->GetCurrentFrame(dt)));
 }
 
 void DynamicEntity::LoadXML(std::string name_xml_file)
 {
-
 	config = App->LoadConfig(config_file, name_xml_file.data());
 	switch (type) {
 	case PLAYER:
@@ -39,9 +32,8 @@ void DynamicEntity::LoadXML(std::string name_xml_file)
 		break;
 	default:
 		LOG("Could not LoadXML");
+		break;
 	}
-
-
 
 }
 
