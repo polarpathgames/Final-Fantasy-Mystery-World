@@ -36,34 +36,38 @@ Player::~Player()
 {
 }
 
-bool Player::Update(float dt)
+bool Player::PreUpdate()
 {
-
-
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN && target_position == position) {
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && target_position == position) {
 		direction = left;
-		target_position.create(position.x - (App->map->data.tile_width/2), position.y + (App->map->data.tile_height / 2));
+		target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 		movement_count.x -= (App->map->data.tile_width / 2);
 		movement_count.y += (App->map->data.tile_height / 2);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && target_position == position) {
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && target_position == position) {
 		direction = down;
 		target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 		movement_count.x += (App->map->data.tile_width / 2);
 		movement_count.y += (App->map->data.tile_height / 2);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN && target_position == position) {
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && target_position == position) {
 		direction = right;
 		target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 		movement_count.x += (App->map->data.tile_width / 2);
 		movement_count.y -= (App->map->data.tile_height / 2);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && target_position == position) {
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && target_position == position) {
 		direction = up;
 		target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 		movement_count.x -= (App->map->data.tile_width / 2);
 		movement_count.y -= (App->map->data.tile_height / 2);
 	}
+
+	return true;
+}
+
+bool Player::Update(float dt)
+{
 	switch  (direction)
 	{
 	case left:
@@ -73,8 +77,13 @@ bool Player::Update(float dt)
 			current_animation = &GoLeft;
 		}
 		else {
-			direction = idle;
-			current_animation = &IdleLeft;
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+				target_position = position;
+			}
+			else {
+				direction = idle;
+				current_animation = &IdleLeft;
+			}
 		}
 		break;
 	case right:
@@ -84,8 +93,13 @@ bool Player::Update(float dt)
 			current_animation = &GoLeft;
 		}
 		else {
-			direction = idle;
-			current_animation = &IdleLeft;
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+				target_position = position;
+			}
+			else {
+				direction = idle;
+				current_animation = &IdleLeft;
+			}
 		}
 		break;
 	case up:
@@ -95,8 +109,13 @@ bool Player::Update(float dt)
 			current_animation = &GoLeft;
 		}
 		else {
-			direction = idle;
-			current_animation = &IdleLeft;
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+				target_position = position;
+			}
+			else {
+				direction = idle;
+				current_animation = &IdleLeft;
+			}
 		}
 		break;
 	case down:
@@ -106,8 +125,13 @@ bool Player::Update(float dt)
 			current_animation = &GoLeft;
 		}
 		else {
-			direction = idle;
-			current_animation = &IdleLeft;
+			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+				target_position = position;
+			}
+			else {
+				direction = idle;
+				current_animation = &IdleLeft;
+			}
 		}
 		break;
 	case idle:
@@ -122,10 +146,7 @@ bool Player::Update(float dt)
 	return true;
 }
 
-bool Player::PreUpdate()
-{
-	return true;
-}
+
 
 bool Player::PostUpdate()
 {
