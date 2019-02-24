@@ -28,6 +28,8 @@ Player::Player()
 	position.x = p.x - 5;
 	position.y = p.y - 6;
 	target_position = position;
+	initial_position = position;
+	movement_count = { 0,0 };
 }
 
 Player::~Player()
@@ -41,61 +43,69 @@ bool Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN && target_position == position) {
 		direction = left;
 		target_position.create(position.x - (App->map->data.tile_width/2), position.y + (App->map->data.tile_height / 2));
+		movement_count.x -= (App->map->data.tile_width / 2);
+		movement_count.y += (App->map->data.tile_height / 2);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && target_position == position) {
 		direction = down;
 		target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
+		movement_count.x += (App->map->data.tile_width / 2);
+		movement_count.y += (App->map->data.tile_height / 2);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN && target_position == position) {
 		direction = right;
 		target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
+		movement_count.x += (App->map->data.tile_width / 2);
+		movement_count.y -= (App->map->data.tile_height / 2);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && target_position == position) {
 		direction = up;
 		target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
+		movement_count.x -= (App->map->data.tile_width / 2);
+		movement_count.y -= (App->map->data.tile_height / 2);
 	}
 	switch  (direction)
 	{
 	case left:
-		if (target_position != position) {
+		if (position.x >= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.x -= floor(160 * dt);
 			position.y += floor(80 * dt);
 			current_animation = &GoLeft;
 		}
-		if (position.x <= target_position.x){
+		else {
 			direction = idle;
 			current_animation = &IdleLeft;
 		}
 		break;
 	case right:
-		if (target_position != position) {
+		if (position.x <= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 			position.x += floor(160 * dt);
 			position.y -= floor(80 * dt);
 			current_animation = &GoLeft;
 		}
-		if (position.x >= target_position.x) {
+		else {
 			direction = idle;
 			current_animation = &IdleLeft;
 		}
 		break;
 	case up:
-		if (target_position != position) {
+		if (position.x >= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 			position.x -= floor(160 * dt);
 			position.y -= floor(80 * dt);
 			current_animation = &GoLeft;
 		}
-		if (position.x <= target_position.x) {
+		else {
 			direction = idle;
 			current_animation = &IdleLeft;
 		}
 		break;
 	case down:
-		if (target_position != position) {
+		if (position.x <= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.x += floor(160 * dt);
 			position.y += floor(80 * dt);
 			current_animation = &GoLeft;
 		}
-		if (position.x >= target_position.x) {
+		else {
 			direction = idle;
 			current_animation = &IdleLeft;
 		}

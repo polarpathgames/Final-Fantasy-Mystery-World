@@ -35,6 +35,8 @@ public:
 		up, down, right, left, idle
 	};
 	iPoint target_position;
+	iPoint initial_position;
+	iPoint movement_count;
 	Direction direction;
 };
 
