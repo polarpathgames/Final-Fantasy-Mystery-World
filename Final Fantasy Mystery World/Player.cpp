@@ -25,7 +25,8 @@ Player::Player()
 	iPoint p = App->render->ScreenToWorld(position.x, position.y);
 	p = App->map->WorldToMap(p.x, p.y);
 	p = App->map->MapToWorld(p.x, p.y);
-	position = p;
+	position.x = p.x - 5;
+	position.y = p.y - 6;
 	target_position = position;
 }
 
@@ -36,40 +37,65 @@ Player::~Player()
 bool Player::Update(float dt)
 {
 
-	/*if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		current_animation = &GoLeft;
-		position.x -= 200 * dt;
-		position.y += 130 * dt;
-	}
-	else current_animation = &IdleLeft;
-	*/
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) {
-
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN && target_position == position) {
 		direction = left;
 		target_position.create(position.x - (App->map->data.tile_width/2), position.y + (App->map->data.tile_height / 2));
 	}
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && target_position == position) {
-
 		direction = down;
-
+		target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN && target_position == position) {
-
 		direction = right;
+		target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 	}
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && target_position == position) {
 		direction = up;
+		target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 	}
 	switch  (direction)
 	{
 	case left:
 		if (target_position != position) {
-			position.x -= 160*dt;
-			position.y += 80*dt;
+			position.x -= floor(160 * dt);
+			position.y += floor(80 * dt);
 			current_animation = &GoLeft;
 		}
 		if (position.x <= target_position.x){
+			direction = idle;
+			current_animation = &IdleLeft;
+		}
+		break;
+	case right:
+		if (target_position != position) {
+			position.x += floor(160 * dt);
+			position.y -= floor(80 * dt);
+			current_animation = &GoLeft;
+		}
+		if (position.x >= target_position.x) {
+			direction = idle;
+			current_animation = &IdleLeft;
+		}
+		break;
+	case up:
+		if (target_position != position) {
+			position.x -= floor(160 * dt);
+			position.y -= floor(80 * dt);
+			current_animation = &GoLeft;
+		}
+		if (position.x <= target_position.x) {
+			direction = idle;
+			current_animation = &IdleLeft;
+		}
+		break;
+	case down:
+		if (target_position != position) {
+			position.x += floor(160 * dt);
+			position.y += floor(80 * dt);
+			current_animation = &GoLeft;
+		}
+		if (position.x >= target_position.x) {
 			direction = idle;
 			current_animation = &IdleLeft;
 		}
@@ -80,6 +106,8 @@ bool Player::Update(float dt)
 	default:
 		break;
 	}
+
+
 
 	return true;
 }

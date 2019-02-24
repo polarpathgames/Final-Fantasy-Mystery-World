@@ -28,11 +28,7 @@ EntityManager::~EntityManager()
 bool EntityManager::Awake(pugi::xml_node& config)
 {
 	bool ret = true;
-	std::list<DynamicEntity*>::iterator item = entities.begin();
-	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr) 
-			(*item)->Awake(config);
-	}
+
 
 	return ret;
 }
@@ -41,11 +37,6 @@ bool EntityManager::Start()
 {
 	bool ret = true;
 
-	std::list<DynamicEntity*>::iterator item = entities.begin();
-	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr)
-			(*item)->Start();
-	}
 
 	texture = App->tex->Load("textures/characters.png");
 
@@ -73,10 +64,10 @@ bool EntityManager::Update(float dt)
 		if ((*item) != nullptr)
 			(*item)->Update(dt);
 	}
-	std::list<DynamicEntity*>::iterator item2 = entities.begin();
-	for (; item2 != entities.end(); ++item2) {
-		if ((*item2) != nullptr)
-			(*item2)->Draw(texture, dt);
+	item = entities.begin();
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr)
+			(*item)->Draw(texture, dt);
 	}
 	
 	return true;
