@@ -88,13 +88,15 @@ TileSet* j1Map::GetTilesetFromTileId(int id) const
 	std::list<TileSet*>::const_iterator item = data.tilesets.begin();
 	TileSet* set = *item;
 
-	while(*item)
+	while(item != data.tilesets.end())
 	{
 		if(id < (*item)->firstgid)
 		{
-			std::list<TileSet*>::const_iterator item2 = item;
+			/*std::list<TileSet*>::const_iterator item2 = item;
 			--item2;
 			set = *item2; //aixo ho estic fent malament segur IMPORTANT XD
+			*/
+			set = *prev(item);
 			break;
 		}
 		set = *item;

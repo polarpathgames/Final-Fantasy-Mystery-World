@@ -141,8 +141,6 @@ bool Player::Update(float dt)
 		break;
 	}
 
-
-
 	return true;
 }
 
