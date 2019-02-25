@@ -3,7 +3,7 @@
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Window.h"
-#include "SDL/include/SDL.h"
+
 
 
 
@@ -35,6 +35,28 @@ bool j1Input::Awake(pugi::xml_node& config)
 	{
 		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
+	}
+
+	//Controller
+
+	LOG("Init controller");
+
+	if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) < 0)
+	{
+		LOG("GamePad controller could not initialize! SDL_Error: %s\n", SDL_GetError());
+	}
+
+	int maxJoys = SDL_NumJoysticks();
+
+	for (int i = 0; i < maxJoys; ++i)
+
+	{
+		if (i >= MAX_GAMEPADS) break;
+
+		if (SDL_IsGameController(i))
+		{
+			gamepads[i] = SDL_GameControllerOpen(i);
+		}
 	}
 
 	return ret;
@@ -128,6 +150,80 @@ bool j1Input::PreUpdate()
 				//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
 			break;
 		}
+	}
+
+	//Controller inputs : Button
+
+	for (int i = 0; i < MAX_GAMEPADS; ++i)
+	{
+		if (gamepads[i] != nullptr)
+		{
+		}
+	}
+
+	for (int i = 0; i < MAX_BUTTONS; ++i)
+	{
+		if (controller_state[i] == 1) {
+			if (controller[i] == KEY_IDLE)
+				controller[i] = KEY_DOWN;
+			else
+				controller[i] = KEY_REPEAT;
+		}
+		else
+		{
+			if (controller[i] == KEY_REPEAT || controller[i] == KEY_DOWN)
+				controller[i] = KEY_UP;
+			else
+				controller[i] = KEY_IDLE;
+		}
+	}
+
+	if (ev.type == SDL_CONTROLLERDEVICEADDED)
+	{
+		if (ev.cdevice.which > MAX_GAMEPADS - 1)
+		{
+			LOG("Maximum number of gamepads reached, you cannot connect more...");
+
+		}
+
+		else if (SDL_IsGameController(ev.cdevice.which))
+		{
+			gamepads[ev.cdevice.which] = SDL_GameControllerOpen(ev.cdevice.which);
+			LOG("Controller added: %d", ev.cdevice.which);
+		}
+
+	}
+
+	// Controller inputs: Axis
+	for (int i = 0; i < MAX_GAMEPADS; ++i)
+	{
+		if (gamepads[i] != nullptr)
+		{
+			GamepadDir[i].axisX = SDL_GameControllerGetAxis(gamepads[i], SDL_CONTROLLER_AXIS_LEFTX);
+			GamepadDir[i].axisY = SDL_GameControllerGetAxis(gamepads[i], SDL_CONTROLLER_AXIS_LEFTY);
+		}
+	}
+
+
+	if (GamepadDir[0].axisX > GamepadDir[0].deadzone)
+	{
+		keyboard[SDL_SCANCODE_D] = KEY_REPEAT;
+	}
+
+	else if (GamepadDir[0].axisX < -GamepadDir[0].deadzone)
+	{
+		keyboard[SDL_SCANCODE_A] = KEY_REPEAT;
+	}
+
+
+	if (GamepadDir[0].axisY < -GamepadDir[0].deadzone)
+	{
+		keyboard[SDL_SCANCODE_W] = KEY_REPEAT;
+	}
+
+	else if (GamepadDir[0].axisY > GamepadDir[0].deadzone)
+	{
+		keyboard[SDL_SCANCODE_S] = KEY_REPEAT;
 	}
 
 	return true;
