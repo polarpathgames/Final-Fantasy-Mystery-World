@@ -42,116 +42,13 @@ Player::~Player()
 
 bool Player::PreUpdate()
 {
-	player_input.pressing_A = App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT;
-	player_input.pressing_S = App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT;
-	player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
-	player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
-
-	if (state == State::IDLE) {
-		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
-			state = State::WALKING;
-		}
-	}
-	if (state == State::WALKING) {
-		if (player_input.pressing_A && target_position == position) {
-			direction = Direction::left;
-			target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
-			movement_count.x -= (App->map->data.tile_width / 2);
-			movement_count.y += (App->map->data.tile_height / 2);
-		}
-		if (player_input.pressing_S && target_position == position) {
-			direction = Direction::down;
-			target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
-			movement_count.x += (App->map->data.tile_width / 2);
-			movement_count.y += (App->map->data.tile_height / 2);
-		}
-		if (player_input.pressing_D && target_position == position) {
-			direction = Direction::right;
-			target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
-			movement_count.x += (App->map->data.tile_width / 2);
-			movement_count.y -= (App->map->data.tile_height / 2);
-		}
-		if (player_input.pressing_W && target_position == position) {
-			direction = Direction::up;
-			target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
-			movement_count.x -= (App->map->data.tile_width / 2);
-			movement_count.y -= (App->map->data.tile_height / 2);
-		}
-	}
+	ReadPlayerInput();
 	return true;
 }
 
 bool Player::Update(float dt)
 {
-	if(state == State::WALKING)
-	switch  (direction)
-	{
-	case Direction::left:
-		if (position.x >= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
-			position.x -= floor(velocity.x * dt);
-			position.y += floor(velocity.y * dt);
-			current_animation = &GoLeft;
-		}
-		else if (player_input.pressing_A) {
-			target_position = position;
-		}
-		else {
-			state = State::IDLE;
-			current_animation = &IdleLeft;
-			target_position = position;
-		}
-		break;
-	case Direction::right:
-		if (position.x <= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
-			position.x += floor(velocity.x * dt);
-			position.y -= floor(velocity.y * dt);
-			current_animation = &GoLeft;
-		}
-		else if (player_input.pressing_D) {
-			target_position = position;
-		}
-		else {
-			state = State::IDLE;
-			current_animation = &IdleLeft;
-			target_position = position;
-		}
-		break;
-	case Direction::up:
-		if (position.x >= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
-			position.x -= floor(velocity.x * dt);
-			position.y -= floor(velocity.y * dt);
-			current_animation = &GoLeft;
-		}
-		else if (player_input.pressing_W) {
-			target_position = position;
-		}
-		else {
-			state = State::IDLE;
-			current_animation = &IdleLeft;
-			target_position = position;
-		}
-		break;
-	case Direction::down:
-		if (position.x <= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
-			position.x += floor(velocity.x * dt);
-			position.y += floor(velocity.y * dt);
-			current_animation = &GoLeft;
-		}
-		else if (player_input.pressing_S) {
-			target_position = position;
-		}
-		else {
-			state = State::IDLE;
-			current_animation = &IdleLeft;
-			target_position = position;
-		}
-		break;
-	/*case Direction::idle:
-		target_position = position;
-		break;*/
-	default:
-		break;
-	}
+	PerformActions(dt);
 
 	return true;
 }
@@ -192,6 +89,109 @@ void Player::PushBack()
 			default:
 				break;
 			}
+		}
+	}
+}
+
+void Player::ReadPlayerInput()
+{
+	player_input.pressing_A = App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT;
+	player_input.pressing_S = App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT;
+	player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
+	player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
+
+	if (state == State::IDLE) {
+		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
+			state = State::WALKING;
+		}
+	}
+	if (state == State::WALKING && target_position == position) {
+		if (player_input.pressing_A) {
+			direction = Direction::left;
+			target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
+			movement_count.x -= (App->map->data.tile_width / 2);
+			movement_count.y += (App->map->data.tile_height / 2);
+		}
+		else if (player_input.pressing_S) {
+			direction = Direction::down;
+			target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
+			movement_count.x += (App->map->data.tile_width / 2);
+			movement_count.y += (App->map->data.tile_height / 2);
+		}
+		else if (player_input.pressing_D) {
+			direction = Direction::right;
+			target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
+			movement_count.x += (App->map->data.tile_width / 2);
+			movement_count.y -= (App->map->data.tile_height / 2);
+		}
+		else if (player_input.pressing_W) {
+			direction = Direction::up;
+			target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
+			movement_count.x -= (App->map->data.tile_width / 2);
+			movement_count.y -= (App->map->data.tile_height / 2);
+		}
+		else {
+			state = State::IDLE;
+			target_position = position;
+			if (current_animation == &GoLeft)
+				current_animation = &IdleLeft;
+			if (current_animation == &GoRight)
+				current_animation = &IdleRight;
+			if (current_animation == &GoDown)
+				current_animation = &IdleDown;
+			if (current_animation == &GoUp)
+				current_animation = &IdleUp;
+		}
+	}
+}
+
+void Player::PerformActions(float dt)
+{
+	if (state == State::WALKING) {
+		switch (direction)
+		{
+		case Direction::left:
+			if (position.x >= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
+				position.x -= floor(velocity.x * dt);
+				position.y += floor(velocity.y * dt);
+				current_animation = &GoLeft;
+			}
+			else {
+				target_position = position;
+			}
+			break;
+		case Direction::right:
+			if (position.x <= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
+				position.x += floor(velocity.x * dt);
+				position.y -= floor(velocity.y * dt);
+				current_animation = &GoLeft;
+			}
+			else {
+				target_position = position;
+			}
+			break;
+		case Direction::up:
+			if (position.x >= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
+				position.x -= floor(velocity.x * dt);
+				position.y -= floor(velocity.y * dt);
+				current_animation = &GoLeft;
+			}
+			else {
+				target_position = position;
+			}
+			break;
+		case Direction::down:
+			if (position.x <= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
+				position.x += floor(velocity.x * dt);
+				position.y += floor(velocity.y * dt);
+				current_animation = &GoLeft;
+			}
+			else {
+				target_position = position;
+			}
+			break;
+		default:
+			break;
 		}
 	}
 }

@@ -36,6 +36,8 @@ public:
 	bool CleanUp();
 
 	void PushBack();
+	void ReadPlayerInput();
+	void PerformActions(float dt);
 
 public:
 
