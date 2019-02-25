@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "Player.h"
+#include "Enemy.h"
 
 
 
@@ -116,6 +117,18 @@ Player * EntityManager::CreatePlayer()
 	return ret;
 }
 
+Enemy * EntityManager::CreateEnemy()
+{
+	Enemy* ret = nullptr;
+
+	ret = new Enemy();
+	ret->type = ENEMY;
+	if (ret != nullptr)
+		entities.push_back(ret);
+
+	return ret;
+}
+
 void EntityManager::DeleteEntities()
 {
 
@@ -133,7 +146,19 @@ void EntityManager::DeleteEntities()
 
 }
 
+Player* EntityManager::GetPlayerData() const {
 
+	std::list<Entity*>::const_iterator item = entities.begin();
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr)
+		{
+			if ((*item)->type == PLAYER)
+				return (Player*)(*item);
+		}
+	}
+
+	return nullptr;
+}
 
 bool EntityManager::Load(pugi::xml_node& load)
 {

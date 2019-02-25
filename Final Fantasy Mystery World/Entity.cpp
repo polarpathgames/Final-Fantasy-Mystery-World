@@ -6,6 +6,7 @@
 #include "j1Map.h"
 #include "p2Log.h"
 
+
 Entity::Entity()
 {
 }
