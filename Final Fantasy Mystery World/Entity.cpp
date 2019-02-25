@@ -5,9 +5,8 @@
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "p2Log.h"
-
-
 #include "j1Textures.h"
+
 
 Entity::Entity()
 {

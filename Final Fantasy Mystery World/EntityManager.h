@@ -6,10 +6,12 @@
 #include <list>
 
 class Player;
+class Enemy;
 
 enum class EntityType
 {
 	PLAYER,
+	ENEMY,
 
 
 	NO_TYPE
@@ -43,8 +45,11 @@ public:
 	bool CleanUp();
 
 	Player* CreatePlayer();
+	Enemy* CreateEnemy();
 
 	void DeleteEntities();
+
+	Player * GetPlayerData() const;
 
 
 private:

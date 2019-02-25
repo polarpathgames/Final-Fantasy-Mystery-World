@@ -73,7 +73,7 @@ int Properties::Get(const char* value, int default_value) const
 {
 	std::list<Property*>::const_iterator item = list.begin();
 
-	while(*item)
+	while(item != list.end())
 	{
 		if((*item)->name == value)
 			return (*item)->value;
