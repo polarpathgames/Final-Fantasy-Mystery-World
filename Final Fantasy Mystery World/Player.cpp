@@ -47,24 +47,28 @@ bool Player::PreUpdate()
 		target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 		movement_count.x -= (App->map->data.tile_width / 2);
 		movement_count.y += (App->map->data.tile_height / 2);
+		state = State::WALKING;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && target_position == position) {
 		direction = Direction::down;
 		target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 		movement_count.x += (App->map->data.tile_width / 2);
 		movement_count.y += (App->map->data.tile_height / 2);
+		state = State::WALKING;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && target_position == position) {
 		direction = Direction::right;
 		target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 		movement_count.x += (App->map->data.tile_width / 2);
 		movement_count.y -= (App->map->data.tile_height / 2);
+		state = State::WALKING;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && target_position == position) {
 		direction = Direction::up;
 		target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 		movement_count.x -= (App->map->data.tile_width / 2);
 		movement_count.y -= (App->map->data.tile_height / 2);
+		state = State::WALKING;
 	}
 
 	return true;
@@ -72,6 +76,7 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
+	if(state == State::WALKING)
 	switch  (direction)
 	{
 	case Direction::left:
@@ -83,6 +88,7 @@ bool Player::Update(float dt)
 		else {
 			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 				target_position = position;
+				state = State::IDLE;
 			}
 			else {
 				direction = Direction::down;
@@ -99,6 +105,7 @@ bool Player::Update(float dt)
 		else {
 			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 				target_position = position;
+				state = State::IDLE;
 			}
 			else {
 				direction = Direction::left;
@@ -115,6 +122,7 @@ bool Player::Update(float dt)
 		else {
 			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
 				target_position = position;
+				state = State::IDLE;
 			}
 			else {
 				direction = Direction::left;
@@ -131,6 +139,7 @@ bool Player::Update(float dt)
 		else {
 			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
 				target_position = position;
+				state = State::IDLE;
 			}
 			else {
 				direction = Direction::left;
