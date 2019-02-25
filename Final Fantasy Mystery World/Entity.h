@@ -8,8 +8,44 @@
 #include "j1PerfTimer.h"
 
 
-enum EntityType;
+enum class EntityType;
 struct SDL_Texture;
+
+enum class State {
+	IDLE, WALKING
+};
+
+struct TileSetEntity {
+
+	SDL_Rect GetTileRect(int id) const;
+
+	std::string name;
+	uint tilewidth = 0;
+	uint tileheight = 0;
+	uint spacing = 0;
+	uint margin = 0;
+	uint tilecount = 0;
+	uint columns = 0;
+	std::string imagePath;
+	SDL_Texture* texture = nullptr;
+	uint width = 0;
+	uint height = 0;
+};
+
+struct EntityAnim {
+	uint id = 0;
+	uint num_frames = 0;
+	SDL_Rect* frames = nullptr;
+	State animType;
+
+	uint FrameCount(pugi::xml_node&);
+};
+
+struct EntityInfo {
+	TileSetEntity tileset;
+	EntityAnim* animations = nullptr;
+	uint num_animations = 0;
+};
 
 class Entity
 {
@@ -17,6 +53,11 @@ public:
 
 	Entity();
 	virtual ~Entity();
+
+	bool LoadEntityData(const char*);
+	//virtual void LoadProperties(pugi::xml_node&);
+	virtual void IdAnimToEnum();
+	virtual void PushBack() {};
 
 	virtual bool PreUpdate() { return true; };
 	virtual bool Update(float dt) { return true; };
@@ -33,12 +74,14 @@ public:
 public:
 
 	EntityType type;
+	EntityInfo data;
 
 	iPoint position;
 
 	Animation* current_animation = nullptr;
 
 	pugi::xml_document	config_file;
+	pugi::xml_document	entity_file;
 	pugi::xml_node		config;
 	pugi::xml_node		node;
 

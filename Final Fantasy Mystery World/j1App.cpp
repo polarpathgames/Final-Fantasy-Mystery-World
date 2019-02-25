@@ -216,7 +216,7 @@ void j1App::FinishUpdate()
 
 	static char title[256];
 	sprintf_s(title, 256, "Final Fantasy: Mystery World");
-	App->win->SetTitle(title);
+	//App->win->SetTitle(title);
 
 
 	if (framerate_cap > 0 && last_frame_ms < framerate_cap&&capactivated)

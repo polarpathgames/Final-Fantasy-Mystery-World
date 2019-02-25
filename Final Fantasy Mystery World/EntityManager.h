@@ -7,7 +7,7 @@
 
 class Player;
 
-enum EntityType
+enum class EntityType
 {
 	PLAYER,
 

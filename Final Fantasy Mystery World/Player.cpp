@@ -10,16 +10,18 @@
 
 Player::Player() : DynamicEntity()
 {
-	LoadXML("player_config.xml");
+	//LoadXML("player_config.xml");
+	LoadEntityData("entities/Animist.tsx");
 
-	GoLeft = LoadPushbacks(node, "GoLeft");
-	IdleLeft = LoadPushbacks(node, "IdleLeft");
+	//GoLeft = LoadPushbacks(node, "GoLeft");
+	//IdleLeft = LoadPushbacks(node, "IdleLeft");
 	position.x = 100;
 	position.y = 200;
 
 	current_animation = &IdleLeft;
 
-	direction = idle;
+	direction = Direction::down;
+	state = State::IDLE;
 
 
 	iPoint p = App->render->ScreenToWorld(position.x, position.y);
@@ -41,25 +43,25 @@ Player::~Player()
 bool Player::PreUpdate()
 {
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && target_position == position) {
-		direction = left;
+		direction = Direction::left;
 		target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 		movement_count.x -= (App->map->data.tile_width / 2);
 		movement_count.y += (App->map->data.tile_height / 2);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && target_position == position) {
-		direction = down;
+		direction = Direction::down;
 		target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 		movement_count.x += (App->map->data.tile_width / 2);
 		movement_count.y += (App->map->data.tile_height / 2);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && target_position == position) {
-		direction = right;
+		direction = Direction::right;
 		target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 		movement_count.x += (App->map->data.tile_width / 2);
 		movement_count.y -= (App->map->data.tile_height / 2);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && target_position == position) {
-		direction = up;
+		direction = Direction::up;
 		target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 		movement_count.x -= (App->map->data.tile_width / 2);
 		movement_count.y -= (App->map->data.tile_height / 2);
@@ -72,7 +74,7 @@ bool Player::Update(float dt)
 {
 	switch  (direction)
 	{
-	case left:
+	case Direction::left:
 		if (position.x >= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.x -= floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
@@ -83,12 +85,12 @@ bool Player::Update(float dt)
 				target_position = position;
 			}
 			else {
-				direction = idle;
+				direction = Direction::down;
 				current_animation = &IdleLeft;
 			}
 		}
 		break;
-	case right:
+	case Direction::right:
 		if (position.x <= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
@@ -99,12 +101,12 @@ bool Player::Update(float dt)
 				target_position = position;
 			}
 			else {
-				direction = idle;
+				direction = Direction::left;
 				current_animation = &IdleLeft;
 			}
 		}
 		break;
-	case up:
+	case Direction::up:
 		if (position.x >= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 			position.x -= floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
@@ -115,12 +117,12 @@ bool Player::Update(float dt)
 				target_position = position;
 			}
 			else {
-				direction = idle;
+				direction = Direction::left;
 				current_animation = &IdleLeft;
 			}
 		}
 		break;
-	case down:
+	case Direction::down:
 		if (position.x <= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.x += floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
@@ -131,14 +133,14 @@ bool Player::Update(float dt)
 				target_position = position;
 			}
 			else {
-				direction = idle;
+				direction = Direction::left;
 				current_animation = &IdleLeft;
 			}
 		}
 		break;
-	case idle:
+	/*case Direction::idle:
 		target_position = position;
-		break;
+		break;*/
 	default:
 		break;
 	}
@@ -166,4 +168,22 @@ bool Player::Save(pugi::xml_node &) const
 bool Player::CleanUp()
 {
 	return true;
+}
+
+void Player::PushBack()
+{
+	for (uint i = 0; i < data.num_animations; ++i) {
+		for (uint j = 0; j < data.animations[i].num_frames; ++j) {
+			switch (data.animations[i].animType) {
+			case State::IDLE:
+				IdleLeft.PushBack(data.animations[i].frames[j]);
+				break;
+			case State::WALKING:
+				GoLeft.PushBack(data.animations[i].frames[j]);
+				break;
+			default:
+				break;
+			}
+		}
+	}
 }

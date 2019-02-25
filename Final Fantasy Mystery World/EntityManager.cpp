@@ -38,7 +38,7 @@ bool EntityManager::Start()
 	bool ret = true;
 
 
-	texture = App->tex->Load("textures/characters.png");
+	texture = App->tex->Load("textures/Animist.png");
 
 	return ret;
 }
@@ -109,7 +109,7 @@ Player * EntityManager::CreatePlayer()
 	Player* ret = nullptr;
 
 	ret = new Player();
-	ret->type = PLAYER;
+	ret->type = EntityType::PLAYER;
 	if (ret != nullptr)
 		entities.push_back(ret);
 
