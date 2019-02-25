@@ -10,6 +10,6 @@
 	<entity_manager />
 	<pathfinding />
 	<renderer>
-		<camera x="504" y="-302" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>

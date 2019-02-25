@@ -25,6 +25,10 @@ public:
 
 public:
 
+	enum class Direction {
+		up, down, right, left
+	};
+
 	Animation GoLeft;
 	Animation GoRight;
 	Animation GoDown;

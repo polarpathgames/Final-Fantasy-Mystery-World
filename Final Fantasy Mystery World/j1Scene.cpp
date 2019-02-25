@@ -101,6 +101,12 @@ bool j1Scene::PostUpdate()
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
+	iPoint mouse;
+	App->input->GetMousePosition(mouse.x, mouse.y);
+	//App->render->ScreenToWorld(mouse.x, mouse.y);
+	iPoint tile = App->map->WorldToMap(mouse.x, mouse.y);
+	LOG("Tile: %i, %i", tile.x, tile.y);
+
 	return ret;
 }
 

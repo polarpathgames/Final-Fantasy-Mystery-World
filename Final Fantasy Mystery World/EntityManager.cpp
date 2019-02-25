@@ -39,7 +39,7 @@ bool EntityManager::Start()
 	bool ret = true;
 
 
-	texture = App->tex->Load("textures/characters.png");
+	texture = App->tex->Load("textures/Animist.png");
 
 	return ret;
 }
@@ -110,7 +110,7 @@ Player * EntityManager::CreatePlayer()
 	Player* ret = nullptr;
 
 	ret = new Player();
-	ret->type = PLAYER;
+	ret->type = EntityType::PLAYER;
 	if (ret != nullptr)
 		entities.push_back(ret);
 
@@ -122,7 +122,7 @@ Enemy * EntityManager::CreateEnemy()
 	Enemy* ret = nullptr;
 
 	ret = new Enemy();
-	ret->type = ENEMY;
+	ret->type = EntityType::ENEMY;
 	if (ret != nullptr)
 		entities.push_back(ret);
 
@@ -152,7 +152,7 @@ Player* EntityManager::GetPlayerData() const {
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr)
 		{
-			if ((*item)->type == PLAYER)
+			if ((*item)->type == EntityType::PLAYER)
 				return (Player*)(*item);
 		}
 	}

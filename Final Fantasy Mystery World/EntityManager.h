@@ -8,7 +8,7 @@
 class Player;
 class Enemy;
 
-enum EntityType
+enum class EntityType
 {
 	PLAYER,
 	ENEMY,
