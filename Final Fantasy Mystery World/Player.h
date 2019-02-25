@@ -7,7 +7,12 @@
 #include "j1PerfTimer.h"
 #include <vector>
 
-
+struct Input {
+	bool pressing_A;
+	bool pressing_W;
+	bool pressing_S;
+	bool pressing_D;
+};
 
 class Player : public DynamicEntity
 {
@@ -39,6 +44,7 @@ public:
 	iPoint movement_count; //IMPORTANT: SEMPRE QUE ES CARREGUI UN NOU MAPA AQUESTA VARIABLE SHA DE POSAR A 0!!
 	Direction direction;
 	State state;
+	Input player_input;
 };
 
 

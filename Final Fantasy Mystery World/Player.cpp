@@ -42,31 +42,36 @@ Player::~Player()
 
 bool Player::PreUpdate()
 {
+	player_input.pressing_A = App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT;
+	player_input.pressing_S = App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT;
+	player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
+	player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
+
 	if (state == State::IDLE) {
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
 			state = State::WALKING;
 		}
 	}
 	if (state == State::WALKING) {
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && target_position == position) {
+		if (player_input.pressing_A && target_position == position) {
 			direction = Direction::left;
 			target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 			movement_count.x -= (App->map->data.tile_width / 2);
 			movement_count.y += (App->map->data.tile_height / 2);
 		}
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && target_position == position) {
+		if (player_input.pressing_S && target_position == position) {
 			direction = Direction::down;
 			target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 			movement_count.x += (App->map->data.tile_width / 2);
 			movement_count.y += (App->map->data.tile_height / 2);
 		}
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && target_position == position) {
+		if (player_input.pressing_D && target_position == position) {
 			direction = Direction::right;
 			target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 			movement_count.x += (App->map->data.tile_width / 2);
 			movement_count.y -= (App->map->data.tile_height / 2);
 		}
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && target_position == position) {
+		if (player_input.pressing_W && target_position == position) {
 			direction = Direction::up;
 			target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 			movement_count.x -= (App->map->data.tile_width / 2);
@@ -87,7 +92,7 @@ bool Player::Update(float dt)
 			position.y += floor(velocity.y * dt);
 			current_animation = &GoLeft;
 		}
-		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+		else if (player_input.pressing_A) {
 			target_position = position;
 		}
 		else {
@@ -102,7 +107,7 @@ bool Player::Update(float dt)
 			position.y -= floor(velocity.y * dt);
 			current_animation = &GoLeft;
 		}
-		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		else if (player_input.pressing_D) {
 			target_position = position;
 		}
 		else {
@@ -117,7 +122,7 @@ bool Player::Update(float dt)
 			position.y -= floor(velocity.y * dt);
 			current_animation = &GoLeft;
 		}
-		else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+		else if (player_input.pressing_W) {
 			target_position = position;
 		}
 		else {
@@ -132,7 +137,7 @@ bool Player::Update(float dt)
 			position.y += floor(velocity.y * dt);
 			current_animation = &GoLeft;
 		}
-		else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+		else if (player_input.pressing_S) {
 			target_position = position;
 		}
 		else {
