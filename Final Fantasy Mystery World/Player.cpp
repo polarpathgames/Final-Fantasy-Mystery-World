@@ -22,8 +22,9 @@ Player::Player() : DynamicEntity()
 	direction = idle;
 
 
-	iPoint p = App->render->ScreenToWorld(position.x, position.y);
-	p = App->map->WorldToMap(p.x, p.y);
+	iPoint p;
+	//iPoint p;
+	p = App->map->WorldToMap(position.x, position.y);
 	p = App->map->MapToWorld(p.x, p.y);
 	position.x = p.x - 5;
 	position.y = p.y - 6;

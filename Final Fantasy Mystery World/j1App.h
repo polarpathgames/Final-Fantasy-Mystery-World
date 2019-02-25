@@ -19,6 +19,7 @@ class j1Map;
 class j1Scene;
 class j1UIManager;
 class EntityManager;
+class j1PathFinding;
 
 class j1App
 {
@@ -95,6 +96,7 @@ public:
 	j1Scene*			scene;
 	j1UIManager*        ui_manager;
 	EntityManager*		entity_manager;
+	j1PathFinding*		pathfinding;
 
 private:
 
