@@ -15,7 +15,7 @@ enum EntityType
 	NO_TYPE
 };
 
-class DynamicEntity;
+class Entity;
 
 class EntityManager : public j1Module
 {
@@ -49,7 +49,7 @@ public:
 
 private:
 
-	std::list<DynamicEntity*> entities;
+	std::list<Entity*> entities;
 	SDL_Texture* texture;
 
 public:

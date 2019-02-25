@@ -8,7 +8,7 @@
 #include "j1Map.h"
 #include <string>
 
-Player::Player()
+Player::Player() : DynamicEntity()
 {
 	LoadXML("player_config.xml");
 

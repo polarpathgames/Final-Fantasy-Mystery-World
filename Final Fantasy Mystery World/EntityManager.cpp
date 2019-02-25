@@ -2,7 +2,7 @@
 #include "j1Render.h"
 #include "EntityManager.h"
 #include "j1Textures.h"
-#include "DynamicEntity.h"
+#include "Entity.h"
 #include "j1Audio.h"
 #include "j1Window.h"
 #include "p2Log.h"
@@ -12,7 +12,7 @@
 
 
 
-EntityManager::EntityManager()
+EntityManager::EntityManager() : j1Module()
 {
 	name.assign("entity_manager");
 	
@@ -46,7 +46,7 @@ bool EntityManager::Start()
 bool EntityManager::PreUpdate()
 {
 	
-	std::list<DynamicEntity*>::iterator item = entities.begin();
+	std::list<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr)
 			(*item)->PreUpdate();
@@ -59,7 +59,7 @@ bool EntityManager::PreUpdate()
 // Called before render is available
 bool EntityManager::Update(float dt)
 {
-	std::list<DynamicEntity*>::iterator item = entities.begin();
+	std::list<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr)
 			(*item)->Update(dt);
@@ -75,7 +75,7 @@ bool EntityManager::Update(float dt)
 
 bool EntityManager::PostUpdate()
 {
-	std::list<DynamicEntity*>::iterator item = entities.begin();
+	std::list<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr)
 			(*item)->PostUpdate();
@@ -87,7 +87,7 @@ bool EntityManager::PostUpdate()
 // Called before quitting
 bool EntityManager::CleanUp()
 {
-	std::list<DynamicEntity*>::iterator item = entities.begin();
+	std::list<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr) {
 			(*item)->CleanUp();
@@ -119,7 +119,7 @@ Player * EntityManager::CreatePlayer()
 void EntityManager::DeleteEntities()
 {
 
-	std::list<DynamicEntity*>::iterator item = entities.begin();
+	std::list<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr) {
 			(*item)->CleanUp();
