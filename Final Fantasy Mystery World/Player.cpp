@@ -27,6 +27,8 @@ Player::Player() : DynamicEntity()
 	p = App->map->MapToWorld(p.x, p.y);
 	position.x = p.x - 5;
 	position.y = p.y - 6;
+	velocity.x = 160;
+	velocity.y = 80;
 	target_position = position;
 	initial_position = position;
 	movement_count = { 0,0 };
@@ -72,8 +74,8 @@ bool Player::Update(float dt)
 	{
 	case left:
 		if (position.x >= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
-			position.x -= floor(160 * dt);
-			position.y += floor(80 * dt);
+			position.x -= floor(velocity.x * dt);
+			position.y += floor(velocity.y * dt);
 			current_animation = &GoLeft;
 		}
 		else {
@@ -88,8 +90,8 @@ bool Player::Update(float dt)
 		break;
 	case right:
 		if (position.x <= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
-			position.x += floor(160 * dt);
-			position.y -= floor(80 * dt);
+			position.x += floor(velocity.x * dt);
+			position.y -= floor(velocity.y * dt);
 			current_animation = &GoLeft;
 		}
 		else {
@@ -104,8 +106,8 @@ bool Player::Update(float dt)
 		break;
 	case up:
 		if (position.x >= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
-			position.x -= floor(160 * dt);
-			position.y -= floor(80 * dt);
+			position.x -= floor(velocity.x * dt);
+			position.y -= floor(velocity.y * dt);
 			current_animation = &GoLeft;
 		}
 		else {
@@ -120,8 +122,8 @@ bool Player::Update(float dt)
 		break;
 	case down:
 		if (position.x <= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
-			position.x += floor(160 * dt);
-			position.y += floor(80 * dt);
+			position.x += floor(velocity.x * dt);
+			position.y += floor(velocity.y * dt);
 			current_animation = &GoLeft;
 		}
 		else {

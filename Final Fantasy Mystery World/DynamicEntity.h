@@ -34,6 +34,8 @@ public:
 	Animation IdleUp;
 	Animation IdleDown;
 
+	iPoint velocity;
+
 };
 
 #endif

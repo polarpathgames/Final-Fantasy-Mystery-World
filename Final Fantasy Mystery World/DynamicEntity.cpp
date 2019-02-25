@@ -6,8 +6,9 @@
 #include "j1Map.h"
 #include "p2Log.h"
 
-DynamicEntity::DynamicEntity()
+DynamicEntity::DynamicEntity() : Entity()
 {
+
 }
 
 DynamicEntity::~DynamicEntity()
