@@ -23,9 +23,8 @@ Player::Player() : DynamicEntity()
 
 
 	iPoint p;
-	//iPoint p;
 	p = App->map->WorldToMap(position.x, position.y);
-	p = App->map->MapToWorld(p.x, p.y);
+	//p = App->map->MapToWorld(p.x, p.y);
 	position.x = p.x - 5;
 	position.y = p.y - 6;
 	velocity.x = 160;
