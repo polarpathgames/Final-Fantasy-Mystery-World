@@ -1,6 +1,6 @@
 # Final Fantasy: Mystery World
 
-﻿# Version of the game
+# Version of the game
 
 Final Fantasy Mystery World v.0.0.0
 
@@ -35,15 +35,15 @@ Nadine Gutiérrez [Nadine044](https://github.com/Nadine044)
 Oriol Capdevila [OriolCS2](https://github.com/OriolCS2) 
 
 ## Controls
-###General controls:
+### General controls:
 
 - (key) ((explanation))
 
-###Player: 
+### Player: 
 
 - (key) ((explanation))
 
-###Debug keys:
+### Debug keys:
 
 - (key) ((explanation))
 
