@@ -1,7 +1,5 @@
 # Final Fantasy: Mystery World
 
-# Version of the game
-
 Final Fantasy Mystery World v.0.0.0
 
 ## Description
@@ -60,8 +58,6 @@ Oriol Capdevila [OriolCS2](https://github.com/OriolCS2)
 What's original about the game
 
 ## Who made what
-
-### Assignment 1
 
 Who -> What
 
