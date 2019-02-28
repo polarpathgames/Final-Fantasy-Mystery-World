@@ -51,11 +51,11 @@ public:
 	iPoint target_position; 
 	iPoint initial_position; //IMPORTANT: SEMPRE QUE ES CARREGUI UN NOU MAPA AQUESTA VARIABLE SHA DIGUALAR A LA POSICIO INICIAL!!
 	iPoint movement_count; //IMPORTANT: SEMPRE QUE ES CARREGUI UN NOU MAPA AQUESTA VARIABLE SHA DE POSAR A 0!!
-	Direction direction;
-	LobbyDirection lobby_direction;
-	State state;
-	Input player_input;
-	Movement_Type movement_type;
+	Direction direction; //DIRECCIO EN UNA QUEST
+	LobbyDirection lobby_direction; //DIRRECCIO EN LA LOBBY
+	State state; //ESTATS DEL PLAYER
+	Input player_input; //VARIABLES DEL INPUT DEL PLAYER
+	Movement_Type movement_type; //EN LOBBY O EN UNA QUEST
 };
 
 
