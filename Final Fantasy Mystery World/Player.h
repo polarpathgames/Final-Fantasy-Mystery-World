@@ -14,6 +14,13 @@ struct Input {
 	bool pressing_D;
 };
 
+enum class Movement_Type {
+	InLobby, InQuest
+};
+
+enum class LobbyDirection {
+	up, left, right, down, right_up, right_down, left_up, left_down
+};
 class Player : public DynamicEntity
 {
 
@@ -45,8 +52,10 @@ public:
 	iPoint initial_position; //IMPORTANT: SEMPRE QUE ES CARREGUI UN NOU MAPA AQUESTA VARIABLE SHA DIGUALAR A LA POSICIO INICIAL!!
 	iPoint movement_count; //IMPORTANT: SEMPRE QUE ES CARREGUI UN NOU MAPA AQUESTA VARIABLE SHA DE POSAR A 0!!
 	Direction direction;
+	LobbyDirection lobby_direction;
 	State state;
 	Input player_input;
+	Movement_Type movement_type;
 };
 
 
