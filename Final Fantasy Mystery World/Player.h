@@ -43,8 +43,16 @@ public:
 	bool CleanUp();
 
 	void PushBack();
-	void ReadPlayerInput();
+
+
+
+	void ReadPlayerInput(); 
+	void ReadPlayerMovementInQuest();
+	void ReadPlayerMovementInLobby();
+
 	void PerformActions(float dt);
+	void PerformMovementInLobby(float dt);
+	void PerformMovementInQuest(float dt);
 
 public:
 
