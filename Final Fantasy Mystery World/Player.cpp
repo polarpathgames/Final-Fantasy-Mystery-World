@@ -20,9 +20,9 @@ Player::Player() : DynamicEntity()
 
 	current_animation = &IdleLeft;
 
-	direction = Direction::down;
+	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
-	movement_type = Movement_Type::InLobby;
+	movement_type = Movement_Type::InQuest;
 
 	iPoint p;
 	p = App->map->WorldToMap(position.x, position.y);
@@ -99,6 +99,10 @@ void Player::ReadPlayerInput()
 	player_input.pressing_S = App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT;
 	player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
 	player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
+	player_input.pressing_E = App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT;
+	player_input.pressing_Q = App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT;
+	player_input.pressing_Z = App->input->GetKey(SDL_SCANCODE_Z) == KEY_REPEAT;
+	player_input.pressing_X = App->input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT;
 	
 	if (state == State::IDLE) {
 		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
@@ -124,31 +128,51 @@ void Player::ReadPlayerInput()
 void Player::ReadPlayerMovementInQuest()
 {
 	if (target_position == position) {
-		if (player_input.pressing_A) {
-			direction = Direction::left;
+		if (player_input.pressing_A && player_input.pressing_S && !player_input.pressing_D && !player_input.pressing_W) {
+			direction = Direction::DOWN_LEFT;
 			target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 			movement_count.x -= (App->map->data.tile_width / 2);
 			movement_count.y += (App->map->data.tile_height / 2);
 		}
-		else if (player_input.pressing_S) {
-			direction = Direction::down;
+		else if (player_input.pressing_S && player_input.pressing_D && !player_input.pressing_A && !player_input.pressing_W) {
+			direction = Direction::DOWN_RIGHT;
 			target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 			movement_count.x += (App->map->data.tile_width / 2);
 			movement_count.y += (App->map->data.tile_height / 2);
 		}
-		else if (player_input.pressing_D) {
-			direction = Direction::right;
+		else if (player_input.pressing_D && player_input.pressing_W && !player_input.pressing_A && !player_input.pressing_S) {
+			direction = Direction::UP_RIGHT;
 			target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 			movement_count.x += (App->map->data.tile_width / 2);
 			movement_count.y -= (App->map->data.tile_height / 2);
 		}
-		else if (player_input.pressing_W) {
-			direction = Direction::up;
+		else if (player_input.pressing_W && player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D) {
+			direction = Direction::UP_LEFT;
 			target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 			movement_count.x -= (App->map->data.tile_width / 2);
 			movement_count.y -= (App->map->data.tile_height / 2);
 		}
-		else {
+		else if (player_input.pressing_A && !player_input.pressing_D && !player_input.pressing_S && !player_input.pressing_W) {
+			direction = Direction::LEFT;
+			target_position.create(position.x - App->map->data.tile_width, position.y);
+			movement_count.x -= App->map->data.tile_width;
+		}
+		else if (player_input.pressing_D && !player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_W) {
+			direction = Direction::RIGHT;
+			target_position.create(position.x + App->map->data.tile_width, position.y);
+			movement_count.x += App->map->data.tile_width;
+		}
+		else if (player_input.pressing_W && !player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D) {
+			direction = Direction::UP;
+			target_position.create(position.x, position.y - App->map->data.tile_height);
+			movement_count.y -= App->map->data.tile_height;
+		}
+		else if (player_input.pressing_S && !player_input.pressing_A && !player_input.pressing_W && !player_input.pressing_D) {
+			direction = Direction::DOWN;
+			target_position.create(position.x, position.y + App->map->data.tile_height);
+			movement_count.y += App->map->data.tile_height;
+		}
+		else if (!player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D && !player_input.pressing_W) {
 			state = State::IDLE;
 			target_position = position;
 			if (current_animation == &GoLeft)
@@ -166,28 +190,28 @@ void Player::ReadPlayerMovementInQuest()
 void Player::ReadPlayerMovementInLobby()
 {
 	if (player_input.pressing_A) {
-		lobby_direction = LobbyDirection::left;
+		direction = Direction::LEFT;
 	}
 	if (player_input.pressing_S) {
-		lobby_direction = LobbyDirection::down;
+		direction = Direction::DOWN;
 	}
 	if (player_input.pressing_D) {
-		lobby_direction = LobbyDirection::right;
+		direction = Direction::RIGHT;
 	}
 	if (player_input.pressing_W) {
-		lobby_direction = LobbyDirection::up;
+		direction = Direction::UP;
 	}
 	if (player_input.pressing_A && player_input.pressing_W) {
-		lobby_direction = LobbyDirection::left_up;
+		direction = Direction::UP_LEFT;
 	}
 	if (player_input.pressing_A && player_input.pressing_S) {
-		lobby_direction = LobbyDirection::left_down;
+		direction = Direction::DOWN_LEFT;
 	}
 	if (player_input.pressing_D && player_input.pressing_W) {
-		lobby_direction = LobbyDirection::right_up;
+		direction = Direction::UP_RIGHT;
 	}
 	if (player_input.pressing_D && player_input.pressing_S) {
-		lobby_direction = LobbyDirection::right_down;
+		direction = Direction::DOWN_RIGHT;
 	}
 	if (!player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D && !player_input.pressing_W) {
 		state = State::IDLE;
@@ -223,41 +247,41 @@ void Player::PerformActions(float dt)
 
 void Player::PerformMovementInLobby(float dt)
 {
-	switch (lobby_direction)
+	switch (direction)
 	{
-	case LobbyDirection::left:
+	case Direction::DOWN_LEFT:
 		position.x -= floor(velocity.x * dt);
 		position.y += floor(velocity.y * dt);
 		current_animation = &GoLeft;
 		break;
-	case LobbyDirection::right:
+	case Direction::UP_RIGHT:
 		position.x += floor(velocity.x * dt);
 		position.y -= floor(velocity.y * dt);
 		current_animation = &GoLeft;
 		break;
-	case LobbyDirection::up:
+	case Direction::UP_LEFT:
 		position.x -= floor(velocity.x * dt);
 		position.y -= floor(velocity.y * dt);
 		current_animation = &GoLeft;
 		break;
-	case LobbyDirection::down:
+	case Direction::DOWN_RIGHT:
 		position.x += floor(velocity.x * dt);
 		position.y += floor(velocity.y * dt);
 		current_animation = &GoLeft;
 		break;
-	case LobbyDirection::right_down:
+	case Direction::RIGHT:
 		position.x += floor(180 * dt);
 		current_animation = &GoLeft;
 		break;
-	case LobbyDirection::left_up:
+	case Direction::LEFT:
 		position.x -= floor(180 * dt);
 		current_animation = &GoLeft;
 		break;
-	case LobbyDirection::right_up:
+	case Direction::UP:
 		position.y -= floor(180 * dt);
 		current_animation = &GoLeft;
 		break;
-	case LobbyDirection::left_down:
+	case Direction::DOWN:
 		position.y += floor(180 * dt);
 		current_animation = &GoLeft;
 		break;
@@ -270,7 +294,7 @@ void Player::PerformMovementInQuest(float dt)
 {
 	switch (direction)
 	{
-	case Direction::left:
+	case Direction::DOWN_LEFT:
 		if (position.x >= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.x -= floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
@@ -280,7 +304,7 @@ void Player::PerformMovementInQuest(float dt)
 			target_position = position;
 		}
 		break;
-	case Direction::right:
+	case Direction::UP_RIGHT:
 		if (position.x <= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
@@ -290,7 +314,7 @@ void Player::PerformMovementInQuest(float dt)
 			target_position = position;
 		}
 		break;
-	case Direction::up:
+	case Direction::UP_LEFT:
 		if (position.x >= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 			position.x -= floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
@@ -300,9 +324,45 @@ void Player::PerformMovementInQuest(float dt)
 			target_position = position;
 		}
 		break;
-	case Direction::down:
+	case Direction::DOWN_RIGHT:
 		if (position.x <= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.x += floor(velocity.x * dt);
+			position.y += floor(velocity.y * dt);
+			current_animation = &GoLeft;
+		}
+		else {
+			target_position = position;
+		}
+		break;
+	case Direction::LEFT:
+		if (position.x >= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
+			position.x -= floor(velocity.x * dt);
+			current_animation = &GoLeft;
+		}
+		else {
+			target_position = position;
+		}
+		break;
+	case Direction::RIGHT:
+		if (position.x <= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
+			position.x += floor(velocity.x * dt);
+			current_animation = &GoLeft;
+		}
+		else {
+			target_position = position;
+		}
+		break;
+	case Direction::UP:
+		if (position.x == initial_position.x + movement_count.x && position.y >= initial_position.y + movement_count.y) {
+			position.y -= floor(velocity.y * dt);
+			current_animation = &GoLeft;
+		}
+		else {
+			target_position = position;
+		}
+		break;
+	case Direction::DOWN:
+		if (position.x == initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.y += floor(velocity.y * dt);
 			current_animation = &GoLeft;
 		}
