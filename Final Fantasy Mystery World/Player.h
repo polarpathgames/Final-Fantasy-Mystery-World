@@ -12,10 +12,7 @@ struct Input {
 	bool pressing_W;
 	bool pressing_S;
 	bool pressing_D;
-	bool pressing_Q;
-	bool pressing_E;
-	bool pressing_X;
-	bool pressing_Z;
+	bool pressing_shift;
 };
 
 enum class Movement_Type {
