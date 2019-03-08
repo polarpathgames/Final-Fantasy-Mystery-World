@@ -28,15 +28,29 @@ public:
 	enum class Direction {
 		UP, DOWN, RIGHT, LEFT, UP_LEFT, DOWN_LEFT, UP_RIGHT, DOWN_RIGHT
 	};
+	
+	Direction direction;
+	State state;
 
 	Animation GoLeft;
 	Animation GoRight;
 	Animation GoDown;
 	Animation GoUp;
+
 	Animation IdleLeft;
 	Animation IdleRight;
 	Animation IdleUp;
 	Animation IdleDown;
+
+	Animation GoUpLeft;
+	Animation GoDownLeft;
+	Animation GoUpRight;
+	Animation GoDownRight;
+
+	Animation IdleUpLeft;
+	Animation IdleDownLeft;
+	Animation IdleUpRight;
+	Animation IdleDownRight;
 
 	iPoint velocity;
 

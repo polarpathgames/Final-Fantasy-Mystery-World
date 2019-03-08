@@ -57,9 +57,7 @@ public:
 
 	iPoint target_position; 
 	iPoint initial_position; //IMPORTANT: SEMPRE QUE ES CARREGUI UN NOU MAPA AQUESTA VARIABLE SHA DIGUALAR A LA POSICIO INICIAL!!
-	iPoint movement_count; //IMPORTANT: SEMPRE QUE ES CARREGUI UN NOU MAPA AQUESTA VARIABLE SHA DE POSAR A 0!!
-	Direction direction; //DIRECCIO EN UNA QUEST
-	State state; //ESTATS DEL PLAYER
+	iPoint movement_count; //IMPORTANT: SEMPRE QUE ES CARREGUI UN NOU MAPA AQUESTA VARIABLE SHA DE POSAR A 0!! 
 	Input player_input; //VARIABLES DEL INPUT DEL PLAYER
 	Movement_Type movement_type; //EN LOBBY O EN UNA QUEST
 };
