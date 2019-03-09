@@ -31,13 +31,8 @@ public:
 	bool CleanUp();
 
 public:
-	enum Direction {
-		up, down, right, left, idle
-	};
-	iPoint target_position;
-	iPoint initial_position; //IMPORTANT: SEMPRE QUE ES CARREGUI UN NOU MAPA AQUESTA VARIABLE SHA DIGUALAR A LA POSICIO INICIAL!!
-	iPoint movement_count; //IMPORTANT: SEMPRE QUE ES CARREGUI UN NOU MAPA AQUESTA VARIABLE SHA DE POSAR A 0!!
-	Direction direction;
+
+
 };
 
 

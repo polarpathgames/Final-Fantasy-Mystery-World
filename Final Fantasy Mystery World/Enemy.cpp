@@ -21,7 +21,7 @@ Enemy::Enemy() : DynamicEntity()
 
 	current_animation = &IdleLeft;
 
-	direction = idle;
+	direction = Direction::LEFT;
 
 
 	iPoint p;
@@ -42,76 +42,40 @@ Enemy::~Enemy()
 
 bool Enemy::PreUpdate()
 {
+	iPoint origin = App->map->WorldToMap(position.x - 5, position.y - 6);
+	iPoint destination = App->map->WorldToMap(App->entity_manager->GetPlayerData()->position.x - 11, App->entity_manager->GetPlayerData()->position.y - 12);
 
+	App->pathfinding->CreatePath(origin, destination);
+
+	iPoint target = App->pathfinding->GetLastPath();
+
+	if (target.x < origin.x && target.y == origin.y) {
+		position.x -= 32;
+		position.y -= 16;
+	}
+	if (target.x == origin.x && target.y < origin.y) {
+		position.x += 32;
+		position.y -= 16;
+	}
+	if (target.x == origin.x && target.y > origin.y) {
+		position.x -= 32;
+		position.y += 16;
+	}
+	if (target.x > origin.x && target.y == origin.y) {
+		position.x += 32;
+		position.y += 16;
+	}
 
 	return true;
 }
 
 bool Enemy::Update(float dt)
 {
-	/*
-	float x = App->entity_manager->GetPlayerData()->position.x;
-	float y = App->entity_manager->GetPlayerData()->position.y;
+	
+	
 
-	if (position.x - x < 400 && x - position.x < 400) {
-		iPoint origin = App->map->WorldToMap(position.x, position.y);
-		iPoint destination = App->map->WorldToMap(App->entity_manager->GetPlayerData()->position.x, App->entity_manager->GetPlayerData()->position.y - App->entitymanager->GetPlayerData()->coll->rect.h);
-		if (position.DistanceTo(App->entity_manager->GetPlayerData()->position)) {
-			App->pathfinding->CreatePath(origin, destination);
-			const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
-			for (int i = 0; i < path->Count(); i++) {
-				PATH.PushBack(*path->At(i));
-			}
-		}
-		if (PATH.Count() > 1) {
-			velocity.x = -Speed;
-			velocity.y = Speed;
-		}
-		if (App->entity_manager->GetPlayerData()->position.x < position.x) {
-			position.x += velocity.x * dt;
-		}
-		else {
-			position.x += -velocity.x * dt;
-		}
-		if (App->entity_manager->GetPlayerData()->position.y > position.y) {
-			position.y += velocity.y * dt;
-		}
-		if (App->entity_manager->GetPlayerData()->position.y < position.y) {
-			position.y -= velocity.y * dt;
-		}
-	}
-	else {
-		iPoint origin = App->map->WorldToMap(position.x, position.y);
-		iPoint destination = App->map->WorldToMap(original_pos.x, original_pos.y);
-		x = original_pos.x;
-		y = original_pos.y;
-		fPoint originalpos{ x,y };
-		if (position.DistanceTo(originalpos)) {
-			App->pathfinding->CreatePath(origin, destination);
-			const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
-			for (int i = 0; i < path->Count(); i++) {
-				PATH.PushBack(*path->At(i));
-			}
-		}
-		if (PATH.Count() > 1) {
-			velocity.x = -Speed;
-			velocity.y = Speed;
-		}
-		if (original_pos.x < position.x) {
-			position.x += velocity.x * dt;
-		}
-		else {
-			position.x += -velocity.x * dt;
-		}
-		if (original_pos.y > position.y) {
-			position.y += velocity.y * dt;
-		}
-		if (original_pos.y < position.y) {
-			position.y -= velocity.y * dt;
-		}
-	}
 
-	*/
+
 	return true;
 }
 
