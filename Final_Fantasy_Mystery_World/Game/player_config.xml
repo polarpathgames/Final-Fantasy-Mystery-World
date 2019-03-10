@@ -1,0 +1,15 @@
+<!-- Config file for the player -->
+
+<config>
+  <player>
+    <Animations>
+      <GoLeft speed="5.0f" loop="true">
+        <frame x="6" y="3" w="14" h="27"/>
+        <frame x="55" y="3" w="14" h="27"/>
+      </GoLeft>
+      <IdleLeft speed="5.0f" loop="true">
+        <frame x="32" y="4" w="14" h="26"/>
+      </IdleLeft>
+    </Animations>
+  </player>
+</config>
