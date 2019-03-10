@@ -51,6 +51,7 @@ public:
 
 	Player * GetPlayerData() const;
 
+	const std::list<Entity*> GetEntities();
 
 private:
 

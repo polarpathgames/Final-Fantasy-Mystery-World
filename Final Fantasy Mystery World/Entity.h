@@ -85,6 +85,9 @@ public:
 	pugi::xml_node		config;
 	pugi::xml_node		node;
 
+
+	bool has_turn;
+
 };
 
 #endif

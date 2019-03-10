@@ -16,13 +16,13 @@ Enemy::Enemy() : DynamicEntity()
 
 	GoLeft = LoadPushbacks(node, "GoLeft");
 	IdleLeft = LoadPushbacks(node, "IdleLeft");
-	position.x = 0;
+	position.x = 300;
 	position.y = 500;
 
 	current_animation = &IdleLeft;
 
 	direction = Direction::LEFT;
-
+	state = State::IDLE;
 
 	iPoint p;
 	p = App->map->WorldToMap(position.x, position.y);
@@ -42,38 +42,152 @@ Enemy::~Enemy()
 
 bool Enemy::PreUpdate()
 {
-	iPoint origin = App->map->WorldToMap(position.x - 5, position.y - 6);
-	iPoint destination = App->map->WorldToMap(App->entity_manager->GetPlayerData()->position.x - 11, App->entity_manager->GetPlayerData()->position.y - 12);
+	if (state == State::IDLE) {
+		state = State::WALKING; //Aixo sha de canviar I know :D
+	}
+	if (state == State::WALKING) {
 
-	App->pathfinding->CreatePath(origin, destination);
+		if (target_position == position) {
 
-	iPoint target = App->pathfinding->GetLastPath();
+			iPoint origin = App->map->WorldToMap(position.x, position.y);
+			iPoint destination = App->map->WorldToMap(App->entity_manager->GetPlayerData()->position.x, App->entity_manager->GetPlayerData()->position.y);
+			App->pathfinding->CreatePath(origin, destination);
 
-	if (target.x < origin.x && target.y == origin.y) {
-		position.x -= 32;
-		position.y -= 16;
+			iPoint target = App->pathfinding->GetLastPath();
+
+			if (target.x == origin.x && target.y > origin.y) {
+				direction = Direction::DOWN_LEFT;
+				target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
+				movement_count.x -= (App->map->data.tile_width / 2);
+				movement_count.y += (App->map->data.tile_height / 2);
+			}
+			else if (target.x > origin.x && target.y == origin.y) {
+				direction = Direction::DOWN_RIGHT;
+				target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
+				movement_count.x += (App->map->data.tile_width / 2);
+				movement_count.y += (App->map->data.tile_height / 2);
+			}
+			else if (target.x == origin.x && target.y < origin.y) {
+				direction = Direction::UP_RIGHT;
+				target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
+				movement_count.x += (App->map->data.tile_width / 2);
+				movement_count.y -= (App->map->data.tile_height / 2);
+			}
+			else if (target.x < origin.x && target.y == origin.y) {
+				direction = Direction::UP_LEFT;
+				target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
+				movement_count.x -= (App->map->data.tile_width / 2);
+				movement_count.y -= (App->map->data.tile_height / 2);
+			}
+			ChangeTurn(type);
+		}
 	}
-	if (target.x == origin.x && target.y < origin.y) {
-		position.x += 32;
-		position.y -= 16;
-	}
-	if (target.x == origin.x && target.y > origin.y) {
-		position.x -= 32;
-		position.y += 16;
-	}
-	if (target.x > origin.x && target.y == origin.y) {
-		position.x += 32;
-		position.y += 16;
-	}
+
+
+	
 
 	return true;
 }
 
 bool Enemy::Update(float dt)
 {
-	
-	
-
+	if (state == State::WALKING) {
+		switch (direction)
+		{
+		case Direction::DOWN_LEFT:
+			if (position.x >= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
+				position.x -= floor(velocity.x * dt);
+				position.y += floor(velocity.y * dt);
+				current_animation = &GoLeft;
+			}
+			else {
+				target_position = position;
+				current_animation = &IdleLeft;
+				state = State::IDLE;
+			}
+			break;
+		case Direction::UP_RIGHT:
+			if (position.x <= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
+				position.x += floor(velocity.x * dt);
+				position.y -= floor(velocity.y * dt);
+				current_animation = &GoLeft;
+			}
+			else {
+				target_position = position;
+				current_animation = &IdleLeft;
+				state = State::IDLE;
+			}
+			break;
+		case Direction::UP_LEFT:
+			if (position.x >= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
+				position.x -= floor(velocity.x * dt);
+				position.y -= floor(velocity.y * dt);
+				current_animation = &GoLeft;
+			}
+			else {
+				target_position = position;
+				current_animation = &IdleLeft;
+				state = State::IDLE;
+			}
+			break;
+		case Direction::DOWN_RIGHT:
+			if (position.x <= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
+				position.x += floor(velocity.x * dt);
+				position.y += floor(velocity.y * dt);
+				current_animation = &GoLeft;
+			}
+			else {
+				target_position = position;
+				current_animation = &IdleLeft;
+				state = State::IDLE;
+			}
+			break;
+		case Direction::LEFT:
+			if (position.x >= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
+				position.x -= floor(velocity.x * dt);
+				current_animation = &GoLeft;
+			}
+			else {
+				target_position = position;
+				current_animation = &IdleLeft;
+			}
+			break;
+		case Direction::RIGHT:
+			if (position.x <= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
+				position.x += floor(velocity.x * dt);
+				current_animation = &GoLeft;
+			}
+			else {
+				target_position = position;
+				current_animation = &IdleLeft;
+			}
+			break;
+		case Direction::UP:
+			if (position.x == initial_position.x + movement_count.x && position.y >= initial_position.y + movement_count.y) {
+				position.y -= floor(velocity.y * dt);
+				current_animation = &GoLeft;
+			}
+			else {
+				target_position = position;
+				current_animation = &IdleLeft;
+				ChangeTurn(type);
+			}
+			break;
+		case Direction::DOWN:
+			if (position.x == initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
+				position.y += floor(velocity.y * dt);
+				current_animation = &GoLeft;
+			}
+			else {
+				target_position = position;
+				current_animation = &IdleLeft;
+				ChangeTurn(type);
+			}
+			break;
+		default:
+			break;
+		}
+	}
 
 
 	return true;
@@ -83,6 +197,7 @@ bool Enemy::Update(float dt)
 
 bool Enemy::PostUpdate()
 {
+
 	return true;
 }
 

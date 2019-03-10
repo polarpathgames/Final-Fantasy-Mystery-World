@@ -43,6 +43,7 @@ Player::~Player()
 bool Player::PreUpdate()
 {
 	ReadPlayerInput();
+	
 	return true;
 }
 
@@ -186,6 +187,9 @@ void Player::ReadPlayerMovementInQuest()
 				current_animation = &IdleDown;
 			if (current_animation == &GoUp)
 				current_animation = &IdleUp;
+		}
+		else {
+			ChangeTurn(type);
 		}
 	}
 }

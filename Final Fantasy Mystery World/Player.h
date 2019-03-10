@@ -59,7 +59,6 @@ public:
 	Input player_input; //VARIABLES DEL INPUT DEL PLAYER
 	Movement_Type movement_type; //EN LOBBY O EN UNA QUEST
 
-	bool is_player_turn = true;
 };
 
 

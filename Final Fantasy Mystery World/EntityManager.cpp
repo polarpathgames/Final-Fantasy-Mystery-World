@@ -49,11 +49,13 @@ bool EntityManager::PreUpdate()
 	
 	std::list<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr)
-			(*item)->PreUpdate();
+		if ((*item) != nullptr) {
+			if ((*item)->has_turn) {
+				(*item)->PreUpdate();
+			}
+		}
 	}
 	
-
 	return true;
 }
 
@@ -63,7 +65,8 @@ bool EntityManager::Update(float dt)
 	std::list<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr)
-			(*item)->Update(dt);
+				(*item)->Update(dt);
+
 	}
 	item = entities.begin();
 	for (; item != entities.end(); ++item) {
@@ -79,7 +82,8 @@ bool EntityManager::PostUpdate()
 	std::list<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr)
-			(*item)->PostUpdate();
+				(*item)->PostUpdate();
+
 	}
 	return true;
 }
@@ -111,6 +115,7 @@ Player * EntityManager::CreatePlayer()
 
 	ret = new Player();
 	ret->type = EntityType::PLAYER;
+	ret->has_turn = true;
 	if (ret != nullptr)
 		entities.push_back(ret);
 
@@ -123,6 +128,7 @@ Enemy * EntityManager::CreateEnemy()
 
 	ret = new Enemy();
 	ret->type = EntityType::ENEMY;
+	ret->has_turn = false;
 	if (ret != nullptr)
 		entities.push_back(ret);
 
@@ -158,6 +164,11 @@ Player* EntityManager::GetPlayerData() const {
 	}
 
 	return nullptr;
+}
+
+const std::list<Entity*> EntityManager::GetEntities()
+{
+	return entities;
 }
 
 bool EntityManager::Load(pugi::xml_node& load)
