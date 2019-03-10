@@ -46,15 +46,12 @@ bool Enemy::PreUpdate()
 		state = State::WALKING; //Aixo sha de canviar I know :D
 	}
 	if (state == State::WALKING) {
+		iPoint origin = App->map->WorldToMap(position.x, position.y);
+		iPoint destination = App->map->WorldToMap(App->entity_manager->GetPlayerData()->position.x, App->entity_manager->GetPlayerData()->position.y);
+		App->pathfinding->CreatePath(origin, destination);
 
+		iPoint target = App->pathfinding->GetLastPath();
 		if (target_position == position) {
-
-			iPoint origin = App->map->WorldToMap(position.x, position.y);
-			iPoint destination = App->map->WorldToMap(App->entity_manager->GetPlayerData()->position.x, App->entity_manager->GetPlayerData()->position.y);
-			App->pathfinding->CreatePath(origin, destination);
-
-			iPoint target = App->pathfinding->GetLastPath();
-
 			if (target.x == origin.x && target.y > origin.y) {
 				direction = Direction::DOWN_LEFT;
 				target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));

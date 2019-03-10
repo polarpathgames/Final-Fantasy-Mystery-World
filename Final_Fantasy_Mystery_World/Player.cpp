@@ -128,53 +128,49 @@ void Player::ReadPlayerInput()
 void Player::ReadPlayerMovementInQuest()
 {
 	if (target_position == position) {
-		if (player_input.pressing_shift) {
-			if (player_input.pressing_A && !player_input.pressing_D && !player_input.pressing_S && !player_input.pressing_W) {
-				direction = Direction::LEFT;
-				target_position.create(position.x - App->map->data.tile_width, position.y);
-				movement_count.x -= App->map->data.tile_width;
-			}
-			else if (player_input.pressing_D && !player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_W) {
-				direction = Direction::RIGHT;
-				target_position.create(position.x + App->map->data.tile_width, position.y);
-				movement_count.x += App->map->data.tile_width;
-			}
-			else if (player_input.pressing_W && !player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D) {
-				direction = Direction::UP;
-				target_position.create(position.x, position.y - App->map->data.tile_height);
-				movement_count.y -= App->map->data.tile_height;
-			}
-			else if (player_input.pressing_S && !player_input.pressing_A && !player_input.pressing_W && !player_input.pressing_D) {
-				direction = Direction::DOWN;
-				target_position.create(position.x, position.y + App->map->data.tile_height);
-				movement_count.y += App->map->data.tile_height;
-			}
+		if (player_input.pressing_A && !player_input.pressing_D && !player_input.pressing_S && !player_input.pressing_W && player_input.pressing_shift) {
+			direction = Direction::LEFT;
+			target_position.create(position.x - App->map->data.tile_width, position.y);
+			movement_count.x -= App->map->data.tile_width;
 		}
-		else {
-			if (player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D && !player_input.pressing_W) {
-				direction = Direction::DOWN_LEFT;
-				target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
-				movement_count.x -= (App->map->data.tile_width / 2);
-				movement_count.y += (App->map->data.tile_height / 2);
-			}
-			else if (player_input.pressing_S && !player_input.pressing_D && !player_input.pressing_A && !player_input.pressing_W) {
-				direction = Direction::DOWN_RIGHT;
-				target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
-				movement_count.x += (App->map->data.tile_width / 2);
-				movement_count.y += (App->map->data.tile_height / 2);
-			}
-			else if (player_input.pressing_D && !player_input.pressing_W && !player_input.pressing_A && !player_input.pressing_S) {
-				direction = Direction::UP_RIGHT;
-				target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
-				movement_count.x += (App->map->data.tile_width / 2);
-				movement_count.y -= (App->map->data.tile_height / 2);
-			}
-			else if (player_input.pressing_W && !player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D) {
-				direction = Direction::UP_LEFT;
-				target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
-				movement_count.x -= (App->map->data.tile_width / 2);
-				movement_count.y -= (App->map->data.tile_height / 2);
-			}
+		else if (player_input.pressing_D && !player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_W && player_input.pressing_shift) {
+			direction = Direction::RIGHT;
+			target_position.create(position.x + App->map->data.tile_width, position.y);
+			movement_count.x += App->map->data.tile_width;
+		}
+		else if (player_input.pressing_W && !player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D && player_input.pressing_shift) {
+			direction = Direction::UP;
+			target_position.create(position.x, position.y - App->map->data.tile_height);
+			movement_count.y -= App->map->data.tile_height;
+		}
+		else if (player_input.pressing_S && !player_input.pressing_A && !player_input.pressing_W && !player_input.pressing_D && player_input.pressing_shift) {
+			direction = Direction::DOWN;
+			target_position.create(position.x, position.y + App->map->data.tile_height);
+			movement_count.y += App->map->data.tile_height;
+		}
+		if (player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D && !player_input.pressing_W && !player_input.pressing_shift) {
+			direction = Direction::DOWN_LEFT;
+			target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
+			movement_count.x -= (App->map->data.tile_width / 2);
+			movement_count.y += (App->map->data.tile_height / 2);
+		}
+		else if (player_input.pressing_S && !player_input.pressing_D && !player_input.pressing_A && !player_input.pressing_W && !player_input.pressing_shift) {
+			direction = Direction::DOWN_RIGHT;
+			target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
+			movement_count.x += (App->map->data.tile_width / 2);
+			movement_count.y += (App->map->data.tile_height / 2);
+		}
+		else if (player_input.pressing_D && !player_input.pressing_W && !player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_shift) {
+			direction = Direction::UP_RIGHT;
+			target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
+			movement_count.x += (App->map->data.tile_width / 2);
+			movement_count.y -= (App->map->data.tile_height / 2);
+		}
+		else if (player_input.pressing_W && !player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D && !player_input.pressing_shift) {
+			direction = Direction::UP_LEFT;
+			target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
+			movement_count.x -= (App->map->data.tile_width / 2);
+			movement_count.y -= (App->map->data.tile_height / 2);
 		}
 		if (!player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D && !player_input.pressing_W) {
 			state = State::IDLE;
