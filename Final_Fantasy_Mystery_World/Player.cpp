@@ -103,9 +103,12 @@ void Player::ReadPlayerInput()
 	player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
 	player_input.pressing_shift = App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT;
 
-	
 	if (state == State::IDLE) {
-		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
+		//target_position = position;
+		position = initial_position + movement_count;
+		initial_position = position;
+		movement_count = { 0,0 };
+		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D || player_input.pressing_shift) {
 			state = State::WALKING;
 		}
 	}
