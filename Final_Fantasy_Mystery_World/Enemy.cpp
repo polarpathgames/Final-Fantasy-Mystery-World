@@ -16,8 +16,8 @@ Enemy::Enemy() : DynamicEntity()
 
 	GoLeft = LoadPushbacks(node, "GoLeft");
 	IdleLeft = LoadPushbacks(node, "IdleLeft");
-	position.x = 300;
-	position.y = 500;
+	position.x = 100;
+	position.y = 50;
 
 	current_animation = &IdleLeft;
 
@@ -27,8 +27,8 @@ Enemy::Enemy() : DynamicEntity()
 	iPoint p;
 	p = App->map->WorldToMap(position.x, position.y);
 	p = App->map->MapToWorld(p.x, p.y);
-	position.x = p.x - 5;
-	position.y = p.y - 6;
+	position.x = p.x + 9;
+	position.y = p.y + 10;
 	velocity.x = 160;
 	velocity.y = 80;
 	target_position = position;

@@ -10,6 +10,6 @@
 	<scene />
 	<entity_manager />
 	<renderer>
-		<camera x="37" y="-129" />
+		<camera x="365" y="133" />
 	</renderer>
 </game_state>
