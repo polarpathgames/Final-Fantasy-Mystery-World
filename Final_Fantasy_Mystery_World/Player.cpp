@@ -106,14 +106,12 @@ void Player::ReadPlayerInput()
 	if (state == State::IDLE) {
 		//target_position = position;
 
-		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D || player_input.pressing_shift) {
+		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
 			state = State::WALKING;
 		}
-		else {
-			position = initial_position + movement_count;
-			initial_position = position;
-			movement_count = { 0,0 };
-		}
+		position = initial_position + movement_count;
+		initial_position = position;
+		movement_count = { 0,0 };
 	}
 	if (state == State::WALKING) {
 		switch (movement_type) {
