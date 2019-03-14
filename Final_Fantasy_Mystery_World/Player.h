@@ -53,6 +53,9 @@ public:
 	void PerformMovementInLobby(float dt);
 	void PerformMovementInQuest(float dt);
 
+
+	const bool MultipleButtons(const Input* input);
+
 public:
 
 
