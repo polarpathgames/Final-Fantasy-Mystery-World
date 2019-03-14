@@ -77,23 +77,7 @@ bool Player::CleanUp()
 	return true;
 }
 
-void Player::PushBack()
-{
-	for (uint i = 0; i < data.num_animations; ++i) {
-		for (uint j = 0; j < data.animations[i].num_frames; ++j) {
-			switch (data.animations[i].animType) {
-			case State::IDLE:
-				IdleLeft.PushBack(data.animations[i].frames[j]);
-				break;
-			case State::WALKING:
-				GoLeft.PushBack(data.animations[i].frames[j]);
-				break;
-			default:
-				break;
-			}
-		}
-	}
-}
+
 
 void Player::ReadPlayerInput()
 {

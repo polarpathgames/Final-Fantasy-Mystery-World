@@ -8,6 +8,11 @@
 #include "j1PerfTimer.h"
 #include "Entity.h"
 
+
+enum class Direction {
+	UP, DOWN, RIGHT, LEFT, UP_LEFT, DOWN_LEFT, UP_RIGHT, DOWN_RIGHT, NONE
+};
+
 class DynamicEntity  : public Entity
 {
 public:
@@ -25,14 +30,14 @@ public:
 
 	void ChangeTurn(EntityType type);
 
+	void PushBack();
+
 public:
 
-	enum class Direction {
-		UP, DOWN, RIGHT, LEFT, UP_LEFT, DOWN_LEFT, UP_RIGHT, DOWN_RIGHT
-	};
+
 	
-	Direction direction;
-	State state;
+	Direction direction = Direction::NONE;
+	State state = State::NONE;
 
 	Animation GoLeft;
 	Animation GoRight;
