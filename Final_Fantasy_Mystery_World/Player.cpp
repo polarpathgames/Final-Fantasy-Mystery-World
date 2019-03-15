@@ -122,6 +122,9 @@ void Player::ReadPlayerMovementInQuest()
 					actual_tile += {-1, 1};
 					is_movement_acepted = true;
 				}
+				else {
+					state = State::IDLE;
+				}
 			}
 			else if (player_input.pressing_D && player_input.pressing_shift) {
 				if (!CheckEnemyNextTile(Direction::RIGHT)) {
@@ -130,6 +133,9 @@ void Player::ReadPlayerMovementInQuest()
 					movement_count.x += App->map->data.tile_width;
 					actual_tile += {1, -1};
 					is_movement_acepted = true;
+				}
+				else {
+					state = State::IDLE;
 				}
 			}
 			else if (player_input.pressing_W && player_input.pressing_shift) {
@@ -140,6 +146,9 @@ void Player::ReadPlayerMovementInQuest()
 					actual_tile += {-1, -1};
 					is_movement_acepted = true;
 				}
+				else {
+					state = State::IDLE;
+				}
 			}
 			else if (player_input.pressing_S && player_input.pressing_shift) {
 				if (!CheckEnemyNextTile(Direction::DOWN)) {
@@ -148,6 +157,9 @@ void Player::ReadPlayerMovementInQuest()
 					movement_count.y += App->map->data.tile_height;
 					actual_tile += {1, 1};
 					is_movement_acepted = true;
+				}
+				else {
+					state = State::IDLE;
 				}
 			}
 			if (player_input.pressing_A && !player_input.pressing_shift) {
@@ -159,9 +171,12 @@ void Player::ReadPlayerMovementInQuest()
 					actual_tile += {0, 1};
 					is_movement_acepted = true;
 				}
+				else {
+					state = State::IDLE;
+				}
 			}
 			else if (player_input.pressing_S && !player_input.pressing_shift) {
-				
+
 				if (!CheckEnemyNextTile(Direction::DOWN_RIGHT)) {
 					direction = Direction::DOWN_RIGHT;
 					target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
@@ -169,6 +184,9 @@ void Player::ReadPlayerMovementInQuest()
 					movement_count.y += (App->map->data.tile_height / 2);
 					actual_tile += {1, 0};
 					is_movement_acepted = true;
+				}
+				else {
+					state = State::IDLE;
 				}
 			}
 			else if (player_input.pressing_D && !player_input.pressing_shift) {
@@ -180,6 +198,9 @@ void Player::ReadPlayerMovementInQuest()
 					actual_tile += {0, -1};
 					is_movement_acepted = true;
 				}
+				else {
+					state = State::IDLE;
+				}
 			}
 			else if (player_input.pressing_W && !player_input.pressing_shift) {
 				if (!CheckEnemyNextTile(Direction::UP_LEFT)) {
@@ -190,7 +211,12 @@ void Player::ReadPlayerMovementInQuest()
 					actual_tile += {-1, 0};
 					is_movement_acepted = true;
 				}
+				else {
+					state = State::IDLE;
+				}
 			}
+			
+			
 		}
 		if (!MultipleButtons(&player_input)) {
 			state = State::IDLE;
