@@ -56,6 +56,8 @@ public:
 
 	const bool MultipleButtons(const Input* input);
 
+	const bool CheckEnemyNextTile(const Direction * dir);
+
 public:
 
 
