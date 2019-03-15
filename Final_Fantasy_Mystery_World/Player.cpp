@@ -380,3 +380,53 @@ const bool Player::MultipleButtons(const Input * input)
 
 	return ret;
 }
+
+const bool Player::CheckEnemyNextTile(const Direction * dir)
+{
+	bool ret = true;
+	std::list<Entity*> entities = App->entity_manager->GetEntities();
+	std::list<Entity*>::iterator item = entities.begin();
+
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr && (*item)->type == EntityType::ENEMY) {
+			iPoint origin = App->map->WorldToMap(position.x, position.y);
+			iPoint destination = App->map->WorldToMap((*item)->position.x, (*item)->position.y);
+			
+			switch (*dir) {
+			case Direction::DOWN:
+				origin += {1, 1};
+				if (destination == origin)
+					ret = false;
+				break;
+			case Direction::UP:
+				origin -= {1, 1};
+				if (destination == origin)
+					ret = false;
+				break;
+			case Direction::LEFT:
+
+				break;
+			case Direction::RIGHT:
+
+				break;
+			case Direction::DOWN_LEFT:
+
+				break;
+			case Direction::DOWN_RIGHT:
+
+				break;
+			case Direction::UP_LEFT:
+
+				break;
+			case Direction::UP_RIGHT:
+
+				break;
+			}
+		}
+	}
+
+	return ret;
+}
+
+
+
