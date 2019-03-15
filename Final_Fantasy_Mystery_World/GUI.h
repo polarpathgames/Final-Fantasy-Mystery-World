@@ -10,18 +10,23 @@ struct SDL_Rect;
 class GUI
 {
 public:
-	GUI(int x, int y);
+	GUI(int x, int y, j1Module* callback, GUI* parent);
 	virtual ~GUI();
 
+	virtual bool PreUpdate() { return true; }
 	virtual bool Update(float dt);
+	virtual bool PostUpdate() { return true; }
 	virtual void Draw(SDL_Texture* texture);
 	virtual bool CleanUp();
 
 public:
 	UI type = UI::NON;
 	iPoint position;
+	GUI* parent = nullptr;
+	j1Module* callback = nullptr;
+	Animation* current_animation = nullptr;
 
-	SDL_Rect atlas_rect;
+	SDL_Rect atlas_rect = {0, 0, 0, 0};
 };
 
 

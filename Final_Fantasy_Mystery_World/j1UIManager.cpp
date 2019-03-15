@@ -25,6 +25,13 @@ bool j1UIManager::Start()
 
 bool j1UIManager::PreUpdate()
 {
+	std::list<GUI*>::iterator item = ui_list.begin();
+	for (; item != ui_list.end(); ++item)
+	{
+		if ((*item) != nullptr)
+			(*item)->PreUpdate();
+	}
+
 	return true;
 }
 
@@ -49,6 +56,12 @@ bool j1UIManager::Update(float dt)
 
 bool j1UIManager::PostUpdate()
 {
+	std::list<GUI*>::iterator item = ui_list.begin();
+	for (; item != ui_list.end(); ++item)
+	{
+		if ((*item) != nullptr)
+			(*item)->PostUpdate();
+	}
 
 	return true;
 }
@@ -63,6 +76,7 @@ bool j1UIManager::CleanUp()
 			(*item) = nullptr;
 		}
 	}
+
 	ui_list.clear();
 	App->tex->UnLoad(atlas);
 
@@ -74,10 +88,15 @@ const SDL_Texture* j1UIManager::GetAtlas() const
 	return atlas;
 }
 
-GUI* j1UIManager::AddImage(int x, int y, SDL_Rect* rect)
+GUI* j1UIManager::AddImage(int x, int y, SDL_Rect* rect, Animation* anim, j1Module* callback, GUI* parent)
 {
-	GUI* image = new GUI_Image(x, y, IMAGE, rect);
-	ui_list.push_back(image);
+	GUI* image = new GUI_Image(x, y, IMAGE, parent, anim, callback, rect);
+
+	if (image != nullptr)
+	{
+		ui_list.push_back(image);
+	}
+
 	return image;
 }
 

@@ -30,13 +30,13 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
-	GUI* AddImage(int x, int y, SDL_Rect* rect);
+	GUI* AddImage(int x, int y, SDL_Rect* rect, Animation *anim, j1Module* callback, GUI* parent);
 
 	void DestroyUI();
 	const SDL_Texture* GetAtlas() const;
 
 private:
-	SDL_Texture* atlas;
+	SDL_Texture* atlas = nullptr;
 	std::list<GUI*> ui_list;
 
 public:

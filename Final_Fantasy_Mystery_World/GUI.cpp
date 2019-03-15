@@ -3,9 +3,10 @@
 #include "j1Render.h"
 #include "GUI.h"
 
-GUI::GUI(int x, int y)
+GUI::GUI(int x, int y, j1Module* callback, GUI* parent)
 {
-
+	this->parent = parent;
+	this->callback = callback;
 }
 
 GUI::~GUI() {}
