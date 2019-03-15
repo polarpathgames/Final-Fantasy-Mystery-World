@@ -23,6 +23,13 @@ struct ControllerDir
 	int deadzone = 8000;
 };
 
+enum CONTROLLER_BUTTONS {
+
+	BUTTON_RT,
+
+	NONE
+
+};
 
 enum j1EventWindow
 {

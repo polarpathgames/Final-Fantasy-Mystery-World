@@ -36,7 +36,7 @@ bool j1Scene::Start()
 {
 	//std::string map("iso_walk.tmx");
 	
-	App->map->Load("iso_walk.tmx");
+	App->map->Load("iso_walk2.tmx");
 	int w, h;
 	uchar* data = NULL;
 	if (App->map->CreateWalkabilityMap(w, h, &data))

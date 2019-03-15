@@ -8,11 +8,20 @@
 #include "j1PerfTimer.h"
 
 
-enum class EntityType;
+
 struct SDL_Texture;
 
+enum class EntityType
+{
+	PLAYER,
+	ENEMY,
+
+
+	NO_TYPE
+};
+
 enum class State {
-	IDLE, WALKING
+	IDLE, WALKING, NONE
 };
 
 struct TileSetEntity {
@@ -36,7 +45,7 @@ struct EntityAnim {
 	uint id = 0;
 	uint num_frames = 0;
 	SDL_Rect* frames = nullptr;
-	State animType;
+	State animType = State::NONE;
 
 	uint FrameCount(pugi::xml_node&);
 };
@@ -73,10 +82,10 @@ public:
 
 public:
 
-	EntityType type;
+	EntityType type = EntityType::NO_TYPE;
 	EntityInfo data;
 
-	iPoint position;
+	iPoint position{ 0,0 };
 
 	Animation* current_animation = nullptr;
 
@@ -86,7 +95,7 @@ public:
 	pugi::xml_node		node;
 
 
-	bool has_turn;
+	bool has_turn = true;
 
 };
 

@@ -27,8 +27,8 @@ Player::Player() : DynamicEntity()
 	iPoint p;
 	p = App->map->WorldToMap(position.x, position.y);
 	p = App->map->MapToWorld(p.x, p.y);
-	position.x = p.x - 12;
-	position.y = p.y - 11;
+	position.x = p.x + 3;
+	position.y = p.y + 5;
 	velocity.x = 160;
 	velocity.y = 80;
 	target_position = position;
@@ -77,23 +77,7 @@ bool Player::CleanUp()
 	return true;
 }
 
-void Player::PushBack()
-{
-	for (uint i = 0; i < data.num_animations; ++i) {
-		for (uint j = 0; j < data.animations[i].num_frames; ++j) {
-			switch (data.animations[i].animType) {
-			case State::IDLE:
-				IdleLeft.PushBack(data.animations[i].frames[j]);
-				break;
-			case State::WALKING:
-				GoLeft.PushBack(data.animations[i].frames[j]);
-				break;
-			default:
-				break;
-			}
-		}
-	}
-}
+
 
 void Player::ReadPlayerInput()
 {
@@ -103,7 +87,6 @@ void Player::ReadPlayerInput()
 	player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
 	player_input.pressing_shift = App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT;
 
-	
 	if (state == State::IDLE) {
 		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
 			state = State::WALKING;
@@ -128,55 +111,53 @@ void Player::ReadPlayerInput()
 void Player::ReadPlayerMovementInQuest()
 {
 	if (target_position == position) {
-		if (player_input.pressing_shift) {
-			if (player_input.pressing_A && !player_input.pressing_D && !player_input.pressing_S && !player_input.pressing_W) {
+		if (MultipleButtons(&player_input)) {
+			if (player_input.pressing_A && player_input.pressing_shift) {
 				direction = Direction::LEFT;
 				target_position.create(position.x - App->map->data.tile_width, position.y);
 				movement_count.x -= App->map->data.tile_width;
 			}
-			else if (player_input.pressing_D && !player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_W) {
+			else if (player_input.pressing_D && player_input.pressing_shift) {
 				direction = Direction::RIGHT;
 				target_position.create(position.x + App->map->data.tile_width, position.y);
 				movement_count.x += App->map->data.tile_width;
 			}
-			else if (player_input.pressing_W && !player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D) {
+			else if (player_input.pressing_W && player_input.pressing_shift) {
 				direction = Direction::UP;
 				target_position.create(position.x, position.y - App->map->data.tile_height);
 				movement_count.y -= App->map->data.tile_height;
 			}
-			else if (player_input.pressing_S && !player_input.pressing_A && !player_input.pressing_W && !player_input.pressing_D) {
+			else if (player_input.pressing_S && player_input.pressing_shift) {
 				direction = Direction::DOWN;
 				target_position.create(position.x, position.y + App->map->data.tile_height);
 				movement_count.y += App->map->data.tile_height;
 			}
-		}
-		else {
-			if (player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D && !player_input.pressing_W) {
+			if (player_input.pressing_A && !player_input.pressing_shift) {
 				direction = Direction::DOWN_LEFT;
 				target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 				movement_count.x -= (App->map->data.tile_width / 2);
 				movement_count.y += (App->map->data.tile_height / 2);
 			}
-			else if (player_input.pressing_S && !player_input.pressing_D && !player_input.pressing_A && !player_input.pressing_W) {
+			else if (player_input.pressing_S && !player_input.pressing_shift) {
 				direction = Direction::DOWN_RIGHT;
 				target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 				movement_count.x += (App->map->data.tile_width / 2);
 				movement_count.y += (App->map->data.tile_height / 2);
 			}
-			else if (player_input.pressing_D && !player_input.pressing_W && !player_input.pressing_A && !player_input.pressing_S) {
+			else if (player_input.pressing_D && !player_input.pressing_shift) {
 				direction = Direction::UP_RIGHT;
 				target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 				movement_count.x += (App->map->data.tile_width / 2);
 				movement_count.y -= (App->map->data.tile_height / 2);
 			}
-			else if (player_input.pressing_W && !player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D) {
+			else if (player_input.pressing_W && !player_input.pressing_shift) {
 				direction = Direction::UP_LEFT;
 				target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 				movement_count.x -= (App->map->data.tile_width / 2);
 				movement_count.y -= (App->map->data.tile_height / 2);
 			}
 		}
-		if (!player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D && !player_input.pressing_W) {
+		if (!MultipleButtons(&player_input)) {
 			state = State::IDLE;
 			target_position = position;
 			if (current_animation == &GoLeft)
@@ -381,3 +362,71 @@ void Player::PerformMovementInQuest(float dt)
 		break;
 	}
 }
+
+const bool Player::MultipleButtons(const Input * input)
+{
+	bool ret;
+
+	if (input->pressing_A && !input->pressing_D && !input->pressing_S && !input->pressing_W)
+		ret = true;
+	else if (input->pressing_D && !input->pressing_A && !input->pressing_S && !input->pressing_W)
+		ret = true;
+	else if (input->pressing_S && !input->pressing_A && !input->pressing_D && !input->pressing_W)
+		ret = true;
+	else if (input->pressing_W && !input->pressing_A && !input->pressing_D && !input->pressing_S)
+		ret = true;
+	else
+		ret = false;
+
+	return ret;
+}
+
+const bool Player::CheckEnemyNextTile(const Direction * dir)
+{
+	bool ret = true;
+	std::list<Entity*> entities = App->entity_manager->GetEntities();
+	std::list<Entity*>::iterator item = entities.begin();
+
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr && (*item)->type == EntityType::ENEMY) {
+			iPoint origin = App->map->WorldToMap(position.x, position.y);
+			iPoint destination = App->map->WorldToMap((*item)->position.x, (*item)->position.y);
+			
+			switch (*dir) {
+			case Direction::DOWN:
+				origin += {1, 1};
+				if (destination == origin)
+					ret = false;
+				break;
+			case Direction::UP:
+				origin -= {1, 1};
+				if (destination == origin)
+					ret = false;
+				break;
+			case Direction::LEFT:
+
+				break;
+			case Direction::RIGHT:
+
+				break;
+			case Direction::DOWN_LEFT:
+
+				break;
+			case Direction::DOWN_RIGHT:
+
+				break;
+			case Direction::UP_LEFT:
+
+				break;
+			case Direction::UP_RIGHT:
+
+				break;
+			}
+		}
+	}
+
+	return ret;
+}
+
+
+

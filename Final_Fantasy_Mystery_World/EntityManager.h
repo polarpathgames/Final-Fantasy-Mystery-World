@@ -8,14 +8,7 @@
 class Player;
 class Enemy;
 
-enum class EntityType
-{
-	PLAYER,
-	ENEMY,
 
-
-	NO_TYPE
-};
 
 class Entity;
 
@@ -56,7 +49,7 @@ public:
 private:
 
 	std::list<Entity*> entities;
-	SDL_Texture* texture;
+	SDL_Texture* texture = nullptr;
 
 public:
 

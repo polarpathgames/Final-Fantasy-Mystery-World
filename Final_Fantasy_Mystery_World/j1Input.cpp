@@ -158,6 +158,7 @@ bool j1Input::PreUpdate()
 	{
 		if (gamepads[i] != nullptr)
 		{
+			controller_state[BUTTON_RT] = SDL_GameControllerGetAxis(gamepads[i],SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
 		}
 	}
 
@@ -225,7 +226,9 @@ bool j1Input::PreUpdate()
 	{
 		keyboard[SDL_SCANCODE_S] = KEY_REPEAT;
 	}
-
+	if (controller[BUTTON_RT] == KEY_REPEAT) {
+		keyboard[SDL_SCANCODE_LSHIFT] = KEY_REPEAT;
+	}
 	return true;
 }
 

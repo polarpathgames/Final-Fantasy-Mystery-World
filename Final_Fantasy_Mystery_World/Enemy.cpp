@@ -12,12 +12,12 @@
 
 Enemy::Enemy() : DynamicEntity()
 {
-	LoadXML("player_config.xml");
-
-	GoLeft = LoadPushbacks(node, "GoLeft");
-	IdleLeft = LoadPushbacks(node, "IdleLeft");
-	position.x = 300;
-	position.y = 500;
+	//LoadXML("player_config.xml");
+	LoadEntityData("entities/Animist.tsx");
+	//GoLeft = LoadPushbacks(node, "GoLeft");
+	//IdleLeft = LoadPushbacks(node, "IdleLeft");
+	position.x = 100;
+	position.y = 50;
 
 	current_animation = &IdleLeft;
 
@@ -27,8 +27,8 @@ Enemy::Enemy() : DynamicEntity()
 	iPoint p;
 	p = App->map->WorldToMap(position.x, position.y);
 	p = App->map->MapToWorld(p.x, p.y);
-	position.x = p.x - 5;
-	position.y = p.y - 6;
+	position.x = p.x + 3;
+	position.y = p.y + 5;
 	velocity.x = 160;
 	velocity.y = 80;
 	target_position = position;
@@ -46,15 +46,12 @@ bool Enemy::PreUpdate()
 		state = State::WALKING; //Aixo sha de canviar I know :D
 	}
 	if (state == State::WALKING) {
+		iPoint origin = App->map->WorldToMap(position.x, position.y);
+		iPoint destination = App->map->WorldToMap(App->entity_manager->GetPlayerData()->position.x, App->entity_manager->GetPlayerData()->position.y);
+		App->pathfinding->CreatePath(origin, destination);
 
+		iPoint target = App->pathfinding->GetLastPath();
 		if (target_position == position) {
-
-			iPoint origin = App->map->WorldToMap(position.x, position.y);
-			iPoint destination = App->map->WorldToMap(App->entity_manager->GetPlayerData()->position.x, App->entity_manager->GetPlayerData()->position.y);
-			App->pathfinding->CreatePath(origin, destination);
-
-			iPoint target = App->pathfinding->GetLastPath();
-
 			if (target.x == origin.x && target.y > origin.y) {
 				direction = Direction::DOWN_LEFT;
 				target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));

@@ -41,7 +41,7 @@ public:
 
 	bool CleanUp();
 
-	void PushBack();
+
 
 
 
@@ -52,6 +52,11 @@ public:
 	void PerformActions(float dt);
 	void PerformMovementInLobby(float dt);
 	void PerformMovementInQuest(float dt);
+
+
+	const bool MultipleButtons(const Input* input);
+
+	const bool CheckEnemyNextTile(const Direction * dir);
 
 public:
 
