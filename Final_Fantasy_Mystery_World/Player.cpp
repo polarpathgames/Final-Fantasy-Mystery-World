@@ -34,6 +34,7 @@ Player::Player() : DynamicEntity()
 	target_position = position;
 	initial_position = position;
 	movement_count = { 0,0 };
+	actual_tile = App->map->WorldToMap(position.x, position.y);
 }
 
 Player::~Player()
@@ -111,50 +112,84 @@ void Player::ReadPlayerInput()
 void Player::ReadPlayerMovementInQuest()
 {
 	if (target_position == position) {
+		bool is_movement_acepted = false;
 		if (MultipleButtons(&player_input)) {
 			if (player_input.pressing_A && player_input.pressing_shift) {
-				direction = Direction::LEFT;
-				target_position.create(position.x - App->map->data.tile_width, position.y);
-				movement_count.x -= App->map->data.tile_width;
+				if (!CheckEnemyNextTile(Direction::LEFT)) {
+					direction = Direction::LEFT;
+					target_position.create(position.x - App->map->data.tile_width, position.y);
+					movement_count.x -= App->map->data.tile_width;
+					actual_tile += {-1, 1};
+					is_movement_acepted = true;
+				}
 			}
 			else if (player_input.pressing_D && player_input.pressing_shift) {
-				direction = Direction::RIGHT;
-				target_position.create(position.x + App->map->data.tile_width, position.y);
-				movement_count.x += App->map->data.tile_width;
+				if (!CheckEnemyNextTile(Direction::RIGHT)) {
+					direction = Direction::RIGHT;
+					target_position.create(position.x + App->map->data.tile_width, position.y);
+					movement_count.x += App->map->data.tile_width;
+					actual_tile += {1, -1};
+					is_movement_acepted = true;
+				}
 			}
 			else if (player_input.pressing_W && player_input.pressing_shift) {
-				direction = Direction::UP;
-				target_position.create(position.x, position.y - App->map->data.tile_height);
-				movement_count.y -= App->map->data.tile_height;
+				if (!CheckEnemyNextTile(Direction::UP)) {
+					direction = Direction::UP;
+					target_position.create(position.x, position.y - App->map->data.tile_height);
+					movement_count.y -= App->map->data.tile_height;
+					actual_tile += {-1, -1};
+					is_movement_acepted = true;
+				}
 			}
 			else if (player_input.pressing_S && player_input.pressing_shift) {
-				direction = Direction::DOWN;
-				target_position.create(position.x, position.y + App->map->data.tile_height);
-				movement_count.y += App->map->data.tile_height;
+				if (!CheckEnemyNextTile(Direction::DOWN)) {
+					direction = Direction::DOWN;
+					target_position.create(position.x, position.y + App->map->data.tile_height);
+					movement_count.y += App->map->data.tile_height;
+					actual_tile += {1, 1};
+					is_movement_acepted = true;
+				}
 			}
 			if (player_input.pressing_A && !player_input.pressing_shift) {
-				direction = Direction::DOWN_LEFT;
-				target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
-				movement_count.x -= (App->map->data.tile_width / 2);
-				movement_count.y += (App->map->data.tile_height / 2);
+				if (!CheckEnemyNextTile(Direction::DOWN_LEFT)) {
+					direction = Direction::DOWN_LEFT;
+					target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
+					movement_count.x -= (App->map->data.tile_width / 2);
+					movement_count.y += (App->map->data.tile_height / 2);
+					actual_tile += {0, 1};
+					is_movement_acepted = true;
+				}
 			}
 			else if (player_input.pressing_S && !player_input.pressing_shift) {
-				direction = Direction::DOWN_RIGHT;
-				target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
-				movement_count.x += (App->map->data.tile_width / 2);
-				movement_count.y += (App->map->data.tile_height / 2);
+				
+				if (!CheckEnemyNextTile(Direction::DOWN_RIGHT)) {
+					direction = Direction::DOWN_RIGHT;
+					target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
+					movement_count.x += (App->map->data.tile_width / 2);
+					movement_count.y += (App->map->data.tile_height / 2);
+					actual_tile += {1, 0};
+					is_movement_acepted = true;
+				}
 			}
 			else if (player_input.pressing_D && !player_input.pressing_shift) {
-				direction = Direction::UP_RIGHT;
-				target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
-				movement_count.x += (App->map->data.tile_width / 2);
-				movement_count.y -= (App->map->data.tile_height / 2);
+				if (!CheckEnemyNextTile(Direction::UP_RIGHT)) {
+					direction = Direction::UP_RIGHT;
+					target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
+					movement_count.x += (App->map->data.tile_width / 2);
+					movement_count.y -= (App->map->data.tile_height / 2);
+					actual_tile += {0, -1};
+					is_movement_acepted = true;
+				}
 			}
 			else if (player_input.pressing_W && !player_input.pressing_shift) {
-				direction = Direction::UP_LEFT;
-				target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
-				movement_count.x -= (App->map->data.tile_width / 2);
-				movement_count.y -= (App->map->data.tile_height / 2);
+				if (!CheckEnemyNextTile(Direction::UP_LEFT)) {
+					direction = Direction::UP_LEFT;
+					target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
+					movement_count.x -= (App->map->data.tile_width / 2);
+					movement_count.y -= (App->map->data.tile_height / 2);
+					actual_tile += {-1, 0};
+					is_movement_acepted = true;
+				}
 			}
 		}
 		if (!MultipleButtons(&player_input)) {
@@ -170,7 +205,9 @@ void Player::ReadPlayerMovementInQuest()
 				current_animation = &IdleUp;
 		}
 		else {
-			ChangeTurn(type);
+			if (is_movement_acepted) {
+				ChangeTurn(type);
+			}
 		}
 	}
 }
@@ -381,45 +418,57 @@ const bool Player::MultipleButtons(const Input * input)
 	return ret;
 }
 
-const bool Player::CheckEnemyNextTile(const Direction * dir)
+const bool Player::CheckEnemyNextTile(const Direction & dir)
 {
-	bool ret = true;
+	bool ret = false;
 	std::list<Entity*> entities = App->entity_manager->GetEntities();
 	std::list<Entity*>::iterator item = entities.begin();
 
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr && (*item)->type == EntityType::ENEMY) {
-			iPoint origin = App->map->WorldToMap(position.x, position.y);
+			iPoint origin = actual_tile;
 			iPoint destination = App->map->WorldToMap((*item)->position.x, (*item)->position.y);
 			
-			switch (*dir) {
+			switch (dir) {
 			case Direction::DOWN:
 				origin += {1, 1};
 				if (destination == origin)
-					ret = false;
+					ret = true;
 				break;
 			case Direction::UP:
-				origin -= {1, 1};
+				origin += {-1, -1};
 				if (destination == origin)
-					ret = false;
+					ret = true;
 				break;
 			case Direction::LEFT:
-
+				origin += {-1, 1};
+				if (destination == origin)
+					ret = true;
 				break;
 			case Direction::RIGHT:
-
+				origin += {1, -1};
+				if (destination == origin)
+					ret = true;
 				break;
 			case Direction::DOWN_LEFT:
-
+				origin += {0, 1};
+				if (destination == origin)
+					ret = true;
 				break;
 			case Direction::DOWN_RIGHT:
-
+				origin += {1, 0};
+				if (destination == origin)
+					ret = true;
 				break;
 			case Direction::UP_LEFT:
-
+				origin += {-1, 0};
+				if (destination == origin)
+					ret = true;
 				break;
 			case Direction::UP_RIGHT:
-
+				origin += {0, -1};
+				if (destination == origin)
+					ret = true;
 				break;
 			}
 		}
