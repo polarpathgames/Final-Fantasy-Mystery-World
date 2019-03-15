@@ -45,7 +45,7 @@ bool j1UIManager::Update(float dt)
 	}
 
 	std::list<GUI*>::iterator item2 = ui_list.begin();
-	for (; item2 != ui_list.end(); ++item)
+	for (; item2 != ui_list.end(); ++item2)
 	{
 		if ((*item2) != nullptr)
 			(*item2)->Draw(atlas);
