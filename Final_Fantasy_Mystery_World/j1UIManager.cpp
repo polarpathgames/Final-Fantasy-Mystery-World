@@ -19,7 +19,7 @@ bool j1UIManager::Awake(pugi::xml_node &node)
 
 bool j1UIManager::Start()
 {
-	atlas = App->tex->Load("gui/mock_image.png");
+	atlas = App->tex->Load("gui/atlas.png");
 	return true;
 }
 

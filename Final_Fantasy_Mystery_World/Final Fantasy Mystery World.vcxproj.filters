@@ -61,6 +61,9 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>UI\UIScenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Scene.h" />
@@ -137,6 +140,9 @@
     <ClInclude Include="Enemy.h">
       <Filter>Entities</Filter>
     </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>UI\UIScenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\config.xml" />
@@ -154,6 +160,9 @@
     </Filter>
     <Filter Include="Entities">
       <UniqueIdentifier>{293d05cb-82cb-4ce2-b8a9-f1269d39697a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\UIScenes">
+      <UniqueIdentifier>{e1b0415c-a1b7-4b7e-9bfe-da567a1d1330}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

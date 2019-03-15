@@ -81,8 +81,8 @@ bool j1Scene::Update(float dt)
 		App->entity_manager->CreatePlayer();
 	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
 		App->entity_manager->CreateEnemy();
-	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-		mock_image_ui = App->ui_manager->AddImage(0, 0, &mock_image_rect, nullptr, this, nullptr);
+	/*if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+		mock_image_ui = App->ui_manager->AddImage(0, 0, &mock_image_rect, nullptr, this, nullptr);*/
 
 	App->map->Draw();
 

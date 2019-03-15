@@ -38,8 +38,8 @@ public:
 
 public:
 
-	GUI* mock_image_ui = nullptr;
-	SDL_Rect mock_image_rect = { 0, 0, 61, 76 };
+	//GUI* mock_image_ui = nullptr;
+	//SDL_Rect mock_image_rect = { 0, 0, 61, 76 };
 };
 
 #endif // __j1SCENE_H__
