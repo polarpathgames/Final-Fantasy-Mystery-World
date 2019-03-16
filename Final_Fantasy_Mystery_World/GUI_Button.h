@@ -2,6 +2,7 @@
 #define __GUI_BUTTON_H__
 
 #include "GUI.h"
+#include "GUI_Label.h"
 
 class GUI_Button : public GUI
 {
@@ -10,12 +11,13 @@ public:
 	~GUI_Button();
 
 	void setAnimation(int state);
+	void SetText(Gui_Label* text);
 
 private:
 	SDL_Rect normal;
 	SDL_Rect mouse_in;
 	SDL_Rect clicked;
-	//Gui_Label* text = nullptr;
+	Gui_Label* text = nullptr;
 
 };
 

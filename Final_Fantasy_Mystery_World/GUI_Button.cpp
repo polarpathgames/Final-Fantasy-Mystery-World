@@ -1,7 +1,7 @@
 #include "j1App.h"
 //#include "j1Fonts.h"
 #include "GUI_button.h"
-//#include "GUI_Label.h"
+#include "GUI_Label.h"
 #include "j1Textures.h"
 #include "p2Log.h"
 #include "j1Scene.h"
@@ -40,5 +40,12 @@ void GUI_Button::setAnimation(int state)
 
 	else if (state == 3)
 		animation_rect = clicked;
+}
+
+void GUI_Button::SetText(Gui_Label* text)
+{
+	this->text = text;
+	text->position.x = this->position.x + animation_rect.w / 2 - text->animation_rect.w / 2;
+	text->position.y = this->position.y + animation_rect.h / 2 - text->animation_rect.h / 2;
 }
 
