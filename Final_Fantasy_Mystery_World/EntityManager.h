@@ -54,7 +54,7 @@ public:
 private:
 
 	std::vector<Entity*> entities;
-	SDL_Texture* texture = nullptr;
+	std::vector<SDL_Texture*> texture;
 
 public:
 

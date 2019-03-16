@@ -11,7 +11,7 @@
 Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 {
 	//LoadXML("player_config.xml");
-	LoadEntityData("entities/Animist.tsx");
+	LoadEntityData("entities/Player.tsx");
 
 	//GoLeft = LoadPushbacks(node, "GoLeft");
 	//IdleLeft = LoadPushbacks(node, "IdleLeft");

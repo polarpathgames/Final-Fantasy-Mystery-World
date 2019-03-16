@@ -13,11 +13,11 @@
 Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 {
 	//LoadXML("player_config.xml");
-	LoadEntityData("entities/Animist.tsx");
+	LoadEntityData("entities/Enemy.tsx");
 	//GoLeft = LoadPushbacks(node, "GoLeft");
 	//IdleLeft = LoadPushbacks(node, "IdleLeft");
 
-	type = Entity::EntityType::PLAYER;
+	type = Entity::EntityType::ENEMY;
 
 	current_animation = &IdleLeft;
 

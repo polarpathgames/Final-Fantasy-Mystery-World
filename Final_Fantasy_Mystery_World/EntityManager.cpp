@@ -39,7 +39,8 @@ bool EntityManager::Start()
 	bool ret = true;
 
 
-	texture = App->tex->Load("textures/Animist.png");
+	texture.push_back(App->tex->Load("textures/Animist.png"));
+	texture.push_back(App->tex->Load("textures/Animist2.png"));
 
 	return ret;
 }
@@ -70,8 +71,12 @@ bool EntityManager::Update(float dt)
 	}
 	item = entities.begin();
 	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr)
-			(*item)->Draw(texture, dt);
+		if ((*item) != nullptr) {
+			if ((*item)->type == Entity::EntityType::PLAYER)
+				(*item)->Draw(texture[0], dt);
+			else if((*item)->type == Entity::EntityType::ENEMY)
+				(*item)->Draw(texture[1], dt);
+		}
 	}
 	
 	return true;
@@ -102,7 +107,9 @@ bool EntityManager::CleanUp()
 		}
 	}
 	entities.clear();
-	App->tex->UnLoad(texture);
+	for (int i = 0; i < texture.size(); ++i) {
+		App->tex->UnLoad(texture[i]);
+	}
 	return true;
 }
 
