@@ -15,8 +15,8 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 
 	//GoLeft = LoadPushbacks(node, "GoLeft");
 	//IdleLeft = LoadPushbacks(node, "IdleLeft");
-	position.x = 100;
-	position.y = 200;
+
+	type = Entity::EntityType::PLAYER;
 
 	current_animation = &IdleLeft;
 

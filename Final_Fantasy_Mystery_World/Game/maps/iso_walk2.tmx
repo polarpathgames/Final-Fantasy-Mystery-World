@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="30" height="30" tilewidth="32" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="2">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="30" height="30" tilewidth="32" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="4">
  <tileset firstgid="1" name="isometric_snow" tilewidth="32" tileheight="32" tilecount="336" columns="24">
   <image source="isometric_snow.png" width="768" height="448"/>
  </tileset>
@@ -909,5 +909,6 @@
  </layer>
  <objectgroup id="2" name="player">
   <object id="1" name="player" type="dynamic" x="105.25" y="61.75"/>
+  <object id="3" name="Chris" type="enemy" x="162" y="222"/>
  </objectgroup>
 </map>

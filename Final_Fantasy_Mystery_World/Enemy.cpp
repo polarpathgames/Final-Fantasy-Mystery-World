@@ -16,8 +16,8 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 	LoadEntityData("entities/Animist.tsx");
 	//GoLeft = LoadPushbacks(node, "GoLeft");
 	//IdleLeft = LoadPushbacks(node, "IdleLeft");
-	position.x = 100;
-	position.y = 50;
+
+	type = Entity::EntityType::PLAYER;
 
 	current_animation = &IdleLeft;
 
