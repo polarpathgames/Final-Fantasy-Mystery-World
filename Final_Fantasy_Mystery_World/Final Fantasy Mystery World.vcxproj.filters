@@ -67,6 +67,9 @@
     <ClCompile Include="GUI_Button.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="j1Fonts.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Scene.h" />
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="GUI_Button.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Fonts.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

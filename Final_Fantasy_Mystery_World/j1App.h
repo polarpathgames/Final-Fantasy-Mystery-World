@@ -18,6 +18,7 @@ class j1Audio;
 class j1Map;
 class j1Scene;
 class j1UIManager;
+class j1Fonts;
 class EntityManager;
 class j1PathFinding;
 
@@ -94,6 +95,7 @@ public:
 	j1Audio*			audio;
 	j1Map*				map;
 	j1Scene*			scene;
+	j1Fonts*            fonts;
 	j1UIManager*        ui_manager;
 	EntityManager*		entity_manager;
 	j1PathFinding*		pathfinding;
