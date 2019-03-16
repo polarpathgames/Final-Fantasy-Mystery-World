@@ -1,5 +1,5 @@
 # Final Fantasy Mystery World
-![https://www.zerochan.net/687807](https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/docs/wiki/Home/Final_Fantasy_Mystery_World_Home.jpg) (extracted from: https://www.zerochan.net/687807) 
+![https://www.zerochan.net/687807](Final_Fantasy_Mystery_World_Home.jpg) (extracted from: https://www.zerochan.net/687807) 
 
 Final Fantasy Mystery World is a Roguelike game based on Final Fantasy Tactics Advance. The player will enter in a book that will take him to the world of Final Fantasy. In order to help his friend, the hero will travel around the kingdom to rescue him from the claws of an evil monster. When the protagonist just arrives at this newly world, he/she meets a little creature that will help him to get stronger.
 
@@ -8,10 +8,10 @@ The player will have the option to choose between different types of hero classe
 ## Team: Polar Path Games
 Polar Path Games is a videogame company originated in the subject of "Project 2" in the second year of the university course in Terrassa, Catalonia, Spain, called: Video Game Design and Development in CITM (UPC). We are a group of seven students full of illusion to make a great game. We already have participated in other smalls projects at university and also out of it. It is our first game that we make together and will we the biggest game we will made since now. Our objective is to make a funny game that makes you remember it for a long time. Breaking ice, Creating steps.
 
-![Logo](https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/docs/wiki/Home/LOGO.png)
+![Logo](LOGO.png)
 _(Team Logo)_
 
-![Team](https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/docs/wiki/Home/Team.jpg)
+![Team](Team.jpg)
 _(First row, from left to right: Marc Gálvez, Oriol Capdevila, Enric Pérez, Iván Ropero;_
 _Second row, from left to right: Christian Martínez, Nadine Gutiérrez, Lluís Moreu)_
 
@@ -34,15 +34,15 @@ Each member has a role in the team, in order to cover all project responsabiliti
 ## Social Media
 In order to show the project advancements, releases and other information, you can follow us in our social media. We will upload weekly content. For any message or suggestion you can talk with us in the next social media. We will appreciate any interaction.
 
-<img src="https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/docs/wiki/Home/icon_twitter.png" width="50"> [@polarpathgames](https://twitter.com/polarpathgames)
+![twitter](icon_twitter.png) [@polarpathgames](https://twitter.com/polarpathgames)
 
-<img src="https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/docs/wiki/Home/icon_instagram.png" width="50"> [@polarpathgames](https://www.instagram.com/polarpathgames/)
+![instagram](icon_instagram.png) [@polarpathgames](https://www.instagram.com/polarpathgames/)
 
-<img src="https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/docs/wiki/Home/icon_youtube.png" width="50"> [PolarPath Games](https://www.youtube.com/channel/UCx2jJZu3o-egIp2R8nH6vuA?ab_channel=PolarPathGames)
+![youtube](icon_youtube.png) [PolarPath Games](https://www.youtube.com/channel/UCx2jJZu3o-egIp2R8nH6vuA?ab_channel=PolarPathGames)
 
 Contact us:
  
-<img src="https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/docs/wiki/Home/icon_mail.png" width="50">polarpathgames@gmail.com
+![email](icon_mail.png)polarpathgames@gmail.com
 
 ## Teaser Trailer
 
