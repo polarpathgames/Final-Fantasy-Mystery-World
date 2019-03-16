@@ -17,7 +17,7 @@ class DynamicEntity  : public Entity
 {
 public:
 
-	DynamicEntity();
+	DynamicEntity(const int &x, const int &y);
 	virtual ~DynamicEntity();
 	
 	virtual bool PreUpdate() { return true; };

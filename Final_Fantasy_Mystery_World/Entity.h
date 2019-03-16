@@ -11,14 +11,7 @@
 
 struct SDL_Texture;
 
-enum class EntityType
-{
-	PLAYER,
-	ENEMY,
 
-
-	NO_TYPE
-};
 
 enum class State {
 	IDLE, WALKING, NONE
@@ -59,8 +52,17 @@ struct EntityInfo {
 class Entity
 {
 public:
+	enum class EntityType
+	{
+		PLAYER,
+		ENEMY,
 
-	Entity();
+
+		NO_TYPE
+	};
+
+public:
+	Entity(const int& x, const int& y);
 	virtual ~Entity();
 
 	bool LoadEntityData(const char*);

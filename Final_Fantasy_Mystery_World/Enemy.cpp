@@ -10,7 +10,7 @@
 #include "j1Pathfinding.h"
 #include "Player.h"
 
-Enemy::Enemy() : DynamicEntity()
+Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 {
 	//LoadXML("player_config.xml");
 	LoadEntityData("entities/Animist.tsx");

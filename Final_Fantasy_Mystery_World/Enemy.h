@@ -14,7 +14,7 @@ class Enemy : public DynamicEntity
 
 public:
 
-	Enemy();
+	Enemy(const int &x, const int &y);
 
 	virtual ~Enemy();
 

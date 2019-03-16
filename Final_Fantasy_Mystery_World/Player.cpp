@@ -8,7 +8,7 @@
 #include "j1Map.h"
 #include <string>
 
-Player::Player() : DynamicEntity()
+Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 {
 	//LoadXML("player_config.xml");
 	LoadEntityData("entities/Animist.tsx");
@@ -24,11 +24,6 @@ Player::Player() : DynamicEntity()
 	state = State::IDLE;
 	movement_type = Movement_Type::InQuest;
 
-	iPoint p;
-	p = App->map->WorldToMap(position.x, position.y);
-	p = App->map->MapToWorld(p.x, p.y);
-	position.x = p.x + 3;
-	position.y = p.y + 5;
 	velocity.x = 160;
 	velocity.y = 80;
 	target_position = position;
@@ -447,8 +442,8 @@ const bool Player::MultipleButtons(const Input * input)
 const bool Player::CheckEnemyNextTile(const Direction & dir)
 {
 	bool ret = false;
-	std::list<Entity*> entities = App->entity_manager->GetEntities();
-	std::list<Entity*>::iterator item = entities.begin();
+	std::vector<Entity*> entities = App->entity_manager->GetEntities();
+	std::vector<Entity*>::iterator item = entities.begin();
 
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr && (*item)->type == EntityType::ENEMY) {

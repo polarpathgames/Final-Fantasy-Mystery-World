@@ -42,6 +42,8 @@ bool j1Scene::Start()
 	if (App->map->CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
 
+	CreateEntities();
+
 	return true;
 }
 
@@ -77,10 +79,13 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x -= 300 * dt;
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		App->map->Grid = !App->map->Grid;
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-		App->entity_manager->CreatePlayer();
-	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
-		App->entity_manager->CreateEnemy();
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
+		int x = 0, y = 0;
+		App->input->GetMousePosition(x, y);
+		App->entity_manager->CreateEntity(Entity::EntityType::PLAYER, x, y, std::string());
+	}
+	//if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+	//	App->entity_manager->CreateEnemy();
 	/*if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 		mock_image_ui = App->ui_manager->AddImage(0, 0, &mock_image_rect, nullptr, this, nullptr);*/
 
@@ -116,4 +121,25 @@ bool j1Scene::CleanUp()
 	LOG("Freeing scene");
 
 	return true;
+}
+
+void j1Scene::CreateEntities()
+{
+	//iterate all objects of map made with Tiled to find entities
+
+	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
+		if ((*position)->name == "player") {
+			App->entity_manager->CreateEntity(Entity::EntityType::PLAYER, (*position)->coll_x, (*position)->coll_y, (*position)->name);
+		}
+		else if ((*position)->ent_type == "static") {
+			//App->entity_manager->CreateEntity(Entity::EntityType::STATIC, (*position)->coll_x, (*position)->coll_y, (*position)->name);
+
+		}
+		else if ((*position)->ent_type == "enemy") {
+			App->entity_manager->CreateEntity(Entity::EntityType::ENEMY, (*position)->coll_x, (*position)->coll_y, (*position)->name);
+		}
+		else {
+			LOG("There isn't any entity with name %s and type %s", (*position)->name.data(), (*position)->ent_type.data());
+		}
+	}
 }

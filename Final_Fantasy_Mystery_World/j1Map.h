@@ -35,6 +35,20 @@ struct Properties
 	std::list<Property*>	list;
 };
 
+//-----------------------------------------------------------------
+struct ObjectLayer {
+
+	std::string name;
+	std::string ent_type;
+
+	uint tile_id;
+	int	coll_x;
+	int	coll_y;
+	int coll_width = 0;
+	int coll_height = 0;
+
+};
+
 // ----------------------------------------------------
 struct MapLayer
 {
@@ -88,14 +102,15 @@ enum MapTypes
 // ----------------------------------------------------
 struct MapData
 {
-	int					width;
-	int					height;
-	int					tile_width;
-	int					tile_height;
-	SDL_Color			background_color;
-	MapTypes			type;
-	std::list<TileSet*>	tilesets;
-	std::list<MapLayer*>	layers;
+	int							width;
+	int							height;
+	int							tile_width;
+	int							tile_height;
+	SDL_Color					background_color;
+	MapTypes					type;
+	std::list<TileSet*>			tilesets;
+	std::list<MapLayer*>		layers;
+	std::list<ObjectLayer*>		objects;
 };
 
 // ----------------------------------------------------
@@ -132,6 +147,7 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
+	bool LoadObject(pugi::xml_node& tileset_node, ObjectLayer* obj);
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 
 	TileSet* GetTilesetFromTileId(int id) const;

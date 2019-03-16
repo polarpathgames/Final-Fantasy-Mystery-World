@@ -3,7 +3,8 @@
 
 #include "j1Module.h"
 #include "p2Animation.h"
-#include <list>
+#include "Entity.h"
+#include <vector>
 
 class Player;
 class Enemy;
@@ -37,18 +38,22 @@ public:
 
 	bool CleanUp();
 
-	Player* CreatePlayer();
-	Enemy* CreateEnemy();
+
+	Entity* CreateEntity(Entity::EntityType type, int PositionX, int PositionY, std::string name);
+	//Player* CreatePlayer();
+	//Enemy* CreateEnemy();
 
 	void DeleteEntities();
 
 	Player * GetPlayerData() const;
 
-	const std::list<Entity*> GetEntities();
+	const std::vector<Entity*> GetEntities();
+
+	//static bool SortByYPos(const Entity * ent1, const Entity * ent2);
 
 private:
 
-	std::list<Entity*> entities;
+	std::vector<Entity*> entities;
 	SDL_Texture* texture = nullptr;
 
 public:

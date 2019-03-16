@@ -47,7 +47,7 @@ bool EntityManager::Start()
 bool EntityManager::PreUpdate()
 {
 	
-	std::list<Entity*>::iterator item = entities.begin();
+	std::vector<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr) {
 			if ((*item)->has_turn) {
@@ -62,7 +62,7 @@ bool EntityManager::PreUpdate()
 // Called before render is available
 bool EntityManager::Update(float dt)
 {
-	std::list<Entity*>::iterator item = entities.begin();
+	std::vector<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr)
 				(*item)->Update(dt);
@@ -79,7 +79,7 @@ bool EntityManager::Update(float dt)
 
 bool EntityManager::PostUpdate()
 {
-	std::list<Entity*>::iterator item = entities.begin();
+	std::vector<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr)
 				(*item)->PostUpdate();
@@ -92,7 +92,7 @@ bool EntityManager::PostUpdate()
 // Called before quitting
 bool EntityManager::CleanUp()
 {
-	std::list<Entity*>::iterator item = entities.begin();
+	std::vector<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr) {
 			(*item)->CleanUp();
@@ -107,38 +107,57 @@ bool EntityManager::CleanUp()
 }
 
 
-
-
-Player * EntityManager::CreatePlayer()
+//Entity Factory
+Entity* EntityManager::CreateEntity(Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
-	Player* ret = nullptr;
-
-	ret = new Player();
-	ret->type = EntityType::PLAYER;
-	ret->has_turn = true;
-	if (ret != nullptr)
+	static_assert(Entity::EntityType::NO_TYPE == (Entity::EntityType)2, "code needs update");
+	Entity* ret = nullptr;
+	switch (type) {
+	case Entity::EntityType::PLAYER: ret = new Player(PositionX, PositionY); break;
+	case Entity::EntityType::ENEMY: ret = new Enemy(PositionX, PositionY); break;
+	//case Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
+	default:
+		LOG("Cannot find any entity with that type");
+		break;
+	}
+	if (ret != nullptr) {
 		entities.push_back(ret);
+		//ret->Start();
+	}
 
 	return ret;
 }
 
-Enemy * EntityManager::CreateEnemy()
-{
-	Enemy* ret = nullptr;
-
-	ret = new Enemy();
-	ret->type = EntityType::ENEMY;
-	ret->has_turn = false;
-	if (ret != nullptr)
-		entities.push_back(ret);
-
-	return ret;
-}
+//Player * EntityManager::CreatePlayer()
+//{
+//	Player* ret = nullptr;
+//
+//	ret = new Player();
+//	ret->type = Entity::EntityType::PLAYER;
+//	ret->has_turn = true;
+//	if (ret != nullptr)
+//		entities.push_back(ret);
+//
+//	return ret;
+//}
+//
+//Enemy * EntityManager::CreateEnemy()
+//{
+//	Enemy* ret = nullptr;
+//
+//	ret = new Enemy();
+//	ret->type = Entity::EntityType::ENEMY;
+//	ret->has_turn = false;
+//	if (ret != nullptr)
+//		entities.push_back(ret);
+//
+//	return ret;
+//}
 
 void EntityManager::DeleteEntities()
 {
 
-	std::list<Entity*>::iterator item = entities.begin();
+	std::vector<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr) {
 			(*item)->CleanUp();
@@ -154,11 +173,11 @@ void EntityManager::DeleteEntities()
 
 Player* EntityManager::GetPlayerData() const {
 
-	std::list<Entity*>::const_iterator item = entities.begin();
+	std::vector<Entity*>::const_iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr)
 		{
-			if ((*item)->type == EntityType::PLAYER)
+			if ((*item)->type == Entity::EntityType::PLAYER)
 				return (Player*)(*item);
 		}
 	}
@@ -166,7 +185,7 @@ Player* EntityManager::GetPlayerData() const {
 	return nullptr;
 }
 
-const std::list<Entity*> EntityManager::GetEntities()
+const std::vector<Entity*> EntityManager::GetEntities()
 {
 	return entities;
 }

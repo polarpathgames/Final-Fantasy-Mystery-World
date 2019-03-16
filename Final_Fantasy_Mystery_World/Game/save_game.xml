@@ -4,12 +4,13 @@
 	<window />
 	<textures />
 	<audio />
-	<:anonymous />
 	<map />
 	<pathfinding />
 	<scene />
+	<:anonymous />
+	<:anonymous />
 	<entity_manager />
 	<renderer>
-		<camera x="380" y="-37" />
+		<camera x="-2" y="0" />
 	</renderer>
 </game_state>

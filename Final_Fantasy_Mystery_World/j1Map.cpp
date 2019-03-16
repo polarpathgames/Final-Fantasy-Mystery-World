@@ -275,6 +275,23 @@ bool j1Map::Load(const char* file_name)
 			data.layers.push_back(lay);
 	}
 
+	// Load objects info --------------------------------------------
+	pugi::xml_node objectGroup;
+	pugi::xml_node object;
+
+	for (objectGroup = map_file.child("map").child("objectgroup"); objectGroup && ret; objectGroup = objectGroup.next_sibling("objectgroup"))
+	{
+		for (object = objectGroup.child("object"); object; object = object.next_sibling("object")) {
+
+			ObjectLayer* obj = new ObjectLayer();
+
+			if (ret == true && object != NULL)
+				ret = LoadObject(object, obj);
+
+			data.objects.push_back(obj);
+		}
+	}
+
 	if(ret == true)
 	{
 		LOG("Successfully parsed map XML file: %s", file_name);
@@ -462,6 +479,27 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 			layer->data[i++] = tile.attribute("gid").as_int(0);
 		}
 	}
+
+	return ret;
+}
+
+bool j1Map::LoadObject(pugi::xml_node & object_node, ObjectLayer * obj)
+{
+	bool ret = true;
+	if (object_node.empty())	ret = false;
+
+	//Load Collider / Entity data
+	obj->name = object_node.attribute("name").as_string();
+	obj->ent_type = object_node.attribute("type").as_string();
+	obj->tile_id = object_node.attribute("id").as_uint();
+	obj->coll_x = object_node.attribute("x").as_int();
+	obj->coll_y = object_node.attribute("y").as_int();
+	obj->coll_height = object_node.attribute("height").as_uint();
+	obj->coll_width = object_node.attribute("width").as_uint();
+
+	//Load Collider type from ObjectGroup
+	pugi::xml_node objGroup = object_node.parent();
+	std::string type(objGroup.child("properties").child("property").attribute("value").as_string());
 
 	return ret;
 }

@@ -25,7 +25,7 @@ class Player : public DynamicEntity
 
 public:
 
-	Player();
+	Player(const int &x, const int &y);
 
 	virtual ~Player();
 

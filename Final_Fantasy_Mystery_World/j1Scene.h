@@ -36,6 +36,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void CreateEntities();
+
 public:
 
 	//GUI* mock_image_ui = nullptr;

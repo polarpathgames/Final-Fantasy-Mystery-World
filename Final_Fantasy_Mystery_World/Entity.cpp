@@ -8,8 +8,10 @@
 #include "j1Textures.h"
 
 
-Entity::Entity()
+Entity::Entity(const int& x, const int& y)
 {
+	position.x = x;
+	position.y = y;
 }
 
 Entity::~Entity()
