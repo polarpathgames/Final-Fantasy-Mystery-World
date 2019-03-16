@@ -20,6 +20,8 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 
 	current_animation = &IdleLeft;
 
+	SetPivot(0, 30);
+
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
 	movement_type = Movement_Type::InQuest;

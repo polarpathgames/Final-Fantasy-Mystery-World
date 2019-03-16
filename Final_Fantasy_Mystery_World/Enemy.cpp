@@ -19,6 +19,8 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 
 	type = Entity::EntityType::ENEMY;
 
+	SetPivot(0, 30);
+
 	current_animation = &IdleLeft;
 
 	direction = Direction::LEFT;

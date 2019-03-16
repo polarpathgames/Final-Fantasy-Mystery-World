@@ -76,6 +76,8 @@ public:
 	virtual bool CleanUp() { return true; };
 	virtual void Draw(SDL_Texture* tex, float dt);
 
+	void SetPivot(const int &x, const int &y);
+
 	virtual bool Load(pugi::xml_node&) { return true; };
 	virtual bool Save(pugi::xml_node&) const { return true; };
 
@@ -87,7 +89,9 @@ public:
 	EntityType type = EntityType::NO_TYPE;
 	EntityInfo data;
 
-	iPoint position{ 0,0 };
+	iPoint position = { 0,0 };
+	iPoint pivot = { 0, 0 };
+	iPoint size = { 0,0 };
 
 	Animation* current_animation = nullptr;
 

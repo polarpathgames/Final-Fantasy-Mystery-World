@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "Player.h"
 #include "Enemy.h"
+#include <algorithm>
 
 
 
@@ -63,18 +64,26 @@ bool EntityManager::PreUpdate()
 // Called before render is available
 bool EntityManager::Update(float dt)
 {
+	std::vector<Entity*> draw_entities;
 	std::vector<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr)
-				(*item)->Update(dt);
+		if ((*item) != nullptr) {
+			(*item)->Update(dt);
+			
+			if (App->render->IsOnCamera((*item)->position.x, (*item)->position.y, (*item)->size.x, (*item)->size.y)) {
+				draw_entities.push_back(*item);
+			}
+		}
 
 	}
-	item = entities.begin();
-	for (; item != entities.end(); ++item) {
+
+	std::sort(draw_entities.begin(), draw_entities.end(), EntityManager::SortByYPos);
+
+	for (std::vector<Entity*>::iterator item = draw_entities.begin(); item != draw_entities.end(); ++item) {
 		if ((*item) != nullptr) {
 			if ((*item)->type == Entity::EntityType::PLAYER)
 				(*item)->Draw(texture[0], dt);
-			else if((*item)->type == Entity::EntityType::ENEMY)
+			else if ((*item)->type == Entity::EntityType::ENEMY)
 				(*item)->Draw(texture[1], dt);
 		}
 	}
@@ -195,6 +204,11 @@ Player* EntityManager::GetPlayerData() const {
 const std::vector<Entity*> EntityManager::GetEntities()
 {
 	return entities;
+}
+
+bool EntityManager::SortByYPos(const Entity * ent1, const Entity * ent2)
+{
+	return ent1->pivot.y + ent1->position.y < ent2->pivot.y + ent2->position.y;
 }
 
 bool EntityManager::Load(pugi::xml_node& load)

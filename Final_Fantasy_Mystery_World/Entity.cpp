@@ -23,6 +23,11 @@ void Entity::Draw(SDL_Texture * tex, float dt)
 	App->render->Blit(tex, position.x, position.y, &(current_animation->GetCurrentFrame(dt)));
 }
 
+void Entity::SetPivot(const int & x, const int & y)
+{
+	pivot.create(x, y);
+}
+
 void Entity::LoadXML(std::string name_xml_file)
 {
 	config = App->LoadConfig(config_file, name_xml_file.data());
@@ -81,6 +86,8 @@ bool Entity::LoadEntityData(const char* file) {
 	data.tileset.imagePath = _node.child("image").attribute("source").as_string();
 	data.tileset.width = _node.child("image").attribute("width").as_uint();
 	data.tileset.height = _node.child("image").attribute("height").as_uint();
+
+	size.create(data.tileset.tilewidth, data.tileset.tileheight);
 
 	//provisional ubication -----------------------------
 	data.tileset.texture = App->tex->Load(data.tileset.imagePath.data());

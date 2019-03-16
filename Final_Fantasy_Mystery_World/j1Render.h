@@ -43,6 +43,8 @@ public:
 
 	iPoint ScreenToWorld(int x, int y) const;
 
+	bool IsOnCamera(const int&x, const int&y, const int&w, const int& h) const;
+
 	
 	
 	// Set background color

@@ -49,7 +49,7 @@ public:
 
 	const std::vector<Entity*> GetEntities();
 
-	//static bool SortByYPos(const Entity * ent1, const Entity * ent2);
+	static bool SortByYPos(const Entity * ent1, const Entity * ent2);
 
 private:
 
