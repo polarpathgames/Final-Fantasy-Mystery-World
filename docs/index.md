@@ -34,15 +34,15 @@ Each member has a role in the team, in order to cover all project responsabiliti
 ## Social Media
 In order to show the project advancements, releases and other information, you can follow us in our social media. We will upload weekly content. For any message or suggestion you can talk with us in the next social media. We will appreciate any interaction.
 
-![twitter](icon_twitter.png) [@polarpathgames](https://twitter.com/polarpathgames)
+<img src="icon_twitter.png" width="50"> [@polarpathgames](https://twitter.com/polarpathgames)
 
-![instagram](icon_instagram.png) [@polarpathgames](https://www.instagram.com/polarpathgames/)
+<img src="icon_instagram.png" width="50"> [@polarpathgames](https://www.instagram.com/polarpathgames/)
 
-![youtube](icon_youtube.png) [PolarPath Games](https://www.youtube.com/channel/UCx2jJZu3o-egIp2R8nH6vuA?ab_channel=PolarPathGames)
+<img src="icon_youtube.png" width="50"> [PolarPath Games](https://www.youtube.com/channel/UCx2jJZu3o-egIp2R8nH6vuA?ab_channel=PolarPathGames)
 
 Contact us:
  
-![email](icon_mail.png)polarpathgames@gmail.com
+<img src="icon_mail.png" width="50">polarpathgames@gmail.com
 
 ## Teaser Trailer
 
