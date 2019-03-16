@@ -85,6 +85,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="GUI.cpp" />
+    <ClCompile Include="GUI_Button.cpp" />
     <ClCompile Include="GUI_Image.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="GUI.h" />
+    <ClInclude Include="GUI_Button.h" />
     <ClInclude Include="GUI_Image.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Pathfinding.h" />

@@ -20,7 +20,7 @@ bool GUI::Update(float dt)
 
 void GUI::Draw(SDL_Texture* texture)
 {
-	App->render->Blit(texture, position.x, position.y, &atlas_rect);
+	App->render->Blit(texture, position.x, position.y, &atlas_rect, SDL_FLIP_NONE, 0);
 }
 
 bool GUI::CleanUp()

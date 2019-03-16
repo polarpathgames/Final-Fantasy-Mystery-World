@@ -64,6 +64,9 @@
     <ClCompile Include="MainMenu.cpp">
       <Filter>UI\UIScenes</Filter>
     </ClCompile>
+    <ClCompile Include="GUI_Button.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Scene.h" />
@@ -142,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="MainMenu.h">
       <Filter>UI\UIScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI_Button.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
