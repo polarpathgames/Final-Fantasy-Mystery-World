@@ -31,18 +31,6 @@ Each member has a role in the team, in order to cover all project responsabiliti
 
 **Code** - Oriol Capdevila [OriolCS2](https://github.com/OriolCS2)
 
-## Index
-
-  + [General Analysis of Final Fantasy Tactics Advance](https://github.com/polarpathgames/Final-Fantasy-Mystery-World/wiki/General-Analysis-of-Final-Fantasy-Tactics-Advance)
-  + [Game Design Document](https://github.com/polarpathgames/Final-Fantasy-Mystery-World/wiki/Game-Design-Document)
-  + [Art Bible](https://github.com/polarpathgames/Final-Fantasy-Mystery-World/wiki/Art-Bible)
-  + [Audio Bible](https://github.com/polarpathgames/Final-Fantasy-Mystery-World/wiki/Audio-Bible)
-  + [Tech Design Document](https://github.com/polarpathgames/Final-Fantasy-Mystery-World/wiki/Tech-Design-Document)
-  + [User Interface Document](https://github.com/polarpathgames/Final-Fantasy-Mystery-World/wiki/User-Interface-Document)
-  + [QA Plan](https://github.com/polarpathgames/Final-Fantasy-Mystery-World/wiki/QA-Plan)
-  + [Production Plan](https://github.com/polarpathgames/Final-Fantasy-Mystery-World/wiki/Production-Plan)
-
-
 ## Social Media
 In order to show the project advancements, releases and other information, you can follow us in our social media. We will upload weekly content. For any message or suggestion you can talk with us in the next social media. We will appreciate any interaction.
 
@@ -55,6 +43,10 @@ In order to show the project advancements, releases and other information, you c
 Contact us:
  
 <img src="https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/docs/wiki/Home/icon_mail.png" width="50">polarpathgames@gmail.com
+
+## Teaser Trailer
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IiKz0--5gdE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## License
 
