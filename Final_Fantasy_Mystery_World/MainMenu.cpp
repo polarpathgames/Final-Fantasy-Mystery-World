@@ -18,6 +18,7 @@ bool MainMenu::Start()
 	SDL_Rect background_rect = { 0, 0, 1024, 768 };
 	background = App->ui_manager->AddImage(0, 0, &background_rect, nullptr, this, nullptr);
 
+
 	return true;
 }
 

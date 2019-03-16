@@ -9,6 +9,7 @@ enum UI
 {
 	IMAGE,
 	LABEL,
+	BUTTON,
 	NON,
 };
 
@@ -31,6 +32,7 @@ public:
 	bool CleanUp();
 
 	GUI* AddImage(int x, int y, SDL_Rect* rect, Animation *anim, j1Module* callback, GUI* parent);
+	GUI* AddButton(int x, int y, SDL_Rect normal, SDL_Rect mouse_in, SDL_Rect clicked, j1Module* callback, GUI* parent);
 
 	void DestroyUI();
 	const SDL_Texture* GetAtlas() const;

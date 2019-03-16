@@ -3,6 +3,7 @@
 #include "p2Log.h"
 #include "j1Textures.h"
 #include "GUI_Image.h"
+#include "GUI_Button.h"
 #include "GUI.h"
 
 j1UIManager::j1UIManager(): j1Module()
@@ -98,6 +99,13 @@ GUI* j1UIManager::AddImage(int x, int y, SDL_Rect* rect, Animation* anim, j1Modu
 	}
 
 	return image;
+}
+
+GUI* j1UIManager::AddButton(int x, int y, SDL_Rect normal, SDL_Rect mouse_in, SDL_Rect clicked, j1Module* callback, GUI* parent)
+{
+	GUI* button = new GUI_Button(x, y, normal, mouse_in, clicked, callback, BUTTON, parent);
+	ui_list.push_back(button);
+	return button;
 }
 
 void j1UIManager::DestroyUI()
