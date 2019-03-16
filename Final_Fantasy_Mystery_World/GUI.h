@@ -23,10 +23,11 @@ public:
 	UI type = UI::NON;
 	iPoint position;
 	GUI* parent = nullptr;
+	SDL_Texture* texture = nullptr;
 	j1Module* callback = nullptr;
 	Animation* current_animation = nullptr;
 
-	SDL_Rect atlas_rect = {0, 0, 0, 0};
+	SDL_Rect animation_rect = {0, 0, 0, 0};
 };
 
 

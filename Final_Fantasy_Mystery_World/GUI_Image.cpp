@@ -8,6 +8,6 @@ GUI_Image::GUI_Image(int x, int y, UI type, GUI* parent, Animation* anim, j1Modu
 	position.x = x;
 	position.y = y;
 	this->type = type;
-	atlas_rect = *rect;
+	animation_rect = *rect;
 
 }
