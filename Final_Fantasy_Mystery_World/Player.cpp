@@ -21,13 +21,15 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	current_animation = &IdleLeft;
 
 	SetPivot(0, 30);
-
+	has_turn = true;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
 	movement_type = Movement_Type::InQuest;
 
 	velocity.x = 160;
 	velocity.y = 80;
+	position.x += 3;
+	position.y += 5;
 	target_position = position;
 	initial_position = position;
 	movement_count = { 0,0 };

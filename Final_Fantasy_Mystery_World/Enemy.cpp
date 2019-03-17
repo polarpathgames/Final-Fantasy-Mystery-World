@@ -19,20 +19,17 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 
 	type = Entity::EntityType::ENEMY;
 
-	SetPivot(0, 30);
-
 	current_animation = &IdleLeft;
 
-	direction = Direction::LEFT;
-	state = State::IDLE;
+	SetPivot(0, 30);
 
-	iPoint p;
-	p = App->map->WorldToMap(position.x, position.y);
-	p = App->map->MapToWorld(p.x, p.y);
-	position.x = p.x + 3;
-	position.y = p.y + 5;
+	direction = Direction::DOWN_LEFT;
+	state = State::IDLE;
+	has_turn = false;
 	velocity.x = 160;
 	velocity.y = 80;
+	position.x += 3;
+	position.y -= 2;
 	target_position = position;
 	initial_position = position;
 	movement_count = { 0,0 };

@@ -908,7 +908,7 @@
   </data>
  </layer>
  <objectgroup id="2" name="player">
-  <object id="1" name="player" type="dynamic" x="105.25" y="61.75"/>
-  <object id="3" name="Chris" type="enemy" x="162" y="222"/>
+  <object id="1" name="player" type="dynamic" x="96.0625" y="47.9375" width="15.9688" height="16.0156"/>
+  <object id="3" name="Chris" type="enemy" x="239.84" y="111.84" width="16.0217" height="16.0217"/>
  </objectgroup>
 </map>
