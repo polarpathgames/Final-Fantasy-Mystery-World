@@ -1,10 +1,24 @@
-# Final Fantasy: Mystery World
+﻿# Final Fantasy: Mystery World
 
-Final Fantasy Mystery World v.0.0.0
+Final Fantasy Mystery World v.0.1.0
 
 ## Description
 
-(description of the version)
+Added: 
+- Player movement 
+- Entities management
+- Pathfinding (not fully implemented)
+- Turns system (not fully implemented)
+Changed:
+--------
+
+Removed: 
+--------
+
+Fixed: 
+--------
+
+
 
 ## Links
 
@@ -35,15 +49,31 @@ Oriol Capdevila [OriolCS2](https://github.com/OriolCS2)
 ## Controls
 ### General controls:
 
-- (key) ((explanation))
+- Keyboard:
+
+  - SPACEBAR: change between menu and map
+
+- Controller:
+
+  - Start: change between menu and map
 
 ### Player: 
 
-- (key) ((explanation))
+- Keyboard:
+  
+  - WASD: move the player
+  - LSHIFT: change to a diagonally movement
+
+- Controller:
+  
+  - LEFT JOYSTICK: move the player
+  - RT: change to a diagonally movement
 
 ### Debug keys:
 
-- (key) ((explanation))
+- 2: Spawn the player
+- 4: Spawn the enemy
+- ARROWS: move the camera
 
 ## Instructions to execute
 
@@ -67,7 +97,26 @@ Who -> What
 
 ## License
 
-~~~
+MIT License
+
+Copyright (c) 2019 Polar Path Games
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 We hope you Enjoy! Thanks for playing.
-
