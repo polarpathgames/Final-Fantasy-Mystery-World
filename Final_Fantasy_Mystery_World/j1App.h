@@ -19,6 +19,7 @@ class j1Map;
 class j1Scene;
 class j1UIManager;
 class j1Fonts;
+class MainMenu;
 class EntityManager;
 class j1PathFinding;
 
@@ -97,6 +98,7 @@ public:
 	j1Scene*			scene;
 	j1Fonts*            fonts;
 	j1UIManager*        ui_manager;
+	MainMenu*           main_menu;
 	EntityManager*		entity_manager;
 	j1PathFinding*		pathfinding;
 

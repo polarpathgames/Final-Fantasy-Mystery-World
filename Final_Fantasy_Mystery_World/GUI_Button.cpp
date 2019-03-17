@@ -21,13 +21,12 @@ GUI_Button::GUI_Button(int x, int y, SDL_Rect rect, SDL_Rect rec2, SDL_Rect rect
 
 GUI_Button::~GUI_Button()
 {
-	/*if (text != nullptr)
+	if (text != nullptr)
 	{
 		App->tex->UnLoad(texture);
 		text = nullptr;
 		delete text;
-	}*/
-
+	}
 }
 
 void GUI_Button::setAnimation(int state)

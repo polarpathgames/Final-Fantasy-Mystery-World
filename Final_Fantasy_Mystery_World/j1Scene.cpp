@@ -11,6 +11,7 @@
 #include "j1Map.h"
 #include "EntityManager.h"
 #include "j1Scene.h"
+#include "MainMenu.h"
 #include <string>
 
 j1Scene::j1Scene() : j1Module()
@@ -40,6 +41,7 @@ bool j1Scene::Start()
 	/*SDL_Rect background_rect = { 0, 0, 1024, 768 };
 	background = App->ui_manager->AddImage(0, 0, &background_rect, nullptr, this, nullptr);*/
 
+
 	int w, h;
 	uchar* data = NULL;
 	if (App->map->CreateWalkabilityMap(w, h, &data))
@@ -63,6 +65,24 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	if (first_update)
+	{
+		App->main_menu->Start();
+		App->main_menu->active = true;
+		App->entity_manager->active = false;
+		first_update = false;
+	}
+
+	if (App->main_menu->active == true)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			App->ui_manager->DestroyUI();
+			App->main_menu->active = false;
+			App->entity_manager->active = true;
+		 }
+	}
+
 	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
 

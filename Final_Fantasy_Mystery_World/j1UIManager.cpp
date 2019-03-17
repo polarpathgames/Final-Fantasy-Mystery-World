@@ -21,8 +21,8 @@ bool j1UIManager::Awake(pugi::xml_node &node)
 
 bool j1UIManager::Start()
 {
-	atlas = App->tex->Load("gui/atlas.png");
-	return true;
+atlas = App->tex->Load("gui/atlas.png");
+return true;
 }
 
 bool j1UIManager::PreUpdate()
@@ -118,6 +118,18 @@ GUI* j1UIManager::AddLabel(int x, int y, std::string text, j1Module* callback, G
 
 void j1UIManager::DestroyUI()
 {
+	std::list<GUI*>::iterator item = ui_list.begin();
+	for (; item != ui_list.end(); ++item)
+	{
+		if ((*item) != nullptr)
+		{
+			(*item)->CleanUp();
+			delete(*item);
+			(*item) = nullptr;
+		}
+	}
+
+	ui_list.clear();
 }
 
 
