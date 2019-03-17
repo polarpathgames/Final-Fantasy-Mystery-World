@@ -4,11 +4,13 @@ Final Fantasy Mystery World v.0.1.0
 
 ## Description
 
-Added: 
+Added:
+--------
 - Player movement 
 - Entities management
 - Pathfinding (not fully implemented)
 - Turns system (not fully implemented)
+
 Changed:
 --------
 
