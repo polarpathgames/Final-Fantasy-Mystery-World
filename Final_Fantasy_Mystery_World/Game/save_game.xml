@@ -9,6 +9,7 @@
 	<scene />
 	<:anonymous />
 	<:anonymous />
+	<:anonymous />
 	<entity_manager />
 	<renderer>
 		<camera x="0" y="0" />

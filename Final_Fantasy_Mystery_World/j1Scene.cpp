@@ -17,6 +17,7 @@
 j1Scene::j1Scene() : j1Module()
 {
 	name.assign("scene");
+	active = false;
 }
 
 // Destructor
@@ -65,25 +66,6 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	if (first_update)
-	{
-		App->main_menu->Start();
-		App->main_menu->active = true;
-		App->entity_manager->active = false;
-		App->map->active = false;
-		first_update = false;
-	}
-
-	if (App->main_menu->active == true)
-	{
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		{
-			App->ui_manager->DestroyUI();
-			App->main_menu->active = false;
-			App->entity_manager->active = true;
-			App->map->active = true;
-		 }
-	}
 
 	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
