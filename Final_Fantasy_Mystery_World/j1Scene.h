@@ -9,6 +9,8 @@ struct SDL_Rect;
 class GUI;
 class GUI_Image;
 
+
+
 class j1Scene : public j1Module
 {
 public:

@@ -5,7 +5,10 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include <math.h>
+#include "EntityManager.h"
+#include "Player.h"
 #include <list>
+#include "j1Pathfinding.h"
 #include <string>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -30,6 +33,9 @@ bool j1Map::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	folder.assign(config.child("folder").child_value());
+
+	tutorial_map = config.child("maps").child("tutorial_map").text().as_string();
+	lobby_map = config.child("maps").child("lobby_map").text().as_string();
 	
 	return ret;
 }
@@ -244,6 +250,7 @@ bool j1Map::Load(const char* file_name)
 		ret = LoadMap();
 	}
 
+	
 	// Load all tilesets info ----------------------------------------------
 	pugi::xml_node tileset;
 	for(tileset = map_file.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
@@ -386,6 +393,7 @@ bool j1Map::LoadMap()
 		{
 			data.type = MAPTYPE_UNKNOWN;
 		}
+
 	}
 
 	return ret;
@@ -575,4 +583,27 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	}
 
 	return ret;
+}
+
+bool j1Map::ChangeMap(Maps type)
+{
+
+	CleanUp();
+	switch(type) {
+	case Maps::LOBBY:
+		Load(lobby_map.data());
+		break;
+	case Maps::TUTORIAL:
+		Load(tutorial_map.data());
+		break;
+	default:
+		LOG("Could not load the map");
+		break;
+	}
+	int w, h;
+	uchar* data = NULL;
+	if (CreateWalkabilityMap(w, h, &data))
+		App->pathfinding->SetMap(w, h, data);
+
+	return true;
 }

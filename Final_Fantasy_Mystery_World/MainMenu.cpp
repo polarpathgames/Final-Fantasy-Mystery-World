@@ -6,6 +6,7 @@
 #include "j1Map.h"
 #include "j1Input.h"
 #include "j1UIManager.h"
+#include "j1Map.h"
 #include "GUI_Image.h"
 
 MainMenu::MainMenu(){}
@@ -23,6 +24,11 @@ bool MainMenu::Start()
 	background = App->ui_manager->AddImage(0, 0, &background_rect, nullptr, this, nullptr);
 
 
+	App->map->active = false;
+	App->scene->active = false;
+	App->entity_manager->active = false;
+
+
 	return true;
 }
 
@@ -33,24 +39,18 @@ bool MainMenu::PreUpdate()
 
 bool MainMenu::Update(float dt)
 {
-	if (first_update)
-	{
-	App->main_menu->Start();
-	App->entity_manager->active = false;
-	App->map->active = false;
-	first_update = false;
-	}
 
-	if (App->main_menu->active == true)
-	{
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 	App->ui_manager->DestroyUI();
 	active = false; //desactivates main menu
 	App->entity_manager->active = true;
 	App->map->active = true;
+	App->scene->active = true;
+	App->map->ChangeMap(Maps::TUTORIAL);
+	App->scene->CreateEntities();
 	}
-	}
+	
 
 	return true;
 }

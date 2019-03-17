@@ -7,6 +7,14 @@
 #include "j1Module.h"
 #include <string>
 
+enum class Maps {
+
+	LOBBY,
+	TUTORIAL,
+
+	NONE
+};
+
 // ----------------------------------------------------
 struct Properties
 {
@@ -141,6 +149,8 @@ public:
 	iPoint WorldToMap(int x, int y) const;
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 
+	bool ChangeMap(Maps type);
+
 private:
 
 	bool LoadMap();
@@ -163,6 +173,10 @@ private:
 	std::string			folder;
 	bool				map_loaded;
 	SDL_Texture*		quad;
+
+	std::string tutorial_map;
+	std::string lobby_map;
+
 	
 };
 

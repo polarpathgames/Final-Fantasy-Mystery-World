@@ -25,7 +25,7 @@ private:
 
 	//SDL_Rect bck = { 0, 0, 480, 360 };
 	GUI* background = nullptr;
-	bool first_update = true;
+
 };
 
 #endif
