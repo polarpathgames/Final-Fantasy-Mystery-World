@@ -20,7 +20,7 @@ Entity::~Entity()
 
 void Entity::Draw(SDL_Texture * tex, float dt)
 {
-	App->render->Blit(tex, position.x, position.y, &(current_animation->GetCurrentFrame(dt)));
+	App->render->Blit(tex, position.x, position.y, &(current_animation->GetCurrentFrame(dt)), true);
 }
 
 void Entity::SetPivot(const int & x, const int & y)

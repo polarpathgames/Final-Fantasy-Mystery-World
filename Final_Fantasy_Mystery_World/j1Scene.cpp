@@ -37,6 +37,9 @@ bool j1Scene::Start()
 	//std::string map("iso_walk.tmx");
 	
 	App->map->Load("iso_walk2.tmx");
+	/*SDL_Rect background_rect = { 0, 0, 1024, 768 };
+	background = App->ui_manager->AddImage(0, 0, &background_rect, nullptr, this, nullptr);*/
+
 	int w, h;
 	uchar* data = NULL;
 	if (App->map->CreateWalkabilityMap(w, h, &data))
