@@ -4,14 +4,14 @@
 #include "GUI.h"
 #include <string>
 
-class Gui_Label : public GUI
+class GUI_Label : public GUI
 {
 private:
 	SDL_Rect img_normal;
 
 public:
-	Gui_Label(int x, int y, std::string text, j1Module* callback, UI type, GUI* parent);
-	~Gui_Label();
+	GUI_Label(int x, int y, std::string text, j1Module* callback, UI type, GUI* parent);
+	~GUI_Label();
 public:
 	std::string text;
 };

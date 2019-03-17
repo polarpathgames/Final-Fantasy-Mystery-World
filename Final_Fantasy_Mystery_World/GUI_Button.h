@@ -11,13 +11,13 @@ public:
 	~GUI_Button();
 
 	void setAnimation(int state);
-	void SetText(Gui_Label* text);
+	void SetText(GUI_Label* text);
 
 private:
 	SDL_Rect normal;
 	SDL_Rect mouse_in;
 	SDL_Rect clicked;
-	Gui_Label* text = nullptr;
+	GUI_Label* text = nullptr;
 
 };
 

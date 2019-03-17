@@ -18,6 +18,7 @@ public:
 	virtual bool PostUpdate() { return true; }
 	virtual void Draw(SDL_Texture* texture);
 	virtual bool CleanUp();
+	virtual bool MouseIn(GUI* element);
 
 public:
 	UI type = UI::NON;
@@ -28,6 +29,8 @@ public:
 	Animation* current_animation = nullptr;
 
 	SDL_Rect animation_rect = {0, 0, 0, 0};
+
+	int mouse_x, mouse_y;
 };
 
 

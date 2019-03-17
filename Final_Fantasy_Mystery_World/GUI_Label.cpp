@@ -4,7 +4,7 @@
 #include "j1Textures.h"
 #include "p2Log.h"
 
-Gui_Label::Gui_Label(int x, int y, std::string text, j1Module* callback, UI type, GUI* parent) : GUI(x, y, callback, parent)
+GUI_Label::GUI_Label(int x, int y, std::string text, j1Module* callback, UI type, GUI* parent) : GUI(x, y, callback, parent)
 {
 	position.x = x;
 	position.y = y;
@@ -14,11 +14,11 @@ Gui_Label::Gui_Label(int x, int y, std::string text, j1Module* callback, UI type
 	int w = 0, h = 0;
 
 	App->fonts->CalcSize(this->text.c_str(), w, h, App->fonts->default);
+	texture = App->fonts->Print(text.c_str(), { 0, 0, 0, 255 }, App->fonts->default);
 	animation_rect.w = w;
 	animation_rect.h = h;
-	texture = App->fonts->Print(text.c_str(), { 0, 0, 0, 255 }, App->fonts->default);
 }
-Gui_Label::~Gui_Label()
+GUI_Label::~GUI_Label()
 {
 	text.clear();
 	App->tex->UnLoad(texture);

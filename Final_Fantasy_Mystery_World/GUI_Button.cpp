@@ -41,7 +41,7 @@ void GUI_Button::setAnimation(int state)
 		animation_rect = clicked;
 }
 
-void GUI_Button::SetText(Gui_Label* text)
+void GUI_Button::SetText(GUI_Label* text)
 {
 	this->text = text;
 	text->position.x = this->position.x + animation_rect.w / 2 - text->animation_rect.w / 2;

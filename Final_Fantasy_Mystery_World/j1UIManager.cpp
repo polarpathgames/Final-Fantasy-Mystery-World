@@ -53,6 +53,13 @@ bool j1UIManager::Update(float dt)
 			(*item2)->Draw(atlas);
 	}
 
+	//std::list<GUI*>::iterator item3 = ui_list.begin();
+	//for (; item3 != ui_list.end(); ++item3)
+	//{
+	//	if ((*item3) != nullptr)
+	//		(*item3)->MouseIn(item3);
+	//}
+
 	return true;
 }
 
@@ -111,7 +118,7 @@ GUI* j1UIManager::AddButton(int x, int y, SDL_Rect normal, SDL_Rect mouse_in, SD
 
 GUI* j1UIManager::AddLabel(int x, int y, std::string text, j1Module* callback, GUI* parent)
 {
-	GUI* label = new Gui_Label(x, y, text, callback, LABEL, parent);
+	GUI* label = new GUI_Label(x, y, text, callback, LABEL, parent);
 	ui_list.push_back(label);
 	return label;
 }
