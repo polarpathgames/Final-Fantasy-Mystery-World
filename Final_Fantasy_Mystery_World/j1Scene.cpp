@@ -70,6 +70,7 @@ bool j1Scene::Update(float dt)
 		App->main_menu->Start();
 		App->main_menu->active = true;
 		App->entity_manager->active = false;
+		App->map->active = false;
 		first_update = false;
 	}
 
@@ -80,6 +81,7 @@ bool j1Scene::Update(float dt)
 			App->ui_manager->DestroyUI();
 			App->main_menu->active = false;
 			App->entity_manager->active = true;
+			App->map->active = true;
 		 }
 	}
 
