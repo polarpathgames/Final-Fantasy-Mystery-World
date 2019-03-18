@@ -21,20 +21,20 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 	ground = App->tex->Load("textures/enemy_pos.png");
 	current_animation = &IdleLeft;
 
-	SetPivot(0, 30);
+	SetPivot(12, 30);
 
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
 	has_turn = false;
 	velocity.x = 160;
 	velocity.y = 80;
-	actual_tile = App->map->WorldToMap(position.x + pivot.x, position.y + pivot.y);
+	
 	position.x += 3;
 	position.y -= 2;
 	target_position = position;
 	initial_position = position;
 	movement_count = { 0,0 };
-
+	actual_tile = App->map->WorldToMap(position.x + pivot.x, position.y + pivot.y);
 	
 }
 

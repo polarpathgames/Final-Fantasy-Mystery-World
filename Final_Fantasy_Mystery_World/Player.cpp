@@ -22,13 +22,13 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 
 	current_animation = &IdleLeft;
 
-	SetPivot(0, 30);
+	SetPivot(12, 30);
 	has_turn = true;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
 	movement_type = Movement_Type::InQuest;
 	ground = App->tex->Load("textures/player_pos.png");
-	actual_tile = App->map->WorldToMap(position.x + pivot.x, position.y + pivot.y);
+	
 	velocity.x = 160;
 	velocity.y = 80;
 	position.x += 3;
@@ -37,6 +37,7 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	initial_position = position;
 	movement_count = { 0,0 };
 	actual_tile = App->map->WorldToMap(position.x, position.y);
+	actual_tile = App->map->WorldToMap(position.x + pivot.x, position.y + pivot.y);
 
 }
 
