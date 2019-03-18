@@ -56,8 +56,7 @@ bool Player::Update(float dt)
 {
 	PerformActions(dt);
 
-	SDL_Rect rect = { App->map->MapToWorld(actual_tile.x, actual_tile.y).x,App->map->MapToWorld(actual_tile.x,actual_tile.y).y,32,16 };
-	App->render->Blit(ground, rect.x, rect.y);
+	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x, App->map->MapToWorld(actual_tile.x, actual_tile.y).y);
 	return true;
 }
 
