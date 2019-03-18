@@ -1,5 +1,7 @@
 #include "j1App.h"
 #include "j1UIManager.h"
+#include "j1Input.h"
+#include "j1Render.h"
 #include "p2Log.h"
 #include "j1Textures.h"
 #include "GUI_Image.h"
@@ -27,6 +29,10 @@ return true;
 
 bool j1UIManager::PreUpdate()
 {
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+		debug_ui = !debug_ui;
+	}
+
 	std::list<GUI*>::iterator item = ui_list.begin();
 	for (; item != ui_list.end(); ++item)
 	{
@@ -49,8 +55,10 @@ bool j1UIManager::Update(float dt)
 	std::list<GUI*>::iterator item2 = ui_list.begin();
 	for (; item2 != ui_list.end(); ++item2)
 	{
-		if ((*item2) != nullptr)
+		if ((*item2) != nullptr) {
 			(*item2)->Draw(atlas);
+			//App->render->DrawQuad({ (*item)->position.x,(*item)->position.y,(*item). })
+		}
 	}
 
 	//std::list<GUI*>::iterator item3 = ui_list.begin();

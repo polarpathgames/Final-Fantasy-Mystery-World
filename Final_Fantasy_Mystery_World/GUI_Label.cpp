@@ -4,7 +4,7 @@
 #include "j1Textures.h"
 #include "p2Log.h"
 
-GUI_Label::GUI_Label(int x, int y, std::string text, j1Module* callback, UI type, GUI* parent) : GUI(x, y, callback, parent)
+GUI_Label::GUI_Label(int x, int y, std::string text, j1Module* callback, UIType type, GUI* parent) : GUI(x, y, callback, parent)
 {
 	position.x = x;
 	position.y = y;
@@ -22,7 +22,6 @@ GUI_Label::~GUI_Label()
 {
 	text.clear();
 	App->tex->UnLoad(texture);
-	text = nullptr;
 	texture = nullptr;
 	delete texture;
 }

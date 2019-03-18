@@ -29,7 +29,11 @@ bool MainMenu::Start()
 	//exit_text = (GUI_Label*)App->ui_manager->AddLabel(10, 10, "exit", this, exit_button);
 	//exit_button->SetText(exit_text);
 
-	labels.push_back(exit_text);
+	new_game_button = (GUI_Button*)App->ui_manager->AddButton(0, 0, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, nullptr);
+	new_game_label = (GUI_Label*)App->ui_manager->AddLabel(0, 0, std::string("New Game"), nullptr, nullptr);
+	new_game_button->SetText(new_game_label);
+
+	//labels.push_back(exit_text);
 
 	App->map->active = false;
 	App->scene->active = false;

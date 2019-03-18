@@ -3,7 +3,7 @@
 #include "GUI_Image.h"
 
 
-GUI_Image::GUI_Image(int x, int y, UI type, GUI* parent, Animation* anim, j1Module* callback, SDL_Rect* rect) : GUI(x, y, callback, parent)
+GUI_Image::GUI_Image(int x, int y, UIType type, GUI* parent, Animation* anim, j1Module* callback, SDL_Rect* rect) : GUI(x, y, callback, parent)
 {
 	position.x = x;
 	position.y = y;

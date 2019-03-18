@@ -35,6 +35,9 @@ private:
 	GUI_Label* exit_text = nullptr;
 	std::list<GUI*> labels;
 
+	GUI_Button* new_game_button = nullptr;
+	GUI_Label* new_game_label = nullptr;
+
 	int mouse_x, mouse_y;
 
 };

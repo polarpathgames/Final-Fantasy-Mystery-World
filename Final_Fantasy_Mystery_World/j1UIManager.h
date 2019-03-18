@@ -5,7 +5,7 @@
 #include "p2Animation.h"
 #include <list>
 
-enum UI
+enum UIType
 {
 	IMAGE,
 	LABEL,
@@ -41,6 +41,8 @@ public:
 private:
 	SDL_Texture* atlas = nullptr;
 	std::list<GUI*> ui_list;
+
+	bool debug_ui = false;
 
 public:
 
