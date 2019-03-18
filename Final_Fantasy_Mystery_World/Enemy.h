@@ -30,6 +30,8 @@ public:
 
 	bool CleanUp();
 
+	bool IsPlayerNextTile() const;
+
 public:
 
 

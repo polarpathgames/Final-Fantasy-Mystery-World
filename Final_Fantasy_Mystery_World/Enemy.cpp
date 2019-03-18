@@ -45,7 +45,13 @@ Enemy::~Enemy()
 bool Enemy::PreUpdate()
 {
 	if (state == State::IDLE) {
-		state = State::WALKING; //Aixo sha de canviar I know :D
+		if (IsPlayerNextTile()) {
+			state = State::ATTACKING;
+		}
+		else {
+
+			state = State::WALKING; //Aixo sha de canviar I know :D
+		}
 	}
 	if (state == State::WALKING) {
 		iPoint origin = App->map->WorldToMap(position.x, position.y);
@@ -85,7 +91,10 @@ bool Enemy::PreUpdate()
 			ChangeTurn(type);
 		}
 	}
-
+	if (state == State::ATTACKING) {
+		state = State::IDLE;
+		ChangeTurn(type);
+	}
 
 	
 
@@ -218,4 +227,54 @@ bool Enemy::Save(pugi::xml_node &) const
 bool Enemy::CleanUp()
 {
 	return true;
+}
+
+bool Enemy::IsPlayerNextTile() const
+{
+	bool ret = false;
+	std::vector<Entity*> entities = App->entity_manager->GetEntities();
+	std::vector<Entity*>::iterator item = entities.begin();
+
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr && (*item)->type == Entity::EntityType::PLAYER) {
+			iPoint origin = actual_tile;
+			iPoint destination = (*item)->actual_tile;
+
+			if (origin.x + 1 == destination.x && origin.y == destination.y) {
+				direction == Direction::DOWN_RIGHT;
+				ret = true;
+			}
+			if (origin.x == destination.x && origin.y + 1 == destination.y) {
+				direction == Direction::DOWN_LEFT;
+				ret = true;
+			}
+			if (origin.x == destination.x && origin.y - 1 == destination.y) {
+				direction == Direction::UP_RIGHT;
+				ret = true;
+			}
+			if (origin.x - 1 == destination.x && origin.y == destination.y) {
+				direction == Direction::UP_LEFT;
+				ret = true;
+			}
+			if (origin.x + 1 == destination.x && origin.y + 1 == destination.y) {
+				direction == Direction::DOWN;
+				ret = true;
+			}
+			if (origin.x - 1 == destination.x && origin.y + 1 == destination.y) {
+				direction == Direction::LEFT;
+				ret = true;
+			}
+			if (origin.x - 1 == destination.x && origin.y - 1 == destination.y) {
+				direction == Direction::UP;
+				ret = true;
+			}
+			if (origin.x + 1 == destination.x && origin.y - 1 == destination.y) {
+				direction == Direction::RIGHT;
+				ret = true;
+			}
+				
+		}
+	}
+
+	return ret;
 }
