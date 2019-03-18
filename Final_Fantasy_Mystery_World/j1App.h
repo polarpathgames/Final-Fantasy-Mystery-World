@@ -20,7 +20,7 @@ class j1Scene;
 class j1UIManager;
 class j1Fonts;
 class MainMenu;
-class EntityManager;
+class j1EntityManager;
 class j1PathFinding;
 
 class j1App
@@ -99,7 +99,7 @@ public:
 	j1Fonts*            fonts;
 	j1UIManager*        ui_manager;
 	MainMenu*           main_menu;
-	EntityManager*		entity_manager;
+	j1EntityManager*		entity_manager;
 	j1PathFinding*		pathfinding;
 
 private:

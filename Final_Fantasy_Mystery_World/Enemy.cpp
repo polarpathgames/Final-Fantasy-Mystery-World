@@ -4,7 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
-#include "EntityManager.h"
+#include "j1EntityManager.h"
 #include "j1Map.h"
 #include <string>
 #include "j1Pathfinding.h"

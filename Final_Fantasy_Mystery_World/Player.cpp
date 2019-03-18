@@ -6,7 +6,7 @@
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Map.h"
-#include "EntityManager.h"
+#include "j1EntityManager.h"
 #include "j1Map.h"
 #include <string>
 

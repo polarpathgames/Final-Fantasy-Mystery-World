@@ -43,9 +43,6 @@
     <ClCompile Include="GUI_Image.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="EntityManager.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="DynamicEntity.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
@@ -72,6 +69,9 @@
     </ClCompile>
     <ClCompile Include="GUI_Label.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1EntityManager.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,9 +131,6 @@
     <ClInclude Include="GUI_Image.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="EntityManager.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="DynamicEntity.h">
       <Filter>Entities</Filter>
     </ClInclude>
@@ -160,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="GUI_Label.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1EntityManager.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

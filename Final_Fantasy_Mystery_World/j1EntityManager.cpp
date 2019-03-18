@@ -1,6 +1,6 @@
 #include "j1App.h"
 #include "j1Render.h"
-#include "EntityManager.h"
+#include "j1EntityManager.h"
 #include "j1Textures.h"
 #include "Entity.h"
 #include "j1Audio.h"
@@ -14,7 +14,7 @@
 
 
 
-EntityManager::EntityManager() : j1Module()
+j1EntityManager::j1EntityManager() : j1Module()
 {
 	name.assign("entity_manager");
 	active = false;
@@ -22,12 +22,12 @@ EntityManager::EntityManager() : j1Module()
 }
 
 // Destructor
-EntityManager::~EntityManager()
+j1EntityManager::~j1EntityManager()
 {
 
 }
 
-bool EntityManager::Awake(pugi::xml_node& config)
+bool j1EntityManager::Awake(pugi::xml_node& config)
 {
 	bool ret = true;
 
@@ -35,7 +35,7 @@ bool EntityManager::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-bool EntityManager::Start()
+bool j1EntityManager::Start()
 {
 	bool ret = true;
 
@@ -46,7 +46,7 @@ bool EntityManager::Start()
 	return ret;
 }
 
-bool EntityManager::PreUpdate()
+bool j1EntityManager::PreUpdate()
 {
 	
 	std::vector<Entity*>::iterator item = entities.begin();
@@ -62,7 +62,7 @@ bool EntityManager::PreUpdate()
 }
 
 // Called before render is available
-bool EntityManager::Update(float dt)
+bool j1EntityManager::Update(float dt)
 {
 	std::vector<Entity*> draw_entities;
 	std::vector<Entity*>::iterator item = entities.begin();
@@ -77,7 +77,7 @@ bool EntityManager::Update(float dt)
 
 	}
 
-	std::sort(draw_entities.begin(), draw_entities.end(), EntityManager::SortByYPos);
+	std::sort(draw_entities.begin(), draw_entities.end(), j1EntityManager::SortByYPos);
 
 	for (std::vector<Entity*>::iterator item = draw_entities.begin(); item != draw_entities.end(); ++item) {
 		if ((*item) != nullptr) {
@@ -93,7 +93,7 @@ bool EntityManager::Update(float dt)
 	return true;
 }
 
-bool EntityManager::PostUpdate()
+bool j1EntityManager::PostUpdate()
 {
 	std::vector<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
@@ -106,7 +106,7 @@ bool EntityManager::PostUpdate()
 
 
 // Called before quitting
-bool EntityManager::CleanUp()
+bool j1EntityManager::CleanUp()
 {
 	std::vector<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
@@ -126,7 +126,7 @@ bool EntityManager::CleanUp()
 
 
 //Entity Factory
-Entity* EntityManager::CreateEntity(Entity::EntityType type, int PositionX, int PositionY, std::string name)
+Entity* j1EntityManager::CreateEntity(Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
 	static_assert(Entity::EntityType::NO_TYPE == (Entity::EntityType)2, "code needs update");
 	Entity* ret = nullptr;
@@ -172,7 +172,7 @@ Entity* EntityManager::CreateEntity(Entity::EntityType type, int PositionX, int 
 //	return ret;
 //}
 
-void EntityManager::DeleteEntities()
+void j1EntityManager::DeleteEntities()
 {
 
 	std::vector<Entity*>::iterator item = entities.begin();
@@ -189,7 +189,7 @@ void EntityManager::DeleteEntities()
 
 }
 
-Player* EntityManager::GetPlayerData() const {
+Player* j1EntityManager::GetPlayerData() const {
 
 	std::vector<Entity*>::const_iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
@@ -203,17 +203,17 @@ Player* EntityManager::GetPlayerData() const {
 	return nullptr;
 }
 
-const std::vector<Entity*> EntityManager::GetEntities()
+const std::vector<Entity*> j1EntityManager::GetEntities()
 {
 	return entities;
 }
 
-bool EntityManager::SortByYPos(const Entity * ent1, const Entity * ent2)
+bool j1EntityManager::SortByYPos(const Entity * ent1, const Entity * ent2)
 {
 	return ent1->pivot.y + ent1->position.y < ent2->pivot.y + ent2->position.y;
 }
 
-bool EntityManager::Load(pugi::xml_node& load)
+bool j1EntityManager::Load(pugi::xml_node& load)
 {
 	bool ret = true;
 
@@ -221,7 +221,7 @@ bool EntityManager::Load(pugi::xml_node& load)
 	return ret;
 }
 
-bool EntityManager::Save(pugi::xml_node& save) const
+bool j1EntityManager::Save(pugi::xml_node& save) const
 {
 	bool ret = true;
 	
