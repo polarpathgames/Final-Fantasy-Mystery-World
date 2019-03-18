@@ -2,8 +2,10 @@
 #include "j1Input.h"
 #include "j1App.h"
 #include "j1Render.h"
+#include "j1App.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
+#include "j1Map.h"
 #include "EntityManager.h"
 #include "j1Map.h"
 #include <string>
@@ -25,7 +27,8 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
 	movement_type = Movement_Type::InQuest;
-
+	ground = App->tex->Load("textures/player_pos.png");
+	actual_tile = App->map->WorldToMap(position.x + pivot.x, position.y + pivot.y);
 	velocity.x = 160;
 	velocity.y = 80;
 	position.x += 3;
@@ -34,6 +37,7 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	initial_position = position;
 	movement_count = { 0,0 };
 	actual_tile = App->map->WorldToMap(position.x, position.y);
+
 }
 
 Player::~Player()
@@ -51,6 +55,8 @@ bool Player::Update(float dt)
 {
 	PerformActions(dt);
 
+	SDL_Rect rect = { App->map->MapToWorld(actual_tile.x, actual_tile.y).x,App->map->MapToWorld(actual_tile.x,actual_tile.y).y,32,16 };
+	App->render->Blit(ground, rect.x, rect.y);
 	return true;
 }
 
@@ -452,7 +458,7 @@ const bool Player::CheckEnemyNextTile(const Direction & dir)
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr && (*item)->type == EntityType::ENEMY) {
 			iPoint origin = actual_tile;
-			iPoint destination = App->map->WorldToMap((*item)->position.x, (*item)->position.y);
+			iPoint destination = (*item)->actual_tile;
 			
 			switch (dir) {
 			case Direction::DOWN:

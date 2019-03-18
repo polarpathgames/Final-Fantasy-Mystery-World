@@ -18,7 +18,7 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 	//IdleLeft = LoadPushbacks(node, "IdleLeft");
 
 	type = Entity::EntityType::ENEMY;
-
+	ground = App->tex->Load("textures/enemy_pos.png");
 	current_animation = &IdleLeft;
 
 	SetPivot(0, 30);
@@ -28,11 +28,14 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 	has_turn = false;
 	velocity.x = 160;
 	velocity.y = 80;
+	actual_tile = App->map->WorldToMap(position.x + pivot.x, position.y + pivot.y);
 	position.x += 3;
 	position.y -= 2;
 	target_position = position;
 	initial_position = position;
 	movement_count = { 0,0 };
+
+	
 }
 
 Enemy::~Enemy()
@@ -56,24 +59,28 @@ bool Enemy::PreUpdate()
 				target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 				movement_count.x -= (App->map->data.tile_width / 2);
 				movement_count.y += (App->map->data.tile_height / 2);
+				actual_tile += {0, 1};
 			}
 			else if (target.x > origin.x && target.y == origin.y) {
 				direction = Direction::DOWN_RIGHT;
 				target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 				movement_count.x += (App->map->data.tile_width / 2);
 				movement_count.y += (App->map->data.tile_height / 2);
+				actual_tile += {1, 0};
 			}
 			else if (target.x == origin.x && target.y < origin.y) {
 				direction = Direction::UP_RIGHT;
 				target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 				movement_count.x += (App->map->data.tile_width / 2);
 				movement_count.y -= (App->map->data.tile_height / 2);
+				actual_tile += {0, -1};
 			}
 			else if (target.x < origin.x && target.y == origin.y) {
 				direction = Direction::UP_LEFT;
 				target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 				movement_count.x -= (App->map->data.tile_width / 2);
 				movement_count.y -= (App->map->data.tile_height / 2);
+				actual_tile += {-1, 0};
 			}
 			ChangeTurn(type);
 		}
@@ -185,7 +192,8 @@ bool Enemy::Update(float dt)
 		}
 	}
 
-
+	SDL_Rect rect = { App->map->MapToWorld(actual_tile.x, actual_tile.y).x,App->map->MapToWorld(actual_tile.x,actual_tile.y).y,32,16 };
+	App->render->Blit(ground, rect.x, rect.y);
 	return true;
 }
 

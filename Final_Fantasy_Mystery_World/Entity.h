@@ -102,7 +102,7 @@ public:
 
 
 	bool has_turn = true;
-
+	iPoint actual_tile;
 };
 
 #endif

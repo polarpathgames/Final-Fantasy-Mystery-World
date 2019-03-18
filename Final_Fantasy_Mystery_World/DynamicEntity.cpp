@@ -18,6 +18,14 @@ DynamicEntity::~DynamicEntity()
 
 }
 
+bool DynamicEntity::Update(float dt)
+{
+
+
+
+	return true;
+}
+
 void DynamicEntity::ChangeTurn(EntityType type)
 {
 	std::vector<Entity*> entities = App->entity_manager->GetEntities();
