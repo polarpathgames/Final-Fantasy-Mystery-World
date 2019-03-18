@@ -1,11 +1,11 @@
 #include "j1App.h"
 #include "DynamicEntity.h"
-#include "EntityManager.h"
+#include "j1EntityManager.h"
 #include "j1Render.h"
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "p2Log.h"
-#include "EntityManager.h"
+#include "j1EntityManager.h"
 #include <list>
 
 DynamicEntity::DynamicEntity(const int &x, const int &y) : Entity(x,y)

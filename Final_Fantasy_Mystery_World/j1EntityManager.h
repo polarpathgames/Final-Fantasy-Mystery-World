@@ -1,5 +1,5 @@
-#ifndef __ENTITYMANAGER_H__
-#define __ENTITYMANAGER_H__
+#ifndef __J1ENTITYMANAGER_H__
+#define __J1ENTITYMANAGER_H__
 
 #include "j1Module.h"
 #include "p2Animation.h"
@@ -13,12 +13,12 @@ class Enemy;
 
 class Entity;
 
-class EntityManager : public j1Module
+class j1EntityManager : public j1Module
 {
 public:
 
-	EntityManager();
-	~EntityManager();
+	j1EntityManager();
+	~j1EntityManager();
 
 	bool Awake(pugi::xml_node& config);
 
@@ -55,10 +55,6 @@ private:
 
 	std::vector<Entity*> entities;
 	std::vector<SDL_Texture*> texture;
-
-public:
-
-
 };
 
 #endif

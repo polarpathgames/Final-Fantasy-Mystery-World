@@ -18,7 +18,7 @@
 #include "j1Fonts.h"
 #include "MainMenu.h"
 #include "p2Point.h"
-#include "EntityManager.h"
+#include "j1EntityManager.h"
 #include "j1Pathfinding.h"
 
 // Constructor
@@ -36,7 +36,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	ui_manager = new j1UIManager();
 	main_menu = new MainMenu();
 	fonts = new j1Fonts();
-	entity_manager = new EntityManager();
+	entity_manager = new j1EntityManager();
 	pathfinding = new j1PathFinding();
 
 	// Ordered for awake / Start / Update

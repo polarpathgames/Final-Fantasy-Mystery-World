@@ -5,7 +5,7 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include <math.h>
-#include "EntityManager.h"
+#include "j1EntityManager.h"
 #include "Player.h"
 #include <list>
 #include "j1Pathfinding.h"
