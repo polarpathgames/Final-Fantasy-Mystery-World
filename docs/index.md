@@ -31,6 +31,9 @@ Each member has a role in the team, in order to cover all project responsabiliti
 
 **Code** - Oriol Capdevila [OriolCS2](https://github.com/OriolCS2)
 
+## Controls
+![Controls](Controls3.png)
+
 ## Social Media
 In order to show the project advancements, releases and other information, you can follow us in our social media. We will upload weekly content. For any message or suggestion you can talk with us in the next social media. We will appreciate any interaction.
 
