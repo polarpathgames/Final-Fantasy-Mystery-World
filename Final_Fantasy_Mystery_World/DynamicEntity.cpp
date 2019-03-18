@@ -76,7 +76,64 @@ void DynamicEntity::PushBack()
 	}
 }
 
+bool DynamicEntity::NextTileFree(const Direction & dir) const
+{
+	bool ret = true;
+	std::vector<Entity*> entities = App->entity_manager->GetEntities();
+	std::vector<Entity*>::iterator item = entities.begin();
 
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr) {
+			iPoint origin = actual_tile;
+			iPoint destination = (*item)->actual_tile;
+
+			switch (dir) {
+			case Direction::DOWN:
+				origin += {1, 1};
+				if (destination == origin)
+					ret = false;
+				break;
+			case Direction::UP:
+				origin += {-1, -1};
+				if (destination == origin)
+					ret = false;
+				break;
+			case Direction::LEFT:
+				origin += {-1, 1};
+				if (destination == origin)
+					ret = false;
+				break;
+			case Direction::RIGHT:
+				origin += {1, -1};
+				if (destination == origin)
+					ret = false;
+				break;
+			case Direction::DOWN_LEFT:
+				origin += {0, 1};
+				if (destination == origin)
+					ret = false;
+				break;
+			case Direction::DOWN_RIGHT:
+				origin += {1, 0};
+				if (destination == origin)
+					ret = false;
+				break;
+			case Direction::UP_LEFT:
+				origin += {-1, 0};
+				if (destination == origin)
+					ret = false;
+				break;
+			case Direction::UP_RIGHT:
+				origin += {0, -1};
+				if (destination == origin)
+					ret = false;
+				break;
+			}
+		}
+	}
+
+	return ret;
+}
 
 
 
