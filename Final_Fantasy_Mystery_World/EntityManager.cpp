@@ -85,7 +85,9 @@ bool EntityManager::Update(float dt)
 				(*item)->Draw(texture[0], dt);
 			else if ((*item)->type == Entity::EntityType::ENEMY)
 				(*item)->Draw(texture[1], dt);
-		}
+
+			App->render->DrawCircle((*item)->position.x + (*item)->pivot.x, (*item)->position.y + (*item)->pivot.y, 3, 0, 0, 255);
+		}		
 	}
 	
 	return true;
