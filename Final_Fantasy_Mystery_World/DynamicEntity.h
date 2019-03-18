@@ -32,6 +32,8 @@ public:
 
 	void PushBack();
 
+	bool NextTileFree(const Direction & dir) const;
+
 public:
 
 
