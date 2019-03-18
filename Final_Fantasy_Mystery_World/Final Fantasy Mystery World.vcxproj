@@ -143,7 +143,12 @@
     <Xml Include="Game\config.xml">
       <SubType>Designer</SubType>
     </Xml>
-    <Xml Include="Game\player_config.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Game\entities\Enemy.tsx" />
+    <None Include="Game\entities\Player.tsx" />
+    <None Include="Game\maps\iso_walk.tmx" />
+    <None Include="Game\maps\iso_walk2.tmx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

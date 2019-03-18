@@ -163,10 +163,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Game\config.xml" />
-    <Xml Include="Game\player_config.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="Tools">
       <UniqueIdentifier>{53c9586e-883c-4cf1-95be-7aaf09b4b478}</UniqueIdentifier>
     </Filter>
@@ -182,5 +178,27 @@
     <Filter Include="UI\UIScenes">
       <UniqueIdentifier>{e1b0415c-a1b7-4b7e-9bfe-da567a1d1330}</UniqueIdentifier>
     </Filter>
+    <Filter Include="XML">
+      <UniqueIdentifier>{c068a6e9-159c-4650-bf99-5d0564514ac0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Game\config.xml">
+      <Filter>XML</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Game\entities\Player.tsx">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="Game\entities\Enemy.tsx">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="Game\maps\iso_walk.tmx">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="Game\maps\iso_walk2.tmx">
+      <Filter>XML</Filter>
+    </None>
   </ItemGroup>
 </Project>
