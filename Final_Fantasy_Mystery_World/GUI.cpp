@@ -6,11 +6,8 @@
 #include "p2Log.h"
 #include "GUI.h"
 
-GUI::GUI(int x, int y, j1Module* callback, GUI* parent)
-{
-	this->parent = parent;
-	this->callback = callback;
-}
+GUI::GUI(UIType type, const int &x, const int &y, GUI* parent, const int &width = 0, const int &height = 0)
+	:type(type),position({x,y,width,height}),parent(parent) {}
 
 GUI::~GUI() {}
 
@@ -21,9 +18,9 @@ bool GUI::Update(float dt)
 	return ret;
 }
 
-void GUI::Draw(SDL_Texture* texture)
+void GUI::Draw()
 {
-	App->render->Blit(texture, position.x, position.y, &animation_rect, false, SDL_FLIP_NONE, 0);
+	App->render->Blit((SDL_Texture*)App->ui_manager->GetAtlas(), position.x, position.y, &section, false, SDL_FLIP_NONE, 0);
 }
 
 bool GUI::CleanUp()
@@ -48,4 +45,9 @@ bool GUI::MouseIn(GUI* element)
 			}
 		}
 	}
+}
+
+void GUI::DebugDraw()
+{
+	App->render->DrawQuad({ position.x,position.y,section.w,section.h }, 255, 0, 0, 1, false, false);
 }

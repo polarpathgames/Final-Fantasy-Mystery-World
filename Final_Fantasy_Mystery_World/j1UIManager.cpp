@@ -105,9 +105,9 @@ const SDL_Texture* j1UIManager::GetAtlas() const
 	return atlas;
 }
 
-GUI* j1UIManager::AddImage(int x, int y, SDL_Rect* rect, Animation* anim, j1Module* callback, GUI* parent)
+GUI_Image* j1UIManager::AddImage(int x, int y, SDL_Rect* rect, Animation* anim, j1Module* callback, GUI* parent)
 {
-	GUI* image = new GUI_Image(x, y, IMAGE, parent, anim, callback, rect);
+	GUI_Image* image = new GUI_Image(x, y, IMAGE, parent, anim, callback, rect);
 
 	if (image != nullptr)
 	{
@@ -117,16 +117,16 @@ GUI* j1UIManager::AddImage(int x, int y, SDL_Rect* rect, Animation* anim, j1Modu
 	return image;
 }
 
-GUI* j1UIManager::AddButton(int x, int y, SDL_Rect normal, SDL_Rect mouse_in, SDL_Rect clicked, j1Module* callback, GUI* parent)
+GUI_Button* j1UIManager::AddButton(int x, int y, SDL_Rect normal, SDL_Rect mouse_in, SDL_Rect clicked, j1Module* callback, GUI* parent)
 {
-	GUI* button = new GUI_Button(x, y, normal, mouse_in, clicked, callback, BUTTON, parent);
+	GUI_Button* button = new GUI_Button(x, y, normal, mouse_in, clicked, callback, BUTTON, parent);
 	ui_list.push_back(button);
 	return button;
 }
 
-GUI* j1UIManager::AddLabel(int x, int y, std::string text, j1Module* callback, GUI* parent)
+GUI_Label* j1UIManager::AddLabel(int x, int y, std::string text, j1Module* callback, GUI* parent)
 {
-	GUI* label = new GUI_Label(x, y, text, callback, LABEL, parent);
+	GUI_Label* label = new GUI_Label(x, y, text, callback, LABEL, parent);
 	ui_list.push_back(label);
 	return label;
 }

@@ -17,6 +17,9 @@ struct SDL_Texture;
 struct SDL_Rect;
 
 class GUI;
+class GUI_Image;
+class GUI_Label;
+class GUI_Button;
 
 class j1UIManager: public j1Module
 {
@@ -31,9 +34,9 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
-	GUI* AddImage(int x, int y, SDL_Rect* rect, Animation *anim, j1Module* callback, GUI* parent);
-	GUI* AddButton(int x, int y, SDL_Rect normal, SDL_Rect mouse_in, SDL_Rect clicked, j1Module* callback, GUI* parent);
-	GUI* AddLabel(int x, int y, std::string text, j1Module* callback, GUI* parent);
+	GUI_Image* AddImage(int x, int y, SDL_Rect* rect, Animation *anim, j1Module* callback, GUI* parent);
+	GUI_Button* AddButton(int x, int y, SDL_Rect normal, SDL_Rect mouse_in, SDL_Rect clicked, j1Module* callback, GUI* parent);
+	GUI_Label* AddLabel(int x, int y, std::string text, j1Module* callback, GUI* parent);
 
 	void DestroyUI();
 	const SDL_Texture* GetAtlas() const;
