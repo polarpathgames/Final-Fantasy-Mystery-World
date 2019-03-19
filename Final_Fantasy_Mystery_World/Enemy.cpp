@@ -69,6 +69,9 @@ bool Enemy::PreUpdate()
 
 bool Enemy::Update(float dt)
 {
+	if (state == State::IDLE) {
+		position = initial_position + movement_count;
+	}
 	if (state == State::WALKING) {
 		switch (direction)
 		{

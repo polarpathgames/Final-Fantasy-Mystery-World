@@ -18,13 +18,7 @@ DynamicEntity::~DynamicEntity()
 
 }
 
-bool DynamicEntity::Update(float dt)
-{
 
-
-
-	return true;
-}
 
 void DynamicEntity::ChangeTurn(EntityType type)
 {
