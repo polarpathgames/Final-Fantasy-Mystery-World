@@ -43,8 +43,10 @@ bool j1FadeToBlack::Update(float dt)
 	{
 		if (now >= total_time)
 		{
-			to_disable->Disable();
-			to_enable->Enable();
+			if (to_disable != nullptr)
+				to_disable->Disable();
+			if (to_enable != nullptr)
+				to_enable->Enable();
 			total_time += total_time;
 			start_time = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;

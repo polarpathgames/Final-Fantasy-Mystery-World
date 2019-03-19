@@ -7,8 +7,11 @@
 #include <math.h>
 #include "j1EntityManager.h"
 #include "Player.h"
+#include "j1EntityManager.h"
 #include <list>
+#include "j1FadeToBlack.h"
 #include "j1Pathfinding.h"
+#include "j1Scene.h"
 #include <string>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -209,6 +212,16 @@ bool j1Map::CleanUp()
 		++item2;
 	}
 	data.layers.clear();
+
+	std::list<ObjectLayer*>::iterator item3;
+	item3 = data.objects.begin();
+
+	while (item3 != data.objects.end())
+	{
+		RELEASE(*item3);
+		++item3;
+	}
+	data.objects.clear();
 
 	// Clean up the pugui tree
 	map_file.reset();
@@ -573,7 +586,8 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 
 bool j1Map::ChangeMap(Maps type)
 {
-
+	App->fade_to_black->FadeToBlack(nullptr, nullptr);
+	App->entity_manager->DeleteEntities();
 	CleanUp();
 	switch(type) {
 	case Maps::LOBBY:
@@ -590,6 +604,7 @@ bool j1Map::ChangeMap(Maps type)
 	uchar* data = NULL;
 	if (CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
+	App->scene->CreateEntities();
 
 	return true;
 }

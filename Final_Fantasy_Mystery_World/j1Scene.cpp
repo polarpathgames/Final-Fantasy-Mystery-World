@@ -44,7 +44,6 @@ bool j1Scene::Start()
 
 	if (!first_update) {
 		App->map->ChangeMap(Maps::TUTORIAL);
-		App->scene->CreateEntities();
 	}
 	first_update = false;
 	
@@ -98,7 +97,15 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
+	if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {
+		App->map->ChangeMap(Maps::LOBBY);
 
+	}
+		
+	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
+		App->map->ChangeMap(Maps::TUTORIAL);
+	}
+		
 
 	
 

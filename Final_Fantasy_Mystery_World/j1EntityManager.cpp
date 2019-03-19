@@ -181,7 +181,7 @@ void j1EntityManager::DeleteEntities()
 			(*item)->CleanUp();
 			delete(*item);
 			(*item) = nullptr;
-			//entities.erase(item);
+			entities.erase(item);
 		}
 	}
 	entities.clear();
