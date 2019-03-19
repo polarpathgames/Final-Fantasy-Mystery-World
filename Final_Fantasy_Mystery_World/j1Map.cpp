@@ -46,7 +46,7 @@ void j1Map::Draw()
 		return;
 
 	std::list<MapLayer*>::iterator item = data.layers.begin();
-
+	
 	for(; item != data.layers.end(); ++item)
 	{
 		MapLayer* layer = *item;
@@ -54,19 +54,22 @@ void j1Map::Draw()
 		if(layer->properties.Get("Nodraw") != 0)
 			continue;
 
-		for(int y = 0; y < data.height; ++y)
+		for(int i = 0; i < data.width; ++i)
 		{
-			for(int x = 0; x < data.width; ++x)
+			for(int j = 0; j < data.width; ++j)
 			{
-				int tile_id = layer->Get(x, y);
-				if(tile_id > 0)
+				iPoint tile_pos = MapToWorld(i, j);
+				if (App->render->IsOnCamera(tile_pos.x, tile_pos.y, 64, 64)) //We must change it because the test tileset now is 64x64
 				{
-					TileSet* tileset = GetTilesetFromTileId(tile_id);
+					int tile_id = layer->Get(i, j);
+					if (tile_id > 0)
+					{
+						TileSet* tileset = GetTilesetFromTileId(tile_id);
 
-					SDL_Rect r = tileset->GetTileRect(tile_id);
-					iPoint pos = MapToWorld(x, y);
+						SDL_Rect r = tileset->GetTileRect(tile_id);
 
-					App->render->Blit(tileset->texture, pos.x, pos.y, &r, true);
+						App->render->Blit(tileset->texture, tile_pos.x, tile_pos.y, &r, true);
+					}
 				}
 			}
 		}
