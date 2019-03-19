@@ -75,20 +75,14 @@ public:
 	}
 	void Enable()
 	{
-		if (enabled == false)
-		{
-			enabled = true;
+			active = true;
 			Start();
-		}
 	}
 
 	void Disable()
 	{
-		if (enabled == true)
-		{
-			enabled = false;
+			active = false;
 			CleanUp();
-		}
 	}
 
 	// Callbacks ---

@@ -11,6 +11,7 @@
 	<:anonymous />
 	<:anonymous />
 	<entity_manager />
+	<:anonymous />
 	<renderer>
 		<camera x="0" y="0" />
 	</renderer>

@@ -17,7 +17,7 @@
 j1Scene::j1Scene() : j1Module()
 {
 	name.assign("scene");
-	active = false;
+
 }
 
 // Destructor
@@ -42,8 +42,13 @@ bool j1Scene::Start()
 	/*SDL_Rect background_rect = { 0, 0, 1024, 768 };
 	background = App->ui_manager->AddImage(0, 0, &background_rect, nullptr, this, nullptr);*/
 
-
+	if (!first_update) {
+		App->map->ChangeMap(Maps::TUTORIAL);
+		App->scene->CreateEntities();
+	}
+	first_update = false;
 	
+
 
 	return true;
 }

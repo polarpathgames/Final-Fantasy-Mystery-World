@@ -17,7 +17,7 @@
 j1EntityManager::j1EntityManager() : j1Module()
 {
 	name.assign("entity_manager");
-	active = false;
+
 
 }
 

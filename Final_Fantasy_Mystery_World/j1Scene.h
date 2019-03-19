@@ -40,6 +40,8 @@ public:
 
 	void CreateEntities();
 
+	bool first_update = true;
+
 public:
 
 	//GUI* mock_image_ui = nullptr;

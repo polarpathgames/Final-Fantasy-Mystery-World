@@ -88,6 +88,7 @@
     <ClCompile Include="GUI_Button.cpp" />
     <ClCompile Include="GUI_Image.cpp" />
     <ClCompile Include="GUI_Label.cpp" />
+    <ClCompile Include="j1FadeToBlack.cpp" />
     <ClCompile Include="j1Fonts.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
@@ -116,6 +117,7 @@
     <ClInclude Include="GUI_Button.h" />
     <ClInclude Include="GUI_Image.h" />
     <ClInclude Include="GUI_Label.h" />
+    <ClInclude Include="j1FadeToBlack.h" />
     <ClInclude Include="j1Fonts.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Pathfinding.h" />
