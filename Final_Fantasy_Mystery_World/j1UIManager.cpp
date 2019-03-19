@@ -235,19 +235,3 @@ bool j1UIManager::CheckCollision(int x, int y, std::list<GUI*>::iterator item)
 void j1UIManager::UI_Events(GUI * element)
 {
 }
-
-void j1UIManager::DestroyUI()
-{
-	std::list<GUI*>::iterator item = ui_list.begin();
-	for (; item != ui_list.end(); ++item)
-	{
-		if ((*item) != nullptr)
-		{
-			(*item)->CleanUp();
-			delete(*item);
-			(*item) = nullptr;
-		}
-	}
-
-	ui_list.clear();
-}

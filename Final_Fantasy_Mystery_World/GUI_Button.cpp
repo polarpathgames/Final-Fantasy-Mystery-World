@@ -4,47 +4,48 @@
 #include "GUI_Label.h"
 #include "j1Textures.h"
 #include "p2Log.h"
+#include "j1Render.h"
 #include "j1Scene.h"
 
-GUI_Button::GUI_Button(int x, int y, SDL_Rect rect, SDL_Rect rec2, SDL_Rect rect3, j1Module* callback, UIType type, GUI* parent) : GUI(x, y, callback, parent)
+GUI_Button::GUI_Button(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, GUI* parent)
+	:GUI(BUTTON,x,y,parent,idle)
 {
-
-	position.x = x;
-	position.y = y;
-	this->type = type;
-	this->normal = rect;
-	this->mouse_in = rec2;
-	this->clicked = rect3;
-	this->animation_rect = normal;
+	hovered_rect = hover;
+	clicked_rect = push;
 
 }
 
-GUI_Button::~GUI_Button()
+GUI_Button::~GUI_Button() {}
+
+void GUI_Button::InnerDraw()
 {
-	if (text != nullptr)
-	{
-		App->tex->UnLoad(texture);
-		text = nullptr;
-		delete text;
-	}
+	if (drawable)
+		switch (current_state)
+		{
+		case Mouse_Event::HOVER:
+			App->render->Blit((SDL_Texture*)App->ui_manager->GetAtlas(), draw_offset.x, draw_offset.y, &hovered_rect, false, SDL_FLIP_NONE, 0.0F);
+			break;
+		case Mouse_Event::CLICKED_DOWN:
+			App->render->Blit((SDL_Texture*)App->ui_manager->GetAtlas(), draw_offset.x, draw_offset.y, &clicked_rect, false, SDL_FLIP_NONE, 0.0F);
+			break;
+		case Mouse_Event::CLICKED_REPEAT:
+			App->render->Blit((SDL_Texture*)App->ui_manager->GetAtlas(), draw_offset.x, draw_offset.y, &clicked_rect, false, SDL_FLIP_NONE, 0.0F);
+			break;
+		case Mouse_Event::CLICKED_UP:
+			App->render->Blit((SDL_Texture*)App->ui_manager->GetAtlas(), draw_offset.x, draw_offset.y, &hovered_rect, false, SDL_FLIP_NONE, 0.0F);
+			break;
+		case Mouse_Event::NONE:
+			App->render->Blit((SDL_Texture*)App->ui_manager->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0.0F);
+			break;
+		default:
+			App->render->Blit((SDL_Texture*)App->ui_manager->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0.0F);
+			break;
+		}
 }
 
-void GUI_Button::setAnimation(int state)
+void GUI_Button::SetRects(const SDL_Rect &std_rect, const SDL_Rect &hl_rect, const SDL_Rect &click_rect)
 {
-	if (state == 1)
-		animation_rect = normal;
-
-	else if (state == 2)
-		animation_rect = mouse_in;
-
-	else if (state == 3)
-		animation_rect = clicked;
+	section = std_rect;
+	hovered_rect = hl_rect;
+	clicked_rect = click_rect;
 }
-
-void GUI_Button::SetText(GUI_Label* text)
-{
-	this->text = text;
-	text->position.x = this->position.x + animation_rect.w / 2 - text->animation_rect.w / 2;
-	text->position.y = this->position.y + animation_rect.h / 2 - text->animation_rect.h / 2;
-}
-
