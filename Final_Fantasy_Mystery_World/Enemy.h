@@ -32,6 +32,8 @@ public:
 
 	bool IsPlayerNextTile() const;
 
+	void MovementLogic();
+
 public:
 
 

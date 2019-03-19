@@ -36,7 +36,6 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	target_position = position;
 	initial_position = position;
 	movement_count = { 0,0 };
-	actual_tile = App->map->WorldToMap(position.x, position.y);
 	actual_tile = App->map->WorldToMap(position.x + pivot.x, position.y + pivot.y);
 
 }
@@ -96,6 +95,11 @@ void Player::ReadPlayerInput()
 	if (state == State::IDLE) {
 		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
 			state = State::WALKING;
+		}
+		else {
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
+			target_position = position;
 		}
 	}
 	if (state == State::WALKING) {
@@ -435,13 +439,21 @@ const bool Player::MultipleButtons(const Input * input)
 {
 	bool ret;
 
-	if (input->pressing_A && !input->pressing_D && !input->pressing_S && !input->pressing_W)
+	if (input->pressing_A && !input->pressing_D && !input->pressing_S && !input->pressing_W && input->pressing_shift)
 		ret = true;
-	else if (input->pressing_D && !input->pressing_A && !input->pressing_S && !input->pressing_W)
+	else if (input->pressing_D && !input->pressing_A && !input->pressing_S && !input->pressing_W && input->pressing_shift)
 		ret = true;
-	else if (input->pressing_S && !input->pressing_A && !input->pressing_D && !input->pressing_W)
+	else if (input->pressing_S && !input->pressing_A && !input->pressing_D && !input->pressing_W && input->pressing_shift)
 		ret = true;
-	else if (input->pressing_W && !input->pressing_A && !input->pressing_D && !input->pressing_S)
+	else if (input->pressing_W && !input->pressing_A && !input->pressing_D && !input->pressing_S && input->pressing_shift)
+		ret = true;
+	else if (input->pressing_A && !input->pressing_D && !input->pressing_S && !input->pressing_W && !input->pressing_shift)
+		ret = true;
+	else if (input->pressing_D && !input->pressing_A && !input->pressing_S && !input->pressing_W && !input->pressing_shift)
+		ret = true;
+	else if (input->pressing_S && !input->pressing_A && !input->pressing_D && !input->pressing_W && !input->pressing_shift)
+		ret = true;
+	else if (input->pressing_W && !input->pressing_A && !input->pressing_D && !input->pressing_S && !input->pressing_shift)
 		ret = true;
 	else
 		ret = false;
