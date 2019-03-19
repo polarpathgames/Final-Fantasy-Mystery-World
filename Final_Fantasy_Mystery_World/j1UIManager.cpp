@@ -1,6 +1,7 @@
 #include "j1App.h"
 #include "j1UIManager.h"
 #include "j1Input.h"
+#include "j1Window.h"
 #include "j1Render.h"
 #include "p2Log.h"
 #include "j1Textures.h"
@@ -9,78 +10,72 @@
 #include "GUI_Label.h"
 #include "GUI.h"
 
+#include <vector>
+
 j1UIManager::j1UIManager(): j1Module()
 {
+	name.assign("ui_manager");
 }
 
 j1UIManager::~j1UIManager() {}
 
 bool j1UIManager::Awake(pugi::xml_node &node)
 {
+	CreateScreen();
 
 	return true;
 }
 
 bool j1UIManager::Start()
 {
-atlas = App->tex->Load("gui/atlas.png");
-return true;
+	atlas = App->tex->Load("gui/atlas.png");
+	return true;
 }
 
 bool j1UIManager::PreUpdate()
 {
+	bool ret = true;
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 		debug_ui = !debug_ui;
 	}
 
-	std::list<GUI*>::iterator item = ui_list.begin();
-	for (; item != ui_list.end(); ++item)
-	{
-		if ((*item) != nullptr)
-			(*item)->PreUpdate();
+	iPoint mouse;
+	App->input->GetMousePosition(mouse.x, mouse.y);
+	GUI* element = nullptr;
+	if (GetElemOnMouse(mouse.x*App->win->GetScale(), mouse.y*App->win->GetScale(), element)) {//Check if there is an element on Mouse
+		ret = element->Update();
 	}
 
-	return true;
-}
-
-bool j1UIManager::Update(float dt)
-{
-	std::list<GUI*>::iterator item = ui_list.begin();
-	for (; item != ui_list.end(); ++item)
-	{
-		if ((*item) != nullptr)
-			(*item)->Update(dt);
-	}
-
-	std::list<GUI*>::iterator item2 = ui_list.begin();
-	for (; item2 != ui_list.end(); ++item2)
-	{
-		if ((*item2) != nullptr) {
-			(*item2)->Draw(atlas);
-			//App->render->DrawQuad({ (*item)->position.x,(*item)->position.y,(*item). })
-		}
-	}
-
-	//std::list<GUI*>::iterator item3 = ui_list.begin();
-	//for (; item3 != ui_list.end(); ++item3)
-	//{
-	//	if ((*item3) != nullptr)
-	//		(*item3)->MouseIn(item3);
-	//}
-
-	return true;
+	return ret;
 }
 
 bool j1UIManager::PostUpdate()
 {
+	bool ret = true;
 	std::list<GUI*>::iterator item = ui_list.begin();
 	for (; item != ui_list.end(); ++item)
 	{
-		if ((*item) != nullptr)
-			(*item)->PostUpdate();
+		if ((*item) != nullptr) {
+			if ((*item)->to_delete) {
+				ret = DeleteUIElement(*item);
+			}
+			else {
+				ret = (*item)->PostUpdate();
+			}
+		}
 	}
 
-	return true;
+	std::list<GUI*> tree;
+	BFS(tree, screen);
+
+	for (std::list<GUI*>::iterator item = tree.begin(); item != tree.end(); item++) {
+		(*item)->Draw();
+		if (debug_ui) {
+			(*item)->DebugDraw();
+		}
+	}
+
+	return ret;
 }
 
 bool j1UIManager::CleanUp()
@@ -89,8 +84,7 @@ bool j1UIManager::CleanUp()
 	for (; item != ui_list.end(); ++item) {
 		if ((*item) != nullptr) {
 			(*item)->CleanUp();
-			delete(*item);
-			(*item) = nullptr;
+			RELEASE(*item);
 		}
 	}
 
@@ -131,6 +125,117 @@ GUI_Label* j1UIManager::AddLabel(int x, int y, std::string text, j1Module* callb
 	return label;
 }
 
+void j1UIManager::CreateScreen()
+{
+	if (std::find(ui_list.begin(), ui_list.end(), screen) == ui_list.end) {
+		screen = AddImage(0, 0, { 0,0,(int)App->win->,(int)App->win->GetWindowHeight() }, nullptr, false, false, false);
+	}
+}
+
+bool j1UIManager::DeleteUIElement(GUI * element)
+{
+	std::list<GUI*>::iterator item_ui = std::find(ui_list.begin(), ui_list.end(), element);
+	if (item_ui != ui_list.end()) {															//if element doesn't find in ui list it cannot be deleted
+
+		std::list<GUI*> tree;
+		BFS(tree, element);		//fills a list from element to delete to its childs using BFS algorithm
+
+		for (std::list<GUI*>::reverse_iterator item_tree = tree.rbegin(); item_tree != tree.rend(); ++item_tree) {	//iterate list from bottom to top
+			if (item_tree.base() == tree.begin() && (*item_tree)->parent != nullptr) {				/*In case the item we will delete is the first element of the tree
+																					we have to delete him first from its parent child list
+																					the reason why we don't made that for other nodes is becuase
+																					other nodes and its parents will be deleted for complete*/
+				std::list<GUI*>::iterator this_on_child = std::find((*item_tree)->parent->childs.begin(), (*item_tree)->parent->childs.end(), *item_tree);
+				if (this_on_child != (*item_tree)->parent->childs.end()) {
+					(*item_tree)->parent->childs.remove(*this_on_child);
+				}
+			}
+			std::list<GUI*>::iterator elem = std::find(ui_list.begin(),ui_list.end(),*item_tree);	//find item on ui objects list
+			if (elem != ui_list.end()) {						//if it is valid
+				ui_list.remove(*elem);
+				delete *elem;
+				*elem = nullptr;						//delete from list
+														//delete item->data;						//and deallocate memory
+			}
+		}
+		tree.clear();
+
+		return true;
+	}
+
+	LOG("Element not found to delete");
+
+	return false;
+}
+
+void j1UIManager::BFS(std::list<GUI*>& visited, GUI * elem)
+{
+	if (elem != nullptr) {
+		std::vector<GUI*> frontier;
+		GUI* item = nullptr;
+		visited.push_back(elem);					//Add from we want to start to visited and frontier list
+		frontier.push_back(elem);
+		while (frontier.empty == false) {
+			if ((item = frontier.back()) != nullptr) {			//Pop las item of array
+					for (std::list<GUI*>::iterator it = item->childs.begin(); it != item->childs.end(); ++it) { //iterate for all childs of node
+						if (std::find(visited.begin(),visited.end(),it) != visited.end()) {	//if child is not on visited list we added on it and on prontier to search its childs
+							frontier.push_back(*it);
+							visited.push_back(*it);
+						}
+					}
+			}
+
+		}
+	}
+}
+
+bool j1UIManager::DeleteAllUIElements()
+{
+	bool ret = true;
+
+	ret = DeleteUIElement(screen);
+
+	return ret;
+}
+
+bool j1UIManager::GetElemOnMouse(int x, int y, GUI *& element)
+{
+	std::list<GUI*> tree;
+	BFS(tree, screen);
+
+	for (std::list<GUI*>::reverse_iterator item = tree.rbegin(); item != tree.rend(); ++item) {
+		if ((*item)->interactable)
+		{
+			if (CheckCollision(x, y, item.base()))
+			{
+				if ((*item)->current_state != Mouse_Event::CLICKED_DOWN && (*item)->current_state != Mouse_Event::CLICKED_REPEAT)
+					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) ? (*item)->current_state = Mouse_Event::CLICKED_DOWN : (*item)->current_state = Mouse_Event::HOVER;
+				else {
+					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) ? (*item)->current_state = Mouse_Event::CLICKED_REPEAT : (*item)->current_state = Mouse_Event::CLICKED_UP;
+				}
+				element = *item;
+				return true;
+			}
+			else {
+				(*item)->current_state = Mouse_Event::NONE;
+			}
+		}
+	}
+
+	return false;
+}
+
+bool j1UIManager::CheckCollision(int x, int y, std::list<GUI*>::iterator item)
+{
+	iPoint pos = (*item)->GetGlobalPosition();
+	return (x > pos.x && x < pos.x + (*item)->section.w) &&
+		(y > pos.y && y < pos.y + (*item)->section.h);
+}
+
+void j1UIManager::UI_Events(GUI * element)
+{
+}
+
 void j1UIManager::DestroyUI()
 {
 	std::list<GUI*>::iterator item = ui_list.begin();
@@ -146,5 +251,3 @@ void j1UIManager::DestroyUI()
 
 	ui_list.clear();
 }
-
-

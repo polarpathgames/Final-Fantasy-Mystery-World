@@ -7,17 +7,26 @@
 struct SDL_Texture;
 struct SDL_Rect;
 
+enum class Mouse_Event {
+	HOVER,
+	CLICKED_DOWN,
+	CLICKED_REPEAT,
+	CLICKED_UP,
+
+	NONE
+};
+
 class GUI
 {
 public:
 	GUI() :type(UIType::NON) {}
-	GUI(UIType type,const int &x,const int &y, GUI* parent, const int &width = 0, const int &height = 0);
+	GUI(UIType type,const int &x,const int &y, GUI* parent, const SDL_Rect& section);
 	virtual ~GUI();
 
-	virtual bool PreUpdate() { return true; }
-	virtual bool Update(float dt);
+	bool Update();
 	virtual bool PostUpdate() { return true; }
-	virtual void Draw();
+	void Draw();
+	virtual void InnerDraw();
 	virtual bool CleanUp();
 	virtual bool MouseIn(GUI* element);
 
@@ -52,7 +61,7 @@ public:
 
 	std::list<GUI*> childs;
 
-	//Mouse_Event current_state = NONE;
+	Mouse_Event current_state = Mouse_Event::NONE;
 	iPoint last_mouse;
 
 private:
