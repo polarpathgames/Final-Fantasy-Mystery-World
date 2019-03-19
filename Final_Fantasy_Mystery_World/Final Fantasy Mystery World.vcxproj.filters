@@ -186,6 +186,7 @@
     <Xml Include="Game\config.xml">
       <Filter>XML</Filter>
     </Xml>
+    <Xml Include="Game\save_game.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\entities\Player.tsx">
