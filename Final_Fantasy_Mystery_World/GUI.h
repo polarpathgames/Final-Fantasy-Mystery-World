@@ -16,6 +16,19 @@ enum class Mouse_Event {
 	NONE
 };
 
+enum Color
+{
+	RED,
+	GREEN,
+	BLUE,
+	YELLOW,
+	GREY,
+	BLACK,
+	WHITE,
+
+	COLOR_NOT_DEF
+};
+
 class GUI
 {
 public:
