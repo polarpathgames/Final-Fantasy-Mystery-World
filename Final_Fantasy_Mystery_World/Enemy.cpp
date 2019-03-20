@@ -30,7 +30,7 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 	velocity.y = 80;
 	
 	position.x += 3;
-	position.y -= 2;
+	position.y += 5;
 	target_position = position;
 	initial_position = position;
 	movement_count = { 0,0 };
@@ -69,9 +69,6 @@ bool Enemy::PreUpdate()
 
 bool Enemy::Update(float dt)
 {
-	if (state == State::IDLE) {
-		position = initial_position + movement_count;
-	}
 	if (state == State::WALKING) {
 		switch (direction)
 		{
