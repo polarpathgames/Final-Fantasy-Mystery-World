@@ -34,6 +34,8 @@ public:
 
 	bool NextTileFree(const Direction & dir) const;
 
+	void RestTimeAfterAttack(float time_finish);
+
 public:
 
 
@@ -71,6 +73,7 @@ public:
 	SDL_Texture * ground = nullptr;
 
 	float time_attack;
+	float time_after_attack = 500;
 
 };
 

@@ -143,6 +143,14 @@ bool DynamicEntity::NextTileFree(const Direction & dir) const
 	return ret;
 }
 
+void DynamicEntity::RestTimeAfterAttack(float time_finish)
+{
+	if (time_attack <= SDL_GetTicks() - time_after_attack) {
+		ChangeTurn(type);
+		state = State::IDLE;
+	}
+}
+
 
 
 

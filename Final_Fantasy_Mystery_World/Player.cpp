@@ -92,6 +92,7 @@ void Player::ReadPlayerInput()
 	player_input.pressing_S = App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT;
 	player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
 	player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
+	player_input.pressing_G = App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN;
 	player_input.pressing_shift = App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT;
 
 	if (state == State::IDLE) {
@@ -330,12 +331,15 @@ void Player::PerformActions(float dt)
 			break;
 		}
 	}
+	if (state == State::AFTER_ATTACK) {
+		RestTimeAfterAttack(time_attack);
+	}
 }
 
 void Player::BasicAttack()
 {
-
-
+	state = State::AFTER_ATTACK;
+	time_attack = SDL_GetTicks();
 
 }
 
