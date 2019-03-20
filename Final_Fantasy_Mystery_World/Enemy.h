@@ -8,7 +8,6 @@
 #include <vector>
 
 
-
 class Enemy : public DynamicEntity
 {
 

@@ -70,6 +70,8 @@ public:
 
 	SDL_Texture * ground = nullptr;
 
+	float time_attack;
+
 };
 
 #endif

@@ -2,6 +2,7 @@
 #include "j1Input.h"
 #include "j1App.h"
 #include "j1Render.h"
+#include "p2Log.h"
 #include "j1App.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
@@ -97,6 +98,9 @@ void Player::ReadPlayerInput()
 		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
 			state = State::WALKING;
 		}
+		else if (player_input.pressing_G) {
+			state = State::BEFORE_ATTACK;
+		}
 		else {
 			position.x = initial_position.x + movement_count.x;
 			position.y = initial_position.y + movement_count.y;
@@ -116,6 +120,9 @@ void Player::ReadPlayerInput()
 		default:
 			break;
 		}
+	}
+	if (state == State::BEFORE_ATTACK) {
+		ReadAttack();
 	}
 }
 
@@ -286,6 +293,14 @@ void Player::ReadPlayerMovementInLobby()
 			current_animation = &IdleUp;
 	}
 }
+
+void Player::ReadAttack()
+{
+	if (player_input.pressing_G) {
+		type_attack = Attacks::BASIC;
+		state = State::ATTACKING;
+	}
+}
 	
 	
 void Player::PerformActions(float dt)
@@ -301,9 +316,27 @@ void Player::PerformActions(float dt)
 			break;
 		}
 		default:
+			LOG("There is no movement type...");
 			break;
 		}		
 	}
+	if (state == State::ATTACKING) {
+		switch (type_attack) {
+		case Attacks::BASIC:
+			BasicAttack();
+			break;
+		default:
+			LOG("There is no attack type...");
+			break;
+		}
+	}
+}
+
+void Player::BasicAttack()
+{
+
+
+
 }
 
 void Player::PerformMovementInLobby(float dt)

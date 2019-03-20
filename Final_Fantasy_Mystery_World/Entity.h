@@ -14,7 +14,7 @@ struct SDL_Texture;
 
 
 enum class State {
-	IDLE, WALKING, ATTACKING, NONE
+	IDLE, WALKING, BEFORE_ATTACK, ATTACKING, AFTER_ATTACK,NONE
 };
 
 struct TileSetEntity {
