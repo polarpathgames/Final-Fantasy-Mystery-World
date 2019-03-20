@@ -185,9 +185,6 @@ void j1EntityManager::DeleteEntities()
 		}
 	}
 	entities.clear();
-//	for (int i = 0; i < texture.size(); ++i) {
-	//	App->tex->UnLoad(texture[i]);
-	//}
 
 
 }

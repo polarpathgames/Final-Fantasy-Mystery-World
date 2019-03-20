@@ -587,7 +587,6 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 
 bool j1Map::ChangeMap(Maps type)
 {
-	App->fade_to_black->FadeToBlack(nullptr, nullptr);
 	App->entity_manager->DeleteEntities();
 	CleanUp();
 	switch(type) {

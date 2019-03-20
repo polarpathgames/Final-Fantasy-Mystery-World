@@ -49,10 +49,7 @@ bool MainMenu::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-
-
-	App->fade_to_black->FadeToBlack((j1Module*)App->main_menu, (j1Module*)App->scene);
-
+	App->fade_to_black->FadeToBlack(this, Maps::TUTORIAL);
 	}
 	
 

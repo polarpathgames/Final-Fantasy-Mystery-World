@@ -4,6 +4,9 @@
 #include "j1Module.h"
 #include "SDL\include\SDL_rect.h"
 
+
+enum class Maps;
+
 class j1FadeToBlack : public j1Module
 {
 public:
@@ -12,10 +15,12 @@ public:
 
 	bool Start();
 	bool Update(float dt);
-	bool FadeToBlack(j1Module* module_off, j1Module* module_on, float time = 1.0f);
+	bool FadeToBlack(j1Module* module_off, j1Module* module_on , float time = 1.0f);
 	bool FadeToBlack(j1Module* module_off,  float time = 1.0f);
 	bool FadeToBlack(float time, j1Module* module_on);
 	bool FadeToBlack(float time);
+	bool FadeToBlack(Maps type, float time = 1.0f);
+	bool FadeToBlack(j1Module* module_off, Maps type, float time = 1.0f);
 	bool IsFading() const;
 
 	enum fade_step
@@ -32,8 +37,9 @@ private:
 	SDL_Rect screen;
 	j1Module* to_enable = nullptr;
 	j1Module* to_disable = nullptr;
-	bool ENABLE = false;
-	bool DISABLE = false;
+	
+	Maps map_to_change;
+	bool want_to_change_map = false;
 };
 
 #endif

@@ -7,6 +7,7 @@
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Render.h"
+#include "j1FadeToBlack.h"
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1EntityManager.h"
@@ -41,11 +42,6 @@ bool j1Scene::Start()
 	//App->map->Load("iso_walk2.tmx");
 	/*SDL_Rect background_rect = { 0, 0, 1024, 768 };
 	background = App->ui_manager->AddImage(0, 0, &background_rect, nullptr, this, nullptr);*/
-
-	if (!first_update) {
-		App->map->ChangeMap(Maps::TUTORIAL);
-	}
-	first_update = false;
 	
 
 
@@ -98,12 +94,12 @@ bool j1Scene::Update(float dt)
 	App->map->Draw();
 
 	if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {
-		App->map->ChangeMap(Maps::LOBBY);
+		App->fade_to_black->FadeToBlack(Maps::LOBBY);
 
 	}
 		
 	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
-		App->map->ChangeMap(Maps::TUTORIAL);
+		App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 	}
 		
 

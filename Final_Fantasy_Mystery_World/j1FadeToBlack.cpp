@@ -7,7 +7,7 @@
 #include "j1Window.h"
 #include "p2Log.h"
 #include "j1App.h"
-
+#include "j1Map.h"
 
 j1FadeToBlack::j1FadeToBlack()
 {
@@ -47,6 +47,8 @@ bool j1FadeToBlack::Update(float dt)
 				to_disable->Disable();
 			if (to_enable != nullptr)
 				to_enable->Enable();
+			if (want_to_change_map)
+				App->map->ChangeMap(map_to_change);
 			total_time += total_time;
 			start_time = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;
@@ -81,6 +83,7 @@ bool j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 		to_enable = module_on;
 		to_disable = module_off;
+		want_to_change_map = false;
 		ret = true;
 	}
 
@@ -96,7 +99,7 @@ bool j1FadeToBlack::FadeToBlack(j1Module * module_off, float time)
 		start_time = SDL_GetTicks();
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 		to_disable = module_off;
-		DISABLE = true;
+		want_to_change_map = false;
 		ret = true;
 	}
 
@@ -112,7 +115,7 @@ bool j1FadeToBlack::FadeToBlack(float time, j1Module * module_on)
 		start_time = SDL_GetTicks();
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 		to_enable = module_on;
-		ENABLE = true;
+		want_to_change_map = false;
 		ret = true;
 	}
 
@@ -127,6 +130,40 @@ bool j1FadeToBlack::FadeToBlack(float time)
 		current_step = fade_step::fade_to_black;
 		start_time = SDL_GetTicks();
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
+		want_to_change_map = false;
+		ret = true;
+	}
+
+	return ret;
+}
+bool j1FadeToBlack::FadeToBlack(Maps type, float time)
+{
+	bool ret = false;
+
+	if (current_step == fade_step::none)
+	{
+		current_step = fade_step::fade_to_black;
+		start_time = SDL_GetTicks();
+		total_time = (Uint32)(time * 0.5f * 1000.0f);
+		want_to_change_map = true;
+		map_to_change = type;
+		ret = true;
+	}
+
+	return ret;
+}
+bool j1FadeToBlack::FadeToBlack(j1Module * module_off, Maps type, float time)
+{
+	bool ret = false;
+
+	if (current_step == fade_step::none)
+	{
+		current_step = fade_step::fade_to_black;
+		start_time = SDL_GetTicks();
+		total_time = (Uint32)(time * 0.5f * 1000.0f);
+		want_to_change_map = true;
+		to_disable = module_off;
+		map_to_change = type;
 		ret = true;
 	}
 

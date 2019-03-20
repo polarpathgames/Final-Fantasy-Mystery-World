@@ -40,7 +40,6 @@ public:
 
 	void CreateEntities();
 
-	bool first_update = true;
 
 public:
 
