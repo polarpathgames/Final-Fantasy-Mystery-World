@@ -114,7 +114,7 @@ bool j1EntityManager::CleanUp()
 			(*item)->CleanUp();
 			delete(*item);
 			(*item) = nullptr;
-			entities.erase(item);
+			//entities.erase(item);
 		}
 	}
 	entities.clear();

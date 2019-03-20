@@ -195,6 +195,7 @@ bool Enemy::Save(pugi::xml_node &) const
 
 bool Enemy::CleanUp()
 {
+	App->tex->UnLoad(ground);
 	return true;
 }
 

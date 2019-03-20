@@ -79,6 +79,7 @@ bool Player::Save(pugi::xml_node &) const
 
 bool Player::CleanUp()
 {
+	App->tex->UnLoad(ground);
 	return true;
 }
 
