@@ -14,6 +14,7 @@
 #include "j1Scene.h"
 #include "MainMenu.h"
 #include <string>
+#include "Sensor.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -147,6 +148,11 @@ void j1Scene::CreateEntities()
 		}
 		else if ((*position)->ent_type == "enemy") {
 			App->entity_manager->CreateEntity(Entity::EntityType::ENEMY, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x + 12, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y + 30, (*position)->name);
+		}
+		else if ((*position)->name == "sensor") {
+			if ((*position)->ent_type == "ToLobby") {
+				App->entity_manager->CreateEntity(Entity::EntityType::SENSOR, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name, Sensor::SensorType::TO_LOBBY);
+			}
 		}
 		else {
 			LOG("There isn't any entity with name %s and type %s", (*position)->name.data(), (*position)->ent_type.data());

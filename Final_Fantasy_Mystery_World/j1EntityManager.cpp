@@ -5,6 +5,7 @@
 #include "Entity.h"
 #include "j1Audio.h"
 #include "j1Window.h"
+#include "Sensor.h"
 #include "p2Log.h"
 #include "j1Map.h"
 #include "j1Scene.h"
@@ -126,13 +127,14 @@ bool j1EntityManager::CleanUp()
 
 
 //Entity Factory
-Entity* j1EntityManager::CreateEntity(Entity::EntityType type, int PositionX, int PositionY, std::string name)
+Entity* j1EntityManager::CreateEntity(Entity::EntityType type, int PositionX, int PositionY, std::string name, Sensor::SensorType sensor_type)
 {
-	static_assert(Entity::EntityType::NO_TYPE == (Entity::EntityType)2, "code needs update");
+	static_assert(Entity::EntityType::NO_TYPE == (Entity::EntityType)3, "code needs update");
 	Entity* ret = nullptr;
 	switch (type) {
 	case Entity::EntityType::PLAYER: ret = new Player(PositionX, PositionY); break;
 	case Entity::EntityType::ENEMY: ret = new Enemy(PositionX, PositionY); break;
+	case Entity::EntityType::SENSOR: ret = new Sensor(PositionX, PositionY, sensor_type); break;
 	//case Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
 	default:
 		LOG("Cannot find any entity with that type");

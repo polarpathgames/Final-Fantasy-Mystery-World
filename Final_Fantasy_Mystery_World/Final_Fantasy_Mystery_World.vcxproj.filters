@@ -76,6 +76,12 @@
     <ClCompile Include="j1FadeToBlack.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="StaticEntity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Sensor.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Scene.h" />
@@ -166,6 +172,12 @@
     </ClInclude>
     <ClInclude Include="j1FadeToBlack.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticEntity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Sensor.h">
+      <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

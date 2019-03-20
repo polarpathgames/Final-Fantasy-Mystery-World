@@ -56,6 +56,7 @@ public:
 	{
 		PLAYER,
 		ENEMY,
+		SENSOR,
 
 
 		NO_TYPE
