@@ -114,7 +114,7 @@ bool j1EntityManager::CleanUp()
 			(*item)->CleanUp();
 			delete(*item);
 			(*item) = nullptr;
-			//entities.erase(item);
+			entities.erase(item);
 		}
 	}
 	entities.clear();
@@ -181,10 +181,13 @@ void j1EntityManager::DeleteEntities()
 			(*item)->CleanUp();
 			delete(*item);
 			(*item) = nullptr;
-			entities.erase(item);
+			//entities.erase(item);
 		}
 	}
 	entities.clear();
+//	for (int i = 0; i < texture.size(); ++i) {
+	//	App->tex->UnLoad(texture[i]);
+	//}
 
 
 }

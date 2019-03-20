@@ -197,6 +197,7 @@ bool j1Map::CleanUp()
 
 	while(item != data.tilesets.end())
 	{
+		App->tex->UnLoad((*item)->texture);
 		RELEASE(*item);
 		++item;
 	}
