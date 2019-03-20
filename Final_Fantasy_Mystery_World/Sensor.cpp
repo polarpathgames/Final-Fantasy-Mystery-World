@@ -5,6 +5,8 @@
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1EntityManager.h"
+#include "p2Log.h"
+#include "j1FadeToBlack.h"
 #include "j1Map.h"
 #include <string>
 #include "Player.h"
@@ -13,7 +15,10 @@ Sensor::Sensor(const int & x, const int & y, const SensorType &sensor_type) : St
 {
 	ground = App->tex->Load("textures/sensor_pos.png");
 
+	type = Entity::EntityType::SENSOR;
+	has_turn = false;
 	this->sensor_type = sensor_type;
+	actual_tile = App->map->WorldToMap(position.x, position.y);
 }
 
 Sensor::~Sensor()
@@ -23,7 +28,20 @@ Sensor::~Sensor()
 bool Sensor::Update(float dt)
 {
 
-	App->render->Blit(ground, position.x, position.y, NULL);
+	if (App->entity_manager->GetPlayerData()->actual_tile == actual_tile) {
+		switch (sensor_type) {
+		case SensorType::TO_LOBBY:
+			App->fade_to_black->FadeToBlack(Maps::LOBBY);
+			break;
+		default:
+			LOG("This sensor has no type...");
+			break;
+		}
+	}
+
+	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x, App->map->MapToWorld(actual_tile.x, actual_tile.y).y);
+
+
 	return true;
 }
 

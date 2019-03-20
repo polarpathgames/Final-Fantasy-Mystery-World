@@ -25,12 +25,11 @@ void DynamicEntity::ChangeTurn(EntityType type)
 	std::vector<Entity*> entities = App->entity_manager->GetEntities();
 	switch (type) {
 	case EntityType::PLAYER: {
-
+		has_turn = false;
 		std::vector<Entity*>::iterator item = entities.begin();
 		for (; item != entities.end(); ++item) {
 			if ((*item) != nullptr && (*item)->type == EntityType::ENEMY) {
 				(*item)->has_turn = true;
-				has_turn = false;
 			}
 				
 		}
@@ -38,7 +37,22 @@ void DynamicEntity::ChangeTurn(EntityType type)
 	case EntityType::ENEMY: {
 		has_turn = false;
 		std::vector<Entity*>::reverse_iterator item = entities.rbegin();
-		if ((*item) == this) {
+		
+		bool player_turn = false;
+		while (item != entities.rend()) {
+			if ((*item)->type == Entity::EntityType::ENEMY) {
+				if ((*item) != this) {
+					break;
+				}
+				else {
+					player_turn = true;
+					break;
+				}
+			}
+			++item;
+		}
+		if (player_turn) {
+			item = entities.rbegin();
 			for (; item != entities.rend(); ++item) {
 				if ((*item) != nullptr && (*item)->type == EntityType::ENEMY)
 					(*item)->has_turn = false;
@@ -77,7 +91,7 @@ bool DynamicEntity::NextTileFree(const Direction & dir) const
 	std::vector<Entity*>::iterator item = entities.begin();
 
 	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr) {
+		if ((*item) != nullptr && (*item)->type != Entity::EntityType::SENSOR) {
 			iPoint origin = actual_tile;
 			iPoint destination = (*item)->actual_tile;
 

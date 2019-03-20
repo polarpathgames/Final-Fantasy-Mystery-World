@@ -2752,12 +2752,10 @@
  </objectgroup>
  <objectgroup color="#ff949b" id="4" name="enemies">
   <object id="37" name="Enemy Test" type="enemy" x="176" y="160" width="15.9688" height="16.0156"/>
-  <object id="39" name="Enemy Test" type="enemy" x="112.766" y="209.242" width="15.9688" height="16.0156"/>
+  <object id="39" name="Enemy Test" type="enemy" x="112.391" y="208.367" width="15.9688" height="16.0156"/>
  </objectgroup>
  <objectgroup color="#00aa00" id="10" name="sensors">
-  <object id="40" name="Enemy Test" type="enemy" x="176" y="160" width="15.9688" height="16.0156"/>
-  <object id="41" name="Enemy Test" type="enemy" x="112.766" y="209.242" width="15.9688" height="16.0156"/>
-  <object id="42" name="sensor" type="ToLobby" x="0" y="-0.1875" width="15.9063" height="16.0938"/>
+  <object id="42" name="sensor" type="ToLobby" x="192.5" y="31.9792" width="15.9063" height="16.0938"/>
  </objectgroup>
  <group id="7" name="entities"/>
  <group id="6" name="colliders" visible="0">
