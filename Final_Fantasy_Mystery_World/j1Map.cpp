@@ -83,7 +83,7 @@ void j1Map::Draw()
 		for (int i = 0; i < data.width; ++i) {
 			for (int j = 0; j < data.height; ++j) {
 
-				App->render->Blit(quad, MapToWorld(i + 2, j +1).x, MapToWorld(i +2, j+1).y);
+				App->render->Blit(quad, MapToWorld(i, j).x, MapToWorld(i, j).y);
 			}
 		}
 	}
@@ -180,7 +180,7 @@ iPoint j1Map::TiledToWorld(int x, int y) const
 	iPoint ret = { 0,0 };
 
 
-	ret.x = x / data.tile_width;
+	ret.x = x / (data.tile_width*0.5f);
 	ret.y = y / data.tile_height;
 
 	ret = MapToWorld(ret.x, ret.y);

@@ -29,8 +29,8 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 	velocity.x = 160;
 	velocity.y = 80;
 	
-	position.x += 3;
-	position.y += 5;
+	position.x -= 9;
+	position.y += 6;
 	target_position = position;
 	initial_position = position;
 	movement_count = { 0,0 };
