@@ -93,6 +93,10 @@ void Player::ReadPlayerInput()
 	player_input.pressing_S = App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT;
 	player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
 	player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
+	player_input.pressing_I = App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN;
+	player_input.pressing_J = App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN;
+	player_input.pressing_K = App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN;
+	player_input.pressing_L = App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN;
 	player_input.pressing_G = App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN;
 	player_input.pressing_shift = App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT;
 
@@ -316,6 +320,9 @@ void Player::ReadAttack()
 	
 void Player::PerformActions(float dt)
 {
+	if (state == State::IDLE) {
+		ChangeDirection();
+	}
 	if (state == State::WALKING) {
 		switch (movement_type) {
 		case Movement_Type::InQuest: {
@@ -485,6 +492,50 @@ void Player::PerformMovementInQuest(float dt)
 	default:
 		break;
 	}
+}
+
+void Player::ChangeDirection()
+{
+	if (player_input.pressing_shift) {
+		if (player_input.pressing_I) {
+			direction = Direction::UP;
+			current_animation = &IdleUp;
+		}
+		if (player_input.pressing_J) {
+			direction = Direction::LEFT;
+			current_animation = &IdleLeft;
+		}
+		if (player_input.pressing_K) {
+			direction = Direction::DOWN;
+			current_animation = &IdleDown;
+		}
+		if (player_input.pressing_L) {
+			direction = Direction::RIGHT;
+			current_animation = &IdleRight;
+		}
+	}
+	else if (!player_input.pressing_shift) {
+		if (player_input.pressing_I) {
+			direction = Direction::UP_LEFT;
+			current_animation = &IdleUpLeft;
+		}
+		if (player_input.pressing_J) {
+			direction = Direction::DOWN_LEFT;
+			current_animation = &IdleDownLeft;
+		}
+		if (player_input.pressing_K) {
+			direction = Direction::DOWN_RIGHT;
+			current_animation = &IdleDownRight;
+		}
+		if (player_input.pressing_L) {
+			direction = Direction::UP_RIGHT;
+			current_animation = &IdleUpRight;
+		}
+	}
+
+
+
+
 }
 
 const bool Player::MultipleButtons(const Input * input)
