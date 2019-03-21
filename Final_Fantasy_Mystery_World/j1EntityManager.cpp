@@ -191,6 +191,22 @@ void j1EntityManager::DeleteEntities()
 
 }
 
+void j1EntityManager::DeleteEntity(Entity* entity_to_delete)
+{
+
+	std::vector<Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr && (*item) == entity_to_delete) {
+			(*item)->CleanUp();
+			delete(*item);
+			(*item) = nullptr;
+			//entities.erase(item);
+		}
+	}
+
+
+}
+
 Player* j1EntityManager::GetPlayerData() const {
 
 	std::vector<Entity*>::const_iterator item = entities.begin();

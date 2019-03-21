@@ -25,11 +25,12 @@ void DynamicEntity::ChangeTurn(EntityType type)
 	std::vector<Entity*> entities = App->entity_manager->GetEntities();
 	switch (type) {
 	case EntityType::PLAYER: {
-		has_turn = false;
+		
 		std::vector<Entity*>::iterator item = entities.begin();
 		for (; item != entities.end(); ++item) {
 			if ((*item) != nullptr && (*item)->type == EntityType::ENEMY) {
 				(*item)->has_turn = true;
+				has_turn = false;
 			}
 				
 		}

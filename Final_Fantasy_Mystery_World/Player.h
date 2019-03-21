@@ -16,7 +16,7 @@ struct Input {
 	bool pressing_shift;
 };
 
-struct Stats {
+struct PlayerStats {
 
 	int live = 100;
 	int attack_power = 50;
@@ -76,12 +76,15 @@ public:
 
 	const bool MultipleButtons(const Input* input);
 
+
+
 public:
 
 
 	Input player_input; //VARIABLES DEL INPUT DEL PLAYER
 	Movement_Type movement_type; //EN LOBBY O EN UNA QUEST
 	Attacks type_attack = Attacks::NONE;
+	PlayerStats stats;
 };
 
 

@@ -45,6 +45,8 @@ public:
 	//Enemy* CreateEnemy();
 
 	void DeleteEntities();
+	void DeleteEntity(Entity* entity_to_delete);
+
 
 	Player * GetPlayerData() const;
 

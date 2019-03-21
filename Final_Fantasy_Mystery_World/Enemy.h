@@ -10,6 +10,13 @@
 
 class Enemy : public DynamicEntity
 {
+public:
+
+	struct EnemyStats {
+		int live = 100;
+		int attack_power = 25;
+	};
+
 
 public:
 
@@ -35,7 +42,7 @@ public:
 
 public:
 
-
+	EnemyStats stats;
 };
 
 

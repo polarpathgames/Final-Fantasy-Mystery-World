@@ -5,6 +5,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Textures.h"
+#include "Enemy.h"
 #include "j1Audio.h"
 #include "j1Map.h"
 #include "j1EntityManager.h"
@@ -300,6 +301,7 @@ void Player::ReadAttack()
 	if (player_input.pressing_G) {
 		type_attack = Attacks::BASIC;
 		state = State::ATTACKING;
+		//ANIMATION ATTACK BASIC
 	}
 }
 	
@@ -338,6 +340,28 @@ void Player::PerformActions(float dt)
 
 void Player::BasicAttack()
 {
+	if (!NextTileFree(direction)) {
+		std::vector<Entity*> entities = App->entity_manager->GetEntities();
+		std::vector<Entity*>::iterator item = entities.begin();
+		for (; item != entities.end(); ++item) {
+			if ((*item) != nullptr && (*item)->type == Entity::EntityType::ENEMY) {
+				iPoint origin = actual_tile;
+				iPoint destination = (*item)->actual_tile;
+				switch (direction) {
+				case Direction::DOWN_LEFT: {
+					origin += {0, 1};
+					if (destination == origin) {
+						Enemy* enemy_attacked = (Enemy*)(*item);
+						enemy_attacked->stats.live -= stats.attack_power;
+						if (enemy_attacked->stats.live <= 0) {
+							App->entity_manager->DeleteEntity((*item));
+						}
+					}
+				} break;
+				}
+			}
+		}
+	}
 	state = State::AFTER_ATTACK;
 	time_attack = SDL_GetTicks();
 
