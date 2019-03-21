@@ -3,6 +3,8 @@
 #include "j1EntityManager.h"
 #include "j1Render.h"
 #include "j1Scene.h"
+#include "Enemy.h"
+#include "Player.h"
 #include "j1Map.h"
 #include "p2Log.h"
 #include "j1EntityManager.h"
@@ -150,6 +152,49 @@ void DynamicEntity::RestTimeAfterAttack(float time_finish)
 		ChangeTurn(type);
 		state = State::IDLE;
 	}
+}
+
+void DynamicEntity::CheckAttackEfects(const Entity::EntityType & type, const Direction & direction, const int & attack_damage)
+{
+	std::vector<Entity*> entities = App->entity_manager->GetEntities();
+	std::vector<Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr && (*item)->type == type) {
+			iPoint origin = actual_tile;
+			iPoint destination = (*item)->actual_tile;
+			bool has_succeeded = false;
+			switch (direction) {
+			case Direction::DOWN_LEFT: {
+				origin += {0, 1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			default:
+				LOG("There is no valid direction to attack");
+				break;
+			}
+			if (has_succeeded) {
+				if (type == Entity::EntityType::ENEMY) {
+					Enemy* enemy_attacked = (Enemy*)(*item);
+					enemy_attacked->stats.live -= attack_damage;
+					if (enemy_attacked->stats.live <= 0) {
+						App->entity_manager->DeleteEntity((*item));
+					}
+				}
+				else if (type == Entity::EntityType::PLAYER) {
+					Player* player_attacked = (Player*)(*item);
+					player_attacked->stats.live -= attack_damage;
+					if (player_attacked->stats.live <= 0) {
+						App->entity_manager->DeleteEntity((*item));
+					}
+				}
+			}
+		}
+	}
+
+
+
 }
 
 

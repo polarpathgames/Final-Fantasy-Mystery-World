@@ -36,6 +36,8 @@ public:
 
 	void RestTimeAfterAttack(float time_finish);
 
+	void CheckAttackEfects(const Entity::EntityType &type, const Direction & direction, const int &attack_damage);
+
 public:
 
 
