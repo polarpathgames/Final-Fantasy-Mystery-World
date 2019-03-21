@@ -67,11 +67,11 @@ void j1Map::Draw()
 					if (tile_id > 0)
 					{
 						TileSet* tileset = GetTilesetFromTileId(tile_id);
-						if (App->render->IsOnCamera(tile_pos.x, tile_pos.y, tileset->tile_width, tileset->tile_height))
+						if (App->render->IsOnCamera(tile_pos.x + 1, tile_pos.y - 8, tileset->tile_width, tileset->tile_height))
 						{
 							SDL_Rect r = tileset->GetTileRect(tile_id);
 
-							App->render->Blit(tileset->texture, tile_pos.x, tile_pos.y, &r, true);
+							App->render->Blit(tileset->texture, tile_pos.x + 1, tile_pos.y - 8, &r, true);
 							
 						}
 				}
