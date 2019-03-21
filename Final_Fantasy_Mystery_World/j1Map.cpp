@@ -83,7 +83,7 @@ void j1Map::Draw()
 		for (int i = 0; i < data.width; ++i) {
 			for (int j = 0; j < data.height; ++j) {
 
-				App->render->Blit(quad, MapToWorld(i, j).x, MapToWorld(i, j).y);
+				App->render->Blit(quad, MapToWorld(i, j).x, MapToWorld(i, j).y, NULL, true);
 			}
 		}
 	}
