@@ -45,25 +45,29 @@ public:
 	Direction direction = Direction::NONE;
 	State state = State::NONE;
 
-	Animation GoLeft;
-	Animation GoRight;
-	Animation GoDown;
-	Animation GoUp;
+	Animation GoDownLeft;
+	Animation IdleDownLeft;
 
-	Animation IdleLeft;
-	Animation IdleRight;
-	Animation IdleUp;
-	Animation IdleDown;
+	Animation GoDownRight;
+	Animation IdleDownRight;
+
+	Animation GoUpRight;
+	Animation IdleUpRight;
 
 	Animation GoUpLeft;
-	Animation GoDownLeft;
-	Animation GoUpRight;
-	Animation GoDownRight;
-
 	Animation IdleUpLeft;
-	Animation IdleDownLeft;
-	Animation IdleUpRight;
-	Animation IdleDownRight;
+
+	Animation GoLeft;
+	Animation IdleLeft;
+
+	Animation GoRight;
+	Animation IdleRight;
+
+	Animation GoUp;
+	Animation IdleUp;
+
+	Animation GoDown;
+	Animation IdleDown;
 
 	iPoint velocity;
 

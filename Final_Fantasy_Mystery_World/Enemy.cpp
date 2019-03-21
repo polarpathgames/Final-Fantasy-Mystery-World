@@ -76,7 +76,7 @@ bool Enemy::Update(float dt)
 			if (position.x >= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 				position.x -= floor(velocity.x * dt);
 				position.y += floor(velocity.y * dt);
-				current_animation = &GoLeft;
+				current_animation = &GoDownLeft;
 			}
 			else {
 				target_position = position;
@@ -88,7 +88,7 @@ bool Enemy::Update(float dt)
 			if (position.x <= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 				position.x += floor(velocity.x * dt);
 				position.y -= floor(velocity.y * dt);
-				current_animation = &GoLeft;
+				current_animation = &GoDownLeft;
 			}
 			else {
 				target_position = position;
@@ -100,7 +100,7 @@ bool Enemy::Update(float dt)
 			if (position.x >= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 				position.x -= floor(velocity.x * dt);
 				position.y -= floor(velocity.y * dt);
-				current_animation = &GoLeft;
+				current_animation = &GoDownLeft;
 			}
 			else {
 				target_position = position;
@@ -112,7 +112,7 @@ bool Enemy::Update(float dt)
 			if (position.x <= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 				position.x += floor(velocity.x * dt);
 				position.y += floor(velocity.y * dt);
-				current_animation = &GoLeft;
+				current_animation = &GoDownLeft;
 			}
 			else {
 				target_position = position;
@@ -123,7 +123,7 @@ bool Enemy::Update(float dt)
 		case Direction::LEFT:
 			if (position.x >= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
 				position.x -= floor(velocity.x * dt);
-				current_animation = &GoLeft;
+				current_animation = &GoDownLeft;
 			}
 			else {
 				target_position = position;
@@ -133,7 +133,7 @@ bool Enemy::Update(float dt)
 		case Direction::RIGHT:
 			if (position.x <= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
 				position.x += floor(velocity.x * dt);
-				current_animation = &GoLeft;
+				current_animation = &GoDownLeft;
 			}
 			else {
 				target_position = position;
@@ -143,7 +143,7 @@ bool Enemy::Update(float dt)
 		case Direction::UP:
 			if (position.x == initial_position.x + movement_count.x && position.y >= initial_position.y + movement_count.y) {
 				position.y -= floor(velocity.y * dt);
-				current_animation = &GoLeft;
+				current_animation = &GoDownLeft;
 			}
 			else {
 				target_position = position;
@@ -154,7 +154,7 @@ bool Enemy::Update(float dt)
 		case Direction::DOWN:
 			if (position.x == initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 				position.y += floor(velocity.y * dt);
-				current_animation = &GoLeft;
+				current_animation = &GoDownLeft;
 			}
 			else {
 				target_position = position;

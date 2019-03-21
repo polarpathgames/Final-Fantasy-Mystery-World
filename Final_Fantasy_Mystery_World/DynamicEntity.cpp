@@ -77,11 +77,50 @@ void DynamicEntity::PushBack()
 			case AnimationState::IDLE_LEFT:
 				IdleLeft.PushBack(data.animations[i].frames[j]);
 				break;
+			case AnimationState::IDLE_RIGHT:
+				IdleRight.PushBack(data.animations[i].frames[j]);
+				break;
+			case AnimationState::IDLE_UP:
+				IdleUp.PushBack(data.animations[i].frames[j]);
+				break;
+			case AnimationState::IDLE_DOWN:
+				IdleDown.PushBack(data.animations[i].frames[j]);
+				break;
+			case AnimationState::IDLE_UP_LEFT:
+				IdleUpLeft.PushBack(data.animations[i].frames[j]);
+				break;
+			case AnimationState::IDLE_DOWN_LEFT:
+				IdleDownLeft.PushBack(data.animations[i].frames[j]);
+				break;
+			case AnimationState::IDLE_UP_RIGHT:
+				IdleUpRight.PushBack(data.animations[i].frames[j]);
+				break;
+			case AnimationState::IDLE_DOWN_RIGHT:
+				IdleDownRight.PushBack(data.animations[i].frames[j]);
+				break;
 			case AnimationState::WALKING_LEFT:
 				GoLeft.PushBack(data.animations[i].frames[j]);
 				break;
 			case AnimationState::WALKING_RIGHT:
 				GoRight.PushBack(data.animations[i].frames[j]);
+				break;
+			case AnimationState::WALKING_UP:
+				GoUp.PushBack(data.animations[i].frames[j]);
+				break;
+			case AnimationState::WALKING_DOWN:
+				GoDown.PushBack(data.animations[i].frames[j]);
+				break;
+			case AnimationState::WALKING_UP_RIGHT:
+				GoUpRight.PushBack(data.animations[i].frames[j]);
+				break;
+			case AnimationState::WALKING_DOWN_RIGHT:
+				GoDownRight.PushBack(data.animations[i].frames[j]);
+				break;
+			case AnimationState::WALKING_UP_LEFT:
+				GoUpLeft.PushBack(data.animations[i].frames[j]);
+				break;
+			case AnimationState::WALKING_DOWN_LEFT:
+				GoDownLeft.PushBack(data.animations[i].frames[j]);
 				break;
 			default:
 				break;

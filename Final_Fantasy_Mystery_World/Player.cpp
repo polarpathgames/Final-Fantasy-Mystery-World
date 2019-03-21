@@ -15,7 +15,7 @@
 Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 {
 	//LoadXML("player_config.xml");
-	LoadEntityData("entities/Player.tsx");
+	LoadEntityData("entities/WarriorSpritesheet.tsx");
 
 	//GoLeft = LoadPushbacks(node, "GoLeft");
 	//IdleLeft = LoadPushbacks(node, "IdleLeft");
@@ -24,7 +24,7 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 
 	current_animation = &IdleLeft;
 
-	SetPivot(12, 30);
+	SetPivot(9, 30);
 	has_turn = true;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
@@ -33,8 +33,8 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	
 	velocity.x = 160;
 	velocity.y = 80;
-	position.x -= 9;
-	position.y += 6;
+	position.x -= 5;
+	position.y += 5;
 	target_position = position;
 	initial_position = position;
 	movement_count = { 0,0 };
@@ -240,14 +240,22 @@ void Player::ReadPlayerMovementInQuest()
 		if (!MultipleButtons(&player_input)) {
 			state = State::IDLE;
 			target_position = position;
-			if (current_animation == &GoLeft)
-				current_animation = &IdleLeft;
+			if (current_animation == &GoDownLeft)
+				current_animation = &IdleDownLeft;
 			if (current_animation == &GoRight)
-				current_animation = &IdleLeft;
+				current_animation = &IdleRight;
 			if (current_animation == &GoDown)
 				current_animation = &IdleDown;
 			if (current_animation == &GoUp)
 				current_animation = &IdleUp;
+			if (current_animation == &GoUpLeft)
+				current_animation = &IdleUpLeft;
+			if (current_animation == &GoUpRight)
+				current_animation = &IdleUpRight;
+			if (current_animation == &GoDownRight)
+				current_animation = &IdleDownRight;
+			if (current_animation == &GoLeft)
+				current_animation = &IdleLeft;
 		}
 		else {
 			if (is_movement_acepted) {
@@ -285,7 +293,7 @@ void Player::ReadPlayerMovementInLobby()
 	}
 	if (!player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D && !player_input.pressing_W) {
 		state = State::IDLE;
-		if (current_animation == &GoLeft)
+		if (current_animation == &GoDownLeft)
 			current_animation = &IdleLeft;
 		if (current_animation == &GoRight)
 			current_animation = &IdleLeft;
@@ -356,38 +364,38 @@ void Player::PerformMovementInLobby(float dt)
 	case Direction::DOWN_LEFT:
 		position.x -= floor(velocity.x * dt);
 		position.y += floor(velocity.y * dt);
-		current_animation = &GoLeft;
+		current_animation = &GoDownLeft;
 		break;
 	case Direction::UP_RIGHT:
 		position.x += floor(velocity.x * dt);
 		position.y -= floor(velocity.y * dt);
-		current_animation = &GoLeft;
+		current_animation = &GoDownLeft;
 		break;
 	case Direction::UP_LEFT:
 		position.x -= floor(velocity.x * dt);
 		position.y -= floor(velocity.y * dt);
-		current_animation = &GoLeft;
+		current_animation = &GoDownLeft;
 		break;
 	case Direction::DOWN_RIGHT:
 		position.x += floor(velocity.x * dt);
 		position.y += floor(velocity.y * dt);
-		current_animation = &GoLeft;
+		current_animation = &GoDownLeft;
 		break;
 	case Direction::RIGHT:
 		position.x += floor(180 * dt);
-		current_animation = &GoLeft;
+		current_animation = &GoDownLeft;
 		break;
 	case Direction::LEFT:
 		position.x -= floor(180 * dt);
-		current_animation = &GoLeft;
+		current_animation = &GoDownLeft;
 		break;
 	case Direction::UP:
 		position.y -= floor(180 * dt);
-		current_animation = &GoLeft;
+		current_animation = &GoDownLeft;
 		break;
 	case Direction::DOWN:
 		position.y += floor(180 * dt);
-		current_animation = &GoLeft;
+		current_animation = &GoDownLeft;
 		break;
 	default:
 		break;
@@ -402,7 +410,7 @@ void Player::PerformMovementInQuest(float dt)
 		if (position.x >= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.x -= floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
-			current_animation = &GoLeft;
+			current_animation = &GoDownLeft;
 		}
 		else {
 			target_position = position;
@@ -412,7 +420,7 @@ void Player::PerformMovementInQuest(float dt)
 		if (position.x <= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
-			current_animation = &GoRight;
+			current_animation = &GoUpRight;
 		}
 		else {
 			target_position = position;
@@ -422,7 +430,7 @@ void Player::PerformMovementInQuest(float dt)
 		if (position.x >= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 			position.x -= floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
-			current_animation = &GoLeft;
+			current_animation = &GoUpLeft;
 		}
 		else {
 			target_position = position;
@@ -432,7 +440,7 @@ void Player::PerformMovementInQuest(float dt)
 		if (position.x <= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.x += floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
-			current_animation = &GoLeft;
+			current_animation = &GoDownRight;
 		}
 		else {
 			target_position = position;
@@ -450,7 +458,7 @@ void Player::PerformMovementInQuest(float dt)
 	case Direction::RIGHT:
 		if (position.x <= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
 			position.x += floor(velocity.x * dt);
-			current_animation = &GoLeft;
+			current_animation = &GoRight;
 		}
 		else {
 			target_position = position;
@@ -459,7 +467,7 @@ void Player::PerformMovementInQuest(float dt)
 	case Direction::UP:
 		if (position.x == initial_position.x + movement_count.x && position.y >= initial_position.y + movement_count.y) {
 			position.y -= floor(velocity.y * dt);
-			current_animation = &GoLeft;
+			current_animation = &GoUp;
 		}
 		else {
 			target_position = position;
@@ -468,7 +476,7 @@ void Player::PerformMovementInQuest(float dt)
 	case Direction::DOWN:
 		if (position.x == initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.y += floor(velocity.y * dt);
-			current_animation = &GoLeft;
+			current_animation = &GoDown;
 		}
 		else {
 			target_position = position;
