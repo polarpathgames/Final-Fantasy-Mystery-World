@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="j1App.cpp" />
+    <ClCompile Include="j1Scene.cpp" />
+    <ClCompile Include="p2Log.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="PugiXml\src\pugixml.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Audio.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Input.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Map.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1PerfTimer.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Timer.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Render.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Textures.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Window.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Main.cpp" />
+    <ClCompile Include="j1UIManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI_Image.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicEntity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Pathfinding.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>UI\UIScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI_Button.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Fonts.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI_Label.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1EntityManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1FadeToBlack.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticEntity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Sensor.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="j1Scene.h" />
+    <ClInclude Include="j1App.h" />
+    <ClInclude Include="PugiXml\src\pugixml.hpp">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Animation.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Defs.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Log.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Point.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="PugiXml\src\pugiconfig.hpp">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Audio.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Input.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Map.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Module.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1PerfTimer.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Timer.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Render.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Textures.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Window.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1UIManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI_Image.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicEntity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Pathfinding.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>UI\UIScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI_Button.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Fonts.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI_Label.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1EntityManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1FadeToBlack.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticEntity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Sensor.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{53c9586e-883c-4cf1-95be-7aaf09b4b478}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules">
+      <UniqueIdentifier>{804bbdb1-912f-4a2f-9648-b2d6d259c2b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{6f64259e-ef41-4893-a604-31cb0faf9493}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{293d05cb-82cb-4ce2-b8a9-f1269d39697a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\UIScenes">
+      <UniqueIdentifier>{e1b0415c-a1b7-4b7e-9bfe-da567a1d1330}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XML">
+      <UniqueIdentifier>{c068a6e9-159c-4650-bf99-5d0564514ac0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Game\config.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="Game\save_game.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Game\entities\Player.tsx">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="Game\entities\Enemy.tsx">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="Game\maps\iso_walk.tmx">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="Game\maps\iso_walk2.tmx">
+      <Filter>XML</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -20,6 +20,11 @@
 
   <map>
     <folder>maps/</folder>
+    <maps>
+      <tutorial_map>iso_walk2.tmx</tutorial_map>
+      <lobby_map>iso_walk.tmx</lobby_map>
+    </maps>
+
   </map>
 
 </config>

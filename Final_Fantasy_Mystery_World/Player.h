@@ -12,20 +12,33 @@ struct Input {
 	bool pressing_W;
 	bool pressing_S;
 	bool pressing_D;
+	bool pressing_G;
 	bool pressing_shift;
+};
+
+struct PlayerStats {
+
+	int live = 100;
+	int attack_power = 50;
+	int xp = 0;
+	int mana = 100;
+
 };
 
 enum class Movement_Type {
 	InLobby, InQuest
 };
 
+enum class Attacks {
+	BASIC, NONE
+};
 
 class Player : public DynamicEntity
 {
 
 public:
 
-	Player();
+	Player(const int &x, const int &y);
 
 	virtual ~Player();
 
@@ -44,26 +57,34 @@ public:
 
 
 
-
+	//PreUpdate
 	void ReadPlayerInput(); 
+
 	void ReadPlayerMovementInQuest();
 	void ReadPlayerMovementInLobby();
 
+	void ReadAttack();
+
+	//Update
 	void PerformActions(float dt);
+
+	void BasicAttack();
+
 	void PerformMovementInLobby(float dt);
 	void PerformMovementInQuest(float dt);
 
 
 	const bool MultipleButtons(const Input* input);
 
-	const bool CheckEnemyNextTile(const Direction * dir);
+
 
 public:
 
 
 	Input player_input; //VARIABLES DEL INPUT DEL PLAYER
 	Movement_Type movement_type; //EN LOBBY O EN UNA QUEST
-
+	Attacks type_attack = Attacks::NONE;
+	PlayerStats stats;
 };
 
 

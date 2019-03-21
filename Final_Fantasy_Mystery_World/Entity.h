@@ -11,18 +11,20 @@
 
 struct SDL_Texture;
 
-enum class EntityType
-{
-	PLAYER,
-	ENEMY,
-
-
-	NO_TYPE
-};
-
 enum class State {
-	IDLE, WALKING, NONE
+	IDLE, WALKING, BEFORE_ATTACK, ATTACKING, AFTER_ATTACK, NONE
 };
+
+enum class AnimationState {
+
+	IDLE_UP, IDLE_UP_LEFT, IDLE_UP_RIGHT, IDLE_LEFT, IDLE_DOWN_LEFT, IDLE_DOWN, IDLE_DOWN_RIGHT, IDLE_RIGHT,
+	WALKING_UP, WALKING_UP_LEFT, WALKING_UP_RIGHT, WALKING_LEFT, WALKING_DOWN_LEFT, WALKING_DOWN, WALKING_DOWN_RIGHT, WALKING_RIGHT,
+
+
+	NONE
+};
+
+
 
 struct TileSetEntity {
 
@@ -45,7 +47,7 @@ struct EntityAnim {
 	uint id = 0;
 	uint num_frames = 0;
 	SDL_Rect* frames = nullptr;
-	State animType = State::NONE;
+	AnimationState animType = AnimationState::NONE;
 
 	uint FrameCount(pugi::xml_node&);
 };
@@ -59,8 +61,18 @@ struct EntityInfo {
 class Entity
 {
 public:
+	enum class EntityType
+	{
+		PLAYER,
+		ENEMY,
+		SENSOR,
 
-	Entity();
+
+		NO_TYPE
+	};
+
+public:
+	Entity(const int& x, const int& y);
 	virtual ~Entity();
 
 	bool LoadEntityData(const char*);
@@ -74,6 +86,8 @@ public:
 	virtual bool CleanUp() { return true; };
 	virtual void Draw(SDL_Texture* tex, float dt);
 
+	void SetPivot(const int &x, const int &y);
+
 	virtual bool Load(pugi::xml_node&) { return true; };
 	virtual bool Save(pugi::xml_node&) const { return true; };
 
@@ -85,7 +99,9 @@ public:
 	EntityType type = EntityType::NO_TYPE;
 	EntityInfo data;
 
-	iPoint position{ 0,0 };
+	iPoint position = { 0,0 };
+	iPoint pivot = { 0, 0 };
+	iPoint size = { 0,0 };
 
 	Animation* current_animation = nullptr;
 
@@ -96,7 +112,7 @@ public:
 
 
 	bool has_turn = true;
-
+	iPoint actual_tile;
 };
 
 #endif

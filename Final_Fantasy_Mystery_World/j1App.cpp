@@ -15,8 +15,11 @@
 #include "j1Scene.h"
 #include "j1UIManager.h"
 #include "j1Map.h"
+#include "j1Fonts.h"
+#include "MainMenu.h"
 #include "p2Point.h"
-#include "EntityManager.h"
+#include "j1EntityManager.h"
+#include "j1FadeToBlack.h"
 #include "j1Pathfinding.h"
 
 // Constructor
@@ -32,8 +35,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 	scene = new j1Scene();
 	ui_manager = new j1UIManager();
-	entity_manager = new EntityManager();
+	main_menu = new MainMenu();
+	fonts = new j1Fonts();
+	entity_manager = new j1EntityManager();
 	pathfinding = new j1PathFinding();
+	fade_to_black = new j1FadeToBlack();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -41,11 +47,14 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(ui_manager);
 	AddModule(map);
 	AddModule(pathfinding);
 	AddModule(scene);
+	AddModule(ui_manager);
+	AddModule(main_menu);
+	AddModule(fonts);
 	AddModule(entity_manager);
+	AddModule(fade_to_black);
 
 	// render last to swap buffer
 	AddModule(render);
@@ -132,7 +141,8 @@ bool j1App::Start()
 
 	while (item != modules.end() && ret == true)
 	{
-		ret = (*item)->Start();
+		if ((*item)->active)
+			ret = (*item)->Start();
 		++item;
 	}
 	startup_time.Start();

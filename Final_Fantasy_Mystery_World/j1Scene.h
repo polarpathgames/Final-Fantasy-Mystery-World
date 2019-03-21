@@ -9,6 +9,8 @@ struct SDL_Rect;
 class GUI;
 class GUI_Image;
 
+
+
 class j1Scene : public j1Module
 {
 public:
@@ -36,10 +38,14 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void CreateEntities();
+
+
 public:
 
-	GUI* mock_image_ui = nullptr;
-	SDL_Rect mock_image_rect = { 0, 0, 61, 76 };
+	//GUI* mock_image_ui = nullptr;
+	//SDL_Rect mock_image_rect = { 0, 0, 61, 76 };
+	GUI* background = nullptr;
 };
 
 #endif // __j1SCENE_H__

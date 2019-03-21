@@ -7,6 +7,14 @@
 #include "j1Module.h"
 #include <string>
 
+enum class Maps {
+
+	LOBBY,
+	TUTORIAL,
+
+	NONE
+};
+
 // ----------------------------------------------------
 struct Properties
 {
@@ -33,6 +41,20 @@ struct Properties
 	int Get(const char* name, int default_value = 0) const;
 
 	std::list<Property*>	list;
+};
+
+//-----------------------------------------------------------------
+struct ObjectLayer {
+
+	std::string name;
+	std::string ent_type;
+
+	uint tile_id;
+	int	coll_x;
+	int	coll_y;
+	int coll_width = 0;
+	int coll_height = 0;
+
 };
 
 // ----------------------------------------------------
@@ -88,14 +110,15 @@ enum MapTypes
 // ----------------------------------------------------
 struct MapData
 {
-	int					width;
-	int					height;
-	int					tile_width;
-	int					tile_height;
-	SDL_Color			background_color;
-	MapTypes			type;
-	std::list<TileSet*>	tilesets;
-	std::list<MapLayer*>	layers;
+	int							width;
+	int							height;
+	int							tile_width;
+	int							tile_height;
+	SDL_Color					background_color;
+	MapTypes					type;
+	std::list<TileSet*>			tilesets;
+	std::list<MapLayer*>		layers;
+	std::list<ObjectLayer*>		objects;
 };
 
 // ----------------------------------------------------
@@ -124,7 +147,10 @@ public:
 
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
+	iPoint TiledToWorld(int x, int y) const;
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
+
+	bool ChangeMap(Maps type);
 
 private:
 
@@ -132,6 +158,7 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
+	bool LoadObject(pugi::xml_node& tileset_node, ObjectLayer* obj);
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 
 	TileSet* GetTilesetFromTileId(int id) const;
@@ -147,6 +174,10 @@ private:
 	std::string			folder;
 	bool				map_loaded;
 	SDL_Texture*		quad;
+
+	std::string tutorial_map;
+	std::string lobby_map;
+
 	
 };
 

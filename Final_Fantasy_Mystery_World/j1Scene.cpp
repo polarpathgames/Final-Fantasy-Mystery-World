@@ -7,15 +7,19 @@
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Render.h"
+#include "j1FadeToBlack.h"
 #include "j1Window.h"
 #include "j1Map.h"
-#include "EntityManager.h"
+#include "j1EntityManager.h"
 #include "j1Scene.h"
+#include "MainMenu.h"
 #include <string>
+#include "Sensor.h"
 
 j1Scene::j1Scene() : j1Module()
 {
 	name.assign("scene");
+
 }
 
 // Destructor
@@ -36,11 +40,11 @@ bool j1Scene::Start()
 {
 	//std::string map("iso_walk.tmx");
 	
-	App->map->Load("iso_walk2.tmx");
-	int w, h;
-	uchar* data = NULL;
-	if (App->map->CreateWalkabilityMap(w, h, &data))
-		App->pathfinding->SetMap(w, h, data);
+	//App->map->Load("iso_walk2.tmx");
+	/*SDL_Rect background_rect = { 0, 0, 1024, 768 };
+	background = App->ui_manager->AddImage(0, 0, &background_rect, nullptr, this, nullptr);*/
+	
+
 
 	return true;
 }
@@ -58,6 +62,7 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+
 	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
 
@@ -77,16 +82,26 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x -= 300 * dt;
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		App->map->Grid = !App->map->Grid;
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-		App->entity_manager->CreatePlayer();
-	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
-		App->entity_manager->CreateEnemy();
-	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-		mock_image_ui = App->ui_manager->AddImage(0, 0, &mock_image_rect);
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
+		int x = 0, y = 0;
+		App->input->GetMousePosition(x, y);
+		App->entity_manager->CreateEntity(Entity::EntityType::PLAYER, x, y, std::string());
+	}
+	//if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+	//	App->entity_manager->CreateEnemy();
+	/*if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+		mock_image_ui = App->ui_manager->AddImage(0, 0, &mock_image_rect, nullptr, this, nullptr);*/
 
 	App->map->Draw();
 
-
+	if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {
+		App->fade_to_black->FadeToBlack(Maps::LOBBY);
+	}
+		
+	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
+		App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
+	}
+		
 
 	
 
@@ -116,4 +131,30 @@ bool j1Scene::CleanUp()
 	LOG("Freeing scene");
 
 	return true;
+}
+
+void j1Scene::CreateEntities()
+{
+	//iterate all objects of map made with Tiled to find entities
+
+	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
+		if ((*position)->name == "player") {
+			App->entity_manager->CreateEntity(Entity::EntityType::PLAYER, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x + 12, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y + 30, (*position)->name);
+		}
+		else if ((*position)->ent_type == "static") {
+			//App->entity_manager->CreateEntity(Entity::EntityType::STATIC, (*position)->coll_x, (*position)->coll_y, (*position)->name);
+
+		}
+		else if ((*position)->ent_type == "enemy") {
+			App->entity_manager->CreateEntity(Entity::EntityType::ENEMY, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x + 12, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y + 30, (*position)->name);
+		}
+		else if ((*position)->name == "sensor") {
+			if ((*position)->ent_type == "ToLobby") {
+				App->entity_manager->CreateEntity(Entity::EntityType::SENSOR, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name, Sensor::SensorType::TO_LOBBY);
+			}
+		}
+		else {
+			LOG("There isn't any entity with name %s and type %s", (*position)->name.data(), (*position)->ent_type.data());
+		}
+	}
 }

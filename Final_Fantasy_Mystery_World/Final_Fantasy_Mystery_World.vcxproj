@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{CA36A83C-2BCF-4BEB-9B41-CD0B834374B8}</ProjectGuid>
+    <RootNamespace>programacio_2</RootNamespace>
+    <ProjectName>Final Fantasy Mystery World</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryPath>C:\Users\victorsb3\Documents\GitHub\Alien-Earth\PlatformGame\Brofiler;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LibraryPath>C:\Users\victorsb3\Documents\GitHub\Alien-Earth\PlatformGame\Brofiler;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ShowIncludes>false</ShowIncludes>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <ShowIncludes>false</ShowIncludes>
+      <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="DynamicEntity.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="j1EntityManager.cpp" />
+    <ClCompile Include="GUI.cpp" />
+    <ClCompile Include="GUI_Button.cpp" />
+    <ClCompile Include="GUI_Image.cpp" />
+    <ClCompile Include="GUI_Label.cpp" />
+    <ClCompile Include="j1FadeToBlack.cpp" />
+    <ClCompile Include="j1Fonts.cpp" />
+    <ClCompile Include="j1Main.cpp" />
+    <ClCompile Include="j1App.cpp" />
+    <ClCompile Include="j1Audio.cpp" />
+    <ClCompile Include="j1Input.cpp" />
+    <ClCompile Include="j1Map.cpp" />
+    <ClCompile Include="j1Pathfinding.cpp" />
+    <ClCompile Include="j1PerfTimer.cpp" />
+    <ClCompile Include="j1Scene.cpp" />
+    <ClCompile Include="j1Timer.cpp" />
+    <ClCompile Include="j1UIManager.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="p2Log.cpp" />
+    <ClCompile Include="j1Render.cpp" />
+    <ClCompile Include="j1Textures.cpp" />
+    <ClCompile Include="j1Window.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PugiXml\src\pugixml.cpp" />
+    <ClCompile Include="Sensor.cpp" />
+    <ClCompile Include="StaticEntity.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DynamicEntity.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="j1EntityManager.h" />
+    <ClInclude Include="GUI.h" />
+    <ClInclude Include="GUI_Button.h" />
+    <ClInclude Include="GUI_Image.h" />
+    <ClInclude Include="GUI_Label.h" />
+    <ClInclude Include="j1FadeToBlack.h" />
+    <ClInclude Include="j1Fonts.h" />
+    <ClInclude Include="j1Map.h" />
+    <ClInclude Include="j1Pathfinding.h" />
+    <ClInclude Include="j1PerfTimer.h" />
+    <ClInclude Include="j1Scene.h" />
+    <ClInclude Include="j1Timer.h" />
+    <ClInclude Include="j1UIManager.h" />
+    <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="p2Animation.h" />
+    <ClInclude Include="j1Audio.h" />
+    <ClInclude Include="j1Input.h" />
+    <ClInclude Include="p2Log.h" />
+    <ClInclude Include="j1App.h" />
+    <ClInclude Include="p2Defs.h" />
+    <ClInclude Include="j1Module.h" />
+    <ClInclude Include="p2Point.h" />
+    <ClInclude Include="j1Render.h" />
+    <ClInclude Include="j1Textures.h" />
+    <ClInclude Include="j1Window.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
+    <ClInclude Include="PugiXml\src\pugixml.hpp" />
+    <ClInclude Include="Sensor.h" />
+    <ClInclude Include="StaticEntity.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Game\config.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="Game\save_game.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Game\entities\Enemy.tsx" />
+    <None Include="Game\entities\Player.tsx" />
+    <None Include="Game\maps\iso_walk.tmx" />
+    <None Include="Game\maps\iso_walk2.tmx" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

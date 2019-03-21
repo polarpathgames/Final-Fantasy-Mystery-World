@@ -1,6 +1,6 @@
 #include "Entity.h"
 #include "j1App.h"
-#include "EntityManager.h"
+#include "j1EntityManager.h"
 #include "j1Render.h"
 #include "j1Scene.h"
 #include "j1Map.h"
@@ -8,8 +8,10 @@
 #include "j1Textures.h"
 
 
-Entity::Entity()
+Entity::Entity(const int& x, const int& y)
 {
+	position.x = x;
+	position.y = y;
 }
 
 Entity::~Entity()
@@ -18,7 +20,13 @@ Entity::~Entity()
 
 void Entity::Draw(SDL_Texture * tex, float dt)
 {
-	App->render->Blit(tex, position.x, position.y, &(current_animation->GetCurrentFrame(dt)));
+	if (type != Entity::EntityType::SENSOR)
+		App->render->Blit(tex, position.x, position.y, &(current_animation->GetCurrentFrame(dt)), true);
+}
+
+void Entity::SetPivot(const int & x, const int & y)
+{
+	pivot.create(x, y);
 }
 
 void Entity::LoadXML(std::string name_xml_file)
@@ -79,6 +87,8 @@ bool Entity::LoadEntityData(const char* file) {
 	data.tileset.imagePath = _node.child("image").attribute("source").as_string();
 	data.tileset.width = _node.child("image").attribute("width").as_uint();
 	data.tileset.height = _node.child("image").attribute("height").as_uint();
+
+	size.create(data.tileset.tilewidth, data.tileset.tileheight);
 
 	//provisional ubication -----------------------------
 	data.tileset.texture = App->tex->Load(data.tileset.imagePath.data());
@@ -155,12 +165,55 @@ void Entity::IdAnimToEnum() //Assign every id animation to enum animation
 	for (uint i = 0; i < data.num_animations; ++i) {
 		switch (data.animations[i].id) {
 		case 1:
-			data.animations[i].animType = State::IDLE;
+			data.animations[i].animType = AnimationState::IDLE_DOWN_LEFT;
 			break;
 		case 0:
-			data.animations[i].animType = State::WALKING;
+			data.animations[i].animType = AnimationState::WALKING_DOWN_LEFT;
+			break;
+		case 3:
+			data.animations[i].animType = AnimationState::WALKING_UP_LEFT;
+			break;
+		case 4:
+			data.animations[i].animType = AnimationState::IDLE_UP_LEFT;
+			break;
+		case 6:
+			data.animations[i].animType = AnimationState::WALKING_DOWN_RIGHT;
+			break;
+		case 7:
+			data.animations[i].animType = AnimationState::IDLE_DOWN_RIGHT;
+			break;
+		case 9:
+			data.animations[i].animType = AnimationState::WALKING_UP_RIGHT;
+			break;
+		case 10:
+			data.animations[i].animType = AnimationState::IDLE_UP_RIGHT;
+			break;
+		case 12:
+			data.animations[i].animType = AnimationState::WALKING_DOWN;
+			break;
+		case 13:
+			data.animations[i].animType = AnimationState::IDLE_DOWN;
+			break;
+		case 15:
+			data.animations[i].animType = AnimationState::WALKING_UP;
+			break;
+		case 16:
+			data.animations[i].animType = AnimationState::IDLE_UP;
+			break;
+		case 18:
+			data.animations[i].animType = AnimationState::WALKING_LEFT;
+			break;
+		case 19:
+			data.animations[i].animType = AnimationState::IDLE_LEFT;
+			break;
+		case 21:
+			data.animations[i].animType = AnimationState::WALKING_RIGHT;
+			break;
+		case 22:
+			data.animations[i].animType = AnimationState::IDLE_RIGHT;
 			break;
 		}
+
 	}
 }
 
