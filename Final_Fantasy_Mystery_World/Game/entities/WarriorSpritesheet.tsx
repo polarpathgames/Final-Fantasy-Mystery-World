@@ -2,6 +2,9 @@
 <tileset version="1.2" tiledversion="1.2.2" name="WarriorSpritesheet" tilewidth="18" tileheight="34" tilecount="24" columns="12">
  <image source="../assets/sprites/WarriorSpritesheet.png" width="218" height="68"/>
  <tile id="0">
+  <properties>
+   <property name="speed" type="int" value="2"/>
+  </properties>
   <animation>
    <frame tileid="0" duration="100"/>
    <frame tileid="1" duration="100"/>
@@ -10,11 +13,17 @@
   </animation>
  </tile>
  <tile id="1">
+  <properties>
+   <property name="speed" type="int" value="4"/>
+  </properties>
   <animation>
    <frame tileid="1" duration="100"/>
   </animation>
  </tile>
  <tile id="3">
+  <properties>
+   <property name="speed" type="int" value="3"/>
+  </properties>
   <animation>
    <frame tileid="3" duration="100"/>
    <frame tileid="4" duration="100"/>
