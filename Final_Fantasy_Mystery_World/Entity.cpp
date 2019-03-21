@@ -165,10 +165,13 @@ void Entity::IdAnimToEnum() //Assign every id animation to enum animation
 	for (uint i = 0; i < data.num_animations; ++i) {
 		switch (data.animations[i].id) {
 		case 1:
-			data.animations[i].animType = State::IDLE;
+			data.animations[i].animType = AnimationState::IDLE_LEFT;
 			break;
 		case 0:
-			data.animations[i].animType = State::WALKING;
+			data.animations[i].animType = AnimationState::WALKING_LEFT;
+			break;
+		case 34:
+			data.animations[i].animType = AnimationState::WALKING_RIGHT;
 			break;
 		}
 	}

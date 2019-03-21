@@ -243,7 +243,7 @@ void Player::ReadPlayerMovementInQuest()
 			if (current_animation == &GoLeft)
 				current_animation = &IdleLeft;
 			if (current_animation == &GoRight)
-				current_animation = &IdleRight;
+				current_animation = &IdleLeft;
 			if (current_animation == &GoDown)
 				current_animation = &IdleDown;
 			if (current_animation == &GoUp)
@@ -288,7 +288,7 @@ void Player::ReadPlayerMovementInLobby()
 		if (current_animation == &GoLeft)
 			current_animation = &IdleLeft;
 		if (current_animation == &GoRight)
-			current_animation = &IdleRight;
+			current_animation = &IdleLeft;
 		if (current_animation == &GoDown)
 			current_animation = &IdleDown;
 		if (current_animation == &GoUp)
@@ -412,7 +412,7 @@ void Player::PerformMovementInQuest(float dt)
 		if (position.x <= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
-			current_animation = &GoLeft;
+			current_animation = &GoRight;
 		}
 		else {
 			target_position = position;

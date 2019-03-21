@@ -74,11 +74,14 @@ void DynamicEntity::PushBack()
 	for (uint i = 0; i < data.num_animations; ++i) {
 		for (uint j = 0; j < data.animations[i].num_frames; ++j) {
 			switch (data.animations[i].animType) {
-			case State::IDLE:
+			case AnimationState::IDLE_LEFT:
 				IdleLeft.PushBack(data.animations[i].frames[j]);
 				break;
-			case State::WALKING:
+			case AnimationState::WALKING_LEFT:
 				GoLeft.PushBack(data.animations[i].frames[j]);
+				break;
+			case AnimationState::WALKING_RIGHT:
+				GoRight.PushBack(data.animations[i].frames[j]);
 				break;
 			default:
 				break;

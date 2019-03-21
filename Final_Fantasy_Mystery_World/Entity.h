@@ -11,11 +11,19 @@
 
 struct SDL_Texture;
 
-
-
 enum class State {
-	IDLE, WALKING, BEFORE_ATTACK, ATTACKING, AFTER_ATTACK,NONE
+	IDLE, WALKING, BEFORE_ATTACK, ATTACKING, AFTER_ATTACK, NONE
 };
+
+enum class AnimationState {
+	IDLE_LEFT,
+	WALKING_LEFT,
+	WALKING_RIGHT,
+
+	NONE
+};
+
+
 
 struct TileSetEntity {
 
@@ -38,7 +46,7 @@ struct EntityAnim {
 	uint id = 0;
 	uint num_frames = 0;
 	SDL_Rect* frames = nullptr;
-	State animType = State::NONE;
+	AnimationState animType = AnimationState::NONE;
 
 	uint FrameCount(pugi::xml_node&);
 };
