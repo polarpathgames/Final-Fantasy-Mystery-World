@@ -8,9 +8,15 @@
 #include <vector>
 
 
-
 class Enemy : public DynamicEntity
 {
+public:
+
+	struct EnemyStats {
+		int live = 100;
+		int attack_power = 25;
+	};
+
 
 public:
 
@@ -30,9 +36,13 @@ public:
 
 	bool CleanUp();
 
+	bool IsPlayerNextTile() const;
+
+	void MovementLogic();
+
 public:
 
-
+	EnemyStats stats;
 };
 
 

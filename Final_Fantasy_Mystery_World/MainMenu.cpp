@@ -8,6 +8,7 @@
 #include "j1UIManager.h"
 #include "j1Map.h"
 #include "GUI_Button.h"
+#include "j1FadeToBlack.h"
 #include "GUI_Label.h"
 #include "GUI_Image.h"
 
@@ -35,9 +36,8 @@ bool MainMenu::Start()
 
 	labels.push_back(exit_text);
 
-	App->map->active = false;
-	App->scene->active = false;
-	App->entity_manager->active = false;
+
+
 
 
 	return true;
@@ -61,6 +61,7 @@ bool MainMenu::PostUpdate()
 
 bool MainMenu::CleanUp()
 {
+	App->ui_manager->DestroyUI();
 	return true;
 }
 

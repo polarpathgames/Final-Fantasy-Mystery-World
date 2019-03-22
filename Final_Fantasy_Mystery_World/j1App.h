@@ -22,6 +22,7 @@ class j1Fonts;
 class MainMenu;
 class j1EntityManager;
 class j1PathFinding;
+class j1FadeToBlack;
 
 class j1App
 {
@@ -105,6 +106,7 @@ public:
 	MainMenu*           main_menu;
 	j1EntityManager*		entity_manager;
 	j1PathFinding*		pathfinding;
+	j1FadeToBlack*		fade_to_black;
 
 private:
 
