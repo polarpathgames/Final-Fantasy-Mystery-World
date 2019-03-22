@@ -51,20 +51,6 @@ bool MainMenu::PreUpdate()
 bool MainMenu::Update(float dt)
 {
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-	//App->ui_manager->DestroyUI();
-	active = false; //desactivates main menu
-	App->entity_manager->active = true;
-	App->map->active = true;
-	App->scene->active = true;
-	App->map->ChangeMap(Maps::TUTORIAL);
-	App->scene->CreateEntities();
-	}
-	
-
-	App->input->GetMousePosition(mouse_x, mouse_y);
-
 	return true;
 }
 
@@ -84,7 +70,13 @@ void MainMenu::Interact(GUI* interaction)
 		App->QuitGame();
 	}
 	if (interaction == new_game_button) {
-		App->QuitGame();
+		App->ui_manager->CleanUp();
+		active = false; //desactivates main menu
+		App->entity_manager->active = true;
+		App->map->active = true;
+		App->scene->active = true;
+		App->map->ChangeMap(Maps::TUTORIAL);
+		App->scene->CreateEntities();
 	}
 		
 }
