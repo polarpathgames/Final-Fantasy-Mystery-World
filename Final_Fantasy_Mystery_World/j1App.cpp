@@ -159,7 +159,7 @@ bool j1App::Update()
 	bool ret = true;
 	PrepareUpdate();
 
-	if (input->GetWindowEvent(WE_QUIT) == true)
+	if (input->GetWindowEvent(WE_QUIT) == true || quit_game)
 		ret = false;
 
 	if (ret == true)
@@ -453,4 +453,9 @@ bool j1App::SavegameNow() const
 	data.reset();
 	want_to_save = false;
 	return ret;
+}
+
+void j1App::QuitGame()
+{
+	quit_game = true;
 }

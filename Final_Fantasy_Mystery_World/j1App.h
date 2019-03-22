@@ -58,6 +58,9 @@ public:
 	void LoadGame(const char* file);
 	void SaveGame(const char* file) const;
 
+	//Exit
+	void QuitGame();
+
 
 	pugi::xml_node LoadConfig(pugi::xml_document&, std::string name) const;
 
@@ -86,6 +89,7 @@ private:
 	// Load / Save
 	bool LoadGameNow();
 	bool SavegameNow() const;
+
 
 public:
 
@@ -117,6 +121,8 @@ private:
 	bool				want_to_load = false;
 	std::string			load_game;
 	mutable std::string	save_game;
+
+	bool				quit_game = false;
 
 	pugi::xml_document	config_file;
 	pugi::xml_node		config;
