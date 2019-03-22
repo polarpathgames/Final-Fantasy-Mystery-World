@@ -36,7 +36,7 @@ public:
 	bool CleanUp();
 
 	GUI_Image* AddImage(const int &x, const int &y, const SDL_Rect & rect, j1Module * callback, GUI * parent, bool draw, bool drag, bool interact);
-	GUI_Button* AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, j1Module* callback, GUI* parent);
+	GUI_Button* AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, j1Module* callback, GUI* parent, bool draw, bool inter, bool drag);
 	GUI_Label* AddLabel(const int &x, const int &y, const char* text, uint size, GUI* parent, Color color, const char* font, j1Module* callback);
 
 	void CreateScreen();
@@ -58,7 +58,7 @@ private:
 public:
 
 	GUI * screen = nullptr;
-	bool debug_ui = false;
+	bool debug_ui = true;
 
 };
 #endif // !__j1UIMANAGER_H__

@@ -102,7 +102,7 @@ const SDL_Texture* j1UIManager::GetAtlas() const
 
 GUI_Image* j1UIManager::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, j1Module * callback = nullptr, GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false)
 {
-	GUI_Image* image = new GUI_Image(x, y, rect, parent);
+	GUI_Image* image = new GUI_Image(x, y, rect, parent, draw, drag, interact);
 
 	if (callback != nullptr) {
 		image->AddListener(callback);
@@ -113,9 +113,9 @@ GUI_Image* j1UIManager::AddImage(const int &x,const int &y, const SDL_Rect & rec
 	return image;
 }
 
-GUI_Button* j1UIManager::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, j1Module* callback, GUI* parent)
+GUI_Button* j1UIManager::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, j1Module* callback, GUI* parent, bool draw, bool inter, bool drag)
 {
-	GUI_Button* button = new GUI_Button(x, y, idle, mouse_in, clicked, parent);
+	GUI_Button* button = new GUI_Button(x, y, idle, mouse_in, clicked, parent, draw, inter, drag);
 
 	if (callback != nullptr) {
 		button->AddListener(callback);
@@ -155,15 +155,15 @@ bool j1UIManager::DeleteUIElement(GUI * element)
 		BFS(tree, element);		//fills a list from element to delete to its childs using BFS algorithm
 
 		for (std::list<GUI*>::reverse_iterator item_tree = tree.rbegin(); item_tree != tree.rend(); ++item_tree) {	//iterate list from bottom to top
-			//if (item_tree.base() == tree.begin() && (*item_tree)->parent != nullptr) {				/*In case the item we will delete is the first element of the tree
-			//																		we have to delete him first from its parent child list
-			//																		the reason why we don't made that for other nodes is becuase
-			//																		other nodes and its parents will be deleted for complete*/
-			//	std::list<GUI*>::iterator this_on_child = std::find((*item_tree)->parent->childs.begin(), (*item_tree)->parent->childs.end(), *item_tree);
-			//	if (this_on_child != (*item_tree)->parent->childs.end()) {
-			//		(*item_tree)->parent->childs.remove(*this_on_child);
-			//	}
-			//}
+			if (item_tree == tree.rend() && (*item_tree)->parent != nullptr) {				/*In case the item we will delete is the first element of the tree
+																					we have to delete him first from its parent child list
+																					the reason why we don't made that for other nodes is becuase
+																					other nodes and its parents will be deleted for complete*/
+				std::list<GUI*>::iterator this_on_child = std::find((*item_tree)->parent->childs.begin(), (*item_tree)->parent->childs.end(), *item_tree);
+				if (this_on_child != (*item_tree)->parent->childs.end()) {
+					(*item_tree)->parent->childs.remove(*this_on_child);
+				}
+			}
 			std::list<GUI*>::iterator elem = std::find(ui_list.begin(),ui_list.end(),*item_tree);	//find item on ui objects list
 			if (elem != ui_list.end()) {						//if it is valid
 				ui_list.remove(*elem);
@@ -193,10 +193,10 @@ void j1UIManager::BFS(std::list<GUI*>& visited, GUI * elem)
 			if ((item = frontier.front()) != nullptr) {			//Pop las item of array
 				frontier.pop();
 					for (std::list<GUI*>::iterator it = item->childs.begin(); it != item->childs.end(); ++it) { //iterate for all childs of node
-						//if (std::find(visited.begin(),visited.end(),it) == visited.end()) {	//if child is not on visited list we added on it and on prontier to search its childs
-						//	frontier.push(*it);
-						//	visited.push_back(*it);
-						//}
+						if (std::find(visited.begin(),visited.end(),*it) == visited.end()) {	//if child is not on visited list we added on it and on prontier to search its childs
+							frontier.push(*it);
+							visited.push_back(*it);
+						}
 					}
 			}
 

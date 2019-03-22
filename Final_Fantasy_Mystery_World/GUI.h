@@ -33,7 +33,7 @@ class GUI
 {
 public:
 	GUI() :type(UIType::NON) {}
-	GUI(UIType type,const int &x,const int &y, GUI* parent, const SDL_Rect& section);
+	GUI(UIType type,const int &x,const int &y, GUI* parent, const SDL_Rect& section, bool drag = false, bool inter = false, bool draw = true);
 	virtual ~GUI();
 
 	bool Update();

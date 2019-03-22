@@ -7,8 +7,8 @@
 #include "p2Log.h"
 #include "GUI.h"
 
-GUI::GUI(UIType type, const int &x, const int &y, GUI* parent, const SDL_Rect &section)
-	:type(type), position({ x,y }), section(section), parent(parent)
+GUI::GUI(UIType type, const int &x, const int &y, GUI* parent, const SDL_Rect &section, bool drag, bool inter, bool draw)
+	:type(type), position({ x,y }), section(section), parent(parent), drawable(draw), interactable(inter), draggable(drag)
 {
 	if (parent != nullptr) {
 		parent->childs.push_back(this);
@@ -23,7 +23,7 @@ void GUI::Draw()
 	draw_offset.y = position.y;
 
 	if (parent != nullptr) {
-		for (GUI* p = parent; p; p->parent) {
+		for (GUI* p = parent; p; p = p->parent) {
 			draw_offset += p->position;
 		}
 	}
@@ -113,7 +113,7 @@ iPoint GUI::GetLocalPosition() const
 
 void GUI::DebugDraw()
 {
-	App->render->DrawQuad({ position.x,position.y,section.w,section.h }, 255, 0, 0, 1, false, false);
+	App->render->DrawQuad({ position.x,position.y,section.w,section.h }, 255, 0, 0, 255, false, false);
 }
 
 void GUI::AddListener(j1Module * module)
