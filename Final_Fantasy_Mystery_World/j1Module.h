@@ -11,7 +11,7 @@
 
 class j1App;
 struct Collider;
-struct GUI;
+class GUI;
 
 class j1Module
 {

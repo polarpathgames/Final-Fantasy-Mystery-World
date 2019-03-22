@@ -4,6 +4,8 @@
 #include "GUI.h"
 #include <string>
 
+struct _TTF_Font;
+
 class GUI_Label : public GUI
 {
 private:
@@ -26,7 +28,7 @@ public:
 
 protected:
 
-	_TTF_Font *		font = nullptr; //This must be common for all fonts in the future. Load only necessary fonts
+	_TTF_Font*		font = nullptr; //This must be common for all fonts in the future. Load only necessary fonts
 	uint			size = 0;
 	SDL_Texture*	texture = nullptr;
 	SDL_Color		color = { 255,255,255,255 };

@@ -118,13 +118,12 @@ void GUI::DebugDraw()
 
 void GUI::AddListener(j1Module * module)
 {
-	if (module not in lsiteners) {
+	if (std::find(listeners.begin(),listeners.end(),module) == listeners.end()) { //if module is not in listeners list -> push back
 		listeners.push_back(module);
 	}
 }
 
 void GUI::DeleteListener(j1Module * module)
 {
-	find module in listeners
-		delete
+	listeners.remove(module);
 }

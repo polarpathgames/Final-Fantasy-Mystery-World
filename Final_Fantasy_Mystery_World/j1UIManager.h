@@ -16,6 +16,8 @@ enum UIType
 struct SDL_Texture;
 struct SDL_Rect;
 
+enum Color;
+
 class GUI;
 class GUI_Image;
 class GUI_Label;
@@ -30,13 +32,12 @@ public:
 	bool Awake(pugi::xml_node&);
 	bool Start();
 	bool PreUpdate();
-	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
 
-	GUI_Image* AddImage(int x, int y, SDL_Rect* rect, j1Module* callback, GUI* parent);
-	GUI_Button* AddButton(int x, int y, SDL_Rect normal, SDL_Rect mouse_in, SDL_Rect clicked, j1Module* callback, GUI* parent);
-	GUI_Label* AddLabel(int x, int y, std::string text, std::string font, uint size, j1Module* callback, GUI* parent, Color color);
+	GUI_Image* AddImage(const int &x, const int &y, const SDL_Rect & rect, j1Module * callback, GUI * parent, bool draw, bool drag, bool interact);
+	GUI_Button* AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, j1Module* callback, GUI* parent);
+	GUI_Label* AddLabel(const int &x, const int &y, const char* text, uint size, GUI* parent, Color color, const char* font, j1Module* callback);
 
 	void CreateScreen();
 
@@ -44,7 +45,7 @@ public:
 	void BFS(std::list<GUI *> &visited, GUI * elem);
 	bool DeleteAllUIElements();
 	bool GetElemOnMouse(int x, int y, GUI* & element);
-	bool CheckCollision(int x, int y, std::list<GUI*>::iterator item);
+	bool CheckCollision(int x, int y, GUI* item);
 	void UI_Events(GUI* element);
 
 	const SDL_Texture* GetAtlas() const;
