@@ -61,7 +61,7 @@ bool MainMenu::PostUpdate()
 
 bool MainMenu::CleanUp()
 {
-	App->ui_manager->DestroyUI();
+	//App->ui_manager->DestroyUI();
 	return true;
 }
 
