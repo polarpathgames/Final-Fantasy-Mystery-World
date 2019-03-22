@@ -22,7 +22,7 @@ GUI_Label::~GUI_Label()
 {
 	text.clear();
 	App->tex->UnLoad(texture);	
-	delete texture;
+	//delete texture;
 	texture = nullptr;
 }
 

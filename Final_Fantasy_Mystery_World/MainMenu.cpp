@@ -28,7 +28,7 @@ bool MainMenu::Start()
 
 	
 	exit_button = App->ui_manager->AddButton(0, 0, { 1659, 1575,33,33 }, { 0, 0,100,100 }, { 0, 0,10,10 }, this, App->ui_manager->screen, true, true, false);
-	//exit_text = App->ui_manager->AddLabel(10, 10, "exit",);
+	exit_text = App->ui_manager->AddLabel(10, 10, "exit", 20, exit_button, BLACK, "fonts/Munro.ttf", nullptr);
 	/*
 	new_game_button = (GUI_Button*)App->ui_manager->AddButton(0, 0, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, nullptr);
 	new_game_label = (GUI_Label*)App->ui_manager->AddLabel(0, 0, "New Game",12, , , "");

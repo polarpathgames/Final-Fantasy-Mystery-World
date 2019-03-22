@@ -85,7 +85,7 @@ bool j1UIManager::CleanUp()
 	for (; item != ui_list.end(); ++item) {
 		if ((*item) != nullptr) {
 			(*item)->CleanUp();
-			RELEASE(*item);
+			delete *item;
 		}
 	}
 
