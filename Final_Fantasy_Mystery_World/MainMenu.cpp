@@ -82,7 +82,9 @@ bool MainMenu::CleanUp()
 
 void MainMenu::Interact(GUI* interaction)
 {
-	//if (interaction == exit_button)
-		//App->ui_manager->DestroyUI();
+	if (interaction == exit_button) {
+		App->QuitGame();
+	}
+		
 }
 

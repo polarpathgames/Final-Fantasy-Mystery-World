@@ -45,8 +45,10 @@ bool GUI::Update()
 	iPoint mouse;
 	App->input->GetMousePosition(mouse.x, mouse.y);
 
-	for (std::list<j1Module*>::iterator module = listeners.begin(); module != listeners.end(); ++module) {
-		(*module)->Interact(this);
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
+		for (std::list<j1Module*>::iterator module = listeners.begin(); module != listeners.end(); ++module) {
+			(*module)->Interact(this);
+		}
 	}
 
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && (mouse.x != last_mouse.x || mouse.y != last_mouse.y)) {
