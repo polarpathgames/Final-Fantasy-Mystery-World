@@ -13,7 +13,7 @@
 Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 {
 	//LoadXML("player_config.xml");
-	LoadEntityData("entities/Enemy.tsx");
+	LoadEntityData("entities/WarriorSpriteSheet.tsx");
 	//GoLeft = LoadPushbacks(node, "GoLeft");
 	//IdleLeft = LoadPushbacks(node, "IdleLeft");
 

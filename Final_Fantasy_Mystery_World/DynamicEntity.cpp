@@ -43,7 +43,7 @@ void DynamicEntity::ChangeTurn(EntityType type)
 		
 		bool player_turn = false;
 		while (item != entities.rend()) {
-			if ((*item)->type == Entity::EntityType::ENEMY) {
+			if ((*item) != nullptr && (*item)->type == Entity::EntityType::ENEMY) {
 				if ((*item) != this) {
 					break;
 				}
