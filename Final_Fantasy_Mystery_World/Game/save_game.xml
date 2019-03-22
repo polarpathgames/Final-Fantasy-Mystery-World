@@ -13,6 +13,6 @@
 	<entity_manager />
 	<:anonymous />
 	<renderer>
-		<camera x="295" y="-588" />
+		<camera x="388" y="-994" />
 	</renderer>
 </game_state>

@@ -51,6 +51,7 @@ bool Enemy::PreUpdate()
 		else {
 			state = State::WALKING; //Aixo sha de canviar I know :D
 		}
+
 	}
 	if (state == State::WALKING) {
 		if (!IsPlayerNextTile()) {
@@ -69,6 +70,11 @@ bool Enemy::PreUpdate()
 
 bool Enemy::Update(float dt)
 {
+	if (state == State::IDLE) {
+		position.x = initial_position.x + movement_count.x;
+		position.y = initial_position.y + movement_count.y;
+		target_position = position;
+	}
 	if (state == State::WALKING) {
 		switch (direction)
 		{
@@ -266,8 +272,8 @@ bool Enemy::IsPlayerNextTile()
 
 void Enemy::MovementLogic()
 {
-	iPoint origin = App->map->WorldToMap(position.x, position.y);
-	iPoint destination = App->map->WorldToMap(App->entity_manager->GetPlayerData()->position.x, App->entity_manager->GetPlayerData()->position.y);
+	iPoint origin = actual_tile;
+	iPoint destination = App->entity_manager->GetPlayerData()->actual_tile;
 	App->pathfinding->CreatePath(origin, destination);
 
 	iPoint target = App->pathfinding->GetLastPath();
@@ -299,6 +305,30 @@ void Enemy::MovementLogic()
 			movement_count.x -= (App->map->data.tile_width / 2);
 			movement_count.y -= (App->map->data.tile_height / 2);
 			actual_tile += {-1, 0};
+		}
+		else if (target.x < origin.x && target.y < origin.y) {
+			direction = Direction::UP;
+			target_position.create(position.x, position.y - App->map->data.tile_height);
+			movement_count.y -= App->map->data.tile_height;
+			actual_tile += {-1, -1};
+		}
+		else if (target.x > origin.x && target.y > origin.y) {
+			direction = Direction::DOWN;
+			target_position.create(position.x, position.y + App->map->data.tile_height);
+			movement_count.y += App->map->data.tile_height;
+			actual_tile += {1, 1};
+		}
+		else if (target.x < origin.x && target.y > origin.y) {
+			direction = Direction::LEFT;
+			target_position.create(position.x - App->map->data.tile_width, position.y);
+			movement_count.x -= App->map->data.tile_width;
+			actual_tile += {-1, 1};
+		}
+		else if (target.x > origin.x && target.y < origin.y) {
+			direction = Direction::RIGHT;
+			target_position.create(position.x + App->map->data.tile_width, position.y);
+			movement_count.x += App->map->data.tile_width;
+			actual_tile += {1, -1};
 		}
 		ChangeTurn(type);
 	}
