@@ -212,6 +212,48 @@ void DynamicEntity::CheckAttackEfects(const Entity::EntityType & type, const Dir
 					has_succeeded = true;
 				}
 			} break;
+			case Direction::DOWN_RIGHT: {
+				origin += {1, 0};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::DOWN: {
+				origin += {1, 1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::UP: {
+				origin += {-1, -1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::UP_LEFT: {
+				origin += {-1, 0};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::UP_RIGHT: {
+				origin += {0, -1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::LEFT: {
+				origin += {-1, 1};
+				if (destination == origin) {
+					has_succeeded = true; 
+				}
+			} break;
+			case Direction::RIGHT: {
+				origin += {1, -1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
 			default:
 				LOG("There is no valid direction to attack");
 				break;
