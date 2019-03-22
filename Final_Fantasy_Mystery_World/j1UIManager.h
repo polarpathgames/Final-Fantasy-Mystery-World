@@ -34,9 +34,9 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
-	GUI_Image* AddImage(int x, int y, SDL_Rect* rect, Animation *anim, j1Module* callback, GUI* parent);
+	GUI_Image* AddImage(int x, int y, SDL_Rect* rect, j1Module* callback, GUI* parent);
 	GUI_Button* AddButton(int x, int y, SDL_Rect normal, SDL_Rect mouse_in, SDL_Rect clicked, j1Module* callback, GUI* parent);
-	GUI_Label* AddLabel(int x, int y, std::string text, j1Module* callback, GUI* parent);
+	GUI_Label* AddLabel(int x, int y, std::string text, std::string font, uint size, j1Module* callback, GUI* parent, Color color);
 
 	void CreateScreen();
 

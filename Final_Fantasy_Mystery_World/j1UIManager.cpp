@@ -5,6 +5,7 @@
 #include "j1Render.h"
 #include "p2Log.h"
 #include "j1Textures.h"
+#include "j1Fonts.h"
 #include "GUI_Image.h"
 #include "GUI_Button.h"
 #include "GUI_Label.h"
@@ -99,36 +100,49 @@ const SDL_Texture* j1UIManager::GetAtlas() const
 	return atlas;
 }
 
-GUI_Image* j1UIManager::AddImage(int x, int y, SDL_Rect* rect, Animation* anim, j1Module* callback, GUI* parent)
+GUI_Image* j1UIManager::AddImage(int x, int y, SDL_Rect* rect, j1Module* callback, GUI* parent)
 {
-	GUI_Image* image = new GUI_Image(x, y, IMAGE, parent, anim, callback, rect);
+	GUI_Image* image = new GUI_Image(x, y, *rect, parent);
 
-	if (image != nullptr)
-	{
-		ui_list.push_back(image);
+	if (callback != nullptr) {
+		image->AddListener(callback);
 	}
+
+	ui_list.push_back(image);
 
 	return image;
 }
 
-GUI_Button* j1UIManager::AddButton(int x, int y, SDL_Rect normal, SDL_Rect mouse_in, SDL_Rect clicked, j1Module* callback, GUI* parent)
+GUI_Button* j1UIManager::AddButton(int x, int y, SDL_Rect idle, SDL_Rect mouse_in, SDL_Rect clicked, j1Module* callback, GUI* parent)
 {
-	GUI_Button* button = new GUI_Button(x, y, normal, mouse_in, clicked, callback, BUTTON, parent);
+	GUI_Button* button = new GUI_Button(x, y, idle, mouse_in, clicked, parent);
+
+	if (callback != nullptr) {
+		button->AddListener(callback);
+	}
+
 	ui_list.push_back(button);
+	
 	return button;
 }
 
-GUI_Label* j1UIManager::AddLabel(int x, int y, std::string text, j1Module* callback, GUI* parent)
+GUI_Label* j1UIManager::AddLabel(int x, int y, std::string text, std::string font, uint size, j1Module* callback, GUI* parent, Color color)
 {
-	GUI_Label* label = new GUI_Label(x, y, text, callback, LABEL, parent);
+	GUI_Label* label = new GUI_Label(x, y, text, color, font, size, parent);
+
+	if (callback != nullptr) {
+		label->AddListener(callback);
+	}
+
 	ui_list.push_back(label);
+	
 	return label;
 }
 
 void j1UIManager::CreateScreen()
 {
-	if (std::find(ui_list.begin(), ui_list.end(), screen) == ui_list.end) {
-		screen = AddImage(0, 0, { 0,0,(int)App->win->,(int)App->win->GetWindowHeight() }, nullptr, false, false, false);
+	if (std::find(ui_list.begin(), ui_list.end(), screen) == ui_list.end()) {
+		screen = AddImage(0, 0, { 0,0,(int)App->win->width,(int)App->win->height }, false, false);
 	}
 }
 

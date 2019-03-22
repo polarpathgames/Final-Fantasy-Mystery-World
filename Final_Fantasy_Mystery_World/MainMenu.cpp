@@ -23,7 +23,7 @@ bool MainMenu::Awake()
 bool MainMenu::Start()
 {
 	SDL_Rect background_rect = { 0, 0, 1024, 768 };
-	background = App->ui_manager->AddImage(0, 0, &background_rect, nullptr, this, nullptr);
+	background = App->ui_manager->AddImage(0, 0, &background_rect, this, nullptr);
 
 	exit_button = (GUI_Button*)App->ui_manager->AddButton(350, 300, {1659, 1575,33,33}, { 0, 0,100,100 }, { 0, 0,10,10 }, this, nullptr);
 	//exit_text = (GUI_Label*)App->ui_manager->AddLabel(10, 10, "exit", this, exit_button);
