@@ -107,10 +107,10 @@ void Player::ReadPlayerInput()
 		else if (player_input.pressing_G) {
 			state = State::BEFORE_ATTACK;
 		}
-		else {
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
-			target_position = position;
+		else if (movement_type == Movement_Type::InQuest){
+			//position.x = initial_position.x + movement_count.x;
+			//position.y = initial_position.y + movement_count.y;
+			//target_position = position;
 		}
 	}
 	if (state == State::WALKING) {
@@ -298,13 +298,21 @@ void Player::ReadPlayerMovementInLobby()
 	if (!player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D && !player_input.pressing_W) {
 		state = State::IDLE;
 		if (current_animation == &GoDownLeft)
-			current_animation = &IdleLeft;
+			current_animation = &IdleDownLeft;
 		if (current_animation == &GoRight)
-			current_animation = &IdleLeft;
+			current_animation = &IdleRight;
 		if (current_animation == &GoDown)
 			current_animation = &IdleDown;
 		if (current_animation == &GoUp)
 			current_animation = &IdleUp;
+		if (current_animation == &GoUpLeft)
+			current_animation = &IdleUpLeft;
+		if (current_animation == &GoUpRight)
+			current_animation = &IdleUpRight;
+		if (current_animation == &GoDownRight)
+			current_animation = &IdleDownRight;
+		if (current_animation == &GoLeft)
+			current_animation = &IdleLeft;
 	}
 }
 
@@ -376,33 +384,33 @@ void Player::PerformMovementInLobby(float dt)
 	case Direction::UP_RIGHT:
 		position.x += floor(velocity.x * dt);
 		position.y -= floor(velocity.y * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoUpRight;
 		break;
 	case Direction::UP_LEFT:
 		position.x -= floor(velocity.x * dt);
 		position.y -= floor(velocity.y * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoUpLeft;
 		break;
 	case Direction::DOWN_RIGHT:
 		position.x += floor(velocity.x * dt);
 		position.y += floor(velocity.y * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoDownRight;
 		break;
 	case Direction::RIGHT:
 		position.x += floor(180 * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoRight;
 		break;
 	case Direction::LEFT:
 		position.x -= floor(180 * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoLeft;
 		break;
 	case Direction::UP:
 		position.y -= floor(180 * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoUp;
 		break;
 	case Direction::DOWN:
 		position.y += floor(180 * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoDown;
 		break;
 	default:
 		break;
