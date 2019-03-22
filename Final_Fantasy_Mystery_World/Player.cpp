@@ -107,11 +107,11 @@ void Player::ReadPlayerInput()
 		else if (player_input.pressing_G) {
 			state = State::BEFORE_ATTACK;
 		}
-		else if (movement_type == Movement_Type::InQuest){
+		/*else if (movement_type == Movement_Type::InQuest){
 			//position.x = initial_position.x + movement_count.x;
 			//position.y = initial_position.y + movement_count.y;
 			//target_position = position;
-		}
+		}*/
 	}
 	if (state == State::WALKING) {
 		switch (movement_type) {
