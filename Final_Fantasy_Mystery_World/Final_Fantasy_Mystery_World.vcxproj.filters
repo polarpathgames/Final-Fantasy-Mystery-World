@@ -73,6 +73,15 @@
     <ClCompile Include="j1EntityManager.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1FadeToBlack.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticEntity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Sensor.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Scene.h" />
@@ -161,6 +170,15 @@
     <ClInclude Include="j1EntityManager.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="j1FadeToBlack.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticEntity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Sensor.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Tools">
@@ -186,6 +204,7 @@
     <Xml Include="Game\config.xml">
       <Filter>XML</Filter>
     </Xml>
+    <Xml Include="Game\save_game.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\entities\Player.tsx">

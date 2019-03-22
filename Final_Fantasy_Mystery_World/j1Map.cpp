@@ -7,8 +7,11 @@
 #include <math.h>
 #include "j1EntityManager.h"
 #include "Player.h"
+#include "j1EntityManager.h"
 #include <list>
+#include "j1FadeToBlack.h"
 #include "j1Pathfinding.h"
+#include "j1Scene.h"
 #include <string>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -46,7 +49,7 @@ void j1Map::Draw()
 		return;
 
 	std::list<MapLayer*>::iterator item = data.layers.begin();
-
+	
 	for(; item != data.layers.end(); ++item)
 	{
 		MapLayer* layer = *item;
@@ -54,47 +57,33 @@ void j1Map::Draw()
 		if(layer->properties.Get("Nodraw") != 0)
 			continue;
 
-		for(int y = 0; y < data.height; ++y)
+		for(int i = 0; i < data.width; ++i)
 		{
-			for(int x = 0; x < data.width; ++x)
+			for(int j = 0; j < data.width; ++j)
 			{
-				int tile_id = layer->Get(x, y);
-				if(tile_id > 0)
-				{
-					TileSet* tileset = GetTilesetFromTileId(tile_id);
+				iPoint tile_pos = MapToWorld(i, j);
+				
+					int tile_id = layer->Get(i, j);
+					if (tile_id > 0)
+					{
+						TileSet* tileset = GetTilesetFromTileId(tile_id);
+						if (App->render->IsOnCamera(tile_pos.x + 1, tile_pos.y - 8, tileset->tile_width, tileset->tile_height))
+						{
+							SDL_Rect r = tileset->GetTileRect(tile_id);
 
-					SDL_Rect r = tileset->GetTileRect(tile_id);
-					iPoint pos = MapToWorld(x, y);
-
-					App->render->Blit(tileset->texture, pos.x, pos.y, &r, true);
+							App->render->Blit(tileset->texture, tile_pos.x + 1, tile_pos.y - 8, &r, true);
+							
+						}
 				}
 			}
 		}
 	}
-	std::list<MapLayer*>::iterator item2 = data.layers.begin();
 
-	for (; item2 != data.layers.end(); ++item2)
-	{
-		MapLayer* layer = *item2;
+	if (Grid) {
+		for (int i = 0; i < data.width; ++i) {
+			for (int j = 0; j < data.height; ++j) {
 
-		if (layer->properties.Get("Nodraw") != 0)
-			continue;
-
-		for (int y = 0; y < data.height; ++y)
-		{
-			for (int x = 0; x < data.width; ++x)
-			{
-				int tile_id = layer->Get(x, y);
-				if (tile_id > 0)
-				{
-					TileSet* tileset = GetTilesetFromTileId(tile_id);
-
-					SDL_Rect r = tileset->GetTileRect(tile_id);
-					iPoint pos = MapToWorld(x, y);
-
-					if (Grid)
-						App->render->Blit(quad, pos.x, pos.y, nullptr, true);
-				}
+				App->render->Blit(quad, MapToWorld(i, j).x, MapToWorld(i, j).y, NULL, true);
 			}
 		}
 	}
@@ -186,6 +175,19 @@ iPoint j1Map::WorldToMap(int x, int y) const
 	return ret;
 }
 
+iPoint j1Map::TiledToWorld(int x, int y) const
+{
+	iPoint ret = { 0,0 };
+
+
+	ret.x = x / (data.tile_width*0.5f);
+	ret.y = y / data.tile_height;
+
+	ret = MapToWorld(ret.x, ret.y);
+
+	return ret;
+}
+
 SDL_Rect TileSet::GetTileRect(int id) const
 {
 	int relative_id = id - firstgid;
@@ -208,6 +210,7 @@ bool j1Map::CleanUp()
 
 	while(item != data.tilesets.end())
 	{
+		App->tex->UnLoad((*item)->texture);
 		RELEASE(*item);
 		++item;
 	}
@@ -223,6 +226,16 @@ bool j1Map::CleanUp()
 		++item2;
 	}
 	data.layers.clear();
+
+	std::list<ObjectLayer*>::iterator item3;
+	item3 = data.objects.begin();
+
+	while (item3 != data.objects.end())
+	{
+		RELEASE(*item3);
+		++item3;
+	}
+	data.objects.clear();
 
 	// Clean up the pugui tree
 	map_file.reset();
@@ -587,7 +600,7 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 
 bool j1Map::ChangeMap(Maps type)
 {
-
+	App->entity_manager->DeleteEntities();
 	CleanUp();
 	switch(type) {
 	case Maps::LOBBY:
@@ -604,6 +617,7 @@ bool j1Map::ChangeMap(Maps type)
 	uchar* data = NULL;
 	if (CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
+	App->scene->CreateEntities();
 
 	return true;
 }

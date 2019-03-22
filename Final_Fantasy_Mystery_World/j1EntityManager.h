@@ -4,6 +4,7 @@
 #include "j1Module.h"
 #include "p2Animation.h"
 #include "Entity.h"
+#include "Sensor.h"
 #include <vector>
 
 class Player;
@@ -39,11 +40,13 @@ public:
 	bool CleanUp();
 
 
-	Entity* CreateEntity(Entity::EntityType type, int PositionX, int PositionY, std::string name);
+	Entity* CreateEntity(Entity::EntityType type, int PositionX, int PositionY, std::string name, Sensor::SensorType sensor_type = Sensor::SensorType::NONE);
 	//Player* CreatePlayer();
 	//Enemy* CreateEnemy();
 
 	void DeleteEntities();
+	void DeleteEntity(Entity* entity_to_delete);
+
 
 	Player * GetPlayerData() const;
 

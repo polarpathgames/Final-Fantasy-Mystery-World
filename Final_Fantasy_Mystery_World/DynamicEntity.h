@@ -21,7 +21,7 @@ public:
 	virtual ~DynamicEntity();
 	
 	virtual bool PreUpdate() { return true; };
-	virtual bool Update(float dt);
+	virtual bool Update(float dt) { return true; };
 	virtual bool PostUpdate() { return true; };
 	virtual bool CleanUp() { return true; };
 	
@@ -32,6 +32,12 @@ public:
 
 	void PushBack();
 
+	bool NextTileFree(const Direction & dir) const;
+
+	void RestTimeAfterAttack(float time_finish);
+
+	void CheckAttackEfects(const Entity::EntityType &type, const Direction & direction, const int &attack_damage);
+
 public:
 
 
@@ -39,25 +45,29 @@ public:
 	Direction direction = Direction::NONE;
 	State state = State::NONE;
 
-	Animation GoLeft;
-	Animation GoRight;
-	Animation GoDown;
-	Animation GoUp;
+	Animation GoDownLeft;
+	Animation IdleDownLeft;
 
-	Animation IdleLeft;
-	Animation IdleRight;
-	Animation IdleUp;
-	Animation IdleDown;
+	Animation GoDownRight;
+	Animation IdleDownRight;
+
+	Animation GoUpRight;
+	Animation IdleUpRight;
 
 	Animation GoUpLeft;
-	Animation GoDownLeft;
-	Animation GoUpRight;
-	Animation GoDownRight;
-
 	Animation IdleUpLeft;
-	Animation IdleDownLeft;
-	Animation IdleUpRight;
-	Animation IdleDownRight;
+
+	Animation GoLeft;
+	Animation IdleLeft;
+
+	Animation GoRight;
+	Animation IdleRight;
+
+	Animation GoUp;
+	Animation IdleUp;
+
+	Animation GoDown;
+	Animation IdleDown;
 
 	iPoint velocity;
 
@@ -67,6 +77,9 @@ public:
 
 
 	SDL_Texture * ground = nullptr;
+
+	float time_attack;
+	float time_after_attack = 500;
 
 };
 

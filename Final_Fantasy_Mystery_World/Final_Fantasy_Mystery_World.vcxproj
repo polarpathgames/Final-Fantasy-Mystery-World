@@ -50,7 +50,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
@@ -88,6 +88,7 @@
     <ClCompile Include="GUI_Button.cpp" />
     <ClCompile Include="GUI_Image.cpp" />
     <ClCompile Include="GUI_Label.cpp" />
+    <ClCompile Include="j1FadeToBlack.cpp" />
     <ClCompile Include="j1Fonts.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
@@ -106,6 +107,8 @@
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
+    <ClCompile Include="Sensor.cpp" />
+    <ClCompile Include="StaticEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DynamicEntity.h" />
@@ -116,6 +119,7 @@
     <ClInclude Include="GUI_Button.h" />
     <ClInclude Include="GUI_Image.h" />
     <ClInclude Include="GUI_Label.h" />
+    <ClInclude Include="j1FadeToBlack.h" />
     <ClInclude Include="j1Fonts.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Pathfinding.h" />
@@ -138,11 +142,14 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
+    <ClInclude Include="Sensor.h" />
+    <ClInclude Include="StaticEntity.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\config.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="Game\save_game.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\entities\Enemy.tsx" />
