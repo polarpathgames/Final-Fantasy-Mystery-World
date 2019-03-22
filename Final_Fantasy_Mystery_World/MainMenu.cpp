@@ -34,12 +34,6 @@ bool MainMenu::Start()
 	new_game_button = (GUI_Button*)App->ui_manager->AddButton(50, 50, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 },this,background,true,true,false);
 	new_game_label = (GUI_Label*)App->ui_manager->AddLabel(0, 0, "New Game", 12, new_game_button, BLACK, "fonts/Munro.ttf", nullptr);
 
-	labels.push_back(exit_text);
-
-
-
-
-
 	return true;
 }
 
@@ -61,7 +55,6 @@ bool MainMenu::PostUpdate()
 
 bool MainMenu::CleanUp()
 {
-	App->ui_manager->DestroyUI();
 	return true;
 }
 
@@ -71,7 +64,8 @@ void MainMenu::Interact(GUI* interaction)
 		App->QuitGame();
 	}
 	if (interaction == new_game_button) {
-		App->ui_manager->CleanUp();
+		App->ui_manager->DeleteAllUIElements();
+		//App->ui_manager->CleanUp();
 		active = false; //desactivates main menu
 		App->entity_manager->active = true;
 		App->map->active = true;
