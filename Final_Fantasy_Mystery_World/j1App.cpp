@@ -50,10 +50,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(pathfinding);
 	AddModule(scene);
-	AddModule(ui_manager);
 	AddModule(main_menu);
 	AddModule(fonts);
 	AddModule(entity_manager);
+	AddModule(ui_manager);
 	AddModule(fade_to_black);
 
 	// render last to swap buffer
