@@ -3,45 +3,43 @@
 
 #include <string>
 
-
+template<class TYPE>
 class Property {
-	enum class Type {
-		STRING,
-		INT,
-		FLOAT,
-		BOOL,
-
-		NONE
-	};
-
 public:
-	Property();
-	Property(const char * value);
-	Property(const float & value);
-	Property(const bool value);
-	Property(const int & value);
-	~Property();
+	Property() {}
+	Property(const char * _name, const TYPE val) {
+		name.assign(_name);
+		value = val;
+	}
+	~Property() {
+		name.clear();
+	}
 
-	void SetName(const char* name);
+	void SetName(const char* _name) {
+		name.assing(_name);
+	}
+	void SetValue(const TYPE val) {
+		value = val;
+	}
 
-	void SetValue(const char* value);
-	void SetValue(const bool value);
-	void SetValue(const int &value);
-	void SetValue(const float &value);
-
-	std::string GetName() const;
-	int GetValue() const;
-	float GetValue(Type) const;
-	bool GetValue(Type) const;
-	const char* GetValue(Type) const;
+	const char* GetName() const {
+		return name.data();
+	}
+	TYPE GetValue() const {
+		return value;
+	}
 
 private:
 	std::string name;
-	Type type = Type::NONE;
-
-	int int_value = 0;
-	float float_value = 0.0F;
-	bool bool_value = false;
-	std::string string_value;
+	TYPE value;
 };
+
+struct Properties {
+
+	std::list<Property<int>*> properties;
+
+	int Get
+
+};
+
 #endif // !__PPROPERTIES_H__

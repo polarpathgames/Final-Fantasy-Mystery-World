@@ -622,9 +622,10 @@ bool j1Map::ChangeMap(Maps type)
 
 auto MapLayer::GetProperty(const char *name)
 {
-	for (std::list<Property*>::iterator item = properties.begin(); item != properties.end(); ++item) {
-		if ((*item)->GetName().compare(name)) {
-			return (*item)->
+	for (std::list<Property<int>*>::iterator item = properties.begin(); item != properties.end(); ++item) {
+		if ((*item)->GetName() == name) {
+			return (*item)->GetValue();
 		}
 	}
+	return 0;
 }

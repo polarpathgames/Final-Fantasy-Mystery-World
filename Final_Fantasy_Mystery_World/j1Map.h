@@ -33,11 +33,11 @@ struct ObjectLayer {
 // ----------------------------------------------------
 struct MapLayer
 {
-	std::string				name;
-	int						width;
-	int						height;
-	uint*					data;
-	std::list<Property*>	properties;
+	std::string						name;
+	int								width;
+	int								height;
+	uint*							data;
+	std::list<Property<int>*>		properties;
 
 	auto GetProperty(const char*);
 
@@ -46,7 +46,7 @@ struct MapLayer
 
 	~MapLayer()
 	{
-		for (std::list<Property*>::iterator item = properties.begin(); item != properties.end(); item++) {
+		for (std::list<Property<int>*>::iterator item = properties.begin(); item != properties.end(); item++) {
 			delete *item;
 			*item = nullptr;
 		}
