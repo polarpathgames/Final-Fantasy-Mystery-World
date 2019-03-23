@@ -143,8 +143,8 @@ void Player::ReadPlayerMovementInQuest()
 		bool is_movement_acepted = false;
 		if (MultipleButtons(&player_input)) {
 			if (player_input.pressing_A && player_input.pressing_shift) {
-				if (NextTileFree(Direction::LEFT)) {
-					direction = Direction::LEFT;
+				direction = Direction::LEFT;
+				if (NextTileFree(direction)) {
 					target_position.create(position.x - App->map->data.tile_width, position.y);
 					movement_count.x -= App->map->data.tile_width;
 					actual_tile += {-1, 1};
@@ -155,8 +155,8 @@ void Player::ReadPlayerMovementInQuest()
 				}
 			}
 			else if (player_input.pressing_D && player_input.pressing_shift) {
-				if (NextTileFree(Direction::RIGHT)) {
-					direction = Direction::RIGHT;
+				direction = Direction::RIGHT;
+				if (NextTileFree(direction)) {
 					target_position.create(position.x + App->map->data.tile_width, position.y);
 					movement_count.x += App->map->data.tile_width;
 					actual_tile += {1, -1};
@@ -167,8 +167,8 @@ void Player::ReadPlayerMovementInQuest()
 				}
 			}
 			else if (player_input.pressing_W && player_input.pressing_shift) {
-				if (NextTileFree(Direction::UP)) {
-					direction = Direction::UP;
+				direction = Direction::UP;
+				if (NextTileFree(direction)) {
 					target_position.create(position.x, position.y - App->map->data.tile_height);
 					movement_count.y -= App->map->data.tile_height;
 					actual_tile += {-1, -1};
@@ -179,8 +179,8 @@ void Player::ReadPlayerMovementInQuest()
 				}
 			}
 			else if (player_input.pressing_S && player_input.pressing_shift) {
-				if (NextTileFree(Direction::DOWN)) {
-					direction = Direction::DOWN;
+				direction = Direction::DOWN;
+				if (NextTileFree(direction)) {
 					target_position.create(position.x, position.y + App->map->data.tile_height);
 					movement_count.y += App->map->data.tile_height;
 					actual_tile += {1, 1};
@@ -191,8 +191,8 @@ void Player::ReadPlayerMovementInQuest()
 				}
 			}
 			if (player_input.pressing_A && !player_input.pressing_shift) {
-				if (NextTileFree(Direction::DOWN_LEFT)) {
-					direction = Direction::DOWN_LEFT;
+				direction = Direction::DOWN_LEFT;
+				if (NextTileFree(direction)) {
 					target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 					movement_count.x -= (App->map->data.tile_width / 2);
 					movement_count.y += (App->map->data.tile_height / 2);
@@ -204,9 +204,8 @@ void Player::ReadPlayerMovementInQuest()
 				}
 			}
 			else if (player_input.pressing_S && !player_input.pressing_shift) {
-
-				if (NextTileFree(Direction::DOWN_RIGHT)) {
-					direction = Direction::DOWN_RIGHT;
+				direction = Direction::DOWN_RIGHT;
+				if (NextTileFree(direction)) {
 					target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 					movement_count.x += (App->map->data.tile_width / 2);
 					movement_count.y += (App->map->data.tile_height / 2);
@@ -218,8 +217,8 @@ void Player::ReadPlayerMovementInQuest()
 				}
 			}
 			else if (player_input.pressing_D && !player_input.pressing_shift) {
-				if (NextTileFree(Direction::UP_RIGHT)) {
-					direction = Direction::UP_RIGHT;
+				direction = Direction::UP_RIGHT;
+				if (NextTileFree(direction)) {
 					target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 					movement_count.x += (App->map->data.tile_width / 2);
 					movement_count.y -= (App->map->data.tile_height / 2);
@@ -231,8 +230,8 @@ void Player::ReadPlayerMovementInQuest()
 				}
 			}
 			else if (player_input.pressing_W && !player_input.pressing_shift) {
-				if (NextTileFree(Direction::UP_LEFT)) {
-					direction = Direction::UP_LEFT;
+				direction = Direction::UP_LEFT;
+				if (NextTileFree(direction)) {
 					target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 					movement_count.x -= (App->map->data.tile_width / 2);
 					movement_count.y -= (App->map->data.tile_height / 2);
@@ -254,6 +253,9 @@ void Player::ReadPlayerMovementInQuest()
 		else {
 			if (is_movement_acepted) {
 				ChangeTurn(type);
+			}
+			else {
+				ChangeAnimation(direction, state);
 			}
 		}
 	}
