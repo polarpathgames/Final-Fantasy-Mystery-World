@@ -8,6 +8,8 @@ public:
 	Property();
 	~Property();
 
+	std::string GetName() const;
+
 public:
 	std::string name;
 };
@@ -15,36 +17,48 @@ public:
 class PropertyString :public Property {
 public:
 	PropertyString();
+	PropertyString(const char*);
 	~PropertyString();
 
-public:
+	std::string GetValue() const;
+
+private:
 	std::string value;
 };
 
 class PropertyFloat :public Property {
 public:
 	PropertyFloat();
+	PropertyFloat(const float&);
 	~PropertyFloat();
 
-public:
+	float GetValue() const;
+
+private:
 	float value = 0.0F;
 };
 
 class PropertyBool :public Property {
 public:
 	PropertyBool();
+	PropertyBool(const bool);
 	~PropertyBool();
 
-public:
+	bool GetValue() const;
+
+private:
 	bool value = true;
 };
 
 class PropertyInt :public Property {
 public:
 	PropertyInt();
+	PropertyInt(const int&);
 	~PropertyInt();
 
-public:
+	int GetValue() const;
+
+private:
 	int value = 0;
 };
 
