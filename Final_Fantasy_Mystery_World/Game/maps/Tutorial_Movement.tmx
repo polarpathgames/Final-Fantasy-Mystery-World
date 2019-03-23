@@ -14489,7 +14489,7 @@
  </layer>
  <objectgroup id="10" name="Collision"/>
  <objectgroup color="#ffff7f" id="11" name="player">
-  <object id="5" name="player" type="dynamic" x="431.016" y="430.992" width="15.9688" height="16.0156">
+  <object id="5" name="player" type="dynamic" x="384.061" y="384.25" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>

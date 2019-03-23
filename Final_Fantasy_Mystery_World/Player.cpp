@@ -244,22 +244,7 @@ void Player::ReadPlayerMovementInQuest()
 		if (!MultipleButtons(&player_input)) {
 			state = State::IDLE;
 			target_position = position;
-			if (current_animation == &GoDownLeft)
-				current_animation = &IdleDownLeft;
-			if (current_animation == &GoRight)
-				current_animation = &IdleRight;
-			if (current_animation == &GoDown)
-				current_animation = &IdleDown;
-			if (current_animation == &GoUp)
-				current_animation = &IdleUp;
-			if (current_animation == &GoUpLeft)
-				current_animation = &IdleUpLeft;
-			if (current_animation == &GoUpRight)
-				current_animation = &IdleUpRight;
-			if (current_animation == &GoDownRight)
-				current_animation = &IdleDownRight;
-			if (current_animation == &GoLeft)
-				current_animation = &IdleLeft;
+			ChangeAnimation(direction, state);
 		}
 		else {
 			if (is_movement_acepted) {
@@ -297,22 +282,7 @@ void Player::ReadPlayerMovementInLobby()
 	}
 	if (!player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D && !player_input.pressing_W) {
 		state = State::IDLE;
-		if (current_animation == &GoDownLeft)
-			current_animation = &IdleDownLeft;
-		if (current_animation == &GoRight)
-			current_animation = &IdleRight;
-		if (current_animation == &GoDown)
-			current_animation = &IdleDown;
-		if (current_animation == &GoUp)
-			current_animation = &IdleUp;
-		if (current_animation == &GoUpLeft)
-			current_animation = &IdleUpLeft;
-		if (current_animation == &GoUpRight)
-			current_animation = &IdleUpRight;
-		if (current_animation == &GoDownRight)
-			current_animation = &IdleDownRight;
-		if (current_animation == &GoLeft)
-			current_animation = &IdleLeft;
+		ChangeAnimation(direction, state);
 	}
 }
 
@@ -321,7 +291,7 @@ void Player::ReadAttack()
 	if (player_input.pressing_G) {
 		type_attack = Attacks::BASIC;
 		state = State::ATTACKING;
-		//ANIMATION ATTACK BASIC
+		ChangeAnimation(direction, state, type_attack);
 	}
 }
 	
