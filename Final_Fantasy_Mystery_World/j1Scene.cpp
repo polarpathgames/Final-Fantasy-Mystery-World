@@ -14,6 +14,10 @@
 #include "j1Scene.h"
 #include "MainMenu.h"
 #include <string>
+#include "GUI.h"
+#include "GUI_Button.h"
+#include "GUI_Label.h"
+#include "GUI_Image.h"
 #include "Sensor.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -43,7 +47,8 @@ bool j1Scene::Start()
 	//App->map->Load("iso_walk2.tmx");
 	/*SDL_Rect background_rect = { 0, 0, 1024, 768 };
 	background = App->ui_manager->AddImage(0, 0, &background_rect, nullptr, this, nullptr);*/
-	
+	if (App->GetPause())
+		App->ChangePause();
 
 
 	return true;
@@ -102,7 +107,9 @@ bool j1Scene::Update(float dt)
 		App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 	}
 		
-
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+		(App->ChangePause()) ? CreatePauseMenu() : DestroyPauseMenu();
+	}
 	
 
 	return true;
@@ -113,8 +120,8 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+	//if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	//	ret = false;
 
 	iPoint mouse;
 	App->input->GetMousePosition(mouse.x, mouse.y);
@@ -156,5 +163,32 @@ void j1Scene::CreateEntities()
 		else {
 			LOG("There isn't any entity with name %s and type %s", (*position)->name.data(), (*position)->ent_type.data());
 		}
+	}
+}
+
+void j1Scene::CreatePauseMenu()
+{
+	pause_panel = App->ui_manager->AddImage(0, 0, { 1252,1536,313,428 }, this,App->ui_manager->screen, true,false,true);
+	button_resume = App->ui_manager->AddButton(50, 50, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 },this, pause_panel, true,false,true);
+	button_resume->AddListener(this);
+
+	label_resume = App->ui_manager->AddLabel(0,0,"RESUME",12, button_resume, BLACK, "fonts/Munro.ttf", this);
+}
+
+void j1Scene::DestroyPauseMenu()
+{
+	
+	if (App->GetPause())
+		App->ChangePause();
+
+	/*App->ui_manager->DeleteUIElement(pause_panel);*/
+	App->ui_manager->DeleteAllUIElements();
+}
+
+void j1Scene::Interact(GUI* interact)
+{
+	if (interact == button_resume)
+	{
+		DestroyPauseMenu();
 	}
 }

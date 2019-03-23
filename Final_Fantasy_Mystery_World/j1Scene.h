@@ -3,12 +3,14 @@
 
 #include "j1Module.h"
 
+
 struct SDL_Texture;
 struct SDL_Rect;
 
 class GUI;
 class GUI_Image;
-
+class GUI_Label;
+class GUI_Button;
 
 
 class j1Scene : public j1Module
@@ -40,12 +42,19 @@ public:
 
 	void CreateEntities();
 
-
+	void CreatePauseMenu();
+	void DestroyPauseMenu();
+	void Interact(GUI* interaction);
 public:
 
 	//GUI* mock_image_ui = nullptr;
 	//SDL_Rect mock_image_rect = { 0, 0, 61, 76 };
 	GUI* background = nullptr;
+
+private:
+	GUI_Image* pause_panel = nullptr;
+	GUI_Button* button_resume = nullptr;
+	GUI_Label* label_resume = nullptr;
 };
 
 #endif // __j1SCENE_H__

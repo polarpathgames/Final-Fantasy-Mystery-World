@@ -199,7 +199,12 @@ void j1App::PrepareUpdate()
 {
 	frame_count++;
 	last_sec_frame_count++;
-	dt = frame_time.ReadSec();
+	if (!is_paused)
+		dt = frame_time.ReadSec();
+
+	else
+		dt = 0.0f;
+
 	frame_time.Start();
 	ptimer.Start();
 	LOG("dt is: %.6f", dt);
@@ -458,4 +463,14 @@ bool j1App::SavegameNow() const
 void j1App::QuitGame()
 {
 	quit_game = true;
+}
+
+bool j1App::GetPause()
+{
+	return is_paused;
+}
+
+bool j1App::ChangePause()
+{
+	return is_paused = !is_paused;
 }
