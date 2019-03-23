@@ -111,6 +111,7 @@ bool Entity::LoadEntityData(const char* file) {
 		data.animations[i].FrameCount(_node.child("animation").child("frame"));
 		data.animations[i].frames = new SDL_Rect[data.animations[i].num_frames];
 		data.animations[i].id = _node.attribute("id").as_uint();
+		data.animations[i].speed = _node.child("properties").child("property").attribute("value").as_int(1);
 		_node = _node.next_sibling("tile");
 	}
 

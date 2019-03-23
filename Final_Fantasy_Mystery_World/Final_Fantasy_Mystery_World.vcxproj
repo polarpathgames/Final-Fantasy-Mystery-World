@@ -156,6 +156,7 @@
   <ItemGroup>
     <None Include="Game\entities\Enemy.tsx" />
     <None Include="Game\entities\Player.tsx" />
+    <None Include="Game\entities\WarriorSpritesheet.tsx" />
     <None Include="Game\maps\iso_walk.tmx" />
     <None Include="Game\maps\iso_walk2.tmx" />
   </ItemGroup>
