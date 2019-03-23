@@ -33,7 +33,7 @@ class GUI
 {
 public:
 	GUI() :type(UIType::NON) {}
-	GUI(UIType type,const int &x,const int &y, GUI* parent, const SDL_Rect& section, bool drag = false, bool inter = false, bool draw = true);
+	GUI(UIType type,const int &x,const int &y, GUI* parent, const SDL_Rect& section, bool draw = true, bool inter = false, bool drag = false);
 	virtual ~GUI();
 
 	bool Update();
@@ -41,7 +41,6 @@ public:
 	void Draw();
 	virtual void InnerDraw();
 	virtual bool CleanUp();
-	virtual bool MouseIn(GUI* element);
 
 	void SetPos(const int &x, const int &y);
 

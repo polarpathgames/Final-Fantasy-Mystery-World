@@ -28,8 +28,7 @@ GUI_Label::~GUI_Label()
 
 void GUI_Label::InnerDraw()
 {
-	if (drawable)
-		App->render->Blit(texture, draw_offset.x, draw_offset.y, NULL, false,SDL_FLIP_NONE,0.0f);
+	App->render->Blit(texture, draw_offset.x, draw_offset.y, NULL, false, SDL_FLIP_NONE, 0.0F);
 }
 
 void GUI_Label::SetText(const char * txt)
