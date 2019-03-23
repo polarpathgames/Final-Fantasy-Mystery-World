@@ -158,6 +158,7 @@
     <None Include="Game\entities\WarriorSpritesheet.tsx" />
     <None Include="Game\maps\iso_walk.tmx" />
     <None Include="Game\maps\iso_walk2.tmx" />
+    <None Include="Game\maps\Tutorial_Movement.tmx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

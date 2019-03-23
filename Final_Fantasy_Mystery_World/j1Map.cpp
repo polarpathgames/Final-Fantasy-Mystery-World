@@ -304,7 +304,8 @@ bool j1Map::Load(const char* file_name)
 		}
 	}
 
-	//Load Properties -------------------------------------------------------
+	//Load Map Properties -------------------------------------------------------
+	LoadProperties(map_file.child("map").child("properties"), &data.properties);
 
 	if(ret == true)
 	{
@@ -474,7 +475,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
-	LoadProperties(node, &layer->properties);
+	LoadProperties(node.child("properties"), &layer->properties);
 	pugi::xml_node layer_data = node.child("data");
 
 	if(layer_data == NULL)
@@ -524,13 +525,11 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties<int>* properties)
 {
 	bool ret = false;
 
-	pugi::xml_node data = node.child("properties");
-
-	if(data != NULL)
+	if(node != nullptr)
 	{
 		pugi::xml_node prop;
 
-		for(prop = data.child("property"); prop; prop = prop.next_sibling("property"))
+		for(prop = node.child("property"); prop; prop = prop.next_sibling("property"))
 		{
 			Property<int>* p = new Property<int>();
 

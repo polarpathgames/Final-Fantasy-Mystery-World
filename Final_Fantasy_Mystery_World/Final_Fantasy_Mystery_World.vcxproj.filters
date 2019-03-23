@@ -225,5 +225,8 @@
     <None Include="Game\entities\WarriorSpritesheet.tsx">
       <Filter>XML</Filter>
     </None>
+    <None Include="Game\maps\Tutorial_Movement.tmx">
+      <Filter>XML</Filter>
+    </None>
   </ItemGroup>
 </Project>
