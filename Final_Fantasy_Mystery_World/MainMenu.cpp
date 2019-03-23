@@ -71,7 +71,6 @@ void MainMenu::Interact(GUI* interaction)
 		App->map->active = true;
 		App->scene->active = true;
 		App->map->ChangeMap(Maps::TUTORIAL);
-		App->scene->CreateEntities();
 	}
 		
 }
