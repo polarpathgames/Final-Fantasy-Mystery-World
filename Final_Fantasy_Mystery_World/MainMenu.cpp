@@ -72,15 +72,23 @@ void MainMenu::Interact(GUI* interaction)
 	if (interaction == exit_button) {
 		App->QuitGame();
 	}
+
 	if (interaction == new_game_button) {
 		App->ui_manager->DeleteAllUIElements();
-		//App->ui_manager->CleanUp();
 		active = false; //desactivates main menu
 		App->entity_manager->active = true;
 		App->map->active = true;
 		App->scene->active = true;
 		App->map->ChangeMap(Maps::TUTORIAL);
 		App->scene->CreateEntities();
+	}
+
+	if (interaction == load_game_button) {
+		//Load Game
+	}
+
+	if (interaction == credits_button) {
+		//Credits
 	}
 		
 }
