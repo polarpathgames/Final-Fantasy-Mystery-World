@@ -49,7 +49,8 @@ bool Enemy::PreUpdate()
 
 	if (state == State::IDLE) {
 		if (IsPlayerNextTile()) {
-			state = State::ATTACKING;
+			state = State::BEFORE_ATTACK;
+			time_to_wait_before_attack = SDL_GetTicks();
 		}
 		else {
 			state = State::WALKING; //Aixo sha de canviar I know :D
@@ -60,14 +61,15 @@ bool Enemy::PreUpdate()
 		if (!IsPlayerNextTile()) {
 			MovementLogic();
 		}
-	}
-	if (state == State::ATTACKING) {
-		state = State::IDLE;
-		ChangeTurn(type);
-	}
+	}	
+	if (state == State::BEFORE_ATTACK) {
+		if (time_to_wait_before_attack < SDL_GetTicks() - 500) {
+			type_attack = Attacks::BASIC;
+			state = State::ATTACKING;
+			ChangeAnimation(direction, state, type_attack);
+		}
 
-	
-
+	}
 	return true;
 }
 
@@ -190,6 +192,17 @@ bool Enemy::Update(float dt)
 			break;
 		}
 	}
+	if (state == State::ATTACKING) {
+		if (!NextTileFree(direction)) {
+			CheckAttackEfects(Entity::EntityType::PLAYER, direction, stats.attack_power);
+		}
+		state = State::AFTER_ATTACK;
+		time_attack = SDL_GetTicks();
+	}
+	if (state == State::AFTER_ATTACK) {
+		RestTimeAfterAttack(time_attack);
+	}
+
 
 	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x, App->map->MapToWorld(actual_tile.x, actual_tile.y).y, NULL, true);
 
