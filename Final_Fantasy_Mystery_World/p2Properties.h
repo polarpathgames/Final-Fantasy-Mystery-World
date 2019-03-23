@@ -34,11 +34,20 @@ private:
 	TYPE value;
 };
 
+template<class TYPE>
 struct Properties {
 
-	std::list<Property<int>*> properties;
+	std::list<Property<TYPE>*> properties;
 
-	int Get
+	TYPE GetValue(const char* identificator, TYPE default_value = 0) {
+		TYPE ret = default_value;
+		for (std::list<Property<TYPE>*>::iterator item = properties.begin(); item != properties.end(); ++item) {
+			if ((*item)->GetName() == identificator) {
+				ret = (*item)->GetValue();
+			}
+		}
+		return ret;
+	}
 
 };
 
