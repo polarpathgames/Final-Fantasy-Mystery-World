@@ -75,6 +75,55 @@ void GUI::SetPos(const int & x, const int & y)
 	position.create(x,y);
 }
 
+void GUI::SetPosRespectParent(Position_Type pos, const int& margin)
+{
+	int x = 0, y = 0;
+	switch (pos)
+	{
+	case CENTERED:
+		x = (parent->section.w - section.w) * 0.5F;
+		y = (parent->section.h - section.h) * 0.5F;
+		break;
+	case CENTERED_UP:
+		x = (parent->section.w - section.w) * 0.5F;
+		y = margin;
+		break;
+	case CENTERED_DOWN:
+		x = (parent->section.w - section.w) * 0.5F;
+		y = parent->section.h - section.h - margin;
+		break;
+	case LEFT_CENTERED:
+		x = margin;
+		y = (parent->section.h - section.h) * 0.5F;
+		break;
+	case LEFT_UP:
+		x = margin;
+		y = margin;
+		break;
+	case LEFT_DOWN:
+		x = margin;
+		y = parent->section.h - section.h - margin;
+		break;
+	case RIGHT_CENTERED:
+		x = parent->section.w - section.w - margin;
+		y = (parent->section.h - section.h) * 0.5F;
+		break;
+	case RIGHT_UP:
+		x = parent->section.w - section.w - margin;
+		y = margin;
+		break;
+	case RIGHT_DOWN:
+		x = parent->section.w - section.w - margin;
+		y = parent->section.h - section.h - margin;
+		break;
+	default:
+		x = (parent->section.w - section.w) * 0.5F;
+		y = (parent->section.h - section.h) * 0.5F;
+		break;
+	}
+	SetPos(x, y);
+}
+
 UIType GUI::GetType() const
 {
 	return type;

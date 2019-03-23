@@ -16,6 +16,18 @@ enum class Mouse_Event {
 	NONE
 };
 
+enum Position_Type {
+	CENTERED,
+	CENTERED_UP,
+	CENTERED_DOWN,
+	LEFT_CENTERED,
+	LEFT_UP,
+	LEFT_DOWN,
+	RIGHT_CENTERED,
+	RIGHT_UP,
+	RIGHT_DOWN,
+};
+
 enum Color
 {
 	RED,
@@ -48,7 +60,7 @@ public:
 	int GetPriority() const;
 	iPoint GetGlobalPosition() const;
 	iPoint GetLocalPosition() const;
-	//void SetPosRespectParent(Position_Type, const int& margin = 0);
+	void SetPosRespectParent(Position_Type, const int& margin = 0);
 
 	void DebugDraw();
 
