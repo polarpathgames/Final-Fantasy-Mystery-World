@@ -55,6 +55,8 @@ private:
 	GUI_Image* pause_panel = nullptr;
 	GUI_Button* button_resume = nullptr;
 	GUI_Label* label_resume = nullptr;
+	GUI_Button* button_main_menu = nullptr;
+	GUI_Label* label_main_menu = nullptr;
 };
 
 #endif // __j1SCENE_H__

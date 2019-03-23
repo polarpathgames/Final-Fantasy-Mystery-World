@@ -175,8 +175,11 @@ void j1Scene::CreatePauseMenu()
 	pause_panel = App->ui_manager->AddImage(0, 0, { 1252,1536,313,428 }, this,App->ui_manager->screen, true,false,true);
 	button_resume = App->ui_manager->AddButton(50, 50, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 },this, pause_panel, true,false,true);
 	button_resume->AddListener(this);
+	label_resume = App->ui_manager->AddLabel(0,0,"RESUME",12, button_resume, BLACK, "fonts/Munro.ttf", nullptr);
 
-	label_resume = App->ui_manager->AddLabel(0,0,"RESUME",12, button_resume, BLACK, "fonts/Munro.ttf", this);
+	button_main_menu = App->ui_manager->AddButton(50, 150, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true);
+	button_main_menu->AddListener(this);
+	label_main_menu = App->ui_manager->AddLabel(0, 0, "RETURN TO MAIN MENU", 12, button_main_menu, BLACK, "fonts/Munro.ttf", nullptr);
 }
 
 void j1Scene::DestroyPauseMenu()
@@ -185,7 +188,9 @@ void j1Scene::DestroyPauseMenu()
 	if (App->GetPause())
 		App->ChangePause();
 
-	/*App->ui_manager->DeleteUIElement(pause_panel);*/
+	/*if(pause_panel != nullptr)
+	App->ui_manager->DeleteUIElement(pause_panel);*/
+
 	App->ui_manager->DeleteAllUIElements();
 }
 
@@ -194,5 +199,17 @@ void j1Scene::Interact(GUI* interact)
 	if (interact == button_resume)
 	{
 		DestroyPauseMenu();
+	}
+	if (interact == button_main_menu)
+	{
+	
+		App->fade_to_black->FadeToBlack(this, App->main_menu, 3.0f);
+		App->ui_manager->DeleteAllUIElements();
+		
+		App->entity_manager->active = false;
+		App->map->active = false;
+		this->active = false; //desactivates main menu
+		App->main_menu->active = true;
+		App->main_menu->Start();
 	}
 }
