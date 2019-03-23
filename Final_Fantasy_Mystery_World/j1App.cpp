@@ -21,6 +21,7 @@
 #include "j1EntityManager.h"
 #include "j1FadeToBlack.h"
 #include "j1Pathfinding.h"
+#include "Brofiler/Brofiler.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -50,10 +51,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(pathfinding);
 	AddModule(scene);
-	AddModule(ui_manager);
 	AddModule(main_menu);
 	AddModule(fonts);
 	AddModule(entity_manager);
+	AddModule(ui_manager);
 	AddModule(fade_to_black);
 
 	// render last to swap buffer
@@ -155,6 +156,7 @@ bool j1App::Start()
 // Called each loop iteration
 bool j1App::Update()
 {
+	BROFILER_CATEGORY("Update", Profiler::Color::Aqua);
 
 	bool ret = true;
 	PrepareUpdate();
@@ -197,6 +199,8 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file, std::string na
 // ---------------------------------------------
 void j1App::PrepareUpdate()
 {
+	BROFILER_CATEGORY("PrepareUpdate", Profiler::Color::Blue);
+
 	frame_count++;
 	last_sec_frame_count++;
 	dt = frame_time.ReadSec();
@@ -208,6 +212,8 @@ void j1App::PrepareUpdate()
 // ---------------------------------------------
 void j1App::FinishUpdate()
 {
+	BROFILER_CATEGORY("FinishUpdate", Profiler::Color::Lime);
+
 	if (want_to_save == true)
 		SavegameNow();
 
@@ -232,6 +238,7 @@ void j1App::FinishUpdate()
 	sprintf_s(title, 256, "Final Fantasy: Mystery World");
 	//App->win->SetTitle(title);
 
+	BROFILER_CATEGORY("Waiting", Profiler::Color::Red);
 
 	if (framerate_cap > 0 && last_frame_ms < framerate_cap&&capactivated)
 	{
@@ -246,9 +253,9 @@ void j1App::FinishUpdate()
 // Call modules before each loop iteration
 bool j1App::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate", Profiler::Color::Orange);
+
 	bool ret = true;
-
-
 
 	j1Module* pModule = NULL;
 
@@ -270,6 +277,8 @@ bool j1App::PreUpdate()
 // Call modules on each loop iteration
 bool j1App::DoUpdate()
 {
+	BROFILER_CATEGORY("DoUpdate", Profiler::Color::Yellow);
+
 	bool ret = true;
 
 	j1Module* pModule = NULL;
@@ -291,6 +300,8 @@ bool j1App::DoUpdate()
 // Call modules after each loop iteration
 bool j1App::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdate", Profiler::Color::Purple);
+
 	bool ret = true;
 
 	j1Module* pModule = NULL;
@@ -312,6 +323,8 @@ bool j1App::PostUpdate()
 // Called before quitting
 bool j1App::CleanUp()
 {
+	BROFILER_CATEGORY("CleanUp", Profiler::Color::Salmon);
+
 	PERF_START(ptimer);
 	bool ret = true;
 

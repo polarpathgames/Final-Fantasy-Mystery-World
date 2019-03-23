@@ -11,6 +11,7 @@
 #include "j1EntityManager.h"
 #include "j1Map.h"
 #include <string>
+#include "Brofiler/Brofiler.h"
 
 Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 {
@@ -48,6 +49,8 @@ Player::~Player()
 
 bool Player::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdatePlayer", Profiler::Color::Orange);
+
 	ReadPlayerInput();
 	
 	return true;
@@ -55,6 +58,8 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
+	BROFILER_CATEGORY("UpdatePlayer", Profiler::Color::Aqua);
+
 	PerformActions(dt);
 
 	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x, App->map->MapToWorld(actual_tile.x, actual_tile.y).y, NULL, true);
@@ -65,7 +70,7 @@ bool Player::Update(float dt)
 
 bool Player::PostUpdate()
 {
-
+	BROFILER_CATEGORY("PostUpdatePlayer", Profiler::Color::Purple);
 	return true;
 }
 
@@ -107,7 +112,7 @@ void Player::ReadPlayerInput()
 		else if (player_input.pressing_G) {
 			state = State::BEFORE_ATTACK;
 		}
-		else {
+		else if (movement_type == Movement_Type::InQuest){
 			position.x = initial_position.x + movement_count.x;
 			position.y = initial_position.y + movement_count.y;
 			target_position = position;
@@ -244,22 +249,7 @@ void Player::ReadPlayerMovementInQuest()
 		if (!MultipleButtons(&player_input)) {
 			state = State::IDLE;
 			target_position = position;
-			if (current_animation == &GoDownLeft)
-				current_animation = &IdleDownLeft;
-			if (current_animation == &GoRight)
-				current_animation = &IdleRight;
-			if (current_animation == &GoDown)
-				current_animation = &IdleDown;
-			if (current_animation == &GoUp)
-				current_animation = &IdleUp;
-			if (current_animation == &GoUpLeft)
-				current_animation = &IdleUpLeft;
-			if (current_animation == &GoUpRight)
-				current_animation = &IdleUpRight;
-			if (current_animation == &GoDownRight)
-				current_animation = &IdleDownRight;
-			if (current_animation == &GoLeft)
-				current_animation = &IdleLeft;
+			ChangeAnimation(direction, state);
 		}
 		else {
 			if (is_movement_acepted) {
@@ -297,14 +287,7 @@ void Player::ReadPlayerMovementInLobby()
 	}
 	if (!player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D && !player_input.pressing_W) {
 		state = State::IDLE;
-		if (current_animation == &GoDownLeft)
-			current_animation = &IdleLeft;
-		if (current_animation == &GoRight)
-			current_animation = &IdleLeft;
-		if (current_animation == &GoDown)
-			current_animation = &IdleDown;
-		if (current_animation == &GoUp)
-			current_animation = &IdleUp;
+		ChangeAnimation(direction, state);
 	}
 }
 
@@ -313,7 +296,7 @@ void Player::ReadAttack()
 	if (player_input.pressing_G) {
 		type_attack = Attacks::BASIC;
 		state = State::ATTACKING;
-		//ANIMATION ATTACK BASIC
+		ChangeAnimation(direction, state, type_attack);
 	}
 }
 	
@@ -376,33 +359,33 @@ void Player::PerformMovementInLobby(float dt)
 	case Direction::UP_RIGHT:
 		position.x += floor(velocity.x * dt);
 		position.y -= floor(velocity.y * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoUpRight;
 		break;
 	case Direction::UP_LEFT:
 		position.x -= floor(velocity.x * dt);
 		position.y -= floor(velocity.y * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoUpLeft;
 		break;
 	case Direction::DOWN_RIGHT:
 		position.x += floor(velocity.x * dt);
 		position.y += floor(velocity.y * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoDownRight;
 		break;
 	case Direction::RIGHT:
 		position.x += floor(180 * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoRight;
 		break;
 	case Direction::LEFT:
 		position.x -= floor(180 * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoLeft;
 		break;
 	case Direction::UP:
 		position.y -= floor(180 * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoUp;
 		break;
 	case Direction::DOWN:
 		position.y += floor(180 * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoDown;
 		break;
 	default:
 		break;
@@ -542,21 +525,13 @@ const bool Player::MultipleButtons(const Input * input)
 {
 	bool ret;
 
-	if (input->pressing_A && !input->pressing_D && !input->pressing_S && !input->pressing_W && input->pressing_shift)
+	if (input->pressing_A && !input->pressing_D && !input->pressing_S && !input->pressing_W)
 		ret = true;
-	else if (input->pressing_D && !input->pressing_A && !input->pressing_S && !input->pressing_W && input->pressing_shift)
+	else if (input->pressing_D && !input->pressing_A && !input->pressing_S && !input->pressing_W)
 		ret = true;
-	else if (input->pressing_S && !input->pressing_A && !input->pressing_D && !input->pressing_W && input->pressing_shift)
+	else if (input->pressing_S && !input->pressing_A && !input->pressing_D && !input->pressing_W)
 		ret = true;
-	else if (input->pressing_W && !input->pressing_A && !input->pressing_D && !input->pressing_S && input->pressing_shift)
-		ret = true;
-	else if (input->pressing_A && !input->pressing_D && !input->pressing_S && !input->pressing_W && !input->pressing_shift)
-		ret = true;
-	else if (input->pressing_D && !input->pressing_A && !input->pressing_S && !input->pressing_W && !input->pressing_shift)
-		ret = true;
-	else if (input->pressing_S && !input->pressing_A && !input->pressing_D && !input->pressing_W && !input->pressing_shift)
-		ret = true;
-	else if (input->pressing_W && !input->pressing_A && !input->pressing_D && !input->pressing_S && !input->pressing_shift)
+	else if (input->pressing_W && !input->pressing_A && !input->pressing_D && !input->pressing_S)
 		ret = true;
 	else
 		ret = false;

@@ -9,11 +9,12 @@
 #include <string>
 #include "j1Pathfinding.h"
 #include "Player.h"
+#include "Brofiler/Brofiler.h"
 
 Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 {
 	//LoadXML("player_config.xml");
-	LoadEntityData("entities/Enemy.tsx");
+	LoadEntityData("entities/WarriorSpriteSheet.tsx");
 	//GoLeft = LoadPushbacks(node, "GoLeft");
 	//IdleLeft = LoadPushbacks(node, "IdleLeft");
 
@@ -29,8 +30,8 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 	velocity.x = 160;
 	velocity.y = 80;
 	
-	position.x -= 9;
-	position.y += 6;
+	position.x -= 5;
+	position.y += 5;
 	target_position = position;
 	initial_position = position;
 	movement_count = { 0,0 };
@@ -44,6 +45,8 @@ Enemy::~Enemy()
 
 bool Enemy::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdateEnemy", Profiler::Color::Orange);
+
 	if (state == State::IDLE) {
 		if (IsPlayerNextTile()) {
 			state = State::ATTACKING;
@@ -51,6 +54,7 @@ bool Enemy::PreUpdate()
 		else {
 			state = State::WALKING; //Aixo sha de canviar I know :D
 		}
+
 	}
 	if (state == State::WALKING) {
 		if (!IsPlayerNextTile()) {
@@ -69,6 +73,16 @@ bool Enemy::PreUpdate()
 
 bool Enemy::Update(float dt)
 {
+
+	BROFILER_CATEGORY("UpdateEnemy", Profiler::Color::Aqua);
+
+
+	if (state == State::IDLE) {
+		position.x = initial_position.x + movement_count.x;
+		position.y = initial_position.y + movement_count.y;
+		target_position = position;
+	}
+
 	if (state == State::WALKING) {
 		switch (direction)
 		{
@@ -80,7 +94,8 @@ bool Enemy::Update(float dt)
 			}
 			else {
 				target_position = position;
-				current_animation = &IdleLeft;
+				current_animation = &IdleDownLeft;
+				IsPlayerNextTile();
 				state = State::IDLE;
 			}
 			break;
@@ -88,11 +103,12 @@ bool Enemy::Update(float dt)
 			if (position.x <= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 				position.x += floor(velocity.x * dt);
 				position.y -= floor(velocity.y * dt);
-				current_animation = &GoDownLeft;
+				current_animation = &GoUpRight;
 			}
 			else {
 				target_position = position;
-				current_animation = &IdleLeft;
+				current_animation = &IdleUpRight;
+				IsPlayerNextTile();
 				state = State::IDLE;
 			}
 			break;
@@ -100,11 +116,12 @@ bool Enemy::Update(float dt)
 			if (position.x >= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 				position.x -= floor(velocity.x * dt);
 				position.y -= floor(velocity.y * dt);
-				current_animation = &GoDownLeft;
+				current_animation = &GoUpLeft;
 			}
 			else {
 				target_position = position;
-				current_animation = &IdleLeft;
+				current_animation = &IdleUpLeft;
+				IsPlayerNextTile();
 				state = State::IDLE;
 			}
 			break;
@@ -112,54 +129,61 @@ bool Enemy::Update(float dt)
 			if (position.x <= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 				position.x += floor(velocity.x * dt);
 				position.y += floor(velocity.y * dt);
-				current_animation = &GoDownLeft;
+				current_animation = &GoDownRight;
 			}
 			else {
 				target_position = position;
-				current_animation = &IdleLeft;
+				current_animation = &IdleDownRight;
+				IsPlayerNextTile();
 				state = State::IDLE;
 			}
 			break;
 		case Direction::LEFT:
 			if (position.x >= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
 				position.x -= floor(velocity.x * dt);
-				current_animation = &GoDownLeft;
+				current_animation = &GoLeft;
 			}
 			else {
 				target_position = position;
 				current_animation = &IdleLeft;
+				IsPlayerNextTile();
+				state = State::IDLE;
 			}
 			break;
 		case Direction::RIGHT:
 			if (position.x <= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
 				position.x += floor(velocity.x * dt);
-				current_animation = &GoDownLeft;
+				current_animation = &GoRight;
 			}
 			else {
 				target_position = position;
-				current_animation = &IdleLeft;
+				current_animation = &IdleRight;
+				IsPlayerNextTile();
+				state = State::IDLE;
 			}
 			break;
 		case Direction::UP:
 			if (position.x == initial_position.x + movement_count.x && position.y >= initial_position.y + movement_count.y) {
 				position.y -= floor(velocity.y * dt);
-				current_animation = &GoDownLeft;
+				current_animation = &GoUp;
 			}
 			else {
 				target_position = position;
-				current_animation = &IdleLeft;
-				ChangeTurn(type);
+				current_animation = &IdleUp;
+				IsPlayerNextTile();
+				state = State::IDLE;
 			}
 			break;
 		case Direction::DOWN:
 			if (position.x == initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 				position.y += floor(velocity.y * dt);
-				current_animation = &GoDownLeft;
+				current_animation = &GoDown;
 			}
 			else {
 				target_position = position;
-				current_animation = &IdleLeft;
-				ChangeTurn(type);
+				current_animation = &IdleDown;
+				IsPlayerNextTile();
+				state = State::IDLE;
 			}
 			break;
 		default:
@@ -176,7 +200,7 @@ bool Enemy::Update(float dt)
 
 bool Enemy::PostUpdate()
 {
-
+	BROFILER_CATEGORY("PostUpdateEnemy", Profiler::Color::Purple);
 	return true;
 }
 
@@ -196,7 +220,7 @@ bool Enemy::CleanUp()
 	return true;
 }
 
-bool Enemy::IsPlayerNextTile() const
+bool Enemy::IsPlayerNextTile() 
 {
 	bool ret = false;
 	std::vector<Entity*> entities = App->entity_manager->GetEntities();
@@ -208,35 +232,43 @@ bool Enemy::IsPlayerNextTile() const
 			iPoint destination = (*item)->actual_tile;
 
 			if (origin.x + 1 == destination.x && origin.y == destination.y) {
-				direction == Direction::DOWN_RIGHT;
+				direction = Direction::DOWN_RIGHT;
+				current_animation = &IdleDownRight;
 				ret = true;
 			}
 			if (origin.x == destination.x && origin.y + 1 == destination.y) {
-				direction == Direction::DOWN_LEFT;
+				direction = Direction::DOWN_LEFT;
+				current_animation = &IdleDownLeft;
 				ret = true;
 			}
 			if (origin.x == destination.x && origin.y - 1 == destination.y) {
-				direction == Direction::UP_RIGHT;
+				direction = Direction::UP_RIGHT;
+				current_animation = &IdleUpRight;
 				ret = true;
 			}
 			if (origin.x - 1 == destination.x && origin.y == destination.y) {
-				direction == Direction::UP_LEFT;
+				direction = Direction::UP_LEFT;
+				current_animation = &IdleUpLeft;
 				ret = true;
 			}
 			if (origin.x + 1 == destination.x && origin.y + 1 == destination.y) {
-				direction == Direction::DOWN;
+				direction = Direction::DOWN;
+				current_animation = &IdleDown;
 				ret = true;
 			}
 			if (origin.x - 1 == destination.x && origin.y + 1 == destination.y) {
-				direction == Direction::LEFT;
+				direction = Direction::LEFT;
+				current_animation = &IdleLeft;
 				ret = true;
 			}
 			if (origin.x - 1 == destination.x && origin.y - 1 == destination.y) {
-				direction == Direction::UP;
+				direction = Direction::UP;
+				current_animation = &IdleUp;
 				ret = true;
 			}
 			if (origin.x + 1 == destination.x && origin.y - 1 == destination.y) {
-				direction == Direction::RIGHT;
+				direction = Direction::RIGHT;
+				current_animation = &IdleRight;
 				ret = true;
 			}
 				
@@ -248,8 +280,8 @@ bool Enemy::IsPlayerNextTile() const
 
 void Enemy::MovementLogic()
 {
-	iPoint origin = App->map->WorldToMap(position.x, position.y);
-	iPoint destination = App->map->WorldToMap(App->entity_manager->GetPlayerData()->position.x, App->entity_manager->GetPlayerData()->position.y);
+	iPoint origin = actual_tile;
+	iPoint destination = App->entity_manager->GetPlayerData()->actual_tile;
 	App->pathfinding->CreatePath(origin, destination);
 
 	iPoint target = App->pathfinding->GetLastPath();
@@ -281,6 +313,30 @@ void Enemy::MovementLogic()
 			movement_count.x -= (App->map->data.tile_width / 2);
 			movement_count.y -= (App->map->data.tile_height / 2);
 			actual_tile += {-1, 0};
+		}
+		else if (target.x < origin.x && target.y < origin.y) {
+			direction = Direction::UP;
+			target_position.create(position.x, position.y - App->map->data.tile_height);
+			movement_count.y -= App->map->data.tile_height;
+			actual_tile += {-1, -1};
+		}
+		else if (target.x > origin.x && target.y > origin.y) {
+			direction = Direction::DOWN;
+			target_position.create(position.x, position.y + App->map->data.tile_height);
+			movement_count.y += App->map->data.tile_height;
+			actual_tile += {1, 1};
+		}
+		else if (target.x < origin.x && target.y > origin.y) {
+			direction = Direction::LEFT;
+			target_position.create(position.x - App->map->data.tile_width, position.y);
+			movement_count.x -= App->map->data.tile_width;
+			actual_tile += {-1, 1};
+		}
+		else if (target.x > origin.x && target.y < origin.y) {
+			direction = Direction::RIGHT;
+			target_position.create(position.x + App->map->data.tile_width, position.y);
+			movement_count.x += App->map->data.tile_width;
+			actual_tile += {1, -1};
 		}
 		ChangeTurn(type);
 	}
