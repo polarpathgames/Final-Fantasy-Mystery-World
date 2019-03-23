@@ -92,20 +92,6 @@ void j1Map::Draw()
 	}
 }
 
-int Properties::Get(const char* value, int default_value) const
-{
-	std::list<Property*>::const_iterator item = list.begin();
-
-	while(item != list.end())
-	{
-		if((*item)->name == value)
-			return (*item)->value;
-		++item;
-	}
-
-	return default_value;
-}
-
 TileSet* j1Map::GetTilesetFromTileId(int id) const
 {
 	std::list<TileSet*>::const_iterator item = data.tilesets.begin();
@@ -239,6 +225,15 @@ bool j1Map::CleanUp()
 		++item3;
 	}
 	data.objects.clear();
+
+	std::list<Property*>::iterator item4;
+	item4 = data.properties.begin();
+
+	while (item4 != data.properties.end()) {
+		RELEASE(*item4);
+		++item4;
+	}
+	data.properties.clear();
 
 	// Clean up the pugui tree
 	map_file.reset();
@@ -623,4 +618,13 @@ bool j1Map::ChangeMap(Maps type)
 	App->scene->CreateEntities();
 
 	return true;
+}
+
+auto MapLayer::GetProperty(const char *name)
+{
+	for (std::list<Property*>::iterator item = properties.begin(); item != properties.end(); ++item) {
+		if ((*item)->GetName().compare(name)) {
+			return (*item)->
+		}
+	}
 }

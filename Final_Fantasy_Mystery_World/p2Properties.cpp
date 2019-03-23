@@ -1,72 +1,44 @@
 #include "p2Properties.h"
+#include "p2Log.h"
 
 Property::Property() {}
-PropertyString::PropertyString() {}
-PropertyFloat::PropertyFloat() {}
-PropertyBool::PropertyBool() {}
-PropertyInt::PropertyInt() {}
 
-PropertyString::PropertyString(const char *value) : value(value) {}
-PropertyFloat::PropertyFloat(const float &value) : value(value) {}
-PropertyBool::PropertyBool(const bool value) : value(value) {}
-PropertyInt::PropertyInt(const int &value) : value(value) {}
+Property::Property(const char *value) : string_value(value) {}
+Property::Property(const float &value) : value(value) {}
+Property::Property(const bool value) : value(value) {}
+Property::Property(const int &value) : value(value) {}
 
 Property::~Property()
 {
 	name.clear();
 }
 
-PropertyString::~PropertyString() {}
-PropertyFloat::~PropertyFloat() {}
-PropertyBool::~PropertyBool() {}
-PropertyInt::~PropertyInt() {}
-
 void Property::SetName(const char * set_name)
 {
 	name.assign(set_name);
 }
 
-void PropertyString::SetValue(const char * val)
+void Property::SetValue(const char * val)
 {
-	value.assign(val);
+	string_value.assign(val);
 }
 
-void PropertyFloat::SetValue(const float & val)
+void Property::SetValue(const float & val)
 {
-	value = val;
+	float_value = val;
 }
 
-void PropertyBool::SetValue(const bool val)
+void Property::SetValue(const bool val)
 {
-	value = val;
+	bool_value = val;
 }
 
-void PropertyInt::SetValue(const int & val)
+void Property::SetValue(const int & val)
 {
-	value = val;
+	int_value = val;
 }
 
 std::string Property::GetName() const
 {
 	return name;
-}
-
-std::string PropertyString::GetValue() const
-{
-	return value;
-}
-
-float PropertyFloat::GetValue() const
-{
-	return value;
-}
-
-bool PropertyBool::GetValue() const
-{
-	return value;
-}
-
-int PropertyInt::GetValue() const
-{
-	return value;
 }
