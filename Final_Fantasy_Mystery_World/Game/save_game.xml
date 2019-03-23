@@ -7,12 +7,12 @@
 	<map />
 	<pathfinding />
 	<scene />
+	<gui />
 	<:anonymous />
-	<:anonymous />
-	<:anonymous />
+	<fonts />
 	<entity_manager />
 	<:anonymous />
 	<renderer>
-		<camera x="310" y="-790" />
+		<camera x="316" y="-815" />
 	</renderer>
 </game_state>

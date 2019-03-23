@@ -43,7 +43,7 @@ void DynamicEntity::ChangeTurn(EntityType type)
 		
 		bool player_turn = false;
 		while (item != entities.rend()) {
-			if ((*item)->type == Entity::EntityType::ENEMY) {
+			if ((*item) != nullptr && (*item)->type == Entity::EntityType::ENEMY) {
 				if ((*item) != this) {
 					break;
 				}
@@ -193,6 +193,7 @@ void DynamicEntity::RestTimeAfterAttack(float time_finish)
 	if (time_attack <= SDL_GetTicks() - time_after_attack) {
 		ChangeTurn(type);
 		state = State::IDLE;
+		ChangeAnimation(direction, state);
 	}
 }
 
@@ -208,6 +209,48 @@ void DynamicEntity::CheckAttackEfects(const Entity::EntityType & type, const Dir
 			switch (direction) {
 			case Direction::DOWN_LEFT: {
 				origin += {0, 1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::DOWN_RIGHT: {
+				origin += {1, 0};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::DOWN: {
+				origin += {1, 1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::UP: {
+				origin += {-1, -1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::UP_LEFT: {
+				origin += {-1, 0};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::UP_RIGHT: {
+				origin += {0, -1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::LEFT: {
+				origin += {-1, 1};
+				if (destination == origin) {
+					has_succeeded = true; 
+				}
+			} break;
+			case Direction::RIGHT: {
+				origin += {1, -1};
 				if (destination == origin) {
 					has_succeeded = true;
 				}
@@ -234,6 +277,137 @@ void DynamicEntity::CheckAttackEfects(const Entity::EntityType & type, const Dir
 			}
 		}
 	}
+
+
+
+}
+
+void DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks attacks)
+{
+	switch (states) {
+	case State::IDLE: {
+		switch (dir) {
+		case Direction::DOWN:
+			current_animation = &IdleDown;
+			break;
+		case Direction::UP:
+			current_animation = &IdleUp;
+			break;
+		case Direction::RIGHT:
+			current_animation = &IdleRight;
+			break;
+		case Direction::LEFT:
+			current_animation = &IdleLeft;
+			break;
+		case Direction::UP_RIGHT:
+			current_animation = &IdleUpRight;
+			break;
+		case Direction::DOWN_RIGHT:
+			current_animation = &IdleDownRight;
+			break;
+		case Direction::DOWN_LEFT:
+			current_animation = &IdleDownLeft;
+			break;
+		case Direction::UP_LEFT:
+			current_animation = &IdleUpLeft;
+			break;
+		default:
+			LOG("No direction type found");
+			break;
+		}
+	} break;
+	case State::ATTACKING: {
+		switch (dir) {
+		case Direction::DOWN: {
+			switch (attacks) {
+			case Attacks::BASIC:
+				current_animation = &BasicAttackDown;
+				break;
+			default:
+				LOG("No attack type found");
+				break;
+			}
+		}break;
+		case Direction::UP: {
+			switch (attacks) {
+			case Attacks::BASIC:
+				current_animation = &BasicAttackUp;
+				break;
+			default:
+				LOG("No attack type found");
+				break;
+			}
+		} break;
+		case Direction::RIGHT: {
+			switch (attacks) {
+			case Attacks::BASIC:
+				current_animation = &BasicAttackRight;
+				break;
+			default:
+				LOG("No attack type found");
+				break;
+			}
+		} break;
+		case Direction::LEFT: {
+			switch (attacks) {
+			case Attacks::BASIC:
+				current_animation = &BasicAttackLeft;
+				break;
+			default:
+				LOG("No attack type found");
+				break;
+			}
+		} break;
+		case Direction::UP_RIGHT: {
+			switch (attacks) {
+			case Attacks::BASIC:
+				current_animation = &BasicAttackUpRight;
+				break;
+			default:
+				LOG("No attack type found");
+				break;
+			}
+		} break;
+		case Direction::DOWN_RIGHT: {
+			switch (attacks) {
+			case Attacks::BASIC:
+				current_animation = &BasicAttackDownRight;
+				break;
+			default:
+				LOG("No attack type found");
+				break;
+			}
+		} break;
+		case Direction::DOWN_LEFT: {
+			switch (attacks) {
+			case Attacks::BASIC:
+				current_animation = &BasicAttackDownLeft;
+				break;
+			default:
+				LOG("No attack type found");
+				break;
+			}
+		} break;
+		case Direction::UP_LEFT: {
+			switch (attacks) {
+			case Attacks::BASIC:
+				current_animation = &BasicAttackUpLeft;
+				break;
+			default:
+				LOG("No attack type found");
+				break;
+			}
+		} break;
+		default:
+			LOG("No direction type found");
+			break;
+		}
+	} break;
+	default:
+		LOG("No state type found");
+		break;
+	}
+
 
 
 

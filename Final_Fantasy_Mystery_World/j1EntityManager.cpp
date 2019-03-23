@@ -42,7 +42,7 @@ bool j1EntityManager::Start()
 
 
 	texture.push_back(App->tex->Load("assets/sprites/WarriorSpritesheet.png"));
-	texture.push_back(App->tex->Load("textures/Animist2.png"));
+	texture.push_back(App->tex->Load("assets/sprites/enemy.png"));
 
 	return ret;
 }
