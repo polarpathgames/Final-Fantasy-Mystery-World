@@ -16,7 +16,7 @@ public:
 	}
 
 	void SetName(const char* _name) {
-		name.assing(_name);
+		name.assign(_name);
 	}
 	void SetValue(const TYPE val) {
 		value = val;
@@ -38,6 +38,14 @@ template<class TYPE>
 struct Properties {
 
 	std::list<Property<TYPE>*> properties;
+
+	void CleanUp() {
+		for (std::list<Property<TYPE>*>::iterator item = properties.begin(); item != properties.end(); ++item) {
+			delete *item;
+			*item = nullptr;
+		}
+		properties.clear();
+	}
 
 	TYPE GetValue(const char* identificator, TYPE default_value = 0) {
 		TYPE ret = default_value;

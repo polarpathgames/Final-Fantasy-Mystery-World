@@ -37,7 +37,7 @@ struct MapLayer
 	int								width;
 	int								height;
 	uint*							data;
-	std::list<Property<int>*>		properties;
+	Properties<int>					properties;
 
 	auto GetProperty(const char*);
 
@@ -46,11 +46,7 @@ struct MapLayer
 
 	~MapLayer()
 	{
-		for (std::list<Property<int>*>::iterator item = properties.begin(); item != properties.end(); item++) {
-			delete *item;
-			*item = nullptr;
-		}
-		properties.clear();
+		properties.CleanUp();
 
 		RELEASE(data);
 	}
@@ -100,7 +96,7 @@ struct MapData
 	std::list<TileSet*>			tilesets;
 	std::list<MapLayer*>		layers;
 	std::list<ObjectLayer*>		objects;
-	std::list<Property*>		properties;
+	Properties<int>					properties;
 };
 
 // ----------------------------------------------------
@@ -141,7 +137,7 @@ private:
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadObject(pugi::xml_node& tileset_node, ObjectLayer* obj);
-	bool LoadProperties(pugi::xml_node& node, Properties& properties);
+	bool LoadProperties(pugi::xml_node& node, Properties<int>* properties);
 
 	TileSet* GetTilesetFromTileId(int id) const;
 
