@@ -28,17 +28,20 @@ bool MainMenu::Start()
 	int offsetY = 75;
 
 	new_game_button = App->ui_manager->AddButton(684, 337, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true);
-	new_game_label = App->ui_manager->AddLabel(new_game_button->section.w*0.5F, 0, "New Game", 12, new_game_button, BLACK, "fonts/Munro.ttf", nullptr);
+	new_game_label = App->ui_manager->AddLabel(0, 0, "New Game", 12, new_game_button, BLACK, "fonts/Munro.ttf", nullptr);
 	new_game_label->SetPosRespectParent(CENTERED);
 
 	load_game_button = App->ui_manager->AddButton(684, new_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true);
-	load_game_label = App->ui_manager->AddLabel(load_game_button->section.w*0.5, 0, "Load Game", 12, load_game_button, BLACK, "fonts/Munro.ttf", nullptr);
+	load_game_label = App->ui_manager->AddLabel(0, 0, "Load Game", 12, load_game_button, BLACK, "fonts/Munro.ttf", nullptr);
+	load_game_label->SetPosRespectParent(CENTERED);
 
 	exit_button = App->ui_manager->AddButton(684, load_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true);
-	exit_text = App->ui_manager->AddLabel(exit_button->section.w*0.5F, 0, "Exit", 20, exit_button, BLACK, "fonts/Munro.ttf", nullptr);
+	exit_text = App->ui_manager->AddLabel(0, 0, "Exit", 20, exit_button, BLACK, "fonts/Munro.ttf", nullptr);
+	exit_text->SetPosRespectParent(CENTERED);
 	
 	credits_button = App->ui_manager->AddButton(684, exit_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true);
-	credits_label = App->ui_manager->AddLabel(credits_button->section.w*0.5F, 0, "Credits", 12, credits_button, BLACK, "fonts/Munro.ttf", nullptr);
+	credits_label = App->ui_manager->AddLabel(0, 0, "Credits", 12, credits_button, BLACK, "fonts/Munro.ttf", nullptr);
+	credits_label->SetPosRespectParent(CENTERED);
 
 	return true;
 }
