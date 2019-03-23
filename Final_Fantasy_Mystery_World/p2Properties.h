@@ -4,6 +4,7 @@
 #include <string>
 
 class Property {
+public:
 	Property();
 	~Property();
 
@@ -12,27 +13,39 @@ public:
 };
 
 class PropertyString :public Property {
+public:
+	PropertyString();
+	~PropertyString();
 
 public:
 	std::string value;
 };
 
 class PropertyFloat :public Property {
+public:
+	PropertyFloat();
+	~PropertyFloat();
 
 public:
-	float value;
+	float value = 0.0F;
 };
 
 class PropertyBool :public Property {
+public:
+	PropertyBool();
+	~PropertyBool();
 
 public:
-	bool value;
+	bool value = true;
 };
 
 class PropertyInt :public Property {
+public:
+	PropertyInt();
+	~PropertyInt();
 
 public:
-	int value;
+	int value = 0;
 };
 
 #endif // !__PPROPERTIES_H__

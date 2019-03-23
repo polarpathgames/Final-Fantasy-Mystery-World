@@ -82,6 +82,9 @@
     <ClCompile Include="Sensor.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="p2Properties.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Scene.h" />
@@ -178,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="Sensor.h">
       <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Properties.h">
+      <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
