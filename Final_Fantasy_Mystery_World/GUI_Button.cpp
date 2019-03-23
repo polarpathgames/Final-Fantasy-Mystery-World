@@ -8,7 +8,7 @@
 #include "j1Scene.h"
 
 GUI_Button::GUI_Button(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, GUI* parent, bool draw, bool inter, bool drag)
-	:GUI(BUTTON,x,y,parent,idle,drag,inter,draw)
+	:GUI(BUTTON,x,y,parent,idle,draw,inter,drag)
 {
 	hovered_rect = hover;
 	clicked_rect = push;
@@ -19,7 +19,6 @@ GUI_Button::~GUI_Button() {}
 
 void GUI_Button::InnerDraw()
 {
-	if (drawable)
 		switch (current_state)
 		{
 		case Mouse_Event::HOVER:
