@@ -224,42 +224,42 @@ bool Enemy::IsPlayerNextTile()
 			iPoint destination = (*item)->actual_tile;
 
 			if (origin.x + 1 == destination.x && origin.y == destination.y) {
-				direction == Direction::DOWN_RIGHT;
+				direction = Direction::DOWN_RIGHT;
 				current_animation = &IdleDownRight;
 				ret = true;
 			}
 			if (origin.x == destination.x && origin.y + 1 == destination.y) {
-				direction == Direction::DOWN_LEFT;
+				direction = Direction::DOWN_LEFT;
 				current_animation = &IdleDownLeft;
 				ret = true;
 			}
 			if (origin.x == destination.x && origin.y - 1 == destination.y) {
-				direction == Direction::UP_RIGHT;
+				direction = Direction::UP_RIGHT;
 				current_animation = &IdleUpRight;
 				ret = true;
 			}
 			if (origin.x - 1 == destination.x && origin.y == destination.y) {
-				direction == Direction::UP_LEFT;
+				direction = Direction::UP_LEFT;
 				current_animation = &IdleUpLeft;
 				ret = true;
 			}
 			if (origin.x + 1 == destination.x && origin.y + 1 == destination.y) {
-				direction == Direction::DOWN;
+				direction = Direction::DOWN;
 				current_animation = &IdleDown;
 				ret = true;
 			}
 			if (origin.x - 1 == destination.x && origin.y + 1 == destination.y) {
-				direction == Direction::LEFT;
+				direction = Direction::LEFT;
 				current_animation = &IdleLeft;
 				ret = true;
 			}
 			if (origin.x - 1 == destination.x && origin.y - 1 == destination.y) {
-				direction == Direction::UP;
+				direction = Direction::UP;
 				current_animation = &IdleUp;
 				ret = true;
 			}
 			if (origin.x + 1 == destination.x && origin.y - 1 == destination.y) {
-				direction == Direction::RIGHT;
+				direction = Direction::RIGHT;
 				current_animation = &IdleRight;
 				ret = true;
 			}
