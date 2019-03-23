@@ -12889,6 +12889,7 @@
  <layer id="9" name="Background Tree" width="40" height="40">
   <properties>
    <property name="test" type="int" value="43"/>
+   <property name="NoDraw" type="int" value="1"/>
   </properties>
   <data>
    <tile/>

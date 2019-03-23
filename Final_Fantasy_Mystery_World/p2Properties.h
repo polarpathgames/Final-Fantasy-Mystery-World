@@ -50,7 +50,8 @@ struct Properties {
 	TYPE GetValue(const char* identificator, TYPE default_value = 0) {
 		TYPE ret = default_value;
 		for (std::list<Property<TYPE>*>::iterator item = properties.begin(); item != properties.end(); ++item) {
-			if ((*item)->GetName() == identificator) {
+			if (strcmp((*item)->GetName(),identificator) == 0) {
+				LOG("Finded property with identificator %s", identificator);
 				ret = (*item)->GetValue();
 			}
 		}

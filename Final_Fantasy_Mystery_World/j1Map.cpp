@@ -58,7 +58,7 @@ void j1Map::Draw()
 	{
 		MapLayer* layer = *item;
 
-		if(layer->properties.GetValue("Nodraw") != 0)
+		if(layer->properties.GetValue("NoDraw") != 0)
 			continue;
 
 		for(int i = 0; i < data.width; ++i)
