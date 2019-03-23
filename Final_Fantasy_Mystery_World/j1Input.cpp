@@ -3,7 +3,7 @@
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Window.h"
-
+#include "Brofiler/Brofiler.h"
 
 
 
@@ -72,6 +72,8 @@ bool j1Input::Start()
 // Called each loop iteration
 bool j1Input::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdateInput", Profiler::Color::Orange);
+
 	static SDL_Event event;
 	
 	const Uint8* keys = SDL_GetKeyboardState(NULL);

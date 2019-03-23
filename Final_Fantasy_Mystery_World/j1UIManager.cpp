@@ -10,6 +10,7 @@
 #include "GUI_Button.h"
 #include "GUI_Label.h"
 #include "GUI.h"
+#include "Brofiler/Brofiler.h"
 
 #include <queue>
 
@@ -35,6 +36,8 @@ bool j1UIManager::Start()
 
 bool j1UIManager::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdateUIM", Profiler::Color::Orange);
+
 	bool ret = true;
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 		debug_ui = !debug_ui;
@@ -52,6 +55,8 @@ bool j1UIManager::PreUpdate()
 
 bool j1UIManager::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdateUIManager", Profiler::Color::Purple);
+
 	bool ret = true;
 	std::list<GUI*>::iterator item = ui_list.begin();
 	for (; item != ui_list.end(); ++item)
