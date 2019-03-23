@@ -63,7 +63,7 @@ bool Enemy::PreUpdate()
 		}
 	}	
 	if (state == State::BEFORE_ATTACK) {
-		if (time_to_wait_before_attack < SDL_GetTicks() - 500) {
+		if (time_to_wait_before_attack < SDL_GetTicks() - 250) {
 			type_attack = Attacks::BASIC;
 			state = State::ATTACKING;
 			ChangeAnimation(direction, state, type_attack);
