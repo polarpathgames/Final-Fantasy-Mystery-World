@@ -33,9 +33,7 @@ enum class Movement_Type {
 	InLobby, InQuest
 };
 
-enum class Attacks {
-	BASIC, NONE
-};
+
 
 class Player : public DynamicEntity
 {
@@ -88,7 +86,7 @@ public:
 
 	Input player_input; //VARIABLES DEL INPUT DEL PLAYER
 	Movement_Type movement_type; //EN LOBBY O EN UNA QUEST
-	Attacks type_attack = Attacks::NONE;
+
 	PlayerStats stats;
 };
 

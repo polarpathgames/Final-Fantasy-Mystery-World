@@ -19,6 +19,7 @@
 #include "GUI_Label.h"
 #include "GUI_Image.h"
 #include "Sensor.h"
+#include "Brofiler/Brofiler.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -57,7 +58,7 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
-
+	BROFILER_CATEGORY("PreUpdateScene", Profiler::Color::Orange);
 	// debug pathfing ------------------
 
 
@@ -67,6 +68,7 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Aqua);
 
 	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
@@ -118,6 +120,8 @@ bool j1Scene::Update(float dt)
 // Called each loop iteration
 bool j1Scene::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdateScene", Profiler::Color::Purple);
+
 	bool ret = true;
 
 	//if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)

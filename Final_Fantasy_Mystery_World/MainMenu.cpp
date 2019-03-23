@@ -11,6 +11,7 @@
 #include "j1FadeToBlack.h"
 #include "GUI_Label.h"
 #include "GUI_Image.h"
+#include "Brofiler/Brofiler.h"
 
 MainMenu::MainMenu(){}
 
@@ -39,17 +40,19 @@ bool MainMenu::Start()
 
 bool MainMenu::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdateMainMenu", Profiler::Color::Orange);
 	return true;
 }
 
 bool MainMenu::Update(float dt)
 {
-
+	BROFILER_CATEGORY("UpdateMainMenu", Profiler::Color::Aqua);
 	return true;
 }
 
 bool MainMenu::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdateMainMenu", Profiler::Color::Purple);
 	return true;
 }
 
@@ -71,7 +74,6 @@ void MainMenu::Interact(GUI* interaction)
 		App->map->active = true;
 		App->scene->active = true;
 		App->map->ChangeMap(Maps::TUTORIAL);
-		App->scene->CreateEntities();
 	}
 		
 }

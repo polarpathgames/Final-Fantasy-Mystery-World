@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1PathFinding.h"
+#include "Brofiler/Brofiler.h"
 
 
 j1PathFinding::j1PathFinding() : j1Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH),width(0), height(0)
@@ -123,24 +124,44 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
 	iPoint cell;
 	uint before = list_to_fill.list.size();
 
-	cell.create(pos.x, pos.y + 1);
-	//if (App->pathfinding->IsWalkable(cell))
-		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
-	// south
-	cell.create(pos.x, pos.y - 1);
-	//if (App->pathfinding->IsWalkable(cell))
-		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
-
-	// east
-	cell.create(pos.x + 1, pos.y);
+	cell.create(pos.x - 1, pos.y - 1);
 	//if (App->pathfinding->IsWalkable(cell))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	// west
+	cell.create(pos.x + 1, pos.y + 1);
+	//if (App->pathfinding->IsWalkable(cell))
+		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+
+	cell.create(pos.x - 1, pos.y + 1);
+	//if (App->pathfinding->IsWalkable(cell))
+		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+
+	cell.create(pos.x + 1, pos.y - 1);
+	//if (App->pathfinding->IsWalkable(cell))
+		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+
 	cell.create(pos.x - 1, pos.y);
 	//if (App->pathfinding->IsWalkable(cell))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+
+	// west
+	cell.create(pos.x + 1, pos.y);
+	//if (App->pathfinding->IsWalkable(cell))
+		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+
+	cell.create(pos.x, pos.y + 1);
+	//if (App->pathfinding->IsWalkable(cell))
+		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+
+	cell.create(pos.x, pos.y - 1);
+	//if (App->pathfinding->IsWalkable(cell))
+		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+
+
+
+
 
 	return list_to_fill.list.size();
 }
@@ -169,6 +190,8 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
+	BROFILER_CATEGORY("PathFinding", Profiler::Color::Brown);
+
 	last_path.clear();
 
 	//if (!IsWalkable(origin) || !IsWalkable(destination))

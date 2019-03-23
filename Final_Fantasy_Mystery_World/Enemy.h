@@ -36,7 +36,7 @@ public:
 
 	bool CleanUp();
 
-	bool IsPlayerNextTile() const;
+	bool IsPlayerNextTile();
 
 	void MovementLogic();
 
