@@ -25,11 +25,11 @@ bool MainMenu::Start()
 {
 	
 	SDL_Rect background_rect = { 0, 0, 1024, 768 };
-	background = App->ui_manager->AddImage(0, 0, background_rect, this,App->ui_manager->screen,true,false,false);
+	background = App->ui_manager->AddImage(0, 0, background_rect, this, App->ui_manager->screen, true, true, true);
 
 	
-	//exit_button = App->ui_manager->AddButton(0, 0, { 1659, 1575,33,33 }, { 0, 0,100,100 }, { 0, 0,10,10 }, this, background, true, true,true);
-	//exit_text = App->ui_manager->AddLabel(10, 10, "exit", 20, exit_button, BLACK, "fonts/Munro.ttf", nullptr);
+	exit_button = App->ui_manager->AddButton(0, 0, { 1659, 1575,33,33 }, { 0, 0,100,100 }, { 0, 0,10,10 }, this, background, true, true,true);
+	exit_text = App->ui_manager->AddLabel(10, 10, "exit", 20, exit_button, BLACK, "fonts/Munro.ttf", nullptr);
 	
 	new_game_button = (GUI_Button*)App->ui_manager->AddButton(50, 50, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true);
 	new_game_label = (GUI_Label*)App->ui_manager->AddLabel(0, 0, "New Game", 12, new_game_button, BLACK, "fonts/Munro.ttf", nullptr);
