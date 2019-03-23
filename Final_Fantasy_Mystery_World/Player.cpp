@@ -520,21 +520,13 @@ const bool Player::MultipleButtons(const Input * input)
 {
 	bool ret;
 
-	if (input->pressing_A && !input->pressing_D && !input->pressing_S && !input->pressing_W && input->pressing_shift)
+	if (input->pressing_A && !input->pressing_D && !input->pressing_S && !input->pressing_W)
 		ret = true;
-	else if (input->pressing_D && !input->pressing_A && !input->pressing_S && !input->pressing_W && input->pressing_shift)
+	else if (input->pressing_D && !input->pressing_A && !input->pressing_S && !input->pressing_W)
 		ret = true;
-	else if (input->pressing_S && !input->pressing_A && !input->pressing_D && !input->pressing_W && input->pressing_shift)
+	else if (input->pressing_S && !input->pressing_A && !input->pressing_D && !input->pressing_W)
 		ret = true;
-	else if (input->pressing_W && !input->pressing_A && !input->pressing_D && !input->pressing_S && input->pressing_shift)
-		ret = true;
-	else if (input->pressing_A && !input->pressing_D && !input->pressing_S && !input->pressing_W && !input->pressing_shift)
-		ret = true;
-	else if (input->pressing_D && !input->pressing_A && !input->pressing_S && !input->pressing_W && !input->pressing_shift)
-		ret = true;
-	else if (input->pressing_S && !input->pressing_A && !input->pressing_D && !input->pressing_W && !input->pressing_shift)
-		ret = true;
-	else if (input->pressing_W && !input->pressing_A && !input->pressing_D && !input->pressing_S && !input->pressing_shift)
+	else if (input->pressing_W && !input->pressing_A && !input->pressing_D && !input->pressing_S)
 		ret = true;
 	else
 		ret = false;
