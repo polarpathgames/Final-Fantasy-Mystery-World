@@ -7,9 +7,9 @@
 	<map />
 	<pathfinding />
 	<scene />
+	<gui />
 	<:anonymous />
-	<:anonymous />
-	<:anonymous />
+	<fonts />
 	<entity_manager />
 	<:anonymous />
 	<renderer>
