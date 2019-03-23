@@ -103,7 +103,7 @@ const SDL_Texture* j1UIManager::GetAtlas() const
 
 GUI_Image* j1UIManager::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, j1Module * callback = nullptr, GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false)
 {
-	GUI_Image* image = new GUI_Image(x, y, rect, parent, draw, drag, interact);
+	GUI_Image* image = new GUI_Image(x, y, rect, parent, draw, interact, drag);
 
 	if (callback != nullptr) {
 		image->AddListener(callback);
@@ -114,7 +114,7 @@ GUI_Image* j1UIManager::AddImage(const int &x,const int &y, const SDL_Rect & rec
 	return image;
 }
 
-GUI_Button* j1UIManager::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, j1Module* callback, GUI* parent, bool draw, bool inter, bool drag)
+GUI_Button* j1UIManager::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, j1Module* callback, GUI* parent, bool draw, bool drag, bool inter)
 {
 	GUI_Button* button = new GUI_Button(x, y, idle, mouse_in, clicked, parent, draw, inter, drag);
 
@@ -212,6 +212,7 @@ bool j1UIManager::DeleteAllUIElements()
 	bool ret = true;
 
 	ret = DeleteUIElement(screen);
+	CreateScreen();
 
 	return ret;
 }
