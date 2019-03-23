@@ -9,6 +9,7 @@
 #include <string>
 #include "j1Pathfinding.h"
 #include "Player.h"
+#include "Brofiler/Brofiler.h"
 
 Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 {
@@ -44,6 +45,8 @@ Enemy::~Enemy()
 
 bool Enemy::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdateEnemy", Profiler::Color::Orange);
+
 	if (state == State::IDLE) {
 		if (IsPlayerNextTile()) {
 			state = State::ATTACKING;
@@ -69,6 +72,8 @@ bool Enemy::PreUpdate()
 
 bool Enemy::Update(float dt)
 {
+	BROFILER_CATEGORY("UpdateEnemy", Profiler::Color::Aqua);
+
 	if (state == State::WALKING) {
 		switch (direction)
 		{
@@ -176,7 +181,7 @@ bool Enemy::Update(float dt)
 
 bool Enemy::PostUpdate()
 {
-
+	BROFILER_CATEGORY("PostUpdateEnemy", Profiler::Color::Purple);
 	return true;
 }
 

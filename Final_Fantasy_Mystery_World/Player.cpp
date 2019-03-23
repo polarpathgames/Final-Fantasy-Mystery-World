@@ -11,6 +11,7 @@
 #include "j1EntityManager.h"
 #include "j1Map.h"
 #include <string>
+#include "Brofiler/Brofiler.h"
 
 Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 {
@@ -48,6 +49,8 @@ Player::~Player()
 
 bool Player::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdatePlayer", Profiler::Color::Orange);
+
 	ReadPlayerInput();
 	
 	return true;
@@ -55,6 +58,8 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
+	BROFILER_CATEGORY("UpdatePlayer", Profiler::Color::Aqua);
+
 	PerformActions(dt);
 
 	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x, App->map->MapToWorld(actual_tile.x, actual_tile.y).y, NULL, true);
@@ -65,7 +70,7 @@ bool Player::Update(float dt)
 
 bool Player::PostUpdate()
 {
-
+	BROFILER_CATEGORY("PostUpdatePlayer", Profiler::Color::Purple);
 	return true;
 }
 

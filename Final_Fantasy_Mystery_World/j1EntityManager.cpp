@@ -12,7 +12,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include <algorithm>
-
+#include "Brofiler/Brofiler.h"
 
 
 j1EntityManager::j1EntityManager() : j1Module()
@@ -49,6 +49,7 @@ bool j1EntityManager::Start()
 
 bool j1EntityManager::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdateEntityM", Profiler::Color::Orange);
 	
 	std::vector<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
@@ -65,6 +66,8 @@ bool j1EntityManager::PreUpdate()
 // Called before render is available
 bool j1EntityManager::Update(float dt)
 {
+	BROFILER_CATEGORY("UpdateEntityM", Profiler::Color::Aqua);
+
 	std::vector<Entity*> draw_entities;
 	std::vector<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
@@ -96,6 +99,8 @@ bool j1EntityManager::Update(float dt)
 
 bool j1EntityManager::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdateEntityM", Profiler::Color::Purple);
+
 	std::vector<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr)
