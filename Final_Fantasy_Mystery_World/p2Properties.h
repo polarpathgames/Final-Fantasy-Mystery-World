@@ -8,6 +8,7 @@ public:
 	Property();
 	~Property();
 
+	void SetName(const char* name);
 	std::string GetName() const;
 
 public:
@@ -20,6 +21,7 @@ public:
 	PropertyString(const char*);
 	~PropertyString();
 
+	void SetValue(const char* value);
 	std::string GetValue() const;
 
 private:
@@ -32,6 +34,7 @@ public:
 	PropertyFloat(const float&);
 	~PropertyFloat();
 
+	void SetValue(const float &value);
 	float GetValue() const;
 
 private:
@@ -44,6 +47,7 @@ public:
 	PropertyBool(const bool);
 	~PropertyBool();
 
+	void SetValue(const bool value);
 	bool GetValue() const;
 
 private:
@@ -56,6 +60,7 @@ public:
 	PropertyInt(const int&);
 	~PropertyInt();
 
+	void SetValue(const int &value);
 	int GetValue() const;
 
 private:
