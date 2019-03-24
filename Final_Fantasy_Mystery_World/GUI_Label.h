@@ -28,7 +28,7 @@ public:
 
 protected:
 
-	_TTF_Font*		font = nullptr; //This must be common for all fonts in the future. Load only necessary fonts
+	FontType		id_font; //This must be common for all fonts in the future. Load only necessary fonts
 	uint			size = 0;
 	SDL_Texture*	texture = nullptr;
 	SDL_Color		color = { 255,255,255,255 };
