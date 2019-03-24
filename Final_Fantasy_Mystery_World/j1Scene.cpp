@@ -204,7 +204,7 @@ void j1Scene::DestroyPauseMenu()
 	/*if(pause_panel != nullptr)
 	App->ui_manager->DeleteUIElement(pause_panel);*/
 
-	App->ui_manager->DeleteAllUIElements();
+	App->ui_manager->DeleteUIElement(pause_panel);
 }
 
 bool j1Scene::Interact(GUI* interact)
