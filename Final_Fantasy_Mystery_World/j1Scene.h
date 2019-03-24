@@ -57,6 +57,11 @@ private:
 	GUI_Label* label_resume = nullptr;
 	GUI_Button* button_main_menu = nullptr;
 	GUI_Label* label_main_menu = nullptr;
+	GUI_Button* button_abort_quest = nullptr;
+	GUI_Label* label_abort_quest = nullptr;
+	GUI_Button* button_options = nullptr;
+	GUI_Label* label_options = nullptr;
+	
 };
 
 #endif // __j1SCENE_H__

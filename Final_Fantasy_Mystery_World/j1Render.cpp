@@ -287,5 +287,9 @@ bool j1Render::IsOnCamera(const int & x, const int & y, const int & w, const int
 	return SDL_HasIntersection(&r, &cam);
 }
 
-
+void j1Render::ResetCamera()
+{
+	camera.x = 0;
+	camera.y = 0;
+}
 
