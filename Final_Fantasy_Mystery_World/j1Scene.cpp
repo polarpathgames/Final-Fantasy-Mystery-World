@@ -207,11 +207,13 @@ void j1Scene::DestroyPauseMenu()
 	App->ui_manager->DeleteAllUIElements();
 }
 
-void j1Scene::Interact(GUI* interact)
+bool j1Scene::Interact(GUI* interact)
 {
+	bool ret = true;
 	if (interact == button_resume)
 	{
 		DestroyPauseMenu();
+		ret = false;
 	}
 	if (interact == button_main_menu)
 	{
@@ -220,9 +222,13 @@ void j1Scene::Interact(GUI* interact)
 		App->ui_manager->DeleteAllUIElements();
 		App->render->ResetCamera();
 		App->entity_manager->active = false;
+		App->entity_manager->CleanUp();
 		App->map->active = false;
+		App->map->CleanUp();
 		this->active = false; //desactivates main menu
 		App->main_menu->active = true;
 		App->main_menu->Start();
+		ret = false;
 	}
+	return ret;
 }

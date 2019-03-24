@@ -44,7 +44,7 @@ public:
 
 	void CreatePauseMenu();
 	void DestroyPauseMenu();
-	void Interact(GUI* interaction);
+	bool Interact(GUI* interaction);
 public:
 
 	//GUI* mock_image_ui = nullptr;

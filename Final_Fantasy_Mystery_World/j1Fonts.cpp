@@ -73,6 +73,15 @@ TTF_Font* const j1Fonts::Load(const char* path, int size)
 	return font;
 }
 
+bool j1Fonts::UnLoad(_TTF_Font * font)
+{
+	fonts.remove(font);
+
+	TTF_CloseFont(font);
+
+	return true;
+}
+
 // Print text using font
 SDL_Texture* j1Fonts::Print(const char* text, SDL_Color color, TTF_Font* font)
 {

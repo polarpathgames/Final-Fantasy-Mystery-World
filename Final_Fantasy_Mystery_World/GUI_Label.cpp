@@ -22,7 +22,8 @@ GUI_Label::~GUI_Label()
 {
 	text.clear();
 	App->tex->UnLoad(texture);	
-	//delete texture;
+	App->fonts->UnLoad(font);
+	font = nullptr;
 	texture = nullptr;
 }
 

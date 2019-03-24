@@ -82,6 +82,7 @@
     <ClCompile Include="Sensor.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="j1Module.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Scene.h" />

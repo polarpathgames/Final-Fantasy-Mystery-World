@@ -58,7 +58,7 @@ bool j1UIManager::PostUpdate()
 	BROFILER_CATEGORY("PostUpdateUIManager", Profiler::Color::Purple);
 
 	bool ret = true;
-	std::list<GUI*>::iterator item = ui_list.begin();
+	/*std::list<GUI*>::iterator item = ui_list.begin();
 	for (; item != ui_list.end(); ++item)
 	{
 		if ((*item) != nullptr) {
@@ -70,6 +70,7 @@ bool j1UIManager::PostUpdate()
 			}
 		}
 	}
+	ui_list.remove(nullptr);*/
 
 	std::list<GUI*> tree;
 	BFS(tree, screen);

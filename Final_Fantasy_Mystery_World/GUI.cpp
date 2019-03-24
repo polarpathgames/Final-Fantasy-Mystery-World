@@ -57,7 +57,9 @@ bool GUI::Update()
 
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
 		for (std::list<j1Module*>::iterator module = listeners.begin(); module != listeners.end(); ++module) {
-			(*module)->Interact(this);
+			if (*module != nullptr)
+				if (!(*module)->Interact(this))
+					break;
 		}
 	}
 	
