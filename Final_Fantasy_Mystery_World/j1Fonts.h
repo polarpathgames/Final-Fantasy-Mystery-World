@@ -21,7 +21,8 @@ enum class FontType {
 
 struct Font {
 	Font() {}
-	Font(_TTF_Font* font, FontType type) :font(font), type(type) {}
+	Font(_TTF_Font* font, FontType type, const char* name) :font(font), type(type), name(name) {}
+	std::string name;
 	_TTF_Font* font = nullptr;
 	FontType type = FontType::NONE;
 };
@@ -45,12 +46,13 @@ public:
 	Font const Load(const char* path, int size = 12);
 	bool UnLoad(FontType font);
 
-	bool FindFont(FontType font_type, _TTF_Font* font = nullptr);
+	bool FindIdFont(FontType font_type, _TTF_Font* &font);
+	bool FindPathFont(const char* name, _TTF_Font* &font);
 
 	// Create a surface from text
-	SDL_Texture* Print(const char* text, SDL_Color color = { 255, 255, 255, 255 }, FontType type);
-	SDL_Texture* PrintWrapped(const char* text, SDL_Color color, _TTF_Font* font, Uint32 wrap_length);
-	bool CalcSize(const char* text, int& width, int& height, _TTF_Font* font = NULL) const;
+	SDL_Texture* Print(const char* text, SDL_Color color = { 255, 255, 255, 255 }, FontType type = FontType::NONE);
+	SDL_Texture* PrintWrapped(const char* text, SDL_Color color, FontType type, Uint32 wrap_length);
+	bool CalcSize(const char* text, int& width, int& height, FontType font);
 
 public:
 

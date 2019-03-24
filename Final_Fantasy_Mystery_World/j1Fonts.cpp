@@ -34,6 +34,7 @@ bool j1Fonts::Awake(pugi::xml_node& conf)
 		const char* font = conf.child("default_font").attribute("file").as_string(DEFAULT_FONT);
 		int size = conf.child("default_font").attribute("size").as_int(DEFAULT_FONT_SIZE);
 		default = Load(PATH(path,font), size);
+		Load(PATH(path, font), size);
 
 		for (conf = conf.child("font"); conf; conf = conf.next_sibling()) {
 			Load(PATH(path, conf.attribute("file").as_string()));
@@ -50,7 +51,7 @@ bool j1Fonts::CleanUp()
 
 	std::list<Font>::iterator item = fonts.begin();
 
-	for (; item != fonts.end(); item = ++item)
+	for (; item != fonts.end(); ++item)
 	{
 		TTF_CloseFont((*item).font);
 	}
@@ -63,13 +64,13 @@ bool j1Fonts::CleanUp()
 // Load new texture from file path
 Font const j1Fonts::Load(const char* path, int size)
 {
-	Font font(TTF_OpenFont(path, size),(FontType)fonts.size());
-
+	Font font(TTF_OpenFont(path, size),(FontType)fonts.size(), path);
+	_TTF_Font* f;
 	if (font.font == NULL)
 	{
 		LOG("Could not load TTF font with path: %s. TTF_OpenFont: %s", path, TTF_GetError());
 	}
-	else if (FindFont(font.type)) {
+	else if (FindPathFont(path, f)) {
 		LOG("Already loaded font with ID %i", font.type);
 		TTF_CloseFont(font.font);
 	}
@@ -85,15 +86,15 @@ Font const j1Fonts::Load(const char* path, int size)
 bool j1Fonts::UnLoad(FontType font)
 {
 	_TTF_Font* font_font = nullptr;
-	if (FindFont(font, font_font)) {
-		fonts.remove(Font(font_font,font));
+	if (FindIdFont(font, font_font)) {
+		//fonts.remove(Font(font_font,font));
 		TTF_CloseFont(font_font);
 	}
 
 	return true;
 }
 
-bool j1Fonts::FindFont(FontType font_type, _TTF_Font * font)
+bool j1Fonts::FindIdFont(FontType font_type, _TTF_Font * &font)
 {
 	for (std::list<Font>::iterator item = fonts.begin(); item != fonts.end(); ++item) {
 		if ((*item).type == font_type) {
@@ -104,21 +105,24 @@ bool j1Fonts::FindFont(FontType font_type, _TTF_Font * font)
 	return false;
 }
 
-// Print text using font
-SDL_Texture* j1Fonts::Print(const char* text, SDL_Color color, FontType font)
+bool j1Fonts::FindPathFont(const char* name, _TTF_Font * &font)
 {
-	SDL_Texture* ret = NULL;
-	SDL_Surface* surface = nullptr;
-
-	std::list<Font>::iterator item = fonts.begin();
-	for (; item != fonts.end(); ++item) {
-		if ((*item).type == font) {
-			 surface = TTF_RenderText_Blended((*item).font, text, color);
+	for (std::list<Font>::iterator item = fonts.begin(); item != fonts.end(); ++item) {
+		if (strcmp(name,(*item).name.data()) == 0) {
+			font = (*item).font;
+			return true;
 		}
 	}
-	if (item == fonts.end()) {
-		surface = TTF_RenderText_Blended(default.font, text, color);
-	}
+	return false;
+}
+
+// Print text using font
+SDL_Texture* j1Fonts::Print(const char* text, SDL_Color color, FontType font_type)
+{
+	SDL_Texture* ret = NULL;
+
+	_TTF_Font* font = nullptr;
+	SDL_Surface* surface = TTF_RenderText_Blended((FindIdFont(font_type, font)) ? font : default.font, text, color);
 
 	if (surface == NULL)
 	{
@@ -133,11 +137,11 @@ SDL_Texture* j1Fonts::Print(const char* text, SDL_Color color, FontType font)
 	return ret;
 }
 
-SDL_Texture* j1Fonts::PrintWrapped(const char* text, SDL_Color color, _TTF_Font* font, Uint32 wrap_length)
+SDL_Texture* j1Fonts::PrintWrapped(const char* text, SDL_Color color, FontType type, Uint32 wrap_length)
 {
 	SDL_Texture* ret = NULL;
-
-	SDL_Surface* surface = TTF_RenderText_Blended_Wrapped((font) ? font : default.font, text, color, wrap_length);
+	_TTF_Font* font = nullptr;
+	SDL_Surface* surface = TTF_RenderText_Blended_Wrapped((FindIdFont(type, font)) ? font : default.font, text, color, wrap_length);
 	SDL_SetSurfaceAlphaMod(surface, color.a);
 
 	if (surface == NULL)
@@ -154,11 +158,11 @@ SDL_Texture* j1Fonts::PrintWrapped(const char* text, SDL_Color color, _TTF_Font*
 }
 
 // calculate size of a text
-bool j1Fonts::CalcSize(const char* text, int& width, int& height, _TTF_Font* font) const
+bool j1Fonts::CalcSize(const char* text, int& width, int& height, FontType type)
 {
 	bool ret = false;
-
-	if (TTF_SizeText((font) ? font : default.font, text, &width, &height) != 0)
+	_TTF_Font* font = nullptr;
+	if (TTF_SizeText((FindIdFont(type,font)) ? font : default.font, text, &width, &height) != 0)
 		LOG("Unable to calc size of text surface! SDL_ttf Error: %s\n", TTF_GetError());
 	else
 		ret = true;

@@ -2,9 +2,8 @@
 #define _GUI_LABEL_H__
 
 #include "GUI.h"
+#include "j1Fonts.h"
 #include <string>
-
-struct _TTF_Font;
 
 class GUI_Label : public GUI
 {
