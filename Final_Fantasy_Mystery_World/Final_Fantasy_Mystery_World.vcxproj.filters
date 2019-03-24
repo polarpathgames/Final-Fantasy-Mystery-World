@@ -179,6 +179,9 @@
     <ClInclude Include="Sensor.h">
       <Filter>Entities</Filter>
     </ClInclude>
+    <ClInclude Include="p2Properties.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Tools">
@@ -217,6 +220,12 @@
       <Filter>XML</Filter>
     </None>
     <None Include="Game\maps\iso_walk2.tmx">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="Game\entities\WarriorSpritesheet.tsx">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="Game\maps\Tutorial_Movement.tmx">
       <Filter>XML</Filter>
     </None>
   </ItemGroup>

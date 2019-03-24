@@ -47,6 +47,7 @@ struct EntityAnim {
 	uint id = 0;
 	uint num_frames = 0;
 	SDL_Rect* frames = nullptr;
+	int speed = 0;
 	AnimationState animType = AnimationState::NONE;
 
 	uint FrameCount(pugi::xml_node&);
