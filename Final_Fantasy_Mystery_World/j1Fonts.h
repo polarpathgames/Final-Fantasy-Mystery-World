@@ -5,7 +5,8 @@
 #include <list>
 #include "SDL\include\SDL_pixels.h"
 
-#define DEFAULT_FONT "fonts/Final_Fantasy_font.ttf"
+#define DEFAULT_PATH "fonts/"
+#define DEFAULT_FONT "Final_Fantasy_font.ttf"
 #define DEFAULT_FONT_SIZE 36
 
 struct SDL_Texture;

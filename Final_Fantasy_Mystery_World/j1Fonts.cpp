@@ -30,9 +30,14 @@ bool j1Fonts::Awake(pugi::xml_node& conf)
 	}
 	else
 	{
-		const char* path = conf.child("default_font").attribute("file").as_string(DEFAULT_FONT);
+		const char* path = conf.child("path").attribute("folder").as_string(DEFAULT_PATH);
+		const char* font = conf.child("default_font").attribute("file").as_string(DEFAULT_FONT);
 		int size = conf.child("default_font").attribute("size").as_int(DEFAULT_FONT_SIZE);
-		default = Load(path, size);
+		default = Load(PATH(path,font), size);
+
+		for (conf = conf.child("font"); conf; conf = conf.next_sibling()) {
+			Load(PATH(path, conf.attribute("file").as_string()));
+		}
 	}
 
 	return ret;
@@ -47,7 +52,7 @@ bool j1Fonts::CleanUp()
 
 	for (; item != fonts.end(); item = ++item)
 	{
-		TTF_CloseFont(fonts.back());
+		TTF_CloseFont(*item);
 	}
 
 	fonts.clear();
