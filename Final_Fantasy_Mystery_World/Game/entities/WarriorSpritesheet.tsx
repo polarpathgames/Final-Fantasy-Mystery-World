@@ -154,6 +154,9 @@
   </animation>
  </tile>
  <tile id="24">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
    <frame tileid="25" duration="100"/>
    <frame tileid="24" duration="100"/>
@@ -161,6 +164,9 @@
   </animation>
  </tile>
  <tile id="27">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
    <frame tileid="28" duration="100"/>
    <frame tileid="27" duration="100"/>
@@ -168,6 +174,9 @@
   </animation>
  </tile>
  <tile id="30">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
    <frame tileid="31" duration="100"/>
    <frame tileid="30" duration="100"/>
@@ -175,6 +184,9 @@
   </animation>
  </tile>
  <tile id="33">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
    <frame tileid="34" duration="100"/>
    <frame tileid="33" duration="100"/>
