@@ -43,6 +43,8 @@ public:
 
 	void ChangeAnimation(Direction &dir, State &states, Attacks attacks = Attacks::NONE);
 
+	void ResetAnims();
+
 public:
 
 

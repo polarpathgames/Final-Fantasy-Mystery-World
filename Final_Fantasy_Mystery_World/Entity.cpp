@@ -213,6 +213,18 @@ void Entity::IdAnimToEnum() //Assign every id animation to enum animation
 		case 22:
 			data.animations[i].animType = AnimationState::IDLE_RIGHT;
 			break;
+		case 24:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_LEFT;
+			break;
+		case 33:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_RIGHT;
+			break;
+		case 27:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_LEFT;
+			break;
+		case 30:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_RIGHT;
+			break;
 		}
 
 	}

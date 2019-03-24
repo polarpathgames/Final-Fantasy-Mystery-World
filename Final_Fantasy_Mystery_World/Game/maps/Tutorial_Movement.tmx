@@ -23,8 +23,8 @@
   <tile id="138" terrain=",,2,"/>
   <tile id="139" terrain="2,,,"/>
  </tileset>
- <tileset firstgid="307" name="WarriorSpritesheet" tilewidth="16" tileheight="32" spacing="2" margin="2" tilecount="24" columns="12">
-  <image source="../assets/sprites/WarriorSpritesheet.png" width="218" height="68"/>
+ <tileset firstgid="307" name="WarriorSpritesheet" tilewidth="16" tileheight="32" spacing="2" margin="2" tilecount="36" columns="12">
+  <image source="../assets/sprites/WarriorSpritesheet.png" width="218" height="102"/>
   <tile id="0">
    <animation>
     <frame tileid="0" duration="200"/>
@@ -14496,7 +14496,7 @@
  </layer>
  <objectgroup id="10" name="Collision"/>
  <objectgroup color="#ffff7f" id="11" name="player">
-  <object id="5" name="player" type="dynamic" x="384.061" y="384.25" width="15.9688" height="16.0156">
+  <object id="5" name="player" type="dynamic" x="432.561" y="319.083" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
