@@ -14,6 +14,10 @@
 #include "j1Scene.h"
 #include "MainMenu.h"
 #include <string>
+#include "GUI.h"
+#include "GUI_Button.h"
+#include "GUI_Label.h"
+#include "GUI_Image.h"
 #include "Sensor.h"
 #include "Brofiler/Brofiler.h"
 
@@ -44,7 +48,8 @@ bool j1Scene::Start()
 	//App->map->Load("iso_walk2.tmx");
 	/*SDL_Rect background_rect = { 0, 0, 1024, 768 };
 	background = App->ui_manager->AddImage(0, 0, &background_rect, nullptr, this, nullptr);*/
-	
+	if (App->GetPause())
+		App->ChangePause();
 
 
 	return true;
@@ -104,7 +109,9 @@ bool j1Scene::Update(float dt)
 		App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 	}
 		
-
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+		(App->ChangePause()) ? CreatePauseMenu() : DestroyPauseMenu();
+	}
 	
 
 	return true;
@@ -117,8 +124,8 @@ bool j1Scene::PostUpdate()
 
 	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+	//if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	//	ret = false;
 
 	iPoint mouse;
 	App->input->GetMousePosition(mouse.x, mouse.y);
@@ -160,5 +167,62 @@ void j1Scene::CreateEntities()
 		else {
 			LOG("There isn't any entity with name %s and type %s", (*position)->name.data(), (*position)->ent_type.data());
 		}
+	}
+}
+
+void j1Scene::CreatePauseMenu()
+{
+	pause_panel = App->ui_manager->AddImage(0, 0, { 1252,1536,313,428 }, this,App->ui_manager->screen, true,false,true);
+	pause_panel->SetPosRespectParent(CENTERED);
+	button_resume = App->ui_manager->AddButton(50, 50, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 },this, pause_panel, true,false,true);
+	button_resume->AddListener(this);
+	label_resume = App->ui_manager->AddLabel(0,0,"Continue",50, button_resume, BLACK, "fonts/Munro.ttf", nullptr);
+	label_resume->SetPosRespectParent(CENTERED);
+
+	button_main_menu = App->ui_manager->AddButton(50, 350, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true);
+	button_main_menu->AddListener(this);
+	label_main_menu = App->ui_manager->AddLabel(0, 0, "Return to main menu", 50, button_main_menu, BLACK, "fonts/Munro.ttf", nullptr);
+	label_main_menu->SetPosRespectParent(CENTERED);
+
+	button_abort_quest = App->ui_manager->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true);
+	button_abort_quest->AddListener(this);
+	label_abort_quest = App->ui_manager->AddLabel(0, 0, "Abort quest", 50, button_abort_quest, BLACK, "fonts/Munro.ttf", nullptr);
+	label_abort_quest->SetPosRespectParent(CENTERED);
+
+	button_options = App->ui_manager->AddButton(50, 150, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true);
+	button_options->AddListener(this);
+	label_options = App->ui_manager->AddLabel(0, 0, "Options", 50, button_options, BLACK, "fonts/Munro.ttf", nullptr);
+	label_options->SetPosRespectParent(CENTERED);
+}
+
+void j1Scene::DestroyPauseMenu()
+{
+	
+	if (App->GetPause())
+		App->ChangePause();
+
+	/*if(pause_panel != nullptr)
+	App->ui_manager->DeleteUIElement(pause_panel);*/
+
+	App->ui_manager->DeleteAllUIElements();
+}
+
+void j1Scene::Interact(GUI* interact)
+{
+	if (interact == button_resume)
+	{
+		DestroyPauseMenu();
+	}
+	if (interact == button_main_menu)
+	{
+	
+		/*App->fade_to_black->FadeToBlack(this, App->main_menu, 3.0f);*/
+		App->ui_manager->DeleteAllUIElements();
+		App->render->ResetCamera();
+		App->entity_manager->active = false;
+		App->map->active = false;
+		this->active = false; //desactivates main menu
+		App->main_menu->active = true;
+		App->main_menu->Start();
 	}
 }
