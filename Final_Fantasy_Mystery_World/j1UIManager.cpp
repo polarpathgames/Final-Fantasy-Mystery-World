@@ -92,6 +92,7 @@ bool j1UIManager::CleanUp()
 		if ((*item) != nullptr) {
 			(*item)->CleanUp();
 			delete *item;
+			*item = nullptr;
 		}
 	}
 
@@ -175,11 +176,11 @@ bool j1UIManager::DeleteUIElement(GUI * element)
 				if (elem != ui_list.end() && *elem != nullptr) {						//if it is valid
 					delete *elem;
 					*elem = nullptr;						//delete from list
-															//delete item->data;						//and deallocate memory
+															//delete item and deallocate memory
 				}
 			}
 			tree.clear();
-			//ui_list.remove(nullptr);
+			ui_list.remove(nullptr);
 			return true;
 		}
 	}
