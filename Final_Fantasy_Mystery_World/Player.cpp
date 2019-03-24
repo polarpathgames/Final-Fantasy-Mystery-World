@@ -407,7 +407,11 @@ void Player::PerformMovementInQuest(float dt)
 			current_animation = &GoDownLeft;
 		}
 		else {
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
+			state = State::IDLE;
+			current_animation = &IdleDownLeft;
 		}
 		break;
 	case Direction::UP_RIGHT:
@@ -417,7 +421,11 @@ void Player::PerformMovementInQuest(float dt)
 			current_animation = &GoUpRight;
 		}
 		else {
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
+			state = State::IDLE;
+			current_animation = &IdleUpRight;
 		}
 		break;
 	case Direction::UP_LEFT:
@@ -427,7 +435,11 @@ void Player::PerformMovementInQuest(float dt)
 			current_animation = &GoUpLeft;
 		}
 		else {
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
+			state = State::IDLE;
+			current_animation = &IdleUpLeft;
 		}
 		break;
 	case Direction::DOWN_RIGHT:
@@ -437,7 +449,11 @@ void Player::PerformMovementInQuest(float dt)
 			current_animation = &GoDownRight;
 		}
 		else {
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
+			state = State::IDLE;
+			current_animation = &IdleDownRight;
 		}
 		break;
 	case Direction::LEFT:
@@ -446,7 +462,11 @@ void Player::PerformMovementInQuest(float dt)
 			current_animation = &GoLeft;
 		}
 		else {
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
+			state = State::IDLE;
+			current_animation = &IdleLeft;
 		}
 		break;
 	case Direction::RIGHT:
@@ -455,7 +475,11 @@ void Player::PerformMovementInQuest(float dt)
 			current_animation = &GoRight;
 		}
 		else {
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
+			state = State::IDLE;
+			current_animation = &IdleRight;
 		}
 		break;
 	case Direction::UP:
@@ -464,7 +488,11 @@ void Player::PerformMovementInQuest(float dt)
 			current_animation = &GoUp;
 		}
 		else {
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
+			state = State::IDLE;
+			current_animation = &IdleUp;
 		}
 		break;
 	case Direction::DOWN:
@@ -473,7 +501,11 @@ void Player::PerformMovementInQuest(float dt)
 			current_animation = &GoDown;
 		}
 		else {
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
+			state = State::IDLE;
+			current_animation = &IdleDown;
 		}
 		break;
 	default:

@@ -13,6 +13,6 @@
 	<gui />
 	<:anonymous />
 	<renderer>
-		<camera x="203" y="-645" />
+		<camera x="585" y="-931" />
 	</renderer>
 </game_state>
