@@ -22,9 +22,16 @@ enum class FontType {
 struct Font {
 	Font() {}
 	Font(_TTF_Font* font, FontType type, const char* name) :font(font), type(type), name(name) {}
+
 	std::string name;
 	_TTF_Font* font = nullptr;
 	FontType type = FontType::NONE;
+
+	bool operator==(const Font& other) {
+		if (this->type == other.type)
+			return true;
+		return false;
+	}
 };
 
 class j1Fonts : public j1Module

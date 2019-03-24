@@ -34,7 +34,6 @@ bool j1Fonts::Awake(pugi::xml_node& conf)
 		const char* font = conf.child("default_font").attribute("file").as_string(DEFAULT_FONT);
 		int size = conf.child("default_font").attribute("size").as_int(DEFAULT_FONT_SIZE);
 		default = Load(PATH(path,font), size);
-		Load(PATH(path, font), size);
 
 		for (conf = conf.child("font"); conf; conf = conf.next_sibling()) {
 			Load(PATH(path, conf.attribute("file").as_string()));
@@ -87,7 +86,7 @@ bool j1Fonts::UnLoad(FontType font)
 {
 	_TTF_Font* font_font = nullptr;
 	if (FindIdFont(font, font_font)) {
-		//fonts.remove(Font(font_font,font));
+		fonts.remove(Font(font_font,font,""));
 		TTF_CloseFont(font_font);
 	}
 
