@@ -61,7 +61,8 @@ public:
 	//Exit
 	void QuitGame();
 
-
+	bool GetPause();
+	bool ChangePause();
 	pugi::xml_node LoadConfig(pugi::xml_document&, std::string name) const;
 
 	bool capactivated = true;
@@ -123,7 +124,7 @@ private:
 	mutable std::string	save_game;
 
 	bool				quit_game = false;
-
+	bool				is_paused = false;
 	pugi::xml_document	config_file;
 	pugi::xml_node		config;
 	std::string			config_name;

@@ -24,7 +24,7 @@ bool MainMenu::Awake()
 
 bool MainMenu::Start()
 {
-	background = App->ui_manager->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->ui_manager->screen, true, true, true);
+	background = App->ui_manager->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->ui_manager->screen, true, false, false);
 
 	int offsetY = 75;
 
@@ -70,19 +70,22 @@ bool MainMenu::CleanUp()
 	return true;
 }
 
-void MainMenu::Interact(GUI* interaction)
+bool MainMenu::Interact(GUI* interaction)
 {
+	bool ret = true;
 	if (interaction == exit_button) {
 		App->QuitGame();
+		ret = false;
 	}
 
 	if (interaction == new_game_button) {
 		App->ui_manager->DeleteAllUIElements();
 		active = false; //desactivates main menu
-		App->entity_manager->active = true;
-		App->map->active = true;
-		App->scene->active = true;
+		App->entity_manager->Enable();
+		App->map->Enable();
+		App->scene->Enable();
 		App->map->ChangeMap(Maps::TUTORIAL);
+		ret = false;
 	}
 
 	if (interaction == load_game_button) {
@@ -92,6 +95,6 @@ void MainMenu::Interact(GUI* interaction)
 	if (interaction == credits_button) {
 		//Credits
 	}
-		
+	return ret;
 }
 

@@ -76,51 +76,99 @@ void DynamicEntity::PushBack()
 			switch (data.animations[i].animType) {
 			case AnimationState::IDLE_LEFT:
 				IdleLeft.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					IdleLeft.speed = data.animations[i].speed;
+				}
 				break;
 			case AnimationState::IDLE_RIGHT:
 				IdleRight.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					IdleRight.speed = data.animations[i].speed;
+				}
 				break;
 			case AnimationState::IDLE_UP:
 				IdleUp.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					IdleUp.speed = data.animations[i].speed;
+				}
 				break;
 			case AnimationState::IDLE_DOWN:
 				IdleDown.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					IdleDown.speed = data.animations[i].speed;
+				}
 				break;
 			case AnimationState::IDLE_UP_LEFT:
 				IdleUpLeft.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					IdleUpLeft.speed = data.animations[i].speed;
+				}
 				break;
 			case AnimationState::IDLE_DOWN_LEFT:
 				IdleDownLeft.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					IdleDownLeft.speed = data.animations[i].speed;
+				}
 				break;
 			case AnimationState::IDLE_UP_RIGHT:
 				IdleUpRight.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					IdleUpRight.speed = data.animations[i].speed;
+				}
 				break;
 			case AnimationState::IDLE_DOWN_RIGHT:
 				IdleDownRight.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					IdleDownRight.speed = data.animations[i].speed;
+				}
 				break;
 			case AnimationState::WALKING_LEFT:
 				GoLeft.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					GoLeft.speed = data.animations[i].speed;
+				}
 				break;
 			case AnimationState::WALKING_RIGHT:
 				GoRight.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					GoRight.speed = data.animations[i].speed;
+				}
 				break;
 			case AnimationState::WALKING_UP:
 				GoUp.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					GoUp.speed = data.animations[i].speed;
+				}
 				break;
 			case AnimationState::WALKING_DOWN:
 				GoDown.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					GoDown.speed = data.animations[i].speed;
+				}
 				break;
 			case AnimationState::WALKING_UP_RIGHT:
 				GoUpRight.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					GoUpRight.speed = data.animations[i].speed;
+				}
 				break;
 			case AnimationState::WALKING_DOWN_RIGHT:
 				GoDownRight.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					GoDownRight.speed = data.animations[i].speed;
+				}
 				break;
 			case AnimationState::WALKING_UP_LEFT:
 				GoUpLeft.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					GoUpLeft.speed = data.animations[i].speed;
+				}
 				break;
 			case AnimationState::WALKING_DOWN_LEFT:
 				GoDownLeft.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					GoDownLeft.speed = data.animations[i].speed;
+				}
 				break;
 			case AnimationState::BASIC_ATTACK_DOWN_LEFT:
 				BasicAttackDownLeft.PushBack(data.animations[i].frames[j]);

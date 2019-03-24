@@ -58,7 +58,7 @@ bool j1UIManager::PostUpdate()
 	BROFILER_CATEGORY("PostUpdateUIManager", Profiler::Color::Purple);
 
 	bool ret = true;
-	std::list<GUI*>::iterator item = ui_list.begin();
+	/*std::list<GUI*>::iterator item = ui_list.begin();
 	for (; item != ui_list.end(); ++item)
 	{
 		if ((*item) != nullptr) {
@@ -70,6 +70,7 @@ bool j1UIManager::PostUpdate()
 			}
 		}
 	}
+	ui_list.remove(nullptr);*/
 
 	std::list<GUI*> tree;
 	BFS(tree, screen);
@@ -92,6 +93,7 @@ bool j1UIManager::CleanUp()
 		if ((*item) != nullptr) {
 			(*item)->CleanUp();
 			delete *item;
+			*item = nullptr;
 		}
 	}
 
@@ -162,10 +164,7 @@ bool j1UIManager::DeleteUIElement(GUI * element)
 			BFS(tree, element);		//fills a list from element to delete to its childs using BFS algorithm
 
 			for (std::list<GUI*>::reverse_iterator item_tree = tree.rbegin(); item_tree != tree.rend(); ++item_tree) {	//iterate list from bottom to top
-				if (item_tree == tree.rend() && (*item_tree)->parent != nullptr) {				/*In case the item we will delete is the first element of the tree
-																						we have to delete him first from its parent child list
-																						the reason why we don't made that for other nodes is becuase
-																						other nodes and its parents will be deleted for complete*/
+				if ((*item_tree)->parent != nullptr) {				/*In the case the item has a parent we have first to delete the item of parent's child list*/
 					std::list<GUI*>::iterator this_on_child = std::find((*item_tree)->parent->childs.begin(), (*item_tree)->parent->childs.end(), *item_tree);
 					if (this_on_child != (*item_tree)->parent->childs.end()) {
 						(*item_tree)->parent->childs.remove(*this_on_child);
@@ -175,11 +174,11 @@ bool j1UIManager::DeleteUIElement(GUI * element)
 				if (elem != ui_list.end() && *elem != nullptr) {						//if it is valid
 					delete *elem;
 					*elem = nullptr;						//delete from list
-															//delete item->data;						//and deallocate memory
+															//delete item and deallocate memory
 				}
 			}
 			tree.clear();
-
+			ui_list.remove(nullptr);
 			return true;
 		}
 	}

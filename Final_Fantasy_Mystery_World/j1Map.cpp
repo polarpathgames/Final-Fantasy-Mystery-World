@@ -13,6 +13,7 @@
 #include "j1Pathfinding.h"
 #include "j1Scene.h"
 #include <string>
+#include "p2Properties.h"
 #include "Brofiler/Brofiler.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -57,7 +58,7 @@ void j1Map::Draw()
 	{
 		MapLayer* layer = *item;
 
-		if(layer->properties.Get("Nodraw") != 0)
+		if(layer->properties.GetValue("NoDraw") != 0)
 			continue;
 
 		for(int i = 0; i < data.width; ++i)
@@ -90,20 +91,6 @@ void j1Map::Draw()
 			}
 		}
 	}
-}
-
-int Properties::Get(const char* value, int default_value) const
-{
-	std::list<Property*>::const_iterator item = list.begin();
-
-	while(item != list.end())
-	{
-		if((*item)->name == value)
-			return (*item)->value;
-		++item;
-	}
-
-	return default_value;
 }
 
 TileSet* j1Map::GetTilesetFromTileId(int id) const
@@ -240,6 +227,8 @@ bool j1Map::CleanUp()
 	}
 	data.objects.clear();
 
+	data.properties.CleanUp();
+
 	// Clean up the pugui tree
 	map_file.reset();
 
@@ -314,6 +303,9 @@ bool j1Map::Load(const char* file_name)
 			data.objects.push_back(obj);
 		}
 	}
+
+	//Load Map Properties -------------------------------------------------------
+	LoadProperties(map_file.child("map").child("properties"), &data.properties);
 
 	if(ret == true)
 	{
@@ -483,7 +475,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
-	LoadProperties(node, layer->properties);
+	LoadProperties(node.child("properties"), &layer->properties);
 	pugi::xml_node layer_data = node.child("data");
 
 	if(layer_data == NULL)
@@ -529,24 +521,22 @@ bool j1Map::LoadObject(pugi::xml_node & object_node, ObjectLayer * obj)
 }
 
 // Load a group of properties from a node and fill a list with it
-bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
+bool j1Map::LoadProperties(pugi::xml_node& node, Properties<int>* properties)
 {
 	bool ret = false;
 
-	pugi::xml_node data = node.child("properties");
-
-	if(data != NULL)
+	if(node != nullptr)
 	{
 		pugi::xml_node prop;
 
-		for(prop = data.child("property"); prop; prop = prop.next_sibling("property"))
+		for(prop = node.child("property"); prop; prop = prop.next_sibling("property"))
 		{
-			Properties::Property* p = new Properties::Property();
+			Property<int>* p = new Property<int>();
 
-			p->name = prop.attribute("name").as_string();
-			p->value = prop.attribute("value").as_int();
+			p->SetName(prop.attribute("name").as_string());
+			p->SetValue(prop.attribute("value").as_int());
 
-			properties.list.push_back(p);
+			properties->properties.push_back(p);
 		}
 	}
 
@@ -563,7 +553,7 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	{
 		MapLayer* layer = *item;
 
-		if(layer->properties.Get("Navigation", 0) == 0)
+		if(layer->properties.GetValue("Navigation", 0) == 0)
 			continue;
 
 		uchar* map = new uchar[layer->width*layer->height];

@@ -24,7 +24,7 @@ public:
 
 	bool CleanUp();
 
-	void Interact(GUI* interaction);
+	bool Interact(GUI* interaction);
 
 private:
 
