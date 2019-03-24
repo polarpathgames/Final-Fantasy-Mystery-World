@@ -120,8 +120,7 @@ bool j1App::Awake()
 
 	if (ret == true)
 	{
-		std::list<j1Module*>::iterator item;
-		item = modules.begin();
+		std::list<j1Module*>::iterator item = modules.begin();
 
 		while (item != modules.end() && ret)
 		{

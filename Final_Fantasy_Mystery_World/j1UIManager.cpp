@@ -179,7 +179,7 @@ bool j1UIManager::DeleteUIElement(GUI * element)
 				}
 			}
 			tree.clear();
-
+			//ui_list.remove(nullptr);
 			return true;
 		}
 	}

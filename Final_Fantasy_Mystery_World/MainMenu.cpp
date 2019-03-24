@@ -80,8 +80,11 @@ void MainMenu::Interact(GUI* interaction)
 		App->ui_manager->DeleteAllUIElements();
 		active = false; //desactivates main menu
 		App->entity_manager->active = true;
+		App->entity_manager->Start();
 		App->map->active = true;
+		App->map->Start();
 		App->scene->active = true;
+		App->scene->Start();
 		App->map->ChangeMap(Maps::TUTORIAL);
 	}
 
