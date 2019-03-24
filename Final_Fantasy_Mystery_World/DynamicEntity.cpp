@@ -225,8 +225,7 @@ void DynamicEntity::RestTimeAfterAttack(float time_finish)
 	if (time_attack <= SDL_GetTicks() - time_after_attack) {
 		ChangeTurn(type);
 		state = State::IDLE;
-		BasicAttackDownLeft.Reset();
-		BasicAttackUpRight.Reset();
+		ResetAnims();
 	}
 }
 
@@ -475,6 +474,18 @@ void DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks attac
 
 
 
+}
+
+void DynamicEntity::ResetAnims()
+{
+	BasicAttackDownLeft.Reset();
+	BasicAttackDown.Reset();
+	BasicAttackDownRight.Reset();
+	BasicAttackLeft.Reset();
+	BasicAttackRight.Reset();
+	BasicAttackUp.Reset();
+	BasicAttackUpLeft.Reset();
+	BasicAttackUpRight.Reset();
 }
 
 

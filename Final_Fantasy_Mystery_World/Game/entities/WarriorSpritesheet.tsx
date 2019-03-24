@@ -121,6 +121,20 @@
    <frame tileid="26" duration="100"/>
   </animation>
  </tile>
+ <tile id="27">
+  <animation>
+   <frame tileid="28" duration="100"/>
+   <frame tileid="27" duration="100"/>
+   <frame tileid="29" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="30">
+  <animation>
+   <frame tileid="31" duration="100"/>
+   <frame tileid="30" duration="100"/>
+   <frame tileid="32" duration="100"/>
+  </animation>
+ </tile>
  <tile id="33">
   <animation>
    <frame tileid="34" duration="100"/>
