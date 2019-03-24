@@ -130,6 +130,30 @@ void DynamicEntity::PushBack()
 				BasicAttackUpRight.PushBack(data.animations[i].frames[j]);
 				BasicAttackUpRight.speed = 5;
 				break;
+			case AnimationState::BASIC_ATTACK_DOWN:
+				BasicAttackDown.PushBack(data.animations[i].frames[j]);
+				BasicAttackDown.speed = 5;
+				break;
+			case AnimationState::BASIC_ATTACK_DOWN_RIGHT:
+				BasicAttackDownRight.PushBack(data.animations[i].frames[j]);
+				BasicAttackDownRight.speed = 5;
+				break;
+			case AnimationState::BASIC_ATTACK_LEFT:
+				BasicAttackLeft.PushBack(data.animations[i].frames[j]);
+				BasicAttackLeft.speed = 5;
+				break;
+			case AnimationState::BASIC_ATTACK_RIGHT:
+				BasicAttackRight.PushBack(data.animations[i].frames[j]);
+				BasicAttackRight.speed = 5;
+				break;
+			case AnimationState::BASIC_ATTACK_UP:
+				BasicAttackUp.PushBack(data.animations[i].frames[j]);
+				BasicAttackUp.speed = 5;
+				break;
+			case AnimationState::BASIC_ATTACK_UP_LEFT:
+				BasicAttackUpLeft.PushBack(data.animations[i].frames[j]);
+				BasicAttackUpLeft.speed = 5;
+				break;
 			default:
 				break;
 			}
