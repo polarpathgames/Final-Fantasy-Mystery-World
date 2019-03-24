@@ -23,7 +23,7 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 
 	type = Entity::EntityType::PLAYER;
 
-	current_animation = &IdleLeft;
+	current_animation = &IdleDownLeft;
 
 	SetPivot(9, 30);
 	has_turn = true;
@@ -341,11 +341,13 @@ void Player::PerformActions(float dt)
 void Player::BasicAttack()
 {
 
-	if (!NextTileFree(direction)) {
+	if (current_animation->Finished()) {
 		CheckAttackEfects(Entity::EntityType::ENEMY, direction, stats.attack_power);
+		state = State::AFTER_ATTACK;
+		ChangeAnimation(direction, state);
+		time_attack = SDL_GetTicks();
 	}
-	state = State::AFTER_ATTACK;
-	time_attack = SDL_GetTicks();
+
 
 }
 

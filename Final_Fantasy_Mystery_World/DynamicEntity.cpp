@@ -122,6 +122,14 @@ void DynamicEntity::PushBack()
 			case AnimationState::WALKING_DOWN_LEFT:
 				GoDownLeft.PushBack(data.animations[i].frames[j]);
 				break;
+			case AnimationState::BASIC_ATTACK_DOWN_LEFT:
+				BasicAttackDownLeft.PushBack(data.animations[i].frames[j]);
+				BasicAttackDownLeft.speed = 5;
+				break;
+			case AnimationState::BASIC_ATTACK_UP_RIGHT:
+				BasicAttackUpRight.PushBack(data.animations[i].frames[j]);
+				BasicAttackUpRight.speed = 5;
+				break;
 			default:
 				break;
 			}
@@ -193,7 +201,8 @@ void DynamicEntity::RestTimeAfterAttack(float time_finish)
 	if (time_attack <= SDL_GetTicks() - time_after_attack) {
 		ChangeTurn(type);
 		state = State::IDLE;
-		ChangeAnimation(direction, state);
+		BasicAttackDownLeft.Reset();
+		BasicAttackUpRight.Reset();
 	}
 }
 
@@ -285,6 +294,37 @@ void DynamicEntity::CheckAttackEfects(const Entity::EntityType & type, const Dir
 void DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks attacks)
 {
 	switch (states) {
+	case State::AFTER_ATTACK: {
+		switch (dir) {
+		case Direction::DOWN:
+			current_animation = &IdleDown;
+			break;
+		case Direction::UP:
+			current_animation = &IdleUp;
+			break;
+		case Direction::RIGHT:
+			current_animation = &IdleRight;
+			break;
+		case Direction::LEFT:
+			current_animation = &IdleLeft;
+			break;
+		case Direction::UP_RIGHT:
+			current_animation = &IdleUpRight;
+			break;
+		case Direction::DOWN_RIGHT:
+			current_animation = &IdleDownRight;
+			break;
+		case Direction::DOWN_LEFT:
+			current_animation = &IdleDownLeft;
+			break;
+		case Direction::UP_LEFT:
+			current_animation = &IdleUpLeft;
+			break;
+		default:
+			LOG("No direction type found");
+			break;
+		}
+	} break;
 	case State::IDLE: {
 		switch (dir) {
 		case Direction::DOWN:

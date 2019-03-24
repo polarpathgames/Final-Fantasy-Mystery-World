@@ -20,7 +20,7 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 
 	type = Entity::EntityType::ENEMY;
 	ground = App->tex->Load("textures/enemy_pos.png");
-	current_animation = &IdleLeft;
+	current_animation = &IdleDownLeft;
 
 	SetPivot(12, 30);
 
@@ -193,11 +193,12 @@ bool Enemy::Update(float dt)
 		}
 	}
 	if (state == State::ATTACKING) {
-		if (!NextTileFree(direction)) {
+		if (current_animation->Finished()) {
 			CheckAttackEfects(Entity::EntityType::PLAYER, direction, stats.attack_power);
+			state = State::AFTER_ATTACK;
+			ChangeAnimation(direction, state);
+			time_attack = SDL_GetTicks();
 		}
-		state = State::AFTER_ATTACK;
-		time_attack = SDL_GetTicks();
 	}
 	if (state == State::AFTER_ATTACK) {
 		RestTimeAfterAttack(time_attack);
