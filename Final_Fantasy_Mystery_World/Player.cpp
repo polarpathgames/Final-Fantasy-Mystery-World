@@ -105,6 +105,10 @@ void Player::ReadPlayerInput()
 	player_input.pressing_G = App->input->GetKey(App->input->buttons_code.BASIC_ATTACK) == KEY_DOWN;
 	player_input.pressing_shift = App->input->GetKey(App->input->buttons_code.DIAGONALS) == KEY_REPEAT;
 
+	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
+		App->input->buttons_code.LEFT = SDL_SCANCODE_N;
+	}
+
 	if (state == State::IDLE) {
 		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
 			state = State::WALKING;
