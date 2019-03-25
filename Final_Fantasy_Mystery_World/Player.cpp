@@ -94,16 +94,16 @@ bool Player::CleanUp()
 
 void Player::ReadPlayerInput()
 {
-	player_input.pressing_A = App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT;
-	player_input.pressing_S = App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT;
-	player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
-	player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
-	player_input.pressing_I = App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN;
-	player_input.pressing_J = App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN;
-	player_input.pressing_K = App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN;
-	player_input.pressing_L = App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN;
-	player_input.pressing_G = App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN;
-	player_input.pressing_shift = App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT;
+	player_input.pressing_A = App->input->GetKey(App->input->buttons_code.LEFT) == KEY_REPEAT;
+	player_input.pressing_S = App->input->GetKey(App->input->buttons_code.DOWN) == KEY_REPEAT;
+	player_input.pressing_W = App->input->GetKey(App->input->buttons_code.UP) == KEY_REPEAT;
+	player_input.pressing_D = App->input->GetKey(App->input->buttons_code.RIGHT) == KEY_REPEAT;
+	player_input.pressing_I = App->input->GetKey(App->input->buttons_code.DIRECTION_UP) == KEY_DOWN;
+	player_input.pressing_J = App->input->GetKey(App->input->buttons_code.DIRECTION_LEFT) == KEY_DOWN;
+	player_input.pressing_K = App->input->GetKey(App->input->buttons_code.DIRECCTION_DOWN) == KEY_DOWN;
+	player_input.pressing_L = App->input->GetKey(App->input->buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
+	player_input.pressing_G = App->input->GetKey(App->input->buttons_code.BASIC_ATTACK) == KEY_DOWN;
+	player_input.pressing_shift = App->input->GetKey(App->input->buttons_code.DIAGONALS) == KEY_REPEAT;
 
 	if (state == State::IDLE) {
 		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {

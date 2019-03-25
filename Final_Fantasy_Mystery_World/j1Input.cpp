@@ -66,6 +66,18 @@ bool j1Input::Awake(pugi::xml_node& config)
 bool j1Input::Start()
 {
 	SDL_StopTextInput();
+
+	buttons_code.BASIC_ATTACK = SDL_SCANCODE_G;
+	buttons_code.DIAGONALS = SDL_SCANCODE_LSHIFT;
+	buttons_code.DIRECCTION_DOWN = SDL_SCANCODE_K;
+	buttons_code.DIRECCTION_RIGHT = SDL_SCANCODE_L;
+	buttons_code.DIRECTION_LEFT = SDL_SCANCODE_J;
+	buttons_code.DIRECTION_UP = SDL_SCANCODE_I;
+	buttons_code.DOWN = SDL_SCANCODE_S;
+	buttons_code.LEFT = SDL_SCANCODE_A;
+	buttons_code.RIGHT = SDL_SCANCODE_D;
+	buttons_code.UP = SDL_SCANCODE_W;
+
 	return true;
 }
 
