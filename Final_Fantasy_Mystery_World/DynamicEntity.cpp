@@ -289,7 +289,44 @@ void DynamicEntity::RestTimeAfterAttack(float time_finish)
 	if (time_attack <= SDL_GetTicks() - time_after_attack) {
 		ChangeTurn(type);
 		state = State::IDLE;
+		ChangeAnimation(direction, state);
 		ResetAnims();
+	}
+	else {
+		if (target_position == position)
+			ChangeAnimation(direction, state);
+		else {
+			switch (direction)
+			{
+			case Direction::DOWN:
+				current_animation = &GoDown;
+				break;
+			case Direction::DOWN_LEFT:
+				current_animation = &GoDownLeft;
+				break;
+			case Direction::DOWN_RIGHT:
+				current_animation = &GoDownRight;
+				break;
+			case Direction::LEFT:
+				current_animation = &GoLeft;
+				break;
+			case Direction::RIGHT:
+				current_animation = &GoRight;
+				break;
+			case Direction::UP:
+				current_animation = &GoUp;
+				break;
+			case Direction::UP_LEFT:
+				current_animation = &GoUpLeft;
+				break;
+			case Direction::UP_RIGHT:
+				current_animation = &GoUpRight;
+				break;
+			default:
+				break;
+			}
+		}
+			
 	}
 }
 

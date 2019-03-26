@@ -12,6 +12,7 @@
 #include "j1Map.h"
 #include <string>
 #include "Brofiler/Brofiler.h"
+#include "EasingSplines.h"
 
 Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 {
@@ -298,6 +299,24 @@ void Player::ReadAttack()
 	if (player_input.pressing_G) {
 		type_attack = Attacks::BASIC;
 		state = State::ATTACKING;
+		switch (direction) {
+		case Direction::DOWN_LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+			break;
+		case Direction::UP_RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+			break;
+		case Direction::DOWN_RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+			break;
+		case Direction::UP_LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+			break;
+		}
 		ChangeAnimation(direction, state, type_attack);
 	}
 }
@@ -342,6 +361,24 @@ void Player::BasicAttack()
 {
 
 	if (current_animation->Finished()) {
+		switch (direction) {
+		case Direction::DOWN_LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
+			break;
+		case Direction::UP_RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
+			break;
+		case Direction::DOWN_RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
+			break;
+		case Direction::UP_LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
+			break;
+		}
 		CheckAttackEfects(Entity::EntityType::ENEMY, direction, stats.attack_power);
 		state = State::AFTER_ATTACK;
 		ChangeAnimation(direction, state);
