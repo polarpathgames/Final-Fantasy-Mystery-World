@@ -15,6 +15,6 @@
 	<:anonymous />
 	<easingsplines />
 	<renderer>
-		<camera x="0" y="-514" />
+		<camera x="0" y="-406" />
 	</renderer>
 </game_state>

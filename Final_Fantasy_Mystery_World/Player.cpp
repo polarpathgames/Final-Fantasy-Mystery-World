@@ -93,6 +93,10 @@ bool Player::Update(float dt)
 bool Player::PostUpdate()
 {
 	BROFILER_CATEGORY("PostUpdatePlayer", Profiler::Color::Purple);
+	can_input.A = true;
+	can_input.D = true;
+	can_input.W = true;
+	can_input.S = true;
 	return true;
 }
 
@@ -117,40 +121,52 @@ void Player::OnCollision(Collider * c2)
 	iPoint colliding_pos = c2->collided_point;
 
 	if (colliding_pos.y <= coll->rect.y) { // colliding up
-
+		can_input.W = false;
+		player_input.pressing_W = false;
 		if (colliding_pos.x < coll->rect.x) { // up left
-
+			can_input.A = false;
+			player_input.pressing_A = false;
 		}
 		else { // up right
-
+			can_input.D = false;
+			player_input.pressing_D = false;
 		}
 	}
 	else if (colliding_pos.y >= coll->rect.y + coll->rect.h) { // colliding down
-
-		if (colliding_pos.x < coll->rect.x) { // down left
-
+		can_input.S = false;
+		player_input.pressing_S = false;
+		if (colliding_pos.x <= coll->rect.x) { // down left
+			can_input.A = false;
+			player_input.pressing_A = false;
 		}
 		else { // down right
-
+			can_input.D = false;
+			player_input.pressing_D = false;
 		}
 	}
 	else if (colliding_pos.y > coll->rect.y && colliding_pos.y < coll->rect.y + coll->rect.h && colliding_pos.x <= coll->rect.x) { // colliding left
-
+		can_input.A = false;
+		player_input.pressing_A = false;
 		if (colliding_pos.y < coll->rect.y + coll->rect.h / 2) { // left up
-
+			can_input.W = false;
+			player_input.pressing_W = false;
 		}
 		else { // left down
-
+			can_input.S = false;
+			player_input.pressing_S = false;
 		}
 
 	}
 	else { // colliding right
-
+		can_input.D = false;
+		player_input.pressing_D = false;
 		if (colliding_pos.y < coll->rect.y + coll->rect.h / 2) { // right up
-
+			can_input.W = false;
+			player_input.pressing_W = false;
 		}
 		else { // right down
-
+			can_input.S = false;
+			player_input.pressing_S = false;
 		}
 
 	}
@@ -162,10 +178,14 @@ void Player::OnCollision(Collider * c2)
 
 void Player::ReadPlayerInput()
 {
-	player_input.pressing_A = App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT;
-	player_input.pressing_S = App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT;
-	player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
-	player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
+	if (can_input.A)
+		player_input.pressing_A = App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT;
+	if (can_input.S)
+		player_input.pressing_S = App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT;
+	if (can_input.W)
+		player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
+	if (can_input.D)
+		player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
 	player_input.pressing_I = App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN;
 	player_input.pressing_J = App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN;
 	player_input.pressing_K = App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN;

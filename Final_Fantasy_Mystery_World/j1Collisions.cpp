@@ -223,7 +223,7 @@ bool Collider::HasIntersection(const int &x1_1, const int &y1_1, const int &x2_1
 	{
 		// Collision detected
 		t = tn / td;
-		collided_point.x = x1_1 + (tn * s1_x);
+		collided_point.x = x1_1;
 		collided_point.y = y1_1 + (tn * s1_y);
 		return true;
 	}
