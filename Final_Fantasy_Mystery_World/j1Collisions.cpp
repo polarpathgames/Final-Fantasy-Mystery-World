@@ -10,8 +10,11 @@ j1Collision::j1Collision()
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
+	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
+	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
 
-
+	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
 }
 
 // Destructor
@@ -52,13 +55,25 @@ bool j1Collision::PreUpdate()
 
 			c2 = colliders[k];
 
-			if (c1->CheckCollision(c2->rect) == true)
-			{
-				if (matrix[c1->type][c2->type] && c1->callback)
-					c1->callback->OnCollision(c1, c2);
+			switch (c1->type) {
+			case COLLIDER_PLAYER: {
+				if (c1->CheckCollision(c2->line) == true) {
+					if (matrix[c1->type][c2->type] && c1->callback)
+						c1->callback->OnCollision(c1, c2);
 
-				if (matrix[c2->type][c1->type] && c2->callback)
-					c2->callback->OnCollision(c2, c1);
+					if (matrix[c2->type][c1->type] && c2->callback)
+						c2->callback->OnCollision(c2, c1);
+				}
+			} break;
+			default: {
+				if (c1->CheckCollision(c2->rect) == true) {
+					if (matrix[c1->type][c2->type] && c1->callback)
+						c1->callback->OnCollision(c1, c2);
+
+					if (matrix[c2->type][c1->type] && c2->callback)
+						c2->callback->OnCollision(c2, c1);
+				}
+			} break;
 			}
 		}
 	}
@@ -94,6 +109,12 @@ void j1Collision::DebugDraw()
 		{
 		case COLLIDER_NONE: // white
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			break;
+		case COLLIDER_PLAYER: // white
+			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
+			break;
+		case COLLIDER_WALL: // white
+			App->render->DrawLine(colliders[i]->line.x1, colliders[i]->line.y1, colliders[i]->line.x2, colliders[i]->line.y2, 0, 0, 255, alpha);
 			break;
 		}
 
@@ -132,6 +153,22 @@ Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* 
 	return ret;
 }
 
+Collider * j1Collision::AddCollider(iLine line, COLLIDER_TYPE type, j1Module * callback)
+{
+	Collider* ret = nullptr;
+
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	{
+		if (colliders[i] == nullptr)
+		{
+			ret = colliders[i] = new Collider(line, type, callback);
+			break;
+		}
+	}
+
+	return ret;
+}
+
 
 
 // -----------------------------------------------------
@@ -142,4 +179,9 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 		rect.x + rect.w > r.x &&
 		rect.y < r.y + r.h &&
 		rect.h + rect.y > r.y);
+}
+
+bool Collider::CheckCollision(const iLine & l) const
+{
+	return false;
 }

@@ -5,10 +5,13 @@
 
 #include "j1Module.h"
 #include "SDL/include/SDL_rect.h"
+#include "p2Line.h"
 
 enum COLLIDER_TYPE
 {
 	COLLIDER_NONE,
+	COLLIDER_PLAYER,
+	COLLIDER_WALL,
 
 	COLLIDER_MAX
 };
@@ -16,6 +19,8 @@ enum COLLIDER_TYPE
 struct Collider
 {
 	SDL_Rect rect;
+	iLine line;
+
 	bool to_delete = false;
 	bool CanBeDeleted = false;
 	COLLIDER_TYPE type;
@@ -24,6 +29,12 @@ struct Collider
 
 	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, j1Module* callback = nullptr) :
 		rect(rectangle),
+		type(type),
+		callback(callback)
+	{}
+
+	Collider(iLine line, COLLIDER_TYPE type, j1Module* callback = nullptr) :
+		line(line),
 		type(type),
 		callback(callback)
 	{}
@@ -45,6 +56,7 @@ struct Collider
 		this->type = type;
 	}
 	bool CheckCollision(const SDL_Rect& r) const;
+	bool CheckCollision(const iLine& l) const;
 };
 
 class j1Collision :
@@ -59,6 +71,7 @@ public:
 	bool CleanUp();
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
+	Collider* AddCollider(iLine line, COLLIDER_TYPE type, j1Module* callback = nullptr);
 
 	void DebugDraw();
 	bool debug = false;
