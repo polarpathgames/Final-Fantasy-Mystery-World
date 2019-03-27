@@ -36,16 +36,22 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	
 	velocity.x = 160;
 	velocity.y = 80;
-	position.x -= 5;
-	position.y += 5;
-	target_position = position;
-	initial_position = position;
+
 	movement_count = { 0,0 };
-	actual_tile = App->map->WorldToMap(position.x + pivot.x, position.y + pivot.y);
 
 	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
 
 	App->collision->AddCollider(iLine{ 100,300,419,356 }, COLLIDER_WALL, nullptr);
+
+	movement_count = { 0,0 };
+	actual_tile = App->map->WorldToMap(position.x, position.y);
+
+	// THIS ALWAYS LAST
+	position.x -= pivot.x;
+	position.y -= 21;
+
+	target_position = position;
+	initial_position = position;
 
 }
 
@@ -82,7 +88,7 @@ bool Player::Update(float dt)
 	App->render->DrawLine(pos2.x - 16, pos.y + 16, pos.x + 16, pos.y + 24, 255, 0, 255);
 	App->render->DrawLine(pos.x + 16, pos.y + 24, pos2.x + 16, pos2.y + 8, 255, 0, 255);
 	*/
-
+	App->render->DrawCircle(position.x, position.y, 3, 0, 0, 255);
 	coll->SetPos(position.x, position.y + 25);
 
 	return true;

@@ -12888,8 +12888,8 @@
  </layer>
  <layer id="9" name="Background Tree" width="40" height="40">
   <properties>
-   <property name="test" type="int" value="43"/>
    <property name="NoDraw" type="int" value="1"/>
+   <property name="test" type="int" value="43"/>
   </properties>
   <data>
    <tile/>
@@ -14496,14 +14496,14 @@
  </layer>
  <objectgroup id="10" name="Collision"/>
  <objectgroup color="#ffff7f" id="11" name="player">
-  <object id="5" name="player" type="dynamic" x="432.561" y="319.083" width="15.9688" height="16.0156">
+  <object id="5" name="player" type="dynamic" x="432.058" y="239.997" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup id="12" name="enemies">
-  <object id="8" name="Enemy Test" type="enemy" x="384.766" y="320.242" width="15.9688" height="16.0156"/>
+  <object id="8" name="Enemy Test" type="enemy" x="384.024" y="319.965" width="15.9688" height="16.0156"/>
  </objectgroup>
  <objectgroup id="13" name="Text">
   <object id="1" x="287.25" y="310.75"/>
