@@ -25,6 +25,7 @@ struct Collider
 	bool CanBeDeleted = false;
 	COLLIDER_TYPE type;
 	j1Module* callback = nullptr;
+	mutable iPoint collided_point{ 0,0 };
 	bool enable = true;
 
 	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, j1Module* callback = nullptr) :

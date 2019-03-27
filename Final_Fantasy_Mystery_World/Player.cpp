@@ -45,6 +45,8 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 
 	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
 
+	App->collision->AddCollider(iLine{ 100,300,419,356 }, COLLIDER_WALL, nullptr);
+
 }
 
 Player::~Player()
@@ -112,6 +114,47 @@ bool Player::CleanUp()
 
 void Player::OnCollision(Collider * c2)
 {
+	iPoint colliding_pos = c2->collided_point;
+
+	if (colliding_pos.y <= coll->rect.y) { // colliding up
+
+		if (colliding_pos.x < coll->rect.x) { // up left
+
+		}
+		else { // up right
+
+		}
+	}
+	else if (colliding_pos.y >= coll->rect.y + coll->rect.h) { // colliding down
+
+		if (colliding_pos.x < coll->rect.x) { // down left
+
+		}
+		else { // down right
+
+		}
+	}
+	else if (colliding_pos.y > coll->rect.y && colliding_pos.y < coll->rect.y + coll->rect.h && colliding_pos.x <= coll->rect.x) { // colliding left
+
+		if (colliding_pos.y < coll->rect.y + coll->rect.h / 2) { // left up
+
+		}
+		else { // left down
+
+		}
+
+	}
+	else { // colliding right
+
+		if (colliding_pos.y < coll->rect.y + coll->rect.h / 2) { // right up
+
+		}
+		else { // right down
+
+		}
+
+	}
+
 
 }
 

@@ -58,6 +58,7 @@ bool j1Collision::PreUpdate()
 			switch (c1->type) {
 			case COLLIDER_PLAYER: {
 				if (c1->CheckCollision(c2->line) == true) {
+					c2->collided_point = c1->collided_point;
 					if (matrix[c1->type][c2->type] && c1->callback)
 						c1->callback->OnCollision(c1, c2);
 
@@ -114,7 +115,7 @@ void j1Collision::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
 			break;
 		case COLLIDER_WALL: // white
-			App->render->DrawLine(colliders[i]->line.x1, colliders[i]->line.y1, colliders[i]->line.x2, colliders[i]->line.y2, 0, 0, 255, alpha);
+			App->render->DrawLine(colliders[i]->line.x1, colliders[i]->line.y1, colliders[i]->line.x2, colliders[i]->line.y2, 255, 0, 0, alpha);
 			break;
 		}
 
@@ -209,27 +210,6 @@ bool Collider::CheckCollision(const iLine & l) const
 
 bool Collider::HasIntersection(const int &x1_1, const int &y1_1, const int &x2_1, const int &y2_1, const int &x1_2, const int& y1_2, const int &x2_2, const int &y2_2) const
 {
-	/*float ax = x2_1 - x1_1;    
-	float ay = y2_1 - y1_1;  
-
-	float bx = x1_2 - x2_2; 
-	float by = y1_2 - y2_2;    
-
-	float dx = x1_2 - x1_1;   
-	float dy = y2_2 - y2_1;
-
-	float det = ax * by - ay * bx;
-
-	if (det == 0) {
-		return false;
-	}
-
-	float r = (dx * by - dy * bx) / det;
-	float s = (ax * dy - ay * dx) / det;
-
-	return !(r < 0 || r > 1 || s < 0 || s > 1);*/
-
-
 	float s1_x, s1_y, s2_x, s2_y, sn, tn, sd, td, t;
 	s1_x = x2_1 - x1_1;     s1_y = y2_1 - y1_1;
 	s2_x = x2_2 - x1_2;     s2_y = y2_2 - y1_2;
@@ -242,11 +222,9 @@ bool Collider::HasIntersection(const int &x1_1, const int &y1_1, const int &x2_1
 	if (sn >= 0 && sn <= sd && tn >= 0 && tn <= td)
 	{
 		// Collision detected
-		/*t = tn / td;
-		if (i_x != NULL)
-			*i_x = p0_x + (tn * s1_x);
-		if (i_y != NULL)
-			*i_y = p0_y + (tn * s1_y);*/
+		t = tn / td;
+		collided_point.x = x1_1 + (tn * s1_x);
+		collided_point.y = y1_1 + (tn * s1_y);
 		return true;
 	}
 
