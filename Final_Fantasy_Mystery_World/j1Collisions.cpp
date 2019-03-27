@@ -122,6 +122,8 @@ void j1Collision::DebugDraw()
 
 }
 
+
+
 // Called before quitting
 bool j1Collision::CleanUp()
 {
@@ -175,13 +177,55 @@ Collider * j1Collision::AddCollider(iLine line, COLLIDER_TYPE type, j1Module * c
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
-	return (rect.x < r.x + r.w &&
-		rect.x + rect.w > r.x &&
-		rect.y < r.y + r.h &&
-		rect.h + rect.y > r.y);
+	bool ret;
+
+	if (!HasIntersection(r.x, r.y, r.x + r.w, r.y, line.x1, line.y1, line.x2, line.y2) && !HasIntersection(r.x, r.y, r.x, r.y + r.h, line.x1, line.y1, line.x2, line.y2)
+		&& !HasIntersection(r.x + r.w, r.y, r.x + r.w, r.y + r.h, line.x1, line.y1, line.x2, line.y2) && !HasIntersection(r.x, r.y + r.h, r.x + r.w, r.y + r.h, line.x1, line.y1, line.x2, line.y2)) {
+		ret = false;
+	}
+	else {
+		ret = true;
+	}
+
+	return ret;
 }
 
 bool Collider::CheckCollision(const iLine & l) const
 {
-	return false;
+	bool ret;
+
+	if (!HasIntersection(rect.x, rect.y, rect.x + rect.w, rect.y, l.x1, l.y1, l.x2, l.y2) && !HasIntersection(rect.x, rect.y, rect.x, rect.y + rect.h, l.x1, l.y1, l.x2, l.y2)
+		&& !HasIntersection(rect.x + rect.w, rect.y, rect.x + rect.w, rect.y + rect.h, l.x1, l.y1, l.x2, l.y2) && !HasIntersection(rect.x, rect.y + rect.h, rect.x + rect.w, rect.y + rect.h, l.x1, l.y1, l.x2, l.y2)) {
+		ret = false;
+	}
+	else {
+		ret = true;
+	}
+
+	return ret;
+}
+
+
+
+bool Collider::HasIntersection(const int &x1_1, const int &y1_1, const int &x2_1, const int &y2_1, const int &x1_2, const int& y1_2, const int &x2_2, const int &y2_2) const
+{
+	float ax = x2_1 - x1_1;    
+	float ay = y2_1 - y1_1;  
+
+	float bx = x1_2 - x2_2; 
+	float by = y1_2 - y2_2;    
+
+	float dx = x1_2 - x1_1;   
+	float dy = y2_2 - y2_1;
+
+	float det = ax * by - ay * bx;
+
+	if (det == 0) {
+		return false;
+	}
+
+	float r = (dx * by - dy * bx) / det;
+	float s = (ax * dy - ay * dx) / det;
+
+	return !(r < 0 || r > 1 || s < 0 || s > 1);
 }

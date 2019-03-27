@@ -57,6 +57,7 @@ struct Collider
 	}
 	bool CheckCollision(const SDL_Rect& r) const;
 	bool CheckCollision(const iLine& l) const;
+	bool HasIntersection(const int & x1_1, const int & y1_1, const int & x2_1, const int & y2_1, const int & x1_2, const int & y1_2, const int & x2_2, const int & y2_2) const;
 };
 
 class j1Collision :
@@ -73,6 +74,7 @@ public:
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
 	Collider* AddCollider(iLine line, COLLIDER_TYPE type, j1Module* callback = nullptr);
 
+
 	void DebugDraw();
 	bool debug = false;
 
@@ -80,6 +82,8 @@ private:
 
 	Collider * colliders[MAX_COLLIDERS];
 	bool matrix[COLLIDER_MAX][COLLIDER_MAX];
+
+	
 
 };
 
