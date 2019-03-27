@@ -68,6 +68,7 @@ public:
 		PLAYER,
 		ENEMY,
 		SENSOR,
+		STATIC,
 
 
 		NO_TYPE

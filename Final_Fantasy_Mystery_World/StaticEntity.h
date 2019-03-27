@@ -13,22 +13,27 @@ class StaticEntity : public Entity
 {
 public:
 
-	StaticEntity(const int &x, const int &y);
-	virtual ~StaticEntity();
+	enum class Type {
+		TREE,
+		FLOWER,
+		FOUNTAIN,
 
-	virtual bool Update(float dt) { return true; };
-
-	virtual bool CleanUp() { return true; };
-
-	virtual bool Load(pugi::xml_node&) { return true; };
-	virtual bool Save(pugi::xml_node&) const { return true; };
+		UNKNOWN
+	};
 
 public:
 
-	Animation Idle;
+	StaticEntity(int x, int y, const char* name);
+	~StaticEntity();
 
-	SDL_Texture * ground = nullptr;
+private:
 
+	void Draw(SDL_Texture* tex, float dt);
+	void SetRect(int x, int y, int w, int h);
+
+private:
+	SDL_Rect frame;
+	Type type;
 };
 
 #endif
