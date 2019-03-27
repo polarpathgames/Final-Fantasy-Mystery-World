@@ -43,6 +43,7 @@ bool j1EntityManager::Start()
 
 	texture.push_back(App->tex->Load("assets/sprites/WarriorSpritesheet.png"));
 	texture.push_back(App->tex->Load("assets/sprites/Enemy.png"));
+	texture.push_back(App->tex->Load("maps/tutorial_tileset.png"));
 
 	return ret;
 }
@@ -89,6 +90,8 @@ bool j1EntityManager::Update(float dt)
 				(*item)->Draw(texture[0], dt);
 			else if ((*item)->type == Entity::EntityType::ENEMY)
 				(*item)->Draw(texture[1], dt);
+			else if ((*item)->type == Entity::EntityType::STATIC)
+				(*item)->Draw(texture[2], dt);
 
 			App->render->DrawCircle((*item)->position.x + (*item)->pivot.x, (*item)->position.y + (*item)->pivot.y, 3, 255, 255, 255);
 		}		
@@ -99,7 +102,7 @@ bool j1EntityManager::Update(float dt)
 
 bool j1EntityManager::PostUpdate()
 {
-	BROFILER_CATEGORY("PostUpdateEntityM", Profiler::Color::Purple);
+	BROFILER_CATEGORY("PostUpdateEntity", Profiler::Color::Purple);
 
 	std::vector<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {

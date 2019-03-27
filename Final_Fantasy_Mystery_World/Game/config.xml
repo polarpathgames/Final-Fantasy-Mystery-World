@@ -11,7 +11,7 @@
   </renderer>
 
   <window>
-    <resolution width="1024" height="768" scale="3"/>
+    <resolution width="1024" height="768" scale="1"/>
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>
@@ -21,7 +21,7 @@
   <map>
     <folder>maps/</folder>
     <maps>
-      <tutorial_map>tutorial_movement.tmx</tutorial_map>
+      <tutorial_map>Lobby.tmx</tutorial_map>
     </maps>
 
   </map>

@@ -33,7 +33,7 @@ private:
 
 private:
 	SDL_Rect frame;
-	Type type;
+	Type static_type;
 };
 
 #endif
