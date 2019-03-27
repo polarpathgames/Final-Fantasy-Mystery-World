@@ -10,6 +10,7 @@
 #include "j1Map.h"
 #include "j1EntityManager.h"
 #include "j1Map.h"
+#include "j1Collisions.h"
 #include <string>
 #include "Brofiler/Brofiler.h"
 #include "EasingSplines.h"
@@ -30,7 +31,7 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	has_turn = true;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
-	movement_type = Movement_Type::InQuest;
+	movement_type = Movement_Type::InLobby;
 	ground = App->tex->Load("textures/player_pos.png");
 	
 	velocity.x = 160;
@@ -41,6 +42,8 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	initial_position = position;
 	movement_count = { 0,0 };
 	actual_tile = App->map->WorldToMap(position.x + pivot.x, position.y + pivot.y);
+
+	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
 
 }
 
@@ -65,7 +68,7 @@ bool Player::Update(float dt)
 
 	//App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x, App->map->MapToWorld(actual_tile.x, actual_tile.y).y, NULL, true);
 
-	App->render->DrawLine(position.x, position.y + 25, position.x + 18, position.y + 25, 255, 255, 255);
+	/*App->render->DrawLine(position.x, position.y + 25, position.x + 18, position.y + 25, 255, 255, 255);
 	App->render->DrawLine(position.x, position.y + 32, position.x + 18, position.y + 32, 255, 255, 255);
 	App->render->DrawLine(position.x, position.y + 25, position.x, position.y + 32, 255, 255, 255);
 	App->render->DrawLine(position.x + 18, position.y + 25, position.x + 18, position.y + 32, 255, 255, 255);
@@ -76,6 +79,9 @@ bool Player::Update(float dt)
 	App->render->DrawLine(pos2.x - 16, pos.y + 16, pos.x + 16, pos.y + 8, 255, 0, 255);
 	App->render->DrawLine(pos2.x - 16, pos.y + 16, pos.x + 16, pos.y + 24, 255, 0, 255);
 	App->render->DrawLine(pos.x + 16, pos.y + 24, pos2.x + 16, pos2.y + 8, 255, 0, 255);
+	*/
+
+	coll->SetPos(position.x, position.y + 25);
 
 	return true;
 }
@@ -106,8 +112,6 @@ bool Player::CleanUp()
 
 void Player::OnCollision(Collider * c2)
 {
-
-
 
 }
 

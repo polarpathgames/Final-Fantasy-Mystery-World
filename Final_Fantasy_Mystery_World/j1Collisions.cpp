@@ -209,7 +209,7 @@ bool Collider::CheckCollision(const iLine & l) const
 
 bool Collider::HasIntersection(const int &x1_1, const int &y1_1, const int &x2_1, const int &y2_1, const int &x1_2, const int& y1_2, const int &x2_2, const int &y2_2) const
 {
-	float ax = x2_1 - x1_1;    
+	/*float ax = x2_1 - x1_1;    
 	float ay = y2_1 - y1_1;  
 
 	float bx = x1_2 - x2_2; 
@@ -227,5 +227,30 @@ bool Collider::HasIntersection(const int &x1_1, const int &y1_1, const int &x2_1
 	float r = (dx * by - dy * bx) / det;
 	float s = (ax * dy - ay * dx) / det;
 
-	return !(r < 0 || r > 1 || s < 0 || s > 1);
+	return !(r < 0 || r > 1 || s < 0 || s > 1);*/
+
+
+	float s1_x, s1_y, s2_x, s2_y, sn, tn, sd, td, t;
+	s1_x = x2_1 - x1_1;     s1_y = y2_1 - y1_1;
+	s2_x = x2_2 - x1_2;     s2_y = y2_2 - y1_2;
+
+	sn = -s1_y * (x1_1 - x1_2) + s1_x * (y1_1 - y1_2);
+	sd = -s2_x * s1_y + s1_x * s2_y;
+	tn = s2_x * (y1_1 - y1_2) - s2_y * (x1_1 - x1_2);
+	td = -s2_x * s1_y + s1_x * s2_y;
+
+	if (sn >= 0 && sn <= sd && tn >= 0 && tn <= td)
+	{
+		// Collision detected
+		/*t = tn / td;
+		if (i_x != NULL)
+			*i_x = p0_x + (tn * s1_x);
+		if (i_y != NULL)
+			*i_y = p0_y + (tn * s1_y);*/
+		return true;
+	}
+
+	return false; // No collision
+
+
 }
