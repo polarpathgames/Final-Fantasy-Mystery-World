@@ -104,6 +104,13 @@ bool Player::CleanUp()
 	return true;
 }
 
+void Player::OnCollision(Collider * c2)
+{
+
+
+
+}
+
 
 
 void Player::ReadPlayerInput()
