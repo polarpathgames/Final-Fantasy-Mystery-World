@@ -645,7 +645,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="4"/>
    <tile/>
    <tile/>
    <tile/>
@@ -685,8 +685,8 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
    <tile/>
    <tile/>
    <tile/>
@@ -726,7 +726,7 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="1"/>
+   <tile gid="4"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3611,7 +3611,7 @@
    <tile gid="317"/>
    <tile gid="317"/>
    <tile gid="317"/>
-   <tile gid="367"/>
+   <tile gid="456"/>
    <tile/>
    <tile/>
    <tile/>
@@ -4235,7 +4235,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="367"/>
+   <tile gid="456"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6467,48 +6467,8 @@
    <tile/>
   </data>
  </layer>
- <layer id="40" name="Door Open" width="40" height="40" visible="0">
+ <layer id="40" name="Door Open" width="40" height="40">
   <data>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -7250,7 +7210,7 @@
    <tile gid="101"/>
    <tile/>
    <tile gid="147"/>
-   <tile/>
+   <tile gid="154"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7371,6 +7331,46 @@
    <tile/>
    <tile/>
    <tile gid="236"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8370,7 +8370,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="545"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8411,12 +8411,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="182"/>
-   <tile gid="183"/>
+   <tile gid="590"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile gid="598"/>
-   <tile/>
+   <tile gid="499"/>
    <tile/>
    <tile/>
    <tile gid="554"/>
@@ -8451,13 +8451,13 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="181"/>
-   <tile gid="184"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile gid="544"/>
    <tile/>
    <tile/>
    <tile gid="599"/>
@@ -8607,7 +8607,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="499"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8648,8 +8648,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="544"/>
+   <tile gid="273"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8703,7 +8703,7 @@
    <tile/>
    <tile gid="182"/>
    <tile gid="183"/>
-   <tile gid="544"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8744,7 +8744,7 @@
    <tile gid="181"/>
    <tile gid="184"/>
    <tile/>
-   <tile gid="589"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -11282,7 +11282,7 @@
  <objectgroup id="42" name="Static animation objects" visible="0">
   <object id="8" name="paper_falling" type="static_anim" x="255.542" y="161.542" width="192.458" height="174.458"/>
  </objectgroup>
- <objectgroup color="#ffff7f" id="39" name="player">
+ <objectgroup color="#ffff7f" id="39" name="entities">
   <object id="5" name="player" type="dynamic" x="431.016" y="430.992" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
