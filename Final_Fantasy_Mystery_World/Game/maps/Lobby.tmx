@@ -11903,9 +11903,9 @@
   <object id="16" name="Shop" x="176" y="272" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="83" name="COLLISIONS">
-  <object id="117" name="collider" x="15.9667" y="351.9">
+  <object id="117" name="collider" x="400.398" y="223.605">
    <properties>
-    <property name="right" type="int" value="4"/>
+    <property name="right" type="int" value="6"/>
    </properties>
    <point/>
   </object>

@@ -4,6 +4,7 @@
 #include "j1Pathfinding.h"
 #include "j1Input.h"
 #include "j1UIManager.h"
+#include "j1Collisions.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Render.h"
@@ -164,9 +165,22 @@ void j1Scene::CreateEntities()
 				App->entity_manager->CreateEntity(Entity::EntityType::SENSOR, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name, Sensor::SensorType::TO_LOBBY);
 			}
 		}
-		else if ((*position)->name == "collider") {
-			if ((*position)->properties.FindNameValue("right")) {
-				int x=0;
+		else if ((*position)->name == "collider") { // COLLIDERS
+			if ((*position)->properties.FindNameValue("right")) { // line
+				iPoint init_pos = App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y);
+				App->collision->AddCollider(iLine{ init_pos.x,init_pos.y,init_pos.x + (App->map->data.tile_width / 2)*(*position)->properties.GetValue("right"),init_pos.y + (App->map->data.tile_height / 2)*(*position)->properties.GetValue("right") },COLLIDER_WALL, nullptr);
+			}
+			else if ((*position)->properties.FindNameValue("left")) { // line
+
+			}
+			else if ((*position)->properties.FindNameValue("up")) { // line
+
+			}
+			else if ((*position)->properties.FindNameValue("down")) { // line
+
+			}
+			else { // rectangle then :)
+
 			}
 		}
 		else {
