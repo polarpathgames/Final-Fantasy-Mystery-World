@@ -30,7 +30,7 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	has_turn = true;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
-	movement_type = Movement_Type::InLobby;
+	movement_type = Movement_Type::InQuest;
 	ground = App->tex->Load("textures/player_pos.png");
 	
 	velocity.x = 160;
@@ -143,7 +143,7 @@ void Player::ReadPlayerMovementInQuest()
 	if (target_position == position) {
 		bool is_movement_acepted = false;
 		if (MultipleButtons(&player_input)) {
-			if (player_input.pressing_S && player_input.pressing_shift) {
+			if (player_input.pressing_A && player_input.pressing_shift) {
 				direction = Direction::LEFT;
 				if (NextTileFree(direction)) {
 					target_position.create(position.x - App->map->data.tile_width, position.y);
@@ -155,7 +155,7 @@ void Player::ReadPlayerMovementInQuest()
 					state = State::IDLE;
 				}
 			}
-			else if (player_input.pressing_W && player_input.pressing_shift) {
+			else if (player_input.pressing_D && player_input.pressing_shift) {
 				direction = Direction::RIGHT;
 				if (NextTileFree(direction)) {
 					target_position.create(position.x + App->map->data.tile_width, position.y);
@@ -167,7 +167,7 @@ void Player::ReadPlayerMovementInQuest()
 					state = State::IDLE;
 				}
 			}
-			else if (player_input.pressing_A && player_input.pressing_shift) {
+			else if (player_input.pressing_W && player_input.pressing_shift) {
 				direction = Direction::UP;
 				if (NextTileFree(direction)) {
 					target_position.create(position.x, position.y - App->map->data.tile_height);
@@ -179,7 +179,7 @@ void Player::ReadPlayerMovementInQuest()
 					state = State::IDLE;
 				}
 			}
-			else if (player_input.pressing_D && player_input.pressing_shift) {
+			else if (player_input.pressing_S && player_input.pressing_shift) {
 				direction = Direction::DOWN;
 				if (NextTileFree(direction)) {
 					target_position.create(position.x, position.y + App->map->data.tile_height);
