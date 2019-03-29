@@ -251,3 +251,8 @@ uint EntityAnim::FrameCount(pugi::xml_node& n) {
 
 	return num_frames;
 }
+
+const Collider * Entity::GetCollider() const
+{
+	return coll;
+}

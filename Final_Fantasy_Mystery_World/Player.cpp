@@ -10,6 +10,7 @@
 #include "j1Map.h"
 #include "j1EntityManager.h"
 #include "j1Map.h"
+#include "j1Collisions.h"
 #include <string>
 #include "Brofiler/Brofiler.h"
 #include "EasingSplines.h"
@@ -30,17 +31,25 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	has_turn = true;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
-	movement_type = Movement_Type::InQuest;
+	movement_type = Movement_Type::InLobby;
 	ground = App->tex->Load("textures/player_pos.png");
 	
 	velocity.x = 160;
 	velocity.y = 80;
-	position.x -= 5;
-	position.y += 5;
+
+	movement_count = { 0,0 };
+
+	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
+
+	movement_count = { 0,0 };
+	actual_tile = App->map->WorldToMap(position.x, position.y);
+
+	// THIS ALWAYS LAST
+	position.x -= pivot.x;
+	position.y -= 21;
+
 	target_position = position;
 	initial_position = position;
-	movement_count = { 0,0 };
-	actual_tile = App->map->WorldToMap(position.x + pivot.x, position.y + pivot.y);
 
 }
 
@@ -64,6 +73,22 @@ bool Player::Update(float dt)
 	PerformActions(dt);
 
 	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x, App->map->MapToWorld(actual_tile.x, actual_tile.y).y, NULL, true);
+
+	/*App->render->DrawLine(position.x, position.y + 25, position.x + 18, position.y + 25, 255, 255, 255);
+	App->render->DrawLine(position.x, position.y + 32, position.x + 18, position.y + 32, 255, 255, 255);
+	App->render->DrawLine(position.x, position.y + 25, position.x, position.y + 32, 255, 255, 255);
+	App->render->DrawLine(position.x + 18, position.y + 25, position.x + 18, position.y + 32, 255, 255, 255);
+
+	iPoint pos = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+	iPoint pos2 = { pos.x + 16, pos.y + 8 };
+	App->render->DrawLine(pos2.x, pos2.y, pos2.x + 16, pos2.y + 8, 255, 0, 255);
+	App->render->DrawLine(pos2.x - 16, pos.y + 16, pos.x + 16, pos.y + 8, 255, 0, 255);
+	App->render->DrawLine(pos2.x - 16, pos.y + 16, pos.x + 16, pos.y + 24, 255, 0, 255);
+	App->render->DrawLine(pos.x + 16, pos.y + 24, pos2.x + 16, pos2.y + 8, 255, 0, 255);
+	*/
+	//App->render->DrawCircle(position.x, position.y, 3, 0, 0, 255);
+	coll->SetPos(position.x, position.y + 25);
+
 	return true;
 }
 
@@ -72,6 +97,10 @@ bool Player::Update(float dt)
 bool Player::PostUpdate()
 {
 	BROFILER_CATEGORY("PostUpdatePlayer", Profiler::Color::Purple);
+	can_input.A = true;
+	can_input.D = true;
+	can_input.W = true;
+	can_input.S = true;
 	return true;
 }
 
@@ -91,14 +120,76 @@ bool Player::CleanUp()
 	return true;
 }
 
+void Player::OnCollision(Collider * c2)
+{
+	iPoint colliding_pos = c2->collided_point;
+
+	if (colliding_pos.y <= coll->rect.y) { // colliding up
+		can_input.W = false;
+		player_input.pressing_W = false;
+		if (colliding_pos.x < coll->rect.x) { // up left
+			can_input.A = false;
+			player_input.pressing_A = false;
+		}
+		else { // up right
+			can_input.D = false;
+			player_input.pressing_D = false;
+		}
+	}
+	else if (colliding_pos.y >= coll->rect.y + coll->rect.h) { // colliding down
+		can_input.S = false;
+		player_input.pressing_S = false;
+		if (colliding_pos.x <= coll->rect.x) { // down left
+			can_input.A = false;
+			player_input.pressing_A = false;
+		}
+		else { // down right
+			can_input.D = false;
+			player_input.pressing_D = false;
+		}
+	}
+	else if (colliding_pos.y > coll->rect.y && colliding_pos.y < coll->rect.y + coll->rect.h && colliding_pos.x <= coll->rect.x) { // colliding left
+		can_input.A = false;
+		player_input.pressing_A = false;
+		if (colliding_pos.y < coll->rect.y + coll->rect.h / 2) { // left up
+			can_input.W = false;
+			player_input.pressing_W = false;
+		}
+		else { // left down
+			can_input.S = false;
+			player_input.pressing_S = false;
+		}
+
+	}
+	else { // colliding right
+		can_input.D = false;
+		player_input.pressing_D = false;
+		if (colliding_pos.y < coll->rect.y + coll->rect.h / 2) { // right up
+			can_input.W = false;
+			player_input.pressing_W = false;
+		}
+		else { // right down
+			can_input.S = false;
+			player_input.pressing_S = false;
+		}
+
+	}
+
+
+}
+
 
 
 void Player::ReadPlayerInput()
 {
-	player_input.pressing_A = App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT;
-	player_input.pressing_S = App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT;
-	player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
-	player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
+	if (can_input.A)
+		player_input.pressing_A = App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT;
+	if (can_input.S)
+		player_input.pressing_S = App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT;
+	if (can_input.W)
+		player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
+	if (can_input.D)
+		player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
 	player_input.pressing_I = App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN;
 	player_input.pressing_J = App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN;
 	player_input.pressing_K = App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN;

@@ -130,6 +130,17 @@ bool j1EntityManager::CleanUp()
 	return true;
 }
 
+void j1EntityManager::OnCollision(Collider * c1, Collider * c2)
+{
+	std::vector<Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr &&(*item)->GetCollider() == c1) {
+			(*item)->OnCollision(c2);
+		}
+	}
+
+}
+
 
 //Entity Factory
 Entity* j1EntityManager::CreateEntity(Entity::EntityType type, int PositionX, int PositionY, std::string name, Sensor::SensorType sensor_type)
