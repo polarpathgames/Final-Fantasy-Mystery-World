@@ -5,7 +5,7 @@
 #include "p2Animation.h"
 #include <list>
 
-enum UI
+enum UIType
 {
 	IMAGE,
 	LABEL,
@@ -16,7 +16,12 @@ enum UI
 struct SDL_Texture;
 struct SDL_Rect;
 
+enum Color;
+
 class GUI;
+class GUI_Image;
+class GUI_Label;
+class GUI_Button;
 
 class j1UIManager: public j1Module
 {
@@ -27,24 +32,33 @@ public:
 	bool Awake(pugi::xml_node&);
 	bool Start();
 	bool PreUpdate();
-	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
 
-	GUI* AddImage(int x, int y, SDL_Rect* rect, Animation *anim, j1Module* callback, GUI* parent);
-	GUI* AddButton(int x, int y, SDL_Rect normal, SDL_Rect mouse_in, SDL_Rect clicked, j1Module* callback, GUI* parent);
-	GUI* AddLabel(int x, int y, std::string text, j1Module* callback, GUI* parent);
+	GUI_Image* AddImage(const int &x, const int &y, const SDL_Rect & rect, j1Module * callback, GUI * parent, bool draw, bool drag, bool interact);
+	GUI_Button* AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, j1Module* callback, GUI* parent, bool draw, bool drag, bool inter);
+	GUI_Label* AddLabel(const int &x, const int &y, const char* text, uint size, GUI* parent, Color color, const char* font, j1Module* callback);
 
-	void DestroyUI();
+	void CreateScreen();
+
+	bool DeleteUIElement(GUI * element);
+	void BFS(std::list<GUI *> &visited, GUI * elem);
+	bool DeleteAllUIElements();
+	bool GetElemOnMouse(int x, int y, GUI* & element);
+	bool CheckCollision(int x, int y, GUI* item);
+	void UI_Events(GUI* element);
+
 	const SDL_Texture* GetAtlas() const;
 
 private:
+
 	SDL_Texture* atlas = nullptr;
-	std::list<GUI*> ui_list;
+	std::list<GUI*> ui_list;	
 
 public:
 
-
+	GUI * screen = nullptr;
+	bool debug_ui = true;
 
 };
 #endif // !__j1UIMANAGER_H__

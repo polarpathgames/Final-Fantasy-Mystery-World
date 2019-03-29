@@ -3,7 +3,7 @@
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Window.h"
-
+#include "Brofiler/Brofiler.h"
 
 
 
@@ -72,6 +72,8 @@ bool j1Input::Start()
 // Called each loop iteration
 bool j1Input::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdateInput", Profiler::Color::Orange);
+
 	static SDL_Event event;
 	
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
@@ -159,6 +161,10 @@ bool j1Input::PreUpdate()
 		if (gamepads[i] != nullptr)
 		{
 			controller_state[BUTTON_RT] = SDL_GameControllerGetAxis(gamepads[i],SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
+			controller_state[BUTTON_D_PAD_UP] = SDL_GameControllerGetButton(gamepads[i], SDL_CONTROLLER_BUTTON_DPAD_UP);
+			controller_state[BUTTON_D_PAD_DOWN] = SDL_GameControllerGetButton(gamepads[i], SDL_CONTROLLER_BUTTON_DPAD_DOWN);
+			controller_state[BUTTON_D_PAD_LEFT] = SDL_GameControllerGetButton(gamepads[i], SDL_CONTROLLER_BUTTON_DPAD_LEFT);
+			controller_state[BUTTON_D_PAD_RIGHT] = SDL_GameControllerGetButton(gamepads[i], SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
 		}
 	}
 
@@ -228,6 +234,18 @@ bool j1Input::PreUpdate()
 	}
 	if (controller[BUTTON_RT] == KEY_REPEAT) {
 		keyboard[SDL_SCANCODE_LSHIFT] = KEY_REPEAT;
+	}
+	if (controller[BUTTON_D_PAD_UP] == KEY_DOWN) {
+		keyboard[SDL_SCANCODE_I] = KEY_DOWN;
+	}
+	if (controller[BUTTON_D_PAD_DOWN] == KEY_DOWN) {
+		keyboard[SDL_SCANCODE_K] = KEY_DOWN;
+	}
+	if (controller[BUTTON_D_PAD_LEFT] == KEY_DOWN) {
+		keyboard[SDL_SCANCODE_J] = KEY_DOWN;
+	}
+	if (controller[BUTTON_D_PAD_RIGHT] == KEY_DOWN) {
+		keyboard[SDL_SCANCODE_L] = KEY_DOWN;
 	}
 	return true;
 }

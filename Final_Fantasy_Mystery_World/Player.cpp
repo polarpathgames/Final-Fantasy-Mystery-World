@@ -11,6 +11,8 @@
 #include "j1EntityManager.h"
 #include "j1Map.h"
 #include <string>
+#include "Brofiler/Brofiler.h"
+#include "EasingSplines.h"
 
 Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 {
@@ -22,7 +24,7 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 
 	type = Entity::EntityType::PLAYER;
 
-	current_animation = &IdleLeft;
+	current_animation = &IdleDownLeft;
 
 	SetPivot(9, 30);
 	has_turn = true;
@@ -48,6 +50,8 @@ Player::~Player()
 
 bool Player::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdatePlayer", Profiler::Color::Orange);
+
 	ReadPlayerInput();
 	
 	return true;
@@ -55,9 +59,11 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
+	BROFILER_CATEGORY("UpdatePlayer", Profiler::Color::Aqua);
+
 	PerformActions(dt);
 
-	//App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x, App->map->MapToWorld(actual_tile.x, actual_tile.y).y);
+	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x, App->map->MapToWorld(actual_tile.x, actual_tile.y).y, NULL, true);
 	return true;
 }
 
@@ -65,7 +71,7 @@ bool Player::Update(float dt)
 
 bool Player::PostUpdate()
 {
-
+	BROFILER_CATEGORY("PostUpdatePlayer", Profiler::Color::Purple);
 	return true;
 }
 
@@ -93,6 +99,10 @@ void Player::ReadPlayerInput()
 	player_input.pressing_S = App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT;
 	player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
 	player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
+	player_input.pressing_I = App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN;
+	player_input.pressing_J = App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN;
+	player_input.pressing_K = App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN;
+	player_input.pressing_L = App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN;
 	player_input.pressing_G = App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN;
 	player_input.pressing_shift = App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT;
 
@@ -103,7 +113,7 @@ void Player::ReadPlayerInput()
 		else if (player_input.pressing_G) {
 			state = State::BEFORE_ATTACK;
 		}
-		else {
+		else if (movement_type == Movement_Type::InQuest){
 			position.x = initial_position.x + movement_count.x;
 			position.y = initial_position.y + movement_count.y;
 			target_position = position;
@@ -134,8 +144,8 @@ void Player::ReadPlayerMovementInQuest()
 		bool is_movement_acepted = false;
 		if (MultipleButtons(&player_input)) {
 			if (player_input.pressing_A && player_input.pressing_shift) {
-				if (NextTileFree(Direction::LEFT)) {
-					direction = Direction::LEFT;
+				direction = Direction::LEFT;
+				if (NextTileFree(direction)) {
 					target_position.create(position.x - App->map->data.tile_width, position.y);
 					movement_count.x -= App->map->data.tile_width;
 					actual_tile += {-1, 1};
@@ -146,8 +156,8 @@ void Player::ReadPlayerMovementInQuest()
 				}
 			}
 			else if (player_input.pressing_D && player_input.pressing_shift) {
-				if (NextTileFree(Direction::RIGHT)) {
-					direction = Direction::RIGHT;
+				direction = Direction::RIGHT;
+				if (NextTileFree(direction)) {
 					target_position.create(position.x + App->map->data.tile_width, position.y);
 					movement_count.x += App->map->data.tile_width;
 					actual_tile += {1, -1};
@@ -158,8 +168,8 @@ void Player::ReadPlayerMovementInQuest()
 				}
 			}
 			else if (player_input.pressing_W && player_input.pressing_shift) {
-				if (NextTileFree(Direction::UP)) {
-					direction = Direction::UP;
+				direction = Direction::UP;
+				if (NextTileFree(direction)) {
 					target_position.create(position.x, position.y - App->map->data.tile_height);
 					movement_count.y -= App->map->data.tile_height;
 					actual_tile += {-1, -1};
@@ -170,8 +180,8 @@ void Player::ReadPlayerMovementInQuest()
 				}
 			}
 			else if (player_input.pressing_S && player_input.pressing_shift) {
-				if (NextTileFree(Direction::DOWN)) {
-					direction = Direction::DOWN;
+				direction = Direction::DOWN;
+				if (NextTileFree(direction)) {
 					target_position.create(position.x, position.y + App->map->data.tile_height);
 					movement_count.y += App->map->data.tile_height;
 					actual_tile += {1, 1};
@@ -181,9 +191,9 @@ void Player::ReadPlayerMovementInQuest()
 					state = State::IDLE;
 				}
 			}
-			if (player_input.pressing_A && !player_input.pressing_shift) {
-				if (NextTileFree(Direction::DOWN_LEFT)) {
-					direction = Direction::DOWN_LEFT;
+			if (player_input.pressing_S && !player_input.pressing_shift) {
+				direction = Direction::DOWN_LEFT;
+				if (NextTileFree(direction)) {
 					target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 					movement_count.x -= (App->map->data.tile_width / 2);
 					movement_count.y += (App->map->data.tile_height / 2);
@@ -194,10 +204,9 @@ void Player::ReadPlayerMovementInQuest()
 					state = State::IDLE;
 				}
 			}
-			else if (player_input.pressing_S && !player_input.pressing_shift) {
-
-				if (NextTileFree(Direction::DOWN_RIGHT)) {
-					direction = Direction::DOWN_RIGHT;
+			else if (player_input.pressing_D && !player_input.pressing_shift) {
+				direction = Direction::DOWN_RIGHT;
+				if (NextTileFree(direction)) {
 					target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 					movement_count.x += (App->map->data.tile_width / 2);
 					movement_count.y += (App->map->data.tile_height / 2);
@@ -208,9 +217,9 @@ void Player::ReadPlayerMovementInQuest()
 					state = State::IDLE;
 				}
 			}
-			else if (player_input.pressing_D && !player_input.pressing_shift) {
-				if (NextTileFree(Direction::UP_RIGHT)) {
-					direction = Direction::UP_RIGHT;
+			else if (player_input.pressing_W && !player_input.pressing_shift) {
+				direction = Direction::UP_RIGHT;
+				if (NextTileFree(direction)) {
 					target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 					movement_count.x += (App->map->data.tile_width / 2);
 					movement_count.y -= (App->map->data.tile_height / 2);
@@ -221,9 +230,9 @@ void Player::ReadPlayerMovementInQuest()
 					state = State::IDLE;
 				}
 			}
-			else if (player_input.pressing_W && !player_input.pressing_shift) {
-				if (NextTileFree(Direction::UP_LEFT)) {
-					direction = Direction::UP_LEFT;
+			else if (player_input.pressing_A && !player_input.pressing_shift) {
+				direction = Direction::UP_LEFT;
+				if (NextTileFree(direction)) {
 					target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 					movement_count.x -= (App->map->data.tile_width / 2);
 					movement_count.y -= (App->map->data.tile_height / 2);
@@ -240,26 +249,14 @@ void Player::ReadPlayerMovementInQuest()
 		if (!MultipleButtons(&player_input)) {
 			state = State::IDLE;
 			target_position = position;
-			if (current_animation == &GoDownLeft)
-				current_animation = &IdleDownLeft;
-			if (current_animation == &GoRight)
-				current_animation = &IdleRight;
-			if (current_animation == &GoDown)
-				current_animation = &IdleDown;
-			if (current_animation == &GoUp)
-				current_animation = &IdleUp;
-			if (current_animation == &GoUpLeft)
-				current_animation = &IdleUpLeft;
-			if (current_animation == &GoUpRight)
-				current_animation = &IdleUpRight;
-			if (current_animation == &GoDownRight)
-				current_animation = &IdleDownRight;
-			if (current_animation == &GoLeft)
-				current_animation = &IdleLeft;
+			ChangeAnimation(direction, state);
 		}
 		else {
 			if (is_movement_acepted) {
 				ChangeTurn(type);
+			}
+			else {
+				ChangeAnimation(direction, state);
 			}
 		}
 	}
@@ -279,28 +276,21 @@ void Player::ReadPlayerMovementInLobby()
 	if (player_input.pressing_W) {
 		direction = Direction::UP;
 	}
-	if (player_input.pressing_A && player_input.pressing_W) {
+	if (player_input.pressing_W && player_input.pressing_A) {
 		direction = Direction::UP_LEFT;
 	}
-	if (player_input.pressing_A && player_input.pressing_S) {
+	if (player_input.pressing_S && player_input.pressing_A) {
 		direction = Direction::DOWN_LEFT;
 	}
-	if (player_input.pressing_D && player_input.pressing_W) {
+	if (player_input.pressing_W && player_input.pressing_D) {
 		direction = Direction::UP_RIGHT;
 	}
-	if (player_input.pressing_D && player_input.pressing_S) {
+	if (player_input.pressing_S && player_input.pressing_D) {
 		direction = Direction::DOWN_RIGHT;
 	}
 	if (!player_input.pressing_A && !player_input.pressing_S && !player_input.pressing_D && !player_input.pressing_W) {
 		state = State::IDLE;
-		if (current_animation == &GoDownLeft)
-			current_animation = &IdleLeft;
-		if (current_animation == &GoRight)
-			current_animation = &IdleLeft;
-		if (current_animation == &GoDown)
-			current_animation = &IdleDown;
-		if (current_animation == &GoUp)
-			current_animation = &IdleUp;
+		ChangeAnimation(direction, state);
 	}
 }
 
@@ -309,13 +299,34 @@ void Player::ReadAttack()
 	if (player_input.pressing_G) {
 		type_attack = Attacks::BASIC;
 		state = State::ATTACKING;
-		//ANIMATION ATTACK BASIC
+		switch (direction) {
+		case Direction::DOWN_LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+			break;
+		case Direction::UP_RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+			break;
+		case Direction::DOWN_RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+			break;
+		case Direction::UP_LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+			break;
+		}
+		ChangeAnimation(direction, state, type_attack);
 	}
 }
 	
 	
 void Player::PerformActions(float dt)
 {
+	if (state == State::IDLE) {
+		ChangeDirection();
+	}
 	if (state == State::WALKING) {
 		switch (movement_type) {
 		case Movement_Type::InQuest: {
@@ -349,11 +360,31 @@ void Player::PerformActions(float dt)
 void Player::BasicAttack()
 {
 
-	if (!NextTileFree(direction)) {
+	if (current_animation->Finished()) {
+		switch (direction) {
+		case Direction::DOWN_LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
+			break;
+		case Direction::UP_RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
+			break;
+		case Direction::DOWN_RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
+			break;
+		case Direction::UP_LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
+			break;
+		}
 		CheckAttackEfects(Entity::EntityType::ENEMY, direction, stats.attack_power);
+		state = State::AFTER_ATTACK;
+		ChangeAnimation(direction, state);
+		time_attack = SDL_GetTicks();
 	}
-	state = State::AFTER_ATTACK;
-	time_attack = SDL_GetTicks();
+
 
 }
 
@@ -369,33 +400,33 @@ void Player::PerformMovementInLobby(float dt)
 	case Direction::UP_RIGHT:
 		position.x += floor(velocity.x * dt);
 		position.y -= floor(velocity.y * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoUpRight;
 		break;
 	case Direction::UP_LEFT:
 		position.x -= floor(velocity.x * dt);
 		position.y -= floor(velocity.y * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoUpLeft;
 		break;
 	case Direction::DOWN_RIGHT:
 		position.x += floor(velocity.x * dt);
 		position.y += floor(velocity.y * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoDownRight;
 		break;
 	case Direction::RIGHT:
 		position.x += floor(180 * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoRight;
 		break;
 	case Direction::LEFT:
 		position.x -= floor(180 * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoLeft;
 		break;
 	case Direction::UP:
 		position.y -= floor(180 * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoUp;
 		break;
 	case Direction::DOWN:
 		position.y += floor(180 * dt);
-		current_animation = &GoDownLeft;
+		current_animation = &GoDown;
 		break;
 	default:
 		break;
@@ -413,7 +444,11 @@ void Player::PerformMovementInQuest(float dt)
 			current_animation = &GoDownLeft;
 		}
 		else {
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
+			state = State::IDLE;
+			current_animation = &IdleDownLeft;
 		}
 		break;
 	case Direction::UP_RIGHT:
@@ -423,7 +458,11 @@ void Player::PerformMovementInQuest(float dt)
 			current_animation = &GoUpRight;
 		}
 		else {
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
+			state = State::IDLE;
+			current_animation = &IdleUpRight;
 		}
 		break;
 	case Direction::UP_LEFT:
@@ -433,7 +472,11 @@ void Player::PerformMovementInQuest(float dt)
 			current_animation = &GoUpLeft;
 		}
 		else {
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
+			state = State::IDLE;
+			current_animation = &IdleUpLeft;
 		}
 		break;
 	case Direction::DOWN_RIGHT:
@@ -443,7 +486,11 @@ void Player::PerformMovementInQuest(float dt)
 			current_animation = &GoDownRight;
 		}
 		else {
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
+			state = State::IDLE;
+			current_animation = &IdleDownRight;
 		}
 		break;
 	case Direction::LEFT:
@@ -452,7 +499,11 @@ void Player::PerformMovementInQuest(float dt)
 			current_animation = &GoLeft;
 		}
 		else {
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
+			state = State::IDLE;
+			current_animation = &IdleLeft;
 		}
 		break;
 	case Direction::RIGHT:
@@ -461,7 +512,11 @@ void Player::PerformMovementInQuest(float dt)
 			current_animation = &GoRight;
 		}
 		else {
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
+			state = State::IDLE;
+			current_animation = &IdleRight;
 		}
 		break;
 	case Direction::UP:
@@ -470,7 +525,11 @@ void Player::PerformMovementInQuest(float dt)
 			current_animation = &GoUp;
 		}
 		else {
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
+			state = State::IDLE;
+			current_animation = &IdleUp;
 		}
 		break;
 	case Direction::DOWN:
@@ -479,7 +538,11 @@ void Player::PerformMovementInQuest(float dt)
 			current_animation = &GoDown;
 		}
 		else {
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
+			state = State::IDLE;
+			current_animation = &IdleDown;
 		}
 		break;
 	default:
@@ -487,25 +550,61 @@ void Player::PerformMovementInQuest(float dt)
 	}
 }
 
+void Player::ChangeDirection()
+{
+	if (player_input.pressing_shift) {
+		if (player_input.pressing_I) {
+			direction = Direction::UP;
+			current_animation = &IdleUp;
+		}
+		if (player_input.pressing_J) {
+			direction = Direction::LEFT;
+			current_animation = &IdleLeft;
+		}
+		if (player_input.pressing_K) {
+			direction = Direction::DOWN;
+			current_animation = &IdleDown;
+		}
+		if (player_input.pressing_L) {
+			direction = Direction::RIGHT;
+			current_animation = &IdleRight;
+		}
+	}
+	else if (!player_input.pressing_shift) {
+		if (player_input.pressing_J) {
+			direction = Direction::UP_LEFT;
+			current_animation = &IdleUpLeft;
+		}
+		if (player_input.pressing_K) {
+			direction = Direction::DOWN_LEFT;
+			current_animation = &IdleDownLeft;
+		}
+		if (player_input.pressing_L) {
+			direction = Direction::DOWN_RIGHT;
+			current_animation = &IdleDownRight;
+		}
+		if (player_input.pressing_I) {
+			direction = Direction::UP_RIGHT;
+			current_animation = &IdleUpRight;
+		}
+	}
+
+
+
+
+}
+
 const bool Player::MultipleButtons(const Input * input)
 {
 	bool ret;
 
-	if (input->pressing_A && !input->pressing_D && !input->pressing_S && !input->pressing_W && input->pressing_shift)
+	if (input->pressing_A && !input->pressing_D && !input->pressing_S && !input->pressing_W)
 		ret = true;
-	else if (input->pressing_D && !input->pressing_A && !input->pressing_S && !input->pressing_W && input->pressing_shift)
+	else if (input->pressing_D && !input->pressing_A && !input->pressing_S && !input->pressing_W)
 		ret = true;
-	else if (input->pressing_S && !input->pressing_A && !input->pressing_D && !input->pressing_W && input->pressing_shift)
+	else if (input->pressing_S && !input->pressing_A && !input->pressing_D && !input->pressing_W)
 		ret = true;
-	else if (input->pressing_W && !input->pressing_A && !input->pressing_D && !input->pressing_S && input->pressing_shift)
-		ret = true;
-	else if (input->pressing_A && !input->pressing_D && !input->pressing_S && !input->pressing_W && !input->pressing_shift)
-		ret = true;
-	else if (input->pressing_D && !input->pressing_A && !input->pressing_S && !input->pressing_W && !input->pressing_shift)
-		ret = true;
-	else if (input->pressing_S && !input->pressing_A && !input->pressing_D && !input->pressing_W && !input->pressing_shift)
-		ret = true;
-	else if (input->pressing_W && !input->pressing_A && !input->pressing_D && !input->pressing_S && !input->pressing_shift)
+	else if (input->pressing_W && !input->pressing_A && !input->pressing_D && !input->pressing_S)
 		ret = true;
 	else
 		ret = false;

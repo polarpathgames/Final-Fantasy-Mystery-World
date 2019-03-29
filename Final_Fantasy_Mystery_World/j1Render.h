@@ -40,11 +40,11 @@ public:
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true) const;
 	bool DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
 	bool DrawCircle(int x1, int y1, int redius, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
-
+	
 	iPoint ScreenToWorld(int x, int y) const;
 
 	bool IsOnCamera(const int&x, const int&y, const int&w, const int& h) const;
-
+	void ResetCamera();
 	
 	
 	// Set background color

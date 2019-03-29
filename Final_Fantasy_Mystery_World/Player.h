@@ -8,12 +8,16 @@
 #include <vector>
 
 struct Input {
-	bool pressing_A;
-	bool pressing_W;
-	bool pressing_S;
-	bool pressing_D;
-	bool pressing_G;
-	bool pressing_shift;
+	bool pressing_A; // MOVE
+	bool pressing_W; // MOVE
+	bool pressing_S; // MOVE
+	bool pressing_D; // MOVE
+	bool pressing_I; // CHANGE DIRECTION
+	bool pressing_J; // CHANGE DIRECTION
+	bool pressing_K; // CHANGE DIRECTION
+	bool pressing_L; // CHANGE DIRECTION
+	bool pressing_G; // BASIC ATTACK
+	bool pressing_shift; // DIAGONALS
 };
 
 struct PlayerStats {
@@ -29,9 +33,7 @@ enum class Movement_Type {
 	InLobby, InQuest
 };
 
-enum class Attacks {
-	BASIC, NONE
-};
+
 
 class Player : public DynamicEntity
 {
@@ -58,23 +60,24 @@ public:
 
 
 	//PreUpdate
-	void ReadPlayerInput(); 
+	void ReadPlayerInput(); // Global organizator function 
 
-	void ReadPlayerMovementInQuest();
-	void ReadPlayerMovementInLobby();
+	void ReadPlayerMovementInQuest(); // Set input for movement in quest
+	void ReadPlayerMovementInLobby(); // Set input for movement in lobby
 
 	void ReadAttack();
 
 	//Update
-	void PerformActions(float dt);
+	void PerformActions(float dt); // Global organizator function 
 
-	void BasicAttack();
+	void BasicAttack(); // Basic attack xd 
 
-	void PerformMovementInLobby(float dt);
-	void PerformMovementInQuest(float dt);
+	void PerformMovementInLobby(float dt); // Do the movement in lobby
+	void PerformMovementInQuest(float dt); // Do the movement in quest
 
+	void ChangeDirection(); // Just change the player direction
 
-	const bool MultipleButtons(const Input* input);
+	const bool MultipleButtons(const Input* input); // Ensure that only one button is clicked 
 
 
 
@@ -83,7 +86,7 @@ public:
 
 	Input player_input; //VARIABLES DEL INPUT DEL PLAYER
 	Movement_Type movement_type; //EN LOBBY O EN UNA QUEST
-	Attacks type_attack = Attacks::NONE;
+
 	PlayerStats stats;
 };
 

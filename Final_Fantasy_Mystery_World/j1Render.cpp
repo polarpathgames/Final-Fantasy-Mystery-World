@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Window.h"
 #include "j1Render.h"
+#include "Brofiler/Brofiler.h"
 
 
 
@@ -66,18 +67,23 @@ bool j1Render::Start()
 // Called each loop iteration
 bool j1Render::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdateRender", Profiler::Color::Orange);
+
 	SDL_RenderClear(renderer);
 	return true;
 }
 
 bool j1Render::Update(float dt)
 {
+	BROFILER_CATEGORY("UpdateRender", Profiler::Color::Aqua);
 	//LOG("Camera.y = %i", camera.y);
 	return true;
 }
 
 bool j1Render::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdateRender", Profiler::Color::Purple);
+
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;
@@ -133,8 +139,14 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	uint scale = App->win->GetScale();
 
 	SDL_Rect rect;
-	rect.x = (int)(camera.x * speed) + x * scale;
-	rect.y = (int)(camera.y * speed) + y * scale;
+	if (apply_scale) {
+		rect.x = (int)(camera.x * speed) + x * scale;
+		rect.y = (int)(camera.y * speed) + y * scale;
+	}
+	else {
+		rect.x = x;
+		rect.y = y;
+	}
 
 	if(section != NULL)
 	{
@@ -150,8 +162,7 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	{
 		rect.w *= scale;
 		rect.h *= scale;
-	}
-	
+	}	
 
 	SDL_Point* p = NULL;
 	SDL_Point pivot;
@@ -276,5 +287,9 @@ bool j1Render::IsOnCamera(const int & x, const int & y, const int & w, const int
 	return SDL_HasIntersection(&r, &cam);
 }
 
-
+void j1Render::ResetCamera()
+{
+	camera.x = 0;
+	camera.y = 0;
+}
 
