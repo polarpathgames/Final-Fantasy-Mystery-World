@@ -27,6 +27,8 @@ struct ObjectLayer {
 	int	coll_y;
 	int coll_width = 0;
 	int coll_height = 0;
+	Properties<int> properties;
+	
 
 };
 

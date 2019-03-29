@@ -164,6 +164,10 @@ void j1Scene::CreateEntities()
 				App->entity_manager->CreateEntity(Entity::EntityType::SENSOR, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name, Sensor::SensorType::TO_LOBBY);
 			}
 		}
+		else if ((*position)->name == "collider") {
+			int x = App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x;
+			int y = 0;
+		}
 		else {
 			LOG("There isn't any entity with name %s and type %s", (*position)->name.data(), (*position)->ent_type.data());
 		}

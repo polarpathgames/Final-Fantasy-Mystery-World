@@ -21,7 +21,7 @@
   <map>
     <folder>maps/</folder>
     <maps>
-      <tutorial_map>tutorial_movement.tmx</tutorial_map>
+      <tutorial_map>Lobby.tmx</tutorial_map>
     </maps>
 
   </map>

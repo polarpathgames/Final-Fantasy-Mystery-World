@@ -512,10 +512,16 @@ bool j1Map::LoadObject(pugi::xml_node & object_node, ObjectLayer * obj)
 	obj->coll_y = object_node.attribute("y").as_int();
 	obj->coll_height = object_node.attribute("height").as_uint();
 	obj->coll_width = object_node.attribute("width").as_uint();
-
+	
 	//Load Collider type from ObjectGroup
 	pugi::xml_node objGroup = object_node.parent();
 	std::string type(objGroup.child("properties").child("property").attribute("value").as_string());
+
+
+	pugi::xml_node prop = object_node.child("properties");
+	if (prop)
+		LoadProperties(prop, &obj->properties);
+
 
 	return ret;
 }
