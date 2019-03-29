@@ -22,7 +22,6 @@
     <folder>maps/</folder>
     <maps>
       <tutorial_map>tutorial_movement.tmx</tutorial_map>
-      <lobby_map>iso_walk.tmx</lobby_map>
     </maps>
 
   </map>
