@@ -57,6 +57,17 @@ struct Properties {
 		}
 		return ret;
 	}
+	
+	bool FindNameValue(const char* prop_name) {
+		bool ret = false;
+		for (std::list<Property<TYPE>*>::iterator item = properties.begin(); item != properties.end(); ++item) {
+			if (strcmp((*item)->GetName(), prop_name) == 0) {
+				ret = true;
+				break;
+			}
+		}
+		return ret;
+	}
 
 };
 

@@ -165,8 +165,9 @@ void j1Scene::CreateEntities()
 			}
 		}
 		else if ((*position)->name == "collider") {
-			int x = App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x;
-			int y = 0;
+			if ((*position)->properties.FindNameValue("right")) {
+				int x=0;
+			}
 		}
 		else {
 			LOG("There isn't any entity with name %s and type %s", (*position)->name.data(), (*position)->ent_type.data());
