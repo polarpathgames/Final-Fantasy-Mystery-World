@@ -123,7 +123,16 @@ void Player::OnCollision(Collider * c2)
 {
 	
 	if (c2->type == COLLIDER_SHOP) {
-		App->fade_to_black->FadeToBlack(Maps::SHOP);
+		if (App->map->actual_map==Maps::LOBBY)
+			App->fade_to_black->FadeToBlack(Maps::SHOP);
+		else 
+			App->fade_to_black->FadeToBlack(Maps::LOBBY);
+	}
+	if (c2->type == COLLIDER_HOME) {
+		if (App->map->actual_map == Maps::LOBBY)
+			App->fade_to_black->FadeToBlack(Maps::HOME);
+		else
+			App->fade_to_black->FadeToBlack(Maps::LOBBY);
 	}
 
 	

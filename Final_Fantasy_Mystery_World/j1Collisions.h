@@ -12,6 +12,7 @@ enum COLLIDER_TYPE
 	COLLIDER_NONE,
 	COLLIDER_PLAYER,
 	COLLIDER_SHOP,
+	COLLIDER_HOME,
 
 
 	COLLIDER_MAX
@@ -58,8 +59,7 @@ struct Collider
 		this->type = type;
 	}
 	bool CheckCollision(const SDL_Rect& r) const;
-	bool CheckCollision(const iLine& l) const;
-	bool HasIntersection(const int & x1_1, const int & y1_1, const int & x2_1, const int & y2_1, const int & x1_2, const int & y1_2, const int & x2_2, const int & y2_2) const;
+	
 };
 
 class j1Collision :
@@ -74,7 +74,6 @@ public:
 	bool CleanUp();
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
-	Collider* AddCollider(iLine line, COLLIDER_TYPE type, j1Module* callback = nullptr);
 
 
 	void DebugDraw();

@@ -43,6 +43,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 	tutorial_map = config.child("maps").child("tutorial_map").text().as_string();
 	shop_map = config.child("maps").child("shop_map").text().as_string();
 	lobby_map = config.child("maps").child("lobby_map").text().as_string();
+	home_map = config.child("maps").child("home_map").text().as_string();
 	
 	
 	return ret;
@@ -619,8 +620,12 @@ bool j1Map::ChangeMap(Maps type)
 		actual_map = Maps::TUTORIAL;
 		break;
 	case Maps::SHOP:
-		Load("Home.tmx");
+		Load(shop_map.data());
 		actual_map = Maps::SHOP;
+		break;
+	case Maps::HOME:
+		Load(home_map.data());
+		actual_map = Maps::HOME;
 		break;
 	default:
 		LOG("Could not load the map");

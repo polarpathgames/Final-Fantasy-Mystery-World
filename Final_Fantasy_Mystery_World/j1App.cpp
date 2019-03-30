@@ -221,7 +221,7 @@ void j1App::PrepareUpdate()
 
 	frame_time.Start();
 	ptimer.Start();
-	LOG("dt is: %.6f", dt);
+//	LOG("dt is: %.6f", dt);
 }
 
 // ---------------------------------------------
@@ -261,7 +261,7 @@ void j1App::FinishUpdate()
 		float delaytimestart = time.ReadMs();
 		SDL_Delay(framerate_cap - last_frame_ms);
 		float delaytimefinish = time.ReadMs();
-		LOG("We waited for %i milliseconds and got back in %.6f", framerate_cap - last_frame_ms, delaytimefinish - delaytimestart);
+//		LOG("We waited for %i milliseconds and got back in %.6f", framerate_cap - last_frame_ms, delaytimefinish - delaytimestart);
 	}
 }
 
