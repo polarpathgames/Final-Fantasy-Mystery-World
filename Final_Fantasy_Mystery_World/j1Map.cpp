@@ -577,7 +577,7 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer)
 				if(tileset != NULL)
 				{
 					tile_pos.x += 1;
-					tile_pos.y -= 8;
+					//tile_pos.y -= 2;
 					iPoint pos = WorldToMap(tile_pos.x, tile_pos.y);
 					data.no_walkables.push_back(pos);
 					map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
