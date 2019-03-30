@@ -15,6 +15,8 @@ enum class Maps {
 
 	LOBBY,
 	TUTORIAL,
+	SHOP,
+	HOME,
 
 	NONE
 };
@@ -153,6 +155,7 @@ public:
 
 	MapData data;
 	bool	Grid = true;
+	Maps actual_map;
 
 private:
 
@@ -163,7 +166,8 @@ private:
 
 	std::string tutorial_map;
 	std::string lobby_map;
-
+	std::string shop_map;
+	std::string home_map;
 	
 };
 

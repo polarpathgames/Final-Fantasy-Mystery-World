@@ -132,7 +132,7 @@ bool j1Scene::PostUpdate()
 	App->input->GetMousePosition(mouse.x, mouse.y);
 	//App->render->ScreenToWorld(mouse.x, mouse.y);
 	iPoint tile = App->map->WorldToMap(mouse.x, mouse.y);
-	LOG("Tile: %i, %i", tile.x, tile.y);
+//	LOG("Tile: %i, %i", tile.x, tile.y);
 
 	return ret;
 }
@@ -151,38 +151,26 @@ void j1Scene::CreateEntities()
 
 	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
 		if ((*position)->name == "player") {
-			App->entity_manager->CreateEntity(Entity::EntityType::PLAYER, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			App->entity_manager->CreateEntity(Entity::EntityType::PLAYER, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).x, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).y, (*position)->name);
 		}
 		else if ((*position)->ent_type == "static") {
 			//App->entity_manager->CreateEntity(Entity::EntityType::STATIC, (*position)->coll_x, (*position)->coll_y, (*position)->name);
 
 		}
 		else if ((*position)->ent_type == "enemy") {
-			App->entity_manager->CreateEntity(Entity::EntityType::ENEMY, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			App->entity_manager->CreateEntity(Entity::EntityType::ENEMY, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y -8).x, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).y, (*position)->name);
 		}
 		else if ((*position)->name == "sensor") {
 			if ((*position)->ent_type == "ToLobby") {
-				App->entity_manager->CreateEntity(Entity::EntityType::SENSOR, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name, Sensor::SensorType::TO_LOBBY);
+				App->entity_manager->CreateEntity(Entity::EntityType::SENSOR, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).x, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).y, (*position)->name, Sensor::SensorType::TO_LOBBY);
 			}
 		}
 		else if ((*position)->name == "collider") { // COLLIDERS
-			if ((*position)->properties.FindNameValue("right")) { // line
-				iPoint init_pos = App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y);
-				//if ((*position)->properties.GetValue("type") == 1)
-				//	App->collision->AddCollider(iLine{ init_pos.x,init_pos.y,init_pos.x + (App->map->data.tile_width / 2)*(*position)->properties.GetValue("right"),init_pos.y + (App->map->data.tile_height / 2)*(*position)->properties.GetValue("right") }, COLLIDER_WALL_LEFT, nullptr);
-				//else if ((*position)->properties.GetValue("type") == 2) 
-				//	App->collision->AddCollider(iLine{ init_pos.x,init_pos.y,init_pos.x + (App->map->data.tile_width / 2)*(*position)->properties.GetValue("right"),init_pos.y + (App->map->data.tile_height / 2)*(*position)->properties.GetValue("right") }, COLLIDER_WALL_RIGHT, nullptr);
-
+			if ((*position)->properties.FindNameValue("shop")) {
+				App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).x,App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_SHOP, nullptr);
 			}
-			else if ((*position)->properties.FindNameValue("up")) { // line
-				iPoint init_pos = App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y);
-				//if ((*position)->properties.GetValue("type") == 3)
-				//	App->collision->AddCollider(iLine{ init_pos.x,init_pos.y,init_pos.x + (App->map->data.tile_width/2)*(*position)->properties.GetValue("up"),init_pos.y - (App->map->data.tile_height / 2)*(*position)->properties.GetValue("up") }, COLLIDER_WALL_DOWN, nullptr);
-			//	else if ((*position)->properties.GetValue("type") == 4)
-				//	App->collision->AddCollider(iLine{ init_pos.x,init_pos.y,init_pos.x + (App->map->data.tile_width / 2)*(*position)->properties.GetValue("up"),init_pos.y - (App->map->data.tile_height / 2)*(*position)->properties.GetValue("up") }, COLLIDER_WALL_UP, nullptr);
-			}
-			else { // rectangle then :)
-
+			else if ((*position)->properties.FindNameValue("home")) {
+				App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).x,App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_HOME, nullptr);
 			}
 		}
 		else {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="42" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="86" nextobjectid="133">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="42" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="86" nextobjectid="136">
  <tileset firstgid="1" name="tutorial_tileset" tilewidth="32" tileheight="16" tilecount="810" columns="45">
   <image source="tutorial_tileset.png" width="1440" height="290"/>
   <terraintypes>
@@ -13587,96 +13587,18 @@
   <object id="85" name="barrel" type="static" x="16" y="464" width="32" height="32"/>
   <object id="86" name="barrel" type="static" x="16" y="448" width="32" height="32"/>
  </objectgroup>
- <objectgroup color="#0000ff" id="78" name="outScene" visible="0">
+ <objectgroup color="#0000ff" id="78" name="outScene">
   <object id="9" x="369.333" y="280" width="0.666667" height="0.666667"/>
-  <object id="13" name="Home" x="448" y="208" width="16" height="16"/>
   <object id="15" x="386.727" y="311.091"/>
-  <object id="16" name="Shop" x="176" y="272" width="16" height="16"/>
- </objectgroup>
- <objectgroup id="83" name="COLLISIONS">
-  <object id="119" name="collider" x="496.224" y="303.826">
+  <object id="134" name="collider" x="160.699" y="274.864" width="4.1648" height="10.9602">
    <properties>
-    <property name="right" type="int" value="3"/>
-    <property name="type" type="int" value="2"/>
+    <property name="shop" type="int" value="2"/>
    </properties>
-   <point/>
   </object>
-  <object id="120" name="collider" x="496.525" y="271.57">
+  <object id="135" name="collider" x="451.043" y="195.395" width="11.3523" height="4.1477">
    <properties>
-    <property name="right" type="int" value="3"/>
-    <property name="type" type="int" value="1"/>
+    <property name="home" type="int" value="2"/>
    </properties>
-   <point/>
-  </object>
-  <object id="121" name="collider" x="496.273" y="303.87">
-   <properties>
-    <property name="type" type="int" value="3"/>
-    <property name="up" type="int" value="2"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="122" name="collider" x="544.955" y="303.227">
-   <properties>
-    <property name="type" type="int" value="4"/>
-    <property name="up" type="int" value="2"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="123" name="collider" x="305.063" y="254.438">
-   <properties>
-    <property name="right" type="int" value="2"/>
-    <property name="type" type="int" value="1"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="124" name="collider" x="305.188" y="302.063">
-   <properties>
-    <property name="right" type="int" value="2"/>
-    <property name="type" type="int" value="2"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="125" name="collider" x="337.625" y="303.125">
-   <properties>
-    <property name="type" type="int" value="4"/>
-    <property name="up" type="int" value="3"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="126" name="collider" x="305.563" y="303.188">
-   <properties>
-    <property name="type" type="int" value="3"/>
-    <property name="up" type="int" value="3"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="127" name="collider" x="129.364" y="254.273">
-   <properties>
-    <property name="right" type="int" value="3"/>
-    <property name="type" type="int" value="1"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="128" name="collider" x="131.636" y="308.727">
-   <properties>
-    <property name="right" type="int" value="3"/>
-    <property name="type" type="int" value="2"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="129" name="collider" x="181.636" y="315.818">
-   <properties>
-    <property name="type" type="int" value="4"/>
-    <property name="up" type="int" value="2"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="130" name="collider" x="186.818" y="268.455">
-   <properties>
-    <property name="type" type="int" value="4"/>
-    <property name="up" type="int" value="1"/>
-   </properties>
-   <point/>
   </object>
  </objectgroup>
 </map>

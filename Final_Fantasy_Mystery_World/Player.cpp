@@ -12,6 +12,7 @@
 #include "j1Map.h"
 #include "j1Pathfinding.h"
 #include "j1Collisions.h"
+#include "j1FadeToBlack.h"
 #include <string>
 #include "Brofiler/Brofiler.h"
 #include "EasingSplines.h"
@@ -32,7 +33,7 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	has_turn = true;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
-	movement_type = Movement_Type::InQuest;
+	movement_type = Movement_Type::InLobby;
 	ground = App->tex->Load("textures/player_pos.png");
 	
 	velocity.x = 160;
@@ -120,31 +121,23 @@ bool Player::CleanUp()
 
 void Player::OnCollision(Collider * c2)
 {
-	iPoint colliding_pos = c2->collided_point;
-
-	switch (c2->type) {
-	case COLLIDER_WALL_LEFT:
-		player_input.pressing_A = false;
-		player_input.pressing_S = false;
-		break;
-	case COLLIDER_WALL_RIGHT:
-		player_input.pressing_D = false;
-		player_input.pressing_W = false;
-		break;
-	case COLLIDER_WALL_UP:
-		player_input.pressing_W = false;
-		player_input.pressing_A = false;
-		break;
-	case COLLIDER_WALL_DOWN:
-		player_input.pressing_D = false;
-		player_input.pressing_S = false;
-		break;
-	default:
-		LOG("No collider type found");
-		break;
+	
+	if (c2->type == COLLIDER_SHOP) {
+		if (App->map->actual_map==Maps::LOBBY)
+			App->fade_to_black->FadeToBlack(Maps::SHOP);
+		else 
+			App->fade_to_black->FadeToBlack(Maps::LOBBY);
 	}
+	if (c2->type == COLLIDER_HOME) {
+		if (App->map->actual_map == Maps::LOBBY)
+			App->fade_to_black->FadeToBlack(Maps::HOME);
+		else
+			App->fade_to_black->FadeToBlack(Maps::LOBBY);
+	}
+
 	
 	/*
+	iPoint colliding_pos = c2->collided_point;
 	if (colliding_pos.y <= coll->rect.y) { // colliding up
 		can_input.W = false;
 		player_input.pressing_W = false;
@@ -253,7 +246,7 @@ void Player::ReadPlayerMovementInQuest()
 		if (MultipleButtons(&player_input)) {
 			if (player_input.pressing_A && player_input.pressing_shift) {
 				direction = Direction::LEFT;
-				if (NextTileFree(direction)) {
+				if (NextTileFree(direction) && App->map->IsWalkable({actual_tile.x - 1, actual_tile.y + 1},false)) {
 					target_position.create(position.x - App->map->data.tile_width, position.y);
 					movement_count.x -= App->map->data.tile_width;
 					actual_tile += {-1, 1};
@@ -265,7 +258,7 @@ void Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_D && player_input.pressing_shift) {
 				direction = Direction::RIGHT;
-				if (NextTileFree(direction)) {
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y - 1 },false)) {
 					target_position.create(position.x + App->map->data.tile_width, position.y);
 					movement_count.x += App->map->data.tile_width;
 					actual_tile += {1, -1};
@@ -277,7 +270,7 @@ void Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_W && player_input.pressing_shift) {
 				direction = Direction::UP;
-				if (NextTileFree(direction)) {
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y - 1 },false)) {
 					target_position.create(position.x, position.y - App->map->data.tile_height);
 					movement_count.y -= App->map->data.tile_height;
 					actual_tile += {-1, -1};
@@ -289,7 +282,7 @@ void Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_S && player_input.pressing_shift) {
 				direction = Direction::DOWN;
-				if (NextTileFree(direction)) {
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y + 1 },false)) {
 					target_position.create(position.x, position.y + App->map->data.tile_height);
 					movement_count.y += App->map->data.tile_height;
 					actual_tile += {1, 1};
@@ -301,7 +294,7 @@ void Player::ReadPlayerMovementInQuest()
 			}
 			if (player_input.pressing_S && !player_input.pressing_shift) {
 				direction = Direction::DOWN_LEFT;
-				if (NextTileFree(direction)) {
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x, actual_tile.y + 1 },false)) {
 					target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 					movement_count.x -= (App->map->data.tile_width / 2);
 					movement_count.y += (App->map->data.tile_height / 2);
@@ -314,7 +307,7 @@ void Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_D && !player_input.pressing_shift) {
 				direction = Direction::DOWN_RIGHT;
-				if (NextTileFree(direction)) {
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y},false)) {
 					target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 					movement_count.x += (App->map->data.tile_width / 2);
 					movement_count.y += (App->map->data.tile_height / 2);
@@ -327,7 +320,7 @@ void Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_W && !player_input.pressing_shift) {
 				direction = Direction::UP_RIGHT;
-				if (NextTileFree(direction)) {
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x, actual_tile.y - 1 },false)) {
 					target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 					movement_count.x += (App->map->data.tile_width / 2);
 					movement_count.y -= (App->map->data.tile_height / 2);
@@ -340,7 +333,7 @@ void Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_A && !player_input.pressing_shift) {
 				direction = Direction::UP_LEFT;
-				if (NextTileFree(direction)) {
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y},false)) {
 					target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 					movement_count.x -= (App->map->data.tile_width / 2);
 					movement_count.y -= (App->map->data.tile_height / 2);
