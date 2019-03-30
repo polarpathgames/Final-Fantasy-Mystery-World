@@ -58,7 +58,7 @@ void j1Map::Draw()
 	{
 		MapLayer* layer = *item;
 
-		if(layer->properties.GetValue("NoDraw") != 0)
+		if(layer->properties.GetValue("Nodraw") != 0)
 			continue;
 
 		for(int i = 0; i < data.width; ++i)
@@ -549,7 +549,7 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties<int>* properties)
 	return ret;
 }
 
-bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
+bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer)
 {
 	bool ret = false;
 	std::list<MapLayer*>::const_iterator item;
@@ -570,12 +570,16 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 			for(int x = 0; x < data.width; ++x)
 			{
 				int i = (y*layer->width) + x;
-
+				iPoint tile_pos = MapToWorld(x, y);
 				int tile_id = layer->Get(x, y);
 				TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : NULL;
 				
 				if(tileset != NULL)
 				{
+					tile_pos.x += 1;
+					//tile_pos.y -= 2;
+					iPoint pos = WorldToMap(tile_pos.x, tile_pos.y);
+					data.no_walkables.push_back(pos);
 					map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
 					/*TileType* ts = tileset->GetTileType(tile_id);
 					if(ts != NULL)
@@ -619,4 +623,22 @@ bool j1Map::ChangeMap(Maps type)
 	App->scene->CreateEntities();
 
 	return true;
+}
+
+bool j1Map::IsWalkable(iPoint pos, bool need_convert)
+{
+	bool ret = true;
+
+	std::list<iPoint>::const_iterator item = data.no_walkables.begin();
+	if (need_convert)
+		pos = WorldToMap(pos.x, pos.y);
+
+	for (; item != data.no_walkables.end(); ++item) {
+		if ((*item) == pos) {
+			ret = false;
+			break;
+		}
+	}
+
+	return ret;
 }

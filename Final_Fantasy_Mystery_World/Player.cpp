@@ -10,6 +10,7 @@
 #include "j1Map.h"
 #include "j1EntityManager.h"
 #include "j1Map.h"
+#include "j1Pathfinding.h"
 #include "j1Collisions.h"
 #include <string>
 #include "Brofiler/Brofiler.h"
@@ -27,11 +28,11 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 
 	current_animation = &IdleDownLeft;
 
-	SetPivot(9, 30);
+	SetPivot(10, 30);
 	has_turn = true;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
-	movement_type = Movement_Type::InLobby;
+	movement_type = Movement_Type::InQuest;
 	ground = App->tex->Load("textures/player_pos.png");
 	
 	velocity.x = 160;
@@ -97,10 +98,7 @@ bool Player::Update(float dt)
 bool Player::PostUpdate()
 {
 	BROFILER_CATEGORY("PostUpdatePlayer", Profiler::Color::Purple);
-	can_input.A = true;
-	can_input.D = true;
-	can_input.W = true;
-	can_input.S = true;
+
 	return true;
 }
 
@@ -124,6 +122,29 @@ void Player::OnCollision(Collider * c2)
 {
 	iPoint colliding_pos = c2->collided_point;
 
+	switch (c2->type) {
+	case COLLIDER_WALL_LEFT:
+		player_input.pressing_A = false;
+		player_input.pressing_S = false;
+		break;
+	case COLLIDER_WALL_RIGHT:
+		player_input.pressing_D = false;
+		player_input.pressing_W = false;
+		break;
+	case COLLIDER_WALL_UP:
+		player_input.pressing_W = false;
+		player_input.pressing_A = false;
+		break;
+	case COLLIDER_WALL_DOWN:
+		player_input.pressing_D = false;
+		player_input.pressing_S = false;
+		break;
+	default:
+		LOG("No collider type found");
+		break;
+	}
+	
+	/*
 	if (colliding_pos.y <= coll->rect.y) { // colliding up
 		can_input.W = false;
 		player_input.pressing_W = false;
@@ -174,7 +195,7 @@ void Player::OnCollision(Collider * c2)
 		}
 
 	}
-
+	*/
 
 }
 
@@ -182,14 +203,10 @@ void Player::OnCollision(Collider * c2)
 
 void Player::ReadPlayerInput()
 {
-	if (can_input.A)
-		player_input.pressing_A = App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT;
-	if (can_input.S)
-		player_input.pressing_S = App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT;
-	if (can_input.W)
-		player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
-	if (can_input.D)
-		player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
+	player_input.pressing_A = App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT;
+	player_input.pressing_S = App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT;
+	player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
+	player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
 	player_input.pressing_I = App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN;
 	player_input.pressing_J = App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN;
 	player_input.pressing_K = App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN;
@@ -484,40 +501,56 @@ void Player::PerformMovementInLobby(float dt)
 	switch (direction)
 	{
 	case Direction::DOWN_LEFT:
-		position.x -= floor(velocity.x * dt);
-		position.y += floor(velocity.y * dt);
-		current_animation = &GoDownLeft;
+		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
+			position.x -= floor(velocity.x * dt);
+			position.y += floor(velocity.y * dt);
+			current_animation = &GoDownLeft;
+		}
 		break;
 	case Direction::UP_RIGHT:
-		position.x += floor(velocity.x * dt);
-		position.y -= floor(velocity.y * dt);
-		current_animation = &GoUpRight;
+		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
+			position.x += floor(velocity.x * dt);
+			position.y -= floor(velocity.y * dt);
+			current_animation = &GoUpRight;
+		}
 		break;
 	case Direction::UP_LEFT:
-		position.x -= floor(velocity.x * dt);
-		position.y -= floor(velocity.y * dt);
-		current_animation = &GoUpLeft;
+		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
+			position.x -= floor(velocity.x * dt);
+			position.y -= floor(velocity.y * dt);
+			current_animation = &GoUpLeft;
+		}
 		break;
 	case Direction::DOWN_RIGHT:
-		position.x += floor(velocity.x * dt);
-		position.y += floor(velocity.y * dt);
-		current_animation = &GoDownRight;
+		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
+			position.x += floor(velocity.x * dt);
+			position.y += floor(velocity.y * dt);
+			current_animation = &GoDownRight;
+		}
 		break;
 	case Direction::RIGHT:
-		position.x += floor(180 * dt);
-		current_animation = &GoRight;
+		if (App->map->IsWalkable({ (int)(position.x + floor(180 * dt) + pivot.x), position.y + pivot.y })) {
+			position.x += floor(180 * dt);
+			current_animation = &GoRight;
+		}
 		break;
 	case Direction::LEFT:
-		position.x -= floor(180 * dt);
-		current_animation = &GoLeft;
+		if (App->map->IsWalkable({(int)(position.x - floor(180 * dt) + pivot.x), position.y + pivot.y })) {
+			position.x -= floor(180 * dt);
+			current_animation = &GoLeft;
+		}
 		break;
 	case Direction::UP:
-		position.y -= floor(180 * dt);
-		current_animation = &GoUp;
+		if (App->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y - floor(180 * dt)) })) {
+			position.y -= floor(180 * dt);
+			current_animation = &GoUp;
+		}
 		break;
 	case Direction::DOWN:
-		position.y += floor(180 * dt);
-		current_animation = &GoDown;
+		if (App->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y + floor(180 * dt)) })) {
+			position.y += floor(180 * dt);
+			current_animation = &GoDown;
+		}
 		break;
 	default:
 		break;

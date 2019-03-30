@@ -20,13 +20,6 @@ struct Input {
 	bool pressing_shift; // DIAGONALS
 };
 
-struct InputAccepted {
-	bool A = true;
-	bool W = true;
-	bool S = true;
-	bool D = true;
-};
-
 struct PlayerStats {
 
 	int live = 100;
@@ -96,7 +89,6 @@ public:
 
 	PlayerStats stats;
 
-	InputAccepted can_input;
 };
 
 

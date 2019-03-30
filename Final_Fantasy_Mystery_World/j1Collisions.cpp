@@ -10,11 +10,29 @@ j1Collision::j1Collision()
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
-	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
-	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_WALL_LEFT] = true;
+	matrix[COLLIDER_WALL_LEFT][COLLIDER_PLAYER] = true;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
-	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
+	matrix[COLLIDER_WALL_LEFT][COLLIDER_WALL_LEFT] = false;
+
+	matrix[COLLIDER_PLAYER][COLLIDER_WALL_RIGHT] = true;
+	matrix[COLLIDER_WALL_RIGHT][COLLIDER_PLAYER] = true;
+
+
+	matrix[COLLIDER_WALL_RIGHT][COLLIDER_WALL_RIGHT] = false;
+
+	matrix[COLLIDER_PLAYER][COLLIDER_WALL_UP] = true;
+	matrix[COLLIDER_WALL_UP][COLLIDER_PLAYER] = true;
+
+
+	matrix[COLLIDER_WALL_UP][COLLIDER_WALL_UP] = false;
+
+	matrix[COLLIDER_PLAYER][COLLIDER_WALL_DOWN] = true;
+	matrix[COLLIDER_WALL_DOWN][COLLIDER_PLAYER] = true;
+
+
+	matrix[COLLIDER_WALL_DOWN][COLLIDER_WALL_DOWN] = false;
 }
 
 // Destructor
@@ -114,8 +132,17 @@ void j1Collision::DebugDraw()
 		case COLLIDER_PLAYER: // white
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
 			break;
-		case COLLIDER_WALL: // white
-			App->render->DrawLine(colliders[i]->line.x1, colliders[i]->line.y1, colliders[i]->line.x2, colliders[i]->line.y2, 255, 0, 0, alpha);
+		case COLLIDER_WALL_LEFT: // white
+			App->render->DrawLine(colliders[i]->line.x1, colliders[i]->line.y1, colliders[i]->line.x2, colliders[i]->line.y2, 0, 0, 0, alpha);
+			break;
+		case COLLIDER_WALL_RIGHT: // white
+			App->render->DrawLine(colliders[i]->line.x1, colliders[i]->line.y1, colliders[i]->line.x2, colliders[i]->line.y2, 0, 0, 0, alpha);
+			break;
+		case COLLIDER_WALL_UP: // white
+			App->render->DrawLine(colliders[i]->line.x1, colliders[i]->line.y1, colliders[i]->line.x2, colliders[i]->line.y2, 0, 0, 0, alpha);
+			break;
+		case COLLIDER_WALL_DOWN: // white
+			App->render->DrawLine(colliders[i]->line.x1, colliders[i]->line.y1, colliders[i]->line.x2, colliders[i]->line.y2, 0, 0, 0, alpha);
 			break;
 		}
 
@@ -210,25 +237,43 @@ bool Collider::CheckCollision(const iLine & l) const
 
 bool Collider::HasIntersection(const int &x1_1, const int &y1_1, const int &x2_1, const int &y2_1, const int &x1_2, const int& y1_2, const int &x2_2, const int &y2_2) const
 {
-	float s1_x, s1_y, s2_x, s2_y, sn, tn, sd, td, t;
-	s1_x = x2_1 - x1_1;     s1_y = y2_1 - y1_1;
-	s2_x = x2_2 - x1_2;     s2_y = y2_2 - y1_2;
+	iPoint pos1, pos2, pos3, pos4;
+	if (x1_1 > x2_1 || y1_1 > y2_1) {
+		pos1 = { x2_1,y2_1 };
+		pos2 = { x1_1,y1_1 };
+	}
+	else {
+		pos1 = { x1_1,y1_1 };
+		pos2 = { x2_1,y2_1 };
+	}
+	if (x1_2 > x2_2 || y1_2 > y2_2) {
+		pos3 = { x2_2,y2_2 };
+		pos4 = { x1_2,y1_2 };
+	}
+	else {
+		pos3 = { x1_2,y1_2 };
+		pos4 = { x2_2,y2_2 };
+	}
 
-	sn = -s1_y * (x1_1 - x1_2) + s1_x * (y1_1 - y1_2);
+
+
+	float s1_x, s1_y, s2_x, s2_y, sn, tn, sd, td, t;
+	s1_x = pos2.x - pos1.x;     s1_y = pos2.y - pos1.y;
+	s2_x = pos4.x - pos3.x;     s2_y = pos4.y - pos3.y;
+
+	sn = -s1_y * (pos1.x - pos3.x) + s1_x * (pos1.y - pos3.y);
 	sd = -s2_x * s1_y + s1_x * s2_y;
-	tn = s2_x * (y1_1 - y1_2) - s2_y * (x1_1 - x1_2);
+	tn = s2_x * (pos1.y - pos3.y) - s2_y * (pos1.x - pos3.x);
 	td = -s2_x * s1_y + s1_x * s2_y;
 
 	if (sn >= 0 && sn <= sd && tn >= 0 && tn <= td)
 	{
 		// Collision detected
 		t = tn / td;
-		collided_point.x = x1_1;
-		collided_point.y = y1_1 + (tn * s1_y);
+		collided_point.x = pos1.x + (tn * s1_x);
+		collided_point.y = pos1.y + (td * s1_y);
 		return true;
 	}
 
 	return false; // No collision
-
-
 }
