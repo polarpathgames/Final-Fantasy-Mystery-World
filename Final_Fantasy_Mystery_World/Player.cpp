@@ -124,8 +124,37 @@ void Player::OnCollision(Collider * c2)
 {
 	iPoint colliding_pos = c2->collided_point;
 
-	App->render->DrawCircle(colliding_pos.x, colliding_pos.y, 4, 0, 0, 0);
-
+	switch (c2->type) {
+	case COLLIDER_WALL_LEFT:
+		can_input.A = false;
+		player_input.pressing_A = false;
+		can_input.S = false;
+		player_input.pressing_S = false;
+		break;
+	case COLLIDER_WALL_RIGHT:
+		can_input.D = false;
+		player_input.pressing_D = false;
+		can_input.W = false;
+		player_input.pressing_W = false;
+		break;
+	case COLLIDER_WALL_UP:
+		can_input.W = false;
+		player_input.pressing_W = false;
+		can_input.A = false;
+		player_input.pressing_A = false;
+		break;
+	case COLLIDER_WALL_DOWN:
+		can_input.D = false;
+		player_input.pressing_D = false;
+		can_input.S = false;
+		player_input.pressing_S = false;
+		break;
+	default:
+		LOG("No collider type found");
+		break;
+	}
+	
+	/*
 	if (colliding_pos.y <= coll->rect.y) { // colliding up
 		can_input.W = false;
 		player_input.pressing_W = false;
@@ -176,7 +205,7 @@ void Player::OnCollision(Collider * c2)
 		}
 
 	}
-
+	*/
 
 }
 

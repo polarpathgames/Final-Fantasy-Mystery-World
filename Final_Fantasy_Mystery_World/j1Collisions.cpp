@@ -10,11 +10,29 @@ j1Collision::j1Collision()
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
-	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
-	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_WALL_LEFT] = true;
+	matrix[COLLIDER_WALL_LEFT][COLLIDER_PLAYER] = true;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
-	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
+	matrix[COLLIDER_WALL_LEFT][COLLIDER_WALL_LEFT] = false;
+
+	matrix[COLLIDER_PLAYER][COLLIDER_WALL_RIGHT] = true;
+	matrix[COLLIDER_WALL_RIGHT][COLLIDER_PLAYER] = true;
+
+
+	matrix[COLLIDER_WALL_RIGHT][COLLIDER_WALL_RIGHT] = false;
+
+	matrix[COLLIDER_PLAYER][COLLIDER_WALL_UP] = true;
+	matrix[COLLIDER_WALL_UP][COLLIDER_PLAYER] = true;
+
+
+	matrix[COLLIDER_WALL_UP][COLLIDER_WALL_UP] = false;
+
+	matrix[COLLIDER_PLAYER][COLLIDER_WALL_DOWN] = true;
+	matrix[COLLIDER_WALL_DOWN][COLLIDER_PLAYER] = true;
+
+
+	matrix[COLLIDER_WALL_DOWN][COLLIDER_WALL_DOWN] = false;
 }
 
 // Destructor
@@ -114,7 +132,16 @@ void j1Collision::DebugDraw()
 		case COLLIDER_PLAYER: // white
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
 			break;
-		case COLLIDER_WALL: // white
+		case COLLIDER_WALL_LEFT: // white
+			App->render->DrawLine(colliders[i]->line.x1, colliders[i]->line.y1, colliders[i]->line.x2, colliders[i]->line.y2, 0, 0, 0, alpha);
+			break;
+		case COLLIDER_WALL_RIGHT: // white
+			App->render->DrawLine(colliders[i]->line.x1, colliders[i]->line.y1, colliders[i]->line.x2, colliders[i]->line.y2, 0, 0, 0, alpha);
+			break;
+		case COLLIDER_WALL_UP: // white
+			App->render->DrawLine(colliders[i]->line.x1, colliders[i]->line.y1, colliders[i]->line.x2, colliders[i]->line.y2, 0, 0, 0, alpha);
+			break;
+		case COLLIDER_WALL_DOWN: // white
 			App->render->DrawLine(colliders[i]->line.x1, colliders[i]->line.y1, colliders[i]->line.x2, colliders[i]->line.y2, 0, 0, 0, alpha);
 			break;
 		}
@@ -249,78 +276,4 @@ bool Collider::HasIntersection(const int &x1_1, const int &y1_1, const int &x2_1
 	}
 
 	return false; // No collision
-
-
-
-	/*double Epsilon = 1e-10;
-
-	iPoint p{ x1_1,y1_1 };
-	iPoint p2{ x2_1,y2_1 };
-
-	iPoint q{ x1_2,y1_2 };
-	iPoint q2{ x2_2,y2_2 };
-
-	iPoint r = p2 - p;
-	iPoint s = q2 - q;
-	int rxs = r.Cross(s);
-	int qpxr = (q - p).Cross(r);
-	
-	if (abs(rxs) < Epsilon && abs(qpxr) < Epsilon)
-		return false;
-
-	int t = (q - p).Cross(s) / rxs;
-
-
-	int u = (q - p).Cross(r) / rxs;
-
-	if (abs(rxs) < Epsilon && (0 <= t && t <= 1) && (0 <= u && u <= 1))
-	{
-		collided_point.x = p.x + t * r.x;
-		collided_point.y = p.y + t * r.y;
-		return true;
-	}
-	return false;
-
-	*/
-
-
-
-
-	/*
-
-	float s02_x, s02_y, s10_x, s10_y, s32_x, s32_y, s_numer, t_numer, denom, t;
-
-	s10_x = x2_1 - x1_1;
-	s10_y = y2_1 - y1_1;
-	s02_x = x1_1 - x1_2;
-	s02_y = y1_1 - y1_2;
-
-	s_numer = s10_x * s02_y - s10_y * s02_x;
-	if (s_numer < 0)
-		return false; // No collision
-
-	s32_x = x2_2 - x1_2;
-	s32_y = y2_2 - y1_2;
-	t_numer = s32_x * s02_y - s32_y * s02_x;
-	if (t_numer < 0)
-		return false; // No collision
-
-	denom = s10_x * s32_y - s32_x * s10_y;
-	if (s_numer > denom || t_numer > denom)
-		return false; // No collision
-
-				  // Collision detected
-	t = t_numer / denom;
-
-		collided_point.x = x1_1 + (t * s10_x);
-
-		collided_point.y = y1_1 + (t * s10_y);
-
-	return true;
-	*/
-
-
-	
-
-
 }

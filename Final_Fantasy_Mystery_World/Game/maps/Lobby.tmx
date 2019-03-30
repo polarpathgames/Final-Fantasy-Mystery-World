@@ -11906,23 +11906,27 @@
   <object id="119" name="collider" x="496.224" y="303.826">
    <properties>
     <property name="right" type="int" value="3"/>
+    <property name="type" type="int" value="2"/>
    </properties>
    <point/>
   </object>
   <object id="120" name="collider" x="496.525" y="271.57">
    <properties>
     <property name="right" type="int" value="3"/>
+    <property name="type" type="int" value="1"/>
    </properties>
    <point/>
   </object>
-  <object id="121" name="collider" x="496.484" y="303.703">
+  <object id="121" name="collider" x="496.273" y="303.87">
    <properties>
+    <property name="type" type="int" value="3"/>
     <property name="up" type="int" value="2"/>
    </properties>
    <point/>
   </object>
   <object id="122" name="collider" x="544.955" y="303.227">
    <properties>
+    <property name="type" type="int" value="4"/>
     <property name="up" type="int" value="2"/>
    </properties>
    <point/>
