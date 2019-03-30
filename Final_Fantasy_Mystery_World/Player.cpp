@@ -32,7 +32,7 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	has_turn = true;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
-	movement_type = Movement_Type::InLobby;
+	movement_type = Movement_Type::InQuest;
 	ground = App->tex->Load("textures/player_pos.png");
 	
 	velocity.x = 160;
@@ -98,10 +98,7 @@ bool Player::Update(float dt)
 bool Player::PostUpdate()
 {
 	BROFILER_CATEGORY("PostUpdatePlayer", Profiler::Color::Purple);
-	can_input.A = true;
-	can_input.D = true;
-	can_input.W = true;
-	can_input.S = true;
+
 	return true;
 }
 
@@ -127,27 +124,19 @@ void Player::OnCollision(Collider * c2)
 
 	switch (c2->type) {
 	case COLLIDER_WALL_LEFT:
-		can_input.A = false;
 		player_input.pressing_A = false;
-		can_input.S = false;
 		player_input.pressing_S = false;
 		break;
 	case COLLIDER_WALL_RIGHT:
-		can_input.D = false;
 		player_input.pressing_D = false;
-		can_input.W = false;
 		player_input.pressing_W = false;
 		break;
 	case COLLIDER_WALL_UP:
-		can_input.W = false;
 		player_input.pressing_W = false;
-		can_input.A = false;
 		player_input.pressing_A = false;
 		break;
 	case COLLIDER_WALL_DOWN:
-		can_input.D = false;
 		player_input.pressing_D = false;
-		can_input.S = false;
 		player_input.pressing_S = false;
 		break;
 	default:
@@ -214,14 +203,10 @@ void Player::OnCollision(Collider * c2)
 
 void Player::ReadPlayerInput()
 {
-	if (can_input.A)
-		player_input.pressing_A = App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT;
-	if (can_input.S)
-		player_input.pressing_S = App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT;
-	if (can_input.W)
-		player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
-	if (can_input.D)
-		player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
+	player_input.pressing_A = App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT;
+	player_input.pressing_S = App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT;
+	player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
+	player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
 	player_input.pressing_I = App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN;
 	player_input.pressing_J = App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN;
 	player_input.pressing_K = App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN;

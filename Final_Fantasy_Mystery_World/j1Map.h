@@ -6,7 +6,10 @@
 #include "p2Point.h"
 #include "j1Module.h"
 #include "p2Properties.h"
+#include "SDL/include/SDL_rect.h"
 #include <string>
+
+struct SDL_Texture;
 
 enum class Maps {
 
@@ -133,7 +136,7 @@ public:
 
 	bool ChangeMap(Maps type);
 
-	bool IsWalkable(iPoint pos);
+	bool IsWalkable(iPoint pos, bool need_convert = true);
 
 private:
 

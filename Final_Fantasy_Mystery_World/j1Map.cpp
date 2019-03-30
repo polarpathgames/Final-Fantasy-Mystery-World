@@ -625,16 +625,16 @@ bool j1Map::ChangeMap(Maps type)
 	return true;
 }
 
-bool j1Map::IsWalkable(iPoint pos)
+bool j1Map::IsWalkable(iPoint pos, bool need_convert)
 {
 	bool ret = true;
 
 	std::list<iPoint>::const_iterator item = data.no_walkables.begin();
-
-	iPoint POS = WorldToMap(pos.x, pos.y);
+	if (need_convert)
+		pos = WorldToMap(pos.x, pos.y);
 
 	for (; item != data.no_walkables.end(); ++item) {
-		if ((*item) == POS) {
+		if ((*item) == pos) {
 			ret = false;
 			break;
 		}
