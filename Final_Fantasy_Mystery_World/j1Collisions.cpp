@@ -210,25 +210,117 @@ bool Collider::CheckCollision(const iLine & l) const
 
 bool Collider::HasIntersection(const int &x1_1, const int &y1_1, const int &x2_1, const int &y2_1, const int &x1_2, const int& y1_2, const int &x2_2, const int &y2_2) const
 {
-	float s1_x, s1_y, s2_x, s2_y, sn, tn, sd, td, t;
-	s1_x = x2_1 - x1_1;     s1_y = y2_1 - y1_1;
-	s2_x = x2_2 - x1_2;     s2_y = y2_2 - y1_2;
+	iPoint pos1, pos2, pos3, pos4;
+	if (x1_1 > x2_1 || y1_1 > y2_1) {
+		pos1 = { x2_1,y2_1 };
+		pos2 = { x1_1,y1_1 };
+	}
+	else {
+		pos1 = { x1_1,y1_1 };
+		pos2 = { x2_1,y2_1 };
+	}
+	if (x1_2 > x2_2 || y1_2 > y2_2) {
+		pos3 = { x2_2,y2_2 };
+		pos4 = { x1_2,y1_2 };
+	}
+	else {
+		pos3 = { x1_2,y1_2 };
+		pos4 = { x2_2,y2_2 };
+	}
 
-	sn = -s1_y * (x1_1 - x1_2) + s1_x * (y1_1 - y1_2);
+
+
+	float s1_x, s1_y, s2_x, s2_y, sn, tn, sd, td, t;
+	s1_x = pos2.x - pos1.x;     s1_y = pos2.y - pos1.y;
+	s2_x = pos4.x - pos3.x;     s2_y = pos4.y - pos3.y;
+
+	sn = -s1_y * (pos1.x - pos3.x) + s1_x * (pos1.y - pos3.y);
 	sd = -s2_x * s1_y + s1_x * s2_y;
-	tn = s2_x * (y1_1 - y1_2) - s2_y * (x1_1 - x1_2);
+	tn = s2_x * (pos1.y - pos3.y) - s2_y * (pos1.x - pos3.x);
 	td = -s2_x * s1_y + s1_x * s2_y;
 
 	if (sn >= 0 && sn <= sd && tn >= 0 && tn <= td)
 	{
 		// Collision detected
 		t = tn / td;
-		collided_point.x = x1_1;
-		collided_point.y = y1_1 + (tn * s1_y);
+		collided_point.x = pos1.x + (tn * s1_x);
+		collided_point.y = pos1.y + (td * s1_y);
 		return true;
 	}
 
 	return false; // No collision
+
+
+
+	/*double Epsilon = 1e-10;
+
+	iPoint p{ x1_1,y1_1 };
+	iPoint p2{ x2_1,y2_1 };
+
+	iPoint q{ x1_2,y1_2 };
+	iPoint q2{ x2_2,y2_2 };
+
+	iPoint r = p2 - p;
+	iPoint s = q2 - q;
+	int rxs = r.Cross(s);
+	int qpxr = (q - p).Cross(r);
+	
+	if (abs(rxs) < Epsilon && abs(qpxr) < Epsilon)
+		return false;
+
+	int t = (q - p).Cross(s) / rxs;
+
+
+	int u = (q - p).Cross(r) / rxs;
+
+	if (abs(rxs) < Epsilon && (0 <= t && t <= 1) && (0 <= u && u <= 1))
+	{
+		collided_point.x = p.x + t * r.x;
+		collided_point.y = p.y + t * r.y;
+		return true;
+	}
+	return false;
+
+	*/
+
+
+
+
+	/*
+
+	float s02_x, s02_y, s10_x, s10_y, s32_x, s32_y, s_numer, t_numer, denom, t;
+
+	s10_x = x2_1 - x1_1;
+	s10_y = y2_1 - y1_1;
+	s02_x = x1_1 - x1_2;
+	s02_y = y1_1 - y1_2;
+
+	s_numer = s10_x * s02_y - s10_y * s02_x;
+	if (s_numer < 0)
+		return false; // No collision
+
+	s32_x = x2_2 - x1_2;
+	s32_y = y2_2 - y1_2;
+	t_numer = s32_x * s02_y - s32_y * s02_x;
+	if (t_numer < 0)
+		return false; // No collision
+
+	denom = s10_x * s32_y - s32_x * s10_y;
+	if (s_numer > denom || t_numer > denom)
+		return false; // No collision
+
+				  // Collision detected
+	t = t_numer / denom;
+
+		collided_point.x = x1_1 + (t * s10_x);
+
+		collided_point.y = y1_1 + (t * s10_y);
+
+	return true;
+	*/
+
+
+	
 
 
 }

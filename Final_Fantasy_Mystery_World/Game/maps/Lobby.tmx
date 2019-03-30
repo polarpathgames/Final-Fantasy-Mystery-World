@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="42" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="84" nextobjectid="118">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="42" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="84" nextobjectid="123">
  <tileset firstgid="1" name="tutorial_tileset" tilewidth="32" tileheight="16" tilecount="810" columns="45">
   <image source="tutorial_tileset.png" width="1440" height="290"/>
   <terraintypes>
@@ -11903,9 +11903,27 @@
   <object id="16" name="Shop" x="176" y="272" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="83" name="COLLISIONS">
-  <object id="117" name="collider" x="400.398" y="223.605">
+  <object id="119" name="collider" x="496.224" y="303.826">
    <properties>
-    <property name="right" type="int" value="6"/>
+    <property name="right" type="int" value="3"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="120" name="collider" x="496.525" y="271.57">
+   <properties>
+    <property name="right" type="int" value="3"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="121" name="collider" x="496.484" y="303.703">
+   <properties>
+    <property name="up" type="int" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="122" name="collider" x="544.955" y="303.227">
+   <properties>
+    <property name="up" type="int" value="2"/>
    </properties>
    <point/>
   </object>

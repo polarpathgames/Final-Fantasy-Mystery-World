@@ -124,6 +124,8 @@ void Player::OnCollision(Collider * c2)
 {
 	iPoint colliding_pos = c2->collided_point;
 
+	App->render->DrawCircle(colliding_pos.x, colliding_pos.y, 4, 0, 0, 0);
+
 	if (colliding_pos.y <= coll->rect.y) { // colliding up
 		can_input.W = false;
 		player_input.pressing_W = false;
