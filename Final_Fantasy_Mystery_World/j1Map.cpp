@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
+#include "j1Collisions.h"
 #include <math.h>
 #include "j1EntityManager.h"
 #include "Player.h"
@@ -40,7 +41,9 @@ bool j1Map::Awake(pugi::xml_node& config)
 	folder.assign(config.child("folder").child_value());
 
 	tutorial_map = config.child("maps").child("tutorial_map").text().as_string();
+	shop_map = config.child("maps").child("shop_map").text().as_string();
 	lobby_map = config.child("maps").child("lobby_map").text().as_string();
+	
 	
 	return ret;
 }
@@ -229,6 +232,7 @@ bool j1Map::CleanUp()
 
 	data.properties.CleanUp();
 
+	App->collision->CleanUp();
 	// Clean up the pugui tree
 	map_file.reset();
 
@@ -608,9 +612,15 @@ bool j1Map::ChangeMap(Maps type)
 	switch(type) {
 	case Maps::LOBBY:
 		Load(lobby_map.data());
+		actual_map = Maps::LOBBY;
 		break;
 	case Maps::TUTORIAL:
 		Load(tutorial_map.data());
+		actual_map = Maps::TUTORIAL;
+		break;
+	case Maps::SHOP:
+		Load("Home.tmx");
+		actual_map = Maps::SHOP;
 		break;
 	default:
 		LOG("Could not load the map");

@@ -84,7 +84,7 @@ bool MainMenu::Interact(GUI* interaction)
 		App->entity_manager->Enable();
 		App->map->Enable();
 		App->scene->Enable();
-		App->map->ChangeMap(Maps::TUTORIAL);
+		App->map->ChangeMap(Maps::LOBBY);
 		ret = false;
 	}
 

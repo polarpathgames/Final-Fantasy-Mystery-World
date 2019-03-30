@@ -12,6 +12,7 @@
 #include "j1Map.h"
 #include "j1Pathfinding.h"
 #include "j1Collisions.h"
+#include "j1FadeToBlack.h"
 #include <string>
 #include "Brofiler/Brofiler.h"
 #include "EasingSplines.h"
@@ -32,7 +33,7 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	has_turn = true;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
-	movement_type = Movement_Type::InQuest;
+	movement_type = Movement_Type::InLobby;
 	ground = App->tex->Load("textures/player_pos.png");
 	
 	velocity.x = 160;
@@ -120,31 +121,14 @@ bool Player::CleanUp()
 
 void Player::OnCollision(Collider * c2)
 {
-	iPoint colliding_pos = c2->collided_point;
-
-	switch (c2->type) {
-	case COLLIDER_WALL_LEFT:
-		player_input.pressing_A = false;
-		player_input.pressing_S = false;
-		break;
-	case COLLIDER_WALL_RIGHT:
-		player_input.pressing_D = false;
-		player_input.pressing_W = false;
-		break;
-	case COLLIDER_WALL_UP:
-		player_input.pressing_W = false;
-		player_input.pressing_A = false;
-		break;
-	case COLLIDER_WALL_DOWN:
-		player_input.pressing_D = false;
-		player_input.pressing_S = false;
-		break;
-	default:
-		LOG("No collider type found");
-		break;
+	
+	if (c2->type == COLLIDER_SHOP) {
+		App->fade_to_black->FadeToBlack(Maps::SHOP);
 	}
+
 	
 	/*
+	iPoint colliding_pos = c2->collided_point;
 	if (colliding_pos.y <= coll->rect.y) { // colliding up
 		can_input.W = false;
 		player_input.pressing_W = false;
