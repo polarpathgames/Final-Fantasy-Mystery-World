@@ -32,7 +32,7 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	has_turn = true;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
-	movement_type = Movement_Type::InLobby;
+	movement_type = Movement_Type::InQuest;
 	ground = App->tex->Load("textures/player_pos.png");
 	
 	velocity.x = 160;
@@ -253,7 +253,7 @@ void Player::ReadPlayerMovementInQuest()
 		if (MultipleButtons(&player_input)) {
 			if (player_input.pressing_A && player_input.pressing_shift) {
 				direction = Direction::LEFT;
-				if (NextTileFree(direction)) {
+				if (NextTileFree(direction) && App->map->IsWalkable({actual_tile.x - 1, actual_tile.y + 1},false)) {
 					target_position.create(position.x - App->map->data.tile_width, position.y);
 					movement_count.x -= App->map->data.tile_width;
 					actual_tile += {-1, 1};
@@ -265,7 +265,7 @@ void Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_D && player_input.pressing_shift) {
 				direction = Direction::RIGHT;
-				if (NextTileFree(direction)) {
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y - 1 },false)) {
 					target_position.create(position.x + App->map->data.tile_width, position.y);
 					movement_count.x += App->map->data.tile_width;
 					actual_tile += {1, -1};
@@ -277,7 +277,7 @@ void Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_W && player_input.pressing_shift) {
 				direction = Direction::UP;
-				if (NextTileFree(direction)) {
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y - 1 },false)) {
 					target_position.create(position.x, position.y - App->map->data.tile_height);
 					movement_count.y -= App->map->data.tile_height;
 					actual_tile += {-1, -1};
@@ -289,7 +289,7 @@ void Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_S && player_input.pressing_shift) {
 				direction = Direction::DOWN;
-				if (NextTileFree(direction)) {
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y + 1 },false)) {
 					target_position.create(position.x, position.y + App->map->data.tile_height);
 					movement_count.y += App->map->data.tile_height;
 					actual_tile += {1, 1};
@@ -301,7 +301,7 @@ void Player::ReadPlayerMovementInQuest()
 			}
 			if (player_input.pressing_S && !player_input.pressing_shift) {
 				direction = Direction::DOWN_LEFT;
-				if (NextTileFree(direction)) {
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x, actual_tile.y + 1 },false)) {
 					target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 					movement_count.x -= (App->map->data.tile_width / 2);
 					movement_count.y += (App->map->data.tile_height / 2);
@@ -314,7 +314,7 @@ void Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_D && !player_input.pressing_shift) {
 				direction = Direction::DOWN_RIGHT;
-				if (NextTileFree(direction)) {
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y},false)) {
 					target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
 					movement_count.x += (App->map->data.tile_width / 2);
 					movement_count.y += (App->map->data.tile_height / 2);
@@ -327,7 +327,7 @@ void Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_W && !player_input.pressing_shift) {
 				direction = Direction::UP_RIGHT;
-				if (NextTileFree(direction)) {
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x, actual_tile.y - 1 },false)) {
 					target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 					movement_count.x += (App->map->data.tile_width / 2);
 					movement_count.y -= (App->map->data.tile_height / 2);
@@ -340,7 +340,7 @@ void Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_A && !player_input.pressing_shift) {
 				direction = Direction::UP_LEFT;
-				if (NextTileFree(direction)) {
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y},false)) {
 					target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
 					movement_count.x -= (App->map->data.tile_width / 2);
 					movement_count.y -= (App->map->data.tile_height / 2);
