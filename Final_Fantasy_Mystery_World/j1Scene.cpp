@@ -168,18 +168,18 @@ void j1Scene::CreateEntities()
 		else if ((*position)->name == "collider") { // COLLIDERS
 			if ((*position)->properties.FindNameValue("right")) { // line
 				iPoint init_pos = App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y);
-				if ((*position)->properties.GetValue("type") == 1)
-					App->collision->AddCollider(iLine{ init_pos.x,init_pos.y,init_pos.x + (App->map->data.tile_width / 2)*(*position)->properties.GetValue("right"),init_pos.y + (App->map->data.tile_height / 2)*(*position)->properties.GetValue("right") }, COLLIDER_WALL_LEFT, nullptr);
-				else if ((*position)->properties.GetValue("type") == 2) 
-					App->collision->AddCollider(iLine{ init_pos.x,init_pos.y,init_pos.x + (App->map->data.tile_width / 2)*(*position)->properties.GetValue("right"),init_pos.y + (App->map->data.tile_height / 2)*(*position)->properties.GetValue("right") }, COLLIDER_WALL_RIGHT, nullptr);
+				//if ((*position)->properties.GetValue("type") == 1)
+				//	App->collision->AddCollider(iLine{ init_pos.x,init_pos.y,init_pos.x + (App->map->data.tile_width / 2)*(*position)->properties.GetValue("right"),init_pos.y + (App->map->data.tile_height / 2)*(*position)->properties.GetValue("right") }, COLLIDER_WALL_LEFT, nullptr);
+				//else if ((*position)->properties.GetValue("type") == 2) 
+				//	App->collision->AddCollider(iLine{ init_pos.x,init_pos.y,init_pos.x + (App->map->data.tile_width / 2)*(*position)->properties.GetValue("right"),init_pos.y + (App->map->data.tile_height / 2)*(*position)->properties.GetValue("right") }, COLLIDER_WALL_RIGHT, nullptr);
 
 			}
 			else if ((*position)->properties.FindNameValue("up")) { // line
 				iPoint init_pos = App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y);
-				if ((*position)->properties.GetValue("type") == 3)
-					App->collision->AddCollider(iLine{ init_pos.x,init_pos.y,init_pos.x + (App->map->data.tile_width/2)*(*position)->properties.GetValue("up"),init_pos.y - (App->map->data.tile_height / 2)*(*position)->properties.GetValue("up") }, COLLIDER_WALL_DOWN, nullptr);
-				else if ((*position)->properties.GetValue("type") == 4)
-					App->collision->AddCollider(iLine{ init_pos.x,init_pos.y,init_pos.x + (App->map->data.tile_width / 2)*(*position)->properties.GetValue("up"),init_pos.y - (App->map->data.tile_height / 2)*(*position)->properties.GetValue("up") }, COLLIDER_WALL_UP, nullptr);
+				//if ((*position)->properties.GetValue("type") == 3)
+				//	App->collision->AddCollider(iLine{ init_pos.x,init_pos.y,init_pos.x + (App->map->data.tile_width/2)*(*position)->properties.GetValue("up"),init_pos.y - (App->map->data.tile_height / 2)*(*position)->properties.GetValue("up") }, COLLIDER_WALL_DOWN, nullptr);
+			//	else if ((*position)->properties.GetValue("type") == 4)
+				//	App->collision->AddCollider(iLine{ init_pos.x,init_pos.y,init_pos.x + (App->map->data.tile_width / 2)*(*position)->properties.GetValue("up"),init_pos.y - (App->map->data.tile_height / 2)*(*position)->properties.GetValue("up") }, COLLIDER_WALL_UP, nullptr);
 			}
 			else { // rectangle then :)
 

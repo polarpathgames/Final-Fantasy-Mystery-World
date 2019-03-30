@@ -10,6 +10,7 @@
 #include "j1Map.h"
 #include "j1EntityManager.h"
 #include "j1Map.h"
+#include "j1Pathfinding.h"
 #include "j1Collisions.h"
 #include <string>
 #include "Brofiler/Brofiler.h"
@@ -27,7 +28,7 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 
 	current_animation = &IdleDownLeft;
 
-	SetPivot(9, 30);
+	SetPivot(10, 30);
 	has_turn = true;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
@@ -515,40 +516,56 @@ void Player::PerformMovementInLobby(float dt)
 	switch (direction)
 	{
 	case Direction::DOWN_LEFT:
-		position.x -= floor(velocity.x * dt);
-		position.y += floor(velocity.y * dt);
-		current_animation = &GoDownLeft;
+		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
+			position.x -= floor(velocity.x * dt);
+			position.y += floor(velocity.y * dt);
+			current_animation = &GoDownLeft;
+		}
 		break;
 	case Direction::UP_RIGHT:
-		position.x += floor(velocity.x * dt);
-		position.y -= floor(velocity.y * dt);
-		current_animation = &GoUpRight;
+		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
+			position.x += floor(velocity.x * dt);
+			position.y -= floor(velocity.y * dt);
+			current_animation = &GoUpRight;
+		}
 		break;
 	case Direction::UP_LEFT:
-		position.x -= floor(velocity.x * dt);
-		position.y -= floor(velocity.y * dt);
-		current_animation = &GoUpLeft;
+		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
+			position.x -= floor(velocity.x * dt);
+			position.y -= floor(velocity.y * dt);
+			current_animation = &GoUpLeft;
+		}
 		break;
 	case Direction::DOWN_RIGHT:
-		position.x += floor(velocity.x * dt);
-		position.y += floor(velocity.y * dt);
-		current_animation = &GoDownRight;
+		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
+			position.x += floor(velocity.x * dt);
+			position.y += floor(velocity.y * dt);
+			current_animation = &GoDownRight;
+		}
 		break;
 	case Direction::RIGHT:
-		position.x += floor(180 * dt);
-		current_animation = &GoRight;
+		if (App->map->IsWalkable({ (int)(position.x + floor(180 * dt) + pivot.x), position.y + pivot.y })) {
+			position.x += floor(180 * dt);
+			current_animation = &GoRight;
+		}
 		break;
 	case Direction::LEFT:
-		position.x -= floor(180 * dt);
-		current_animation = &GoLeft;
+		if (App->map->IsWalkable({(int)(position.x - floor(180 * dt) + pivot.x), position.y + pivot.y })) {
+			position.x -= floor(180 * dt);
+			current_animation = &GoLeft;
+		}
 		break;
 	case Direction::UP:
-		position.y -= floor(180 * dt);
-		current_animation = &GoUp;
+		if (App->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y - floor(180 * dt)) })) {
+			position.y -= floor(180 * dt);
+			current_animation = &GoUp;
+		}
 		break;
 	case Direction::DOWN:
-		position.y += floor(180 * dt);
-		current_animation = &GoDown;
+		if (App->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y + floor(180 * dt)) })) {
+			position.y += floor(180 * dt);
+			current_animation = &GoDown;
+		}
 		break;
 	default:
 		break;

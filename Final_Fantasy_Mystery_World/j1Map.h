@@ -98,7 +98,8 @@ struct MapData
 	std::list<TileSet*>			tilesets;
 	std::list<MapLayer*>		layers;
 	std::list<ObjectLayer*>		objects;
-	Properties<int>					properties;
+	Properties<int>				properties;
+	std::list<iPoint>			no_walkables;
 };
 
 // ----------------------------------------------------
@@ -128,9 +129,11 @@ public:
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 	iPoint TiledToWorld(int x, int y) const;
-	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer);
 
 	bool ChangeMap(Maps type);
+
+	bool IsWalkable(iPoint pos);
 
 private:
 
