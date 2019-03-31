@@ -292,5 +292,27 @@ bool j1Scene::Interact(GUI* interact)
 		ret = false;
 	}
 
+	//if (interact == checkbox_fps)
+	//{
+	//	checkbox_fps->Clicked();
+	//	App->GetFrameRate();
+	//}
+
+	//if (interact == checkbox_fullscreen)
+	//{
+	//	checkbox_fullscreen->Clicked();
+	//	
+	//	if (App->win->fullscreen) {
+	//		App->win->fullscreen = false;
+	//		SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_SHOWN);
+	//		break;
+	//	}
+	//	else {
+	//		App->win->fullscreen = true;
+	//		SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_FULLSCREEN);
+	//		break;
+	//	}
+	//}
+
 	return ret;
 }
