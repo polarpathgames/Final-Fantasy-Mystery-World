@@ -41,7 +41,7 @@ void GUI::InnerDraw()
 	App->render->Blit((SDL_Texture*)App->ui_manager->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0);
 }
 
-bool GUI::Update()
+bool GUI::UpdateMouse()
 {
 	iPoint mouse;
 	App->input->GetMousePosition(mouse.x, mouse.y);
@@ -63,6 +63,19 @@ bool GUI::Update()
 		}
 	}
 	
+	return true;
+}
+
+bool GUI::UpdateFocus()
+{
+	if (App->input->GetKey(SDL_SCANCODE_EJECT) == KEY_DOWN) {
+		for (std::list<j1Module*>::iterator module = listeners.begin(); module != listeners.end(); ++module) {
+			if (*module != nullptr)
+				if (!(*module)->Interact(this))
+					break;
+		}
+	}
+
 	return true;
 }
 

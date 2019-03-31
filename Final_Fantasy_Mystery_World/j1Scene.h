@@ -32,7 +32,7 @@ public:
 	bool PreUpdate();
 
 	// Called each loop iteration
-	bool Update(float dt);
+	bool UpdateMouse(float dt);
 
 	// Called before all Updates
 	bool PostUpdate();

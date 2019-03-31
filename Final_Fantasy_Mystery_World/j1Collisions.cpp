@@ -72,7 +72,7 @@ bool j1Collision::PreUpdate()
 }
 
 // Called before render is available
-bool j1Collision::Update(float dt)
+bool j1Collision::UpdateMouse(float dt)
 {
 	BROFILER_CATEGORY("Collisions: Update", Profiler::Color::Magenta);
 	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)

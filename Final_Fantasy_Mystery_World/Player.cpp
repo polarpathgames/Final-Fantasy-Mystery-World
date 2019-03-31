@@ -68,7 +68,7 @@ bool Player::PreUpdate()
 	return true;
 }
 
-bool Player::Update(float dt)
+bool Player::UpdateMouse(float dt)
 {
 	BROFILER_CATEGORY("UpdatePlayer", Profiler::Color::Aqua);
 

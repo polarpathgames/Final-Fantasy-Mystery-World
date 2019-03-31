@@ -32,7 +32,7 @@ struct EaseSplineInfo {
 	float time_to_travel;
 	float time_started;
 	EaseFunctions ease_function;
-	bool Update(float dt);
+	bool UpdateMouse(float dt);
 
 	EaseSplineInfo(int * position, const int target_position, const float time_to_travel, TypeSpline type) {
 		this->position = position;
@@ -55,7 +55,7 @@ public:
 	virtual ~EasingSplines();
 
 	// Called each loop iteration
-	bool Update(float dt);
+	bool UpdateMouse(float dt);
 
 	// Called before quitting
 	bool CleanUp();

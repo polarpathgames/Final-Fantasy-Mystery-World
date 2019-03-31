@@ -77,7 +77,7 @@ bool Enemy::PreUpdate()
 	return true;
 }
 
-bool Enemy::Update(float dt)
+bool Enemy::UpdateMouse(float dt)
 {
 
 	BROFILER_CATEGORY("UpdateEnemy", Profiler::Color::Aqua);
