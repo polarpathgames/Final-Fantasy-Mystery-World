@@ -72,13 +72,11 @@ void GUI_Label::SetColor(Color c)
 		color = { 255,255,255,color.a };
 		break;
 	}
-	texture = App->fonts->Print(text.data(), color, id_font);
 }
 
 void GUI_Label::SetColor(const SDL_Color & c)
 {
 	color = c;
-	texture = App->fonts->Print(text.data(), color, id_font);
 }
 
 void GUI_Label::ChangeFont(const char * f, const int & size)
