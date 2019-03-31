@@ -45,7 +45,7 @@ class GUI
 {
 public:
 	GUI() :type(UIType::NON) {}
-	GUI(UIType type,const int &x,const int &y, GUI* parent, const SDL_Rect& section, bool draw = true, bool inter = false, bool drag = false);
+	GUI(UIType type,const int &x,const int &y, GUI* parent, const SDL_Rect& section, bool draw = true, bool inter = false, bool drag = false, bool accept_focus = true);
 	virtual ~GUI();
 
 	bool Update();
@@ -75,6 +75,7 @@ public:
 	bool interactable = true;
 	bool draggable = true;
 	bool drawable = true;
+	bool accept_focus = true;
 
 	bool to_delete = false;
 	iPoint draw_offset = { 0,0 };
