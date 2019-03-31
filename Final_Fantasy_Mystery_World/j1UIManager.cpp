@@ -54,7 +54,7 @@ bool j1UIManager::PreUpdate()
 	}
 
 	int x2 = 0, y2 = 0;
-	App->input->GetMouseMotion(x2, y2);
+	App->input->GetMousePosition(x2, y2);
 	iPoint mouse{ x2,y2 };
 
 	mouse_pos.push_back(mouse);
