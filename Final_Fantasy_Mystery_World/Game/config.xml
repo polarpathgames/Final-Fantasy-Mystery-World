@@ -18,6 +18,13 @@
     <fullscreen_window value="false"/>
   </window>
 
+  <fonts>
+    <path folder="fonts/"/>
+    <default_font file="Final_Fantasy_font.ttf" size="36"/><!--ID = 0-->
+    <font file="pixelmix.ttf"/><!--ID = 1-->
+                               <!--ID = 2...-->
+  </fonts>
+
   <map>
     <folder>maps/</folder>
     <maps>
