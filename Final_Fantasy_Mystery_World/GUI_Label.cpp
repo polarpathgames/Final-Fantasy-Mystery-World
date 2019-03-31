@@ -5,8 +5,8 @@
 #include "j1Render.h"
 #include "p2Log.h"
 
-GUI_Label::GUI_Label(const int & pos_x, const int & pos_y, const char * txt, const Color & c, const char * path_font, const uint & size, GUI * parent, bool interactable, bool draggable, uint32 wrap_length)
-	:GUI(LABEL, pos_x, pos_y, parent, { 0,0,0,0 })
+GUI_Label::GUI_Label(const int & pos_x, const int & pos_y, const char * txt, const Color & c, const char * path_font, const uint & size, GUI * parent, bool interactable, bool draggable, uint32 wrap_length, bool focus)
+	:GUI(LABEL, pos_x, pos_y, parent, { 0,0,0,0 }, true, false, false, focus)
 {
 	std::list<Font*>::const_iterator item = App->fonts->FindPathFont(path_font);
 	if (item != App->fonts->fonts.end()) {
@@ -23,6 +23,7 @@ GUI_Label::GUI_Label(const int & pos_x, const int & pos_y, const char * txt, con
 
 	App->fonts->CalcSize(txt, section.w, section.h, id_font);
 }
+
 GUI_Label::~GUI_Label()
 {
 	text.clear();

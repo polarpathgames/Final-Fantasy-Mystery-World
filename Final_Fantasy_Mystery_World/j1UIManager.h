@@ -36,9 +36,9 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
-	GUI_Image* AddImage(const int &x, const int &y, const SDL_Rect & rect, j1Module * callback, GUI * parent, bool draw, bool drag, bool interact);
-	GUI_Button* AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, j1Module* callback, GUI* parent, bool draw, bool drag, bool inter);
-	GUI_Label* AddLabel(const int &x, const int &y, const char* text, uint size, GUI* parent, Color color, const char* font, j1Module* callback);
+	GUI_Image* AddImage(const int &x, const int &y, const SDL_Rect & rect, j1Module * callback, GUI * parent, bool draw, bool drag, bool interact, bool focus);
+	GUI_Button* AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, j1Module* callback, GUI* parent, bool draw, bool drag, bool inter, bool focus);
+	GUI_Label* AddLabel(const int &x, const int &y, const char* text, uint size, GUI* parent, Color color, const char* font, j1Module* callback, bool focus);
 
 	void CreateScreen();
 

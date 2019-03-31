@@ -43,21 +43,21 @@ bool j1UIManager::PreUpdate()
 		debug_ui = !debug_ui;
 	}
 
-	if (!using_mouse) {
-		int x = 0, y = 0;
-		App->input->GetMouseMotion(x, y);
-		if (x != 0 || y != 0) {
-			using_mouse = true;
-			SDL_ShowCursor(SDL_ENABLE);
-		}
-	}
-	else {
+	if (using_mouse) {
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN ||
 			App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN ||
 			App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ||
 			App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
 			using_mouse = false;
 			SDL_ShowCursor(SDL_DISABLE);
+		}
+	}
+	else {
+		int x = 0, y = 0;
+		App->input->GetMouseMotion(x, y);
+		if (x != 0 || y != 0) {
+			using_mouse = true;
+			SDL_ShowCursor(SDL_ENABLE);
 		}
 	}
 
@@ -75,7 +75,7 @@ bool j1UIManager::PreUpdate()
 			GUI* new_focus = focus;
 			if(focus->parent!=nullptr)
 				for (std::list<GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
-					if ((*item)->accept_focus && (*item)->position.y <= focus->position.y && *item != focus) {
+					if ((*item)->allow_focus && (*item)->position.y <= focus->position.y && *item != focus) {
 						if (new_focus == focus || new_focus->position.y < (*item)->position.y)
 							new_focus = *item;
 					}
@@ -93,7 +93,7 @@ bool j1UIManager::PreUpdate()
 void j1UIManager::FocusFirstUIFocusable()
 {
 	for (std::list<GUI*>::iterator item = ui_list.begin(); item != ui_list.end(); ++item) {
-		if ((*item)->accept_focus && *item != nullptr) {
+		if ((*item)->allow_focus && *item != nullptr) {
 			focus = *item;
 			break;
 		}
@@ -142,9 +142,9 @@ const SDL_Texture* j1UIManager::GetAtlas() const
 	return atlas;
 }
 
-GUI_Image* j1UIManager::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, j1Module * callback = nullptr, GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false)
+GUI_Image* j1UIManager::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, j1Module * callback = nullptr, GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false, bool focus = true)
 {
-	GUI_Image* image = new GUI_Image(x, y, rect, parent, draw, interact, drag);
+	GUI_Image* image = new GUI_Image(x, y, rect, parent, draw, interact, drag, focus);
 
 	if (callback != nullptr) {
 		image->AddListener(callback);
@@ -155,9 +155,9 @@ GUI_Image* j1UIManager::AddImage(const int &x,const int &y, const SDL_Rect & rec
 	return image;
 }
 
-GUI_Button* j1UIManager::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, j1Module* callback, GUI* parent, bool draw, bool drag, bool inter)
+GUI_Button* j1UIManager::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, j1Module* callback, GUI* parent, bool draw, bool drag, bool inter, bool focus = true)
 {
-	GUI_Button* button = new GUI_Button(x, y, idle, mouse_in, clicked, parent, draw, inter, drag);
+	GUI_Button* button = new GUI_Button(x, y, idle, mouse_in, clicked, parent, draw, inter, drag, focus);
 
 	if (callback != nullptr) {
 		button->AddListener(callback);
@@ -168,9 +168,9 @@ GUI_Button* j1UIManager::AddButton(const int &x, const int &y, const SDL_Rect &i
 	return button;
 }
 
-GUI_Label* j1UIManager::AddLabel(const int &x, const int &y, const char* text, uint size, GUI* parent, Color color, const char* font, j1Module* callback = nullptr)
+GUI_Label* j1UIManager::AddLabel(const int &x, const int &y, const char* text, uint size, GUI* parent, Color color, const char* font, j1Module* callback = nullptr, bool focus = false)
 {
-	GUI_Label* label = new GUI_Label(x, y, text, color, font, size, parent);
+	GUI_Label* label = new GUI_Label(x, y, text, color, font, size, parent, focus);
 
 	if (callback != nullptr) {
 		label->AddListener(callback);
@@ -184,7 +184,7 @@ GUI_Label* j1UIManager::AddLabel(const int &x, const int &y, const char* text, u
 void j1UIManager::CreateScreen()
 {
 	if (std::find(ui_list.begin(), ui_list.end(), screen) == ui_list.end()) {
-		screen = AddImage(0, 0, { 0,0,(int)App->win->width,(int)App->win->height }, nullptr, nullptr, false);
+		screen = AddImage(0, 0, { 0,0,(int)App->win->width,(int)App->win->height }, nullptr, nullptr, false, false, false, false);
 	}
 }
 

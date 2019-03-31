@@ -8,7 +8,7 @@
 #include "GUI.h"
 
 GUI::GUI(UIType type, const int &x, const int &y, GUI* parent, const SDL_Rect &section, bool draw, bool inter, bool drag, bool focus)
-	:type(type), position({ x,y }), section(section), parent(parent), drawable(draw), interactable(inter), draggable(drag), accept_focus(focus)
+	:type(type), position({ x,y }), section(section), parent(parent), drawable(draw), interactable(inter), draggable(drag), allow_focus(focus)
 {
 	if (parent != nullptr) {
 		parent->childs.push_back(this);

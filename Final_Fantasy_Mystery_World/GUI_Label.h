@@ -12,7 +12,7 @@ private:
 
 public:
 	GUI_Label() : GUI(LABEL, 0, 0, nullptr, { 0,0,0,0 }) {	}
-	GUI_Label(const int & pos_x, const int & pos_y, const char* txt, const Color &c, const char* path_font, const uint &size = 12, GUI* parent = nullptr, bool interactable = false, bool draggable = false, uint32 wrap_length = 0);
+	GUI_Label(const int & pos_x, const int & pos_y, const char* txt, const Color &c, const char* path_font, const uint &size = 12, GUI* parent = nullptr, bool interactable = false, bool draggable = false, uint32 wrap_length = 0, bool focus = false);
 	~GUI_Label();
 
 	void InnerDraw();
