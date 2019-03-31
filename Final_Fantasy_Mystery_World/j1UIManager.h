@@ -56,6 +56,7 @@ private:
 
 	SDL_Texture*	atlas = nullptr;
 	GUI*			focus = nullptr;
+	SDL_Rect		focus_tx = { 0,0,0,0 };
 	bool			using_mouse = true;
 	std::list<GUI*> ui_list;	
 

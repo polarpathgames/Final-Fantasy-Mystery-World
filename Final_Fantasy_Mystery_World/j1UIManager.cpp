@@ -25,6 +25,11 @@ bool j1UIManager::Awake(pugi::xml_node &node)
 {
 	CreateScreen();
 
+	//Load all ui elements info with xml...
+
+	//----------------------
+	focus_tx = { 1024,1986,16,27 };
+
 	return true;
 }
 
@@ -167,11 +172,15 @@ bool j1UIManager::PostUpdate()
 
 	for (std::list<GUI*>::iterator item = tree.begin(); item != tree.end(); item++) {
 		(*item)->Draw();
-		if (debug_ui || focus == *item) {
+		if (focus == *item) {
+			App->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - focus_tx.w, (focus->section.h - focus_tx.h) * 0.5F + focus->GetGlobalPosition().y, &focus_tx);
+		}
+		if (debug_ui) {
 			(*item)->DebugDraw();
 		}
 	}
 	tree.clear();
+	
 
 	return ret;
 }
