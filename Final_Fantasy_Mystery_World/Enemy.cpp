@@ -20,9 +20,9 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 
 	type = Entity::EntityType::ENEMY;
 	ground = App->tex->Load("textures/enemy_pos.png");
-	current_animation = &IdleLeft;
+	current_animation = &IdleDownLeft;
 
-	SetPivot(12, 30);
+	SetPivot(9, 30);
 
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
@@ -30,12 +30,16 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 	velocity.x = 160;
 	velocity.y = 80;
 	
-	position.x -= 5;
-	position.y += 5;
+
+	movement_count = { 0,0 };
+	actual_tile = App->map->WorldToMap(position.x, position.y);
+
+	// THIS ALWAYS LAST
+	position.x -= pivot.x;
+	position.y -= 21;
+
 	target_position = position;
 	initial_position = position;
-	movement_count = { 0,0 };
-	actual_tile = App->map->WorldToMap(position.x + pivot.x, position.y + pivot.y);
 	
 }
 
@@ -49,7 +53,8 @@ bool Enemy::PreUpdate()
 
 	if (state == State::IDLE) {
 		if (IsPlayerNextTile()) {
-			state = State::ATTACKING;
+			state = State::BEFORE_ATTACK;
+			time_to_wait_before_attack = SDL_GetTicks();
 		}
 		else {
 			state = State::WALKING; //Aixo sha de canviar I know :D
@@ -60,14 +65,15 @@ bool Enemy::PreUpdate()
 		if (!IsPlayerNextTile()) {
 			MovementLogic();
 		}
-	}
-	if (state == State::ATTACKING) {
-		state = State::IDLE;
-		ChangeTurn(type);
-	}
+	}	
+	if (state == State::BEFORE_ATTACK) {
+		if (time_to_wait_before_attack < SDL_GetTicks() - 250) {
+			type_attack = Attacks::BASIC;
+			state = State::ATTACKING;
+			ChangeAnimation(direction, state, type_attack);
+		}
 
-	
-
+	}
 	return true;
 }
 
@@ -190,6 +196,18 @@ bool Enemy::Update(float dt)
 			break;
 		}
 	}
+	if (state == State::ATTACKING) {
+		if (current_animation->Finished()) {
+			CheckAttackEfects(Entity::EntityType::PLAYER, direction, stats.attack_power);
+			state = State::AFTER_ATTACK;
+			ChangeAnimation(direction, state);
+			time_attack = SDL_GetTicks();
+		}
+	}
+	if (state == State::AFTER_ATTACK) {
+		RestTimeAfterAttack(time_attack);
+	}
+
 
 	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x, App->map->MapToWorld(actual_tile.x, actual_tile.y).y, NULL, true);
 

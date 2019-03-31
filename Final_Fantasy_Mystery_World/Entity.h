@@ -10,6 +10,7 @@
 
 
 struct SDL_Texture;
+struct Collider;
 
 enum class State {
 	IDLE, WALKING, BEFORE_ATTACK, ATTACKING, AFTER_ATTACK, NONE
@@ -19,8 +20,9 @@ enum class AnimationState {
 
 	IDLE_UP, IDLE_UP_LEFT, IDLE_UP_RIGHT, IDLE_LEFT, IDLE_DOWN_LEFT, IDLE_DOWN, IDLE_DOWN_RIGHT, IDLE_RIGHT,
 	WALKING_UP, WALKING_UP_LEFT, WALKING_UP_RIGHT, WALKING_LEFT, WALKING_DOWN_LEFT, WALKING_DOWN, WALKING_DOWN_RIGHT, WALKING_RIGHT,
-
-
+	BASIC_ATTACK_UP, BASIC_ATTACK_UP_LEFT, BASIC_ATTACK_UP_RIGHT, BASIC_ATTACK_LEFT, BASIC_ATTACK_DOWN_LEFT, BASIC_ATTACK_DOWN, BASIC_ATTACK_DOWN_RIGHT, BASIC_ATTACK_RIGHT,
+	
+	
 	NONE
 };
 
@@ -79,6 +81,7 @@ public:
 	bool LoadEntityData(const char*);
 	//virtual void LoadProperties(pugi::xml_node&);
 	virtual void IdAnimToEnum();
+
 	virtual void PushBack() {};
 
 	virtual bool PreUpdate() { return true; };
@@ -86,6 +89,8 @@ public:
 	virtual bool PostUpdate() { return true; };
 	virtual bool CleanUp() { return true; };
 	virtual void Draw(SDL_Texture* tex, float dt);
+	virtual void OnCollision(Collider* c2) {};
+	const Collider * GetCollider() const;
 
 	void SetPivot(const int &x, const int &y);
 
@@ -114,6 +119,7 @@ public:
 
 	bool has_turn = true;
 	iPoint actual_tile;
+	Collider* coll = nullptr;
 };
 
 #endif

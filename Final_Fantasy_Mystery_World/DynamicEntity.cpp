@@ -170,6 +170,54 @@ void DynamicEntity::PushBack()
 					GoDownLeft.speed = data.animations[i].speed;
 				}
 				break;
+			case AnimationState::BASIC_ATTACK_DOWN_LEFT:
+				BasicAttackDownLeft.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					BasicAttackDownLeft.speed = data.animations[i].speed;;
+				}
+				break;
+			case AnimationState::BASIC_ATTACK_UP_RIGHT:
+				BasicAttackUpRight.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					BasicAttackUpRight.speed = data.animations[i].speed;;
+				}
+				break;
+			case AnimationState::BASIC_ATTACK_DOWN:
+				BasicAttackDown.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					BasicAttackDown.speed = data.animations[i].speed;;
+				}
+				break;
+			case AnimationState::BASIC_ATTACK_DOWN_RIGHT:
+				BasicAttackDownRight.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					BasicAttackDownRight.speed = data.animations[i].speed;;
+				}
+				break;
+			case AnimationState::BASIC_ATTACK_LEFT:
+				BasicAttackLeft.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					BasicAttackLeft.speed = data.animations[i].speed;;
+				}
+				break;
+			case AnimationState::BASIC_ATTACK_RIGHT:
+				BasicAttackRight.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					BasicAttackRight.speed = data.animations[i].speed;;
+				}
+				break;
+			case AnimationState::BASIC_ATTACK_UP:
+				BasicAttackUp.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					BasicAttackUp.speed = data.animations[i].speed;;
+				}
+				break;
+			case AnimationState::BASIC_ATTACK_UP_LEFT:
+				BasicAttackUpLeft.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					BasicAttackUpLeft.speed = data.animations[i].speed;;
+				}
+				break;
 			default:
 				break;
 			}
@@ -242,6 +290,43 @@ void DynamicEntity::RestTimeAfterAttack(float time_finish)
 		ChangeTurn(type);
 		state = State::IDLE;
 		ChangeAnimation(direction, state);
+		ResetAnims();
+	}
+	else {
+		if (target_position == position)
+			ChangeAnimation(direction, state);
+		else {
+			switch (direction)
+			{
+			case Direction::DOWN:
+				current_animation = &GoDown;
+				break;
+			case Direction::DOWN_LEFT:
+				current_animation = &GoDownLeft;
+				break;
+			case Direction::DOWN_RIGHT:
+				current_animation = &GoDownRight;
+				break;
+			case Direction::LEFT:
+				current_animation = &GoLeft;
+				break;
+			case Direction::RIGHT:
+				current_animation = &GoRight;
+				break;
+			case Direction::UP:
+				current_animation = &GoUp;
+				break;
+			case Direction::UP_LEFT:
+				current_animation = &GoUpLeft;
+				break;
+			case Direction::UP_RIGHT:
+				current_animation = &GoUpRight;
+				break;
+			default:
+				break;
+			}
+		}
+			
 	}
 }
 
@@ -333,6 +418,37 @@ void DynamicEntity::CheckAttackEfects(const Entity::EntityType & type, const Dir
 void DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks attacks)
 {
 	switch (states) {
+	case State::AFTER_ATTACK: {
+		switch (dir) {
+		case Direction::DOWN:
+			current_animation = &IdleDown;
+			break;
+		case Direction::UP:
+			current_animation = &IdleUp;
+			break;
+		case Direction::RIGHT:
+			current_animation = &IdleRight;
+			break;
+		case Direction::LEFT:
+			current_animation = &IdleLeft;
+			break;
+		case Direction::UP_RIGHT:
+			current_animation = &IdleUpRight;
+			break;
+		case Direction::DOWN_RIGHT:
+			current_animation = &IdleDownRight;
+			break;
+		case Direction::DOWN_LEFT:
+			current_animation = &IdleDownLeft;
+			break;
+		case Direction::UP_LEFT:
+			current_animation = &IdleUpLeft;
+			break;
+		default:
+			LOG("No direction type found");
+			break;
+		}
+	} break;
 	case State::IDLE: {
 		switch (dir) {
 		case Direction::DOWN:
@@ -459,6 +575,18 @@ void DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks attac
 
 
 
+}
+
+void DynamicEntity::ResetAnims()
+{
+	BasicAttackDownLeft.Reset();
+	BasicAttackDown.Reset();
+	BasicAttackDownRight.Reset();
+	BasicAttackLeft.Reset();
+	BasicAttackRight.Reset();
+	BasicAttackUp.Reset();
+	BasicAttackUpLeft.Reset();
+	BasicAttackUpRight.Reset();
 }
 
 

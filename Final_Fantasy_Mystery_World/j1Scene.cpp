@@ -4,6 +4,7 @@
 #include "j1Pathfinding.h"
 #include "j1Input.h"
 #include "j1UIManager.h"
+#include "j1Collisions.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Render.h"
@@ -150,18 +151,26 @@ void j1Scene::CreateEntities()
 
 	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
 		if ((*position)->name == "player") {
-			App->entity_manager->CreateEntity(Entity::EntityType::PLAYER, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x + 12, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y + 30, (*position)->name);
+			App->entity_manager->CreateEntity(Entity::EntityType::PLAYER, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).x, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).y, (*position)->name);
 		}
 		else if ((*position)->ent_type == "static") {
 			//App->entity_manager->CreateEntity(Entity::EntityType::STATIC, (*position)->coll_x, (*position)->coll_y, (*position)->name);
 
 		}
 		else if ((*position)->ent_type == "enemy") {
-			App->entity_manager->CreateEntity(Entity::EntityType::ENEMY, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x + 12, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y + 30, (*position)->name);
+			App->entity_manager->CreateEntity(Entity::EntityType::ENEMY, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y -8).x, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).y, (*position)->name);
 		}
 		else if ((*position)->name == "sensor") {
 			if ((*position)->ent_type == "ToLobby") {
-				App->entity_manager->CreateEntity(Entity::EntityType::SENSOR, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name, Sensor::SensorType::TO_LOBBY);
+				App->entity_manager->CreateEntity(Entity::EntityType::SENSOR, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).x, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).y, (*position)->name, Sensor::SensorType::TO_LOBBY);
+			}
+		}
+		else if ((*position)->name == "collider") { // COLLIDERS
+			if ((*position)->properties.FindNameValue("shop")) {
+				App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).x,App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_SHOP, nullptr);
+			}
+			else if ((*position)->properties.FindNameValue("home")) {
+				App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).x,App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_HOME, nullptr);
 			}
 		}
 		else {

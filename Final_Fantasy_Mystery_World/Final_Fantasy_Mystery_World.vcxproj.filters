@@ -83,6 +83,12 @@
       <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="j1Module.cpp" />
+    <ClCompile Include="EasingSplines.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Collisions.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Scene.h" />
@@ -182,6 +188,15 @@
     </ClInclude>
     <ClInclude Include="p2Properties.h">
       <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="EasingSplines.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Line.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Collisions.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

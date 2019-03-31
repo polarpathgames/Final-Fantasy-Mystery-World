@@ -43,6 +43,7 @@ public:
 public:
 
 	EnemyStats stats;
+	float time_to_wait_before_attack = 0.0f;
 };
 
 

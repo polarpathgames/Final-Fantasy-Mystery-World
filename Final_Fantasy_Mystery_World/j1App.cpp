@@ -15,9 +15,11 @@
 #include "j1Scene.h"
 #include "j1UIManager.h"
 #include "j1Map.h"
+#include "j1Collisions.h"
 #include "j1Fonts.h"
 #include "MainMenu.h"
 #include "p2Point.h"
+#include "EasingSplines.h"
 #include "j1EntityManager.h"
 #include "j1FadeToBlack.h"
 #include "j1Pathfinding.h"
@@ -41,6 +43,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	entity_manager = new j1EntityManager();
 	pathfinding = new j1PathFinding();
 	fade_to_black = new j1FadeToBlack();
+	collision = new j1Collision();
+	easing_splines = new EasingSplines();
+
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -53,9 +58,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(main_menu);
 	AddModule(fonts);
+	AddModule(collision);
 	AddModule(entity_manager);
 	AddModule(ui_manager);
 	AddModule(fade_to_black);
+	AddModule(easing_splines);
 
 	// render last to swap buffer
 	AddModule(render);

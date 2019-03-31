@@ -56,7 +56,7 @@ public:
 
 	bool CleanUp();
 
-
+	void OnCollision(Collider* c2);
 
 
 	//PreUpdate
@@ -88,6 +88,7 @@ public:
 	Movement_Type movement_type; //EN LOBBY O EN UNA QUEST
 
 	PlayerStats stats;
+
 };
 
 

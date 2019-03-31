@@ -6,12 +6,17 @@
 #include "p2Point.h"
 #include "j1Module.h"
 #include "p2Properties.h"
+#include "SDL/include/SDL_rect.h"
 #include <string>
+
+struct SDL_Texture;
 
 enum class Maps {
 
 	LOBBY,
 	TUTORIAL,
+	SHOP,
+	HOME,
 
 	NONE
 };
@@ -27,6 +32,8 @@ struct ObjectLayer {
 	int	coll_y;
 	int coll_width = 0;
 	int coll_height = 0;
+	Properties<int> properties;
+	
 
 };
 
@@ -96,7 +103,8 @@ struct MapData
 	std::list<TileSet*>			tilesets;
 	std::list<MapLayer*>		layers;
 	std::list<ObjectLayer*>		objects;
-	Properties<int>					properties;
+	Properties<int>				properties;
+	std::list<iPoint>			no_walkables;
 };
 
 // ----------------------------------------------------
@@ -126,9 +134,11 @@ public:
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 	iPoint TiledToWorld(int x, int y) const;
-	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer);
 
 	bool ChangeMap(Maps type);
+
+	bool IsWalkable(iPoint pos, bool need_convert = true);
 
 private:
 
@@ -145,6 +155,7 @@ public:
 
 	MapData data;
 	bool	Grid = true;
+	Maps actual_map;
 
 private:
 
@@ -155,7 +166,8 @@ private:
 
 	std::string tutorial_map;
 	std::string lobby_map;
-
+	std::string shop_map;
+	std::string home_map;
 	
 };
 

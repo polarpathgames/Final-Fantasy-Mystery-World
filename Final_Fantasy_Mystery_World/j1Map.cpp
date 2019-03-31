@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
+#include "j1Collisions.h"
 #include <math.h>
 #include "j1EntityManager.h"
 #include "Player.h"
@@ -40,7 +41,10 @@ bool j1Map::Awake(pugi::xml_node& config)
 	folder.assign(config.child("folder").child_value());
 
 	tutorial_map = config.child("maps").child("tutorial_map").text().as_string();
+	shop_map = config.child("maps").child("shop_map").text().as_string();
 	lobby_map = config.child("maps").child("lobby_map").text().as_string();
+	home_map = config.child("maps").child("home_map").text().as_string();
+	
 	
 	return ret;
 }
@@ -58,7 +62,7 @@ void j1Map::Draw()
 	{
 		MapLayer* layer = *item;
 
-		if(layer->properties.GetValue("NoDraw") != 0)
+		if(layer->properties.GetValue("Nodraw") != 0)
 			continue;
 
 		for(int i = 0; i < data.width; ++i)
@@ -229,6 +233,7 @@ bool j1Map::CleanUp()
 
 	data.properties.CleanUp();
 
+	App->collision->CleanUp();
 	// Clean up the pugui tree
 	map_file.reset();
 
@@ -512,10 +517,16 @@ bool j1Map::LoadObject(pugi::xml_node & object_node, ObjectLayer * obj)
 	obj->coll_y = object_node.attribute("y").as_int();
 	obj->coll_height = object_node.attribute("height").as_uint();
 	obj->coll_width = object_node.attribute("width").as_uint();
-
+	
 	//Load Collider type from ObjectGroup
 	pugi::xml_node objGroup = object_node.parent();
 	std::string type(objGroup.child("properties").child("property").attribute("value").as_string());
+
+
+	pugi::xml_node prop = object_node.child("properties");
+	if (prop)
+		LoadProperties(prop, &obj->properties);
+
 
 	return ret;
 }
@@ -543,7 +554,7 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties<int>* properties)
 	return ret;
 }
 
-bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
+bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer)
 {
 	bool ret = false;
 	std::list<MapLayer*>::const_iterator item;
@@ -564,12 +575,16 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 			for(int x = 0; x < data.width; ++x)
 			{
 				int i = (y*layer->width) + x;
-
+				iPoint tile_pos = MapToWorld(x, y);
 				int tile_id = layer->Get(x, y);
 				TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : NULL;
 				
 				if(tileset != NULL)
 				{
+					tile_pos.x += 1;
+					//tile_pos.y -= 2;
+					iPoint pos = WorldToMap(tile_pos.x, tile_pos.y);
+					data.no_walkables.push_back(pos);
 					map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
 					/*TileType* ts = tileset->GetTileType(tile_id);
 					if(ts != NULL)
@@ -598,9 +613,19 @@ bool j1Map::ChangeMap(Maps type)
 	switch(type) {
 	case Maps::LOBBY:
 		Load(lobby_map.data());
+		actual_map = Maps::LOBBY;
 		break;
 	case Maps::TUTORIAL:
 		Load(tutorial_map.data());
+		actual_map = Maps::TUTORIAL;
+		break;
+	case Maps::SHOP:
+		Load(shop_map.data());
+		actual_map = Maps::SHOP;
+		break;
+	case Maps::HOME:
+		Load(home_map.data());
+		actual_map = Maps::HOME;
 		break;
 	default:
 		LOG("Could not load the map");
@@ -613,4 +638,22 @@ bool j1Map::ChangeMap(Maps type)
 	App->scene->CreateEntities();
 
 	return true;
+}
+
+bool j1Map::IsWalkable(iPoint pos, bool need_convert)
+{
+	bool ret = true;
+
+	std::list<iPoint>::const_iterator item = data.no_walkables.begin();
+	if (need_convert)
+		pos = WorldToMap(pos.x, pos.y);
+
+	for (; item != data.no_walkables.end(); ++item) {
+		if ((*item) == pos) {
+			ret = false;
+			break;
+		}
+	}
+
+	return ret;
 }

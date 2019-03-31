@@ -51,7 +51,19 @@ struct Properties {
 		TYPE ret = default_value;
 		for (std::list<Property<TYPE>*>::iterator item = properties.begin(); item != properties.end(); ++item) {
 			if (strcmp((*item)->GetName(),identificator) == 0) {
+			//	LOG("Found property with identificator %s", identificator);
 				ret = (*item)->GetValue();
+			}
+		}
+		return ret;
+	}
+	
+	bool FindNameValue(const char* prop_name) {
+		bool ret = false;
+		for (std::list<Property<TYPE>*>::iterator item = properties.begin(); item != properties.end(); ++item) {
+			if (strcmp((*item)->GetName(), prop_name) == 0) {
+				ret = true;
+				break;
 			}
 		}
 		return ret;

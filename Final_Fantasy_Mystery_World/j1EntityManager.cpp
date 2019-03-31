@@ -42,7 +42,7 @@ bool j1EntityManager::Start()
 
 
 	texture.push_back(App->tex->Load("assets/sprites/WarriorSpritesheet.png"));
-	texture.push_back(App->tex->Load("assets/sprites/enemy.png"));
+	texture.push_back(App->tex->Load("assets/sprites/Enemy.png"));
 
 	return ret;
 }
@@ -128,6 +128,17 @@ bool j1EntityManager::CleanUp()
 		App->tex->UnLoad(texture[i]);
 	}
 	return true;
+}
+
+void j1EntityManager::OnCollision(Collider * c1, Collider * c2)
+{
+	std::vector<Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr &&(*item)->GetCollider() == c1) {
+			(*item)->OnCollision(c2);
+		}
+	}
+
 }
 
 
