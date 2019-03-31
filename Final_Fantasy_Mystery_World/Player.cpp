@@ -39,7 +39,6 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	velocity.x = 160;
 	velocity.y = 80;
 
-	movement_count = { 0,0 };
 
 	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
 
