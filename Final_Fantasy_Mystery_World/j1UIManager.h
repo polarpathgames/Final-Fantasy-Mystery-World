@@ -4,7 +4,7 @@
 #include "j1Module.h"
 #include "p2Animation.h"
 #include <list>
-
+#include "p2Point.h"
 enum UIType
 {
 	IMAGE,
@@ -59,7 +59,7 @@ private:
 	SDL_Rect		focus_tx = { 0,0,0,0 };
 	bool			using_mouse = true;
 	std::list<GUI*> ui_list;	
-
+	std::list<iPoint> mouse_pos;
 public:
 
 	GUI * screen = nullptr;

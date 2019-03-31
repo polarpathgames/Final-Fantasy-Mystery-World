@@ -69,7 +69,7 @@ bool GUI::UpdateMouse()
 bool GUI::UpdateFocus()
 {
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		for (std::list<j1Module*>::iterator module = listeners.begin(); module != listeners.end(); ++module) {
+  		for (std::list<j1Module*>::iterator module = listeners.begin(); module != listeners.end(); ++module) {
 			if (*module != nullptr)
 				if (!(*module)->Interact(this))
 					break;
