@@ -12,7 +12,7 @@ GUI_Label::GUI_Label(const int & pos_x, const int & pos_y, const char * txt, con
 	if (item != App->fonts->fonts.end()) {
 		id_font = (*item)->type;
 	}
-	else id_font = FontType::FINAL_FANTASY;
+	else id_font = App->fonts->default->type;
 
 	text.assign(txt);
 
@@ -26,8 +26,7 @@ GUI_Label::GUI_Label(const int & pos_x, const int & pos_y, const char * txt, con
 GUI_Label::~GUI_Label()
 {
 	text.clear();
-	App->tex->UnLoad(texture);	
-	//App->fonts->UnLoad(id_font);
+	App->tex->UnLoad(texture);
 	texture = nullptr;
 }
 

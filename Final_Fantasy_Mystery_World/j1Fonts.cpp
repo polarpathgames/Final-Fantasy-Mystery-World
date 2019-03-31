@@ -65,28 +65,29 @@ bool j1Fonts::CleanUp()
 // Load new texture from file path
 Font* const j1Fonts::Load(const char* path, int size)
 {
-	Font* font = new Font(TTF_OpenFont(path, size),(FontType)fonts.size(), path);
-
-	if (font->font == NULL)
-	{
-		LOG("Could not load TTF font with path: %s. TTF_OpenFont: %s", path, TTF_GetError());
-		TTF_CloseFont(font->font);
-		delete font;
-		font = *fonts.begin();
+	Font* ret = nullptr;
+	std::list<Font*>::const_iterator item = FindPathFont(path);
+	
+	if (item != fonts.end()) {
+		LOG("Already loaded font with ID %i", (*item)->type);
+		ret = *item;
 	}
-	else if (FindPathFont(path) != fonts.end()) {
-		LOG("Already loaded font with ID %i", font->type);
-		TTF_CloseFont(font->font);
-		delete font;
-		font = *fonts.begin();
+	else {
+		ret = new Font(TTF_OpenFont(path, size), (FontType)fonts.size(), path);
+		if (ret->font == NULL) {
+			LOG("Could not load TTF font with path: %s. TTF_OpenFont: %s. Closing and using default font", path, TTF_GetError());
+			TTF_CloseFont(ret->font);
+			delete ret;
+			ret = default;
+		}
+		else
+		{
+			LOG("Successfully loaded font %s size %d", path, size);
+			fonts.push_back(ret);
+		}
 	}
-	else
-	{
-		LOG("Successfully loaded font %s size %d", path, size);
-		fonts.push_back(font);
-	}
-
-	return font;
+	
+	return ret;
 }
 
 bool j1Fonts::UnLoad(FontType font)
