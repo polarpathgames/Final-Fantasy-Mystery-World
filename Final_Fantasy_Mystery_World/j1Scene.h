@@ -45,6 +45,10 @@ public:
 	void CreatePauseMenu();
 	void DestroyPauseMenu();
 	bool Interact(GUI* interaction);
+
+	void CreateOptionsMenu();
+	void DestroyOptionsMenu();
+
 public:
 
 	//GUI* mock_image_ui = nullptr;
@@ -52,6 +56,9 @@ public:
 	GUI* background = nullptr;
 
 private:
+	bool create_options = false;
+
+	//pause
 	GUI_Image* pause_panel = nullptr;
 	GUI_Button* button_resume = nullptr;
 	GUI_Label* label_resume = nullptr;
@@ -62,6 +69,20 @@ private:
 	GUI_Button* button_options = nullptr;
 	GUI_Label* label_options = nullptr;
 	
+	//options
+	GUI_Image* options_panel = nullptr;
+	GUI_Label* label_general_volume = nullptr;
+	//GUI_Slider* slider_general_volume = nullptr;
+	GUI_Label* label_music_volume = nullptr;
+	//GUI_Slider* slider_music_volume = nullptr;
+	GUI_Label* label_fx_volume = nullptr;
+	//GUI_Slider* slider_fx_volume = nullptr;
+	GUI_Label* label_fps = nullptr;
+	//GUI_Checkbox* checkbox_fps = nullptr;
+	GUI_Button* button_controls = nullptr;
+	GUI_Label* label_controls = nullptr;
+	GUI_Button* button_retun = nullptr;
+	GUI_Label* label_return = nullptr;
 };
 
 #endif // __j1SCENE_H__

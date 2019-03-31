@@ -110,7 +110,7 @@ bool j1Scene::Update(float dt)
 		App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 	}
 		
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && create_options == false) {
 		(App->ChangePause()) ? CreatePauseMenu() : DestroyPauseMenu();
 	}
 	
@@ -216,6 +216,40 @@ void j1Scene::DestroyPauseMenu()
 	App->ui_manager->DeleteUIElement(pause_panel);
 }
 
+void j1Scene::CreateOptionsMenu()
+{
+	
+	options_panel = App->ui_manager->AddImage(0, 0, { 1024,768,1024,768 }, this, App->ui_manager->screen, true, false, true);
+	options_panel->SetPosRespectParent(CENTERED);
+	
+	label_general_volume = App->ui_manager->AddLabel(491, 168, "General Volume", 50, options_panel, BLACK, "fonts/Munro.ttf", nullptr);
+
+	label_music_volume = App->ui_manager->AddLabel(491, 246, "Music Volume", 50, options_panel, BLACK, "fonts/Munro.ttf", nullptr);
+
+	label_fx_volume = App->ui_manager->AddLabel(491, 326, "FX Volume", 50, options_panel, BLACK, "fonts/Munro.ttf", nullptr);
+
+	label_fps = App->ui_manager->AddLabel(491, 413, "FPS Caps", 50, options_panel, BLACK, "fonts/Munro.ttf", nullptr);
+
+	button_controls = App->ui_manager->AddButton(491, 495, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, true, false, true);
+	button_controls->AddListener(this);
+	label_controls = App->ui_manager->AddLabel(0, 0, "Controls", 50, button_controls, BLACK, "fonts/Munro.ttf", nullptr);
+	label_controls->SetPosRespectParent(CENTERED);
+
+	button_retun = App->ui_manager->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, true, false, true);
+	button_retun->AddListener(this);
+	label_return = App->ui_manager->AddLabel(0, 0, "Return", 50, button_retun, BLACK, "fonts/Munro.ttf", nullptr);
+	label_return->SetPosRespectParent(CENTERED);
+
+	create_options = true;
+}
+
+void j1Scene::DestroyOptionsMenu()
+{
+	App->ui_manager->DeleteUIElement(options_panel);
+
+	create_options = false;
+}
+
 bool j1Scene::Interact(GUI* interact)
 {
 	bool ret = true;
@@ -239,5 +273,12 @@ bool j1Scene::Interact(GUI* interact)
 		App->main_menu->Start();
 		ret = false;
 	}
+	if (interact == button_options)
+	{
+		DestroyPauseMenu();
+		CreateOptionsMenu();
+		ret = false;
+	}
+
 	return ret;
 }
