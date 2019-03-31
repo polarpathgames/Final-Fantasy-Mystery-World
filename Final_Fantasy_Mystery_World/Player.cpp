@@ -48,7 +48,7 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 
 	// THIS ALWAYS LAST
 	position.x -= pivot.x;
-	position.y -= 21;
+	position.y -= 22;
 
 	target_position = position;
 	initial_position = position;
@@ -417,6 +417,18 @@ void Player::ReadAttack()
 			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
 			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
 			break;
+		case Direction::UP:
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3, 200, EASE);
+			break;
+		case Direction::DOWN:
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3, 200, EASE);
+			break;
+		case Direction::RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3, 200, EASE);
+			break;
+		case Direction::LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3, 200, EASE);
+			break;
 		}
 		ChangeAnimation(direction, state, type_attack);
 	}
@@ -478,6 +490,18 @@ void Player::BasicAttack()
 		case Direction::UP_LEFT:
 			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
 			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
+			break;
+		case Direction::UP:
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3 + 1, 200, EASE);
+			break;
+		case Direction::DOWN:
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3 + 1, 200, EASE);
+			break;
+		case Direction::RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3 + 1, 200, EASE);
+			break;
+		case Direction::LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3 + 1, 200, EASE);
 			break;
 		}
 		CheckAttackEfects(Entity::EntityType::ENEMY, direction, stats.attack_power);
