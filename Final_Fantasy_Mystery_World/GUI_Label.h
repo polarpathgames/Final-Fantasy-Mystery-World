@@ -27,10 +27,10 @@ public:
 
 protected:
 
-	FontType		id_font; //This must be common for all fonts in the future. Load only necessary fonts
+	FontType		id_font;
 	uint			size = 0;
 	SDL_Texture*	texture = nullptr;
 	SDL_Color		color = { 255,255,255,255 };
-	std::string text;
+	std::string		text;
 };
 #endif //_GUI_LABEL_H_

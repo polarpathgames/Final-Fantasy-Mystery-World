@@ -8,7 +8,9 @@
 GUI_Label::GUI_Label(const int & pos_x, const int & pos_y, const char * txt, const Color & c, const char * path_font, const uint & size, GUI * parent, bool interactable, bool draggable, uint32 wrap_length)
 	:GUI(LABEL, pos_x, pos_y, parent, { 0,0,0,0 })
 {
-	id_font = App->fonts->Load(path_font, size).type;
+	std::list<Font*>::iterator item;
+	App->fonts->FindPathFont(path_font, item);
+	id_font = (*item)->type;
 	text.assign(txt);
 
 	SetColor(c);
@@ -22,7 +24,7 @@ GUI_Label::~GUI_Label()
 {
 	text.clear();
 	App->tex->UnLoad(texture);	
-	App->fonts->UnLoad(id_font);
+	//App->fonts->UnLoad(id_font);
 	texture = nullptr;
 }
 
@@ -78,7 +80,7 @@ void GUI_Label::SetColor(const SDL_Color & c)
 
 void GUI_Label::ChangeFont(const char * f, const int & size)
 {
-	id_font = App->fonts->Load(f, size).type;
+	id_font = App->fonts->Load(f, size)->type;
 	texture = App->fonts->Print(text.data(), color, id_font);
 	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
 }
