@@ -11,7 +11,7 @@ class GUI;
 class GUI_Image;
 class GUI_Label;
 class GUI_Button;
-
+class GUI_CheckBox;
 
 class j1Scene : public j1Module
 {
@@ -71,6 +71,7 @@ private:
 	
 	//options
 	GUI_Image* options_panel = nullptr;
+
 	GUI_Label* label_general_volume = nullptr;
 	GUI_Button* button_general_volume = nullptr;
 	//GUI_Slider* slider_general_volume = nullptr;
@@ -80,10 +81,14 @@ private:
 	GUI_Label* label_fx_volume = nullptr;
 	GUI_Button* button_fx_volume = nullptr;
 	//GUI_Slider* slider_fx_volume = nullptr;
+
 	GUI_Label* label_fps = nullptr;
-	//GUI_Checkbox* checkbox_fps = nullptr;
+	GUI_CheckBox* checkbox_fps = nullptr;
+	GUI_Label* label_fullscreen = nullptr;
+	GUI_CheckBox* checkbox_fullscreen = nullptr;
 	GUI_Button* button_controls = nullptr;
 	GUI_Label* label_controls = nullptr;
+
 	GUI_Button* button_retun = nullptr;
 	GUI_Label* label_return = nullptr;
 };
