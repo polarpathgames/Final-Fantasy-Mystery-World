@@ -218,16 +218,24 @@ void j1Scene::DestroyPauseMenu()
 
 void j1Scene::CreateOptionsMenu()
 {
-	
 	options_panel = App->ui_manager->AddImage(0, 0, { 1024,768,1024,768 }, this, App->ui_manager->screen, true, false, true);
 	options_panel->SetPosRespectParent(CENTERED);
 	
-	label_general_volume = App->ui_manager->AddLabel(491, 168, "General Volume", 50, options_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	button_general_volume = App->ui_manager->AddButton(491, 168, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, true, false, true);
+	button_general_volume->AddListener(this);
+	label_general_volume = App->ui_manager->AddLabel(0, 0, "General Volume", 50, button_general_volume, BLACK, "fonts/Munro.ttf", nullptr);
+	label_general_volume->SetPosRespectParent(CENTERED);
 
-	label_music_volume = App->ui_manager->AddLabel(491, 246, "Music Volume", 50, options_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	button_general_volume = App->ui_manager->AddButton(491, 246, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, true, false, true);
+	button_general_volume->AddListener(this);
+	label_music_volume = App->ui_manager->AddLabel(0, 0, "Music Volume", 50, button_general_volume, BLACK, "fonts/Munro.ttf", nullptr);
+	label_music_volume->SetPosRespectParent(CENTERED);
 
-	label_fx_volume = App->ui_manager->AddLabel(491, 326, "FX Volume", 50, options_panel, BLACK, "fonts/Munro.ttf", nullptr);
-
+	button_fx_volume = App->ui_manager->AddButton(491, 326, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, true, false, true);
+	button_fx_volume->AddListener(this);
+	label_fx_volume = App->ui_manager->AddLabel(0, 0, "FX Volume", 50, button_fx_volume, BLACK, "fonts/Munro.ttf", nullptr);
+	label_fx_volume->SetPosRespectParent(CENTERED);
+	
 	label_fps = App->ui_manager->AddLabel(491, 413, "FPS Caps", 50, options_panel, BLACK, "fonts/Munro.ttf", nullptr);
 
 	button_controls = App->ui_manager->AddButton(491, 495, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, true, false, true);

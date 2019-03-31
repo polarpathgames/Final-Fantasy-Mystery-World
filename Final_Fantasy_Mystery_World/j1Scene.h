@@ -72,10 +72,13 @@ private:
 	//options
 	GUI_Image* options_panel = nullptr;
 	GUI_Label* label_general_volume = nullptr;
+	GUI_Button* button_general_volume = nullptr;
 	//GUI_Slider* slider_general_volume = nullptr;
 	GUI_Label* label_music_volume = nullptr;
+	GUI_Button* button_music_volume = nullptr;
 	//GUI_Slider* slider_music_volume = nullptr;
 	GUI_Label* label_fx_volume = nullptr;
+	GUI_Button* button_fx_volume = nullptr;
 	//GUI_Slider* slider_fx_volume = nullptr;
 	GUI_Label* label_fps = nullptr;
 	//GUI_Checkbox* checkbox_fps = nullptr;
