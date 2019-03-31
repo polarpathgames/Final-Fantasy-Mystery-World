@@ -43,6 +43,23 @@ bool j1UIManager::PreUpdate()
 		debug_ui = !debug_ui;
 	}
 
+	if (!using_mouse) {
+		int x = 0, y = 0;
+		App->input->GetMouseMotion(x, y);
+		if (x != 0 || y != 0) {
+			using_mouse = true;
+			SDL_ShowCursor(SDL_ENABLE);
+		}
+	}
+	else {
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN ||
+			App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN ||
+			App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ||
+			App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+			using_mouse = false;
+			SDL_ShowCursor(SDL_DISABLE);
+		}
+	}
 	iPoint mouse;
 	App->input->GetMousePosition(mouse.x, mouse.y);
 	GUI* element = nullptr;
@@ -58,19 +75,6 @@ bool j1UIManager::PostUpdate()
 	BROFILER_CATEGORY("PostUpdateUIManager", Profiler::Color::Purple);
 
 	bool ret = true;
-	/*std::list<GUI*>::iterator item = ui_list.begin();
-	for (; item != ui_list.end(); ++item)
-	{
-		if ((*item) != nullptr) {
-			if ((*item)->to_delete) {
-				ret = DeleteUIElement(*item);
-			}
-			else {
-				ret = (*item)->PostUpdate();
-			}
-		}
-	}
-	ui_list.remove(nullptr);*/
 
 	std::list<GUI*> tree;
 	BFS(tree, screen);

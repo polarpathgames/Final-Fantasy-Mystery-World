@@ -52,13 +52,15 @@ public:
 
 private:
 
-	SDL_Texture* atlas = nullptr;
+	SDL_Texture*	atlas = nullptr;
+	GUI*			focus = nullptr;
+	bool			using_mouse = true;
 	std::list<GUI*> ui_list;	
 
 public:
 
 	GUI * screen = nullptr;
-	bool debug_ui = true;
+	bool debug_ui = false;
 
 };
 #endif // !__j1UIMANAGER_H__
