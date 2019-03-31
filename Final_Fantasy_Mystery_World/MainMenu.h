@@ -36,6 +36,9 @@ private:
 	GUI_Button* load_game_button = nullptr;
 	GUI_Label* load_game_label = nullptr;
 
+	GUI_Button* options_button = nullptr;
+	GUI_Label* options_label = nullptr;
+
 	GUI_Button* credits_button = nullptr;
 	GUI_Label* credits_label = nullptr;
 

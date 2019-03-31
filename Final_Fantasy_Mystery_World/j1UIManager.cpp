@@ -173,7 +173,7 @@ bool j1UIManager::PostUpdate()
 	for (std::list<GUI*>::iterator item = tree.begin(); item != tree.end(); item++) {
 		(*item)->Draw();
 		if (focus == *item) {
-			App->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - focus_tx.w, (focus->section.h - focus_tx.h) * 0.5F + focus->GetGlobalPosition().y, &focus_tx);
+			App->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - focus_tx.w, (focus->section.h - focus_tx.h) * 0.5F + focus->GetGlobalPosition().y + 5, &focus_tx);
 		}
 		if (debug_ui) {
 			(*item)->DebugDraw();

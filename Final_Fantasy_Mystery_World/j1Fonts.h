@@ -21,15 +21,16 @@ enum class FontType {
 
 struct Font {
 	Font() {}
-	Font(_TTF_Font* font, FontType type, const char* name) :font(font), type(type), name(name) {}
-	Font(_TTF_Font* font, FontType type) :font(font), type(type), name("none") {}
+	Font(_TTF_Font* font, FontType type, const char* name, uint size = DEFAULT_FONT_SIZE) :font(font), type(type), name(name), size(size) {}
+	Font(_TTF_Font* font, FontType type) :font(font), type(type), name("none"), size(DEFAULT_FONT_SIZE) {}
 
-	std::string name = "none";
-	_TTF_Font* font = nullptr;
-	FontType type = FontType::NONE;
+	std::string name =	"none";
+	_TTF_Font* font =	nullptr;
+	FontType type =		FontType::NONE;
+	uint size =			DEFAULT_FONT_SIZE;
 
 	bool operator==(const Font& other) {
-		if (this->type == other.type)
+		if (this->type == other.type && size == other.size)
 			return true;
 		return false;
 	}
@@ -60,6 +61,7 @@ public:
 	// Create a surface from text
 	SDL_Texture* Print(const char* text, SDL_Color color = { 255, 255, 255, 255 }, FontType type = FontType::NONE);
 	SDL_Texture* PrintWrapped(const char* text, SDL_Color color, FontType type, Uint32 wrap_length);
+	bool ChangeFontSize(const int& size);
 	bool CalcSize(const char* text, int& width, int& height, FontType font);
 
 public:
