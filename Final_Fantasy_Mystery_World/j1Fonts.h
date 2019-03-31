@@ -54,8 +54,8 @@ public:
 	Font* const Load(const char* path, int size = 12);
 	bool UnLoad(FontType font);
 
-	bool FindIdFont(FontType font_type, std::list<Font*>::iterator &item);
-	bool FindPathFont(const char* name, std::list<Font*>::iterator &item);
+	std::list<Font*>::const_iterator FindIdFont(FontType font_type);
+	std::list<Font*>::const_iterator FindPathFont(const char* name);
 
 	// Create a surface from text
 	SDL_Texture* Print(const char* text, SDL_Color color = { 255, 255, 255, 255 }, FontType type = FontType::NONE);

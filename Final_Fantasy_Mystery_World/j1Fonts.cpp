@@ -66,7 +66,7 @@ bool j1Fonts::CleanUp()
 Font* const j1Fonts::Load(const char* path, int size)
 {
 	Font* font = new Font(TTF_OpenFont(path, size),(FontType)fonts.size(), path);
-	std::list<Font*>::iterator item;
+
 	if (font->font == NULL)
 	{
 		LOG("Could not load TTF font with path: %s. TTF_OpenFont: %s", path, TTF_GetError());
@@ -74,7 +74,7 @@ Font* const j1Fonts::Load(const char* path, int size)
 		delete font;
 		font = *fonts.begin();
 	}
-	else if (FindPathFont(path, item)) {
+	else if (FindPathFont(path) != fonts.end()) {
 		LOG("Already loaded font with ID %i", font->type);
 		TTF_CloseFont(font->font);
 		delete font;
@@ -91,12 +91,11 @@ Font* const j1Fonts::Load(const char* path, int size)
 
 bool j1Fonts::UnLoad(FontType font)
 {
-	std::list<Font*>::iterator font_item;
-	if (FindIdFont(font, font_item)) {
-		TTF_CloseFont((*font_item)->font);
-		delete *font_item;
-		*font_item = nullptr;
-		fonts.remove(nullptr);
+	std::list<Font*>::const_iterator item;
+	if ((item = FindIdFont(font)) != fonts.end()) {
+		TTF_CloseFont((*item)->font);
+		delete *item;
+		fonts.remove(*item);
 	}
 	else {
 		LOG("Could not found font to delete with id %i", (int)font);
@@ -105,30 +104,26 @@ bool j1Fonts::UnLoad(FontType font)
 	return true;
 }
 
-bool j1Fonts::FindIdFont(FontType font_type, std::list<Font*>::iterator &font)
+std::list<Font*>::const_iterator j1Fonts::FindIdFont(FontType font_type)
 {
 	for (std::list<Font*>::iterator item = fonts.begin(); item != fonts.end(); ++item) {
 		if ((*item)->type == font_type) {
-			font = item;
-			return true;
+			return item;
 		}
 	}
 	LOG("No Font found with id %i", (int)font_type);
-	font = fonts.begin();
-	return false;
+	return fonts.end();
 }
 
-bool j1Fonts::FindPathFont(const char* name, std::list<Font*>::iterator &font)
+std::list<Font*>::const_iterator j1Fonts::FindPathFont(const char* name)
 {
 	for (std::list<Font*>::iterator item = fonts.begin(); item != fonts.end(); ++item) {
 		if (strcmp(name,(*item)->name.data()) == 0) {
-			font = item;
-			return true;
+			return item;
 		}
 	}
 	LOG("No Font found with name %s", name);
-	font = fonts.begin();
-	return false;
+	return fonts.end();
 }
 
 // Print text using font
@@ -136,8 +131,8 @@ SDL_Texture* j1Fonts::Print(const char* text, SDL_Color color, FontType font_typ
 {
 	SDL_Texture* ret = NULL;
 
-	std::list<Font*>::iterator item;
-	SDL_Surface* surface = TTF_RenderText_Blended((FindIdFont(font_type,item)) ? (*item)->font : default->font, text, color);
+	std::list<Font*>::const_iterator item;
+	SDL_Surface* surface = TTF_RenderText_Blended(((item = FindIdFont(font_type))!=fonts.end()) ? (*item)->font : default->font, text, color);
 
 	if (surface == NULL)
 	{
@@ -152,11 +147,11 @@ SDL_Texture* j1Fonts::Print(const char* text, SDL_Color color, FontType font_typ
 	return ret;
 }
 
-SDL_Texture* j1Fonts::PrintWrapped(const char* text, SDL_Color color, FontType type, Uint32 wrap_length)
+SDL_Texture* j1Fonts::PrintWrapped(const char* text, SDL_Color color, FontType font_type, Uint32 wrap_length)
 {
 	SDL_Texture* ret = NULL;
-	std::list<Font*>::iterator item;
-	SDL_Surface* surface = TTF_RenderText_Blended_Wrapped((FindIdFont(type, item)) ? (*item)->font : default->font, text, color, wrap_length);
+	std::list<Font*>::const_iterator item;
+	SDL_Surface* surface = TTF_RenderText_Blended_Wrapped(((item = FindIdFont(font_type)) != fonts.end()) ? (*item)->font : default->font, text, color, wrap_length);
 	SDL_SetSurfaceAlphaMod(surface, color.a);
 
 	if (surface == NULL)
@@ -173,11 +168,11 @@ SDL_Texture* j1Fonts::PrintWrapped(const char* text, SDL_Color color, FontType t
 }
 
 // calculate size of a text
-bool j1Fonts::CalcSize(const char* text, int& width, int& height, FontType type)
+bool j1Fonts::CalcSize(const char* text, int& width, int& height, FontType font_type)
 {
 	bool ret = false;
-	std::list<Font*>::iterator item;
-	if (TTF_SizeText((FindIdFont(type, item)) ? (*item)->font : default->font, text, &width, &height) != 0)
+	std::list<Font*>::const_iterator item;
+	if (TTF_SizeText(((item = FindIdFont(font_type)) != fonts.end()) ? (*item)->font : default->font, text, &width, &height) != 0)
 		LOG("Unable to calc size of text surface! SDL_ttf Error: %s\n", TTF_GetError());
 	else
 		ret = true;

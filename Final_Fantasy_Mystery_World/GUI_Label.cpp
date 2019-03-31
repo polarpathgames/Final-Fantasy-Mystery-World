@@ -8,9 +8,12 @@
 GUI_Label::GUI_Label(const int & pos_x, const int & pos_y, const char * txt, const Color & c, const char * path_font, const uint & size, GUI * parent, bool interactable, bool draggable, uint32 wrap_length)
 	:GUI(LABEL, pos_x, pos_y, parent, { 0,0,0,0 })
 {
-	std::list<Font*>::iterator item;
-	App->fonts->FindPathFont(path_font, item);
-	id_font = (*item)->type;
+	std::list<Font*>::const_iterator item = App->fonts->FindPathFont(path_font);
+	if (item != App->fonts->fonts.end()) {
+		id_font = (*item)->type;
+	}
+	else id_font = FontType::FINAL_FANTASY;
+
 	text.assign(txt);
 
 	SetColor(c);
