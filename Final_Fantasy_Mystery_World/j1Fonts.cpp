@@ -33,9 +33,9 @@ bool j1Fonts::Awake(pugi::xml_node& conf)
 		const char* path = conf.child("path").attribute("folder").as_string(DEFAULT_PATH);
 		const char* font = conf.child("default_font").attribute("file").as_string(DEFAULT_FONT);
 		int size = conf.child("default_font").attribute("size").as_int(DEFAULT_FONT_SIZE);
-		default = Load(PATH(path,font), size);
+		default = Load(PATH(path,font), size);	// Default font
 
-		for (conf = conf.child("font"); conf; conf = conf.next_sibling()) {
+		for (conf = conf.child("font"); conf; conf = conf.next_sibling()) { // Iterate all nodes to load all fonts we will use
 			Load(PATH(path, conf.attribute("file").as_string()));
 		}
 	}
@@ -66,21 +66,21 @@ bool j1Fonts::CleanUp()
 Font* const j1Fonts::Load(const char* path, int size)
 {
 	Font* ret = nullptr;
-	std::list<Font*>::const_iterator item = FindPathFont(path);
+	std::list<Font*>::const_iterator item = FindPathFont(path);	// Get iterator of fonts list
 	
-	if (item != fonts.end()) {
+	if (item != fonts.end()) {	// if iterator is not the last item of the list (existing in list), returns that item
 		LOG("Already loaded font with ID %i", (*item)->type);
 		ret = *item;
 	}
-	else {
-		ret = new Font(TTF_OpenFont(path, size), (FontType)fonts.size(), path);
-		if (ret->font == NULL) {
+	else { // If item is list.end() (not existing font in list)
+		ret = new Font(TTF_OpenFont(path, size), (FontType)fonts.size(), path);	// Create font
+		if (ret->font == NULL) {	// if font is NULL, get error and return default font
 			LOG("Could not load TTF font with path: %s. TTF_OpenFont: %s. Closing and using default font", path, TTF_GetError());
 			TTF_CloseFont(ret->font);
 			delete ret;
 			ret = default;
 		}
-		else
+		else // If success, push font on the list
 		{
 			LOG("Successfully loaded font %s size %d", path, size);
 			fonts.push_back(ret);
@@ -105,7 +105,7 @@ bool j1Fonts::UnLoad(FontType font)
 	return true;
 }
 
-std::list<Font*>::const_iterator j1Fonts::FindIdFont(FontType font_type)
+std::list<Font*>::const_iterator j1Fonts::FindIdFont(FontType font_type) // Find font by id
 {
 	for (std::list<Font*>::iterator item = fonts.begin(); item != fonts.end(); ++item) {
 		if ((*item)->type == font_type) {
@@ -116,7 +116,7 @@ std::list<Font*>::const_iterator j1Fonts::FindIdFont(FontType font_type)
 	return fonts.end();
 }
 
-std::list<Font*>::const_iterator j1Fonts::FindPathFont(const char* name)
+std::list<Font*>::const_iterator j1Fonts::FindPathFont(const char* name) // Find font by name
 {
 	for (std::list<Font*>::iterator item = fonts.begin(); item != fonts.end(); ++item) {
 		if (strcmp(name,(*item)->name.data()) == 0) {
