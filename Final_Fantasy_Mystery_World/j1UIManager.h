@@ -33,7 +33,7 @@ public:
 	bool Start();
 	bool PreUpdate();
 	void FocusInput();
-	void FocusFirstUIFocusable();
+	bool FocusFirstUIFocusable();
 	bool PostUpdate();
 	bool CleanUp();
 

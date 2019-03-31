@@ -72,8 +72,17 @@ bool j1UIManager::PreUpdate()
 		}
 	}
 	else {
-		FocusInput();
-		ret = focus->UpdateFocus();
+		if (focus == nullptr) {
+			if (FocusFirstUIFocusable()) {
+				FocusInput();
+				ret = focus->UpdateFocus();
+			}
+		}
+		else {
+			FocusInput();
+			ret = focus->UpdateFocus();
+		}
+		
 	}
 
 	return ret;
@@ -135,14 +144,16 @@ void j1UIManager::FocusInput()
 	}
 }
 
-void j1UIManager::FocusFirstUIFocusable()
+bool j1UIManager::FocusFirstUIFocusable()
 {
 	for (std::list<GUI*>::iterator item = ui_list.begin(); item != ui_list.end(); ++item) {
 		if ((*item)->allow_focus && *item != nullptr) {
 			focus = *item;
-			break;
+			return true;
 		}
 	}
+	LOG("There is not any button focusable");
+	return false;
 }
 
 bool j1UIManager::PostUpdate()
@@ -235,6 +246,7 @@ void j1UIManager::CreateScreen()
 
 bool j1UIManager::DeleteUIElement(GUI * element)
 {
+	focus = nullptr;
 	if (element != nullptr) {
 		std::list<GUI*>::iterator item_ui = std::find(ui_list.begin(), ui_list.end(), element);
 		if (item_ui != ui_list.end()) {															//if element doesn't find in ui list it cannot be deleted
@@ -296,6 +308,7 @@ bool j1UIManager::DeleteAllUIElements()
 
 	ret = DeleteUIElement(screen);
 	CreateScreen();
+	focus = nullptr;
 
 	return ret;
 }
