@@ -33,7 +33,7 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	has_turn = true;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
-	movement_type = Movement_Type::InLobby;
+	movement_type = Movement_Type::InQuest;
 	ground = App->tex->Load("textures/player_pos.png");
 	
 	velocity.x = 160;
@@ -727,6 +727,16 @@ const bool Player::MultipleButtons(const Input * input)
 		ret = false;
 
 	return ret;
+}
+
+void Player::GetHitted(const int & damage_taken)
+{
+	stats.live -= damage_taken;
+
+	if (stats.live <= 0) {
+		App->entity_manager->DeleteEntity(this);
+	}
+
 }
 
 
