@@ -92,6 +92,9 @@
     <ClCompile Include="GUI_Slider.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="GUI_CheckBox.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Scene.h" />
@@ -202,6 +205,9 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="GUI_Slider.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI_CheckBox.h">
       <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>

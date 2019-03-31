@@ -84,6 +84,7 @@
     <ClCompile Include="EasingSplines.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="GUI_CheckBox.cpp" />
     <ClCompile Include="GUI_Slider.cpp" />
     <ClCompile Include="j1Collisions.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
@@ -115,6 +116,7 @@
     <ClCompile Include="StaticEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GUI_CheckBox.h" />
     <ClInclude Include="DynamicEntity.h" />
     <ClInclude Include="EasingSplines.h" />
     <ClInclude Include="Enemy.h" />
