@@ -32,6 +32,7 @@ public:
 	bool Awake(pugi::xml_node&);
 	bool Start();
 	bool PreUpdate();
+	void FocusInput();
 	void FocusFirstUIFocusable();
 	bool PostUpdate();
 	bool CleanUp();

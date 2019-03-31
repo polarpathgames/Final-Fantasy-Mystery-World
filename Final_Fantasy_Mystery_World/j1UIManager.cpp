@@ -50,6 +50,8 @@ bool j1UIManager::PreUpdate()
 			App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
 			using_mouse = false;
 			SDL_ShowCursor(SDL_DISABLE);
+			if(focus == nullptr)
+				FocusFirstUIFocusable();
 		}
 	}
 	else {
@@ -70,24 +72,67 @@ bool j1UIManager::PreUpdate()
 		}
 	}
 	else {
-		FocusFirstUIFocusable();
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
-			GUI* new_focus = focus;
-			if(focus->parent!=nullptr)
-				for (std::list<GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
-					if ((*item)->allow_focus && (*item)->position.y <= focus->position.y && *item != focus) {
-						if (new_focus == focus || new_focus->position.y < (*item)->position.y)
-							new_focus = *item;
-					}
-				}
-			focus->current_state = Mouse_Event::NONE;
-			focus = new_focus;
-			focus->current_state = Mouse_Event::HOVER;
-		}
+		FocusInput();
 		ret = focus->UpdateFocus();
 	}
 
 	return ret;
+}
+
+void j1UIManager::FocusInput()
+{
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+		GUI* new_focus = focus;
+		if (focus->parent != nullptr)
+			for (std::list<GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
+				if ((*item)->allow_focus && (*item)->position.y <= focus->position.y && *item != focus) {
+					if (new_focus == focus || new_focus->position.y < (*item)->position.y)
+						new_focus = *item;
+				}
+			}
+		focus->current_state = Mouse_Event::NONE;
+		focus = new_focus;
+		focus->current_state = Mouse_Event::HOVER;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
+		GUI* new_focus = focus;
+		if (focus->parent != nullptr)
+			for (std::list<GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
+				if ((*item)->allow_focus && (*item)->position.y >= focus->position.y && *item != focus) {
+					if (new_focus == focus || new_focus->position.y > (*item)->position.y)
+						new_focus = *item;
+				}
+			}
+		focus->current_state = Mouse_Event::NONE;
+		focus = new_focus;
+		focus->current_state = Mouse_Event::HOVER;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+		GUI* new_focus = focus;
+		if (focus->parent != nullptr)
+			for (std::list<GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
+				if ((*item)->allow_focus && (*item)->position.x <= focus->position.x && *item != focus) {
+					if (new_focus == focus || new_focus->position.x < (*item)->position.x)
+						new_focus = *item;
+				}
+			}
+		focus->current_state = Mouse_Event::NONE;
+		focus = new_focus;
+		focus->current_state = Mouse_Event::HOVER;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+		GUI* new_focus = focus;
+		if (focus->parent != nullptr)
+			for (std::list<GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
+				if ((*item)->allow_focus && (*item)->position.x >= focus->position.x && *item != focus) {
+					if (new_focus == focus || new_focus->position.x > (*item)->position.x)
+						new_focus = *item;
+				}
+			}
+		focus->current_state = Mouse_Event::NONE;
+		focus = new_focus;
+		focus->current_state = Mouse_Event::HOVER;
+	}
 }
 
 void j1UIManager::FocusFirstUIFocusable()
