@@ -36,11 +36,7 @@ bool j1UIManager::Awake(pugi::xml_node &node)
 bool j1UIManager::Start()
 {
 	atlas = App->tex->Load("gui/atlas.png");
-	int x2 = 0, y2 = 0;
-	App->input->GetMouseMotion(x2, y2);
-	iPoint mouse{ x2,y2 };
 
-	mouse_pos.push_back(mouse);
 	return true;
 }
 
@@ -54,27 +50,16 @@ bool j1UIManager::PreUpdate()
 	}
 
 	int x2 = 0, y2 = 0;
-	App->input->GetMousePosition(x2, y2);
-	iPoint mouse{ x2,y2 };
+	App->input->GetMouseMotion(x2, y2);
 
-	mouse_pos.push_back(mouse);
-
-	iPoint pos_before, pos_now;
-
-	pos_before = mouse_pos.front();
-	pos_now = mouse_pos.back();
-
-	if (pos_now == pos_before && using_mouse) {
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN
-			|| App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+	if (x2 == 0 && y2 == 0 && using_mouse && (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN
+		|| App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)) {
 			using_mouse = false;
 			SDL_ShowCursor(SDL_DISABLE);
 			if (focus == nullptr)
 				FocusFirstUIFocusable();
-		}
-
 	}
-	else if (!using_mouse && pos_now != pos_before){
+	else if (!using_mouse && (x2 != 0 || y2 != 0)){
 		using_mouse = true;
 		focus = nullptr;
 		SDL_ShowCursor(SDL_ENABLE);
@@ -124,8 +109,6 @@ bool j1UIManager::PreUpdate()
 		}
 		
 	}
-
-	mouse_pos.pop_front();
 
 	return ret;
 }
