@@ -76,6 +76,7 @@ bool j1UIManager::PreUpdate()
 	}
 	else if (!using_mouse && pos_now != pos_before){
 		using_mouse = true;
+		focus = nullptr;
 		SDL_ShowCursor(SDL_ENABLE);
 	}
 
