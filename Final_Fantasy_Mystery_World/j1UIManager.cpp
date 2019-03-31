@@ -159,18 +159,18 @@ GUI_Label* j1UIManager::AddLabel(const int &x, const int &y, const char* text, u
 //	return slider;
 //}
 
-//GUI_CheckBox*  j1UIManager::AddCheckBox(const int &pos_x, const int &pos_y, const SDL_Rect &idle, j1Module* callback, GUI* parent = nullptr, const SDL_Rect &hover, const SDL_Rect &push)
-//{
-//	GUI_CheckBox* checkbox= new GUI_CheckBox(pos_x, pos_y, idle, hover, push, parent);
-//	
-//	if (callback != nullptr) {
-//		checkbox->AddListener(callback);
-//	}
-//
-//	ui_list.push_back(checkbox);
-//	
-//	return checkbox;
-//}
+GUI_CheckBox* j1UIManager::AddCheckBox(const int &pos_x, const int &pos_y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, j1Module* callback, GUI* parent = nullptr)
+{
+	GUI_CheckBox* checkbox= new GUI_CheckBox(pos_x, pos_y, idle, hover, push, parent);
+	
+	if (callback != nullptr) {
+		checkbox->AddListener(callback);
+	}
+
+	ui_list.push_back(checkbox);
+	
+	return checkbox;
+}
 
 void j1UIManager::CreateScreen()
 {
