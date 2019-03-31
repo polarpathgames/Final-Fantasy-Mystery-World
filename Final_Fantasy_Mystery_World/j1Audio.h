@@ -26,21 +26,37 @@ public:
 	bool CleanUp();
 
 	// Play a music file
-	bool PlayMusic(const char* path, float fade_time = DEFAULT_MUSIC_FADE_TIME);
-	bool Update(float dt);
+	bool PlayMusic(const char* path); //float fade_time = DEFAULT_MUSIC_FADE_TIME
+
 	// Load a WAV in memory
 	unsigned int LoadFx(const char* path);
 
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
+	//Control Volume
+	void StopMusic(int mut);
+	void VolumeUp(int vol);
+	void VolumeDown(int vol);
+	void SliderVolumeFx(int vol);
+
+	//Save & Load volume
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+public:
+	uint volume = 0u;
+	uint volume_fx = 0u;
+	uint max_volume = 0u;
+	float default_music_fade_time;
+	uint volume_change_ratio = 0u;
+	bool mute = false;
+	bool mute_volume = false;
+	bool mute_fx = false;
 
 private:
 	
-	_Mix_Music*			music;
+	_Mix_Music*			music = nullptr;
 	std::list<Mix_Chunk*>	fx;
 };
 
