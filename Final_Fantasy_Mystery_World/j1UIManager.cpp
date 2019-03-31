@@ -9,6 +9,7 @@
 #include "GUI_Image.h"
 #include "GUI_Button.h"
 #include "GUI_Label.h"
+#include "GUI_Slider.h"
 #include "GUI.h"
 #include "Brofiler/Brofiler.h"
 
@@ -146,6 +147,16 @@ GUI_Label* j1UIManager::AddLabel(const int &x, const int &y, const char* text, u
 	
 	return label;
 }
+
+//GUI_Slider * j1UIManager::AddSlider(iPoint pos, SDL_Rect rect, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, bool horizontal, GUI* parent)
+//{
+//	GUI_Slider* slider = new GUI_Slider(pos, rect, normal, hovered, pressed, horizontal, atlas);
+//	slider->parent = parent;
+//
+//	ui_list.push_back(slider);
+//
+//	return slider;
+//}
 
 void j1UIManager::CreateScreen()
 {

@@ -89,6 +89,9 @@
     <ClCompile Include="j1Collisions.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="GUI_Slider.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Scene.h" />
@@ -197,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="j1Collisions.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI_Slider.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
