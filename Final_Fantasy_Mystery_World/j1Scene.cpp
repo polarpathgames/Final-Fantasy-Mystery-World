@@ -110,7 +110,7 @@ bool j1Scene::Update(float dt)
 		App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 	}
 		
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && create_options == false) {
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !create_options && !create_controls) {
 		(App->ChangePause()) ? CreatePauseMenu() : DestroyPauseMenu();
 	}
 	
@@ -206,9 +206,7 @@ void j1Scene::CreatePauseMenu()
 
 void j1Scene::DestroyPauseMenu()
 {
-	
-	if (App->GetPause())
-		App->ChangePause();
+
 
 	/*if(pause_panel != nullptr)
 	App->ui_manager->DeleteUIElement(pause_panel);*/
@@ -262,12 +260,29 @@ void j1Scene::DestroyOptionsMenu()
 	create_options = false;
 }
 
+void j1Scene::CreateControlsMenu()
+{
+	controls_panel = App->ui_manager->AddImage(0, 0, { 1024,768,1024,768 }, this, App->ui_manager->screen, true, false, true);
+	controls_panel->SetPosRespectParent(CENTERED);
+
+
+
+	create_controls = true;
+}
+
+void j1Scene::DestroyControlsMenu()
+{
+	create_controls = false;
+}
+
 bool j1Scene::Interact(GUI* interact)
 {
 	bool ret = true;
 	if (interact == button_resume)
 	{
 		DestroyPauseMenu();
+		if (App->GetPause())
+			App->ChangePause();
 		ret = false;
 	}
 	if (interact == button_main_menu)
@@ -290,6 +305,15 @@ bool j1Scene::Interact(GUI* interact)
 		DestroyPauseMenu();
 		CreateOptionsMenu();
 		ret = false;
+	}
+	if (interact == button_retun) {
+		DestroyOptionsMenu();
+		CreatePauseMenu();
+	}
+
+	if (interact == button_controls) {
+		DestroyOptionsMenu();
+		CreateControlsMenu();
 	}
 
 	//if (interact == checkbox_fps)

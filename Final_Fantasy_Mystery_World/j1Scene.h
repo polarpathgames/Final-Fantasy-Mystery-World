@@ -49,6 +49,9 @@ public:
 	void CreateOptionsMenu();
 	void DestroyOptionsMenu();
 
+	void CreateControlsMenu();
+	void DestroyControlsMenu();
+
 public:
 
 	//GUI* mock_image_ui = nullptr;
@@ -57,6 +60,7 @@ public:
 
 private:
 	bool create_options = false;
+	bool create_controls = false;
 
 	//pause
 	GUI_Image* pause_panel = nullptr;
@@ -91,6 +95,15 @@ private:
 
 	GUI_Button* button_retun = nullptr;
 	GUI_Label* label_return = nullptr;
+
+
+	// Menu Controls
+
+	GUI_Image* controls_panel = nullptr;
+
+	GUI_Button* button_retun_to_options = nullptr;
+	GUI_Label* label_return_to_options = nullptr;
+
 };
 
 #endif // __j1SCENE_H__
