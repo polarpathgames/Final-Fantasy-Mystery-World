@@ -67,7 +67,7 @@ public:
 	//GUI* mock_image_ui = nullptr;
 	//SDL_Rect mock_image_rect = { 0, 0, 61, 76 };
 	GUI* background = nullptr;
-
+	std::list<GUI_Label*> labels_control;
 private:
 
 	ChangeControls * control_to_change = nullptr;
@@ -110,13 +110,21 @@ private:
 
 	// Menu Controls
 
+	
+
 	GUI_Image* controls_panel = nullptr;
 
 	GUI_Button* button_retun_to_options = nullptr;
 	GUI_Label* label_return_to_options = nullptr;
+
 	GUI_Button* button_basic_attack = nullptr;
 	GUI_Label* label_basic_attack = nullptr;
 	GUI_Label* label_to_show_how_basic_attack = nullptr;
+
+	GUI_Button* button_up = nullptr;
+	GUI_Label* label_up = nullptr;
+	GUI_Label* label_to_show_how_up = nullptr;
+
 
 };
 

@@ -2,7 +2,6 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Pathfinding.h"
-#include "j1Input.h"
 #include "j1UIManager.h"
 #include "j1Collisions.h"
 #include "j1Textures.h"
@@ -22,6 +21,7 @@
 #include "GUI_Image.h"
 #include "Sensor.h"
 #include "Brofiler/Brofiler.h"
+#include "j1Input.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -293,8 +293,14 @@ void j1Scene::CreateControlsMenu()
 	label_to_show_how_basic_attack = App->ui_manager->AddLabel(0, 0, "G", 50, button_basic_attack, BLACK, "fonts/Munro.ttf", nullptr);
 	label_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
 	label_basic_attack = App->ui_manager->AddLabel(300, 300, "Basic Attack", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
-	
+	labels_control.push_back(label_to_show_how_basic_attack);
 
+	button_up = App->ui_manager->AddButton(340, 330, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_up->AddListener(this);
+	label_to_show_how_up = App->ui_manager->AddLabel(0, 0, "W", 50, button_up, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_up->SetPosRespectParent(CENTERED);
+	label_up = App->ui_manager->AddLabel(300, 330, "Move Up", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	labels_control.push_back(label_to_show_how_up);
 
 	menu_state = StatesMenu::CONTROLS_MENU;
 }
@@ -302,6 +308,9 @@ void j1Scene::CreateControlsMenu()
 void j1Scene::DestroyControlsMenu()
 {
 	App->ui_manager->DeleteUIElement(controls_panel);
+
+	labels_control.clear();
+
 
 }
 
@@ -357,16 +366,22 @@ bool j1Scene::Interact(GUI* interact)
 			DestroyControlsMenu();
 		}
 		if (interact == button_basic_attack) {
-			if (label_to_show_how_basic_attack->GetText() != TEXT_WAITING_INPUT) {
-				control_to_change = new ChangeControls(label_to_show_how_basic_attack);
-			}
+			if (control_to_change != nullptr)
+				delete control_to_change;
+			control_to_change = new ChangeControls(label_to_show_how_basic_attack,  &App->input->buttons_code.BASIC_ATTACK);
+		}
+		if (interact == button_up) {
+			if (control_to_change != nullptr)
+				delete control_to_change;
+			control_to_change = new ChangeControls(label_to_show_how_up, &App->input->buttons_code.UP);
+
 		}
 		break;
 	default:
 		LOG("No state found");
 		break;
 	}
-
+	
 	//if (interact == checkbox_fps)
 	//{
 	//	checkbox_fps->Clicked();
