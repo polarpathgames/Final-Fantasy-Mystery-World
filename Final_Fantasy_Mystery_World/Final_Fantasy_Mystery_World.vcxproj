@@ -80,6 +80,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ChangeControls.cpp" />
     <ClCompile Include="DynamicEntity.cpp" />
     <ClCompile Include="EasingSplines.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -116,6 +117,7 @@
     <ClCompile Include="StaticEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ChangeControls.h" />
     <ClInclude Include="GUI_CheckBox.h" />
     <ClInclude Include="DynamicEntity.h" />
     <ClInclude Include="EasingSplines.h" />

@@ -7,6 +7,7 @@
 #include "j1Collisions.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
+#include "ChangeControls.h"
 #include "j1Render.h"
 #include "j1FadeToBlack.h"
 #include "j1Window.h"
@@ -109,10 +110,23 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
 		App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 	}
-		
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !create_options && !create_controls) {
-		(App->ChangePause()) ? CreatePauseMenu() : DestroyPauseMenu();
+	
+	switch (menu_state) {
+	case StatesMenu::NO_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+			(App->ChangePause()) ? CreatePauseMenu() : DestroyPauseMenu();
+		}
+		break;
+	case StatesMenu::CONTROLS_MENU:
+		if (control_to_change != nullptr) {
+
+		}
+		break;
+	default:
+		LOG("No state found");
+		break;
 	}
+
 	
 
 	return true;
@@ -202,6 +216,8 @@ void j1Scene::CreatePauseMenu()
 	button_options->AddListener((j1Module*)App->scene);
 	label_options = App->ui_manager->AddLabel(0, 0, "Options", 50, button_options, BLACK, "fonts/Munro.ttf", nullptr);
 	label_options->SetPosRespectParent(CENTERED);
+
+	menu_state = StatesMenu::PAUSE_MENU;
 }
 
 void j1Scene::DestroyPauseMenu()
@@ -250,14 +266,13 @@ void j1Scene::CreateOptionsMenu()
 	label_return = App->ui_manager->AddLabel(0, 0, "Return", 50, button_retun, BLACK, "fonts/Munro.ttf", nullptr);
 	label_return->SetPosRespectParent(CENTERED);
 
-	create_options = true;
+	menu_state = StatesMenu::OPTIONS_MENU;
 }
 
 void j1Scene::DestroyOptionsMenu()
 {
 	App->ui_manager->DeleteUIElement(options_panel);
 
-	create_options = false;
 }
 
 void j1Scene::CreateControlsMenu()
@@ -271,25 +286,27 @@ void j1Scene::CreateControlsMenu()
 	label_return_to_options->SetPosRespectParent(CENTERED);
 
 
-	create_controls = true;
+	menu_state = StatesMenu::CONTROLS_MENU;
 }
 
 void j1Scene::DestroyControlsMenu()
 {
 	App->ui_manager->DeleteUIElement(controls_panel);
-	create_controls = false;
+
 }
 
 bool j1Scene::Interact(GUI* interact)
 {
 	bool ret = true;
-	if (!create_controls && !create_options) {
+	switch (menu_state) {
+	case StatesMenu::PAUSE_MENU:
 		if (interact == button_resume)
 		{
 			DestroyPauseMenu();
 			if (App->GetPause())
 				App->ChangePause();
 			ret = false;
+			menu_state = StatesMenu::NO_MENU;
 		}
 		if (interact == button_main_menu)
 		{
@@ -305,6 +322,7 @@ bool j1Scene::Interact(GUI* interact)
 			App->main_menu->active = true;
 			App->main_menu->Start();
 			ret = false;
+			menu_state = StatesMenu::NO_MENU;
 		}
 		if (interact == button_options)
 		{
@@ -312,8 +330,8 @@ bool j1Scene::Interact(GUI* interact)
 			DestroyPauseMenu();
 			ret = false;
 		}
-	}
-	if (create_options) {
+		break;
+	case StatesMenu::OPTIONS_MENU:
 		if (interact == button_retun) {
 			CreatePauseMenu();
 			DestroyOptionsMenu();
@@ -322,15 +340,17 @@ bool j1Scene::Interact(GUI* interact)
 			CreateControlsMenu();
 			DestroyOptionsMenu();
 		}
-	}
-	
-	if (create_controls) {
+		break;
+	case StatesMenu::CONTROLS_MENU:
 		if (interact == button_retun_to_options) {
 			CreateOptionsMenu();
 			DestroyControlsMenu();
 		}
+		break;
+	default:
+		LOG("No state found");
+		break;
 	}
-	
 
 	//if (interact == checkbox_fps)
 	//{

@@ -2,6 +2,16 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "ChangeControls.h"
+
+enum class StatesMenu {
+	NO_MENU,
+	PAUSE_MENU,
+	OPTIONS_MENU,
+	CONTROLS_MENU,
+
+	NONE
+};
 
 
 struct SDL_Texture;
@@ -59,8 +69,9 @@ public:
 	GUI* background = nullptr;
 
 private:
-	bool create_options = false;
-	bool create_controls = false;
+
+	ChangeControls * control_to_change = nullptr;
+	StatesMenu menu_state = StatesMenu::NO_MENU;
 
 	//pause
 	GUI_Image* pause_panel = nullptr;
