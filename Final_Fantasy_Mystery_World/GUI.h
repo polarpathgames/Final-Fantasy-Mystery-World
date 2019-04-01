@@ -48,8 +48,7 @@ public:
 	GUI(UIType type,const int &x,const int &y, GUI* parent, const SDL_Rect& section, bool draw = true, bool inter = false, bool drag = false, bool allow_focus = true);
 	virtual ~GUI();
 
-	bool UpdateMouse();
-	bool UpdateFocus();
+	bool Update();
 	virtual bool PostUpdate() { return true; }
 	void Draw();
 	virtual void InnerDraw();

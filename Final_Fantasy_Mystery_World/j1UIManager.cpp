@@ -65,47 +65,25 @@ bool j1UIManager::PreUpdate()
 		SDL_ShowCursor(SDL_ENABLE);
 	}
 
-	/*
-	if (using_mouse) {
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN ||
-			App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN ||
-			App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ||
-			App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
-			using_mouse = false;
-			SDL_ShowCursor(SDL_DISABLE);
-			if(focus == nullptr)
-				FocusFirstUIFocusable();
-		}
-	}
-	else {
-		int x = 0, y = 0;
-		App->input->GetMouseMotion(x, y);
-		if (x != 0 || y != 0) {
-			using_mouse = true;
-			SDL_ShowCursor(SDL_ENABLE);
-		}
-	}
-	
-	*/
-
 	if (using_mouse) {
 		iPoint mouse;
 		App->input->GetMousePosition(mouse.x, mouse.y);
 		GUI* element = nullptr;
 		if (GetElemOnMouse(mouse.x*App->win->GetScale(), mouse.y*App->win->GetScale(), element)) {//Check if there is an element on Mouse
-			ret = element->UpdateMouse();
+			focus = element;
+			ret = element->Update();
 		}
 	}
 	else {
 		if (focus == nullptr) {
 			if (FocusFirstUIFocusable()) {
 				FocusInput();
-				ret = focus->UpdateFocus();
+				ret = focus->Update();
 			}
 		}
 		else {
 			FocusInput();
-			ret = focus->UpdateFocus();
+			ret = focus->Update();
 		}
 		
 	}

@@ -181,7 +181,7 @@ void j1Scene::CreateEntities()
 
 void j1Scene::CreatePauseMenu()
 {
-	pause_panel = App->ui_manager->AddImage(0, 0, { 1252,1536,313,428 }, this, App->ui_manager->screen, true, false, true, false);
+	pause_panel = App->ui_manager->AddImage(0, 0, { 1252,1536,313,428 }, this, App->ui_manager->screen, true, false, false, false);
 	pause_panel->SetPosRespectParent(CENTERED);
 	button_resume = App->ui_manager->AddButton(50, 50, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true, true);
 	button_resume->AddListener(this);
