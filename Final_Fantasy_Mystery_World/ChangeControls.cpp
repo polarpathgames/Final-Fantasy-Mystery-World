@@ -287,6 +287,77 @@ bool ChangeControls::ChangeControl()
 			return false;
 		}
 	}
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN) {
+		if (LookForOtherControlsBeSame("LSHIFT")) {
+			SetSaveText("LSHIFT");
+			*code_to_change = SDL_SCANCODE_LSHIFT;
+			return false;
+		}
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RSHIFT) == KEY_DOWN) {
+		if (LookForOtherControlsBeSame("RSHIFT")) {
+			SetSaveText("RSHIFT");
+			*code_to_change = SDL_SCANCODE_RSHIFT;
+			return false;
+		}
+	}
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		if (LookForOtherControlsBeSame("SPACE")) {
+			SetSaveText("SPACE");
+			*code_to_change = SDL_SCANCODE_SPACE;
+			return false;
+		}
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RCTRL) == KEY_DOWN) {
+		if (LookForOtherControlsBeSame("RCTRL")) {
+			SetSaveText("RCTRL");
+			*code_to_change = SDL_SCANCODE_RCTRL;
+			return false;
+		}
+	}
+	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_DOWN) {
+		if (LookForOtherControlsBeSame("LCTRL")) {
+			SetSaveText("LCTRL");
+			*code_to_change = SDL_SCANCODE_LCTRL;
+			return false;
+		}
+	}
+	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_DOWN) {
+		if (LookForOtherControlsBeSame("LALT")) {
+			SetSaveText("LALT");
+			*code_to_change = SDL_SCANCODE_LALT;
+			return false;
+		}
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RALT) == KEY_DOWN) {
+		if (LookForOtherControlsBeSame("RALT")) {
+			SetSaveText("RALT");
+			*code_to_change = SDL_SCANCODE_RALT;
+			return false;
+		}
+	}
+	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN) {
+		if (LookForOtherControlsBeSame("TAB")) {
+			SetSaveText("TAB");
+			*code_to_change = SDL_SCANCODE_TAB;
+			return false;
+		}
+	}
+	if (App->input->GetKey(SDL_SCANCODE_CAPSLOCK) == KEY_DOWN) {
+		if (LookForOtherControlsBeSame("CAPSLOCK")) {
+			SetSaveText("CAPSLOCK");
+			*code_to_change = SDL_SCANCODE_CAPSLOCK;
+			return false;
+		}
+	}	
+	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+		if (LookForOtherControlsBeSame("RETURN")) {
+			SetSaveText("RETURN");
+			*code_to_change = SDL_SCANCODE_RETURN;
+			return false;
+		}
+	}
+	
 
 	return true;
 }
