@@ -67,16 +67,27 @@ bool j1Input::Start()
 {
 	SDL_StopTextInput();
 
-	buttons_code.BASIC_ATTACK = SDL_SCANCODE_G;
-	buttons_code.DIAGONALS = SDL_SCANCODE_LSHIFT;
-	buttons_code.DIRECCTION_DOWN = SDL_SCANCODE_K;
-	buttons_code.DIRECCTION_RIGHT = SDL_SCANCODE_L;
-	buttons_code.DIRECTION_LEFT = SDL_SCANCODE_J;
-	buttons_code.DIRECTION_UP = SDL_SCANCODE_I;
-	buttons_code.DOWN = SDL_SCANCODE_S;
-	buttons_code.LEFT = SDL_SCANCODE_A;
-	buttons_code.RIGHT = SDL_SCANCODE_D;
-	buttons_code.UP = SDL_SCANCODE_W;
+	keyboard_buttons.buttons_code.BASIC_ATTACK = SDL_SCANCODE_G;
+	keyboard_buttons.buttons_code.DIAGONALS = SDL_SCANCODE_LSHIFT;
+	keyboard_buttons.buttons_code.DIRECCTION_DOWN = SDL_SCANCODE_K;
+	keyboard_buttons.buttons_code.DIRECCTION_RIGHT = SDL_SCANCODE_L;
+	keyboard_buttons.buttons_code.DIRECTION_LEFT = SDL_SCANCODE_J;
+	keyboard_buttons.buttons_code.DIRECTION_UP = SDL_SCANCODE_I;
+	keyboard_buttons.buttons_code.DOWN = SDL_SCANCODE_S;
+	keyboard_buttons.buttons_code.LEFT = SDL_SCANCODE_A;
+	keyboard_buttons.buttons_code.RIGHT = SDL_SCANCODE_D;
+	keyboard_buttons.buttons_code.UP = SDL_SCANCODE_W;
+
+	keyboard_buttons.buttons_char.BASIC_ATTACK = "G";
+	keyboard_buttons.buttons_char.DIAGONALS = "LSHIFT";
+	keyboard_buttons.buttons_char.DIRECCTION_DOWN = "K";
+	keyboard_buttons.buttons_char.DIRECCTION_RIGHT = "L";
+	keyboard_buttons.buttons_char.DIRECTION_LEFT = "J";
+	keyboard_buttons.buttons_char.DIRECTION_UP = "I";
+	keyboard_buttons.buttons_char.DOWN= "S";
+	keyboard_buttons.buttons_char.LEFT = "A";
+	keyboard_buttons.buttons_char.RIGHT = "D";
+	keyboard_buttons.buttons_char.UP = "W";
 
 	return true;
 }
@@ -226,38 +237,38 @@ bool j1Input::PreUpdate()
 
 	if (GamepadDir[0].axisX > GamepadDir[0].deadzone)
 	{
-		keyboard[buttons_code.RIGHT] = KEY_REPEAT;
+		keyboard[keyboard_buttons.buttons_code.RIGHT] = KEY_REPEAT;
 	}
 
 	else if (GamepadDir[0].axisX < -GamepadDir[0].deadzone)
 	{
-		keyboard[buttons_code.LEFT] = KEY_REPEAT;
+		keyboard[keyboard_buttons.buttons_code.LEFT] = KEY_REPEAT;
 	}
 
 
 	if (GamepadDir[0].axisY < -GamepadDir[0].deadzone)
 	{
-		keyboard[buttons_code.UP] = KEY_REPEAT;
+		keyboard[keyboard_buttons.buttons_code.UP] = KEY_REPEAT;
 	}
 
 	else if (GamepadDir[0].axisY > GamepadDir[0].deadzone)
 	{
-		keyboard[buttons_code.DOWN] = KEY_REPEAT;
+		keyboard[keyboard_buttons.buttons_code.DOWN] = KEY_REPEAT;
 	}
 	if (controller[BUTTON_RT] == KEY_REPEAT) {
-		keyboard[buttons_code.DIAGONALS] = KEY_REPEAT;
+		keyboard[keyboard_buttons.buttons_code.DIAGONALS] = KEY_REPEAT;
 	}
 	if (controller[BUTTON_D_PAD_UP] == KEY_DOWN) {
-		keyboard[buttons_code.DIRECTION_UP] = KEY_DOWN;
+		keyboard[keyboard_buttons.buttons_code.DIRECTION_UP] = KEY_DOWN;
 	}
 	if (controller[BUTTON_D_PAD_DOWN] == KEY_DOWN) {
-		keyboard[buttons_code.DIRECCTION_DOWN] = KEY_DOWN;
+		keyboard[keyboard_buttons.buttons_code.DIRECCTION_DOWN] = KEY_DOWN;
 	}
 	if (controller[BUTTON_D_PAD_LEFT] == KEY_DOWN) {
-		keyboard[buttons_code.DIRECTION_LEFT] = KEY_DOWN;
+		keyboard[keyboard_buttons.buttons_code.DIRECTION_LEFT] = KEY_DOWN;
 	}
 	if (controller[BUTTON_D_PAD_RIGHT] == KEY_DOWN) {
-		keyboard[buttons_code.DIRECCTION_RIGHT] = KEY_DOWN;
+		keyboard[keyboard_buttons.buttons_code.DIRECCTION_RIGHT] = KEY_DOWN;
 	}
 	return true;
 }

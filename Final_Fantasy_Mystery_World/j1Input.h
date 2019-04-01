@@ -50,6 +50,27 @@ struct ButtonsUsed {
 
 };
 
+
+struct ButtonChar {
+	char* UP;
+	char* DOWN;
+	char* LEFT;
+	char* RIGHT;
+	char* DIRECTION_UP;
+	char* DIRECCTION_DOWN;
+	char* DIRECTION_LEFT;
+	char* DIRECCTION_RIGHT;
+	char* DIAGONALS;
+	char* BASIC_ATTACK;
+};
+
+
+struct KeyboardButtons {
+	ButtonsUsed buttons_code;
+	ButtonChar buttons_char;
+};
+
+
 enum j1EventWindow
 {
 	WE_QUIT = 0,
@@ -109,7 +130,7 @@ public:
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
 
-	ButtonsUsed buttons_code;
+	KeyboardButtons keyboard_buttons;
 
 private:
 	bool		windowEvents[WE_COUNT];

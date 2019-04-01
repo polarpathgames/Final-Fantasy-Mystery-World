@@ -126,6 +126,7 @@ private:
 	GUI_Label* label_to_show_how_up = nullptr;
 
 
+
 };
 
 #endif // __j1SCENE_H__

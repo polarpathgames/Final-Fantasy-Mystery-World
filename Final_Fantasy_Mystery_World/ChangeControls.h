@@ -13,21 +13,23 @@ class ChangeControls {
 
 public:
 
-	ChangeControls(GUI_Label* label, int * code);
+	ChangeControls(GUI_Label* label, int * code, char ** save_new_char);
 	~ChangeControls();
 
-	bool Update(float dt);
+	bool Update();
 
 	bool ChangeControl();
 
 	bool LookForOtherControlsBeSame(const char *control);
 
+	void SetSaveText(char* tex);
 
 private:
 
 	GUI_Label * label = nullptr;
 	std::string text_before;
 	int * code_to_change = nullptr;
+	char ** save_char = nullptr;
 
 };
 

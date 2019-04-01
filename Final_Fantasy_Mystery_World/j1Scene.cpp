@@ -119,7 +119,7 @@ bool j1Scene::Update(float dt)
 		break;
 	case StatesMenu::CONTROLS_MENU:
 		if (control_to_change != nullptr) {
-			if (!control_to_change->Update(dt)) {
+			if (!control_to_change->Update()) {
 				delete control_to_change;
 				control_to_change = nullptr;
 			}	
@@ -158,6 +158,9 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
+
+	//delete control_to_change;
+	//labels_control.clear();
 
 	return true;
 }
@@ -290,14 +293,14 @@ void j1Scene::CreateControlsMenu()
 
 	button_basic_attack = App->ui_manager->AddButton(340, 295, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
 	button_basic_attack->AddListener(this);
-	label_to_show_how_basic_attack = App->ui_manager->AddLabel(0, 0, "G", 50, button_basic_attack, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_basic_attack = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, 50, button_basic_attack, BLACK, "fonts/Munro.ttf", nullptr);
 	label_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
 	label_basic_attack = App->ui_manager->AddLabel(300, 300, "Basic Attack", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
 	labels_control.push_back(label_to_show_how_basic_attack);
 
 	button_up = App->ui_manager->AddButton(340, 330, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
 	button_up->AddListener(this);
-	label_to_show_how_up = App->ui_manager->AddLabel(0, 0, "W", 50, button_up, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_up = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.UP, 50, button_up, BLACK, "fonts/Munro.ttf", nullptr);
 	label_to_show_how_up->SetPosRespectParent(CENTERED);
 	label_up = App->ui_manager->AddLabel(300, 330, "Move Up", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
 	labels_control.push_back(label_to_show_how_up);
@@ -368,12 +371,12 @@ bool j1Scene::Interact(GUI* interact)
 		if (interact == button_basic_attack) {
 			if (control_to_change != nullptr)
 				delete control_to_change;
-			control_to_change = new ChangeControls(label_to_show_how_basic_attack,  &App->input->buttons_code.BASIC_ATTACK);
+			control_to_change = new ChangeControls(label_to_show_how_basic_attack,  &App->input->keyboard_buttons.buttons_code.BASIC_ATTACK, &App->input->keyboard_buttons.buttons_char.BASIC_ATTACK);
 		}
 		if (interact == button_up) {
 			if (control_to_change != nullptr)
 				delete control_to_change;
-			control_to_change = new ChangeControls(label_to_show_how_up, &App->input->buttons_code.UP);
+			control_to_change = new ChangeControls(label_to_show_how_up, &App->input->keyboard_buttons.buttons_code.UP, &App->input->keyboard_buttons.buttons_char.UP);
 
 		}
 		break;
