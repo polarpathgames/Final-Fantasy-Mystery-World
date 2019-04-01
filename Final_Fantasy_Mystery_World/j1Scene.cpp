@@ -119,7 +119,10 @@ bool j1Scene::Update(float dt)
 		break;
 	case StatesMenu::CONTROLS_MENU:
 		if (control_to_change != nullptr) {
-
+			if (!control_to_change->Update(dt)) {
+				delete control_to_change;
+				control_to_change = nullptr;
+			}	
 		}
 		break;
 	default:
@@ -352,6 +355,11 @@ bool j1Scene::Interact(GUI* interact)
 		if (interact == button_retun_to_options) {
 			CreateOptionsMenu();
 			DestroyControlsMenu();
+		}
+		if (interact == button_basic_attack) {
+			if (label_to_show_how_basic_attack->GetText() != TEXT_WAITING_INPUT) {
+				control_to_change = new ChangeControls(label_to_show_how_basic_attack);
+			}
 		}
 		break;
 	default:

@@ -1,6 +1,8 @@
 #ifndef __CHANGECONTROLS_H__
 #define __CHANGECONTROLS_H__
 
+#define TEXT_WAITING_INPUT "Click the button you want"
+
 #include <string>
 
 class GUI_Label;

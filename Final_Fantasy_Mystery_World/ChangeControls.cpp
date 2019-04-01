@@ -11,7 +11,7 @@ ChangeControls::ChangeControls(GUI_Label * label)
 
 	text_before = label->GetText();
 
-	label->SetText("Click the button you want");
+	label->SetText(TEXT_WAITING_INPUT);
 
 }
 
@@ -22,6 +22,18 @@ ChangeControls::~ChangeControls()
 bool ChangeControls::Update(float dt)
 {
 	bool ret = true;
+
+	SDL_Event event;
+
+	if (SDL_PollEvent(&event) != 0) {
+		switch (event.key.keysym.scancode) {
+		case SDL_SCANCODE_F:
+			label->SetText("F");
+			ret = false;
+			break;
+		}
+	}
+	
 	/*if (_kbhit() != 0) {
 		char 
 	}
