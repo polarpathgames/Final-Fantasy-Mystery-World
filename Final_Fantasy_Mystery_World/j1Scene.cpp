@@ -199,7 +199,7 @@ void j1Scene::CreatePauseMenu()
 	label_abort_quest->SetPosRespectParent(CENTERED);
 
 	button_options = App->ui_manager->AddButton(50, 150, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true);
-	button_options->AddListener(this);
+	button_options->AddListener((j1Module*)App->scene);
 	label_options = App->ui_manager->AddLabel(0, 0, "Options", 50, button_options, BLACK, "fonts/Munro.ttf", nullptr);
 	label_options->SetPosRespectParent(CENTERED);
 }
@@ -241,12 +241,12 @@ void j1Scene::CreateOptionsMenu()
 	checkbox_fullscreen = App->ui_manager->AddCheckBox(760, 503, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
 
 	button_controls = App->ui_manager->AddButton(491, 595, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true);
-	button_controls->AddListener(this);
+	button_controls->AddListener((j1Module*)App->scene);
 	label_controls = App->ui_manager->AddLabel(0, 0, "Controls", 50, button_controls, BLACK, "fonts/Munro.ttf", nullptr);
 	label_controls->SetPosRespectParent(LEFT_CENTERED);
 
 	button_retun = App->ui_manager->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true);
-	button_retun->AddListener(this);
+	button_retun->AddListener((j1Module*)App->scene);
 	label_return = App->ui_manager->AddLabel(0, 0, "Return", 50, button_retun, BLACK, "fonts/Munro.ttf", nullptr);
 	label_return->SetPosRespectParent(CENTERED);
 
@@ -265,6 +265,10 @@ void j1Scene::CreateControlsMenu()
 	controls_panel = App->ui_manager->AddImage(0, 0, { 1024,768,1024,768 }, this, App->ui_manager->screen, true, false, true);
 	controls_panel->SetPosRespectParent(CENTERED);
 
+	button_retun_to_options = App->ui_manager->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_retun_to_options->AddListener((j1Module*)App->scene);
+	label_return_to_options = App->ui_manager->AddLabel(0, 0, "Return", 50, button_retun_to_options, BLACK, "fonts/Munro.ttf", nullptr);
+	label_return_to_options->SetPosRespectParent(CENTERED);
 
 
 	create_controls = true;
@@ -272,49 +276,61 @@ void j1Scene::CreateControlsMenu()
 
 void j1Scene::DestroyControlsMenu()
 {
+	App->ui_manager->DeleteUIElement(controls_panel);
 	create_controls = false;
 }
 
 bool j1Scene::Interact(GUI* interact)
 {
 	bool ret = true;
-	if (interact == button_resume)
-	{
-		DestroyPauseMenu();
-		if (App->GetPause())
-			App->ChangePause();
-		ret = false;
-	}
-	if (interact == button_main_menu)
-	{
-	
-		/*App->fade_to_black->FadeToBlack(this, App->main_menu, 3.0f);*/
-		App->ui_manager->DeleteAllUIElements();
-		App->render->ResetCamera();
-		App->entity_manager->active = false;
-		App->entity_manager->CleanUp();
-		App->map->active = false;
-		App->map->CleanUp();
-		this->active = false; //desactivates main menu
-		App->main_menu->active = true;
-		App->main_menu->Start();
-		ret = false;
-	}
-	if (interact == button_options)
-	{
-		DestroyPauseMenu();
-		CreateOptionsMenu();
-		ret = false;
-	}
-	if (interact == button_retun) {
-		DestroyOptionsMenu();
-		CreatePauseMenu();
-	}
+	if (!create_controls && !create_options) {
+		if (interact == button_resume)
+		{
+			DestroyPauseMenu();
+			if (App->GetPause())
+				App->ChangePause();
+			ret = false;
+		}
+		if (interact == button_main_menu)
+		{
 
-	if (interact == button_controls) {
-		DestroyOptionsMenu();
-		CreateControlsMenu();
+			/*App->fade_to_black->FadeToBlack(this, App->main_menu, 3.0f);*/
+			App->ui_manager->DeleteAllUIElements();
+			App->render->ResetCamera();
+			App->entity_manager->active = false;
+			App->entity_manager->CleanUp();
+			App->map->active = false;
+			App->map->CleanUp();
+			this->active = false; //desactivates main menu
+			App->main_menu->active = true;
+			App->main_menu->Start();
+			ret = false;
+		}
+		if (interact == button_options)
+		{
+			CreateOptionsMenu();
+			DestroyPauseMenu();
+			ret = false;
+		}
 	}
+	if (create_options) {
+		if (interact == button_retun) {
+			CreatePauseMenu();
+			DestroyOptionsMenu();
+		}
+		if (interact == button_controls) {
+			CreateControlsMenu();
+			DestroyOptionsMenu();
+		}
+	}
+	
+	if (create_controls) {
+		if (interact == button_retun_to_options) {
+			CreateOptionsMenu();
+			DestroyControlsMenu();
+		}
+	}
+	
 
 	//if (interact == checkbox_fps)
 	//{
