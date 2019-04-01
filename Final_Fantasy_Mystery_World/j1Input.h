@@ -34,6 +34,22 @@ enum CONTROLLER_BUTTONS {
 
 };
 
+struct ButtonsUsed {
+
+	int UP;
+	int DOWN;
+	int LEFT;
+	int RIGHT;
+	int DIRECTION_UP;
+	int DIRECCTION_DOWN;
+	int DIRECTION_LEFT;
+	int DIRECCTION_RIGHT;
+	int DIAGONALS;
+	int BASIC_ATTACK;
+
+
+};
+
 enum j1EventWindow
 {
 	WE_QUIT = 0,
@@ -92,6 +108,8 @@ public:
 	// Get mouse / axis position
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
+
+	ButtonsUsed buttons_code;
 
 private:
 	bool		windowEvents[WE_COUNT];
