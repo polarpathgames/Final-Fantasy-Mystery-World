@@ -395,24 +395,15 @@ void DynamicEntity::CheckAttackEfects(const Entity::EntityType & type, const Dir
 			if (has_succeeded) {
 				if (type == Entity::EntityType::ENEMY) {
 					Enemy* enemy_attacked = (Enemy*)(*item);
-					enemy_attacked->stats.live -= attack_damage;
-					if (enemy_attacked->stats.live <= 0) {
-						App->entity_manager->DeleteEntity((*item));
-					}
+					enemy_attacked->GetHitted(attack_damage);
 				}
 				else if (type == Entity::EntityType::PLAYER) {
 					Player* player_attacked = (Player*)(*item);
-					player_attacked->stats.live -= attack_damage;
-					if (player_attacked->stats.live <= 0) {
-						App->entity_manager->DeleteEntity((*item));
-					}
+					player_attacked->GetHitted(attack_damage);
 				}
 			}
 		}
 	}
-
-
-
 }
 
 void DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks attacks)

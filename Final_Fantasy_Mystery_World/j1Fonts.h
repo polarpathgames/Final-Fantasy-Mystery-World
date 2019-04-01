@@ -5,11 +5,35 @@
 #include <list>
 #include "SDL\include\SDL_pixels.h"
 
-#define DEFAULT_FONT "fonts/Final_Fantasy_font.ttf"
+#define DEFAULT_PATH "fonts/"
+#define DEFAULT_FONT "Final_Fantasy_font.ttf"
 #define DEFAULT_FONT_SIZE 36
 
 struct SDL_Texture;
 struct _TTF_Font;
+
+enum class FontType {
+	FINAL_FANTASY = 0,
+	PIXELMIX = 1,
+
+	NONE
+};
+
+struct Font {
+	Font() {}
+	Font(_TTF_Font* font, FontType type, const char* name) :font(font), type(type), name(name) {}
+	Font(_TTF_Font* font, FontType type) :font(font), type(type), name("none") {}
+
+	std::string name = "none";
+	_TTF_Font* font = nullptr;
+	FontType type = FontType::NONE;
+
+	bool operator==(const Font& other) {
+		if (this->type == other.type)
+			return true;
+		return false;
+	}
+};
 
 class j1Fonts : public j1Module
 {
@@ -27,18 +51,21 @@ public:
 	bool CleanUp();
 
 	// Load Font
-	_TTF_Font* const Load(const char* path, int size = 12);
-	bool UnLoad(_TTF_Font* font);
+	Font* const Load(const char* path, int size = 12);
+	bool UnLoad(FontType font);
+
+	std::list<Font*>::const_iterator FindIdFont(FontType font_type);
+	std::list<Font*>::const_iterator FindPathFont(const char* name);
 
 	// Create a surface from text
-	SDL_Texture* Print(const char* text, SDL_Color color = { 255, 255, 255, 255 }, _TTF_Font* font = NULL);
-	SDL_Texture* PrintWrapped(const char* text, SDL_Color color, _TTF_Font* font, Uint32 wrap_length);
-	bool CalcSize(const char* text, int& width, int& height, _TTF_Font* font = NULL) const;
+	SDL_Texture* Print(const char* text, SDL_Color color = { 255, 255, 255, 255 }, FontType type = FontType::NONE);
+	SDL_Texture* PrintWrapped(const char* text, SDL_Color color, FontType type, Uint32 wrap_length);
+	bool CalcSize(const char* text, int& width, int& height, FontType font);
 
 public:
 
-	std::list<_TTF_Font*>	fonts;
-	_TTF_Font*			default;
+	std::list<Font*>	fonts;
+	Font*				default;
 };
 
 

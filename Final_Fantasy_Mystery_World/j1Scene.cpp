@@ -132,7 +132,7 @@ bool j1Scene::PostUpdate()
 	App->input->GetMousePosition(mouse.x, mouse.y);
 	//App->render->ScreenToWorld(mouse.x, mouse.y);
 	iPoint tile = App->map->WorldToMap(mouse.x, mouse.y);
-//	LOG("Tile: %i, %i", tile.x, tile.y);
+	//LOG("Tile: %i, %i", tile.x, tile.y);
 
 	return ret;
 }
