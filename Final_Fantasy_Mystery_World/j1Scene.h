@@ -114,6 +114,9 @@ private:
 
 	GUI_Button* button_retun_to_options = nullptr;
 	GUI_Label* label_return_to_options = nullptr;
+	GUI_Button* button_basic_attack = nullptr;
+	GUI_Label* label_basic_attack = nullptr;
+	GUI_Label* label_to_show_how_basic_attack = nullptr;
 
 };
 

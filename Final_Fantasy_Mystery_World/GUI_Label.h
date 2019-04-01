@@ -23,6 +23,8 @@ public:
 
 	void SetColor(const SDL_Color &c);
 
+	std::string GetText();
+
 	void ChangeFont(const char* f, const int &size);
 
 protected:

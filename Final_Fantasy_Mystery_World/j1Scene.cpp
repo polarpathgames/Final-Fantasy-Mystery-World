@@ -285,6 +285,13 @@ void j1Scene::CreateControlsMenu()
 	label_return_to_options = App->ui_manager->AddLabel(0, 0, "Return", 50, button_retun_to_options, BLACK, "fonts/Munro.ttf", nullptr);
 	label_return_to_options->SetPosRespectParent(CENTERED);
 
+	button_basic_attack = App->ui_manager->AddButton(340, 295, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_basic_attack->AddListener(this);
+	label_to_show_how_basic_attack = App->ui_manager->AddLabel(0, 0, "G", 50, button_basic_attack, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
+	label_basic_attack = App->ui_manager->AddLabel(300, 300, "Basic Attack", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	
+
 
 	menu_state = StatesMenu::CONTROLS_MENU;
 }

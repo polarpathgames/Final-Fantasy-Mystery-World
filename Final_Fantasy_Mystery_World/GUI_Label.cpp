@@ -78,6 +78,11 @@ void GUI_Label::SetColor(const SDL_Color & c)
 	color = c;
 }
 
+std::string GUI_Label::GetText()
+{
+	return text;
+}
+
 void GUI_Label::ChangeFont(const char * f, const int & size)
 {
 	id_font = App->fonts->Load(f, size)->type;
