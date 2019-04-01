@@ -40,6 +40,8 @@ public:
 
 	void MovementLogic();
 
+	void GetHitted(const int &damage_taken);
+
 public:
 
 	EnemyStats stats;

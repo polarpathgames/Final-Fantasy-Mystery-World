@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.2" name="WarriorSpritesheet" tilewidth="18" tileheight="34" tilecount="36" columns="12">
- <image source="../assets/sprites/WarriorSpritesheet.png" width="218" height="102"/>
+<tileset version="1.2" tiledversion="1.2.2" name="WarriorSpritesheet" tilewidth="18" tileheight="34" tilecount="60" columns="12">
+ <image source="../assets/sprites/WarriorSpritesheet.png" width="218" height="172"/>
  <tile id="0">
   <properties>
    <property name="speed" type="int" value="7"/>
@@ -191,6 +191,46 @@
    <frame tileid="34" duration="100"/>
    <frame tileid="33" duration="100"/>
    <frame tileid="35" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="36">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="37" duration="100"/>
+   <frame tileid="36" duration="100"/>
+   <frame tileid="38" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="39">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="40" duration="100"/>
+   <frame tileid="39" duration="100"/>
+   <frame tileid="41" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="42">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="43" duration="100"/>
+   <frame tileid="42" duration="100"/>
+   <frame tileid="44" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="54">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="55" duration="100"/>
+   <frame tileid="54" duration="100"/>
+   <frame tileid="56" duration="100"/>
   </animation>
  </tile>
 </tileset>

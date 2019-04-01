@@ -79,7 +79,7 @@ public:
 
 	const bool MultipleButtons(const Input* input); // Ensure that only one button is clicked 
 
-
+	void GetHitted(const int & damage_taken);
 
 public:
 
