@@ -2,6 +2,16 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "ChangeControls.h"
+
+enum class StatesMenu {
+	NO_MENU,
+	PAUSE_MENU,
+	OPTIONS_MENU,
+	CONTROLS_MENU,
+
+	NONE
+};
 
 
 struct SDL_Texture;
@@ -11,7 +21,7 @@ class GUI;
 class GUI_Image;
 class GUI_Label;
 class GUI_Button;
-
+class GUI_CheckBox;
 
 class j1Scene : public j1Module
 {
@@ -45,6 +55,13 @@ public:
 	void CreatePauseMenu();
 	void DestroyPauseMenu();
 	bool Interact(GUI* interaction);
+
+	void CreateOptionsMenu();
+	void DestroyOptionsMenu();
+
+	void CreateControlsMenu();
+	void DestroyControlsMenu();
+
 public:
 
 	//GUI* mock_image_ui = nullptr;
@@ -52,6 +69,11 @@ public:
 	GUI* background = nullptr;
 
 private:
+
+	ChangeControls * control_to_change = nullptr;
+	StatesMenu menu_state = StatesMenu::NO_MENU;
+
+	//pause
 	GUI_Image* pause_panel = nullptr;
 	GUI_Button* button_resume = nullptr;
 	GUI_Label* label_resume = nullptr;
@@ -62,6 +84,40 @@ private:
 	GUI_Button* button_options = nullptr;
 	GUI_Label* label_options = nullptr;
 	
+	//options
+	GUI_Image* options_panel = nullptr;
+
+	GUI_Label* label_general_volume = nullptr;
+	GUI_Button* button_general_volume = nullptr;
+	//GUI_Slider* slider_general_volume = nullptr;
+	GUI_Label* label_music_volume = nullptr;
+	GUI_Button* button_music_volume = nullptr;
+	//GUI_Slider* slider_music_volume = nullptr;
+	GUI_Label* label_fx_volume = nullptr;
+	GUI_Button* button_fx_volume = nullptr;
+	//GUI_Slider* slider_fx_volume = nullptr;
+
+	GUI_Label* label_fps = nullptr;
+	GUI_CheckBox* checkbox_fps = nullptr;
+	GUI_Label* label_fullscreen = nullptr;
+	GUI_CheckBox* checkbox_fullscreen = nullptr;
+	GUI_Button* button_controls = nullptr;
+	GUI_Label* label_controls = nullptr;
+
+	GUI_Button* button_retun = nullptr;
+	GUI_Label* label_return = nullptr;
+
+
+	// Menu Controls
+
+	GUI_Image* controls_panel = nullptr;
+
+	GUI_Button* button_retun_to_options = nullptr;
+	GUI_Label* label_return_to_options = nullptr;
+	GUI_Button* button_basic_attack = nullptr;
+	GUI_Label* label_basic_attack = nullptr;
+	GUI_Label* label_to_show_how_basic_attack = nullptr;
+
 };
 
 #endif // __j1SCENE_H__

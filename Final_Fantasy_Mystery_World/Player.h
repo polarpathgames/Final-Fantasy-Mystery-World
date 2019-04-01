@@ -56,7 +56,7 @@ public:
 
 	bool CleanUp();
 
-
+	void OnCollision(Collider* c2);
 
 
 	//PreUpdate
@@ -79,7 +79,7 @@ public:
 
 	const bool MultipleButtons(const Input* input); // Ensure that only one button is clicked 
 
-
+	void GetHitted(const int & damage_taken);
 
 public:
 
@@ -88,6 +88,7 @@ public:
 	Movement_Type movement_type; //EN LOBBY O EN UNA QUEST
 
 	PlayerStats stats;
+
 };
 
 

@@ -80,9 +80,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ChangeControls.cpp" />
     <ClCompile Include="DynamicEntity.cpp" />
+    <ClCompile Include="EasingSplines.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="GUI_CheckBox.cpp" />
+    <ClCompile Include="GUI_Slider.cpp" />
+    <ClCompile Include="j1Collisions.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="GUI_Button.cpp" />
@@ -112,9 +117,14 @@
     <ClCompile Include="StaticEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ChangeControls.h" />
+    <ClInclude Include="GUI_CheckBox.h" />
     <ClInclude Include="DynamicEntity.h" />
+    <ClInclude Include="EasingSplines.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="GUI_Slider.h" />
+    <ClInclude Include="j1Collisions.h" />
     <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="GUI_Button.h" />
@@ -132,6 +142,7 @@
     <ClInclude Include="p2Animation.h" />
     <ClInclude Include="j1Audio.h" />
     <ClInclude Include="j1Input.h" />
+    <ClInclude Include="p2Line.h" />
     <ClInclude Include="p2Log.h" />
     <ClInclude Include="j1App.h" />
     <ClInclude Include="p2Defs.h" />

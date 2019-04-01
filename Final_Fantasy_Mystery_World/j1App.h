@@ -23,6 +23,8 @@ class MainMenu;
 class j1EntityManager;
 class j1PathFinding;
 class j1FadeToBlack;
+class j1Collision;
+class EasingSplines;
 
 class j1App
 {
@@ -108,6 +110,8 @@ public:
 	j1EntityManager*		entity_manager;
 	j1PathFinding*		pathfinding;
 	j1FadeToBlack*		fade_to_black;
+	j1Collision*		collision;
+	EasingSplines*		easing_splines;
 
 private:
 
