@@ -33,7 +33,7 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	has_turn = true;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
-	movement_type = Movement_Type::InQuest;
+	movement_type = Movement_Type::InLobby;
 	ground = App->tex->Load("textures/player_pos.png");
 	
 	velocity.x = 160;
@@ -522,12 +522,20 @@ void Player::PerformMovementInLobby(float dt)
 			position.y += floor(velocity.y * dt);
 			current_animation = &GoDownLeft;
 		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
+		}
 		break;
 	case Direction::UP_RIGHT:
 		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 			current_animation = &GoUpRight;
+		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
 		}
 		break;
 	case Direction::UP_LEFT:
@@ -536,6 +544,10 @@ void Player::PerformMovementInLobby(float dt)
 			position.y -= floor(velocity.y * dt);
 			current_animation = &GoUpLeft;
 		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
+		}
 		break;
 	case Direction::DOWN_RIGHT:
 		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
@@ -543,11 +555,19 @@ void Player::PerformMovementInLobby(float dt)
 			position.y += floor(velocity.y * dt);
 			current_animation = &GoDownRight;
 		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
+		}
 		break;
 	case Direction::RIGHT:
 		if (App->map->IsWalkable({ (int)(position.x + floor(180 * dt) + pivot.x), position.y + pivot.y })) {
 			position.x += floor(180 * dt);
 			current_animation = &GoRight;
+		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
 		}
 		break;
 	case Direction::LEFT:
@@ -555,17 +575,30 @@ void Player::PerformMovementInLobby(float dt)
 			position.x -= floor(180 * dt);
 			current_animation = &GoLeft;
 		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
+		}
 		break;
 	case Direction::UP:
 		if (App->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y - floor(180 * dt)) })) {
 			position.y -= floor(180 * dt);
 			current_animation = &GoUp;
 		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
+		}
+
 		break;
 	case Direction::DOWN:
 		if (App->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y + floor(180 * dt)) })) {
 			position.y += floor(180 * dt);
 			current_animation = &GoDown;
+		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
 		}
 		break;
 	default:
