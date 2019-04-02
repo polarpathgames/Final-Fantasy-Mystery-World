@@ -302,20 +302,7 @@ void j1Render::LobbyCamera(iPoint playerpos)
 	cam_frmwork.h = App->win->height / 4;
 	cam_frmwork.w = App->win->width / 4;
 	DrawQuad(cam_frmwork,255,0,255, 80);
-	/*SDL_Rect maprect;
-	maprect.x = 0;
-	maprect.y = 0;
-	maprect.h = App->map->data.;
-	maprect.w = App->map->data.width;
-	DrawQuad(maprect, 255, 0, 255, 80);*/
-	/*if (SDL_HasIntersection(&cam_frmwork, &maprect))
-	{
-		camera.x = -playerpos.x * 3;
-		camera.y = -playerpos.y * 3;
-	}
-	else
-	{*/
-		camera.x = (-playerpos.x * 3) + (App->win->width / 2);
-		camera.y = (-playerpos.y * 3) + (App->win->height / 2);
+	camera.x = (-playerpos.x * 3) + (App->win->width / 2);
+	camera.y = (-playerpos.y * 3) + (App->win->height / 2);
 	
 }
