@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="43" nextobjectid="9">
+<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="43" nextobjectid="10">
  <tileset firstgid="1" name="tutorial_tileset" tilewidth="32" tileheight="16" tilecount="810" columns="45">
   <image source="tutorial_tileset.png" width="1440" height="290"/>
   <terraintypes>
@@ -11288,5 +11288,6 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
+  <object id="9" name="Enemy Test" type="enemy" x="224" y="368" width="15.9688" height="16.0156"/>
  </objectgroup>
 </map>
