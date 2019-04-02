@@ -19,6 +19,7 @@
 #include "GUI_Button.h"
 #include "GUI_Label.h"
 #include "GUI_Image.h"
+#include "GUI_CheckBox.h"
 #include "Sensor.h"
 #include "Brofiler/Brofiler.h"
 #include "j1Input.h"
@@ -255,9 +256,19 @@ void j1Scene::CreateOptionsMenu()
 	
 	label_fps = App->ui_manager->AddLabel(491, 413, "FPS Caps", 50, options_panel, BLACK, "fonts/Munro.ttf", nullptr);
 	checkbox_fps = App->ui_manager->AddCheckBox(760, 413, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
+	checkbox_fps->is_option = true;
+	checkbox_fps->draggable = false;
+	checkbox_fps->drawable = true;
+	checkbox_fps->interactable = true;
+	checkbox_fps->AddListener(this);
 
 	label_fullscreen = App->ui_manager->AddLabel(491, 503, "Fullscreen", 50, options_panel, BLACK, "fonts/Munro.tff", nullptr);
 	checkbox_fullscreen = App->ui_manager->AddCheckBox(760, 503, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
+	checkbox_fullscreen->is_option = true;
+	checkbox_fullscreen->draggable = false;
+	checkbox_fullscreen->drawable = true;
+	checkbox_fullscreen->interactable = true;
+	checkbox_fullscreen->AddListener(this);
 
 	button_controls = App->ui_manager->AddButton(491, 595, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true);
 	button_controls->AddListener((j1Module*)App->scene);
@@ -476,11 +487,11 @@ bool j1Scene::Interact(GUI* interact)
 		break;
 	}
 	
-	//if (interact == checkbox_fps)
-	//{
-	//	checkbox_fps->Clicked();
-	//	App->GetFrameRate();
-	//}
+	if (interact == checkbox_fps)
+	{
+		checkbox_fps->Clicked();
+		//App->GetFrameRate();
+	}
 
 	//if (interact == checkbox_fullscreen)
 	//{

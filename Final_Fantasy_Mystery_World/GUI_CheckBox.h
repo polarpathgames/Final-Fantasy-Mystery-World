@@ -14,7 +14,7 @@ public:
 
 	void InnerDraw();
 
-	//void AddOptions(GUI_CheckBox* option);
+	void AddOptions(GUI_CheckBox* option);
 	void Clicked();
 	bool GetIsClicked()const;
 

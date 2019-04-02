@@ -23,19 +23,19 @@ void GUI_CheckBox::InnerDraw()
 
 		if (box_clicked) 
 		{
-			App->render->Blit((SDL_Texture*)App->ui_manager->GetAtlas(), draw_offset.x + (section.w - clicked_rect.w) / 2, draw_offset.y + (section.h - clicked_rect.h) / 2, &clicked_rect,  false, SDL_FLIP_NONE, 0.0F, true);
+			App->render->Blit((SDL_Texture*)App->ui_manager->GetAtlas(), draw_offset.x + (section.x - clicked_rect.w) / 2, draw_offset.y + (section.y - clicked_rect.h) / 2, &clicked_rect,  false, SDL_FLIP_NONE, 0.0F, true);
 		}
 	}
 }
 
-//void GUI_CheckBox::AddOptions(GUI_CheckBox* option) {
-//	if (options.(option) == -1) {
-//		options.push_back(option);
-//	}
-//	if (option->options.find(this) == -1) {
-//		option->options.push_back(this);
-//	}
-//}
+void GUI_CheckBox::AddOptions(GUI_CheckBox* option) {
+	if (std::find(options.begin(), options.end(), option) == options.end()) { //options.find(option) == -1
+		options.push_back(option);
+	}
+	if (std::find(option->options.begin(), option->options.end(), this) == option->options.end()) { //option->options.find(this) == -1
+		option->options.push_back(this);
+	}
+}
 
 void GUI_CheckBox::Clicked() {
 	box_clicked = !box_clicked;
@@ -56,8 +56,10 @@ void GUI_CheckBox::SetRects(const SDL_Rect &std_rect, const SDL_Rect &hl_rect, c
 	hovered_rect = hl_rect;
 	clicked_rect = click_rect;
 
-	if (section.w == 0 && section.h == 0) {
-		section.w = std_rect.w;
-		section.h = std_rect.h;
+	App->render->DrawQuad(idle_rect,255,0,0,255,true,false);
+
+	if (section.x == 0 && section.y == 0) {
+		section.x = std_rect.w;
+		section.y = std_rect.h;
 	}
 }
