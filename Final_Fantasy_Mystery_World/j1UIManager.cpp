@@ -49,43 +49,46 @@ bool j1UIManager::PreUpdate()
 		debug_ui = !debug_ui;
 	}
 
-	int x2 = 0, y2 = 0;
-	App->input->GetMouseMotion(x2, y2);
+	int x = 0, y = 0;
+	App->input->GetMouseMotion(x, y);
 
-	if (x2 == 0 && y2 == 0 && using_mouse && (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN
-		|| App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)) {
-			using_mouse = false;
-			SDL_ShowCursor(SDL_DISABLE);
-			if (focus == nullptr)
-				FocusFirstUIFocusable();
+	if (focus == nullptr) {
+		FocusFirstUIFocusable();
+		using_mouse = false;
+		SDL_ShowCursor(SDL_DISABLE);
 	}
-	else if (!using_mouse && (x2 != 0 || y2 != 0)){
-		using_mouse = true;
-		focus = nullptr;
-		SDL_ShowCursor(SDL_ENABLE);
-	}
-
-	if (using_mouse) {
-		iPoint mouse;
-		App->input->GetMousePosition(mouse.x, mouse.y);
-		GUI* element = nullptr;
-		if (GetElemOnMouse(mouse.x*App->win->GetScale(), mouse.y*App->win->GetScale(), element)) {//Check if there is an element on Mouse
-			focus = element;
-			ret = element->Update();
-		}
-	}
-	else {
-		if (focus == nullptr) {
-			if (FocusFirstUIFocusable()) {
-				FocusInput();
-				ret = focus->Update();
+	
+	if (focus != nullptr) {
+		if (using_mouse) {
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN
+				|| App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+				using_mouse = false;
+				SDL_ShowCursor(SDL_DISABLE);
 			}
+
+			if (SDL_ShowCursor(-1) == 0)
+				SDL_ShowCursor(SDL_ENABLE);
+
+			iPoint mouse;
+			App->input->GetMousePosition(mouse.x, mouse.y);
+			GUI* element = nullptr;
+			if (GetElemOnMouse(mouse.x*App->win->GetScale(), mouse.y*App->win->GetScale(), element)) {//Check if there is an element on Mouse
+				focus = element;
+			}
+			ret = focus->Update();
 		}
-		else {
+		if (!using_mouse) {
+			if (x != 0 || y != 0) {
+				using_mouse = true;
+				SDL_ShowCursor(SDL_ENABLE);
+			}
+
+			if (SDL_ShowCursor(-1) == 1)
+				SDL_ShowCursor(SDL_DISABLE);
+
 			FocusInput();
 			ret = focus->Update();
 		}
-		
 	}
 
 	return ret;
