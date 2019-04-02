@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-up" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="31">
  <tileset firstgid="1" name="Home" tilewidth="32" tileheight="16" tilecount="117" columns="9">
-  <image source="NEW SPRITES/Home.png" trans="0011ff" width="290" height="211"/>
+  <image source="Home.png" trans="0011ff" width="290" height="211"/>
  </tileset>
  <layer id="1" name="Home" width="40" height="40">
   <data encoding="csv">
