@@ -233,6 +233,8 @@ bool j1Map::CleanUp()
 
 	data.properties.CleanUp();
 
+	data.no_walkables.clear();
+
 	App->collision->CleanUp();
 	// Clean up the pugui tree
 	map_file.reset();
