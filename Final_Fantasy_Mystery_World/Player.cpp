@@ -70,6 +70,8 @@ bool Player::PreUpdate()
 bool Player::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdatePlayer", Profiler::Color::Aqua);
+	if(App->map->actual_map == Maps::LOBBY)
+	App->render->LobbyCamera(position);
 
 	PerformActions(dt);
 
