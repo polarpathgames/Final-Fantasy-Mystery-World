@@ -7,32 +7,12 @@
 #include "SDL\include\SDL_gamecontroller.h"
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
-#define MAX_GAMEPADS 1
+#define NUM_CONTROLLER_BUTTONS 16
 #define MAX_BUTTONS 10
 //#define LAST_KEYS_PRESSED_BUFFER 50
 
 struct SDL_Rect;
-struct ControllerDir
-{
-	bool up = false;
-	bool down = false;
-	bool right = false;
-	bool left = false;
-	int axisX = 0;
-	int axisY = 0;
-	int deadzone = 8000;
-};
 
-enum CONTROLLER_BUTTONS {
-
-	BUTTON_RT,
-	BUTTON_D_PAD_UP,
-	BUTTON_D_PAD_DOWN,
-	BUTTON_D_PAD_LEFT,
-	BUTTON_D_PAD_RIGHT,
-	NONE
-
-};
 
 struct ButtonsUsed {
 
@@ -123,6 +103,11 @@ public:
 		return mouse_buttons[id - 1];
 	}
 
+	j1KeyState GetControllerButtonDown(int id) const
+	{
+		return controller_buttons[id];
+	}
+
 	// Check if a certain window event happened
 	bool GetWindowEvent(int code);
 
@@ -137,10 +122,9 @@ private:
 	j1KeyState*	keyboard;
 	j1KeyState	mouse_buttons[NUM_MOUSE_BUTTONS];
 	SDL_Event ev;
-	bool controller_state[MAX_BUTTONS];
 	j1KeyState controller[MAX_BUTTONS];
-	SDL_GameController* gamepads[MAX_GAMEPADS] = { nullptr };
-	ControllerDir GamepadDir[MAX_GAMEPADS];
+	j1KeyState controller_buttons[NUM_CONTROLLER_BUTTONS];
+	SDL_GameController* Controller = nullptr;
 	int			mouse_motion_x;
 	int			mouse_motion_y;
 	int			mouse_x;

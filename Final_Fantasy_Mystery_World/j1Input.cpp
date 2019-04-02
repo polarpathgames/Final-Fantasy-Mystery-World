@@ -16,6 +16,7 @@ j1Input::j1Input() : j1Module()
 	keyboard = new j1KeyState[MAX_KEYS];
 	memset(keyboard, KEY_IDLE, sizeof(j1KeyState) * MAX_KEYS);
 	memset(mouse_buttons, KEY_IDLE, sizeof(j1KeyState) * NUM_MOUSE_BUTTONS);
+	memset(controller_buttons, KEY_IDLE, sizeof(j1KeyState) * NUM_CONTROLLER_BUTTONS);
 }
 
 // Destructor
@@ -46,18 +47,7 @@ bool j1Input::Awake(pugi::xml_node& config)
 		LOG("GamePad controller could not initialize! SDL_Error: %s\n", SDL_GetError());
 	}
 
-	int maxJoys = SDL_NumJoysticks();
-
-	for (int i = 0; i < maxJoys; ++i)
-
-	{
-		if (i >= MAX_GAMEPADS) break;
-
-		if (SDL_IsGameController(i))
-		{
-			gamepads[i] = SDL_GameControllerOpen(i);
-		}
-	}
+	Controller = SDL_GameControllerOpen(0);
 
 	return ret;
 }
@@ -128,6 +118,16 @@ bool j1Input::PreUpdate()
 			mouse_buttons[i] = KEY_IDLE;
 	}
 
+	for (int i = 0; i < NUM_CONTROLLER_BUTTONS; ++i)
+	{
+		if (controller_buttons[i] == KEY_DOWN)
+			controller_buttons[i] = KEY_REPEAT;
+
+		if (controller_buttons[i] == KEY_UP)
+			controller_buttons[i] = KEY_IDLE;
+	}
+
+
 	while(SDL_PollEvent(&event) != 0)
 	{
 		switch(event.type)
@@ -155,7 +155,16 @@ bool j1Input::PreUpdate()
 					break;
 				}
 			break;
+			case SDL_CONTROLLERBUTTONDOWN:
+				if (event.cbutton.which == 0) {
+					controller_buttons[event.cbutton.button] = KEY_DOWN;
+				}
+				break;
 
+			case SDL_CONTROLLERBUTTONUP:
+				if (event.cbutton.which == 0)
+					controller_buttons[event.cbutton.button] = KEY_UP;
+				break;
 			case SDL_MOUSEBUTTONDOWN:
 				mouse_buttons[event.button.button - 1] = KEY_DOWN;
 				//LOG("Mouse button %d down", event.button.button-1);
@@ -179,97 +188,7 @@ bool j1Input::PreUpdate()
 
 	//Controller inputs : Button
 
-	for (int i = 0; i < MAX_GAMEPADS; ++i)
-	{
-		if (gamepads[i] != nullptr)
-		{
-			controller_state[BUTTON_RT] = SDL_GameControllerGetAxis(gamepads[i],SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
-			controller_state[BUTTON_D_PAD_UP] = SDL_GameControllerGetButton(gamepads[i], SDL_CONTROLLER_BUTTON_DPAD_UP);
-			controller_state[BUTTON_D_PAD_DOWN] = SDL_GameControllerGetButton(gamepads[i], SDL_CONTROLLER_BUTTON_DPAD_DOWN);
-			controller_state[BUTTON_D_PAD_LEFT] = SDL_GameControllerGetButton(gamepads[i], SDL_CONTROLLER_BUTTON_DPAD_LEFT);
-			controller_state[BUTTON_D_PAD_RIGHT] = SDL_GameControllerGetButton(gamepads[i], SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
-		}
-	}
-
-	for (int i = 0; i < MAX_BUTTONS; ++i)
-	{
-		if (controller_state[i] == 1) {
-			if (controller[i] == KEY_IDLE)
-				controller[i] = KEY_DOWN;
-			else
-				controller[i] = KEY_REPEAT;
-		}
-		else
-		{
-			if (controller[i] == KEY_REPEAT || controller[i] == KEY_DOWN)
-				controller[i] = KEY_UP;
-			else
-				controller[i] = KEY_IDLE;
-		}
-	}
-
-	if (ev.type == SDL_CONTROLLERDEVICEADDED)
-	{
-		if (ev.cdevice.which > MAX_GAMEPADS - 1)
-		{
-			LOG("Maximum number of gamepads reached, you cannot connect more...");
-
-		}
-
-		else if (SDL_IsGameController(ev.cdevice.which))
-		{
-			gamepads[ev.cdevice.which] = SDL_GameControllerOpen(ev.cdevice.which);
-			LOG("Controller added: %d", ev.cdevice.which);
-		}
-
-	}
-
-	// Controller inputs: Axis
-	for (int i = 0; i < MAX_GAMEPADS; ++i)
-	{
-		if (gamepads[i] != nullptr)
-		{
-			GamepadDir[i].axisX = SDL_GameControllerGetAxis(gamepads[i], SDL_CONTROLLER_AXIS_LEFTX);
-			GamepadDir[i].axisY = SDL_GameControllerGetAxis(gamepads[i], SDL_CONTROLLER_AXIS_LEFTY);
-		}
-	}
-
-
-	if (GamepadDir[0].axisX > GamepadDir[0].deadzone)
-	{
-		keyboard[keyboard_buttons.buttons_code.RIGHT] = KEY_REPEAT;
-	}
-
-	else if (GamepadDir[0].axisX < -GamepadDir[0].deadzone)
-	{
-		keyboard[keyboard_buttons.buttons_code.LEFT] = KEY_REPEAT;
-	}
-
-
-	if (GamepadDir[0].axisY < -GamepadDir[0].deadzone)
-	{
-		keyboard[keyboard_buttons.buttons_code.UP] = KEY_REPEAT;
-	}
-
-	else if (GamepadDir[0].axisY > GamepadDir[0].deadzone)
-	{
-		keyboard[keyboard_buttons.buttons_code.DOWN] = KEY_REPEAT;
-	}
-	if (controller[BUTTON_RT] == KEY_REPEAT) {
-		keyboard[keyboard_buttons.buttons_code.DIAGONALS] = KEY_REPEAT;
-	}
-	if (controller[BUTTON_D_PAD_UP] == KEY_DOWN) {
-		keyboard[keyboard_buttons.buttons_code.DIRECTION_UP] = KEY_DOWN;
-	}
-	if (controller[BUTTON_D_PAD_DOWN] == KEY_DOWN) {
-		keyboard[keyboard_buttons.buttons_code.DIRECCTION_DOWN] = KEY_DOWN;
-	}
-	if (controller[BUTTON_D_PAD_LEFT] == KEY_DOWN) {
-		keyboard[keyboard_buttons.buttons_code.DIRECTION_LEFT] = KEY_DOWN;
-	}
-	if (controller[BUTTON_D_PAD_RIGHT] == KEY_DOWN) {
-		keyboard[keyboard_buttons.buttons_code.DIRECCTION_RIGHT] = KEY_DOWN;
-	}
+	
 	return true;
 }
 
