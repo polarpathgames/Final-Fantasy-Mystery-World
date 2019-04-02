@@ -125,9 +125,6 @@ bool j1Scene::Update(float dt)
 			}	
 		}
 		break;
-	default:
-		LOG("No state found");
-		break;
 	}
 
 	
@@ -291,19 +288,34 @@ void j1Scene::CreateControlsMenu()
 	label_return_to_options = App->ui_manager->AddLabel(0, 0, "Return", 50, button_retun_to_options, BLACK, "fonts/Munro.ttf", nullptr);
 	label_return_to_options->SetPosRespectParent(CENTERED);
 
-	button_basic_attack = App->ui_manager->AddButton(340, 295, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_basic_attack = App->ui_manager->AddButton(340, 490, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
 	button_basic_attack->AddListener(this);
 	label_to_show_how_basic_attack = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, 50, button_basic_attack, BLACK, "fonts/Munro.ttf", nullptr);
 	label_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
-	label_basic_attack = App->ui_manager->AddLabel(300, 300, "Basic Attack", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	label_basic_attack = App->ui_manager->AddLabel(300, 495, "Basic Attack", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
 	labels_control.push_back(label_to_show_how_basic_attack);
 
-	button_up = App->ui_manager->AddButton(340, 330, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_up = App->ui_manager->AddButton(340, 295, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
 	button_up->AddListener(this);
 	label_to_show_how_up = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.UP, 50, button_up, BLACK, "fonts/Munro.ttf", nullptr);
 	label_to_show_how_up->SetPosRespectParent(CENTERED);
-	label_up = App->ui_manager->AddLabel(300, 330, "Move Up", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	label_up = App->ui_manager->AddLabel(300, 300, "Move Up", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
 	labels_control.push_back(label_to_show_how_up);
+
+	button_right = App->ui_manager->AddButton(340, 325, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_right->AddListener(this);
+	label_to_show_how_right = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.RIGHT, 50, button_right, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_right->SetPosRespectParent(CENTERED);
+	label_right = App->ui_manager->AddLabel(300, 330, "Move Right", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	labels_control.push_back(label_to_show_how_right);
+
+	button_left = App->ui_manager->AddButton(340, 355, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_left->AddListener(this);
+	label_to_show_how_left = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.LEFT, 50, button_left, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_left->SetPosRespectParent(CENTERED);
+	label_left = App->ui_manager->AddLabel(300, 360, "Move Left", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	labels_control.push_back(label_to_show_how_left);
+
 
 	menu_state = StatesMenu::CONTROLS_MENU;
 }
@@ -377,11 +389,17 @@ bool j1Scene::Interact(GUI* interact)
 			if (control_to_change != nullptr)
 				delete control_to_change;
 			control_to_change = new ChangeControls(label_to_show_how_up, &App->input->keyboard_buttons.buttons_code.UP, &App->input->keyboard_buttons.buttons_char.UP);
-
 		}
-		break;
-	default:
-		LOG("No state found");
+		if (interact == button_right) {
+			if (control_to_change != nullptr)
+				delete control_to_change;
+			control_to_change = new ChangeControls(label_to_show_how_right, &App->input->keyboard_buttons.buttons_code.RIGHT, &App->input->keyboard_buttons.buttons_char.RIGHT);
+		}
+		if (interact == button_left) {
+			if (control_to_change != nullptr)
+				delete control_to_change;
+			control_to_change = new ChangeControls(label_to_show_how_left, &App->input->keyboard_buttons.buttons_code.LEFT, &App->input->keyboard_buttons.buttons_char.LEFT);
+		}
 		break;
 	}
 	

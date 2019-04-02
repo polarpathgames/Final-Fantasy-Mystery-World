@@ -125,6 +125,15 @@ private:
 	GUI_Label* label_up = nullptr;
 	GUI_Label* label_to_show_how_up = nullptr;
 
+	GUI_Button* button_right = nullptr;
+	GUI_Label* label_right= nullptr;
+	GUI_Label* label_to_show_how_right = nullptr;
+
+	GUI_Button* button_left = nullptr;
+	GUI_Label* label_left = nullptr;
+	GUI_Label* label_to_show_how_left = nullptr;
+
+
 
 
 };
