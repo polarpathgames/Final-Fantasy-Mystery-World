@@ -114,6 +114,8 @@ private:
 
 	GUI_Image* controls_panel = nullptr;
 
+	GUI_Label* keyboard = nullptr;
+
 	GUI_Button* button_retun_to_options = nullptr;
 	GUI_Label* label_return_to_options = nullptr;
 

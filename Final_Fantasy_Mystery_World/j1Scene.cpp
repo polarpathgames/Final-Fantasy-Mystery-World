@@ -283,6 +283,8 @@ void j1Scene::CreateControlsMenu()
 	controls_panel = App->ui_manager->AddImage(0, 0, { 1024,768,1024,768 }, this, App->ui_manager->screen, true, false, true);
 	controls_panel->SetPosRespectParent(CENTERED);
 
+	keyboard = App->ui_manager->AddLabel(350, 265, "KEYBOARD", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+
 	button_retun_to_options = App->ui_manager->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
 	button_retun_to_options->AddListener((j1Module*)App->scene);
 	label_return_to_options = App->ui_manager->AddLabel(0, 0, "Return", 50, button_retun_to_options, BLACK, "fonts/Munro.ttf", nullptr);
