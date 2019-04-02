@@ -23,6 +23,7 @@ class MainMenu;
 class j1EntityManager;
 class j1PathFinding;
 class j1FadeToBlack;
+class EasingSplines;
 
 class j1App
 {
@@ -58,7 +59,11 @@ public:
 	void LoadGame(const char* file);
 	void SaveGame(const char* file) const;
 
+	//Exit
+	void QuitGame();
 
+	bool GetPause();
+	bool ChangePause();
 	pugi::xml_node LoadConfig(pugi::xml_document&, std::string name) const;
 
 	bool capactivated = true;
@@ -87,6 +92,7 @@ private:
 	bool LoadGameNow();
 	bool SavegameNow() const;
 
+
 public:
 
 	// Modules
@@ -103,6 +109,7 @@ public:
 	j1EntityManager*		entity_manager;
 	j1PathFinding*		pathfinding;
 	j1FadeToBlack*		fade_to_black;
+	EasingSplines*		easing_splines;
 
 private:
 
@@ -118,6 +125,8 @@ private:
 	std::string			load_game;
 	mutable std::string	save_game;
 
+	bool				quit_game = false;
+	bool				is_paused = false;
 	pugi::xml_document	config_file;
 	pugi::xml_node		config;
 	std::string			config_name;

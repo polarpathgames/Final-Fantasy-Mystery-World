@@ -58,6 +58,7 @@ private:
 
 	std::vector<Entity*> entities;
 	std::vector<SDL_Texture*> texture;
+
 };
 
 #endif

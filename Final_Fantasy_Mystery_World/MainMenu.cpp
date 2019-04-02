@@ -11,6 +11,7 @@
 #include "j1FadeToBlack.h"
 #include "GUI_Label.h"
 #include "GUI_Image.h"
+#include "Brofiler/Brofiler.h"
 
 MainMenu::MainMenu(){}
 
@@ -23,55 +24,77 @@ bool MainMenu::Awake()
 
 bool MainMenu::Start()
 {
-	SDL_Rect background_rect = { 0, 0, 1024, 768 };
-	background = App->ui_manager->AddImage(0, 0, &background_rect, nullptr, this, nullptr);
+	background = App->ui_manager->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->ui_manager->screen, true, false, false);
 
-	exit_button = (GUI_Button*)App->ui_manager->AddButton(350, 300, {1659, 1575,33,33}, { 0, 0,100,100 }, { 0, 0,10,10 }, this, nullptr);
-	//exit_text = (GUI_Label*)App->ui_manager->AddLabel(10, 10, "exit", this, exit_button);
-	//exit_button->SetText(exit_text);
+	int offsetY = 75;
 
-	labels.push_back(exit_text);
+	new_game_button = App->ui_manager->AddButton(684, 337, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true);
+	new_game_label = App->ui_manager->AddLabel(0, 0, "New Game", 12, new_game_button, BLACK, "fonts/Munro.ttf", nullptr);
+	new_game_label->SetPosRespectParent(CENTERED);
 
+	load_game_button = App->ui_manager->AddButton(684, new_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true);
+	load_game_label = App->ui_manager->AddLabel(0, 0, "Load Game", 12, load_game_button, BLACK, "fonts/Munro.ttf", nullptr);
+	load_game_label->SetPosRespectParent(CENTERED);
 
-
-
+	exit_button = App->ui_manager->AddButton(684, load_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true);
+	exit_text = App->ui_manager->AddLabel(0, 0, "Exit", 20, exit_button, BLACK, "fonts/Munro.ttf", nullptr);
+	exit_text->SetPosRespectParent(CENTERED);
+	
+	credits_button = App->ui_manager->AddButton(684, exit_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true);
+	credits_label = App->ui_manager->AddLabel(0, 0, "Credits", 12, credits_button, BLACK, "fonts/Munro.ttf", nullptr);
+	credits_label->SetPosRespectParent(CENTERED);
 
 	return true;
 }
 
 bool MainMenu::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdateMainMenu", Profiler::Color::Orange);
 	return true;
 }
 
 bool MainMenu::Update(float dt)
 {
-
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-	App->fade_to_black->FadeToBlack(this, Maps::TUTORIAL);
-	}
-	
-
-	App->input->GetMousePosition(mouse_x, mouse_y);
-
+	BROFILER_CATEGORY("UpdateMainMenu", Profiler::Color::Aqua);
 	return true;
 }
 
 bool MainMenu::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdateMainMenu", Profiler::Color::Purple);
 	return true;
 }
 
 bool MainMenu::CleanUp()
 {
-	App->ui_manager->DestroyUI();
 	return true;
 }
 
-void MainMenu::Interact(GUI* interaction)
+bool MainMenu::Interact(GUI* interaction)
 {
-	if (interaction == exit_button)
-		App->ui_manager->DestroyUI();
+	bool ret = true;
+	if (interaction == exit_button) {
+		App->QuitGame();
+		ret = false;
+	}
+
+	if (interaction == new_game_button) {
+		App->ui_manager->DeleteAllUIElements();
+		active = false; //desactivates main menu
+		App->entity_manager->Enable();
+		App->map->Enable();
+		App->scene->Enable();
+		App->map->ChangeMap(Maps::TUTORIAL);
+		ret = false;
+	}
+
+	if (interaction == load_game_button) {
+		//Load Game
+	}
+
+	if (interaction == credits_button) {
+		//Credits
+	}
+	return ret;
 }
 

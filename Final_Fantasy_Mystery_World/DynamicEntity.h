@@ -8,6 +8,9 @@
 #include "j1PerfTimer.h"
 #include "Entity.h"
 
+enum class Attacks {
+	BASIC, NONE
+};
 
 enum class Direction {
 	UP, DOWN, RIGHT, LEFT, UP_LEFT, DOWN_LEFT, UP_RIGHT, DOWN_RIGHT, NONE
@@ -38,6 +41,10 @@ public:
 
 	void CheckAttackEfects(const Entity::EntityType &type, const Direction & direction, const int &attack_damage);
 
+	void ChangeAnimation(Direction &dir, State &states, Attacks attacks = Attacks::NONE);
+
+	void ResetAnims();
+
 public:
 
 
@@ -47,27 +54,35 @@ public:
 
 	Animation GoDownLeft;
 	Animation IdleDownLeft;
+	Animation BasicAttackDownLeft;
 
 	Animation GoDownRight;
 	Animation IdleDownRight;
+	Animation BasicAttackDownRight;
 
 	Animation GoUpRight;
 	Animation IdleUpRight;
+	Animation BasicAttackUpRight;
 
 	Animation GoUpLeft;
 	Animation IdleUpLeft;
+	Animation BasicAttackUpLeft;
 
 	Animation GoLeft;
 	Animation IdleLeft;
+	Animation BasicAttackLeft;
 
 	Animation GoRight;
 	Animation IdleRight;
+	Animation BasicAttackRight;
 
 	Animation GoUp;
 	Animation IdleUp;
+	Animation BasicAttackUp;
 
 	Animation GoDown;
 	Animation IdleDown;
+	Animation BasicAttackDown;
 
 	iPoint velocity;
 
@@ -77,6 +92,8 @@ public:
 
 
 	SDL_Texture * ground = nullptr;
+
+	Attacks type_attack = Attacks::NONE;
 
 	float time_attack;
 	float time_after_attack = 500;

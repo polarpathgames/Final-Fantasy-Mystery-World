@@ -36,13 +36,14 @@ public:
 
 	bool CleanUp();
 
-	bool IsPlayerNextTile() const;
+	bool IsPlayerNextTile();
 
 	void MovementLogic();
 
 public:
 
 	EnemyStats stats;
+	float time_to_wait_before_attack = 0.0f;
 };
 
 

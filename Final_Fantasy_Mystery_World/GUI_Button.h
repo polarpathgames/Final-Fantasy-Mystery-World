@@ -7,18 +7,17 @@
 class GUI_Button : public GUI
 {
 public:
-	GUI_Button(int x, int y, SDL_Rect rect, SDL_Rect rect2, SDL_Rect rect3, j1Module* callback, UI type, GUI* parent);
+	GUI_Button(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, GUI* parent, bool draw, bool inter, bool drag);
 	~GUI_Button();
 
-	void setAnimation(int state);
-	void SetText(GUI_Label* text);
+	void InnerDraw();
+
+	void SetRects(const SDL_Rect &std_rect, const SDL_Rect &hover_rect, const SDL_Rect &click_rect);
 
 private:
-	SDL_Rect normal;
-	SDL_Rect mouse_in;
-	SDL_Rect clicked;
-	GUI_Label* text = nullptr;
-
+	//SDL_Rect idle_rect = { 0,0,0,0 }; idle rect is section rect
+	SDL_Rect hovered_rect = { 0,0,0,0 };
+	SDL_Rect clicked_rect = { 0,0,0,0 };
 };
 
 

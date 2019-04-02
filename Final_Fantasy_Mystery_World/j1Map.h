@@ -5,6 +5,7 @@
 #include <list>
 #include "p2Point.h"
 #include "j1Module.h"
+#include "p2Properties.h"
 #include <string>
 
 enum class Maps {
@@ -13,34 +14,6 @@ enum class Maps {
 	TUTORIAL,
 
 	NONE
-};
-
-// ----------------------------------------------------
-struct Properties
-{
-	struct Property
-	{
-		std::string name;
-		int value;
-	};
-
-	~Properties()
-	{
-		std::list<Property*>::iterator item;
-		item = list.begin();
-
-		while(item != list.end())
-		{
-			RELEASE(*item);
-			++item;
-		}
-
-		list.clear();
-	}
-
-	int Get(const char* name, int default_value = 0) const;
-
-	std::list<Property*>	list;
 };
 
 //-----------------------------------------------------------------
@@ -60,17 +33,21 @@ struct ObjectLayer {
 // ----------------------------------------------------
 struct MapLayer
 {
-	std::string	name;
-	int			width;
-	int			height;
-	uint*		data;
-	Properties	properties;
+	std::string						name;
+	int								width;
+	int								height;
+	uint*							data;
+	Properties<int>					properties;
+
+	auto GetProperty(const char*);
 
 	MapLayer() : data(NULL)
 	{}
 
 	~MapLayer()
 	{
+		properties.CleanUp();
+
 		RELEASE(data);
 	}
 
@@ -119,6 +96,7 @@ struct MapData
 	std::list<TileSet*>			tilesets;
 	std::list<MapLayer*>		layers;
 	std::list<ObjectLayer*>		objects;
+	Properties<int>					properties;
 };
 
 // ----------------------------------------------------
@@ -159,7 +137,7 @@ private:
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadObject(pugi::xml_node& tileset_node, ObjectLayer* obj);
-	bool LoadProperties(pugi::xml_node& node, Properties& properties);
+	bool LoadProperties(pugi::xml_node& node, Properties<int>* properties);
 
 	TileSet* GetTilesetFromTileId(int id) const;
 

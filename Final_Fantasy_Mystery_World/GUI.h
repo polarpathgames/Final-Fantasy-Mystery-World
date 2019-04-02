@@ -7,30 +7,93 @@
 struct SDL_Texture;
 struct SDL_Rect;
 
+enum class Mouse_Event {
+	HOVER,
+	CLICKED_DOWN,
+	CLICKED_REPEAT,
+	CLICKED_UP,
+
+	NONE
+};
+
+enum Position_Type {
+	CENTERED,
+	CENTERED_UP,
+	CENTERED_DOWN,
+	LEFT_CENTERED,
+	LEFT_UP,
+	LEFT_DOWN,
+	RIGHT_CENTERED,
+	RIGHT_UP,
+	RIGHT_DOWN,
+};
+
+enum Color
+{
+	RED,
+	GREEN,
+	BLUE,
+	YELLOW,
+	GREY,
+	BLACK,
+	WHITE,
+
+	COLOR_NOT_DEF
+};
+
 class GUI
 {
 public:
-	GUI(int x, int y, j1Module* callback, GUI* parent);
+	GUI() :type(UIType::NON) {}
+	GUI(UIType type,const int &x,const int &y, GUI* parent, const SDL_Rect& section, bool draw = true, bool inter = false, bool drag = false);
 	virtual ~GUI();
 
-	virtual bool PreUpdate() { return true; }
-	virtual bool Update(float dt);
+	bool Update();
 	virtual bool PostUpdate() { return true; }
-	virtual void Draw(SDL_Texture* texture);
+	void Draw();
+	virtual void InnerDraw();
 	virtual bool CleanUp();
-	virtual bool MouseIn(GUI* element);
+
+	void SetPos(const int &x, const int &y);
+
+	UIType GetType()const;
+	int GetPriority() const;
+	iPoint GetGlobalPosition() const;
+	iPoint GetLocalPosition() const;
+	void SetPosRespectParent(Position_Type, const int& margin = 0);
+
+	void DebugDraw();
+
+	void AddListener(j1Module* module);
+	void DeleteListener(j1Module* module);
 
 public:
-	UI type = UI::NON;
-	iPoint position;
+	iPoint position = { 0,0 };
+
+	SDL_Rect section = { 0,0 };
+
+	bool interactable = true;
+	bool draggable = true;
+	bool drawable = true;
+
+	bool to_delete = false;
+	iPoint draw_offset = { 0,0 };
+
+	bool clipable = false;
+
 	GUI* parent = nullptr;
-	SDL_Texture* texture = nullptr;
-	j1Module* callback = nullptr;
-	Animation* current_animation = nullptr;
 
-	SDL_Rect animation_rect = {0, 0, 0, 0};
+	std::list<GUI*> childs;
 
-	int mouse_x, mouse_y;
+	Mouse_Event current_state = Mouse_Event::NONE;
+	iPoint last_mouse;
+
+private:
+	UIType type = NON;
+
+	int priority = 0;
+
+	std::list<j1Module*> listeners;
 };
 
 

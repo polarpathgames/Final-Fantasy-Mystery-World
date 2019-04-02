@@ -8,11 +8,12 @@
 	<pathfinding />
 	<scene />
 	<:anonymous />
-	<:anonymous />
-	<:anonymous />
+	<fonts />
 	<entity_manager />
+	<gui />
 	<:anonymous />
+	<easingsplines />
 	<renderer>
-		<camera x="223" y="-360" />
+		<camera x="26" y="-613" />
 	</renderer>
 </game_state>
