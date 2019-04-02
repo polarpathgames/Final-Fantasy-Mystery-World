@@ -133,6 +133,18 @@ private:
 	GUI_Label* label_left = nullptr;
 	GUI_Label* label_to_show_how_left = nullptr;
 
+	GUI_Button* button_down = nullptr;
+	GUI_Label* label_down = nullptr;
+	GUI_Label* label_to_show_how_down = nullptr;
+
+	GUI_Button* button_diagonals = nullptr;
+	GUI_Label* label_diagonals = nullptr;
+	GUI_Label* label_to_show_how_diagonals = nullptr;
+
+	GUI_Button* button_direction_up = nullptr;
+	GUI_Label* label_direction_up = nullptr;
+	GUI_Label* label_to_show_how_direction_up = nullptr;
+
 
 
 

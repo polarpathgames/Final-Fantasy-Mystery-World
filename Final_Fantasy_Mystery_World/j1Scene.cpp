@@ -316,6 +316,26 @@ void j1Scene::CreateControlsMenu()
 	label_left = App->ui_manager->AddLabel(300, 360, "Move Left", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
 	labels_control.push_back(label_to_show_how_left);
 
+	button_down = App->ui_manager->AddButton(340, 385, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_left->AddListener(this);
+	label_to_show_how_down = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DOWN, 50, button_down, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_down->SetPosRespectParent(CENTERED);
+	label_down = App->ui_manager->AddLabel(300, 390, "Move Down", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	labels_control.push_back(label_to_show_how_down);
+
+	button_diagonals = App->ui_manager->AddButton(340, 415, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_diagonals->AddListener(this);
+	label_to_show_how_diagonals = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIAGONALS, 50, button_diagonals, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_diagonals->SetPosRespectParent(CENTERED);
+	label_diagonals = App->ui_manager->AddLabel(300, 420, "Use Diagonals", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	labels_control.push_back(label_to_show_how_diagonals);
+
+	button_direction_up = App->ui_manager->AddButton(340, 445, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_direction_up->AddListener(this);
+	label_to_show_how_direction_up = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECTION_UP, 50, button_direction_up, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_direction_up->SetPosRespectParent(CENTERED);
+	label_direction_up = App->ui_manager->AddLabel(300, 450, "Change Direction Up", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	labels_control.push_back(label_to_show_how_direction_up);
 
 	menu_state = StatesMenu::CONTROLS_MENU;
 }
@@ -399,6 +419,21 @@ bool j1Scene::Interact(GUI* interact)
 			if (control_to_change != nullptr)
 				delete control_to_change;
 			control_to_change = new ChangeControls(label_to_show_how_left, &App->input->keyboard_buttons.buttons_code.LEFT, &App->input->keyboard_buttons.buttons_char.LEFT);
+		}
+		if (interact == button_down) {
+			if (control_to_change != nullptr)
+				delete control_to_change;
+			control_to_change = new ChangeControls(label_to_show_how_down, &App->input->keyboard_buttons.buttons_code.DOWN, &App->input->keyboard_buttons.buttons_char.DOWN);
+		}
+		if (interact == button_diagonals) {
+			if (control_to_change != nullptr)
+				delete control_to_change;
+			control_to_change = new ChangeControls(label_to_show_how_diagonals, &App->input->keyboard_buttons.buttons_code.DIAGONALS, &App->input->keyboard_buttons.buttons_char.DIAGONALS);
+		}
+		if (interact == button_direction_up) {
+			if (control_to_change != nullptr)
+				delete control_to_change;
+			control_to_change = new ChangeControls(label_to_show_how_direction_up, &App->input->keyboard_buttons.buttons_code.DIRECTION_UP, &App->input->keyboard_buttons.buttons_char.DIRECTION_UP);
 		}
 		break;
 	}
