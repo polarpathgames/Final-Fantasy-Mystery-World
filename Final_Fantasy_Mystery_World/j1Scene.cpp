@@ -118,7 +118,22 @@ bool j1Scene::Update(float dt)
 			(App->ChangePause()) ? CreatePauseMenu() : DestroyPauseMenu();
 		}
 		break;
+	case StatesMenu::PAUSE_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+			(App->ChangePause()) ? CreatePauseMenu() : DestroyPauseMenu();
+		}
+		break;
+	case StatesMenu::OPTIONS_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+			CreatePauseMenu();
+			DestroyOptionsMenu();
+		}
+		break;
 	case StatesMenu::CONTROLS_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+			CreateOptionsMenu();
+			DestroyControlsMenu();
+		}
 		if (control_to_change != nullptr) {
 			if (!control_to_change->Update()) {
 				delete control_to_change;
@@ -376,6 +391,7 @@ void j1Scene::CreateControlsMenu()
 
 void j1Scene::DestroyControlsMenu()
 {
+	control_to_change = nullptr;
 	App->ui_manager->DeleteUIElement(controls_panel);
 
 	labels_control.clear();

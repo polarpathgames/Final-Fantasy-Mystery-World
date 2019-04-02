@@ -18,7 +18,7 @@ ChangeControls::ChangeControls(GUI_Label * label, int * code, char ** save_new_c
 
 ChangeControls::~ChangeControls()
 {
-	if (label->GetText() == TEXT_WAITING_INPUT || label->GetText() == TEXT_TWO_CONTROLS_SAME) {
+	if ((label->GetText() == TEXT_WAITING_INPUT || label->GetText() == TEXT_TWO_CONTROLS_SAME) && label != nullptr) {
 		label->SetText(text_before.data());
 	}
 }
