@@ -236,7 +236,7 @@ void j1Scene::DestroyPauseMenu()
 
 void j1Scene::CreateOptionsMenu()
 {
-	options_panel = App->ui_manager->AddImage(0, 0, { 1024,768,1024,768 }, this, App->ui_manager->screen, true, false, true);
+	options_panel = App->ui_manager->AddImage(0, 0, { 1024,768,1024,768 }, this, App->ui_manager->screen, true, false, false);
 	options_panel->SetPosRespectParent(CENTERED);
 	
 	button_general_volume = App->ui_manager->AddButton(491, 168, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true);

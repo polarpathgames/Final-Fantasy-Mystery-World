@@ -4,26 +4,22 @@
 #include "j1UIManager.h"
 #include "j1Render.h"
 
-GUI_CheckBox::GUI_CheckBox(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, GUI* parent) 
-	:GUI(CHECKBOX, x, y, parent, { idle.w, idle.h }, true,true)
+GUI_CheckBox::GUI_CheckBox(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, GUI* parent)
+	:GUI(CHECKBOX, x, y, parent, idle, true, true)
 {
-	position = { x,y };
-	section = { idle.w, idle.h };
-	idle_rect = idle;
 	hovered_rect = hover;
 	clicked_rect = push;
-
 }
 
 void GUI_CheckBox::InnerDraw()
 {
 	if (drawable) 
 	{
-		App->render->Blit((SDL_Texture*)App->ui_manager->GetAtlas(), draw_offset.x, draw_offset.y, &idle_rect, false, SDL_FLIP_NONE, 0.0F, true);
+		App->render->Blit((SDL_Texture*)App->ui_manager->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0.0F, true);
 
 		if (box_clicked) 
 		{
-			App->render->Blit((SDL_Texture*)App->ui_manager->GetAtlas(), draw_offset.x + (section.x - clicked_rect.w) / 2, draw_offset.y + (section.y - clicked_rect.h) / 2, &clicked_rect,  false, SDL_FLIP_NONE, 0.0F, true);
+			App->render->Blit((SDL_Texture*)App->ui_manager->GetAtlas(), draw_offset.x, draw_offset.y, &clicked_rect,  false, SDL_FLIP_NONE, 0.0F, true);
 		}
 	}
 }
@@ -52,11 +48,11 @@ bool GUI_CheckBox::GetIsClicked()const {
 
 void GUI_CheckBox::SetRects(const SDL_Rect &std_rect, const SDL_Rect &hl_rect, const SDL_Rect &click_rect)
 {
-	idle_rect = std_rect;
+	section = std_rect;
 	hovered_rect = hl_rect;
 	clicked_rect = click_rect;
 
-	App->render->DrawQuad(idle_rect,255,0,0,255,true,false);
+	App->render->DrawQuad(section, 255, 0, 0, 255, true, false);
 
 	if (section.x == 0 && section.y == 0) {
 		section.x = std_rect.w;

@@ -27,7 +27,6 @@ private:
 	bool box_clicked = false;
 	std::list<GUI_CheckBox*> options;
 
-	SDL_Rect idle_rect = { 0,0,0,0 };
 	SDL_Rect hovered_rect = { 0,0,0,0 };
 	SDL_Rect clicked_rect = { 0,0,0,0 };
 };
