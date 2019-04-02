@@ -288,13 +288,6 @@ void j1Scene::CreateControlsMenu()
 	label_return_to_options = App->ui_manager->AddLabel(0, 0, "Return", 50, button_retun_to_options, BLACK, "fonts/Munro.ttf", nullptr);
 	label_return_to_options->SetPosRespectParent(CENTERED);
 
-	button_basic_attack = App->ui_manager->AddButton(340, 490, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
-	button_basic_attack->AddListener(this);
-	label_to_show_how_basic_attack = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, 50, button_basic_attack, BLACK, "fonts/Munro.ttf", nullptr);
-	label_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
-	label_basic_attack = App->ui_manager->AddLabel(300, 495, "Basic Attack", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
-	labels_control.push_back(label_to_show_how_basic_attack);
-
 	button_up = App->ui_manager->AddButton(340, 295, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
 	button_up->AddListener(this);
 	label_to_show_how_up = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.UP, 50, button_up, BLACK, "fonts/Munro.ttf", nullptr);
@@ -336,6 +329,34 @@ void j1Scene::CreateControlsMenu()
 	label_to_show_how_direction_up->SetPosRespectParent(CENTERED);
 	label_direction_up = App->ui_manager->AddLabel(300, 450, "Change Direction Up", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
 	labels_control.push_back(label_to_show_how_direction_up);
+
+	button_direction_right = App->ui_manager->AddButton(340, 475, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_direction_right->AddListener(this);
+	label_to_show_how_direction_right = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECCTION_RIGHT, 50, button_direction_right, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_direction_right->SetPosRespectParent(CENTERED);
+	label_direction_right = App->ui_manager->AddLabel(300, 480, "Change Direction Right", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	labels_control.push_back(label_to_show_how_direction_right);
+
+	button_direction_left = App->ui_manager->AddButton(340, 505, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_direction_left->AddListener(this);
+	label_to_show_how_direction_left = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECTION_LEFT, 50, button_direction_left, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_direction_left->SetPosRespectParent(CENTERED);
+	label_direction_left = App->ui_manager->AddLabel(300, 510, "Change Direction Left", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	labels_control.push_back(label_to_show_how_direction_left);
+
+	button_direction_down = App->ui_manager->AddButton(340, 535, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_direction_down->AddListener(this);
+	label_to_show_how_direction_down = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECCTION_DOWN, 50, button_direction_down, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_direction_down->SetPosRespectParent(CENTERED);
+	label_direction_down = App->ui_manager->AddLabel(300, 540, "Change Direction Down", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	labels_control.push_back(label_to_show_how_direction_down);
+
+	button_basic_attack = App->ui_manager->AddButton(340, 560, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_basic_attack->AddListener(this);
+	label_to_show_how_basic_attack = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, 50, button_basic_attack, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
+	label_basic_attack = App->ui_manager->AddLabel(300, 565, "Basic Attack", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	labels_control.push_back(label_to_show_how_basic_attack);
 
 	menu_state = StatesMenu::CONTROLS_MENU;
 }
@@ -400,11 +421,6 @@ bool j1Scene::Interact(GUI* interact)
 			CreateOptionsMenu();
 			DestroyControlsMenu();
 		}
-		if (interact == button_basic_attack) {
-			if (control_to_change != nullptr)
-				delete control_to_change;
-			control_to_change = new ChangeControls(label_to_show_how_basic_attack,  &App->input->keyboard_buttons.buttons_code.BASIC_ATTACK, &App->input->keyboard_buttons.buttons_char.BASIC_ATTACK);
-		}
 		if (interact == button_up) {
 			if (control_to_change != nullptr)
 				delete control_to_change;
@@ -434,6 +450,26 @@ bool j1Scene::Interact(GUI* interact)
 			if (control_to_change != nullptr)
 				delete control_to_change;
 			control_to_change = new ChangeControls(label_to_show_how_direction_up, &App->input->keyboard_buttons.buttons_code.DIRECTION_UP, &App->input->keyboard_buttons.buttons_char.DIRECTION_UP);
+		}
+		if (interact == button_direction_right) {
+			if (control_to_change != nullptr)
+				delete control_to_change;
+			control_to_change = new ChangeControls(label_to_show_how_direction_right, &App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT, &App->input->keyboard_buttons.buttons_char.DIRECCTION_RIGHT);
+		}
+		if (interact == button_direction_left) {
+			if (control_to_change != nullptr)
+				delete control_to_change;
+			control_to_change = new ChangeControls(label_to_show_how_direction_left, &App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT, &App->input->keyboard_buttons.buttons_char.DIRECTION_LEFT);
+		}
+		if (interact == button_direction_down) {
+			if (control_to_change != nullptr)
+				delete control_to_change;
+			control_to_change = new ChangeControls(label_to_show_how_direction_down, &App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN, &App->input->keyboard_buttons.buttons_char.DIRECCTION_DOWN);
+		}
+		if (interact == button_basic_attack) {
+			if (control_to_change != nullptr)
+				delete control_to_change;
+			control_to_change = new ChangeControls(label_to_show_how_basic_attack, &App->input->keyboard_buttons.buttons_code.BASIC_ATTACK, &App->input->keyboard_buttons.buttons_char.BASIC_ATTACK);
 		}
 		break;
 	}

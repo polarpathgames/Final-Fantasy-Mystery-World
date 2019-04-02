@@ -145,8 +145,17 @@ private:
 	GUI_Label* label_direction_up = nullptr;
 	GUI_Label* label_to_show_how_direction_up = nullptr;
 
+	GUI_Button* button_direction_right = nullptr;
+	GUI_Label* label_direction_right = nullptr;
+	GUI_Label* label_to_show_how_direction_right = nullptr;
 
+	GUI_Button* button_direction_left = nullptr;
+	GUI_Label* label_direction_left = nullptr;
+	GUI_Label* label_to_show_how_direction_left = nullptr;
 
+	GUI_Button* button_direction_down = nullptr;
+	GUI_Label* label_direction_down = nullptr;
+	GUI_Label* label_to_show_how_direction_down = nullptr;
 
 };
 
