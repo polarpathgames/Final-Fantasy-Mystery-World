@@ -228,44 +228,46 @@ void j1Input::GetMouseMotion(int& x, int& y)
 bool j1Input::ChceckAxisStates(const Axis &axis) {
 
 	bool ret = false;
-
-	switch (axis) {
-	case Axis::AXIS_UP_RIGHT:
-		if (axis_x > DEAD_ZONE && axis_y < -DEAD_ZONE)
-			ret = true;
-		break;
-	case Axis::AXIS_DOWN_RIGHT:
-		if (axis_x > DEAD_ZONE && axis_y > DEAD_ZONE)
-			ret = true;
-		break;
-	case Axis::AXIS_DOWN_LEFT:
-		if (axis_x < -DEAD_ZONE && axis_y > DEAD_ZONE)
-			ret = true;
-		break;
-	case Axis::AXIS_UP_LEFT:
-		if (axis_x < -DEAD_ZONE && axis_y < -DEAD_ZONE)
-			ret = true;
-		break;
-	case Axis::AXIS_RIGHT:
-		if (axis_x > DEAD_ZONE && axis_y > -DEAD_ZONE && axis_y < DEAD_ZONE)
-			ret = true;
-		break;
-	case Axis::AXIS_LEFT:
-		if (axis_x < -DEAD_ZONE && axis_y > -DEAD_ZONE && axis_y < DEAD_ZONE)
-			ret = true;
-		break;
-	case Axis::AXIS_UP:
-		if (axis_x > -DEAD_ZONE && axis_x < DEAD_ZONE && axis_y < -DEAD_ZONE)
-			ret = true;
-		break;
-	case Axis::AXIS_DOWN:
-		if (axis_x > -DEAD_ZONE && axis_x < DEAD_ZONE && axis_y > DEAD_ZONE)
-			ret = true;
-		break;
-	default:
-		LOG("No axis found");
-		break; 
+	if (Controller != nullptr) {
+		switch (axis) {
+		case Axis::AXIS_UP_RIGHT:
+			if (axis_x > DEAD_ZONE && axis_y < -DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::AXIS_DOWN_RIGHT:
+			if (axis_x > DEAD_ZONE && axis_y > DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::AXIS_DOWN_LEFT:
+			if (axis_x < -DEAD_ZONE && axis_y > DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::AXIS_UP_LEFT:
+			if (axis_x < -DEAD_ZONE && axis_y < -DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::AXIS_RIGHT:
+			if (axis_x > DEAD_ZONE && axis_y > -DEAD_ZONE && axis_y < DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::AXIS_LEFT:
+			if (axis_x < -DEAD_ZONE && axis_y > -DEAD_ZONE && axis_y < DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::AXIS_UP:
+			if (axis_x > -DEAD_ZONE && axis_x < DEAD_ZONE && axis_y < -DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::AXIS_DOWN:
+			if (axis_x > -DEAD_ZONE && axis_x < DEAD_ZONE && axis_y > DEAD_ZONE)
+				ret = true;
+			break;
+		default:
+			LOG("No axis found");
+			break;
+		}
 	}
+	
 
 	return ret;
 }

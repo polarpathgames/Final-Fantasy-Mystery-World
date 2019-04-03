@@ -205,15 +205,26 @@ void Player::ReadPlayerInput()
 	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
 	player_input.pressing_G = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN;
 	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
-
-	if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_LEFT)) 
-		player_input.pressing_A = player_input.pressing_S = true;
-	else if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_RIGHT))
-		player_input.pressing_D = player_input.pressing_S = true;
-	else if (App->input->ChceckAxisStates(Axis::AXIS_UP_RIGHT))
-		player_input.pressing_D = player_input.pressing_W = true;
-	else if (App->input->ChceckAxisStates(Axis::AXIS_UP_LEFT))
-		player_input.pressing_W = player_input.pressing_A = true;
+	if (movement_type == Movement_Type::InLobby) {
+		if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_LEFT))
+			player_input.pressing_A = player_input.pressing_S = true;
+		else if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_RIGHT))
+			player_input.pressing_D = player_input.pressing_S = true;
+		else if (App->input->ChceckAxisStates(Axis::AXIS_UP_RIGHT))
+			player_input.pressing_D = player_input.pressing_W = true;
+		else if (App->input->ChceckAxisStates(Axis::AXIS_UP_LEFT))
+			player_input.pressing_W = player_input.pressing_A = true;
+	}
+	else if (movement_type == Movement_Type::InQuest) {
+		if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_LEFT))
+			player_input.pressing_S = true;
+		else if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_RIGHT))
+			player_input.pressing_D = true;
+		else if (App->input->ChceckAxisStates(Axis::AXIS_UP_RIGHT))
+			player_input.pressing_W = true;
+		else if (App->input->ChceckAxisStates(Axis::AXIS_UP_LEFT))
+			player_input.pressing_A = true;
+	}
 
 	if (state == State::IDLE) {
 		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
