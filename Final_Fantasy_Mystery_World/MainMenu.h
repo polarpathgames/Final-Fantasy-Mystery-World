@@ -19,7 +19,7 @@ public:
 	bool Awake();
 	bool Start();
 	bool PreUpdate();
-	bool UpdateMouse(float dt);
+	bool Update(float dt);
 	bool PostUpdate();
 
 	bool CleanUp();

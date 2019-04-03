@@ -47,7 +47,7 @@ public:
 	}
 
 	// Called each loop iteration
-	virtual bool UpdateMouse(float dt)
+	virtual bool Update(float dt)
 	{
 		return true;
 	}

@@ -24,7 +24,7 @@ public:
 
 	virtual ~Enemy();
 
-	bool UpdateMouse(float dt);
+	bool Update(float dt);
 
 	bool PreUpdate();
 

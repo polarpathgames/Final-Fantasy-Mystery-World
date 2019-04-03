@@ -59,7 +59,7 @@ bool MainMenu::PreUpdate()
 	return true;
 }
 
-bool MainMenu::UpdateMouse(float dt)
+bool MainMenu::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateMainMenu", Profiler::Color::Aqua);
 	return true;

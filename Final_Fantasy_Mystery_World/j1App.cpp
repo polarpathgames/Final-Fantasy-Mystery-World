@@ -164,7 +164,7 @@ bool j1App::Start()
 }
 
 // Called each loop iteration
-bool j1App::UpdateMouse()
+bool j1App::Update()
 {
 	BROFILER_CATEGORY("Update", Profiler::Color::Aqua);
 
@@ -306,7 +306,7 @@ bool j1App::DoUpdate()
 			continue;
 		}
 
-		ret = (*item)->UpdateMouse(dt);
+		ret = (*item)->Update(dt);
 	}
 
 	return ret;

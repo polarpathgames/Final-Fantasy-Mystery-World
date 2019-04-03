@@ -20,7 +20,7 @@ public:
 
 		UNKNOWN
 	};
-	virtual bool UpdateMouse(float dt) { return true; };
+	virtual bool Update(float dt) { return true; };
 
 	virtual bool CleanUp() { return true; };
 

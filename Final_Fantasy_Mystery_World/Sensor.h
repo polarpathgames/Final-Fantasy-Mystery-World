@@ -27,7 +27,7 @@ public:
 	Sensor(const int &x, const int &y, const SensorType &sensor_type);
 	virtual ~Sensor();
 
-	bool UpdateMouse(float dt);
+	bool Update(float dt);
 
 	bool CleanUp();
 

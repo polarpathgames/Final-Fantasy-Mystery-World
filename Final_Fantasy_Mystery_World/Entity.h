@@ -86,7 +86,7 @@ public:
 	virtual void PushBack() {};
 
 	virtual bool PreUpdate() { return true; };
-	virtual bool UpdateMouse(float dt) { return true; };
+	virtual bool Update(float dt) { return true; };
 	virtual bool PostUpdate() { return true; };
 	virtual bool CleanUp() { return true; };
 	virtual void Draw(SDL_Texture* tex, float dt);

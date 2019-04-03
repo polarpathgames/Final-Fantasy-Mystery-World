@@ -27,7 +27,7 @@ public:
 
 	bool PreUpdate();
 
-	bool UpdateMouse(float dt);
+	bool Update(float dt);
 
 	bool PostUpdate();
 
