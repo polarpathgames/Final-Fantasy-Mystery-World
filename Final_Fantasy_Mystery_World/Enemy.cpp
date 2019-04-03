@@ -362,3 +362,13 @@ void Enemy::MovementLogic()
 
 
 }
+
+void Enemy::GetHitted(const int & damage_taken)
+{
+	stats.live -= damage_taken;
+
+	if (stats.live <= 0) {
+		App->entity_manager->DeleteEntity(this);
+	}
+
+}

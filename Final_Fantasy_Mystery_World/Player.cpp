@@ -39,7 +39,6 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	velocity.x = 160;
 	velocity.y = 80;
 
-	movement_count = { 0,0 };
 
 	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
 
@@ -48,7 +47,7 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 
 	// THIS ALWAYS LAST
 	position.x -= pivot.x;
-	position.y -= 21;
+	position.y -= 22;
 
 	target_position = position;
 	initial_position = position;
@@ -417,6 +416,18 @@ void Player::ReadAttack()
 			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
 			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
 			break;
+		case Direction::UP:
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3, 200, EASE);
+			break;
+		case Direction::DOWN:
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3, 200, EASE);
+			break;
+		case Direction::RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3, 200, EASE);
+			break;
+		case Direction::LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3, 200, EASE);
+			break;
 		}
 		ChangeAnimation(direction, state, type_attack);
 	}
@@ -479,6 +490,18 @@ void Player::BasicAttack()
 			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
 			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
 			break;
+		case Direction::UP:
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3 + 1, 200, EASE);
+			break;
+		case Direction::DOWN:
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3 + 1, 200, EASE);
+			break;
+		case Direction::RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3 + 1, 200, EASE);
+			break;
+		case Direction::LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3 + 1, 200, EASE);
+			break;
 		}
 		CheckAttackEfects(Entity::EntityType::ENEMY, direction, stats.attack_power);
 		state = State::AFTER_ATTACK;
@@ -499,12 +522,20 @@ void Player::PerformMovementInLobby(float dt)
 			position.y += floor(velocity.y * dt);
 			current_animation = &GoDownLeft;
 		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
+		}
 		break;
 	case Direction::UP_RIGHT:
 		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 			current_animation = &GoUpRight;
+		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
 		}
 		break;
 	case Direction::UP_LEFT:
@@ -513,6 +544,10 @@ void Player::PerformMovementInLobby(float dt)
 			position.y -= floor(velocity.y * dt);
 			current_animation = &GoUpLeft;
 		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
+		}
 		break;
 	case Direction::DOWN_RIGHT:
 		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
@@ -520,11 +555,19 @@ void Player::PerformMovementInLobby(float dt)
 			position.y += floor(velocity.y * dt);
 			current_animation = &GoDownRight;
 		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
+		}
 		break;
 	case Direction::RIGHT:
 		if (App->map->IsWalkable({ (int)(position.x + floor(180 * dt) + pivot.x), position.y + pivot.y })) {
 			position.x += floor(180 * dt);
 			current_animation = &GoRight;
+		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
 		}
 		break;
 	case Direction::LEFT:
@@ -532,17 +575,30 @@ void Player::PerformMovementInLobby(float dt)
 			position.x -= floor(180 * dt);
 			current_animation = &GoLeft;
 		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
+		}
 		break;
 	case Direction::UP:
 		if (App->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y - floor(180 * dt)) })) {
 			position.y -= floor(180 * dt);
 			current_animation = &GoUp;
 		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
+		}
+
 		break;
 	case Direction::DOWN:
 		if (App->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y + floor(180 * dt)) })) {
 			position.y += floor(180 * dt);
 			current_animation = &GoDown;
+		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
 		}
 		break;
 	default:
@@ -727,6 +783,16 @@ const bool Player::MultipleButtons(const Input * input)
 		ret = false;
 
 	return ret;
+}
+
+void Player::GetHitted(const int & damage_taken)
+{
+	stats.live -= damage_taken;
+
+	if (stats.live <= 0) {
+		App->entity_manager->DeleteEntity(this);
+	}
+
 }
 
 
