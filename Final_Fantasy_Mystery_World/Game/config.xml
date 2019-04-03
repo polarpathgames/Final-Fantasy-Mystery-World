@@ -20,9 +20,12 @@
 
   <fonts>
     <path folder="fonts"/>
-    <default_font file="Final_Fantasy_font.ttf" size="65"/><!--ID = 0-->
-    <font file="pixelmix.ttf"/><!--ID = 1-->
-                               <!--ID = 2...-->
+    <default_font file="Final_Fantasy_font.ttf" size="32"/>
+    <font file="Final_Fantasy_font.ttf" size="48"/>
+    <font file="Final_Fantasy_font.ttf" size="64"/>
+    <font file="pixelmix.ttf" size="32"/>
+    <font file="pixelmix.ttf" size="48"/>
+    <font file="pixelmix.ttf" size="64"/>
   </fonts>
 
   <map>

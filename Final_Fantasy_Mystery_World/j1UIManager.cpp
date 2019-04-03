@@ -234,9 +234,9 @@ GUI_Button* j1UIManager::AddButton(const int &x, const int &y, const SDL_Rect &i
 	return button;
 }
 
-GUI_Label* j1UIManager::AddLabel(const int &x, const int &y, const char* text, uint size, GUI* parent, Color color, const char* font, j1Module* callback = nullptr, bool focus = false)
+GUI_Label* j1UIManager::AddLabel(const int &x, const int &y, const char* text, GUI* parent, Color color, const FontType &font, j1Module* callback = nullptr, bool focus = false)
 {
-	GUI_Label* label = new GUI_Label(x, y, text, color, font, size, parent, focus);
+	GUI_Label* label = new GUI_Label(x, y, text, color, font, parent, focus);
 
 	if (callback != nullptr) {
 		label->AddListener(callback);
