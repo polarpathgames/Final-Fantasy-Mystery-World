@@ -158,7 +158,7 @@ bool j1UIManager::FocusFirstUIFocusable()
 			return true;
 		}
 	}
-	LOG("There is not any button focusable");
+	//LOG("There is not any button focusable");
 	return false;
 }
 

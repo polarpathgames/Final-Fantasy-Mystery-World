@@ -23,13 +23,13 @@ EasingSplines::~EasingSplines()
 }
 
 // Called each loop iteration
-bool EasingSplines::UpdateMouse(float dt)
+bool EasingSplines::Update(float dt)
 {
 	std::list<EaseSplineInfo*>::iterator item = easing_splines.begin();
 
 	for (; item != easing_splines.end(); ++item) {
 		if (*item != nullptr) {
-			if (!(*item)->UpdateMouse(dt)) {
+			if (!(*item)->Update(dt)) {
 				//easing_splines.erase(item); // look this, not sure :(
 				delete(*item);
 				(*item) = nullptr;
@@ -73,7 +73,7 @@ void EasingSplines::CreateSpline(int * position, const int target_position, cons
 
 
 
-bool EaseSplineInfo::UpdateMouse(float dt)
+bool EaseSplineInfo::Update(float dt)
 {
 	bool ret = true;
 

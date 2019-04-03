@@ -11,7 +11,7 @@
 #include <string>
 #include "Player.h"
 
-Sensor::Sensor(const int & x, const int & y, const SensorType &sensor_type) : StaticEntity(x,y)
+Sensor::Sensor(const int & x, const int & y, const SensorType &sensor_type) : StaticEntity(x,y,"")
 {
 	ground = App->tex->Load("textures/sensor_pos.png");
 
@@ -25,7 +25,7 @@ Sensor::~Sensor()
 {
 }
 
-bool Sensor::UpdateMouse(float dt)
+bool Sensor::Update(float dt)
 {
 
 	if (App->entity_manager->GetPlayerData()->actual_tile == actual_tile) {

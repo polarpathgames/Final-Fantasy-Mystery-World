@@ -67,7 +67,7 @@ bool j1Scene::PreUpdate()
 }
 
 // Called each loop iteration
-bool j1Scene::UpdateMouse(float dt)
+bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Aqua);
 
@@ -164,7 +164,7 @@ void j1Scene::CreateEntities()
 			App->entity_manager->CreateEntity(Entity::EntityType::PLAYER, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).x, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).y, (*position)->name);
 		}
 		else if ((*position)->ent_type == "static") {
-			//App->entity_manager->CreateEntity(Entity::EntityType::STATIC, (*position)->coll_x, (*position)->coll_y, (*position)->name);
+			App->entity_manager->CreateEntity(Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x + 12, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y + 30, (*position)->name);
 
 		}
 		else if ((*position)->ent_type == "enemy") {
