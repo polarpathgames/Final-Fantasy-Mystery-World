@@ -44,7 +44,7 @@ public:
 
 	virtual ~Player();
 
-	bool Update(float dt);
+	bool UpdateMouse(float dt);
 
 	bool PreUpdate();
 

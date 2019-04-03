@@ -16,7 +16,7 @@ public:
 	StaticEntity(const int &x, const int &y);
 	virtual ~StaticEntity();
 
-	virtual bool Update(float dt) { return true; };
+	virtual bool UpdateMouse(float dt) { return true; };
 
 	virtual bool CleanUp() { return true; };
 

@@ -82,7 +82,7 @@ int main(int argc, char* args[])
 			case LOOP:
 			{
 				BROFILER_FRAME("FinalFantasyMysteryWorld");
-				if (App->Update() == false)
+				if (App->UpdateMouse() == false)
 					state = CLEAN;
 			}break;
 

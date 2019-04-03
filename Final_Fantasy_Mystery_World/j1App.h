@@ -43,7 +43,7 @@ public:
 	bool Start();
 
 	// Called each loop iteration
-	bool Update();
+	bool UpdateMouse();
 
 	// Called before quitting
 	bool CleanUp();

@@ -137,7 +137,7 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 	return ret;
 }
 
-bool j1Audio::Update(float dt)
+bool j1Audio::UpdateMouse(float dt)
 {
 
 
