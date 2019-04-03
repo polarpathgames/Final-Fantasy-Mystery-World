@@ -109,6 +109,16 @@ bool j1Scene::UpdateMouse(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
 		App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_KP_1) == KEY_DOWN) {
+		App->win->scale = 1;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_KP_2) == KEY_DOWN) {
+		App->win->scale = 2;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_KP_3) == KEY_DOWN) {
+		App->win->scale = 3;
+	}
 		
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 		(App->ChangePause()) ? CreatePauseMenu() : DestroyPauseMenu();
