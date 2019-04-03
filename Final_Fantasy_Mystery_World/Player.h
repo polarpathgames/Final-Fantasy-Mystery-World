@@ -57,7 +57,7 @@ public:
 	bool CleanUp();
 
 	void OnCollision(Collider* c2);
-	void CheckLobbyCollision(const float &pdtos, const Direction &dir, const iPoint &pos);
+	void CheckLobbyCollision(const float &pdtos, const Direction &dir);
 
 	//PreUpdate
 	void ReadPlayerInput(); // Global organizator function 
