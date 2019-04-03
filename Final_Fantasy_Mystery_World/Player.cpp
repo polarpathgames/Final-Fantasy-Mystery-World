@@ -191,6 +191,83 @@ void Player::OnCollision(Collider * c2)
 
 }
 
+void Player::CheckLobbyCollision(const float & dt, const Direction & dir)
+{
+	switch (direction) {
+	case Direction::RIGHT:
+		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
+			current_animation = &GoDownRight;
+			position.x += floor(velocity.x * dt);
+			position.y += floor(velocity.y * dt);
+		}
+		else if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
+			current_animation = &GoUpRight;
+			position.x += floor(velocity.x * dt);
+			position.y -= floor(velocity.y * dt);
+		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
+		}
+		break;
+	case Direction::DOWN:
+
+		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
+			current_animation = &GoDownLeft;
+			position.x -= floor(velocity.x * dt);
+			position.y += floor(velocity.y * dt);
+		}
+		else if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
+			current_animation = &GoDownRight;
+			position.x += floor(velocity.x * dt);
+			position.y += floor(velocity.y * dt);
+		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
+		}
+		break;
+	case Direction::LEFT:
+		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
+			current_animation = &GoUpLeft;
+			position.x -= floor(velocity.x * dt);
+			position.y -= floor(velocity.y * dt);
+		}
+		else if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })){
+			current_animation = &GoDownLeft;
+			position.x -= floor(velocity.x * dt);
+			position.y += floor(velocity.y * dt);
+		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
+		}
+		break;
+	case Direction::UP:
+		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
+			current_animation = &GoUpLeft;
+			position.x -= floor(velocity.x * dt);
+			position.y -= floor(velocity.y * dt);
+		}
+		else if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })){
+			current_animation = &GoUpRight;
+			position.x += floor(velocity.x * dt);
+			position.y -= floor(velocity.y * dt);
+		}
+		else {
+			state = State::IDLE;
+			ChangeAnimation(direction, state);
+		}
+		break;
+	default:
+		LOG("No direction found");
+		break;
+	}
+
+
+
+}
+
 
 
 void Player::ReadPlayerInput()
@@ -566,8 +643,7 @@ void Player::PerformMovementInLobby(float dt)
 			current_animation = &GoRight;
 		}
 		else {
-			state = State::IDLE;
-			ChangeAnimation(direction, state);
+			CheckLobbyCollision(dt, direction);
 		}
 		break;
 	case Direction::LEFT:
@@ -576,8 +652,7 @@ void Player::PerformMovementInLobby(float dt)
 			current_animation = &GoLeft;
 		}
 		else {
-			state = State::IDLE;
-			ChangeAnimation(direction, state);
+			CheckLobbyCollision(dt, direction);
 		}
 		break;
 	case Direction::UP:
@@ -586,8 +661,7 @@ void Player::PerformMovementInLobby(float dt)
 			current_animation = &GoUp;
 		}
 		else {
-			state = State::IDLE;
-			ChangeAnimation(direction, state);
+			CheckLobbyCollision(dt, direction);
 		}
 
 		break;
@@ -597,8 +671,7 @@ void Player::PerformMovementInLobby(float dt)
 			current_animation = &GoDown;
 		}
 		else {
-			state = State::IDLE;
-			ChangeAnimation(direction, state);
+			CheckLobbyCollision(dt, direction);
 		}
 		break;
 	default:
