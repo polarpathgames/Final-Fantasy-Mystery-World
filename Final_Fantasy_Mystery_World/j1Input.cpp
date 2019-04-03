@@ -49,6 +49,7 @@ bool j1Input::Awake(pugi::xml_node& config)
 
 	Controller = SDL_GameControllerOpen(0);
 
+
 	return ret;
 }
 
@@ -186,7 +187,13 @@ bool j1Input::PreUpdate()
 		}
 	}
 
-	//Controller inputs : Button
+	//axis
+	if (Controller != nullptr) {
+		axis_x = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTX);
+		axis_y = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTY);
+		LOG("X: %i Y: %i", axis_x, axis_y);
+	}
+
 
 	
 	return true;
@@ -216,4 +223,49 @@ void j1Input::GetMouseMotion(int& x, int& y)
 {
 	x = mouse_motion_x;
 	y = mouse_motion_y;
+}
+
+bool j1Input::ChceckAxisStates(const Axis &axis) {
+
+	bool ret = false;
+
+	switch (axis) {
+	case Axis::AXIS_UP_RIGHT:
+		if (axis_x > DEAD_ZONE && axis_y < -DEAD_ZONE)
+			ret = true;
+		break;
+	case Axis::AXIS_DOWN_RIGHT:
+		if (axis_x > DEAD_ZONE && axis_y > DEAD_ZONE)
+			ret = true;
+		break;
+	case Axis::AXIS_DOWN_LEFT:
+		if (axis_x < -DEAD_ZONE && axis_y > DEAD_ZONE)
+			ret = true;
+		break;
+	case Axis::AXIS_UP_LEFT:
+		if (axis_x < -DEAD_ZONE && axis_y < -DEAD_ZONE)
+			ret = true;
+		break;
+	case Axis::AXIS_RIGHT:
+		if (axis_x > DEAD_ZONE && axis_y > -DEAD_ZONE && axis_y < DEAD_ZONE)
+			ret = true;
+		break;
+	case Axis::AXIS_LEFT:
+		if (axis_x < -DEAD_ZONE && axis_y > -DEAD_ZONE && axis_y < DEAD_ZONE)
+			ret = true;
+		break;
+	case Axis::AXIS_UP:
+		if (axis_x > -DEAD_ZONE && axis_x < DEAD_ZONE && axis_y < -DEAD_ZONE)
+			ret = true;
+		break;
+	case Axis::AXIS_DOWN:
+		if (axis_x > -DEAD_ZONE && axis_x < DEAD_ZONE && axis_y > DEAD_ZONE)
+			ret = true;
+		break;
+	default:
+		LOG("No axis found");
+		break; 
+	}
+
+	return ret;
 }

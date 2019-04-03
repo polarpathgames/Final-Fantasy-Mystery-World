@@ -195,10 +195,10 @@ void Player::OnCollision(Collider * c2)
 
 void Player::ReadPlayerInput()
 {
-	player_input.pressing_A = App->input->GetKey(App->input->keyboard_buttons.buttons_code.LEFT) == KEY_REPEAT;
-	player_input.pressing_S = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DOWN) == KEY_REPEAT;
-	player_input.pressing_W = App->input->GetKey(App->input->keyboard_buttons.buttons_code.UP) == KEY_REPEAT;
-	player_input.pressing_D = App->input->GetKey(App->input->keyboard_buttons.buttons_code.RIGHT) == KEY_REPEAT;
+	player_input.pressing_A = App->input->GetKey(App->input->keyboard_buttons.buttons_code.LEFT) == KEY_REPEAT || App->input->ChceckAxisStates(Axis::AXIS_LEFT);
+	player_input.pressing_S = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DOWN) == KEY_REPEAT || App->input->ChceckAxisStates(Axis::AXIS_DOWN);
+	player_input.pressing_W = App->input->GetKey(App->input->keyboard_buttons.buttons_code.UP) == KEY_REPEAT || App->input->ChceckAxisStates(Axis::AXIS_UP);
+	player_input.pressing_D = App->input->GetKey(App->input->keyboard_buttons.buttons_code.RIGHT) == KEY_REPEAT || App->input->ChceckAxisStates(Axis::AXIS_RIGHT);
 	player_input.pressing_I = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
 	player_input.pressing_J = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;
 	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN;
@@ -206,9 +206,14 @@ void Player::ReadPlayerInput()
 	player_input.pressing_G = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN;
 	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
 
-	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
-		App->input->keyboard_buttons.buttons_code.LEFT = SDL_SCANCODE_N;
-	}
+	if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_LEFT)) 
+		player_input.pressing_A = player_input.pressing_S = true;
+	else if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_RIGHT))
+		player_input.pressing_D = player_input.pressing_S = true;
+	else if (App->input->ChceckAxisStates(Axis::AXIS_UP_RIGHT))
+		player_input.pressing_D = player_input.pressing_W = true;
+	else if (App->input->ChceckAxisStates(Axis::AXIS_UP_LEFT))
+		player_input.pressing_W = player_input.pressing_A = true;
 
 	if (state == State::IDLE) {
 		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {

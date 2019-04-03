@@ -9,9 +9,25 @@
 #define NUM_MOUSE_BUTTONS 5
 #define NUM_CONTROLLER_BUTTONS 16
 #define MAX_BUTTONS 10
+#define DEAD_ZONE 10000
 //#define LAST_KEYS_PRESSED_BUFFER 50
 
 struct SDL_Rect;
+
+enum class Axis {
+
+	AXIS_UP,
+	AXIS_DOWN,
+	AXIS_RIGHT,
+	AXIS_LEFT,
+	AXIS_UP_LEFT,
+	AXIS_UP_RIGHT,
+	AXIS_DOWN_LEFT,
+	AXIS_DOWN_RIGHT,
+
+	NONE
+
+};
 
 
 struct ButtonsUsed {
@@ -108,6 +124,16 @@ public:
 		return controller_buttons[id];
 	}
 
+	const int GetAxisX() {
+		return axis_x;
+	}
+
+	const int GetAxisY() {
+		return axis_y;
+	}
+
+	bool ChceckAxisStates(const Axis &axis);
+
 	// Check if a certain window event happened
 	bool GetWindowEvent(int code);
 
@@ -116,6 +142,7 @@ public:
 	void GetMouseMotion(int& x, int& y);
 
 	KeyboardButtons keyboard_buttons;
+	SDL_GameController* Controller = nullptr;
 
 private:
 	bool		windowEvents[WE_COUNT];
@@ -124,11 +151,13 @@ private:
 	SDL_Event ev;
 	j1KeyState controller[MAX_BUTTONS];
 	j1KeyState controller_buttons[NUM_CONTROLLER_BUTTONS];
-	SDL_GameController* Controller = nullptr;
+
 	int			mouse_motion_x;
 	int			mouse_motion_y;
 	int			mouse_x;
 	int			mouse_y;
+	int			axis_x = 0;
+	int			axis_y = 0;
 };
 
 #endif // __j1INPUT_H__
