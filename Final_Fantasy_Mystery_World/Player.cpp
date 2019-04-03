@@ -10,10 +10,14 @@
 #include "j1Map.h"
 #include "j1EntityManager.h"
 #include "j1Map.h"
+#include "j1UIManager.h"
 #include "j1Pathfinding.h"
 #include "j1Collisions.h"
 #include "j1FadeToBlack.h"
+#include "GUI_Label.h"
+#include "GUI_Button.h"
 #include <string>
+#include "GUI.h"
 #include "Brofiler/Brofiler.h"
 #include "EasingSplines.h"
 
@@ -211,7 +215,6 @@ void Player::CheckLobbyCollision(const float & dt, const Direction & dir)
 		}
 		break;
 	case Direction::DOWN:
-
 		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
 			current_animation = &GoDownLeft;
 			position.x -= floor(velocity.x * dt);
@@ -282,6 +285,7 @@ void Player::ReadPlayerInput()
 	player_input.pressing_L = App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN;
 	player_input.pressing_G = App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN;
 	player_input.pressing_shift = App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT;
+	player_input.pressing_V = App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN;
 
 	if (state == State::IDLE) {
 		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
@@ -513,6 +517,12 @@ void Player::ReadAttack()
 	
 void Player::PerformActions(float dt)
 {
+	if (player_input.pressing_V) {
+		if (has_skills)
+			DestroySkills();
+		else
+			CreateSkills();
+	}
 	if (state == State::IDLE) {
 		ChangeDirection();
 	}
@@ -866,6 +876,38 @@ void Player::GetHitted(const int & damage_taken)
 		App->entity_manager->DeleteEntity(this);
 	}
 
+}
+
+void Player::DestroySkills()
+{
+	App->ui_manager->DeleteUIElement(upper_button);
+	App->ui_manager->DeleteUIElement(right_button);
+	App->ui_manager->DeleteUIElement(left_button);
+
+	has_skills = false;
+}
+
+void Player::CreateSkills()
+{
+	upper_button = App->ui_manager->AddButton(684, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, App->ui_manager->screen, true, false, false, false);
+	upper_skill_button = App->ui_manager->AddLabel(0, 0, "X", 12, upper_button, BLACK, "fonts/Munro.ttf", nullptr, false);
+	upper_skill_button->SetPos(35, -10);
+	upper_skill_label = App->ui_manager->AddLabel(0, 0, "Attack 1", 12, upper_skill_button, BLACK, "fonts/Munro.ttf", nullptr, false);
+	upper_skill_label->SetPos(30, 0);
+
+	right_button = App->ui_manager->AddButton(790, 680, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, App->ui_manager->screen, true, false, false, false);
+	right_skill_button = App->ui_manager->AddLabel(0, 0, "Y", 12, right_button, BLACK, "fonts/Munro.ttf", nullptr, false);
+	right_skill_button->SetPos(35, -10);
+	right_skill_label = App->ui_manager->AddLabel(0, 0, "Attack 2", 12, right_skill_button, BLACK, "fonts/Munro.ttf", nullptr, false);
+	right_skill_label->SetPos(30, 0);
+
+	left_button = App->ui_manager->AddButton(590, 680, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, App->ui_manager->screen, true, false, false, false);
+	left_skill_button = App->ui_manager->AddLabel(0, 0, "B", 12, left_button, BLACK, "fonts/Munro.ttf", nullptr, false);
+	left_skill_button->SetPos(35, -10);
+	left_skill_label = App->ui_manager->AddLabel(0, 0, "Attack 3", 12, left_skill_button, BLACK, "fonts/Munro.ttf", nullptr, false);
+	left_skill_label->SetPos(30, 0);
+
+	has_skills = true;
 }
 
 
