@@ -302,6 +302,10 @@ void j1Render::LobbyCamera(iPoint playerpos)
 	cam_frmwork.h = App->win->height / 4;
 	cam_frmwork.w = App->win->width / 4;
 	DrawQuad(cam_frmwork,255,0,255, 80);
+	
+	
+	DrawQuad({-512,0,App->map->data.width*App->map->data.tile_width,App->map->data.height*App->map->data.tile_height },255,0,255,80);
+
 	camera.x = (-playerpos.x * 3) + (App->win->width / 2);
 	camera.y = (-playerpos.y * 3) + (App->win->height / 2);
 	
