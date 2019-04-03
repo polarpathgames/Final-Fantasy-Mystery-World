@@ -191,6 +191,25 @@ void Player::OnCollision(Collider * c2)
 
 }
 
+void Player::CheckLobbyCollision(const float & dt, const Direction & dir)
+{
+
+
+	switch (direction) {
+	case Direction::RIGHT:
+		current_animation = &GoRight;
+		position.x += floor(velocity.x * dt);
+		position.y += floor(velocity.y * dt);
+		break;
+	default:
+		LOG("No direction found");
+		break;
+	}
+
+
+
+}
+
 
 
 void Player::ReadPlayerInput()
@@ -566,8 +585,9 @@ void Player::PerformMovementInLobby(float dt)
 			current_animation = &GoRight;
 		}
 		else {
-			state = State::IDLE;
-			ChangeAnimation(direction, state);
+			CheckLobbyCollision(dt, direction);
+			//state = State::IDLE;
+			//ChangeAnimation(direction, state);
 		}
 		break;
 	case Direction::LEFT:
