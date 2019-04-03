@@ -13,8 +13,12 @@ struct SDL_Texture;
 struct _TTF_Font;
 
 enum class FontType {
-	FINAL_FANTASY = 0,
-	PIXELMIX = 1,
+	FF32,
+	FF48,
+	FF64,
+	PMIX32,
+	PMIX48,
+	PMIX64,
 
 	NONE
 };
@@ -52,11 +56,11 @@ public:
 	bool CleanUp();
 
 	// Load Font
-	Font* const Load(const char* path, int size = 12);
+	Font* const Load(const char* path, int size = DEFAULT_FONT_SIZE);
 	bool UnLoad(FontType font);
 
 	std::list<Font*>::const_iterator FindIdFont(FontType font_type);
-	std::list<Font*>::const_iterator FindPathFont(const char* name);
+	std::list<Font*>::const_iterator FindPathFont(const char* name, const int& size = 0);
 
 	// Create a surface from text
 	SDL_Texture* Print(const char* text, SDL_Color color = { 255, 255, 255, 255 }, FontType type = FontType::NONE);

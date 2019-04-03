@@ -5,15 +5,10 @@
 #include "j1Render.h"
 #include "p2Log.h"
 
-GUI_Label::GUI_Label(const int & pos_x, const int & pos_y, const char * txt, const Color & c, const char * path_font, const uint & size, GUI * parent, bool interactable, bool draggable, uint32 wrap_length, bool focus)
+GUI_Label::GUI_Label(const int & pos_x, const int & pos_y, const char * txt, const Color & c, FontType font, GUI * parent, bool interactable, bool draggable, uint32 wrap_length, bool focus)
 	:GUI(LABEL, pos_x, pos_y, parent, { 0,0,0,0 }, true, false, false, focus)
 {
-	std::list<Font*>::const_iterator item = App->fonts->FindPathFont(path_font);
-	if (item != App->fonts->fonts.end()) {
-		id_font = (*item)->type;
-	}
-	else id_font = App->fonts->default->type;
-
+	id_font = font;
 	text.assign(txt);
 
 	SetColor(c);

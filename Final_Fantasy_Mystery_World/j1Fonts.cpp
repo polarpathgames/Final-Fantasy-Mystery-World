@@ -4,6 +4,8 @@
 #include "j1Textures.h"
 #include "j1Fonts.h"
 
+#include <assert.h>
+
 #include "SDL\include\SDL.h"
 #include "SDL_TTF\include\SDL_ttf.h"
 #pragma comment( lib, "SDL_ttf/libx86/SDL2_ttf.lib" )
@@ -38,6 +40,9 @@ bool j1Fonts::Awake(pugi::xml_node& conf)
 		for (conf = conf.child("font"); conf; conf = conf.next_sibling()) { // Iterate all nodes to load all fonts we will use
 			Load(PATH(path, conf.attribute("file").as_string()),conf.attribute("size").as_uint(DEFAULT_FONT_SIZE));
 		}
+
+		static_assert((int)FontType::NONE == 6, "Update config.xml adding new fonts");
+		assert(fonts.size() > (int)FontType::NONE - 1); // Loaded more fonts that declarated
 	}
 
 	return ret;
@@ -116,10 +121,10 @@ std::list<Font*>::const_iterator j1Fonts::FindIdFont(FontType font_type) // Find
 	return fonts.end();
 }
 
-std::list<Font*>::const_iterator j1Fonts::FindPathFont(const char* name) // Find font by name
+std::list<Font*>::const_iterator j1Fonts::FindPathFont(const char* name, const int& size) // Find font by name
 {
 	for (std::list<Font*>::iterator item = fonts.begin(); item != fonts.end(); ++item) {
-		if (strcmp(name,(*item)->name.data()) == 0) {
+		if (strcmp(name,(*item)->name.data()) == 0 && size != 0 && size == (*item)->size) {
 			return item;
 		}
 	}

@@ -156,7 +156,6 @@
     <Xml Include="Game\config.xml">
       <SubType>Designer</SubType>
     </Xml>
-    <Xml Include="Game\save_game.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\entities\Enemy.tsx" />
