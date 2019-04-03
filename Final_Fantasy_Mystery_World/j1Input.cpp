@@ -80,6 +80,14 @@ bool j1Input::Start()
 	keyboard_buttons.buttons_char.RIGHT = "D";
 	keyboard_buttons.buttons_char.UP = "W";
 
+	controller_Buttons.buttons_code.BASIC_ATTACK = SDL_CONTROLLER_BUTTON_A;
+	controller_Buttons.buttons_code.DIAGONALS = SDL_CONTROLLER_AXIS_TRIGGERRIGHT;
+	controller_Buttons.buttons_code.DIRECCTION_DOWN = SDL_CONTROLLER_BUTTON_DPAD_DOWN;
+	controller_Buttons.buttons_code.DIRECTION_UP = SDL_CONTROLLER_BUTTON_DPAD_UP;
+	controller_Buttons.buttons_code.DIRECTION_LEFT = SDL_CONTROLLER_BUTTON_DPAD_LEFT;
+	controller_Buttons.buttons_code.DIRECCTION_RIGHT = SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
+
+
 	return true;
 }
 

@@ -66,7 +66,10 @@ struct KeyboardButtons {
 	ButtonChar buttons_char;
 };
 
-
+struct ControllerButtons {
+	ButtonsUsed buttons_code;
+	ButtonChar buttons_char;
+};
 enum j1EventWindow
 {
 	WE_QUIT = 0,
@@ -142,6 +145,7 @@ public:
 	void GetMouseMotion(int& x, int& y);
 
 	KeyboardButtons keyboard_buttons;
+	ControllerButtons controller_Buttons;
 	SDL_GameController* Controller = nullptr;
 
 private:
