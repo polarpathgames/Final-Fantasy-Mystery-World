@@ -22,7 +22,7 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 	ground = App->tex->Load("textures/enemy_pos.png");
 	current_animation = &IdleDownLeft;
 
-	SetPivot(12, 30);
+	SetPivot(9, 30);
 
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
@@ -30,12 +30,16 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 	velocity.x = 160;
 	velocity.y = 80;
 	
-	position.x -= 5;
-	position.y += 5;
+
+	movement_count = { 0,0 };
+	actual_tile = App->map->WorldToMap(position.x, position.y);
+
+	// THIS ALWAYS LAST
+	position.x -= pivot.x;
+	position.y -= 21;
+
 	target_position = position;
 	initial_position = position;
-	movement_count = { 0,0 };
-	actual_tile = App->map->WorldToMap(position.x + pivot.x, position.y + pivot.y);
 	
 }
 
@@ -356,5 +360,15 @@ void Enemy::MovementLogic()
 	}
 
 
+
+}
+
+void Enemy::GetHitted(const int & damage_taken)
+{
+	stats.live -= damage_taken;
+
+	if (stats.live <= 0) {
+		App->entity_manager->DeleteEntity(this);
+	}
 
 }

@@ -9,11 +9,12 @@
 	<scene />
 	<:anonymous />
 	<fonts />
+	<:anonymous />
 	<entity_manager />
 	<gui />
 	<:anonymous />
 	<easingsplines />
 	<renderer>
-		<camera x="26" y="-613" />
+		<camera x="893" y="-545" />
 	</renderer>
 </game_state>

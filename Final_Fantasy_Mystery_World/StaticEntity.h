@@ -13,9 +13,16 @@ class StaticEntity : public Entity
 {
 public:
 
-	StaticEntity(const int &x, const int &y);
-	virtual ~StaticEntity();
+	enum class Type {
+		TREE1,
+		TREE2,
+		TREE3,
+		FLOWER,
+		FOUNTAIN,
+		BARREL,
 
+		UNKNOWN
+	};
 	virtual bool Update(float dt) { return true; };
 
 	virtual bool CleanUp() { return true; };
@@ -25,10 +32,17 @@ public:
 
 public:
 
-	Animation Idle;
+	StaticEntity(int x, int y, const char* name);
+	~StaticEntity();
 
-	SDL_Texture * ground = nullptr;
+private:
 
+	void Draw(SDL_Texture* tex, float dt);
+	void SetRect(int x, int y, int w, int h);
+
+private:
+	SDL_Rect frame;
+	Type static_type;
 };
 
 #endif

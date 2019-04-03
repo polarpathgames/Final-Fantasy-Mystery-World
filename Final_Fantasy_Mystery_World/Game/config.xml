@@ -11,17 +11,27 @@
   </renderer>
 
   <window>
-    <resolution width="1024" height="768" scale="3"/>
+    <resolution width="1024" height="768" scale="1"/>
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>
   </window>
 
+  <fonts>
+    <path folder="fonts"/>
+    <default_font file="Final_Fantasy_font.ttf" size="65"/><!--ID = 0-->
+    <font file="pixelmix.ttf"/><!--ID = 1-->
+                               <!--ID = 2...-->
+  </fonts>
+
   <map>
     <folder>maps/</folder>
     <maps>
-      <tutorial_map>tutorial_movement.tmx</tutorial_map>
+      <tutorial_map>Tutorial_Movement.tmx</tutorial_map>
+      <lobby_map>Lobby.tmx</lobby_map>
+      <shop_map>Shop.tmx</shop_map>
+      <home_map>Home.tmx</home_map>
     </maps>
 
   </map>

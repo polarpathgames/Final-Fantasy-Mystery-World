@@ -15,6 +15,7 @@
 #include "j1Scene.h"
 #include "j1UIManager.h"
 #include "j1Map.h"
+#include "j1Collisions.h"
 #include "j1Fonts.h"
 #include "MainMenu.h"
 #include "p2Point.h"
@@ -42,7 +43,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	entity_manager = new j1EntityManager();
 	pathfinding = new j1PathFinding();
 	fade_to_black = new j1FadeToBlack();
+	collision = new j1Collision();
 	easing_splines = new EasingSplines();
+
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -55,6 +58,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(main_menu);
 	AddModule(fonts);
+	AddModule(collision);
 	AddModule(entity_manager);
 	AddModule(ui_manager);
 	AddModule(fade_to_black);
@@ -217,7 +221,7 @@ void j1App::PrepareUpdate()
 
 	frame_time.Start();
 	ptimer.Start();
-	LOG("dt is: %.6f", dt);
+	//LOG("dt is: %.6f", dt);
 }
 
 // ---------------------------------------------
@@ -257,7 +261,7 @@ void j1App::FinishUpdate()
 		float delaytimestart = time.ReadMs();
 		SDL_Delay(framerate_cap - last_frame_ms);
 		float delaytimefinish = time.ReadMs();
-		LOG("We waited for %i milliseconds and got back in %.6f", framerate_cap - last_frame_ms, delaytimefinish - delaytimestart);
+		//LOG("We waited for %i milliseconds and got back in %.6f", framerate_cap - last_frame_ms, delaytimefinish - delaytimestart);
 	}
 }
 

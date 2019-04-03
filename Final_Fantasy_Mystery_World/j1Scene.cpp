@@ -4,6 +4,7 @@
 #include "j1Pathfinding.h"
 #include "j1Input.h"
 #include "j1UIManager.h"
+#include "j1Collisions.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Render.h"
@@ -108,6 +109,16 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
 		App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_KP_1) == KEY_DOWN) {
+		App->win->scale = 1;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_KP_2) == KEY_DOWN) {
+		App->win->scale = 2;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_KP_3) == KEY_DOWN) {
+		App->win->scale = 3;
+	}
 		
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 		(App->ChangePause()) ? CreatePauseMenu() : DestroyPauseMenu();
@@ -131,7 +142,7 @@ bool j1Scene::PostUpdate()
 	App->input->GetMousePosition(mouse.x, mouse.y);
 	//App->render->ScreenToWorld(mouse.x, mouse.y);
 	iPoint tile = App->map->WorldToMap(mouse.x, mouse.y);
-	LOG("Tile: %i, %i", tile.x, tile.y);
+	//LOG("Tile: %i, %i", tile.x, tile.y);
 
 	return ret;
 }
@@ -150,18 +161,26 @@ void j1Scene::CreateEntities()
 
 	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
 		if ((*position)->name == "player") {
-			App->entity_manager->CreateEntity(Entity::EntityType::PLAYER, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x + 12, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y + 30, (*position)->name);
+			App->entity_manager->CreateEntity(Entity::EntityType::PLAYER, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).x, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).y, (*position)->name);
 		}
 		else if ((*position)->ent_type == "static") {
-			//App->entity_manager->CreateEntity(Entity::EntityType::STATIC, (*position)->coll_x, (*position)->coll_y, (*position)->name);
+			App->entity_manager->CreateEntity(Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x + 12, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y + 30, (*position)->name);
 
 		}
 		else if ((*position)->ent_type == "enemy") {
-			App->entity_manager->CreateEntity(Entity::EntityType::ENEMY, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x + 12, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y + 30, (*position)->name);
+			App->entity_manager->CreateEntity(Entity::EntityType::ENEMY, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y -8).x, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).y, (*position)->name);
 		}
 		else if ((*position)->name == "sensor") {
 			if ((*position)->ent_type == "ToLobby") {
-				App->entity_manager->CreateEntity(Entity::EntityType::SENSOR, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name, Sensor::SensorType::TO_LOBBY);
+				App->entity_manager->CreateEntity(Entity::EntityType::SENSOR, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).x, App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).y, (*position)->name, Sensor::SensorType::TO_LOBBY);
+			}
+		}
+		else if ((*position)->name == "collider") { // COLLIDERS
+			if ((*position)->properties.FindNameValue("shop")) {
+				App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).x,App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_SHOP, nullptr);
+			}
+			else if ((*position)->properties.FindNameValue("home")) {
+				App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).x,App->map->TiledToWorld((*position)->coll_x + 1, (*position)->coll_y - 8).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_HOME, nullptr);
 			}
 		}
 		else {
@@ -172,26 +191,26 @@ void j1Scene::CreateEntities()
 
 void j1Scene::CreatePauseMenu()
 {
-	pause_panel = App->ui_manager->AddImage(0, 0, { 1252,1536,313,428 }, this,App->ui_manager->screen, true,false,true);
+	pause_panel = App->ui_manager->AddImage(0, 0, { 1252,1536,313,428 }, this, App->ui_manager->screen, true, false, false, false);
 	pause_panel->SetPosRespectParent(CENTERED);
-	button_resume = App->ui_manager->AddButton(50, 50, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 },this, pause_panel, true,false,true);
+	button_resume = App->ui_manager->AddButton(50, 50, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true, true);
 	button_resume->AddListener(this);
-	label_resume = App->ui_manager->AddLabel(0,0,"Continue",50, button_resume, BLACK, "fonts/Munro.ttf", nullptr);
+	label_resume = App->ui_manager->AddLabel(0, 0, "Continue", 50, button_resume, BLACK, "fonts/Munro.ttf", nullptr, false);
 	label_resume->SetPosRespectParent(CENTERED);
 
-	button_main_menu = App->ui_manager->AddButton(50, 350, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true);
+	button_main_menu = App->ui_manager->AddButton(50, 350, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true, true);
 	button_main_menu->AddListener(this);
-	label_main_menu = App->ui_manager->AddLabel(0, 0, "Return to main menu", 50, button_main_menu, BLACK, "fonts/Munro.ttf", nullptr);
+	label_main_menu = App->ui_manager->AddLabel(0, 0, "Return to main menu", 50, button_main_menu, BLACK, "fonts/Munro.ttf", nullptr, false);
 	label_main_menu->SetPosRespectParent(CENTERED);
 
-	button_abort_quest = App->ui_manager->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true);
+	button_abort_quest = App->ui_manager->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true, true);
 	button_abort_quest->AddListener(this);
-	label_abort_quest = App->ui_manager->AddLabel(0, 0, "Abort quest", 50, button_abort_quest, BLACK, "fonts/Munro.ttf", nullptr);
+	label_abort_quest = App->ui_manager->AddLabel(0, 0, "Abort quest", 50, button_abort_quest, BLACK, "fonts/Munro.ttf", nullptr, false);
 	label_abort_quest->SetPosRespectParent(CENTERED);
 
-	button_options = App->ui_manager->AddButton(50, 150, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true);
+	button_options = App->ui_manager->AddButton(50, 150, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true, true);
 	button_options->AddListener(this);
-	label_options = App->ui_manager->AddLabel(0, 0, "Options", 50, button_options, BLACK, "fonts/Munro.ttf", nullptr);
+	label_options = App->ui_manager->AddLabel(0, 0, "Options", 50, button_options, BLACK, "fonts/Munro.ttf", nullptr, false);
 	label_options->SetPosRespectParent(CENTERED);
 }
 

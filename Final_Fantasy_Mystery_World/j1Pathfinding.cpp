@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1PathFinding.h"
+#include "j1Map.h"
 #include "Brofiler/Brofiler.h"
 
 
@@ -126,37 +127,37 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
 
 
 	cell.create(pos.x - 1, pos.y - 1);
-	//if (App->pathfinding->IsWalkable(cell))
+	if (App->map->IsWalkable(cell,false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	// west
 	cell.create(pos.x + 1, pos.y + 1);
-	//if (App->pathfinding->IsWalkable(cell))
+	if (App->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x - 1, pos.y + 1);
-	//if (App->pathfinding->IsWalkable(cell))
+	if (App->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x + 1, pos.y - 1);
-	//if (App->pathfinding->IsWalkable(cell))
+	if (App->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x - 1, pos.y);
-	//if (App->pathfinding->IsWalkable(cell))
+	if (App->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	// west
 	cell.create(pos.x + 1, pos.y);
-	//if (App->pathfinding->IsWalkable(cell))
+	if (App->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x, pos.y + 1);
-	//if (App->pathfinding->IsWalkable(cell))
+	if (App->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x, pos.y - 1);
-	//if (App->pathfinding->IsWalkable(cell))
+	if (App->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 
@@ -194,8 +195,8 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 
 	last_path.clear();
 
-	//if (!IsWalkable(origin) || !IsWalkable(destination))
-		//return -1;
+	if (!App->map->IsWalkable(origin,false) || !App->map->IsWalkable(destination,false))
+		return -1;
 
 
 	PathList open, close;
