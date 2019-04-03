@@ -14,9 +14,12 @@ class StaticEntity : public Entity
 public:
 
 	enum class Type {
-		TREE,
+		TREE1,
+		TREE2,
+		TREE3,
 		FLOWER,
 		FOUNTAIN,
+		BARREL,
 
 		UNKNOWN
 	};
