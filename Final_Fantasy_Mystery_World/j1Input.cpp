@@ -87,6 +87,13 @@ bool j1Input::Start()
 	controller_Buttons.buttons_code.DIRECTION_LEFT = SDL_CONTROLLER_BUTTON_DPAD_LEFT;
 	controller_Buttons.buttons_code.DIRECCTION_RIGHT = SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
 
+	controller_Buttons.buttons_char.BASIC_ATTACK = "A";
+	controller_Buttons.buttons_char.DIAGONALS = "LT";
+	controller_Buttons.buttons_char.DIRECCTION_DOWN = "D-PAD DOWN";
+	controller_Buttons.buttons_char.DIRECTION_UP = "D-PAD UP";
+	controller_Buttons.buttons_char.DIRECTION_LEFT = "D-PAD LEFT";
+	controller_Buttons.buttons_char.DIRECCTION_RIGHT = "D-PAD RIGHT";
+
 
 	return true;
 }
@@ -179,11 +186,17 @@ bool j1Input::PreUpdate()
 				//LOG("Mouse button %d down", event.button.button-1);
 			break;
 			case SDL_CONTROLLERAXISMOTION:
-				if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT) {
+				if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT && event.caxis.value > DEAD_ZONE) {
 					controller_buttons[event.cbutton.button] = KEY_DOWN;
 				}
-				if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT) {
+				if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT && event.caxis.value < DEAD_ZONE) {
+					controller_buttons[event.cbutton.button] = KEY_UP;
+				}
+				if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT && event.caxis.value > DEAD_ZONE) {
 					controller_buttons[event.cbutton.button] = KEY_DOWN;
+				}
+				if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT && event.caxis.value < DEAD_ZONE) {
+					controller_buttons[event.cbutton.button] = KEY_UP;
 				}
 				break;
 			case SDL_MOUSEBUTTONUP:
