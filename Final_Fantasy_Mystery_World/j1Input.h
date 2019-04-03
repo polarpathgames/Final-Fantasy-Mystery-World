@@ -114,9 +114,7 @@ public:
 	// Check key states (includes mouse and joy buttons)
 	j1KeyState GetKey(int id) const
 	{
-		if (keyboard != nullptr)
-			return keyboard[id];
-		else return KEY_IDLE;
+		return keyboard[id];
 	}
 
 	j1KeyState GetMouseButtonDown(int id) const
@@ -155,7 +153,6 @@ private:
 	j1KeyState*	keyboard;
 	j1KeyState	mouse_buttons[NUM_MOUSE_BUTTONS];
 	SDL_Event ev;
-	j1KeyState controller[MAX_BUTTONS];
 	j1KeyState controller_buttons[NUM_CONTROLLER_BUTTONS];
 
 	int			mouse_motion_x;
