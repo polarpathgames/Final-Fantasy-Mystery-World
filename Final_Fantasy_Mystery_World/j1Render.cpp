@@ -73,7 +73,7 @@ bool j1Render::PreUpdate()
 	return true;
 }
 
-bool j1Render::Update(float dt)
+bool j1Render::UpdateMouse(float dt)
 {
 	BROFILER_CATEGORY("UpdateRender", Profiler::Color::Aqua);
 	//LOG("Camera.y = %i", camera.y);

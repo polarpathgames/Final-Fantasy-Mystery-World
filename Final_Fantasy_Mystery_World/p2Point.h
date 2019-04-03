@@ -91,6 +91,11 @@ public:
 		return (x == 0 && y == 0);
 	}
 
+
+	int Cross(p2Point& v) {
+		return x * v.y - y * v.x;
+	}
+
 	p2Point& SetToZero()
 	{
 		x = y = 0;

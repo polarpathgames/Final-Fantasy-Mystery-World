@@ -7,7 +7,7 @@
 class GUI_Button : public GUI
 {
 public:
-	GUI_Button(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, GUI* parent, bool draw, bool inter, bool drag);
+	GUI_Button(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, GUI* parent, bool draw, bool inter, bool drag, bool focus);
 	~GUI_Button();
 
 	void InnerDraw();

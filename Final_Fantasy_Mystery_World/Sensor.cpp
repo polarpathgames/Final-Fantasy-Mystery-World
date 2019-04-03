@@ -25,7 +25,7 @@ Sensor::~Sensor()
 {
 }
 
-bool Sensor::Update(float dt)
+bool Sensor::UpdateMouse(float dt)
 {
 
 	if (App->entity_manager->GetPlayerData()->actual_tile == actual_tile) {

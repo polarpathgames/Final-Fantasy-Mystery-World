@@ -20,6 +20,12 @@ public:
 
 		UNKNOWN
 	};
+	virtual bool UpdateMouse(float dt) { return true; };
+
+	virtual bool CleanUp() { return true; };
+
+	virtual bool Load(pugi::xml_node&) { return true; };
+	virtual bool Save(pugi::xml_node&) const { return true; };
 
 public:
 

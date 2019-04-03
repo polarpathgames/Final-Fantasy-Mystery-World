@@ -27,7 +27,7 @@ public:
 
 	bool PreUpdate();
 
-	bool Update(float dt);
+	bool UpdateMouse(float dt);
 
 	bool PostUpdate();
 
@@ -39,6 +39,7 @@ public:
 
 	bool CleanUp();
 
+	void OnCollision(Collider* c1, Collider* c2);
 
 	Entity* CreateEntity(Entity::EntityType type, int PositionX, int PositionY, std::string name, Sensor::SensorType sensor_type = Sensor::SensorType::NONE);
 	//Player* CreatePlayer();

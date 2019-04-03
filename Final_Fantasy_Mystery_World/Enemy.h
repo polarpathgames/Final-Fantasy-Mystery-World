@@ -24,7 +24,7 @@ public:
 
 	virtual ~Enemy();
 
-	bool Update(float dt);
+	bool UpdateMouse(float dt);
 
 	bool PreUpdate();
 
@@ -39,6 +39,8 @@ public:
 	bool IsPlayerNextTile();
 
 	void MovementLogic();
+
+	void GetHitted(const int &damage_taken);
 
 public:
 

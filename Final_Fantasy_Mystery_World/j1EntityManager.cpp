@@ -65,7 +65,7 @@ bool j1EntityManager::PreUpdate()
 }
 
 // Called before render is available
-bool j1EntityManager::Update(float dt)
+bool j1EntityManager::UpdateMouse(float dt)
 {
 	BROFILER_CATEGORY("UpdateEntityM", Profiler::Color::Aqua);
 
@@ -73,7 +73,7 @@ bool j1EntityManager::Update(float dt)
 	std::vector<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr) {
-			(*item)->Update(dt);
+			(*item)->UpdateMouse(dt);
 			
 			if (App->render->IsOnCamera((*item)->position.x, (*item)->position.y, (*item)->size.x, (*item)->size.y)) {
 				draw_entities.push_back(*item);
@@ -131,6 +131,17 @@ bool j1EntityManager::CleanUp()
 		App->tex->UnLoad(texture[i]);
 	}
 	return true;
+}
+
+void j1EntityManager::OnCollision(Collider * c1, Collider * c2)
+{
+	std::vector<Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr &&(*item)->GetCollider() == c1) {
+			(*item)->OnCollision(c2);
+		}
+	}
+
 }
 
 
