@@ -178,12 +178,18 @@ bool j1Input::PreUpdate()
 				mouse_buttons[event.button.button - 1] = KEY_DOWN;
 				//LOG("Mouse button %d down", event.button.button-1);
 			break;
-
+			case SDL_CONTROLLERAXISMOTION:
+				if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT) {
+					controller_buttons[event.cbutton.button] = KEY_DOWN;
+				}
+				if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT) {
+					controller_buttons[event.cbutton.button] = KEY_DOWN;
+				}
+				break;
 			case SDL_MOUSEBUTTONUP:
 				mouse_buttons[event.button.button - 1] = KEY_UP;
 				//LOG("Mouse button %d up", event.button.button-1);
 			break;
-
 			case SDL_MOUSEMOTION:
 				int scale = App->win->GetScale();
 				mouse_motion_x = event.motion.xrel / scale;
@@ -193,6 +199,7 @@ bool j1Input::PreUpdate()
 				//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
 			break;
 		}
+		
 	}
 
 	//axis
