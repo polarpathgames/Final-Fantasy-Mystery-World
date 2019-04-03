@@ -71,8 +71,8 @@ bool Player::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdatePlayer", Profiler::Color::Aqua);
 
-	if(App->map->actual_map == Maps::LOBBY)
-	App->render->LobbyCamera(position);
+	if(movement_type == Movement_Type::InLobby)
+		App->render->LobbyCamera(position);
 
 	PerformActions(dt);
 
