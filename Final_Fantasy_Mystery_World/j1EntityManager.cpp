@@ -43,7 +43,7 @@ bool j1EntityManager::Start()
 
 	texture.push_back(App->tex->Load("assets/sprites/WarriorSpritesheet.png"));
 	texture.push_back(App->tex->Load("assets/sprites/Enemy.png"));
-	texture.push_back(App->tex->Load("maps/tutorial_tileset.png"));
+	texture.push_back(App->tex->Load("maps/static_objects_tileset.png"));
 
 	return ret;
 }
@@ -65,7 +65,7 @@ bool j1EntityManager::PreUpdate()
 }
 
 // Called before render is available
-bool j1EntityManager::UpdateMouse(float dt)
+bool j1EntityManager::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateEntityM", Profiler::Color::Aqua);
 
@@ -73,7 +73,7 @@ bool j1EntityManager::UpdateMouse(float dt)
 	std::vector<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr) {
-			(*item)->UpdateMouse(dt);
+			(*item)->Update(dt);
 			
 			if (App->render->IsOnCamera((*item)->position.x, (*item)->position.y, (*item)->size.x, (*item)->size.y)) {
 				draw_entities.push_back(*item);

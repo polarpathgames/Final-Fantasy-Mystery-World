@@ -4,15 +4,13 @@
 
 StaticEntity::StaticEntity(int x, int y, const char * name):Entity(x,y)
 {
-	if (strcmp(name, "flower")) {
-		
+	if (strcmp(name,"flower") == 0) {
+		static_type = StaticEntity::Type::FLOWER;
+		frame = { 128,96,32,32 };
+		size.create(frame.w, frame.h);
 	}
 
-	static_type = StaticEntity::Type::FLOWER;
-	frame = { 94,184,35,40 };
-	size.create(35, 40);
-	position.x = 0;
-	position.y = 0;
+	
 	type = Entity::EntityType::STATIC;
 }
 
