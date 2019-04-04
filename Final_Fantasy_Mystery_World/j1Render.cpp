@@ -78,6 +78,7 @@ bool j1Render::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateRender", Profiler::Color::Aqua);
 	//LOG("Camera.y = %i", camera.y);
+
 	return true;
 }
 
@@ -297,14 +298,22 @@ void j1Render::ResetCamera()
 void j1Render::LobbyCamera(iPoint playerpos)
 {
 	SDL_Rect cam_frmwork = { (playerpos.x) - (App->win->width *  0.125),(playerpos.y) - (App->win->height * 0.125), App->win->width * 0.25, App->win->height * 0.25};
-	/*DrawQuad(cam_frmwork,255,0,255, 80);*/
+	//DrawQuad(cam_frmwork,255,0,255, 80);
 	
-	SDL_Rect map_rect = { -512,0,App->map->data.width*App->map->data.tile_width,App->map->data.height*App->map->data.tile_height };
-	/*DrawQuad(map_rect,255,0,255,80);*/
+	SDL_Rect map_rect = { -622,-8,App->map->data.width*App->map->data.tile_width,App->map->data.height*App->map->data.tile_height };
+	DrawQuad(map_rect,255,0,255,80);
 
 	if (cam_frmwork.x > map_rect.x && cam_frmwork.x + cam_frmwork.w < map_rect.x + map_rect.w && cam_frmwork.y > map_rect.y && cam_frmwork.y + cam_frmwork.w < map_rect.y + map_rect.w)
 	{
 		camera.x = (-playerpos.x * 3) + (App->win->width * 0.5);
 		camera.y = (-playerpos.y * 3) + (App->win->height * 0.5);
 	}	
+	else
+	{
+		if (!IsOnCamera(cam_frmwork.x, cam_frmwork.y, cam_frmwork.w, cam_frmwork.h))
+		{
+			camera.x = (-playerpos.x * 3) + (App->win->width * 0.5);
+			camera.y = (-playerpos.y * 3) + (App->win->height * 0.5);
+		}
+	}
 }
