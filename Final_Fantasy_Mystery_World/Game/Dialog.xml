@@ -1,0 +1,78 @@
+  <!--Dialogue Tree example --> 
+
+
+<dialogue>
+  <dialogtree treeid="0" karma="0">
+    <node line="PLAYERNAME how are you PLAYERNAME" id="0">
+      <option  line="Supp Noob" nextnode="1" karma="-1"/>
+      <option line="Hello strange voice" nextnode="2"/>
+    </node>
+    <node  line="PLAYERNAME , I don't want to talk to you" id="1">
+      <option  line="Aww" nextnode="6"/>
+    </node>
+    <node  line="I have a quest for you" id="2">
+      <option  line="K bye" nextnode="6"/>
+      <option line="What is it" nextnode="4"/>
+      <option  line="Whats the pay" nextnode="3"/>
+    </node>
+    <node line="Yes, you will get gold you greedy swine" id="3">
+      <option line="Ok what is it" nextnode="4"/>
+      <option   line="That sucks im out" nextnode="6"/>
+    </node>
+    <node   line="Collect ten Dandillions" id="4">
+      <option line="Lets do it" nextnode="6"/>
+      <option  line="No way" nextnode="6"/>
+    </node>
+    <node line="I won't talk to you, you insulted me!" id="5" karma="-1">
+      <option line="Ok then..." nextnode="6"/>
+    </node>
+  </dialogtree>
+
+  <dialogtree treeid="1" karma ="0">
+    <node line="Hello brave archer" nextnode="0">
+      <option  line="Supp Noob" nextnode="1"/>
+      <option line="Hello strange voice" nextnode="2"/>
+    </node>
+    <node  line="I don't want to talk to you" id="1">
+      <option  line="Aww" nextnode="5"/>
+    </node>
+    <node  line="I have a quest for you" id="2">
+      <option  line="K bye" nextnode="5"/>
+      <option line="What is it" nextnode="4"/>
+      <option  line="Whats the pay" nextnode="3"/>
+    </node>
+    <node line="Yes, you will get gold you greedy swine" id="3">
+      <option line="Ok what is it" nextnode="4"/>
+      <option   line="That sucks im out" nextnode="5"/>
+    </node>
+    <node   line="Collect ten Dandillions" id="4">
+      <option line="Lets do it" nextnode="5"/>
+      <option  line="No way" nextnode="5"/>
+    </node>
+  </dialogtree>
+  
+    <dialogtree treeid="2" karma="0">
+    <node line="Hello PLAYERNAME watcha doin'? " id="0">
+      <option  line="Supp Noob" nextnode="1"/>
+      <option line="Hello strange voice" nextnode="2"/>
+    </node>
+    <node  line="I don't want to talk to you" id="1">
+      <option  line="Aww" nextnode="5"/>
+    </node>
+    <node  line="I have a quest for you" id="2">
+      <option  line="K bye" nextnode="5"/>
+      <option line="What is it" nextnode="4"/>
+      <option  line="Whats the pay" nextnode="3"/>
+    </node>
+    <node line="Yes, you will get gold you greedy swine" id="3">
+      <option line="Ok what is it" nextnode="4"/>
+      <option   line="That sucks im out" nextnode="5"/>
+    </node>
+    <node   line="Collect ten Dandillions" id="4">
+      <option line="Lets do it" nextnode="5"/>
+      <option  line="No way" nextnode="5"/>
+    </node>
+  </dialogtree>
+</dialogue>
+<!-- Dialogue Tree example -->
+

@@ -25,6 +25,7 @@ class j1PathFinding;
 class j1FadeToBlack;
 class j1Collision;
 class EasingSplines;
+class j1DialogSystem;
 
 class j1App
 {
@@ -112,7 +113,7 @@ public:
 	j1FadeToBlack*		fade_to_black;
 	j1Collision*		collision;
 	EasingSplines*		easing_splines;
-
+	j1DialogSystem*     dialog;
 private:
 
 	std::list<j1Module*>	modules;
