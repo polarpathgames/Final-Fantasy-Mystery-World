@@ -437,6 +437,25 @@ void j1Scene::CreateControlsMenu()
 	Clabel_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
 	Clabels_control.push_back(Clabel_to_show_how_basic_attack);
 
+	Cbutton_up = App->ui_manager->AddButton(690, 295, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_up->AddListener(this);
+	Clabel_to_show_how_up = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.UP, 50, Cbutton_up, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_up->SetPosRespectParent(CENTERED);
+
+	Cbutton_right = App->ui_manager->AddButton(690, 325, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_right->AddListener(this);
+	Clabel_to_show_how_right = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.RIGHT, 50, Cbutton_right, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_right->SetPosRespectParent(CENTERED);
+
+	Cbutton_left = App->ui_manager->AddButton(690, 355, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_left->AddListener(this);
+	Clabel_to_show_how_left = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.LEFT, 50, Cbutton_left, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_left->SetPosRespectParent(CENTERED);
+
+	Cbutton_down = App->ui_manager->AddButton(690, 385, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_down->AddListener(this);
+	Clabel_to_show_how_down = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DOWN, 50, Cbutton_down, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_down->SetPosRespectParent(CENTERED);
 
 	menu_state = StatesMenu::CONTROLS_MENU;
 }

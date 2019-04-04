@@ -134,6 +134,7 @@ public:
 	const int GetAxisY() {
 		return axis_y;
 	}
+	void DefaultControls();
 
 	bool ChceckAxisStates(const Axis &axis);
 
