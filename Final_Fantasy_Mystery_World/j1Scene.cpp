@@ -425,6 +425,18 @@ void j1Scene::CreateControlsMenu()
 	Clabel_to_show_how_direction_down->SetPosRespectParent(CENTERED);
 	Clabels_control.push_back(Clabel_to_show_how_direction_down);
 
+	Cbutton_diagonals = App->ui_manager->AddButton(690, 415, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_diagonals->AddListener(this);
+	Clabel_to_show_how_diagonals = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIAGONALS, 50, Cbutton_diagonals, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_diagonals->SetPosRespectParent(CENTERED);
+	Clabels_control.push_back(Clabel_to_show_how_diagonals);
+
+	Cbutton_basic_attack = App->ui_manager->AddButton(690, 565, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_basic_attack->AddListener(this);
+	Clabel_to_show_how_basic_attack = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.BASIC_ATTACK, 50, Cbutton_basic_attack, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
+	Clabels_control.push_back(Clabel_to_show_how_basic_attack);
+
 
 	menu_state = StatesMenu::CONTROLS_MENU;
 }
@@ -559,6 +571,16 @@ bool j1Scene::Interact(GUI* interact)
 			if (control_to_change != nullptr)
 				delete control_to_change;
 			control_to_change = new ChangeControls(Clabel_to_show_how_direction_down, &App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN, &App->input->controller_Buttons.buttons_char.DIRECCTION_DOWN, true);
+		}
+		if (interact == Cbutton_diagonals) {
+			if (control_to_change != nullptr)
+				delete control_to_change;
+			control_to_change = new ChangeControls(Clabel_to_show_how_diagonals, &App->input->controller_Buttons.buttons_code.DIAGONALS, &App->input->controller_Buttons.buttons_char.DIAGONALS, true);
+		}
+		if (interact == Cbutton_basic_attack) {
+			if (control_to_change != nullptr)
+				delete control_to_change;
+			control_to_change = new ChangeControls(Clabel_to_show_how_basic_attack, &App->input->controller_Buttons.buttons_code.BASIC_ATTACK, &App->input->controller_Buttons.buttons_char.BASIC_ATTACK, true);
 		}
 		break;
 	}

@@ -183,6 +183,12 @@ private:
 	GUI_Button* Cbutton_direction_down = nullptr;
 	GUI_Label* Clabel_to_show_how_direction_down = nullptr;
 
+	GUI_Button* Cbutton_diagonals = nullptr;
+	GUI_Label* Clabel_to_show_how_diagonals = nullptr;
+
+	GUI_Button* Cbutton_basic_attack = nullptr;
+	GUI_Label* Clabel_to_show_how_basic_attack = nullptr;
+
 };
 
 #endif // __j1SCENE_H__
