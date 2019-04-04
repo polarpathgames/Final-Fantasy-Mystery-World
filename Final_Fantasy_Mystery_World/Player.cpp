@@ -479,50 +479,52 @@ void Player::ReadPlayerMovementInLobby()
 void Player::ReadAttack()
 {
 	if (player_input.pressing_G) {
-		type_attack = Attacks::BASIC;
-		state = State::ATTACKING;
-		switch (direction) {
-		case Direction::DOWN_LEFT:
-			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
-			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
-			break;
-		case Direction::UP_RIGHT:
-			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
-			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
-			break;
-		case Direction::DOWN_RIGHT:
-			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
-			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
-			break;
-		case Direction::UP_LEFT:
-			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
-			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
-			break;
-		case Direction::UP:
-			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3, 200, EASE);
-			break;
-		case Direction::DOWN:
-			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3, 200, EASE);
-			break;
-		case Direction::RIGHT:
-			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3, 200, EASE);
-			break;
-		case Direction::LEFT:
-			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3, 200, EASE);
-			break;
-		}
-		ChangeAnimation(direction, state, type_attack);
+		PrepareBasicAttack();
 	}
+}
+
+void Player::PrepareBasicAttack()
+{
+	type_attack = Attacks::BASIC;
+	state = State::ATTACKING;
+	switch (direction) {
+	case Direction::DOWN_LEFT:
+		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+		break;
+	case Direction::UP_RIGHT:
+		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+		break;
+	case Direction::DOWN_RIGHT:
+		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+		break;
+	case Direction::UP_LEFT:
+		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+		break;
+	case Direction::UP:
+		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3, 200, EASE);
+		break;
+	case Direction::DOWN:
+		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3, 200, EASE);
+		break;
+	case Direction::RIGHT:
+		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3, 200, EASE);
+		break;
+	case Direction::LEFT:
+		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3, 200, EASE);
+		break;
+	}
+	ChangeAnimation(direction, state, type_attack);
 }
 	
 	
 void Player::PerformActions(float dt)
 {
 	if (player_input.pressing_V) {
-		if (has_skills)
-			DestroySkills();
-		else
-			CreateSkills();
+		(has_skills) ? DestroySkills() : CreateSkills();
 	}
 	if (state == State::IDLE) {
 		ChangeDirection();
@@ -591,7 +593,7 @@ void Player::BasicAttack()
 			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3 + 1, 200, EASE);
 			break;
 		}
-		CheckAttackEfects(Entity::EntityType::ENEMY, direction, stats.attack_power);
+		CheckBasicAttackEfects(Entity::EntityType::ENEMY, direction, stats.attack_power);
 		state = State::AFTER_ATTACK;
 		ChangeAnimation(direction, state);
 		time_attack = SDL_GetTicks();
