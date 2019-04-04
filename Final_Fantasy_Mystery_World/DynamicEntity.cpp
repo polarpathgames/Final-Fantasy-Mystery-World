@@ -330,7 +330,7 @@ void DynamicEntity::RestTimeAfterAttack(float time_finish)
 	}
 }
 
-void DynamicEntity::CheckAttackEfects(const Entity::EntityType & type, const Direction & direction, const int & attack_damage)
+void DynamicEntity::CheckBasicAttackEfects(const Entity::EntityType & type, const Direction & direction, const int & attack_damage)
 {
 	std::vector<Entity*> entities = App->entity_manager->GetEntities();
 	std::vector<Entity*>::iterator item = entities.begin();

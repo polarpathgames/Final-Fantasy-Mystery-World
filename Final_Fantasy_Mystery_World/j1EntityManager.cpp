@@ -96,7 +96,8 @@ bool j1EntityManager::Update(float dt)
 			App->render->DrawCircle((*item)->position.x + (*item)->pivot.x, (*item)->position.y + (*item)->pivot.y, 3, 255, 255, 255);
 		}		
 	}
-	
+	if (GetPlayerData()->movement_type == Movement_Type::InLobby)
+		App->render->LobbyCamera(GetPlayerData()->position);
 	return true;
 }
 

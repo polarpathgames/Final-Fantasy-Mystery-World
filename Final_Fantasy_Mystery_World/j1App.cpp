@@ -23,6 +23,7 @@
 #include "j1EntityManager.h"
 #include "j1FadeToBlack.h"
 #include "j1Pathfinding.h"
+#include "j1DialogSystem.h"
 #include "Brofiler/Brofiler.h"
 
 // Constructor
@@ -40,6 +41,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	ui_manager = new j1UIManager();
 	main_menu = new MainMenu();
 	fonts = new j1Fonts();
+	dialog = new j1DialogSystem();
 	entity_manager = new j1EntityManager();
 	pathfinding = new j1PathFinding();
 	fade_to_black = new j1FadeToBlack();
@@ -61,6 +63,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(collision);
 	AddModule(entity_manager);
 	AddModule(ui_manager);
+	AddModule(dialog);
 	AddModule(fade_to_black);
 	AddModule(easing_splines);
 

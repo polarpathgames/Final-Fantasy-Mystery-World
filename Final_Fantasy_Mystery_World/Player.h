@@ -73,9 +73,12 @@ public:
 
 	void ReadAttack();
 
+	
+
 	//Update
 	void PerformActions(float dt); // Global organizator function 
 
+	void PrepareBasicAttack(); // Prepare Basic Attack
 	void BasicAttack(); // Basic attack xd 
 
 	void PerformMovementInLobby(float dt); // Do the movement in lobby
