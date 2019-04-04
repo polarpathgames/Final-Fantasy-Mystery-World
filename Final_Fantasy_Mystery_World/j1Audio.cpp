@@ -5,11 +5,11 @@
 #include <string>
 #include "j1Input.h"
 #include "j1App.h"
+#include "j1Scene.h"
+#include "GUI_Slider.h"
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
-
-
 
 j1Audio::j1Audio() : j1Module()
 {
@@ -26,8 +26,27 @@ bool j1Audio::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Audio Mixer");
 	bool ret = true;
-	SDL_Init(0);
 
+	//load config var
+	volume = 100;
+	volume_fx = 100;
+	max_volume = 100;
+	default_music_fade_time = 2.0;
+	volume_change_ratio = 10;
+	mute = false;
+
+
+	if (mute)
+	{
+		Mix_VolumeMusic(0);
+	}
+	else
+	{
+		Mix_VolumeMusic(volume);
+
+	}
+
+	SDL_Init(0);
 
 	if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
 	{
@@ -84,7 +103,7 @@ bool j1Audio::CleanUp()
 }
 
 // Play a music file
-bool j1Audio::PlayMusic(const char* path, float fade_time)
+bool j1Audio::PlayMusic(const char* path)
 {
 	bool ret = true;
 
@@ -93,9 +112,9 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 
 	if (music != NULL)
 	{
-		if (fade_time > 0.0f)
+		if (default_music_fade_time  > 0.0f)
 		{
-			Mix_FadeOutMusic(int(fade_time * 1000.0f));
+			Mix_FadeOutMusic(int(default_music_fade_time  * 1000.0f));
 		}
 		else
 		{
@@ -115,9 +134,9 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 	}
 	else
 	{
-		if (fade_time > 0.0f)
+		if (default_music_fade_time  > 0.0f)
 		{
-			if (Mix_FadeInMusic(music, -1, (int)(fade_time * 1000.0f)) < 0)
+			if (Mix_FadeInMusic(music, -1, (int)(default_music_fade_time  * 1000.0f)) < 0)
 			{
 				LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
 				ret = false;
@@ -135,14 +154,6 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 
 	LOG("Successfully playing %s", path);
 	return ret;
-}
-
-bool j1Audio::Update(float dt)
-{
-
-
-
-	return true;
 }
 
 // Load WAV
@@ -179,10 +190,157 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	if (id > 0 && id <= fx.size())
 	{
 		std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
-		Mix_PlayChannel(-1, (*item), repeat);
+		Mix_PlayChannel(-1, (*item), repeat, 0);
 	}
 
 	return ret;
+}
+
+void j1Audio::StopMusic(int mut)
+{
+	switch (mut)
+	{
+	case -1:
+		mute = !mute;
+		mute_volume = mute;
+		mute_fx = mute;
+		if (mute == true)
+		{
+			for (int id = 1; id <= fx.size(); id++)
+			{
+				std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
+				Mix_VolumeChunk((*item), 0);
+			}
+		}
+		else
+		{
+			Mix_VolumeMusic(volume);
+			for (int id = 1; id <= fx.size(); id++)
+			{
+				std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
+				Mix_VolumeChunk((*item), volume_fx);
+			}
+		}
+		break;
+	case -2:
+		mute_volume = !mute_volume;
+		if (mute_volume == true)
+		{
+			Mix_VolumeMusic(0);
+		}
+		else
+		{
+			Mix_VolumeMusic(volume);
+		}
+		break;
+	case -3:
+		mute_fx = !mute_fx;
+		if (mute_fx == true)
+		{
+			for (int id = 1; id <= fx.size(); id++)
+			{
+				std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
+				Mix_VolumeChunk((*item), 0);
+			}
+		}
+		else
+		{
+			for (int id = 1; id <= fx.size(); id++)
+			{
+				std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
+				Mix_VolumeChunk((*item), volume_fx);
+			}
+		}
+		break;
+	}
+
+}
+
+void j1Audio::VolumeUp(int vol)
+{
+	if (!mute && ((!mute_volume && vol == -2) || (!mute_fx && vol == -3)))
+	{
+		switch (vol)
+		{
+		case -1:
+			VolumeUp(-2);
+			VolumeUp(-3);
+			break;
+		case -2:
+			if (volume < max_volume) {
+				volume += volume_change_ratio;
+				Mix_VolumeMusic(volume);
+			}
+			App->scene->slider_music_volume->SetValue(volume);
+			break;
+		case -3:
+			if (volume_fx < max_volume) {
+				volume_fx += volume_change_ratio;
+				for (int id = 1; id <= fx.size(); id++)
+				{
+					std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
+					Mix_VolumeChunk((*item), volume_fx);
+				}
+			}
+			App->scene->slider_fx_volume->SetValue(volume_fx);
+			break;
+		default:
+			volume = vol - volume_change_ratio;
+			volume_fx = vol - volume_change_ratio;
+			VolumeUp(-1);
+			break;
+		}
+	}
+
+}
+
+void j1Audio::VolumeDown(int vol)
+{
+	if (!mute && ((!mute_volume && vol == -2) || (!mute_fx && vol == -3)))
+	{
+		switch (vol)
+		{
+		case -1:
+			VolumeDown(-2);
+			VolumeDown(-3);
+			break;
+		case -2:
+			if (volume > 0) {
+				volume -= volume_change_ratio;
+				Mix_VolumeMusic(volume);
+			}
+			App->scene->slider_music_volume->SetValue(volume);
+			break;
+		case -3:
+			if (volume_fx > 0) {
+				volume_fx -= volume_change_ratio;
+				for (int id = 1; id <= fx.size(); id++)
+				{
+					std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
+					Mix_VolumeChunk((*item), volume_fx);
+				}
+			}
+			App->scene->slider_fx_volume->SetValue(volume_fx);
+			break;
+		default:
+			volume = vol + volume_change_ratio;
+			volume_fx = vol + volume_change_ratio;
+			VolumeDown(-1);
+			break;
+		}
+	}
+
+
+}
+
+void j1Audio::SliderVolumeFx(int vol)
+{
+	for (int id = 1; id <= fx.size(); id++)
+	{
+		std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
+		Mix_VolumeChunk((*item), vol);
+	}
+	volume_fx = vol;
 }
 
 bool j1Audio::Load(pugi::xml_node & node)

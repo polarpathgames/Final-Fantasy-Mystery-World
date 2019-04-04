@@ -9,6 +9,8 @@
 #include "GUI_Image.h"
 #include "GUI_Button.h"
 #include "GUI_Label.h"
+#include "GUI_Slider.h"
+#include "GUI_CheckBox.h"
 #include "GUI.h"
 #include "Brofiler/Brofiler.h"
 
@@ -245,6 +247,32 @@ GUI_Label* j1UIManager::AddLabel(const int &x, const int &y, const char* text, G
 	ui_list.push_back(label);
 	
 	return label;
+}
+
+GUI_Slider* j1UIManager::AddSlider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, bool horizontal, GUI* parent, j1Module* callback)
+{
+	GUI_Slider* slider = new GUI_Slider(x, y, rect, idle, hover, push, horizontal, parent);
+	
+	if (callback != nullptr) {
+		slider->AddListener(callback);
+	}
+
+	ui_list.push_back(slider);
+
+	return slider;
+}
+
+GUI_CheckBox* j1UIManager::AddCheckBox(const int &pos_x, const int &pos_y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, GUI* parent = nullptr, j1Module* callback)
+{
+	GUI_CheckBox* checkbox= new GUI_CheckBox(pos_x, pos_y, idle, hover, push, parent);
+	
+	if (callback != nullptr) {
+		checkbox->AddListener(callback);
+	}
+
+	ui_list.push_back(checkbox);
+	
+	return checkbox;
 }
 
 void j1UIManager::CreateScreen()

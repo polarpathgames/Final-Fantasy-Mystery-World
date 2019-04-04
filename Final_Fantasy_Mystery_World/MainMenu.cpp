@@ -11,6 +11,7 @@
 #include "j1FadeToBlack.h"
 #include "GUI_Label.h"
 #include "GUI_Image.h"
+#include "GUI.h"
 #include "Brofiler/Brofiler.h"
 
 MainMenu::MainMenu(){}
@@ -24,26 +25,8 @@ bool MainMenu::Awake()
 
 bool MainMenu::Start()
 {
-	background = App->ui_manager->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->ui_manager->screen, true, false, false, false);
 
-	int offsetY = 75;
-	int offsetX = 684;
-
-	new_game_button = App->ui_manager->AddButton(offsetX, 337, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);
-	new_game_label = App->ui_manager->AddLabel(0, 0, "New Game", new_game_button, BLACK, FontType::FF64, nullptr, false);
-	new_game_label->SetPosRespectParent(CENTERED);
-
-	load_game_button = App->ui_manager->AddButton(offsetX, new_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);
-	load_game_label = App->ui_manager->AddLabel(0, 0, "Load Game", load_game_button, BLACK, FontType::FF64, nullptr, false);
-	load_game_label->SetPosRespectParent(CENTERED);
-
-	options_button = App->ui_manager->AddButton(offsetX, load_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);
-	options_label = App->ui_manager->AddLabel(0, 0, "Options", options_button, BLACK, FontType::FF64, nullptr, false);
-	options_label->SetPosRespectParent(CENTERED);
-
-	credits_button = App->ui_manager->AddButton(offsetX, options_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);
-	credits_label = App->ui_manager->AddLabel(0, 0, "Credits", credits_button, BLACK, FontType::FF64, nullptr, false);
-	credits_label->SetPosRespectParent(CENTERED);
+	CreateMainMenu();
 
 	exit_button = App->ui_manager->AddButton(offsetX, credits_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);
 	exit_text = App->ui_manager->AddLabel(0, 0, "Exit", exit_button, BLACK, FontType::FF64, nullptr, false);
@@ -94,12 +77,57 @@ bool MainMenu::Interact(GUI* interaction)
 	}
 
 	if (interaction == load_game_button) {
-		//Load Game
+		App->LoadGame("save_game.xml");
 	}
 
 	if (interaction == credits_button) {
-		//Credits
+		CreateCredits();
+		App->ui_manager->DeleteUIElement(background);
 	}
+
+	if (interaction == button_retun) {
+		CreateMainMenu();
+		DestroyCredits();
+	}
+
 	return ret;
+}
+
+void MainMenu::CreateMainMenu()
+{
+	background = App->ui_manager->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->ui_manager->screen, true, false, false);
+
+	int offsetY = 75;
+
+	new_game_button = App->ui_manager->AddButton(684, 337, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true);
+	new_game_label = App->ui_manager->AddLabel(0, 0, "New Game", 12, new_game_button, BLACK, "fonts/Munro.ttf", nullptr);
+	new_game_label->SetPosRespectParent(CENTERED);
+
+	load_game_button = App->ui_manager->AddButton(684, new_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true);
+	load_game_label = App->ui_manager->AddLabel(0, 0, "Load Game", 12, load_game_button, BLACK, "fonts/Munro.ttf", nullptr);
+	load_game_label->SetPosRespectParent(CENTERED);
+
+	exit_button = App->ui_manager->AddButton(684, load_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true);
+	exit_text = App->ui_manager->AddLabel(0, 0, "Exit", 20, exit_button, BLACK, "fonts/Munro.ttf", nullptr);
+	exit_text->SetPosRespectParent(CENTERED);
+
+	credits_button = App->ui_manager->AddButton(684, exit_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true);
+	credits_label = App->ui_manager->AddLabel(0, 0, "Credits", 12, credits_button, BLACK, "fonts/Munro.ttf", nullptr);
+	credits_label->SetPosRespectParent(CENTERED);
+}
+
+void MainMenu::CreateCredits()
+{
+	credits_panel = App->ui_manager->AddImage(0, 0, { 0, 768, 1024, 768 }, this, App->ui_manager->screen, true, false, false);
+	credits_panel->SetPosRespectParent(CENTERED);
+	button_retun = App->ui_manager->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits_panel, false, false, true);
+	button_retun->AddListener(this);
+	label_return = App->ui_manager->AddLabel(0, 0, "Return", 50, button_retun, BLACK, "fonts/Munro.ttf", nullptr);
+	label_return->SetPosRespectParent(CENTERED);
+}
+
+void MainMenu::DestroyCredits()
+{
+	App->ui_manager->DeleteUIElement(credits_panel);
 }
 

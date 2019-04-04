@@ -80,10 +80,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ChangeControls.cpp" />
     <ClCompile Include="DynamicEntity.cpp" />
     <ClCompile Include="EasingSplines.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="GUI_CheckBox.cpp" />
+    <ClCompile Include="GUI_Slider.cpp" />
     <ClCompile Include="j1Collisions.cpp" />
     <ClCompile Include="j1DialogSystem.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
@@ -115,10 +118,13 @@
     <ClCompile Include="StaticEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ChangeControls.h" />
+    <ClInclude Include="GUI_CheckBox.h" />
     <ClInclude Include="DynamicEntity.h" />
     <ClInclude Include="EasingSplines.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="GUI_Slider.h" />
     <ClInclude Include="j1Collisions.h" />
     <ClInclude Include="j1DialogSystem.h" />
     <ClInclude Include="j1EntityManager.h" />

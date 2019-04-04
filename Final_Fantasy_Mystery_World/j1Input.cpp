@@ -16,6 +16,7 @@ j1Input::j1Input() : j1Module()
 	keyboard = new j1KeyState[MAX_KEYS];
 	memset(keyboard, KEY_IDLE, sizeof(j1KeyState) * MAX_KEYS);
 	memset(mouse_buttons, KEY_IDLE, sizeof(j1KeyState) * NUM_MOUSE_BUTTONS);
+	memset(controller_buttons, KEY_IDLE, sizeof(j1KeyState) * NUM_CONTROLLER_BUTTONS);
 }
 
 // Destructor
@@ -46,18 +47,8 @@ bool j1Input::Awake(pugi::xml_node& config)
 		LOG("GamePad controller could not initialize! SDL_Error: %s\n", SDL_GetError());
 	}
 
-	int maxJoys = SDL_NumJoysticks();
+	Controller = SDL_GameControllerOpen(0);
 
-	for (int i = 0; i < maxJoys; ++i)
-
-	{
-		if (i >= MAX_GAMEPADS) break;
-
-		if (SDL_IsGameController(i))
-		{
-			gamepads[i] = SDL_GameControllerOpen(i);
-		}
-	}
 
 	return ret;
 }
@@ -67,12 +58,59 @@ bool j1Input::Start()
 {
 	SDL_StopTextInput();
 
+DefaultControls();
+
+
 	mouse_motion_x = 0;
 	mouse_motion_y = 0;
 	mouse_x= 0;
 	mouse_y = 0;
 
+
 	return true;
+}
+
+void j1Input::DefaultControls()
+{
+	keyboard_buttons.buttons_code.BASIC_ATTACK = SDL_SCANCODE_G;
+	keyboard_buttons.buttons_code.DIAGONALS = SDL_SCANCODE_LSHIFT;
+	keyboard_buttons.buttons_code.DIRECCTION_DOWN = SDL_SCANCODE_K;
+	keyboard_buttons.buttons_code.DIRECCTION_RIGHT = SDL_SCANCODE_L;
+	keyboard_buttons.buttons_code.DIRECTION_LEFT = SDL_SCANCODE_J;
+	keyboard_buttons.buttons_code.DIRECTION_UP = SDL_SCANCODE_I;
+	keyboard_buttons.buttons_code.DOWN = SDL_SCANCODE_S;
+	keyboard_buttons.buttons_code.LEFT = SDL_SCANCODE_A;
+	keyboard_buttons.buttons_code.RIGHT = SDL_SCANCODE_D;
+	keyboard_buttons.buttons_code.UP = SDL_SCANCODE_W;
+
+	keyboard_buttons.buttons_char.BASIC_ATTACK = "G";
+	keyboard_buttons.buttons_char.DIAGONALS = "LSHIFT";
+	keyboard_buttons.buttons_char.DIRECCTION_DOWN = "K";
+	keyboard_buttons.buttons_char.DIRECCTION_RIGHT = "L";
+	keyboard_buttons.buttons_char.DIRECTION_LEFT = "J";
+	keyboard_buttons.buttons_char.DIRECTION_UP = "I";
+	keyboard_buttons.buttons_char.DOWN = "S";
+	keyboard_buttons.buttons_char.LEFT = "A";
+	keyboard_buttons.buttons_char.RIGHT = "D";
+	keyboard_buttons.buttons_char.UP = "W";
+
+	controller_Buttons.buttons_code.BASIC_ATTACK = SDL_CONTROLLER_BUTTON_A;
+	controller_Buttons.buttons_code.DIAGONALS = SDL_CONTROLLER_AXIS_TRIGGERRIGHT;
+	controller_Buttons.buttons_code.DIRECCTION_DOWN = SDL_CONTROLLER_BUTTON_DPAD_DOWN;
+	controller_Buttons.buttons_code.DIRECTION_UP = SDL_CONTROLLER_BUTTON_DPAD_UP;
+	controller_Buttons.buttons_code.DIRECTION_LEFT = SDL_CONTROLLER_BUTTON_DPAD_LEFT;
+	controller_Buttons.buttons_code.DIRECCTION_RIGHT = SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
+
+	controller_Buttons.buttons_char.BASIC_ATTACK = "A";
+	controller_Buttons.buttons_char.DIAGONALS = "LT";
+	controller_Buttons.buttons_char.DIRECCTION_DOWN = "D-PAD DOWN";
+	controller_Buttons.buttons_char.DIRECTION_UP = "D-PAD UP";
+	controller_Buttons.buttons_char.DIRECTION_LEFT = "D-PAD LEFT";
+	controller_Buttons.buttons_char.DIRECCTION_RIGHT = "D-PAD RIGHT";
+	controller_Buttons.buttons_char.DOWN = "L-JOSTICK";
+	controller_Buttons.buttons_char.LEFT = "L-JOSTICK";
+	controller_Buttons.buttons_char.RIGHT = "L-JOSTICK";
+	controller_Buttons.buttons_char.UP = "L-JOSTICK";
 }
 
 // Called each loop iteration
@@ -111,6 +149,16 @@ bool j1Input::PreUpdate()
 			mouse_buttons[i] = KEY_IDLE;
 	}
 
+	for (int i = 0; i < NUM_CONTROLLER_BUTTONS; ++i)
+	{
+		if (controller_buttons[i] == KEY_DOWN)
+			controller_buttons[i] = KEY_REPEAT;
+
+		if (controller_buttons[i] == KEY_UP)
+			controller_buttons[i] = KEY_IDLE;
+	}
+
+
 	while(SDL_PollEvent(&event) != 0)
 	{
 		switch(event.type)
@@ -138,17 +186,38 @@ bool j1Input::PreUpdate()
 					break;
 				}
 			break;
+			case SDL_CONTROLLERBUTTONDOWN:
+				if (event.cbutton.which == 0) {
+					controller_buttons[event.cbutton.button] = KEY_DOWN;
+				}
+				break;
 
+			case SDL_CONTROLLERBUTTONUP:
+				if (event.cbutton.which == 0)
+					controller_buttons[event.cbutton.button] = KEY_UP;
+				break;
 			case SDL_MOUSEBUTTONDOWN:
 				mouse_buttons[event.button.button - 1] = KEY_DOWN;
 				//LOG("Mouse button %d down", event.button.button-1);
 			break;
-
+			case SDL_CONTROLLERAXISMOTION:
+				if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT && event.caxis.value > DEAD_ZONE) {
+					controller_buttons[event.cbutton.button] = KEY_DOWN;
+				}
+				if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT && event.caxis.value < DEAD_ZONE) {
+					controller_buttons[event.cbutton.button] = KEY_UP;
+				}
+				if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT && event.caxis.value > DEAD_ZONE) {
+					controller_buttons[event.cbutton.button] = KEY_DOWN;
+				}
+				if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT && event.caxis.value < DEAD_ZONE) {
+					controller_buttons[event.cbutton.button] = KEY_UP;
+				}
+				break;
 			case SDL_MOUSEBUTTONUP:
 				mouse_buttons[event.button.button - 1] = KEY_UP;
 				//LOG("Mouse button %d up", event.button.button-1);
 			break;
-
 			case SDL_MOUSEMOTION:
 				int scale = App->win->GetScale();
 				mouse_motion_x = event.motion.xrel / scale;
@@ -158,101 +227,18 @@ bool j1Input::PreUpdate()
 				//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
 			break;
 		}
+		
 	}
 
-	//Controller inputs : Button
-
-	for (int i = 0; i < MAX_GAMEPADS; ++i)
-	{
-		if (gamepads[i] != nullptr)
-		{
-			controller_state[BUTTON_RT] = SDL_GameControllerGetAxis(gamepads[i],SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
-			controller_state[BUTTON_D_PAD_UP] = SDL_GameControllerGetButton(gamepads[i], SDL_CONTROLLER_BUTTON_DPAD_UP);
-			controller_state[BUTTON_D_PAD_DOWN] = SDL_GameControllerGetButton(gamepads[i], SDL_CONTROLLER_BUTTON_DPAD_DOWN);
-			controller_state[BUTTON_D_PAD_LEFT] = SDL_GameControllerGetButton(gamepads[i], SDL_CONTROLLER_BUTTON_DPAD_LEFT);
-			controller_state[BUTTON_D_PAD_RIGHT] = SDL_GameControllerGetButton(gamepads[i], SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
-		}
-	}
-
-	for (int i = 0; i < MAX_BUTTONS; ++i)
-	{
-		if (controller_state[i] == 1) {
-			if (controller[i] == KEY_IDLE)
-				controller[i] = KEY_DOWN;
-			else
-				controller[i] = KEY_REPEAT;
-		}
-		else
-		{
-			if (controller[i] == KEY_REPEAT || controller[i] == KEY_DOWN)
-				controller[i] = KEY_UP;
-			else
-				controller[i] = KEY_IDLE;
-		}
-	}
-
-	if (ev.type == SDL_CONTROLLERDEVICEADDED)
-	{
-		if (ev.cdevice.which > MAX_GAMEPADS - 1)
-		{
-			LOG("Maximum number of gamepads reached, you cannot connect more...");
-
-		}
-
-		else if (SDL_IsGameController(ev.cdevice.which))
-		{
-			gamepads[ev.cdevice.which] = SDL_GameControllerOpen(ev.cdevice.which);
-			LOG("Controller added: %d", ev.cdevice.which);
-		}
-
-	}
-
-	// Controller inputs: Axis
-	for (int i = 0; i < MAX_GAMEPADS; ++i)
-	{
-		if (gamepads[i] != nullptr)
-		{
-			GamepadDir[i].axisX = SDL_GameControllerGetAxis(gamepads[i], SDL_CONTROLLER_AXIS_LEFTX);
-			GamepadDir[i].axisY = SDL_GameControllerGetAxis(gamepads[i], SDL_CONTROLLER_AXIS_LEFTY);
-		}
+	//axis
+	if (Controller != nullptr) {
+		axis_x = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTX);
+		axis_y = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTY);
+		LOG("X: %i Y: %i", axis_x, axis_y);
 	}
 
 
-	if (GamepadDir[0].axisX > GamepadDir[0].deadzone)
-	{
-		keyboard[SDL_SCANCODE_D] = KEY_REPEAT;
-	}
-
-	else if (GamepadDir[0].axisX < -GamepadDir[0].deadzone)
-	{
-		keyboard[SDL_SCANCODE_A] = KEY_REPEAT;
-	}
-
-
-	if (GamepadDir[0].axisY < -GamepadDir[0].deadzone)
-	{
-		keyboard[SDL_SCANCODE_W] = KEY_REPEAT;
-	}
-
-	else if (GamepadDir[0].axisY > GamepadDir[0].deadzone)
-	{
-		keyboard[SDL_SCANCODE_S] = KEY_REPEAT;
-	}
-	if (controller[BUTTON_RT] == KEY_REPEAT) {
-		keyboard[SDL_SCANCODE_LSHIFT] = KEY_REPEAT;
-	}
-	if (controller[BUTTON_D_PAD_UP] == KEY_DOWN) {
-		keyboard[SDL_SCANCODE_I] = KEY_DOWN;
-	}
-	if (controller[BUTTON_D_PAD_DOWN] == KEY_DOWN) {
-		keyboard[SDL_SCANCODE_K] = KEY_DOWN;
-	}
-	if (controller[BUTTON_D_PAD_LEFT] == KEY_DOWN) {
-		keyboard[SDL_SCANCODE_J] = KEY_DOWN;
-	}
-	if (controller[BUTTON_D_PAD_RIGHT] == KEY_DOWN) {
-		keyboard[SDL_SCANCODE_L] = KEY_DOWN;
-	}
+	
 	return true;
 }
 
@@ -280,4 +266,51 @@ void j1Input::GetMouseMotion(int& x, int& y)
 {
 	x = mouse_motion_x;
 	y = mouse_motion_y;
+}
+
+bool j1Input::ChceckAxisStates(const Axis &axis) {
+
+	bool ret = false;
+	if (Controller != nullptr) {
+		switch (axis) {
+		case Axis::AXIS_UP_RIGHT:
+			if (axis_x > DEAD_ZONE && axis_y < -DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::AXIS_DOWN_RIGHT:
+			if (axis_x > DEAD_ZONE && axis_y > DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::AXIS_DOWN_LEFT:
+			if (axis_x < -DEAD_ZONE && axis_y > DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::AXIS_UP_LEFT:
+			if (axis_x < -DEAD_ZONE && axis_y < -DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::AXIS_RIGHT:
+			if (axis_x > DEAD_ZONE && axis_y > -DEAD_ZONE && axis_y < DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::AXIS_LEFT:
+			if (axis_x < -DEAD_ZONE && axis_y > -DEAD_ZONE && axis_y < DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::AXIS_UP:
+			if (axis_x > -DEAD_ZONE && axis_x < DEAD_ZONE && axis_y < -DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::AXIS_DOWN:
+			if (axis_x > -DEAD_ZONE && axis_x < DEAD_ZONE && axis_y > DEAD_ZONE)
+				ret = true;
+			break;
+		default:
+			LOG("No axis found");
+			break;
+		}
+	}
+	
+
+	return ret;
 }
