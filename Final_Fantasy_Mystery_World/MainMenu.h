@@ -9,6 +9,7 @@ struct SDL_Rect;
 class GUI;
 class GUI_Button;
 class GUI_Label;
+class GUI_Image;
 
 class MainMenu : public j1Module
 {
