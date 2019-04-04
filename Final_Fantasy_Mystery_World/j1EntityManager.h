@@ -49,9 +49,6 @@ public:
 	void DeleteEntitiesNoPlayer();
 	void DeleteEntity(Entity* entity_to_delete);
 
-
-	Player * GetPlayerData() const;
-
 	const std::vector<Entity*> GetEntities();
 
 	static bool SortByYPos(const Entity * ent1, const Entity * ent2);

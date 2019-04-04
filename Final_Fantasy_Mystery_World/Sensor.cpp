@@ -7,6 +7,7 @@
 #include "j1EntityManager.h"
 #include "p2Log.h"
 #include "j1FadeToBlack.h"
+#include "j1Scene.h"
 #include "j1Map.h"
 #include <string>
 #include "Player.h"
@@ -28,7 +29,7 @@ Sensor::~Sensor()
 bool Sensor::Update(float dt)
 {
 
-	if (App->entity_manager->GetPlayerData()->actual_tile == actual_tile) {
+	if (App->scene->player->actual_tile == actual_tile) {
 		switch (sensor_type) {
 		case SensorType::TO_LOBBY:
 			App->fade_to_black->FadeToBlack(Maps::LOBBY);
