@@ -180,6 +180,10 @@ void j1Scene::CreateEntities()
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->CenterPlayerInTile();
 				}
+				else if ((*position)->ent_type == "in_home") { // position in the home
+					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->CenterPlayerInTile();
+				}
 			}
 		}
 		else if ((*position)->ent_type == "static") {
