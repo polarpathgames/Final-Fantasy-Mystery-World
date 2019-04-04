@@ -198,7 +198,7 @@ bool Enemy::Update(float dt)
 	}
 	if (state == State::ATTACKING) {
 		if (current_animation->Finished()) {
-			CheckAttackEfects(Entity::EntityType::PLAYER, direction, stats.attack_power);
+			CheckBasicAttackEfects(Entity::EntityType::PLAYER, direction, stats.attack_power);
 			state = State::AFTER_ATTACK;
 			ChangeAnimation(direction, state);
 			time_attack = SDL_GetTicks();
