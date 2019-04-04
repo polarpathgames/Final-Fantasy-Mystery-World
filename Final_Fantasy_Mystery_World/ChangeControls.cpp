@@ -132,6 +132,20 @@ bool ChangeControls::ChangingController()
 			return false;
 		}
 	}
+	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_LEFTSTICK) == KEY_DOWN) {
+		if (LookForOtherControlsBeSame("L-STICK")) {
+			SetSaveText("L-STICK");
+			*code_to_change = SDL_CONTROLLER_BUTTON_LEFTSTICK;
+			return false;
+		}
+	}
+	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_RIGHTSTICK) == KEY_DOWN) {
+		if (LookForOtherControlsBeSame("R-STICK")) {
+			SetSaveText("R-STICK");
+			*code_to_change = SDL_CONTROLLER_BUTTON_RIGHTSTICK;
+			return false;
+		}
+	}
 	return true;
 }
 
