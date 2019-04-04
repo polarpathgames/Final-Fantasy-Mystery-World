@@ -23,67 +23,6 @@ bool j1DialogSystem::Start()
 bool j1DialogSystem::Update(float dt)
 {
 	bool ret = true;
-
-	/*if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-	{
-		App->ui_manager->DeleteAllUIElements();
-		treeid = 0;
-		currentNode = dialogTrees[treeid]->dialogNodes[0];
-		input = 7;
-		PerformDialogue(treeid);
-	}
-		
-
-
-
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-	{
-		App->ui_manager->DeleteAllUIElements();
-		treeid = 1;
-		currentNode = dialogTrees[treeid]->dialogNodes[0];
-		input = 7;
-		PerformDialogue(treeid);
-	}
-
-
-
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-	{
-		App->ui_manager->DeleteAllUIElements();
-		treeid = 2;
-		currentNode = dialogTrees[treeid]->dialogNodes[0];
-		input = 7;
-		PerformDialogue(treeid);
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-	{
-		App->ui_manager->DeleteAllUIElements();
-		input = 0;
-		PerformDialogue(treeid);
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-	{
-		App->ui_manager->DeleteAllUIElements();
-		input = 1;
-		PerformDialogue(treeid);
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
-		App->ui_manager->DeleteAllUIElements();
-		input = 2;
-		PerformDialogue(treeid);
-	}
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-	{
-		App->ui_manager->DeleteAllUIElements();
-		dialogTrees[treeid]->karma = 0;
-		currentNode = dialogTrees[treeid]->dialogNodes[0];
-		input = 7;
-		PerformDialogue(treeid);
-	}*/
 		
 	return ret;
 }
