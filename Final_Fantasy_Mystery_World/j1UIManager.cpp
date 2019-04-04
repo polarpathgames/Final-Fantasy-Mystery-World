@@ -149,15 +149,18 @@ GUI_Label* j1UIManager::AddLabel(const int &x, const int &y, const char* text, u
 	return label;
 }
 
-//GUI_Slider * j1UIManager::AddSlider(iPoint pos, SDL_Rect rect, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, bool horizontal, GUI* parent)
-//{
-//	GUI_Slider* slider = new GUI_Slider(pos, rect, normal, hovered, pressed, horizontal, atlas);
-//	slider->parent = parent;
-//
-//	ui_list.push_back(slider);
-//
-//	return slider;
-//}
+GUI_Slider* j1UIManager::AddSlider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, bool horizontal, GUI* parent, j1Module* callback)
+{
+	GUI_Slider* slider = new GUI_Slider(x, y, rect, idle, hover, push, horizontal, parent);
+	
+	if (callback != nullptr) {
+		slider->AddListener(callback);
+	}
+
+	ui_list.push_back(slider);
+
+	return slider;
+}
 
 GUI_CheckBox* j1UIManager::AddCheckBox(const int &pos_x, const int &pos_y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, GUI* parent = nullptr, j1Module* callback)
 {

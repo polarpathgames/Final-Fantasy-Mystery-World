@@ -62,6 +62,8 @@ public:
 	iPoint GetLocalPosition() const;
 	void SetPosRespectParent(Position_Type, const int& margin = 0);
 
+	SDL_Rect GetRect() const;
+
 	void DebugDraw();
 
 	void AddListener(j1Module* module);

@@ -19,6 +19,7 @@
 #include "GUI_Button.h"
 #include "GUI_Label.h"
 #include "GUI_Image.h"
+#include "GUI_Slider.h"
 #include "GUI_CheckBox.h"
 #include "Sensor.h"
 #include "Brofiler/Brofiler.h"
@@ -259,9 +260,9 @@ void j1Scene::CreateOptionsMenu()
 	label_general_volume = App->ui_manager->AddLabel(0, 0, "General Volume", 50, button_general_volume, BLACK, "fonts/Munro.ttf", nullptr);
 	label_general_volume->SetPosRespectParent(LEFT_CENTERED);
 
-	button_general_volume = App->ui_manager->AddButton(491, 246, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true);
-	button_general_volume->AddListener(this);
-	label_music_volume = App->ui_manager->AddLabel(0, 0, "Music Volume", 50, button_general_volume, BLACK, "fonts/Munro.ttf", nullptr);
+	button_music_volume = App->ui_manager->AddButton(491, 246, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true);
+	button_music_volume->AddListener(this);
+	label_music_volume = App->ui_manager->AddLabel(0, 0, "Music Volume", 50, button_music_volume, BLACK, "fonts/Munro.ttf", nullptr);
 	label_music_volume->SetPosRespectParent(LEFT_CENTERED);
 
 	button_fx_volume = App->ui_manager->AddButton(491, 326, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true);
@@ -269,6 +270,14 @@ void j1Scene::CreateOptionsMenu()
 	label_fx_volume = App->ui_manager->AddLabel(0, 0, "FX Volume", 50, button_fx_volume, BLACK, "fonts/Munro.ttf", nullptr);
 	label_fx_volume->SetPosRespectParent(LEFT_CENTERED);
 	
+	//slider_music_volume = App->ui_manager->AddSlider(700, 246, { 1553,1550,191,21 }, { 1744,1550, 41,24 }, { 1744,1550, 41,24 }, { 1744,1550, 41,24 }, true, this, options_panel);
+	//slider_music_volume->AddListener(this);
+	//slider_music_volume->SetValue(App->audio->volume);
+
+	//slider_fx_volume = App->ui_manager->AddSlider(700, 326, { 1553,1550,191,21 }, { 1744,1550, 41,24 }, { 1744,1550, 41,24 }, { 1744,1550, 41,24 }, true, this, options_panel);
+	//slider_fx_volume->AddListener(this);
+	//slider_fx_volume->SetValue(App->audio->volume_fx);
+
 	label_fps = App->ui_manager->AddLabel(491, 413, "FPS Caps", 50, options_panel, BLACK, "fonts/Munro.ttf", nullptr);
 	checkbox_fps = App->ui_manager->AddCheckBox(760, 413, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
 	checkbox_fps->is_option = true;

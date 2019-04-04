@@ -146,6 +146,11 @@ iPoint GUI::GetLocalPosition() const
 	return { position.x, position.y };
 }
 
+SDL_Rect GUI::GetRect() const
+{
+	return section;
+}
+
 void GUI::DebugDraw()
 {
 	App->render->DrawQuad({ draw_offset.x,draw_offset.y,section.w,section.h }, 255, 0, 0, 255, false, false);

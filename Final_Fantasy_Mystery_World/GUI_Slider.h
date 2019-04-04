@@ -17,7 +17,7 @@ private:
 	bool horizontal = true;
 
 public:
-	//GUI_Slider(iPoint pos, SDL_Rect rectangle, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, bool horizontal, SDL_Texture* texture = nullptr);
+	GUI_Slider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, bool horizontal, GUI* parent);
 	~GUI_Slider();
 
 	void SetButton(GUI_Button* slider_btn);

@@ -22,6 +22,7 @@ class GUI_Image;
 class GUI_Label;
 class GUI_Button;
 class GUI_CheckBox;
+class GUI_Slider;
 
 class j1Scene : public j1Module
 {
@@ -89,13 +90,17 @@ private:
 
 	GUI_Label* label_general_volume = nullptr;
 	GUI_Button* button_general_volume = nullptr;
-	//GUI_Slider* slider_general_volume = nullptr;
+	GUI_Slider* slider_general_volume = nullptr;
+
 	GUI_Label* label_music_volume = nullptr;
 	GUI_Button* button_music_volume = nullptr;
-	//GUI_Slider* slider_music_volume = nullptr;
+	//GUI_Button* music_slider_btn = nullptr;
+	GUI_Slider* slider_music_volume = nullptr;
+
 	GUI_Label* label_fx_volume = nullptr;
 	GUI_Button* button_fx_volume = nullptr;
-	//GUI_Slider* slider_fx_volume = nullptr;
+	//GUI_Button* fx_slider_btn = nullptr;
+	GUI_Slider* slider_fx_volume = nullptr;
 
 	GUI_Label* label_fps = nullptr;
 	GUI_CheckBox* checkbox_fps = nullptr;
