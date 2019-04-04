@@ -277,9 +277,9 @@ void j1Scene::CreatePauseMenu()
 	label_abort_quest->SetPosRespectParent(CENTERED);
 
 
-	button_options = App->ui_manager->AddButton(50, 150, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true);
+	button_options = App->ui_manager->AddButton(50, 150, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true,true);
 	button_options->AddListener((j1Module*)App->scene);
-	label_options = App->ui_manager->AddLabel(0, 0, "Options", 50, button_options, BLACK, "fonts/Munro.ttf", nullptr);
+	label_options = App->ui_manager->AddLabel(0, 0, "Options", button_options, BLACK, FontType::FF48, nullptr,false);
 
 	label_options->SetPosRespectParent(CENTERED);
 
@@ -298,22 +298,22 @@ void j1Scene::DestroyPauseMenu()
 
 void j1Scene::CreateOptionsMenu()
 {
-	options_panel = App->ui_manager->AddImage(0, 0, { 1024,768,1024,768 }, this, App->ui_manager->screen, true, false, false);
+	options_panel = App->ui_manager->AddImage(0, 0, { 1024,768,1024,768 }, this, App->ui_manager->screen, true, false, false, false);
 	options_panel->SetPosRespectParent(CENTERED);
 	
-	button_general_volume = App->ui_manager->AddButton(491, 168, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true);
+	button_general_volume = App->ui_manager->AddButton(491, 168, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	button_general_volume->AddListener(this);
-	label_general_volume = App->ui_manager->AddLabel(0, 0, "General Volume", 50, button_general_volume, BLACK, "fonts/Munro.ttf", nullptr);
+	label_general_volume = App->ui_manager->AddLabel(0, 0, "General Volume", button_general_volume, BLACK, FontType::FF32, nullptr, false);
 	label_general_volume->SetPosRespectParent(LEFT_CENTERED);
 
-	button_music_volume = App->ui_manager->AddButton(491, 246, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true);
+	button_music_volume = App->ui_manager->AddButton(491, 246, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	button_music_volume->AddListener(this);
-	label_music_volume = App->ui_manager->AddLabel(0, 0, "Music Volume", 50, button_music_volume, BLACK, "fonts/Munro.ttf", nullptr);
+	label_music_volume = App->ui_manager->AddLabel(0, 0, "Music Volume", button_music_volume, BLACK, FontType::FF32, nullptr, false);
 	label_music_volume->SetPosRespectParent(LEFT_CENTERED);
 
-	button_fx_volume = App->ui_manager->AddButton(491, 326, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true);
+	button_fx_volume = App->ui_manager->AddButton(491, 326, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	button_fx_volume->AddListener(this);
-	label_fx_volume = App->ui_manager->AddLabel(0, 0, "FX Volume", 50, button_fx_volume, BLACK, "fonts/Munro.ttf", nullptr);
+	label_fx_volume = App->ui_manager->AddLabel(0, 0, "FX Volume", button_fx_volume, BLACK, FontType::FF32, nullptr,false);
 	label_fx_volume->SetPosRespectParent(LEFT_CENTERED);
 	
 	slider_general_volume = App->ui_manager->AddSlider(680, 183, { 1566,1536,191,22 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, true, options_panel, this);
@@ -325,7 +325,7 @@ void j1Scene::CreateOptionsMenu()
 	slider_fx_volume = App->ui_manager->AddSlider(680, 343, { 1566,1536,191,22 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, true, options_panel, this);
 	slider_fx_volume->SetValue(App->audio->volume_fx);
 
-	label_fps = App->ui_manager->AddLabel(491, 413, "FPS Caps", 50, options_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	label_fps = App->ui_manager->AddLabel(491, 413, "FPS Caps",  options_panel, BLACK, FontType::FF32, nullptr, false);
 	checkbox_fps = App->ui_manager->AddCheckBox(760, 413, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
 	checkbox_fps->is_option = true;
 	checkbox_fps->draggable = false;
@@ -333,7 +333,7 @@ void j1Scene::CreateOptionsMenu()
 	checkbox_fps->interactable = true;
 	checkbox_fps->AddListener(this);
 
-	label_fullscreen = App->ui_manager->AddLabel(491, 503, "Fullscreen", 50, options_panel, BLACK, "fonts/Munro.tff", nullptr);
+	label_fullscreen = App->ui_manager->AddLabel(491, 503, "Fullscreen", options_panel, BLACK, FontType::FF32, nullptr, false);
 	checkbox_fullscreen = App->ui_manager->AddCheckBox(760, 503, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
 	checkbox_fullscreen->is_option = true;
 	checkbox_fullscreen->draggable = false;
@@ -341,14 +341,14 @@ void j1Scene::CreateOptionsMenu()
 	checkbox_fullscreen->interactable = true;
 	checkbox_fullscreen->AddListener(this);
 
-	button_controls = App->ui_manager->AddButton(491, 595, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true);
+	button_controls = App->ui_manager->AddButton(491, 595, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	button_controls->AddListener((j1Module*)App->scene);
-	label_controls = App->ui_manager->AddLabel(0, 0, "Controls", 50, button_controls, BLACK, "fonts/Munro.ttf", nullptr);
+	label_controls = App->ui_manager->AddLabel(0, 0, "Controls", button_controls, BLACK, FontType::FF32, nullptr, false);
 	label_controls->SetPosRespectParent(LEFT_CENTERED);
 
-	button_retun = App->ui_manager->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true);
+	button_retun = App->ui_manager->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	button_retun->AddListener((j1Module*)App->scene);
-	label_return = App->ui_manager->AddLabel(0, 0, "Return", 50, button_retun, BLACK, "fonts/Munro.ttf", nullptr);
+	label_return = App->ui_manager->AddLabel(0, 0, "Return", button_retun, BLACK, FontType::FF32, nullptr, false);
 	label_return->SetPosRespectParent(CENTERED);
 
 	menu_state = StatesMenu::OPTIONS_MENU;
@@ -362,148 +362,148 @@ void j1Scene::DestroyOptionsMenu()
 
 void j1Scene::CreateControlsMenu()
 {
-	controls_panel = App->ui_manager->AddImage(0, 0, { 1024,768,1024,768 }, this, App->ui_manager->screen, true, false, true);
+	controls_panel = App->ui_manager->AddImage(0, 0, { 1024,768,1024,768 }, this, App->ui_manager->screen, true, false, true,false);
 	controls_panel->SetPosRespectParent(CENTERED);
 
 
-	button_retun_to_options = App->ui_manager->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_retun_to_options = App->ui_manager->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	button_retun_to_options->AddListener((j1Module*)App->scene);
-	label_return_to_options = App->ui_manager->AddLabel(0, 0, "Return", 50, button_retun_to_options, BLACK, "fonts/Munro.ttf", nullptr);
+	label_return_to_options = App->ui_manager->AddLabel(0, 0, "Return", button_retun_to_options, BLACK, FontType::FF32, nullptr, false);
 	label_return_to_options->SetPosRespectParent(CENTERED);
 
 	// KEYBOARD
 
-	keyboard = App->ui_manager->AddLabel(350, 265, "KEYBOARD", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	keyboard = App->ui_manager->AddLabel(350, 265, "KEYBOARD", controls_panel, BLACK, FontType::FF32, nullptr,false);
 
-	button_up = App->ui_manager->AddButton(340, 295, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_up = App->ui_manager->AddButton(340, 295, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,false);
 	button_up->AddListener(this);
-	label_to_show_how_up = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.UP, 50, button_up, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_up = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.UP, button_up, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_up->SetPosRespectParent(CENTERED);
-	label_up = App->ui_manager->AddLabel(300, 300, "Move Up", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	label_up = App->ui_manager->AddLabel(300, 300, "Move Up", controls_panel, BLACK, FontType::FF32, nullptr,false);
 	labels_control.push_back(label_to_show_how_up);
 
-	button_right = App->ui_manager->AddButton(340, 325, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_right = App->ui_manager->AddButton(340, 325, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	button_right->AddListener(this);
-	label_to_show_how_right = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.RIGHT, 50, button_right, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_right = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.RIGHT, button_right, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_right->SetPosRespectParent(CENTERED);
-	label_right = App->ui_manager->AddLabel(300, 330, "Move Right", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	label_right = App->ui_manager->AddLabel(300, 330, "Move Right", controls_panel, BLACK, FontType::FF32, nullptr,false);
 	labels_control.push_back(label_to_show_how_right);
 
-	button_left = App->ui_manager->AddButton(340, 355, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_left = App->ui_manager->AddButton(340, 355, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	button_left->AddListener(this);
-	label_to_show_how_left = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.LEFT, 50, button_left, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_left = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.LEFT, button_left, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_left->SetPosRespectParent(CENTERED);
-	label_left = App->ui_manager->AddLabel(300, 360, "Move Left", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	label_left = App->ui_manager->AddLabel(300, 360, "Move Left", controls_panel, BLACK, FontType::FF32, nullptr,false);
 	labels_control.push_back(label_to_show_how_left);
 
-	button_down = App->ui_manager->AddButton(340, 385, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_down = App->ui_manager->AddButton(340, 385, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	button_left->AddListener(this);
-	label_to_show_how_down = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DOWN, 50, button_down, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_down = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DOWN, button_down, BLACK, FontType::FF32, nullptr,true);
 	label_to_show_how_down->SetPosRespectParent(CENTERED);
-	label_down = App->ui_manager->AddLabel(300, 390, "Move Down", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	label_down = App->ui_manager->AddLabel(300, 390, "Move Down", controls_panel, BLACK, FontType::FF32, nullptr,false);
 	labels_control.push_back(label_to_show_how_down);
 
-	button_diagonals = App->ui_manager->AddButton(340, 415, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_diagonals = App->ui_manager->AddButton(340, 415, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	button_diagonals->AddListener(this);
-	label_to_show_how_diagonals = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIAGONALS, 50, button_diagonals, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_diagonals = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIAGONALS, button_diagonals, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_diagonals->SetPosRespectParent(CENTERED);
-	label_diagonals = App->ui_manager->AddLabel(300, 420, "Use Diagonals", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	label_diagonals = App->ui_manager->AddLabel(300, 420, "Use Diagonals", controls_panel, BLACK, FontType::FF32, nullptr,false);
 	labels_control.push_back(label_to_show_how_diagonals);
 
-	button_direction_up = App->ui_manager->AddButton(340, 445, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_direction_up = App->ui_manager->AddButton(340, 445, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	button_direction_up->AddListener(this);
-	label_to_show_how_direction_up = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECTION_UP, 50, button_direction_up, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_direction_up = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECTION_UP, button_direction_up, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_direction_up->SetPosRespectParent(CENTERED);
-	label_direction_up = App->ui_manager->AddLabel(300, 450, "Change Direction Up", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	label_direction_up = App->ui_manager->AddLabel(300, 450, "Change Direction Up", controls_panel, BLACK, FontType::FF32, nullptr,false);
 	labels_control.push_back(label_to_show_how_direction_up);
 
-	button_direction_right = App->ui_manager->AddButton(340, 475, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_direction_right = App->ui_manager->AddButton(340, 475, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	button_direction_right->AddListener(this);
-	label_to_show_how_direction_right = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECCTION_RIGHT, 50, button_direction_right, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_direction_right = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECCTION_RIGHT, button_direction_right, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_direction_right->SetPosRespectParent(CENTERED);
-	label_direction_right = App->ui_manager->AddLabel(300, 480, "Change Direction Right", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	label_direction_right = App->ui_manager->AddLabel(300, 480, "Change Direction Right", controls_panel, BLACK, FontType::FF32, nullptr,false);
 	labels_control.push_back(label_to_show_how_direction_right);
 
-	button_direction_left = App->ui_manager->AddButton(340, 505, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_direction_left = App->ui_manager->AddButton(340, 505, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	button_direction_left->AddListener(this);
-	label_to_show_how_direction_left = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECTION_LEFT, 50, button_direction_left, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_direction_left = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECTION_LEFT, button_direction_left, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_direction_left->SetPosRespectParent(CENTERED);
-	label_direction_left = App->ui_manager->AddLabel(300, 510, "Change Direction Left", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	label_direction_left = App->ui_manager->AddLabel(300, 510, "Change Direction Left", controls_panel, BLACK, FontType::FF32, nullptr,false);
 	labels_control.push_back(label_to_show_how_direction_left);
 
-	button_direction_down = App->ui_manager->AddButton(340, 535, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_direction_down = App->ui_manager->AddButton(340, 535, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	button_direction_down->AddListener(this);
-	label_to_show_how_direction_down = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECCTION_DOWN, 50, button_direction_down, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_direction_down = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECCTION_DOWN,  button_direction_down, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_direction_down->SetPosRespectParent(CENTERED);
-	label_direction_down = App->ui_manager->AddLabel(300, 540, "Change Direction Down", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	label_direction_down = App->ui_manager->AddLabel(300, 540, "Change Direction Down", controls_panel, BLACK, FontType::FF32, nullptr,false);
 	labels_control.push_back(label_to_show_how_direction_down);
 
-	button_basic_attack = App->ui_manager->AddButton(340, 560, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	button_basic_attack = App->ui_manager->AddButton(340, 560, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	button_basic_attack->AddListener(this);
-	label_to_show_how_basic_attack = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, 50, button_basic_attack, BLACK, "fonts/Munro.ttf", nullptr);
+	label_to_show_how_basic_attack = App->ui_manager->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, button_basic_attack, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
-	label_basic_attack = App->ui_manager->AddLabel(300, 565, "Basic Attack", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	label_basic_attack = App->ui_manager->AddLabel(300, 565, "Basic Attack", controls_panel, BLACK, FontType::FF32, nullptr,false);
 	labels_control.push_back(label_to_show_how_basic_attack);
 
 
 	// CONTROLLER
 
-	controller = App->ui_manager->AddLabel(700, 265, "CONTROLLER", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+	controller = App->ui_manager->AddLabel(700, 265, "CONTROLLER", controls_panel, BLACK, FontType::FF32, nullptr,false);
 
-	Cbutton_direction_up = App->ui_manager->AddButton(690, 445, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_direction_up = App->ui_manager->AddButton(690, 445, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	Cbutton_direction_up->AddListener(this);
-	Clabel_to_show_how_direction_up = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECTION_UP, 50, Cbutton_direction_up, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_direction_up = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECTION_UP,  Cbutton_direction_up, BLACK, FontType::FF32, nullptr,false);
 	Clabel_to_show_how_direction_up->SetPosRespectParent(CENTERED);
 	Clabels_control.push_back(Clabel_to_show_how_direction_up);
 
-	Cbutton_direction_right = App->ui_manager->AddButton(690, 475, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_direction_right = App->ui_manager->AddButton(690, 475, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	Cbutton_direction_right->AddListener(this);
-	Clabel_to_show_how_direction_right = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECCTION_RIGHT, 50, Cbutton_direction_right, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_direction_right = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECCTION_RIGHT, Cbutton_direction_right, BLACK, FontType::FF32, nullptr,false);
 	Clabel_to_show_how_direction_right->SetPosRespectParent(CENTERED);
 	Clabels_control.push_back(Clabel_to_show_how_direction_right);
 
-	Cbutton_direction_left = App->ui_manager->AddButton(690, 505, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_direction_left = App->ui_manager->AddButton(690, 505, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	Cbutton_direction_left->AddListener(this);
-	Clabel_to_show_how_direction_left = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECTION_LEFT, 50, Cbutton_direction_left, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_direction_left = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECTION_LEFT, Cbutton_direction_left, BLACK, FontType::FF32, nullptr,false);
 	Clabel_to_show_how_direction_left->SetPosRespectParent(CENTERED);
 	Clabels_control.push_back(Clabel_to_show_how_direction_left);
 
-	Cbutton_direction_down = App->ui_manager->AddButton(690, 535, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_direction_down = App->ui_manager->AddButton(690, 535, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	Cbutton_direction_down->AddListener(this);
-	Clabel_to_show_how_direction_down = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECCTION_DOWN, 50, Cbutton_direction_down, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_direction_down = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECCTION_DOWN,  Cbutton_direction_down, BLACK, FontType::FF32, nullptr,false);
 	Clabel_to_show_how_direction_down->SetPosRespectParent(CENTERED);
 	Clabels_control.push_back(Clabel_to_show_how_direction_down);
 
-	Cbutton_diagonals = App->ui_manager->AddButton(690, 415, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_diagonals = App->ui_manager->AddButton(690, 415, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	Cbutton_diagonals->AddListener(this);
-	Clabel_to_show_how_diagonals = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIAGONALS, 50, Cbutton_diagonals, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_diagonals = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIAGONALS, Cbutton_diagonals, BLACK, FontType::FF32, nullptr,false);
 	Clabel_to_show_how_diagonals->SetPosRespectParent(CENTERED);
 	Clabels_control.push_back(Clabel_to_show_how_diagonals);
 
-	Cbutton_basic_attack = App->ui_manager->AddButton(690, 565, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_basic_attack = App->ui_manager->AddButton(690, 565, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	Cbutton_basic_attack->AddListener(this);
-	Clabel_to_show_how_basic_attack = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.BASIC_ATTACK, 50, Cbutton_basic_attack, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_basic_attack = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.BASIC_ATTACK, Cbutton_basic_attack, BLACK, FontType::FF32, nullptr,false);
 	Clabel_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
 	Clabels_control.push_back(Clabel_to_show_how_basic_attack);
 
-	Cbutton_up = App->ui_manager->AddButton(690, 295, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_up = App->ui_manager->AddButton(690, 295, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	Cbutton_up->AddListener(this);
-	Clabel_to_show_how_up = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.UP, 50, Cbutton_up, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_up = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.UP,  Cbutton_up, BLACK, FontType::FF32, nullptr,false);
 	Clabel_to_show_how_up->SetPosRespectParent(CENTERED);
 
-	Cbutton_right = App->ui_manager->AddButton(690, 325, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_right = App->ui_manager->AddButton(690, 325, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	Cbutton_right->AddListener(this);
-	Clabel_to_show_how_right = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.RIGHT, 50, Cbutton_right, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_right = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.RIGHT, Cbutton_right, BLACK, FontType::FF32, nullptr,false);
 	Clabel_to_show_how_right->SetPosRespectParent(CENTERED);
 
-	Cbutton_left = App->ui_manager->AddButton(690, 355, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_left = App->ui_manager->AddButton(690, 355, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	Cbutton_left->AddListener(this);
-	Clabel_to_show_how_left = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.LEFT, 50, Cbutton_left, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_left = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.LEFT,  Cbutton_left, BLACK, FontType::FF32, nullptr,false);
 	Clabel_to_show_how_left->SetPosRespectParent(CENTERED);
 
-	Cbutton_down = App->ui_manager->AddButton(690, 385, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_down = App->ui_manager->AddButton(690, 385, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	Cbutton_down->AddListener(this);
-	Clabel_to_show_how_down = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DOWN, 50, Cbutton_down, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_down = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DOWN,  Cbutton_down, BLACK, FontType::FF32, nullptr,false);
 	Clabel_to_show_how_down->SetPosRespectParent(CENTERED);
 
 	menu_state = StatesMenu::CONTROLS_MENU;
