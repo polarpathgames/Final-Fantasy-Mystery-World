@@ -609,7 +609,8 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer)
 
 bool j1Map::ChangeMap(Maps type)
 {
-	App->entity_manager->DeleteEntities();
+	last_map = actual_map;
+	App->entity_manager->DeleteEntitiesNoPlayer();
 	CleanUp();
 	switch(type) {
 	case Maps::LOBBY:

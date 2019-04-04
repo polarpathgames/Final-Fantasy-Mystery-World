@@ -9,6 +9,7 @@
 #include <string>
 #include "j1Pathfinding.h"
 #include "Player.h"
+#include "j1Scene.h"
 #include "Brofiler/Brofiler.h"
 
 Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
@@ -299,7 +300,7 @@ bool Enemy::IsPlayerNextTile()
 void Enemy::MovementLogic()
 {
 	iPoint origin = actual_tile;
-	iPoint destination = App->entity_manager->GetPlayerData()->actual_tile;
+	iPoint destination = App->scene->player->actual_tile;
 	App->pathfinding->CreatePath(origin, destination);
 
 	iPoint target = App->pathfinding->GetLastPath();

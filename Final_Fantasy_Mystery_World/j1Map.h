@@ -156,6 +156,7 @@ public:
 	MapData data;
 	bool	Grid = true;
 	Maps actual_map;
+	Maps last_map;
 
 private:
 

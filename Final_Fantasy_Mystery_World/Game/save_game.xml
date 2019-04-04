@@ -13,6 +13,7 @@
 	<entity_manager />
 	<gui />
 	<:anonymous />
+	<:anonymous />
 	<easingsplines />
 	<renderer>
 	</renderer>
