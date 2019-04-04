@@ -14,7 +14,7 @@ GUI_Slider::GUI_Slider(const int &x, const int &y, const SDL_Rect &rect, const S
 	section = rect;
 	
 	//callback & parent?
-	slider_btn = App->ui_manager->AddButton(x,y, idle, hover, push, nullptr, parent, true, true, true);
+	slider_btn = App->ui_manager->AddButton(x,y, idle, hover, push, nullptr, parent, true, true, true,false);
 }
 
 GUI_Slider::~GUI_Slider()
