@@ -25,7 +25,12 @@ bool MainMenu::Awake()
 
 bool MainMenu::Start()
 {
+
 	CreateMainMenu();
+
+	exit_button = App->ui_manager->AddButton(offsetX, credits_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);
+	exit_text = App->ui_manager->AddLabel(0, 0, "Exit", exit_button, BLACK, FontType::FF64, nullptr, false);
+	exit_text->SetPosRespectParent(CENTERED);
 
 	return true;
 }

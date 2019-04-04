@@ -4,6 +4,8 @@
 #include "j1Textures.h"
 #include "j1Fonts.h"
 
+#include <assert.h>
+
 #include "SDL\include\SDL.h"
 #include "SDL_TTF\include\SDL_ttf.h"
 #pragma comment( lib, "SDL_ttf/libx86/SDL2_ttf.lib" )
@@ -36,8 +38,11 @@ bool j1Fonts::Awake(pugi::xml_node& conf)
 		default = Load(PATH(path,font), size);	// Default font
 
 		for (conf = conf.child("font"); conf; conf = conf.next_sibling()) { // Iterate all nodes to load all fonts we will use
-			Load(PATH(path, conf.attribute("file").as_string()));
+			Load(PATH(path, conf.attribute("file").as_string()),conf.attribute("size").as_uint(DEFAULT_FONT_SIZE));
 		}
+
+		static_assert((int)FontType::NONE == 6, "Update config.xml adding new fonts");
+		assert(fonts.size() > (int)FontType::NONE - 1); // Loaded more fonts that declarated
 	}
 
 	return ret;
@@ -69,7 +74,7 @@ Font* const j1Fonts::Load(const char* path, int size)
 	std::list<Font*>::const_iterator item = FindPathFont(path);	// Get iterator of fonts list
 	
 	if (item != fonts.end()) {	// if iterator is not the last item of the list (existing in list), returns that item
-		LOG("Already loaded font with ID %i", (*item)->type);
+		LOG("Already loaded font with ID %i and size %u", (*item)->type, (*item)->size);
 		ret = *item;
 	}
 	else { // If item is list.end() (not existing font in list)
@@ -116,10 +121,10 @@ std::list<Font*>::const_iterator j1Fonts::FindIdFont(FontType font_type) // Find
 	return fonts.end();
 }
 
-std::list<Font*>::const_iterator j1Fonts::FindPathFont(const char* name) // Find font by name
+std::list<Font*>::const_iterator j1Fonts::FindPathFont(const char* name, const int& size) // Find font by name
 {
 	for (std::list<Font*>::iterator item = fonts.begin(); item != fonts.end(); ++item) {
-		if (strcmp(name,(*item)->name.data()) == 0) {
+		if (strcmp(name,(*item)->name.data()) == 0 && size != 0 && size == (*item)->size) {
 			return item;
 		}
 	}
@@ -133,7 +138,7 @@ SDL_Texture* j1Fonts::Print(const char* text, SDL_Color color, FontType font_typ
 	SDL_Texture* ret = NULL;
 
 	std::list<Font*>::const_iterator item;
-	SDL_Surface* surface = TTF_RenderText_Blended(((item = FindIdFont(font_type))!=fonts.end()) ? (*item)->font : default->font, text, color);
+	SDL_Surface* surface = TTF_RenderText_Blended(((item = FindIdFont(font_type)) != fonts.end()) ? (*item)->font : default->font, text, color);
 
 	if (surface == NULL)
 	{
@@ -166,6 +171,11 @@ SDL_Texture* j1Fonts::PrintWrapped(const char* text, SDL_Color color, FontType f
 	}
 
 	return ret;
+}
+
+bool j1Fonts::ChangeFontSize(const int & size)
+{
+	return false;
 }
 
 // calculate size of a text

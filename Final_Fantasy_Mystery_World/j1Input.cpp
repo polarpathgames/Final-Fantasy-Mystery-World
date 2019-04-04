@@ -58,7 +58,13 @@ bool j1Input::Start()
 {
 	SDL_StopTextInput();
 
-	DefaultControls();
+DefaultControls();
+
+
+	mouse_motion_x = 0;
+	mouse_motion_y = 0;
+	mouse_x= 0;
+	mouse_y = 0;
 
 
 	return true;

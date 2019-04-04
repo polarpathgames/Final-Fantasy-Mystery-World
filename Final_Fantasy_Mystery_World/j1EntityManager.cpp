@@ -43,6 +43,7 @@ bool j1EntityManager::Start()
 
 	texture.push_back(App->tex->Load("assets/sprites/WarriorSpritesheet.png"));
 	texture.push_back(App->tex->Load("assets/sprites/Enemy.png"));
+	texture.push_back(App->tex->Load("maps/static_objects_tileset.png"));
 
 	return ret;
 }
@@ -89,17 +90,20 @@ bool j1EntityManager::Update(float dt)
 				(*item)->Draw(texture[0], dt);
 			else if ((*item)->type == Entity::EntityType::ENEMY)
 				(*item)->Draw(texture[1], dt);
+			else if ((*item)->type == Entity::EntityType::STATIC)
+				(*item)->Draw(texture[2], dt);
 
 			App->render->DrawCircle((*item)->position.x + (*item)->pivot.x, (*item)->position.y + (*item)->pivot.y, 3, 255, 255, 255);
 		}		
 	}
-	
+	if (App->scene->player->movement_type == Movement_Type::InLobby && App->scene->player != nullptr)
+		App->render->LobbyCamera(App->scene->player->position);
 	return true;
 }
 
 bool j1EntityManager::PostUpdate()
 {
-	BROFILER_CATEGORY("PostUpdateEntityM", Profiler::Color::Purple);
+	BROFILER_CATEGORY("PostUpdateEntity", Profiler::Color::Purple);
 
 	std::vector<Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
@@ -124,9 +128,12 @@ bool j1EntityManager::CleanUp()
 		}
 	}
 	entities.clear();
-	for (int i = 0; i < texture.size(); ++i) {
-		App->tex->UnLoad(texture[i]);
+	
+	for (std::vector<SDL_Texture*>::iterator item_tx = texture.begin(); item_tx != texture.end(); ++item_tx) {
+		App->tex->UnLoad(*item_tx);
 	}
+	texture.clear();
+
 	return true;
 }
 
@@ -145,12 +152,13 @@ void j1EntityManager::OnCollision(Collider * c1, Collider * c2)
 //Entity Factory
 Entity* j1EntityManager::CreateEntity(Entity::EntityType type, int PositionX, int PositionY, std::string name, Sensor::SensorType sensor_type)
 {
-	static_assert(Entity::EntityType::NO_TYPE == (Entity::EntityType)3, "code needs update");
+	static_assert(Entity::EntityType::NO_TYPE == (Entity::EntityType)4, "code needs update");
 	Entity* ret = nullptr;
 	switch (type) {
 	case Entity::EntityType::PLAYER: ret = new Player(PositionX, PositionY); break;
 	case Entity::EntityType::ENEMY: ret = new Enemy(PositionX, PositionY); break;
 	case Entity::EntityType::SENSOR: ret = new Sensor(PositionX, PositionY, sensor_type); break;
+	case Entity::EntityType::STATIC: ret = new StaticEntity(PositionX, PositionY, name.data()); break;
 	//case Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
 	default:
 		LOG("Cannot find any entity with that type");
@@ -207,6 +215,24 @@ void j1EntityManager::DeleteEntities()
 
 }
 
+void j1EntityManager::DeleteEntitiesNoPlayer()
+{
+
+	std::vector<Entity*>::iterator item = entities.begin();
+	while (item != entities.end()) {
+		if ((*item) != nullptr && (*item)->type != Entity::EntityType::PLAYER) {
+			(*item)->CleanUp();
+			delete(*item);
+			(*item) = nullptr;
+			item = entities.erase(item);
+		}
+		else 
+			++item;
+	}
+
+
+}
+
 void j1EntityManager::DeleteEntity(Entity* entity_to_delete)
 {
 
@@ -221,20 +247,6 @@ void j1EntityManager::DeleteEntity(Entity* entity_to_delete)
 	}
 
 
-}
-
-Player* j1EntityManager::GetPlayerData() const {
-
-	std::vector<Entity*>::const_iterator item = entities.begin();
-	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr)
-		{
-			if ((*item)->type == Entity::EntityType::PLAYER)
-				return (Player*)(*item);
-		}
-	}
-
-	return nullptr;
 }
 
 const std::vector<Entity*> j1EntityManager::GetEntities()

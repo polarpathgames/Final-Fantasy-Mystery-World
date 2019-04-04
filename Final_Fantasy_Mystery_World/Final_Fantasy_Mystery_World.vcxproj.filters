@@ -97,6 +97,8 @@
     </ClCompile>
     <ClCompile Include="ChangeControls.cpp">
       <Filter>Tools</Filter>
+    <ClCompile Include="j1DialogSystem.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -215,6 +217,8 @@
     </ClInclude>
     <ClInclude Include="ChangeControls.h">
       <Filter>Tools</Filter>
+    <ClInclude Include="j1DialogSystem.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -241,7 +245,6 @@
     <Xml Include="Game\config.xml">
       <Filter>XML</Filter>
     </Xml>
-    <Xml Include="Game\save_game.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\entities\Player.tsx">

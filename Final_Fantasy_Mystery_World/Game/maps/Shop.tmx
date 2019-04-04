@@ -1613,7 +1613,7 @@
  <layer id="9" name="colliders" width="40" height="40">
   <properties>
    <property name="Navigation" type="int" value="1"/>
-   <property name="Nodraw" type="int" value="1"/>
+   <property name="NoDraw" type="int" value="1"/>
   </properties>
   <data>
    <tile/>
@@ -3219,7 +3219,7 @@
   </data>
  </layer>
  <objectgroup id="7" name="player">
-  <object id="17" name="player" type="dynamic" x="352.007" y="400.012" width="15.9688" height="16.0156">
+  <object id="17" name="player" type="in_shop" x="352.007" y="400.012" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>

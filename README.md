@@ -1,21 +1,31 @@
 ﻿# Final Fantasy: Mystery World
 
-Final Fantasy Mystery World v.0.1.0
+Final Fantasy Mystery World v.0.3.0
 
 ## Description
 
-Added:
+Added: 
 --------
-- Player movement 
-- Entities management
-- Pathfinding (not fully implemented)
-- Turns system (not fully implemented)
+
+- Hub map
+- Free movement works properly
+- Colliders (non walkable tiles)
+- Sensors
+- Shop
+- Home
+- Transition Hub-Shop
+
+
 
 Changed:
 --------
 
+- Now the transition between tutorial map and hub are the with the correct maps
+
 Removed: 
 --------
+
+- Old hub map
 
 Fixed: 
 --------
@@ -65,11 +75,15 @@ Oriol Capdevila [OriolCS2](https://github.com/OriolCS2)
   
   - WASD: move the player
   - LSHIFT: change to a diagonally movement
+  - ILKJ: change direction
+  - V: show abilities menu
 
 - Controller:
   
   - LEFT JOYSTICK: move the player
   - RT: change to a diagonally movement
+  - DPAD: change direction
+  - LT: show abilities menu
 
 ### Debug keys:
 

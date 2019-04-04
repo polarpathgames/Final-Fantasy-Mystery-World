@@ -21,8 +21,13 @@ class GUI;
 class GUI_Image;
 class GUI_Label;
 class GUI_Button;
+
 class GUI_CheckBox;
 class GUI_Slider;
+
+class Player;
+
+
 
 class j1Scene : public j1Module
 {
@@ -71,9 +76,13 @@ public:
 	std::list<GUI_Label*> labels_control;
 	std::list<GUI_Label*> Clabels_control;
 
-	GUI_Slider* slider_general_volume = nullptr;
+  GUI_Slider* slider_general_volume = nullptr;
 	GUI_Slider* slider_music_volume = nullptr;
 	GUI_Slider* slider_fx_volume = nullptr;
+
+	Player* player = nullptr;
+
+
 private:
 
 	ChangeControls * control_to_change = nullptr;

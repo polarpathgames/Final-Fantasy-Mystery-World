@@ -3,7 +3,9 @@
  <tileset firstgid="1" name="Home" tilewidth="32" tileheight="16" tilecount="117" columns="9">
   <image source="Home.png" trans="0011ff" width="290" height="211"/>
  </tileset>
- <tileset firstgid="118" source="lobby_tileset.tsx"/>
+ <tileset firstgid="118" name="lobby_tileset" tilewidth="32" tileheight="16" tilecount="324" columns="18">
+  <image source="lobby_tileset.png" width="582" height="290"/>
+ </tileset>
  <layer id="1" name="Home" width="40" height="40">
   <data>
    <tile/>
@@ -1608,10 +1610,10 @@
    <tile/>
   </data>
  </layer>
- <layer id="10" name="colliders" width="40" height="40">
+ <layer id="9" name="colliders" width="40" height="40">
   <properties>
    <property name="Navigation" type="int" value="1"/>
-   <property name="Nodraw" type="int" value="1"/>
+   <property name="NoDraw" type="int" value="1"/>
   </properties>
   <data>
    <tile/>
@@ -2480,87 +2482,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="208"/>
-   <tile gid="208"/>
-   <tile gid="208"/>
    <tile gid="208"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="208"/>
-   <tile gid="208"/>
-   <tile gid="208"/>
-   <tile gid="208"/>
-   <tile gid="208"/>
-   <tile gid="208"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2600,52 +2527,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="208"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="208"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="208"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2677,7 +2558,8 @@
    <tile/>
    <tile gid="208"/>
    <tile gid="208"/>
-   <tile/>
+   <tile gid="208"/>
+   <tile gid="208"/>
    <tile gid="208"/>
    <tile gid="208"/>
    <tile gid="208"/>
@@ -2714,12 +2596,132 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="208"/>
+   <tile gid="208"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile gid="208"/>
-   <tile/>
    <tile gid="208"/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="208"/>
+   <tile gid="208"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="208"/>
+   <tile gid="208"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="208"/>
+   <tile gid="208"/>
+   <tile gid="208"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="208"/>
+   <tile gid="208"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="208"/>
+   <tile gid="208"/>
+   <tile gid="208"/>
+   <tile/>
+   <tile gid="208"/>
+   <tile gid="208"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3216,17 +3218,17 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="8" name="player">
-  <object id="31" name="player" type="dynamic" x="367.945" y="416.075" width="15.9688" height="16.0156">
+ <objectgroup id="10" name="collider">
+  <object id="32" name="collider" x="369.5" y="439" width="10.75" height="7.25">
    <properties>
-    <property name="free_movement" type="bool" value="false"/>
+    <property name="home" type="int" value="0"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="9" name="leave">
-  <object id="32" name="collider" x="369.045" y="439.136" width="12.7273" height="7.27273">
+ <objectgroup id="8" name="player">
+  <object id="31" name="player" type="in_home" x="368" y="416" width="15.9688" height="16.0156">
    <properties>
-    <property name="home" type="int" value="2"/>
+    <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>

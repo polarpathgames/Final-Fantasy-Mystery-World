@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Window.h"
 #include "j1Render.h"
+#include "j1Map.h"
 #include "Brofiler/Brofiler.h"
 
 
@@ -77,6 +78,7 @@ bool j1Render::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateRender", Profiler::Color::Aqua);
 	//LOG("Camera.y = %i", camera.y);
+
 	return true;
 }
 
@@ -293,3 +295,8 @@ void j1Render::ResetCamera()
 	camera.y = 0;
 }
 
+void j1Render::LobbyCamera(iPoint playerpos)
+{
+	camera.x = (-playerpos.x * 3) + (App->win->width * 0.5);
+	camera.y = (-playerpos.y * 3) + (App->win->height * 0.5);
+}

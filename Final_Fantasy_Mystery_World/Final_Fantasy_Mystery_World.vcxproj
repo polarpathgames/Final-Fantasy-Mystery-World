@@ -88,6 +88,7 @@
     <ClCompile Include="GUI_CheckBox.cpp" />
     <ClCompile Include="GUI_Slider.cpp" />
     <ClCompile Include="j1Collisions.cpp" />
+    <ClCompile Include="j1DialogSystem.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="GUI_Button.cpp" />
@@ -125,6 +126,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GUI_Slider.h" />
     <ClInclude Include="j1Collisions.h" />
+    <ClInclude Include="j1DialogSystem.h" />
     <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="GUI_Button.h" />
@@ -162,7 +164,6 @@
     <Xml Include="Game\config.xml">
       <SubType>Designer</SubType>
     </Xml>
-    <Xml Include="Game\save_game.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\entities\Enemy.tsx" />

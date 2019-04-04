@@ -154,14 +154,16 @@ private:
 	j1KeyState*	keyboard;
 	j1KeyState	mouse_buttons[NUM_MOUSE_BUTTONS];
 	SDL_Event ev;
+
 	j1KeyState controller_buttons[NUM_CONTROLLER_BUTTONS];
 
-	int			mouse_motion_x;
-	int			mouse_motion_y;
-	int			mouse_x;
-	int			mouse_y;
+	int			mouse_motion_x = 0;
+	int			mouse_motion_y = 0;
+	int			mouse_x = 0;
+	int			mouse_y = 0;
 	int			axis_x = 0;
 	int			axis_y = 0;
+
 };
 
 #endif // __j1INPUT_H__

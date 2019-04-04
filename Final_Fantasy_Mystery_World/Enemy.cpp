@@ -9,6 +9,7 @@
 #include <string>
 #include "j1Pathfinding.h"
 #include "Player.h"
+#include "j1Scene.h"
 #include "Brofiler/Brofiler.h"
 
 Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
@@ -22,7 +23,7 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 	ground = App->tex->Load("textures/enemy_pos.png");
 	current_animation = &IdleDownLeft;
 
-	SetPivot(9, 30);
+	SetPivot(10, 30);
 
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
@@ -35,8 +36,8 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 	actual_tile = App->map->WorldToMap(position.x, position.y);
 
 	// THIS ALWAYS LAST
-	position.x -= pivot.x;
-	position.y -= 21;
+	position.x += 8;
+	position.y -= 22;
 
 	target_position = position;
 	initial_position = position;
@@ -198,7 +199,7 @@ bool Enemy::Update(float dt)
 	}
 	if (state == State::ATTACKING) {
 		if (current_animation->Finished()) {
-			CheckAttackEfects(Entity::EntityType::PLAYER, direction, stats.attack_power);
+			CheckBasicAttackEfects(Entity::EntityType::PLAYER, direction, stats.attack_power);
 			state = State::AFTER_ATTACK;
 			ChangeAnimation(direction, state);
 			time_attack = SDL_GetTicks();
@@ -209,7 +210,7 @@ bool Enemy::Update(float dt)
 	}
 
 
-	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x, App->map->MapToWorld(actual_tile.x, actual_tile.y).y, NULL, true);
+	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
 	return true;
 }
@@ -299,7 +300,7 @@ bool Enemy::IsPlayerNextTile()
 void Enemy::MovementLogic()
 {
 	iPoint origin = actual_tile;
-	iPoint destination = App->entity_manager->GetPlayerData()->actual_tile;
+	iPoint destination = App->scene->player->actual_tile;
 	App->pathfinding->CreatePath(origin, destination);
 
 	iPoint target = App->pathfinding->GetLastPath();
