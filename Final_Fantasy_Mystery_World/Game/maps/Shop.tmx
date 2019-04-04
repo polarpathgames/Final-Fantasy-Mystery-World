@@ -3219,7 +3219,7 @@
   </data>
  </layer>
  <objectgroup id="7" name="player">
-  <object id="17" name="player" type="dynamic" x="352.007" y="400.012" width="15.9688" height="16.0156">
+  <object id="17" name="player" type="in_shop" x="352.007" y="400.012" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>

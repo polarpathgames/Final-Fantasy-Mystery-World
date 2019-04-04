@@ -11,6 +11,7 @@ class GUI;
 class GUI_Image;
 class GUI_Label;
 class GUI_Button;
+class Player;
 
 
 class j1Scene : public j1Module
@@ -50,6 +51,8 @@ public:
 	//GUI* mock_image_ui = nullptr;
 	//SDL_Rect mock_image_rect = { 0, 0, 61, 76 };
 	GUI* background = nullptr;
+
+	Player* player = nullptr;
 
 private:
 	GUI_Image* pause_panel = nullptr;

@@ -13,8 +13,9 @@
 	<entity_manager />
 	<gui />
 	<:anonymous />
+	<:anonymous />
 	<easingsplines />
 	<renderer>
-		<camera x="536" y="18" />
+		<camera x="425" y="-312" />
 	</renderer>
 </game_state>

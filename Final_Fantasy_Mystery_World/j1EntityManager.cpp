@@ -96,8 +96,8 @@ bool j1EntityManager::Update(float dt)
 			App->render->DrawCircle((*item)->position.x + (*item)->pivot.x, (*item)->position.y + (*item)->pivot.y, 3, 255, 255, 255);
 		}		
 	}
-	if (GetPlayerData()->movement_type == Movement_Type::InLobby)
-		App->render->LobbyCamera(GetPlayerData()->position);
+	if (App->scene->player->movement_type == Movement_Type::InLobby && App->scene->player != nullptr)
+		App->render->LobbyCamera(App->scene->player->position);
 	return true;
 }
 
@@ -211,6 +211,24 @@ void j1EntityManager::DeleteEntities()
 		}
 	}
 	entities.clear();
+
+
+}
+
+void j1EntityManager::DeleteEntitiesNoPlayer()
+{
+
+	std::vector<Entity*>::iterator item = entities.begin();
+	while (item != entities.end()) {
+		if ((*item) != nullptr && (*item)->type != Entity::EntityType::PLAYER) {
+			(*item)->CleanUp();
+			delete(*item);
+			(*item) = nullptr;
+			item = entities.erase(item);
+		}
+		else 
+			++item;
+	}
 
 
 }

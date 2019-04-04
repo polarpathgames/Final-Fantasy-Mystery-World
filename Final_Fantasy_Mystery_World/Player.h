@@ -65,6 +65,8 @@ public:
 	void OnCollision(Collider* c2);
 	void CheckLobbyCollision(const float &pdtos, const Direction &dir);
 
+	void CenterPlayerInTile();
+
 	//PreUpdate
 	void ReadPlayerInput(); // Global organizator function 
 

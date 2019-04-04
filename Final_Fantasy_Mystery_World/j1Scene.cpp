@@ -11,6 +11,7 @@
 #include "j1FadeToBlack.h"
 #include "j1Window.h"
 #include "j1Map.h"
+#include "Player.h"
 #include "j1EntityManager.h"
 #include "j1Scene.h"
 #include "MainMenu.h"
@@ -161,7 +162,25 @@ void j1Scene::CreateEntities()
 
 	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
 		if ((*position)->name == "player") {
-			App->entity_manager->CreateEntity(Entity::EntityType::PLAYER, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			if (player == nullptr) {
+				if ((*position)->ent_type == "default") { // start position
+					player = (Player*)App->entity_manager->CreateEntity(Entity::EntityType::PLAYER, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+				}
+			}
+			else {
+				if ((*position)->ent_type == "shop" && App->map->last_map == Maps::SHOP) { // position after leaving shop
+					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->CenterPlayerInTile();
+				}
+				else if ((*position)->ent_type == "home" && App->map->last_map == Maps::HOME){ // position after leaving home
+					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->CenterPlayerInTile();
+				}
+				else if ((*position)->ent_type == "in_shop") { // position in the shop
+					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->CenterPlayerInTile();
+				}
+			}
 		}
 		else if ((*position)->ent_type == "static") {
 			App->entity_manager->CreateEntity(Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);

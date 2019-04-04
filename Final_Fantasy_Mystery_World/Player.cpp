@@ -39,23 +39,12 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	state = State::IDLE;
 	movement_type = Movement_Type::InLobby;
 	ground = App->tex->Load("textures/player_pos.png");
-	actual_tile = App->map->WorldToMap(position.x, position.y);
+	
 	velocity.x = 160;
 	velocity.y = 80;
 
+	CenterPlayerInTile();
 
-	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
-
-	movement_count = { 0,0 };
-	
-
-	// THIS ALWAYS LAST
-
-	position.x += 8;
-	position.y -= 22;
-	
-	target_position = position;
-	initial_position = position;
 
 }
 
@@ -270,6 +259,22 @@ void Player::CheckLobbyCollision(const float & dt, const Direction & dir)
 		break;
 	}
 
+
+
+}
+
+void Player::CenterPlayerInTile()
+{
+	actual_tile = App->map->WorldToMap(position.x, position.y);
+	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
+	movement_count = { 0,0 };
+	// THIS ALWAYS LAST
+
+	position.x += 8;
+	position.y -= 22;
+
+	target_position = position;
+	initial_position = position;
 
 
 }
