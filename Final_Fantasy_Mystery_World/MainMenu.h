@@ -9,6 +9,7 @@ struct SDL_Rect;
 class GUI;
 class GUI_Button;
 class GUI_Label;
+class GUI_Image;
 
 class MainMenu : public j1Module
 {
@@ -18,6 +19,7 @@ public:
 
 	bool Awake();
 	bool Start();
+	void CreateMainMenu();
 	bool PreUpdate();
 	bool Update(float dt);
 	bool PostUpdate();
@@ -25,6 +27,9 @@ public:
 	bool CleanUp();
 
 	bool Interact(GUI* interaction);
+
+	void CreateCredits();
+	void DestroyCredits();
 
 private:
 
@@ -42,6 +47,9 @@ private:
 
 	GUI_Button* exit_button = nullptr;
 	GUI_Label* exit_text = nullptr;
+
+	GUI_Button* button_retun = nullptr;
+	GUI_Label* label_return = nullptr;
 };
 
 #endif
