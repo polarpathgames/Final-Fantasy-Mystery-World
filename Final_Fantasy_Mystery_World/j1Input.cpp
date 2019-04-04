@@ -58,6 +58,14 @@ bool j1Input::Start()
 {
 	SDL_StopTextInput();
 
+	DefaultControls();
+
+
+	return true;
+}
+
+void j1Input::DefaultControls()
+{
 	keyboard_buttons.buttons_code.BASIC_ATTACK = SDL_SCANCODE_G;
 	keyboard_buttons.buttons_code.DIAGONALS = SDL_SCANCODE_LSHIFT;
 	keyboard_buttons.buttons_code.DIRECCTION_DOWN = SDL_SCANCODE_K;
@@ -75,7 +83,7 @@ bool j1Input::Start()
 	keyboard_buttons.buttons_char.DIRECCTION_RIGHT = "L";
 	keyboard_buttons.buttons_char.DIRECTION_LEFT = "J";
 	keyboard_buttons.buttons_char.DIRECTION_UP = "I";
-	keyboard_buttons.buttons_char.DOWN= "S";
+	keyboard_buttons.buttons_char.DOWN = "S";
 	keyboard_buttons.buttons_char.LEFT = "A";
 	keyboard_buttons.buttons_char.RIGHT = "D";
 	keyboard_buttons.buttons_char.UP = "W";
@@ -93,9 +101,10 @@ bool j1Input::Start()
 	controller_Buttons.buttons_char.DIRECTION_UP = "D-PAD UP";
 	controller_Buttons.buttons_char.DIRECTION_LEFT = "D-PAD LEFT";
 	controller_Buttons.buttons_char.DIRECCTION_RIGHT = "D-PAD RIGHT";
-
-
-	return true;
+	controller_Buttons.buttons_char.DOWN = "L-JOSTICK";
+	controller_Buttons.buttons_char.LEFT = "L-JOSTICK";
+	controller_Buttons.buttons_char.RIGHT = "L-JOSTICK";
+	controller_Buttons.buttons_char.UP = "L-JOSTICK";
 }
 
 // Called each loop iteration

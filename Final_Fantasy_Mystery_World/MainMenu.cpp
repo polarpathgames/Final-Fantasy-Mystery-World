@@ -11,6 +11,7 @@
 #include "j1FadeToBlack.h"
 #include "GUI_Label.h"
 #include "GUI_Image.h"
+#include "GUI.h"
 #include "Brofiler/Brofiler.h"
 
 MainMenu::MainMenu(){}
