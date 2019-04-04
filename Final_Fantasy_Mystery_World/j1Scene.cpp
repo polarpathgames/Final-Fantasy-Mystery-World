@@ -144,7 +144,16 @@ bool j1Scene::Update(float dt)
 		break;
 	}
 
-	
+	//if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	//	App->audio->VolumeDown(-1);
+
+	//if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
+	//	App->audio->VolumeUp(-1);
+
+	//if (!App->audio->mute_volume) Mix_VolumeMusic(slider_music_volume->GetValue());
+	//if (!App->audio->mute_fx) App->audio->SliderVolumeFx(slider_fx_volume->GetValue());
+	//App->audio->volume = slider_music_volume->GetValue(); This crashes
+	//App->audio->volume_fx = slider_fx_volume->GetValue(); This crashes
 
 	return true;
 }
@@ -270,10 +279,13 @@ void j1Scene::CreateOptionsMenu()
 	label_fx_volume = App->ui_manager->AddLabel(0, 0, "FX Volume", 50, button_fx_volume, BLACK, "fonts/Munro.ttf", nullptr);
 	label_fx_volume->SetPosRespectParent(LEFT_CENTERED);
 	
-	slider_music_volume = App->ui_manager->AddSlider(700, 246, { 1553,1550,191,21 }, { 1744,1550, 41,24 }, { 1744,1550, 41,24 }, { 1744,1550, 41,24 }, true, options_panel, this);
+	slider_general_volume = App->ui_manager->AddSlider(680, 183, { 1566,1536,191,22 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, true, options_panel, this);
+	//slider_music_volume->SetValue(App->audio->max_volume); why crashes¿?
+
+	slider_music_volume = App->ui_manager->AddSlider(680, 263, { 1566,1536,191,22 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, true, options_panel, this);
 	slider_music_volume->SetValue(App->audio->volume);
 
-	slider_fx_volume = App->ui_manager->AddSlider(700, 326, { 1553,1550,191,21 }, { 1744,1550, 41,24 }, { 1744,1550, 41,24 }, { 1744,1550, 41,24 }, true, options_panel, this);
+	slider_fx_volume = App->ui_manager->AddSlider(680, 343, { 1566,1536,191,22 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, true, options_panel, this);
 	slider_fx_volume->SetValue(App->audio->volume_fx);
 
 	label_fps = App->ui_manager->AddLabel(491, 413, "FPS Caps", 50, options_panel, BLACK, "fonts/Munro.ttf", nullptr);
@@ -607,24 +619,28 @@ bool j1Scene::Interact(GUI* interact)
 	if (interact == checkbox_fps)
 	{
 		checkbox_fps->Clicked();
+		if (App->capactivated) {
+			App->capactivated = false;
+		}
+		else {
+			App->capactivated = true;
+		}
 		//App->GetFrameRate();
 	}
 
-	//if (interact == checkbox_fullscreen)
-	//{
-	//	checkbox_fullscreen->Clicked();
-	//	
-	//	if (App->win->fullscreen) {
-	//		App->win->fullscreen = false;
-	//		SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_SHOWN);
-	//		break;
-	//	}
-	//	else {
-	//		App->win->fullscreen = true;
-	//		SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_FULLSCREEN);
-	//		break;
-	//	}
-	//}
+	if (interact == checkbox_fullscreen)
+	{
+		checkbox_fullscreen->Clicked();
+		
+		if (App->win->fullscreen) {
+			App->win->fullscreen = false;
+			SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_SHOWN);
+		}
+		else {
+			App->win->fullscreen = true;
+			SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_FULLSCREEN);
+		}
+	}
 
 	return ret;
 }

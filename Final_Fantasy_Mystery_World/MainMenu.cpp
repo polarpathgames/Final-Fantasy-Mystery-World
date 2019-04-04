@@ -89,11 +89,14 @@ bool MainMenu::Interact(GUI* interaction)
 	}
 
 	if (interaction == load_game_button) {
-		//Load Game
+		App->LoadGame("save_game.xml");
 	}
 
 	if (interaction == credits_button) {
 		//Credits
+		credits_panel = App->ui_manager->AddImage(0, 0, { 0, 768, 1024, 768 }, this, App->ui_manager->screen, true, false, false);
+		credits_panel->SetPosRespectParent(CENTERED);
+		App->ui_manager->DeleteUIElement(background);
 	}
 	return ret;
 }
