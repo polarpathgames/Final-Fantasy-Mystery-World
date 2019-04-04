@@ -581,8 +581,8 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer)
 				
 				if(tileset != NULL)
 				{
-
-					iPoint pos = WorldToMap(tile_pos.x, tile_pos.y);
+					//tile_pos.x -= 1;
+					iPoint pos = WorldToMap(tile_pos.x + data.tile_width/2, tile_pos.y-data.tile_height/2);
 					data.no_walkables.push_back(pos);
 					map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
 					/*TileType* ts = tileset->GetTileType(tile_id);
@@ -645,7 +645,7 @@ bool j1Map::IsWalkable(iPoint pos, bool need_convert)
 
 	std::list<iPoint>::const_iterator item = data.no_walkables.begin();
 	if (need_convert)
-		pos = WorldToMap(pos.x, pos.y);
+		pos = WorldToMap(pos.x + 1, pos.y - 8);
 
 	for (; item != data.no_walkables.end(); ++item) {
 		if ((*item) == pos) {
