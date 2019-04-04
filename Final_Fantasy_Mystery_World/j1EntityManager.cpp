@@ -127,9 +127,12 @@ bool j1EntityManager::CleanUp()
 		}
 	}
 	entities.clear();
-	for (int i = 0; i < texture.size(); ++i) {
-		App->tex->UnLoad(texture[i]);
+	
+	for (std::vector<SDL_Texture*>::iterator item_tx = texture.begin(); item_tx != texture.end(); ++item_tx) {
+		App->tex->UnLoad(*item_tx);
 	}
+	texture.clear();
+
 	return true;
 }
 
