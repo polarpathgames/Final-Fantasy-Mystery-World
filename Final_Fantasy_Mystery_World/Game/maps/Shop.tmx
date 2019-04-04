@@ -1613,7 +1613,7 @@
  <layer id="9" name="colliders" width="40" height="40">
   <properties>
    <property name="Navigation" type="int" value="1"/>
-   <property name="Nodraw" type="int" value="1"/>
+   <property name="NoDraw" type="int" value="1"/>
   </properties>
   <data>
    <tile/>

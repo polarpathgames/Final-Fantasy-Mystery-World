@@ -1,14 +1,14 @@
 #include "j1App.h"
 //#include "j1Fonts.h"
-#include "GUI_button.h"
+#include "GUI_Button.h"
 #include "GUI_Label.h"
 #include "j1Textures.h"
 #include "p2Log.h"
 #include "j1Render.h"
 #include "j1Scene.h"
 
-GUI_Button::GUI_Button(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, GUI* parent, bool draw, bool inter, bool drag)
-	:GUI(BUTTON,x,y,parent,idle,draw,inter,drag)
+GUI_Button::GUI_Button(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, GUI* parent, bool draw, bool inter, bool drag, bool focus = true)
+	:GUI(BUTTON, x, y, parent, idle, draw, inter, drag, focus)
 {
 	hovered_rect = hover;
 	clicked_rect = push;

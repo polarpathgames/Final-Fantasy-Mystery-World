@@ -7,8 +7,8 @@
 #include "p2Log.h"
 #include "GUI.h"
 
-GUI::GUI(UIType type, const int &x, const int &y, GUI* parent, const SDL_Rect &section, bool draw, bool inter, bool drag)
-	:type(type), position({ x,y }), section(section), parent(parent), drawable(draw), interactable(inter), draggable(drag)
+GUI::GUI(UIType type, const int &x, const int &y, GUI* parent, const SDL_Rect &section, bool draw, bool inter, bool drag, bool focus)
+	:type(type), position({ x,y }), section(section), parent(parent), drawable(draw), interactable(inter), draggable(drag), allow_focus(focus)
 {
 	if (parent != nullptr) {
 		parent->childs.push_back(this);
@@ -55,7 +55,7 @@ bool GUI::Update()
 	}
 	last_mouse = mouse;
 
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		for (std::list<j1Module*>::iterator module = listeners.begin(); module != listeners.end(); ++module) {
 			if (*module != nullptr)
 				if (!(*module)->Interact(this))

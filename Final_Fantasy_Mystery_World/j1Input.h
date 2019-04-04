@@ -102,10 +102,10 @@ private:
 	j1KeyState controller[MAX_BUTTONS];
 	SDL_GameController* gamepads[MAX_GAMEPADS] = { nullptr };
 	ControllerDir GamepadDir[MAX_GAMEPADS];
-	int			mouse_motion_x;
-	int			mouse_motion_y;
-	int			mouse_x;
-	int			mouse_y;
+	int			mouse_motion_x = 0;
+	int			mouse_motion_y = 0;
+	int			mouse_x = 0;
+	int			mouse_y = 0;
 };
 
 #endif // __j1INPUT_H__

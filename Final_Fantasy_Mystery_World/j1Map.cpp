@@ -62,7 +62,7 @@ void j1Map::Draw()
 	{
 		MapLayer* layer = *item;
 
-		if(layer->properties.GetValue("Nodraw") != 0)
+		if(layer->properties.GetValue("NoDraw") != 0 && !App->collision->debug)
 			continue;
 
 		for(int i = 0; i < data.width; ++i)
@@ -75,11 +75,11 @@ void j1Map::Draw()
 					if (tile_id > 0)
 					{
 						TileSet* tileset = GetTilesetFromTileId(tile_id);
-						if (App->render->IsOnCamera(tile_pos.x + 1, tile_pos.y - 8, tileset->tile_width, tileset->tile_height))
+						if (App->render->IsOnCamera(tile_pos.x, tile_pos.y, tileset->tile_width, tileset->tile_height))
 						{
 							SDL_Rect r = tileset->GetTileRect(tile_id);
 
-							App->render->Blit(tileset->texture, tile_pos.x + 1, tile_pos.y - 8, &r, true);
+							App->render->Blit(tileset->texture, tile_pos.x, tile_pos.y, &r, true);
 							
 						}
 				}
@@ -91,7 +91,7 @@ void j1Map::Draw()
 		for (int i = 0; i < data.width; ++i) {
 			for (int j = 0; j < data.height; ++j) {
 
-				App->render->Blit(quad, MapToWorld(i, j).x, MapToWorld(i, j).y, NULL, true);
+				App->render->Blit(quad, MapToWorld(i, j).x + 1, MapToWorld(i, j).y - 8, NULL, true);
 			}
 		}
 	}
@@ -157,7 +157,7 @@ iPoint j1Map::WorldToMap(int x, int y) const
 		
 		float half_width = data.tile_width * 0.5f;
 		float half_height = data.tile_height * 0.5f;
-		ret.x = int( (x / half_width + y / half_height) / 2) - 1;
+		ret.x = int( (x / half_width + y / half_height) / 2);
 		ret.y = int( (y / half_height - (x / half_width)) / 2);
 	}
 	else
@@ -232,6 +232,8 @@ bool j1Map::CleanUp()
 	data.objects.clear();
 
 	data.properties.CleanUp();
+
+	data.no_walkables.clear();
 
 	App->collision->CleanUp();
 	// Clean up the pugui tree
@@ -581,9 +583,8 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer)
 				
 				if(tileset != NULL)
 				{
-					tile_pos.x += 1;
-					//tile_pos.y -= 2;
-					iPoint pos = WorldToMap(tile_pos.x, tile_pos.y);
+					//tile_pos.x -= 1;
+					iPoint pos = WorldToMap(tile_pos.x + data.tile_width/2, tile_pos.y-data.tile_height/2);
 					data.no_walkables.push_back(pos);
 					map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
 					/*TileType* ts = tileset->GetTileType(tile_id);
@@ -646,7 +647,7 @@ bool j1Map::IsWalkable(iPoint pos, bool need_convert)
 
 	std::list<iPoint>::const_iterator item = data.no_walkables.begin();
 	if (need_convert)
-		pos = WorldToMap(pos.x, pos.y);
+		pos = WorldToMap(pos.x + 1, pos.y - 8);
 
 	for (; item != data.no_walkables.end(); ++item) {
 		if ((*item) == pos) {

@@ -25,12 +25,18 @@ bool j1UIManager::Awake(pugi::xml_node &node)
 {
 	CreateScreen();
 
+	//Load all ui elements info with xml...
+
+	//----------------------
+	focus_tx = { 1024,1986,16,27 };
+
 	return true;
 }
 
 bool j1UIManager::Start()
 {
 	atlas = App->tex->Load("gui/atlas.png");
+
 	return true;
 }
 
@@ -43,14 +49,117 @@ bool j1UIManager::PreUpdate()
 		debug_ui = !debug_ui;
 	}
 
-	iPoint mouse;
-	App->input->GetMousePosition(mouse.x, mouse.y);
-	GUI* element = nullptr;
-	if (GetElemOnMouse(mouse.x*App->win->GetScale(), mouse.y*App->win->GetScale(), element)) {//Check if there is an element on Mouse
-		ret = element->Update();
+	int x = 0, y = 0;
+	App->input->GetMouseMotion(x, y);
+
+	if (focus == nullptr) {
+		FocusFirstUIFocusable();
+		using_mouse = false;
+		SDL_ShowCursor(SDL_DISABLE);
+	}
+	
+	if (focus != nullptr) {
+		if (using_mouse) {
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN
+				|| App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+				using_mouse = false;
+				SDL_ShowCursor(SDL_DISABLE);
+			}
+
+			if (SDL_ShowCursor(-1) == 0)
+				SDL_ShowCursor(SDL_ENABLE);
+
+			iPoint mouse;
+			App->input->GetMousePosition(mouse.x, mouse.y);
+			GUI* element = nullptr;
+			if (GetElemOnMouse(mouse.x*App->win->GetScale(), mouse.y*App->win->GetScale(), element)) {//Check if there is an element on Mouse
+				focus = element;
+			}
+			ret = focus->Update();
+		}
+		if (!using_mouse) {
+			if (x != 0 || y != 0) {
+				using_mouse = true;
+				SDL_ShowCursor(SDL_ENABLE);
+			}
+
+			if (SDL_ShowCursor(-1) == 1)
+				SDL_ShowCursor(SDL_DISABLE);
+
+			FocusInput();
+			ret = focus->Update();
+		}
 	}
 
 	return ret;
+}
+
+void j1UIManager::FocusInput()
+{
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+		GUI* new_focus = focus;
+		if (focus->parent != nullptr)
+			for (std::list<GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
+				if ((*item)->allow_focus && (*item)->position.y <= focus->position.y && *item != focus) {
+					if (new_focus == focus || new_focus->position.y < (*item)->position.y)
+						new_focus = *item;
+				}
+			}
+		focus->current_state = Mouse_Event::NONE;
+		focus = new_focus;
+		focus->current_state = Mouse_Event::HOVER;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
+		GUI* new_focus = focus;
+		if (focus->parent != nullptr)
+			for (std::list<GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
+				if ((*item)->allow_focus && (*item)->position.y >= focus->position.y && *item != focus) {
+					if (new_focus == focus || new_focus->position.y > (*item)->position.y)
+						new_focus = *item;
+				}
+			}
+		focus->current_state = Mouse_Event::NONE;
+		focus = new_focus;
+		focus->current_state = Mouse_Event::HOVER;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+		GUI* new_focus = focus;
+		if (focus->parent != nullptr)
+			for (std::list<GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
+				if ((*item)->allow_focus && (*item)->position.x <= focus->position.x && *item != focus) {
+					if (new_focus == focus || new_focus->position.x < (*item)->position.x)
+						new_focus = *item;
+				}
+			}
+		focus->current_state = Mouse_Event::NONE;
+		focus = new_focus;
+		focus->current_state = Mouse_Event::HOVER;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+		GUI* new_focus = focus;
+		if (focus->parent != nullptr)
+			for (std::list<GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
+				if ((*item)->allow_focus && (*item)->position.x >= focus->position.x && *item != focus) {
+					if (new_focus == focus || new_focus->position.x > (*item)->position.x)
+						new_focus = *item;
+				}
+			}
+		focus->current_state = Mouse_Event::NONE;
+		focus = new_focus;
+		focus->current_state = Mouse_Event::HOVER;
+	}
+}
+
+bool j1UIManager::FocusFirstUIFocusable()
+{
+	for (std::list<GUI*>::iterator item = ui_list.begin(); item != ui_list.end(); ++item) {
+		if ((*item)->allow_focus && *item != nullptr) {
+			focus = *item;
+			return true;
+		}
+	}
+	//LOG("There is not any button focusable");
+	return false;
 }
 
 bool j1UIManager::PostUpdate()
@@ -58,30 +167,21 @@ bool j1UIManager::PostUpdate()
 	BROFILER_CATEGORY("PostUpdateUIManager", Profiler::Color::Purple);
 
 	bool ret = true;
-	/*std::list<GUI*>::iterator item = ui_list.begin();
-	for (; item != ui_list.end(); ++item)
-	{
-		if ((*item) != nullptr) {
-			if ((*item)->to_delete) {
-				ret = DeleteUIElement(*item);
-			}
-			else {
-				ret = (*item)->PostUpdate();
-			}
-		}
-	}
-	ui_list.remove(nullptr);*/
 
 	std::list<GUI*> tree;
 	BFS(tree, screen);
 
 	for (std::list<GUI*>::iterator item = tree.begin(); item != tree.end(); item++) {
 		(*item)->Draw();
+		if (focus == *item) {
+			App->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - focus_tx.w, (focus->section.h - focus_tx.h) * 0.5F + focus->GetGlobalPosition().y + 5, &focus_tx);
+		}
 		if (debug_ui) {
 			(*item)->DebugDraw();
 		}
 	}
 	tree.clear();
+	
 
 	return ret;
 }
@@ -108,9 +208,9 @@ const SDL_Texture* j1UIManager::GetAtlas() const
 	return atlas;
 }
 
-GUI_Image* j1UIManager::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, j1Module * callback = nullptr, GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false)
+GUI_Image* j1UIManager::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, j1Module * callback = nullptr, GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false, bool focus = true)
 {
-	GUI_Image* image = new GUI_Image(x, y, rect, parent, draw, interact, drag);
+	GUI_Image* image = new GUI_Image(x, y, rect, parent, draw, interact, drag, focus);
 
 	if (callback != nullptr) {
 		image->AddListener(callback);
@@ -121,9 +221,9 @@ GUI_Image* j1UIManager::AddImage(const int &x,const int &y, const SDL_Rect & rec
 	return image;
 }
 
-GUI_Button* j1UIManager::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, j1Module* callback, GUI* parent, bool draw, bool drag, bool inter)
+GUI_Button* j1UIManager::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, j1Module* callback, GUI* parent, bool draw, bool drag, bool inter, bool focus = true)
 {
-	GUI_Button* button = new GUI_Button(x, y, idle, mouse_in, clicked, parent, draw, inter, drag);
+	GUI_Button* button = new GUI_Button(x, y, idle, mouse_in, clicked, parent, draw, inter, drag, focus);
 
 	if (callback != nullptr) {
 		button->AddListener(callback);
@@ -134,9 +234,9 @@ GUI_Button* j1UIManager::AddButton(const int &x, const int &y, const SDL_Rect &i
 	return button;
 }
 
-GUI_Label* j1UIManager::AddLabel(const int &x, const int &y, const char* text, uint size, GUI* parent, Color color, const char* font, j1Module* callback = nullptr)
+GUI_Label* j1UIManager::AddLabel(const int &x, const int &y, const char* text, GUI* parent, Color color, const FontType &font, j1Module* callback = nullptr, bool focus = false)
 {
-	GUI_Label* label = new GUI_Label(x, y, text, color, font, size, parent);
+	GUI_Label* label = new GUI_Label(x, y, text, color, font, parent, focus);
 
 	if (callback != nullptr) {
 		label->AddListener(callback);
@@ -150,12 +250,13 @@ GUI_Label* j1UIManager::AddLabel(const int &x, const int &y, const char* text, u
 void j1UIManager::CreateScreen()
 {
 	if (std::find(ui_list.begin(), ui_list.end(), screen) == ui_list.end()) {
-		screen = AddImage(0, 0, { 0,0,(int)App->win->width,(int)App->win->height }, nullptr, nullptr, false);
+		screen = AddImage(0, 0, { 0,0,(int)App->win->width,(int)App->win->height }, nullptr, nullptr, false, false, false, false);
 	}
 }
 
 bool j1UIManager::DeleteUIElement(GUI * element)
 {
+	focus = nullptr;
 	if (element != nullptr) {
 		std::list<GUI*>::iterator item_ui = std::find(ui_list.begin(), ui_list.end(), element);
 		if (item_ui != ui_list.end()) {															//if element doesn't find in ui list it cannot be deleted
@@ -217,6 +318,7 @@ bool j1UIManager::DeleteAllUIElements()
 
 	ret = DeleteUIElement(screen);
 	CreateScreen();
+	focus = nullptr;
 
 	return ret;
 }
