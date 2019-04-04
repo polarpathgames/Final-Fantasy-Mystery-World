@@ -890,21 +890,21 @@ void Player::DestroySkills()
 void Player::CreateSkills()
 {
 	upper_button = App->ui_manager->AddButton(684, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, App->ui_manager->screen, true, false, false, false);
-	upper_skill_button = App->ui_manager->AddLabel(0, 0, "X", 12, upper_button, BLACK, "fonts/Munro.ttf", nullptr, false);
+	upper_skill_button = App->ui_manager->AddLabel(0, 0, "X", upper_button, BLACK, FontType::FF32, nullptr, false);
 	upper_skill_button->SetPos(35, -10);
-	upper_skill_label = App->ui_manager->AddLabel(0, 0, "Attack 1", 12, upper_skill_button, BLACK, "fonts/Munro.ttf", nullptr, false);
+	upper_skill_label = App->ui_manager->AddLabel(0, 0, "Attack 1", upper_skill_button, BLACK, FontType::FF32, nullptr, false);
 	upper_skill_label->SetPos(30, 0);
 
 	right_button = App->ui_manager->AddButton(790, 680, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, App->ui_manager->screen, true, false, false, false);
-	right_skill_button = App->ui_manager->AddLabel(0, 0, "Y", 12, right_button, BLACK, "fonts/Munro.ttf", nullptr, false);
+	right_skill_button = App->ui_manager->AddLabel(0, 0, "Y", right_button, BLACK, FontType::FF32, nullptr, false);
 	right_skill_button->SetPos(35, -10);
-	right_skill_label = App->ui_manager->AddLabel(0, 0, "Attack 2", 12, right_skill_button, BLACK, "fonts/Munro.ttf", nullptr, false);
+	right_skill_label = App->ui_manager->AddLabel(0, 0, "Attack 2", right_skill_button, BLACK, FontType::FF32, nullptr, false);
 	right_skill_label->SetPos(30, 0);
 
 	left_button = App->ui_manager->AddButton(590, 680, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, App->ui_manager->screen, true, false, false, false);
-	left_skill_button = App->ui_manager->AddLabel(0, 0, "B", 12, left_button, BLACK, "fonts/Munro.ttf", nullptr, false);
+	left_skill_button = App->ui_manager->AddLabel(0, 0, "B", left_button, BLACK, FontType::FF32, nullptr, false);
 	left_skill_button->SetPos(35, -10);
-	left_skill_label = App->ui_manager->AddLabel(0, 0, "Attack 3", 12, left_skill_button, BLACK, "fonts/Munro.ttf", nullptr, false);
+	left_skill_label = App->ui_manager->AddLabel(0, 0, "Attack 3", left_skill_button, BLACK, FontType::FF32, nullptr, false);
 	left_skill_label->SetPos(30, 0);
 
 	has_skills = true;
