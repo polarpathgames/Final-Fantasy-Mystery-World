@@ -1608,7 +1608,7 @@
   </data>
  </layer>
  <objectgroup color="#ffff7f" id="2" name="Player">
-  <object id="3" x="368.193" y="400.216" width="32" height="32"/>
+  <object id="3" name="player" x="368.193" y="400.216" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ff0000" id="3" name="Collider_Limits">
   <object id="7" x="423.625" y="281.25" width="2.375" height="145.5"/>
