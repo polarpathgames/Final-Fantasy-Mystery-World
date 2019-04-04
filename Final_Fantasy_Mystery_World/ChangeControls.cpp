@@ -48,7 +48,20 @@ bool ChangeControls::ChangeControl()
 
 bool ChangeControls::ChangingController()
 {
-
+	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_AXIS_TRIGGERLEFT) == KEY_DOWN) {
+		if (LookForOtherControlsBeSame("LT")) {
+			SetSaveText("LT");
+			*code_to_change = SDL_CONTROLLER_AXIS_TRIGGERLEFT;
+			return false;
+		}
+	}
+	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN) {
+		if (LookForOtherControlsBeSame("LB")) {
+			SetSaveText("LB");
+			*code_to_change = SDL_CONTROLLER_BUTTON_LEFTSHOULDER;
+			return false;
+		}
+	}
 	return true;
 }
 
