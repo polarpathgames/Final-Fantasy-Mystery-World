@@ -43,6 +43,8 @@ public:
 	uint		height;
 	uint		scale;
 
+	bool fullscreen = false;
+
 };
 
 #endif // __j1WINDOW_H__

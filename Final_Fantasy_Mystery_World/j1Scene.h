@@ -69,6 +69,10 @@ public:
 	//SDL_Rect mock_image_rect = { 0, 0, 61, 76 };
 	GUI* background = nullptr;
 	std::list<GUI_Label*> labels_control;
+
+	GUI_Slider* slider_general_volume = nullptr;
+	GUI_Slider* slider_music_volume = nullptr;
+	GUI_Slider* slider_fx_volume = nullptr;
 private:
 
 	ChangeControls * control_to_change = nullptr;
@@ -90,17 +94,14 @@ private:
 
 	GUI_Label* label_general_volume = nullptr;
 	GUI_Button* button_general_volume = nullptr;
-	GUI_Slider* slider_general_volume = nullptr;
-
+	
 	GUI_Label* label_music_volume = nullptr;
 	GUI_Button* button_music_volume = nullptr;
 	//GUI_Button* music_slider_btn = nullptr;
-	GUI_Slider* slider_music_volume = nullptr;
 
 	GUI_Label* label_fx_volume = nullptr;
 	GUI_Button* button_fx_volume = nullptr;
 	//GUI_Button* fx_slider_btn = nullptr;
-	GUI_Slider* slider_fx_volume = nullptr;
 
 	GUI_Label* label_fps = nullptr;
 	GUI_CheckBox* checkbox_fps = nullptr;
