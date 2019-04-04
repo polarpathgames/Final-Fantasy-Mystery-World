@@ -196,23 +196,15 @@ void Player::CheckLobbyCollision(const float & dt, const Direction & dir)
 {
 	switch (direction) {
 	case Direction::RIGHT:
-		
-		
 		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt))})) {
 			current_animation = &GoDownRight;
 			position.x += floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
-			iPoint pos{ (int)(position.x + floor(velocity.x * dt) + pivot.x) + 1 ,(int)(position.y + pivot.y + floor(velocity.y * dt)) - 8 };
-			pos = App->map->WorldToMap(pos.x, pos.y);
-			pos = App->map->MapToWorld(pos.x, pos.y);
-			App->render->Blit(ground, pos.x,pos.y , NULL, true);
 		}
 		else if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
 			current_animation = &GoUpRight;
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
-			iPoint pos{ (int)(position.x + floor(velocity.x * dt) + pivot.x) + 1 ,(int)(position.y + pivot.y - floor(velocity.y * dt)) - 8 };
-			App->render->Blit(ground, pos.x, pos.y, NULL, true);
 		}
 		else {
 			state = State::IDLE;
