@@ -413,6 +413,18 @@ void j1Scene::CreateControlsMenu()
 	Clabel_to_show_how_direction_right->SetPosRespectParent(CENTERED);
 	Clabels_control.push_back(Clabel_to_show_how_direction_right);
 
+	Cbutton_direction_left = App->ui_manager->AddButton(690, 505, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_direction_left->AddListener(this);
+	Clabel_to_show_how_direction_left = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECTION_LEFT, 50, Cbutton_direction_left, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_direction_left->SetPosRespectParent(CENTERED);
+	Clabels_control.push_back(Clabel_to_show_how_direction_left);
+
+	Cbutton_direction_down = App->ui_manager->AddButton(690, 535, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_direction_down->AddListener(this);
+	Clabel_to_show_how_direction_down = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECCTION_DOWN, 50, Cbutton_direction_down, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_direction_down->SetPosRespectParent(CENTERED);
+	Clabels_control.push_back(Clabel_to_show_how_direction_down);
+
 
 	menu_state = StatesMenu::CONTROLS_MENU;
 }
@@ -537,6 +549,16 @@ bool j1Scene::Interact(GUI* interact)
 			if (control_to_change != nullptr)
 				delete control_to_change;
 			control_to_change = new ChangeControls(Clabel_to_show_how_direction_right, &App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT, &App->input->controller_Buttons.buttons_char.DIRECCTION_RIGHT, true);
+		}
+		if (interact == Cbutton_direction_left) {
+			if (control_to_change != nullptr)
+				delete control_to_change;
+			control_to_change = new ChangeControls(Clabel_to_show_how_direction_left, &App->input->controller_Buttons.buttons_code.DIRECTION_LEFT, &App->input->controller_Buttons.buttons_char.DIRECTION_LEFT, true);
+		}
+		if (interact == Cbutton_direction_down) {
+			if (control_to_change != nullptr)
+				delete control_to_change;
+			control_to_change = new ChangeControls(Clabel_to_show_how_direction_down, &App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN, &App->input->controller_Buttons.buttons_char.DIRECCTION_DOWN, true);
 		}
 		break;
 	}
