@@ -316,12 +316,15 @@ void j1Scene::CreateControlsMenu()
 	controls_panel = App->ui_manager->AddImage(0, 0, { 1024,768,1024,768 }, this, App->ui_manager->screen, true, false, true);
 	controls_panel->SetPosRespectParent(CENTERED);
 
-	keyboard = App->ui_manager->AddLabel(350, 265, "KEYBOARD", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
 
 	button_retun_to_options = App->ui_manager->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
 	button_retun_to_options->AddListener((j1Module*)App->scene);
 	label_return_to_options = App->ui_manager->AddLabel(0, 0, "Return", 50, button_retun_to_options, BLACK, "fonts/Munro.ttf", nullptr);
 	label_return_to_options->SetPosRespectParent(CENTERED);
+
+	// KEYBOARD
+
+	keyboard = App->ui_manager->AddLabel(350, 265, "KEYBOARD", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
 
 	button_up = App->ui_manager->AddButton(340, 295, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
 	button_up->AddListener(this);
@@ -393,6 +396,24 @@ void j1Scene::CreateControlsMenu()
 	label_basic_attack = App->ui_manager->AddLabel(300, 565, "Basic Attack", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
 	labels_control.push_back(label_to_show_how_basic_attack);
 
+
+	// CONTROLLER
+
+	controller = App->ui_manager->AddLabel(700, 265, "CONTROLLER", 50, controls_panel, BLACK, "fonts/Munro.ttf", nullptr);
+
+	Cbutton_direction_up = App->ui_manager->AddButton(690, 445, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_direction_up->AddListener(this);
+	Clabel_to_show_how_direction_up = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECTION_UP, 50, Cbutton_direction_up, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_direction_up->SetPosRespectParent(CENTERED);
+	Clabels_control.push_back(Clabel_to_show_how_direction_up);
+
+	Cbutton_direction_right = App->ui_manager->AddButton(690, 475, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true);
+	Cbutton_direction_right->AddListener(this);
+	Clabel_to_show_how_direction_right = App->ui_manager->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECCTION_RIGHT, 50, Cbutton_direction_right, BLACK, "fonts/Munro.ttf", nullptr);
+	Clabel_to_show_how_direction_right->SetPosRespectParent(CENTERED);
+	Clabels_control.push_back(Clabel_to_show_how_direction_right);
+
+
 	menu_state = StatesMenu::CONTROLS_MENU;
 }
 
@@ -402,7 +423,7 @@ void j1Scene::DestroyControlsMenu()
 	App->ui_manager->DeleteUIElement(controls_panel);
 
 	labels_control.clear();
-
+	Clabels_control.clear();
 
 }
 
@@ -460,52 +481,62 @@ bool j1Scene::Interact(GUI* interact)
 		if (interact == button_up) {
 			if (control_to_change != nullptr)
 				delete control_to_change;
-			control_to_change = new ChangeControls(label_to_show_how_up, &App->input->keyboard_buttons.buttons_code.UP, &App->input->keyboard_buttons.buttons_char.UP);
+			control_to_change = new ChangeControls(label_to_show_how_up, &App->input->keyboard_buttons.buttons_code.UP, &App->input->keyboard_buttons.buttons_char.UP, false);
 		}
 		if (interact == button_right) {
 			if (control_to_change != nullptr)
 				delete control_to_change;
-			control_to_change = new ChangeControls(label_to_show_how_right, &App->input->keyboard_buttons.buttons_code.RIGHT, &App->input->keyboard_buttons.buttons_char.RIGHT);
+			control_to_change = new ChangeControls(label_to_show_how_right, &App->input->keyboard_buttons.buttons_code.RIGHT, &App->input->keyboard_buttons.buttons_char.RIGHT, false);
 		}
 		if (interact == button_left) {
 			if (control_to_change != nullptr)
 				delete control_to_change;
-			control_to_change = new ChangeControls(label_to_show_how_left, &App->input->keyboard_buttons.buttons_code.LEFT, &App->input->keyboard_buttons.buttons_char.LEFT);
+			control_to_change = new ChangeControls(label_to_show_how_left, &App->input->keyboard_buttons.buttons_code.LEFT, &App->input->keyboard_buttons.buttons_char.LEFT, false);
 		}
 		if (interact == button_down) {
 			if (control_to_change != nullptr)
 				delete control_to_change;
-			control_to_change = new ChangeControls(label_to_show_how_down, &App->input->keyboard_buttons.buttons_code.DOWN, &App->input->keyboard_buttons.buttons_char.DOWN);
+			control_to_change = new ChangeControls(label_to_show_how_down, &App->input->keyboard_buttons.buttons_code.DOWN, &App->input->keyboard_buttons.buttons_char.DOWN, false);
 		}
 		if (interact == button_diagonals) {
 			if (control_to_change != nullptr)
 				delete control_to_change;
-			control_to_change = new ChangeControls(label_to_show_how_diagonals, &App->input->keyboard_buttons.buttons_code.DIAGONALS, &App->input->keyboard_buttons.buttons_char.DIAGONALS);
+			control_to_change = new ChangeControls(label_to_show_how_diagonals, &App->input->keyboard_buttons.buttons_code.DIAGONALS, &App->input->keyboard_buttons.buttons_char.DIAGONALS, false);
 		}
 		if (interact == button_direction_up) {
 			if (control_to_change != nullptr)
 				delete control_to_change;
-			control_to_change = new ChangeControls(label_to_show_how_direction_up, &App->input->keyboard_buttons.buttons_code.DIRECTION_UP, &App->input->keyboard_buttons.buttons_char.DIRECTION_UP);
+			control_to_change = new ChangeControls(label_to_show_how_direction_up, &App->input->keyboard_buttons.buttons_code.DIRECTION_UP, &App->input->keyboard_buttons.buttons_char.DIRECTION_UP, false);
 		}
 		if (interact == button_direction_right) {
 			if (control_to_change != nullptr)
 				delete control_to_change;
-			control_to_change = new ChangeControls(label_to_show_how_direction_right, &App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT, &App->input->keyboard_buttons.buttons_char.DIRECCTION_RIGHT);
+			control_to_change = new ChangeControls(label_to_show_how_direction_right, &App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT, &App->input->keyboard_buttons.buttons_char.DIRECCTION_RIGHT, false);
 		}
 		if (interact == button_direction_left) {
 			if (control_to_change != nullptr)
 				delete control_to_change;
-			control_to_change = new ChangeControls(label_to_show_how_direction_left, &App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT, &App->input->keyboard_buttons.buttons_char.DIRECTION_LEFT);
+			control_to_change = new ChangeControls(label_to_show_how_direction_left, &App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT, &App->input->keyboard_buttons.buttons_char.DIRECTION_LEFT, false);
 		}
 		if (interact == button_direction_down) {
 			if (control_to_change != nullptr)
 				delete control_to_change;
-			control_to_change = new ChangeControls(label_to_show_how_direction_down, &App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN, &App->input->keyboard_buttons.buttons_char.DIRECCTION_DOWN);
+			control_to_change = new ChangeControls(label_to_show_how_direction_down, &App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN, &App->input->keyboard_buttons.buttons_char.DIRECCTION_DOWN, false);
 		}
 		if (interact == button_basic_attack) {
 			if (control_to_change != nullptr)
 				delete control_to_change;
-			control_to_change = new ChangeControls(label_to_show_how_basic_attack, &App->input->keyboard_buttons.buttons_code.BASIC_ATTACK, &App->input->keyboard_buttons.buttons_char.BASIC_ATTACK);
+			control_to_change = new ChangeControls(label_to_show_how_basic_attack, &App->input->keyboard_buttons.buttons_code.BASIC_ATTACK, &App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, false);
+		}
+		if (interact == Cbutton_direction_up) {
+			if (control_to_change != nullptr)
+				delete control_to_change;
+			control_to_change = new ChangeControls(Clabel_to_show_how_direction_up, &App->input->controller_Buttons.buttons_code.DIRECTION_UP, &App->input->controller_Buttons.buttons_char.DIRECTION_UP, true);
+		}
+		if (interact == Cbutton_direction_right) {
+			if (control_to_change != nullptr)
+				delete control_to_change;
+			control_to_change = new ChangeControls(Clabel_to_show_how_direction_right, &App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT, &App->input->controller_Buttons.buttons_char.DIRECCTION_RIGHT, true);
 		}
 		break;
 	}

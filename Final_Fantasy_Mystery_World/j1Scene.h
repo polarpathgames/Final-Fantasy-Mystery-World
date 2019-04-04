@@ -69,6 +69,7 @@ public:
 	//SDL_Rect mock_image_rect = { 0, 0, 61, 76 };
 	GUI* background = nullptr;
 	std::list<GUI_Label*> labels_control;
+	std::list<GUI_Label*> Clabels_control;
 private:
 
 	ChangeControls * control_to_change = nullptr;
@@ -118,11 +119,13 @@ private:
 	
 
 	GUI_Image* controls_panel = nullptr;
-
-	GUI_Label* keyboard = nullptr;
+	
 
 	GUI_Button* button_retun_to_options = nullptr;
 	GUI_Label* label_return_to_options = nullptr;
+
+	// KEYBOARD
+	GUI_Label* keyboard = nullptr;
 
 	GUI_Button* button_basic_attack = nullptr;
 	GUI_Label* label_basic_attack = nullptr;
@@ -163,6 +166,22 @@ private:
 	GUI_Button* button_direction_down = nullptr;
 	GUI_Label* label_direction_down = nullptr;
 	GUI_Label* label_to_show_how_direction_down = nullptr;
+
+	// CONTROLLER
+
+	GUI_Label* controller = nullptr;
+
+	GUI_Button* Cbutton_direction_up = nullptr;
+	GUI_Label* Clabel_to_show_how_direction_up = nullptr;
+
+	GUI_Button* Cbutton_direction_right = nullptr;
+	GUI_Label* Clabel_to_show_how_direction_right = nullptr;
+
+	GUI_Button* Cbutton_direction_left = nullptr;
+	GUI_Label* Clabel_to_show_how_direction_left = nullptr;
+
+	GUI_Button* Cbutton_direction_down = nullptr;
+	GUI_Label* Clabel_to_show_how_direction_down = nullptr;
 
 };
 

@@ -5,7 +5,7 @@
 #include "j1Scene.h"
 #include "j1Input.h"
 
-ChangeControls::ChangeControls(GUI_Label * label, int * code, char ** save_new_char)
+ChangeControls::ChangeControls(GUI_Label * label, int * code, char ** save_new_char, bool controller)
 {
 	this->label = label;
 	code_to_change = code;
@@ -13,6 +13,7 @@ ChangeControls::ChangeControls(GUI_Label * label, int * code, char ** save_new_c
 	text_before = label->GetText();
 	save_char = save_new_char;
 	label->SetText(TEXT_WAITING_INPUT);
+	is_changing_controller = controller;
 
 }
 
@@ -34,6 +35,24 @@ bool ChangeControls::Update()
 }
 
 bool ChangeControls::ChangeControl()
+{
+	bool ret = true;
+
+	if (is_changing_controller)
+		ret = ChangingController();
+	else
+		ret = ChangingKeyboard();
+
+	return ret;
+}
+
+bool ChangeControls::ChangingController()
+{
+
+	return true;
+}
+
+bool ChangeControls::ChangingKeyboard()
 {
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("F")) {
@@ -349,7 +368,7 @@ bool ChangeControls::ChangeControl()
 			*code_to_change = SDL_SCANCODE_CAPSLOCK;
 			return false;
 		}
-	}	
+	}
 	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("RETURN")) {
 			SetSaveText("RETURN");
@@ -357,18 +376,24 @@ bool ChangeControls::ChangeControl()
 			return false;
 		}
 	}
-	
-
 	return true;
 }
 
 bool ChangeControls::LookForOtherControlsBeSame(const char *control)
 {
 	bool ret = true;
+	std::list<GUI_Label*> labels;
+	std::list<GUI_Label*>::iterator item;
+	if (is_changing_controller) {
+		labels = App->scene->Clabels_control;
+		item = labels.begin();
+	}
+	else {
+		labels = App->scene->labels_control;
+		item = labels.begin();
+	}
 
-	std::list<GUI_Label*>::iterator item = App->scene->labels_control.begin();
-
-	for (; item != App->scene->labels_control.end(); ++item) {
+	for (; item != labels.end(); ++item) {
 		if ((*item)->GetText() == control) {
 			label->SetText(TEXT_TWO_CONTROLS_SAME);
 			ret = false;
