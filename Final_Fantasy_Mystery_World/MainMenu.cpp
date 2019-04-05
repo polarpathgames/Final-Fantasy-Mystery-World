@@ -96,20 +96,20 @@ void MainMenu::CreateMainMenu()
 
 	int offsetY = 75;
 
-	new_game_button = App->ui_manager->AddButton(684, 337, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true,true);
-	new_game_label = App->ui_manager->AddLabel(0, 0, "New Game",  new_game_button, BLACK, FontType::FF32, nullptr,false);
+	new_game_button = App->ui_manager->AddButton(684, 337, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);
+	new_game_label = App->ui_manager->AddLabel(0, 0, "New Game",  new_game_button, BLACK, FontType::FF64, nullptr,false);
 	new_game_label->SetPosRespectParent(CENTERED);
 
-	load_game_button = App->ui_manager->AddButton(684, new_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true,true);
-	load_game_label = App->ui_manager->AddLabel(0, 0, "Load Game",  load_game_button, BLACK, FontType::FF32, nullptr,false);
+	load_game_button = App->ui_manager->AddButton(684, new_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true,true);
+	load_game_label = App->ui_manager->AddLabel(0, 0, "Load Game",  load_game_button, BLACK, FontType::FF64, nullptr,false);
 	load_game_label->SetPosRespectParent(CENTERED);
 
-	exit_button = App->ui_manager->AddButton(684, load_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true,true);
-	exit_text = App->ui_manager->AddLabel(0, 0, "Exit", exit_button, BLACK, FontType::FF32, nullptr,false);
+	exit_button = App->ui_manager->AddButton(684, load_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true,true);
+	exit_text = App->ui_manager->AddLabel(0, 0, "Exit", exit_button, BLACK, FontType::FF64, nullptr,false);
 	exit_text->SetPosRespectParent(CENTERED);
 
-	credits_button = App->ui_manager->AddButton(684, exit_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true,true);
-	credits_label = App->ui_manager->AddLabel(0, 0, "Credits",  credits_button, BLACK, FontType::FF32, nullptr,false);
+	credits_button = App->ui_manager->AddButton(684, exit_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true,true);
+	credits_label = App->ui_manager->AddLabel(0, 0, "Credits",  credits_button, BLACK, FontType::FF64, nullptr,false);
 	credits_label->SetPosRespectParent(CENTERED);
 }
 
