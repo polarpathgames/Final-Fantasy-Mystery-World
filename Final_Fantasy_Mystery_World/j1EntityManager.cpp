@@ -128,7 +128,7 @@ bool j1EntityManager::CleanUp()
 		}
 	}
 	entities.clear();
-	
+	App->scene->player = nullptr;
 	for (std::vector<SDL_Texture*>::iterator item_tx = texture.begin(); item_tx != texture.end(); ++item_tx) {
 		App->tex->UnLoad(*item_tx);
 	}
@@ -211,7 +211,7 @@ void j1EntityManager::DeleteEntities()
 		}
 	}
 	entities.clear();
-
+	App->scene->player = nullptr;
 
 }
 

@@ -29,19 +29,10 @@ Player::Player(const int &x, const int &y) : DynamicEntity(x,y)
 	//GoLeft = LoadPushbacks(node, "GoLeft");
 	//IdleLeft = LoadPushbacks(node, "IdleLeft");
 
-	type = Entity::EntityType::PLAYER;
-
-	current_animation = &IdleDownLeft;
-
-	SetPivot(10, 30);
-	has_turn = true;
-	direction = Direction::DOWN_LEFT;
-	state = State::IDLE;
-	movement_type = Movement_Type::InLobby;
-	ground = App->tex->Load("textures/player_pos.png");
 	
-	velocity.x = 160;
-	velocity.y = 80;
+
+	ground = App->tex->Load("textures/player_pos.png");
+
 
 	CenterPlayerInTile();
 
@@ -265,6 +256,18 @@ void Player::CheckLobbyCollision(const float & dt, const Direction & dir)
 
 void Player::CenterPlayerInTile()
 {
+	type = Entity::EntityType::PLAYER;
+
+	current_animation = &IdleDownLeft;
+
+	SetPivot(10, 30);
+	velocity.x = 160;
+	velocity.y = 80;
+	has_turn = true;
+	direction = Direction::DOWN_LEFT;
+	state = State::IDLE;
+	movement_type = Movement_Type::InLobby;
+
 	actual_tile = App->map->WorldToMap(position.x, position.y);
 	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
 	movement_count = { 0,0 };
