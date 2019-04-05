@@ -77,6 +77,11 @@ bool MainMenu::Interact(GUI* interaction)
 		App->LoadGame("save_game.xml");
 	}
 
+	if (interaction == options_button) {
+		App->scene->CreateOptionsMenu();
+		App->ui_manager->DeleteUIElement(background);
+	}
+
 	if (interaction == credits_button) {
 		CreateCredits();
 		App->ui_manager->DeleteUIElement(background);
