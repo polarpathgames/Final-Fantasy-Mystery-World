@@ -15,11 +15,11 @@ void u1CheckBox::InnerDraw()
 {
 	if (drawable) 
 	{
-		app->render->Blit((SDL_Texture*)app->gui->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0.0F, true);
+		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0.0F, true);
 
 		if (box_clicked) 
 		{
-			app->render->Blit((SDL_Texture*)app->gui->GetAtlas(), draw_offset.x, draw_offset.y, &clicked_rect,  false, SDL_FLIP_NONE, 0.0F, true);
+			App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &clicked_rect,  false, SDL_FLIP_NONE, 0.0F, true);
 		}
 	}
 }
@@ -52,7 +52,7 @@ void u1CheckBox::SetRects(const SDL_Rect &std_rect, const SDL_Rect &hl_rect, con
 	hovered_rect = hl_rect;
 	clicked_rect = click_rect;
 
-	app->render->DrawQuad(section, 255, 0, 0, 255, true, false);
+	App->render->DrawQuad(section, 255, 0, 0, 255, true, false);
 
 	if (section.x == 0 && section.y == 0) {
 		section.x = std_rect.w;

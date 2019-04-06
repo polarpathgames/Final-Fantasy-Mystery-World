@@ -881,7 +881,7 @@ typedef SDL_HitTestResult (SDLCALL *SDL_HitTest)(SDL_Window *win,
  *  example, one might have a borderless window that wants to be draggable
  *  from any part, or simulate its own title bar, etc.
  *
- *  This function lets the app provide a callback that designates pieces of
+ *  This function lets the App provide a callback that designates pieces of
  *  a given window as special. This callback is run during event processing
  *  if we need to tell the OS to treat a region of the window specially; the
  *  use of this callback is known as "hit testing."
@@ -906,7 +906,7 @@ typedef SDL_HitTestResult (SDLCALL *SDL_HitTest)(SDL_Window *win,
  *
  *  \param window The window to set hit-testing on.
  *  \param callback The callback to call when doing a hit-test.
- *  \param callback_data An app-defined void pointer passed to the callback.
+ *  \param callback_data An App-defined void pointer passed to the callback.
  *  \return 0 on success, -1 on error (including unsupported).
  */
 extern DECLSPEC int SDLCALL SDL_SetWindowHitTest(SDL_Window * window,

@@ -166,7 +166,7 @@ extern DECLSPEC int SDLCALL SDL_SetRelativeMouseMode(SDL_bool enabled);
  *
  *  \param enabled Whether or not to enable capturing
  *
- *  Capturing enables your app to obtain mouse events globally, instead of
+ *  Capturing enables your App to obtain mouse events globally, instead of
  *  just within your window. Not all video targets support this function.
  *  When capturing is enabled, the current window will get all mouse events,
  *  but unlike relative mode, no change is made to the cursor and it is
@@ -177,7 +177,7 @@ extern DECLSPEC int SDLCALL SDL_SetRelativeMouseMode(SDL_bool enabled);
  *  function sparingly, and in small bursts. For example, you might want to
  *  track the mouse while the user is dragging something, until the user
  *  releases a mouse button. It is not recommended that you capture the mouse
- *  for long periods of time, such as the entire time your app is running.
+ *  for long periods of time, such as the entire time your App is running.
  *
  *  While captured, mouse events still report coordinates relative to the
  *  current (foreground) window, but those coordinates may be outside the

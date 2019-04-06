@@ -24,7 +24,7 @@ e1DynamicEntity::~e1DynamicEntity()
 
 void e1DynamicEntity::ChangeTurn(EntityType type)
 {
-	std::vector<e1Entity*> entities = app->entity_manager->GetEntities();
+	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
 	switch (type) {
 	case EntityType::PLAYER: {
 		
@@ -228,7 +228,7 @@ void e1DynamicEntity::PushBack()
 bool e1DynamicEntity::NextTileFree(const Direction & dir) const
 {
 	bool ret = true;
-	std::vector<e1Entity*> entities = app->entity_manager->GetEntities();
+	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
 	std::vector<e1Entity*>::iterator item = entities.begin();
 
 	for (; item != entities.end(); ++item) {
@@ -332,7 +332,7 @@ void e1DynamicEntity::RestTimeAfterAttack(float time_finish)
 
 void e1DynamicEntity::CheckBasicAttackEfects(const e1Entity::EntityType & type, const Direction & direction, const int & attack_damage)
 {
-	std::vector<e1Entity*> entities = app->entity_manager->GetEntities();
+	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
 	std::vector<e1Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr && (*item)->type == type) {

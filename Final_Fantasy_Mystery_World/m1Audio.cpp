@@ -271,7 +271,7 @@ void m1Audio::VolumeUp(int vol)
 				volume += volume_change_ratio;
 				Mix_VolumeMusic(volume);
 			}
-			app->scene->slider_music_volume->SetValue(volume);
+			App->scene->slider_music_volume->SetValue(volume);
 			break;
 		case -3:
 			if (volume_fx < max_volume) {
@@ -282,7 +282,7 @@ void m1Audio::VolumeUp(int vol)
 					Mix_VolumeChunk((*item), volume_fx);
 				}
 			}
-			app->scene->slider_fx_volume->SetValue(volume_fx);
+			App->scene->slider_fx_volume->SetValue(volume_fx);
 			break;
 		default:
 			volume = vol - volume_change_ratio;
@@ -309,7 +309,7 @@ void m1Audio::VolumeDown(int vol)
 				volume -= volume_change_ratio;
 				Mix_VolumeMusic(volume);
 			}
-			app->scene->slider_music_volume->SetValue(volume);
+			App->scene->slider_music_volume->SetValue(volume);
 			break;
 		case -3:
 			if (volume_fx > 0) {
@@ -320,7 +320,7 @@ void m1Audio::VolumeDown(int vol)
 					Mix_VolumeChunk((*item), volume_fx);
 				}
 			}
-			app->scene->slider_fx_volume->SetValue(volume_fx);
+			App->scene->slider_fx_volume->SetValue(volume_fx);
 			break;
 		default:
 			volume = vol + volume_change_ratio;

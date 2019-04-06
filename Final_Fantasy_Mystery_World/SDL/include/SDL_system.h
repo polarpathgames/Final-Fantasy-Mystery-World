@@ -150,20 +150,20 @@ extern DECLSPEC const char * SDLCALL SDL_AndroidGetExternalStoragePath();
  */
 typedef enum
 {
-    /** \brief The installed app's root directory.
+    /** \brief The installed App's root directory.
         Files here are likely to be read-only. */
     SDL_WINRT_PATH_INSTALLED_LOCATION,
 
-    /** \brief The app's local data store.  Files may be written here */
+    /** \brief The App's local data store.  Files may be written here */
     SDL_WINRT_PATH_LOCAL_FOLDER,
 
-    /** \brief The app's roaming data store.  Unsupported on Windows Phone.
+    /** \brief The App's roaming data store.  Unsupported on Windows Phone.
         Files written here may be copied to other machines via a network
         connection.
     */
     SDL_WINRT_PATH_ROAMING_FOLDER,
 
-    /** \brief The app's temporary data store.  Unsupported on Windows Phone.
+    /** \brief The App's temporary data store.  Unsupported on Windows Phone.
         Files written here may be deleted at any time. */
     SDL_WINRT_PATH_TEMP_FOLDER
 } SDL_WinRT_Path;
@@ -172,7 +172,7 @@ typedef enum
 /**
  *  \brief Retrieves a WinRT defined path on the local file system
  *
- *  \note Documentation on most app-specific path types on WinRT
+ *  \note Documentation on most App-specific path types on WinRT
  *      can be found on MSDN, at the URL:
  *      http://msdn.microsoft.com/en-us/library/windows/apps/hh464917.aspx
  *
@@ -189,7 +189,7 @@ extern DECLSPEC const wchar_t * SDLCALL SDL_WinRTGetFSPathUNICODE(SDL_WinRT_Path
 /**
  *  \brief Retrieves a WinRT defined path on the local file system
  *
- *  \note Documentation on most app-specific path types on WinRT
+ *  \note Documentation on most App-specific path types on WinRT
  *      can be found on MSDN, at the URL:
  *      http://msdn.microsoft.com/en-us/library/windows/apps/hh464917.aspx
  *

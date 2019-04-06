@@ -21,9 +21,9 @@ m1FadeToBlack::~m1FadeToBlack()
 // Load assets
 bool m1FadeToBlack::Start()
 {
-	SDL_SetRenderDrawBlendMode(app->render->renderer, SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
 
-	screen = { 0,0,(int)app->win->width,  (int)app->win->height };
+	screen = { 0,0,(int)App->win->width,  (int)App->win->height };
 
 	return true;
 }
@@ -48,7 +48,7 @@ bool m1FadeToBlack::Update(float dt)
 			if (to_enable != nullptr)
 				to_enable->Enable();
 			if (want_to_change_map)
-				app->map->ChangeMap(map_to_change);
+				App->map->ChangeMap(map_to_change);
 			total_time += total_time;
 			start_time = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;
@@ -65,8 +65,8 @@ bool m1FadeToBlack::Update(float dt)
 	}
 
 	// Finally render the black square with alpha on the screen
-	SDL_SetRenderDrawColor(app->render->renderer, 0, 0, 0, (Uint8)(normalized * 255.0f));
-	SDL_RenderFillRect(app->render->renderer, &screen);
+	SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, (Uint8)(normalized * 255.0f));
+	SDL_RenderFillRect(App->render->renderer, &screen);
 
 	return true;
 }
