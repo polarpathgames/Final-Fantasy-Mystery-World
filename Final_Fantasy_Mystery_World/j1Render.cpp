@@ -5,6 +5,7 @@
 #include "j1Render.h"
 #include "j1Map.h"
 #include "Brofiler/Brofiler.h"
+#include "j1Input.h"
 
 
 
@@ -71,6 +72,31 @@ bool j1Render::PreUpdate()
 	BROFILER_CATEGORY("PreUpdateRender", Profiler::Color::Orange);
 
 	SDL_RenderClear(renderer);
+
+	//ZOOM
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	{
+		debug_border = true;
+
+		if (zoom < max_zoom)
+		{
+			zoom++;
+			SDL_RenderSetLogicalSize(renderer, camera.w * zoom, camera.h * zoom);
+		}
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	{
+		if (zoom > 1)
+		{
+			zoom--;
+			SDL_RenderSetLogicalSize(renderer, camera.w  * zoom, camera.h * zoom);
+		}
+		if (zoom <= 1)
+		{
+			debug_border = false;
+		}
+	}
+
 	return true;
 }
 
@@ -297,6 +323,17 @@ void j1Render::ResetCamera()
 
 void j1Render::LobbyCamera(iPoint playerpos)
 {
-	camera.x = (-playerpos.x * 3) + (App->win->width * 0.5);
-	camera.y = (-playerpos.y * 3) + (App->win->height * 0.5);
+	playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
+	smoth_position.x -= (playerpos.x + camera.x) / smooth_speed;
+	camera.x = smoth_position.x;
+	
+
+	playerpos.y = (playerpos.y * App->win->GetScale() - camera.h / 2);
+	smoth_position.y -= (playerpos.y + camera.y) / smooth_speed;
+	camera.y = smoth_position.y;
+
+	LOG("%i", smooth_speed);
+
+	//camera.x = (-playerpos.x * 3) + (App->win->width * 0.5);
+	//camera.y = (-playerpos.y * 3) + (App->win->height * 0.5);
 }

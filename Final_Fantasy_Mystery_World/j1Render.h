@@ -58,8 +58,14 @@ public:
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
-
+	iPoint         smoth_position = { 0,0 };
+	int	       smooth_speed = 7;
 	SDL_Surface* surface = NULL;
+
+	//DEBUG ZOOM
+	int		       zoom = 1;
+	int		       max_zoom = 4;
+	bool	       debug_border = false;
 };
 
 #endif // __j1RENDER_H__
