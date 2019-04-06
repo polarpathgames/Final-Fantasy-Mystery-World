@@ -92,4 +92,15 @@
     <None Include="Game\maps\iso_walk2.tmx" />
     <None Include="Game\maps\Tutorial_Movement.tmx" />
   </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Modules">
+      <UniqueIdentifier>{cdbae3c2-1707-4add-a459-b2679419f751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{411798fc-1f95-4968-94ab-5f587ffe7077}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{b2bedcf8-c7df-496e-8fd9-21196aefaea1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
 </Project>
