@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="44" nextobjectid="9">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="45" nextobjectid="11">
  <tileset firstgid="1" name="tutorial_tileset" tilewidth="32" tileheight="16" tilecount="810" columns="45">
   <image source="tutorial_tileset.png" width="1440" height="290"/>
   <terraintypes>
@@ -20,8 +20,8 @@
   <tile id="362" terrain=",,2,"/>
   <tile id="363" terrain="2,,,"/>
  </tileset>
- <tileset firstgid="811" name="WarriorSpritesheet" tilewidth="16" tileheight="32" spacing="2" margin="2" tilecount="24" columns="12">
-  <image source="../assets/sprites/WarriorSpritesheet.png" width="218" height="68"/>
+ <tileset firstgid="811" name="WarriorSpritesheet" tilewidth="16" tileheight="32" spacing="2" margin="2" tilecount="60" columns="12">
+  <image source="../assets/sprites/WarriorSpritesheet.png" width="218" height="172"/>
   <tile id="0">
    <animation>
     <frame tileid="0" duration="200"/>
@@ -51,7 +51,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="835" name="blue_light" tilewidth="463" tileheight="485" tilecount="1" columns="1">
+ <tileset firstgid="871" name="blue_light" tilewidth="463" tileheight="485" tilecount="1" columns="1">
   <image source="blue_light.png" width="463" height="485"/>
  </tileset>
  <layer id="29" name="Floor" width="40" height="40">
@@ -11106,7 +11106,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="835"/>
+   <tile gid="871"/>
    <tile/>
    <tile/>
    <tile/>
@@ -12890,9 +12890,21 @@
   <object id="8" name="paper_falling" type="static_anim" x="255.542" y="161.542" width="192.458" height="174.458"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="39" name="entities">
-  <object id="5" name="player" type="dynamic" x="431.016" y="430.992" width="15.9688" height="16.0156">
+  <object id="5" name="player" type="dynamic" x="432" y="432" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="9" name="player" type="lastA" x="432" y="240" width="15.9688" height="16.0156">
+   <properties>
+    <property name="free_movement" type="bool" value="false"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="44" name="colliders">
+  <object id="10" name="room_collider" type="nextA" x="432" y="224" width="16.1904" height="7.90909">
+   <properties>
+    <property name="next_id" type="int" value="2"/>
    </properties>
   </object>
  </objectgroup>

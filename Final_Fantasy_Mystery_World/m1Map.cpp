@@ -36,7 +36,7 @@ bool m1Map::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Map Parser");
 	bool ret = true;
-
+	node = config;
 	folder.assign(config.child("folder").child_value());
 
 	tutorial_map = config.child("maps").child("tutorial_map").text().as_string();
@@ -611,13 +611,24 @@ bool m1Map::ChangeMap(Maps type)
 	last_map = actual_map;
 	App->entity_manager->DeleteEntitiesNoPlayer();
 	CleanUp();
-	switch(type) {
+	if (quest_rooms != nullptr) {
+		std::vector<Room*>::iterator item = quest_rooms->rooms.begin();
+		for (; item != quest_rooms->rooms.end(); ++item) {
+			if ((*item) != nullptr) {
+				delete (*item);
+				(*item) = nullptr;
+			}
+		}
+		delete quest_rooms;
+		quest_rooms = nullptr;
+	}
+	switch (type) {
 	case Maps::LOBBY:
 		Load(lobby_map.data());
 		actual_map = Maps::LOBBY;
 		break;
 	case Maps::TUTORIAL:
-		Load(tutorial_map.data());
+		quest_rooms = new RoomManager(node);
 		actual_map = Maps::TUTORIAL;
 		break;
 	case Maps::SHOP:
@@ -657,4 +668,11 @@ bool m1Map::IsWalkable(iPoint pos, bool need_convert)
 	}
 
 	return ret;
+}
+
+void m1Map::OnCollision(Collider * c1, Collider * c2)
+{
+	if (quest_rooms != nullptr) {
+		quest_rooms->OnCollision(c1, c2);
+	}
 }

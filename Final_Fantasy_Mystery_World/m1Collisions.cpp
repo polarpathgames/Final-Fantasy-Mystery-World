@@ -17,6 +17,18 @@ m1Collision::m1Collision()
 	matrix[COLLIDER_HOME][COLLIDER_PLAYER] = true;
 
 
+	matrix[COLLIDER_PLAYER][COLLIDER_NEXT_A] = true;
+	matrix[COLLIDER_NEXT_A][COLLIDER_PLAYER] = true;
+
+	matrix[COLLIDER_PLAYER][COLLIDER_NEXT_B] = true;
+	matrix[COLLIDER_NEXT_B][COLLIDER_PLAYER] = true;
+
+	matrix[COLLIDER_PLAYER][COLLIDER_LAST_A] = true;
+	matrix[COLLIDER_LAST_A][COLLIDER_PLAYER] = true;
+
+	matrix[COLLIDER_PLAYER][COLLIDER_LAST_B] = true;
+	matrix[COLLIDER_LAST_B][COLLIDER_PLAYER] = true;
+
 }
 
 // Destructor
@@ -107,6 +119,18 @@ void m1Collision::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
 		case COLLIDER_HOME: // white
+			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			break;
+		case COLLIDER_NEXT_A: // white
+			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			break;
+		case COLLIDER_LAST_A: // white
+			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			break;
+		case COLLIDER_NEXT_B: // white
+			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			break;
+		case COLLIDER_LAST_B: // white
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
 		}
