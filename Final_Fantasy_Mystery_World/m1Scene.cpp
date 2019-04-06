@@ -22,7 +22,6 @@
 #include "u1Image.h"
 #include "u1Slider.h"
 #include "u1CheckBox.h"
-#include "e1Sensor.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Input.h"
 
@@ -237,11 +236,6 @@ void m1Scene::CreateEntities()
 		}
 		else if ((*position)->ent_type == "enemy") {
 			app->entity_manager->CreateEntity(e1Entity::EntityType::ENEMY, app->map->TiledToWorld((*position)->coll_x , (*position)->coll_y).x, app->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
-		}
-		else if ((*position)->name == "sensor") {
-			if ((*position)->ent_type == "ToLobby") {
-				app->entity_manager->CreateEntity(e1Entity::EntityType::SENSOR, app->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, app->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name, e1Sensor::SensorType::TO_LOBBY);
-			}
 		}
 		else if ((*position)->name == "collider") { // COLLIDERS
 			if ((*position)->properties.FindNameValue("shop")) {

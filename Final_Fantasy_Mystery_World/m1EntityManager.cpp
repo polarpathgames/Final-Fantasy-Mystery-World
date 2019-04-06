@@ -5,7 +5,7 @@
 #include "e1Entity.h"
 #include "m1Audio.h"
 #include "m1Window.h"
-#include "e1Sensor.h"
+#include "e1StaticEntity.h"
 #include "p2Log.h"
 #include "m1Map.h"
 #include "m1Scene.h"
@@ -124,11 +124,11 @@ bool m1EntityManager::CleanUp()
 			(*item)->CleanUp();
 			delete(*item);
 			(*item) = nullptr;
-			//entities.erase(item);
 		}
 	}
 	entities.clear();
 	app->scene->player = nullptr;
+
 	for (std::vector<SDL_Texture*>::iterator item_tx = texture.begin(); item_tx != texture.end(); ++item_tx) {
 		app->tex->UnLoad(*item_tx);
 	}
@@ -150,14 +150,13 @@ void m1EntityManager::OnCollision(Collider * c1, Collider * c2)
 
 
 //e1Entity Factory
-e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name, e1Sensor::SensorType sensor_type)
+e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
-	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)4, "code needs update");
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)3, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
 	case e1Entity::EntityType::PLAYER: ret = new e1Player(PositionX, PositionY); break;
 	case e1Entity::EntityType::ENEMY: ret = new e1Enemy(PositionX, PositionY); break;
-	case e1Entity::EntityType::SENSOR: ret = new e1Sensor(PositionX, PositionY, sensor_type); break;
 	case e1Entity::EntityType::STATIC: ret = new e1StaticEntity(PositionX, PositionY, name.data()); break;
 	//case e1Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
 	default:
@@ -172,32 +171,6 @@ e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX
 	return ret;
 }
 
-//e1Player * EntityManager::CreatePlayer()
-//{
-//	e1Player* ret = nullptr;
-//
-//	ret = new e1Player();
-//	ret->type = e1Entity::EntityType::PLAYER;
-//	ret->has_turn = true;
-//	if (ret != nullptr)
-//		entities.push_back(ret);
-//
-//	return ret;
-//}
-//
-//e1Enemy * EntityManager::CreateEnemy()
-//{
-//	e1Enemy* ret = nullptr;
-//
-//	ret = new e1Enemy();
-//	ret->type = e1Entity::EntityType::ENEMY;
-//	ret->has_turn = false;
-//	if (ret != nullptr)
-//		entities.push_back(ret);
-//
-//	return ret;
-//}
-
 void m1EntityManager::DeleteEntities()
 {
 
@@ -205,9 +178,8 @@ void m1EntityManager::DeleteEntities()
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr) {
 			(*item)->CleanUp();
-			delete(*item);
-			(*item) = nullptr;
-			//entities.erase(item);
+			delete *item;
+			*item = nullptr;
 		}
 	}
 	entities.clear();
@@ -222,14 +194,13 @@ void m1EntityManager::DeleteEntitiesNoPlayer()
 	while (item != entities.end()) {
 		if ((*item) != nullptr && (*item)->type != e1Entity::EntityType::PLAYER) {
 			(*item)->CleanUp();
-			delete(*item);
-			(*item) = nullptr;
+			delete *item;
+			*item = nullptr;
 			item = entities.erase(item);
 		}
-		else 
+		else
 			++item;
 	}
-
 
 }
 
@@ -242,10 +213,10 @@ void m1EntityManager::DeleteEntity(e1Entity* entity_to_delete)
 			(*item)->CleanUp();
 			delete(*item);
 			(*item) = nullptr;
-			//entities.erase(item);
+			entities.erase(item);
+			break;
 		}
 	}
-
 
 }
 

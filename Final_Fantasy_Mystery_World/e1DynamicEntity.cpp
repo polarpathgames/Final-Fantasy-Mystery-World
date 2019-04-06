@@ -232,7 +232,7 @@ bool e1DynamicEntity::NextTileFree(const Direction & dir) const
 	std::vector<e1Entity*>::iterator item = entities.begin();
 
 	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr && (*item)->type != e1Entity::EntityType::SENSOR) {
+		if ((*item) != nullptr) {
 			iPoint origin = actual_tile;
 			iPoint destination = (*item)->actual_tile;
 

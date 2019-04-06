@@ -4,15 +4,7 @@
 #include "m1Module.h"
 #include "p2Animation.h"
 #include "e1Entity.h"
-#include "e1Sensor.h"
 #include <vector>
-
-class e1Player;
-class e1Enemy;
-
-
-
-class e1Entity;
 
 class m1EntityManager : public m1Module
 {
@@ -31,8 +23,6 @@ public:
 
 	bool PostUpdate();
 
-
-
 	bool Load(pugi::xml_node&);
 
 	bool Save(pugi::xml_node&) const;
@@ -41,9 +31,7 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 
-	e1Entity* CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name, e1Sensor::SensorType sensor_type = e1Sensor::SensorType::NONE);
-	//e1Player* CreatePlayer();
-	//e1Enemy* CreateEnemy();
+	e1Entity* CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name);
 
 	void DeleteEntities();
 	void DeleteEntitiesNoPlayer();
