@@ -681,3 +681,8 @@ bool m1Scene::Interact(u1GUI* interact)
 
 	return ret;
 }
+
+StatesMenu m1Scene::GetMenuState()
+{
+	return menu_state;
+}

@@ -67,7 +67,7 @@ public:
 
 	void CreateControlsMenu();
 	void DestroyControlsMenu();
-
+	StatesMenu GetMenuState();
 public:
 
 	//u1GUI* mock_image_ui = nullptr;
