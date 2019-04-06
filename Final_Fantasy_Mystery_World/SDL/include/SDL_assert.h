@@ -191,7 +191,7 @@ typedef SDL_AssertState (SDLCALL *SDL_AssertionHandler)(
  *
  *  This allows an app to show its own assertion UI and/or force the
  *  response to an assertion failure. If the app doesn't provide this, SDL
- *  will try to do the right thing, popping up a system-specific GUI dialog,
+ *  will try to do the right thing, popping up a system-specific u1GUI dialog,
  *  and probably minimizing any fullscreen windows.
  *
  *  This callback may fire from any thread, but it runs wrapped in a mutex, so
