@@ -75,7 +75,8 @@ bool e1Player::Update(float dt)
 	App->render->DrawLine(pos.x + 16, pos.y + 24, pos2.x + 16, pos2.y + 8, 255, 0, 255);
 	*/
 	//App->render->DrawCircle(position.x, position.y, 3, 0, 0, 255);
-	coll->SetPos(position.x, position.y + 25);
+	if (coll != nullptr)
+		coll->SetPos(position.x, position.y + 25);
 
 	return true;
 }
@@ -266,7 +267,7 @@ void e1Player::CenterPlayerInTile()
 	has_turn = true;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
-	movement_type = Movement_Type::InQuest;
+	movement_type = Movement_Type::InLobby;
 
 	actual_tile = App->map->WorldToMap(position.x, position.y);
 	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (m1Module*)App->entity_manager);
