@@ -8,7 +8,7 @@
 #include "m1Scene.h"
 #include "u1Slider.h"
 #include "SDL/include/SDL.h"
-#include "SDL_mixer\include\SDL_mixer.h"
+#include "SDL_mixer/include/SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
 
 m1Audio::m1Audio() : m1Module()
@@ -28,13 +28,13 @@ bool m1Audio::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	//load config var
+	// THIS IN CONFIG.XML
 	volume = 100;
 	volume_fx = 100;
 	max_volume = 100;
 	default_music_fade_time = 2.0;
 	volume_change_ratio = 10;
 	mute = false;
-
 
 	if (mute)
 	{

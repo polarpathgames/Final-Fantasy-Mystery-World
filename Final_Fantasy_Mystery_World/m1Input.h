@@ -6,9 +6,8 @@
 #include "SDL\include\SDL.h"
 #include "SDL\include\SDL_gamecontroller.h"
 //#define NUM_KEYS 352
+#define NUM_CONTROLLER_BUTTONS SDL_CONTROLLER_BUTTON_MAX //16
 #define NUM_MOUSE_BUTTONS 5
-#define NUM_CONTROLLER_BUTTONS 16
-#define MAX_BUTTONS 10
 #define DEAD_ZONE 10000
 //#define LAST_KEYS_PRESSED_BUFFER 50
 

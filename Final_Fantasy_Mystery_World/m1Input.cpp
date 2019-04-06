@@ -58,7 +58,7 @@ bool m1Input::Start()
 {
 	SDL_StopTextInput();
 
-DefaultControls();
+	DefaultControls();
 
 
 	mouse_motion_x = 0;
@@ -149,7 +149,7 @@ bool m1Input::PreUpdate()
 			mouse_buttons[i] = KEY_IDLE;
 	}
 
-	for (int i = 0; i < NUM_CONTROLLER_BUTTONS; ++i)
+	for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
 	{
 		if (controller_buttons[i] == KEY_DOWN)
 			controller_buttons[i] = KEY_REPEAT;
