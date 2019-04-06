@@ -101,7 +101,6 @@
     <ClCompile Include="m1Audio.cpp" />
     <ClCompile Include="m1Input.cpp" />
     <ClCompile Include="m1Map.cpp" />
-    <ClCompile Include="m1Module.cpp" />
     <ClCompile Include="m1Pathfinding.cpp" />
     <ClCompile Include="p2PerfTimer.cpp" />
     <ClCompile Include="m1Scene.cpp" />

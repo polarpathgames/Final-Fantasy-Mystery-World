@@ -3,12 +3,12 @@
 
 #include "p2Animation.h"
 #include "p2Point.h"
-#include "DynamicEntity.h"
-#include "j1PerfTimer.h"
+#include "e1DynamicEntity.h"
+#include "p2PerfTimer.h"
 #include <vector>
 
 
-class Enemy : public DynamicEntity
+class e1Enemy : public e1DynamicEntity
 {
 public:
 
@@ -20,9 +20,9 @@ public:
 
 public:
 
-	Enemy(const int &x, const int &y);
+	e1Enemy(const int &x, const int &y);
 
-	virtual ~Enemy();
+	virtual ~e1Enemy();
 
 	bool Update(float dt);
 

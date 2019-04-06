@@ -1,9 +1,9 @@
-#ifndef __j1Collisions_H__
-#define __j1Collisions_H__
+#ifndef __m1Collisions_H__
+#define __m1Collisions_H__
 
 #define MAX_COLLIDERS 500
 
-#include "j1Module.h"
+#include "m1Module.h"
 #include "SDL/include/SDL_rect.h"
 #include "p2Line.h"
 
@@ -26,17 +26,17 @@ struct Collider
 	bool to_delete = false;
 	bool CanBeDeleted = false;
 	COLLIDER_TYPE type;
-	j1Module* callback = nullptr;
+	m1Module* callback = nullptr;
 	mutable iPoint collided_point{ 0,0 };
 	bool enable = true;
 
-	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, j1Module* callback = nullptr) :
+	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, m1Module* callback = nullptr) :
 		rect(rectangle),
 		type(type),
 		callback(callback)
 	{}
 
-	Collider(iLine line, COLLIDER_TYPE type, j1Module* callback = nullptr) :
+	Collider(iLine line, COLLIDER_TYPE type, m1Module* callback = nullptr) :
 		line(line),
 		type(type),
 		callback(callback)
@@ -62,18 +62,17 @@ struct Collider
 	
 };
 
-class j1Collision :
-	public j1Module
+class m1Collision :	public m1Module
 {
 public:
-	j1Collision();
-	~j1Collision();
+	m1Collision();
+	~m1Collision();
 
 	bool PreUpdate();
 	bool Update(float dt);
 	bool CleanUp();
 
-	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
+	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, m1Module* callback = nullptr);
 
 
 	void DebugDraw();

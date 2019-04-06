@@ -1,19 +1,19 @@
-#ifndef __j1RENDER_H__
-#define __j1RENDER_H__
+#ifndef __m1RENDER_H__
+#define __m1RENDER_H__
 
 #include "SDL/include/SDL.h"
 #include "p2Point.h"
-#include "j1Module.h"
+#include "m1Module.h"
 
 
-class j1Render : public j1Module
+class m1Render : public m1Module
 {
 public:
 
-	j1Render();
+	m1Render();
 
 	// Destructor
-	virtual ~j1Render();
+	virtual ~m1Render();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
@@ -58,14 +58,14 @@ public:
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
-	iPoint         smoth_position = { 0,0 };
-	int	       smooth_speed = 7;
-	SDL_Surface* surface = NULL;
+	iPoint			smoth_position = { 0,0 };
+	int				smooth_speed = 7;
+	SDL_Surface*	surface = NULL;
 
 	//DEBUG ZOOM
-	int		       zoom = 1;
-	int		       max_zoom = 4;
-	bool	       debug_border = false;
+	int				zoom = 1;
+	int				max_zoom = 4;
+	bool			debug_border = false;
 };
 
 #endif // __j1RENDER_H__

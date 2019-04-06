@@ -5,8 +5,8 @@
 #include <string>
 #include "p2Animation.h"
 #include "PugiXml\src\pugixml.hpp"
-#include "j1PerfTimer.h"
-#include "Entity.h"
+#include "p2PerfTimer.h"
+#include "e1Entity.h"
 
 enum class Attacks {
 	BASIC, NONE
@@ -16,12 +16,12 @@ enum class Direction {
 	UP, DOWN, RIGHT, LEFT, UP_LEFT, DOWN_LEFT, UP_RIGHT, DOWN_RIGHT, NONE
 };
 
-class DynamicEntity  : public Entity
+class e1DynamicEntity  : public e1Entity
 {
 public:
 
-	DynamicEntity(const int &x, const int &y);
-	virtual ~DynamicEntity();
+	e1DynamicEntity(const int &x, const int &y);
+	virtual ~e1DynamicEntity();
 	
 	virtual bool PreUpdate() { return true; };
 	virtual bool Update(float dt) { return true; };
@@ -39,7 +39,7 @@ public:
 
 	void RestTimeAfterAttack(float time_finish);
 
-	void CheckBasicAttackEfects(const Entity::EntityType &type, const Direction & direction, const int &attack_damage);
+	void CheckBasicAttackEfects(const e1Entity::EntityType &type, const Direction & direction, const int &attack_damage);
 
 	void ChangeAnimation(Direction &dir, State &states, Attacks attacks = Attacks::NONE);
 
@@ -47,8 +47,6 @@ public:
 
 public:
 
-
-	
 	Direction direction = Direction::NONE;
 	State state = State::NONE;
 

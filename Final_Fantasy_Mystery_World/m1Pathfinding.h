@@ -1,7 +1,7 @@
-#ifndef __j1PATHFINDING_H__
-#define __j1PATHFINDING_H__
+#ifndef __m1PATHFINDING_H__
+#define __m1PATHFINDING_H__
 
-#include "j1Module.h"
+#include "m1Module.h"
 #include "p2Point.h"
 #include <list>
 #include <vector>
@@ -15,14 +15,14 @@
 // Details: http://theory.stanford.edu/~amitp/GameProgramming/
 // --------------------------------------------------
 
-class j1PathFinding : public j1Module
+class m1PathFinding : public m1Module
 {
 public:
 
-	j1PathFinding();
+	m1PathFinding();
 
 	// Destructor
-	~j1PathFinding();
+	~m1PathFinding();
 
 	// Called before quitting
 	bool CleanUp();

@@ -1,34 +1,34 @@
-#include "j1App.h"
-#include "DynamicEntity.h"
-#include "j1EntityManager.h"
-#include "j1Render.h"
-#include "j1Scene.h"
-#include "Enemy.h"
-#include "Player.h"
-#include "j1Map.h"
+#include "App.h"
+#include "e1DynamicEntity.h"
+#include "m1EntityManager.h"
+#include "m1Render.h"
+#include "m1Scene.h"
+#include "e1Enemy.h"
+#include "e1Player.h"
+#include "m1Map.h"
 #include "p2Log.h"
-#include "j1EntityManager.h"
+#include "m1EntityManager.h"
 #include <list>
 
-DynamicEntity::DynamicEntity(const int &x, const int &y) : Entity(x,y)
+e1DynamicEntity::e1DynamicEntity(const int &x, const int &y) : e1Entity(x,y)
 {
 
 }
 
-DynamicEntity::~DynamicEntity()
+e1DynamicEntity::~e1DynamicEntity()
 {
 
 }
 
 
 
-void DynamicEntity::ChangeTurn(EntityType type)
+void e1DynamicEntity::ChangeTurn(EntityType type)
 {
-	std::vector<Entity*> entities = App->entity_manager->GetEntities();
+	std::vector<e1Entity*> entities = app->entity_manager->GetEntities();
 	switch (type) {
 	case EntityType::PLAYER: {
 		
-		std::vector<Entity*>::iterator item = entities.begin();
+		std::vector<e1Entity*>::iterator item = entities.begin();
 		for (; item != entities.end(); ++item) {
 			if ((*item) != nullptr && (*item)->type == EntityType::ENEMY) {
 				(*item)->has_turn = true;
@@ -39,11 +39,11 @@ void DynamicEntity::ChangeTurn(EntityType type)
 		break; }
 	case EntityType::ENEMY: {
 		has_turn = false;
-		std::vector<Entity*>::reverse_iterator item = entities.rbegin();
+		std::vector<e1Entity*>::reverse_iterator item = entities.rbegin();
 		
 		bool player_turn = false;
 		while (item != entities.rend()) {
-			if ((*item) != nullptr && (*item)->type == Entity::EntityType::ENEMY) {
+			if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY) {
 				if ((*item) != this) {
 					break;
 				}
@@ -69,7 +69,7 @@ void DynamicEntity::ChangeTurn(EntityType type)
 	}
 
 }
-void DynamicEntity::PushBack()
+void e1DynamicEntity::PushBack()
 {
 	for (uint i = 0; i < data.num_animations; ++i) {
 		for (uint j = 0; j < data.animations[i].num_frames; ++j) {
@@ -225,14 +225,14 @@ void DynamicEntity::PushBack()
 	}
 }
 
-bool DynamicEntity::NextTileFree(const Direction & dir) const
+bool e1DynamicEntity::NextTileFree(const Direction & dir) const
 {
 	bool ret = true;
-	std::vector<Entity*> entities = App->entity_manager->GetEntities();
-	std::vector<Entity*>::iterator item = entities.begin();
+	std::vector<e1Entity*> entities = app->entity_manager->GetEntities();
+	std::vector<e1Entity*>::iterator item = entities.begin();
 
 	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr && (*item)->type != Entity::EntityType::SENSOR) {
+		if ((*item) != nullptr && (*item)->type != e1Entity::EntityType::SENSOR) {
 			iPoint origin = actual_tile;
 			iPoint destination = (*item)->actual_tile;
 
@@ -284,7 +284,7 @@ bool DynamicEntity::NextTileFree(const Direction & dir) const
 	return ret;
 }
 
-void DynamicEntity::RestTimeAfterAttack(float time_finish)
+void e1DynamicEntity::RestTimeAfterAttack(float time_finish)
 {
 	if (time_attack <= SDL_GetTicks() - time_after_attack) {
 		ChangeTurn(type);
@@ -330,10 +330,10 @@ void DynamicEntity::RestTimeAfterAttack(float time_finish)
 	}
 }
 
-void DynamicEntity::CheckBasicAttackEfects(const Entity::EntityType & type, const Direction & direction, const int & attack_damage)
+void e1DynamicEntity::CheckBasicAttackEfects(const e1Entity::EntityType & type, const Direction & direction, const int & attack_damage)
 {
-	std::vector<Entity*> entities = App->entity_manager->GetEntities();
-	std::vector<Entity*>::iterator item = entities.begin();
+	std::vector<e1Entity*> entities = app->entity_manager->GetEntities();
+	std::vector<e1Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr && (*item)->type == type) {
 			iPoint origin = actual_tile;
@@ -393,12 +393,12 @@ void DynamicEntity::CheckBasicAttackEfects(const Entity::EntityType & type, cons
 				break;
 			}
 			if (has_succeeded) {
-				if (type == Entity::EntityType::ENEMY) {
-					Enemy* enemy_attacked = (Enemy*)(*item);
+				if (type == e1Entity::EntityType::ENEMY) {
+					e1Enemy* enemy_attacked = (e1Enemy*)(*item);
 					enemy_attacked->GetHitted(attack_damage);
 				}
-				else if (type == Entity::EntityType::PLAYER) {
-					Player* player_attacked = (Player*)(*item);
+				else if (type == e1Entity::EntityType::PLAYER) {
+					e1Player* player_attacked = (e1Player*)(*item);
 					player_attacked->GetHitted(attack_damage);
 				}
 			}
@@ -406,7 +406,7 @@ void DynamicEntity::CheckBasicAttackEfects(const Entity::EntityType & type, cons
 	}
 }
 
-void DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks attacks)
+void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks attacks)
 {
 	switch (states) {
 	case State::AFTER_ATTACK: {
@@ -568,7 +568,7 @@ void DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks attac
 
 }
 
-void DynamicEntity::ResetAnims()
+void e1DynamicEntity::ResetAnims()
 {
 	BasicAttackDownLeft.Reset();
 	BasicAttackDown.Reset();

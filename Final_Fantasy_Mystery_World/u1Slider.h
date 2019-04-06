@@ -1,32 +1,32 @@
-#ifndef __GUI_SLIDER_H__
-#define __GUI_SLIDER_H__
+#ifndef __u1Slider_H__
+#define __u1Slider_H__
 
-#include "GUI.h"
-#include "GUI_Button.h"
+#include "u1UI_Element.h"
+#include "u1Button.h"
 
-class GUI_Button;
+class u1Button;
 
-class GUI_Slider : public GUI
+class u1Slider : public u1GUI
 {
 public:
 	SDL_Rect slider_rect = { 0,0,0,0 };
 
 private:
 	uint value = 0u;
-	GUI_Button* slider_btn = nullptr;
+	u1Button* slider_btn = nullptr;
 	bool horizontal = true;
 
 public:
-	GUI_Slider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, bool horizontal, GUI* parent);
-	~GUI_Slider();
+	u1Slider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, bool horizontal, u1GUI* parent);
+	~u1Slider();
 
-	void SetButton(GUI_Button* slider_btn);
+	void SetButton(u1Button* slider_btn);
 	void SetValue(int value);
 
 	uint GetValue() const;
-	GUI_Button* GetButton() const;
+	u1Button* GetButton() const;
 
 	bool Update(float dt);
 	bool PostUpdate();
 };
-#endif //__!GUI_SLIDER_H__ 
+#endif //__!u1Slider_H__ 

@@ -1,29 +1,29 @@
 #include "p2Defs.h"
 #include "p2Log.h"
-#include "j1App.h"
-#include "j1Input.h"
-#include "j1Textures.h"
-#include "j1Render.h"
-#include "j1Window.h"
-#include "j1Map.h"
-#include "EasingSplines.h"
+#include "App.h"
+#include "m1Input.h"
+#include "m1Textures.h"
+#include "m1Render.h"
+#include "m1Window.h"
+#include "m1Map.h"
+#include "m1EasingSplines.h"
 #include <string>
 #include "p2Log.h"
 
-EasingSplines::EasingSplines() : j1Module()
+m1EasingSplines::m1EasingSplines() : m1Module()
 {
 	name.assign("easingsplines");
 	
 }
 
 // Destructor
-EasingSplines::~EasingSplines()
+m1EasingSplines::~m1EasingSplines()
 {
 
 }
 
 // Called each loop iteration
-bool EasingSplines::Update(float dt)
+bool m1EasingSplines::Update(float dt)
 {
 	std::list<EaseSplineInfo*>::iterator item = easing_splines.begin();
 
@@ -41,7 +41,7 @@ bool EasingSplines::Update(float dt)
 }
 
 // Called before quitting
-bool EasingSplines::CleanUp()
+bool m1EasingSplines::CleanUp()
 {
 	LOG("Freeing scene");
 
@@ -60,7 +60,7 @@ bool EasingSplines::CleanUp()
 	return true;
 }
 
-void EasingSplines::CreateSpline(int * position, const int target_position, const float time_to_travel, TypeSpline type)
+void m1EasingSplines::CreateSpline(int * position, const int target_position, const float time_to_travel, TypeSpline type)
 {
 	EaseSplineInfo* info = new EaseSplineInfo(position, target_position, time_to_travel, type);
 

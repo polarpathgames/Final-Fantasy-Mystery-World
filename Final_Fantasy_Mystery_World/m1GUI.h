@@ -1,7 +1,7 @@
-#ifndef __j1UIMANAGER_H__
-#define __j1UIMANAGER_H__
+#ifndef __m1UIMANAGER_H__
+#define __m1UIMANAGER_H__
 
-#include "j1Module.h"
+#include "m1Module.h"
 #include "p2Animation.h"
 #include <list>
 
@@ -24,18 +24,18 @@ struct SDL_Rect;
 enum Color;
 enum class FontType;
 
-class GUI;
-class GUI_Image;
-class GUI_Label;
-class GUI_Button;
-class GUI_Slider;
-class GUI_CheckBox;
+class u1UI_ELEMENT;
+class u1Image;
+class u1Label;
+class u1Button;
+class u1Slider;
+class u1CheckBox;
 
-class j1UIManager: public j1Module
+class m1GUI: public m1Module
 {
 public:
-	j1UIManager();
-	virtual ~j1UIManager();
+	m1GUI();
+	virtual ~m1GUI();
 
 	bool Awake(pugi::xml_node&);
 	bool Start();
@@ -47,36 +47,36 @@ public:
 
 
 
-	GUI_Slider* AddSlider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, bool horizontal, GUI* parent, j1Module* callback = nullptr);
-	GUI_CheckBox* AddCheckBox(const int &pos_x, const int &pos_y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, GUI* parent, j1Module* callback = nullptr);
+	u1Slider* AddSlider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, bool horizontal, u1GUI* parent, m1Module* callback = nullptr);
+	u1CheckBox* AddCheckBox(const int &pos_x, const int &pos_y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, u1GUI* parent, m1Module* callback = nullptr);
 
-	GUI_Image* AddImage(const int &x, const int &y, const SDL_Rect & rect, j1Module * callback, GUI * parent, bool draw, bool drag, bool interact, bool focus);
-	GUI_Button* AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, j1Module* callback, GUI* parent, bool draw, bool drag, bool inter, bool focus);
-	GUI_Label* AddLabel(const int &x, const int &y, const char* text, GUI* parent, Color color, const FontType &font, j1Module* callback, bool focus);
+	u1Image* AddImage(const int &x, const int &y, const SDL_Rect & rect, m1Module * callback, u1GUI * parent, bool draw, bool drag, bool interact, bool focus);
+	u1Button* AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* callback, u1GUI* parent, bool draw, bool drag, bool inter, bool focus);
+	u1Label* AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* callback, bool focus);
 
 
 	void CreateScreen();
 
-	bool DeleteUIElement(GUI * element);
-	void BFS(std::list<GUI *> &visited, GUI * elem);
+	bool DeleteUIElement(u1GUI * element);
+	void BFS(std::list<u1GUI *> &visited, u1GUI * elem);
 	bool DeleteAllUIElements();
-	bool GetElemOnMouse(int x, int y, GUI* & element);
-	bool CheckCollision(int x, int y, GUI* item);
-	void UI_Events(GUI* element);
+	bool GetElemOnMouse(int x, int y, u1GUI* & element);
+	bool CheckCollision(int x, int y, u1GUI* item);
+	void UI_Events(u1GUI* element);
 
 	const SDL_Texture* GetAtlas() const;
 
 private:
 
 	SDL_Texture*	atlas = nullptr;
-	GUI*			focus = nullptr;
+	u1GUI*			focus = nullptr;
 	SDL_Rect		focus_tx = { 0,0,0,0 };
 	bool			using_mouse = true;
-	std::list<GUI*> ui_list;	
+	std::list<u1GUI*> ui_list;	
 
 public:
 
-	GUI * screen = nullptr;
+	u1GUI * screen = nullptr;
 	bool debug_ui = false;
 
 };

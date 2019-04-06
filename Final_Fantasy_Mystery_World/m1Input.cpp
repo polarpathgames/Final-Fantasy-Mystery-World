@@ -1,15 +1,15 @@
 #include "p2Defs.h"
 #include "p2Log.h"
-#include "j1App.h"
-#include "j1Input.h"
-#include "j1Window.h"
+#include "App.h"
+#include "m1Input.h"
+#include "m1Window.h"
 #include "Brofiler/Brofiler.h"
 
 
 
 #define MAX_KEYS 300
 
-j1Input::j1Input() : j1Module()
+m1Input::m1Input() : m1Module()
 {
 	name.assign("input");
 
@@ -20,13 +20,13 @@ j1Input::j1Input() : j1Module()
 }
 
 // Destructor
-j1Input::~j1Input()
+m1Input::~m1Input()
 {
 	delete[] keyboard;
 }
 
 // Called before render is available
-bool j1Input::Awake(pugi::xml_node& config)
+bool m1Input::Awake(pugi::xml_node& config)
 {
 	LOG("Init SDL input event system");
 	bool ret = true;
@@ -54,7 +54,7 @@ bool j1Input::Awake(pugi::xml_node& config)
 }
 
 // Called before the first frame
-bool j1Input::Start()
+bool m1Input::Start()
 {
 	SDL_StopTextInput();
 
@@ -70,7 +70,7 @@ DefaultControls();
 	return true;
 }
 
-void j1Input::DefaultControls()
+void m1Input::DefaultControls()
 {
 	keyboard_buttons.buttons_code.BASIC_ATTACK = SDL_SCANCODE_G;
 	keyboard_buttons.buttons_code.DIAGONALS = SDL_SCANCODE_LSHIFT;
@@ -114,7 +114,7 @@ void j1Input::DefaultControls()
 }
 
 // Called each loop iteration
-bool j1Input::PreUpdate()
+bool m1Input::PreUpdate()
 {
 	BROFILER_CATEGORY("PreUpdateInput", Profiler::Color::Orange);
 
@@ -219,7 +219,7 @@ bool j1Input::PreUpdate()
 				//LOG("Mouse button %d up", event.button.button-1);
 			break;
 			case SDL_MOUSEMOTION:
-				int scale = App->win->GetScale();
+				int scale = app->win->GetScale();
 				mouse_motion_x = event.motion.xrel / scale;
 				mouse_motion_y = event.motion.yrel / scale;
 				mouse_x = event.motion.x / scale;
@@ -243,7 +243,7 @@ bool j1Input::PreUpdate()
 }
 
 // Called before quitting
-bool j1Input::CleanUp()
+bool m1Input::CleanUp()
 {
 	LOG("Quitting SDL event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
@@ -251,24 +251,24 @@ bool j1Input::CleanUp()
 }
 
 // ---------
-bool j1Input::GetWindowEvent(j1EventWindow ev)
+bool m1Input::GetWindowEvent(j1EventWindow ev)
 {
 	return windowEvents[ev];
 }
 
-void j1Input::GetMousePosition(int& x, int& y)
+void m1Input::GetMousePosition(int& x, int& y)
 {
 	x = mouse_x;
 	y = mouse_y;
 }
 
-void j1Input::GetMouseMotion(int& x, int& y)
+void m1Input::GetMouseMotion(int& x, int& y)
 {
 	x = mouse_motion_x;
 	y = mouse_motion_y;
 }
 
-bool j1Input::ChceckAxisStates(const Axis &axis) {
+bool m1Input::ChceckAxisStates(const Axis &axis) {
 
 	bool ret = false;
 	if (Controller != nullptr) {

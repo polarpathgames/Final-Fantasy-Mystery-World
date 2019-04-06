@@ -60,9 +60,6 @@
     <ClCompile Include="m1Map.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="m1Module.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="m1Pathfinding.cpp">
       <Filter>Modules</Filter>
     </ClCompile>

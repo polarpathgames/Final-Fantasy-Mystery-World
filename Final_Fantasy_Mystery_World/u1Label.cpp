@@ -1,45 +1,45 @@
-#include "j1App.h"
-#include "j1Fonts.h"
-#include "GUI_Label.h"
-#include "j1Textures.h"
-#include "j1Render.h"
+#include "App.h"
+#include "m1Fonts.h"
+#include "u1Label.h"
+#include "m1Textures.h"
+#include "m1Render.h"
 #include "p2Log.h"
 
-GUI_Label::GUI_Label(const int & pos_x, const int & pos_y, const char * txt, const Color & c, FontType font, GUI * parent, bool interactable, bool draggable, uint32 wrap_length, bool focus)
-	:GUI(LABEL, pos_x, pos_y, parent, { 0,0,0,0 }, true, false, false, focus)
+u1Label::u1Label(const int & pos_x, const int & pos_y, const char * txt, const Color & c, FontType font, u1GUI * parent, bool interactable, bool draggable, uint32 wrap_length, bool focus)
+	:u1GUI(LABEL, pos_x, pos_y, parent, { 0,0,0,0 }, true, false, false, focus)
 {
 	id_font = font;
 	text.assign(txt);
 
 	SetColor(c);
 	if (wrap_length == 0U)
-		texture = App->fonts->Print(text.data(), color, id_font);
-	else texture = App->fonts->PrintWrapped(text.data(), color, id_font, wrap_length);
+		texture = app->fonts->Print(text.data(), color, id_font);
+	else texture = app->fonts->PrintWrapped(text.data(), color, id_font, wrap_length);
 
-	App->fonts->CalcSize(txt, section.w, section.h, id_font);
+	app->fonts->CalcSize(txt, section.w, section.h, id_font);
 }
 
-GUI_Label::~GUI_Label()
+u1Label::~u1Label()
 {
 	text.clear();
-	App->tex->UnLoad(texture);
+	app->tex->UnLoad(texture);
 	texture = nullptr;
 }
 
-void GUI_Label::InnerDraw()
+void u1Label::InnerDraw()
 {
-	App->render->Blit(texture, draw_offset.x, draw_offset.y, NULL, false, SDL_FLIP_NONE, 0.0F);
+	app->render->Blit(texture, draw_offset.x, draw_offset.y, NULL, false, SDL_FLIP_NONE, 0.0F);
 }
 
-void GUI_Label::SetText(const char * txt)
+void u1Label::SetText(const char * txt)
 {
 	text.assign(txt);
-	App->tex->UnLoad(texture);
-	texture = App->fonts->Print(text.data(), color, id_font);
-	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
+	app->tex->UnLoad(texture);
+	texture = app->fonts->Print(text.data(), color, id_font);
+	app->fonts->CalcSize(text.data(), section.w, section.h, id_font);
 }
 
-void GUI_Label::SetColor(Color c)
+void u1Label::SetColor(Color c)
 {
 	switch (c) {
 	case RED:
@@ -69,19 +69,19 @@ void GUI_Label::SetColor(Color c)
 	}
 }
 
-void GUI_Label::SetColor(const SDL_Color & c)
+void u1Label::SetColor(const SDL_Color & c)
 {
 	color = c;
 }
 
-std::string GUI_Label::GetText()
+std::string u1Label::GetText()
 {
 	return text;
 }
 
-void GUI_Label::ChangeFont(const char * f, const int & size)
+void u1Label::ChangeFont(const char * f, const int & size)
 {
-	id_font = App->fonts->Load(f, size)->type;
-	texture = App->fonts->Print(text.data(), color, id_font);
-	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
+	id_font = app->fonts->Load(f, size)->type;
+	texture = app->fonts->Print(text.data(), color, id_font);
+	app->fonts->CalcSize(text.data(), section.w, section.h, id_font);
 }

@@ -1,7 +1,7 @@
-#ifndef __j1FONTS_H__
-#define __j1FONTS_H__
+#ifndef __m1FONTS_H__
+#define __m1FONTS_H__
 
-#include "j1Module.h"
+#include "m1Module.h"
 #include <list>
 #include "SDL\include\SDL_pixels.h"
 
@@ -40,14 +40,14 @@ struct Font {
 	}
 };
 
-class j1Fonts : public j1Module
+class m1Fonts : public m1Module
 {
 public:
 
-	j1Fonts();
+	m1Fonts();
 
 	// Destructor
-	virtual ~j1Fonts();
+	virtual ~m1Fonts();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);

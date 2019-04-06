@@ -7,13 +7,13 @@
 #include <string>
 
 
-class GUI_Label;
+class u1Label;
 
 class ChangeControls {
 
 public:
 
-	ChangeControls(GUI_Label* label, int * code, char ** save_new_char, bool controller);
+	ChangeControls(u1Label* label, int * code, char ** save_new_char, bool controller);
 	~ChangeControls();
 
 	bool Update();
@@ -27,7 +27,7 @@ private:
 	bool ChangingController();
 	bool ChangingKeyboard();
 
-	GUI_Label * label = nullptr;
+	u1Label * label = nullptr;
 	std::string text_before;
 	int * code_to_change = nullptr;
 	char ** save_char = nullptr;

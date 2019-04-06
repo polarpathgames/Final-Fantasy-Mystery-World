@@ -1,37 +1,37 @@
-#include "Entity.h"
-#include "j1App.h"
-#include "j1EntityManager.h"
-#include "j1Render.h"
-#include "j1Scene.h"
-#include "j1Map.h"
+#include "e1Entity.h"
+#include "App.h"
+#include "m1EntityManager.h"
+#include "m1Render.h"
+#include "m1Scene.h"
+#include "m1Map.h"
 #include "p2Log.h"
-#include "j1Textures.h"
+#include "m1Textures.h"
 
 
-Entity::Entity(const int& x, const int& y)
+e1Entity::e1Entity(const int& x, const int& y)
 {
 	position.x = x;
 	position.y = y;
 }
 
-Entity::~Entity()
+e1Entity::~e1Entity()
 {
 }
 
-void Entity::Draw(SDL_Texture * tex, float dt)
+void e1Entity::Draw(SDL_Texture * tex, float dt)
 {
-	if (type != Entity::EntityType::SENSOR)
-		App->render->Blit(tex, position.x, position.y, &(current_animation->GetCurrentFrame(dt)), true);
+	if (type != e1Entity::EntityType::SENSOR)
+		app->render->Blit(tex, position.x, position.y, &(current_animation->GetCurrentFrame(dt)), true);
 }
 
-void Entity::SetPivot(const int & x, const int & y)
+void e1Entity::SetPivot(const int & x, const int & y)
 {
 	pivot.create(x, y);
 }
 
-void Entity::LoadXML(std::string name_xml_file)
+void e1Entity::LoadXML(std::string name_xml_file)
 {
-	config = App->LoadConfig(config_file, name_xml_file.data());
+	config = app->LoadConfig(config_file, name_xml_file.data());
 	switch (type) {
 	case EntityType::PLAYER:
 		node = config.child("player");
@@ -42,7 +42,7 @@ void Entity::LoadXML(std::string name_xml_file)
 	}
 }
 
-Animation Entity::LoadPushbacks(pugi::xml_node &config, std::string NameAnim) const
+Animation e1Entity::LoadPushbacks(pugi::xml_node &config, std::string NameAnim) const
 {
 	std::string XML_NAME_ANIM;
 	SDL_Rect rect;
@@ -62,7 +62,7 @@ Animation Entity::LoadPushbacks(pugi::xml_node &config, std::string NameAnim) co
 	return anim;
 }
 
-bool Entity::LoadEntityData(const char* file) {
+bool e1Entity::LoadEntityData(const char* file) {
 
 	bool ret = true;
 
@@ -91,7 +91,7 @@ bool Entity::LoadEntityData(const char* file) {
 	size.create(data.tileset.tilewidth, data.tileset.tileheight);
 
 	//provisional ubication -----------------------------
-	data.tileset.texture = App->tex->Load(data.tileset.imagePath.data());
+	data.tileset.texture = app->tex->Load(data.tileset.imagePath.data());
 	//----------------------------
 
 	//count how many animations are in file
@@ -161,7 +161,7 @@ bool Entity::LoadEntityData(const char* file) {
 	return ret;
 }
 
-void Entity::IdAnimToEnum() //Assign every id animation to enum animation
+void e1Entity::IdAnimToEnum() //Assign every id animation to enum animation
 {
 	for (uint i = 0; i < data.num_animations; ++i) {
 		switch (data.animations[i].id) {
@@ -264,7 +264,7 @@ uint EntityAnim::FrameCount(pugi::xml_node& n) {
 	return num_frames;
 }
 
-const Collider * Entity::GetCollider() const
+const Collider * e1Entity::GetCollider() const
 {
 	return coll;
 }

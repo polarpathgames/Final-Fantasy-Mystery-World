@@ -1,26 +1,26 @@
-#include "Enemy.h"
-#include "j1Input.h"
-#include "j1App.h"
-#include "j1Render.h"
-#include "j1Textures.h"
-#include "j1Audio.h"
-#include "j1EntityManager.h"
-#include "j1Map.h"
+#include "e1Enemy.h"
+#include "m1Input.h"
+#include "App.h"
+#include "m1Render.h"
+#include "m1Textures.h"
+#include "m1Audio.h"
+#include "m1EntityManager.h"
+#include "m1Map.h"
 #include <string>
-#include "j1Pathfinding.h"
-#include "Player.h"
-#include "j1Scene.h"
+#include "m1Pathfinding.h"
+#include "e1Player.h"
+#include "m1Scene.h"
 #include "Brofiler/Brofiler.h"
 
-Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
+e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
 	//LoadXML("player_config.xml");
 	LoadEntityData("entities/WarriorSpriteSheet.tsx");
 	//GoLeft = LoadPushbacks(node, "GoLeft");
 	//IdleLeft = LoadPushbacks(node, "IdleLeft");
 
-	type = Entity::EntityType::ENEMY;
-	ground = App->tex->Load("textures/enemy_pos.png");
+	type = e1Entity::EntityType::ENEMY;
+	ground = app->tex->Load("textures/enemy_pos.png");
 	current_animation = &IdleDownLeft;
 
 	SetPivot(10, 30);
@@ -33,7 +33,7 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 	
 
 	movement_count = { 0,0 };
-	actual_tile = App->map->WorldToMap(position.x, position.y);
+	actual_tile = app->map->WorldToMap(position.x, position.y);
 
 	// THIS ALWAYS LAST
 	position.x += 8;
@@ -44,11 +44,11 @@ Enemy::Enemy(const int &x, const int &y) : DynamicEntity(x,y)
 	
 }
 
-Enemy::~Enemy()
+e1Enemy::~e1Enemy()
 {
 }
 
-bool Enemy::PreUpdate()
+bool e1Enemy::PreUpdate()
 {
 	BROFILER_CATEGORY("PreUpdateEnemy", Profiler::Color::Orange);
 
@@ -78,7 +78,7 @@ bool Enemy::PreUpdate()
 	return true;
 }
 
-bool Enemy::Update(float dt)
+bool e1Enemy::Update(float dt)
 {
 
 	BROFILER_CATEGORY("UpdateEnemy", Profiler::Color::Aqua);
@@ -199,7 +199,7 @@ bool Enemy::Update(float dt)
 	}
 	if (state == State::ATTACKING) {
 		if (current_animation->Finished()) {
-			CheckBasicAttackEfects(Entity::EntityType::PLAYER, direction, stats.attack_power);
+			CheckBasicAttackEfects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
 			state = State::AFTER_ATTACK;
 			ChangeAnimation(direction, state);
 			time_attack = SDL_GetTicks();
@@ -210,43 +210,43 @@ bool Enemy::Update(float dt)
 	}
 
 
-	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+	app->render->Blit(ground, app->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, app->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
 	return true;
 }
 
 
 
-bool Enemy::PostUpdate()
+bool e1Enemy::PostUpdate()
 {
 	BROFILER_CATEGORY("PostUpdateEnemy", Profiler::Color::Purple);
 	return true;
 }
 
-bool Enemy::Load(pugi::xml_node &)
+bool e1Enemy::Load(pugi::xml_node &)
 {
 	return true;
 }
 
-bool Enemy::Save(pugi::xml_node &) const
+bool e1Enemy::Save(pugi::xml_node &) const
 {
 	return true;
 }
 
-bool Enemy::CleanUp()
+bool e1Enemy::CleanUp()
 {
-	App->tex->UnLoad(ground);
+	app->tex->UnLoad(ground);
 	return true;
 }
 
-bool Enemy::IsPlayerNextTile() 
+bool e1Enemy::IsPlayerNextTile() 
 {
 	bool ret = false;
-	std::vector<Entity*> entities = App->entity_manager->GetEntities();
-	std::vector<Entity*>::iterator item = entities.begin();
+	std::vector<e1Entity*> entities = app->entity_manager->GetEntities();
+	std::vector<e1Entity*>::iterator item = entities.begin();
 
 	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr && (*item)->type == Entity::EntityType::PLAYER) {
+		if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::PLAYER) {
 			iPoint origin = actual_tile;
 			iPoint destination = (*item)->actual_tile;
 
@@ -297,64 +297,64 @@ bool Enemy::IsPlayerNextTile()
 	return ret;
 }
 
-void Enemy::MovementLogic()
+void e1Enemy::MovementLogic()
 {
 	iPoint origin = actual_tile;
-	iPoint destination = App->scene->player->actual_tile;
-	App->pathfinding->CreatePath(origin, destination);
+	iPoint destination = app->scene->player->actual_tile;
+	app->pathfinding->CreatePath(origin, destination);
 
-	iPoint target = App->pathfinding->GetLastPath();
+	iPoint target = app->pathfinding->GetLastPath();
 	if (target_position == position && !IsPlayerNextTile()) {
 		if (target.x == origin.x && target.y > origin.y) {
 			direction = Direction::DOWN_LEFT;
-			target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
-			movement_count.x -= (App->map->data.tile_width / 2);
-			movement_count.y += (App->map->data.tile_height / 2);
+			target_position.create(position.x - (app->map->data.tile_width / 2), position.y + (app->map->data.tile_height / 2));
+			movement_count.x -= (app->map->data.tile_width / 2);
+			movement_count.y += (app->map->data.tile_height / 2);
 			actual_tile += {0, 1};
 		}
 		else if (target.x > origin.x && target.y == origin.y) {
 			direction = Direction::DOWN_RIGHT;
-			target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
-			movement_count.x += (App->map->data.tile_width / 2);
-			movement_count.y += (App->map->data.tile_height / 2);
+			target_position.create(position.x + (app->map->data.tile_width / 2), position.y + (app->map->data.tile_height / 2));
+			movement_count.x += (app->map->data.tile_width / 2);
+			movement_count.y += (app->map->data.tile_height / 2);
 			actual_tile += {1, 0};
 		}
 		else if (target.x == origin.x && target.y < origin.y) {
 			direction = Direction::UP_RIGHT;
-			target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
-			movement_count.x += (App->map->data.tile_width / 2);
-			movement_count.y -= (App->map->data.tile_height / 2);
+			target_position.create(position.x + (app->map->data.tile_width / 2), position.y - (app->map->data.tile_height / 2));
+			movement_count.x += (app->map->data.tile_width / 2);
+			movement_count.y -= (app->map->data.tile_height / 2);
 			actual_tile += {0, -1};
 		}
 		else if (target.x < origin.x && target.y == origin.y) {
 			direction = Direction::UP_LEFT;
-			target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
-			movement_count.x -= (App->map->data.tile_width / 2);
-			movement_count.y -= (App->map->data.tile_height / 2);
+			target_position.create(position.x - (app->map->data.tile_width / 2), position.y - (app->map->data.tile_height / 2));
+			movement_count.x -= (app->map->data.tile_width / 2);
+			movement_count.y -= (app->map->data.tile_height / 2);
 			actual_tile += {-1, 0};
 		}
 		else if (target.x < origin.x && target.y < origin.y) {
 			direction = Direction::UP;
-			target_position.create(position.x, position.y - App->map->data.tile_height);
-			movement_count.y -= App->map->data.tile_height;
+			target_position.create(position.x, position.y - app->map->data.tile_height);
+			movement_count.y -= app->map->data.tile_height;
 			actual_tile += {-1, -1};
 		}
 		else if (target.x > origin.x && target.y > origin.y) {
 			direction = Direction::DOWN;
-			target_position.create(position.x, position.y + App->map->data.tile_height);
-			movement_count.y += App->map->data.tile_height;
+			target_position.create(position.x, position.y + app->map->data.tile_height);
+			movement_count.y += app->map->data.tile_height;
 			actual_tile += {1, 1};
 		}
 		else if (target.x < origin.x && target.y > origin.y) {
 			direction = Direction::LEFT;
-			target_position.create(position.x - App->map->data.tile_width, position.y);
-			movement_count.x -= App->map->data.tile_width;
+			target_position.create(position.x - app->map->data.tile_width, position.y);
+			movement_count.x -= app->map->data.tile_width;
 			actual_tile += {-1, 1};
 		}
 		else if (target.x > origin.x && target.y < origin.y) {
 			direction = Direction::RIGHT;
-			target_position.create(position.x + App->map->data.tile_width, position.y);
-			movement_count.x += App->map->data.tile_width;
+			target_position.create(position.x + app->map->data.tile_width, position.y);
+			movement_count.x += app->map->data.tile_width;
 			actual_tile += {1, -1};
 		}
 		ChangeTurn(type);
@@ -364,12 +364,12 @@ void Enemy::MovementLogic()
 
 }
 
-void Enemy::GetHitted(const int & damage_taken)
+void e1Enemy::GetHitted(const int & damage_taken)
 {
 	stats.live -= damage_taken;
 
 	if (stats.live <= 0) {
-		App->entity_manager->DeleteEntity(this);
+		app->entity_manager->DeleteEntity(this);
 	}
 
 }

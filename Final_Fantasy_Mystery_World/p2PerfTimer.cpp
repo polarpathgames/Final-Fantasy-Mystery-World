@@ -1,15 +1,15 @@
 // ----------------------------------------------------
-// j1PerfTimer.cpp
+// p2PerfTimer.cpp
 // Slow timer with microsecond precision
 // ----------------------------------------------------
 
-#include "j1PerfTimer.h"
+#include "p2PerfTimer.h"
 #include "SDL\include\SDL_timer.h"
 
-uint64 j1PerfTimer::frequency = 0;
+uint64 p2PerfTimer::frequency = 0;
 
 // ---------------------------------------------
-j1PerfTimer::j1PerfTimer()
+p2PerfTimer::p2PerfTimer()
 {
 	if(frequency == 0)
 		frequency = SDL_GetPerformanceFrequency();
@@ -18,24 +18,24 @@ j1PerfTimer::j1PerfTimer()
 }
 
 // ---------------------------------------------
-void j1PerfTimer::Start()
+void p2PerfTimer::Start()
 {
 	started_at = SDL_GetPerformanceCounter();
 }
 
 // ---------------------------------------------
-double j1PerfTimer::ReadMs() const
+double p2PerfTimer::ReadMs() const
 {
 	return 1000.0 * (double(SDL_GetPerformanceCounter() - started_at) / double(frequency));
 }
 
 // ---------------------------------------------
-uint64 j1PerfTimer::ReadTicks() const
+uint64 p2PerfTimer::ReadTicks() const
 {
 	return SDL_GetPerformanceCounter() - started_at;
 }
 
-double j1PerfTimer::StartedAt()
+double p2PerfTimer::StartedAt()
 {
 	return started_at;
 }

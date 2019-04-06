@@ -1,25 +1,25 @@
 #ifndef __J1ENTITYMANAGER_H__
 #define __J1ENTITYMANAGER_H__
 
-#include "j1Module.h"
+#include "m1Module.h"
 #include "p2Animation.h"
-#include "Entity.h"
-#include "Sensor.h"
+#include "e1Entity.h"
+#include "e1Sensor.h"
 #include <vector>
 
-class Player;
-class Enemy;
+class e1Player;
+class e1Enemy;
 
 
 
-class Entity;
+class e1Entity;
 
-class j1EntityManager : public j1Module
+class m1EntityManager : public m1Module
 {
 public:
 
-	j1EntityManager();
-	~j1EntityManager();
+	m1EntityManager();
+	~m1EntityManager();
 
 	bool Awake(pugi::xml_node& config);
 
@@ -41,24 +41,23 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 
-	Entity* CreateEntity(Entity::EntityType type, int PositionX, int PositionY, std::string name, Sensor::SensorType sensor_type = Sensor::SensorType::NONE);
-	//Player* CreatePlayer();
-	//Enemy* CreateEnemy();
+	e1Entity* CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name, e1Sensor::SensorType sensor_type = e1Sensor::SensorType::NONE);
+	//e1Player* CreatePlayer();
+	//e1Enemy* CreateEnemy();
 
 	void DeleteEntities();
 	void DeleteEntitiesNoPlayer();
-	void DeleteEntity(Entity* entity_to_delete);
+	void DeleteEntity(e1Entity* entity_to_delete);
 
-	const std::vector<Entity*> GetEntities();
+	const std::vector<e1Entity*> GetEntities();
 
-	static bool SortByYPos(const Entity * ent1, const Entity * ent2);
+	static bool SortByYPos(const e1Entity * ent1, const e1Entity * ent2);
 
 private:
 
-	std::vector<Entity*> entities;
+	std::vector<e1Entity*> entities;
 	std::vector<SDL_Texture*> texture;
 
 };
 
 #endif
-

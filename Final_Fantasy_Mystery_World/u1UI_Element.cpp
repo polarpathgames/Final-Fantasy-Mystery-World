@@ -1,13 +1,13 @@
-#include "j1App.h"
-#include "j1UIManager.h"
-#include "j1Render.h"
-#include "GUI_Button.h"
-#include "j1Window.h"
-#include "j1Input.h"
+#include "App.h"
+#include "m1GUI.h"
+#include "m1Render.h"
+#include "u1Button.h"
+#include "m1Window.h"
+#include "m1Input.h"
 #include "p2Log.h"
-#include "GUI.h"
+#include "u1UI_Element.h"
 
-GUI::GUI(UIType type, const int &x, const int &y, GUI* parent, const SDL_Rect &section, bool draw, bool inter, bool drag, bool focus)
+u1GUI::u1GUI(UIType type, const int &x, const int &y, u1GUI* parent, const SDL_Rect &section, bool draw, bool inter, bool drag, bool focus)
 	:type(type), position({ x,y }), section(section), parent(parent), drawable(draw), interactable(inter), draggable(drag), allow_focus(focus)
 {
 	if (parent != nullptr) {
@@ -15,15 +15,15 @@ GUI::GUI(UIType type, const int &x, const int &y, GUI* parent, const SDL_Rect &s
 	}
 }
 
-GUI::~GUI() {}
+u1GUI::~u1GUI() {}
 
-void GUI::Draw()
+void u1GUI::Draw()
 {
 	draw_offset.x = position.x;
 	draw_offset.y = position.y;
 
 	if (parent != nullptr) {
-		for (GUI* p = parent; p != nullptr; p = p->parent) {
+		for (u1GUI* p = parent; p != nullptr; p = p->parent) {
 			draw_offset += p->position;
 		}
 	}
@@ -31,32 +31,32 @@ void GUI::Draw()
 	if (drawable)
 		InnerDraw();
 
-	if (App->ui_manager->debug_ui) {
+	if (app->gui->debug_ui) {
 		DebugDraw();
 	}
 }
 
-void GUI::InnerDraw()
+void u1GUI::InnerDraw()
 {
-	App->render->Blit((SDL_Texture*)App->ui_manager->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0);
+	app->render->Blit((SDL_Texture*)app->gui->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0);
 }
 
-bool GUI::Update()
+bool u1GUI::Update()
 {
 	iPoint mouse;
-	App->input->GetMousePosition(mouse.x, mouse.y);
+	app->input->GetMousePosition(mouse.x, mouse.y);
 
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && (mouse.x != last_mouse.x || mouse.y != last_mouse.y)) {
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && (mouse.x != last_mouse.x || mouse.y != last_mouse.y)) {
 		if (draggable) {
 
 			int x_motion = mouse.x - last_mouse.x, y_motion = mouse.y - last_mouse.y;
-			SetPos(GetLocalPosition().x + x_motion * App->win->GetScale(), GetLocalPosition().y + y_motion * App->win->GetScale());
+			SetPos(GetLocalPosition().x + x_motion * app->win->GetScale(), GetLocalPosition().y + y_motion * app->win->GetScale());
 		}
 	}
 	last_mouse = mouse;
 
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		for (std::list<j1Module*>::iterator module = listeners.begin(); module != listeners.end(); ++module) {
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		for (std::list<m1Module*>::iterator module = listeners.begin(); module != listeners.end(); ++module) {
 			if (*module != nullptr)
 				if (!(*module)->Interact(this))
 					break;
@@ -66,18 +66,18 @@ bool GUI::Update()
 	return true;
 }
 
-bool GUI::CleanUp()
+bool u1GUI::CleanUp()
 {
 
 	return true;
 }
 
-void GUI::SetPos(const int & x, const int & y)
+void u1GUI::SetPos(const int & x, const int & y)
 {
 	position.create(x,y);
 }
 
-void GUI::SetPosRespectParent(Position_Type pos, const int& margin)
+void u1GUI::SetPosRespectParent(Position_Type pos, const int& margin)
 {
 	int x = 0, y = 0;
 	switch (pos)
@@ -126,44 +126,44 @@ void GUI::SetPosRespectParent(Position_Type pos, const int& margin)
 	SetPos(x, y);
 }
 
-UIType GUI::GetType() const
+UIType u1GUI::GetType() const
 {
 	return type;
 }
 
-int GUI::GetPriority() const
+int u1GUI::GetPriority() const
 {
 	return priority;
 }
 
-iPoint GUI::GetGlobalPosition() const
+iPoint u1GUI::GetGlobalPosition() const
 {
 	return draw_offset;
 }
 
-iPoint GUI::GetLocalPosition() const
+iPoint u1GUI::GetLocalPosition() const
 {
 	return { position.x, position.y };
 }
 
-SDL_Rect GUI::GetRect() const
+SDL_Rect u1GUI::GetRect() const
 {
 	return section;
 }
 
-void GUI::DebugDraw()
+void u1GUI::DebugDraw()
 {
-	App->render->DrawQuad({ draw_offset.x,draw_offset.y,section.w,section.h }, 255, 0, 0, 255, false, false);
+	app->render->DrawQuad({ draw_offset.x,draw_offset.y,section.w,section.h }, 255, 0, 0, 255, false, false);
 }
 
-void GUI::AddListener(j1Module * module)
+void u1GUI::AddListener(m1Module * module)
 {
 	if (std::find(listeners.begin(),listeners.end(),module) == listeners.end()) { //if module is not in listeners list -> push back
 		listeners.push_back(module);
 	}
 }
 
-void GUI::DeleteListener(j1Module * module)
+void u1GUI::DeleteListener(m1Module * module)
 {
 	listeners.remove(module);
 }

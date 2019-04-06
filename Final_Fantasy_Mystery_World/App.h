@@ -2,40 +2,40 @@
 #define __APP_H__
 
 
-#include "j1Module.h"
-#include "j1PerfTimer.h"
-#include "j1Timer.h"
+#include "m1Module.h"
+#include "p2PerfTimer.h"
+#include "p2Timer.h"
 #include "PugiXml\src\pugixml.hpp"
 #include <list>
 #include <string>
 
 // Modules
-class j1Window;
-class j1Input;
-class j1Render;
-class j1Textures;
-class j1Audio;
-class j1Map;
-class j1Scene;
-class j1UIManager;
-class j1Fonts;
-class MainMenu;
-class j1EntityManager;
-class j1PathFinding;
-class j1FadeToBlack;
-class j1Collision;
-class EasingSplines;
-class j1DialogSystem;
+class m1Window;
+class m1Input;
+class m1Render;
+class m1Textures;
+class m1Audio;
+class m1Map;
+class m1Scene;
+class m1GUI;
+class m1Fonts;
+class m1MainMenu;
+class m1EntityManager;
+class m1PathFinding;
+class m1FadeToBlack;
+class m1Collision;
+class m1EasingSplines;
+class m1DialogSystem;
 
-class j1App
+class App
 {
 public:
 
 	// Constructor
-	j1App(int argc, char* args[]);
+	App(int argc, char* args[]);
 
 	// Destructor
-	virtual ~j1App();
+	virtual ~App();
 
 	// Called before render is available
 	bool Awake();
@@ -50,7 +50,7 @@ public:
 	bool CleanUp();
 
 	// Add a new module to handle
-	void AddModule(j1Module* module);
+	void AddModule(m1Module* module);
 
 	// Exposing some properties for reading
 	int GetArgc() const;
@@ -98,55 +98,54 @@ private:
 public:
 
 	// Modules
-	j1Window * win;
-	j1Input*			input;
-	j1Render*			render;
-	j1Textures*			tex;
-	j1Audio*			audio;
-	j1Map*				map;
-	j1Scene*			scene;
-	j1Fonts*            fonts;
-	j1UIManager*        ui_manager;
-	MainMenu*           main_menu;
-	j1EntityManager*		entity_manager;
-	j1PathFinding*		pathfinding;
-	j1FadeToBlack*		fade_to_black;
-	j1Collision*		collision;
-	EasingSplines*		easing_splines;
-	j1DialogSystem*     dialog;
+	m1Window *			win = nullptr;
+	m1Input*			input = nullptr;
+	m1Render*			render = nullptr;
+	m1Textures*			tex = nullptr;
+	m1Audio*			audio = nullptr;
+	m1Map*				map = nullptr;
+	m1Scene*			scene = nullptr;
+	m1Fonts*            fonts = nullptr;
+	m1GUI*				gui = nullptr;
+	m1MainMenu*          main_menu = nullptr;
+	m1EntityManager*	entity_manager = nullptr;
+	m1PathFinding*		pathfinding = nullptr;
+	m1FadeToBlack*		fade_to_black = nullptr;
+	m1Collision*		collision = nullptr;
+	m1EasingSplines*	easing_splines = nullptr;
+	m1DialogSystem*     dialog = nullptr;
+
 private:
 
-	std::list<j1Module*>	modules;
-	int					argc;
-	char**				args = nullptr;
+	std::list<m1Module*>	modules;
+	int						argc;
+	char**					args = nullptr;
 
-	std::string			title;
-	std::string			organization;
+	std::string				title;
+	std::string				organization;
 
-	mutable bool		want_to_save = false;
-	bool				want_to_load = false;
-	std::string			load_game;
-	mutable std::string	save_game;
+	mutable bool			want_to_save = false;
+	bool					want_to_load = false;
+	std::string				load_game;
+	mutable std::string		save_game;
 
-	bool				quit_game = false;
-	bool				is_paused = false;
-	pugi::xml_document	config_file;
-	pugi::xml_node		config;
-	std::string			config_name;
+	bool					quit_game = false;
+	bool					is_paused = false;
+	pugi::xml_document		config_file;
+	pugi::xml_node			config;
+	std::string				config_name;
 
-	j1PerfTimer			ptimer;
-	uint64				frame_count = 0;
-	j1Timer				startup_time;
-	j1Timer				frame_time;
-	j1Timer				last_sec_frame_time;
-	uint32				last_sec_frame_count = 0;
-	uint32				prev_last_sec_frame_count = 0;
-	uint16_t			framerate_cap;
-	float				dt;
+	p2PerfTimer				ptimer;
+	uint64					frame_count = 0;
+	p2Timer					startup_time;
+	p2Timer					frame_time;
+	p2Timer					last_sec_frame_time;
+	uint32					last_sec_frame_count = 0;
+	uint32					prev_last_sec_frame_count = 0;
+	uint16_t				framerate_cap;
+	float					dt;
 };
 
-extern j1App* App;
-
-
+extern App* app;
 
 #endif

@@ -1,7 +1,7 @@
-#ifndef __j1AUDIO_H__
-#define __j1AUDIO_H__
+#ifndef __m1AUDIO_H__
+#define __m1AUDIO_H__
 
-#include "j1Module.h"
+#include "m1Module.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 #include <list>
 
@@ -10,14 +10,14 @@
 struct _Mix_Music;
 struct Mix_Chunk;
 
-class j1Audio : public j1Module
+class m1Audio : public m1Module
 {
 public:
 
-	j1Audio();
+	m1Audio();
 
 	// Destructor
-	virtual ~j1Audio();
+	virtual ~m1Audio();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);

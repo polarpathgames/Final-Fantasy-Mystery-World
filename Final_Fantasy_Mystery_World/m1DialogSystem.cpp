@@ -1,33 +1,33 @@
-#include "j1App.h"
-#include "j1UIManager.h"
-#include "j1Fonts.h"
-#include "j1DialogSystem.h"
-#include "j1Input.h"
-#include "GUI_Label.h"
-#include "GUI_Button.h"
+#include "App.h"
+#include "m1GUI.h"
+#include "m1Fonts.h"
+#include "m1DialogSystem.h"
+#include "m1Input.h"
+#include "u1Label.h"
+#include "u1Button.h"
 
-j1DialogSystem::j1DialogSystem()
+m1DialogSystem::m1DialogSystem()
 {
 }
-j1DialogSystem::~j1DialogSystem()
+m1DialogSystem::~m1DialogSystem()
 {
 }
 
-bool j1DialogSystem::Start()
+bool m1DialogSystem::Start()
 {
 	bool ret = true;
 	LoadDialogue("Dialog.xml");
 	return ret;
 }
 
-bool j1DialogSystem::Update(float dt)
+bool m1DialogSystem::Update(float dt)
 {
 	bool ret = true;
 		
 	return ret;
 }
 
-bool j1DialogSystem::CleanUp()
+bool m1DialogSystem::CleanUp()
 {
 	bool ret = true;
 
@@ -44,7 +44,7 @@ bool j1DialogSystem::CleanUp()
 	return ret;
 }
 
-void j1DialogSystem::PerformDialogue(int tr_id)
+void m1DialogSystem::PerformDialogue(int tr_id)
 {
 	if (dialogTrees.empty())
 		LOG("TreeEmpty");
@@ -88,16 +88,16 @@ void j1DialogSystem::PerformDialogue(int tr_id)
 	BlitDialog();
 }
 
-void j1DialogSystem::BlitDialog()
+void m1DialogSystem::BlitDialog()
 {
-	App->ui_manager->AddLabel(150, 180, currentNode->text.c_str(), App->ui_manager->screen, BLACK, FontType::FF48,this, false);
+	app->gui->AddLabel(150, 180, currentNode->text.c_str(), app->gui->screen, BLACK, FontType::FF48,this, false);
 	int space = 200;
 	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
-		App->ui_manager->AddLabel(150, space += 30, currentNode->dialogOptions[i]->text.c_str(), App->ui_manager->screen, GREEN, FontType::FF48, this, false);
+		app->gui->AddLabel(150, space += 30, currentNode->dialogOptions[i]->text.c_str(), app->gui->screen, GREEN, FontType::FF48, this, false);
 
 }
 
-bool j1DialogSystem::CompareKarma()
+bool m1DialogSystem::CompareKarma()
 {
 	bool ret = true;
 
@@ -107,12 +107,12 @@ bool j1DialogSystem::CompareKarma()
 	return ret;
 }
 
-void j1DialogSystem::CheckForKarma(DialogNode* karmaNode)
+void m1DialogSystem::CheckForKarma(DialogNode* karmaNode)
 {
 	dialogTrees[treeid]->karma += karmaNode->dialogOptions[input]->karma;
 }
 
-bool j1DialogSystem::LoadDialogue(const char* file)
+bool m1DialogSystem::LoadDialogue(const char* file)
 {
 	bool ret = true;
 
@@ -137,7 +137,7 @@ bool j1DialogSystem::LoadDialogue(const char* file)
 	return ret;
 }
 
-bool j1DialogSystem::LoadTreeData(pugi::xml_node& trees, DialogTree* oak)
+bool m1DialogSystem::LoadTreeData(pugi::xml_node& trees, DialogTree* oak)
 {
 	bool ret = true;
 
@@ -155,7 +155,7 @@ bool j1DialogSystem::LoadTreeData(pugi::xml_node& trees, DialogTree* oak)
 	return ret;
 }
 
-bool j1DialogSystem::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc)
+bool m1DialogSystem::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc)
 {
 	bool ret = true;
 	for (pugi::xml_node op = text_node.child("option"); op != NULL; op = op.next_sibling("option"))

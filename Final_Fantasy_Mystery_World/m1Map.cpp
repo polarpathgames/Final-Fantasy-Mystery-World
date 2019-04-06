@@ -1,39 +1,38 @@
 #include "p2Defs.h"
 #include "p2Log.h"
-#include "j1App.h"
-#include "j1Render.h"
-#include "j1Textures.h"
-#include "j1Map.h"
-#include "j1Collisions.h"
+#include "App.h"
+#include "m1Render.h"
+#include "m1Textures.h"
+#include "m1Map.h"
+#include "m1Collisions.h"
 #include <math.h>
-#include "j1EntityManager.h"
-#include "Player.h"
-#include "j1EntityManager.h"
+#include "m1EntityManager.h"
+#include "m1EntityManager.h"
 #include <list>
-#include "j1FadeToBlack.h"
-#include "j1Pathfinding.h"
-#include "j1Scene.h"
+#include "m1FadeToBlack.h"
+#include "m1Pathfinding.h"
+#include "m1Scene.h"
 #include <string>
 #include "p2Properties.h"
 #include "Brofiler/Brofiler.h"
 
-j1Map::j1Map() : j1Module(), map_loaded(false)
+m1Map::m1Map() : m1Module(), map_loaded(false)
 {
 	name.assign("map");
 }
 
 // Destructor
-j1Map::~j1Map()
+m1Map::~m1Map()
 {}
 
-bool j1Map::Start()
+bool m1Map::Start()
 {
-	quad = App->tex->Load("maps/cuadradito.png");
+	quad = app->tex->Load("maps/cuadradito.png");
 	return true;
 }
 
 // Called before render is available
-bool j1Map::Awake(pugi::xml_node& config)
+bool m1Map::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Map Parser");
 	bool ret = true;
@@ -49,7 +48,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-void j1Map::Draw()
+void m1Map::Draw()
 {
 	BROFILER_CATEGORY("DrawMap", Profiler::Color::Pink);
 
@@ -62,7 +61,7 @@ void j1Map::Draw()
 	{
 		MapLayer* layer = *item;
 
-		if(layer->properties.GetValue("NoDraw") != 0 && !App->collision->debug)
+		if(layer->properties.GetValue("NoDraw") != 0 && !app->collision->debug)
 			continue;
 
 		for(int i = 0; i < data.width; ++i)
@@ -75,11 +74,11 @@ void j1Map::Draw()
 					if (tile_id > 0)
 					{
 						TileSet* tileset = GetTilesetFromTileId(tile_id);
-						if (App->render->IsOnCamera(tile_pos.x, tile_pos.y, tileset->tile_width, tileset->tile_height))
+						if (app->render->IsOnCamera(tile_pos.x, tile_pos.y, tileset->tile_width, tileset->tile_height))
 						{
 							SDL_Rect r = tileset->GetTileRect(tile_id);
 
-							App->render->Blit(tileset->texture, tile_pos.x, tile_pos.y, &r, true);
+							app->render->Blit(tileset->texture, tile_pos.x, tile_pos.y, &r, true);
 							
 						}
 				}
@@ -91,13 +90,13 @@ void j1Map::Draw()
 		for (int i = 0; i < data.width; ++i) {
 			for (int j = 0; j < data.height; ++j) {
 
-				App->render->Blit(quad, MapToWorld(i, j).x + 1, MapToWorld(i, j).y - 8, NULL, true);
+				app->render->Blit(quad, MapToWorld(i, j).x + 1, MapToWorld(i, j).y - 8, NULL, true);
 			}
 		}
 	}
 }
 
-TileSet* j1Map::GetTilesetFromTileId(int id) const
+TileSet* m1Map::GetTilesetFromTileId(int id) const
 {
 	std::list<TileSet*>::const_iterator item = data.tilesets.begin();
 	TileSet* set = *item;
@@ -120,7 +119,7 @@ TileSet* j1Map::GetTilesetFromTileId(int id) const
 	return set;
 }
 
-iPoint j1Map::MapToWorld(int x, int y) const
+iPoint m1Map::MapToWorld(int x, int y) const
 {
 	iPoint ret;
 
@@ -143,7 +142,7 @@ iPoint j1Map::MapToWorld(int x, int y) const
 	return ret;
 }
 
-iPoint j1Map::WorldToMap(int x, int y) const
+iPoint m1Map::WorldToMap(int x, int y) const
 {
 	iPoint ret(0,0);
 
@@ -169,7 +168,7 @@ iPoint j1Map::WorldToMap(int x, int y) const
 	return ret;
 }
 
-iPoint j1Map::TiledToWorld(int x, int y) const
+iPoint m1Map::TiledToWorld(int x, int y) const
 {
 	iPoint ret = { 0,0 };
 
@@ -194,7 +193,7 @@ SDL_Rect TileSet::GetTileRect(int id) const
 }
 
 // Called before quitting
-bool j1Map::CleanUp()
+bool m1Map::CleanUp()
 {
 	LOG("Unloading map");
 
@@ -204,7 +203,7 @@ bool j1Map::CleanUp()
 
 	while(item != data.tilesets.end())
 	{
-		App->tex->UnLoad((*item)->texture);
+		app->tex->UnLoad((*item)->texture);
 		RELEASE(*item);
 		++item;
 	}
@@ -235,7 +234,7 @@ bool j1Map::CleanUp()
 
 	data.no_walkables.clear();
 
-	App->collision->CleanUp();
+	app->collision->CleanUp();
 	// Clean up the pugui tree
 	map_file.reset();
 
@@ -243,7 +242,7 @@ bool j1Map::CleanUp()
 }
 
 // Load new map
-bool j1Map::Load(const char* file_name)
+bool m1Map::Load(const char* file_name)
 {
 	bool ret = true;
 	std::string tmp = folder.data();
@@ -348,7 +347,7 @@ bool j1Map::Load(const char* file_name)
 }
 
 // Load map general properties
-bool j1Map::LoadMap()
+bool m1Map::LoadMap()
 {
 	bool ret = true;
 	pugi::xml_node map = map_file.child("map");
@@ -414,7 +413,7 @@ bool j1Map::LoadMap()
 	return ret;
 }
 
-bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
+bool m1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 {
 	bool ret = true;
 	set->name.assign(tileset_node.attribute("name").as_string());
@@ -439,7 +438,7 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 	return ret;
 }
 
-bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
+bool m1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 {
 	bool ret = true;
 	pugi::xml_node image = tileset_node.child("image");
@@ -451,7 +450,7 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	}
 	else
 	{
-		set->texture = App->tex->Load(PATH(folder.data(), image.attribute("source").as_string()));
+		set->texture = app->tex->Load(PATH(folder.data(), image.attribute("source").as_string()));
 		int w, h;
 		SDL_QueryTexture(set->texture, NULL, NULL, &w, &h);
 		set->tex_width = image.attribute("width").as_int();
@@ -475,7 +474,7 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	return ret;
 }
 
-bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
+bool m1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 {
 	bool ret = true;
 
@@ -506,12 +505,12 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	return ret;
 }
 
-bool j1Map::LoadObject(pugi::xml_node & object_node, ObjectLayer * obj)
+bool m1Map::LoadObject(pugi::xml_node & object_node, ObjectLayer * obj)
 {
 	bool ret = true;
 	if (object_node.empty())	ret = false;
 
-	//Load Collider / Entity data
+	//Load Collider / e1Entity data
 	obj->name = object_node.attribute("name").as_string();
 	obj->ent_type = object_node.attribute("type").as_string();
 	obj->tile_id = object_node.attribute("id").as_uint();
@@ -534,7 +533,7 @@ bool j1Map::LoadObject(pugi::xml_node & object_node, ObjectLayer * obj)
 }
 
 // Load a group of properties from a node and fill a list with it
-bool j1Map::LoadProperties(pugi::xml_node& node, Properties<int>* properties)
+bool m1Map::LoadProperties(pugi::xml_node& node, Properties<int>* properties)
 {
 	bool ret = false;
 
@@ -556,7 +555,7 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties<int>* properties)
 	return ret;
 }
 
-bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer)
+bool m1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer)
 {
 	bool ret = false;
 	std::list<MapLayer*>::const_iterator item;
@@ -607,10 +606,10 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer)
 	return ret;
 }
 
-bool j1Map::ChangeMap(Maps type)
+bool m1Map::ChangeMap(Maps type)
 {
 	last_map = actual_map;
-	App->entity_manager->DeleteEntitiesNoPlayer();
+	app->entity_manager->DeleteEntitiesNoPlayer();
 	CleanUp();
 	switch(type) {
 	case Maps::LOBBY:
@@ -636,13 +635,13 @@ bool j1Map::ChangeMap(Maps type)
 	int w, h;
 	uchar* data = NULL;
 	if (CreateWalkabilityMap(w, h, &data))
-		App->pathfinding->SetMap(w, h, data);
-	App->scene->CreateEntities();
+		app->pathfinding->SetMap(w, h, data);
+	app->scene->CreateEntities();
 
 	return true;
 }
 
-bool j1Map::IsWalkable(iPoint pos, bool need_convert)
+bool m1Map::IsWalkable(iPoint pos, bool need_convert)
 {
 	bool ret = true;
 

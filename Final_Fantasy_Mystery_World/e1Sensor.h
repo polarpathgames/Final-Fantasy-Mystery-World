@@ -5,12 +5,12 @@
 #include <string>
 #include "p2Animation.h"
 #include "PugiXml\src\pugixml.hpp"
-#include "j1PerfTimer.h"
-#include "StaticEntity.h"
+#include "p2PerfTimer.h"
+#include "e1StaticEntity.h"
 
 
 
-class Sensor : public StaticEntity
+class e1Sensor : public e1StaticEntity
 {
 public:
 
@@ -24,8 +24,8 @@ public:
 
 public:
 
-	Sensor(const int &x, const int &y, const SensorType &sensor_type);
-	virtual ~Sensor();
+	e1Sensor(const int &x, const int &y, const SensorType &sensor_type);
+	virtual ~e1Sensor();
 
 	bool Update(float dt);
 

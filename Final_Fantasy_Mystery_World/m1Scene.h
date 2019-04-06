@@ -1,8 +1,8 @@
-#ifndef __j1SCENE_H__
-#define __j1SCENE_H__
+#ifndef __m1SCENE_H__
+#define __m1SCENE_H__
 
-#include "j1Module.h"
-#include "ChangeControls.h"
+#include "m1Module.h"
+#include "p2ChangeControls.h"
 
 enum class StatesMenu {
 	NO_MENU,
@@ -17,26 +17,26 @@ enum class StatesMenu {
 struct SDL_Texture;
 struct SDL_Rect;
 
-class GUI;
-class GUI_Image;
-class GUI_Label;
-class GUI_Button;
+class u1GUI;
+class u1Image;
+class u1Label;
+class u1Button;
 
-class GUI_CheckBox;
-class GUI_Slider;
+class u1CheckBox;
+class u1Slider;
 
-class Player;
+class e1Player;
 
 
 
-class j1Scene : public j1Module
+class m1Scene : public m1Module
 {
 public:
 
-	j1Scene();
+	m1Scene();
 
 	// Destructor
-	virtual ~j1Scene();
+	virtual ~m1Scene();
 
 	// Called before render is available
 	bool Awake();
@@ -60,7 +60,7 @@ public:
 
 	void CreatePauseMenu();
 	void DestroyPauseMenu();
-	bool Interact(GUI* interaction);
+	bool Interact(u1GUI* interaction);
 
 	void CreateOptionsMenu();
 	void DestroyOptionsMenu();
@@ -70,17 +70,17 @@ public:
 
 public:
 
-	//GUI* mock_image_ui = nullptr;
+	//u1GUI* mock_image_ui = nullptr;
 	//SDL_Rect mock_image_rect = { 0, 0, 61, 76 };
-	GUI* background = nullptr;
-	std::list<GUI_Label*> labels_control;
-	std::list<GUI_Label*> Clabels_control;
+	u1GUI* background = nullptr;
+	std::list<u1Label*> labels_control;
+	std::list<u1Label*> Clabels_control;
 
-  GUI_Slider* slider_general_volume = nullptr;
-	GUI_Slider* slider_music_volume = nullptr;
-	GUI_Slider* slider_fx_volume = nullptr;
+	u1Slider* slider_general_volume = nullptr;
+	u1Slider* slider_music_volume = nullptr;
+	u1Slider* slider_fx_volume = nullptr;
 
-	Player* player = nullptr;
+	e1Player* player = nullptr;
 
 
 private:
@@ -89,127 +89,127 @@ private:
 	StatesMenu menu_state = StatesMenu::NO_MENU;
 
 	//pause
-	GUI_Image* pause_panel = nullptr;
-	GUI_Button* button_resume = nullptr;
-	GUI_Label* label_resume = nullptr;
-	GUI_Button* button_main_menu = nullptr;
-	GUI_Label* label_main_menu = nullptr;
-	GUI_Button* button_abort_quest = nullptr;
-	GUI_Label* label_abort_quest = nullptr;
-	GUI_Button* button_options = nullptr;
-	GUI_Label* label_options = nullptr;
+	u1Image* pause_panel = nullptr;
+	u1Button* button_resume = nullptr;
+	u1Label* label_resume = nullptr;
+	u1Button* button_main_menu = nullptr;
+	u1Label* label_main_menu = nullptr;
+	u1Button* button_abort_quest = nullptr;
+	u1Label* label_abort_quest = nullptr;
+	u1Button* button_options = nullptr;
+	u1Label* label_options = nullptr;
 	
 	//options
-	GUI_Image* options_panel = nullptr;
+	u1Image* options_panel = nullptr;
 
-	GUI_Label* label_general_volume = nullptr;
-	GUI_Button* button_general_volume = nullptr;
+	u1Label* label_general_volume = nullptr;
+	u1Button* button_general_volume = nullptr;
 	
-	GUI_Label* label_music_volume = nullptr;
-	GUI_Button* button_music_volume = nullptr;
-	//GUI_Button* music_slider_btn = nullptr;
+	u1Label* label_music_volume = nullptr;
+	u1Button* button_music_volume = nullptr;
+	//u1Button* music_slider_btn = nullptr;
 
-	GUI_Label* label_fx_volume = nullptr;
-	GUI_Button* button_fx_volume = nullptr;
-	//GUI_Button* fx_slider_btn = nullptr;
+	u1Label* label_fx_volume = nullptr;
+	u1Button* button_fx_volume = nullptr;
+	//u1Button* fx_slider_btn = nullptr;
 
-	GUI_Label* label_fps = nullptr;
-	GUI_CheckBox* checkbox_fps = nullptr;
-	GUI_Label* label_fullscreen = nullptr;
-	GUI_CheckBox* checkbox_fullscreen = nullptr;
-	GUI_Button* button_controls = nullptr;
-	GUI_Label* label_controls = nullptr;
+	u1Label* label_fps = nullptr;
+	u1CheckBox* checkbox_fps = nullptr;
+	u1Label* label_fullscreen = nullptr;
+	u1CheckBox* checkbox_fullscreen = nullptr;
+	u1Button* button_controls = nullptr;
+	u1Label* label_controls = nullptr;
 
-	GUI_Button* button_retun = nullptr;
-	GUI_Label* label_return = nullptr;
+	u1Button* button_retun = nullptr;
+	u1Label* label_return = nullptr;
 
 
 	// Menu Controls
 
 	
 
-	GUI_Image* controls_panel = nullptr;
+	u1Image* controls_panel = nullptr;
 	
 
-	GUI_Button* button_retun_to_options = nullptr;
-	GUI_Label* label_return_to_options = nullptr;
+	u1Button* button_retun_to_options = nullptr;
+	u1Label* label_return_to_options = nullptr;
 
 	// KEYBOARD
-	GUI_Label* keyboard = nullptr;
+	u1Label* keyboard = nullptr;
 
-	GUI_Button* button_basic_attack = nullptr;
-	GUI_Label* label_basic_attack = nullptr;
-	GUI_Label* label_to_show_how_basic_attack = nullptr;
+	u1Button* button_basic_attack = nullptr;
+	u1Label* label_basic_attack = nullptr;
+	u1Label* label_to_show_how_basic_attack = nullptr;
 
-	GUI_Button* button_up = nullptr;
-	GUI_Label* label_up = nullptr;
-	GUI_Label* label_to_show_how_up = nullptr;
+	u1Button* button_up = nullptr;
+	u1Label* label_up = nullptr;
+	u1Label* label_to_show_how_up = nullptr;
 
-	GUI_Button* button_right = nullptr;
-	GUI_Label* label_right= nullptr;
-	GUI_Label* label_to_show_how_right = nullptr;
+	u1Button* button_right = nullptr;
+	u1Label* label_right= nullptr;
+	u1Label* label_to_show_how_right = nullptr;
 
-	GUI_Button* button_left = nullptr;
-	GUI_Label* label_left = nullptr;
-	GUI_Label* label_to_show_how_left = nullptr;
+	u1Button* button_left = nullptr;
+	u1Label* label_left = nullptr;
+	u1Label* label_to_show_how_left = nullptr;
 
-	GUI_Button* button_down = nullptr;
-	GUI_Label* label_down = nullptr;
-	GUI_Label* label_to_show_how_down = nullptr;
+	u1Button* button_down = nullptr;
+	u1Label* label_down = nullptr;
+	u1Label* label_to_show_how_down = nullptr;
 
-	GUI_Button* button_diagonals = nullptr;
-	GUI_Label* label_diagonals = nullptr;
-	GUI_Label* label_to_show_how_diagonals = nullptr;
+	u1Button* button_diagonals = nullptr;
+	u1Label* label_diagonals = nullptr;
+	u1Label* label_to_show_how_diagonals = nullptr;
 
-	GUI_Button* button_direction_up = nullptr;
-	GUI_Label* label_direction_up = nullptr;
-	GUI_Label* label_to_show_how_direction_up = nullptr;
+	u1Button* button_direction_up = nullptr;
+	u1Label* label_direction_up = nullptr;
+	u1Label* label_to_show_how_direction_up = nullptr;
 
-	GUI_Button* button_direction_right = nullptr;
-	GUI_Label* label_direction_right = nullptr;
-	GUI_Label* label_to_show_how_direction_right = nullptr;
+	u1Button* button_direction_right = nullptr;
+	u1Label* label_direction_right = nullptr;
+	u1Label* label_to_show_how_direction_right = nullptr;
 
-	GUI_Button* button_direction_left = nullptr;
-	GUI_Label* label_direction_left = nullptr;
-	GUI_Label* label_to_show_how_direction_left = nullptr;
+	u1Button* button_direction_left = nullptr;
+	u1Label* label_direction_left = nullptr;
+	u1Label* label_to_show_how_direction_left = nullptr;
 
-	GUI_Button* button_direction_down = nullptr;
-	GUI_Label* label_direction_down = nullptr;
-	GUI_Label* label_to_show_how_direction_down = nullptr;
+	u1Button* button_direction_down = nullptr;
+	u1Label* label_direction_down = nullptr;
+	u1Label* label_to_show_how_direction_down = nullptr;
 
 	// CONTROLLER
 
-	GUI_Label* controller = nullptr;
+	u1Label* controller = nullptr;
 
-	GUI_Button* Cbutton_direction_up = nullptr;
-	GUI_Label* Clabel_to_show_how_direction_up = nullptr;
+	u1Button* Cbutton_direction_up = nullptr;
+	u1Label* Clabel_to_show_how_direction_up = nullptr;
 
-	GUI_Button* Cbutton_direction_right = nullptr;
-	GUI_Label* Clabel_to_show_how_direction_right = nullptr;
+	u1Button* Cbutton_direction_right = nullptr;
+	u1Label* Clabel_to_show_how_direction_right = nullptr;
 
-	GUI_Button* Cbutton_direction_left = nullptr;
-	GUI_Label* Clabel_to_show_how_direction_left = nullptr;
+	u1Button* Cbutton_direction_left = nullptr;
+	u1Label* Clabel_to_show_how_direction_left = nullptr;
 
-	GUI_Button* Cbutton_direction_down = nullptr;
-	GUI_Label* Clabel_to_show_how_direction_down = nullptr;
+	u1Button* Cbutton_direction_down = nullptr;
+	u1Label* Clabel_to_show_how_direction_down = nullptr;
 
-	GUI_Button* Cbutton_diagonals = nullptr;
-	GUI_Label* Clabel_to_show_how_diagonals = nullptr;
+	u1Button* Cbutton_diagonals = nullptr;
+	u1Label* Clabel_to_show_how_diagonals = nullptr;
 
-	GUI_Button* Cbutton_basic_attack = nullptr;
-	GUI_Label* Clabel_to_show_how_basic_attack = nullptr;
+	u1Button* Cbutton_basic_attack = nullptr;
+	u1Label* Clabel_to_show_how_basic_attack = nullptr;
 
-	GUI_Button* Cbutton_up = nullptr;
-	GUI_Label* Clabel_to_show_how_up = nullptr;
+	u1Button* Cbutton_up = nullptr;
+	u1Label* Clabel_to_show_how_up = nullptr;
 
-	GUI_Button* Cbutton_right = nullptr;
-	GUI_Label* Clabel_to_show_how_right = nullptr;
+	u1Button* Cbutton_right = nullptr;
+	u1Label* Clabel_to_show_how_right = nullptr;
 
-	GUI_Button* Cbutton_left = nullptr;
-	GUI_Label* Clabel_to_show_how_left = nullptr;
+	u1Button* Cbutton_left = nullptr;
+	u1Label* Clabel_to_show_how_left = nullptr;
 
-	GUI_Button* Cbutton_down = nullptr;
-	GUI_Label* Clabel_to_show_how_down = nullptr;
+	u1Button* Cbutton_down = nullptr;
+	u1Label* Clabel_to_show_how_down = nullptr;
 
 };
 

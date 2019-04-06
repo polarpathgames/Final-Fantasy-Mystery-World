@@ -1,15 +1,15 @@
-#ifndef _GUI_IMAGE_H__ 
-#define _GUI_IMAGE_H__
+#ifndef _u1Image_H__ 
+#define _u1Image_H__
 
-#include "GUI.h"
+#include "u1UI_Element.h"
 
 
-class GUI_Image : public GUI
+class u1Image : public u1GUI
 {
 public:
-	GUI_Image() : GUI(IMAGE, 0, 0, nullptr, { 0,0,0,0 },false,false,false) {}
-	GUI_Image(const int& pos_x,const int& pos_y, const SDL_Rect &image, GUI* parent, bool draw = true, bool inter = true, bool drag = false, bool focus = false);
-	~GUI_Image() {}
+	u1Image() : u1GUI(IMAGE, 0, 0, nullptr, { 0,0,0,0 },false,false,false) {}
+	u1Image(const int& pos_x,const int& pos_y, const SDL_Rect &image, u1GUI* parent, bool draw = true, bool inter = true, bool drag = false, bool focus = false);
+	~u1Image() {}
 
 };
-#endif //_GUI_IMAGE_H__
+#endif //_u1Image_H__

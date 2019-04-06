@@ -1,35 +1,35 @@
 #include <math.h>
-#include "j1App.h"
-#include "j1FadeToBlack.h"
-#include "j1Render.h"
+#include "App.h"
+#include "m1FadeToBlack.h"
+#include "m1Render.h"
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
-#include "j1Window.h"
+#include "m1Window.h"
 #include "p2Log.h"
-#include "j1App.h"
-#include "j1Map.h"
+#include "App.h"
+#include "m1Map.h"
 
-j1FadeToBlack::j1FadeToBlack()
+m1FadeToBlack::m1FadeToBlack()
 {
 }
 
-j1FadeToBlack::~j1FadeToBlack()
+m1FadeToBlack::~m1FadeToBlack()
 {
 }
 
 
 // Load assets
-bool j1FadeToBlack::Start()
+bool m1FadeToBlack::Start()
 {
-	SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawBlendMode(app->render->renderer, SDL_BLENDMODE_BLEND);
 
-	screen = { 0,0,(int)App->win->width,  (int)App->win->height };
+	screen = { 0,0,(int)app->win->width,  (int)app->win->height };
 
 	return true;
 }
 
 // Update: draw background
-bool j1FadeToBlack::Update(float dt)
+bool m1FadeToBlack::Update(float dt)
 {
 	if (current_step == fade_step::none)
 		return true;
@@ -48,7 +48,7 @@ bool j1FadeToBlack::Update(float dt)
 			if (to_enable != nullptr)
 				to_enable->Enable();
 			if (want_to_change_map)
-				App->map->ChangeMap(map_to_change);
+				app->map->ChangeMap(map_to_change);
 			total_time += total_time;
 			start_time = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;
@@ -65,14 +65,14 @@ bool j1FadeToBlack::Update(float dt)
 	}
 
 	// Finally render the black square with alpha on the screen
-	SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, (Uint8)(normalized * 255.0f));
-	SDL_RenderFillRect(App->render->renderer, &screen);
+	SDL_SetRenderDrawColor(app->render->renderer, 0, 0, 0, (Uint8)(normalized * 255.0f));
+	SDL_RenderFillRect(app->render->renderer, &screen);
 
 	return true;
 }
 
 // Fade to black. At mid point deactivate one module, then activate the other
-bool j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float time)
+bool m1FadeToBlack::FadeToBlack(m1Module* module_off, m1Module* module_on, float time)
 {
 	bool ret = false;
 
@@ -89,7 +89,7 @@ bool j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float
 
 	return ret;
 }
-bool j1FadeToBlack::FadeToBlack(j1Module * module_off, float time)
+bool m1FadeToBlack::FadeToBlack(m1Module * module_off, float time)
 {
 	bool ret = false;
 
@@ -105,7 +105,7 @@ bool j1FadeToBlack::FadeToBlack(j1Module * module_off, float time)
 
 	return ret;
 }
-bool j1FadeToBlack::FadeToBlack(float time, j1Module * module_on)
+bool m1FadeToBlack::FadeToBlack(float time, m1Module * module_on)
 {
 	bool ret = false;
 
@@ -121,7 +121,7 @@ bool j1FadeToBlack::FadeToBlack(float time, j1Module * module_on)
 
 	return ret;
 }
-bool j1FadeToBlack::FadeToBlack(float time)
+bool m1FadeToBlack::FadeToBlack(float time)
 {
 	bool ret = false;
 
@@ -136,7 +136,7 @@ bool j1FadeToBlack::FadeToBlack(float time)
 
 	return ret;
 }
-bool j1FadeToBlack::FadeToBlack(Maps type, float time)
+bool m1FadeToBlack::FadeToBlack(Maps type, float time)
 {
 	bool ret = false;
 
@@ -152,7 +152,7 @@ bool j1FadeToBlack::FadeToBlack(Maps type, float time)
 
 	return ret;
 }
-bool j1FadeToBlack::FadeToBlack(j1Module * module_off, Maps type, float time)
+bool m1FadeToBlack::FadeToBlack(m1Module * module_off, Maps type, float time)
 {
 	bool ret = false;
 
@@ -169,7 +169,7 @@ bool j1FadeToBlack::FadeToBlack(j1Module * module_off, Maps type, float time)
 
 	return ret;
 }
-bool j1FadeToBlack::IsFading() const
+bool m1FadeToBlack::IsFading() const
 {
 	return current_step != fade_step::none;
 }

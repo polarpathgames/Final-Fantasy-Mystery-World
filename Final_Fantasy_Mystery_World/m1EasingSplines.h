@@ -1,7 +1,7 @@
-#ifndef __EASINGSPLINES_H__
-#define __EASINGSPLINES_H__
+#ifndef __m1EASINGSPLINES_H__
+#define __m1EASINGSPLINES_H__
 
-#include "j1Module.h"
+#include "m1Module.h"
 #include <list>
 #include "SDL/include/SDL_timer.h"
 
@@ -45,14 +45,14 @@ struct EaseSplineInfo {
 
 };
 
-class EasingSplines : public j1Module
+class m1EasingSplines : public m1Module
 {
 public:
 
-	EasingSplines();
+	m1EasingSplines();
 
 	// Destructor
-	virtual ~EasingSplines();
+	virtual ~m1EasingSplines();
 
 	// Called each loop iteration
 	bool Update(float dt);

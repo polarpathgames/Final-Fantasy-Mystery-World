@@ -1,19 +1,19 @@
-#ifndef __j1WINDOW_H__
-#define __j1WINDOW_H__
+#ifndef __m1WINDOW_H__
+#define __m1WINDOW_H__
 
-#include "j1Module.h"
+#include "m1Module.h"
 #include <string>
 struct SDL_Window;
 struct SDL_Surface;
 
-class j1Window : public j1Module
+class m1Window : public m1Module
 {
 public:
 
-	j1Window();
+	m1Window();
 
 	// Destructor
-	virtual ~j1Window();
+	virtual ~m1Window();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);

@@ -1,26 +1,26 @@
 // ----------------------------------------------------
-// j1Module.h
+// m1Module.h
 // Interface for all engine modules
 // ----------------------------------------------------
 
-#ifndef __j1MODULE_H__
-#define __j1MODULE_H__
+#ifndef __Module_H__
+#define __Module_H__
 
 #include <string>
 #include "PugiXml\src\pugixml.hpp"
 
-class j1App;
+class App;
 struct Collider;
-class GUI;
+class u1GUI;
 
-class j1Module
+class m1Module
 {
 private:
 	bool enabled = true;
 
 public:
 
-	j1Module() : active(false)
+	m1Module() : active(false)
 	{}
 
 	void Init()
@@ -87,7 +87,7 @@ public:
 
 	// Callbacks ---
 	virtual void OnCollision(Collider*, Collider*) {}
-	virtual bool Interact(GUI* element) { return true; }
+	virtual bool Interact(u1GUI* element) { return true; }
 
 public:
 
@@ -96,4 +96,4 @@ public:
 
 };
 
-#endif // __j1MODULE_H__
+#endif // __m1Module_H__

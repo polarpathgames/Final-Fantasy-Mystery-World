@@ -1,7 +1,7 @@
-#ifndef __GUI_H__
-#define __GUI_H__
+#ifndef __u1UI_Element_H__
+#define __u1UI_Element_H__
 
-#include "j1UIManager.h"
+#include "m1GUI.h"
 #include "p2Point.h"
 
 struct SDL_Texture;
@@ -41,12 +41,12 @@ enum Color
 	COLOR_NOT_DEF
 };
 
-class GUI
+class u1GUI
 {
 public:
-	GUI() :type(UIType::NON) {}
-	GUI(UIType type,const int &x,const int &y, GUI* parent, const SDL_Rect& section, bool draw = true, bool inter = false, bool drag = false, bool allow_focus = true);
-	virtual ~GUI();
+	u1GUI() :type(UIType::NON) {}
+	u1GUI(UIType type,const int &x,const int &y, u1GUI* parent, const SDL_Rect& section, bool draw = true, bool inter = false, bool drag = false, bool allow_focus = true);
+	virtual ~u1GUI();
 
 	bool Update();
 	virtual bool PostUpdate() { return true; }
@@ -66,8 +66,8 @@ public:
 
 	void DebugDraw();
 
-	void AddListener(j1Module* module);
-	void DeleteListener(j1Module* module);
+	void AddListener(m1Module* module);
+	void DeleteListener(m1Module* module);
 
 public:
 	iPoint position = { 0,0 };
@@ -84,9 +84,9 @@ public:
 
 	bool clipable = false;
 
-	GUI* parent = nullptr;
+	u1GUI* parent = nullptr;
 
-	std::list<GUI*> childs;
+	std::list<u1GUI*> childs;
 
 	Mouse_Event current_state = Mouse_Event::NONE;
 	iPoint last_mouse;
@@ -96,7 +96,7 @@ private:
 
 	int priority = 0;
 
-	std::list<j1Module*> listeners;
+	std::list<m1Module*> listeners;
 };
 
 

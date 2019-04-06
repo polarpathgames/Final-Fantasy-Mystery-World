@@ -1,10 +1,10 @@
 #ifndef _J1DIALOGSYSTEM_H
 #define _J1DIALOGSYSTEM_H
 
-#include "j1Module.h"
+#include "m1Module.h"
 #include <string>
 #include <vector>
-#include "j1App.h"
+#include "App.h"
 #include "p2Log.h"
 
 class DialogOption
@@ -39,11 +39,11 @@ public:
 	int treeid, karma;
 };
 
-class j1DialogSystem : public j1Module
+class m1DialogSystem : public m1Module
 {
 public:
-	j1DialogSystem();
-	~j1DialogSystem();
+	m1DialogSystem();
+	~m1DialogSystem();
 	bool Start();
 	bool Update(float dt);
 	bool CleanUp();

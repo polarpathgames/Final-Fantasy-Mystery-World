@@ -1,20 +1,20 @@
-#ifndef __GUI_CHECKBOX_H__
-#define __GUI_CHECKBOX_H__
+#ifndef __u1CheckBox_H__
+#define __u1CheckBox_H__
 
-#include "GUI.h"
+#include "u1UI_Element.h"
 
 #include <list>
 
-class GUI_CheckBox :public GUI {
+class u1CheckBox :public u1GUI {
 
 public:
 
-	GUI_CheckBox(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, GUI* parent);
-	~GUI_CheckBox() {};
+	u1CheckBox(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, u1GUI* parent);
+	~u1CheckBox() {};
 
 	void InnerDraw();
 
-	void AddOptions(GUI_CheckBox* option);
+	void AddOptions(u1CheckBox* option);
 	void Clicked();
 	bool GetIsClicked()const;
 
@@ -25,10 +25,10 @@ public:
 
 private:
 	bool box_clicked = false;
-	std::list<GUI_CheckBox*> options;
+	std::list<u1CheckBox*> options;
 
 	SDL_Rect hovered_rect = { 0,0,0,0 };
 	SDL_Rect clicked_rect = { 0,0,0,0 };
 };
 
-#endif // !_GUI_CHECKBOX_
+#endif // !_u1CheckBox_

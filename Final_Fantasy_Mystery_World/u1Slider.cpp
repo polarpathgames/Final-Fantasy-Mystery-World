@@ -1,12 +1,12 @@
-#include "j1App.h"
-#include "GUI_Button.h"
+#include "App.h"
+#include "u1Button.h"
 #include "p2Log.h"
-#include "j1UIManager.h"
-#include "GUI_Slider.h"
-#include "j1Render.h"
+#include "m1GUI.h"
+#include "u1Slider.h"
+#include "m1Render.h"
 
-GUI_Slider::GUI_Slider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, bool horizontal, GUI * parent) 
-	:GUI(SLIDER, x, y, parent, rect, true, true)
+u1Slider::u1Slider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, bool horizontal, u1GUI * parent) 
+	:u1GUI(SLIDER, x, y, parent, rect, true, true)
 {
 
 	slider_rect = rect;
@@ -14,19 +14,19 @@ GUI_Slider::GUI_Slider(const int &x, const int &y, const SDL_Rect &rect, const S
 	section = rect;
 	
 	//callback & parent?
-	slider_btn = App->ui_manager->AddButton(x,y, idle, hover, push, nullptr, parent, true, true, true,false);
+	slider_btn = app->gui->AddButton(x,y, idle, hover, push, nullptr, parent, true, true, true,false);
 }
 
-GUI_Slider::~GUI_Slider()
+u1Slider::~u1Slider()
 {
 }
 
-void GUI_Slider::SetButton(GUI_Button * slider_btn)
+void u1Slider::SetButton(u1Button * slider_btn)
 {
 	this->slider_btn = slider_btn;
 }
 
-void GUI_Slider::SetValue(int value)
+void u1Slider::SetValue(int value)
 {
 	if (horizontal) {
 		this->value = value;
@@ -38,7 +38,7 @@ void GUI_Slider::SetValue(int value)
 	}
 }
 
-uint GUI_Slider::GetValue() const
+uint u1Slider::GetValue() const
 {
 	int ret = 0;
 	if (horizontal)
@@ -51,12 +51,12 @@ uint GUI_Slider::GetValue() const
 	return ret;
 }
 
-GUI_Button * GUI_Slider::GetButton() const
+u1Button * u1Slider::GetButton() const
 {
 	return slider_btn;
 }
 
-bool GUI_Slider::Update(float dt)
+bool u1Slider::Update(float dt)
 {
 	bool ret = true;
 
@@ -65,11 +65,11 @@ bool GUI_Slider::Update(float dt)
 	return ret;
 }
 
-bool GUI_Slider::PostUpdate()
+bool u1Slider::PostUpdate()
 {
 	bool ret = true;
 
-	App->render->Blit((SDL_Texture*)App->ui_manager->GetAtlas(), draw_offset.x, draw_offset.y, &slider_rect, false, SDL_FLIP_NONE, 0.0F, true);
+	app->render->Blit((SDL_Texture*)app->gui->GetAtlas(), draw_offset.x, draw_offset.y, &slider_rect, false, SDL_FLIP_NONE, 0.0F, true);
 	slider_btn->InnerDraw();
 
 	return ret;

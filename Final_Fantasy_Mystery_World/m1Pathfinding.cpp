@@ -1,24 +1,24 @@
 #include "p2Defs.h"
 #include "p2Log.h"
-#include "j1App.h"
-#include "j1PathFinding.h"
-#include "j1Map.h"
+#include "App.h"
+#include "m1Pathfinding.h"
+#include "m1Map.h"
 #include "Brofiler/Brofiler.h"
 
 
-j1PathFinding::j1PathFinding() : j1Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH),width(0), height(0)
+m1PathFinding::m1PathFinding() : m1Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH),width(0), height(0)
 {
 	name.assign("pathfinding");
 }
 
 // Destructor
-j1PathFinding::~j1PathFinding()
+m1PathFinding::~m1PathFinding()
 {
 	RELEASE_ARRAY(map);
 }
 
 // Called before quitting
-bool j1PathFinding::CleanUp()
+bool m1PathFinding::CleanUp()
 {
 	LOG("Freeing pathfinding library");
 
@@ -28,7 +28,7 @@ bool j1PathFinding::CleanUp()
 }
 
 // Sets up the walkability map
-void j1PathFinding::SetMap(uint width, uint height, uchar* data)
+void m1PathFinding::SetMap(uint width, uint height, uchar* data)
 {
 	this->width = width;
 	this->height = height;
@@ -39,21 +39,21 @@ void j1PathFinding::SetMap(uint width, uint height, uchar* data)
 }
 
 // Utility: return true if pos is inside the map boundaries
-bool j1PathFinding::CheckBoundaries(const iPoint& pos) const
+bool m1PathFinding::CheckBoundaries(const iPoint& pos) const
 {
 	return (pos.x >= 0 && pos.x <= (int)width &&
 			pos.y >= 0 && pos.y <= (int)height);
 }
 
 // Utility: returns true is the tile is walkable
-bool j1PathFinding::IsWalkable(const iPoint& pos) const
+bool m1PathFinding::IsWalkable(const iPoint& pos) const
 {
 	uchar t = GetTileAt(pos);
 	return t != INVALID_WALK_CODE && t > 0;
 }
 
 // Utility: return the walkability value of a tile
-uchar j1PathFinding::GetTileAt(const iPoint& pos) const
+uchar m1PathFinding::GetTileAt(const iPoint& pos) const
 {
 	if(CheckBoundaries(pos))
 		return map[(pos.y*width) + pos.x];
@@ -62,7 +62,7 @@ uchar j1PathFinding::GetTileAt(const iPoint& pos) const
 }
 
 // To request all tiles involved in the last generated path
-iPoint j1PathFinding::GetLastPath() const
+iPoint m1PathFinding::GetLastPath() const
 {
 	return last_path[1];
 }
@@ -127,37 +127,37 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
 
 
 	cell.create(pos.x - 1, pos.y - 1);
-	if (App->map->IsWalkable(cell,false))
+	if (app->map->IsWalkable(cell,false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	// west
 	cell.create(pos.x + 1, pos.y + 1);
-	if (App->map->IsWalkable(cell, false))
+	if (app->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x - 1, pos.y + 1);
-	if (App->map->IsWalkable(cell, false))
+	if (app->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x + 1, pos.y - 1);
-	if (App->map->IsWalkable(cell, false))
+	if (app->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x - 1, pos.y);
-	if (App->map->IsWalkable(cell, false))
+	if (app->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	// west
 	cell.create(pos.x + 1, pos.y);
-	if (App->map->IsWalkable(cell, false))
+	if (app->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x, pos.y + 1);
-	if (App->map->IsWalkable(cell, false))
+	if (app->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x, pos.y - 1);
-	if (App->map->IsWalkable(cell, false))
+	if (app->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 
@@ -189,13 +189,13 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 // Actual A* algorithm: return number of steps in the creation of the path or -1 ----
 // ----------------------------------------------------------------------------------
-int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
+int m1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
 	BROFILER_CATEGORY("PathFinding", Profiler::Color::Brown);
 
 	last_path.clear();
 
-	if (!App->map->IsWalkable(origin,false) || !App->map->IsWalkable(destination,false))
+	if (!app->map->IsWalkable(origin,false) || !app->map->IsWalkable(destination,false))
 		return -1;
 
 

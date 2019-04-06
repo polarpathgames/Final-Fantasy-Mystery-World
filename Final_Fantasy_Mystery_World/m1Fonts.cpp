@@ -1,8 +1,8 @@
 #include "p2Defs.h"
 #include "p2Log.h"
-#include "j1App.h"
-#include "j1Textures.h"
-#include "j1Fonts.h"
+#include "App.h"
+#include "m1Textures.h"
+#include "m1Fonts.h"
 
 #include <assert.h>
 
@@ -10,17 +10,17 @@
 #include "SDL_TTF\include\SDL_ttf.h"
 #pragma comment( lib, "SDL_ttf/libx86/SDL2_ttf.lib" )
 
-j1Fonts::j1Fonts() : j1Module()
+m1Fonts::m1Fonts() : m1Module()
 {
 	name.assign("fonts");
 }
 
 // Destructor
-j1Fonts::~j1Fonts()
+m1Fonts::~m1Fonts()
 {}
 
 // Called before render is available
-bool j1Fonts::Awake(pugi::xml_node& conf)
+bool m1Fonts::Awake(pugi::xml_node& conf)
 {
 	LOG("Init True Type Font library");
 	bool ret = true;
@@ -49,7 +49,7 @@ bool j1Fonts::Awake(pugi::xml_node& conf)
 }
 
 // Called before quitting
-bool j1Fonts::CleanUp()
+bool m1Fonts::CleanUp()
 {
 	LOG("Freeing True Type fonts and library");
 
@@ -68,7 +68,7 @@ bool j1Fonts::CleanUp()
 }
 
 // Load new texture from file path
-Font* const j1Fonts::Load(const char* path, int size)
+Font* const m1Fonts::Load(const char* path, int size)
 {
 	Font* ret = nullptr;
 	std::list<Font*>::const_iterator item = FindPathFont(path);	// Get iterator of fonts list
@@ -95,7 +95,7 @@ Font* const j1Fonts::Load(const char* path, int size)
 	return ret;
 }
 
-bool j1Fonts::UnLoad(FontType font)
+bool m1Fonts::UnLoad(FontType font)
 {
 	std::list<Font*>::const_iterator item;
 	if ((item = FindIdFont(font)) != fonts.end()) {
@@ -110,7 +110,7 @@ bool j1Fonts::UnLoad(FontType font)
 	return true;
 }
 
-std::list<Font*>::const_iterator j1Fonts::FindIdFont(FontType font_type) // Find font by id
+std::list<Font*>::const_iterator m1Fonts::FindIdFont(FontType font_type) // Find font by id
 {
 	for (std::list<Font*>::iterator item = fonts.begin(); item != fonts.end(); ++item) {
 		if ((*item)->type == font_type) {
@@ -121,7 +121,7 @@ std::list<Font*>::const_iterator j1Fonts::FindIdFont(FontType font_type) // Find
 	return fonts.end();
 }
 
-std::list<Font*>::const_iterator j1Fonts::FindPathFont(const char* name, const int& size) // Find font by name
+std::list<Font*>::const_iterator m1Fonts::FindPathFont(const char* name, const int& size) // Find font by name
 {
 	for (std::list<Font*>::iterator item = fonts.begin(); item != fonts.end(); ++item) {
 		if (strcmp(name,(*item)->name.data()) == 0 && size != 0 && size == (*item)->size) {
@@ -133,7 +133,7 @@ std::list<Font*>::const_iterator j1Fonts::FindPathFont(const char* name, const i
 }
 
 // Print text using font
-SDL_Texture* j1Fonts::Print(const char* text, SDL_Color color, FontType font_type)
+SDL_Texture* m1Fonts::Print(const char* text, SDL_Color color, FontType font_type)
 {
 	SDL_Texture* ret = NULL;
 
@@ -146,14 +146,14 @@ SDL_Texture* j1Fonts::Print(const char* text, SDL_Color color, FontType font_typ
 	}
 	else
 	{
-		ret = App->tex->LoadSurface(surface);
+		ret = app->tex->LoadSurface(surface);
 		SDL_FreeSurface(surface);
 	}
 
 	return ret;
 }
 
-SDL_Texture* j1Fonts::PrintWrapped(const char* text, SDL_Color color, FontType font_type, Uint32 wrap_length)
+SDL_Texture* m1Fonts::PrintWrapped(const char* text, SDL_Color color, FontType font_type, Uint32 wrap_length)
 {
 	SDL_Texture* ret = NULL;
 	std::list<Font*>::const_iterator item;
@@ -166,20 +166,20 @@ SDL_Texture* j1Fonts::PrintWrapped(const char* text, SDL_Color color, FontType f
 	}
 	else
 	{
-		ret = App->tex->LoadSurface(surface);
+		ret = app->tex->LoadSurface(surface);
 		SDL_FreeSurface(surface);
 	}
 
 	return ret;
 }
 
-bool j1Fonts::ChangeFontSize(const int & size)
+bool m1Fonts::ChangeFontSize(const int & size)
 {
 	return false;
 }
 
 // calculate size of a text
-bool j1Fonts::CalcSize(const char* text, int& width, int& height, FontType font_type)
+bool m1Fonts::CalcSize(const char* text, int& width, int& height, FontType font_type)
 {
 	bool ret = false;
 	std::list<Font*>::const_iterator item;

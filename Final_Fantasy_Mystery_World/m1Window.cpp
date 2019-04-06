@@ -1,12 +1,12 @@
 #include "p2Defs.h"
 #include "p2Log.h"
-#include "j1App.h"
-#include "j1Window.h"
+#include "App.h"
+#include "m1Window.h"
 #include <string>
 #include "SDL/include/SDL.h"
 
 
-j1Window::j1Window() : j1Module()
+m1Window::m1Window() : m1Module()
 {
 	window = NULL;
 	screen_surface = NULL;
@@ -14,12 +14,12 @@ j1Window::j1Window() : j1Module()
 }
 
 // Destructor
-j1Window::~j1Window()
+m1Window::~m1Window()
 {
 }
 
 // Called before render is available
-bool j1Window::Awake(pugi::xml_node& config)
+bool m1Window::Awake(pugi::xml_node& config)
 {
 	LOG("Init SDL window & surface");
 	bool ret = true;
@@ -62,7 +62,7 @@ bool j1Window::Awake(pugi::xml_node& config)
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
 
-		window = SDL_CreateWindow(App->GetTitle(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		window = SDL_CreateWindow(app->GetTitle(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
 		if(window == NULL)
 		{
@@ -80,7 +80,7 @@ bool j1Window::Awake(pugi::xml_node& config)
 }
 
 // Called before quitting
-bool j1Window::CleanUp()
+bool m1Window::CleanUp()
 {
 	LOG("Destroying SDL window and quitting all SDL systems");
 
@@ -96,19 +96,19 @@ bool j1Window::CleanUp()
 }
 
 // Set new window title
-void j1Window::SetTitle(const char* new_title)
+void m1Window::SetTitle(const char* new_title)
 {
 	//title.create(new_title);
 	SDL_SetWindowTitle(window, new_title);
 }
 
-void j1Window::GetWindowSize(uint& width, uint& height) const
+void m1Window::GetWindowSize(uint& width, uint& height) const
 {
 	width = this->width;
 	height = this->height;
 }
 
-uint j1Window::GetScale() const
+uint m1Window::GetScale() const
 {
 	return scale;
 }

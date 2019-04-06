@@ -1,7 +1,7 @@
-#ifndef __j1INPUT_H__
-#define __j1INPUT_H__
+#ifndef __m1INPUT_H__
+#define __m1INPUT_H__
 
-#include "j1Module.h"
+#include "m1Module.h"
 #include "SDL\include\SDL_scancode.h"
 #include "SDL\include\SDL.h"
 #include "SDL\include\SDL_gamecontroller.h"
@@ -86,15 +86,15 @@ enum j1KeyState
 	KEY_UP
 };
 
-class j1Input : public j1Module
+class m1Input : public m1Module
 {
 
 public:
 
-	j1Input();
+	m1Input();
 
 	// Destructor
-	virtual ~j1Input();
+	virtual ~m1Input();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);

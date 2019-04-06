@@ -2,7 +2,7 @@
 
 #include "p2Defs.h"
 #include "p2Log.h"
-#include "j1App.h"
+#include "App.h"
 
 #include "SDL/include/SDL.h"
 #pragma comment( lib, "SDL/libx86/SDL2.lib" )
@@ -23,7 +23,7 @@ enum MainState
 	EXIT
 };
 
-j1App* App = NULL;
+App* app = NULL;
 
 int main(int argc, char* args[])
 {
@@ -41,9 +41,9 @@ int main(int argc, char* args[])
 			case CREATE:
 			LOG("CREATION PHASE ===============================");
 
-			App = new j1App(argc, args);
+			app = new App(argc, args);
 
-			if(App != NULL)
+			if(app != NULL)
 				state = AWAKE;
 			else
 				state = FAIL;
@@ -53,7 +53,7 @@ int main(int argc, char* args[])
 			// Awake all modules -----------------------------------------------
 			case AWAKE:
 			LOG("AWAKE PHASE ===============================");
-			if(App->Awake() == true)
+			if(app->Awake() == true)
 				state = START;
 			else
 			{
@@ -66,7 +66,7 @@ int main(int argc, char* args[])
 			// Call all modules before first frame  ----------------------------
 			case START:
 			LOG("START PHASE ===============================");
-			if(App->Start() == true)
+			if(app->Start() == true)
 			{
 				state = LOOP;
 				LOG("UPDATE PHASE ===============================");
@@ -82,16 +82,16 @@ int main(int argc, char* args[])
 			case LOOP:
 			{
 				BROFILER_FRAME("FinalFantasyMysteryWorld");
-				if (App->Update() == false)
+				if (app->Update() == false)
 					state = CLEAN;
 			}break;
 
 			// Cleanup allocated memory -----------------------------------------
 			case CLEAN:
 			LOG("CLEANUP PHASE ===============================");
-			if(App->CleanUp() == true)
+			if(app->CleanUp() == true)
 			{
-				RELEASE(App);
+				RELEASE(app);
 				result = EXIT_SUCCESS;
 				state = EXIT;
 			}

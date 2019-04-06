@@ -1,28 +1,28 @@
 #include "p2Defs.h"
 #include "p2Log.h"
-#include "j1Audio.h"
+#include "m1Audio.h"
 #include <list>
 #include <string>
-#include "j1Input.h"
-#include "j1App.h"
-#include "j1Scene.h"
-#include "GUI_Slider.h"
+#include "m1Input.h"
+#include "App.h"
+#include "m1Scene.h"
+#include "u1Slider.h"
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
 
-j1Audio::j1Audio() : j1Module()
+m1Audio::m1Audio() : m1Module()
 {
 	music = NULL;
 	name.assign("audio");
 }
 
 // Destructor
-j1Audio::~j1Audio()
+m1Audio::~m1Audio()
 {}
 
 // Called before render is available
-bool j1Audio::Awake(pugi::xml_node& config)
+bool m1Audio::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Audio Mixer");
 	bool ret = true;
@@ -78,7 +78,7 @@ bool j1Audio::Awake(pugi::xml_node& config)
 }
 
 // Called before quitting
-bool j1Audio::CleanUp()
+bool m1Audio::CleanUp()
 {
 	if (!active)
 		return true;
@@ -103,7 +103,7 @@ bool j1Audio::CleanUp()
 }
 
 // Play a music file
-bool j1Audio::PlayMusic(const char* path)
+bool m1Audio::PlayMusic(const char* path)
 {
 	bool ret = true;
 
@@ -157,7 +157,7 @@ bool j1Audio::PlayMusic(const char* path)
 }
 
 // Load WAV
-unsigned int j1Audio::LoadFx(const char* path)
+unsigned int m1Audio::LoadFx(const char* path)
 {
 	unsigned int ret = 0;
 
@@ -180,7 +180,7 @@ unsigned int j1Audio::LoadFx(const char* path)
 }
 
 // Play WAV
-bool j1Audio::PlayFx(unsigned int id, int repeat)
+bool m1Audio::PlayFx(unsigned int id, int repeat)
 {
 	bool ret = false;
 
@@ -196,7 +196,7 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	return ret;
 }
 
-void j1Audio::StopMusic(int mut)
+void m1Audio::StopMusic(int mut)
 {
 	switch (mut)
 	{
@@ -256,7 +256,7 @@ void j1Audio::StopMusic(int mut)
 
 }
 
-void j1Audio::VolumeUp(int vol)
+void m1Audio::VolumeUp(int vol)
 {
 	if (!mute && ((!mute_volume && vol == -2) || (!mute_fx && vol == -3)))
 	{
@@ -271,7 +271,7 @@ void j1Audio::VolumeUp(int vol)
 				volume += volume_change_ratio;
 				Mix_VolumeMusic(volume);
 			}
-			App->scene->slider_music_volume->SetValue(volume);
+			app->scene->slider_music_volume->SetValue(volume);
 			break;
 		case -3:
 			if (volume_fx < max_volume) {
@@ -282,7 +282,7 @@ void j1Audio::VolumeUp(int vol)
 					Mix_VolumeChunk((*item), volume_fx);
 				}
 			}
-			App->scene->slider_fx_volume->SetValue(volume_fx);
+			app->scene->slider_fx_volume->SetValue(volume_fx);
 			break;
 		default:
 			volume = vol - volume_change_ratio;
@@ -294,7 +294,7 @@ void j1Audio::VolumeUp(int vol)
 
 }
 
-void j1Audio::VolumeDown(int vol)
+void m1Audio::VolumeDown(int vol)
 {
 	if (!mute && ((!mute_volume && vol == -2) || (!mute_fx && vol == -3)))
 	{
@@ -309,7 +309,7 @@ void j1Audio::VolumeDown(int vol)
 				volume -= volume_change_ratio;
 				Mix_VolumeMusic(volume);
 			}
-			App->scene->slider_music_volume->SetValue(volume);
+			app->scene->slider_music_volume->SetValue(volume);
 			break;
 		case -3:
 			if (volume_fx > 0) {
@@ -320,7 +320,7 @@ void j1Audio::VolumeDown(int vol)
 					Mix_VolumeChunk((*item), volume_fx);
 				}
 			}
-			App->scene->slider_fx_volume->SetValue(volume_fx);
+			app->scene->slider_fx_volume->SetValue(volume_fx);
 			break;
 		default:
 			volume = vol + volume_change_ratio;
@@ -333,7 +333,7 @@ void j1Audio::VolumeDown(int vol)
 
 }
 
-void j1Audio::SliderVolumeFx(int vol)
+void m1Audio::SliderVolumeFx(int vol)
 {
 	for (int id = 1; id <= fx.size(); id++)
 	{
@@ -343,14 +343,14 @@ void j1Audio::SliderVolumeFx(int vol)
 	volume_fx = vol;
 }
 
-bool j1Audio::Load(pugi::xml_node & node)
+bool m1Audio::Load(pugi::xml_node & node)
 {
 
 
 	return true;
 }
 
-bool j1Audio::Save(pugi::xml_node & node) const
+bool m1Audio::Save(pugi::xml_node & node) const
 {
 
 

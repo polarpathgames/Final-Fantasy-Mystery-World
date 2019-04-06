@@ -1,11 +1,11 @@
-#include "j1App.h"
-#include "j1Input.h"
-#include "j1Render.h"
-#include "j1Collisions.h"
+#include "App.h"
+#include "m1Input.h"
+#include "m1Render.h"
+#include "m1Collisions.h"
 
 #include "Brofiler/Brofiler.h"
 
-j1Collision::j1Collision()
+m1Collision::m1Collision()
 {
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
@@ -20,10 +20,10 @@ j1Collision::j1Collision()
 }
 
 // Destructor
-j1Collision::~j1Collision()
+m1Collision::~m1Collision()
 {}
 
-bool j1Collision::PreUpdate()
+bool m1Collision::PreUpdate()
 {
 	BROFILER_CATEGORY("Collisions: PreUpdate", Profiler::Color::Magenta);
 	// Remove all colliders scheduled for deletion
@@ -72,10 +72,10 @@ bool j1Collision::PreUpdate()
 }
 
 // Called before render is available
-bool j1Collision::Update(float dt)
+bool m1Collision::Update(float dt)
 {
 	BROFILER_CATEGORY("Collisions: Update", Profiler::Color::Magenta);
-	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		debug = !debug;
 	DebugDraw();
 
@@ -83,7 +83,7 @@ bool j1Collision::Update(float dt)
 	return true;
 }
 
-void j1Collision::DebugDraw()
+void m1Collision::DebugDraw()
 {
 
 	if (debug == false)
@@ -98,16 +98,16 @@ void j1Collision::DebugDraw()
 		switch (colliders[i]->type)
 		{
 		case COLLIDER_NONE: // white
-			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			app->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
 		case COLLIDER_PLAYER: // white
-			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
+			app->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
 			break;
 		case COLLIDER_SHOP: // white
-			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			app->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
 		case COLLIDER_HOME: // white
-			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			app->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
 		}
 
@@ -118,7 +118,7 @@ void j1Collision::DebugDraw()
 
 
 // Called before quitting
-bool j1Collision::CleanUp()
+bool m1Collision::CleanUp()
 {
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
@@ -132,7 +132,7 @@ bool j1Collision::CleanUp()
 	return true;
 }
 
-Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback)
+Collider* m1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, m1Module* callback)
 {
 	Collider* ret = nullptr;
 
@@ -157,5 +157,3 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 		rect.y < r.y + r.h &&
 		rect.h + rect.y > r.y);
 }
-
-

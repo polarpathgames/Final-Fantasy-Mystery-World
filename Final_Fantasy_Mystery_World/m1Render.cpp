@@ -1,17 +1,17 @@
 #include "p2Defs.h"
 #include "p2Log.h"
-#include "j1App.h"
-#include "j1Window.h"
-#include "j1Render.h"
-#include "j1Map.h"
+#include "App.h"
+#include "m1Window.h"
+#include "m1Render.h"
+#include "m1Map.h"
 #include "Brofiler/Brofiler.h"
-#include "j1Input.h"
+#include "m1Input.h"
 
 
 
 #define VSYNC false
 
-j1Render::j1Render() : j1Module()
+m1Render::m1Render() : m1Module()
 {
 	name.assign("renderer");
 	background.r = 0;
@@ -21,11 +21,11 @@ j1Render::j1Render() : j1Module()
 }
 
 // Destructor
-j1Render::~j1Render()
+m1Render::~m1Render()
 {}
 
 // Called before render is available
-bool j1Render::Awake(pugi::xml_node& config)
+bool m1Render::Awake(pugi::xml_node& config)
 {
 	LOG("Create SDL rendering context");
 	bool ret = true;
@@ -39,7 +39,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 		vsync = true;
 	}
 
-	renderer = SDL_CreateRenderer(App->win->window, -1, flags);
+	renderer = SDL_CreateRenderer(app->win->window, -1, flags);
 
 	if(renderer == NULL)
 	{
@@ -48,8 +48,8 @@ bool j1Render::Awake(pugi::xml_node& config)
 	}
 	else
 	{
-		camera.w = App->win->screen_surface->w;
-		camera.h = App->win->screen_surface->h;
+		camera.w = app->win->screen_surface->w;
+		camera.h = app->win->screen_surface->h;
 		camera.x = 0;
 		camera.y = 0;
 	}
@@ -58,7 +58,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 }
 
 // Called before the first frame
-bool j1Render::Start()
+bool m1Render::Start()
 {
 	LOG("render start");
 	// back background
@@ -67,14 +67,14 @@ bool j1Render::Start()
 }
 
 // Called each loop iteration
-bool j1Render::PreUpdate()
+bool m1Render::PreUpdate()
 {
 	BROFILER_CATEGORY("PreUpdateRender", Profiler::Color::Orange);
 
 	SDL_RenderClear(renderer);
 
 	//ZOOM
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
 		debug_border = true;
 
@@ -84,7 +84,7 @@ bool j1Render::PreUpdate()
 			SDL_RenderSetLogicalSize(renderer, camera.w * zoom, camera.h * zoom);
 		}
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	else if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 	{
 		if (zoom > 1)
 		{
@@ -100,7 +100,7 @@ bool j1Render::PreUpdate()
 	return true;
 }
 
-bool j1Render::Update(float dt)
+bool m1Render::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateRender", Profiler::Color::Aqua);
 	//LOG("Camera.y = %i", camera.y);
@@ -108,7 +108,7 @@ bool j1Render::Update(float dt)
 	return true;
 }
 
-bool j1Render::PostUpdate()
+bool m1Render::PostUpdate()
 {
 	BROFILER_CATEGORY("PostUpdateRender", Profiler::Color::Purple);
 
@@ -118,7 +118,7 @@ bool j1Render::PostUpdate()
 }
 
 // Called before quitting
-bool j1Render::CleanUp()
+bool m1Render::CleanUp()
 {
 	LOG("Destroying SDL render");
 	SDL_DestroyRenderer(renderer);
@@ -126,7 +126,7 @@ bool j1Render::CleanUp()
 }
 
 // Load Game State
-bool j1Render::Load(pugi::xml_node& data)
+bool m1Render::Load(pugi::xml_node& data)
 {
 	camera.x = data.child("camera").attribute("x").as_int();
 	camera.y = data.child("camera").attribute("y").as_int();
@@ -135,7 +135,7 @@ bool j1Render::Load(pugi::xml_node& data)
 }
 
 // Save Game State
-bool j1Render::Save(pugi::xml_node& data) const
+bool m1Render::Save(pugi::xml_node& data) const
 {
 	pugi::xml_node cam = data.append_child("camera");
 
@@ -145,26 +145,26 @@ bool j1Render::Save(pugi::xml_node& data) const
 	return true;
 }
 
-void j1Render::SetBackgroundColor(SDL_Color color)
+void m1Render::SetBackgroundColor(SDL_Color color)
 {
 	background = color;
 }
 
-void j1Render::SetViewPort(const SDL_Rect& rect)
+void m1Render::SetViewPort(const SDL_Rect& rect)
 {
 	SDL_RenderSetViewport(renderer, &rect);
 }
 
-void j1Render::ResetViewPort()
+void m1Render::ResetViewPort()
 {
 	SDL_RenderSetViewport(renderer, &viewport);
 }
 
 // Blit to screen
-bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool apply_scale, SDL_RendererFlip flip, float speed, double angle, int pivot_x, int pivot_y) const
+bool m1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool apply_scale, SDL_RendererFlip flip, float speed, double angle, int pivot_x, int pivot_y) const
 {
 	bool ret = true;
-	uint scale = App->win->GetScale();
+	uint scale = app->win->GetScale();
 
 	SDL_Rect rect;
 	if (apply_scale) {
@@ -211,10 +211,10 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	return ret;
 }
 
-bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, bool use_camera) const
+bool m1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, bool use_camera) const
 {
 	bool ret = true;
-	uint scale = App->win->GetScale();
+	uint scale = app->win->GetScale();
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
@@ -239,10 +239,10 @@ bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a
 	return ret;
 }
 
-bool j1Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera) const
+bool m1Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera) const
 {
 	bool ret = true;
-	uint scale = App->win->GetScale();
+	uint scale = app->win->GetScale();
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
@@ -263,11 +263,11 @@ bool j1Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 
 	return ret;
 }
 
-bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera) const
+bool m1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera) const
 {
 	bool ret = true;
 
-	uint scale = App->win->GetScale();
+	uint scale = app->win->GetScale();
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
@@ -294,10 +294,10 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 	return ret;
 }
 
-iPoint j1Render::ScreenToWorld(int x, int y) const
+iPoint m1Render::ScreenToWorld(int x, int y) const
 {
 	iPoint ret;
-	int scale = App->win->GetScale();
+	int scale = app->win->GetScale();
 
 	ret.x = (x - camera.x / scale);
 	ret.y = (y - camera.y / scale);
@@ -305,9 +305,9 @@ iPoint j1Render::ScreenToWorld(int x, int y) const
 	return ret;
 }
 
-bool j1Render::IsOnCamera(const int & x, const int & y, const int & w, const int & h) const
+bool m1Render::IsOnCamera(const int & x, const int & y, const int & w, const int & h) const
 {
-	int scale = App->win->GetScale();
+	int scale = app->win->GetScale();
 
 	SDL_Rect r = { x*scale,y*scale,w*scale,h*scale };
 	SDL_Rect cam = { -camera.x,-camera.y,camera.w,camera.h };
@@ -315,25 +315,25 @@ bool j1Render::IsOnCamera(const int & x, const int & y, const int & w, const int
 	return SDL_HasIntersection(&r, &cam);
 }
 
-void j1Render::ResetCamera()
+void m1Render::ResetCamera()
 {
 	camera.x = 0;
 	camera.y = 0;
 }
 
-void j1Render::LobbyCamera(iPoint playerpos)
+void m1Render::LobbyCamera(iPoint playerpos)
 {
-	playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
+	playerpos.x = (playerpos.x * app->win->GetScale() - camera.w / 2);
 	smoth_position.x -= (playerpos.x + camera.x) / smooth_speed;
 	camera.x = smoth_position.x;
 	
 
-	playerpos.y = (playerpos.y * App->win->GetScale() - camera.h / 2);
+	playerpos.y = (playerpos.y * app->win->GetScale() - camera.h / 2);
 	smoth_position.y -= (playerpos.y + camera.y) / smooth_speed;
 	camera.y = smoth_position.y;
 
 	LOG("%i", smooth_speed);
 
-	//camera.x = (-playerpos.x * 3) + (App->win->width * 0.5);
-	//camera.y = (-playerpos.y * 3) + (App->win->height * 0.5);
+	//camera.x = (-playerpos.x * 3) + (app->win->width * 0.5);
+	//camera.y = (-playerpos.y * 3) + (app->win->height * 0.5);
 }

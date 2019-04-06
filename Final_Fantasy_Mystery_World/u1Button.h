@@ -1,14 +1,14 @@
-#ifndef __GUI_BUTTON_H__
-#define __GUI_BUTTON_H__
+#ifndef __u1Button_H__
+#define __u1Button_H__
 
-#include "GUI.h"
-#include "GUI_Label.h"
+#include "u1UI_Element.h"
+#include "u1Label.h"
 
-class GUI_Button : public GUI
+class u1Button : public u1GUI
 {
 public:
-	GUI_Button(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, GUI* parent, bool draw, bool inter, bool drag, bool focus);
-	~GUI_Button();
+	u1Button(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, u1GUI* parent, bool draw, bool inter, bool drag, bool focus);
+	~u1Button();
 
 	void InnerDraw();
 
@@ -19,7 +19,5 @@ private:
 	SDL_Rect hovered_rect = { 0,0,0,0 };
 	SDL_Rect clicked_rect = { 0,0,0,0 };
 };
-
-
 
 #endif

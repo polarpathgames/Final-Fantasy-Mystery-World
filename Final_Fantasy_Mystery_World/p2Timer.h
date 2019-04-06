@@ -1,14 +1,14 @@
-#ifndef __j1TIMER_H__
-#define __j1TIMER_H__
+#ifndef __P2TIMER_H__
+#define __P2TIMER_H__
 
 #include "p2Defs.h"
 
-class j1Timer
+class p2Timer
 {
 public:
 
 	// Constructor
-	j1Timer();
+	p2Timer();
 
 	void Start();
 	uint32 Read() const;
@@ -18,4 +18,4 @@ private:
 	uint32	started_at;
 };
 
-#endif //__j1TIMER_H__
+#endif //__p2Timer_H__

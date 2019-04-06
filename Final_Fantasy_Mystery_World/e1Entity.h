@@ -5,7 +5,7 @@
 #include <string>
 #include "p2Animation.h"
 #include "PugiXml\src\pugixml.hpp"
-#include "j1PerfTimer.h"
+#include "p2PerfTimer.h"
 
 
 
@@ -61,7 +61,7 @@ struct EntityInfo {
 	uint num_animations = 0;
 };
 
-class Entity
+class e1Entity
 {
 public:
 	enum class EntityType
@@ -76,8 +76,8 @@ public:
 	};
 
 public:
-	Entity(const int& x, const int& y);
-	virtual ~Entity();
+	e1Entity(const int& x, const int& y);
+	virtual ~e1Entity();
 
 	bool LoadEntityData(const char*);
 	//virtual void LoadProperties(pugi::xml_node&);

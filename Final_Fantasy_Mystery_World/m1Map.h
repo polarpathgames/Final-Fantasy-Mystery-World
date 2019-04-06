@@ -4,7 +4,7 @@
 #include "PugiXml/src/pugixml.hpp"
 #include <list>
 #include "p2Point.h"
-#include "j1Module.h"
+#include "m1Module.h"
 #include "p2Properties.h"
 #include "SDL/include/SDL_rect.h"
 #include <string>
@@ -108,14 +108,14 @@ struct MapData
 };
 
 // ----------------------------------------------------
-class j1Map : public j1Module
+class m1Map : public m1Module
 {
 public:
 
-	j1Map();
+	m1Map();
 
 	// Destructor
-	virtual ~j1Map();
+	virtual ~m1Map();
 
 	bool Start();
 

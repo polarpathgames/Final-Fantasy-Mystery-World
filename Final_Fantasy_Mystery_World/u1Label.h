@@ -1,19 +1,19 @@
-#ifndef _GUI_LABEL_H__ 
-#define _GUI_LABEL_H__
+#ifndef _u1Label_H__ 
+#define _u1Label_H__
 
-#include "GUI.h"
-#include "j1Fonts.h"
+#include "u1UI_Element.h"
+#include "m1Fonts.h"
 #include <string>
 
-class GUI_Label : public GUI
+class u1Label : public u1GUI
 {
 private:
 	SDL_Rect img_normal;
 
 public:
-	GUI_Label() : GUI(LABEL, 0, 0, nullptr, { 0,0,0,0 }) {	}
-	GUI_Label(const int & pos_x, const int & pos_y, const char* txt, const Color &c, FontType font, GUI* parent = nullptr, bool interactable = false, bool draggable = false, uint32 wrap_length = 0, bool focus = false);
-	~GUI_Label();
+	u1Label() : u1GUI(LABEL, 0, 0, nullptr, { 0,0,0,0 }) {	}
+	u1Label(const int & pos_x, const int & pos_y, const char* txt, const Color &c, FontType font, u1GUI* parent = nullptr, bool interactable = false, bool draggable = false, uint32 wrap_length = 0, bool focus = false);
+	~u1Label();
 
 	void InnerDraw();
 
@@ -34,4 +34,4 @@ protected:
 	SDL_Color		color = { 255,255,255,255 };
 	std::string		text;
 };
-#endif //_GUI_LABEL_H_
+#endif //_u1Label_H_

@@ -5,11 +5,11 @@
 #include <string>
 #include "p2Animation.h"
 #include "PugiXml\src\pugixml.hpp"
-#include "j1PerfTimer.h"
-#include "Entity.h"
+#include "p2PerfTimer.h"
+#include "e1Entity.h"
 
 
-class StaticEntity : public Entity
+class e1StaticEntity : public e1Entity
 {
 public:
 
@@ -32,8 +32,8 @@ public:
 
 public:
 
-	StaticEntity(int x, int y, const char* name);
-	~StaticEntity();
+	e1StaticEntity(int x, int y, const char* name);
+	~e1StaticEntity();
 
 private:
 
@@ -46,4 +46,3 @@ private:
 };
 
 #endif
-

@@ -6,47 +6,47 @@
 #include "p2Log.h"
 #include "SDL/include/SDL.h"
 
-#include "j1Window.h"
-#include "j1Input.h"
-#include "j1Render.h"
-#include "j1Textures.h"
-#include "j1Audio.h"
-#include "j1App.h"
-#include "j1Scene.h"
-#include "j1UIManager.h"
-#include "j1Map.h"
-#include "j1Collisions.h"
-#include "j1Fonts.h"
-#include "MainMenu.h"
+#include "m1Window.h"
+#include "m1Input.h"
+#include "m1Render.h"
+#include "m1Textures.h"
+#include "m1Audio.h"
+#include "App.h"
+#include "m1Scene.h"
+#include "m1GUI.h"
+#include "m1Map.h"
+#include "m1Collisions.h"
+#include "m1Fonts.h"
+#include "m1MainMenu.h"
 #include "p2Point.h"
-#include "EasingSplines.h"
-#include "j1EntityManager.h"
-#include "j1FadeToBlack.h"
-#include "j1Pathfinding.h"
-#include "j1DialogSystem.h"
+#include "m1EasingSplines.h"
+#include "m1EntityManager.h"
+#include "m1FadeToBlack.h"
+#include "m1Pathfinding.h"
+#include "m1DialogSystem.h"
 #include "Brofiler/Brofiler.h"
 
 // Constructor
-j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
+App::App(int argc, char* args[]) : argc(argc), args(args)
 {
 	PERF_START(ptimer);
 
-	input = new j1Input();
-	win = new j1Window();
-	render = new j1Render();
-	tex = new j1Textures();
-	audio = new j1Audio();
-	map = new j1Map();
-	scene = new j1Scene();
-	ui_manager = new j1UIManager();
-	main_menu = new MainMenu();
-	fonts = new j1Fonts();
-	dialog = new j1DialogSystem();
-	entity_manager = new j1EntityManager();
-	pathfinding = new j1PathFinding();
-	fade_to_black = new j1FadeToBlack();
-	collision = new j1Collision();
-	easing_splines = new EasingSplines();
+	input = new m1Input();
+	win = new m1Window();
+	render = new m1Render();
+	tex = new m1Textures();
+	audio = new m1Audio();
+	map = new m1Map();
+	scene = new m1Scene();
+	gui = new m1GUI();
+	main_menu = new m1MainMenu();
+	fonts = new m1Fonts();
+	dialog = new m1DialogSystem();
+	entity_manager = new m1EntityManager();
+	pathfinding = new m1PathFinding();
+	fade_to_black = new m1FadeToBlack();
+	collision = new m1Collision();
+	easing_splines = new m1EasingSplines();
 
 
 	// Ordered for awake / Start / Update
@@ -62,7 +62,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fonts);
 	AddModule(collision);
 	AddModule(entity_manager);
-	AddModule(ui_manager);
+	AddModule(gui);
 	AddModule(dialog);
 	AddModule(fade_to_black);
 	AddModule(easing_splines);
@@ -79,25 +79,25 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 }
 
 // Destructor
-j1App::~j1App()
+App::~App()
 {
 	// release modules
 
-	for (std::list<j1Module*>::reverse_iterator item = modules.rbegin(); item != modules.rend(); ++item) {
+	for (std::list<m1Module*>::reverse_iterator item = modules.rbegin(); item != modules.rend(); ++item) {
 		RELEASE(*item);
 
 	}
 	modules.clear();
 }
 
-void j1App::AddModule(j1Module* module)
+void App::AddModule(m1Module* module)
 {
 	module->Init();
 	modules.push_back(module);
 }
 
 // Called before render is available
-bool j1App::Awake()
+bool App::Awake()
 {
 	PERF_START(ptimer);
 
@@ -116,8 +116,6 @@ bool j1App::Awake()
 		title.assign(app_config.child("title").child_value());
 		organization.assign(app_config.child("organization").child_value());
 
-		// TODO 1: Read from config file your framerate cap
-
 		int cap = app_config.attribute("framerate_cap").as_int();
 		if (cap > 0)
 		{
@@ -130,7 +128,7 @@ bool j1App::Awake()
 
 	if (ret == true)
 	{
-		std::list<j1Module*>::iterator item = modules.begin();
+		std::list<m1Module*>::iterator item = modules.begin();
 
 		while (item != modules.end() && ret)
 		{
@@ -146,12 +144,12 @@ bool j1App::Awake()
 }
 
 // Called before the first frame
-bool j1App::Start()
+bool App::Start()
 {
 	PERF_START(ptimer);
 	bool ret = true;
 
-	std::list<j1Module*>::iterator item = modules.begin();
+	std::list<m1Module*>::iterator item = modules.begin();
 
 	while (item != modules.end() && ret == true)
 	{
@@ -167,7 +165,7 @@ bool j1App::Start()
 }
 
 // Called each loop iteration
-bool j1App::Update()
+bool App::Update()
 {
 	BROFILER_CATEGORY("Update", Profiler::Color::Aqua);
 
@@ -186,8 +184,8 @@ bool j1App::Update()
 	if (ret == true)
 		ret = PostUpdate();
 
-	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
-		App->capactivated = !App->capactivated;
+	if (input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
+		capactivated = !capactivated;
 	}
 
 	FinishUpdate();
@@ -195,7 +193,7 @@ bool j1App::Update()
 }
 
 // ---------------------------------------------
-pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file, std::string name) const
+pugi::xml_node App::LoadConfig(pugi::xml_document& config_file, std::string name) const
 {
 	pugi::xml_node ret;
 
@@ -210,7 +208,7 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file, std::string na
 }
 
 // ---------------------------------------------
-void j1App::PrepareUpdate()
+void App::PrepareUpdate()
 {
 	BROFILER_CATEGORY("PrepareUpdate", Profiler::Color::Blue);
 
@@ -228,7 +226,7 @@ void j1App::PrepareUpdate()
 }
 
 // ---------------------------------------------
-void j1App::FinishUpdate()
+void App::FinishUpdate()
 {
 	BROFILER_CATEGORY("FinishUpdate", Profiler::Color::Lime);
 
@@ -254,13 +252,13 @@ void j1App::FinishUpdate()
 
 	static char title[256];
 	sprintf_s(title, 256, "Final Fantasy: Mystery World");
-	//App->win->SetTitle(title);
+	//app->win->SetTitle(title);
 
 	BROFILER_CATEGORY("Waiting", Profiler::Color::Red);
 
 	if (framerate_cap > 0 && last_frame_ms < framerate_cap&&capactivated)
 	{
-		j1PerfTimer time;
+		p2PerfTimer time;
 		float delaytimestart = time.ReadMs();
 		SDL_Delay(framerate_cap - last_frame_ms);
 		float delaytimefinish = time.ReadMs();
@@ -269,15 +267,15 @@ void j1App::FinishUpdate()
 }
 
 // Call modules before each loop iteration
-bool j1App::PreUpdate()
+bool App::PreUpdate()
 {
 	BROFILER_CATEGORY("PreUpdate", Profiler::Color::Orange);
 
 	bool ret = true;
 
-	j1Module* pModule = NULL;
+	m1Module* pModule = NULL;
 
-	for (std::list<j1Module*>::iterator item = modules.begin(); item != modules.end() && ret == true; ++item)
+	for (std::list<m1Module*>::iterator item = modules.begin(); item != modules.end() && ret == true; ++item)
 	{
 		pModule = *item;
 
@@ -293,15 +291,15 @@ bool j1App::PreUpdate()
 }
 
 // Call modules on each loop iteration
-bool j1App::DoUpdate()
+bool App::DoUpdate()
 {
 	BROFILER_CATEGORY("DoUpdate", Profiler::Color::Yellow);
 
 	bool ret = true;
 
-	j1Module* pModule = NULL;
+	m1Module* pModule = NULL;
 
-	for (std::list<j1Module*>::iterator item = modules.begin(); item != modules.end() && ret == true; ++item)
+	for (std::list<m1Module*>::iterator item = modules.begin(); item != modules.end() && ret == true; ++item)
 	{
 		pModule = (*item);
 
@@ -316,15 +314,15 @@ bool j1App::DoUpdate()
 }
 
 // Call modules after each loop iteration
-bool j1App::PostUpdate()
+bool App::PostUpdate()
 {
 	BROFILER_CATEGORY("PostUpdate", Profiler::Color::Purple);
 
 	bool ret = true;
 
-	j1Module* pModule = NULL;
+	m1Module* pModule = NULL;
 
-	for (std::list<j1Module*>::iterator item = modules.begin(); item != modules.end() && ret == true; ++item)
+	for (std::list<m1Module*>::iterator item = modules.begin(); item != modules.end() && ret == true; ++item)
 	{
 		pModule = (*item);
 
@@ -339,7 +337,7 @@ bool j1App::PostUpdate()
 }
 
 // Called before quitting
-bool j1App::CleanUp()
+bool App::CleanUp()
 {
 	BROFILER_CATEGORY("CleanUp", Profiler::Color::Salmon);
 
@@ -347,7 +345,7 @@ bool j1App::CleanUp()
 	bool ret = true;
 
 
-	std::list<j1Module*>::reverse_iterator item = modules.rbegin();
+	std::list<m1Module*>::reverse_iterator item = modules.rbegin();
 
 	while (item != modules.rend() && ret == true)
 	{
@@ -362,13 +360,13 @@ bool j1App::CleanUp()
 }
 
 // ---------------------------------------
-int j1App::GetArgc() const
+int App::GetArgc() const
 {
 	return argc;
 }
 
 // ---------------------------------------
-const char* j1App::GetArgv(int index) const
+const char* App::GetArgv(int index) const
 {
 	if (index < argc)
 		return args[index];
@@ -377,20 +375,20 @@ const char* j1App::GetArgv(int index) const
 }
 
 // ---------------------------------------
-const char* j1App::GetTitle() const
+const char* App::GetTitle() const
 {
 	return title.data();
 }
 
 // ---------------------------------------
-const char* j1App::GetOrganization() const
+const char* App::GetOrganization() const
 {
 
 	return organization.data();
 }
 
 // Load / Save
-void j1App::LoadGame(const char* file)
+void App::LoadGame(const char* file)
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list
@@ -399,20 +397,19 @@ void j1App::LoadGame(const char* file)
 }
 
 // ---------------------------------------
-void j1App::SaveGame(const char* file) const
+void App::SaveGame(const char* file) const
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list ... should we overwrite ?
 
 	want_to_save = true;
 	save_game.assign(file);
-
 }
 
 // ---------------------------------------
 
 
-bool j1App::LoadGameNow()
+bool App::LoadGameNow()
 {
 	bool ret = false;
 	pugi::xml_document data;
@@ -427,7 +424,7 @@ bool j1App::LoadGameNow()
 
 		root = data.child("game_state");
 
-		std::list<j1Module*>::iterator item = modules.begin();
+		std::list<m1Module*>::iterator item = modules.begin();
 
 
 		while (item != modules.end() && ret == true)
@@ -453,7 +450,7 @@ bool j1App::LoadGameNow()
 	return ret;
 }
 
-bool j1App::SavegameNow() const
+bool App::SavegameNow() const
 {
 	bool ret = true;
 
@@ -465,7 +462,7 @@ bool j1App::SavegameNow() const
 
 	root = data.append_child("game_state");
 
-	std::list<j1Module*>::const_iterator item = modules.begin();
+	std::list<m1Module*>::const_iterator item = modules.begin();
 
 	while (item != modules.end() && ret)
 	{
@@ -486,17 +483,17 @@ bool j1App::SavegameNow() const
 	return ret;
 }
 
-void j1App::QuitGame()
+void App::QuitGame()
 {
 	quit_game = true;
 }
 
-bool j1App::GetPause()
+bool App::GetPause()
 {
 	return is_paused;
 }
 
-bool j1App::ChangePause()
+bool App::ChangePause()
 {
 	return is_paused = !is_paused;
 }
