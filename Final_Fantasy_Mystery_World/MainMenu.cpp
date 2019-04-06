@@ -77,6 +77,11 @@ bool MainMenu::Interact(GUI* interaction)
 		App->LoadGame("save_game.xml");
 	}
 
+	if (interaction == options_button) {
+		App->scene->CreateOptionsMenu();
+		App->ui_manager->DeleteUIElement(background);
+	}
+
 	if (interaction == credits_button) {
 		CreateCredits();
 		App->ui_manager->DeleteUIElement(background);
@@ -104,13 +109,17 @@ void MainMenu::CreateMainMenu()
 	load_game_label = App->ui_manager->AddLabel(0, 0, "Load Game",  load_game_button, BLACK, FontType::FF64, nullptr,false);
 	load_game_label->SetPosRespectParent(CENTERED);
 
-	exit_button = App->ui_manager->AddButton(684, load_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true,true);
-	exit_text = App->ui_manager->AddLabel(0, 0, "Exit", exit_button, BLACK, FontType::FF64, nullptr,false);
-	exit_text->SetPosRespectParent(CENTERED);
+	options_button = App->ui_manager->AddButton(684, load_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);
+	options_label = App->ui_manager->AddLabel(0, 0, "Options", options_button, BLACK, FontType::FF64, nullptr, false);
+	options_label->SetPosRespectParent(CENTERED);
 
-	credits_button = App->ui_manager->AddButton(684, exit_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true,true);
+	credits_button = App->ui_manager->AddButton(684, options_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true,true);
 	credits_label = App->ui_manager->AddLabel(0, 0, "Credits",  credits_button, BLACK, FontType::FF64, nullptr,false);
 	credits_label->SetPosRespectParent(CENTERED);
+
+	exit_button = App->ui_manager->AddButton(684, credits_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);
+	exit_text = App->ui_manager->AddLabel(0, 0, "Exit", exit_button, BLACK, FontType::FF64, nullptr, false);
+	exit_text->SetPosRespectParent(CENTERED);
 }
 
 void MainMenu::CreateCredits()
