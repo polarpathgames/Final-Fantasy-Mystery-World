@@ -194,7 +194,7 @@ extern "C" {
  *
  *  By default SDL will use _NET_WM_PING, but for applications that know they
  *  will not always be able to respond to ping requests in a timely manner they can
- *  turn it off to avoid the window manager thinking the app is hung.
+ *  turn it off to avoid the window manager thinking the App is hung.
  *  The hint is checked in CreateWindow.
  */
 #define SDL_HINT_VIDEO_X11_NET_WM_PING      "SDL_VIDEO_X11_NET_WM_PING"
@@ -252,7 +252,7 @@ extern "C" {
 /**
  *  \brief  A variable controlling whether the idle timer is disabled on iOS.
  *
- *  When an iOS app does not receive touches for some time, the screen is
+ *  When an iOS App does not receive touches for some time, the screen is
  *  dimmed automatically. For games where the accelerometer is the only input
  *  this is problematic. This functionality can be disabled by setting this
  *  hint.
@@ -321,7 +321,7 @@ extern "C" {
 
 
 /**
- *  \brief  A variable that lets you enable joystick (and gamecontroller) events even when your app is in the background.
+ *  \brief  A variable that lets you enable joystick (and gamecontroller) events even when your App is in the background.
  *
  *  The variable can be set to the following values:
  *    "0"       - Disable joystick & gamecontroller input events when the
@@ -422,32 +422,32 @@ extern "C" {
 #define SDL_HINT_VIDEO_WINDOW_SHARE_PIXEL_FORMAT    "SDL_VIDEO_WINDOW_SHARE_PIXEL_FORMAT"
 
 /**
- *  \brief A URL to a WinRT app's privacy policy
+ *  \brief A URL to a WinRT App's privacy policy
  *
  *  All network-enabled WinRT apps must make a privacy policy available to its
  *  users.  On Windows 8, 8.1, and RT, Microsoft mandates that this policy be
- *  be available in the Windows Settings charm, as accessed from within the app.
- *  SDL provides code to add a URL-based link there, which can point to the app's
+ *  be available in the Windows Settings charm, as accessed from within the App.
+ *  SDL provides code to add a URL-based link there, which can point to the App's
  *  privacy policy.
  *
- *  To setup a URL to an app's privacy policy, set SDL_HINT_WINRT_PRIVACY_POLICY_URL
+ *  To setup a URL to an App's privacy policy, set SDL_HINT_WINRT_PRIVACY_POLICY_URL
  *  before calling any SDL_Init functions.  The contents of the hint should
  *  be a valid URL.  For example, "http://www.example.com".
  *
  *  The default value is "", which will prevent SDL from adding a privacy policy
- *  link to the Settings charm.  This hint should only be set during app init.
+ *  link to the Settings charm.  This hint should only be set during App init.
  *
- *  The label text of an app's "Privacy Policy" link may be customized via another
+ *  The label text of an App's "Privacy Policy" link may be customized via another
  *  hint, SDL_HINT_WINRT_PRIVACY_POLICY_LABEL.
  *
  *  Please note that on Windows Phone, Microsoft does not provide standard UI
  *  for displaying a privacy policy link, and as such, SDL_HINT_WINRT_PRIVACY_POLICY_URL
  *  will not get used on that platform.  Network-enabled phone apps should display
- *  their privacy policy through some other, in-app means.
+ *  their privacy policy through some other, in-App means.
  */
 #define SDL_HINT_WINRT_PRIVACY_POLICY_URL "SDL_WINRT_PRIVACY_POLICY_URL"
 
-/** \brief Label text for a WinRT app's privacy policy link
+/** \brief Label text for a WinRT App's privacy policy link
  *
  *  Network-enabled WinRT apps must include a privacy policy.  On Windows 8, 8.1, and RT,
  *  Microsoft mandates that this policy be available via the Windows Settings charm.
@@ -460,7 +460,7 @@ extern "C" {
  *
  *  The contents of this hint should be encoded as a UTF8 string.
  *
- *  The default value is "Privacy Policy".  This hint should only be set during app
+ *  The default value is "Privacy Policy".  This hint should only be set during App
  *  initialization, preferably before any calls to SDL_Init.
  *
  *  For additional information on linking to a privacy policy, see the documentation for
@@ -475,23 +475,23 @@ extern "C" {
  *  handle in an appropriate manner.  If apps do not explicitly mark these
  *  events as 'Handled', then the OS will invoke its default behavior for
  *  unhandled back-button-press events, which on Windows Phone 8 and 8.1 is to
- *  terminate the app (and attempt to switch to the previous app, or to the
+ *  terminate the App (and attempt to switch to the previous App, or to the
  *  device's home screen).
  *
  *  Setting the SDL_HINT_WINRT_HANDLE_BACK_BUTTON hint to "1" will cause SDL
  *  to mark back-button-press events as Handled, if and when one is sent to
- *  the app.
+ *  the App.
  *
  *  Internally, Windows Phone sends back button events as parameters to
  *  special back-button-press callback functions.  Apps that need to respond
  *  to back-button-press events are expected to register one or more
  *  callback functions for such, shortly after being launched (during the
- *  app's initialization phase).  After the back button is pressed, the OS
- *  will invoke these callbacks.  If the app's callback(s) do not explicitly
- *  mark the event as handled by the time they return, or if the app never
+ *  App's initialization phase).  After the back button is pressed, the OS
+ *  will invoke these callbacks.  If the App's callback(s) do not explicitly
+ *  mark the event as handled by the time they return, or if the App never
  *  registers one of these callback, the OS will consider the event
  *  un-handled, and it will apply its default back button behavior (terminate
- *  the app).
+ *  the App).
  *
  *  SDL registers its own back-button-press callback with the Windows Phone
  *  OS.  This callback will emit a pair of SDL key-press events (SDL_KEYDOWN
@@ -540,7 +540,7 @@ extern "C" {
 #define SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES    "SDL_VIDEO_MAC_FULLSCREEN_SPACES"
 
 /**
-*  \brief  When set don't force the SDL app to become a foreground process
+*  \brief  When set don't force the SDL App to become a foreground process
 *
 *  This hint only applies to Mac OS X.
 *

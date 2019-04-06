@@ -23,7 +23,7 @@ enum MainState
 	EXIT
 };
 
-App* app = NULL;
+Application* App = NULL;
 
 int main(int argc, char* args[])
 {
@@ -41,9 +41,9 @@ int main(int argc, char* args[])
 			case CREATE:
 			LOG("CREATION PHASE ===============================");
 
-			app = new App(argc, args);
+			App = new Application(argc, args);
 
-			if(app != NULL)
+			if(App != NULL)
 				state = AWAKE;
 			else
 				state = FAIL;
@@ -53,7 +53,7 @@ int main(int argc, char* args[])
 			// Awake all modules -----------------------------------------------
 			case AWAKE:
 			LOG("AWAKE PHASE ===============================");
-			if(app->Awake() == true)
+			if(App->Awake() == true)
 				state = START;
 			else
 			{
@@ -66,7 +66,7 @@ int main(int argc, char* args[])
 			// Call all modules before first frame  ----------------------------
 			case START:
 			LOG("START PHASE ===============================");
-			if(app->Start() == true)
+			if(App->Start() == true)
 			{
 				state = LOOP;
 				LOG("UPDATE PHASE ===============================");
@@ -82,16 +82,16 @@ int main(int argc, char* args[])
 			case LOOP:
 			{
 				BROFILER_FRAME("FinalFantasyMysteryWorld");
-				if (app->Update() == false)
+				if (App->Update() == false)
 					state = CLEAN;
 			}break;
 
 			// Cleanup allocated memory -----------------------------------------
 			case CLEAN:
 			LOG("CLEANUP PHASE ===============================");
-			if(app->CleanUp() == true)
+			if(App->CleanUp() == true)
 			{
-				RELEASE(app);
+				RELEASE(App);
 				result = EXIT_SUCCESS;
 				state = EXIT;
 			}

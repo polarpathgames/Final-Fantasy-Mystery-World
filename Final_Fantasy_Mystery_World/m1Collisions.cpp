@@ -75,7 +75,7 @@ bool m1Collision::PreUpdate()
 bool m1Collision::Update(float dt)
 {
 	BROFILER_CATEGORY("Collisions: Update", Profiler::Color::Magenta);
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		debug = !debug;
 	DebugDraw();
 
@@ -98,16 +98,16 @@ void m1Collision::DebugDraw()
 		switch (colliders[i]->type)
 		{
 		case COLLIDER_NONE: // white
-			app->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
 		case COLLIDER_PLAYER: // white
-			app->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
+			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
 			break;
 		case COLLIDER_SHOP: // white
-			app->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
 		case COLLIDER_HOME: // white
-			app->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
 		}
 

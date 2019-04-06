@@ -90,10 +90,10 @@ void m1DialogSystem::PerformDialogue(int tr_id)
 
 void m1DialogSystem::BlitDialog()
 {
-	app->gui->AddLabel(150, 180, currentNode->text.c_str(), app->gui->screen, BLACK, FontType::FF48,this, false);
+	App->gui->AddLabel(150, 180, currentNode->text.c_str(), App->gui->screen, BLACK, FontType::FF48,this, false);
 	int space = 200;
 	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
-		app->gui->AddLabel(150, space += 30, currentNode->dialogOptions[i]->text.c_str(), app->gui->screen, GREEN, FontType::FF48, this, false);
+		App->gui->AddLabel(150, space += 30, currentNode->dialogOptions[i]->text.c_str(), App->gui->screen, GREEN, FontType::FF48, this, false);
 
 }
 

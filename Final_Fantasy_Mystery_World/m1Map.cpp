@@ -27,7 +27,7 @@ m1Map::~m1Map()
 
 bool m1Map::Start()
 {
-	quad = app->tex->Load("maps/cuadradito.png");
+	quad = App->tex->Load("maps/cuadradito.png");
 	return true;
 }
 
@@ -61,7 +61,7 @@ void m1Map::Draw()
 	{
 		MapLayer* layer = *item;
 
-		if(layer->properties.GetValue("NoDraw") != 0 && !app->collision->debug)
+		if(layer->properties.GetValue("NoDraw") != 0 && !App->collision->debug)
 			continue;
 
 		for(int i = 0; i < data.width; ++i)
@@ -74,11 +74,11 @@ void m1Map::Draw()
 					if (tile_id > 0)
 					{
 						TileSet* tileset = GetTilesetFromTileId(tile_id);
-						if (app->render->IsOnCamera(tile_pos.x, tile_pos.y, tileset->tile_width, tileset->tile_height))
+						if (App->render->IsOnCamera(tile_pos.x, tile_pos.y, tileset->tile_width, tileset->tile_height))
 						{
 							SDL_Rect r = tileset->GetTileRect(tile_id);
 
-							app->render->Blit(tileset->texture, tile_pos.x, tile_pos.y, &r, true);
+							App->render->Blit(tileset->texture, tile_pos.x, tile_pos.y, &r, true);
 							
 						}
 				}
@@ -90,7 +90,7 @@ void m1Map::Draw()
 		for (int i = 0; i < data.width; ++i) {
 			for (int j = 0; j < data.height; ++j) {
 
-				app->render->Blit(quad, MapToWorld(i, j).x + 1, MapToWorld(i, j).y - 8, NULL, true);
+				App->render->Blit(quad, MapToWorld(i, j).x + 1, MapToWorld(i, j).y - 8, NULL, true);
 			}
 		}
 	}
@@ -203,7 +203,7 @@ bool m1Map::CleanUp()
 
 	while(item != data.tilesets.end())
 	{
-		app->tex->UnLoad((*item)->texture);
+		App->tex->UnLoad((*item)->texture);
 		RELEASE(*item);
 		++item;
 	}
@@ -234,7 +234,7 @@ bool m1Map::CleanUp()
 
 	data.no_walkables.clear();
 
-	app->collision->CleanUp();
+	App->collision->CleanUp();
 	// Clean up the pugui tree
 	map_file.reset();
 
@@ -450,7 +450,7 @@ bool m1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	}
 	else
 	{
-		set->texture = app->tex->Load(PATH(folder.data(), image.attribute("source").as_string()));
+		set->texture = App->tex->Load(PATH(folder.data(), image.attribute("source").as_string()));
 		int w, h;
 		SDL_QueryTexture(set->texture, NULL, NULL, &w, &h);
 		set->tex_width = image.attribute("width").as_int();
@@ -609,7 +609,7 @@ bool m1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer)
 bool m1Map::ChangeMap(Maps type)
 {
 	last_map = actual_map;
-	app->entity_manager->DeleteEntitiesNoPlayer();
+	App->entity_manager->DeleteEntitiesNoPlayer();
 	CleanUp();
 	switch(type) {
 	case Maps::LOBBY:
@@ -635,8 +635,8 @@ bool m1Map::ChangeMap(Maps type)
 	int w, h;
 	uchar* data = NULL;
 	if (CreateWalkabilityMap(w, h, &data))
-		app->pathfinding->SetMap(w, h, data);
-	app->scene->CreateEntities();
+		App->pathfinding->SetMap(w, h, data);
+	App->scene->CreateEntities();
 
 	return true;
 }

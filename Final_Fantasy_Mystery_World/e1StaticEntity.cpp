@@ -46,7 +46,7 @@ e1StaticEntity::~e1StaticEntity()
 
 void e1StaticEntity::Draw(SDL_Texture * tex, float dt)
 {
-	app->render->Blit(tex, position.x, position.y, &frame, true);
+	App->render->Blit(tex, position.x, position.y, &frame, true);
 }
 
 void e1StaticEntity::SetRect(int x, int y, int w, int h)

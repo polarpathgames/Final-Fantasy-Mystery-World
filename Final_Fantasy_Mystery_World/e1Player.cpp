@@ -31,7 +31,7 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 
 	
 
-	ground = app->tex->Load("textures/player_pos.png");
+	ground = App->tex->Load("textures/player_pos.png");
 
 
 	CenterPlayerInTile();
@@ -60,21 +60,21 @@ bool e1Player::Update(float dt)
 	PerformActions(dt);
 
 
-	app->render->Blit(ground, app->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, app->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
-	/*app->render->DrawLine(position.x, position.y + 25, position.x + 18, position.y + 25, 255, 255, 255);
-	app->render->DrawLine(position.x, position.y + 32, position.x + 18, position.y + 32, 255, 255, 255);
-	app->render->DrawLine(position.x, position.y + 25, position.x, position.y + 32, 255, 255, 255);
-	app->render->DrawLine(position.x + 18, position.y + 25, position.x + 18, position.y + 32, 255, 255, 255);
+	/*App->render->DrawLine(position.x, position.y + 25, position.x + 18, position.y + 25, 255, 255, 255);
+	App->render->DrawLine(position.x, position.y + 32, position.x + 18, position.y + 32, 255, 255, 255);
+	App->render->DrawLine(position.x, position.y + 25, position.x, position.y + 32, 255, 255, 255);
+	App->render->DrawLine(position.x + 18, position.y + 25, position.x + 18, position.y + 32, 255, 255, 255);
 
-	iPoint pos = app->map->MapToWorld(actual_tile.x, actual_tile.y);
+	iPoint pos = App->map->MapToWorld(actual_tile.x, actual_tile.y);
 	iPoint pos2 = { pos.x + 16, pos.y + 8 };
-	app->render->DrawLine(pos2.x, pos2.y, pos2.x + 16, pos2.y + 8, 255, 0, 255);
-	app->render->DrawLine(pos2.x - 16, pos.y + 16, pos.x + 16, pos.y + 8, 255, 0, 255);
-	app->render->DrawLine(pos2.x - 16, pos.y + 16, pos.x + 16, pos.y + 24, 255, 0, 255);
-	app->render->DrawLine(pos.x + 16, pos.y + 24, pos2.x + 16, pos2.y + 8, 255, 0, 255);
+	App->render->DrawLine(pos2.x, pos2.y, pos2.x + 16, pos2.y + 8, 255, 0, 255);
+	App->render->DrawLine(pos2.x - 16, pos.y + 16, pos.x + 16, pos.y + 8, 255, 0, 255);
+	App->render->DrawLine(pos2.x - 16, pos.y + 16, pos.x + 16, pos.y + 24, 255, 0, 255);
+	App->render->DrawLine(pos.x + 16, pos.y + 24, pos2.x + 16, pos2.y + 8, 255, 0, 255);
 	*/
-	//app->render->DrawCircle(position.x, position.y, 3, 0, 0, 255);
+	//App->render->DrawCircle(position.x, position.y, 3, 0, 0, 255);
 	coll->SetPos(position.x, position.y + 25);
 
 	return true;
@@ -101,7 +101,7 @@ bool e1Player::Save(pugi::xml_node &) const
 
 bool e1Player::CleanUp()
 {
-	app->tex->UnLoad(ground);
+	App->tex->UnLoad(ground);
 	return true;
 }
 
@@ -109,16 +109,16 @@ void e1Player::OnCollision(Collider * c2)
 {
 	
 	if (c2->type == COLLIDER_SHOP) {
-		if (app->map->actual_map==Maps::LOBBY)
-			app->fade_to_black->FadeToBlack(Maps::SHOP);
+		if (App->map->actual_map==Maps::LOBBY)
+			App->fade_to_black->FadeToBlack(Maps::SHOP);
 		else 
-			app->fade_to_black->FadeToBlack(Maps::LOBBY);
+			App->fade_to_black->FadeToBlack(Maps::LOBBY);
 	}
 	if (c2->type == COLLIDER_HOME) {
-		if (app->map->actual_map == Maps::LOBBY)
-			app->fade_to_black->FadeToBlack(Maps::HOME);
+		if (App->map->actual_map == Maps::LOBBY)
+			App->fade_to_black->FadeToBlack(Maps::HOME);
 		else
-			app->fade_to_black->FadeToBlack(Maps::LOBBY);
+			App->fade_to_black->FadeToBlack(Maps::LOBBY);
 	}
 
 	
@@ -182,12 +182,12 @@ void e1Player::CheckLobbyCollision(const float & dt, const Direction & dir)
 {
 	switch (direction) {
 	case Direction::RIGHT:
-		if (app->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt))})) {
+		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt))})) {
 			current_animation = &GoDownRight;
 			position.x += floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
 		}
-		else if (app->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
+		else if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
 			current_animation = &GoUpRight;
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
@@ -198,12 +198,12 @@ void e1Player::CheckLobbyCollision(const float & dt, const Direction & dir)
 		}
 		break;
 	case Direction::DOWN:
-		if (app->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
+		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
 			current_animation = &GoDownLeft;
 			position.x -= floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
 		}
-		else if (app->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
+		else if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
 			current_animation = &GoDownRight;
 			position.x += floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
@@ -214,12 +214,12 @@ void e1Player::CheckLobbyCollision(const float & dt, const Direction & dir)
 		}
 		break;
 	case Direction::LEFT:
-		if (app->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
+		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
 			current_animation = &GoUpLeft;
 			position.x -= floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 		}
-		else if (app->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })){
+		else if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })){
 			current_animation = &GoDownLeft;
 			position.x -= floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
@@ -230,12 +230,12 @@ void e1Player::CheckLobbyCollision(const float & dt, const Direction & dir)
 		}
 		break;
 	case Direction::UP:
-		if (app->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
+		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
 			current_animation = &GoUpLeft;
 			position.x -= floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 		}
-		else if (app->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })){
+		else if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })){
 			current_animation = &GoUpRight;
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
@@ -268,8 +268,8 @@ void e1Player::CenterPlayerInTile()
 	state = State::IDLE;
 	movement_type = Movement_Type::InLobby;
 
-	actual_tile = app->map->WorldToMap(position.x, position.y);
-	coll = app->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (m1Module*)app->entity_manager);
+	actual_tile = App->map->WorldToMap(position.x, position.y);
+	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (m1Module*)App->entity_manager);
 	movement_count = { 0,0 };
 	// THIS ALWAYS LAST
 
@@ -287,35 +287,35 @@ void e1Player::CenterPlayerInTile()
 void e1Player::ReadPlayerInput()
 {
 
-	player_input.pressing_A = app->input->GetKey(app->input->keyboard_buttons.buttons_code.LEFT) == KEY_REPEAT || app->input->ChceckAxisStates(Axis::AXIS_LEFT);
-	player_input.pressing_S = app->input->GetKey(app->input->keyboard_buttons.buttons_code.DOWN) == KEY_REPEAT || app->input->ChceckAxisStates(Axis::AXIS_DOWN);
-	player_input.pressing_W = app->input->GetKey(app->input->keyboard_buttons.buttons_code.UP) == KEY_REPEAT || app->input->ChceckAxisStates(Axis::AXIS_UP);
-	player_input.pressing_D = app->input->GetKey(app->input->keyboard_buttons.buttons_code.RIGHT) == KEY_REPEAT || app->input->ChceckAxisStates(Axis::AXIS_RIGHT);
-	player_input.pressing_I = app->input->GetKey(app->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || app->input->GetControllerButtonDown(app->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
-	player_input.pressing_J = app->input->GetKey(app->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || app->input->GetControllerButtonDown(app->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;
-	player_input.pressing_K = app->input->GetKey(app->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || app->input->GetControllerButtonDown(app->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN;
-	player_input.pressing_L = app->input->GetKey(app->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || app->input->GetControllerButtonDown(app->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
-	player_input.pressing_G = app->input->GetKey(app->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || app->input->GetControllerButtonDown(app->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
-	player_input.pressing_shift = app->input->GetKey(app->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || app->input->GetControllerButtonDown(app->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
-	player_input.pressing_V = app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN;
+	player_input.pressing_A = App->input->GetKey(App->input->keyboard_buttons.buttons_code.LEFT) == KEY_REPEAT || App->input->ChceckAxisStates(Axis::AXIS_LEFT);
+	player_input.pressing_S = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DOWN) == KEY_REPEAT || App->input->ChceckAxisStates(Axis::AXIS_DOWN);
+	player_input.pressing_W = App->input->GetKey(App->input->keyboard_buttons.buttons_code.UP) == KEY_REPEAT || App->input->ChceckAxisStates(Axis::AXIS_UP);
+	player_input.pressing_D = App->input->GetKey(App->input->keyboard_buttons.buttons_code.RIGHT) == KEY_REPEAT || App->input->ChceckAxisStates(Axis::AXIS_RIGHT);
+	player_input.pressing_I = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
+	player_input.pressing_J = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;
+	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN;
+	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
+	player_input.pressing_G = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
+	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
+	player_input.pressing_V = App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN;
   if (movement_type == Movement_Type::InLobby) {
-		if (app->input->ChceckAxisStates(Axis::AXIS_DOWN_LEFT))
+		if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_LEFT))
 			player_input.pressing_A = player_input.pressing_S = true;
-		else if (app->input->ChceckAxisStates(Axis::AXIS_DOWN_RIGHT))
+		else if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_RIGHT))
 			player_input.pressing_D = player_input.pressing_S = true;
-		else if (app->input->ChceckAxisStates(Axis::AXIS_UP_RIGHT))
+		else if (App->input->ChceckAxisStates(Axis::AXIS_UP_RIGHT))
 			player_input.pressing_D = player_input.pressing_W = true;
-		else if (app->input->ChceckAxisStates(Axis::AXIS_UP_LEFT))
+		else if (App->input->ChceckAxisStates(Axis::AXIS_UP_LEFT))
 			player_input.pressing_W = player_input.pressing_A = true;
 	}
 	else if (movement_type == Movement_Type::InQuest) {
-		if (app->input->ChceckAxisStates(Axis::AXIS_DOWN_LEFT))
+		if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_LEFT))
 			player_input.pressing_S = true;
-		else if (app->input->ChceckAxisStates(Axis::AXIS_DOWN_RIGHT))
+		else if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_RIGHT))
 			player_input.pressing_D = true;
-		else if (app->input->ChceckAxisStates(Axis::AXIS_UP_RIGHT))
+		else if (App->input->ChceckAxisStates(Axis::AXIS_UP_RIGHT))
 			player_input.pressing_W = true;
-		else if (app->input->ChceckAxisStates(Axis::AXIS_UP_LEFT))
+		else if (App->input->ChceckAxisStates(Axis::AXIS_UP_LEFT))
 			player_input.pressing_A = true;
 	}
 
@@ -359,9 +359,9 @@ void e1Player::ReadPlayerMovementInQuest()
 		if (MultipleButtons(&player_input)) {
 			if (player_input.pressing_A && player_input.pressing_shift) {
 				direction = Direction::LEFT;
-				if (NextTileFree(direction) && app->map->IsWalkable({actual_tile.x - 1, actual_tile.y + 1},false)) {
-					target_position.create(position.x - app->map->data.tile_width, position.y);
-					movement_count.x -= app->map->data.tile_width;
+				if (NextTileFree(direction) && App->map->IsWalkable({actual_tile.x - 1, actual_tile.y + 1},false)) {
+					target_position.create(position.x - App->map->data.tile_width, position.y);
+					movement_count.x -= App->map->data.tile_width;
 					actual_tile += {-1, 1};
 					is_movement_acepted = true;
 				}
@@ -371,9 +371,9 @@ void e1Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_D && player_input.pressing_shift) {
 				direction = Direction::RIGHT;
-				if (NextTileFree(direction) && app->map->IsWalkable({ actual_tile.x + 1, actual_tile.y - 1 },false)) {
-					target_position.create(position.x + app->map->data.tile_width, position.y);
-					movement_count.x += app->map->data.tile_width;
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y - 1 },false)) {
+					target_position.create(position.x + App->map->data.tile_width, position.y);
+					movement_count.x += App->map->data.tile_width;
 					actual_tile += {1, -1};
 					is_movement_acepted = true;
 				}
@@ -383,9 +383,9 @@ void e1Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_W && player_input.pressing_shift) {
 				direction = Direction::UP;
-				if (NextTileFree(direction) && app->map->IsWalkable({ actual_tile.x - 1, actual_tile.y - 1 },false)) {
-					target_position.create(position.x, position.y - app->map->data.tile_height);
-					movement_count.y -= app->map->data.tile_height;
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y - 1 },false)) {
+					target_position.create(position.x, position.y - App->map->data.tile_height);
+					movement_count.y -= App->map->data.tile_height;
 					actual_tile += {-1, -1};
 					is_movement_acepted = true;
 				}
@@ -395,9 +395,9 @@ void e1Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_S && player_input.pressing_shift) {
 				direction = Direction::DOWN;
-				if (NextTileFree(direction) && app->map->IsWalkable({ actual_tile.x + 1, actual_tile.y + 1 },false)) {
-					target_position.create(position.x, position.y + app->map->data.tile_height);
-					movement_count.y += app->map->data.tile_height;
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y + 1 },false)) {
+					target_position.create(position.x, position.y + App->map->data.tile_height);
+					movement_count.y += App->map->data.tile_height;
 					actual_tile += {1, 1};
 					is_movement_acepted = true;
 				}
@@ -407,10 +407,10 @@ void e1Player::ReadPlayerMovementInQuest()
 			}
 			if (player_input.pressing_S && !player_input.pressing_shift) {
 				direction = Direction::DOWN_LEFT;
-				if (NextTileFree(direction) && app->map->IsWalkable({ actual_tile.x, actual_tile.y + 1 },false)) {
-					target_position.create(position.x - (app->map->data.tile_width / 2), position.y + (app->map->data.tile_height / 2));
-					movement_count.x -= (app->map->data.tile_width / 2);
-					movement_count.y += (app->map->data.tile_height / 2);
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x, actual_tile.y + 1 },false)) {
+					target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
+					movement_count.x -= (App->map->data.tile_width / 2);
+					movement_count.y += (App->map->data.tile_height / 2);
 					actual_tile += {0, 1};
 					is_movement_acepted = true;
 				}
@@ -420,10 +420,10 @@ void e1Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_D && !player_input.pressing_shift) {
 				direction = Direction::DOWN_RIGHT;
-				if (NextTileFree(direction) && app->map->IsWalkable({ actual_tile.x + 1, actual_tile.y},false)) {
-					target_position.create(position.x + (app->map->data.tile_width / 2), position.y + (app->map->data.tile_height / 2));
-					movement_count.x += (app->map->data.tile_width / 2);
-					movement_count.y += (app->map->data.tile_height / 2);
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y},false)) {
+					target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
+					movement_count.x += (App->map->data.tile_width / 2);
+					movement_count.y += (App->map->data.tile_height / 2);
 					actual_tile += {1, 0};
 					is_movement_acepted = true;
 				}
@@ -433,10 +433,10 @@ void e1Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_W && !player_input.pressing_shift) {
 				direction = Direction::UP_RIGHT;
-				if (NextTileFree(direction) && app->map->IsWalkable({ actual_tile.x, actual_tile.y - 1 },false)) {
-					target_position.create(position.x + (app->map->data.tile_width / 2), position.y - (app->map->data.tile_height / 2));
-					movement_count.x += (app->map->data.tile_width / 2);
-					movement_count.y -= (app->map->data.tile_height / 2);
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x, actual_tile.y - 1 },false)) {
+					target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
+					movement_count.x += (App->map->data.tile_width / 2);
+					movement_count.y -= (App->map->data.tile_height / 2);
 					actual_tile += {0, -1};
 					is_movement_acepted = true;
 				}
@@ -446,10 +446,10 @@ void e1Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_A && !player_input.pressing_shift) {
 				direction = Direction::UP_LEFT;
-				if (NextTileFree(direction) && app->map->IsWalkable({ actual_tile.x - 1, actual_tile.y},false)) {
-					target_position.create(position.x - (app->map->data.tile_width / 2), position.y - (app->map->data.tile_height / 2));
-					movement_count.x -= (app->map->data.tile_width / 2);
-					movement_count.y -= (app->map->data.tile_height / 2);
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y},false)) {
+					target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
+					movement_count.x -= (App->map->data.tile_width / 2);
+					movement_count.y -= (App->map->data.tile_height / 2);
 					actual_tile += {-1, 0};
 					is_movement_acepted = true;
 				}
@@ -521,32 +521,32 @@ void e1Player::PrepareBasicAttack()
 	state = State::ATTACKING;
 	switch (direction) {
 	case Direction::DOWN_LEFT:
-		app->easing_splines->CreateSpline(&position.x, position.x - app->map->data.tile_width / 4, 200, EASE);
-		app->easing_splines->CreateSpline(&position.y, position.y + app->map->data.tile_height / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
 		break;
 	case Direction::UP_RIGHT:
-		app->easing_splines->CreateSpline(&position.x, position.x + app->map->data.tile_width / 4, 200, EASE);
-		app->easing_splines->CreateSpline(&position.y, position.y - app->map->data.tile_height / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
 		break;
 	case Direction::DOWN_RIGHT:
-		app->easing_splines->CreateSpline(&position.x, position.x + app->map->data.tile_width / 4, 200, EASE);
-		app->easing_splines->CreateSpline(&position.y, position.y + app->map->data.tile_height / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
 		break;
 	case Direction::UP_LEFT:
-		app->easing_splines->CreateSpline(&position.x, position.x - app->map->data.tile_width / 4, 200, EASE);
-		app->easing_splines->CreateSpline(&position.y, position.y - app->map->data.tile_height / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
 		break;
 	case Direction::UP:
-		app->easing_splines->CreateSpline(&position.y, position.y - app->map->data.tile_height / 3, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3, 200, EASE);
 		break;
 	case Direction::DOWN:
-		app->easing_splines->CreateSpline(&position.y, position.y + app->map->data.tile_height / 3, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3, 200, EASE);
 		break;
 	case Direction::RIGHT:
-		app->easing_splines->CreateSpline(&position.x, position.x + app->map->data.tile_width / 3, 200, EASE);
+		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3, 200, EASE);
 		break;
 	case Direction::LEFT:
-		app->easing_splines->CreateSpline(&position.x, position.x - app->map->data.tile_width / 3, 200, EASE);
+		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3, 200, EASE);
 		break;
 	}
 	ChangeAnimation(direction, state, type_attack);
@@ -597,32 +597,32 @@ void e1Player::BasicAttack()
 	if (current_animation->Finished()) {
 		switch (direction) {
 		case Direction::DOWN_LEFT:
-			app->easing_splines->CreateSpline(&position.x, position.x + app->map->data.tile_width / 4 + 1, 200, EASE);
-			app->easing_splines->CreateSpline(&position.y, position.y - app->map->data.tile_height / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
 			break;
 		case Direction::UP_RIGHT:
-			app->easing_splines->CreateSpline(&position.x, position.x - app->map->data.tile_width / 4 + 1, 200, EASE);
-			app->easing_splines->CreateSpline(&position.y, position.y + app->map->data.tile_height / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
 			break;
 		case Direction::DOWN_RIGHT:
-			app->easing_splines->CreateSpline(&position.x, position.x - app->map->data.tile_width / 4 + 1, 200, EASE);
-			app->easing_splines->CreateSpline(&position.y, position.y - app->map->data.tile_height / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
 			break;
 		case Direction::UP_LEFT:
-			app->easing_splines->CreateSpline(&position.x, position.x + app->map->data.tile_width / 4 + 1, 200, EASE);
-			app->easing_splines->CreateSpline(&position.y, position.y + app->map->data.tile_height / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
 			break;
 		case Direction::UP:
-			app->easing_splines->CreateSpline(&position.y, position.y + app->map->data.tile_height / 3 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3 + 1, 200, EASE);
 			break;
 		case Direction::DOWN:
-			app->easing_splines->CreateSpline(&position.y, position.y - app->map->data.tile_height / 3 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3 + 1, 200, EASE);
 			break;
 		case Direction::RIGHT:
-			app->easing_splines->CreateSpline(&position.x, position.x - app->map->data.tile_width / 3 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3 + 1, 200, EASE);
 			break;
 		case Direction::LEFT:
-			app->easing_splines->CreateSpline(&position.x, position.x + app->map->data.tile_width / 3 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3 + 1, 200, EASE);
 			break;
 		}
 		CheckBasicAttackEfects(e1Entity::EntityType::ENEMY, direction, stats.attack_power);
@@ -639,7 +639,7 @@ void e1Player::PerformMovementInLobby(float dt)
 	switch (direction)
 	{
 	case Direction::DOWN_LEFT:
-		if (app->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
+		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
 			position.x -= floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
 			current_animation = &GoDownLeft;
@@ -650,7 +650,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		}
 		break;
 	case Direction::UP_RIGHT:
-		if (app->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
+		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 			current_animation = &GoUpRight;
@@ -661,7 +661,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		}
 		break;
 	case Direction::UP_LEFT:
-		if (app->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
+		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
 			position.x -= floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 			current_animation = &GoUpLeft;
@@ -672,7 +672,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		}
 		break;
 	case Direction::DOWN_RIGHT:
-		if (app->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
+		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
 			position.x += floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
 			current_animation = &GoDownRight;
@@ -683,7 +683,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		}
 		break;
 	case Direction::RIGHT:
-		if (app->map->IsWalkable({ (int)(position.x + floor(180 * dt) + pivot.x), position.y + pivot.y })) {
+		if (App->map->IsWalkable({ (int)(position.x + floor(180 * dt) + pivot.x), position.y + pivot.y })) {
 			position.x += floor(180 * dt);
 			current_animation = &GoRight;
 		}
@@ -692,7 +692,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		}
 		break;
 	case Direction::LEFT:
-		if (app->map->IsWalkable({(int)(position.x - floor(180 * dt) + pivot.x), position.y + pivot.y })) {
+		if (App->map->IsWalkable({(int)(position.x - floor(180 * dt) + pivot.x), position.y + pivot.y })) {
 			position.x -= floor(180 * dt);
 			current_animation = &GoLeft;
 		}
@@ -701,7 +701,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		}
 		break;
 	case Direction::UP:
-		if (app->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y - floor(180 * dt)) })) {
+		if (App->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y - floor(180 * dt)) })) {
 			position.y -= floor(180 * dt);
 			current_animation = &GoUp;
 		}
@@ -711,7 +711,7 @@ void e1Player::PerformMovementInLobby(float dt)
 
 		break;
 	case Direction::DOWN:
-		if (app->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y + floor(180 * dt)) })) {
+		if (App->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y + floor(180 * dt)) })) {
 			position.y += floor(180 * dt);
 			current_animation = &GoDown;
 		}
@@ -908,38 +908,38 @@ void e1Player::GetHitted(const int & damage_taken)
 	stats.live -= damage_taken;
 
 	if (stats.live <= 0) {
-		app->entity_manager->DeleteEntity(this);
+		App->entity_manager->DeleteEntity(this);
 	}
 
 }
 
 void e1Player::DestroySkills()
 {
-	app->gui->DeleteUIElement(upper_button);
-	app->gui->DeleteUIElement(right_button);
-	app->gui->DeleteUIElement(left_button);
+	App->gui->DeleteUIElement(upper_button);
+	App->gui->DeleteUIElement(right_button);
+	App->gui->DeleteUIElement(left_button);
 
 	has_skills = false;
 }
 
 void e1Player::CreateSkills()
 {
-	upper_button = app->gui->AddButton(684, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, app->gui->screen, true, false, false, false);
-	upper_skill_button = app->gui->AddLabel(0, 0, "X", upper_button, BLACK, FontType::FF32, nullptr, false);
+	upper_button = App->gui->AddButton(684, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, App->gui->screen, true, false, false, false);
+	upper_skill_button = App->gui->AddLabel(0, 0, "X", upper_button, BLACK, FontType::FF32, nullptr, false);
 	upper_skill_button->SetPos(35, -10);
-	upper_skill_label = app->gui->AddLabel(0, 0, "Attack 1", upper_skill_button, BLACK, FontType::FF32, nullptr, false);
+	upper_skill_label = App->gui->AddLabel(0, 0, "Attack 1", upper_skill_button, BLACK, FontType::FF32, nullptr, false);
 	upper_skill_label->SetPos(30, 0);
 
-	right_button = app->gui->AddButton(790, 680, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, app->gui->screen, true, false, false, false);
-	right_skill_button = app->gui->AddLabel(0, 0, "Y", right_button, BLACK, FontType::FF32, nullptr, false);
+	right_button = App->gui->AddButton(790, 680, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, App->gui->screen, true, false, false, false);
+	right_skill_button = App->gui->AddLabel(0, 0, "Y", right_button, BLACK, FontType::FF32, nullptr, false);
 	right_skill_button->SetPos(35, -10);
-	right_skill_label = app->gui->AddLabel(0, 0, "Attack 2", right_skill_button, BLACK, FontType::FF32, nullptr, false);
+	right_skill_label = App->gui->AddLabel(0, 0, "Attack 2", right_skill_button, BLACK, FontType::FF32, nullptr, false);
 	right_skill_label->SetPos(30, 0);
 
-	left_button = app->gui->AddButton(590, 680, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, app->gui->screen, true, false, false, false);
-	left_skill_button = app->gui->AddLabel(0, 0, "B", left_button, BLACK, FontType::FF32, nullptr, false);
+	left_button = App->gui->AddButton(590, 680, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, App->gui->screen, true, false, false, false);
+	left_skill_button = App->gui->AddLabel(0, 0, "B", left_button, BLACK, FontType::FF32, nullptr, false);
 	left_skill_button->SetPos(35, -10);
-	left_skill_label = app->gui->AddLabel(0, 0, "Attack 3", left_skill_button, BLACK, FontType::FF32, nullptr, false);
+	left_skill_label = App->gui->AddLabel(0, 0, "Attack 3", left_skill_button, BLACK, FontType::FF32, nullptr, false);
 	left_skill_label->SetPos(30, 0);
 
 	has_skills = true;
