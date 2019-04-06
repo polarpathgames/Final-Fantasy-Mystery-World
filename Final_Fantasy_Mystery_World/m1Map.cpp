@@ -659,7 +659,8 @@ bool m1Map::IsWalkable(iPoint pos, bool need_convert)
 	std::list<iPoint>::const_iterator item = data.no_walkables.begin();
 	if (need_convert)
 		pos = WorldToMap(pos.x + 1, pos.y - 8);
-
+	else
+		pos.y -= 1;
 	for (; item != data.no_walkables.end(); ++item) {
 		if ((*item) == pos) {
 			ret = false;
