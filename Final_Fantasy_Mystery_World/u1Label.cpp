@@ -13,30 +13,30 @@ u1Label::u1Label(const int & pos_x, const int & pos_y, const char * txt, const C
 
 	SetColor(c);
 	if (wrap_length == 0U)
-		texture = app->fonts->Print(text.data(), color, id_font);
-	else texture = app->fonts->PrintWrapped(text.data(), color, id_font, wrap_length);
+		texture = App->fonts->Print(text.data(), color, id_font);
+	else texture = App->fonts->PrintWrapped(text.data(), color, id_font, wrap_length);
 
-	app->fonts->CalcSize(txt, section.w, section.h, id_font);
+	App->fonts->CalcSize(txt, section.w, section.h, id_font);
 }
 
 u1Label::~u1Label()
 {
 	text.clear();
-	app->tex->UnLoad(texture);
+	App->tex->UnLoad(texture);
 	texture = nullptr;
 }
 
 void u1Label::InnerDraw()
 {
-	app->render->Blit(texture, draw_offset.x, draw_offset.y, NULL, false, SDL_FLIP_NONE, 0.0F);
+	App->render->Blit(texture, draw_offset.x, draw_offset.y, NULL, false, SDL_FLIP_NONE, 0.0F);
 }
 
 void u1Label::SetText(const char * txt)
 {
 	text.assign(txt);
-	app->tex->UnLoad(texture);
-	texture = app->fonts->Print(text.data(), color, id_font);
-	app->fonts->CalcSize(text.data(), section.w, section.h, id_font);
+	App->tex->UnLoad(texture);
+	texture = App->fonts->Print(text.data(), color, id_font);
+	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
 }
 
 void u1Label::SetColor(Color c)
@@ -81,7 +81,7 @@ std::string u1Label::GetText()
 
 void u1Label::ChangeFont(const char * f, const int & size)
 {
-	id_font = app->fonts->Load(f, size)->type;
-	texture = app->fonts->Print(text.data(), color, id_font);
-	app->fonts->CalcSize(text.data(), section.w, section.h, id_font);
+	id_font = App->fonts->Load(f, size)->type;
+	texture = App->fonts->Print(text.data(), color, id_font);
+	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
 }

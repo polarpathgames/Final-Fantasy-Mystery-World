@@ -37,7 +37,7 @@ bool m1GUI::Awake(pugi::xml_node &node)
 
 bool m1GUI::Start()
 {
-	atlas = app->tex->Load("gui/atlas.png");
+	atlas = App->tex->Load("gui/atlas.png");
 
 	return true;
 }
@@ -47,12 +47,12 @@ bool m1GUI::PreUpdate()
 	BROFILER_CATEGORY("PreUpdateUIM", Profiler::Color::Orange);
 
 	bool ret = true;
-	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 		debug_ui = !debug_ui;
 	}
 
 	int x = 0, y = 0;
-	app->input->GetMouseMotion(x, y);
+	App->input->GetMouseMotion(x, y);
 
 	if (focus == nullptr) {
 		FocusFirstUIFocusable();
@@ -62,8 +62,8 @@ bool m1GUI::PreUpdate()
 	
 	if (focus != nullptr) {
 		if (using_mouse) {
-			if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN
-				|| app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN
+				|| App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
 				using_mouse = false;
 				SDL_ShowCursor(SDL_DISABLE);
 			}
@@ -72,9 +72,9 @@ bool m1GUI::PreUpdate()
 				SDL_ShowCursor(SDL_ENABLE);
 			
 			iPoint mouse;
-			app->input->GetMousePosition(mouse.x, mouse.y);
+			App->input->GetMousePosition(mouse.x, mouse.y);
 			u1GUI* element = nullptr;
-			if (GetElemOnMouse(mouse.x*app->win->GetScale(), mouse.y*app->win->GetScale(), element)) {//Check if there is an element on Mouse
+			if (GetElemOnMouse(mouse.x*App->win->GetScale(), mouse.y*App->win->GetScale(), element)) {//Check if there is an element on Mouse
 				focus = element;
 			}
 			ret = focus->Update();
@@ -98,7 +98,7 @@ bool m1GUI::PreUpdate()
 
 void m1GUI::FocusInput()
 {
-	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
 		u1GUI* new_focus = focus;
 		if (focus->parent != nullptr)
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
@@ -111,7 +111,7 @@ void m1GUI::FocusInput()
 		focus = new_focus;
 		focus->current_state = Mouse_Event::HOVER;
 	}
-	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
 		u1GUI* new_focus = focus;
 		if (focus->parent != nullptr)
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
@@ -124,7 +124,7 @@ void m1GUI::FocusInput()
 		focus = new_focus;
 		focus->current_state = Mouse_Event::HOVER;
 	}
-	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
 		u1GUI* new_focus = focus;
 		if (focus->parent != nullptr)
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
@@ -137,7 +137,7 @@ void m1GUI::FocusInput()
 		focus = new_focus;
 		focus->current_state = Mouse_Event::HOVER;
 	}
-	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
 		u1GUI* new_focus = focus;
 		if (focus->parent != nullptr)
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
@@ -176,7 +176,7 @@ bool m1GUI::PostUpdate()
 	for (std::list<u1GUI*>::iterator item = tree.begin(); item != tree.end(); item++) {
 		(*item)->Draw();
 		if (focus == *item) {
-			app->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - focus_tx.w, (focus->section.h - focus_tx.h) * 0.5F + focus->GetGlobalPosition().y + 5, &focus_tx);
+			App->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - focus_tx.w, (focus->section.h - focus_tx.h) * 0.5F + focus->GetGlobalPosition().y + 5, &focus_tx);
 		}
 		if (debug_ui) {
 			(*item)->DebugDraw();
@@ -200,7 +200,7 @@ bool m1GUI::CleanUp()
 	}
 
 	ui_list.clear();
-	app->tex->UnLoad(atlas);
+	App->tex->UnLoad(atlas);
 
 	return true;
 }
@@ -278,7 +278,7 @@ u1CheckBox* m1GUI::AddCheckBox(const int &pos_x, const int &pos_y, const SDL_Rec
 void m1GUI::CreateScreen()
 {
 	if (std::find(ui_list.begin(), ui_list.end(), screen) == ui_list.end()) {
-		screen = AddImage(0, 0, { 0,0,(int)app->win->width,(int)app->win->height }, nullptr, nullptr, false, false, false, false);
+		screen = AddImage(0, 0, { 0,0,(int)App->win->width,(int)App->win->height }, nullptr, nullptr, false, false, false, false);
 	}
 }
 
@@ -362,9 +362,9 @@ bool m1GUI::GetElemOnMouse(int x, int y, u1GUI *& element)
 			if (CheckCollision(x, y, *item))
 			{
 				if ((*item)->current_state != Mouse_Event::CLICKED_DOWN && (*item)->current_state != Mouse_Event::CLICKED_REPEAT)
-					app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) ? (*item)->current_state = Mouse_Event::CLICKED_DOWN : (*item)->current_state = Mouse_Event::HOVER;
+					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) ? (*item)->current_state = Mouse_Event::CLICKED_DOWN : (*item)->current_state = Mouse_Event::HOVER;
 				else {
-					app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) ? (*item)->current_state = Mouse_Event::CLICKED_REPEAT : (*item)->current_state = Mouse_Event::CLICKED_UP;
+					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) ? (*item)->current_state = Mouse_Event::CLICKED_REPEAT : (*item)->current_state = Mouse_Event::CLICKED_UP;
 				}
 				element = *item;
 				return true;

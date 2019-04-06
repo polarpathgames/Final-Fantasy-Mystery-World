@@ -9,7 +9,7 @@
 #include <string>
 #include "PugiXml\src\pugixml.hpp"
 
-class App;
+class Application;
 struct Collider;
 class u1GUI;
 

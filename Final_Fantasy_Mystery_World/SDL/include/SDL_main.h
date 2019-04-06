@@ -46,7 +46,7 @@
    Please note that #include'ing SDL_main.h is not enough to get a main()
    function working.  In non-XAML apps, the file,
    src/main/winrt/SDL_WinRT_main_NonXAML.cpp, or a copy of it, must be compiled
-   into the app itself.  In XAML apps, the function, SDL_WinRTRunApp must be
+   into the App itself.  In XAML apps, the function, SDL_WinRTRunApp must be
    called, with a pointer to the Direct3D-hosted XAML control passed in.
 */
 #define SDL_MAIN_NEEDED
@@ -141,7 +141,7 @@ extern DECLSPEC void SDLCALL SDL_UnregisterApp(void);
 /**
  *  \brief Initializes and launches an SDL/WinRT application.
  *
- *  \param mainFunction The SDL app's C-style main().
+ *  \param mainFunction The SDL App's C-style main().
  *  \param reserved Reserved for future use; should be NULL
  *  \return 0 on success, -1 on failure.  On failure, use SDL_GetError to retrieve more
  *      information on the failure.

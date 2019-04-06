@@ -127,37 +127,37 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
 
 
 	cell.create(pos.x - 1, pos.y - 1);
-	if (app->map->IsWalkable(cell,false))
+	if (App->map->IsWalkable(cell,false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	// west
 	cell.create(pos.x + 1, pos.y + 1);
-	if (app->map->IsWalkable(cell, false))
+	if (App->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x - 1, pos.y + 1);
-	if (app->map->IsWalkable(cell, false))
+	if (App->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x + 1, pos.y - 1);
-	if (app->map->IsWalkable(cell, false))
+	if (App->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x - 1, pos.y);
-	if (app->map->IsWalkable(cell, false))
+	if (App->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	// west
 	cell.create(pos.x + 1, pos.y);
-	if (app->map->IsWalkable(cell, false))
+	if (App->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x, pos.y + 1);
-	if (app->map->IsWalkable(cell, false))
+	if (App->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x, pos.y - 1);
-	if (app->map->IsWalkable(cell, false))
+	if (App->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
 
 
@@ -195,7 +195,7 @@ int m1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 
 	last_path.clear();
 
-	if (!app->map->IsWalkable(origin,false) || !app->map->IsWalkable(destination,false))
+	if (!App->map->IsWalkable(origin,false) || !App->map->IsWalkable(destination,false))
 		return -1;
 
 

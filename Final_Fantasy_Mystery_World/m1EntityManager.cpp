@@ -41,9 +41,9 @@ bool m1EntityManager::Start()
 	bool ret = true;
 
 
-	texture.push_back(app->tex->Load("assets/sprites/WarriorSpritesheet.png"));
-	texture.push_back(app->tex->Load("assets/sprites/Enemy.png"));
-	texture.push_back(app->tex->Load("maps/static_objects_tileset.png"));
+	texture.push_back(App->tex->Load("assets/sprites/WarriorSpritesheet.png"));
+	texture.push_back(App->tex->Load("assets/sprites/Enemy.png"));
+	texture.push_back(App->tex->Load("maps/static_objects_tileset.png"));
 
 	return ret;
 }
@@ -75,7 +75,7 @@ bool m1EntityManager::Update(float dt)
 		if ((*item) != nullptr) {
 			(*item)->Update(dt);
 			
-			if (app->render->IsOnCamera((*item)->position.x, (*item)->position.y, (*item)->size.x, (*item)->size.y)) {
+			if (App->render->IsOnCamera((*item)->position.x, (*item)->position.y, (*item)->size.x, (*item)->size.y)) {
 				draw_entities.push_back(*item);
 			}
 		}
@@ -93,11 +93,11 @@ bool m1EntityManager::Update(float dt)
 			else if ((*item)->type == e1Entity::EntityType::STATIC)
 				(*item)->Draw(texture[2], dt);
 
-			app->render->DrawCircle((*item)->position.x + (*item)->pivot.x, (*item)->position.y + (*item)->pivot.y, 3, 255, 255, 255);
+			App->render->DrawCircle((*item)->position.x + (*item)->pivot.x, (*item)->position.y + (*item)->pivot.y, 3, 255, 255, 255);
 		}		
 	}
-	if (app->scene->player->movement_type == Movement_Type::InLobby && app->scene->player != nullptr)
-		app->render->LobbyCamera(app->scene->player->position);
+	if (App->scene->player->movement_type == Movement_Type::InLobby && App->scene->player != nullptr)
+		App->render->LobbyCamera(App->scene->player->position);
 	return true;
 }
 
@@ -128,9 +128,9 @@ bool m1EntityManager::CleanUp()
 		}
 	}
 	entities.clear();
-	app->scene->player = nullptr;
+	App->scene->player = nullptr;
 	for (std::vector<SDL_Texture*>::iterator item_tx = texture.begin(); item_tx != texture.end(); ++item_tx) {
-		app->tex->UnLoad(*item_tx);
+		App->tex->UnLoad(*item_tx);
 	}
 	texture.clear();
 
@@ -211,7 +211,7 @@ void m1EntityManager::DeleteEntities()
 		}
 	}
 	entities.clear();
-	app->scene->player = nullptr;
+	App->scene->player = nullptr;
 
 }
 
