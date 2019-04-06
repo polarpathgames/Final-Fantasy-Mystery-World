@@ -557,8 +557,14 @@ bool m1Scene::Interact(u1GUI* interact)
 		break;
 	case StatesMenu::OPTIONS_MENU:
 		if (interact == button_retun) {
-			CreatePauseMenu();
-			DestroyOptionsMenu();
+			if (App->main_menu->active) {
+				App->main_menu->CreateMainMenu();
+				DestroyOptionsMenu();
+			}
+			else {
+				CreatePauseMenu();
+				DestroyOptionsMenu();
+			}
 		}
 		if (interact == button_controls) {
 			CreateControlsMenu();
