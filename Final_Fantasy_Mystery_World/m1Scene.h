@@ -27,8 +27,6 @@ class u1Slider;
 
 class e1Player;
 
-
-
 class m1Scene : public m1Module
 {
 public:
@@ -70,8 +68,6 @@ public:
 
 public:
 
-	//u1GUI* mock_image_ui = nullptr;
-	//SDL_Rect mock_image_rect = { 0, 0, 61, 76 };
 	u1GUI* background = nullptr;
 	std::list<u1Label*> labels_control;
 	std::list<u1Label*> Clabels_control;
@@ -81,7 +77,6 @@ public:
 	u1Slider* slider_fx_volume = nullptr;
 
 	e1Player* player = nullptr;
-
 
 private:
 
@@ -126,10 +121,7 @@ private:
 
 	// Menu Controls
 
-	
-
 	u1Image* controls_panel = nullptr;
-	
 
 	u1Button* button_retun_to_options = nullptr;
 	u1Label* label_return_to_options = nullptr;
