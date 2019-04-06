@@ -58,6 +58,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 				if ((*item) != nullptr) {
 					if ((*item)->change_type == LocationChangeScene::NEXT_A) {
 						actual_room->active = false;
+						player_next_pos = LocationChangeScene::NEXT_A;
 						LoadRoom((*item)->id_next_room);
 						break;
 					}
@@ -69,6 +70,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 				if ((*item) != nullptr) {
 					if ((*item)->change_type == LocationChangeScene::LAST_A) {
 						actual_room->active = false;
+						player_next_pos = LocationChangeScene::LAST_A;
 						LoadRoom((*item)->id_next_room);
 						break;
 					}
@@ -80,6 +82,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 				if ((*item) != nullptr) {
 					if ((*item)->change_type == LocationChangeScene::NEXT_B) {
 						actual_room->active = false;
+						player_next_pos = LocationChangeScene::NEXT_B;
 						LoadRoom((*item)->id_next_room);
 						break;
 					}
@@ -91,6 +94,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 				if ((*item) != nullptr) {
 					if ((*item)->change_type == LocationChangeScene::LAST_B) {
 						actual_room->active = false;
+						player_next_pos = LocationChangeScene::LAST_B;
 						LoadRoom((*item)->id_next_room);
 						break;
 					}
@@ -131,12 +135,24 @@ void RoomManager::LoadRoom(const int & id)
 void RoomManager::PlacePlayer()
 {
 
-
-
-
-	//App->scene->player->CenterPlayerInTile();
-	App->scene->player->has_turn = true;
-	App->scene->player->coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (m1Module*)App->entity_manager);
+	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
+		if ((*position)->ent_type == "lastA" && player_next_pos == LocationChangeScene::LAST_A) {
+			App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+		}
+		else if ((*position)->ent_type == "lastB" && player_next_pos == LocationChangeScene::LAST_B) {
+			App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+		}
+		else if ((*position)->ent_type == "nextA" && player_next_pos == LocationChangeScene::NEXT_A) {
+			App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+		}
+		else if ((*position)->ent_type == "nextB" && player_next_pos == LocationChangeScene::NEXT_B) {
+			App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+		}
+		else if ((*position)->ent_type == "default" && player_next_pos == LocationChangeScene::NONE) {
+			App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+		}
+	}
+	App->scene->player->CenterPlayerInTile();
 }
 
 void RoomManager::LoadColliders()

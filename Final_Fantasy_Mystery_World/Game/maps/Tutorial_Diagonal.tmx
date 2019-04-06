@@ -11290,7 +11290,7 @@
   </object>
  </objectgroup>
  <objectgroup color="#ffff7f" id="39" name="entities">
-  <object id="5" name="player" type="dynamic" x="431.016" y="430.992" width="15.9688" height="16.0156">
+  <object id="5" name="player" type="nextA" x="432" y="448" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
