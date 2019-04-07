@@ -39,7 +39,7 @@ bool m1Render::Awake(pugi::xml_node& config)
 		vsync = true;
 	}
 
-	renderer = SDL_CreateRenderer(app->win->window, -1, flags);
+	renderer = SDL_CreateRenderer(App->win->window, -1, flags);
 
 	if(renderer == NULL)
 	{
@@ -48,8 +48,8 @@ bool m1Render::Awake(pugi::xml_node& config)
 	}
 	else
 	{
-		camera.w = app->win->screen_surface->w;
-		camera.h = app->win->screen_surface->h;
+		camera.w = App->win->screen_surface->w;
+		camera.h = App->win->screen_surface->h;
 		camera.x = 0;
 		camera.y = 0;
 	}
@@ -74,7 +74,7 @@ bool m1Render::PreUpdate()
 	SDL_RenderClear(renderer);
 
 	//ZOOM
-	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
 		debug_border = true;
 
@@ -84,7 +84,7 @@ bool m1Render::PreUpdate()
 			SDL_RenderSetLogicalSize(renderer, camera.w * zoom, camera.h * zoom);
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	else if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 	{
 		if (zoom > 1)
 		{
@@ -164,7 +164,7 @@ void m1Render::ResetViewPort()
 bool m1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool apply_scale, SDL_RendererFlip flip, float speed, double angle, int pivot_x, int pivot_y) const
 {
 	bool ret = true;
-	uint scale = app->win->GetScale();
+	uint scale = App->win->GetScale();
 
 	SDL_Rect rect;
 	if (apply_scale) {
@@ -214,7 +214,7 @@ bool m1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 bool m1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, bool use_camera) const
 {
 	bool ret = true;
-	uint scale = app->win->GetScale();
+	uint scale = App->win->GetScale();
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
@@ -242,7 +242,7 @@ bool m1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a
 bool m1Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera) const
 {
 	bool ret = true;
-	uint scale = app->win->GetScale();
+	uint scale = App->win->GetScale();
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
@@ -267,7 +267,7 @@ bool m1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 {
 	bool ret = true;
 
-	uint scale = app->win->GetScale();
+	uint scale = App->win->GetScale();
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
@@ -297,7 +297,7 @@ bool m1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 iPoint m1Render::ScreenToWorld(int x, int y) const
 {
 	iPoint ret;
-	int scale = app->win->GetScale();
+	int scale = App->win->GetScale();
 
 	ret.x = (x - camera.x / scale);
 	ret.y = (y - camera.y / scale);
@@ -307,7 +307,7 @@ iPoint m1Render::ScreenToWorld(int x, int y) const
 
 bool m1Render::IsOnCamera(const int & x, const int & y, const int & w, const int & h) const
 {
-	int scale = app->win->GetScale();
+	int scale = App->win->GetScale();
 
 	SDL_Rect r = { x*scale,y*scale,w*scale,h*scale };
 	SDL_Rect cam = { -camera.x,-camera.y,camera.w,camera.h };
@@ -325,12 +325,12 @@ void m1Render::LobbyCamera(iPoint playerpos)
 {
 	BROFILER_CATEGORY("LobbyCamera", Profiler::Color::Aquamarine);
 
-	playerpos.x = (playerpos.x * app->win->GetScale() - camera.w / 2);
+	playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
 	smoth_position.x -= (playerpos.x + camera.x) / smooth_speed;
 	camera.x = smoth_position.x;
 	
 
-	playerpos.y = (playerpos.y * app->win->GetScale() - camera.h / 2);
+	playerpos.y = (playerpos.y * App->win->GetScale() - camera.h / 2);
 	smoth_position.y -= (playerpos.y + camera.y) / smooth_speed;
 	camera.y = smoth_position.y;
 

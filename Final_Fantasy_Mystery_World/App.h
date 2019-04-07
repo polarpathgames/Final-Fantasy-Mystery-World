@@ -27,15 +27,15 @@ class m1Collision;
 class m1EasingSplines;
 class m1DialogSystem;
 
-class App
+class Application
 {
 public:
 
 	// Constructor
-	App(int argc, char* args[]);
+	Application(int argc, char* args[]);
 
 	// Destructor
-	virtual ~App();
+	virtual ~Application();
 
 	// Called before render is available
 	bool Awake();
@@ -148,6 +148,6 @@ private:
 	float					dt;
 };
 
-extern App* app;
+extern Application* App;
 
 #endif

@@ -14,7 +14,7 @@ u1Slider::u1Slider(const int &x, const int &y, const SDL_Rect &rect, const SDL_R
 	section = rect;
 	
 	//callback & parent?
-	slider_btn = app->gui->AddButton(x,y, idle, hover, push, nullptr, parent, true, true, true,false);
+	slider_btn = App->gui->AddButton(x,y, idle, hover, push, nullptr, parent, true, true, true,false);
 }
 
 u1Slider::~u1Slider()
@@ -69,7 +69,7 @@ bool u1Slider::PostUpdate()
 {
 	bool ret = true;
 
-	app->render->Blit((SDL_Texture*)app->gui->GetAtlas(), draw_offset.x, draw_offset.y, &slider_rect, false, SDL_FLIP_NONE, 0.0F, true);
+	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &slider_rect, false, SDL_FLIP_NONE, 0.0F, true);
 	slider_btn->InnerDraw();
 
 	return ret;

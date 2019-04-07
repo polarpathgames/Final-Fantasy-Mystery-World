@@ -27,7 +27,7 @@
 #include "Brofiler/Brofiler.h"
 
 // Constructor
-App::App(int argc, char* args[]) : argc(argc), args(args)
+Application::Application(int argc, char* args[]) : argc(argc), args(args)
 {
 	PERF_START(ptimer);
 
@@ -79,7 +79,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 }
 
 // Destructor
-App::~App()
+Application::~Application()
 {
 	// release modules
 
@@ -90,14 +90,14 @@ App::~App()
 	modules.clear();
 }
 
-void App::AddModule(m1Module* module)
+void Application::AddModule(m1Module* module)
 {
 	module->Init();
 	modules.push_back(module);
 }
 
 // Called before render is available
-bool App::Awake()
+bool Application::Awake()
 {
 	PERF_START(ptimer);
 
@@ -142,7 +142,7 @@ bool App::Awake()
 }
 
 // Called before the first frame
-bool App::Start()
+bool Application::Start()
 {
 	PERF_START(ptimer);
 	bool ret = true;
@@ -163,7 +163,7 @@ bool App::Start()
 }
 
 // Called each loop iteration
-bool App::Update()
+bool Application::Update()
 {
 	BROFILER_CATEGORY("Update", Profiler::Color::Aqua);
 
@@ -191,7 +191,7 @@ bool App::Update()
 }
 
 // ---------------------------------------------
-pugi::xml_node App::LoadConfig(pugi::xml_document& config_file, std::string name) const
+pugi::xml_node Application::LoadConfig(pugi::xml_document& config_file, std::string name) const
 {
 	pugi::xml_node ret;
 
@@ -206,7 +206,7 @@ pugi::xml_node App::LoadConfig(pugi::xml_document& config_file, std::string name
 }
 
 // ---------------------------------------------
-void App::PrepareUpdate()
+void Application::PrepareUpdate()
 {
 	BROFILER_CATEGORY("PrepareUpdate", Profiler::Color::Blue);
 
@@ -224,7 +224,7 @@ void App::PrepareUpdate()
 }
 
 // ---------------------------------------------
-void App::FinishUpdate()
+void Application::FinishUpdate()
 {
 	BROFILER_CATEGORY("FinishUpdate", Profiler::Color::Lime);
 
@@ -257,7 +257,7 @@ void App::FinishUpdate()
 }
 
 // Call modules before each loop iteration
-bool App::PreUpdate()
+bool Application::PreUpdate()
 {
 	BROFILER_CATEGORY("PreUpdate", Profiler::Color::Orange);
 
@@ -281,7 +281,7 @@ bool App::PreUpdate()
 }
 
 // Call modules on each loop iteration
-bool App::DoUpdate()
+bool Application::DoUpdate()
 {
 	BROFILER_CATEGORY("DoUpdate", Profiler::Color::Yellow);
 
@@ -304,7 +304,7 @@ bool App::DoUpdate()
 }
 
 // Call modules after each loop iteration
-bool App::PostUpdate()
+bool Application::PostUpdate()
 {
 	BROFILER_CATEGORY("PostUpdate", Profiler::Color::Purple);
 
@@ -327,7 +327,7 @@ bool App::PostUpdate()
 }
 
 // Called before quitting
-bool App::CleanUp()
+bool Application::CleanUp()
 {
 	BROFILER_CATEGORY("CleanUp", Profiler::Color::Salmon);
 
@@ -350,13 +350,13 @@ bool App::CleanUp()
 }
 
 // ---------------------------------------
-int App::GetArgc() const
+int Application::GetArgc() const
 {
 	return argc;
 }
 
 // ---------------------------------------
-const char* App::GetArgv(int index) const
+const char* Application::GetArgv(int index) const
 {
 	if (index < argc)
 		return args[index];
@@ -365,25 +365,25 @@ const char* App::GetArgv(int index) const
 }
 
 // ---------------------------------------
-const char* App::GetTitle() const
+const char* Application::GetTitle() const
 {
 	return title.data();
 }
 
 // ---------------------------------------
-const char* App::GetOrganization() const
+const char* Application::GetOrganization() const
 {
 
 	return organization.data();
 }
 
-const char * App::GetVersion() const
+const char * Application::GetVersion() const
 {
 	return version.data();
 }
 
 // Load / Save
-void App::LoadGame(const char* file)
+void Application::LoadGame(const char* file)
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list
@@ -392,7 +392,7 @@ void App::LoadGame(const char* file)
 }
 
 // ---------------------------------------
-void App::SaveGame(const char* file) const
+void Application::SaveGame(const char* file) const
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list ... should we overwrite ?
@@ -404,7 +404,7 @@ void App::SaveGame(const char* file) const
 // ---------------------------------------
 
 
-bool App::LoadGameNow()
+bool Application::LoadGameNow()
 {
 	bool ret = false;
 	pugi::xml_document data;
@@ -445,7 +445,7 @@ bool App::LoadGameNow()
 	return ret;
 }
 
-bool App::SavegameNow() const
+bool Application::SavegameNow() const
 {
 	bool ret = true;
 
@@ -478,17 +478,17 @@ bool App::SavegameNow() const
 	return ret;
 }
 
-void App::QuitGame()
+void Application::QuitGame()
 {
 	quit_game = true;
 }
 
-bool App::GetPause()
+bool Application::GetPause()
 {
 	return is_paused;
 }
 
-bool App::ChangePause()
+bool Application::ChangePause()
 {
 	return is_paused = !is_paused;
 }

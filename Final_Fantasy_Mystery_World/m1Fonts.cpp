@@ -146,7 +146,7 @@ SDL_Texture* m1Fonts::Print(const char* text, SDL_Color color, FontType font_typ
 	}
 	else
 	{
-		ret = app->tex->LoadSurface(surface);
+		ret = App->tex->LoadSurface(surface);
 		SDL_FreeSurface(surface);
 	}
 
@@ -166,7 +166,7 @@ SDL_Texture* m1Fonts::PrintWrapped(const char* text, SDL_Color color, FontType f
 	}
 	else
 	{
-		ret = app->tex->LoadSurface(surface);
+		ret = App->tex->LoadSurface(surface);
 		SDL_FreeSurface(surface);
 	}
 

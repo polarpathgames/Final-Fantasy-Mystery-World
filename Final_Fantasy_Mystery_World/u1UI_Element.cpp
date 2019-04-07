@@ -31,31 +31,31 @@ void u1GUI::Draw()
 	if (drawable)
 		InnerDraw();
 
-	if (app->gui->debug_ui) {
+	if (App->gui->debug_ui) {
 		DebugDraw();
 	}
 }
 
 void u1GUI::InnerDraw()
 {
-	app->render->Blit((SDL_Texture*)app->gui->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0);
+	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0);
 }
 
 bool u1GUI::Update()
 {
 	iPoint mouse;
-	app->input->GetMousePosition(mouse.x, mouse.y);
+	App->input->GetMousePosition(mouse.x, mouse.y);
 
-	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && (mouse.x != last_mouse.x || mouse.y != last_mouse.y)) {
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && (mouse.x != last_mouse.x || mouse.y != last_mouse.y)) {
 		if (draggable) {
 
 			int x_motion = mouse.x - last_mouse.x, y_motion = mouse.y - last_mouse.y;
-			SetPos(GetLocalPosition().x + x_motion * app->win->GetScale(), GetLocalPosition().y + y_motion * app->win->GetScale());
+			SetPos(GetLocalPosition().x + x_motion * App->win->GetScale(), GetLocalPosition().y + y_motion * App->win->GetScale());
 		}
 	}
 	last_mouse = mouse;
 
-	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		for (std::list<m1Module*>::iterator module = listeners.begin(); module != listeners.end(); ++module) {
 			if (*module != nullptr)
 				if (!(*module)->Interact(this))
@@ -153,7 +153,7 @@ SDL_Rect u1GUI::GetRect() const
 
 void u1GUI::DebugDraw()
 {
-	app->render->DrawQuad({ draw_offset.x,draw_offset.y,section.w,section.h }, 255, 0, 0, 255, false, false);
+	App->render->DrawQuad({ draw_offset.x,draw_offset.y,section.w,section.h }, 255, 0, 0, 255, false, false);
 }
 
 void u1GUI::AddListener(m1Module * module)
