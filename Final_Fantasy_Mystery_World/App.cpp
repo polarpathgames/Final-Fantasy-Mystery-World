@@ -115,15 +115,13 @@ bool App::Awake()
 		app_config = config.child("app");
 		title.assign(app_config.child("title").child_value());
 		organization.assign(app_config.child("organization").child_value());
+		version.assign(app_config.child("version").child_value());
 
 		int cap = app_config.attribute("framerate_cap").as_int();
 		if (cap > 0)
 		{
 			framerate_cap = 1000 / cap;
 		}
-
-
-
 	}
 
 	if (ret == true)
@@ -256,13 +254,9 @@ void App::FinishUpdate()
 
 	BROFILER_CATEGORY("Waiting", Profiler::Color::Red);
 
-	if (framerate_cap > 0 && last_frame_ms < framerate_cap&&capactivated)
+	if (framerate_cap > 0 && last_frame_ms < framerate_cap && capactivated)
 	{
-		p2PerfTimer time;
-		float delaytimestart = time.ReadMs();
 		SDL_Delay(framerate_cap - last_frame_ms);
-		float delaytimefinish = time.ReadMs();
-		//LOG("We waited for %i milliseconds and got back in %.6f", framerate_cap - last_frame_ms, delaytimefinish - delaytimestart);
 	}
 }
 
@@ -385,6 +379,11 @@ const char* App::GetOrganization() const
 {
 
 	return organization.data();
+}
+
+const char * App::GetVersion() const
+{
+	return version.data();
 }
 
 // Load / Save
