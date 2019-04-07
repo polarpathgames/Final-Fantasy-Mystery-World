@@ -28,9 +28,8 @@ bool m1GUI::Awake(pugi::xml_node &node)
 	CreateScreen();
 
 	//Load all ui elements info with xml...
-
-	//----------------------
 	focus_tx = { 1024,1986,16,27 };
+	//----------------------
 
 	return true;
 }
@@ -56,8 +55,8 @@ bool m1GUI::PreUpdate()
 
 	if (focus == nullptr) {
 		FocusFirstUIFocusable();
-		using_mouse = false;
-		SDL_ShowCursor(SDL_DISABLE);
+		/*using_mouse = false;
+		SDL_ShowCursor(SDL_DISABLE);*/
 	}
 	
 	if (focus != nullptr) {
@@ -387,8 +386,4 @@ bool m1GUI::CheckCollision(int x, int y, u1GUI *item)
 			(y > pos.y && y < pos.y + item->section.h);
 	}
 	return false;
-}
-
-void m1GUI::UI_Events(u1GUI * element)
-{
 }

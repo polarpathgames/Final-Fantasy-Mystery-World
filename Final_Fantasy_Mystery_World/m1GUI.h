@@ -62,7 +62,6 @@ public:
 	bool DeleteAllUIElements();
 	bool GetElemOnMouse(int x, int y, u1GUI* & element);
 	bool CheckCollision(int x, int y, u1GUI* item);
-	void UI_Events(u1GUI* element);
 
 	const SDL_Texture* GetAtlas() const;
 

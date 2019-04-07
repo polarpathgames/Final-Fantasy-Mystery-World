@@ -102,7 +102,7 @@ bool EaseSplineInfo::Update(float dt)
 
 int EaseFunctions::EaseOutQuint(float time_passed, int initial_position, int distance_to_travel, float time_to_travel)
 {
-	return distance_to_travel * ((time_passed = time_passed / time_to_travel - 1)*time_passed*time_passed*time_passed*time_passed + 1) + initial_position;;
+	return distance_to_travel * ((time_passed = time_passed / time_to_travel - 1)*time_passed*time_passed*time_passed*time_passed + 1) + initial_position;
 }
 
 int EaseFunctions::Ease(float time_passed, int initial_position, int distance_to_travel, float time_to_travel)
