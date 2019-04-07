@@ -66,6 +66,10 @@ public:
 
 	bool GetPause();
 	bool ChangePause();
+
+	bool GetInventory();
+	bool ChangeInventory();
+
 	pugi::xml_node LoadConfig(pugi::xml_document&, std::string name) const;
 
 	bool capactivated = true;
@@ -131,6 +135,7 @@ private:
 
 	bool					quit_game = false;
 	bool					is_paused = false;
+	bool                    is_inventory = false;
 	pugi::xml_document		config_file;
 	pugi::xml_node			config;
 	std::string				config_name;
