@@ -49,7 +49,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 	iPoint pos_coll = { c1->rect.x,c1->rect.y };
 	pos_coll = App->map->WorldToMap(pos_coll.x, pos_coll.y);
 	
-	if (App->scene->player->actual_tile == pos_coll) {
+	if (App->scene->player->actual_tile == pos_coll && has_player_moved) {
 		std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
 		switch (c1->type)
 		{
@@ -109,7 +109,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 
 void RoomManager::LoadRoom(const int & id)
 {
-	
+	has_player_moved = false;
 	App->fade_to_black->FadeToBlack(0.5f);
 	App->entity_manager->DeleteEntitiesNoPlayer();
 	App->map->CleanUp();
@@ -126,6 +126,7 @@ void RoomManager::LoadRoom(const int & id)
 	uchar* data = nullptr;
 	if (App->map->CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
+	
 	App->scene->CreateEntities();
 	PlacePlayer();
 	LoadColliders();
@@ -136,23 +137,26 @@ void RoomManager::PlacePlayer() // place player in front of the door
 {
 
 	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
-		if ((*position)->ent_type == "lastA" && player_next_pos == LocationChangeScene::LAST_A) {
-			App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
-		}
-		else if ((*position)->ent_type == "lastB" && player_next_pos == LocationChangeScene::LAST_B) {
-			App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
-		}
-		else if ((*position)->ent_type == "nextA" && player_next_pos == LocationChangeScene::NEXT_A) {
-			App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
-		}
-		else if ((*position)->ent_type == "nextB" && player_next_pos == LocationChangeScene::NEXT_B) {
-			App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
-		}
-		else if ((*position)->ent_type == "default" && player_next_pos == LocationChangeScene::NONE) {
-			App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+		if ((*position)->name == "player") {
+			if ((*position)->ent_type == "lastA" && player_next_pos == LocationChangeScene::LAST_A) {
+				App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+			}
+			else if ((*position)->ent_type == "lastB" && player_next_pos == LocationChangeScene::LAST_B) {
+				App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+			}
+			else if ((*position)->ent_type == "nextA" && player_next_pos == LocationChangeScene::NEXT_A) {
+				App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+			}
+			else if ((*position)->ent_type == "nextB" && player_next_pos == LocationChangeScene::NEXT_B) {
+				App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+			}
+			else if ((*position)->ent_type == "default" && player_next_pos == LocationChangeScene::NONE) {
+				App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+			}
 		}
 	}
 	App->scene->player->CenterPlayerInTile();
+	has_player_moved = true;
 }
 
 void RoomManager::LoadColliders() // sensors in the doors
@@ -205,6 +209,8 @@ void RoomManager::LoadColliders() // sensors in the doors
 			}
 		}
 	}
+	
+
 }
 
 ChangeScene::ChangeScene(const int & x, const int & y, LocationChangeScene type, const uint & id)
