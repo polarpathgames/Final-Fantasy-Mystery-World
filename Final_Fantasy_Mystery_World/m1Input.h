@@ -6,9 +6,8 @@
 #include "SDL\include\SDL.h"
 #include "SDL\include\SDL_gamecontroller.h"
 //#define NUM_KEYS 352
+#define NUM_CONTROLLER_BUTTONS SDL_CONTROLLER_BUTTON_MAX //16
 #define NUM_MOUSE_BUTTONS 5
-#define NUM_CONTROLLER_BUTTONS 16
-#define MAX_BUTTONS 10
 #define DEAD_ZONE 10000
 //#define LAST_KEYS_PRESSED_BUFFER 50
 
@@ -105,6 +104,14 @@ public:
 	// Called each loop iteration
 	bool PreUpdate();
 
+	void UpdateEvents(SDL_Event &event);
+
+	void UpdateController();
+
+	void UpdateMouse();
+
+	void UpdateKeyboard();
+
 	// Called before quitting
 	bool CleanUp();
 
@@ -136,7 +143,7 @@ public:
 	}
 	void DefaultControls();
 
-	bool ChceckAxisStates(const Axis &axis);
+	bool CheckAxisStates(const Axis &axis);
 
 	// Check if a certain window event happened
 	bool GetWindowEvent(int code);

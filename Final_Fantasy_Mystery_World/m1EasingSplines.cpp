@@ -10,6 +10,8 @@
 #include <string>
 #include "p2Log.h"
 
+#include "Brofiler/Brofiler.h"
+
 m1EasingSplines::m1EasingSplines() : m1Module()
 {
 	name.assign("easingsplines");
@@ -25,6 +27,8 @@ m1EasingSplines::~m1EasingSplines()
 // Called each loop iteration
 bool m1EasingSplines::Update(float dt)
 {
+	BROFILER_CATEGORY("UpdateEasingSplines", Profiler::Color::Purple);
+
 	std::list<EaseSplineInfo*>::iterator item = easing_splines.begin();
 
 	for (; item != easing_splines.end(); ++item) {
@@ -102,7 +106,7 @@ bool EaseSplineInfo::Update(float dt)
 
 int EaseFunctions::EaseOutQuint(float time_passed, int initial_position, int distance_to_travel, float time_to_travel)
 {
-	return distance_to_travel * ((time_passed = time_passed / time_to_travel - 1)*time_passed*time_passed*time_passed*time_passed + 1) + initial_position;;
+	return distance_to_travel * ((time_passed = time_passed / time_to_travel - 1)*time_passed*time_passed*time_passed*time_passed + 1) + initial_position;
 }
 
 int EaseFunctions::Ease(float time_passed, int initial_position, int distance_to_travel, float time_to_travel)

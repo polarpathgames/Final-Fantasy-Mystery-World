@@ -71,7 +71,7 @@ public:
 public:
 
 	std::list<Font*>	fonts;
-	Font*				default;
+	Font*				default = nullptr;
 };
 
 

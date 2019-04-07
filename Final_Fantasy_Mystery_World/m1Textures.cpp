@@ -91,8 +91,6 @@ bool m1Textures::UnLoad(SDL_Texture* texture)
 		}
 	}
 
-
-
 	return false;
 }
 
@@ -107,7 +105,6 @@ SDL_Texture* const m1Textures::LoadSurface(SDL_Surface* surface)
 	}
 	else
 	{
-		//textures.add(texture);
 		textures.push_back(texture);
 	}
 

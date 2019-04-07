@@ -28,26 +28,27 @@ struct ObjectLayer {
 	std::string name;
 	std::string ent_type;
 
-	uint tile_id;
-	int	coll_x;
-	int	coll_y;
+	uint tile_id = 0;
+	int	coll_x = 0;
+	int	coll_y = 0;
 	int coll_width = 0;
 	int coll_height = 0;
 	Properties<int> properties;
-	
 
+	~ObjectLayer()
+	{
+		properties.CleanUp();
+	}
 };
 
 // ----------------------------------------------------
 struct MapLayer
 {
 	std::string						name;
-	int								width;
-	int								height;
-	uint*							data;
+	int								width = 0;
+	int								height = 0;
+	uint*							data = nullptr;
 	Properties<int>					properties;
-
-	auto GetProperty(const char*);
 
 	MapLayer() : data(NULL)
 	{}
@@ -71,18 +72,18 @@ struct TileSet
 	SDL_Rect GetTileRect(int id) const;
 
 	std::string			name;
-	int					firstgid;
-	int					margin;
-	int					spacing;
-	int					tile_width;
-	int					tile_height;
-	SDL_Texture*		texture;
-	int					tex_width;
-	int					tex_height;
-	int					num_tiles_width;
-	int					num_tiles_height;
-	int					offset_x;
-	int					offset_y;
+	int					firstgid = 0;
+	int					margin = 0;
+	int					spacing = 0;
+	int					tile_width = 0;
+	int					tile_height = 0;
+	SDL_Texture*		texture = nullptr;
+	int					tex_width = 0;
+	int					tex_height = 0;
+	int					num_tiles_width = 0;
+	int					num_tiles_height = 0;
+	int					offset_x = 0;
+	int					offset_y = 0;
 };
 
 enum MapTypes
@@ -95,12 +96,12 @@ enum MapTypes
 // ----------------------------------------------------
 struct MapData
 {
-	int							width;
-	int							height;
-	int							tile_width;
-	int							tile_height;
+	int							width = 0;
+	int							height = 0;
+	int							tile_width = 0;
+	int							tile_height = 0;
 	SDL_Color					background_color;
-	MapTypes					type;
+	MapTypes					type = MapTypes::MAPTYPE_UNKNOWN;
 	std::list<TileSet*>			tilesets;
 	std::list<MapLayer*>		layers;
 	std::list<ObjectLayer*>		objects;
@@ -154,17 +155,17 @@ private:
 
 public:
 
-	MapData data;
-	bool	Grid = true;
-	Maps actual_map;
-	Maps last_map;
+	MapData		data;
+	bool		grid = false;
+	Maps		actual_map = Maps::NONE;
+	Maps		last_map = Maps::NONE;
 
 private:
 
 	pugi::xml_document	map_file;
 	std::string			folder;
-	bool				map_loaded;
-	SDL_Texture*		quad;
+	bool				map_loaded = false;
+	SDL_Texture*		quad = nullptr;
 
 	std::string tutorial_map;
 	std::string lobby_map;

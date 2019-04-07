@@ -1,11 +1,9 @@
 #ifndef __m1Collisions_H__
 #define __m1Collisions_H__
 
-#define MAX_COLLIDERS 500
-
 #include "m1Module.h"
 #include "SDL/include/SDL_rect.h"
-#include "p2Line.h"
+#include <vector>
 
 enum COLLIDER_TYPE
 {
@@ -17,7 +15,6 @@ enum COLLIDER_TYPE
 	COLLIDER_NEXT_B,
 	COLLIDER_LAST_A,
 	COLLIDER_LAST_B,
-
 
 	COLLIDER_MAX
 };
@@ -53,6 +50,7 @@ struct Collider
 	{
 		this->type = type;
 	}
+
 	bool CheckCollision(const SDL_Rect& r) const;
 	
 };
@@ -75,10 +73,8 @@ public:
 
 private:
 
-	Collider * colliders[MAX_COLLIDERS];
+	std::vector<Collider*> colliders;
 	bool matrix[COLLIDER_MAX][COLLIDER_MAX];
-
-	
 
 };
 

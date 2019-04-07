@@ -28,9 +28,8 @@ bool m1GUI::Awake(pugi::xml_node &node)
 	CreateScreen();
 
 	//Load all ui elements info with xml...
-
-	//----------------------
 	focus_tx = { 1024,1986,16,27 };
+	//----------------------
 
 	return true;
 }
@@ -51,15 +50,25 @@ bool m1GUI::PreUpdate()
 		debug_ui = !debug_ui;
 	}
 
+	ret = UpdateFocusMouse();
+
+	return ret;
+}
+
+bool m1GUI::UpdateFocusMouse()
+{
+	BROFILER_CATEGORY("UpdateFocusMouse", Profiler::Color::Orange);
+
+	bool ret = true;
 	int x = 0, y = 0;
 	App->input->GetMouseMotion(x, y);
 
 	if (focus == nullptr) {
 		FocusFirstUIFocusable();
-		using_mouse = false;
-		SDL_ShowCursor(SDL_DISABLE);
+		/*using_mouse = false;
+		SDL_ShowCursor(SDL_DISABLE);*/
 	}
-	
+
 	if (focus != nullptr) {
 		if (using_mouse) {
 			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN
@@ -70,7 +79,7 @@ bool m1GUI::PreUpdate()
 
 			if (SDL_ShowCursor(-1) == 0)
 				SDL_ShowCursor(SDL_ENABLE);
-			
+
 			iPoint mouse;
 			App->input->GetMousePosition(mouse.x, mouse.y);
 			u1GUI* element = nullptr;
@@ -98,6 +107,9 @@ bool m1GUI::PreUpdate()
 
 void m1GUI::FocusInput()
 {
+
+	BROFILER_CATEGORY("FocusInput", Profiler::Color::Orange);
+
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
 		u1GUI* new_focus = focus;
 		if (focus->parent != nullptr)
@@ -154,13 +166,15 @@ void m1GUI::FocusInput()
 
 bool m1GUI::FocusFirstUIFocusable()
 {
+	BROFILER_CATEGORY("FindElementToFocus", Profiler::Color::Aqua);
+
 	for (std::list<u1GUI*>::iterator item = ui_list.begin(); item != ui_list.end(); ++item) {
 		if ((*item)->allow_focus && *item != nullptr) {
 			focus = *item;
 			return true;
 		}
 	}
-	//LOG("There is not any button focusable");
+	//LOG("There is any button focusable");
 	return false;
 }
 
@@ -210,12 +224,12 @@ const SDL_Texture* m1GUI::GetAtlas() const
 	return atlas;
 }
 
-u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, m1Module * callback = nullptr, u1GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false, bool focus = true)
+u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, m1Module * listener = nullptr, u1GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false, bool focus = true)
 {
 	u1Image* image = new u1Image(x, y, rect, parent, draw, interact, drag, focus);
 
-	if (callback != nullptr) {
-		image->AddListener(callback);
+	if (listener != nullptr) {
+		image->AddListener(listener);
 	}
 
 	ui_list.push_back(image);
@@ -223,12 +237,12 @@ u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0
 	return image;
 }
 
-u1Button* m1GUI::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* callback, u1GUI* parent, bool draw, bool drag, bool inter, bool focus = true)
+u1Button* m1GUI::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* listener, u1GUI* parent, bool draw, bool drag, bool inter, bool focus = true)
 {
 	u1Button* button = new u1Button(x, y, idle, mouse_in, clicked, parent, draw, inter, drag, focus);
 
-	if (callback != nullptr) {
-		button->AddListener(callback);
+	if (listener != nullptr) {
+		button->AddListener(listener);
 	}
 
 	ui_list.push_back(button);
@@ -236,12 +250,12 @@ u1Button* m1GUI::AddButton(const int &x, const int &y, const SDL_Rect &idle, con
 	return button;
 }
 
-u1Label* m1GUI::AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* callback = nullptr, bool focus = false)
+u1Label* m1GUI::AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* listener = nullptr, bool focus = false)
 {
 	u1Label* label = new u1Label(x, y, text, color, font, parent, focus);
 
-	if (callback != nullptr) {
-		label->AddListener(callback);
+	if (listener != nullptr) {
+		label->AddListener(listener);
 	}
 
 	ui_list.push_back(label);
@@ -319,6 +333,8 @@ bool m1GUI::DeleteUIElement(u1GUI * element)
 
 void m1GUI::BFS(std::list<u1GUI*>& visited, u1GUI * elem)
 {
+	BROFILER_CATEGORY("BFS", Profiler::Color::Orange);
+
 	if (elem != nullptr) {
 		std::queue<u1GUI*> frontier;
 		u1GUI* item = nullptr;
@@ -387,8 +403,4 @@ bool m1GUI::CheckCollision(int x, int y, u1GUI *item)
 			(y > pos.y && y < pos.y + item->section.h);
 	}
 	return false;
-}
-
-void m1GUI::UI_Events(u1GUI * element)
-{
 }
