@@ -189,8 +189,8 @@ typedef SDL_AssertState (SDLCALL *SDL_AssertionHandler)(
 /**
  *  \brief Set an application-defined assertion handler.
  *
- *  This allows an app to show its own assertion UI and/or force the
- *  response to an assertion failure. If the app doesn't provide this, SDL
+ *  This allows an App to show its own assertion UI and/or force the
+ *  response to an assertion failure. If the App doesn't provide this, SDL
  *  will try to do the right thing, popping up a system-specific u1GUI dialog,
  *  and probably minimizing any fullscreen windows.
  *
@@ -273,7 +273,7 @@ extern DECLSPEC const SDL_AssertData * SDLCALL SDL_GetAssertionReport(void);
 extern DECLSPEC void SDLCALL SDL_ResetAssertionReport(void);
 
 
-/* these had wrong naming conventions until 2.0.4. Please update your app! */
+/* these had wrong naming conventions until 2.0.4. Please update your App! */
 #define SDL_assert_state SDL_AssertState
 #define SDL_assert_data SDL_AssertData
 

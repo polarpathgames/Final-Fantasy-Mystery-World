@@ -107,6 +107,7 @@ bool m1GUI::UpdateFocusMouse()
 
 void m1GUI::FocusInput()
 {
+
 	BROFILER_CATEGORY("FocusInput", Profiler::Color::Orange);
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {

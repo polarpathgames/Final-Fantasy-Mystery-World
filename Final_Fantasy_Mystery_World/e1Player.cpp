@@ -62,19 +62,19 @@ bool e1Player::Update(float dt)
 
 	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
-	/*app->render->DrawLine(position.x, position.y + 25, position.x + 18, position.y + 25, 255, 255, 255);
-	app->render->DrawLine(position.x, position.y + 32, position.x + 18, position.y + 32, 255, 255, 255);
-	app->render->DrawLine(position.x, position.y + 25, position.x, position.y + 32, 255, 255, 255);
-	app->render->DrawLine(position.x + 18, position.y + 25, position.x + 18, position.y + 32, 255, 255, 255);
+	/*App->render->DrawLine(position.x, position.y + 25, position.x + 18, position.y + 25, 255, 255, 255);
+	App->render->DrawLine(position.x, position.y + 32, position.x + 18, position.y + 32, 255, 255, 255);
+	App->render->DrawLine(position.x, position.y + 25, position.x, position.y + 32, 255, 255, 255);
+	App->render->DrawLine(position.x + 18, position.y + 25, position.x + 18, position.y + 32, 255, 255, 255);
 
-	iPoint pos = app->map->MapToWorld(actual_tile.x, actual_tile.y);
+	iPoint pos = App->map->MapToWorld(actual_tile.x, actual_tile.y);
 	iPoint pos2 = { pos.x + 16, pos.y + 8 };
-	app->render->DrawLine(pos2.x, pos2.y, pos2.x + 16, pos2.y + 8, 255, 0, 255);
-	app->render->DrawLine(pos2.x - 16, pos.y + 16, pos.x + 16, pos.y + 8, 255, 0, 255);
-	app->render->DrawLine(pos2.x - 16, pos.y + 16, pos.x + 16, pos.y + 24, 255, 0, 255);
-	app->render->DrawLine(pos.x + 16, pos.y + 24, pos2.x + 16, pos2.y + 8, 255, 0, 255);
+	App->render->DrawLine(pos2.x, pos2.y, pos2.x + 16, pos2.y + 8, 255, 0, 255);
+	App->render->DrawLine(pos2.x - 16, pos.y + 16, pos.x + 16, pos.y + 8, 255, 0, 255);
+	App->render->DrawLine(pos2.x - 16, pos.y + 16, pos.x + 16, pos.y + 24, 255, 0, 255);
+	App->render->DrawLine(pos.x + 16, pos.y + 24, pos2.x + 16, pos2.y + 8, 255, 0, 255);
 	*/
-	//app->render->DrawCircle(position.x, position.y, 3, 0, 0, 255);
+	//App->render->DrawCircle(position.x, position.y, 3, 0, 0, 255);
 	coll->SetPos(position.x, position.y + 25);
 
 	return true;

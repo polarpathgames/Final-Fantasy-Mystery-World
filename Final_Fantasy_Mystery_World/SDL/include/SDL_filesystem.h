@@ -63,7 +63,7 @@ extern "C" {
 extern DECLSPEC char *SDLCALL SDL_GetBasePath(void);
 
 /**
- * \brief Get the user-and-app-specific path where files can be written.
+ * \brief Get the user-and-App-specific path where files can be written.
  *
  * Get the "pref dir". This is meant to be where users can write personal
  *  files (preferences and save games, etc) that are specific to your
@@ -88,13 +88,13 @@ extern DECLSPEC char *SDLCALL SDL_GetBasePath(void);
  *  your name or an Internet domain you own might do) and the name of your
  *  application. These should be untranslated proper names.
  *
- * Both the org and app strings may become part of a directory name, so
+ * Both the org and App strings may become part of a directory name, so
  *  please follow these rules:
  *
  *    - Try to use the same org string (including case-sensitivity) for
  *      all your applications that use this function.
- *    - Always use a unique app string for each one, and make sure it never
- *      changes for an app once you've decided on it.
+ *    - Always use a unique App string for each one, and make sure it never
+ *      changes for an App once you've decided on it.
  *    - Unicode characters are legal, as long as it's UTF-8 encoded, but...
  *    - ...only use letters, numbers, and spaces. Avoid punctuation like
  *      "Game Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.
@@ -117,7 +117,7 @@ extern DECLSPEC char *SDLCALL SDL_GetBasePath(void);
  *  return NULL.
  *
  *   \param org The name of your organization.
- *   \param app The name of your application.
+ *   \param App The name of your application.
  *  \return UTF-8 string of user dir in platform-dependent notation. NULL
  *          if there's a problem (creating directory failed, etc).
  *

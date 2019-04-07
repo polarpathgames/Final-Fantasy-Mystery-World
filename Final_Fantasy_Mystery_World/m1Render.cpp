@@ -323,6 +323,7 @@ void m1Render::ResetCamera()
 
 void m1Render::LobbyCamera(iPoint playerpos)
 {
+
 	BROFILER_CATEGORY("LobbyCamera", Profiler::Color::Aquamarine);
 
 	playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
@@ -336,6 +337,6 @@ void m1Render::LobbyCamera(iPoint playerpos)
 
 	//LOG("%i", smooth_speed);
 
-	//camera.x = (-playerpos.x * 3) + (app->win->width * 0.5);
-	//camera.y = (-playerpos.y * 3) + (app->win->height * 0.5);
+	//camera.x = (-playerpos.x * 3) + (App->win->width * 0.5);
+	//camera.y = (-playerpos.y * 3) + (App->win->height * 0.5);
 }

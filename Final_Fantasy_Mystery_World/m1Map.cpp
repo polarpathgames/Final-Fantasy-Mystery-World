@@ -636,6 +636,7 @@ bool m1Map::ChangeMap(Maps type)
 		LOG("Could not load the map");
 		break;
 	}
+
 	int w = 0, h = 0;
 	uchar* data_wm = nullptr;
 	if (CreateWalkabilityMap(w, h, &data_wm))
