@@ -120,34 +120,96 @@ bool m1Input::PreUpdate()
 
 	static SDL_Event event;
 	
-	const Uint8* keys = SDL_GetKeyboardState(NULL);
+	UpdateKeyboard();
 
-	for(int i = 0; i < MAX_KEYS; ++i)
+	UpdateMouse();
+
+	UpdateController();
+
+	UpdateEvents(event);
+	
+	return true;
+}
+
+void m1Input::UpdateEvents(SDL_Event &event)
+{
+	BROFILER_CATEGORY("Events", Profiler::Color::Orange);
+
+	while (SDL_PollEvent(&event) != 0)
 	{
-		if(keys[i] == 1)
+		switch (event.type)
 		{
-			if(keyboard[i] == KEY_IDLE)
-				keyboard[i] = KEY_DOWN;
-			else
-				keyboard[i] = KEY_REPEAT;
-		}
-		else
-		{
-			if(keyboard[i] == KEY_REPEAT || keyboard[i] == KEY_DOWN)
-				keyboard[i] = KEY_UP;
-			else
-				keyboard[i] = KEY_IDLE;
-		}
-	}
+		case SDL_QUIT:
+			windowEvents[WE_QUIT] = true;
+			break;
 
-	for(int i = 0; i < NUM_MOUSE_BUTTONS; ++i)
-	{
-		if(mouse_buttons[i] == KEY_DOWN)
-			mouse_buttons[i] = KEY_REPEAT;
+		case SDL_WINDOWEVENT:
+			switch (event.window.event)
+			{
+				//case SDL_WINDOWEVENT_LEAVE:
+			case SDL_WINDOWEVENT_HIDDEN:
+			case SDL_WINDOWEVENT_MINIMIZED:
+			case SDL_WINDOWEVENT_FOCUS_LOST:
+				windowEvents[WE_HIDE] = true;
+				break;
 
-		if(mouse_buttons[i] == KEY_UP)
-			mouse_buttons[i] = KEY_IDLE;
+				//case SDL_WINDOWEVENT_ENTER:
+			case SDL_WINDOWEVENT_SHOWN:
+			case SDL_WINDOWEVENT_FOCUS_GAINED:
+			case SDL_WINDOWEVENT_MAXIMIZED:
+			case SDL_WINDOWEVENT_RESTORED:
+				windowEvents[WE_SHOW] = true;
+				break;
+			}
+			break;
+		case SDL_CONTROLLERBUTTONDOWN:
+			if (event.cbutton.which == 0) {
+				controller_buttons[event.cbutton.button] = KEY_DOWN;
+			}
+			break;
+
+		case SDL_CONTROLLERBUTTONUP:
+			if (event.cbutton.which == 0)
+				controller_buttons[event.cbutton.button] = KEY_UP;
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+			mouse_buttons[event.button.button - 1] = KEY_DOWN;
+			//LOG("Mouse button %d down", event.button.button-1);
+			break;
+		case SDL_CONTROLLERAXISMOTION:
+			if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT && event.caxis.value > DEAD_ZONE) {
+				controller_buttons[event.cbutton.button] = KEY_DOWN;
+			}
+			if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT && event.caxis.value < DEAD_ZONE) {
+				controller_buttons[event.cbutton.button] = KEY_UP;
+			}
+			if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT && event.caxis.value > DEAD_ZONE) {
+				controller_buttons[event.cbutton.button] = KEY_DOWN;
+			}
+			if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT && event.caxis.value < DEAD_ZONE) {
+				controller_buttons[event.cbutton.button] = KEY_UP;
+			}
+			break;
+		case SDL_MOUSEBUTTONUP:
+			mouse_buttons[event.button.button - 1] = KEY_UP;
+			//LOG("Mouse button %d up", event.button.button-1);
+			break;
+		case SDL_MOUSEMOTION:
+			int scale = app->win->GetScale();
+			mouse_motion_x = event.motion.xrel / scale;
+			mouse_motion_y = event.motion.yrel / scale;
+			mouse_x = event.motion.x / scale;
+			mouse_y = event.motion.y / scale;
+			//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
+			break;
+		}
+
 	}
+}
+
+void m1Input::UpdateController()
+{
+	BROFILER_CATEGORY("UpdateControllers", Profiler::Color::Orange);
 
 	for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
 	{
@@ -158,88 +220,49 @@ bool m1Input::PreUpdate()
 			controller_buttons[i] = KEY_IDLE;
 	}
 
-
-	while(SDL_PollEvent(&event) != 0)
-	{
-		switch(event.type)
-		{
-			case SDL_QUIT:
-				windowEvents[WE_QUIT] = true;
-			break;
-
-			case SDL_WINDOWEVENT:
-				switch(event.window.event)
-				{
-					//case SDL_WINDOWEVENT_LEAVE:
-					case SDL_WINDOWEVENT_HIDDEN:
-					case SDL_WINDOWEVENT_MINIMIZED:
-					case SDL_WINDOWEVENT_FOCUS_LOST:
-					windowEvents[WE_HIDE] = true;
-					break;
-
-					//case SDL_WINDOWEVENT_ENTER:
-					case SDL_WINDOWEVENT_SHOWN:
-					case SDL_WINDOWEVENT_FOCUS_GAINED:
-					case SDL_WINDOWEVENT_MAXIMIZED:
-					case SDL_WINDOWEVENT_RESTORED:
-					windowEvents[WE_SHOW] = true;
-					break;
-				}
-			break;
-			case SDL_CONTROLLERBUTTONDOWN:
-				if (event.cbutton.which == 0) {
-					controller_buttons[event.cbutton.button] = KEY_DOWN;
-				}
-				break;
-
-			case SDL_CONTROLLERBUTTONUP:
-				if (event.cbutton.which == 0)
-					controller_buttons[event.cbutton.button] = KEY_UP;
-				break;
-			case SDL_MOUSEBUTTONDOWN:
-				mouse_buttons[event.button.button - 1] = KEY_DOWN;
-				//LOG("Mouse button %d down", event.button.button-1);
-			break;
-			case SDL_CONTROLLERAXISMOTION:
-				if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT && event.caxis.value > DEAD_ZONE) {
-					controller_buttons[event.cbutton.button] = KEY_DOWN;
-				}
-				if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT && event.caxis.value < DEAD_ZONE) {
-					controller_buttons[event.cbutton.button] = KEY_UP;
-				}
-				if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT && event.caxis.value > DEAD_ZONE) {
-					controller_buttons[event.cbutton.button] = KEY_DOWN;
-				}
-				if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT && event.caxis.value < DEAD_ZONE) {
-					controller_buttons[event.cbutton.button] = KEY_UP;
-				}
-				break;
-			case SDL_MOUSEBUTTONUP:
-				mouse_buttons[event.button.button - 1] = KEY_UP;
-				//LOG("Mouse button %d up", event.button.button-1);
-			break;
-			case SDL_MOUSEMOTION:
-				int scale = app->win->GetScale();
-				mouse_motion_x = event.motion.xrel / scale;
-				mouse_motion_y = event.motion.yrel / scale;
-				mouse_x = event.motion.x / scale;
-				mouse_y = event.motion.y / scale;
-				//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
-			break;
-		}
-		
-	}
-
 	//axis
 	if (Controller != nullptr) {
 		axis_x = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTX);
 		axis_y = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTY);
 		LOG("X: %i Y: %i", axis_x, axis_y);
 	}
+}
 
+void m1Input::UpdateMouse()
+{
+	for (int i = 0; i < NUM_MOUSE_BUTTONS; ++i)
+	{
+		if (mouse_buttons[i] == KEY_DOWN)
+			mouse_buttons[i] = KEY_REPEAT;
 
-	
-	return true;
+		if (mouse_buttons[i] == KEY_UP)
+			mouse_buttons[i] = KEY_IDLE;
+	}
+}
+
+void m1Input::UpdateKeyboard()
+{
+	BROFILER_CATEGORY("UpdateKeyboard", Profiler::Color::Orange);
+
+	const Uint8* keys = SDL_GetKeyboardState(NULL);
+
+	for (int i = 0; i < MAX_KEYS; ++i)
+	{
+		if (keys[i] == 1)
+		{
+			if (keyboard[i] == KEY_IDLE)
+				keyboard[i] = KEY_DOWN;
+			else
+				keyboard[i] = KEY_REPEAT;
+		}
+		else
+		{
+			if (keyboard[i] == KEY_REPEAT || keyboard[i] == KEY_DOWN)
+				keyboard[i] = KEY_UP;
+			else
+				keyboard[i] = KEY_IDLE;
+		}
+	}
 }
 
 // Called before quitting
@@ -268,7 +291,9 @@ void m1Input::GetMouseMotion(int& x, int& y)
 	y = mouse_motion_y;
 }
 
-bool m1Input::ChceckAxisStates(const Axis &axis) {
+bool m1Input::CheckAxisStates(const Axis &axis) {
+
+	BROFILER_CATEGORY("ChackAxisStates", Profiler::Color::Orange);
 
 	bool ret = false;
 	if (Controller != nullptr) {

@@ -54,10 +54,8 @@ bool m1EntityManager::PreUpdate()
 	
 	std::vector<e1Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr) {
-			if ((*item)->has_turn) {
-				(*item)->PreUpdate();
-			}
+		if ((*item) != nullptr && (*item)->has_turn) {
+			(*item)->PreUpdate();
 		}
 	}
 	
@@ -70,17 +68,20 @@ bool m1EntityManager::Update(float dt)
 	BROFILER_CATEGORY("UpdateEntityM", Profiler::Color::Aqua);
 
 	std::vector<e1Entity*> draw_entities;
-	std::vector<e1Entity*>::iterator item = entities.begin();
-	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr) {
-			(*item)->Update(dt);
-			
-			if (app->render->IsOnCamera((*item)->position.x, (*item)->position.y, (*item)->size.x, (*item)->size.y)) {
-				draw_entities.push_back(*item);
-			}
-		}
 
-	}
+	UpdateEntities(dt, draw_entities);
+
+	DrawEntities(draw_entities, dt);
+
+	if (app->scene->player->movement_type == Movement_Type::InLobby && app->scene->player != nullptr)
+		app->render->LobbyCamera(app->scene->player->position);
+
+	return true;
+}
+
+void m1EntityManager::DrawEntities(std::vector<e1Entity *> &draw_entities, float dt)
+{
+	BROFILER_CATEGORY("Sort&DrawEntities", Profiler::Color::Aqua);
 
 	std::sort(draw_entities.begin(), draw_entities.end(), m1EntityManager::SortByYPos);
 
@@ -94,23 +95,37 @@ bool m1EntityManager::Update(float dt)
 				(*item)->Draw(texture[2], dt);
 
 			app->render->DrawCircle((*item)->position.x + (*item)->pivot.x, (*item)->position.y + (*item)->pivot.y, 3, 255, 255, 255);
-		}		
+		}
 	}
-	if (app->scene->player->movement_type == Movement_Type::InLobby && app->scene->player != nullptr)
-		app->render->LobbyCamera(app->scene->player->position);
-	return true;
+}
+
+void m1EntityManager::UpdateEntities(float dt, std::vector<e1Entity *> &draw_entities)
+{
+	BROFILER_CATEGORY("UpdateEntityM", Profiler::Color::Aqua);
+
+	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr) {
+			(*item)->Update(dt);
+
+			if (app->render->IsOnCamera((*item)->position.x, (*item)->position.y, (*item)->size.x, (*item)->size.y)) {
+				draw_entities.push_back(*item);
+			}
+		}
+
+	}
 }
 
 bool m1EntityManager::PostUpdate()
 {
 	BROFILER_CATEGORY("PostUpdateEntity", Profiler::Color::Purple);
 
-	std::vector<e1Entity*>::iterator item = entities.begin();
+	/*std::vector<e1Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr)
 				(*item)->PostUpdate();
 
-	}
+	}*/
 	return true;
 }
 

@@ -1,10 +1,8 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "App.h"
-#include "m1Pathfinding.h"
 #include "m1GUI.h"
 #include "m1Collisions.h"
-#include "m1Textures.h"
 #include "m1Audio.h"
 #include "p2ChangeControls.h"
 #include "m1Render.h"
@@ -154,10 +152,10 @@ bool m1Scene::PostUpdate()
 
 	bool ret = true;
 
-	iPoint mouse;
+	/*iPoint mouse;
 	app->input->GetMousePosition(mouse.x, mouse.y);
-	//app->render->ScreenToWorld(mouse.x, mouse.y);
-	iPoint tile = app->map->WorldToMap(mouse.x, mouse.y);
+	app->render->ScreenToWorld(mouse.x, mouse.y);
+	iPoint tile = app->map->WorldToMap(mouse.x, mouse.y);*/
 	//LOG("Tile: %i, %i", tile.x, tile.y);
 
 	return ret;

@@ -104,6 +104,14 @@ public:
 	// Called each loop iteration
 	bool PreUpdate();
 
+	void UpdateEvents(SDL_Event &event);
+
+	void UpdateController();
+
+	void UpdateMouse();
+
+	void UpdateKeyboard();
+
 	// Called before quitting
 	bool CleanUp();
 
@@ -135,7 +143,7 @@ public:
 	}
 	void DefaultControls();
 
-	bool ChceckAxisStates(const Axis &axis);
+	bool CheckAxisStates(const Axis &axis);
 
 	// Check if a certain window event happened
 	bool GetWindowEvent(int code);

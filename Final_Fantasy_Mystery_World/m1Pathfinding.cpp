@@ -30,6 +30,8 @@ bool m1PathFinding::CleanUp()
 // Sets up the walkability map
 void m1PathFinding::SetMap(const uint& width, const uint& height, uchar* data)
 {
+	BROFILER_CATEGORY("PathFinding: SetMap", Profiler::Color::Brown);
+
 	this->width = width;
 	this->height = height;
 
@@ -123,8 +125,6 @@ PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), 
 uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
 {
 	iPoint cell;
-	uint before = list_to_fill.list.size();
-
 
 	cell.create(pos.x - 1, pos.y - 1);
 	if (app->map->IsWalkable(cell,false))
@@ -159,10 +159,6 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
 	cell.create(pos.x, pos.y - 1);
 	if (app->map->IsWalkable(cell, false))
 		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
-
-
-
-
 
 	return list_to_fill.list.size();
 }
@@ -219,9 +215,7 @@ int m1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 
 		if (close.list.back().pos == destination) {
 
-			PathNode node = close.list.back();
-
-			for (node; node.parent != nullptr; node = *close.Find(node.parent->pos)) {
+			for (PathNode node = close.list.back(); node.parent != nullptr; node = *close.Find(node.parent->pos)) {
 
 				last_path.push_back(node.pos);
 			}
@@ -261,4 +255,3 @@ int m1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 
 	return 1;
 }
-

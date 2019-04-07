@@ -191,6 +191,8 @@ SDL_Rect TileSet::GetTileRect(int id) const
 // Called before quitting
 bool m1Map::CleanUp()
 {
+	BROFILER_CATEGORY("CleanUp Map", Profiler::Color::HotPink);
+
 	LOG("Unloading map");
 
 	// Remove all tilesets
@@ -240,6 +242,8 @@ bool m1Map::CleanUp()
 // Load new map
 bool m1Map::Load(const char* file_name)
 {
+	BROFILER_CATEGORY("Load Map", Profiler::Color::DeepPink);
+
 	bool ret = true;
 	std::string tmp = folder.data();
 	tmp += file_name;
@@ -553,6 +557,8 @@ bool m1Map::LoadProperties(pugi::xml_node& node, Properties<int>* properties)
 
 bool m1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer)
 {
+	BROFILER_CATEGORY("CreateWalkabilityMap", Profiler::Color::LightPink);
+
 	bool ret = false;
 	std::list<MapLayer*>::const_iterator item;
 	item = data.layers.begin();
@@ -604,6 +610,8 @@ bool m1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer)
 
 bool m1Map::ChangeMap(Maps type)
 {
+	BROFILER_CATEGORY("ChangeMap", Profiler::Color::HotPink);
+
 	last_map = actual_map;
 	app->entity_manager->DeleteEntitiesNoPlayer();
 	CleanUp();

@@ -21,6 +21,10 @@ public:
 
 	bool Update(float dt);
 
+	void DrawEntities(std::vector<e1Entity *> &draw_entities, float dt);
+
+	void UpdateEntities(float dt, std::vector<e1Entity *> &draw_entities);
+
 	bool PostUpdate();
 
 	bool Load(pugi::xml_node&);

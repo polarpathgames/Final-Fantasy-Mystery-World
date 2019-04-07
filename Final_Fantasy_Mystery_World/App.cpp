@@ -248,10 +248,6 @@ void App::FinishUpdate()
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
-	static char title[256];
-	sprintf_s(title, 256, "Final Fantasy: Mystery World");
-	//app->win->SetTitle(title);
-
 	BROFILER_CATEGORY("Waiting", Profiler::Color::Red);
 
 	if (framerate_cap > 0 && last_frame_ms < framerate_cap && capactivated)

@@ -91,8 +91,6 @@ bool m1Textures::UnLoad(SDL_Texture* texture)
 		}
 	}
 
-
-
 	return false;
 }
 
