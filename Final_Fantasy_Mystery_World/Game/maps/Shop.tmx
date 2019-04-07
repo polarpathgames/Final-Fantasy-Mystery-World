@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-up" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="24">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-up" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="25">
  <properties>
   <property name="movement" type="int" value="1"/>
  </properties>
@@ -3222,18 +3222,23 @@
   </data>
  </layer>
  <objectgroup id="7" name="player">
-  <object id="17" name="player" type="in_shop" x="384" y="336" width="15.9688" height="16.0156">
+  <object id="17" name="player" type="in_shop" x="400" y="336" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup id="8" name="leave">
-  <object id="22" name="collider" x="416" y="336" width="16" height="32">
+  <object id="22" name="collider" x="436.818" y="340.818" width="5.81818" height="8.18182">
    <properties>
     <property name="shop" type="int" value="2"/>
    </properties>
   </object>
   <object id="23" x="358.182" y="429.091"/>
+  <object id="24" name="collider" x="437.091" y="356.909" width="5.81818" height="6.81816">
+   <properties>
+    <property name="shop" type="int" value="2"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
