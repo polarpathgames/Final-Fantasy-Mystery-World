@@ -113,12 +113,12 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 			(App->ChangePause()) ? CreatePauseMenu() : DestroyPauseMenu();
 		}
-		if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
 			(App->ChangeInventory()) ? CreateInventory() : DestroyInventory();
 		}
 		break;
 	case StatesMenu::INVENTORY_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
 			(App->ChangeInventory()) ? CreateInventory() : DestroyInventory();
 		}
 		break;
