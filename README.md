@@ -1,36 +1,39 @@
 ﻿# Final Fantasy: Mystery World
 
-Final Fantasy Mystery World v.0.3.0
+Final Fantasy Mystery World v.0.4.0
 
 ## Description
 
 Added: 
 --------
 
-- Hub map
-- Free movement works properly
-- Colliders (non walkable tiles)
-- Sensors
-- Shop
-- Home
-- Transition Hub-Shop
-
-
+- Inventory
+- Tutorial rooms
+- Death Animation
+- New lobby camera
+- Death Logic
+- Transitions between quest maps (not random)
 
 Changed:
 --------
 
-- Now the transition between tutorial map and hub are the with the correct maps
+- Lobby Tileset
 
 Removed: 
 --------
 
-- Old hub map
+- Old lobby camera
 
 Fixed: 
 --------
 
-
+- #98 Memory leaks when you enter and leave the home
+- #97 The abilities menu appears in the option menu if you click the V key
+- #96 The option menu text is too little compared to the focus
+- #93 Option menu from main menu doesn't return to main menu
+- #89 The lobby map blit sprites out of the map
+- #86 New game Main menu loop crash the game
+- #49 When you change map from hub - tutorial - hub the game crashes
 
 ## Links
 
@@ -77,6 +80,7 @@ Oriol Capdevila [OriolCS2](https://github.com/OriolCS2)
   - LSHIFT: change to a diagonally movement
   - ILKJ: change direction
   - V: show abilities menu
+  - G: attack.
 
 - Controller:
   
@@ -87,9 +91,11 @@ Oriol Capdevila [OriolCS2](https://github.com/OriolCS2)
 
 ### Debug keys:
 
-- 2: Spawn the player
-- 4: Spawn the enemy
+- 6: go to the lobby
+- 7: go to tutorial map
 - ARROWS: move the camera
+- F11: colliders
+- F1: UI
 
 ## Instructions to execute
 
