@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-up" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="34">
+ <properties>
+  <property name="movement" type="int" value="1"/>
+ </properties>
  <tileset firstgid="1" name="Home" tilewidth="32" tileheight="16" tilecount="117" columns="9">
   <image source="Home.png" trans="0011ff" width="290" height="211"/>
  </tileset>

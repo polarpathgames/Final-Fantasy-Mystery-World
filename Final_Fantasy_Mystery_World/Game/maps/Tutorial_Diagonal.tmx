@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="44" nextobjectid="13">
+ <properties>
+  <property name="movement" type="int" value="0"/>
+ </properties>
  <tileset firstgid="1" name="tutorial_tileset" tilewidth="32" tileheight="16" tilecount="810" columns="45">
   <image source="tutorial_tileset.png" width="1440" height="290"/>
   <terraintypes>
@@ -20,8 +23,8 @@
   <tile id="362" terrain=",,2,"/>
   <tile id="363" terrain="2,,,"/>
  </tileset>
- <tileset firstgid="811" name="WarriorSpritesheet" tilewidth="16" tileheight="32" spacing="2" margin="2" tilecount="60" columns="12">
-  <image source="../assets/sprites/WarriorSpritesheet.png" width="218" height="172"/>
+ <tileset firstgid="811" name="WarriorSpritesheet" tilewidth="16" tileheight="32" spacing="2" margin="2" tilecount="72" columns="12">
+  <image source="../assets/sprites/WarriorSpritesheet.png" width="218" height="206"/>
   <tile id="0">
    <animation>
     <frame tileid="0" duration="200"/>
@@ -11283,12 +11286,12 @@
   <object id="8" name="paper_falling" type="static_anim" x="255.542" y="161.542" width="192.458" height="174.458"/>
  </objectgroup>
  <objectgroup id="43" name="colliders">
-  <object id="10" name="room_collider" type="lastA" x="432" y="464" width="16.1904" height="7.90909">
+  <object id="10" name="room_collider" type="lastA" x="432" y="464" width="16.1904" height="16.7273">
    <properties>
     <property name="next_id" type="int" value="1"/>
    </properties>
   </object>
-  <object id="12" name="room_collider" type="nextB" x="320" y="320" width="15.4412" height="6.89526">
+  <object id="12" name="room_collider" type="nextB" x="320" y="320" width="15.4412" height="15.5316">
    <properties>
     <property name="next_id" type="int" value="3"/>
    </properties>
