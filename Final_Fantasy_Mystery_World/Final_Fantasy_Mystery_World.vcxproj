@@ -85,6 +85,7 @@
     <ClCompile Include="m1EasingSplines.cpp" />
     <ClCompile Include="e1Enemy.cpp" />
     <ClCompile Include="e1Entity.cpp" />
+    <ClCompile Include="p2Rooms.cpp" />
     <ClCompile Include="u1CheckBox.cpp" />
     <ClCompile Include="u1Slider.cpp" />
     <ClCompile Include="m1Collisions.cpp" />
@@ -117,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2ChangeControls.h" />
+    <ClInclude Include="p2Rooms.h" />
     <ClInclude Include="u1CheckBox.h" />
     <ClInclude Include="e1DynamicEntity.h" />
     <ClInclude Include="m1EasingSplines.h" />
