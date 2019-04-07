@@ -153,10 +153,10 @@ private:
 
 public:
 
-	MapData data;
-	bool	Grid = true;
-	Maps actual_map;
-	Maps last_map;
+	MapData		data;
+	bool		grid = false;
+	Maps		actual_map;
+	Maps		last_map;
 
 private:
 

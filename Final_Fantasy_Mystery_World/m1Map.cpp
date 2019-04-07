@@ -57,36 +57,36 @@ void m1Map::Draw()
 
 	std::list<MapLayer*>::iterator item = data.layers.begin();
 	
-	for(; item != data.layers.end(); ++item)
+	for (; item != data.layers.end(); ++item)
 	{
 		MapLayer* layer = *item;
 
-		if(layer->properties.GetValue("NoDraw") != 0 && !app->collision->debug)
+		if (layer->properties.GetValue("NoDraw") != 0 && !app->collision->debug)
 			continue;
 
-		for(int i = 0; i < data.width; ++i)
+		for (int i = 0; i < data.width; ++i)
 		{
-			for(int j = 0; j < data.width; ++j)
+			for (int j = 0; j < data.height; ++j)
 			{
 				iPoint tile_pos = MapToWorld(i, j);
-				
-					int tile_id = layer->Get(i, j);
-					if (tile_id > 0)
-					{
-						TileSet* tileset = GetTilesetFromTileId(tile_id);
-						if (app->render->IsOnCamera(tile_pos.x, tile_pos.y, tileset->tile_width, tileset->tile_height))
-						{
-							SDL_Rect r = tileset->GetTileRect(tile_id);
 
-							app->render->Blit(tileset->texture, tile_pos.x, tile_pos.y, &r, true);
-							
-						}
+				int tile_id = layer->Get(i, j);
+				if (tile_id > 0)
+				{
+					TileSet* tileset = GetTilesetFromTileId(tile_id);
+					if (app->render->IsOnCamera(tile_pos.x, tile_pos.y, tileset->tile_width, tileset->tile_height))
+					{
+						SDL_Rect r = tileset->GetTileRect(tile_id);
+
+						app->render->Blit(tileset->texture, tile_pos.x, tile_pos.y, &r, true);
+
+					}
 				}
 			}
 		}
 	}
 
-	if (Grid) {
+	if (grid) {
 		for (int i = 0; i < data.width; ++i) {
 			for (int j = 0; j < data.height; ++j) {
 

@@ -86,7 +86,7 @@ bool m1Scene::Update(float dt)
 		app->render->camera.x -= 300 * dt;
 
 	if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		app->map->Grid = !app->map->Grid;
+		app->map->grid = !app->map->grid;
 
 	if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {
 		app->fade_to_black->FadeToBlack(Maps::LOBBY);
