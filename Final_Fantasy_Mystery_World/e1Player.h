@@ -28,7 +28,7 @@ struct Input {
 
 struct PlayerStats {
 
-	int live = 1000;
+	int live = 25;
 	int attack_power = 500;
 	int xp = 0;
 	int mana = 100;
@@ -91,7 +91,7 @@ public:
 	const bool MultipleButtons(const Input* input); // Ensure that only one button is clicked 
 
 	void GetHitted(const int & damage_taken); // Player Get Damaged
-
+	void Death();
 	void CreateSkills(); // Skills Appear In Screen
 	void DestroySkills(); //Skills Desappear
 

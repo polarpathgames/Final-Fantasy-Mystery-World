@@ -12,6 +12,7 @@
 
 struct SDL_Texture;
 
+
 enum class Maps {
 
 	LOBBY,

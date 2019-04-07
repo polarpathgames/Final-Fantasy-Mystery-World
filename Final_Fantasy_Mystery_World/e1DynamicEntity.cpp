@@ -215,7 +215,63 @@ void e1DynamicEntity::PushBack()
 			case AnimationState::BASIC_ATTACK_UP_LEFT:
 				BasicAttackUpLeft.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					BasicAttackUpLeft.speed = data.animations[i].speed;;
+					BasicAttackUpLeft.speed = data.animations[i].speed;
+				}
+				break;
+			case AnimationState::DEATH_UP_LEFT:
+				DeathUpLeft.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					DeathUpLeft.speed = data.animations[i].speed;
+					DeathUpLeft.loop = false;
+				}
+				break;
+			case AnimationState::DEATH_UP:
+				DeathUp.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					DeathUp.speed = data.animations[i].speed;
+					DeathUp.loop = false;
+				}
+				break;
+			case AnimationState::DEATH_LEFT:
+				DeathLeft.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					DeathLeft.speed = data.animations[i].speed;
+					DeathLeft.loop = false;
+				}
+				break;
+			case AnimationState::DEATH_UP_RIGHT:
+				DeathUpRight.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					DeathUpRight.speed = data.animations[i].speed;
+					DeathUpRight.loop = false;
+				}
+				break;
+			case AnimationState::DEATH_DOWN_RIGHT:
+				DeathDownRight.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					DeathDownRight.speed = data.animations[i].speed;
+					DeathDownRight.loop = false;
+				}
+				break;
+			case AnimationState::DEATH_RIGHT:
+				DeathRight.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					DeathRight.speed = data.animations[i].speed;
+					DeathRight.loop = false;
+				}
+				break;
+			case AnimationState::DEATH_DOWN:
+				DeathDown.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					DeathDown.speed = data.animations[i].speed;
+					DeathDown.loop = false;
+				}
+				break;
+			case AnimationState::DEATH_DOWN_LEFT:
+				DeathDownLeft.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					DeathDownLeft.speed = data.animations[i].speed;
+					DeathDownLeft.loop = false;
 				}
 				break;
 			default:
@@ -558,6 +614,37 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 			break;
 		}
 	} break;
+	case State::DEATH: {
+		switch (dir) {
+		case Direction::DOWN:
+			current_animation = &DeathDown;
+			break;
+		case Direction::UP:
+			current_animation = &DeathUp;
+			break;
+		case Direction::RIGHT:
+			current_animation = &DeathRight;
+			break;
+		case Direction::LEFT:
+			current_animation = &DeathLeft;
+			break;
+		case Direction::UP_RIGHT:
+			current_animation = &DeathUpRight;
+			break;
+		case Direction::DOWN_RIGHT:
+			current_animation = &DeathDownRight;
+			break;
+		case Direction::DOWN_LEFT:
+			current_animation = &DeathDownLeft;
+			break;
+		case Direction::UP_LEFT:
+			current_animation = &DeathUpLeft;
+			break;
+		default:
+			LOG("No direction type found");
+			break;
+		}
+	} break;
 	default:
 		LOG("No state type found");
 		break;
@@ -578,6 +665,8 @@ void e1DynamicEntity::ResetAnims()
 	BasicAttackUp.Reset();
 	BasicAttackUpLeft.Reset();
 	BasicAttackUpRight.Reset();
+	
+	
 }
 
 
