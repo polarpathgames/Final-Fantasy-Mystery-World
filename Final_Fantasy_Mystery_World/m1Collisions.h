@@ -25,23 +25,14 @@ enum COLLIDER_TYPE
 struct Collider
 {
 	SDL_Rect rect;
-	iLine line;
 
 	bool to_delete = false;
-	bool CanBeDeleted = false;
 	COLLIDER_TYPE type;
 	m1Module* callback = nullptr;
-	mutable iPoint collided_point{ 0,0 };
 	bool enable = true;
 
 	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, m1Module* callback = nullptr) :
 		rect(rectangle),
-		type(type),
-		callback(callback)
-	{}
-
-	Collider(iLine line, COLLIDER_TYPE type, m1Module* callback = nullptr) :
-		line(line),
 		type(type),
 		callback(callback)
 	{}
