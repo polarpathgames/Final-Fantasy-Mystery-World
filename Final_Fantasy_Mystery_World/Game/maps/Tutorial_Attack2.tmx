@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="43" nextobjectid="13">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="44" nextobjectid="34">
+ <properties>
+  <property name="movement" type="int" value="0"/>
+ </properties>
  <tileset firstgid="1" name="tutorial_tileset" tilewidth="32" tileheight="16" tilecount="810" columns="45">
   <image source="tutorial_tileset.png" width="1440" height="290"/>
   <terraintypes>
@@ -20,8 +23,8 @@
   <tile id="362" terrain=",,2,"/>
   <tile id="363" terrain="2,,,"/>
  </tileset>
- <tileset firstgid="811" name="WarriorSpritesheet" tilewidth="16" tileheight="32" spacing="2" margin="2" tilecount="24" columns="12">
-  <image source="../assets/sprites/WarriorSpritesheet.png" width="218" height="68"/>
+ <tileset firstgid="811" name="WarriorSpritesheet" tilewidth="16" tileheight="32" spacing="2" margin="2" tilecount="72" columns="12">
+  <image source="../assets/sprites/WarriorSpritesheet.png" width="218" height="206"/>
   <tile id="0">
    <animation>
     <frame tileid="0" duration="200"/>
@@ -51,7 +54,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="835" name="lobby_tileset" tilewidth="32" tileheight="16" tilecount="324" columns="18">
+ <tileset firstgid="883" name="lobby_tileset" tilewidth="32" tileheight="16" tilecount="324" columns="18">
   <image source="lobby_tileset.png" width="582" height="290"/>
  </tileset>
  <layer id="29" name="Floor" width="40" height="40">
@@ -883,7 +886,7 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="871"/>
+   <tile gid="919"/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -922,9 +925,9 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="871"/>
+   <tile gid="919"/>
    <tile gid="46"/>
-   <tile gid="871"/>
+   <tile gid="919"/>
    <tile gid="3"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -963,7 +966,7 @@
    <tile gid="1"/>
    <tile gid="3"/>
    <tile gid="1"/>
-   <tile gid="871"/>
+   <tile gid="919"/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -11287,10 +11290,31 @@
  </objectgroup>
  <objectgroup color="#ffff7f" id="39" name="entities">
   <object id="10" name="Enemy Test" type="enemy" x="384" y="288" width="15.9688" height="16.0156"/>
-  <object id="11" name="Enemy Test" type="enemy" x="480" y="288" width="15.9688" height="16.0156"/>
-  <object id="12" name="player" type="dynamic" x="432" y="432" width="15.9688" height="16.0156">
+  <object id="11" name="Enemy Test" type="enemy" x="480" y="288" width="15.9688" height="16.0156">
    <properties>
-    <property name="free_movement" type="bool" value="false"/>
+    <property name="next_id" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="17" name="player" type="nextA" x="432" y="448" width="15.9688" height="16.0156"/>
+  <object id="32" name="player" type="lastA" x="432" y="240" width="15.9688" height="16.0156"/>
+ </objectgroup>
+ <objectgroup id="43" name="collider">
+  <object id="19" x="392.5" y="490.833"/>
+  <object id="20" x="443.667" y="475.667"/>
+  <object id="21" x="438.667" y="474"/>
+  <object id="22" x="393.333" y="412.667"/>
+  <object id="23" x="399" y="415"/>
+  <object id="24" x="399" y="415"/>
+  <object id="25" x="399" y="415"/>
+  <object id="26" x="399" y="415"/>
+  <object id="31" name="room_collider" type="lastA" x="432" y="464" width="15.7457" height="16.1696">
+   <properties>
+    <property name="next_id" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="33" name="room_collider" type="nextA" x="432" y="224" width="15.7457" height="15.2946">
+   <properties>
+    <property name="next_id" type="int" value="5"/>
    </properties>
   </object>
  </objectgroup>

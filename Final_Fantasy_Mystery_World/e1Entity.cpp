@@ -20,8 +20,7 @@ e1Entity::~e1Entity()
 
 void e1Entity::Draw(SDL_Texture * tex, float dt)
 {
-	if (type != e1Entity::EntityType::SENSOR)
-		App->render->Blit(tex, position.x, position.y, &(current_animation->GetCurrentFrame(dt)), true);
+	App->render->Blit(tex, position.x, position.y, &(current_animation->GetCurrentFrame(dt)), true);
 }
 
 void e1Entity::SetPivot(const int & x, const int & y)
@@ -236,6 +235,18 @@ void e1Entity::IdAnimToEnum() //Assign every id animation to enum animation
 			break;
 		case 54:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
+			break;
+		case 60:
+			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
+			break;
+		case 63:
+			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
+			break;
+		case 66:
+			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
+			break;
+		case 69:
+			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
 			break;
 		}
 

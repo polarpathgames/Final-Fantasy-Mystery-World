@@ -36,7 +36,7 @@ bool m1Map::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Map Parser");
 	bool ret = true;
-
+	node = config;
 	folder.assign(config.child("folder").child_value());
 
 	tutorial_map = config.child("maps").child("tutorial_map").text().as_string();
@@ -57,36 +57,35 @@ void m1Map::Draw()
 
 	std::list<MapLayer*>::iterator item = data.layers.begin();
 	
-	for(; item != data.layers.end(); ++item)
+	for (; item != data.layers.end(); ++item)
 	{
 		MapLayer* layer = *item;
 
-		if(layer->properties.GetValue("NoDraw") != 0 && !App->collision->debug)
+		if (layer->properties.GetValue("NoDraw") != 0 && !App->collision->debug)
 			continue;
 
-		for(int i = 0; i < data.width; ++i)
+		for (int i = 0; i < data.width; ++i)
 		{
-			for(int j = 0; j < data.width; ++j)
+			for (int j = 0; j < data.height; ++j)
 			{
 				iPoint tile_pos = MapToWorld(i, j);
-				
-					int tile_id = layer->Get(i, j);
-					if (tile_id > 0)
+				int tile_id = layer->Get(i, j);
+				if (tile_id > 0)
+				{
+					TileSet* tileset = GetTilesetFromTileId(tile_id);
+					if (App->render->IsOnCamera(tile_pos.x, tile_pos.y, tileset->tile_width, tileset->tile_height))
 					{
-						TileSet* tileset = GetTilesetFromTileId(tile_id);
-						if (App->render->IsOnCamera(tile_pos.x, tile_pos.y, tileset->tile_width, tileset->tile_height))
-						{
-							SDL_Rect r = tileset->GetTileRect(tile_id);
+						SDL_Rect r = tileset->GetTileRect(tile_id);
 
-							App->render->Blit(tileset->texture, tile_pos.x, tile_pos.y, &r, true);
-							
-						}
+						App->render->Blit(tileset->texture, tile_pos.x, tile_pos.y, &r, true);
+
+					}
 				}
 			}
 		}
 	}
 
-	if (Grid) {
+	if (grid) {
 		for (int i = 0; i < data.width; ++i) {
 			for (int j = 0; j < data.height; ++j) {
 
@@ -105,10 +104,6 @@ TileSet* m1Map::GetTilesetFromTileId(int id) const
 	{
 		if(id < (*item)->firstgid)
 		{
-			/*std::list<TileSet*>::const_iterator item2 = item;
-			--item2;
-			set = *item2; //aixo ho estic fent malament segur IMPORTANT XD
-			*/
 			set = *prev(item);
 			break;
 		}
@@ -195,6 +190,8 @@ SDL_Rect TileSet::GetTileRect(int id) const
 // Called before quitting
 bool m1Map::CleanUp()
 {
+	BROFILER_CATEGORY("CleanUp Map", Profiler::Color::HotPink);
+
 	LOG("Unloading map");
 
 	// Remove all tilesets
@@ -244,6 +241,8 @@ bool m1Map::CleanUp()
 // Load new map
 bool m1Map::Load(const char* file_name)
 {
+	BROFILER_CATEGORY("Load Map", Profiler::Color::DeepPink);
+
 	bool ret = true;
 	std::string tmp = folder.data();
 	tmp += file_name;
@@ -557,6 +556,8 @@ bool m1Map::LoadProperties(pugi::xml_node& node, Properties<int>* properties)
 
 bool m1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer)
 {
+	BROFILER_CATEGORY("CreateWalkabilityMap", Profiler::Color::LightPink);
+
 	bool ret = false;
 	std::list<MapLayer*>::const_iterator item;
 	item = data.layers.begin();
@@ -608,16 +609,29 @@ bool m1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer)
 
 bool m1Map::ChangeMap(Maps type)
 {
+	BROFILER_CATEGORY("ChangeMap", Profiler::Color::HotPink);
+
 	last_map = actual_map;
 	App->entity_manager->DeleteEntitiesNoPlayer();
 	CleanUp();
-	switch(type) {
+	if (quest_rooms != nullptr) {
+		std::vector<Room*>::iterator item = quest_rooms->rooms.begin();
+		for (; item != quest_rooms->rooms.end(); ++item) {
+			if ((*item) != nullptr) {
+				delete (*item);
+				(*item) = nullptr;
+			}
+		}
+		delete quest_rooms;
+		quest_rooms = nullptr;
+	}
+	switch (type) {
 	case Maps::LOBBY:
 		Load(lobby_map.data());
 		actual_map = Maps::LOBBY;
 		break;
 	case Maps::TUTORIAL:
-		Load(tutorial_map.data());
+		quest_rooms = new RoomManager(node);
 		actual_map = Maps::TUTORIAL;
 		break;
 	case Maps::SHOP:
@@ -632,10 +646,11 @@ bool m1Map::ChangeMap(Maps type)
 		LOG("Could not load the map");
 		break;
 	}
-	int w, h;
-	uchar* data = NULL;
-	if (CreateWalkabilityMap(w, h, &data))
-		App->pathfinding->SetMap(w, h, data);
+
+	int w = 0, h = 0;
+	uchar* data_wm = nullptr;
+	if (CreateWalkabilityMap(w, h, &data_wm))
+		App->pathfinding->SetMap(w, h, data_wm);
 	App->scene->CreateEntities();
 
 	return true;
@@ -648,7 +663,8 @@ bool m1Map::IsWalkable(iPoint pos, bool need_convert)
 	std::list<iPoint>::const_iterator item = data.no_walkables.begin();
 	if (need_convert)
 		pos = WorldToMap(pos.x + 1, pos.y - 8);
-
+	else
+		pos.y -= 1;
 	for (; item != data.no_walkables.end(); ++item) {
 		if ((*item) == pos) {
 			ret = false;
@@ -657,4 +673,11 @@ bool m1Map::IsWalkable(iPoint pos, bool need_convert)
 	}
 
 	return ret;
+}
+
+void m1Map::OnCollision(Collider * c1, Collider * c2)
+{
+	if (quest_rooms != nullptr) {
+		quest_rooms->OnCollision(c1, c2);
+	}
 }

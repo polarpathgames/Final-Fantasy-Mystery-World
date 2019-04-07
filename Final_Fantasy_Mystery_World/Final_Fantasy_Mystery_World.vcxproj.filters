@@ -90,9 +90,6 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp">
       <Filter>Tools\pugixml</Filter>
     </ClCompile>
-    <ClCompile Include="e1Sensor.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
     <ClCompile Include="e1StaticEntity.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
@@ -101,6 +98,9 @@
     </ClCompile>
     <ClCompile Include="m1Scene.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="p2Rooms.cpp">
+      <Filter>Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -216,14 +216,14 @@
     <ClInclude Include="e1StaticEntity.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="e1Sensor.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
     <ClInclude Include="m1MainMenu.h">
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="m1Scene.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Rooms.h">
+      <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

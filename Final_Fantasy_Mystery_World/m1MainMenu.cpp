@@ -25,9 +25,7 @@ bool m1MainMenu::Awake()
 
 bool m1MainMenu::Start()
 {
-
 	CreateMainMenu();
-
 
 	return true;
 }
@@ -126,8 +124,8 @@ void m1MainMenu::CreateCredits()
 {
 	credits_panel = App->gui->AddImage(0, 0, { 0, 768, 1024, 768 }, this, App->gui->screen, true, false, false,false);
 	credits_panel->SetPosRespectParent(CENTERED);
+
 	button_retun = App->gui->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits_panel, false, false, true,true);
-	button_retun->AddListener(this);
 	label_return = App->gui->AddLabel(0, 0, "Return",  button_retun, BLACK, FontType::FF32, nullptr,false);
 	label_return->SetPosRespectParent(CENTERED);
 }

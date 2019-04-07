@@ -57,7 +57,7 @@ public:
 	void CheckForKarma(DialogNode* karmaNode);
 private:
 	std::vector <DialogTree*> dialogTrees;
-	DialogNode* currentNode;
+	DialogNode* currentNode = nullptr;
 	int input = 7;
 	int treeid = 0;
 	pugi::xml_document	tree_file;	

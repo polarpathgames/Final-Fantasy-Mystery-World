@@ -13,6 +13,7 @@
 #include "m1GUI.h"
 #include "m1Pathfinding.h"
 #include "m1Collisions.h"
+#include "m1Scene.h"
 #include "m1FadeToBlack.h"
 #include "u1Label.h"
 #include "u1Button.h"
@@ -75,7 +76,8 @@ bool e1Player::Update(float dt)
 	App->render->DrawLine(pos.x + 16, pos.y + 24, pos2.x + 16, pos2.y + 8, 255, 0, 255);
 	*/
 	//App->render->DrawCircle(position.x, position.y, 3, 0, 0, 255);
-	coll->SetPos(position.x, position.y + 25);
+	if (coll != nullptr)
+		coll->SetPos(position.x, position.y + 25);
 
 	return true;
 }
@@ -266,8 +268,12 @@ void e1Player::CenterPlayerInTile()
 	has_turn = true;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
-	movement_type = Movement_Type::InLobby;
 
+	if (App->map->data.properties.GetValue("movement") == 1)
+		movement_type = Movement_Type::InLobby;
+	else
+		movement_type = Movement_Type::InQuest;
+	
 	actual_tile = App->map->WorldToMap(position.x, position.y);
 	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (m1Module*)App->entity_manager);
 	movement_count = { 0,0 };
@@ -287,10 +293,10 @@ void e1Player::CenterPlayerInTile()
 void e1Player::ReadPlayerInput()
 {
 
-	player_input.pressing_A = App->input->GetKey(App->input->keyboard_buttons.buttons_code.LEFT) == KEY_REPEAT || App->input->ChceckAxisStates(Axis::AXIS_LEFT);
-	player_input.pressing_S = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DOWN) == KEY_REPEAT || App->input->ChceckAxisStates(Axis::AXIS_DOWN);
-	player_input.pressing_W = App->input->GetKey(App->input->keyboard_buttons.buttons_code.UP) == KEY_REPEAT || App->input->ChceckAxisStates(Axis::AXIS_UP);
-	player_input.pressing_D = App->input->GetKey(App->input->keyboard_buttons.buttons_code.RIGHT) == KEY_REPEAT || App->input->ChceckAxisStates(Axis::AXIS_RIGHT);
+	player_input.pressing_A = App->input->GetKey(App->input->keyboard_buttons.buttons_code.LEFT) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_LEFT);
+	player_input.pressing_S = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DOWN) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_DOWN);
+	player_input.pressing_W = App->input->GetKey(App->input->keyboard_buttons.buttons_code.UP) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_UP);
+	player_input.pressing_D = App->input->GetKey(App->input->keyboard_buttons.buttons_code.RIGHT) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_RIGHT);
 	player_input.pressing_I = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
 	player_input.pressing_J = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;
 	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN;
@@ -299,23 +305,23 @@ void e1Player::ReadPlayerInput()
 	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
 	player_input.pressing_V = App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN;
   if (movement_type == Movement_Type::InLobby) {
-		if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_LEFT))
+		if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT))
 			player_input.pressing_A = player_input.pressing_S = true;
-		else if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_RIGHT))
+		else if (App->input->CheckAxisStates(Axis::AXIS_DOWN_RIGHT))
 			player_input.pressing_D = player_input.pressing_S = true;
-		else if (App->input->ChceckAxisStates(Axis::AXIS_UP_RIGHT))
+		else if (App->input->CheckAxisStates(Axis::AXIS_UP_RIGHT))
 			player_input.pressing_D = player_input.pressing_W = true;
-		else if (App->input->ChceckAxisStates(Axis::AXIS_UP_LEFT))
+		else if (App->input->CheckAxisStates(Axis::AXIS_UP_LEFT))
 			player_input.pressing_W = player_input.pressing_A = true;
 	}
 	else if (movement_type == Movement_Type::InQuest) {
-		if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_LEFT))
+		if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT))
 			player_input.pressing_S = true;
-		else if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_RIGHT))
+		else if (App->input->CheckAxisStates(Axis::AXIS_DOWN_RIGHT))
 			player_input.pressing_D = true;
-		else if (App->input->ChceckAxisStates(Axis::AXIS_UP_RIGHT))
+		else if (App->input->CheckAxisStates(Axis::AXIS_UP_RIGHT))
 			player_input.pressing_W = true;
-		else if (App->input->ChceckAxisStates(Axis::AXIS_UP_LEFT))
+		else if (App->input->CheckAxisStates(Axis::AXIS_UP_LEFT))
 			player_input.pressing_A = true;
 	}
 
@@ -555,9 +561,11 @@ void e1Player::PrepareBasicAttack()
 	
 void e1Player::PerformActions(float dt)
 {
-	if (player_input.pressing_V) {
+	if (player_input.pressing_V && App->scene->GetMenuState() != StatesMenu::OPTIONS_MENU || player_input.pressing_V && App->scene->GetMenuState() != StatesMenu::CONTROLS_MENU){
 		(has_skills) ? DestroySkills() : CreateSkills();
 	}
+		
+
 	if (state == State::IDLE) {
 		ChangeDirection();
 	}
@@ -575,6 +583,9 @@ void e1Player::PerformActions(float dt)
 			LOG("There is no movement type...");
 			break;
 		}		
+	}
+	if (state == State::DEATH) {
+		Death();
 	}
 	if (state == State::ATTACKING) {
 		switch (type_attack) {
@@ -908,9 +919,17 @@ void e1Player::GetHitted(const int & damage_taken)
 	stats.live -= damage_taken;
 
 	if (stats.live <= 0) {
-		App->entity_manager->DeleteEntity(this);
+		state = State::DEATH;
+		ChangeAnimation(direction, state);
 	}
 
+}
+
+void e1Player::Death()
+{
+	if (current_animation->Finished()) {
+		App->fade_to_black->FadeToBlack(Maps::HOME);
+	}
 }
 
 void e1Player::DestroySkills()
