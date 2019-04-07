@@ -301,6 +301,7 @@ void m1Scene::CreateInventory()
 
 void m1Scene::DestroyInventory()
 {
+	menu_state = StatesMenu::NO_MENU;
 	App->gui->DeleteUIElement(inventory_panel);
 }
 
@@ -375,6 +376,7 @@ void m1Scene::DestroyPauseMenu()
 
 	/*if(pause_panel != nullptr)
 	App->gui->DeleteUIElement(pause_panel);*/
+	menu_state = StatesMenu::NO_MENU;
 
 	App->gui->DeleteUIElement(pause_panel);
 }
