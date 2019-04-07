@@ -9,6 +9,8 @@
 #include "App.h"
 #include "m1Map.h"
 
+#include "Brofiler/Brofiler.h"
+
 m1FadeToBlack::m1FadeToBlack()
 {
 }
@@ -31,6 +33,8 @@ bool m1FadeToBlack::Start()
 // Update: draw background
 bool m1FadeToBlack::Update(float dt)
 {
+	BROFILER_CATEGORY("UpdateFadeToBlack", Profiler::Color::DarkOrchid);
+
 	if (current_step == fade_step::none)
 		return true;
 

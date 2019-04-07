@@ -40,6 +40,7 @@ public:
 	bool Awake(pugi::xml_node&);
 	bool Start();
 	bool PreUpdate();
+	bool UpdateFocusMouse();
 	void FocusInput();
 	bool FocusFirstUIFocusable();
 	bool PostUpdate();
@@ -62,7 +63,6 @@ public:
 	bool DeleteAllUIElements();
 	bool GetElemOnMouse(int x, int y, u1GUI* & element);
 	bool CheckCollision(int x, int y, u1GUI* item);
-	void UI_Events(u1GUI* element);
 
 	const SDL_Texture* GetAtlas() const;
 

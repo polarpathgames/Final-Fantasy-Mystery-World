@@ -115,15 +115,13 @@ bool Application::Awake()
 		app_config = config.child("app");
 		title.assign(app_config.child("title").child_value());
 		organization.assign(app_config.child("organization").child_value());
+		version.assign(app_config.child("version").child_value());
 
 		int cap = app_config.attribute("framerate_cap").as_int();
 		if (cap > 0)
 		{
 			framerate_cap = 1000 / cap;
 		}
-
-
-
 	}
 
 	if (ret == true)
@@ -250,19 +248,11 @@ void Application::FinishUpdate()
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
-	static char title[256];
-	sprintf_s(title, 256, "Final Fantasy: Mystery World");
-	//App->win->SetTitle(title);
-
 	BROFILER_CATEGORY("Waiting", Profiler::Color::Red);
 
-	if (framerate_cap > 0 && last_frame_ms < framerate_cap&&capactivated)
+	if (framerate_cap > 0 && last_frame_ms < framerate_cap && capactivated)
 	{
-		p2PerfTimer time;
-		float delaytimestart = time.ReadMs();
 		SDL_Delay(framerate_cap - last_frame_ms);
-		float delaytimefinish = time.ReadMs();
-		//LOG("We waited for %i milliseconds and got back in %.6f", framerate_cap - last_frame_ms, delaytimefinish - delaytimestart);
 	}
 }
 
@@ -385,6 +375,11 @@ const char* Application::GetOrganization() const
 {
 
 	return organization.data();
+}
+
+const char * Application::GetVersion() const
+{
+	return version.data();
 }
 
 // Load / Save

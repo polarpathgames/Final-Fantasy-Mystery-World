@@ -25,7 +25,7 @@ struct EaseFunctions {
 };
 
 struct EaseSplineInfo {
-	int * position;
+	int * position = nullptr;
 	TypeSpline type;
 	int initial_position;
 	int distance_to_travel;
@@ -62,14 +62,9 @@ public:
 
 	void CreateSpline(int * position, int target_position, const float time_to_travel, TypeSpline type);
 
-
 private:
 
 	std::list<EaseSplineInfo*> easing_splines;
-
-
-
-
 
 };
 

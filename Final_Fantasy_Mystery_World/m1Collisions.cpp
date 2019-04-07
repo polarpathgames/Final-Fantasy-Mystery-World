@@ -7,8 +7,6 @@
 
 m1Collision::m1Collision()
 {
-	for (uint i = 0; i < MAX_COLLIDERS; ++i)
-		colliders[i] = nullptr;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_SHOP] = true;
 	matrix[COLLIDER_SHOP][COLLIDER_PLAYER] = true;
@@ -27,35 +25,36 @@ bool m1Collision::PreUpdate()
 {
 	BROFILER_CATEGORY("Collisions: PreUpdate", Profiler::Color::Magenta);
 	// Remove all colliders scheduled for deletion
-	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	for (std::vector<Collider*>::iterator item = colliders.begin(); item != colliders.end(); ++item)
 	{
-		if (colliders[i] != nullptr && colliders[i]->to_delete == true)
+		if (*item != nullptr && (*item)->to_delete == true)
 		{
-			delete colliders[i];
-			colliders[i] = nullptr;
+			delete *item;
+			*item = nullptr;
+			colliders.erase(item);
 		}
 	}
 
 	// Test all collisions
-	Collider* c1;
-	Collider* c2;
+	Collider* c1 = nullptr;
+	Collider* c2 = nullptr;
 
-	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	for (std::vector<Collider*>::iterator item = colliders.begin(); item != colliders.end(); ++item)
 	{
 		// skip empty colliders
-		if (colliders[i] == nullptr)
+		if (*item == nullptr)
 			continue;
 
-		c1 = colliders[i];
+		c1 = *item;
 
 		// avoid checking collisions already checked
-		for (uint k = i + 1; k < MAX_COLLIDERS; ++k)
+		for (std::vector<Collider*>::iterator item2 = item + 1; item2 != colliders.end(); ++item2)
 		{
 			// skip empty colliders
-			if (colliders[k] == nullptr)
+			if (*item2 == nullptr)
 				continue;
 
-			c2 = colliders[k];
+			c2 = *item2;
 
 			if (c1->CheckCollision(c2->rect) == true)
 			{
@@ -77,8 +76,8 @@ bool m1Collision::Update(float dt)
 	BROFILER_CATEGORY("Collisions: Update", Profiler::Color::Magenta);
 	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		debug = !debug;
-	DebugDraw();
-
+	if (debug)
+		DebugDraw();
 
 	return true;
 }
@@ -86,64 +85,51 @@ bool m1Collision::Update(float dt)
 void m1Collision::DebugDraw()
 {
 
-	if (debug == false)
-		return;
-
 	Uint8 alpha = 80;
-	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	for (std::vector<Collider*>::iterator item = colliders.begin(); item != colliders.end(); ++item)
 	{
-		if (colliders[i] == nullptr)
+		if (*item == nullptr)
 			continue;
 
-		switch (colliders[i]->type)
+		switch ((*item)->type)
 		{
 		case COLLIDER_NONE: // white
-			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			App->render->DrawQuad((*item)->rect, 255, 255, 255, alpha);
 			break;
 		case COLLIDER_PLAYER: // white
-			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
+			App->render->DrawQuad((*item)->rect, 255, 0, 255, alpha);
 			break;
 		case COLLIDER_SHOP: // white
-			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			App->render->DrawQuad((*item)->rect, 255, 255, 255, alpha);
 			break;
 		case COLLIDER_HOME: // white
-			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			App->render->DrawQuad((*item)->rect, 255, 255, 255, alpha);
 			break;
 		}
 
 	}
-
 }
-
-
 
 // Called before quitting
 bool m1Collision::CleanUp()
 {
-	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	for (std::vector<Collider*>::iterator item = colliders.begin(); item != colliders.end(); ++item)
 	{
-		if (colliders[i] != nullptr)
+		if (*item != nullptr)
 		{
-			delete colliders[i];
-			colliders[i] = nullptr;
+			delete *item;
+			*item = nullptr;
 		}
 	}
+	colliders.clear();
 
 	return true;
 }
 
 Collider* m1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, m1Module* callback)
 {
-	Collider* ret = nullptr;
-
-	for (uint i = 0; i < MAX_COLLIDERS; ++i)
-	{
-		if (colliders[i] == nullptr)
-		{
-			ret = colliders[i] = new Collider(rect, type, callback);
-			break;
-		}
-	}
+	Collider* ret = new Collider(rect, type, callback);
+	colliders.push_back(ret);
 
 	return ret;
 }
@@ -153,7 +139,7 @@ Collider* m1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, m1Module* 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
 	return (rect.x < r.x + r.w &&
-		rect.x + rect.w > r.x &&
-		rect.y < r.y + r.h &&
-		rect.h + rect.y > r.y);
+			rect.x + rect.w > r.x &&
+			rect.y < r.y + r.h &&
+			rect.h + rect.y > r.y);
 }

@@ -287,10 +287,10 @@ void e1Player::CenterPlayerInTile()
 void e1Player::ReadPlayerInput()
 {
 
-	player_input.pressing_A = App->input->GetKey(App->input->keyboard_buttons.buttons_code.LEFT) == KEY_REPEAT || App->input->ChceckAxisStates(Axis::AXIS_LEFT);
-	player_input.pressing_S = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DOWN) == KEY_REPEAT || App->input->ChceckAxisStates(Axis::AXIS_DOWN);
-	player_input.pressing_W = App->input->GetKey(App->input->keyboard_buttons.buttons_code.UP) == KEY_REPEAT || App->input->ChceckAxisStates(Axis::AXIS_UP);
-	player_input.pressing_D = App->input->GetKey(App->input->keyboard_buttons.buttons_code.RIGHT) == KEY_REPEAT || App->input->ChceckAxisStates(Axis::AXIS_RIGHT);
+	player_input.pressing_A = App->input->GetKey(App->input->keyboard_buttons.buttons_code.LEFT) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_LEFT);
+	player_input.pressing_S = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DOWN) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_DOWN);
+	player_input.pressing_W = App->input->GetKey(App->input->keyboard_buttons.buttons_code.UP) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_UP);
+	player_input.pressing_D = App->input->GetKey(App->input->keyboard_buttons.buttons_code.RIGHT) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_RIGHT);
 	player_input.pressing_I = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
 	player_input.pressing_J = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;
 	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN;
@@ -299,23 +299,23 @@ void e1Player::ReadPlayerInput()
 	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
 	player_input.pressing_V = App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN;
   if (movement_type == Movement_Type::InLobby) {
-		if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_LEFT))
+		if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT))
 			player_input.pressing_A = player_input.pressing_S = true;
-		else if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_RIGHT))
+		else if (App->input->CheckAxisStates(Axis::AXIS_DOWN_RIGHT))
 			player_input.pressing_D = player_input.pressing_S = true;
-		else if (App->input->ChceckAxisStates(Axis::AXIS_UP_RIGHT))
+		else if (App->input->CheckAxisStates(Axis::AXIS_UP_RIGHT))
 			player_input.pressing_D = player_input.pressing_W = true;
-		else if (App->input->ChceckAxisStates(Axis::AXIS_UP_LEFT))
+		else if (App->input->CheckAxisStates(Axis::AXIS_UP_LEFT))
 			player_input.pressing_W = player_input.pressing_A = true;
 	}
 	else if (movement_type == Movement_Type::InQuest) {
-		if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_LEFT))
+		if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT))
 			player_input.pressing_S = true;
-		else if (App->input->ChceckAxisStates(Axis::AXIS_DOWN_RIGHT))
+		else if (App->input->CheckAxisStates(Axis::AXIS_DOWN_RIGHT))
 			player_input.pressing_D = true;
-		else if (App->input->ChceckAxisStates(Axis::AXIS_UP_RIGHT))
+		else if (App->input->CheckAxisStates(Axis::AXIS_UP_RIGHT))
 			player_input.pressing_W = true;
-		else if (App->input->ChceckAxisStates(Axis::AXIS_UP_LEFT))
+		else if (App->input->CheckAxisStates(Axis::AXIS_UP_LEFT))
 			player_input.pressing_A = true;
 	}
 

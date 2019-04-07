@@ -57,6 +57,7 @@ public:
 	const char* GetArgv(int index) const;
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
+	const char* GetVersion() const;
 
 	void LoadGame(const char* file);
 	void SaveGame(const char* file) const;
@@ -123,6 +124,7 @@ private:
 
 	std::string				title;
 	std::string				organization;
+	std::string				version;
 
 	mutable bool			want_to_save = false;
 	bool					want_to_load = false;

@@ -20,8 +20,7 @@ e1Entity::~e1Entity()
 
 void e1Entity::Draw(SDL_Texture * tex, float dt)
 {
-	if (type != e1Entity::EntityType::SENSOR)
-		App->render->Blit(tex, position.x, position.y, &(current_animation->GetCurrentFrame(dt)), true);
+	App->render->Blit(tex, position.x, position.y, &(current_animation->GetCurrentFrame(dt)), true);
 }
 
 void e1Entity::SetPivot(const int & x, const int & y)
