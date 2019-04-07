@@ -7,6 +7,7 @@
 #include "m1Module.h"
 #include "p2Properties.h"
 #include "SDL/include/SDL_rect.h"
+#include "p2Rooms.h"
 #include <string>
 
 struct SDL_Texture;
@@ -139,7 +140,7 @@ public:
 	bool ChangeMap(Maps type);
 
 	bool IsWalkable(iPoint pos, bool need_convert = true);
-
+	void OnCollision(Collider* c1, Collider* c2);
 private:
 
 	bool LoadMap();
@@ -170,6 +171,8 @@ private:
 	std::string shop_map;
 	std::string home_map;
 	
+	pugi::xml_node node;
+	RoomManager* quest_rooms = nullptr;
 };
 
 #endif // __j1MAP_H__

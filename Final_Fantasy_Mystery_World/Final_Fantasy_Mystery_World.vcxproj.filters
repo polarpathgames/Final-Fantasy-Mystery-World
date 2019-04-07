@@ -102,6 +102,9 @@
     <ClCompile Include="m1Scene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="p2Rooms.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -224,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="m1Scene.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Rooms.h">
+      <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
