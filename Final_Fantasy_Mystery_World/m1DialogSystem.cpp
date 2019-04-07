@@ -126,14 +126,16 @@ bool m1DialogSystem::LoadDialogue(const char* file)
 	else
 		LOG("XML was loaded succesfully!");
 
-	for (pugi::xml_node t = tree_file.child("dialogue").child("dialogtree"); t != NULL; t = t.next_sibling("dialogtree"))
-	{
-		DialogTree* tr = new DialogTree;
-		tr->treeid = t.attribute("treeid").as_int();
-		tr->karma = t.attribute("karma").as_int();
-		LoadTreeData(t, tr);
-		dialogTrees.push_back(tr);	
-	}
+	if(ret)
+		for (pugi::xml_node t = tree_file.child("dialogue").child("dialogtree"); t != NULL; t = t.next_sibling("dialogtree"))
+		{
+			DialogTree* tr = new DialogTree;
+			tr->treeid = t.attribute("treeid").as_int();
+			tr->karma = t.attribute("karma").as_int();
+			LoadTreeData(t, tr);
+			dialogTrees.push_back(tr);
+		}
+
 	return ret;
 }
 
