@@ -142,6 +142,7 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
 			(App->ChangeInventory()) ? CreateInventory() : DestroyInventory();
 		}
+		break;
 	case StatesMenu::PAUSE_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 			(App->ChangePause()) ? CreatePauseMenu() : DestroyPauseMenu();
@@ -301,6 +302,42 @@ void m1Scene::CreateInventory()
 void m1Scene::DestroyInventory()
 {
 	App->gui->DeleteUIElement(inventory_panel);
+}
+
+void m1Scene::CreatePotionMenu(u1GUI* potion_button)
+{
+	if (potion_button == hp_potion_button)
+	{
+		potion_panel = App->gui->AddImage(-170, 50, { 1878, 1536, 170, 101 }, this, inventory_panel, true, false, false, false);
+
+		use_hp_button = App->gui->AddButton(30, 0, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, potion_panel, false, false, true, true);
+		use_hp_button->AddListener(this);
+		use_label = App->gui->AddLabel(50, -5, "Use", potion_panel, BLACK, FontType::FF64, nullptr, false);
+
+		cancel_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, potion_panel, false, false, true, true);
+		cancel_button->AddListener(this);
+		cancel_label = App->gui->AddLabel(50, 38, "Cancel", potion_panel, BLACK, FontType::FF64, nullptr, false);
+	}
+
+	if (potion_button == mana_potion_button)
+	{
+		potion_panel = App->gui->AddImage(-170, 100, { 1878, 1536, 170, 101 }, this, inventory_panel, true, false, false, false);
+
+		use_mana_button = App->gui->AddButton(30, 0, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, potion_panel, false, false, true, true);
+		use_mana_button->AddListener(this);
+		use_label = App->gui->AddLabel(50, -5, "Use", potion_panel, BLACK, FontType::FF64, nullptr, false);
+
+		cancel_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, potion_panel, false, false, true, true);
+		cancel_button->AddListener(this);
+		cancel_label = App->gui->AddLabel(50, 38, "Cancel", potion_panel, BLACK, FontType::FF64, nullptr, false);
+	}
+
+	menu_state = StatesMenu::POTION_MENU;
+}
+
+void m1Scene::DeletePotionMenu()
+{
+	App->gui->DeleteUIElement(potion_panel);
 }
 
 void m1Scene::CreatePauseMenu()
@@ -599,6 +636,28 @@ bool m1Scene::Interact(u1GUI* interact)
 			CreateOptionsMenu();
 			DestroyPauseMenu();
 			ret = false;
+		}
+		break;
+	case StatesMenu::INVENTORY_MENU:
+		if (interact == hp_potion_button) {
+			DeletePotionMenu();
+			CreatePotionMenu(hp_potion_button);
+		}
+		if (interact == mana_potion_button) {
+			DeletePotionMenu();
+			CreatePotionMenu(mana_potion_button);
+		}
+		break;
+	case StatesMenu::POTION_MENU:
+		if (interact == use_hp_button) {
+			LOG("HP POTION USED");
+		}
+		if (interact == use_mana_button) {
+			LOG("MANA POTION USED");
+		}
+		if (interact == cancel_button) {
+			DeletePotionMenu();
+			menu_state = StatesMenu::INVENTORY_MENU;
 		}
 		break;
 	case StatesMenu::OPTIONS_MENU:
