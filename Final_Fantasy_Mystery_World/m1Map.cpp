@@ -105,10 +105,6 @@ TileSet* m1Map::GetTilesetFromTileId(int id) const
 	{
 		if(id < (*item)->firstgid)
 		{
-			/*std::list<TileSet*>::const_iterator item2 = item;
-			--item2;
-			set = *item2; //aixo ho estic fent malament segur IMPORTANT XD
-			*/
 			set = *prev(item);
 			break;
 		}
@@ -632,10 +628,10 @@ bool m1Map::ChangeMap(Maps type)
 		LOG("Could not load the map");
 		break;
 	}
-	int w, h;
-	uchar* data = NULL;
-	if (CreateWalkabilityMap(w, h, &data))
-		app->pathfinding->SetMap(w, h, data);
+	int w = 0, h = 0;
+	uchar* data_wm = nullptr;
+	if (CreateWalkabilityMap(w, h, &data_wm))
+		app->pathfinding->SetMap(w, h, data_wm);
 	app->scene->CreateEntities();
 
 	return true;

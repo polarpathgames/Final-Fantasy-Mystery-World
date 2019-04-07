@@ -28,7 +28,7 @@ bool m1PathFinding::CleanUp()
 }
 
 // Sets up the walkability map
-void m1PathFinding::SetMap(uint width, uint height, uchar* data)
+void m1PathFinding::SetMap(const uint& width, const uint& height, uchar* data)
 {
 	this->width = width;
 	this->height = height;
