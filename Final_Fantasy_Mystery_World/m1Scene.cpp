@@ -113,18 +113,20 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 			(App->ChangePause()) ? CreatePauseMenu() : DestroyPauseMenu();
 		}
-		if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
 			(App->ChangeInventory()) ? CreateInventory() : DestroyInventory();
 		}
 		break;
 	case StatesMenu::INVENTORY_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
 			(App->ChangeInventory()) ? CreateInventory() : DestroyInventory();
 		}
 		break;
 	case StatesMenu::PAUSE_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
-			(App->ChangePause()) ? CreatePauseMenu() : DestroyPauseMenu();
+			App->ChangePause();
+			DestroyPauseMenu();
+			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
 	case StatesMenu::OPTIONS_MENU:
@@ -277,8 +279,9 @@ void m1Scene::CreateInventory()
 
 void m1Scene::DestroyInventory()
 {
-	menu_state = StatesMenu::NO_MENU;
 	App->gui->DeleteUIElement(inventory_panel);
+
+	menu_state = StatesMenu::NO_MENU;
 }
 
 void m1Scene::CreatePotionMenu(u1GUI* potion_button)
@@ -315,6 +318,7 @@ void m1Scene::CreatePotionMenu(u1GUI* potion_button)
 void m1Scene::DeletePotionMenu()
 {
 	App->gui->DeleteUIElement(potion_panel);
+	menu_state = StatesMenu::INVENTORY_MENU;
 }
 
 void m1Scene::CreatePauseMenu()
@@ -346,7 +350,6 @@ void m1Scene::DestroyPauseMenu()
 {
 	/*if(pause_panel != nullptr)
 	App->gui->DeleteUIElement(pause_panel);*/
-	menu_state = StatesMenu::NO_MENU;
 
 	App->gui->DeleteUIElement(pause_panel);
 }

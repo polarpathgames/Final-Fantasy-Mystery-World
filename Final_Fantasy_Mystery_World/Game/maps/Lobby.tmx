@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="42" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="84" nextobjectid="92">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="42" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="84" nextobjectid="93">
  <properties>
   <property name="movement" type="int" value="1"/>
  </properties>
@@ -12585,7 +12585,7 @@
    <tile/>
    <tile/>
    <tile gid="973"/>
-   <tile/>
+   <tile gid="973"/>
    <tile/>
    <tile/>
    <tile/>
@@ -13545,12 +13545,17 @@
   </data>
  </layer>
  <objectgroup id="83" name="collider">
-  <object id="87" name="collider" x="169.137" y="277.045" width="6.22727" height="8.31818">
+  <object id="87" name="collider" x="168.319" y="272.318" width="6.22727" height="16.3182">
    <properties>
     <property name="shop" type="int" value="0"/>
    </properties>
   </object>
-  <object id="88" name="collider" x="466.727" y="197.819" width="5.95455" height="5.5">
+  <object id="88" name="collider" x="448.818" y="197.91" width="11.6818" height="4.5">
+   <properties>
+    <property name="home" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="92" name="collider" x="464.841" y="198.432" width="12.1364" height="2.86364">
    <properties>
     <property name="home" type="int" value="0"/>
    </properties>
