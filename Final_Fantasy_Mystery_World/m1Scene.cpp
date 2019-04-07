@@ -257,15 +257,15 @@ void m1Scene::CreateOptionsMenu()
 	options_panel->SetPosRespectParent(CENTERED);
 	
 	button_general_volume = App->gui->AddButton(491, 168, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
-	label_general_volume = App->gui->AddLabel(0, 0, "General Volume", button_general_volume, BLACK, FontType::FF32, nullptr, false);
+	label_general_volume = App->gui->AddLabel(0, 0, "General Volume", button_general_volume, BLACK, FontType::FF48, nullptr, false);
 	label_general_volume->SetPosRespectParent(LEFT_CENTERED);
 
 	button_music_volume = App->gui->AddButton(491, 246, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
-	label_music_volume = App->gui->AddLabel(0, 0, "Music Volume", button_music_volume, BLACK, FontType::FF32, nullptr, false);
+	label_music_volume = App->gui->AddLabel(0, 0, "Music Volume", button_music_volume, BLACK, FontType::FF48, nullptr, false);
 	label_music_volume->SetPosRespectParent(LEFT_CENTERED);
 
 	button_fx_volume = App->gui->AddButton(491, 326, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
-	label_fx_volume = App->gui->AddLabel(0, 0, "FX Volume", button_fx_volume, BLACK, FontType::FF32, nullptr,false);
+	label_fx_volume = App->gui->AddLabel(0, 0, "FX Volume", button_fx_volume, BLACK, FontType::FF48, nullptr,false);
 	label_fx_volume->SetPosRespectParent(LEFT_CENTERED);
 	
 	slider_general_volume = App->gui->AddSlider(680, 183, { 1566,1536,191,22 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, true, options_panel, this);
@@ -277,7 +277,7 @@ void m1Scene::CreateOptionsMenu()
 	slider_fx_volume = App->gui->AddSlider(680, 343, { 1566,1536,191,22 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, true, options_panel, this);
 	slider_fx_volume->SetValue(App->audio->volume_fx);
 
-	label_fps = App->gui->AddLabel(491, 413, "FPS Caps",  options_panel, BLACK, FontType::FF32, nullptr, false);
+	label_fps = App->gui->AddLabel(491, 413, "FPS Caps",  options_panel, BLACK, FontType::FF48, nullptr, false);
 	checkbox_fps = App->gui->AddCheckBox(760, 413, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
 	checkbox_fps->is_option = true;
 	checkbox_fps->draggable = false;
@@ -285,7 +285,7 @@ void m1Scene::CreateOptionsMenu()
 	checkbox_fps->interactable = true;
 	checkbox_fps->AddListener(this);
 
-	label_fullscreen = App->gui->AddLabel(491, 503, "Fullscreen", options_panel, BLACK, FontType::FF32, nullptr, false);
+	label_fullscreen = App->gui->AddLabel(491, 503, "Fullscreen", options_panel, BLACK, FontType::FF48, nullptr, false);
 	checkbox_fullscreen = App->gui->AddCheckBox(760, 503, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
 	checkbox_fullscreen->is_option = true;
 	checkbox_fullscreen->draggable = false;
@@ -294,11 +294,11 @@ void m1Scene::CreateOptionsMenu()
 	checkbox_fullscreen->AddListener(this);
 
 	button_controls = App->gui->AddButton(491, 595, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
-	label_controls = App->gui->AddLabel(0, 0, "Controls", button_controls, BLACK, FontType::FF32, nullptr, false);
+	label_controls = App->gui->AddLabel(0, 0, "Controls", button_controls, BLACK, FontType::FF48, nullptr, false);
 	label_controls->SetPosRespectParent(LEFT_CENTERED);
 
 	button_retun = App->gui->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
-	label_return = App->gui->AddLabel(0, 0, "Return", button_retun, BLACK, FontType::FF32, nullptr, false);
+	label_return = App->gui->AddLabel(0, 0, "Return", button_retun, BLACK, FontType::FF48, nullptr, false);
 	label_return->SetPosRespectParent(CENTERED);
 
 	menu_state = StatesMenu::OPTIONS_MENU;
@@ -316,87 +316,84 @@ void m1Scene::CreateControlsMenu()
 
 
 	button_retun_to_options = App->gui->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
-	label_return_to_options = App->gui->AddLabel(0, 0, "Return", button_retun_to_options, BLACK, FontType::FF32, nullptr, false);
+	label_return_to_options = App->gui->AddLabel(0, 0, "Return", button_retun_to_options, BLACK, FontType::FF48, nullptr, false);
 	label_return_to_options->SetPosRespectParent(CENTERED);
 
 	// KEYBOARD
 
-	keyboard = App->gui->AddLabel(350, 265, "KEYBOARD", controls_panel, BLACK, FontType::FF32, nullptr,false);
+	keyboard = App->gui->AddLabel(350, 265, "KEYBOARD", controls_panel, BLACK, FontType::FF48, nullptr,false);
 
-	button_up = App->gui->AddButton(340, 295, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,false);
-
+	button_up = App->gui->AddButton(450, 295, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,false);
 	label_to_show_how_up = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.UP, button_up, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_up->SetPosRespectParent(CENTERED);
-	label_up = App->gui->AddLabel(300, 300, "Move Up", controls_panel, BLACK, FontType::FF32, nullptr,false);
+	label_up = App->gui->AddLabel(350, 300, "Move Up", controls_panel, BLACK, FontType::FF48, nullptr,false);
 	labels_control.push_back(label_to_show_how_up);
 
-	button_right = App->gui->AddButton(340, 325, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
-
+	button_right = App->gui->AddButton(450, 325, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	label_to_show_how_right = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.RIGHT, button_right, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_right->SetPosRespectParent(CENTERED);
-	label_right = App->gui->AddLabel(300, 330, "Move Right", controls_panel, BLACK, FontType::FF32, nullptr,false);
+	label_right = App->gui->AddLabel(350, 330, "Move Right", controls_panel, BLACK, FontType::FF48, nullptr,false);
 	labels_control.push_back(label_to_show_how_right);
 
-	button_left = App->gui->AddButton(340, 355, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	button_left = App->gui->AddButton(450, 355, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 
 	label_to_show_how_left = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.LEFT, button_left, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_left->SetPosRespectParent(CENTERED);
-	label_left = App->gui->AddLabel(300, 360, "Move Left", controls_panel, BLACK, FontType::FF32, nullptr,false);
+	label_left = App->gui->AddLabel(350, 360, "Move Left", controls_panel, BLACK, FontType::FF48, nullptr,false);
 	labels_control.push_back(label_to_show_how_left);
 
-	button_down = App->gui->AddButton(340, 385, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	button_down = App->gui->AddButton(450, 385, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 
 	label_to_show_how_down = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DOWN, button_down, BLACK, FontType::FF32, nullptr,true);
 	label_to_show_how_down->SetPosRespectParent(CENTERED);
-	label_down = App->gui->AddLabel(300, 390, "Move Down", controls_panel, BLACK, FontType::FF32, nullptr,false);
+	label_down = App->gui->AddLabel(350, 390, "Move Down", controls_panel, BLACK, FontType::FF48, nullptr,false);
 	labels_control.push_back(label_to_show_how_down);
 
-	button_diagonals = App->gui->AddButton(340, 415, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
-
+	button_diagonals = App->gui->AddButton(450, 415, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+  
 	label_to_show_how_diagonals = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIAGONALS, button_diagonals, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_diagonals->SetPosRespectParent(CENTERED);
-	label_diagonals = App->gui->AddLabel(300, 420, "Use Diagonals", controls_panel, BLACK, FontType::FF32, nullptr,false);
+	label_diagonals = App->gui->AddLabel(350, 420, "Use Diagonals", controls_panel, BLACK, FontType::FF48, nullptr,false);
 	labels_control.push_back(label_to_show_how_diagonals);
 
-	button_direction_up = App->gui->AddButton(340, 445, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
-
+	button_direction_up = App->gui->AddButton(450, 445, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	label_to_show_how_direction_up = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECTION_UP, button_direction_up, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_direction_up->SetPosRespectParent(CENTERED);
-	label_direction_up = App->gui->AddLabel(300, 450, "Change Direction Up", controls_panel, BLACK, FontType::FF32, nullptr,false);
+	label_direction_up = App->gui->AddLabel(350, 450, "Change Direction Up", controls_panel, BLACK, FontType::FF48, nullptr,false);
 	labels_control.push_back(label_to_show_how_direction_up);
 
-	button_direction_right = App->gui->AddButton(340, 475, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	button_direction_right = App->gui->AddButton(450, 475, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 
 	label_to_show_how_direction_right = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECCTION_RIGHT, button_direction_right, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_direction_right->SetPosRespectParent(CENTERED);
-	label_direction_right = App->gui->AddLabel(300, 480, "Change Direction Right", controls_panel, BLACK, FontType::FF32, nullptr,false);
+	label_direction_right = App->gui->AddLabel(350, 480, "Change Direction Right", controls_panel, BLACK, FontType::FF48, nullptr,false);
 	labels_control.push_back(label_to_show_how_direction_right);
 
-	button_direction_left = App->gui->AddButton(340, 505, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	button_direction_left = App->gui->AddButton(450, 505, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 
 	label_to_show_how_direction_left = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECTION_LEFT, button_direction_left, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_direction_left->SetPosRespectParent(CENTERED);
-	label_direction_left = App->gui->AddLabel(300, 510, "Change Direction Left", controls_panel, BLACK, FontType::FF32, nullptr,false);
+	label_direction_left = App->gui->AddLabel(350, 510, "Change Direction Left", controls_panel, BLACK, FontType::FF48, nullptr,false);
 	labels_control.push_back(label_to_show_how_direction_left);
 
-	button_direction_down = App->gui->AddButton(340, 535, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	button_direction_down = App->gui->AddButton(450, 535, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 
 	label_to_show_how_direction_down = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECCTION_DOWN,  button_direction_down, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_direction_down->SetPosRespectParent(CENTERED);
-	label_direction_down = App->gui->AddLabel(300, 540, "Change Direction Down", controls_panel, BLACK, FontType::FF32, nullptr,false);
+	label_direction_down = App->gui->AddLabel(350, 540, "Change Direction Down", controls_panel, BLACK, FontType::FF48, nullptr,false);
 	labels_control.push_back(label_to_show_how_direction_down);
 
-	button_basic_attack = App->gui->AddButton(340, 560, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	button_basic_attack = App->gui->AddButton(450, 560, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 
 	label_to_show_how_basic_attack = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, button_basic_attack, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
-	label_basic_attack = App->gui->AddLabel(300, 565, "Basic Attack", controls_panel, BLACK, FontType::FF32, nullptr,false);
+	label_basic_attack = App->gui->AddLabel(350, 565, "Basic Attack", controls_panel, BLACK, FontType::FF48, nullptr,false);
 	labels_control.push_back(label_to_show_how_basic_attack);
 
 
 	// CONTROLLER
 
-	controller = App->gui->AddLabel(700, 265, "CONTROLLER", controls_panel, BLACK, FontType::FF32, nullptr,false);
+	controller = App->gui->AddLabel(700, 265, "CONTROLLER", controls_panel, BLACK, FontType::FF48, nullptr,false);
 
 	Cbutton_direction_up = App->gui->AddButton(690, 445, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 
@@ -500,8 +497,14 @@ bool m1Scene::Interact(u1GUI* interact)
 		break;
 	case StatesMenu::OPTIONS_MENU:
 		if (interact == button_retun) {
-			CreatePauseMenu();
-			DestroyOptionsMenu();
+			if (App->main_menu->active) {
+				App->main_menu->CreateMainMenu();
+				DestroyOptionsMenu();
+			}
+			else {
+				CreatePauseMenu();
+				DestroyOptionsMenu();
+			}
 		}
 		if (interact == button_controls) {
 			CreateControlsMenu();
@@ -623,4 +626,9 @@ bool m1Scene::Interact(u1GUI* interact)
 	}
 
 	return ret;
+}
+
+StatesMenu m1Scene::GetMenuState()
+{
+	return menu_state;
 }

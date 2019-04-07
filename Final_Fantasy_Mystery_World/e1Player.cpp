@@ -13,6 +13,7 @@
 #include "m1GUI.h"
 #include "m1Pathfinding.h"
 #include "m1Collisions.h"
+#include "m1Scene.h"
 #include "m1FadeToBlack.h"
 #include "u1Label.h"
 #include "u1Button.h"
@@ -555,9 +556,11 @@ void e1Player::PrepareBasicAttack()
 	
 void e1Player::PerformActions(float dt)
 {
-	if (player_input.pressing_V) {
+	if (player_input.pressing_V && App->scene->GetMenuState() != StatesMenu::OPTIONS_MENU || player_input.pressing_V && App->scene->GetMenuState() != StatesMenu::CONTROLS_MENU){
 		(has_skills) ? DestroySkills() : CreateSkills();
 	}
+		
+
 	if (state == State::IDLE) {
 		ChangeDirection();
 	}
