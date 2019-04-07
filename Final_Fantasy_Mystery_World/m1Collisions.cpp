@@ -118,16 +118,16 @@ void m1Collision::DebugDraw()
 			App->render->DrawQuad((*item)->rect, 255, 255, 255, alpha);
 			break;
 		case COLLIDER_NEXT_A: // white
-			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			App->render->DrawQuad((*item)->rect, 255, 255, 255, alpha);
 			break;
 		case COLLIDER_LAST_A: // white
-			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			App->render->DrawQuad((*item)->rect, 255, 255, 255, alpha);
 			break;
 		case COLLIDER_NEXT_B: // white
-			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			App->render->DrawQuad((*item)->rect, 255, 255, 255, alpha);
 			break;
 		case COLLIDER_LAST_B: // white
-			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			App->render->DrawQuad((*item)->rect, 255, 255, 255, alpha);
 			break;
 		}
 
