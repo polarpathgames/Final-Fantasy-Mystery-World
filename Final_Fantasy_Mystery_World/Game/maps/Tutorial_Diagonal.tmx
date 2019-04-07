@@ -20,8 +20,8 @@
   <tile id="362" terrain=",,2,"/>
   <tile id="363" terrain="2,,,"/>
  </tileset>
- <tileset firstgid="811" name="WarriorSpritesheet" tilewidth="16" tileheight="32" spacing="2" margin="2" tilecount="24" columns="12">
-  <image source="../assets/sprites/WarriorSpritesheet.png" width="218" height="68"/>
+ <tileset firstgid="811" name="WarriorSpritesheet" tilewidth="16" tileheight="32" spacing="2" margin="2" tilecount="60" columns="12">
+  <image source="../assets/sprites/WarriorSpritesheet.png" width="218" height="172"/>
   <tile id="0">
    <animation>
     <frame tileid="0" duration="200"/>
@@ -6467,7 +6467,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="40" name="Door Open" width="40" height="40">
+ <layer id="40" name="Door Open" width="40" height="40" visible="0">
   <data>
    <tile/>
    <tile/>
