@@ -8,7 +8,7 @@
 #include "m1EntityManager.h"
 #include "m1Pathfinding.h"
 
-Room::Room(std::string location, const int &id) 
+Room::Room(const std::string &location, const int &id) 
 {
 	tmx_location = location;
 	this->id = id;
@@ -122,8 +122,8 @@ void RoomManager::LoadRoom(const int & id)
 			break;
 		}
 	}
-	int w, h;
-	uchar* data = NULL;
+	int w = 0, h = 0;
+	uchar* data = nullptr;
 	if (App->map->CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
 	App->scene->CreateEntities();
@@ -132,7 +132,7 @@ void RoomManager::LoadRoom(const int & id)
 
 }
 
-void RoomManager::PlacePlayer()
+void RoomManager::PlacePlayer() // place player in front of the door
 {
 
 	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
@@ -155,7 +155,7 @@ void RoomManager::PlacePlayer()
 	App->scene->player->CenterPlayerInTile();
 }
 
-void RoomManager::LoadColliders()
+void RoomManager::LoadColliders() // sensors in the doors
 {
 	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
 		if ((*position)->name == "room_collider") {

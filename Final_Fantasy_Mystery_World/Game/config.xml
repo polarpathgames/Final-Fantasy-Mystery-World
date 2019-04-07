@@ -46,6 +46,19 @@
           <location>Tutorial_Diagonal.tmx</location>
           <id num="2"></id>
         </room>
+        <room>
+          <location>Tutorial_Attack.tmx</location>
+          <id num="3"></id>
+        </room>
+        <room>
+          <location>Tutorial_Attack2.tmx</location>
+          <id num="4"></id>
+        </room>
+        <room>
+          <location>Tutorial_Ability.tmx</location>
+          <id num="5"></id>
+        </room>
+
 
       </tutorial>
       

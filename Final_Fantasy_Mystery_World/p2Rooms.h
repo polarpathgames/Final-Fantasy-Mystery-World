@@ -27,7 +27,7 @@ class Room {
 
 public:
 
-	Room(std::string location, const int &id);
+	Room(const std::string &location, const int &id);
 	~Room();
 
 
