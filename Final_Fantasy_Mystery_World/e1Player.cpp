@@ -577,6 +577,9 @@ void e1Player::PerformActions(float dt)
 			break;
 		}		
 	}
+	if (state == State::DEATH) {
+		Death();
+	}
 	if (state == State::ATTACKING) {
 		switch (type_attack) {
 		case Attacks::BASIC:
@@ -909,9 +912,17 @@ void e1Player::GetHitted(const int & damage_taken)
 	stats.live -= damage_taken;
 
 	if (stats.live <= 0) {
-		App->entity_manager->DeleteEntity(this);
+		state = State::DEATH;
+		ChangeAnimation(direction, state);
 	}
 
+}
+
+void e1Player::Death()
+{
+	if (current_animation->Finished()) {
+		App->fade_to_black->FadeToBlack(Maps::HOME);
+	}
 }
 
 void e1Player::DestroySkills()
