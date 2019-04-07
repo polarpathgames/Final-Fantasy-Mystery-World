@@ -48,6 +48,9 @@ bool m1Scene::Start()
 	if (App->GetPause())
 		App->ChangePause();
 
+	if (App->GetInventory())
+		App->ChangeInventory();
+  
 	return true;
 }
 
@@ -107,6 +110,18 @@ bool m1Scene::Update(float dt)
 	
 	switch (menu_state) {
 	case StatesMenu::NO_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+			(App->ChangePause()) ? CreatePauseMenu() : DestroyPauseMenu();
+		}
+		if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+			(App->ChangeInventory()) ? CreateInventory() : DestroyInventory();
+		}
+		break;
+	case StatesMenu::INVENTORY_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+			(App->ChangeInventory()) ? CreateInventory() : DestroyInventory();
+		}
+		break;
 	case StatesMenu::PAUSE_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 			(App->ChangePause()) ? CreatePauseMenu() : DestroyPauseMenu();
@@ -229,6 +244,79 @@ void m1Scene::CreateEntities()
 	}
 }
 
+void m1Scene::CreateInventory()
+{
+	inventory_panel = App->gui->AddImage(0, 0, { 1024, 1536, 228, 384 }, this, App->gui->screen, true, false, false, false);
+	inventory_panel->SetPosRespectParent(RIGHT_CENTERED);
+
+	player_name = App->gui->AddLabel(80, 7, "Marche", inventory_panel, BLACK, FontType::FF64, nullptr, false); // This shall change when we have different characters
+
+	hp_potion_button = App->gui->AddButton(73, 72, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, inventory_panel, true, false, true, true);
+	hp_potion_button->AddListener(this);
+	hp_potion_image = App->gui->AddImage(85, 80, { 1058, 1952, 33, 47 }, this, inventory_panel, true, false, false, false);
+	hp_potion_label = App->gui->AddLabel(50, -10, "x 0", hp_potion_image, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop money and we have the shop
+
+	mana_potion_button = App->gui->AddButton(73, 135, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, inventory_panel, true, false, true, true);
+	mana_potion_button->AddListener(this);
+	mana_potion_image = App->gui->AddImage(85, 140, {1091, 1952, 33, 51}, this, inventory_panel, true, false, false, false);
+	mana_potion_label = App->gui->AddLabel(50, -10, "x 0", mana_potion_image, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop money and we have the shop
+
+	coin_image = App->gui->AddImage(45, 225, { 1024, 1952, 34, 34 }, this, inventory_panel, true, false, false, false);
+	money_label = App->gui->AddLabel(50, -20, "x 0", coin_image, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop money and we have the shop
+
+	level_name_label = App->gui->AddLabel(76, 267, "Level:", inventory_panel, BLACK, FontType::FF64, nullptr, false);
+	level_number_label = App->gui->AddLabel(65, 0, "1", level_name_label, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop exp
+
+	exp_name_label = App->gui->AddLabel(55, 307, "Exp:", inventory_panel, BLACK, FontType::FF64, nullptr, false);
+	exp_number_label = App->gui->AddLabel(50, 0, "0/100", exp_name_label, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop exp
+
+
+
+	menu_state = StatesMenu::INVENTORY_MENU;
+}
+
+void m1Scene::DestroyInventory()
+{
+	menu_state = StatesMenu::NO_MENU;
+	App->gui->DeleteUIElement(inventory_panel);
+}
+
+void m1Scene::CreatePotionMenu(u1GUI* potion_button)
+{
+	if (potion_button == hp_potion_button)
+	{
+		potion_panel = App->gui->AddImage(-170, 50, { 1878, 1536, 170, 101 }, this, inventory_panel, true, false, false, false);
+
+		use_hp_button = App->gui->AddButton(30, 0, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, potion_panel, false, false, true, true);
+		use_hp_button->AddListener(this);
+		use_label = App->gui->AddLabel(50, -5, "Use", potion_panel, BLACK, FontType::FF64, nullptr, false);
+
+		cancel_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, potion_panel, false, false, true, true);
+		cancel_button->AddListener(this);
+		cancel_label = App->gui->AddLabel(50, 38, "Cancel", potion_panel, BLACK, FontType::FF64, nullptr, false);
+	}
+
+	if (potion_button == mana_potion_button)
+	{
+		potion_panel = App->gui->AddImage(-170, 100, { 1878, 1536, 170, 101 }, this, inventory_panel, true, false, false, false);
+
+		use_mana_button = App->gui->AddButton(30, 0, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, potion_panel, false, false, true, true);
+		use_mana_button->AddListener(this);
+		use_label = App->gui->AddLabel(50, -5, "Use", potion_panel, BLACK, FontType::FF64, nullptr, false);
+
+		cancel_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, potion_panel, false, false, true, true);
+		cancel_button->AddListener(this);
+		cancel_label = App->gui->AddLabel(50, 38, "Cancel", potion_panel, BLACK, FontType::FF64, nullptr, false);
+	}
+
+	menu_state = StatesMenu::POTION_MENU;
+}
+
+void m1Scene::DeletePotionMenu()
+{
+	App->gui->DeleteUIElement(potion_panel);
+}
+
 void m1Scene::CreatePauseMenu()
 {
 	pause_panel = App->gui->AddImage(0, 0, { 1252,1536,313,428 }, this, App->gui->screen, true, false, false, false);
@@ -256,6 +344,10 @@ void m1Scene::CreatePauseMenu()
 
 void m1Scene::DestroyPauseMenu()
 {
+	/*if(pause_panel != nullptr)
+	App->gui->DeleteUIElement(pause_panel);*/
+	menu_state = StatesMenu::NO_MENU;
+
 	App->gui->DeleteUIElement(pause_panel);
 }
 
@@ -501,6 +593,28 @@ bool m1Scene::Interact(u1GUI* interact)
 			CreateOptionsMenu();
 			DestroyPauseMenu();
 			ret = false;
+		}
+		break;
+	case StatesMenu::INVENTORY_MENU:
+		if (interact == hp_potion_button) {
+			DeletePotionMenu();
+			CreatePotionMenu(hp_potion_button);
+		}
+		if (interact == mana_potion_button) {
+			DeletePotionMenu();
+			CreatePotionMenu(mana_potion_button);
+		}
+		break;
+	case StatesMenu::POTION_MENU:
+		if (interact == use_hp_button) {
+			LOG("HP POTION USED");
+		}
+		if (interact == use_mana_button) {
+			LOG("MANA POTION USED");
+		}
+		if (interact == cancel_button) {
+			DeletePotionMenu();
+			menu_state = StatesMenu::INVENTORY_MENU;
 		}
 		break;
 	case StatesMenu::OPTIONS_MENU:

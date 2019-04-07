@@ -9,6 +9,8 @@ enum class StatesMenu {
 	PAUSE_MENU,
 	OPTIONS_MENU,
 	CONTROLS_MENU,
+	INVENTORY_MENU,
+	POTION_MENU,
 
 	NONE
 };
@@ -56,6 +58,11 @@ public:
 
 	void CreateEntities();
 
+	void CreateInventory();
+	void DestroyInventory();
+	void CreatePotionMenu(u1GUI* potion_button); //Creates the menu to choose to use or not a potion
+	void DeletePotionMenu();
+
 	void CreatePauseMenu();
 	void DestroyPauseMenu();
 	bool Interact(u1GUI* interaction);
@@ -93,6 +100,30 @@ private:
 	u1Label* label_abort_quest = nullptr;
 	u1Button* button_options = nullptr;
 	u1Label* label_options = nullptr;
+
+	//inventory
+	u1Image* inventory_panel = nullptr;
+	u1Image* hp_potion_image = nullptr;
+	u1Button* hp_potion_button = nullptr;
+	u1Image* mana_potion_image = nullptr;
+	u1Button* mana_potion_button = nullptr;
+	u1Image* coin_image = nullptr;
+	u1Label* player_name = nullptr;
+	u1Label* hp_potion_label = nullptr;
+	u1Label* mana_potion_label = nullptr;
+	u1Label* money_label = nullptr;
+	u1Label* level_name_label = nullptr;
+	u1Label* level_number_label = nullptr;
+	u1Label* exp_name_label = nullptr;
+	u1Label* exp_number_label = nullptr;
+
+	//Potion Menu
+	u1Image* potion_panel = nullptr;
+	u1Button* use_hp_button = nullptr;
+	u1Button* use_mana_button = nullptr;
+	u1Button* cancel_button = nullptr;
+	u1Label* use_label = nullptr;
+	u1Label* cancel_label = nullptr;
 	
 	//options
 	u1Image* options_panel = nullptr;
