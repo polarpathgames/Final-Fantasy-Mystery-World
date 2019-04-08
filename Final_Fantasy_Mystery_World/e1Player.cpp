@@ -561,10 +561,9 @@ void e1Player::PrepareBasicAttack()
 	
 void e1Player::PerformActions(float dt)
 {
-	if (player_input.pressing_V && App->scene->GetMenuState() != StatesMenu::OPTIONS_MENU || player_input.pressing_V && App->scene->GetMenuState() != StatesMenu::CONTROLS_MENU){
+	if (player_input.pressing_V && App->scene->GetMenuState() != StatesMenu::OPTIONS_MENU && App->scene->GetMenuState() != StatesMenu::CONTROLS_MENU && App->scene->GetMenuState() != StatesMenu::PAUSE_MENU){
 		(has_skills) ? DestroySkills() : CreateSkills();
 	}
-		
 
 	if (state == State::IDLE) {
 		ChangeDirection();
