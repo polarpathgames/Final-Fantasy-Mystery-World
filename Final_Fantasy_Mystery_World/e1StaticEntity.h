@@ -22,6 +22,7 @@ public:
 		BARREL,
 		PLANT1,
 		PLANT2,
+		STREETLIGHT,
 
 		UNKNOWN
 	};

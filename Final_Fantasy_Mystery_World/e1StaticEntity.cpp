@@ -33,6 +33,12 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 	}
+	else if (strcmp(name, "streetlight") == 0) {
+		static_type = e1StaticEntity::Type::STREETLIGHT;
+		frame = { 0,64,32,64 };
+		SetPivot(frame.w*0.5F, frame.h*0.9F);
+		size.create(frame.w, frame.h);
+	}
 	else if (strcmp(name, "plant1") == 0) {
 		static_type = e1StaticEntity::Type::PLANT1;
 		frame = { 32,96,32,32 };
