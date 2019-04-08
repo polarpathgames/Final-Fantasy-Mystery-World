@@ -203,6 +203,7 @@ void m1Scene::CreateEntities()
 				if ((*position)->ent_type == "shop" && App->map->last_map == Maps::SHOP) { // position after leaving shop
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->CenterPlayerInTile();
+					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "home" && App->map->last_map == Maps::HOME){ // position after leaving home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
@@ -583,7 +584,6 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == button_main_menu)
 		{
 			App->gui->DeleteAllUIElements();
-			App->render->ResetCamera(player->position);
 			App->entity_manager->Disable();
 			App->map->Disable();
 			active = false; //desactivates main menu
