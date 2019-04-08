@@ -80,7 +80,7 @@ bool m1GUI::UpdateFocusMouse()
 				show_cursor = false;
 			}
 
-			if (SDL_ShowCursor(-1) == 0) {
+			else if (!show_cursor) {
 				show_cursor = true;
 			}
 
