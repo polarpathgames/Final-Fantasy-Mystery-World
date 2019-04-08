@@ -39,6 +39,7 @@ bool m1GUI::Awake(pugi::xml_node &node)
 bool m1GUI::Start()
 {
 	atlas = App->tex->Load("gui/atlas.png");
+	SDL_ShowCursor(SDL_DISABLE);
 
 	return true;
 }
@@ -76,13 +77,11 @@ bool m1GUI::UpdateFocusMouse()
 			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN
 				|| App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
 				using_mouse = false;
-				SDL_ShowCursor(SDL_DISABLE);
 				show_cursor = false;
 			}
 
 			if (SDL_ShowCursor(-1) == 0) {
 				show_cursor = true;
-				SDL_ShowCursor(SDL_ENABLE);
 			}
 
 
@@ -97,13 +96,11 @@ bool m1GUI::UpdateFocusMouse()
 		if (!using_mouse) {
 			if (x != 0 || y != 0) {
 				using_mouse = true;
-				SDL_ShowCursor(SDL_ENABLE);
 				show_cursor = true;
 			}
 
-			if (SDL_ShowCursor(-1) == 1) {
+			if (show_cursor) {
 				show_cursor = false;
-				SDL_ShowCursor(SDL_DISABLE);
 			}
 
 			FocusInput();
@@ -206,9 +203,7 @@ bool m1GUI::PostUpdate()
 		}
 	}
 	tree.clear();
-	
-	// Cursor
-	SDL_ShowCursor(SDL_DISABLE);
+
 	App->input->GetMousePosition(cursor_position.x, cursor_position.y);
 	if (show_cursor)
 		App->render->Blit((SDL_Texture*)GetAtlas(), cursor_position.x * App->win->GetScale() + cursor_offset.x, cursor_position.y * App->win->GetScale() + cursor_offset.y, &cursor_rect);
