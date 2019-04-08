@@ -11,7 +11,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.9F);
 		size.create(frame.w, frame.h);
 	}
-	else if (strcmp(name, "tree1") == 0) {
+	else if (strcmp(name, "tree1") == 0) { // finished
 		static_type = e1StaticEntity::Type::TREE1;
 		frame = { 128,0,32,64 };
 		SetPivot(frame.w*0.5F, frame.h*0.9F);
