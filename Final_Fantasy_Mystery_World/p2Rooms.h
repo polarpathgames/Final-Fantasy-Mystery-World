@@ -54,7 +54,7 @@ public:
 	Room* actual_room = nullptr;
 	std::vector<Room*> rooms;
 	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
-	bool has_player_moved = false;
+
 
 };
 #endif // !_P2ROOMS_H
