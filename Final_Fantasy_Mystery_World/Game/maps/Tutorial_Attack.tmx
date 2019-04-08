@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="45" nextobjectid="14">
+<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="45" nextobjectid="14">
  <properties>
   <property name="movement" type="int" value="0"/>
  </properties>
@@ -11285,7 +11285,11 @@
    <tile/>
   </data>
  </layer>
- <layer id="43" name="Collider" width="40" height="40">
+ <layer id="43" name="colliders" width="40" height="40">
+  <properties>
+   <property name="Navigation" type="int" value="1"/>
+   <property name="NoDraw" type="int" value="1"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
