@@ -7,8 +7,16 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 {
 	if (strcmp(name,"flower") == 0) {
 		static_type = e1StaticEntity::Type::FLOWER;
-		frame = { 128,96,32,32 };
-		SetPivot(frame.w*0.5F, frame.h*0.9F);
+		has_animation = true;
+		idle = new Animation();
+		current_animation = idle;
+		idle->PushBack({ 132,103,24,21 });
+		idle->PushBack({ 157,103,24,21 });
+		idle->PushBack({ 182,103,24,21 });
+		idle->PushBack({ 207,103,24,21 });
+		idle->speed = 2;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 	}
 	else if (strcmp(name, "rock1") == 0) {
