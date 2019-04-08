@@ -7,8 +7,16 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 {
 	if (strcmp(name,"flower") == 0) {
 		static_type = e1StaticEntity::Type::FLOWER;
-		frame = { 128,96,32,32 };
-		SetPivot(frame.w*0.5F, frame.h*0.9F);
+		has_animation = true;
+		idle = new Animation();
+		current_animation = idle;
+		idle->PushBack({ 132,103,24,21 });
+		idle->PushBack({ 157,103,24,21 });
+		idle->PushBack({ 182,103,24,21 });
+		idle->PushBack({ 207,103,24,21 });
+		idle->speed = 2;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 	}
 	else if (strcmp(name, "rock1") == 0) {
@@ -71,6 +79,48 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		idle->speed = 5;
 		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "house1") == 0) {
+		static_type = e1StaticEntity::Type::HOUSE1;
+		frame = { 401,11,86,87 };
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "shop") == 0) {
+		static_type = e1StaticEntity::Type::SHOP;
+		frame = { 291,11,106,95 };
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "house2") == 0) {
+		static_type = e1StaticEntity::Type::HOUSE2;
+		frame = { 498,11,70,79 };
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "home") == 0) {
+		static_type = e1StaticEntity::Type::HOME;
+		frame = { 577,11,96,95 };
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "floor") == 0) {
+		static_type = e1StaticEntity::Type::FLOOR;
+		frame = { 293,113,32,14 };
+		SetPivot(frame.w*0.8F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "corner_floor") == 0) {
+		static_type = e1StaticEntity::Type::CORNER_FLOOR;
+		frame = { 325,113,32,14 };
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "corner") == 0) {
+		static_type = e1StaticEntity::Type::CORNER;
+		frame = { 261,113,32,14 };
+		SetPivot(frame.w*0.2F, frame.h*0.2F);
 		size.create(frame.w, frame.h);
 	}
 	else {

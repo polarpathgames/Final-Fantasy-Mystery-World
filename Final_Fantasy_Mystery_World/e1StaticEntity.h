@@ -25,6 +25,13 @@ public:
 		ROCK1,
 		ROCK2,
 		STREETLIGHT,
+		HOUSE1,
+		HOUSE2,
+		SHOP,
+		HOME,
+		FLOOR,
+		CORNER_FLOOR,
+		CORNER,
 
 		UNKNOWN
 	};
