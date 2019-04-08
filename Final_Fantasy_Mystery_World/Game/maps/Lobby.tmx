@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="42" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="84" nextobjectid="96">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="42" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="84" nextobjectid="97">
  <properties>
   <property name="movement" type="int" value="1"/>
  </properties>
@@ -56,17 +56,6 @@
  </tileset>
  <tileset firstgid="883" name="lobby_tileset" tilewidth="32" tileheight="16" tilecount="324" columns="18">
   <image source="lobby_tileset.png" width="582" height="290"/>
- </tileset>
- <tileset firstgid="1207" name="fountain_animation" tilewidth="65" tileheight="46" tilecount="4" columns="4">
-  <image source="fountain_animation.png" width="260" height="46"/>
-  <tile id="0">
-   <animation>
-    <frame tileid="0" duration="200"/>
-    <frame tileid="1" duration="200"/>
-    <frame tileid="2" duration="200"/>
-    <frame tileid="3" duration="200"/>
-   </animation>
-  </tile>
  </tileset>
  <layer id="71" name="Floor" width="42" height="40">
   <data>
@@ -10950,7 +10939,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1207"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -12552,49 +12541,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="973"/>
-   <tile gid="973"/>
-   <tile gid="973"/>
-   <tile gid="973"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="973"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="973"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="973"/>
-   <tile gid="973"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="973"/>
    <tile gid="973"/>
    <tile gid="973"/>
    <tile gid="973"/>
@@ -12614,6 +12561,48 @@
    <tile/>
    <tile/>
    <tile gid="973"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="973"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="973"/>
+   <tile gid="973"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="973"/>
+   <tile gid="973"/>
+   <tile gid="973"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="973"/>
    <tile gid="973"/>
    <tile/>
    <tile/>
@@ -12636,7 +12625,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="973"/>
+   <tile/>
    <tile gid="973"/>
    <tile gid="973"/>
    <tile gid="973"/>
@@ -13578,12 +13567,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="79" name="Static animation objects">
-  <object id="68" name="fountain" type="static_anim" x="288" y="240" width="63.9375" height="63.9375"/>
- </objectgroup>
  <objectgroup id="80" name="Static objects">
-  <object id="28" x="196.636" y="190.636"/>
-  <object id="29" x="191.727" y="175.727"/>
   <object id="30" name="flower" type="static" x="192.227" y="176.136" width="32" height="32"/>
   <object id="31" name="flower" type="static" x="256" y="192" width="32" height="32"/>
   <object id="32" name="flower" type="static" x="240" y="128" width="32" height="32"/>
@@ -13598,8 +13582,6 @@
   <object id="42" name="plant2" type="static" x="256" y="448" width="32" height="32"/>
   <object id="43" name="plant2" type="static" x="512" y="400" width="32" height="32"/>
   <object id="44" name="plant2" type="static" x="192" y="352" width="32" height="32"/>
-  <object id="46" x="560.188" y="224.313"/>
-  <object id="54" x="151.909" y="362.636"/>
   <object id="58" name="barrel" type="static" x="128" y="336" width="32" height="32"/>
   <object id="59" name="barrel" type="static" x="112" y="336" width="32" height="32"/>
   <object id="60" name="barrel" type="static" x="96" y="304" width="32" height="32"/>
@@ -13607,21 +13589,20 @@
   <object id="62" name="barrel" type="static" x="128" y="320" width="32" height="32"/>
   <object id="63" name="barrel" type="static" x="512" y="496" width="32" height="32"/>
   <object id="66" name="tree1" type="static" x="480.091" y="160.091" width="79.9531" height="79.9219"/>
-  <object id="67" x="491.455" y="124.909"/>
   <object id="69" name="tree2" type="static" x="496" y="128" width="79.9531" height="79.9219"/>
   <object id="70" name="tree2" type="static" x="224" y="304" width="79.9531" height="79.9219"/>
   <object id="72" name="streetlight" type="static" x="352.103" y="481.506" width="63.7031" height="77.7969"/>
   <object id="74" name="tree3" type="static" x="192" y="128" width="79.9531" height="79.9219"/>
   <object id="75" name="tree1" type="static" x="64" y="80" width="79.9531" height="79.9219"/>
-  <object id="80" x="52.8333" y="425.167"/>
   <object id="81" name="house" type="static" x="80" y="192" width="112" height="128"/>
   <object id="82" name="house" type="static" x="384.473" y="448.011" width="143.583" height="112.03"/>
   <object id="83" name="house" type="static" x="384" y="112" width="111.947" height="112.03"/>
   <object id="93" name="streetlight" type="static" x="368" y="144" width="63.7031" height="77.7969"/>
   <object id="94" name="tree3" type="static" x="400" y="368" width="79.9531" height="79.9219"/>
   <object id="95" name="plant1" type="static" x="528" y="272" width="32" height="32"/>
+  <object id="96" name="fountain" type="static" x="288" y="256" width="64" height="49.4688"/>
  </objectgroup>
- <objectgroup color="#0000ff" id="78" name="outScene" visible="0">
+ <objectgroup color="#0000ff" id="78" name="outScene">
   <object id="9" x="369.333" y="280" width="0.666667" height="0.666667"/>
   <object id="13" name="Home" x="448" y="208" width="16" height="16"/>
   <object id="15" x="386.727" y="311.091"/>

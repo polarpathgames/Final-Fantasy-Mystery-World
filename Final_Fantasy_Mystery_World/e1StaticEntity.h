@@ -22,6 +22,8 @@ public:
 		BARREL,
 		PLANT1,
 		PLANT2,
+		ROCK1,
+		ROCK2,
 		STREETLIGHT,
 
 		UNKNOWN
@@ -45,7 +47,11 @@ private:
 
 private:
 	SDL_Rect frame;
-	Type static_type;
+	Type static_type = Type::UNKNOWN;
+
+	bool has_animation = false;
+	Animation* idle = nullptr;
+
 };
 
 #endif
