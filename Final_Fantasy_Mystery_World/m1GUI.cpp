@@ -29,6 +29,8 @@ bool m1GUI::Awake(pugi::xml_node &node)
 
 	//Load all ui elements info with xml...
 	focus_tx = { 1024,1986,16,27 };
+	cursor_rect = { 1024, 2013, 35, 40 };
+
 	//----------------------
 
 	return true;
@@ -75,10 +77,14 @@ bool m1GUI::UpdateFocusMouse()
 				|| App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
 				using_mouse = false;
 				SDL_ShowCursor(SDL_DISABLE);
+				show_cursor = false;
 			}
 
-			if (SDL_ShowCursor(-1) == 0)
+			if (SDL_ShowCursor(-1) == 0) {
+				show_cursor = true;
 				SDL_ShowCursor(SDL_ENABLE);
+			}
+
 
 			iPoint mouse;
 			App->input->GetMousePosition(mouse.x, mouse.y);
@@ -92,10 +98,13 @@ bool m1GUI::UpdateFocusMouse()
 			if (x != 0 || y != 0) {
 				using_mouse = true;
 				SDL_ShowCursor(SDL_ENABLE);
+				show_cursor = true;
 			}
 
-			if (SDL_ShowCursor(-1) == 1)
+			if (SDL_ShowCursor(-1) == 1) {
+				show_cursor = false;
 				SDL_ShowCursor(SDL_DISABLE);
+			}
 
 			FocusInput();
 			ret = focus->Update();
@@ -198,7 +207,12 @@ bool m1GUI::PostUpdate()
 	}
 	tree.clear();
 	
+	// Cursor
+	App->input->GetMousePosition(cursor_position.x, cursor_position.y);
+	if (show_cursor)
+		App->render->Blit((SDL_Texture*)GetAtlas(), cursor_position.x * App->win->GetScale() + cursor_offset.x, cursor_position.y * App->win->GetScale() + cursor_offset.y, &cursor_rect);
 
+	
 	return ret;
 }
 
@@ -226,6 +240,7 @@ const SDL_Texture* m1GUI::GetAtlas() const
 
 u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, m1Module * listener = nullptr, u1GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false, bool focus = true)
 {
+
 	u1Image* image = new u1Image(x, y, rect, parent, draw, interact, drag, focus);
 
 	if (listener != nullptr) {

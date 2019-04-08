@@ -72,7 +72,12 @@ private:
 	u1GUI*			focus = nullptr;
 	SDL_Rect		focus_tx = { 0,0,0,0 };
 	bool			using_mouse = true;
-	std::list<u1GUI*> ui_list;	
+	std::list<u1GUI*> ui_list;
+
+	SDL_Rect			cursor_rect;
+	iPoint				cursor_position;
+	iPoint				cursor_offset = {-12, -3};
+	bool				show_cursor = true;
 
 public:
 
