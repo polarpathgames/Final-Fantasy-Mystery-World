@@ -57,7 +57,7 @@ bool u1GUI::Update()
 		last_mouse = mouse;
 	}
 	
-	if (current_state == Mouse_Event::CLICKED_DOWN || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+	if (current_state == Mouse_Event::CLICKED_DOWN || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 		for (std::list<m1Module*>::iterator module = listeners.begin(); module != listeners.end(); ++module) {
 			if (*module != nullptr)
 				if (!(*module)->Interact(this))
