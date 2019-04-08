@@ -50,6 +50,8 @@ bool m1Scene::Start()
 
 	if (App->GetInventory())
 		App->ChangeInventory();
+
+	App->gui->ShowCursor(false);
   
 	return true;
 }
@@ -280,7 +282,7 @@ void m1Scene::CreateInventory()
 void m1Scene::DestroyInventory()
 {
 	App->gui->DeleteUIElement(inventory_panel);
-
+	App->gui->ShowCursor(false);
 	menu_state = StatesMenu::NO_MENU;
 }
 
@@ -348,10 +350,8 @@ void m1Scene::CreatePauseMenu()
 
 void m1Scene::DestroyPauseMenu()
 {
-	/*if(pause_panel != nullptr)
-	App->gui->DeleteUIElement(pause_panel);*/
-
 	App->gui->DeleteUIElement(pause_panel);
+	App->gui->ShowCursor(false);
 }
 
 void m1Scene::CreateOptionsMenu()

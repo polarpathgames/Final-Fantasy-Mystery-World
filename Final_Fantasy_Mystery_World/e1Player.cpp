@@ -252,7 +252,6 @@ void e1Player::ReadPlayerInput()
 	if (state == State::IDLE) {
 		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
 			state = State::WALKING;
-			App->gui->ShowCursor(false);
 		}
 		else if (player_input.pressing_G) {
 			state = State::BEFORE_ATTACK;
@@ -885,8 +884,3 @@ void e1Player::CreateSkills()
 
 	has_skills = true;
 }
-
-
-
-
-
