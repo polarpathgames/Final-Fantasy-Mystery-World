@@ -14,7 +14,6 @@ m1Collision::m1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_HOME] = true;
 	matrix[COLLIDER_HOME][COLLIDER_PLAYER] = true;
 
-
 	matrix[COLLIDER_PLAYER][COLLIDER_NEXT_A] = true;
 	matrix[COLLIDER_NEXT_A][COLLIDER_PLAYER] = true;
 
