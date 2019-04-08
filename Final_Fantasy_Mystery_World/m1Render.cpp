@@ -321,10 +321,10 @@ void m1Render::ResetCamera()
 	camera.y = 0;
 }
 
-void m1Render::LobbyCamera(iPoint playerpos)
+void m1Render::SmoothCamera(iPoint playerpos)
 {
 
-	BROFILER_CATEGORY("LobbyCamera", Profiler::Color::Aquamarine);
+	BROFILER_CATEGORY("SmoothCamera", Profiler::Color::Aquamarine);
 
 	playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
 	smoth_position.x -= (playerpos.x + camera.x) / smooth_speed;
@@ -335,8 +335,11 @@ void m1Render::LobbyCamera(iPoint playerpos)
 	smoth_position.y -= (playerpos.y + camera.y) / smooth_speed;
 	camera.y = smoth_position.y;
 
-	//LOG("%i", smooth_speed);
+	
+}
 
-	//camera.x = (-playerpos.x * 3) + (App->win->width * 0.5);
-	//camera.y = (-playerpos.y * 3) + (App->win->height * 0.5);
+void m1Render::CenterCameraOnPlayer(iPoint playerpos)
+{
+	camera.x = playerpos.x;
+	camera.y = playerpos.y;
 }

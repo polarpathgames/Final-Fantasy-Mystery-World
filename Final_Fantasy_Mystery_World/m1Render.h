@@ -45,8 +45,8 @@ public:
 
 	bool IsOnCamera(const int&x, const int&y, const int&w, const int& h) const;
 	void ResetCamera();
-	void LobbyCamera(iPoint playerpos);
-	
+	void SmoothCamera(iPoint playerpos);
+	void CenterCameraOnPlayer(iPoint playerpos);
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
 
