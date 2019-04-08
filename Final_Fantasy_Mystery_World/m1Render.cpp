@@ -324,15 +324,11 @@ void m1Render::ResetCamera()
 
 void m1Render::SmoothCamera(iPoint playerpos)
 {
-
-
 	BROFILER_CATEGORY("SmoothCamera", Profiler::Color::Aquamarine);
 	if (App->fade_to_black->current_step != App->fade_to_black->fade_to_black) {
 		playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
 		smoth_position.x -= (playerpos.x + camera.x) / smooth_speed;
 		camera.x = smoth_position.x;
-
-
 
 		playerpos.y = (playerpos.y * App->win->GetScale() - camera.h / 2);
 		smoth_position.y -= (playerpos.y + camera.y) / smooth_speed;
@@ -340,9 +336,8 @@ void m1Render::SmoothCamera(iPoint playerpos)
 	}
 }
 
-
-
-void m1Render::SetCamera(iPoint playerpos) {
+void m1Render::CenterCameraOnPlayer(iPoint playerpos)
+{
 	playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
 	playerpos.y = (playerpos.y * App->win->GetScale() - camera.h / 2);
 	smoth_position.x -= (playerpos.x + camera.x);
@@ -350,3 +345,7 @@ void m1Render::SetCamera(iPoint playerpos) {
 	smoth_position.y -= (playerpos.y + camera.y);
 	camera.y = smoth_position.y;
 }
+
+
+
+
