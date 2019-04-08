@@ -415,3 +415,8 @@ bool m1GUI::CheckCollision(int x, int y, u1GUI *item)
 	}
 	return false;
 }
+
+bool m1GUI::ShowCursor(bool enable)
+{
+	return show_cursor = enable;
+}
