@@ -20,6 +20,9 @@ public:
 		FLOWER,
 		FOUNTAIN,
 		BARREL,
+		PLANT1,
+		PLANT2,
+		STREETLIGHT,
 
 		UNKNOWN
 	};
