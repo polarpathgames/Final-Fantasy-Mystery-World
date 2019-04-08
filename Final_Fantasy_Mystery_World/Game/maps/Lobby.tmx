@@ -13594,7 +13594,7 @@
   <object id="37" name="flower" type="static" x="224" y="320" width="32" height="32"/>
   <object id="38" name="plant1" type="static" x="352" y="208" width="32" height="32"/>
   <object id="39" name="plant1" type="static" x="448" y="336" width="32" height="32"/>
-  <object id="40" name="plant1" type="static" x="544" y="320" width="32" height="32"/>
+  <object id="40" name="plant1" type="static" x="528" y="304" width="32" height="32"/>
   <object id="41" name="plant1" type="static" x="352" y="416" width="32" height="32"/>
   <object id="42" name="plant2" type="static" x="256" y="448" width="32" height="32"/>
   <object id="43" name="plant2" type="static" x="512" y="400" width="32" height="32"/>
@@ -13610,7 +13610,7 @@
   <object id="66" name="tree1" type="static" x="480.091" y="160.091" width="79.9531" height="79.9219"/>
   <object id="67" x="491.455" y="124.909"/>
   <object id="69" name="tree2" type="static" x="496" y="128" width="79.9531" height="79.9219"/>
-  <object id="70" name="tree2" type="static" x="224" y="304" width="79.9531" height="79.9219"/>
+  <object id="70" name="tree2" type="static" x="224" y="304" width="65.2031" height="63.2969"/>
   <object id="71" name="tree3" type="static" x="480.19" y="319.872" width="79.9531" height="79.9219"/>
   <object id="72" name="streetlight" type="static" x="352.103" y="479.944" width="79.9531" height="79.9219"/>
   <object id="73" name="streetlight" type="static" x="368.065" y="143.997" width="79.9531" height="79.9219"/>
