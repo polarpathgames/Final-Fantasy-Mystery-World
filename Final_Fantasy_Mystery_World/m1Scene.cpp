@@ -590,7 +590,6 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == button_main_menu)
 		{
 			App->gui->DeleteAllUIElements();
-			App->render->ResetCamera();
 			App->entity_manager->Disable();
 			App->map->Disable();
 			active = false; //desactivates main menu
