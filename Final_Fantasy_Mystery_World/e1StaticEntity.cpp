@@ -50,13 +50,13 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	else if (strcmp(name, "plant1") == 0) {
 		static_type = e1StaticEntity::Type::PLANT1;
 		frame = { 80,32,48,32 };
-		SetPivot(frame.w*0.5F, frame.h*0.95F);
+		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 	}
 	else if (strcmp(name, "plant2") == 0) {
 		static_type = e1StaticEntity::Type::PLANT2;
-		frame = { 32,32,48,32 };
-		SetPivot(frame.w*0.5F, frame.h*0.95F);
+		frame = { 32,32,38,32 };
+		SetPivot(frame.w*0.5F, frame.h*0.75F);
 		size.create(frame.w, frame.h);
 	}
 	else if (strcmp(name, "fountain") == 0) {
