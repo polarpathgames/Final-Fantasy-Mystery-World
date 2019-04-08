@@ -53,34 +53,42 @@ public:
 	Animation GoDownLeft;
 	Animation IdleDownLeft;
 	Animation BasicAttackDownLeft;
+	Animation DeathDownLeft;
 
 	Animation GoDownRight;
 	Animation IdleDownRight;
 	Animation BasicAttackDownRight;
+	Animation DeathDownRight;
 
 	Animation GoUpRight;
 	Animation IdleUpRight;
 	Animation BasicAttackUpRight;
+	Animation DeathUpRight;
 
 	Animation GoUpLeft;
 	Animation IdleUpLeft;
 	Animation BasicAttackUpLeft;
+	Animation DeathUpLeft;
 
 	Animation GoLeft;
 	Animation IdleLeft;
 	Animation BasicAttackLeft;
+	Animation DeathLeft;
 
 	Animation GoRight;
 	Animation IdleRight;
 	Animation BasicAttackRight;
+	Animation DeathRight;
 
 	Animation GoUp;
 	Animation IdleUp;
 	Animation BasicAttackUp;
+	Animation DeathUp;
 
 	Animation GoDown;
 	Animation IdleDown;
 	Animation BasicAttackDown;
+	Animation DeathDown;
 
 	iPoint velocity;
 

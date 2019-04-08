@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-up" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="33">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-up" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="35">
+ <properties>
+  <property name="movement" type="int" value="1"/>
+ </properties>
  <tileset firstgid="1" name="Home" tilewidth="32" tileheight="16" tilecount="117" columns="9">
   <image source="Home.png" trans="0011ff" width="290" height="211"/>
  </tileset>
@@ -3224,9 +3227,19 @@
     <property name="home" type="int" value="0"/>
    </properties>
   </object>
+  <object id="34" name="collider" x="386.531" y="437.969" width="10.75" height="7.25">
+   <properties>
+    <property name="home" type="int" value="0"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="8" name="player">
   <object id="31" name="player" type="in_home" x="368" y="416" width="15.9688" height="16.0156">
+   <properties>
+    <property name="free_movement" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="33" name="player" type="after_death" x="352" y="384" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>

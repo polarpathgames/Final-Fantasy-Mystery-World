@@ -268,8 +268,12 @@ void e1Player::CenterPlayerInTile()
 	has_turn = true;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
-	movement_type = Movement_Type::InQuest;
 
+	if (App->map->data.properties.GetValue("movement") == 1)
+		movement_type = Movement_Type::InLobby;
+	else
+		movement_type = Movement_Type::InQuest;
+	
 	actual_tile = App->map->WorldToMap(position.x, position.y);
 	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (m1Module*)App->entity_manager);
 	movement_count = { 0,0 };
@@ -579,6 +583,9 @@ void e1Player::PerformActions(float dt)
 			LOG("There is no movement type...");
 			break;
 		}		
+	}
+	if (state == State::DEATH) {
+		Death();
 	}
 	if (state == State::ATTACKING) {
 		switch (type_attack) {
@@ -912,9 +919,17 @@ void e1Player::GetHitted(const int & damage_taken)
 	stats.live -= damage_taken;
 
 	if (stats.live <= 0) {
-		App->entity_manager->DeleteEntity(this);
+		state = State::DEATH;
+		ChangeAnimation(direction, state);
 	}
 
+}
+
+void e1Player::Death()
+{
+	if (current_animation->Finished()) {
+		App->fade_to_black->FadeToBlack(Maps::HOME);
+	}
 }
 
 void e1Player::DestroySkills()

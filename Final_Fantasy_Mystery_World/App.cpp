@@ -492,3 +492,13 @@ bool Application::ChangePause()
 {
 	return is_paused = !is_paused;
 }
+
+bool Application::GetInventory()
+{
+	return is_inventory;
+}
+
+bool Application::ChangeInventory()
+{
+	return is_inventory = !is_inventory;
+}
