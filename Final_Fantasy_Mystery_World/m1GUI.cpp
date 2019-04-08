@@ -208,6 +208,7 @@ bool m1GUI::PostUpdate()
 	tree.clear();
 	
 	// Cursor
+	SDL_ShowCursor(SDL_DISABLE);
 	App->input->GetMousePosition(cursor_position.x, cursor_position.y);
 	if (show_cursor)
 		App->render->Blit((SDL_Texture*)GetAtlas(), cursor_position.x * App->win->GetScale() + cursor_offset.x, cursor_position.y * App->win->GetScale() + cursor_offset.y, &cursor_rect);
