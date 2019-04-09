@@ -466,111 +466,118 @@ void m1Scene::CreateControlsMenu()
 	label_direction_down =	App->gui->AddLabel(actions_offset_x, 540, "Change Direction Down", controls_panel, BLACK, FontType::FF48, nullptr, false);
 	label_basic_attack =	App->gui->AddLabel(actions_offset_x, 565, "Basic Attack", controls_panel, BLACK, FontType::FF48, nullptr, false);
 
+	// KEYS/BUTTONS
+	int offset_between_y = 35;
 	// KEYBOARD
 	int keyboard_offset_x = 450;
 
-	keyboard = App->gui->AddLabel(keyboard_offset_x+30, 265, "KEYBOARD", controls_panel, BLACK, FontType::FF48, nullptr,false);
+	keyboard = App->gui->AddLabel(keyboard_offset_x, 265, "KEYBOARD", controls_panel, BLACK, FontType::FF48, nullptr,false);
 
-	button_up = App->gui->AddButton(keyboard_offset_x, 295, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,false);
+	button_up = App->gui->AddButton(keyboard_offset_x, 295, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true, true);
 	label_to_show_how_up = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.UP, button_up, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_up->SetPosRespectParent(CENTERED);
 	labels_control.push_back(label_to_show_how_up);
 
-	button_right = App->gui->AddButton(keyboard_offset_x, 325, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	button_right = App->gui->AddButton(keyboard_offset_x, button_up->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true, true);
 	label_to_show_how_right = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.RIGHT, button_right, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_right->SetPosRespectParent(CENTERED);
 	labels_control.push_back(label_to_show_how_right);
 
-	button_left = App->gui->AddButton(keyboard_offset_x, 355, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	button_left = App->gui->AddButton(keyboard_offset_x, button_right->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	label_to_show_how_left = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.LEFT, button_left, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_left->SetPosRespectParent(CENTERED);
 	labels_control.push_back(label_to_show_how_left);
 	
-	button_down = App->gui->AddButton(keyboard_offset_x, 385, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	button_down = App->gui->AddButton(keyboard_offset_x, button_left->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	label_to_show_how_down = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DOWN, button_down, BLACK, FontType::FF32, nullptr,true);
 	label_to_show_how_down->SetPosRespectParent(CENTERED);
 	labels_control.push_back(label_to_show_how_down);
 
-	button_diagonals = App->gui->AddButton(keyboard_offset_x, 415, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	button_diagonals = App->gui->AddButton(keyboard_offset_x, button_down->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	label_to_show_how_diagonals = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIAGONALS, button_diagonals, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_diagonals->SetPosRespectParent(CENTERED);
 	labels_control.push_back(label_to_show_how_diagonals);
 
-	button_direction_up = App->gui->AddButton(keyboard_offset_x, 445, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	button_direction_up = App->gui->AddButton(keyboard_offset_x, button_diagonals->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	label_to_show_how_direction_up = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECTION_UP, button_direction_up, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_direction_up->SetPosRespectParent(CENTERED);
 	labels_control.push_back(label_to_show_how_direction_up);
 
-	button_direction_right = App->gui->AddButton(keyboard_offset_x, 475, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	button_direction_right = App->gui->AddButton(keyboard_offset_x, button_direction_up->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	label_to_show_how_direction_right = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECCTION_RIGHT, button_direction_right, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_direction_right->SetPosRespectParent(CENTERED);
 	labels_control.push_back(label_to_show_how_direction_right);
 
-	button_direction_left = App->gui->AddButton(keyboard_offset_x, 505, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	button_direction_left = App->gui->AddButton(keyboard_offset_x, button_direction_right->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	label_to_show_how_direction_left = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECTION_LEFT, button_direction_left, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_direction_left->SetPosRespectParent(CENTERED);
 	labels_control.push_back(label_to_show_how_direction_left);
 
-	button_direction_down = App->gui->AddButton(keyboard_offset_x, 535, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	button_direction_down = App->gui->AddButton(keyboard_offset_x, button_direction_left->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	label_to_show_how_direction_down = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECCTION_DOWN,  button_direction_down, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_direction_down->SetPosRespectParent(CENTERED);
 	labels_control.push_back(label_to_show_how_direction_down);
 
-	button_basic_attack = App->gui->AddButton(keyboard_offset_x, 560, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	button_basic_attack = App->gui->AddButton(keyboard_offset_x, button_direction_down->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	label_to_show_how_basic_attack = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, button_basic_attack, BLACK, FontType::FF32, nullptr,false);
 	label_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
 	labels_control.push_back(label_to_show_how_basic_attack);
 
 
 	// CONTROLLER
+	int controller_offset_x = 690;
 
 	controller = App->gui->AddLabel(700, 265, "CONTROLLER", controls_panel, BLACK, FontType::FF48, nullptr,false);
 
-	Cbutton_direction_up = App->gui->AddButton(690, 445, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	Cbutton_up = App->gui->AddButton(controller_offset_x, 295, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true, true);
+	Clabel_to_show_how_up = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.UP, Cbutton_up, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_up->SetPosRespectParent(CENTERED);
+
+	Cbutton_right = App->gui->AddButton(controller_offset_x, Cbutton_up->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true, true);
+	Clabel_to_show_how_right = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.RIGHT, Cbutton_right, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_right->SetPosRespectParent(CENTERED);
+
+	Cbutton_left = App->gui->AddButton(controller_offset_x, Cbutton_right->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true, true);
+	Clabel_to_show_how_left = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.LEFT, Cbutton_left, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_left->SetPosRespectParent(CENTERED);
+
+	Cbutton_down = App->gui->AddButton(controller_offset_x, Cbutton_left->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true, true);
+	Clabel_to_show_how_down = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DOWN, Cbutton_down, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_down->SetPosRespectParent(CENTERED);
+
+	Cbutton_diagonals = App->gui->AddButton(controller_offset_x, Cbutton_down->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true, true);
+	Clabel_to_show_how_diagonals = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIAGONALS, Cbutton_diagonals, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_diagonals->SetPosRespectParent(CENTERED);
+	Clabels_control.push_back(Clabel_to_show_how_diagonals);
+
+	Cbutton_direction_up = App->gui->AddButton(controller_offset_x, Cbutton_diagonals->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	Clabel_to_show_how_direction_up = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECTION_UP,  Cbutton_direction_up, BLACK, FontType::FF32, nullptr,false);
 	Clabel_to_show_how_direction_up->SetPosRespectParent(CENTERED);
 	Clabels_control.push_back(Clabel_to_show_how_direction_up);
 
-	Cbutton_direction_right = App->gui->AddButton(690, 475, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	Cbutton_direction_right = App->gui->AddButton(controller_offset_x, Cbutton_direction_up->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	Clabel_to_show_how_direction_right = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECCTION_RIGHT, Cbutton_direction_right, BLACK, FontType::FF32, nullptr,false);
 	Clabel_to_show_how_direction_right->SetPosRespectParent(CENTERED);
 	Clabels_control.push_back(Clabel_to_show_how_direction_right);
 
-	Cbutton_direction_left = App->gui->AddButton(690, 505, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	Cbutton_direction_left = App->gui->AddButton(controller_offset_x, Cbutton_direction_right->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	Clabel_to_show_how_direction_left = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECTION_LEFT, Cbutton_direction_left, BLACK, FontType::FF32, nullptr,false);
 	Clabel_to_show_how_direction_left->SetPosRespectParent(CENTERED);
 	Clabels_control.push_back(Clabel_to_show_how_direction_left);
 
-	Cbutton_direction_down = App->gui->AddButton(690, 535, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	Cbutton_direction_down = App->gui->AddButton(controller_offset_x, Cbutton_direction_left->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	Clabel_to_show_how_direction_down = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECCTION_DOWN,  Cbutton_direction_down, BLACK, FontType::FF32, nullptr,false);
 	Clabel_to_show_how_direction_down->SetPosRespectParent(CENTERED);
 	Clabels_control.push_back(Clabel_to_show_how_direction_down);
 
-	Cbutton_diagonals = App->gui->AddButton(690, 415, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
-	Clabel_to_show_how_diagonals = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIAGONALS, Cbutton_diagonals, BLACK, FontType::FF32, nullptr,false);
-	Clabel_to_show_how_diagonals->SetPosRespectParent(CENTERED);
-	Clabels_control.push_back(Clabel_to_show_how_diagonals);
-
-	Cbutton_basic_attack = App->gui->AddButton(690, 565, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
+	Cbutton_basic_attack = App->gui->AddButton(controller_offset_x, Cbutton_direction_down->position.y + offset_between_y, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
 	Clabel_to_show_how_basic_attack = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.BASIC_ATTACK, Cbutton_basic_attack, BLACK, FontType::FF32, nullptr,false);
 	Clabel_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
 	Clabels_control.push_back(Clabel_to_show_how_basic_attack);
 
-	Cbutton_up = App->gui->AddButton(690, 295, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
-	Clabel_to_show_how_up = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.UP,  Cbutton_up, BLACK, FontType::FF32, nullptr,false);
-	Clabel_to_show_how_up->SetPosRespectParent(CENTERED);
+	
 
-	Cbutton_right = App->gui->AddButton(690, 325, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
-	Clabel_to_show_how_right = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.RIGHT, Cbutton_right, BLACK, FontType::FF32, nullptr,false);
-	Clabel_to_show_how_right->SetPosRespectParent(CENTERED);
-
-	Cbutton_left = App->gui->AddButton(690, 355, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
-	Clabel_to_show_how_left = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.LEFT,  Cbutton_left, BLACK, FontType::FF32, nullptr,false);
-	Clabel_to_show_how_left->SetPosRespectParent(CENTERED);
-
-	Cbutton_down = App->gui->AddButton(690, 385, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true,true);
-	Clabel_to_show_how_down = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DOWN,  Cbutton_down, BLACK, FontType::FF32, nullptr,false);
-	Clabel_to_show_how_down->SetPosRespectParent(CENTERED);
+	
 
 	menu_state = StatesMenu::CONTROLS_MENU;
 }

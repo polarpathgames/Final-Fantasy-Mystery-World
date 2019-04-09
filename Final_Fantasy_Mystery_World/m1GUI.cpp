@@ -141,9 +141,13 @@ void m1GUI::FocusInput()
 		u1GUI* new_focus = focus;
 		if (focus->parent != nullptr)
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
-				if ((*item)->allow_focus && (*item)->position.y > focus->position.y && *item != focus) {
-					if (new_focus == focus || new_focus->position.y > (*item)->position.y/* && new_focus->position.x != (*item)->position.x*/)
+				if ((*item)->allow_focus && (*item)->position.y > focus->position.y) {
+					if (focus == new_focus) {
+						new_focus = (*item);
+					}
+					else if ((*item)->position.y <= new_focus->position.y && abs(focus->position.x - new_focus->position.x) >= abs(focus->position.x - (*item)->position.x)) {
 						new_focus = *item;
+					}
 				}
 			}
 		focus->current_state = Mouse_Event::NONE;
@@ -154,9 +158,13 @@ void m1GUI::FocusInput()
 		u1GUI* new_focus = focus;
 		if (focus->parent != nullptr)
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
-				if ((*item)->allow_focus && (*item)->position.x < focus->position.x && *item != focus) {
-					if (new_focus == focus || new_focus->position.x < (*item)->position.x/* && new_focus->position.y != (*item)->position.y*/)
+				if ((*item)->allow_focus && (*item)->position.x < focus->position.x) {
+					if (focus == new_focus) {
+						new_focus = (*item);
+					}
+					else if ((*item)->position.x >= new_focus->position.x && abs(focus->position.y - new_focus->position.y) >= abs(focus->position.y - (*item)->position.y)) {
 						new_focus = *item;
+					}
 				}
 			}
 		focus->current_state = Mouse_Event::NONE;
@@ -167,9 +175,13 @@ void m1GUI::FocusInput()
 		u1GUI* new_focus = focus;
 		if (focus->parent != nullptr)
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
-				if ((*item)->allow_focus && (*item)->position.x > focus->position.x && *item != focus) {
-					if (new_focus == focus || new_focus->position.x > (*item)->position.x/* && new_focus->position.y != (*item)->position.y*/)
+				if ((*item)->allow_focus && (*item)->position.x > focus->position.x) {
+					if (focus == new_focus) {
+						new_focus = (*item);
+					}
+					else if ((*item)->position.x <= new_focus->position.x && abs(focus->position.y - new_focus->position.y) >= abs(focus->position.y - (*item)->position.y)) {
 						new_focus = *item;
+					}
 				}
 			}
 		focus->current_state = Mouse_Event::NONE;
