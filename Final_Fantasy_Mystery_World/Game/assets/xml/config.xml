@@ -20,7 +20,7 @@
   </window>
 
   <fonts>
-    <path folder="assets/fonts"/>
+    <path folder="fonts"/>
     <default_font file="Final_Fantasy_font.ttf" size="32"/>
     <font file="Final_Fantasy_font.ttf" size="48"/>
     <font file="Final_Fantasy_font.ttf" size="64"/>
@@ -30,7 +30,7 @@
   </fonts>
 
   <map>
-    <folder>assets/maps/</folder>
+    <folder>maps/</folder>
     <maps>
       <tutorial_map>Tutorial_Movement.tmx</tutorial_map>
       <lobby_map>Lobby.tmx</lobby_map>
@@ -41,7 +41,7 @@
 
         <room>
           <location>Tutorial_Movement.tmx</location>
-          <id num="1"></id>
+          <id num="8"></id>
         </room>
         <room>
           <location>Tutorial_Diagonal.tmx</location>
@@ -69,7 +69,7 @@
         </room>
         <room>
           <location>Tutorial_Final.tmx</location>
-          <id num="8"></id>
+          <id num="1"></id>
         </room>
         
       </tutorial>
