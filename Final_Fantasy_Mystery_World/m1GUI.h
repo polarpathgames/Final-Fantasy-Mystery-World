@@ -64,15 +64,22 @@ public:
 	bool GetElemOnMouse(int x, int y, u1GUI* & element);
 	bool CheckCollision(int x, int y, u1GUI* item);
 
+	bool ShowCursor(bool enable);
+
 	const SDL_Texture* GetAtlas() const;
 
 private:
 
-	SDL_Texture*	atlas = nullptr;
-	u1GUI*			focus = nullptr;
-	SDL_Rect		focus_tx = { 0,0,0,0 };
-	bool			using_mouse = true;
-	std::list<u1GUI*> ui_list;	
+	SDL_Texture*		atlas = nullptr;
+	u1GUI*				focus = nullptr;
+	SDL_Rect			focus_tx = { 0,0,0,0 };
+	bool				using_mouse = true;
+	std::list<u1GUI*>	ui_list;
+
+	SDL_Rect			cursor_rect;
+	iPoint				cursor_position;
+	iPoint				cursor_offset = {-12, -3};
+	bool				show_cursor = true;
 
 public:
 

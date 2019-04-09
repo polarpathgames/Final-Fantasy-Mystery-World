@@ -29,6 +29,8 @@ bool m1GUI::Awake(pugi::xml_node &node)
 
 	//Load all ui elements info with xml...
 	focus_tx = { 1024,1986,16,27 };
+	cursor_rect = { 1024, 2013, 35, 40 };
+
 	//----------------------
 
 	return true;
@@ -37,6 +39,7 @@ bool m1GUI::Awake(pugi::xml_node &node)
 bool m1GUI::Start()
 {
 	atlas = App->tex->Load("gui/atlas.png");
+	SDL_ShowCursor(SDL_DISABLE);
 
 	return true;
 }
@@ -78,11 +81,13 @@ bool m1GUI::UpdateFocusMouse()
 				|| App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN
 				|| App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) {
 				using_mouse = false;
-				SDL_ShowCursor(SDL_DISABLE);
+				show_cursor = false;
 			}
 
-			if (SDL_ShowCursor(-1) == 0)
-				SDL_ShowCursor(SDL_ENABLE);
+			else if (!show_cursor) {
+				show_cursor = true;
+			}
+
 
 			iPoint mouse;
 			App->input->GetMousePosition(mouse.x, mouse.y);
@@ -95,11 +100,12 @@ bool m1GUI::UpdateFocusMouse()
 		if (!using_mouse) {
 			if (x != 0 || y != 0) {
 				using_mouse = true;
-				SDL_ShowCursor(SDL_ENABLE);
+				show_cursor = true;
 			}
 
-			if (SDL_ShowCursor(-1) == 1)
-				SDL_ShowCursor(SDL_DISABLE);
+			if (show_cursor) {
+				show_cursor = false;
+			}
 
 			FocusInput();
 			ret = focus->Update();
@@ -201,8 +207,12 @@ bool m1GUI::PostUpdate()
 		}
 	}
 	tree.clear();
-	
 
+	App->input->GetMousePosition(cursor_position.x, cursor_position.y);
+	if (show_cursor)
+		App->render->Blit((SDL_Texture*)GetAtlas(), cursor_position.x * App->win->GetScale() + cursor_offset.x, cursor_position.y * App->win->GetScale() + cursor_offset.y, &cursor_rect);
+
+	
 	return ret;
 }
 
@@ -230,6 +240,7 @@ const SDL_Texture* m1GUI::GetAtlas() const
 
 u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, m1Module * listener = nullptr, u1GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false, bool focus = true)
 {
+
 	u1Image* image = new u1Image(x, y, rect, parent, draw, interact, drag, focus);
 
 	if (listener != nullptr) {
@@ -407,4 +418,9 @@ bool m1GUI::CheckCollision(int x, int y, u1GUI *item)
 			(y > pos.y && y < pos.y + item->section.h);
 	}
 	return false;
+}
+
+bool m1GUI::ShowCursor(bool enable)
+{
+	return show_cursor = enable;
 }

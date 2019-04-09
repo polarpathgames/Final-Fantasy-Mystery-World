@@ -49,7 +49,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 	iPoint pos_coll = { c1->rect.x,c1->rect.y };
 	pos_coll = App->map->WorldToMap(pos_coll.x, pos_coll.y);
 	
-	if (App->scene->player->actual_tile == pos_coll && has_player_moved) {
+	if (App->scene->player->actual_tile == pos_coll) {
 		std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
 		switch (c1->type)
 		{
@@ -109,7 +109,6 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 
 void RoomManager::LoadRoom(const int & id)
 {
-	has_player_moved = false;
 	App->fade_to_black->FadeToBlack(0.5f);
 	App->entity_manager->DeleteEntitiesNoPlayer();
 	App->map->CleanUp();
@@ -156,7 +155,7 @@ void RoomManager::PlacePlayer() // place player in front of the door
 		}
 	}
 	App->scene->player->CenterPlayerInTile();
-	has_player_moved = true;
+
 }
 
 void RoomManager::LoadColliders() // sensors in the doors

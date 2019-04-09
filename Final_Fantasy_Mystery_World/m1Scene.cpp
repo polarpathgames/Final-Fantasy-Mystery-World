@@ -50,6 +50,8 @@ bool m1Scene::Start()
 
 	if (App->GetInventory())
 		App->ChangeInventory();
+
+	App->gui->ShowCursor(false);
   
 	return true;
 }
@@ -120,7 +122,7 @@ bool m1Scene::Update(float dt)
 				player->BlockControls(false);
 			}
 		}
-		if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
 			if (App->ChangeInventory()) {
 				CreateInventory();
 				player->BlockControls(true);
@@ -132,7 +134,7 @@ bool m1Scene::Update(float dt)
 		}
 		break;
 	case StatesMenu::INVENTORY_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
 			if (App->ChangeInventory()) {
 				CreateInventory();
 				player->BlockControls(true);
@@ -145,24 +147,21 @@ bool m1Scene::Update(float dt)
 		break;
 	case StatesMenu::PAUSE_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
-			if (App->ChangePause()) {
-				CreatePauseMenu();
-				player->BlockControls(true);
-			}
-			else {
-				DestroyPauseMenu();
-				player->BlockControls(false);
-			}
+			App->ChangePause();
+			DestroyPauseMenu();
+			menu_state = StatesMenu::NO_MENU;
+			player->BlockControls(false);
 		}
 		break;
 	case StatesMenu::OPTIONS_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
 			CreatePauseMenu();
 			DestroyOptionsMenu();
+			player->BlockControls(true);
 		}
 		break;
 	case StatesMenu::CONTROLS_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
 			CreateOptionsMenu();
 			DestroyControlsMenu();
 		}
@@ -223,32 +222,39 @@ void m1Scene::CreateEntities()
 			if (player == nullptr) {
 				if ((*position)->ent_type == "default") { // start position
 					player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::PLAYER, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+					App->render->CenterCameraOnPlayer(player->position);
 				}
 			}
 			else {
 				if ((*position)->ent_type == "shop" && App->map->last_map == Maps::SHOP) { // position after leaving shop
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->CenterPlayerInTile();
+					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "home" && App->map->last_map == Maps::HOME){ // position after leaving home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->CenterPlayerInTile();
+					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "in_shop") { // position in the shop
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->CenterPlayerInTile();
+					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "in_home" && player->state != State::DEATH) { // position in the home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->CenterPlayerInTile();
+					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "after_death" && player->state == State::DEATH) { // position in the home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->CenterPlayerInTile();
+					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "default" && App->map->last_map == Maps::TUTORIAL) {
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->CenterPlayerInTile();
+					App->render->CenterCameraOnPlayer(player->position);
 				}
 			}
 		}
@@ -305,8 +311,9 @@ void m1Scene::CreateInventory()
 
 void m1Scene::DestroyInventory()
 {
-	menu_state = StatesMenu::NO_MENU;
 	App->gui->DeleteUIElement(inventory_panel);
+	App->gui->ShowCursor(false);
+	menu_state = StatesMenu::NO_MENU;
 }
 
 void m1Scene::CreatePotionMenu(u1GUI* potion_button)
@@ -343,6 +350,7 @@ void m1Scene::CreatePotionMenu(u1GUI* potion_button)
 void m1Scene::DeletePotionMenu()
 {
 	App->gui->DeleteUIElement(potion_panel);
+	menu_state = StatesMenu::INVENTORY_MENU;
 }
 
 void m1Scene::CreatePauseMenu()
@@ -372,11 +380,8 @@ void m1Scene::CreatePauseMenu()
 
 void m1Scene::DestroyPauseMenu()
 {
-	/*if(pause_panel != nullptr)
-	App->gui->DeleteUIElement(pause_panel);*/
-	menu_state = StatesMenu::NO_MENU;
-
 	App->gui->DeleteUIElement(pause_panel);
+	App->gui->ShowCursor(false);
 }
 
 void m1Scene::CreateOptionsMenu()
@@ -608,7 +613,6 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == button_main_menu)
 		{
 			App->gui->DeleteAllUIElements();
-			App->render->ResetCamera();
 			App->entity_manager->Disable();
 			App->map->Disable();
 			active = false; //desactivates main menu

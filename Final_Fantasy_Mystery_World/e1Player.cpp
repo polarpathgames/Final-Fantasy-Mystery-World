@@ -24,19 +24,12 @@
 
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
-	//LoadXML("player_config.xml");
+
 	LoadEntityData("entities/WarriorSpritesheet.tsx");
-
-	//GoLeft = LoadPushbacks(node, "GoLeft");
-	//IdleLeft = LoadPushbacks(node, "IdleLeft");
-
-	
 
 	ground = App->tex->Load("textures/player_pos.png");
 
-
 	CenterPlayerInTile();
-
 
 }
 
@@ -58,25 +51,10 @@ bool e1Player::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdatePlayer", Profiler::Color::Aqua);
 
-
 	PerformActions(dt);
-
 
 	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
-	/*App->render->DrawLine(position.x, position.y + 25, position.x + 18, position.y + 25, 255, 255, 255);
-	App->render->DrawLine(position.x, position.y + 32, position.x + 18, position.y + 32, 255, 255, 255);
-	App->render->DrawLine(position.x, position.y + 25, position.x, position.y + 32, 255, 255, 255);
-	App->render->DrawLine(position.x + 18, position.y + 25, position.x + 18, position.y + 32, 255, 255, 255);
-
-	iPoint pos = App->map->MapToWorld(actual_tile.x, actual_tile.y);
-	iPoint pos2 = { pos.x + 16, pos.y + 8 };
-	App->render->DrawLine(pos2.x, pos2.y, pos2.x + 16, pos2.y + 8, 255, 0, 255);
-	App->render->DrawLine(pos2.x - 16, pos.y + 16, pos.x + 16, pos.y + 8, 255, 0, 255);
-	App->render->DrawLine(pos2.x - 16, pos.y + 16, pos.x + 16, pos.y + 24, 255, 0, 255);
-	App->render->DrawLine(pos.x + 16, pos.y + 24, pos2.x + 16, pos2.y + 8, 255, 0, 255);
-	*/
-	//App->render->DrawCircle(position.x, position.y, 3, 0, 0, 255);
 	if (coll != nullptr)
 		coll->SetPos(position.x, position.y + 25);
 
@@ -123,62 +101,6 @@ void e1Player::OnCollision(Collider * c2)
 		else
 			App->fade_to_black->FadeToBlack(Maps::LOBBY);
 	}
-
-	
-	/*
-	iPoint colliding_pos = c2->collided_point;
-	if (colliding_pos.y <= coll->rect.y) { // colliding up
-		can_input.W = false;
-		player_input.pressing_W = false;
-		if (colliding_pos.x < coll->rect.x) { // up left
-			can_input.A = false;
-			player_input.pressing_A = false;
-		}
-		else { // up right
-			can_input.D = false;
-			player_input.pressing_D = false;
-		}
-	}
-	else if (colliding_pos.y >= coll->rect.y + coll->rect.h) { // colliding down
-		can_input.S = false;
-		player_input.pressing_S = false;
-		if (colliding_pos.x <= coll->rect.x) { // down left
-			can_input.A = false;
-			player_input.pressing_A = false;
-		}
-		else { // down right
-			can_input.D = false;
-			player_input.pressing_D = false;
-		}
-	}
-	else if (colliding_pos.y > coll->rect.y && colliding_pos.y < coll->rect.y + coll->rect.h && colliding_pos.x <= coll->rect.x) { // colliding left
-		can_input.A = false;
-		player_input.pressing_A = false;
-		if (colliding_pos.y < coll->rect.y + coll->rect.h / 2) { // left up
-			can_input.W = false;
-			player_input.pressing_W = false;
-		}
-		else { // left down
-			can_input.S = false;
-			player_input.pressing_S = false;
-		}
-
-	}
-	else { // colliding right
-		can_input.D = false;
-		player_input.pressing_D = false;
-		if (colliding_pos.y < coll->rect.y + coll->rect.h / 2) { // right up
-			can_input.W = false;
-			player_input.pressing_W = false;
-		}
-		else { // right down
-			can_input.S = false;
-			player_input.pressing_S = false;
-		}
-
-	}
-	*/
-
 }
 
 void e1Player::CheckLobbyCollision(const float & dt, const Direction & dir)
@@ -305,7 +227,8 @@ void e1Player::ReadPlayerInput()
 	player_input.pressing_G = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
 	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
 	player_input.pressing_V = App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN;
-  if (movement_type == Movement_Type::InLobby) {
+
+	if (movement_type == Movement_Type::InLobby) {
 		if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT))
 			player_input.pressing_A = player_input.pressing_S = true;
 		else if (App->input->CheckAxisStates(Axis::AXIS_DOWN_RIGHT))
@@ -562,28 +485,25 @@ void e1Player::PrepareBasicAttack()
 	
 void e1Player::PerformActions(float dt)
 {
-	if (player_input.pressing_V && App->scene->GetMenuState() != StatesMenu::OPTIONS_MENU || player_input.pressing_V && App->scene->GetMenuState() != StatesMenu::CONTROLS_MENU){
+	if (player_input.pressing_V && App->scene->GetMenuState() != StatesMenu::OPTIONS_MENU && App->scene->GetMenuState() != StatesMenu::CONTROLS_MENU && App->scene->GetMenuState() != StatesMenu::PAUSE_MENU){
 		(has_skills) ? DestroySkills() : CreateSkills();
 	}
-		
 
 	if (state == State::IDLE) {
 		ChangeDirection();
 	}
 	if (state == State::WALKING) {
 		switch (movement_type) {
-		case Movement_Type::InQuest: {
+		case Movement_Type::InQuest:
 			PerformMovementInQuest(dt);
-		break;
-		}
-		case Movement_Type::InLobby: {
+			break;
+		case Movement_Type::InLobby:
 			PerformMovementInLobby(dt);
 			break;
-		}
 		default:
 			LOG("There is no movement type...");
 			break;
-		}		
+		}
 	}
 	if (state == State::DEATH) {
 		Death();
@@ -969,8 +889,3 @@ void e1Player::CreateSkills()
 
 	has_skills = true;
 }
-
-
-
-
-

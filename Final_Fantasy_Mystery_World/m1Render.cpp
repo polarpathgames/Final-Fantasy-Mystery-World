@@ -6,6 +6,7 @@
 #include "m1Map.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Input.h"
+#include "m1FadeToBlack.h"
 
 
 
@@ -321,22 +322,30 @@ void m1Render::ResetCamera()
 	camera.y = 0;
 }
 
-void m1Render::LobbyCamera(iPoint playerpos)
+void m1Render::SmoothCamera(iPoint playerpos)
 {
+	BROFILER_CATEGORY("SmoothCamera", Profiler::Color::Aquamarine);
+	if (App->fade_to_black->current_step != App->fade_to_black->fade_to_black) {
+		playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
+		smoth_position.x -= (playerpos.x + camera.x) / smooth_speed;
+		camera.x = smoth_position.x;
 
-	BROFILER_CATEGORY("LobbyCamera", Profiler::Color::Aquamarine);
-
-	playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
-	smoth_position.x -= (playerpos.x + camera.x) / smooth_speed;
-	camera.x = smoth_position.x;
-	
-
-	playerpos.y = (playerpos.y * App->win->GetScale() - camera.h / 2);
-	smoth_position.y -= (playerpos.y + camera.y) / smooth_speed;
-	camera.y = smoth_position.y;
-
-	//LOG("%i", smooth_speed);
-
-	//camera.x = (-playerpos.x * 3) + (App->win->width * 0.5);
-	//camera.y = (-playerpos.y * 3) + (App->win->height * 0.5);
+		playerpos.y = (playerpos.y * App->win->GetScale() - camera.h / 2);
+		smoth_position.y -= (playerpos.y + camera.y) / smooth_speed;
+		camera.y = smoth_position.y;
+	}
 }
+
+void m1Render::CenterCameraOnPlayer(iPoint playerpos)
+{
+	playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
+	playerpos.y = (playerpos.y * App->win->GetScale() - camera.h / 2);
+	smoth_position.x -= (playerpos.x + camera.x);
+	camera.x = smoth_position.x;
+	smoth_position.y -= (playerpos.y + camera.y);
+	camera.y = smoth_position.y;
+}
+
+
+
+
