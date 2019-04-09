@@ -224,7 +224,7 @@ void m1Input::UpdateController()
 	if (Controller != nullptr) {
 		axis_x = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTX);
 		axis_y = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTY);
-		LOG("X: %i Y: %i", axis_x, axis_y);
+		//LOG("X: %i Y: %i", axis_x, axis_y);
 	}
 }
 

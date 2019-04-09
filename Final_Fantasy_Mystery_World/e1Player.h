@@ -95,9 +95,12 @@ public:
 	void CreateSkills(); // Skills Appear In Screen
 	void DestroySkills(); //Skills Desappear
 
+	bool BlockControls(bool to_block);
+
 public:
 
 	bool has_skills = false;
+	bool block_controls = false;
 
 	Input player_input; //VARIABLES DEL INPUT DEL PLAYER
 	Movement_Type movement_type; //EN LOBBY O EN UNA QUEST

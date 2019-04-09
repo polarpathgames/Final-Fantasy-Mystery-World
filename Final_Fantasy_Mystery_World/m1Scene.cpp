@@ -112,33 +112,56 @@ bool m1Scene::Update(float dt)
 	
 	switch (menu_state) {
 	case StatesMenu::NO_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
-			(App->ChangePause()) ? CreatePauseMenu() : DestroyPauseMenu();
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
+			if (App->ChangePause()) {
+				CreatePauseMenu();
+				player->BlockControls(true);
+			}
+			else {
+				DestroyPauseMenu();
+				player->BlockControls(false);
+			}
 		}
-		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
-			(App->ChangeInventory()) ? CreateInventory() : DestroyInventory();
+		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
+			if (App->ChangeInventory()) {
+				CreateInventory();
+				player->BlockControls(true);
+			}
+			else {
+				DestroyInventory();
+				player->BlockControls(false);
+			}
 		}
 		break;
 	case StatesMenu::INVENTORY_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
-			(App->ChangeInventory()) ? CreateInventory() : DestroyInventory();
+		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
+			if (App->ChangeInventory()) {
+				CreateInventory();
+				player->BlockControls(true);
+			}
+			else {
+				DestroyInventory();
+				player->BlockControls(false);
+			}
 		}
 		break;
 	case StatesMenu::PAUSE_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
 			App->ChangePause();
 			DestroyPauseMenu();
 			menu_state = StatesMenu::NO_MENU;
+			player->BlockControls(false);
 		}
 		break;
 	case StatesMenu::OPTIONS_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
 			CreatePauseMenu();
 			DestroyOptionsMenu();
+			player->BlockControls(true);
 		}
 		break;
 	case StatesMenu::CONTROLS_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
 			CreateOptionsMenu();
 			DestroyControlsMenu();
 		}
