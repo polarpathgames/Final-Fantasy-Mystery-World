@@ -329,6 +329,8 @@ void m1Scene::CreatePotionMenu(u1GUI* potion_button)
 		cancel_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, potion_panel, false, false, true, true);
 		cancel_button->AddListener(this);
 		cancel_label = App->gui->AddLabel(50, 38, "Cancel", potion_panel, BLACK, FontType::FF64, nullptr, false);
+
+		App->gui->FocusButton(use_hp_button);
 	}
 
 	if (potion_button == mana_potion_button)
@@ -342,6 +344,8 @@ void m1Scene::CreatePotionMenu(u1GUI* potion_button)
 		cancel_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, potion_panel, false, false, true, true);
 		cancel_button->AddListener(this);
 		cancel_label = App->gui->AddLabel(50, 38, "Cancel", potion_panel, BLACK, FontType::FF64, nullptr, false);
+
+		App->gui->FocusButton(use_mana_button);
 	}
 
 	menu_state = StatesMenu::POTION_MENU;

@@ -43,6 +43,7 @@ public:
 	bool UpdateFocusMouse();
 	void FocusInput();
 	bool FocusFirstUIFocusable();
+	bool FocusButton(u1Button* button);
 	bool PostUpdate();
 	bool CleanUp();
 
