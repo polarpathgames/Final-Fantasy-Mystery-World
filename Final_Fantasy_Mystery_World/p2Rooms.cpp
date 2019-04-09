@@ -3,6 +3,7 @@
 #include "m1Map.h"
 #include "m1FadeToBlack.h"
 #include "App.h"
+#include "m1Render.h"
 #include "m1Scene.h"
 #include "e1Player.h"
 #include "m1EntityManager.h"
@@ -155,7 +156,7 @@ void RoomManager::PlacePlayer() // place player in front of the door
 		}
 	}
 	App->scene->player->CenterPlayerInTile();
-
+	App->render->CenterCameraOnPlayer(App->scene->player->position);
 }
 
 void RoomManager::LoadColliders() // sensors in the doors
