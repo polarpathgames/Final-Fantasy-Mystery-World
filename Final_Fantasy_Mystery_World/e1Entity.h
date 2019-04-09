@@ -117,6 +117,7 @@ public:
 
 
 	bool has_turn = true;
+	bool turn_done = false;
 	iPoint actual_tile;
 	Collider* coll = nullptr;
 };

@@ -30,37 +30,39 @@ void e1DynamicEntity::ChangeTurn(EntityType type)
 		
 		std::vector<e1Entity*>::iterator item = entities.begin();
 		for (; item != entities.end(); ++item) {
-			if ((*item) != nullptr && (*item)->type == EntityType::ENEMY) {
+			if ((*item) != nullptr && (*item)->type == EntityType::ENEMY && !(*item)->turn_done) {
 				(*item)->has_turn = true;
 				has_turn = false;
+				(*item)->turn_done = true;
+				break;
 			}
 				
 		}
 		break; }
 	case EntityType::ENEMY: {
 		has_turn = false;
-		std::vector<e1Entity*>::reverse_iterator item = entities.rbegin();
-		
-		bool player_turn = false;
-		while (item != entities.rend()) {
-			if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY) {
-				if ((*item) != this) {
-					break;
-				}
-				else {
-					player_turn = true;
-					break;
-				}
+		std::vector<e1Entity*>::iterator item = entities.begin();
+		bool more_enemies = false;
+		while (item != entities.end()) {
+			if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY && !(*item)->turn_done) {
+				(*item)->has_turn = true;
+				(*item)->turn_done = true;
+				more_enemies = true;
+				break;
 			}
 			++item;
 		}
-		if (player_turn) {
-			item = entities.rbegin();
-			for (; item != entities.rend(); ++item) {
-				if ((*item) != nullptr && (*item)->type == EntityType::ENEMY)
+		if (!more_enemies) {
+			item = entities.begin();
+			for (; item != entities.end(); ++item) {
+				if ((*item) != nullptr && (*item)->type == EntityType::ENEMY) {
 					(*item)->has_turn = false;
-				if ((*item) != nullptr && (*item)->type == EntityType::PLAYER)
+					(*item)->turn_done = false;
+				}	
+				if ((*item) != nullptr && (*item)->type == EntityType::PLAYER) {
 					(*item)->has_turn = true;
+				}
+					
 			}
 		}
 		break;  }
