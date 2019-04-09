@@ -40,7 +40,7 @@ struct TileSetEntity {
 	uint tilecount = 0;
 	uint columns = 0;
 	std::string imagePath;
-	SDL_Texture* texture = nullptr;
+	//SDL_Texture* texture = nullptr;
 	uint width = 0;
 	uint height = 0;
 };

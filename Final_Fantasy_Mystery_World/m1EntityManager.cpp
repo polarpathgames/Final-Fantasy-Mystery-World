@@ -43,7 +43,7 @@ bool m1EntityManager::Start()
 
 	texture.push_back(App->tex->Load("assets/sprites/WarriorSpritesheet.png"));
 	texture.push_back(App->tex->Load("assets/sprites/Enemy.png"));
-	texture.push_back(App->tex->Load("maps/static_objects_tileset.png"));
+	texture.push_back(App->tex->Load("assets/maps/static_objects_tileset.png"));
 
 	return ret;
 }

@@ -20,7 +20,7 @@
   </window>
 
   <fonts>
-    <path folder="fonts"/>
+    <path folder="assets/fonts"/>
     <default_font file="Final_Fantasy_font.ttf" size="32"/>
     <font file="Final_Fantasy_font.ttf" size="48"/>
     <font file="Final_Fantasy_font.ttf" size="64"/>
@@ -30,7 +30,7 @@
   </fonts>
 
   <map>
-    <folder>maps/</folder>
+    <folder>assets/maps/</folder>
     <maps>
       <tutorial_map>Tutorial_Movement.tmx</tutorial_map>
       <lobby_map>Lobby.tmx</lobby_map>

@@ -14,13 +14,10 @@
 
 e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
-	//LoadXML("player_config.xml");
-	LoadEntityData("entities/WarriorSpriteSheet.tsx");
-	//GoLeft = LoadPushbacks(node, "GoLeft");
-	//IdleLeft = LoadPushbacks(node, "IdleLeft");
+	LoadEntityData("assets/entities/Warrior.tsx");
 
 	type = e1Entity::EntityType::ENEMY;
-	ground = App->tex->Load("textures/enemy_pos.png");
+	ground = App->tex->Load("assets/sprites/enemy_pos.png");
 	current_animation = &IdleDownLeft;
 
 	SetPivot(10, 30);
