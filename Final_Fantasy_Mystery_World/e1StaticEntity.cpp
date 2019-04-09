@@ -165,8 +165,8 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.9F);
 		size.create(frame.w, frame.h);
 	}
-	else if (strcmp(name, "flower") == 0) {
-		static_type = e1StaticEntity::Type::FLOWER;
+	else if (strcmp(name, "feather") == 0) {
+		static_type = e1StaticEntity::Type::FEATHER;
 		has_animation = true;
 		idle = new Animation();
 		current_animation = idle;
@@ -178,7 +178,22 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		idle->PushBack({ 746,3,8,27 });
 		idle->PushBack({ 758,3,8,27 });
 		idle->PushBack({ 770,3,8,27 });
-		idle->speed = 2;
+		idle->speed = 7;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "candle") == 0) {
+		static_type = e1StaticEntity::Type::CANDLE;
+		has_animation = true;
+		idle = new Animation();
+		current_animation = idle;
+		idle->PushBack({ 686,42,28,32 });
+		idle->PushBack({ 720,42,28,32 });
+		idle->PushBack({ 753,42,28,32 });
+		idle->PushBack({ 786,42,28,32 });
+		
+		idle->speed = 7;
 		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);

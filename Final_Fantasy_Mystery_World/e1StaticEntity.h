@@ -38,6 +38,8 @@ public:
 		QUEST_TREE2,
 		QUEST_TREE3,
 		QUEST_TREE4,
+		FEATHER,
+		CANDLE,
 
 		UNKNOWN
 	};
