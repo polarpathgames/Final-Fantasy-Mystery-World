@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="46" nextobjectid="11">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="46" nextobjectid="11">
  <tileset firstgid="1" name="tutorial_tileset" tilewidth="32" tileheight="16" tilecount="240" columns="16">
   <image source="tutorial_tileset.png" width="533" height="254"/>
   <terraintypes>
@@ -12899,14 +12899,14 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="9" name="player" type="lastA" x="432" y="256" width="15.9688" height="16.0156">
+  <object id="9" name="player" type="lastA" x="432" y="240" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup id="44" name="colliders">
-  <object id="10" name="room_collider" type="nextA" x="432" y="240" width="16.1904" height="15.0341">
+  <object id="10" name="room_collider" type="nextA" x="432" y="224" width="16.1904" height="15.0341">
    <properties>
     <property name="next_id" type="int" value="2"/>
    </properties>
