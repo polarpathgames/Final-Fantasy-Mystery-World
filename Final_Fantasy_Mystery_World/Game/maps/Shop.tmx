@@ -1613,7 +1613,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="9" name="colliders" width="40" height="40" visible="0">
+ <layer id="9" name="colliders" width="40" height="40">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -3221,14 +3221,14 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="7" name="player" visible="0">
+ <objectgroup id="7" name="player">
   <object id="17" name="player" type="in_shop" x="400" y="336" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="8" name="leave" visible="0">
+ <objectgroup id="8" name="leave">
   <object id="22" name="collider" x="436.818" y="340.818" width="5.81818" height="8.18182">
    <properties>
     <property name="shop" type="int" value="2"/>

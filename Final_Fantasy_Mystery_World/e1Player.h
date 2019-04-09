@@ -28,7 +28,7 @@ struct Input {
 
 struct PlayerStats {
 
-	int live = 25;
+	int live = 250;
 	int attack_power = 500;
 	int xp = 0;
 	int mana = 100;
