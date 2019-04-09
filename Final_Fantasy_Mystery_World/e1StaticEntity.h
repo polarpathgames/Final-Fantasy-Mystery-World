@@ -32,6 +32,8 @@ public:
 		FLOOR,
 		CORNER_FLOOR,
 		CORNER,
+		RED_PLANT,
+		HALF_TREE,
 
 		UNKNOWN
 	};

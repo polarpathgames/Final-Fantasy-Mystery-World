@@ -67,6 +67,18 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.75F);
 		size.create(frame.w, frame.h);
 	}
+	else if (strcmp(name, "red_plant") == 0) {
+		static_type = e1StaticEntity::Type::RED_PLANT;
+		frame = { 32,8,38,24 };
+		SetPivot(frame.w*0.5F, frame.h*0.75F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "half_tree") == 0) {
+		static_type = e1StaticEntity::Type::HALF_TREE;
+		frame = { 1,13,30,35 };
+		SetPivot(frame.w*0.5F, frame.h*0.75F);
+		size.create(frame.w, frame.h);
+	}
 	else if (strcmp(name, "fountain") == 0) {
 		static_type = e1StaticEntity::Type::FOUNTAIN;
 		has_animation = true;
