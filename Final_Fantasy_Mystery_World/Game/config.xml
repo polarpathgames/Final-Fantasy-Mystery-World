@@ -41,7 +41,7 @@
 
         <room>
           <location>Tutorial_Movement.tmx</location>
-          <id num="1"></id>
+          <id num="7"></id>
         </room>
         <room>
           <location>Tutorial_Diagonal.tmx</location>
@@ -64,8 +64,8 @@
           <id num="6"></id>
         </room>
         <room>
-          <location>Fountain.tmx</location>
-          <id num="7"></id>
+          <location>Tutorial_Final.tmx</location>
+          <id num="1"></id>
         </room>
         <room>
           <location>Tutorial_Final.tmx</location>

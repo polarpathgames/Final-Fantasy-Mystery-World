@@ -14525,7 +14525,7 @@
     <property name="next_id" type="int" value="7"/>
    </properties>
   </object>
-  <object id="16" name="room_collider" type="lastB" x="560" y="322.167" width="16.1904" height="45.0606">
+  <object id="16" name="room_collider" type="lastB" x="560" y="335.334" width="16.1904" height="16.5606">
    <properties>
     <property name="next_id" type="int" value="5"/>
    </properties>
