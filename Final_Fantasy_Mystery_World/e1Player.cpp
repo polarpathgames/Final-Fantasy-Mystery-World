@@ -48,7 +48,8 @@ bool e1Player::PreUpdate()
 {
 	BROFILER_CATEGORY("PreUpdatePlayer", Profiler::Color::Orange);
 
-	ReadPlayerInput();
+	if (!block_controls)
+		ReadPlayerInput();
 	
 	return true;
 }
@@ -939,6 +940,11 @@ void e1Player::DestroySkills()
 	App->gui->DeleteUIElement(left_button);
 
 	has_skills = false;
+}
+
+bool e1Player::BlockControls(bool to_block)
+{
+	return block_controls = to_block;
 }
 
 void e1Player::CreateSkills()
