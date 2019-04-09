@@ -608,6 +608,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			if (App->GetPause())
 				App->ChangePause();
 			ret = false;
+			player->BlockControls(false);
 			menu_state = StatesMenu::NO_MENU;
 		}
 		if (interact == button_main_menu)

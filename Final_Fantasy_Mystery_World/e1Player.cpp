@@ -864,6 +864,11 @@ void e1Player::DestroySkills()
 
 bool e1Player::BlockControls(bool to_block)
 {
+	if (to_block) {
+		player_input.Reset();
+		state = State::IDLE;
+		ChangeAnimation(direction, state);
+	}
 	return block_controls = to_block;
 }
 

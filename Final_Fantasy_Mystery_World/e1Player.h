@@ -13,17 +13,31 @@ class u1Label;
 
 
 struct Input {
-	bool pressing_A; // MOVE
-	bool pressing_W; // MOVE
-	bool pressing_S; // MOVE
-	bool pressing_D; // MOVE
-	bool pressing_I; // CHANGE DIRECTION
-	bool pressing_J; // CHANGE DIRECTION
-	bool pressing_K; // CHANGE DIRECTION
-	bool pressing_L; // CHANGE DIRECTION
-	bool pressing_G; // BASIC ATTACK
-	bool pressing_shift; // DIAGONALS
-	bool pressing_V; // SHOW SKILLS
+	bool pressing_A = false; // MOVE
+	bool pressing_W = false; // MOVE
+	bool pressing_S = false; // MOVE
+	bool pressing_D = false; // MOVE
+	bool pressing_I = false; // CHANGE DIRECTION
+	bool pressing_J = false; // CHANGE DIRECTION
+	bool pressing_K = false; // CHANGE DIRECTION
+	bool pressing_L = false; // CHANGE DIRECTION
+	bool pressing_G = false; // BASIC ATTACK
+	bool pressing_shift = false; // DIAGONALS
+	bool pressing_V = false; // SHOW SKILLS
+
+	void Reset() {
+		pressing_A = false;
+		pressing_W = false;
+		pressing_S = false;
+		pressing_D = false;
+		pressing_I = false;
+		pressing_J = false;
+		pressing_K = false;
+		pressing_L = false;
+		pressing_G = false;
+		pressing_shift = false;
+		pressing_V = false;
+	}
 };
 
 struct PlayerStats {
