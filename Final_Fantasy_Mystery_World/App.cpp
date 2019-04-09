@@ -105,7 +105,7 @@ bool Application::Awake()
 	pugi::xml_node		app_config;
 
 	bool ret = false;
-	config_name.assign("config.xml");
+	config_name.assign("assets/xml/config.xml");
 	config = LoadConfig(config_file, config_name.data());
 
 	if (config.empty() == false)
@@ -220,7 +220,6 @@ void Application::PrepareUpdate()
 
 	frame_time.Start();
 	ptimer.Start();
-	//LOG("dt is: %.6f", dt);
 }
 
 // ---------------------------------------------

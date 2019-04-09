@@ -227,7 +227,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Game\config.xml" />
+    <Xml Include="Game\assets\xml\config.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\entities\Enemy.tsx">

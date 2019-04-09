@@ -160,9 +160,7 @@
     <ClInclude Include="e1StaticEntity.h" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Game\config.xml">
-      <SubType>Designer</SubType>
-    </Xml>
+    <Xml Include="Game\assets\xml\config.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\entities\Enemy.tsx" />

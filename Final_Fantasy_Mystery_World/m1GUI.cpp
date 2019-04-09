@@ -38,7 +38,7 @@ bool m1GUI::Awake(pugi::xml_node &node)
 
 bool m1GUI::Start()
 {
-	atlas = App->tex->Load("gui/atlas.png");
+	atlas = App->tex->Load("assets/gui/atlas.png");
 	SDL_ShowCursor(SDL_DISABLE);
 
 	return true;
