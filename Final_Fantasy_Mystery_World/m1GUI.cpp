@@ -204,6 +204,15 @@ bool m1GUI::FocusFirstUIFocusable()
 	return false;
 }
 
+bool m1GUI::FocusButton(u1Button * button)
+{
+	if (button != nullptr) {
+		focus = button;
+		return true;
+	}
+	return false;
+}
+
 bool m1GUI::PostUpdate()
 {
 	BROFILER_CATEGORY("PostUpdateUIManager", Profiler::Color::Purple);
