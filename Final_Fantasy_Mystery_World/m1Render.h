@@ -49,7 +49,7 @@ public:
 	void SmoothCamera(iPoint playerpos);
 	void CenterCameraOnPlayer(iPoint playerpos);
 
-	void SetCamera(iPoint playerpos);
+
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
 

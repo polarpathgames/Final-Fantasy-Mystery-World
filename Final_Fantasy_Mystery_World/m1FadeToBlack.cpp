@@ -5,6 +5,8 @@
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
 #include "m1Window.h"
+#include "m1Scene.h"
+#include "e1Player.h"
 #include "p2Log.h"
 #include "App.h"
 #include "m1Map.h"
@@ -63,8 +65,11 @@ bool m1FadeToBlack::Update(float dt)
 	{
 		normalized = 1.0f - normalized;
 
-		if (now >= total_time)
+		if (now >= total_time) {
 			current_step = fade_step::none;
+			App->scene->player->BlockControls(false);
+		}
+			
 	} break;
 	}
 
@@ -131,6 +136,7 @@ bool m1FadeToBlack::FadeToBlack(float time)
 
 	if (current_step == fade_step::none)
 	{
+		App->scene->player->BlockControls(true);
 		current_step = fade_step::fade_to_black;
 		start_time = SDL_GetTicks();
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
