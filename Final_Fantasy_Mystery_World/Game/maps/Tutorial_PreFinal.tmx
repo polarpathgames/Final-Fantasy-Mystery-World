@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="47" nextobjectid="18">
+<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="47" nextobjectid="20">
  <tileset firstgid="1" name="tutorial_tileset" tilewidth="32" tileheight="16" tilecount="240" columns="16">
   <image source="tutorial_tileset.png" width="533" height="254"/>
   <terraintypes>
@@ -14491,8 +14491,9 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="42" name="Static animation objects" visible="0">
-  <object id="8" name="paper_falling" type="static_anim" x="255.542" y="161.542" width="192.458" height="174.458"/>
+ <objectgroup id="42" name="Static animation objects">
+  <object id="18" name="rock1" type="static" x="480" y="384" width="32" height="32"/>
+  <object id="19" name="rock1" type="static" x="336" y="368" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="39" name="entities">
   <properties>
