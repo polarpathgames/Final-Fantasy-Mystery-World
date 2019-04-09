@@ -49,23 +49,23 @@ bool m1Collision::PreUpdate()
 	// Test all collisions
 	Collider* c1 = nullptr;
 	Collider* c2 = nullptr;
-
-	for (std::vector<Collider*>::iterator item = colliders.begin(); item != colliders.end(); ++item)
+	
+	for (uint i = 0; i < colliders.size(); ++i)
 	{
 		// skip empty colliders
-		if (*item == nullptr)
+		if (colliders[i] == nullptr)
 			continue;
 
-		c1 = *item;
-
+		c1 = colliders[i];
+		
 		// avoid checking collisions already checked
-		for (std::vector<Collider*>::iterator item2 = item + 1; item2 != colliders.end(); ++item2)
+		for (uint k = i + 1; k < colliders.size(); ++k)
 		{
 			// skip empty colliders
-			if (*item2 == nullptr)
+			if (colliders[k] == nullptr)
 				continue;
 
-			c2 = *item2;
+			c2 = colliders[k];
 
 			if (c1->CheckCollision(c2->rect) == true)
 			{
@@ -136,13 +136,14 @@ void m1Collision::DebugDraw()
 // Called before quitting
 bool m1Collision::CleanUp()
 {
-	for (std::vector<Collider*>::iterator item = colliders.begin(); item != colliders.end(); ++item)
-	{
-		if (*item != nullptr)
-		{
-			delete *item;
-			*item = nullptr;
+	std::vector<Collider*>::iterator item = colliders.begin();
+	while (item != colliders.end()) {
+		if ((*item) != nullptr) {
+			delete (*item);
+			(*item) = nullptr;
+			item = colliders.erase(item);
 		}
+		else ++item;
 	}
 	colliders.clear();
 
