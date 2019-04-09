@@ -16,7 +16,7 @@ m1DialogSystem::~m1DialogSystem()
 bool m1DialogSystem::Start()
 {
 	bool ret = true;
-	LoadDialogue("Dialog.xml");
+	LoadDialogue("assets/xml/Dialog.xml");
 	return ret;
 }
 

@@ -25,9 +25,9 @@
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
 
-	LoadEntityData("entities/WarriorSpritesheet.tsx");
+	LoadEntityData("assets/entities/Warrior.tsx");
 
-	ground = App->tex->Load("textures/player_pos.png");
+	ground = App->tex->Load("assets/sprites/player_pos.png");
 
 	CenterPlayerInTile();
 

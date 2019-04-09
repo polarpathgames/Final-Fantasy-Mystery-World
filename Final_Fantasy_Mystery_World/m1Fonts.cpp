@@ -128,7 +128,6 @@ std::list<Font*>::const_iterator m1Fonts::FindPathFont(const char* name, const i
 			return item;
 		}
 	}
-	LOG("No Font found with name %s", name);
 	return fonts.end();
 }
 

@@ -27,7 +27,7 @@ m1Map::~m1Map()
 
 bool m1Map::Start()
 {
-	quad = App->tex->Load("maps/cuadradito.png");
+	quad = App->tex->Load("assets/maps/cuadradito.png");
 	return true;
 }
 
