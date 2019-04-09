@@ -1,0 +1,84 @@
+<!-- Config file for the game -->
+
+<config>
+  <app framerate_cap="60">
+    <title>Final Fantasy: Mystery World</title>
+    <organization>UPC</organization>
+    <version>0.3.1</version>
+  </app>
+
+  <renderer>
+    <vsync value="false"/>
+  </renderer>
+
+  <window>
+    <resolution width="1024" height="768" scale="3"/>
+    <fullscreen value="false"/>
+    <borderless value="false"/>
+    <resizable value="false"/>
+    <fullscreen_window value="false"/>
+  </window>
+
+  <fonts>
+    <path folder="fonts"/>
+    <default_font file="Final_Fantasy_font.ttf" size="32"/>
+    <font file="Final_Fantasy_font.ttf" size="48"/>
+    <font file="Final_Fantasy_font.ttf" size="64"/>
+    <font file="pixelmix.ttf" size="32"/>
+    <font file="pixelmix.ttf" size="48"/>
+    <font file="pixelmix.ttf" size="64"/>
+  </fonts>
+
+  <map>
+    <folder>maps/</folder>
+    <maps>
+      <tutorial_map>Tutorial_Movement.tmx</tutorial_map>
+      <lobby_map>Lobby.tmx</lobby_map>
+      <shop_map>Shop.tmx</shop_map>
+      <home_map>Home.tmx</home_map>
+
+      <tutorial>
+
+        <room>
+          <location>Tutorial_Movement.tmx</location>
+          <id num="8"></id>
+        </room>
+        <room>
+          <location>Tutorial_Diagonal.tmx</location>
+          <id num="2"></id>
+        </room>
+        <room>
+          <location>Tutorial_Attack.tmx</location>
+          <id num="3"></id>
+        </room>
+        <room>
+          <location>Tutorial_Attack2.tmx</location>
+          <id num="4"></id>
+        </room>
+        <room>
+          <location>Tutorial_Ability.tmx</location>
+          <id num="5"></id>
+        </room>
+        <room>
+          <location>Tutorial_PreFinal.tmx</location>
+          <id num="6"></id>
+        </room>
+        <room>
+          <location>Tutorial_Fountain.tmx</location>
+          <id num="7"></id>
+        </room>
+        <room>
+          <location>Tutorial_Final.tmx</location>
+          <id num="1"></id>
+        </room>
+        
+      </tutorial>
+      
+    </maps>
+
+  </map>
+
+</config>
+
+<!-- Config file for the game -->
+
