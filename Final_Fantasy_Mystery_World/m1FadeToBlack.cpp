@@ -67,7 +67,8 @@ bool m1FadeToBlack::Update(float dt)
 
 		if (now >= total_time) {
 			current_step = fade_step::none;
-			App->scene->player->BlockControls(false);
+			if (App->scene->player != nullptr)
+				App->scene->player->BlockControls(false);
 		}
 			
 	} break;
