@@ -135,6 +135,54 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.2F, frame.h*0.2F);
 		size.create(frame.w, frame.h);
 	}
+	else if (strcmp(name, "quest_tree1") == 0) {
+		static_type = e1StaticEntity::Type::QUEST_TREE1;
+		frame = { 817,0,34,74 };
+		SetPivot(frame.w*0.2F, frame.h*0.9F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "quest_tree2") == 0) {
+		static_type = e1StaticEntity::Type::QUEST_TREE2;
+		frame = { 853,0,32,80 };
+		SetPivot(frame.w*0.2F, frame.h*0.9F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "quest_tree3") == 0) {
+		static_type = e1StaticEntity::Type::QUEST_TREE3;
+		frame = { 886,0,32,72 };
+		SetPivot(frame.w*0.2F, frame.h*0.9F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "quest_tree4") == 0) {
+		static_type = e1StaticEntity::Type::QUEST_TREE4;
+		frame = { 922,0,32,89 }; 
+		SetPivot(frame.w*0.2F, frame.h*0.9F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "tree1") == 0) {
+		static_type = e1StaticEntity::Type::TREE1;
+		frame = { 128,10,31,54 };
+		SetPivot(frame.w*0.5F, frame.h*0.9F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "flower") == 0) {
+		static_type = e1StaticEntity::Type::FLOWER;
+		has_animation = true;
+		idle = new Animation();
+		current_animation = idle;
+		idle->PushBack({ 686,3,8,27 });
+		idle->PushBack({ 698,3,8,27 });
+		idle->PushBack({ 710,3,8,27 });
+		idle->PushBack({ 722,3,8,27 });
+		idle->PushBack({ 734,3,8,27 });
+		idle->PushBack({ 746,3,8,27 });
+		idle->PushBack({ 758,3,8,27 });
+		idle->PushBack({ 770,3,8,27 });
+		idle->speed = 2;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
 	}

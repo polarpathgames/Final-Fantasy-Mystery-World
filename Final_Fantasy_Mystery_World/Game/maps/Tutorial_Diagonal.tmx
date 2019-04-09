@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="45" nextobjectid="24">
+<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="45" nextobjectid="26">
  <properties>
   <property name="movement" type="int" value="0"/>
  </properties>
@@ -10347,7 +10347,7 @@
    <tile gid="5"/>
    <tile gid="5"/>
    <tile/>
-   <tile/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile/>
@@ -10390,46 +10390,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5"/>
-   <tile/>
-   <tile gid="5"/>
-   <tile gid="5"/>
-   <tile gid="5"/>
-   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile/>
@@ -10463,55 +10423,15 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile gid="5"/>
+   <tile/>
+   <tile gid="5"/>
+   <tile gid="5"/>
    <tile gid="5"/>
    <tile gid="5"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5"/>
-   <tile gid="5"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5"/>
-   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile/>
@@ -10551,6 +10471,7 @@
    <tile/>
    <tile/>
    <tile gid="5"/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile/>
@@ -10558,6 +10479,85 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="5"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5"/>
+   <tile gid="5"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5"/>
+   <tile gid="5"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5"/>
    <tile/>
    <tile gid="5"/>
    <tile/>
@@ -11316,9 +11316,11 @@
   <object id="17" name="plant1" type="static" x="512" y="288" width="32" height="32"/>
   <object id="18" name="plant1" type="static" x="400" y="256" width="32" height="32"/>
   <object id="19" name="rock1" type="static" x="320" y="272" width="32" height="32"/>
-  <object id="20" name="rock2" type="static" x="384" y="368" width="32" height="32"/>
+  <object id="20" name="rock2" type="static" x="320" y="336" width="32" height="32"/>
   <object id="21" name="red_plant" type="static" x="466.333" y="306.333" width="32" height="32"/>
   <object id="22" name="plant2" type="static" x="448" y="240" width="32" height="32"/>
   <object id="23" name="half_tree" type="static" x="385.167" y="288.167" width="46.8333" height="47.8333"/>
+  <object id="24" name="quest_tree3" type="static" x="464" y="272" width="95.1818" height="98.2121"/>
+  <object id="25" name="quest_tree1" type="static" x="304" y="192" width="95.1818" height="98.2121"/>
  </objectgroup>
 </map>

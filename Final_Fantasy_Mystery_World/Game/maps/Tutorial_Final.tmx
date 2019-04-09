@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="45" height="45" tilewidth="32" tileheight="16" infinite="0" nextlayerid="73" nextobjectid="15">
+<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="45" height="45" tilewidth="32" tileheight="16" infinite="0" nextlayerid="73" nextobjectid="49">
  <tileset firstgid="1" name="tutorial_tileset" tilewidth="32" tileheight="16" tilecount="240" columns="16">
   <image source="tutorial_tileset.png" width="533" height="254"/>
   <terraintypes>
@@ -6706,7 +6706,7 @@
    <tile gid="173"/>
    <tile/>
    <tile gid="205"/>
-   <tile gid="141"/>
+   <tile/>
    <tile/>
    <tile gid="205"/>
    <tile/>
@@ -6752,7 +6752,7 @@
    <tile gid="189"/>
    <tile/>
    <tile gid="221"/>
-   <tile gid="157"/>
+   <tile/>
    <tile/>
    <tile gid="221"/>
    <tile/>
@@ -6761,7 +6761,7 @@
    <tile/>
    <tile/>
    <tile gid="125"/>
-   <tile gid="141"/>
+   <tile/>
    <tile gid="173"/>
    <tile gid="189"/>
    <tile gid="221"/>
@@ -6798,7 +6798,7 @@
    <tile gid="205"/>
    <tile/>
    <tile/>
-   <tile gid="173"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -6806,8 +6806,8 @@
    <tile gid="205"/>
    <tile/>
    <tile/>
-   <tile gid="141"/>
-   <tile gid="157"/>
+   <tile/>
+   <tile/>
    <tile gid="189"/>
    <tile gid="205"/>
    <tile/>
@@ -6844,7 +6844,7 @@
    <tile gid="221"/>
    <tile/>
    <tile/>
-   <tile gid="189"/>
+   <tile/>
    <tile/>
    <tile gid="34"/>
    <tile gid="35"/>
@@ -6852,8 +6852,8 @@
    <tile gid="221"/>
    <tile/>
    <tile/>
-   <tile gid="157"/>
-   <tile gid="173"/>
+   <tile/>
+   <tile/>
    <tile gid="205"/>
    <tile gid="221"/>
    <tile/>
@@ -6890,16 +6890,16 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="205"/>
+   <tile/>
    <tile gid="33"/>
    <tile gid="36"/>
    <tile/>
    <tile gid="34"/>
    <tile gid="35"/>
-   <tile gid="197"/>
    <tile/>
-   <tile gid="173"/>
-   <tile gid="189"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="221"/>
    <tile/>
    <tile/>
@@ -6925,7 +6925,6 @@
    <tile/>
    <tile gid="203"/>
    <tile/>
-   <tile gid="197"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6936,16 +6935,17 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="221"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile gid="33"/>
    <tile gid="36"/>
    <tile/>
-   <tile gid="213"/>
    <tile/>
-   <tile gid="189"/>
-   <tile gid="205"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -6971,7 +6971,6 @@
    <tile/>
    <tile gid="219"/>
    <tile/>
-   <tile gid="213"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6990,8 +6989,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="205"/>
-   <tile gid="221"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -7036,7 +7036,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="221"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -7066,7 +7066,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="125"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7075,8 +7074,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="125"/>
-   <tile gid="141"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -7112,17 +7112,17 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="141"/>
    <tile/>
-   <tile/>
-   <tile gid="125"/>
    <tile/>
    <tile/>
    <tile gid="125"/>
-   <tile gid="125"/>
    <tile/>
-   <tile gid="141"/>
-   <tile gid="157"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -7149,26 +7149,26 @@
    <tile gid="125"/>
    <tile/>
    <tile/>
-   <tile gid="141"/>
    <tile/>
-   <tile gid="125"/>
-   <tile gid="197"/>
    <tile/>
-   <tile gid="141"/>
    <tile gid="125"/>
    <tile/>
    <tile/>
-   <tile gid="157"/>
-   <tile gid="125"/>
    <tile/>
-   <tile gid="141"/>
-   <tile gid="125"/>
    <tile/>
-   <tile gid="141"/>
-   <tile gid="141"/>
    <tile/>
-   <tile gid="157"/>
-   <tile gid="173"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -7195,26 +7195,26 @@
    <tile gid="141"/>
    <tile/>
    <tile/>
-   <tile gid="157"/>
-   <tile/>
-   <tile gid="141"/>
-   <tile gid="213"/>
-   <tile/>
-   <tile gid="157"/>
-   <tile gid="141"/>
    <tile/>
    <tile/>
-   <tile gid="173"/>
-   <tile gid="141"/>
    <tile/>
-   <tile gid="157"/>
-   <tile gid="141"/>
    <tile/>
-   <tile gid="157"/>
-   <tile gid="157"/>
    <tile/>
-   <tile gid="173"/>
-   <tile gid="189"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -7241,26 +7241,26 @@
    <tile gid="157"/>
    <tile/>
    <tile/>
-   <tile gid="173"/>
-   <tile/>
-   <tile gid="157"/>
    <tile/>
    <tile/>
-   <tile gid="173"/>
-   <tile gid="157"/>
    <tile/>
    <tile/>
-   <tile gid="189"/>
-   <tile gid="157"/>
    <tile/>
-   <tile gid="173"/>
-   <tile gid="157"/>
    <tile/>
-   <tile gid="173"/>
-   <tile gid="173"/>
    <tile/>
-   <tile gid="189"/>
-   <tile gid="205"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -7287,26 +7287,26 @@
    <tile gid="173"/>
    <tile/>
    <tile/>
-   <tile gid="189"/>
-   <tile/>
-   <tile gid="173"/>
    <tile/>
    <tile/>
-   <tile gid="189"/>
-   <tile gid="173"/>
    <tile/>
    <tile/>
-   <tile gid="205"/>
-   <tile gid="173"/>
    <tile/>
-   <tile gid="189"/>
-   <tile gid="173"/>
    <tile/>
-   <tile gid="189"/>
-   <tile gid="189"/>
    <tile/>
-   <tile gid="205"/>
-   <tile gid="221"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -7333,25 +7333,6 @@
    <tile gid="189"/>
    <tile/>
    <tile/>
-   <tile gid="205"/>
-   <tile/>
-   <tile gid="189"/>
-   <tile/>
-   <tile/>
-   <tile gid="205"/>
-   <tile gid="189"/>
-   <tile/>
-   <tile/>
-   <tile gid="221"/>
-   <tile gid="189"/>
-   <tile/>
-   <tile gid="205"/>
-   <tile gid="189"/>
-   <tile/>
-   <tile gid="205"/>
-   <tile gid="205"/>
-   <tile/>
-   <tile gid="221"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7368,15 +7349,26 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="221"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile gid="221"/>
-   <tile/>
-   <tile gid="205"/>
-   <tile/>
-   <tile/>
-   <tile gid="205"/>
    <tile/>
    <tile/>
    <tile gid="221"/>
@@ -7384,18 +7376,10 @@
    <tile gid="205"/>
    <tile/>
    <tile/>
-   <tile gid="221"/>
    <tile gid="205"/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="205"/>
-   <tile/>
-   <tile gid="221"/>
-   <tile gid="205"/>
-   <tile/>
-   <tile gid="221"/>
-   <tile gid="221"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7419,19 +7403,19 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="221"/>
-   <tile/>
-   <tile/>
-   <tile gid="221"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="221"/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="221"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -7439,6 +7423,22 @@
    <tile/>
    <tile/>
    <tile gid="221"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8167,7 +8167,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="72" name="Collider" width="45" height="45">
+ <layer id="72" name="Collider" width="45" height="45" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -9139,7 +9139,7 @@
    <tile/>
    <tile gid="5"/>
    <tile/>
-   <tile/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile/>
@@ -10200,8 +10200,28 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="42" name="Static animation objects" visible="0">
-  <object id="8" name="paper_falling" type="static_anim" x="255.542" y="161.542" width="192.458" height="174.458"/>
+ <objectgroup id="42" name="Static objects">
+  <object id="15" name="rock1" type="static" x="320" y="320" width="32" height="32"/>
+  <object id="16" name="red_plant" type="static" x="320" y="272" width="32" height="32"/>
+  <object id="17" name="red_plant" type="static" x="352" y="352" width="32" height="32"/>
+  <object id="18" name="red_plant" type="static" x="577.5" y="257.5" width="32" height="32"/>
+  <object id="19" name="plant1" type="static" x="496" y="240" width="32" height="32"/>
+  <object id="20" name="plant1" type="static" x="544" y="256" width="32" height="32"/>
+  <object id="25" name="quest_tree4" type="static" x="560" y="352" width="95.1818" height="98.2121"/>
+  <object id="27" name="quest_tree4" type="static" x="384" y="352" width="95.1818" height="98.2121"/>
+  <object id="28" name="quest_tree4" type="static" x="416" y="368" width="95.1818" height="98.2121"/>
+  <object id="29" name="quest_tree4" type="static" x="496" y="352" width="95.1818" height="98.2121"/>
+  <object id="30" name="quest_tree4" type="static" x="480" y="368" width="95.1818" height="98.2121"/>
+  <object id="31" name="quest_tree4" type="static" x="528" y="368" width="95.1818" height="98.2121"/>
+  <object id="32" name="quest_tree4" type="static" x="576" y="320" width="95.1818" height="98.2121"/>
+  <object id="33" name="quest_tree4" type="static" x="576" y="336" width="95.1818" height="98.2121"/>
+  <object id="34" name="quest_tree4" type="static" x="576" y="224" width="95.1818" height="98.2121"/>
+  <object id="35" name="quest_tree4" type="static" x="352" y="368" width="95.1818" height="98.2121"/>
+  <object id="38" name="quest_tree4" type="static" x="544" y="352" width="95.1818" height="98.2121"/>
+  <object id="39" name="quest_tree4" type="static" x="432" y="336" width="95.1818" height="98.2121"/>
+  <object id="40" name="quest_tree4" type="static" x="416" y="192" width="95.1818" height="98.2121"/>
+  <object id="43" name="quest_tree4" type="static" x="576" y="208" width="95.1818" height="98.2121"/>
+  <object id="45" name="quest_tree4" type="static" x="304" y="352" width="95.1818" height="98.2121"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="70" name="entities">
   <object id="5" name="player" type="nextB" x="656" y="336" width="15.9688" height="16.0156">
@@ -10209,22 +10229,15 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="10" name="girl" type="dynamic" x="336" y="320" width="15.9688" height="16.0156">
+  <object id="10" name="girl" type="npc" x="336" y="320" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="11" name="Enemie" type="dynamic" x="416" y="304" width="15.9688" height="16.0156">
-   <properties>
-    <property name="free_movement" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="12" name="Enemie" type="dynamic" x="416" y="336" width="15.9688" height="16.0156">
-   <properties>
-    <property name="free_movement" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="13" name="Enemie" type="dynamic" x="368" y="320" width="15.9688" height="16.0156">
+  <object id="21" name="Enemy Test" type="enemy" x="432" y="304" width="15.9688" height="16.0156"/>
+  <object id="22" name="Enemy Test" type="enemy" x="432" y="336" width="15.9688" height="16.0156"/>
+  <object id="23" name="Enemy Test" type="enemy" x="384" y="320" width="15.9688" height="16.0156"/>
+  <object id="37" name="player" type="default" x="544" y="320" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>

@@ -41,7 +41,7 @@
 
         <room>
           <location>Tutorial_Movement.tmx</location>
-          <id num="1"></id>
+          <id num="8"></id>
         </room>
         <room>
           <location>Tutorial_Diagonal.tmx</location>
@@ -69,7 +69,7 @@
         </room>
         <room>
           <location>Tutorial_Final.tmx</location>
-          <id num="8"></id>
+          <id num="1"></id>
         </room>
         
       </tutorial>
