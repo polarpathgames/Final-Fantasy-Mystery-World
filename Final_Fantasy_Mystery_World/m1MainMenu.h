@@ -51,6 +51,23 @@ private:
 	u1Label* credits_label = nullptr;
 	u1Image* credits_panel = nullptr;
 
+	u1Button* button_christian = nullptr;
+	u1Label* label_christian = nullptr;
+	u1Button* button_lluis = nullptr;
+	u1Label* label_lluis = nullptr;
+	u1Button* button_marc = nullptr;
+	u1Label* label_marc = nullptr;
+	u1Button* button_enric = nullptr;
+	u1Label* label_enric = nullptr;
+	u1Button* button_nadine = nullptr;
+	u1Label* label_nadine = nullptr;
+	u1Button* button_ivan = nullptr;
+	u1Label* label_ivan = nullptr;
+	u1Button* button_oriol = nullptr;
+	u1Label* label_oriol = nullptr;
+
+	u1Image* end_game_panel = nullptr;
+
 	u1Button* exit_button = nullptr;
 	u1Label* exit_text = nullptr;
 
@@ -59,6 +76,12 @@ private:
 
 	u1Button* button_github = nullptr;
 	u1Label* label_github = nullptr;
+
+	u1Button* button_twitter = nullptr;
+	u1Label* label_twitter = nullptr;
+	
+	u1Button* button_youtube = nullptr;
+	u1Label* label_youtube = nullptr;
 };
 
 #endif
