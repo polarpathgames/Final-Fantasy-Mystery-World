@@ -101,6 +101,10 @@ void e1Player::OnCollision(Collider * c2)
 		else
 			App->fade_to_black->FadeToBlack(Maps::LOBBY);
 	}
+	if (c2->type == COLLIDER_MENU_QUEST) {
+		App->easing_splines->CreateSpline(&position.x, position.x - 1, 100, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y + 1, 100, EASE);
+	}
 }
 
 void e1Player::CheckLobbyCollision(const float & dt, const Direction & dir)
