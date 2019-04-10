@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-up" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="27">
+<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-up" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="27"
  <properties>
   <property name="movement" type="int" value="1"/>
  </properties>
  <tileset firstgid="1" name="Shop" tilewidth="32" tileheight="16" tilecount="70" columns="7">
   <image source="Shop.png" trans="0011ff" width="245" height="172"/>
- </tileset>
- <tileset firstgid="71" name="lobby_tileset" tilewidth="32" tileheight="16" tilecount="324" columns="18">
-  <image source="lobby_tileset.png" width="582" height="290"/>
  </tileset>
  <layer id="1" name="Shop" width="40" height="40">
   <data>
@@ -1613,7 +1610,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="9" name="colliders" width="40" height="40">
+ <layer id="2" name="colliders" width="40" height="40">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -2401,11 +2398,11 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="161"/>
-   <tile gid="161"/>
-   <tile gid="161"/>
-   <tile gid="161"/>
-   <tile gid="161"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2441,12 +2438,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="161"/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="161"/>
-   <tile gid="161"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2481,12 +2478,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="161"/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="161"/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2521,12 +2518,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="161"/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="161"/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2561,12 +2558,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="161"/>
-   <tile gid="161"/>
-   <tile gid="161"/>
-   <tile gid="161"/>
-   <tile gid="161"/>
-   <tile gid="161"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3221,13 +3218,24 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="7" name="player">
+ <objectgroup id="3" name="player">
   <object id="17" name="player" type="in_shop" x="400" y="336" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
+  <object id="25" name="piece_shop" type="static" x="368" y="368" width="15.9688" height="16.0156">
+   <properties>
+    <property name="free_movement" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="26" name="seller" type="static" x="320" y="320" width="15.9688" height="16.0156">
+   <properties>
+    <property name="free_movement" type="bool" value="false"/>
+   </properties>
+  </object>
  </objectgroup>
+ <objectgroup id="4" name="leave">
  <objectgroup id="10" name="static_objects">
   <object id="26" name="shop_man" type="static" x="336" y="336" width="15.1818" height="15.1818"/>
  </objectgroup>
@@ -3244,4 +3252,5 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup id="5" name="Static objects"/>
 </map>

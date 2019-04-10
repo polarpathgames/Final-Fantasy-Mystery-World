@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="45" nextobjectid="14">
+<map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextobjectid="23">
  <properties>
   <property name="movement" type="int" value="0"/>
  </properties>
@@ -23,38 +23,7 @@
   <tile id="130" terrain=",,2,"/>
   <tile id="131" terrain="2,,,"/>
  </tileset>
- <tileset firstgid="241" name="WarriorSpritesheet" tilewidth="16" tileheight="32" spacing="2" margin="2" tilecount="72" columns="12">
-  <image source="../assets/sprites/WarriorSpritesheet.png" width="218" height="206"/>
-  <tile id="0">
-   <animation>
-    <frame tileid="0" duration="200"/>
-    <frame tileid="1" duration="200"/>
-    <frame tileid="2" duration="200"/>
-    <frame tileid="3" duration="200"/>
-    <frame tileid="4" duration="200"/>
-    <frame tileid="5" duration="200"/>
-    <frame tileid="6" duration="200"/>
-    <frame tileid="7" duration="200"/>
-    <frame tileid="8" duration="200"/>
-    <frame tileid="9" duration="200"/>
-    <frame tileid="10" duration="200"/>
-    <frame tileid="11" duration="200"/>
-    <frame tileid="12" duration="200"/>
-    <frame tileid="13" duration="200"/>
-    <frame tileid="14" duration="200"/>
-    <frame tileid="15" duration="200"/>
-    <frame tileid="16" duration="200"/>
-    <frame tileid="17" duration="200"/>
-    <frame tileid="18" duration="200"/>
-    <frame tileid="19" duration="200"/>
-    <frame tileid="20" duration="200"/>
-    <frame tileid="21" duration="200"/>
-    <frame tileid="22" duration="200"/>
-    <frame tileid="23" duration="200"/>
-   </animation>
-  </tile>
- </tileset>
- <layer id="29" name="Floor" width="40" height="40">
+ <layer name="Floor" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -1658,7 +1627,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="30" name="Wall" width="40" height="40">
+ <layer name="Wall" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -3262,7 +3231,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="31" name="Shadow" width="40" height="40">
+ <layer name="Shadow" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -4866,7 +4835,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="36" name="Door Close" width="40" height="40">
+ <layer name="Door Close" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -6470,7 +6439,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="40" name="Door Open" width="40" height="40" visible="0">
+ <layer name="Door Open" width="40" height="40" visible="0">
   <data>
    <tile/>
    <tile/>
@@ -8074,7 +8043,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="33" name="Enviorment" width="40" height="40">
+ <layer name="Enviorment" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -8697,7 +8666,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="196"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8738,7 +8707,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="212"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8936,7 +8905,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="197"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8977,7 +8946,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="213"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -9678,7 +9647,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="43" name="Collider" width="40" height="40">
+ <layer name="Collider" width="40" height="40">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -11286,10 +11255,16 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="42" name="Static animation objects" visible="0">
-  <object id="8" name="paper_falling" type="static_anim" x="255.542" y="161.542" width="192.458" height="174.458"/>
+ <objectgroup name="Static animation objects">
+  <object id="14" name="rock1" type="static" x="480" y="384" width="32" height="32"/>
+  <object id="17" name="plant1" type="static" x="416" y="416" width="32" height="32"/>
+  <object id="18" name="plant2" type="static" x="352" y="304" width="32" height="32"/>
+  <object id="19" name="plant1" type="static" x="496" y="272" width="32" height="32"/>
+  <object id="20" name="quest_tree3" type="static" x="448" y="192" width="95.1818" height="98.2121"/>
+  <object id="21" name="half_tree" type="static" x="336" y="240" width="46.8333" height="47.8333"/>
+  <object id="22" name="red_plant" type="static" x="324.167" y="340.5" width="32" height="32"/>
  </objectgroup>
- <objectgroup color="#ffff7f" id="39" name="entities">
+ <objectgroup color="#ffff7f" name="entities">
   <object id="9" name="Enemy Test" type="enemy" x="368" y="400" width="15.9688" height="16.0156"/>
   <object id="10" name="player" type="nextB" x="544" y="320" width="15.9688" height="16.0156">
    <properties>
@@ -11302,7 +11277,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="44" name="colliders">
+ <objectgroup name="colliders">
   <object id="12" name="room_collider" type="nextA" x="432" y="224" width="16.1904" height="15.1591">
    <properties>
     <property name="next_id" type="int" value="4"/>
