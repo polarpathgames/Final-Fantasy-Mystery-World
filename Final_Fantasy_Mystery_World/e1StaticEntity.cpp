@@ -101,7 +101,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	}
 	else if (strcmp(name, "shop") == 0) {
 		static_type = e1StaticEntity::Type::SHOP;
-		frame = { 291,11,106,95 };
+		frame = { 291,0,106,111 };
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 	}
@@ -162,7 +162,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	else if (strcmp(name, "tree1") == 0) {
 		static_type = e1StaticEntity::Type::TREE1;
 		frame = { 128,10,31,54 };
-		SetPivot(frame.w*0.5F, frame.h*0.9F);
+		SetPivot(frame.w*0.5F, frame.h*0.7F);
 		size.create(frame.w, frame.h);
 	}
 	else if (strcmp(name, "feather") == 0) {
