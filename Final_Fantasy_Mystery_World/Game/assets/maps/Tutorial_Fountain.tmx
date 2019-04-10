@@ -3,12 +3,6 @@
  <tileset firstgid="1" name="Fountain" tilewidth="32" tileheight="16" tilecount="276" columns="12">
   <image source="Fountain.png" width="385" height="368"/>
  </tileset>
- <tileset firstgid="277" name="Fountain" tilewidth="32" tileheight="16" tilecount="276" columns="12">
-  <image source="../../maps/Fountain.png" width="385" height="368"/>
- </tileset>
- <tileset firstgid="553" name="lobby_tileset" tilewidth="32" tileheight="16" tilecount="324" columns="18">
-  <image source="lobby_tileset.png" width="582" height="290"/>
- </tileset>
  <layer name="Floor" width="40" height="40">
   <data>
    <tile/>
@@ -4001,7 +3995,7 @@
    <tile gid="1"/>
    <tile/>
    <tile/>
-   <tile gid="643"/>
+   <tile gid="1"/>
    <tile gid="1"/>
    <tile/>
    <tile/>
@@ -4041,7 +4035,7 @@
    <tile gid="1"/>
    <tile/>
    <tile/>
-   <tile gid="643"/>
+   <tile gid="1"/>
    <tile gid="1"/>
    <tile/>
    <tile/>
