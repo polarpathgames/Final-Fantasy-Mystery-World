@@ -22,9 +22,9 @@ public:
 
 public:
 	bool is_option = false;
-
-private:
 	bool box_clicked = false;
+private:
+	
 	std::list<u1CheckBox*> options;
 
 	SDL_Rect hovered_rect = { 0,0,0,0 };
