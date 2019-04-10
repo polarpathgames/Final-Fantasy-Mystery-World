@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="50" nextobjectid="21">
+<map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextobjectid="21">
  <tileset firstgid="1" name="Fountain" tilewidth="32" tileheight="16" tilecount="276" columns="12">
   <image source="Fountain.png" width="385" height="368"/>
  </tileset>
- <layer id="47" name="Floor" width="40" height="40">
+ <tileset firstgid="277" name="Fountain" tilewidth="32" tileheight="16" tilecount="276" columns="12">
+  <image source="../../maps/Fountain.png" width="385" height="368"/>
+ </tileset>
+ <tileset firstgid="553" name="lobby_tileset" tilewidth="32" tileheight="16" tilecount="324" columns="18">
+  <image source="lobby_tileset.png" width="582" height="290"/>
+ </tileset>
+ <layer name="Floor" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -1607,7 +1613,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="48" name="Exit" width="40" height="40">
+ <layer name="Exit" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -3211,7 +3217,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="46" name="Collider" width="40" height="40">
+ <layer name="Collider" width="40" height="40">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -3995,8 +4001,8 @@
    <tile gid="1"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="643"/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -4035,8 +4041,8 @@
    <tile gid="1"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="643"/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -4819,10 +4825,10 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="49" name="Static objects">
+ <objectgroup name="Static objects">
   <object id="20" name="fountain" type="static" x="272" y="304" width="64" height="49.4688"/>
  </objectgroup>
- <objectgroup color="#ffff7f" id="39" name="entities">
+ <objectgroup color="#ffff7f" name="entities">
   <properties>
    <property name="next_id" type="int" value="7"/>
   </properties>
@@ -4832,7 +4838,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="45" name="colliders">
+ <objectgroup name="colliders">
   <object id="19" name="room_collider" type="lastA" x="304" y="400" width="16.1904" height="16.5606">
    <properties>
     <property name="next_id" type="int" value="6"/>
