@@ -490,9 +490,16 @@ void e1Player::PrepareBasicAttack()
 
 void e1Player::PrepareSpecialAttack1()
 {
-	type_attack = Attacks::SPECIAL_1;
-	state = State::ATTACKING;
-	current_animation = &BasicAttackDown;
+	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {
+		ReduceMana(stats.cost_mana_special_attack1);
+		type_attack = Attacks::SPECIAL_1;
+		state = State::ATTACKING;
+		current_animation = &BasicAttackDown;
+	}
+	else { // no enough mana so return to idle
+		state = State::IDLE;
+	}
+
 }
 	
 	

@@ -48,8 +48,11 @@ struct PlayerStats {
 	int attack_power = 500;
 	int xp = 0;
 	int mana = 100;
+	int cost_mana_special_attack1 = 50;
 
 };
+
+
 
 enum class Movement_Type {
 	InLobby, InQuest
@@ -114,6 +117,11 @@ public:
 	void DestroySkills(); //Skills Desappear
 
 	bool BlockControls(bool to_block);
+
+	inline void ReduceMana(const int &cost_mana) {
+		stats.mana -= cost_mana;
+	}
+
 
 public:
 
