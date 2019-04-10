@@ -58,6 +58,8 @@ public:
 	virtual bool Load(pugi::xml_node&) { return true; };
 	virtual bool Save(pugi::xml_node&) const { return true; };
 
+	void DebugDrawRangeInteractive();
+
 public:
 
 	e1StaticEntity(int x, int y, const char* name);

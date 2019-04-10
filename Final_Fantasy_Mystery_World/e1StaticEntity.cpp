@@ -218,7 +218,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
-		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x + 1,App->map->WorldToMap(position.x,position.y).y + 1};
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 		max_distance_to_interact = 2;
 	}
@@ -242,6 +242,8 @@ void e1StaticEntity::Draw(SDL_Texture * tex, float dt)
 {
 	if (has_animation) {
 		App->render->Blit(tex, position.x, position.y, &current_animation->GetCurrentFrame(dt), true);
+		App->render->Blit(App->scene->player->ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+
 	}
 	else {
 		App->render->Blit(tex, position.x, position.y, &frame, true);
@@ -260,16 +262,24 @@ bool e1StaticEntity::Update(float dt)
 
 	if (interacting_state == InteractingStates::WAITING_INTERACTION) {
 		iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x + App->scene->player->pivot.x, App->scene->player->position.y + App->scene->player->pivot.y);
-		if (actual_tile.DistanceManhattan(player_pos) <= max_distance_to_interact) {
+		if (actual_tile.DistanceTo(player_pos) <= max_distance_to_interact) {
 			if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
-				interacting_state = InteractingStates::INTERACTING;
+				//interacting_state = InteractingStates::INTERACTING;
+				LOG("INTERACTING");
 			}
 		}
 	}
 
-
+	DebugDrawRangeInteractive();
 
 
 	return true;
 }
+void e1StaticEntity::DebugDrawRangeInteractive()
+{
+	iPoint pos = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+	App->render->DrawCircle(pos.x + pivot.x, pos.y + pivot.y/2, 50, 255, 255, 255);
+
+}
+
 
