@@ -53,6 +53,9 @@ private:
 
 	u1Button* button_retun = nullptr;
 	u1Label* label_return = nullptr;
+
+	u1Button* button_github = nullptr;
+	u1Label* label_github = nullptr;
 };
 
 #endif

@@ -13,6 +13,8 @@
 #include "u1Image.h"
 #include "u1UI_Element.h"
 #include "Brofiler/Brofiler.h"
+#include <windows.h>
+
 
 m1MainMenu::m1MainMenu(){}
 
@@ -90,6 +92,9 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		DestroyCredits();
 	}
 
+	if (interaction == button_github) {
+		ShellExecuteA(NULL, "open", "https://github.com/polarpathgames", NULL, NULL, SW_SHOWNORMAL);
+	}
 	return ret;
 }
 
@@ -128,6 +133,10 @@ void m1MainMenu::CreateCredits()
 	button_retun = App->gui->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits_panel, false, false, true,true);
 	label_return = App->gui->AddLabel(0, 0, "Return",  button_retun, BLACK, FontType::FF32, nullptr,false);
 	label_return->SetPosRespectParent(CENTERED);
+
+	button_github = App->gui->AddButton(110, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits_panel, false, false, true, true);
+	label_github = App->gui->AddLabel(0, 0, "Github", button_github, BLACK, FontType::FF32, nullptr, false);
+	label_github->SetPosRespectParent(CENTERED);
 }
 
 void m1MainMenu::DestroyCredits()
