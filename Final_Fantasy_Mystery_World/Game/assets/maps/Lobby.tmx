@@ -6827,7 +6827,7 @@
   <object id="72" name="streetlight" type="static" x="352.103" y="481.506" width="63.7031" height="77.7969"/>
   <object id="74" name="tree3" type="static" x="192" y="128" width="79.9531" height="79.9219"/>
   <object id="75" name="tree1" type="static" x="80" y="96" width="79.9531" height="79.9219"/>
-  <object id="81" name="shop" type="static" x="48" y="208" width="112" height="128"/>
+  <object id="81" name="shop" type="static" x="48" y="208" width="143.333" height="128"/>
   <object id="82" name="house1" type="static" x="384" y="464" width="143.583" height="112.03"/>
   <object id="83" name="home" type="static" x="368" y="128" width="111.947" height="112.03"/>
   <object id="93" name="streetlight" type="static" x="368" y="144" width="63.7031" height="77.7969"/>
