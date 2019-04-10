@@ -31,6 +31,9 @@ public:
 	void CreateCredits();
 	void DestroyCredits();
 
+	void CreateEndGame();
+	void DestroyEndGame();
+
 private:
 
 	u1GUI* background = nullptr;

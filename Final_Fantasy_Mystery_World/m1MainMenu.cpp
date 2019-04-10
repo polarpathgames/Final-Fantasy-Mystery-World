@@ -144,3 +144,22 @@ void m1MainMenu::DestroyCredits()
 	App->gui->DeleteUIElement(credits_panel);
 }
 
+void m1MainMenu::CreateEndGame()
+{
+	credits_panel = App->gui->AddImage(0, 0, { 0, 768, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+	credits_panel->SetPosRespectParent(CENTERED);
+
+	button_retun = App->gui->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits_panel, false, false, true, true);
+	label_return = App->gui->AddLabel(0, 0, "Return", button_retun, BLACK, FontType::FF32, nullptr, false);
+	label_return->SetPosRespectParent(CENTERED);
+
+	button_github = App->gui->AddButton(110, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits_panel, false, false, true, true);
+	label_github = App->gui->AddLabel(0, 0, "Github", button_github, BLACK, FontType::FF32, nullptr, false);
+	label_github->SetPosRespectParent(CENTERED);
+}
+
+void m1MainMenu::DestroyEndGame()
+{
+	App->gui->DeleteUIElement(credits_panel);
+}
+
