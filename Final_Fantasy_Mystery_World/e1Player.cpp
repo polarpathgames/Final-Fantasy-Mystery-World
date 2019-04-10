@@ -227,6 +227,7 @@ void e1Player::ReadPlayerInput()
 	player_input.pressing_G = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
 	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
 	player_input.pressing_V = App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN;
+	player_input.pressing_F = App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN;
 
 	if (movement_type == Movement_Type::InLobby) {
 		if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT))
@@ -254,7 +255,7 @@ void e1Player::ReadPlayerInput()
 		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
 			state = State::WALKING;
 		}
-		else if (player_input.pressing_G) {
+		else if (player_input.pressing_G || player_input.pressing_F) {
 			state = State::BEFORE_ATTACK;
 		}
 		else if (movement_type == Movement_Type::InQuest){
@@ -442,6 +443,11 @@ void e1Player::ReadAttack()
 {
 	if (player_input.pressing_G) {
 		PrepareBasicAttack();
+		return;
+	}
+	if (player_input.pressing_F) {
+		PrepareSpecialAttack1();
+		return;
 	}
 }
 
@@ -481,6 +487,13 @@ void e1Player::PrepareBasicAttack()
 	}
 	ChangeAnimation(direction, state, type_attack);
 }
+
+void e1Player::PrepareSpecialAttack1()
+{
+	type_attack = Attacks::SPECIAL_1;
+	state = State::ATTACKING;
+	current_animation = &BasicAttackDown;
+}
 	
 	
 void e1Player::PerformActions(float dt)
@@ -512,6 +525,9 @@ void e1Player::PerformActions(float dt)
 		switch (type_attack) {
 		case Attacks::BASIC:
 			BasicAttack();
+			break;
+		case Attacks::SPECIAL_1:
+			SpecialAttack1();
 			break;
 		default:
 			LOG("There is no attack type...");
@@ -562,6 +578,62 @@ void e1Player::BasicAttack()
 		ChangeAnimation(direction, state);
 		time_attack = SDL_GetTicks();
 	}
+
+
+}
+
+void e1Player::SpecialAttack1()
+{
+	if (current_animation->Finished()) {
+		CheckSpecialAttack1Efects(stats.attack_power);
+		state = State::AFTER_ATTACK;
+		ChangeAnimation(direction, state);
+		time_attack = SDL_GetTicks();
+	}
+}
+
+void e1Player::CheckSpecialAttack1Efects(const int & damage)
+{
+	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+	std::vector<e1Entity*>::const_iterator item = entities.begin();
+
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr) {
+			if ((*item)->type == e1Entity::EntityType::ENEMY) {
+				bool has_succeeded = false;
+				if (actual_tile + iPoint{ -1,-1 } == (*item)->actual_tile) {
+					has_succeeded = true;
+				}
+				else if (actual_tile + iPoint{ -1,0 } == (*item)->actual_tile) {
+					has_succeeded = true;
+				}
+				else if (actual_tile + iPoint{ -1,1 } == (*item)->actual_tile) {
+					has_succeeded = true;
+				}
+				else if (actual_tile + iPoint{ 0,1 } == (*item)->actual_tile) {
+					has_succeeded = true;
+				}
+				else if (actual_tile + iPoint{ 1,1 } == (*item)->actual_tile) {
+					has_succeeded = true;
+				}
+				else if (actual_tile + iPoint{ 1,0 } == (*item)->actual_tile) {
+					has_succeeded = true;
+				}
+				else if (actual_tile + iPoint{ 1,-1 } == (*item)->actual_tile) {
+					has_succeeded = true;
+				}
+				else if (actual_tile + iPoint{ 0,-1 } == (*item)->actual_tile) {
+					has_succeeded = true;
+				}
+
+				if (has_succeeded) {
+					e1Enemy* enemy_attacked = (e1Enemy*)(*item);
+					enemy_attacked->GetHitted(damage);
+				}
+			}
+		}
+	}
+
 
 
 }
