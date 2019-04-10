@@ -786,3 +786,8 @@ StatesMenu m1Scene::GetMenuState()
 {
 	return menu_state;
 }
+
+void m1Scene::SetMenuState(const StatesMenu & menu)
+{
+	menu_state = menu;
+}

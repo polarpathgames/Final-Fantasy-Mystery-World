@@ -73,6 +73,7 @@ public:
 	void CreateControlsMenu();
 	void DestroyControlsMenu();
 	StatesMenu GetMenuState();
+	void SetMenuState(const StatesMenu &menu);
 public:
 
 	u1GUI* background = nullptr;

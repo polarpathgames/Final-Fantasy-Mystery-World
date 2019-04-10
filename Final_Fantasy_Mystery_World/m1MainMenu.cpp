@@ -70,6 +70,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		App->map->Enable();
 		App->scene->Enable();
 		App->map->ChangeMap(Maps::LOBBY);
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
 		ret = false;
 	}
 
