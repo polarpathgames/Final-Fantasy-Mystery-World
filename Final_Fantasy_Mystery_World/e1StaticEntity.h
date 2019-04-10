@@ -41,7 +41,6 @@ public:
 		FEATHER,
 		CANDLE,
 		PIECE_SHOP,
-		SELLER,
 		SHOP_MAN,
 
 		UNKNOWN

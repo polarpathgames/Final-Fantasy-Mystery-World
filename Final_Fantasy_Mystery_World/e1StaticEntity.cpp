@@ -175,18 +175,6 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.7F);
 		size.create(frame.w, frame.h);
 	}
-	else if (strcmp(name, "seller") == 0) {
-		static_type = e1StaticEntity::Type::SELLER;
-		has_animation = true;
-		idle = new Animation();
-		current_animation = idle;
-		idle->PushBack({ 686,82,32,32 });
-		idle->PushBack({ 718,82,32,32 });
-		idle->speed = 0.8F;
-		frame = idle->frames[0];
-		SetPivot(frame.w*0.5F, frame.h*0.8F);
-		size.create(frame.w, frame.h);
-	}
 	else if (strcmp(name, "feather") == 0) {
 		static_type = e1StaticEntity::Type::FEATHER;
 		has_animation = true;
@@ -219,12 +207,18 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
   }
-	else if (strcmp(name, "shop_man") == 0) {
+	else if (strcmp(name, "shop_man_place") == 0) {
 		static_type = e1StaticEntity::Type::SHOP_MAN;
-		frame = { 80,32,48,32 };
-		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
-		SetPivot(frame.w*0.35F, frame.h*0.8F);
+		has_animation = true;
+		idle = new Animation();
+		current_animation = idle;
+		idle->PushBack({ 686,82,32,32 });
+		idle->PushBack({ 718,82,32,32 });
+		idle->speed = 0.8F;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 		max_distance_to_interact = 2;
 	}
