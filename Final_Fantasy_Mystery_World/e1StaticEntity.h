@@ -40,6 +40,8 @@ public:
 		QUEST_TREE4,
 		FEATHER,
 		CANDLE,
+		PIECE_SHOP,
+		SELLER,
 
 		UNKNOWN
 	};

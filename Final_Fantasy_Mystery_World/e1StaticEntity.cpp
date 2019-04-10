@@ -155,7 +155,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	}
 	else if (strcmp(name, "quest_tree4") == 0) {
 		static_type = e1StaticEntity::Type::QUEST_TREE4;
-		frame = { 922,0,32,89 }; 
+		frame = { 954,0,32,89 }; 
 		SetPivot(frame.w*0.2F, frame.h*0.9F);
 		size.create(frame.w, frame.h);
 	}
@@ -163,6 +163,24 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		static_type = e1StaticEntity::Type::TREE1;
 		frame = { 128,10,31,54 };
 		SetPivot(frame.w*0.5F, frame.h*0.7F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "piece_shop") == 0) {
+		static_type = e1StaticEntity::Type::PIECE_SHOP;
+		frame = { 960,0,64,32 };
+		SetPivot(frame.w*0.5F, frame.h*0.7F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "seller") == 0) {
+		static_type = e1StaticEntity::Type::SELLER;
+		has_animation = true;
+		idle = new Animation();
+		current_animation = idle;
+		idle->PushBack({ 686,82,32,32 });
+		idle->PushBack({ 718,82,32,32 });
+		idle->speed = 0.8F;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 	}
 	else if (strcmp(name, "feather") == 0) {
