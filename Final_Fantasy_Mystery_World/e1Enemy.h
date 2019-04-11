@@ -42,6 +42,8 @@ public:
 
 	void GetHitted(const int &damage_taken);
 
+	void Drop();
+
 public:
 
 	EnemyStats stats;

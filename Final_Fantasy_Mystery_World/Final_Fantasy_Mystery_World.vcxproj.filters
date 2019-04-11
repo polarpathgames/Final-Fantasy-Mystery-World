@@ -225,6 +225,9 @@
     <ClInclude Include="p2Rooms.h">
       <Filter>Tools</Filter>
     </ClInclude>
+    <ClInclude Include="p2Random.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\assets\xml\config.xml" />

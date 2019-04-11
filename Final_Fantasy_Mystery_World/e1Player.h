@@ -46,6 +46,7 @@ struct PlayerStats {
 	int attack_power = 500;
 	int xp = 0;
 	int mana = 100;
+	int gold = 0;
 
 };
 

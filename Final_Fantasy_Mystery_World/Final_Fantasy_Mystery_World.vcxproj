@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2ChangeControls.h" />
+    <ClInclude Include="p2Random.h" />
     <ClInclude Include="p2Rooms.h" />
     <ClInclude Include="u1CheckBox.h" />
     <ClInclude Include="e1DynamicEntity.h" />

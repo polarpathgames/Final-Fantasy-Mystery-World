@@ -5,6 +5,7 @@
 #include "m1EntityManager.h"
 #include "m1Map.h"
 #include "m1Input.h"
+#include "p2Log.h"
 #include "m1GUI.h"
 #include "m1Map.h"
 #include "u1Button.h"
@@ -47,6 +48,8 @@ bool m1MainMenu::Update(float dt)
 bool m1MainMenu::PostUpdate()
 {
 	BROFILER_CATEGORY("PostUpdateMainMenu", Profiler::Color::Purple);
+
+
 	return true;
 }
 

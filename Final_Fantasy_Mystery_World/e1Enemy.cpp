@@ -366,7 +366,15 @@ void e1Enemy::GetHitted(const int & damage_taken)
 	stats.live -= damage_taken;
 
 	if (stats.live <= 0) {
+		Drop();
 		App->entity_manager->DeleteEntity(this);
 	}
+
+}
+
+void e1Enemy::Drop()
+{
+
+
 
 }

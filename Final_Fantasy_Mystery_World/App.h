@@ -8,6 +8,7 @@
 #include "PugiXml\src\pugixml.hpp"
 #include <list>
 #include <string>
+#include "p2Random.h"
 
 // Modules
 class m1Window;
@@ -119,6 +120,8 @@ public:
 	m1Collision*		collision = nullptr;
 	m1EasingSplines*	easing_splines = nullptr;
 	m1DialogSystem*     dialog = nullptr;
+
+	Random random;
 
 private:
 
