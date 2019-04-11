@@ -69,6 +69,7 @@ public:
 	SDL_Texture* PrintWrapped(const char* text, SDL_Color color, FontType type, Uint32 wrap_length);
 	bool ChangeFontSize(const int& size);
 	bool CalcSize(const char* text, int& width, int& height, FontType font);
+	bool CalcSizeWrapped(const char* text, int& width, int& height, FontType font, const uint32 wrap);
 
 public:
 

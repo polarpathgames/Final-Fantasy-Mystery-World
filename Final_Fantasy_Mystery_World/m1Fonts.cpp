@@ -189,3 +189,18 @@ bool m1Fonts::CalcSize(const char* text, int& width, int& height, FontType font_
 
 	return ret;
 }
+
+bool m1Fonts::CalcSizeWrapped(const char* text, int& width, int& height, FontType font_type, const uint32 wrap)
+{
+	bool ret = false;
+	std::list<Font*>::const_iterator item;
+	if (TTF_SizeText(((item = FindIdFont(font_type)) != fonts.end()) ? (*item)->font : default->font, text, &width, &height) != 0)
+		LOG("Unable to calc size of text surface! SDL_ttf Error: %s\n", TTF_GetError());
+	else {
+		ret = true;
+		height = width / wrap * height;
+		width = wrap;
+	}
+
+	return ret;
+}
