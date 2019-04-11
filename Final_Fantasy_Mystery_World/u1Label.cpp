@@ -5,10 +5,13 @@
 #include "m1Render.h"
 #include "p2Log.h"
 
-u1Label::u1Label(const int & pos_x, const int & pos_y, const char * txt, const Color & c, FontType font, u1GUI * parent, bool interactable, bool draggable, uint32 wrap_length, bool focus)
-	:u1GUI(LABEL, pos_x, pos_y, parent, { 0,0,0,0 }, true, false, false, focus)
+u1Label::u1Label(const int & pos_x, const int & pos_y, const char * txt, const Color & c, FontType font, u1GUI * parent,
+	bool interactable, bool draggable, uint32 wrap_length, bool focus,
+	bool has_background, const SDL_Color& bg_color)
+	:u1GUI(LABEL, pos_x, pos_y, parent, { 0,0,0,0 }, true, false, false, focus),
+
+	id_font(font), has_background(has_background), background_color(bg_color)
 {
-	id_font = font;
 	text.assign(txt);
 
 	SetColor(c);
@@ -28,6 +31,10 @@ u1Label::~u1Label()
 
 void u1Label::InnerDraw()
 {
+	if (has_background) {
+		App->render->DrawQuad({ draw_offset.x,draw_offset.y,section.w,section.h }, background_color.r, background_color.g, background_color.b, background_color.a, true, false);
+	}
+
 	App->render->Blit(texture, draw_offset.x, draw_offset.y, NULL, false, SDL_FLIP_NONE, 0.0F);
 }
 
@@ -39,7 +46,7 @@ void u1Label::SetText(const char * txt)
 	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
 }
 
-void u1Label::SetColor(Color c)
+void u1Label::SetColor(const Color& c)
 {
 	switch (c) {
 	case RED:

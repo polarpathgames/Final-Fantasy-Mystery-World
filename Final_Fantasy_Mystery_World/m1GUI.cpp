@@ -292,9 +292,9 @@ u1Button* m1GUI::AddButton(const int &x, const int &y, const SDL_Rect &idle, con
 	return button;
 }
 
-u1Label* m1GUI::AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* listener = nullptr, bool focus = false, const uint32 & wrap)
+u1Label* m1GUI::AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* listener = nullptr, bool focus = false, const uint32 & wrap, bool has_bg, const SDL_Color& bg_color)
 {
-	u1Label* label = new u1Label(x, y, text, color, font, parent, false, false, wrap, false);
+	u1Label* label = new u1Label(x, y, text, color, font, parent, false, false, wrap, false, has_bg, bg_color);
 
 	if (listener != nullptr) {
 		label->AddListener(listener);
