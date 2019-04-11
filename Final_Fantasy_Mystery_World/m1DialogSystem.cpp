@@ -114,8 +114,6 @@ void m1DialogSystem::BlitDialog()
 		lb = App->gui->AddLabel(0 + 15, space += 30, currentNode->dialogOptions[i]->text.c_str(), App->gui->screen, WHITE, FontType::FF48, this, false);
 		player_text.push_back(lb);
 	}
-	
-
 }
 
 void m1DialogSystem::DeleteText()
