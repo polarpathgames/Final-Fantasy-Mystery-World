@@ -264,12 +264,19 @@ bool e1StaticEntity::Update(float dt)
 		iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
 		if (actual_tile.DistanceManhattan(player_pos) <= max_distance_to_interact) {
 			if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
-				//interacting_state = InteractingStates::INTERACTING;
-				LOG("INTERACTING");
+				interacting_state = InteractingStates::INTERACTING;
 			}
 		}
 	}
+	if (interacting_state == InteractingStates::INTERACTING) {
+		switch (static_type) {
+		case e1StaticEntity::Type::SHOP_MAN:
 
+			break;
+		default:
+			break;
+		}
+	}
 	DebugDrawRangeInteractive();
 
 
