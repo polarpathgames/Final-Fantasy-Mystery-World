@@ -614,16 +614,27 @@ void m1Scene::CreateDebugScreen()
 	debug_screen = App->gui->AddImage(0, 0, App->gui->screen->section, nullptr, App->gui->screen, false, false, false, false);
 
 	SDL_Color debug_background = { 0,0,0,150 };
-	project_name = App->gui->AddLabel(0, 0, App->GetTitle(), debug_screen, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
-	version = App->gui->AddLabel(0, project_name->section.h, std::string(std::string("Version: ") + App->GetVersion()).data(), debug_screen, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
-	fps = App->gui->AddLabel(0, version->position.y + version->section.h, "fps: ", project_name, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
+	int debug_wrap_section = App->gui->screen->section.w * 0.3;
 
-	map = App->gui->AddLabel(0, fps->position.y + fps->section.h*2, "map:\nnumber of layers: %i\nnumber of tilesets: %i\nmap id: %i\nwidth: %i | height: %i\ntile width: %i | tile height: %i\ntiles drawn: %i",
-		debug_screen, WHITE, FontType::PMIX16, nullptr, false, App->gui->screen->section.w*0.3, true, debug_background);
+	project_name_label = App->gui->AddLabel(0, 0, App->GetTitle(), debug_screen, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
+	version_label = App->gui->AddLabel(0, project_name_label->section.h, std::string(std::string("Version: ") + App->GetVersion()).data(), debug_screen, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
+	fps_label = App->gui->AddLabel(0, version_label->position.y + version_label->section.h, "fps: ", project_name_label, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
 
-	player_label = App->gui->AddLabel(0, map->position.y + map->section.h * 2, "player:\nposition: %i\ntile: %i\n movement type: %i\ndirection: %i\n state: %i",
-		debug_screen, WHITE, FontType::PMIX16, nullptr, false, App->gui->screen->section.w*0.3, true, debug_background);
+	textures_label = App->gui->AddLabel(0, fps_label->position.y + fps_label->section.h * 2, "textures:\nnumber of textures: %i",
+		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
+	map_label = App->gui->AddLabel(0, textures_label->position.y + textures_label->section.h, "map:\nnumber of layers: %i\nnumber of tilesets: %i\nmap id: %i\nwidth: %i | height: %i\ntile width: %i | tile height: %i\ntiles drawn: %i",
+		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
+
+	entities_label = App->gui->AddLabel(0, map_label->position.y + map_label->section.h, "entities:\nnumber of entities: %i\ntextures used: %i",
+		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
+
+	player_label = App->gui->AddLabel(0, entities_label->position.y + entities_label->section.h, "player:\nposition: %i\ntile: %i\n movement type: %i\ndirection: %i\n state: %i",
+		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
+
+	mouse_label = App->gui->AddLabel(0, 0, "mouse:\nposition: (%i, %i)\ntile: (%i, %i)\nUI Element selected:\nposition: (%i, %i)\nsection: (%i, %i)\nnumber of childs: %i\ntype: %i",
+		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
+	mouse_label->SetPosRespectParent(Position_Type::RIGHT_UP);
 }
 
 void m1Scene::DestroyDebugScreen()
@@ -631,9 +642,15 @@ void m1Scene::DestroyDebugScreen()
 	App->gui->DeleteUIElement(debug_screen);
 
 	debug_screen = nullptr;
-	project_name = nullptr;
-	fps = nullptr;
-	mouse = nullptr;
+
+	project_name_label = nullptr;
+	version_label = nullptr;
+	fps_label = nullptr;
+	textures_label = nullptr;
+	map_label = nullptr;
+	player_label = nullptr;
+	mouse_label = nullptr;
+	entities_label = nullptr;
 }
 
 void m1Scene::UpdateDebugScreen()
@@ -641,15 +658,17 @@ void m1Scene::UpdateDebugScreen()
 	BROFILER_CATEGORY("UpdateDebugScreen", Profiler::Color::Orange);
 
 	if (debug_screen != nullptr) {
-		fps->SetText(std::string("fps: " + std::to_string(App->GetFps())).data());
+		fps_label->SetText(std::string("fps: " + std::to_string(App->GetFps())).data());
 
-		map->SetTextWrapped(std::string("map:\nnumber of layers: " + std::to_string(App->map->data.layers.size()) + "\nnumber of tilesets: " + std::to_string(App->map->data.tilesets.size()) +
+		map_label->SetTextWrapped(std::string("map:\nnumber of layers: " + std::to_string(App->map->data.layers.size()) + "\nnumber of tilesets: " + std::to_string(App->map->data.tilesets.size()) +
 			"\nmap id: " + std::to_string((int)App->map->actual_map) + "\nwidth: " + std::to_string(App->map->data.width) + " | height: " + std::to_string(App->map->data.height) + "\ntile width: "
 			+ std::to_string(App->map->data.tile_width) + "\ntile height: " + std::to_string(App->map->data.tile_height) + "\ntiles drawn: " + std::to_string(App->map->last_tiles_drawn)).data());
 
-		player_label->SetTextWrapped(std::string("player:\nposition: (" + std::to_string(player->position.x) + ", " + std::to_string(player->position.y) +
-			")\ntile: (" + std::to_string(player->actual_tile.x) + ", " + std::to_string(player->actual_tile.y) + ")\nmovement type: " + std::to_string((int)player->movement_type) +
-			"\ndirection: " + std::to_string((int)player->direction) + "\nstate: " + std::to_string((int)player->state)).data());
+		if (player != nullptr) {
+			player_label->SetTextWrapped(std::string("player:\nposition: (" + std::to_string(player->position.x) + ", " + std::to_string(player->position.y) +
+				")\ntile: (" + std::to_string(player->actual_tile.x) + ", " + std::to_string(player->actual_tile.y) + ")\nmovement type: " + std::to_string((int)player->movement_type) +
+				"\ndirection: " + std::to_string((int)player->direction) + "\nstate: " + std::to_string((int)player->state)).data());
+		}
 	}
 }
 
