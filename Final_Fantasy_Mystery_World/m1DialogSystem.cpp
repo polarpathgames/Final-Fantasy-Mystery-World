@@ -211,8 +211,10 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 					if (dialogTrees[treeid]->karma == dialogTrees[treeid]->dialogNodes[i]->karma)
 					{
 						currentNode = dialogTrees[treeid]->dialogNodes[i]; //This node is the bad response from the npc
+
 					}
 				   }
+				   dialogTrees[treeid]->karma++;
 			   }
 			   end_dial = true;
 		    }
