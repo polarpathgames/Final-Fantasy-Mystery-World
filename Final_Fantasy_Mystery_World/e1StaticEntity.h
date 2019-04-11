@@ -59,7 +59,7 @@ public:
 	virtual bool Save(pugi::xml_node&) const { return true; };
 
 	void DebugDrawRangeInteractive();
-
+	InteractingStates GetState();
 public:
 
 	e1StaticEntity(int x, int y, const char* name);

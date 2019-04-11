@@ -9,6 +9,7 @@
 
 class u1Label;
 class u1Image;
+class u1Button;
 
 class DialogOption
 {
@@ -50,6 +51,7 @@ public:
 	bool Start();
 	bool Update(float dt);
 	bool CleanUp();
+	bool Interact(u1GUI* element);
 
 	void DeleteText();
 	bool PerformDialogue(int tr_id);
@@ -60,7 +62,7 @@ public:
 	bool CompareKarma();
 	void CheckForKarma(DialogNode* karmaNode);
 	int input = 7;
-	bool firstupdate = true, waiting_input = false;
+	bool firstupdate = true, waiting_input = false, end_dial = false;
 private:
 	std::vector <DialogTree*> dialogTrees;
 	DialogNode* currentNode = nullptr;
@@ -70,6 +72,8 @@ private:
 	
 	u1Label* npc_text = nullptr;
 	std::vector <u1Label*> player_text;
+	std::vector <u1Button*> text_button;
+
 	u1Image* dialog_panel = nullptr;
 };
 
