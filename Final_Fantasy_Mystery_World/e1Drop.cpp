@@ -4,6 +4,7 @@
 #include "e1Player.h"
 #include "m1EntityManager.h"
 #include "p2log.h"
+#include "m1Map.h"
 
 e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity(x,y,name)
 {
@@ -12,6 +13,11 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		actual_tile = { x,y };
 		drop_type = DropsType::GOLD_DROP;
 		this->gold = gold;
+		frame = { 80,32,48,32 };
+		SetPivot(frame.w*0.35F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+
 	}
 }
 
@@ -25,7 +31,6 @@ bool e1Drop::PreUpdate()
 		switch (drop_type) {
 		case DropsType::GOLD_DROP:
 			App->scene->player->GiveGold(gold);
-			LOG("PLAYER GOLD: %i", App->scene->player->stats.gold);
 			to_delete = true;
 			break;
 		}
