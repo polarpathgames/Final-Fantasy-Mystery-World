@@ -419,12 +419,14 @@ void m1Scene::CreateOptionsMenu()
 	checkbox_fps->is_option = true;
 	checkbox_fps->draggable = false;
 	checkbox_fps->drawable = true;
+	checkbox_fps->box_clicked = App->capactivated;
 	checkbox_fps->interactable = true;
 	checkbox_fps->AddListener(this);
 
 	label_fullscreen = App->gui->AddLabel(491, 503, "Fullscreen", options_panel, BLACK, FontType::FF48, nullptr, false);
 	checkbox_fullscreen = App->gui->AddCheckBox(760, 503, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
 	checkbox_fullscreen->is_option = true;
+	checkbox_fullscreen->box_clicked = App->win->fullscreen;
 	checkbox_fullscreen->draggable = false;
 	checkbox_fullscreen->drawable = true;
 	checkbox_fullscreen->interactable = true;
@@ -785,4 +787,9 @@ bool m1Scene::Interact(u1GUI* interact)
 StatesMenu m1Scene::GetMenuState()
 {
 	return menu_state;
+}
+
+void m1Scene::SetMenuState(const StatesMenu & menu)
+{
+	menu_state = menu;
 }

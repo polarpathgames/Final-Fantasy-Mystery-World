@@ -73,6 +73,7 @@ public:
 	void CreateControlsMenu();
 	void DestroyControlsMenu();
 	StatesMenu GetMenuState();
+	void SetMenuState(const StatesMenu &menu);
 public:
 
 	u1GUI* background = nullptr;
@@ -84,10 +85,10 @@ public:
 	u1Slider* slider_fx_volume = nullptr;
 
 	e1Player* player = nullptr;
-
+	ChangeControls * control_to_change = nullptr;
 private:
 
-	ChangeControls * control_to_change = nullptr;
+
 	StatesMenu menu_state = StatesMenu::NO_MENU;
 
 	//pause

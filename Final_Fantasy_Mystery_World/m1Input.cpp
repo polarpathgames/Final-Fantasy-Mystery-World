@@ -167,7 +167,15 @@ void m1Input::UpdateEvents(SDL_Event &event)
 				controller_buttons[event.cbutton.button] = KEY_DOWN;
 			}
 			break;
+		case SDL_JOYDEVICEADDED:
+			if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) < 0)
+			{
+				LOG("GamePad controller could not initialize! SDL_Error: %s\n", SDL_GetError());
+			}
 
+			Controller = SDL_GameControllerOpen(0);
+
+			break;
 		case SDL_CONTROLLERBUTTONUP:
 			if (event.cbutton.which == 0)
 				controller_buttons[event.cbutton.button] = KEY_UP;
