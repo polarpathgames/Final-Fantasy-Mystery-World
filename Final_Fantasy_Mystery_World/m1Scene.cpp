@@ -132,6 +132,9 @@ bool m1Scene::Update(float dt)
 				player->BlockControls(false);
 			}
 		}
+
+		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
+			CreateGoToQuestMenu();
 		break;
 	case StatesMenu::INVENTORY_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
@@ -285,8 +288,8 @@ void m1Scene::CreateGoToQuestMenu()
 {
 	go_to_quest_panel = App->gui->AddImage(100, 70, { 1878, 1536, 170, 101 }, this, App->gui->screen, true, false, false, false);
 
-	go_to_quest_label = App->gui->AddLabel(50, -5, "Go to the Quest", go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
-	go_to_quest_button = App->gui->AddButton(30, 0, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, go_to_quest_panel, false, false, true, true);
+	go_to_quest_label = App->gui->AddLabel(50, -5, "Tutorial", go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
+	go_to_quest_button = App->gui->AddButton(30, 0, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, this, go_to_quest_panel, false, false, true, true);
 	go_to_quest_button->AddListener(this);
 
 	cancel_quest_label = App->gui->AddLabel(50, 38, "Cancel", go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
@@ -299,6 +302,7 @@ void m1Scene::CreateGoToQuestMenu()
 
 void m1Scene::DestroyGoToQuestMenu()
 {
+
 	App->gui->DeleteUIElement(go_to_quest_panel);
 	menu_state = StatesMenu::NO_MENU;
 }

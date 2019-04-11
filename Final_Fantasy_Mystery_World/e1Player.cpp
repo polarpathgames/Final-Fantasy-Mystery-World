@@ -88,7 +88,6 @@ bool e1Player::CleanUp()
 
 void e1Player::OnCollision(Collider * c2)
 {
-	
 	if (c2->type == COLLIDER_SHOP) {
 		if (App->map->actual_map==Maps::LOBBY)
 			App->fade_to_black->FadeToBlack(Maps::SHOP);
@@ -104,9 +103,13 @@ void e1Player::OnCollision(Collider * c2)
 	if (c2->type == COLLIDER_MENU_QUEST) {
 		App->easing_splines->CreateSpline(&position.x, position.x - 1, 100, EASE);
 		App->easing_splines->CreateSpline(&position.y, position.y + 1, 100, EASE);
-		App->scene->CreateGoToQuestMenu();
-	}
 
+		if (first_collision == true)
+		{
+			App->scene->CreateGoToQuestMenu();
+			first_collision = false;
+		}
+	}
 }
 
 void e1Player::CheckLobbyCollision(const float & dt, const Direction & dir)
