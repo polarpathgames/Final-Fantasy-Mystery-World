@@ -246,6 +246,7 @@ private:
 	u1Label* version = nullptr;
 	u1Label* fps = nullptr;
 	u1Label* map = nullptr;
+	u1Label* player_label = nullptr;
 	u1Label* mouse = nullptr;
 
 };

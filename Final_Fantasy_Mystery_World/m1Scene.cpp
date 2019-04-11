@@ -618,8 +618,12 @@ void m1Scene::CreateDebugScreen()
 	version = App->gui->AddLabel(0, project_name->section.h, std::string(std::string("Version: ") + App->GetVersion()).data(), debug_screen, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
 	fps = App->gui->AddLabel(0, version->position.y + version->section.h, "fps: ", project_name, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
 
-	map = App->gui->AddLabel(0, fps->position.y + fps->section.h*2, "map:\nnumber of layers: %i\nnumber of tilesets: %i\nmap id: %i\nwidth: %i | height: %i\ntile width: %i | tile height: %i\ntiles drawn: %i"
-		, debug_screen, WHITE, FontType::PMIX16, nullptr, false, App->gui->screen->section.w*0.3, true, debug_background);
+	map = App->gui->AddLabel(0, fps->position.y + fps->section.h*2, "map:\nnumber of layers: %i\nnumber of tilesets: %i\nmap id: %i\nwidth: %i | height: %i\ntile width: %i | tile height: %i\ntiles drawn: %i",
+		debug_screen, WHITE, FontType::PMIX16, nullptr, false, App->gui->screen->section.w*0.3, true, debug_background);
+
+	player_label = App->gui->AddLabel(0, map->position.y + map->section.h * 2, "player:\nposition: %i\ntile: %i\n movement type: %i\ndirection: %i\n state: %i",
+		debug_screen, WHITE, FontType::PMIX16, nullptr, false, App->gui->screen->section.w*0.3, true, debug_background);
+
 }
 
 void m1Scene::DestroyDebugScreen()
@@ -636,13 +640,17 @@ void m1Scene::UpdateDebugScreen()
 {
 	BROFILER_CATEGORY("UpdateDebugScreen", Profiler::Color::Orange);
 
-	fps->SetText(std::string("fps: " + std::to_string(App->GetFps())).data());
+	if (debug_screen != nullptr) {
+		fps->SetText(std::string("fps: " + std::to_string(App->GetFps())).data());
 
-	map->SetTextWrapped(std::string("map:\nnumber of layers: " + std::to_string(App->map->data.layers.size()) + "\nnumber of tilesets: " + std::to_string(App->map->data.tilesets.size()) +
-		"\nmap id: " + std::to_string((int)App->map->actual_map) + "\nwidth: " + std::to_string(App->map->data.width) + " | height: " + std::to_string(App->map->data.height) + "\ntile width: "
-		+ std::to_string(App->map->data.tile_width) + "\ntile height: " + std::to_string(App->map->data.tile_height) + "\ntiles drawn: " + std::to_string(App->map->last_tiles_drawn)).data());
+		map->SetTextWrapped(std::string("map:\nnumber of layers: " + std::to_string(App->map->data.layers.size()) + "\nnumber of tilesets: " + std::to_string(App->map->data.tilesets.size()) +
+			"\nmap id: " + std::to_string((int)App->map->actual_map) + "\nwidth: " + std::to_string(App->map->data.width) + " | height: " + std::to_string(App->map->data.height) + "\ntile width: "
+			+ std::to_string(App->map->data.tile_width) + "\ntile height: " + std::to_string(App->map->data.tile_height) + "\ntiles drawn: " + std::to_string(App->map->last_tiles_drawn)).data());
 
-
+		player_label->SetTextWrapped(std::string("player:\nposition: (" + std::to_string(player->position.x) + ", " + std::to_string(player->position.y) +
+			")\ntile: (" + std::to_string(player->actual_tile.x) + ", " + std::to_string(player->actual_tile.y) + ")\nmovement type: " + std::to_string((int)player->movement_type) +
+			"\ndirection: " + std::to_string((int)player->direction) + "\nstate: " + std::to_string((int)player->state)).data());
+	}
 }
 
 bool m1Scene::Interact(u1GUI* interact)
@@ -666,6 +674,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->map->Disable();
 			active = false; //desactivates main menu
 			App->main_menu->Enable();
+			DestroyDebugScreen();
 			ret = false;
 			menu_state = StatesMenu::NO_MENU;
 		}
