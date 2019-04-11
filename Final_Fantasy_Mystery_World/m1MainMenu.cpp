@@ -99,6 +99,32 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		CreateMainMenu();
 		DestroyCredits();
 	}
+	
+	if (interaction == button_continue_lobby) {
+		
+		App->gui->DeleteAllUIElements();
+		App->entity_manager->Enable();
+		App->map->Enable();
+		App->scene->Enable();
+		App->fade_to_black->FadeToBlack(Maps::HOME);
+		//App->map->ChangeMap(Maps::HOME);
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
+		ret = false;
+		DestroyEndGame();
+	}
+	if (interaction == button_return_main) {
+		
+		App->gui->DeleteAllUIElements();
+		App->entity_manager->Disable();
+		App->map->Disable();
+		active = false; 
+		App->main_menu->Enable();
+		ret = false;
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
+		/*CreateMainMenu();*/
+		DestroyEndGame();
+		
+	}
 
 	if (interaction == button_github) {
 		ShellExecuteA(NULL, "open", "https://github.com/polarpathgames", NULL, NULL, SW_SHOWNORMAL);
@@ -235,3 +261,24 @@ void m1MainMenu::DestroyEndGame()
 	App->gui->DeleteUIElement(end_game_panel);
 }
 
+void m1MainMenu::CreateGameOver()
+{
+	game_over_panel = App->gui->AddImage(0, 0, { 1024, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+	game_over_panel->SetPosRespectParent(CENTERED);
+
+	button_continue_lobby = App->gui->AddButton(150, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, game_over_panel, false, false, true, true);
+	label_continue_lobby = App->gui->AddLabel(0, 0, "Continue to Lobby", button_continue_lobby, WHITE, FontType::FF100, nullptr, false);
+	label_continue_lobby->SetPosRespectParent(LEFT_CENTERED);
+
+
+	button_return_main = App->gui->AddButton(610, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, game_over_panel, false, false, true, true);
+	label_continue_main = App->gui->AddLabel(0, 0, "Return Main Menu", button_return_main, WHITE, FontType::FF100, nullptr, false);
+	label_continue_main->SetPosRespectParent(LEFT_CENTERED);
+
+	
+}
+
+void m1MainMenu::DestroyGameOver()
+{
+	App->gui->DeleteUIElement(game_over_panel);
+}
