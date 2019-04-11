@@ -42,6 +42,10 @@ bool m1MainMenu::PreUpdate()
 bool m1MainMenu::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateMainMenu", Profiler::Color::Aqua);
+	if (App->scene->control_to_change != nullptr && !App->scene->control_to_change->Update()) {
+		delete App->scene->control_to_change;
+		App->scene->control_to_change = nullptr;
+	}
 	return true;
 }
 
@@ -73,6 +77,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		App->map->Enable();
 		App->scene->Enable();
 		App->map->ChangeMap(Maps::LOBBY);
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
 		ret = false;
 	}
 

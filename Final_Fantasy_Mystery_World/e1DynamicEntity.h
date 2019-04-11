@@ -9,7 +9,7 @@
 #include "e1Entity.h"
 
 enum class Attacks {
-	BASIC, NONE
+	BASIC, SPECIAL_1, NONE
 };
 
 enum class Direction {
@@ -49,6 +49,8 @@ public:
 
 	Direction direction = Direction::NONE;
 	State state = State::NONE;
+
+	Animation AttackSpecial1;
 
 	Animation GoDownLeft;
 	Animation IdleDownLeft;
