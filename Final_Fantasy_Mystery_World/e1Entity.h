@@ -70,6 +70,7 @@ public:
 		ENEMY,
 		STATIC,
 
+
 		NO_TYPE
 	};
 

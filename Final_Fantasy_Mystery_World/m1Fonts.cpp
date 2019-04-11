@@ -41,7 +41,7 @@ bool m1Fonts::Awake(pugi::xml_node& conf)
 			Load(PATH(path, conf.attribute("file").as_string()),conf.attribute("size").as_uint(DEFAULT_FONT_SIZE));
 		}
 
-		static_assert((int)FontType::NONE == 6, "Update config.xml adding new fonts");
+		static_assert((int)FontType::NONE == 7, "Update config.xml adding new fonts");
 		assert(fonts.size() > (int)FontType::NONE - 1); // Loaded more fonts that declarated
 	}
 

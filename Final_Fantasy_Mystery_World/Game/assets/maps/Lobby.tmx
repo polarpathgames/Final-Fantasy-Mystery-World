@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="right-down" width="42" height="40" tilewidth="32" tileheight="16" infinite="0" nextobjectid="117">
+<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="42" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="122">
  <properties>
   <property name="movement" type="int" value="1"/>
  </properties>
@@ -26,7 +26,7 @@
  <tileset firstgid="241" name="lobby_tileset" tilewidth="32" tileheight="16" tilecount="324" columns="18">
   <image source="lobby_tileset.png" width="582" height="290"/>
  </tileset>
- <layer name="Floor" width="42" height="40">
+ <layer id="1" name="Floor" width="42" height="40">
   <data>
    <tile/>
    <tile/>
@@ -1710,7 +1710,7 @@
    <tile gid="334"/>
   </data>
  </layer>
- <layer name="Wall" width="42" height="40">
+ <layer id="2" name="Wall" width="42" height="40">
   <data>
    <tile gid="242"/>
    <tile gid="242"/>
@@ -3394,7 +3394,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Enviorment" width="42" height="40">
+ <layer id="3" name="Enviorment" width="42" height="40">
   <data>
    <tile/>
    <tile/>
@@ -5078,7 +5078,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Colliders" width="42" height="40">
+ <layer id="4" name="Colliders" width="42" height="40">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -6766,7 +6766,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup name="collider">
+ <objectgroup id="5" name="collider">
   <object id="88" name="collider" x="448.818" y="197.91" width="11.6818" height="4.5">
    <properties>
     <property name="home" type="int" value="0"/>
@@ -6783,7 +6783,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ffff7f" name="player" visible="0">
+ <objectgroup color="#ffff7f" id="6" name="player" visible="0">
   <object id="5" name="player" type="default" x="320" y="400" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
@@ -6800,7 +6800,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Static objects">
+ <objectgroup id="7" name="Static objects">
   <object id="30" name="flower" type="static" x="192.227" y="176.136" width="32" height="32"/>
   <object id="31" name="flower" type="static" x="256" y="192" width="32" height="32"/>
   <object id="32" name="flower" type="static" x="240" y="128" width="32" height="32"/>
@@ -6843,5 +6843,9 @@
   <object id="105" name="floor" type="static" x="144" y="384" width="16.625" height="14.875"/>
   <object id="106" name="floor" type="static" x="160" y="384" width="16.625" height="14.875"/>
   <object id="107" name="corner_floor" type="static" x="176" y="384" width="16.625" height="14.875"/>
+  <object id="118" name="floor" type="static" x="128" y="96" width="16.625" height="14.875"/>
+  <object id="119" name="floor" type="static" x="128" y="80" width="16.625" height="14.875"/>
+  <object id="120" name="floor" type="static" x="432" y="48" width="16.625" height="14.875"/>
+  <object id="121" name="floor" type="static" x="464" y="64" width="16.625" height="14.875"/>
  </objectgroup>
 </map>

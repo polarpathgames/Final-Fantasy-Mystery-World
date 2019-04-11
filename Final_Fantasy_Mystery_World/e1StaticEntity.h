@@ -40,10 +40,19 @@ public:
 		QUEST_TREE4,
 		FEATHER,
 		CANDLE,
+		PIECE_SHOP,
+		SELLER,
+		SHOP_MAN,
 
 		UNKNOWN
 	};
-	virtual bool Update(float dt) { return true; };
+
+	enum class InteractingStates {
+		WAITING_INTERACTION,
+		INTERACTING,
+		NONE
+	};
+	virtual bool Update(float dt);
 
 	virtual bool CleanUp() { return true; };
 
@@ -66,6 +75,9 @@ private:
 
 	bool has_animation = false;
 	Animation* idle = nullptr;
+
+	InteractingStates interacting_state = InteractingStates::NONE;
+	int max_distance_to_interact = 0; // distance in tiles
 
 };
 

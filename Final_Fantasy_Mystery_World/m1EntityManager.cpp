@@ -73,9 +73,9 @@ bool m1EntityManager::Update(float dt)
 
 	DrawEntities(draw_entities, dt);
 
-	if (App->scene->player->movement_type == Movement_Type::InLobby && App->scene->player != nullptr)
+	if (App->scene->player != nullptr && App->scene->player->movement_type == Movement_Type::InLobby)
 		App->render->SmoothCamera(App->scene->player->position);
-	else if (App->scene->player->movement_type == Movement_Type::InQuest && App->scene->player != nullptr)
+	else if (App->scene->player != nullptr && App->scene->player->movement_type == Movement_Type::InQuest)
 		App->render->SmoothCamera(App->scene->player->position);
 
 	return true;

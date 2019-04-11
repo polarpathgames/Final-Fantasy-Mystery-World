@@ -2,6 +2,10 @@
 #include "p2Log.h"
 #include "App.h"
 #include "m1Render.h"
+#include "m1Map.h"
+#include "e1Player.h"
+#include "m1Scene.h"
+#include "m1Input.h"
 
 e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 {
@@ -165,6 +169,24 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.7F);
 		size.create(frame.w, frame.h);
 	}
+	else if (strcmp(name, "piece_shop") == 0) {
+		static_type = e1StaticEntity::Type::PIECE_SHOP;
+		frame = { 960,0,64,32 };
+		SetPivot(frame.w*0.5F, frame.h*0.7F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "seller") == 0) {
+		static_type = e1StaticEntity::Type::SELLER;
+		has_animation = true;
+		idle = new Animation();
+		current_animation = idle;
+		idle->PushBack({ 686,82,32,32 });
+		idle->PushBack({ 718,82,32,32 });
+		idle->speed = 0.8F;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
 	else if (strcmp(name, "feather") == 0) {
 		static_type = e1StaticEntity::Type::FEATHER;
 		has_animation = true;
@@ -192,11 +214,19 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		idle->PushBack({ 720,42,28,32 });
 		idle->PushBack({ 753,42,28,32 });
 		idle->PushBack({ 786,42,28,32 });
-		
 		idle->speed = 7;
 		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
+  }
+	else if (strcmp(name, "shop_man") == 0) {
+		static_type = e1StaticEntity::Type::SHOP_MAN;
+		frame = { 80,32,48,32 };
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		SetPivot(frame.w*0.35F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+		max_distance_to_interact = 2;
 	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
@@ -228,3 +258,24 @@ void e1StaticEntity::SetRect(int x, int y, int w, int h)
 {
 	frame = { x,y,w,h };
 }
+
+bool e1StaticEntity::Update(float dt)
+{
+	if (interacting_state == InteractingStates::NONE)
+		return true;
+
+	if (interacting_state == InteractingStates::WAITING_INTERACTION) {
+		iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x + App->scene->player->pivot.x, App->scene->player->position.y + App->scene->player->pivot.y);
+		if (actual_tile.DistanceManhattan(player_pos) <= max_distance_to_interact) {
+			if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
+				interacting_state = InteractingStates::INTERACTING;
+			}
+		}
+	}
+
+
+
+
+	return true;
+}
+
