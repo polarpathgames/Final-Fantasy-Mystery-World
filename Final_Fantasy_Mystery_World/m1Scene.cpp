@@ -281,6 +281,28 @@ void m1Scene::CreateEntities()
 	}
 }
 
+void m1Scene::CreateGoToQuestMenu()
+{
+	go_to_quest_panel = App->gui->AddImage(100, 70, { 1878, 1536, 170, 101 }, this, App->gui->screen, true, false, false, false);
+
+	go_to_quest_label = App->gui->AddLabel(50, -5, "Go to the Quest", go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
+	go_to_quest_button = App->gui->AddButton(30, 0, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, go_to_quest_panel, false, false, true, true);
+	go_to_quest_button->AddListener(this);
+
+	cancel_quest_label = App->gui->AddLabel(50, 38, "Cancel", go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
+	cancel_quest_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, go_to_quest_panel, false, false, true, true);
+	cancel_quest_button->AddListener(this);
+
+	menu_state = StatesMenu::GO_TO_QUEST_MENU;
+
+}
+
+void m1Scene::DestroyGoToQuestMenu()
+{
+	App->gui->DeleteUIElement(go_to_quest_panel);
+	menu_state = StatesMenu::NO_MENU;
+}
+
 void m1Scene::CreateInventory()
 {
 	inventory_panel = App->gui->AddImage(0, 0, { 1024, 1536, 228, 384 }, this, App->gui->screen, true, false, false, false);
@@ -630,6 +652,14 @@ bool m1Scene::Interact(u1GUI* interact)
 			ret = false;
 		}
 		break;
+	case StatesMenu::GO_TO_QUEST_MENU:
+		if (interact == go_to_quest_button) {
+			DestroyGoToQuestMenu();
+			App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
+		}
+		if (interact == cancel_quest_button) {
+			DestroyGoToQuestMenu();
+		}
 	case StatesMenu::INVENTORY_MENU:
 		if (interact == hp_potion_button) {
 			DeletePotionMenu();
