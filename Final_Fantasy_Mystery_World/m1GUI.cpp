@@ -221,25 +221,26 @@ bool m1GUI::PostUpdate()
 
 	bool ret = true;
 
-	std::list<u1GUI*> tree;
-	BFS(tree, screen);
+	if (ui_list.size() > 0) {
+		std::list<u1GUI*> tree;
+		BFS(tree, screen);
 
-	for (std::list<u1GUI*>::iterator item = tree.begin(); item != tree.end(); item++) {
-		(*item)->Draw();
-		if (focus == *item) {
-			App->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - focus_tx.w, (focus->section.h - focus_tx.h) * 0.5F + focus->GetGlobalPosition().y + 5, &focus_tx);
+		for (std::list<u1GUI*>::iterator item = tree.begin(); item != tree.end(); item++) {
+			(*item)->Draw();
+			if (focus == *item) {
+				App->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - focus_tx.w, (focus->section.h - focus_tx.h) * 0.5F + focus->GetGlobalPosition().y + 5, &focus_tx);
+			}
+			if (debug_ui) {
+				(*item)->DebugDraw();
+			}
 		}
-		if (debug_ui) {
-			(*item)->DebugDraw();
-		}
+		tree.clear();
+
+		App->input->GetMousePosition(cursor_position.x, cursor_position.y);
+		if (show_cursor)
+			App->render->Blit((SDL_Texture*)GetAtlas(), cursor_position.x * App->win->GetScale() + cursor_offset.x, cursor_position.y * App->win->GetScale() + cursor_offset.y, &cursor_rect);
+
 	}
-	tree.clear();
-
-	App->input->GetMousePosition(cursor_position.x, cursor_position.y);
-	if (show_cursor)
-		App->render->Blit((SDL_Texture*)GetAtlas(), cursor_position.x * App->win->GetScale() + cursor_offset.x, cursor_position.y * App->win->GetScale() + cursor_offset.y, &cursor_rect);
-
-	
 	return ret;
 }
 
