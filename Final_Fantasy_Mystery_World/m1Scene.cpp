@@ -69,6 +69,15 @@ bool m1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Aqua);
 
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
+		if (debug_screen == nullptr) {
+			CreateDebugScreen();
+		}
+		else {
+			DestroyDebugScreen();
+		}
+	}
+
 	if(App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
 
@@ -170,6 +179,10 @@ bool m1Scene::Update(float dt)
 			control_to_change = nullptr;
 		}
 		break;
+	}
+
+	if (debug_screen != nullptr) {
+		UpdateDebugScreen(dt);
 	}
 
 	//if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
@@ -594,6 +607,28 @@ void m1Scene::DestroyControlsMenu()
 	labels_control.clear();
 	Clabels_control.clear();
 
+}
+
+void m1Scene::CreateDebugScreen()
+{
+	debug_screen = App->gui->AddImage(0, 0, App->gui->screen->section, nullptr, App->gui->screen, false, false, false, false);
+
+	project_name = App->gui->AddLabel(0, 0, std::string(App->GetTitle()+ std::string(" version: ") + App->GetVersion()).data(), debug_screen, WHITE, FontType::PMIX32, nullptr, false);
+	fps = App->gui->AddLabel(0, project_name->section.h, "fps: ", project_name, WHITE, FontType::PMIX32, nullptr, false);
+}
+
+void m1Scene::DestroyDebugScreen()
+{
+	App->gui->DeleteUIElement(debug_screen);
+
+	debug_screen = nullptr;
+	fps = nullptr;
+	mouse = nullptr;
+}
+
+void m1Scene::UpdateDebugScreen(const float &dt)
+{
+	fps->SetText(std::string("fps: " + std::to_string(App->GetFps())).data());
 }
 
 bool m1Scene::Interact(u1GUI* interact)
