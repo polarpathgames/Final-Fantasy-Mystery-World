@@ -2,9 +2,10 @@
 #include "m1GUI.h"
 #include "m1Fonts.h"
 #include "m1DialogSystem.h"
+#include "m1Window.h"
 #include "m1Input.h"
 #include "u1Label.h"
-#include "u1Button.h"
+#include "u1Image.h"
 
 m1DialogSystem::m1DialogSystem()
 {
@@ -44,11 +45,21 @@ bool m1DialogSystem::CleanUp()
 	return ret;
 }
 
-void m1DialogSystem::PerformDialogue(int tr_id)
+bool m1DialogSystem::PerformDialogue(int tr_id)
 {
+	bool ret = true;
 	if (dialogTrees.empty())
 		LOG("TreeEmpty");
-
+	if (firstupdate)
+	{
+		currentNode = dialogTrees[tr_id]->dialogNodes[0];
+		firstupdate = false;
+	}
+	if (currentNode->dialogOptions[0]->nextnode > dialogTrees[tr_id]->dialogNodes.size())
+	{
+		DeleteText();
+		return ret;
+	}
 	if (CompareKarma() == true)
 	{
 		//Find the next node 
@@ -76,25 +87,49 @@ void m1DialogSystem::PerformDialogue(int tr_id)
 			}
 		}
 	}
-
-	//Put the player's name in the lines of the npc dialog
-
-
-	while(currentNode->text.find("PLAYERNAME") != std::string::npos)
-	{	
-		currentNode->text.replace(currentNode->text.find("PLAYERNAME"), 10, "Ivan");
+	
+	if (!waiting_input)
+	{
+		//Put the player's name in the lines of the npc dialog
+		while (currentNode->text.find("PLAYERNAME") != std::string::npos)
+		{
+			currentNode->text.replace(currentNode->text.find("PLAYERNAME"), 10, "Ivan");
+		}
+		waiting_input = !waiting_input;
+		BlitDialog(); // Print the dialog in the screen
 	}
-	// Print the dialog in the screen
-	BlitDialog();
+	
+	return ret;
 }
 
 void m1DialogSystem::BlitDialog()
 {
-	App->gui->AddLabel(150, 180, currentNode->text.c_str(), App->gui->screen, BLACK, FontType::FF48,this, false);
-	int space = 200;
+	dialog_panel = App->gui->AddImage(0, App->win->height - 199, {0, 3088,1023,199}, this, App->gui->screen, true, false, false, false);
+	npc_text = App->gui->AddLabel(App->win->width * 0.5f, App->win->height-50, currentNode->text.c_str(), dialog_panel, BLACK, FontType::FF48,this, false);
+	npc_text->SetPosRespectParent(LEFT_UP, 15);
+	int space = 590;
 	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
-		App->gui->AddLabel(150, space += 30, currentNode->dialogOptions[i]->text.c_str(), App->gui->screen, GREEN, FontType::FF48, this, false);
+	{
+		u1Label* lb = new u1Label;
+		lb = App->gui->AddLabel(0 + 15, space += 30, currentNode->dialogOptions[i]->text.c_str(), App->gui->screen, WHITE, FontType::FF48, this, false);
+		player_text.push_back(lb);
+	}
+	
 
+}
+
+void m1DialogSystem::DeleteText()
+{
+	App->gui->DeleteUIElement(npc_text);
+	npc_text = nullptr;
+	for (int i = 0; i < player_text.size(); i++)
+	{
+		App->gui->DeleteUIElement(player_text[i]);
+		player_text[i] = nullptr;
+	}
+	player_text.clear();
+	App->gui->DeleteUIElement(dialog_panel);
+	dialog_panel = nullptr;
 }
 
 bool m1DialogSystem::CompareKarma()

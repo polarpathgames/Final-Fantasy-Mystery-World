@@ -73,7 +73,7 @@ private:
 private:
 	SDL_Rect frame;
 	Type static_type = Type::UNKNOWN;
-
+	bool has_dialog = false;
 	bool has_animation = false;
 	Animation* idle = nullptr;
 

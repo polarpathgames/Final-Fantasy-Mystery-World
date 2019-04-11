@@ -4,6 +4,7 @@
 #include "m1Render.h"
 #include "m1Map.h"
 #include "e1Player.h"
+#include "m1DialogSystem.h"
 #include "m1Scene.h"
 #include "m1Input.h"
 
@@ -259,19 +260,36 @@ bool e1StaticEntity::Update(float dt)
 {
 	if (interacting_state == InteractingStates::NONE)
 		return true;
-
-	if (interacting_state == InteractingStates::WAITING_INTERACTION) {
-		iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
+	iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
+	if (interacting_state == InteractingStates::WAITING_INTERACTION) {	
 		if (actual_tile.DistanceManhattan(player_pos) <= max_distance_to_interact) {
-			if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
+			if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
 				interacting_state = InteractingStates::INTERACTING;
 			}
-		}
+		}			
 	}
+	if (interacting_state == InteractingStates::INTERACTING && actual_tile.DistanceManhattan(player_pos) > max_distance_to_interact)
+	{
+		App->dialog->DeleteText();
+		App->dialog->waiting_input = false;
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+	}
+
 	if (interacting_state == InteractingStates::INTERACTING) {
 		switch (static_type) {
 		case e1StaticEntity::Type::SHOP_MAN:
-
+			if (has_dialog && App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
+			{
+				App->dialog->input = 0;
+				App->dialog->waiting_input = false;
+				App->dialog->DeleteText();
+				App->dialog->PerformDialogue(0);
+			}
+			if (!has_dialog)
+			{
+				App->dialog->PerformDialogue(0);
+				has_dialog = true;
+			}			
 			break;
 		default:
 			break;
