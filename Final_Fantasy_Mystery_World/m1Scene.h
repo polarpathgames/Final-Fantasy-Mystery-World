@@ -241,7 +241,9 @@ private:
 
 	// Debug Screen
 	u1Image* debug_screen = nullptr;
+
 	u1Label* project_name = nullptr;
+	u1Label* version = nullptr;
 	u1Label* fps = nullptr;
 	u1Label* mouse = nullptr;
 

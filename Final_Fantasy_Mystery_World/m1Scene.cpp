@@ -613,8 +613,9 @@ void m1Scene::CreateDebugScreen()
 {
 	debug_screen = App->gui->AddImage(0, 0, App->gui->screen->section, nullptr, App->gui->screen, false, false, false, false);
 
-	project_name = App->gui->AddLabel(0, 0, std::string(App->GetTitle() + std::string("\nversion: ") + App->GetVersion()).data(), debug_screen, WHITE, FontType::PMIX32, nullptr, false, App->gui->screen->section.w);
-	fps = App->gui->AddLabel(0, project_name->section.h, "fps: ", project_name, WHITE, FontType::PMIX32, nullptr, false);
+	project_name = App->gui->AddLabel(0, 0, App->GetTitle(), debug_screen, WHITE, FontType::PMIX32, nullptr, false);
+	version = App->gui->AddLabel(0, project_name->section.h, std::string(std::string("Version: ") + App->GetVersion()).data(), debug_screen, WHITE, FontType::PMIX32, nullptr, false);
+	fps = App->gui->AddLabel(0, version->position.y + version->section.h, "fps: ", project_name, WHITE, FontType::PMIX32, nullptr, false);
 }
 
 void m1Scene::DestroyDebugScreen()
