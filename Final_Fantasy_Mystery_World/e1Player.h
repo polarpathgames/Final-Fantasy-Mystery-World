@@ -24,6 +24,7 @@ struct Input {
 	bool pressing_G = false; // BASIC ATTACK
 	bool pressing_shift = false; // DIAGONALS
 	bool pressing_V = false; // SHOW SKILLS
+	bool pressing_F = false;
 
 	void Reset() {
 		pressing_A = false;
@@ -37,6 +38,7 @@ struct Input {
 		pressing_G = false;
 		pressing_shift = false;
 		pressing_V = false;
+		pressing_J = false;
 	}
 };
 
@@ -46,8 +48,11 @@ struct PlayerStats {
 	int attack_power = 500;
 	int xp = 0;
 	int mana = 100;
+	int cost_mana_special_attack1 = 50;
 
 };
+
+
 
 enum class Movement_Type {
 	InLobby, InQuest
@@ -95,8 +100,10 @@ public:
 	void PerformActions(float dt); // Global organizator function 
 
 	void PrepareBasicAttack(); // Prepare Basic Attack
+	void PrepareSpecialAttack1();
 	void BasicAttack(); // Basic attack xd 
-
+	void SpecialAttack1();
+	void CheckSpecialAttack1Efects(const int &damage);
 	void PerformMovementInLobby(float dt); // Do the movement in lobby
 	void PerformMovementInQuest(float dt); // Do the movement in quest
 
@@ -110,6 +117,11 @@ public:
 	void DestroySkills(); //Skills Desappear
 
 	bool BlockControls(bool to_block);
+
+	inline void ReduceMana(const int &cost_mana) {
+		stats.mana -= cost_mana;
+	}
+
 
 public:
 
