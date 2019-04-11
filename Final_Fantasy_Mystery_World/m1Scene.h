@@ -74,7 +74,7 @@ public:
 
 	void CreateDebugScreen();
 	void DestroyDebugScreen();
-	void UpdateDebugScreen(const float &dt);
+	void UpdateDebugScreen();
 
 	bool Interact(u1GUI* interaction);
 	StatesMenu GetMenuState();

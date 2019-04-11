@@ -182,7 +182,7 @@ bool m1Scene::Update(float dt)
 	}
 
 	if (debug_screen != nullptr) {
-		UpdateDebugScreen(dt);
+		UpdateDebugScreen();
 	}
 
 	//if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
@@ -618,7 +618,7 @@ void m1Scene::CreateDebugScreen()
 	version = App->gui->AddLabel(0, project_name->section.h, std::string(std::string("Version: ") + App->GetVersion()).data(), debug_screen, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
 	fps = App->gui->AddLabel(0, version->position.y + version->section.h, "fps: ", project_name, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
 
-	map = App->gui->AddLabel(0, fps->position.y + fps->section.h, "map:\nnumber of layers: %i\nnumber of tilesets: %i\nmap id: %i\nwidth: %i | height: %i\ntile width: %i | tile height: %i\ntiles drawn: %i"
+	map = App->gui->AddLabel(0, fps->position.y + fps->section.h*2, "map:\nnumber of layers: %i\nnumber of tilesets: %i\nmap id: %i\nwidth: %i | height: %i\ntile width: %i | tile height: %i\ntiles drawn: %i"
 		, debug_screen, WHITE, FontType::PMIX16, nullptr, false, App->gui->screen->section.w*0.3, true, debug_background);
 }
 
@@ -632,7 +632,7 @@ void m1Scene::DestroyDebugScreen()
 	mouse = nullptr;
 }
 
-void m1Scene::UpdateDebugScreen(const float &dt)
+void m1Scene::UpdateDebugScreen()
 {
 	BROFILER_CATEGORY("UpdateDebugScreen", Profiler::Color::Orange);
 
