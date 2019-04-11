@@ -44,7 +44,7 @@ struct Input {
 
 struct PlayerStats {
 
-	int live = 250;
+	int live = 2;
 	int attack_power = 500;
 	int xp = 0;
 	int mana = 100;

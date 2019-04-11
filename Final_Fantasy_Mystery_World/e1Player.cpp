@@ -21,6 +21,7 @@
 #include "u1UI_Element.h"
 #include "Brofiler/Brofiler.h"
 #include "m1EasingSplines.h"
+#include "m1MainMenu.h"
 
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
@@ -916,19 +917,28 @@ const bool e1Player::MultipleButtons(const Input * input)
 
 void e1Player::GetHitted(const int & damage_taken)
 {
-	stats.live -= damage_taken;
-
-	if (stats.live <= 0) {
-		state = State::DEATH;
-		ChangeAnimation(direction, state);
+	
+	
+	if (state != State::DEATH && state != State::MENU)
+	{
+		if (stats.live <= 0) {
+			state = State::DEATH;
+			ChangeAnimation(direction, state);
+		}
+		else
+			stats.live -= damage_taken;
 	}
+	
+	
 
 }
 
 void e1Player::Death()
 {
-	if (current_animation->Finished()) {
-		App->fade_to_black->FadeToBlack(Maps::HOME);
+	if (current_animation->Finished() && state == State::DEATH) {
+		App->main_menu->CreateGameOver();
+		state = State::MENU;
+		stats.live = 250;
 	}
 }
 

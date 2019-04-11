@@ -251,7 +251,6 @@ void m1Scene::CreateEntities()
 				}
 				else if ((*position)->ent_type == "in_shop") { // position in the shop
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
-					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "in_home" && player->state != State::DEATH) { // position in the home
