@@ -296,6 +296,8 @@ void m1Scene::CreateGoToQuestMenu()
 	cancel_quest_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, go_to_quest_panel, false, false, true, true);
 	cancel_quest_button->AddListener(this);
 
+	player->BlockControls(true);
+
 	menu_state = StatesMenu::GO_TO_QUEST_MENU;
 
 }
@@ -304,6 +306,8 @@ void m1Scene::DestroyGoToQuestMenu()
 {
 
 	App->gui->DeleteUIElement(go_to_quest_panel);
+
+	player->BlockControls(false);
 	menu_state = StatesMenu::NO_MENU;
 }
 
@@ -662,6 +666,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 		}
 		if (interact == cancel_quest_button) {
+			player->first_collision = true;
 			DestroyGoToQuestMenu();
 		}
 	case StatesMenu::INVENTORY_MENU:
