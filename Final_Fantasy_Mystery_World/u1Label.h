@@ -20,6 +20,7 @@ public:
 	void InnerDraw();
 
 	void SetText(const char* txt);
+	void SetTextWrapped(const char * txt);
 
 	void SetColor(const Color& c);
 
@@ -35,6 +36,7 @@ protected:
 	SDL_Texture*	texture = nullptr;
 	SDL_Color		color = { 255,255,255,255 };
 	std::string		text;
+	uint32			wrap = 0U;
 	bool			has_background = false;
 	SDL_Color		background_color = { 255,255,255,255 };
 };

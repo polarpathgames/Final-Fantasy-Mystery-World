@@ -245,6 +245,7 @@ private:
 	u1Label* project_name = nullptr;
 	u1Label* version = nullptr;
 	u1Label* fps = nullptr;
+	u1Label* map = nullptr;
 	u1Label* mouse = nullptr;
 
 };

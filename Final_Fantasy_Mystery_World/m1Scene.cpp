@@ -614,9 +614,12 @@ void m1Scene::CreateDebugScreen()
 	debug_screen = App->gui->AddImage(0, 0, App->gui->screen->section, nullptr, App->gui->screen, false, false, false, false);
 
 	SDL_Color debug_background = { 0,0,0,150 };
-	project_name = App->gui->AddLabel(0, 0, App->GetTitle(), debug_screen, WHITE, FontType::PMIX32, nullptr, false, 0U, true, debug_background);
-	version = App->gui->AddLabel(0, project_name->section.h, std::string(std::string("Version: ") + App->GetVersion()).data(), debug_screen, WHITE, FontType::PMIX32, nullptr, false, 0U, true, debug_background);
-	fps = App->gui->AddLabel(0, version->position.y + version->section.h, "fps: ", project_name, WHITE, FontType::PMIX32, nullptr, false, 0U, true, debug_background);
+	project_name = App->gui->AddLabel(0, 0, App->GetTitle(), debug_screen, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
+	version = App->gui->AddLabel(0, project_name->section.h, std::string(std::string("Version: ") + App->GetVersion()).data(), debug_screen, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
+	fps = App->gui->AddLabel(0, version->position.y + version->section.h, "fps: ", project_name, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
+
+	map = App->gui->AddLabel(0, fps->position.y + fps->section.h, "map:\nnumber of layers: %i\nnumber of tilesets: %i\nmap id: %i\nwidth: %i | height: %i\ntile width: %i | tile height: %i\ntiles drawn: %i"
+		, debug_screen, WHITE, FontType::PMIX16, nullptr, false, App->gui->screen->section.w*0.3, true, debug_background);
 }
 
 void m1Scene::DestroyDebugScreen()
@@ -631,7 +634,15 @@ void m1Scene::DestroyDebugScreen()
 
 void m1Scene::UpdateDebugScreen(const float &dt)
 {
+	BROFILER_CATEGORY("UpdateDebugScreen", Profiler::Color::Orange);
+
 	fps->SetText(std::string("fps: " + std::to_string(App->GetFps())).data());
+
+	map->SetTextWrapped(std::string("map:\nnumber of layers: " + std::to_string(App->map->data.layers.size()) + "\nnumber of tilesets: " + std::to_string(App->map->data.tilesets.size()) +
+		"\nmap id: " + std::to_string((int)App->map->actual_map) + "\nwidth: " + std::to_string(App->map->data.width) + " | height: " + std::to_string(App->map->data.height) + "\ntile width: "
+		+ std::to_string(App->map->data.tile_width) + "\ntile height: " + std::to_string(App->map->data.tile_height) + "\ntiles drawn: " + std::to_string(App->map->last_tiles_drawn)).data());
+
+
 }
 
 bool m1Scene::Interact(u1GUI* interact)

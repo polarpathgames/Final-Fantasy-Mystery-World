@@ -10,7 +10,7 @@ u1Label::u1Label(const int & pos_x, const int & pos_y, const char * txt, const C
 	bool has_background, const SDL_Color& bg_color)
 	:u1GUI(LABEL, pos_x, pos_y, parent, { 0,0,0,0 }, true, false, false, focus),
 
-	id_font(font), has_background(has_background), background_color(bg_color)
+	id_font(font), has_background(has_background), background_color(bg_color), wrap(wrap_length)
 {
 	text.assign(txt);
 
@@ -43,6 +43,14 @@ void u1Label::SetText(const char * txt)
 	text.assign(txt);
 	App->tex->UnLoad(texture);
 	texture = App->fonts->Print(text.data(), color, id_font);
+	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
+}
+
+void u1Label::SetTextWrapped(const char * txt)
+{
+	text.assign(txt);
+	App->tex->UnLoad(texture);
+	texture = App->fonts->PrintWrapped(text.data(), color, id_font, wrap);
 	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
 }
 
