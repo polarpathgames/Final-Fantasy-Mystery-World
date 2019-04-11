@@ -66,13 +66,18 @@ public:
 
 	void CreatePauseMenu();
 	void DestroyPauseMenu();
-	bool Interact(u1GUI* interaction);
 
 	void CreateOptionsMenu();
 	void DestroyOptionsMenu();
 
 	void CreateControlsMenu();
 	void DestroyControlsMenu();
+
+	void CreateDebugScreen();
+	void DestroyDebugScreen();
+	void UpdateDebugScreen();
+
+	bool Interact(u1GUI* interaction);
 	StatesMenu GetMenuState();
 	void SetMenuState(const StatesMenu &menu);
 public:
@@ -235,6 +240,18 @@ private:
 
 	u1Button* Cbutton_down = nullptr;
 	u1Label* Clabel_to_show_how_down = nullptr;
+
+	// Debug Screen
+	u1Image* debug_screen = nullptr;
+
+	u1Label* project_name_label = nullptr;
+	u1Label* version_label = nullptr;
+	u1Label* fps_label = nullptr;
+	u1Label* textures_label = nullptr;
+	u1Label* map_label = nullptr;
+	u1Label* player_label = nullptr;
+	u1Label* mouse_label = nullptr;
+	u1Label* entities_label = nullptr;
 
 };
 
