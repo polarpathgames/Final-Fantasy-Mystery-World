@@ -102,6 +102,9 @@
     <ClCompile Include="p2Rooms.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
+    <ClCompile Include="e1Drop.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -227,6 +230,9 @@
     </ClInclude>
     <ClInclude Include="p2Random.h">
       <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Drop.h">
+      <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

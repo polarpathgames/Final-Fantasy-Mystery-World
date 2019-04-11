@@ -112,6 +112,8 @@ public:
 
 	bool BlockControls(bool to_block);
 
+	void GiveGold(const int &gold);
+
 public:
 
 	bool has_skills = false;

@@ -4,6 +4,7 @@
 #include "m1Textures.h"
 #include "e1Entity.h"
 #include "m1Audio.h"
+#include "e1Drop.h"
 #include "m1Window.h"
 #include "e1StaticEntity.h"
 #include "p2Log.h"
@@ -53,6 +54,14 @@ bool m1EntityManager::PreUpdate()
 	BROFILER_CATEGORY("PreUpdateEntityM", Profiler::Color::Orange);
 	
 	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr && (*item)->to_delete) {
+			delete *item;
+			*item = nullptr;
+		}
+	}
+
+	item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr && (*item)->has_turn) {
 			(*item)->PreUpdate();
@@ -169,12 +178,13 @@ void m1EntityManager::OnCollision(Collider * c1, Collider * c2)
 //e1Entity Factory
 e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
-	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)3, "code needs update");
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)4, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
 	case e1Entity::EntityType::PLAYER: ret = new e1Player(PositionX, PositionY); break;
 	case e1Entity::EntityType::ENEMY: ret = new e1Enemy(PositionX, PositionY); break;
 	case e1Entity::EntityType::STATIC: ret = new e1StaticEntity(PositionX, PositionY, name.data()); break;
+	case e1Entity::EntityType::DROP: ret = new e1Drop(PositionX, PositionY, name.data()); break;
 	//case e1Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
 	default:
 		LOG("Cannot find any entity with that type");
@@ -225,15 +235,20 @@ void m1EntityManager::DeleteEntity(e1Entity* entity_to_delete)
 {
 
 	std::vector<e1Entity*>::iterator item = entities.begin();
-	for (; item != entities.end(); ++item) {
+
+	while (item != entities.end()) {
 		if ((*item) != nullptr && (*item) == entity_to_delete) {
 			(*item)->CleanUp();
 			delete(*item);
 			(*item) = nullptr;
-			entities.erase(item);
+			item = entities.erase(item);
 			break;
 		}
+		else
+			++item;
 	}
+
+
 
 }
 

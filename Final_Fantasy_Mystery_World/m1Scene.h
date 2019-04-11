@@ -3,6 +3,7 @@
 
 #include "m1Module.h"
 #include "p2ChangeControls.h"
+#include <list>
 
 enum class StatesMenu {
 	NO_MENU,

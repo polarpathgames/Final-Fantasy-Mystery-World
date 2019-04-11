@@ -52,6 +52,7 @@ public:
 		INTERACTING,
 		NONE
 	};
+	virtual bool PreUpdate() { return true; };
 	virtual bool Update(float dt);
 
 	virtual bool CleanUp() { return true; };

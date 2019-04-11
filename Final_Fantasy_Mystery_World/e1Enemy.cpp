@@ -4,6 +4,7 @@
 #include "m1Render.h"
 #include "m1Textures.h"
 #include "m1Audio.h"
+#include "e1Drop.h"
 #include "m1EntityManager.h"
 #include "m1Map.h"
 #include <string>
@@ -374,7 +375,7 @@ void e1Enemy::GetHitted(const int & damage_taken)
 
 void e1Enemy::Drop()
 {
-
-
-
+	int drop_gold = App->random.Generate(1, 100);
+	e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "gold");
+	drop->SetGold(drop_gold);
 }
