@@ -17,7 +17,6 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
-
 	}
 }
 
@@ -25,7 +24,7 @@ e1Drop::~e1Drop()
 {
 }
 
-bool e1Drop::PreUpdate()
+bool e1Drop::Update(float adt)
 {
 	if (actual_tile == App->scene->player->actual_tile) {
 		switch (drop_type) {

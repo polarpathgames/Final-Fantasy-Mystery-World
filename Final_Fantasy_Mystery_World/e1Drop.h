@@ -23,7 +23,7 @@ public:
 	e1Drop(const int &x, const int &y, const char* name);
 	virtual ~e1Drop();
 
-	bool PreUpdate();
+	bool Update(float fg);
 	
 	void SetGold(const int &gold);
 
