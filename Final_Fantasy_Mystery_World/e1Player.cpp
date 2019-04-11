@@ -951,6 +951,11 @@ bool e1Player::BlockControls(bool to_block)
 	return block_controls = to_block;
 }
 
+void e1Player::GiveGold(const int & gold)
+{
+	stats.gold += gold;
+}
+
 void e1Player::CreateSkills()
 {
 	upper_button = App->gui->AddButton(684, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, App->gui->screen, true, false, false, false);

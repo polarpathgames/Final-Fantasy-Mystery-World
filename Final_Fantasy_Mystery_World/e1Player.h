@@ -48,7 +48,9 @@ struct PlayerStats {
 	int attack_power = 500;
 	int xp = 0;
 	int mana = 100;
+	int gold = 0;
 	int cost_mana_special_attack1 = 50;
+
 
 };
 
@@ -117,6 +119,9 @@ public:
 	void DestroySkills(); //Skills Desappear
 
 	bool BlockControls(bool to_block);
+
+
+	void GiveGold(const int &gold);
 
 	inline void ReduceMana(const int &cost_mana) {
 		stats.mana -= cost_mana;

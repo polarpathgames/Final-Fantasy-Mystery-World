@@ -69,7 +69,7 @@ public:
 		PLAYER,
 		ENEMY,
 		STATIC,
-
+		DROP,
 
 		NO_TYPE
 	};
@@ -121,6 +121,7 @@ public:
 	bool turn_done = false;
 	iPoint actual_tile;
 	Collider* coll = nullptr;
+	bool to_delete = false;
 };
 
 #endif
