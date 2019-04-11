@@ -68,7 +68,7 @@ public:
 	bool GetPause();
 	bool ChangePause();
 
-	int GetFps();
+	uint32 GetFps();
 
 	bool GetInventory();
 	bool ChangeInventory();

@@ -491,9 +491,9 @@ bool Application::ChangePause()
 	return is_paused = !is_paused;
 }
 
-int Application::GetFps()
+uint32 Application::GetFps()
 {
-	return (int)avg_fps;
+	return frames_on_last_update;
 }
 
 bool Application::GetInventory()
