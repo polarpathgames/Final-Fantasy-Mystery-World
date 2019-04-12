@@ -12,6 +12,7 @@ enum class StatesMenu {
 	CONTROLS_MENU,
 	INVENTORY_MENU,
 	POTION_MENU,
+	GO_TO_QUEST_MENU,
 
 	NONE
 };
@@ -69,6 +70,9 @@ public:
 
 	void CreateOptionsMenu();
 	void DestroyOptionsMenu();
+
+	void CreateGoToQuestMenu();
+	void DestroyGoToQuestMenu();
 
 	void CreateControlsMenu();
 	void DestroyControlsMenu();
@@ -131,6 +135,13 @@ private:
 	u1Button* cancel_button = nullptr;
 	u1Label* use_label = nullptr;
 	u1Label* cancel_label = nullptr;
+
+	// Go To Quest Menu
+	u1Image* go_to_quest_panel = nullptr;
+	u1Button* go_to_quest_button = nullptr;
+	u1Label* go_to_quest_label = nullptr;
+	u1Button* cancel_quest_button = nullptr;
+	u1Label* cancel_quest_label = nullptr;
 	
 	//options
 	u1Image* options_panel = nullptr;
