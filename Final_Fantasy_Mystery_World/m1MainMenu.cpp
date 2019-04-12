@@ -88,6 +88,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 	if (interaction == options_button) {
 		App->scene->CreateOptionsMenu();
 		App->gui->DeleteUIElement(background);
+		App->scene->UpdateOptionsMenu();
 	}
 
 	if (interaction == credits_button) {
