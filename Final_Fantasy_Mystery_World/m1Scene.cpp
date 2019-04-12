@@ -689,12 +689,12 @@ bool m1Scene::Interact(u1GUI* interact)
 		}
 		if (interact == button_main_menu)
 		{
+			DestroyDebugScreen();
 			App->gui->DeleteAllUIElements();
 			App->entity_manager->Disable();
 			App->map->Disable();
 			active = false; //desactivates main menu
 			App->main_menu->Enable();
-			DestroyDebugScreen();
 			ret = false;
 			menu_state = StatesMenu::NO_MENU;
 		}
