@@ -31,8 +31,6 @@ public:
 	void CreateCredits();
 	void DestroyCredits();
 
-	void CreateEndGame();
-	void DestroyEndGame();
 	
 	void CreateGameOver();
 	void DestroyGameOver();
@@ -70,8 +68,6 @@ private:
 	u1Label* label_ivan = nullptr;
 	u1Button* button_oriol = nullptr;
 	u1Label* label_oriol = nullptr;
-
-	u1Image* end_game_panel = nullptr;
 
 	u1Button* exit_button = nullptr;
 	u1Label* exit_text = nullptr;

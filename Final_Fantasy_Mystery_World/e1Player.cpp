@@ -926,25 +926,21 @@ const bool e1Player::MultipleButtons(const Input * input)
 
 void e1Player::GetHitted(const int & damage_taken)
 {
-	
-	
-	if (state != State::DEATH && state != State::MENU)
-	{
-		if (stats.live <= 0) {
-			state = State::DEATH;
-			ChangeAnimation(direction, state);
-		}
-		else
-			stats.live -= damage_taken;
+	if (stats.live <= 0) {
+		state = State::DEATH;
+		ChangeAnimation(direction, state);
+		death_time = SDL_GetTicks();
 	}
-	
-	
-
+	else {
+		stats.live -= damage_taken;
+	}	
 }
 
 void e1Player::Death()
 {
-	if (current_animation->Finished() && state == State::DEATH) {
+	if (current_animation->Finished() && death_time <= SDL_GetTicks() - 1000) {
+		App->map->CleanUp();
+		App->entity_manager->DeleteEntitiesNoPlayer();
 		App->main_menu->CreateGameOver();
 		state = State::MENU;
 		stats.live = 250;
