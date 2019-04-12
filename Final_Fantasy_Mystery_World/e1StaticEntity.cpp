@@ -160,7 +160,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	}
 	else if (strcmp(name, "quest_tree4") == 0) {
 		static_type = e1StaticEntity::Type::QUEST_TREE4;
-		frame = { 954,0,32,89 }; 
+		frame = { 922,0,32,89 }; 
 		SetPivot(frame.w*0.2F, frame.h*0.9F);
 		size.create(frame.w, frame.h);
 	}

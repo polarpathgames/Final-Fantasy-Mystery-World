@@ -5,6 +5,7 @@
 #include "m1EntityManager.h"
 #include "m1Map.h"
 #include "m1Input.h"
+#include "p2Log.h"
 #include "m1GUI.h"
 #include "m1Map.h"
 #include "u1Button.h"
@@ -41,12 +42,18 @@ bool m1MainMenu::PreUpdate()
 bool m1MainMenu::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateMainMenu", Profiler::Color::Aqua);
+	if (App->scene->control_to_change != nullptr && !App->scene->control_to_change->Update()) {
+		delete App->scene->control_to_change;
+		App->scene->control_to_change = nullptr;
+	}
 	return true;
 }
 
 bool m1MainMenu::PostUpdate()
 {
 	BROFILER_CATEGORY("PostUpdateMainMenu", Profiler::Color::Purple);
+
+
 	return true;
 }
 
@@ -70,6 +77,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		App->map->Enable();
 		App->scene->Enable();
 		App->map->ChangeMap(Maps::LOBBY);
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
 		ret = false;
 	}
 
@@ -90,6 +98,32 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 	if (interaction == button_retun) {
 		CreateMainMenu();
 		DestroyCredits();
+	}
+	
+	if (interaction == button_continue_lobby) {
+		
+		App->gui->DeleteAllUIElements();
+		App->entity_manager->Enable();
+		App->map->Enable();
+		App->scene->Enable();
+		App->fade_to_black->FadeToBlack(Maps::HOME);
+		//App->map->ChangeMap(Maps::HOME);
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
+		ret = false;
+		DestroyEndGame();
+	}
+	if (interaction == button_return_main) {
+		
+		App->gui->DeleteAllUIElements();
+		App->entity_manager->Disable();
+		App->map->Disable();
+		active = false; 
+		App->main_menu->Enable();
+		ret = false;
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
+		/*CreateMainMenu();*/
+		DestroyEndGame();
+		
 	}
 
 	if (interaction == button_github) {
@@ -227,3 +261,24 @@ void m1MainMenu::DestroyEndGame()
 	App->gui->DeleteUIElement(end_game_panel);
 }
 
+void m1MainMenu::CreateGameOver()
+{
+	game_over_panel = App->gui->AddImage(0, 0, { 1024, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+	game_over_panel->SetPosRespectParent(CENTERED);
+
+	button_continue_lobby = App->gui->AddButton(150, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, game_over_panel, false, false, true, true);
+	label_continue_lobby = App->gui->AddLabel(0, 0, "Continue to Lobby", button_continue_lobby, WHITE, FontType::FF100, nullptr, false);
+	label_continue_lobby->SetPosRespectParent(LEFT_CENTERED);
+
+
+	button_return_main = App->gui->AddButton(610, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, game_over_panel, false, false, true, true);
+	label_continue_main = App->gui->AddLabel(0, 0, "Return Main Menu", button_return_main, WHITE, FontType::FF100, nullptr, false);
+	label_continue_main->SetPosRespectParent(LEFT_CENTERED);
+
+	
+}
+
+void m1MainMenu::DestroyGameOver()
+{
+	App->gui->DeleteUIElement(game_over_panel);
+}

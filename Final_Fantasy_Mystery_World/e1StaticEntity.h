@@ -51,6 +51,7 @@ public:
 		INTERACTING,
 		NONE
 	};
+	virtual bool PreUpdate() { return true; };
 	virtual bool Update(float dt);
 
 	virtual bool CleanUp() { return true; };
@@ -64,14 +65,16 @@ public:
 
 	e1StaticEntity(int x, int y, const char* name);
 	~e1StaticEntity();
-
+	
 private:
 
 	void Draw(SDL_Texture* tex, float dt);
 	void SetRect(int x, int y, int w, int h);
 
-private:
+public:
 	SDL_Rect frame;
+private:
+	
 	Type static_type = Type::UNKNOWN;
 	bool has_dialog = false;
 	bool has_animation = false;

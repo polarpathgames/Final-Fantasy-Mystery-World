@@ -14,7 +14,7 @@
     <ProjectGuid>{CA36A83C-2BCF-4BEB-9B41-CD0B834374B8}</ProjectGuid>
     <RootNamespace>programacio_2</RootNamespace>
     <ProjectName>Final Fantasy Mystery World</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -80,6 +80,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="e1Drop.cpp" />
     <ClCompile Include="p2ChangeControls.cpp" />
     <ClCompile Include="e1DynamicEntity.cpp" />
     <ClCompile Include="m1EasingSplines.cpp" />
@@ -117,7 +118,9 @@
     <ClCompile Include="e1StaticEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="e1Drop.h" />
     <ClInclude Include="p2ChangeControls.h" />
+    <ClInclude Include="p2Random.h" />
     <ClInclude Include="p2Rooms.h" />
     <ClInclude Include="u1CheckBox.h" />
     <ClInclude Include="e1DynamicEntity.h" />

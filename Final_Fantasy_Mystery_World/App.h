@@ -8,6 +8,7 @@
 #include "PugiXml\src\pugixml.hpp"
 #include <list>
 #include <string>
+#include "p2Random.h"
 
 // Modules
 class m1Window;
@@ -68,6 +69,8 @@ public:
 	bool GetPause();
 	bool ChangePause();
 
+	uint32 GetFps();
+
 	bool GetInventory();
 	bool ChangeInventory();
 
@@ -120,6 +123,8 @@ public:
 	m1EasingSplines*	easing_splines = nullptr;
 	m1DialogSystem*     dialog = nullptr;
 
+	Random random;
+
 private:
 
 	std::list<m1Module*>	modules;
@@ -150,6 +155,8 @@ private:
 	uint32					last_sec_frame_count = 0;
 	uint32					prev_last_sec_frame_count = 0;
 	uint16_t				framerate_cap;
+	float					avg_fps = 0.0f;
+	uint32					frames_on_last_update = 0u;
 	float					dt;
 };
 

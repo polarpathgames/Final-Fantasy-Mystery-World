@@ -41,7 +41,7 @@ bool m1Fonts::Awake(pugi::xml_node& conf)
 			Load(PATH(path, conf.attribute("file").as_string()),conf.attribute("size").as_uint(DEFAULT_FONT_SIZE));
 		}
 
-		static_assert((int)FontType::NONE == 7, "Update config.xml adding new fonts");
+		static_assert((int)FontType::NONE == 8, "Update config.xml adding new fonts");
 		assert(fonts.size() > (int)FontType::NONE - 1); // Loaded more fonts that declarated
 	}
 
@@ -186,6 +186,21 @@ bool m1Fonts::CalcSize(const char* text, int& width, int& height, FontType font_
 		LOG("Unable to calc size of text surface! SDL_ttf Error: %s\n", TTF_GetError());
 	else
 		ret = true;
+
+	return ret;
+}
+
+bool m1Fonts::CalcSizeWrapped(const char* text, int& width, int& height, FontType font_type, const uint32& wrap)
+{
+	bool ret = false;
+	std::list<Font*>::const_iterator item;
+	if (TTF_SizeText(((item = FindIdFont(font_type)) != fonts.end()) ? (*item)->font : default->font, text, &width, &height) != 0)
+		LOG("Unable to calc size of text surface! SDL_ttf Error: %s\n", TTF_GetError());
+	else {
+		ret = true;
+		height = (width / (int)wrap) * height + (width % (int)wrap);
+		width = wrap;
+	}
 
 	return ret;
 }

@@ -161,6 +161,8 @@ public:
 	Maps		actual_map = Maps::NONE;
 	Maps		last_map = Maps::NONE;
 
+	uint		last_tiles_drawn = 0u;
+
 private:
 
 	pugi::xml_document	map_file;

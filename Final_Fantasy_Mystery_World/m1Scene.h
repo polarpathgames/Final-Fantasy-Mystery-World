@@ -3,6 +3,7 @@
 
 #include "m1Module.h"
 #include "p2ChangeControls.h"
+#include <list>
 
 enum class StatesMenu {
 	NO_MENU,
@@ -11,6 +12,7 @@ enum class StatesMenu {
 	CONTROLS_MENU,
 	INVENTORY_MENU,
 	POTION_MENU,
+	GO_TO_QUEST_MENU,
 
 	NONE
 };
@@ -65,14 +67,23 @@ public:
 
 	void CreatePauseMenu();
 	void DestroyPauseMenu();
-	bool Interact(u1GUI* interaction);
 
 	void CreateOptionsMenu();
 	void DestroyOptionsMenu();
 
+	void CreateGoToQuestMenu();
+	void DestroyGoToQuestMenu();
+
 	void CreateControlsMenu();
 	void DestroyControlsMenu();
+
+	void CreateDebugScreen();
+	void DestroyDebugScreen();
+	void UpdateDebugScreen();
+
+	bool Interact(u1GUI* interaction);
 	StatesMenu GetMenuState();
+	void SetMenuState(const StatesMenu &menu);
 public:
 
 	u1GUI* background = nullptr;
@@ -84,10 +95,10 @@ public:
 	u1Slider* slider_fx_volume = nullptr;
 
 	e1Player* player = nullptr;
-
+	ChangeControls * control_to_change = nullptr;
 private:
 
-	ChangeControls * control_to_change = nullptr;
+
 	StatesMenu menu_state = StatesMenu::NO_MENU;
 
 	//pause
@@ -124,6 +135,13 @@ private:
 	u1Button* cancel_button = nullptr;
 	u1Label* use_label = nullptr;
 	u1Label* cancel_label = nullptr;
+
+	// Go To Quest Menu
+	u1Image* go_to_quest_panel = nullptr;
+	u1Button* go_to_quest_button = nullptr;
+	u1Label* go_to_quest_label = nullptr;
+	u1Button* cancel_quest_button = nullptr;
+	u1Label* cancel_quest_label = nullptr;
 	
 	//options
 	u1Image* options_panel = nullptr;
@@ -233,6 +251,18 @@ private:
 
 	u1Button* Cbutton_down = nullptr;
 	u1Label* Clabel_to_show_how_down = nullptr;
+
+	// Debug Screen
+	u1Image* debug_screen = nullptr;
+
+	u1Label* project_name_label = nullptr;
+	u1Label* version_label = nullptr;
+	u1Label* fps_label = nullptr;
+	u1Label* textures_label = nullptr;
+	u1Label* map_label = nullptr;
+	u1Label* player_label = nullptr;
+	u1Label* mouse_label = nullptr;
+	u1Label* entities_label = nullptr;
 
 };
 
