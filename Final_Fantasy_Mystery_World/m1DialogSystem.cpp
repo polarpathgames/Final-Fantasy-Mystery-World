@@ -1,10 +1,13 @@
 #include "App.h"
 #include "m1GUI.h"
 #include "m1Fonts.h"
+#include "e1StaticEntity.h"
 #include "m1DialogSystem.h"
+#include "m1Window.h"
 #include "m1Input.h"
 #include "u1Label.h"
 #include "u1Button.h"
+#include "u1Image.h"
 
 m1DialogSystem::m1DialogSystem()
 {
@@ -44,57 +47,67 @@ bool m1DialogSystem::CleanUp()
 	return ret;
 }
 
-void m1DialogSystem::PerformDialogue(int tr_id)
+bool m1DialogSystem::PerformDialogue(int tr_id)
 {
+	bool ret = true;
+	treeid = tr_id;
+
 	if (dialogTrees.empty())
 		LOG("TreeEmpty");
 
-	if (CompareKarma() == true)
+	if (firstupdate)
 	{
-		//Find the next node 
-		if (input >= 0 && input < currentNode->dialogOptions.size()) //Only if the input is valid
-		{
-			for (int j = 0; j < dialogTrees[tr_id]->dialogNodes.size(); j++)
-			{
-				if (currentNode->dialogOptions[input]->nextnode == dialogTrees[tr_id]->dialogNodes[j]->id) //If the option id is the same as one of the nodes ids in the tree
-				{
-					CheckForKarma(currentNode);
-					currentNode = dialogTrees[tr_id]->dialogNodes[j]; // we assign our node pointer to the next node in the tree				
-					break;
-				}
-			}
-		}
+		currentNode = dialogTrees[tr_id]->dialogNodes[0];
+		firstupdate = false;
 	}
-	else if (CompareKarma() == false)
+	if (!waiting_input)
 	{
-		for (int i = 0; i < dialogTrees[tr_id]->dialogNodes.size(); i++)
+		//Put the player's name in the lines of the npc dialog
+		while (currentNode->text.find("PLAYERNAME") != std::string::npos)
 		{
-			// We search the mood of the bad response bad response = -1  / neutral = 0
-			if (dialogTrees[tr_id]->karma == dialogTrees[tr_id]->dialogNodes[i]->karma)
-			{
-				currentNode = dialogTrees[tr_id]->dialogNodes[i]; //This node is the bad response from the npc
-			}
+			currentNode->text.replace(currentNode->text.find("PLAYERNAME"), 10, "Ivan");
 		}
-	}
-
-	//Put the player's name in the lines of the npc dialog
-
-
-	while(currentNode->text.find("PLAYERNAME") != std::string::npos)
-	{	
-		currentNode->text.replace(currentNode->text.find("PLAYERNAME"), 10, "Ivan");
-	}
-	// Print the dialog in the screen
-	BlitDialog();
+		waiting_input = !waiting_input;
+		BlitDialog(); // Print the dialog in the screen
+	}	
+	return ret;
 }
 
 void m1DialogSystem::BlitDialog()
 {
-	App->gui->AddLabel(150, 180, currentNode->text.c_str(), App->gui->screen, BLACK, FontType::FF48,this, false);
-	int space = 200;
+	dialog_panel = App->gui->AddImage(0, App->win->height - 199, {0, 3090,833,165}, this, App->gui->screen, true, false, false, false);
+	npc_text = App->gui->AddLabel(App->win->width * 0.5f, App->win->height-50, currentNode->text.c_str(), dialog_panel, BLACK, FontType::FF48,this, false);
+	npc_text->SetPosRespectParent(CENTERED_UP, 15);
+	int space = 0;
 	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
-		App->gui->AddLabel(150, space += 30, currentNode->dialogOptions[i]->text.c_str(), App->gui->screen, GREEN, FontType::FF48, this, false);
+	{
+		u1Button* bt = new u1Button();
+		bt = App->gui->AddButton(300, space += 40, { 0,0,30,50 }, { 0,0,30,50 }, { 0,0,30,50 }, this, dialog_panel, false, false, true, true);
+		text_button.push_back(bt);
+		u1Label* lb = new u1Label;
+		lb = App->gui->AddLabel(0, 0, currentNode->dialogOptions[i]->text.c_str(), bt, BLACK, FontType::FF48, this, false);
+		player_text.push_back(lb);
+	}
+}
 
+void m1DialogSystem::DeleteText()
+{
+	App->gui->DeleteUIElement(npc_text);
+	npc_text = nullptr;
+	for (int i = 0; i < player_text.size(); i++)
+	{
+		App->gui->DeleteUIElement(player_text[i]);
+		player_text[i] = nullptr;
+	}
+	player_text.clear();
+	for (int j = 0; j < text_button.size(); j++)
+	{
+		App->gui->DeleteUIElement(text_button[j]);
+		text_button[j] = nullptr;
+	}
+	text_button.clear();
+	App->gui->DeleteUIElement(dialog_panel);
+	dialog_panel = nullptr;
 }
 
 bool m1DialogSystem::CompareKarma()
@@ -103,6 +116,9 @@ bool m1DialogSystem::CompareKarma()
 
 	if (dialogTrees[treeid]->karma < 0)
 		ret = false;
+
+	if (dialogTrees[treeid]->karma > 0)
+		ret = true;
 
 	return ret;
 }
@@ -168,5 +184,51 @@ bool m1DialogSystem::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc
 		option->karma = op.attribute("karma").as_int();
 		npc->dialogOptions.push_back(option);
 	}
+	return ret;
+}
+
+bool m1DialogSystem::Interact(u1GUI* interaction)
+{
+	bool ret = true;
+
+	for (int i = 0; i < text_button.size(); i++)
+	{
+		if (interaction == text_button[i])
+		{
+			if (currentNode->dialogOptions[i]->nextnode < dialogTrees[treeid]->dialogNodes.size())
+			{
+				dialogTrees[treeid]->karma += currentNode->dialogOptions[i]->karma;
+				currentNode = dialogTrees[treeid]->dialogNodes[currentNode->dialogOptions[i]->nextnode];
+ 				waiting_input = false;
+				DeleteText();
+				return false;
+			}
+		    else
+		    {
+			   DeleteText();
+			   if (CompareKarma() == false)
+			   {
+				   for (int i = 0; i < dialogTrees[treeid]->dialogNodes.size(); i++)
+				   {
+					// We search the mood of the bad response bad response = -1  / neutral = 0
+					if (dialogTrees[treeid]->karma == dialogTrees[treeid]->dialogNodes[i]->karma)
+					{
+						currentNode = dialogTrees[treeid]->dialogNodes[i]; //This node is the bad response from the npc
+
+					}
+				   }
+				   dialogTrees[treeid]->karma = 0;
+			   }
+			   if (CompareKarma() == true)
+			   {
+					LOG("Hola oriol jijiijiji");
+				   dialogTrees[treeid]->karma = 0;
+			   }
+			   end_dial = true;
+		    }
+		}
+		
+	}
+	
 	return ret;
 }

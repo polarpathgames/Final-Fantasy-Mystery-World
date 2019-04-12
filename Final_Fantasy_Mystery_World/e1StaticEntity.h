@@ -41,7 +41,6 @@ public:
 		FEATHER,
 		CANDLE,
 		PIECE_SHOP,
-		SELLER,
 		SHOP_MAN,
 
 		UNKNOWN
@@ -60,6 +59,8 @@ public:
 	virtual bool Load(pugi::xml_node&) { return true; };
 	virtual bool Save(pugi::xml_node&) const { return true; };
 
+	void DebugDrawRangeInteractive();
+	InteractingStates GetState();
 public:
 
 	e1StaticEntity(int x, int y, const char* name);
@@ -75,7 +76,7 @@ public:
 private:
 	
 	Type static_type = Type::UNKNOWN;
-
+	bool has_dialog = false;
 	bool has_animation = false;
 	Animation* idle = nullptr;
 
