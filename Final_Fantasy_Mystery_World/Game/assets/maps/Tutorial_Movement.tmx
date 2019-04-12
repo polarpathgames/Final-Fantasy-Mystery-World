@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="14">
+<map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextobjectid="14">
  <tileset firstgid="1" name="tutorial_tileset" tilewidth="32" tileheight="16" tilecount="360" columns="24">
   <image source="tutorial_tileset.png" width="796" height="254"/>
   <terraintypes>
@@ -20,7 +20,7 @@
   <tile id="194" terrain=",,2,"/>
   <tile id="195" terrain="2,,,"/>
  </tileset>
- <layer id="1" name="Floor" width="40" height="40">
+ <layer name="Floor" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -1624,7 +1624,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="2" name="Wall" width="40" height="40">
+ <layer name="Wall" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -3228,7 +3228,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="Shadow" width="40" height="40">
+ <layer name="Shadow" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -4832,7 +4832,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="4" name="Door Close" width="40" height="40" visible="0">
+ <layer name="Door Close" width="40" height="40" visible="0">
   <data>
    <tile/>
    <tile/>
@@ -6436,7 +6436,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="5" name="Door Open" width="40" height="40">
+ <layer name="Door Open" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -8040,7 +8040,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="6" name="Enviorment" width="40" height="40">
+ <layer name="Enviorment" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -9644,7 +9644,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="7" name="Collider" width="40" height="40" visible="0">
+ <layer name="Collider" width="40" height="40" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -11252,12 +11252,12 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="8" name="Static animation objects">
+ <objectgroup name="Static animation objects">
   <object id="11" name="rock1" type="static" x="416" y="304" width="32" height="32"/>
   <object id="12" name="plant1" type="static" x="496" y="368" width="32" height="32"/>
   <object id="13" name="plant1" type="static" x="352" y="256" width="32" height="32"/>
  </objectgroup>
- <objectgroup color="#ffff7f" id="9" name="entities">
+ <objectgroup color="#ffff7f" name="entities">
   <object id="5" name="player" type="default" x="384" y="368" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
@@ -11268,28 +11268,9 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="14" name="Enemy Test" type="enemy" x="368" y="368" width="15.9688" height="16.0156"/>
   <object id="15" name="Enemy Test" type="enemy" x="384" y="352" width="15.9688" height="16.0156"/>
-  <object id="16" name="Enemy Test" type="enemy" x="368" y="352" width="15.9688" height="16.0156"/>
-  <object id="18" name="Enemy Test" type="enemy" x="384" y="384" width="15.9688" height="16.0156"/>
-  <object id="19" name="Enemy Test" type="enemy" x="400" y="384" width="15.9688" height="16.0156"/>
-  <object id="20" name="Enemy Test" type="enemy" x="400" y="368" width="15.9688" height="16.0156"/>
-  <object id="21" name="Enemy Test" type="enemy" x="400" y="352" width="15.9688" height="16.0156"/>
-  <object id="28" name="Enemy Test" type="enemy" x="368" y="400" width="15.9688" height="16.0156"/>
-  <object id="29" name="Enemy Test" type="enemy" x="384" y="400" width="15.9688" height="16.0156"/>
-  <object id="30" name="Enemy Test" type="enemy" x="400" y="400" width="15.9688" height="16.0156"/>
-  <object id="31" name="Enemy Test" type="enemy" x="416" y="384" width="15.9688" height="16.0156"/>
-  <object id="32" name="Enemy Test" type="enemy" x="416" y="368" width="15.9688" height="16.0156"/>
-  <object id="33" name="Enemy Test" type="enemy" x="416" y="352" width="15.9688" height="16.0156"/>
-  <object id="34" name="Enemy Test" type="enemy" x="400" y="336" width="15.9688" height="16.0156"/>
-  <object id="35" name="Enemy Test" type="enemy" x="384" y="336" width="15.9688" height="16.0156"/>
-  <object id="36" name="Enemy Test" type="enemy" x="368" y="336" width="15.9688" height="16.0156"/>
-  <object id="37" name="Enemy Test" type="enemy" x="352" y="352" width="15.9688" height="16.0156"/>
-  <object id="38" name="Enemy Test" type="enemy" x="352" y="368" width="15.9688" height="16.0156"/>
-  <object id="39" name="Enemy Test" type="enemy" x="352" y="384" width="15.9688" height="16.0156"/>
-  <object id="41" name="Enemy Test" type="enemy" x="368" y="384" width="15.9688" height="16.0156"/>
  </objectgroup>
- <objectgroup id="10" name="colliders">
+ <objectgroup name="colliders">
   <object id="10" name="room_collider" type="nextA" x="432" y="224" width="16.1904" height="15.0341">
    <properties>
     <property name="next_id" type="int" value="2"/>
