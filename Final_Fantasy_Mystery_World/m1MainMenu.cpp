@@ -46,6 +46,8 @@ bool m1MainMenu::Update(float dt)
 		delete App->scene->control_to_change;
 		App->scene->control_to_change = nullptr;
 	}
+	App->scene->UpdateOptionsMenu();
+
 	return true;
 }
 
