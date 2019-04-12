@@ -13,7 +13,7 @@ struct SDL_Texture;
 struct Collider;
 
 enum class State {
-	IDLE, WALKING, BEFORE_ATTACK, ATTACKING, AFTER_ATTACK, DEATH, NONE
+	IDLE, WALKING, BEFORE_ATTACK, ATTACKING, AFTER_ATTACK, DEATH, MENU, NONE
 };
 
 enum class AnimationState {
@@ -69,6 +69,7 @@ public:
 		PLAYER,
 		ENEMY,
 		STATIC,
+		DROP,
 
 		NO_TYPE
 	};
@@ -120,6 +121,7 @@ public:
 	bool turn_done = false;
 	iPoint actual_tile;
 	Collider* coll = nullptr;
+	bool to_delete = false;
 };
 
 #endif

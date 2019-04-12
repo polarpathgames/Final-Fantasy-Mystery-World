@@ -57,6 +57,7 @@ void m1Map::Draw()
 
 	std::list<MapLayer*>::iterator item = data.layers.begin();
 	
+	last_tiles_drawn = 0u;
 	for (; item != data.layers.end(); ++item)
 	{
 		MapLayer* layer = *item;
@@ -78,7 +79,7 @@ void m1Map::Draw()
 						SDL_Rect r = tileset->GetTileRect(tile_id);
 
 						App->render->Blit(tileset->texture, tile_pos.x, tile_pos.y, &r, true);
-
+						last_tiles_drawn++;
 					}
 				}
 			}

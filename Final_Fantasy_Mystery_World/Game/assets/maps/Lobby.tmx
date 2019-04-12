@@ -5777,48 +5777,6 @@
    <tile/>
    <tile gid="331"/>
    <tile gid="331"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="331"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="331"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="331"/>
-   <tile gid="331"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="331"/>
-   <tile gid="331"/>
    <tile gid="331"/>
    <tile/>
    <tile/>
@@ -5836,6 +5794,48 @@
    <tile/>
    <tile/>
    <tile gid="331"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="331"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="331"/>
+   <tile gid="331"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="331"/>
+   <tile gid="331"/>
+   <tile gid="331"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="331"/>
    <tile gid="331"/>
    <tile/>
    <tile/>
@@ -5859,7 +5859,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="331"/>
    <tile gid="331"/>
    <tile gid="331"/>
    <tile/>
@@ -6868,5 +6868,9 @@
   <object id="105" name="floor" type="static" x="144" y="384" width="16.625" height="14.875"/>
   <object id="106" name="floor" type="static" x="160" y="384" width="16.625" height="14.875"/>
   <object id="107" name="corner_floor" type="static" x="176" y="384" width="16.625" height="14.875"/>
+  <object id="118" name="floor" type="static" x="128" y="96" width="16.625" height="14.875"/>
+  <object id="119" name="floor" type="static" x="128" y="80" width="16.625" height="14.875"/>
+  <object id="120" name="floor" type="static" x="432" y="48" width="16.625" height="14.875"/>
+  <object id="121" name="floor" type="static" x="464" y="64" width="16.625" height="14.875"/>
  </objectgroup>
 </map>

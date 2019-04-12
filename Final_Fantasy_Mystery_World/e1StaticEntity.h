@@ -40,10 +40,20 @@ public:
 		QUEST_TREE4,
 		FEATHER,
 		CANDLE,
+		PIECE_SHOP,
+		SELLER,
+		SHOP_MAN,
 
 		UNKNOWN
 	};
-	virtual bool Update(float dt) { return true; };
+
+	enum class InteractingStates {
+		WAITING_INTERACTION,
+		INTERACTING,
+		NONE
+	};
+	virtual bool PreUpdate() { return true; };
+	virtual bool Update(float dt);
 
 	virtual bool CleanUp() { return true; };
 
@@ -54,18 +64,23 @@ public:
 
 	e1StaticEntity(int x, int y, const char* name);
 	~e1StaticEntity();
-
+	
 private:
 
 	void Draw(SDL_Texture* tex, float dt);
 	void SetRect(int x, int y, int w, int h);
 
-private:
+public:
 	SDL_Rect frame;
+private:
+	
 	Type static_type = Type::UNKNOWN;
 
 	bool has_animation = false;
 	Animation* idle = nullptr;
+
+	InteractingStates interacting_state = InteractingStates::NONE;
+	int max_distance_to_interact = 0; // distance in tiles
 
 };
 
