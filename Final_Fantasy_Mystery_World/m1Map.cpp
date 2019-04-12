@@ -634,6 +634,7 @@ bool m1Map::ChangeMap(Maps type)
 	case Maps::TUTORIAL:
 		quest_rooms = new RoomManager(node);
 		actual_map = Maps::TUTORIAL;
+		return true;
 		break;
 	case Maps::SHOP:
 		Load(shop_map.data());
@@ -653,6 +654,7 @@ bool m1Map::ChangeMap(Maps type)
 	if (CreateWalkabilityMap(w, h, &data_wm))
 		App->pathfinding->SetMap(w, h, data_wm);
 	App->scene->CreateEntities();
+	
 
 	return true;
 }
