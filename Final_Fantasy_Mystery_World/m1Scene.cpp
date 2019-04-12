@@ -411,6 +411,9 @@ void m1Scene::CreateOptionsMenu()
 	button_general_volume = App->gui->AddButton(491, 168, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	label_general_volume = App->gui->AddLabel(0, 0, "General Volume", button_general_volume, BLACK, FontType::FF48, nullptr, false);
 	label_general_volume->SetPosRespectParent(LEFT_CENTERED);
+	minus_general_btn = App->gui->AddButton(715, 185, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options_panel, true, false, true, true);
+	plus_general_btn = App->gui->AddButton(805, 185, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options_panel, true, false, true, true);
+	label_general_value = App->gui->AddLabel(760, 172, "", options_panel, BLACK, FontType::FF48, nullptr, false);
 
 	button_music_volume = App->gui->AddButton(491, 246, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	label_music_volume = App->gui->AddLabel(0, 0, "Music Volume", button_music_volume, BLACK, FontType::FF48, nullptr, false);
@@ -463,6 +466,8 @@ void m1Scene::DestroyOptionsMenu()
 
 	label_music_value = nullptr;
 	label_fx_value = nullptr;
+	label_general_value = nullptr;
+
 }
 
 void m1Scene::UpdateOptionsMenu()
@@ -471,7 +476,9 @@ void m1Scene::UpdateOptionsMenu()
 	if (options_panel != nullptr) {
 		label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
 		label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+		label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
 	}
+	
 }
 
 void m1Scene::CreateControlsMenu()
@@ -889,6 +896,12 @@ bool m1Scene::Interact(u1GUI* interact)
 	}
 	else if (interact == plus_fx_btn) {
 		App->audio->VolumeUp(-3);
+	}
+	else if (interact == minus_general_btn) {
+		App->audio->VolumeDown(-1);
+	}
+	else if (interact == plus_general_btn) {
+		App->audio->VolumeUp(-1);
 	}
 
 	return ret;

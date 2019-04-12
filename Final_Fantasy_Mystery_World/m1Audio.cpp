@@ -35,6 +35,7 @@ bool m1Audio::Awake(pugi::xml_node& config)
 	default_music_fade_time = 2.0;
 	volume_change_ratio = 10;
 	mute = false;
+	volume_general = 100;
 
 	if (mute)
 	{

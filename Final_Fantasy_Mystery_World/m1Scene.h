@@ -134,7 +134,10 @@ private:
 
 	u1Label* label_general_volume = nullptr;
 	u1Button* button_general_volume = nullptr;
-	
+	u1Button* minus_general_btn = nullptr;
+	u1Button* plus_general_btn = nullptr;
+	u1Label* label_general_value = nullptr;
+
 	u1Label* label_music_volume = nullptr;
 	u1Button* button_music_volume = nullptr;
 	u1Button* minus_music_btn = nullptr;
