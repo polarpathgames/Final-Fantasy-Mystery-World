@@ -117,6 +117,9 @@ bool m1DialogSystem::CompareKarma()
 	if (dialogTrees[treeid]->karma < 0)
 		ret = false;
 
+	if (dialogTrees[treeid]->karma > 0)
+		ret = true;
+
 	return ret;
 }
 
@@ -214,7 +217,12 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 
 					}
 				   }
-				   dialogTrees[treeid]->karma++;
+				   dialogTrees[treeid]->karma = 0;
+			   }
+			   if (CompareKarma() == true)
+			   {
+					LOG("Hola oriol jijiijiji");
+				   dialogTrees[treeid]->karma = 0;
 			   }
 			   end_dial = true;
 		    }

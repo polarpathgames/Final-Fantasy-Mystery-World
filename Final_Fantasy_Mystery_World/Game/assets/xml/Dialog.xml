@@ -7,7 +7,7 @@
       <option  line="" nextnode="1" karma="0"/>
     </node>
     <node line="Do you want to buy some of my precious goods?" id="1" karma="-1">
-      <option line="Yes" nextnode="3" karma="0"/>
+      <option line="Yes" nextnode="3" karma="1"/>
       <option line="No" nextnode="2" karma="-1"/>
     </node>
     <node line="See you later!" id="2">
