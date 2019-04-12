@@ -189,10 +189,10 @@ bool m1Scene::Update(float dt)
 		UpdateOptionsMenu();
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
 		App->audio->VolumeDown(-1);
 
-	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 		App->audio->VolumeUp(-1);
 
 	//if (!App->audio->mute_volume) Mix_VolumeMusic(slider_music_volume->GetValue());

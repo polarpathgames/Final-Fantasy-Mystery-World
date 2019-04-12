@@ -266,6 +266,8 @@ void m1Audio::VolumeUp(int vol)
 		case -1:
 			VolumeUp(-2);
 			VolumeUp(-3);
+			if(volume_general < max_volume)
+				volume_general += volume_change_ratio;
 			break;
 		case -2:
 			if (volume < max_volume) {
@@ -286,6 +288,7 @@ void m1Audio::VolumeUp(int vol)
 		default:
 			volume = vol - volume_change_ratio;
 			volume_fx = vol - volume_change_ratio;
+			volume_general = vol - volume_change_ratio;
 			VolumeUp(-1);
 			break;
 		}
@@ -302,6 +305,8 @@ void m1Audio::VolumeDown(int vol)
 		case -1:
 			VolumeDown(-2);
 			VolumeDown(-3);
+			if(volume_general>0)
+				volume_general -= volume_change_ratio;
 			break;
 		case -2:
 			if (volume > 0) {
@@ -322,6 +327,7 @@ void m1Audio::VolumeDown(int vol)
 		default:
 			volume = vol + volume_change_ratio;
 			volume_fx = vol + volume_change_ratio;
+			volume_general = vol + volume_change_ratio;
 			VolumeDown(-1);
 			break;
 		}
