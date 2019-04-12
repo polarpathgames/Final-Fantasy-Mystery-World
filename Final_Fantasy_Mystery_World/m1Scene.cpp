@@ -627,7 +627,7 @@ void m1Scene::CreateDebugScreen()
 	map_label = App->gui->AddLabel(0, textures_label->position.y + textures_label->section.h, "map:\nnumber of layers: %i\nnumber of tilesets: %i\nmap id: %i\nwidth: %i | height: %i\ntile width: %i | tile height: %i\ntiles drawn: %i",
 		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
-	entities_label = App->gui->AddLabel(0, map_label->position.y + map_label->section.h, "entities:\nnumber of entities: %i\ntextures used: %i",
+	entities_label = App->gui->AddLabel(0, map_label->position.y + map_label->section.h + fps_label->section.h*2, "entities:\nnumber of entities: %i\ntextures used: %i",
 		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
 	player_label = App->gui->AddLabel(0, entities_label->position.y + entities_label->section.h, "player:\nposition: %i\ntile: %i\n movement type: %i\ndirection: %i\n state: %i",

@@ -198,9 +198,25 @@ bool m1Fonts::CalcSizeWrapped(const char* text, int& width, int& height, FontTyp
 		LOG("Unable to calc size of text surface! SDL_ttf Error: %s\n", TTF_GetError());
 	else {
 		ret = true;
-		height = (width / (int)wrap) * height + (width % (int)wrap);
+		height *= CalcLines(text);
+
 		width = wrap;
 	}
 
 	return ret;
+}
+
+int m1Fonts::CalcLines(const char * text)
+{
+	int num_of_lines = 0;
+
+	if (text != nullptr) {
+		std::string txt = text;
+		for (int i = 0; i < txt.length(); i++) {
+			if (txt[i] == '\n')
+				num_of_lines++;
+		}
+		num_of_lines++;
+	}
+	return num_of_lines;
 }
