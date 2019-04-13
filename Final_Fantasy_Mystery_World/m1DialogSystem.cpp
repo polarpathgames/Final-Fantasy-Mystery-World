@@ -3,6 +3,8 @@
 #include "m1Fonts.h"
 #include "e1StaticEntity.h"
 #include "m1DialogSystem.h"
+#include "m1Scene.h"
+#include "e1Player.h"
 #include "m1Window.h"
 #include "m1Input.h"
 #include "u1Label.h"
@@ -217,9 +219,14 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   break;
 			   case -2:
 				   LOG("FULL MANA");
+				   App->scene->player->AugmentMana(100);
+				   LOG("%i", App->scene->player->stats.mana);
+
 				   break;
 			   case 2:
 				   LOG("FULL HEALTH");
+				   App->scene->player->AugmentLives(250);
+				   LOG("%i", App->scene->player->stats.live);
 				   break;
 			   default:
 
