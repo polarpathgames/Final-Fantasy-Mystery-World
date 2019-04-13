@@ -22,8 +22,8 @@
       <option line="Recover health" nextnode="2" karma="-1" tag="2"/>
       <option line="Recover mana" nextnode="2" karma="-1" tag="-2"/>
   </node>
-    <node line="It seems that the fountain has no power no more." karma="-1" tag="0">
-      <option line="" nextnode ="1" karma="0" tag="0"/>
+    <node line="It seems that the fountain has no power no more." id="2" karma="-1" tag="0">
+      <option line="" nextnode ="3" karma="0" tag="0"/>
     </node>
   </dialogtree>
 </dialogue>
