@@ -52,6 +52,8 @@ bool m1Scene::Start()
 		App->ChangeInventory();
 
 	App->gui->ShowCursor(false);
+
+	bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, this, App->gui->screen, true, false, false, false);
   
 	return true;
 }

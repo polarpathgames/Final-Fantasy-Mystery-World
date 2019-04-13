@@ -264,6 +264,9 @@ private:
 	u1Label* mouse_label = nullptr;
 	u1Label* entities_label = nullptr;
 
+	// HUD
+	u1Image* bg_hud = nullptr;
+
 };
 
 #endif // __j1SCENE_H__
