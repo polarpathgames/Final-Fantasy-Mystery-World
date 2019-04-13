@@ -280,10 +280,9 @@ bool e1StaticEntity::Update(float dt)
 	iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
 	if (interacting_state == InteractingStates::WAITING_INTERACTION) {
 		if (actual_tile.DistanceManhattan(player_pos) <= max_distance_to_interact) {
-			if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+			if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 				App->scene->player->BlockControls(true);
 				interacting_state = InteractingStates::INTERACTING;
-				App->dialog->firstupdate = true;
 				App->dialog->end_dial = false;
 			}
 		}			
@@ -291,7 +290,7 @@ bool e1StaticEntity::Update(float dt)
 	if (interacting_state == InteractingStates::INTERACTING && actual_tile.DistanceManhattan(player_pos) > max_distance_to_interact || App->dialog->end_dial)
 	{
 		App->dialog->DeleteText();
-		App->dialog->waiting_input = false;
+	/*	App->dialog->waiting_input = false;*/
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 	}
 
@@ -301,6 +300,7 @@ bool e1StaticEntity::Update(float dt)
 			App->dialog->PerformDialogue(0);
 			break;
 		case e1StaticEntity::Type::QUEST_FOUNTAIN:
+			if(!App->dialog->fountain_interaction)
 			App->dialog->PerformDialogue(1);			
 			break;
 		default:
