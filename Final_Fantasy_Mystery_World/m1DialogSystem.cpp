@@ -197,7 +197,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			}
 		    else
 		    {
-				dialogTrees[treeid]->karma += currentNode->dialogOptions[i]->karma;
+			   dialogTrees[treeid]->karma += currentNode->dialogOptions[i]->karma;
 			   DeleteText();
 			   switch (CompareKarma())
 			   {
@@ -211,22 +211,21 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 
 					   }
 				   }
-				   dialogTrees[treeid]->karma = 0;
 				   break;
 			   case 1:
 				   LOG("Hola oriol jijiijiji");
-				   dialogTrees[treeid]->karma = 0;
 				   break;
 			   case -2:
-
+				   LOG("FULL MANA");
 				   break;
 			   case 2:
-
+				   LOG("FULL HEALTH");
 				   break;
 			   default:
 
 				   break;
 			   }
+			   dialogTrees[treeid]->karma = 0;
 			   end_dial = true;
 			   return false;
 		    }
