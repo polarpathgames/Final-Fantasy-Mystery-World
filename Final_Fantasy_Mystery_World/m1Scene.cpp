@@ -668,9 +668,10 @@ void m1Scene::CreateDebugScreen()
 	player_label = App->gui->AddLabel(0, entities_label->position.y + entities_label->section.h + fps_label->section.h, "player:\nposition: %i\ntile: %i\n movement type: %i\ndirection: %i\n state: %i",
 		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
-	mouse_label = App->gui->AddLabel(0, 0, "mouse:\nposition: (%i, %i)\ntile: (%i, %i)\nUI Element selected:\nposition: (%i, %i)\nsection: (%i, %i)\nnumber of childs: %i\ntype: %i",
+	mouse_label = App->gui->AddLabel(0, 0, "mouse:\nposition: (%i, %i)\nmotion: (%i, %i)\ntile: (%i, %i)\nUI Element selected:\nposition: (%i, %i)\nsection: (%i, %i)\nnumber of childs: %i\ntype: %i",
 		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 	mouse_label->SetPosRespectParent(Position_Type::RIGHT_UP);
+
 }
 
 void m1Scene::DestroyDebugScreen()
@@ -710,6 +711,28 @@ void m1Scene::UpdateDebugScreen()
 			player_label->SetTextWrapped(std::string("player:\nposition: (" + std::to_string(player->position.x) + ", " + std::to_string(player->position.y) +
 				")\ntile: (" + std::to_string(player->actual_tile.x) + ", " + std::to_string(player->actual_tile.y) + ")\nmovement type: " + std::to_string((int)player->movement_type) +
 				"\ndirection: " + std::to_string((int)player->direction) + "\nstate: " + std::to_string((int)player->state)).data());
+		}
+
+		int x = 0, y = 0, m_x = 0, m_y = 0;
+		App->input->GetMousePosition(x, y);
+		App->input->GetMouseMotion(m_x, m_y);
+		iPoint tile = App->map->WorldToMap(x, y);
+
+		const u1GUI* focus = App->gui->GetFocus();
+
+		if (focus == nullptr) {
+			mouse_label->SetTextWrapped(std::string("mouse:\nposition: (" + std::to_string(x) + ", " + std::to_string(y) +
+				")\nmotion: (" + std::to_string(m_x) + ", " + std::to_string(m_y) +
+				")\ntile: (" + std::to_string(tile.x) + ", " + std::to_string(tile.y) +
+				")\nUI Element selected:\nposition: (00, 00)\nsection: (00, 00)\nnumber of childs: 00\ntype: unknown").data());
+		}
+		else {
+			mouse_label->SetTextWrapped(std::string("mouse:\nposition: (" + std::to_string(x) + ", " + std::to_string(y) +
+				")\nmotion: (" + std::to_string(m_x) + ", " + std::to_string(m_y) +
+				")\ntile: (" + std::to_string(tile.x) + ", " + std::to_string(tile.y) +
+				")\nUI Element selected:\nposition: (" + std::to_string(focus->position.x) + ", " + std::to_string(focus->position.y) +
+				")\nsection: (" + std::to_string(focus->section.w) + ", " + std::to_string(focus->section.w) +
+				")\nnumber of childs: " + std::to_string(focus->childs.size()) + "\ntype: " + std::to_string((int)focus->GetType())).data());
 		}
 	}
 }
