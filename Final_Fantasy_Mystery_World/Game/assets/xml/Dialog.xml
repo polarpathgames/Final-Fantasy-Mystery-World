@@ -2,16 +2,28 @@
 
 
 <dialogue>
-  <dialogtree treeid="0" karma="0">
+  <dialogtree treeid="0" karma="0" tag="0">
     <node line="Hello PLAYERNAME, I am the shopkeeper of this small town" id="0">
-      <option  line="" nextnode="1" karma="0"/>
+      <option  line="" nextnode="1" karma="-1" tag="0"/>
     </node>
     <node line="Do you want to buy some of my precious goods?" id="1" karma="-1">
-      <option line="Yes" nextnode="3" karma="1"/>
-      <option line="No" nextnode="2" karma="-1"/>
+      <option line="Yes" nextnode="3" karma="0" tag="1"/>
+      <option line="No" nextnode="2" karma="0"/>
     </node>
-    <node line="See you later!" id="2">
-      <option line="" nextnode="3" karma="0"/>
+    <node line="See you later!" id="2" karma="0">
+      <option line="" nextnode="3" karma="0" tag="0"/>
+    </node>
+  </dialogtree>
+  <dialogtree treeid="1" karma="0" tag="0">
+    <node line="In front of you a strange source emerges splendidly in the room" id="0">
+      <option line="" nextnode="1" karma="0" tag="0"/>
+    </node>
+  <node line="A strange energy from the fountain emanates. What do you want to do?" id="1" karma="0">
+      <option line="Recover health" nextnode="2" karma="-1" tag="2"/>
+      <option line="Recover mana" nextnode="2" karma="-1" tag="-2"/>
+  </node>
+    <node line="It seems that the fountain has no power no more." karma="-1" tag="0">
+      <option line="" nextnode ="1" karma="0" tag="0"/>
     </node>
   </dialogtree>
 </dialogue>

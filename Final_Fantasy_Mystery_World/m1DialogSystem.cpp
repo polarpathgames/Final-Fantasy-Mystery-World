@@ -3,6 +3,8 @@
 #include "m1Fonts.h"
 #include "e1StaticEntity.h"
 #include "m1DialogSystem.h"
+#include "m1Scene.h"
+#include "e1Player.h"
 #include "m1Window.h"
 #include "m1Input.h"
 #include "u1Label.h"
@@ -54,12 +56,29 @@ bool m1DialogSystem::PerformDialogue(int tr_id)
 
 	if (dialogTrees.empty())
 		LOG("TreeEmpty");
-
 	if (firstupdate)
 	{
-		currentNode = dialogTrees[tr_id]->dialogNodes[0];
+		if (CompareKarma() == true)
+		{
+			currentNode = dialogTrees[treeid]->dialogNodes[0];
+		}
+		else
+		{
+			for (int i = 0; i < dialogTrees[treeid]->dialogNodes.size(); i++)
+			{
+				// We search the mood of the bad response bad response = -1  / neutral = 0
+				if (dialogTrees[treeid]->karma == dialogTrees[treeid]->dialogNodes[i]->karma)
+				{
+					currentNode = dialogTrees[treeid]->dialogNodes[i]; //This node is the bad response from the npc
+					break;
+				}
+			}
+		}
 		firstupdate = false;
 	}
+		
+
+
 	if (!waiting_input)
 	{
 		//Put the player's name in the lines of the npc dialog
@@ -117,15 +136,12 @@ bool m1DialogSystem::CompareKarma()
 	if (dialogTrees[treeid]->karma < 0)
 		ret = false;
 
-	if (dialogTrees[treeid]->karma > 0)
-		ret = true;
-
 	return ret;
 }
 
-void m1DialogSystem::CheckForKarma(DialogNode* karmaNode)
+void m1DialogSystem::CheckForKarma(DialogOption* karmaNode)
 {
-	dialogTrees[treeid]->karma += karmaNode->dialogOptions[input]->karma;
+	dialogTrees[treeid]->karma += karmaNode->karma;
 }
 
 bool m1DialogSystem::LoadDialogue(const char* file)
@@ -142,12 +158,12 @@ bool m1DialogSystem::LoadDialogue(const char* file)
 	else
 		LOG("XML was loaded succesfully!");
 
-	if(ret)
 		for (pugi::xml_node t = tree_file.child("dialogue").child("dialogtree"); t != NULL; t = t.next_sibling("dialogtree"))
 		{
 			DialogTree* tr = new DialogTree;
 			tr->treeid = t.attribute("treeid").as_int();
 			tr->karma = t.attribute("karma").as_int();
+			tr->tag = t.attribute("tag").as_int();
 			LoadTreeData(t, tr);
 			dialogTrees.push_back(tr);
 		}
@@ -182,6 +198,7 @@ bool m1DialogSystem::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc
 		option->text.assign(op.attribute("line").as_string());
 		option->nextnode = op.attribute("nextnode").as_int();
 		option->karma = op.attribute("karma").as_int();
+		option->tag = op.attribute("tag").as_int();
 		npc->dialogOptions.push_back(option);
 	}
 	return ret;
@@ -205,26 +222,36 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			}
 		    else
 		    {
+			   dialogTrees[treeid]->karma += currentNode->dialogOptions[i]->karma;
+			   dialogTrees[treeid]->tag += currentNode->dialogOptions[i]->tag;
 			   DeleteText();
-			   if (CompareKarma() == false)
+			   switch (dialogTrees[treeid]->tag)
 			   {
-				   for (int i = 0; i < dialogTrees[treeid]->dialogNodes.size(); i++)
-				   {
-					// We search the mood of the bad response bad response = -1  / neutral = 0
-					if (dialogTrees[treeid]->karma == dialogTrees[treeid]->dialogNodes[i]->karma)
-					{
-						currentNode = dialogTrees[treeid]->dialogNodes[i]; //This node is the bad response from the npc
+			   case 1:
+				   LOG("Hola oriol jijiijiji");
+				   break;
+			   case -2:
+				   LOG("FULL MANA");
+				   App->scene->player->AugmentMana(100);
+				   LOG("%i", App->scene->player->stats.mana);
+				   fountain_interaction = true;
+				   break;
+			   case 2:
+				   LOG("FULL HEALTH");
+				   App->scene->player->AugmentLives(250);
+				   LOG("%i", App->scene->player->stats.live);
+				   fountain_interaction = true;
+				   break;
+			   default:
 
-					}
-				   }
-				   dialogTrees[treeid]->karma = 0;
+				   break;
 			   }
-			   if (CompareKarma() == true)
-			   {
-					LOG("Hola oriol jijiijiji");
-				   dialogTrees[treeid]->karma = 0;
-			   }
+			   dialogTrees[treeid]->tag = 0;
+			   App->scene->player->BlockControls(false);
+			   waiting_input = false;
+			   firstupdate = true;
 			   end_dial = true;
+			   return false;
 		    }
 		}
 		

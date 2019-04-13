@@ -223,6 +223,23 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 		max_distance_to_interact = 3;
 	}
+	else if (strcmp(name, "quest_fountain") == 0) {
+		static_type = e1StaticEntity::Type::QUEST_FOUNTAIN;
+		has_animation = true;
+		idle = new Animation();
+		current_animation = idle;
+		idle->PushBack({ 160,0,64,48 });
+		idle->PushBack({ 224,0,64,48 });
+		idle->PushBack({ 160,48,64,48 });
+		idle->PushBack({ 224,48,64,48 });
+		idle->speed = 5;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x + 1,App->map->WorldToMap(position.x,position.y).y + 1 };
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+		max_distance_to_interact = 3;
+	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
 	}
@@ -261,9 +278,10 @@ bool e1StaticEntity::Update(float dt)
 	if (interacting_state == InteractingStates::NONE)
 		return true;
 	iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
-	if (interacting_state == InteractingStates::WAITING_INTERACTION) {	
+	if (interacting_state == InteractingStates::WAITING_INTERACTION) {
 		if (actual_tile.DistanceManhattan(player_pos) <= max_distance_to_interact) {
-			if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+			if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+				App->scene->player->BlockControls(true);
 				interacting_state = InteractingStates::INTERACTING;
 				App->dialog->end_dial = false;
 			}
@@ -272,7 +290,7 @@ bool e1StaticEntity::Update(float dt)
 	if (interacting_state == InteractingStates::INTERACTING && actual_tile.DistanceManhattan(player_pos) > max_distance_to_interact || App->dialog->end_dial)
 	{
 		App->dialog->DeleteText();
-		App->dialog->waiting_input = false;
+	/*	App->dialog->waiting_input = false;*/
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 	}
 
@@ -280,6 +298,10 @@ bool e1StaticEntity::Update(float dt)
 		switch (static_type) {
 		case e1StaticEntity::Type::SHOP_MAN:
 			App->dialog->PerformDialogue(0);
+			break;
+		case e1StaticEntity::Type::QUEST_FOUNTAIN:
+			if(!App->dialog->fountain_interaction)
+			App->dialog->PerformDialogue(1);			
 			break;
 		default:
 			break;
