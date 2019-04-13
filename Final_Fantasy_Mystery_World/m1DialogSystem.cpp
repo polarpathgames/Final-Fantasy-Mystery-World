@@ -233,6 +233,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   break;
 			   }
 			   dialogTrees[treeid]->karma = 0;
+			   App->scene->player->BlockControls(false);
 			   end_dial = true;
 			   return false;
 		    }
