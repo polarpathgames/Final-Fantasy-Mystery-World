@@ -223,6 +223,20 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 		max_distance_to_interact = 3;
 	}
+	else if (strcmp(name, "quest_fountain") == 0) {
+		static_type = e1StaticEntity::Type::QUEST_FOUNTAIN;
+		has_animation = true;
+		idle = new Animation();
+		current_animation = idle;
+		idle->PushBack({ 160,0,64,48 });
+		idle->PushBack({ 224,0,64,48 });
+		idle->PushBack({ 160,48,64,48 });
+		idle->PushBack({ 224,48,64,48 });
+		idle->speed = 5;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
 	}
@@ -280,6 +294,9 @@ bool e1StaticEntity::Update(float dt)
 		switch (static_type) {
 		case e1StaticEntity::Type::SHOP_MAN:
 			App->dialog->PerformDialogue(0);
+			break;
+		case e1StaticEntity::Type::QUEST_FOUNTAIN:
+			App->dialog->PerformDialogue(1);
 			break;
 		default:
 			break;

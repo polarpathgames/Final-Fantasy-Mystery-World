@@ -59,7 +59,7 @@ public:
 	bool LoadTreeData(pugi::xml_node& trees, DialogTree* oak);
 	bool LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc);
 	void BlitDialog();
-	bool CompareKarma();
+	int CompareKarma();
 	void CheckForKarma(DialogNode* karmaNode);
 	int input = 7;
 	bool firstupdate = true, waiting_input = false, end_dial = false;

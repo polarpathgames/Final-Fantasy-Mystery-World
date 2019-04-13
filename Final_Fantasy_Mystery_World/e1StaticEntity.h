@@ -42,6 +42,7 @@ public:
 		CANDLE,
 		PIECE_SHOP,
 		SHOP_MAN,
+		QUEST_FOUNTAIN,
 
 		UNKNOWN
 	};

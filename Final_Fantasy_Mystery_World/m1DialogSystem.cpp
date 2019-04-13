@@ -110,17 +110,9 @@ void m1DialogSystem::DeleteText()
 	dialog_panel = nullptr;
 }
 
-bool m1DialogSystem::CompareKarma()
+int m1DialogSystem::CompareKarma()
 {
-	bool ret = true;
-
-	if (dialogTrees[treeid]->karma < 0)
-		ret = false;
-
-	if (dialogTrees[treeid]->karma > 0)
-		ret = true;
-
-	return ret;
+	return dialogTrees[treeid]->karma;
 }
 
 void m1DialogSystem::CheckForKarma(DialogNode* karmaNode)
@@ -205,26 +197,38 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			}
 		    else
 		    {
+				dialogTrees[treeid]->karma += currentNode->dialogOptions[i]->karma;
 			   DeleteText();
-			   if (CompareKarma() == false)
+			   switch (CompareKarma())
 			   {
+			   case -1:
 				   for (int i = 0; i < dialogTrees[treeid]->dialogNodes.size(); i++)
 				   {
-					// We search the mood of the bad response bad response = -1  / neutral = 0
-					if (dialogTrees[treeid]->karma == dialogTrees[treeid]->dialogNodes[i]->karma)
-					{
-						currentNode = dialogTrees[treeid]->dialogNodes[i]; //This node is the bad response from the npc
+					   // We search the mood of the bad response bad response = -1  / neutral = 0
+					   if (dialogTrees[treeid]->karma == dialogTrees[treeid]->dialogNodes[i]->karma)
+					   {
+						   currentNode = dialogTrees[treeid]->dialogNodes[i]; //This node is the bad response from the npc
 
-					}
+					   }
 				   }
 				   dialogTrees[treeid]->karma = 0;
-			   }
-			   if (CompareKarma() == true)
-			   {
-					LOG("Hola oriol jijiijiji");
+				   break;
+			   case 1:
+				   LOG("Hola oriol jijiijiji");
 				   dialogTrees[treeid]->karma = 0;
+				   break;
+			   case -2:
+
+				   break;
+			   case 2:
+
+				   break;
+			   default:
+
+				   break;
 			   }
 			   end_dial = true;
+			   return false;
 		    }
 		}
 		
