@@ -42,8 +42,11 @@ public:
 	void DeleteEntity(e1Entity* entity_to_delete);
 
 	const std::vector<e1Entity*> GetEntities();
+	const std::vector<SDL_Texture*> GetTextures();
 
 	static bool SortByYPos(const e1Entity * ent1, const e1Entity * ent2);
+
+	uint entities_drawn = 0u;
 
 private:
 

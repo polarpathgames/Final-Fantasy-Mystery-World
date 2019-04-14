@@ -3229,7 +3229,7 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="26" name="seller" type="static" x="320" y="320" width="15.9688" height="16.0156">
+  <object id="27" name="shop_man_place" type="static" x="320" y="320" width="31.7974" height="31.8906">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>

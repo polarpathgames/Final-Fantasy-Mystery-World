@@ -22,6 +22,7 @@
 #include "u1CheckBox.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Input.h"
+#include "m1Textures.h"
 
 m1Scene::m1Scene() : m1Module()
 {
@@ -84,7 +85,7 @@ bool m1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		App->SaveGame("save_game.xml");
 
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	/*if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y += 300 * dt;
 
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
@@ -94,7 +95,7 @@ bool m1Scene::Update(float dt)
 		App->render->camera.x += 300 * dt;
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 300 * dt;
+		App->render->camera.x -= 300 * dt;*/
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		App->map->grid = !App->map->grid;
@@ -141,6 +142,9 @@ bool m1Scene::Update(float dt)
 				player->BlockControls(false);
 			}
 		}
+
+		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
+			CreateGoToQuestMenu();
 		break;
 	case StatesMenu::INVENTORY_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
@@ -286,11 +290,41 @@ void m1Scene::CreateEntities()
 			else if ((*position)->properties.FindNameValue("home")) {
 				App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x,App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_HOME, nullptr);
 			}
+			else if ((*position)->properties.FindNameValue("menu_quest")) {
+				App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x,App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_MENU_QUEST, nullptr);
+			}
 		}
 		else {
 			LOG("There isn't any entity with name %s and type %s", (*position)->name.data(), (*position)->ent_type.data());
 		}
 	}
+}
+
+void m1Scene::CreateGoToQuestMenu()
+{
+	go_to_quest_panel = App->gui->AddImage(100, 70, { 1878, 1536, 170, 101 }, this, App->gui->screen, true, false, false, false);
+
+	go_to_quest_label = App->gui->AddLabel(50, -5, "Tutorial", go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
+	go_to_quest_button = App->gui->AddButton(30, 0, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, this, go_to_quest_panel, false, false, true, true);
+	go_to_quest_button->AddListener(this);
+
+	cancel_quest_label = App->gui->AddLabel(50, 38, "Cancel", go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
+	cancel_quest_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, go_to_quest_panel, false, false, true, true);
+	cancel_quest_button->AddListener(this);
+
+	player->BlockControls(true);
+
+	menu_state = StatesMenu::GO_TO_QUEST_MENU;
+
+}
+
+void m1Scene::DestroyGoToQuestMenu()
+{
+
+	App->gui->DeleteUIElement(go_to_quest_panel);
+
+	player->BlockControls(false);
+	menu_state = StatesMenu::NO_MENU;
 }
 
 void m1Scene::CreateInventory()
@@ -645,18 +679,19 @@ void m1Scene::CreateDebugScreen()
 	textures_label = App->gui->AddLabel(0, fps_label->position.y + fps_label->section.h * 2, "textures:\nnumber of textures: %i",
 		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
-	map_label = App->gui->AddLabel(0, textures_label->position.y + textures_label->section.h, "map:\nnumber of layers: %i\nnumber of tilesets: %i\nmap id: %i\nwidth: %i | height: %i\ntile width: %i | tile height: %i\ntiles drawn: %i",
+	map_label = App->gui->AddLabel(0, textures_label->position.y + textures_label->section.h + fps_label->section.h, "map:\nnumber of layers: %i\nnumber of tilesets: %i\nmap id: %i\nwidth: %i | height: %i\ntile width: %i | tile height: %i\ntiles drawn: %i\n menu state: %i",
 		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
-	entities_label = App->gui->AddLabel(0, map_label->position.y + map_label->section.h, "entities:\nnumber of entities: %i\ntextures used: %i",
+	entities_label = App->gui->AddLabel(0, map_label->position.y + map_label->section.h + fps_label->section.h*2, "entities:\nnumber of entities: %i\ntextures used: %i\nentities drawn: %i",
 		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
-	player_label = App->gui->AddLabel(0, entities_label->position.y + entities_label->section.h, "player:\nposition: %i\ntile: %i\n movement type: %i\ndirection: %i\n state: %i",
+	player_label = App->gui->AddLabel(0, entities_label->position.y + entities_label->section.h + fps_label->section.h, "player:\nposition: %i\ntile: %i\n movement type: %i\ndirection: %i\n state: %i",
 		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
-	mouse_label = App->gui->AddLabel(0, 0, "mouse:\nposition: (%i, %i)\ntile: (%i, %i)\nUI Element selected:\nposition: (%i, %i)\nsection: (%i, %i)\nnumber of childs: %i\ntype: %i",
+	mouse_label = App->gui->AddLabel(0, 0, "mouse:\nposition: (%i, %i)\nmotion: (%i, %i)\ntile: (%i, %i)\nUI Element selected:\nposition: (%i, %i)\nsection: (%i, %i)\nnumber of childs: %i\ntype: %i",
 		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 	mouse_label->SetPosRespectParent(Position_Type::RIGHT_UP);
+
 }
 
 void m1Scene::DestroyDebugScreen()
@@ -682,14 +717,42 @@ void m1Scene::UpdateDebugScreen()
 	if (debug_screen != nullptr) {
 		fps_label->SetText(std::string("fps: " + std::to_string(App->GetFps())).data());
 
+		textures_label->SetTextWrapped(std::string("textures:\nnumber of textures: " + std::to_string(App->tex->textures.size())).data());
+
 		map_label->SetTextWrapped(std::string("map:\nnumber of layers: " + std::to_string(App->map->data.layers.size()) + "\nnumber of tilesets: " + std::to_string(App->map->data.tilesets.size()) +
 			"\nmap id: " + std::to_string((int)App->map->actual_map) + "\nwidth: " + std::to_string(App->map->data.width) + " | height: " + std::to_string(App->map->data.height) + "\ntile width: "
-			+ std::to_string(App->map->data.tile_width) + "\ntile height: " + std::to_string(App->map->data.tile_height) + "\ntiles drawn: " + std::to_string(App->map->last_tiles_drawn)).data());
+			+ std::to_string(App->map->data.tile_width) + "\ntile height: " + std::to_string(App->map->data.tile_height) + "\ntiles drawn: " + std::to_string(App->map->last_tiles_drawn) + 
+			"\nmenu state : " + std::to_string((int)menu_state)).data());
+
+		entities_label->SetTextWrapped(std::string("entities:\nnumber of entities: " + std::to_string(App->entity_manager->GetEntities().size()) +
+			"\ntextures used: " + std::to_string(App->entity_manager->GetTextures().size()) + "\nentities drawn: " + std::to_string(App->entity_manager->entities_drawn)).data());
 
 		if (player != nullptr) {
 			player_label->SetTextWrapped(std::string("player:\nposition: (" + std::to_string(player->position.x) + ", " + std::to_string(player->position.y) +
 				")\ntile: (" + std::to_string(player->actual_tile.x) + ", " + std::to_string(player->actual_tile.y) + ")\nmovement type: " + std::to_string((int)player->movement_type) +
 				"\ndirection: " + std::to_string((int)player->direction) + "\nstate: " + std::to_string((int)player->state)).data());
+		}
+
+		int x = 0, y = 0, m_x = 0, m_y = 0;
+		App->input->GetMousePosition(x, y);
+		App->input->GetMouseMotion(m_x, m_y);
+		iPoint tile = App->map->WorldToMap(x, y);
+
+		const u1GUI* focus = App->gui->GetFocus();
+
+		if (focus == nullptr) {
+			mouse_label->SetTextWrapped(std::string("mouse:\nposition: (" + std::to_string(x) + ", " + std::to_string(y) +
+				")\nmotion: (" + std::to_string(m_x) + ", " + std::to_string(m_y) +
+				")\ntile: (" + std::to_string(tile.x) + ", " + std::to_string(tile.y) +
+				")\nUI Element selected:\nposition: (00, 00)\nsection: (00, 00)\nnumber of childs: 00\ntype: unknown").data());
+		}
+		else {
+			mouse_label->SetTextWrapped(std::string("mouse:\nposition: (" + std::to_string(x) + ", " + std::to_string(y) +
+				")\nmotion: (" + std::to_string(m_x) + ", " + std::to_string(m_y) +
+				")\ntile: (" + std::to_string(tile.x) + ", " + std::to_string(tile.y) +
+				")\nUI Element selected:\nposition: (" + std::to_string(focus->position.x) + ", " + std::to_string(focus->position.y) +
+				")\nsection: (" + std::to_string(focus->section.w) + ", " + std::to_string(focus->section.w) +
+				")\nnumber of childs: " + std::to_string(focus->childs.size()) + "\ntype: " + std::to_string((int)focus->GetType())).data());
 		}
 	}
 }
@@ -710,12 +773,12 @@ bool m1Scene::Interact(u1GUI* interact)
 		}
 		if (interact == button_main_menu)
 		{
+			DestroyDebugScreen();
 			App->gui->DeleteAllUIElements();
 			App->entity_manager->Disable();
 			App->map->Disable();
 			active = false; //desactivates main menu
 			App->main_menu->Enable();
-			DestroyDebugScreen();
 			ret = false;
 			menu_state = StatesMenu::NO_MENU;
 		}
@@ -726,6 +789,16 @@ bool m1Scene::Interact(u1GUI* interact)
 			ret = false;
 		}
 		break;
+	case StatesMenu::GO_TO_QUEST_MENU:
+		if (interact == go_to_quest_button) {
+			player->first_collision = true;
+			DestroyGoToQuestMenu();
+			App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
+		}
+		if (interact == cancel_quest_button) {
+			player->first_collision = true;
+			DestroyGoToQuestMenu();
+		}
 	case StatesMenu::INVENTORY_MENU:
 		if (interact == hp_potion_button) {
 			DeletePotionMenu();

@@ -7,6 +7,7 @@
 class u1Button : public u1GUI
 {
 public:
+	u1Button() : u1GUI(BUTTON, 0, 0, nullptr, { 0,0,0,0 }) {}
 	u1Button(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, u1GUI* parent, bool draw, bool inter, bool drag, bool focus);
 	~u1Button();
 

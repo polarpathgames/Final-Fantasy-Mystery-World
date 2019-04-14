@@ -31,8 +31,11 @@ public:
 	void CreateCredits();
 	void DestroyCredits();
 
-	void CreateEndGame();
-	void DestroyEndGame();
+	
+	void CreateGameOver();
+	void DestroyGameOver();
+
+
 
 private:
 
@@ -66,8 +69,6 @@ private:
 	u1Button* button_oriol = nullptr;
 	u1Label* label_oriol = nullptr;
 
-	u1Image* end_game_panel = nullptr;
-
 	u1Button* exit_button = nullptr;
 	u1Label* exit_text = nullptr;
 
@@ -82,6 +83,16 @@ private:
 	
 	u1Button* button_youtube = nullptr;
 	u1Label* label_youtube = nullptr;
+
+	u1Image* game_over_panel = nullptr;
+
+	u1Button* button_continue_lobby = nullptr;
+	u1Label* label_continue_lobby = nullptr; 
+	
+	u1Button* button_return_main = nullptr;
+	u1Label* label_continue_main = nullptr;
+	
+
 };
 
 #endif

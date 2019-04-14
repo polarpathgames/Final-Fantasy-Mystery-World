@@ -26,6 +26,8 @@ m1Collision::m1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_LAST_B] = true;
 	matrix[COLLIDER_LAST_B][COLLIDER_PLAYER] = true;
 
+	matrix[COLLIDER_PLAYER][COLLIDER_MENU_QUEST] = true;
+	matrix[COLLIDER_MENU_QUEST][COLLIDER_PLAYER] = true;
 }
 
 // Destructor
@@ -127,6 +129,9 @@ void m1Collision::DebugDraw()
 			break;
 		case COLLIDER_LAST_B: // white
 			App->render->DrawQuad((*item)->rect, 255, 255, 255, alpha);
+			break;
+		case COLLIDER_MENU_QUEST: // white
+			App->render->DrawQuad((*item)->rect, 0, 255, 255, alpha);
 			break;
 		}
 
