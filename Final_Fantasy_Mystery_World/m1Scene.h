@@ -13,6 +13,7 @@ enum class StatesMenu {
 	INVENTORY_MENU,
 	POTION_MENU,
 	GO_TO_QUEST_MENU,
+	SHOP_MENU,
 
 	NONE
 };
@@ -76,6 +77,9 @@ public:
 
 	void CreateControlsMenu();
 	void DestroyControlsMenu();
+
+	void CreateShopMenu();
+	void DestroyShopMenu();
 
 	void CreateDebugScreen();
 	void DestroyDebugScreen();
@@ -167,6 +171,13 @@ private:
 	u1Button* button_retun = nullptr;
 	u1Label* label_return = nullptr;
 
+
+	// Menu Shop
+
+	u1Image* shop_panel = nullptr;
+
+	u1Button* button_close_shop = nullptr;
+	u1Label* label_close_shop = nullptr;
 
 	// Menu Controls
 

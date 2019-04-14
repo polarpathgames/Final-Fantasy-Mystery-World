@@ -645,6 +645,24 @@ void m1Scene::DestroyControlsMenu()
 
 }
 
+void m1Scene::CreateShopMenu()
+{
+	player->BlockControls(true);
+
+	shop_panel = App->gui->AddImage(100, 50, { 1820,1691,227,383 }, (m1Module*)App->scene, App->gui->screen, true, false, false, false);
+
+	button_close_shop = App->gui->AddButton(130, 200, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 },this, shop_panel, true, false, true, true);
+	label_close_shop = App->gui->AddLabel(150, 200, "Return", shop_panel, BLACK, FontType::FF32, nullptr, false);
+
+	menu_state = StatesMenu::SHOP_MENU;
+}
+
+void m1Scene::DestroyShopMenu()
+{
+
+	menu_state = StatesMenu::NO_MENU;
+}
+
 void m1Scene::CreateDebugScreen()
 {
 	debug_screen = App->gui->AddImage(0, 0, App->gui->screen->section, nullptr, App->gui->screen, false, false, false, false);

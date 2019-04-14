@@ -229,25 +229,27 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			   {
 			   case 1:
 				   LOG("Hola oriol jijiijiji");
+				   App->scene->CreateShopMenu();
 				   break;
 			   case -2:
 				   LOG("FULL MANA");
 				   App->scene->player->AugmentMana(100);
 				   LOG("%i", App->scene->player->stats.mana);
+				   App->scene->player->BlockControls(false);
 				   fountain_interaction = true;
 				   break;
 			   case 2:
 				   LOG("FULL HEALTH");
 				   App->scene->player->AugmentLives(250);
 				   LOG("%i", App->scene->player->stats.live);
+				   App->scene->player->BlockControls(false);
 				   fountain_interaction = true;
 				   break;
 			   default:
-
+				   App->scene->player->BlockControls(false);
 				   break;
 			   }
 			   dialogTrees[treeid]->tag = 0;
-			   App->scene->player->BlockControls(false);
 			   waiting_input = false;
 			   firstupdate = true;
 			   end_dial = true;
