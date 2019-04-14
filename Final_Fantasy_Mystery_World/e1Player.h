@@ -54,6 +54,7 @@ struct PlayerStats {
 	int num_hp_potions = 0;
 	int num_mana_potions = 0;
 	int cost_mana_special_attack1 = 50;
+	int level = 1;
 
 };
 

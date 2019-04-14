@@ -335,21 +335,21 @@ void m1Scene::CreateInventory()
 	hp_potion_button = App->gui->AddButton(73, 72, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, inventory_panel, true, false, true, true);
 	hp_potion_button->AddListener(this);
 	hp_potion_image = App->gui->AddImage(85, 80, { 1058, 1952, 33, 47 }, this, inventory_panel, true, false, false, false);
-	hp_potion_label = App->gui->AddLabel(50, -10, "x 0", hp_potion_image, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop money and we have the shop
+	hp_potion_label = App->gui->AddLabel(50, -10, std::string("x " + std::to_string(player->stats.num_hp_potions)).data(), hp_potion_image, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop money and we have the shop
 
 	mana_potion_button = App->gui->AddButton(73, 135, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, inventory_panel, true, false, true, true);
 	mana_potion_button->AddListener(this);
 	mana_potion_image = App->gui->AddImage(85, 140, {1091, 1952, 33, 51}, this, inventory_panel, true, false, false, false);
-	mana_potion_label = App->gui->AddLabel(50, -10, "x 0", mana_potion_image, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop money and we have the shop
+	mana_potion_label = App->gui->AddLabel(50, -10, std::string("x " + std::to_string(player->stats.num_mana_potions)).data(), mana_potion_image, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop money and we have the shop
 
 	coin_image = App->gui->AddImage(45, 225, { 1024, 1952, 34, 34 }, this, inventory_panel, true, false, false, false);
-	money_label = App->gui->AddLabel(50, -20, "x 0", coin_image, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop money and we have the shop
+	money_label = App->gui->AddLabel(50, -20, std::string("x " + std::to_string(player->stats.gold)).data(), coin_image, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop money and we have the shop
 
 	level_name_label = App->gui->AddLabel(76, 267, "Level:", inventory_panel, BLACK, FontType::FF64, nullptr, false);
-	level_number_label = App->gui->AddLabel(65, 0, "1", level_name_label, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop exp
+	level_number_label = App->gui->AddLabel(65, 0, std::string("x " + std::to_string(player->stats.level)).data(), level_name_label, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop exp
 
 	exp_name_label = App->gui->AddLabel(55, 307, "Exp:", inventory_panel, BLACK, FontType::FF64, nullptr, false);
-	exp_number_label = App->gui->AddLabel(50, 0, "0/100", exp_name_label, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop exp
+	exp_number_label = App->gui->AddLabel(50, 0, std::string(std::to_string(player->stats.xp) + "/100").data(), exp_name_label, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop exp
 
 
 
@@ -827,10 +827,19 @@ bool m1Scene::Interact(u1GUI* interact)
 		break;
 	case StatesMenu::POTION_MENU:
 		if (interact == use_hp_button) {
-			LOG("HP POTION USED");
+			if (player->stats.num_hp_potions >= 1) {
+				--player->stats.num_hp_potions;
+				player->AugmentLives(25);
+				hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
+			}
 		}
 		if (interact == use_mana_button) {
-			LOG("MANA POTION USED");
+			if (player->stats.num_mana_potions >= 1) {
+				--player->stats.num_mana_potions;
+				player->AugmentMana(25);
+				mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
+			}
+		
 		}
 		if (interact == cancel_button) {
 			DeletePotionMenu();
