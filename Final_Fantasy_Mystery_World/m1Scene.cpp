@@ -189,16 +189,18 @@ bool m1Scene::Update(float dt)
 		UpdateDebugScreen();
 	}
 
-	//if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-	//	App->audio->VolumeDown(-1);
+	if (options_panel != nullptr) {
+		UpdateOptionsMenu();
+	}
 
-	//if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
-	//	App->audio->VolumeUp(-1);
+	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
+		App->audio->VolumeDown(-1);
+
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+		App->audio->VolumeUp(-1);
 
 	//if (!App->audio->mute_volume) Mix_VolumeMusic(slider_music_volume->GetValue());
 	//if (!App->audio->mute_fx) App->audio->SliderVolumeFx(slider_fx_volume->GetValue());
-	//App->audio->volume = slider_music_volume->GetValue(); This crashes
-	//App->audio->volume_fx = slider_fx_volume->GetValue(); This crashes
 
 	return true;
 }
@@ -443,23 +445,23 @@ void m1Scene::CreateOptionsMenu()
 	button_general_volume = App->gui->AddButton(491, 168, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	label_general_volume = App->gui->AddLabel(0, 0, "General Volume", button_general_volume, BLACK, FontType::FF48, nullptr, false);
 	label_general_volume->SetPosRespectParent(LEFT_CENTERED);
+	minus_general_btn = App->gui->AddButton(715, 185, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options_panel, true, false, true, true);
+	plus_general_btn = App->gui->AddButton(805, 185, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options_panel, true, false, true, true);
+	label_general_value = App->gui->AddLabel(760, 172, "", options_panel, BLACK, FontType::FF48, nullptr, false);
 
 	button_music_volume = App->gui->AddButton(491, 246, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	label_music_volume = App->gui->AddLabel(0, 0, "Music Volume", button_music_volume, BLACK, FontType::FF48, nullptr, false);
 	label_music_volume->SetPosRespectParent(LEFT_CENTERED);
+	minus_music_btn = App->gui->AddButton(715, 263, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options_panel, true, false, true, true);
+	plus_music_btn = App->gui->AddButton(805, 263, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options_panel, true, false, true, true);
+	label_music_value = App->gui->AddLabel(760, 250, "", options_panel, BLACK, FontType::FF48, nullptr, false);
 
 	button_fx_volume = App->gui->AddButton(491, 326, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	label_fx_volume = App->gui->AddLabel(0, 0, "FX Volume", button_fx_volume, BLACK, FontType::FF48, nullptr,false);
 	label_fx_volume->SetPosRespectParent(LEFT_CENTERED);
-	
-	slider_general_volume = App->gui->AddSlider(680, 183, { 1566,1536,191,22 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, true, options_panel, this);
-	//slider_music_volume->SetValue(app->audio->max_volume); why crashes�?
-
-	slider_music_volume = App->gui->AddSlider(680, 263, { 1566,1536,191,22 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, true, options_panel, this);
-	slider_music_volume->SetValue(App->audio->volume);
-
-	slider_fx_volume = App->gui->AddSlider(680, 343, { 1566,1536,191,22 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, true, options_panel, this);
-	slider_fx_volume->SetValue(App->audio->volume_fx);
+	minus_fx_btn = App->gui->AddButton(715, 343, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options_panel, true, false, true, true);
+	plus_fx_btn = App->gui->AddButton(805, 343, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options_panel, true, false, true, true);
+	label_fx_value = App->gui->AddLabel(760, 330,"", options_panel, BLACK, FontType::FF48, nullptr, false);
 
 	label_fps = App->gui->AddLabel(491, 413, "FPS Caps",  options_panel, BLACK, FontType::FF48, nullptr, false);
 	checkbox_fps = App->gui->AddCheckBox(760, 413, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
@@ -493,6 +495,24 @@ void m1Scene::CreateOptionsMenu()
 void m1Scene::DestroyOptionsMenu()
 {
 	App->gui->DeleteUIElement(options_panel);
+
+	options_panel = nullptr;
+
+	label_music_value = nullptr;
+	label_fx_value = nullptr;
+	label_general_value = nullptr;
+
+}
+
+void m1Scene::UpdateOptionsMenu()
+{
+	BROFILER_CATEGORY("UpdateOptionsMenu", Profiler::Color::Orange);
+	if (options_panel != nullptr) {
+		label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+		label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+		label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+	}
+	
 }
 
 void m1Scene::CreateControlsMenu()
@@ -929,6 +949,32 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->win->fullscreen = true;
 			SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_FULLSCREEN);
 		}
+	}
+
+	//Audio------
+	if (interact == button_music_volume) {
+		App->audio->StopMusic(-2);
+	}
+	else if (interact == button_fx_volume) {
+		App->audio->StopMusic(-3);
+	}
+	else if (interact == minus_music_btn) {
+		App->audio->VolumeDown(-2);
+	}
+	else if (interact == plus_music_btn) {
+		App->audio->VolumeUp(-2);
+	}
+	else if (interact == minus_fx_btn) {
+		App->audio->VolumeDown(-3);
+	}
+	else if (interact == plus_fx_btn) {
+		App->audio->VolumeUp(-3);
+	}
+	else if (interact == minus_general_btn) {
+		App->audio->VolumeDown(-1);
+	}
+	else if (interact == plus_general_btn) {
+		App->audio->VolumeUp(-1);
 	}
 
 	return ret;

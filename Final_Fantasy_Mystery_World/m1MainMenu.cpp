@@ -46,6 +46,8 @@ bool m1MainMenu::Update(float dt)
 		delete App->scene->control_to_change;
 		App->scene->control_to_change = nullptr;
 	}
+	App->scene->UpdateOptionsMenu();
+
 	return true;
 }
 
@@ -88,6 +90,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 	if (interaction == options_button) {
 		App->scene->CreateOptionsMenu();
 		App->gui->DeleteUIElement(background);
+		App->scene->UpdateOptionsMenu();
 	}
 
 	if (interaction == credits_button) {

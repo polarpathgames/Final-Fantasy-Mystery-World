@@ -35,6 +35,7 @@ bool m1Audio::Awake(pugi::xml_node& config)
 	default_music_fade_time = 2.0;
 	volume_change_ratio = 10;
 	mute = false;
+	volume_general = 100;
 
 	if (mute)
 	{
@@ -258,20 +259,21 @@ void m1Audio::StopMusic(int mut)
 
 void m1Audio::VolumeUp(int vol)
 {
-	if (!mute && ((!mute_volume && vol == -2) || (!mute_fx && vol == -3)))
+	if (!mute && ((!mute_volume && vol == -2) || (!mute_fx && vol == -3) || (!mute_fx && vol == -1)))
 	{
 		switch (vol)
 		{
 		case -1:
 			VolumeUp(-2);
 			VolumeUp(-3);
+			if(volume_general < max_volume)
+				volume_general += volume_change_ratio;
 			break;
 		case -2:
 			if (volume < max_volume) {
 				volume += volume_change_ratio;
 				Mix_VolumeMusic(volume);
 			}
-			App->scene->slider_music_volume->SetValue(volume);
 			break;
 		case -3:
 			if (volume_fx < max_volume) {
@@ -282,11 +284,11 @@ void m1Audio::VolumeUp(int vol)
 					Mix_VolumeChunk((*item), volume_fx);
 				}
 			}
-			App->scene->slider_fx_volume->SetValue(volume_fx);
 			break;
 		default:
 			volume = vol - volume_change_ratio;
 			volume_fx = vol - volume_change_ratio;
+			volume_general = vol - volume_change_ratio;
 			VolumeUp(-1);
 			break;
 		}
@@ -296,20 +298,21 @@ void m1Audio::VolumeUp(int vol)
 
 void m1Audio::VolumeDown(int vol)
 {
-	if (!mute && ((!mute_volume && vol == -2) || (!mute_fx && vol == -3)))
+	if (!mute && ((!mute_volume && vol == -2) || (!mute_fx && vol == -3) || (!mute_fx && vol == -1)))
 	{
 		switch (vol)
 		{
 		case -1:
 			VolumeDown(-2);
 			VolumeDown(-3);
+			if(volume_general>0)
+				volume_general -= volume_change_ratio;
 			break;
 		case -2:
 			if (volume > 0) {
 				volume -= volume_change_ratio;
 				Mix_VolumeMusic(volume);
 			}
-			App->scene->slider_music_volume->SetValue(volume);
 			break;
 		case -3:
 			if (volume_fx > 0) {
@@ -320,11 +323,11 @@ void m1Audio::VolumeDown(int vol)
 					Mix_VolumeChunk((*item), volume_fx);
 				}
 			}
-			App->scene->slider_fx_volume->SetValue(volume_fx);
 			break;
 		default:
 			volume = vol + volume_change_ratio;
 			volume_fx = vol + volume_change_ratio;
+			volume_general = vol + volume_change_ratio;
 			VolumeDown(-1);
 			break;
 		}

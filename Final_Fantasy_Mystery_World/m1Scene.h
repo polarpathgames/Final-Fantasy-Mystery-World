@@ -70,6 +70,7 @@ public:
 
 	void CreateOptionsMenu();
 	void DestroyOptionsMenu();
+	void UpdateOptionsMenu();
 
 	void CreateGoToQuestMenu();
 	void DestroyGoToQuestMenu();
@@ -89,10 +90,6 @@ public:
 	u1GUI* background = nullptr;
 	std::list<u1Label*> labels_control;
 	std::list<u1Label*> Clabels_control;
-
-	u1Slider* slider_general_volume = nullptr;
-	u1Slider* slider_music_volume = nullptr;
-	u1Slider* slider_fx_volume = nullptr;
 
 	e1Player* player = nullptr;
 	ChangeControls * control_to_change = nullptr;
@@ -148,14 +145,21 @@ private:
 
 	u1Label* label_general_volume = nullptr;
 	u1Button* button_general_volume = nullptr;
-	
+	u1Button* minus_general_btn = nullptr;
+	u1Button* plus_general_btn = nullptr;
+	u1Label* label_general_value = nullptr;
+
 	u1Label* label_music_volume = nullptr;
 	u1Button* button_music_volume = nullptr;
-	//u1Button* music_slider_btn = nullptr;
+	u1Button* minus_music_btn = nullptr;
+	u1Button* plus_music_btn = nullptr;
+	u1Label* label_music_value = nullptr;
 
 	u1Label* label_fx_volume = nullptr;
 	u1Button* button_fx_volume = nullptr;
-	//u1Button* fx_slider_btn = nullptr;
+	u1Button* minus_fx_btn = nullptr;
+	u1Button* plus_fx_btn = nullptr;
+	u1Label* label_fx_value = nullptr;
 
 	u1Label* label_fps = nullptr;
 	u1CheckBox* checkbox_fps = nullptr;
