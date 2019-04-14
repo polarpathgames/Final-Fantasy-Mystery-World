@@ -654,7 +654,7 @@ void m1Scene::CreateShopMenu()
 	button_close_shop = App->gui->AddButton(120, 330, { 1850,1637,55,25 }, { 1850,1637,55,25 }, { 1850,1637,55,25 }, this, shop_panel, false, false, true, true);
 	label_close_shop = App->gui->AddLabel(140, 321, "Return", shop_panel, BLACK, FontType::FF48, nullptr, false);
 
-	shop_hp_potion_image = App->gui->AddImage(62, 100, { 1058, 1952, 33, 47 }, this, shop_panel, true, false, false, false);
+	shop_hp_potion_image = App->gui->AddImage(58, 100, { 1058, 1952, 33, 47 }, this, shop_panel, true, false, false, false);
 	shop_hp_potion_label = App->gui->AddLabel(102, 93, std::string("x " + std::to_string(price_hp_potion)).data(), shop_panel, BLACK, FontType::FF64, nullptr, false);
 	shop_coin1 = App->gui->AddImage(160, 112, { 1024, 1952, 34, 34 }, this, shop_panel, true, false, false, false);
 
