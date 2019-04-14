@@ -48,7 +48,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	fade_to_black = new m1FadeToBlack();
 	collision = new m1Collision();
 	easing_splines = new m1EasingSplines();
-
+	cutscene_manager = new m1CutScene();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
