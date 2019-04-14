@@ -101,6 +101,7 @@ public:
 	// HUD
 	u1Image* bg_hud = nullptr;
 	u1Bar* player_hp_bar = nullptr;
+	u1Bar* player_mana_bar = nullptr;
 
 private:
 

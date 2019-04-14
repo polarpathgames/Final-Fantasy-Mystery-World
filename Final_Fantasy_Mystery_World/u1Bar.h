@@ -20,7 +20,11 @@ public:
 
 public:
 
-	u1Image* full_bar = nullptr;
+	u1Image* empty_bar = nullptr;
+	u1Image* full_hp = nullptr;
+
+	u1Image* empty_mana_bar = nullptr;
+	u1Image* full_mana = nullptr;
 
 	e1Entity* entity = nullptr;
 	UIType bar_type;

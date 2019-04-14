@@ -12,12 +12,14 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 
 	if (type == HPBAR)
 	{
-		full_bar = App->gui->AddImage(x, y, { 1024, 3088, 182, 24 }, App->scene, App->scene->bg_hud, true, false, false, false);
+		empty_bar = App->gui->AddImage(x, y, { 1024, 3098, 185, 25 }, App->scene, App->scene->bg_hud, true, false, false, false);
+		full_hp = App->gui->AddImage(7, 5, { 1030, 3144, 172, 10 }, App->scene, empty_bar, true, false, false, false);
 	}
 
 	if (type == MANABAR)
 	{
-		full_bar = App->gui->AddImage(x, y, { 1237, 3088, 185, 25 }, App->scene, App->scene->bg_hud, true, false, false, false);
+		empty_bar = App->gui->AddImage(x, y, { 1024, 3098, 185, 25 }, App->scene, App->scene->bg_hud, true, false, false, false);
+		full_mana = App->gui->AddImage(7, 5, { 1030, 3180, 172, 10 }, App->scene, empty_bar, true, false, false, false);
 	}
 }
 
