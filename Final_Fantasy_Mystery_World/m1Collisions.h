@@ -20,12 +20,19 @@ enum COLLIDER_TYPE
 	COLLIDER_MAX
 };
 
+enum class ColliderInfo {
+	ENTER,
+	STAY,
+	LEAVE
+};
+
 struct Collider
 {
 	SDL_Rect rect;
 
 	bool to_delete = false;
 	COLLIDER_TYPE type;
+	ColliderInfo info = ColliderInfo::ENTER;
 	m1Module* callback = nullptr;
 	bool enable = true;
 

@@ -13,6 +13,8 @@ class Application;
 struct Collider;
 class u1GUI;
 
+enum class ColliderInfo;
+
 class m1Module
 {
 private:
@@ -86,7 +88,7 @@ public:
 	}
 
 	// Callbacks ---
-	virtual void OnCollision(Collider*, Collider*) {}
+	virtual void OnCollision(Collider*, Collider*, ColliderInfo) {}
 	virtual bool Interact(u1GUI* element) { return true; }
 
 public:

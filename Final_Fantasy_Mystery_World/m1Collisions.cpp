@@ -72,10 +72,45 @@ bool m1Collision::PreUpdate()
 			if (c1->CheckCollision(c2->rect) == true)
 			{
 				if (matrix[c1->type][c2->type] && c1->callback)
-					c1->callback->OnCollision(c1, c2);
+					switch (c1->info)
+					{
+					case ColliderInfo::ENTER:
+						c1->callback->OnCollision(c1, c2, ColliderInfo::ENTER);
+						c1->info = ColliderInfo::STAY;
+						break;
+					case ColliderInfo::STAY:
+						c1->callback->OnCollision(c1, c2, ColliderInfo::STAY);
+						break;
+					default:
+						c1->callback->OnCollision(c1, c2, ColliderInfo::STAY);
+						break;
+					}
 
 				if (matrix[c2->type][c1->type] && c2->callback)
-					c2->callback->OnCollision(c2, c1);
+					switch (c2->info)
+					{
+					case ColliderInfo::ENTER:
+						c2->callback->OnCollision(c2, c1, ColliderInfo::ENTER);
+						c2->info = ColliderInfo::STAY;
+						break;
+					case ColliderInfo::STAY:
+						c2->callback->OnCollision(c2, c1, ColliderInfo::STAY);
+						break;
+					default:
+						c2->callback->OnCollision(c2, c1, ColliderInfo::STAY);
+						break;
+					}
+			}
+			else {
+				if (c1->info == ColliderInfo::STAY && matrix[c1->type][c2->type] && c1->callback) {
+					c1->callback->OnCollision(c1, c2, ColliderInfo::LEAVE);
+					c1->info = ColliderInfo::ENTER;
+				}
+				if (c2->info == ColliderInfo::STAY && matrix[c2->type][c1->type] && c2->callback) {
+					c2->callback->OnCollision(c2, c1, ColliderInfo::LEAVE);
+					c2->info = ColliderInfo::ENTER;
+				}
+					
 			}
 		}
 	}
