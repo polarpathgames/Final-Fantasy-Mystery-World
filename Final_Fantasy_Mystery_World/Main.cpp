@@ -4,6 +4,10 @@
 #include "p2Log.h"
 #include "App.h"
 
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #include "SDL/include/SDL.h"
 #pragma comment( lib, "SDL/libx86/SDL2.lib" )
 #pragma comment( lib, "SDL/libx86/SDL2main.lib" )
@@ -112,5 +116,8 @@ int main(int argc, char* args[])
 	LOG("... Bye! :)\n");
 
 	// Dump memory leaks
+	_CrtCheckMemory();
+	_CrtDumpMemoryLeaks();
+
 	return result;
 }
