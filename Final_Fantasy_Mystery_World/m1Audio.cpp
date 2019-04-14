@@ -259,7 +259,7 @@ void m1Audio::StopMusic(int mut)
 
 void m1Audio::VolumeUp(int vol)
 {
-	if (!mute && ((!mute_volume && vol == -2) || (!mute_fx && vol == -3)))
+	if (!mute && ((!mute_volume && vol == -2) || (!mute_fx && vol == -3) || (!mute_fx && vol == -1)))
 	{
 		switch (vol)
 		{
@@ -298,7 +298,7 @@ void m1Audio::VolumeUp(int vol)
 
 void m1Audio::VolumeDown(int vol)
 {
-	if (!mute && ((!mute_volume && vol == -2) || (!mute_fx && vol == -3)))
+	if (!mute && ((!mute_volume && vol == -2) || (!mute_fx && vol == -3) || (!mute_fx && vol == -1)))
 	{
 		switch (vol)
 		{
