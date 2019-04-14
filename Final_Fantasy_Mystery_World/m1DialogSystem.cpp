@@ -6,6 +6,7 @@
 #include "m1Scene.h"
 #include "e1Player.h"
 #include "m1Window.h"
+#include "App.h"
 #include "m1Input.h"
 #include "u1Label.h"
 #include "u1Button.h"
@@ -89,6 +90,9 @@ bool m1DialogSystem::PerformDialogue(int tr_id)
 		waiting_input = !waiting_input;
 		BlitDialog(); // Print the dialog in the screen
 	}	
+
+	App->scene->player->BlockControls(true);
+
 	return ret;
 }
 

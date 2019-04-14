@@ -650,13 +650,25 @@ void m1Scene::CreateShopMenu()
 	player->BlockControls(true);
 
 	shop_panel = App->gui->AddImage(100, 50, { 1820,1691,227,383 }, (m1Module*)App->scene, App->gui->screen, true, false, false, false);
-	
-	button_close_shop = App->gui->AddButton(120, 330, { 1850,1637,55,25 }, { 1850,1637,55,25 }, { 1850,1637,55,25 }, this, shop_panel, false, false, true, true);
+	shop_label = App->gui->AddLabel(0, 0, "SHOP", shop_panel, BLACK, FontType::FF64, nullptr, false);
+	shop_label->SetPosRespectParent(CENTERED_UP,20);
+
+	button_close_shop = App->gui->AddButton(130, 330, { 1850,1637,75,35 }, { 1850,1637,55,35 }, { 1850,1637,55,35 }, this, shop_panel, false, false, true, true);
 	label_close_shop = App->gui->AddLabel(140, 321, "Return", shop_panel, BLACK, FontType::FF48, nullptr, false);
 
-	shop_hp_potion_image = App->gui->AddImage(58, 100, { 1058, 1952, 33, 47 }, this, shop_panel, true, false, false, false);
+
+	shop_hp_potion_image = App->gui->AddImage(58, 101, { 1058, 1952, 33, 47 }, this, shop_panel, true, false, false, false);
 	shop_hp_potion_label = App->gui->AddLabel(102, 93, std::string("x " + std::to_string(price_hp_potion)).data(), shop_panel, BLACK, FontType::FF64, nullptr, false);
 	shop_coin1 = App->gui->AddImage(160, 112, { 1024, 1952, 34, 34 }, this, shop_panel, true, false, false, false);
+	shop_button_hp_potion = App->gui->AddButton(32, 100, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, this, shop_panel, false, false, true, true);
+
+	shop_mana_potion_image = App->gui->AddImage(58, 186, { 1091, 1952, 33, 51 }, this, shop_panel, true, false, false, false);
+	shop_mana_potion_label = App->gui->AddLabel(102, 178, std::string("x " + std::to_string(price_mana_potion)).data(), shop_panel, BLACK, FontType::FF64, nullptr, false);
+	shop_coin2 = App->gui->AddImage(160, 197, { 1024, 1952, 34, 34 }, this, shop_panel, true, false, false, false);
+	shop_button_mana_potion = App->gui->AddButton(32, 185, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, this, shop_panel, false, false, true, true);
+
+
+	App->gui->FocusButton(shop_button_hp_potion);
 
 	menu_state = StatesMenu::SHOP_MENU;
 }
@@ -844,6 +856,26 @@ bool m1Scene::Interact(u1GUI* interact)
 	case StatesMenu::SHOP_MENU:
 		if (interact == button_close_shop) {
 			DestroyShopMenu();
+		}
+		if (interact == shop_button_hp_potion) {
+			if (player->stats.gold >= price_hp_potion) {
+				// audio comprar
+				player->ReduceGold(price_hp_potion);
+				++player->stats.num_hp_potions;
+			}
+			else {
+				// audio no money
+			}
+		}
+		if (interact == shop_button_mana_potion) {
+			if (player->stats.gold >= price_mana_potion) {
+				// audio comprar
+				player->ReduceGold(price_mana_potion);
+				++player->stats.num_mana_potions;
+			}
+			else {
+				// audio no money
+			}
 		}
 		break;
 	case StatesMenu::CONTROLS_MENU:
