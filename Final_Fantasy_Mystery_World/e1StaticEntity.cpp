@@ -321,7 +321,11 @@ bool e1StaticEntity::Update(float dt)
 	if (interacting_state == InteractingStates::INTERACTING) {
 		switch (static_type) {
 		case e1StaticEntity::Type::SHOP_MAN:
-			App->dialog->PerformDialogue(0);
+			if (App->scene->GetMenuState() == StatesMenu::SHOP_MENU) {
+				interacting_state = InteractingStates::WAITING_INTERACTION;
+			}
+			else
+				App->dialog->PerformDialogue(0);
 			break;
 		case e1StaticEntity::Type::QUEST_FOUNTAIN:
 			if(!App->dialog->fountain_interaction)
