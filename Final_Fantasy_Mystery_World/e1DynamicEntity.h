@@ -45,6 +45,8 @@ public:
 
 	void ResetAnims();
 
+	void ChangeAnimsInCutscene(const int &x, const int &y, const int & anim_num);
+
 public:
 
 	Direction direction = Direction::NONE;

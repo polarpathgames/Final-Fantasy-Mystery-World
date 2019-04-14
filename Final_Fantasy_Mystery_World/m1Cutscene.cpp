@@ -48,6 +48,7 @@ void m1CutScene::PlayCutscene(std::string path)
 	{
 		LoadCutscene(path);
 		SetExecuting(true);
+		
 	}
 }
 

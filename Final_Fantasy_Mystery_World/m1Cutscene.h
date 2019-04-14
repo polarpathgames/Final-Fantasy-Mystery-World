@@ -25,13 +25,15 @@ public:
 	//Cutscene Functions
 
 	void PlayCutscene(std::string path);
-	bool LoadCutscene(std::string path);
+	
 	void ExecuteCutscene(float dt);
 	void ClearCutscene();
 
 	double GetTimer();
 	void SetExecuting(bool executing);
 
+private:
+	bool LoadCutscene(std::string path);
 private:
 	p2PerfTimer cutscene_timer;
 	bool is_executing = false;

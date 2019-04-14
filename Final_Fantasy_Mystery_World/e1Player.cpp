@@ -109,6 +109,9 @@ void e1Player::OnCollisionEnter(Collider * c2)
 	if (c2->type == COLLIDER_MENU_QUEST) {
 		App->scene->CreateGoToQuestMenu();
 	}
+	if (c2->type == COLLIDER_CUTSCENE_BRIDGE) {
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneBlockPass.xml");
+	}
 }
 
 void e1Player::OnCollisionExit(Collider * c2)
