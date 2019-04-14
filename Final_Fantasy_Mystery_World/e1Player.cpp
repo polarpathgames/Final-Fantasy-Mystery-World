@@ -3,6 +3,7 @@
 #include "App.h"
 #include "m1Render.h"
 #include "p2Log.h"
+#include "m1Cutscene.h"
 #include "App.h"
 #include "m1Textures.h"
 #include "e1Enemy.h"

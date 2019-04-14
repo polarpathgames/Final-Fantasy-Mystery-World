@@ -8,6 +8,7 @@
 
 #include "m1Window.h"
 #include "m1Input.h"
+#include "m1Cutscene.h"
 #include "m1Render.h"
 #include "m1Textures.h"
 #include "m1Audio.h"
@@ -47,7 +48,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	fade_to_black = new m1FadeToBlack();
 	collision = new m1Collision();
 	easing_splines = new m1EasingSplines();
-
+	cutscene_manager = new m1CutScene();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -61,11 +62,13 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(main_menu);
 	AddModule(fonts);
 	AddModule(collision);
+
 	AddModule(entity_manager);
 	AddModule(gui);
 	AddModule(dialog);
 	AddModule(fade_to_black);
 	AddModule(easing_splines);
+	AddModule(cutscene_manager);
 
 	// render last to swap buffer
 	AddModule(render);
