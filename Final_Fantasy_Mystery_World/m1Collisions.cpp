@@ -28,6 +28,9 @@ m1Collision::m1Collision()
 
 	matrix[COLLIDER_PLAYER][COLLIDER_MENU_QUEST] = true;
 	matrix[COLLIDER_MENU_QUEST][COLLIDER_PLAYER] = true;
+
+	matrix[COLLIDER_PLAYER][COLLIDER_CUTSCENE_BRIDGE] = true;
+	matrix[COLLIDER_CUTSCENE_BRIDGE][COLLIDER_PLAYER] = true;
 }
 
 // Destructor
@@ -175,6 +178,9 @@ void m1Collision::DebugDraw()
 			App->render->DrawQuad((*item)->rect, 255, 255, 255, alpha);
 			break;
 		case COLLIDER_MENU_QUEST: // white
+			App->render->DrawQuad((*item)->rect, 0, 255, 255, alpha);
+			break;
+		case COLLIDER_CUTSCENE_BRIDGE: // white
 			App->render->DrawQuad((*item)->rect, 0, 255, 255, alpha);
 			break;
 		}

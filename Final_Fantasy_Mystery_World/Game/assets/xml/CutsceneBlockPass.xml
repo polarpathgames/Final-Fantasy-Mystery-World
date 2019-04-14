@@ -1,19 +1,19 @@
 <cutscenes>
   <actions>
     <cutscene action="modify_image" name="dialog_image">
-      <time start ="2000" type="activate"/>
+      <time start ="1500" type="activate"/>
     </cutscene>
     <cutscene action="modify_image" name="face_image">
-      <time start ="2000" type="activate"/>
+      <time start ="1500" type="activate"/>
     </cutscene>
     <cutscene action="modify_text" name="dialog">
-      <time start ="2000" type="activate"/>
+      <time start ="1500" type="activate"/>
     </cutscene>
     <cutscene action="modify_text" name="dialog">
-      <time start ="4000" type="change" text="Go Away! It is very dengerous to cross this bridge"/>
+      <time start ="2500" type="change" text="Go Away! It is very dengerous to cross this bridge"/>
     </cutscene>
     <cutscene action="move_entity" entity="player">
-      <time start="4200" duration="200" speed_x="160" speed_y="-80"/>
+      <time start="3000" duration="200" speed_x="160" speed_y="-80"/>
     </cutscene>
     <cutscene action="modify_image" name="dialog_image">
       <time start ="0" type="deactivate"/>
