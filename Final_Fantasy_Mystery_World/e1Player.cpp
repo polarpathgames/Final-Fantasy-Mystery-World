@@ -32,6 +32,7 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 
 	CenterPlayerInTile();
 
+
 }
 
 e1Player::~e1Player()

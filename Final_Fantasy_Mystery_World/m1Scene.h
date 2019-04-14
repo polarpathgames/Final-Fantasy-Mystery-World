@@ -25,6 +25,7 @@ class u1GUI;
 class u1Image;
 class u1Label;
 class u1Button;
+class u1Bar;
 
 class u1CheckBox;
 class u1Slider;
@@ -96,6 +97,11 @@ public:
 
 	e1Player* player = nullptr;
 	ChangeControls * control_to_change = nullptr;
+
+	// HUD
+	u1Image* bg_hud = nullptr;
+	u1Bar* player_hp_bar = nullptr;
+
 private:
 
 
@@ -263,9 +269,6 @@ private:
 	u1Label* player_label = nullptr;
 	u1Label* mouse_label = nullptr;
 	u1Label* entities_label = nullptr;
-
-	// HUD
-	u1Image* bg_hud = nullptr;
 
 };
 

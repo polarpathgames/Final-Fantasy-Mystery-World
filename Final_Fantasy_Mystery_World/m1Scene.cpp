@@ -18,6 +18,7 @@
 #include "u1Button.h"
 #include "u1Label.h"
 #include "u1Image.h"
+#include "u1Bar.h"
 #include "u1Slider.h"
 #include "u1CheckBox.h"
 #include "Brofiler/Brofiler.h"
@@ -54,6 +55,7 @@ bool m1Scene::Start()
 	App->gui->ShowCursor(false);
 
 	bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+	player_hp_bar = App->gui->AddBar(215, 662, 100, HPBAR, bg_hud, this);
   
 	return true;
 }

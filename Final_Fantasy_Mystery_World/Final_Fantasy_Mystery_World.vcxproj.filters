@@ -105,6 +105,9 @@
     <ClCompile Include="e1Drop.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="u1Bar.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -233,6 +236,9 @@
     </ClInclude>
     <ClInclude Include="e1Drop.h">
       <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="u1Bar.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
