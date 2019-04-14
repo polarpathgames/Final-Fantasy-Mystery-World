@@ -89,10 +89,12 @@ bool e1Player::CleanUp()
 
 void e1Player::OnCollision(Collider * c2)
 {
+	LOG("STAY");
 }
 
 void e1Player::OnCollisionEnter(Collider * c2)
 {
+	LOG("ENTER");
 	if (c2->type == COLLIDER_SHOP) {
 		if (App->map->actual_map == Maps::LOBBY)
 			App->fade_to_black->FadeToBlack(Maps::SHOP);
@@ -112,6 +114,8 @@ void e1Player::OnCollisionEnter(Collider * c2)
 
 void e1Player::OnCollisionExit(Collider * c2)
 {
+	LOG("EXIT");
+	App->easing_splines->CreateSpline(&position.x-20, position.x - 20, 100, EASE);
 }
 
 void e1Player::CheckLobbyCollision(const float & dt, const Direction & dir)
@@ -989,98 +993,4 @@ void e1Player::CreateSkills()
 	left_skill_label->SetPos(30, 0);
 
 	has_skills = true;
-}
-
-
-void e1Player::IdAnimToEnum() //Assign every id animation to enum animation
-{
-	for (uint i = 0; i < data.num_animations; ++i) {
-		switch (data.animations[i].id) {
-		case 1:
-			data.animations[i].animType = AnimationState::IDLE_DOWN_LEFT;
-			break;
-		case 0:
-			data.animations[i].animType = AnimationState::WALKING_DOWN_LEFT;
-			break;
-		case 3:
-			data.animations[i].animType = AnimationState::WALKING_UP_LEFT;
-			break;
-		case 4:
-			data.animations[i].animType = AnimationState::IDLE_UP_LEFT;
-			break;
-		case 6:
-			data.animations[i].animType = AnimationState::WALKING_DOWN_RIGHT;
-			break;
-		case 7:
-			data.animations[i].animType = AnimationState::IDLE_DOWN_RIGHT;
-			break;
-		case 9:
-			data.animations[i].animType = AnimationState::WALKING_UP_RIGHT;
-			break;
-		case 10:
-			data.animations[i].animType = AnimationState::IDLE_UP_RIGHT;
-			break;
-		case 12:
-			data.animations[i].animType = AnimationState::WALKING_DOWN;
-			break;
-		case 13:
-			data.animations[i].animType = AnimationState::IDLE_DOWN;
-			break;
-		case 15:
-			data.animations[i].animType = AnimationState::WALKING_UP;
-			break;
-		case 16:
-			data.animations[i].animType = AnimationState::IDLE_UP;
-			break;
-		case 18:
-			data.animations[i].animType = AnimationState::WALKING_LEFT;
-			break;
-		case 19:
-			data.animations[i].animType = AnimationState::IDLE_LEFT;
-			break;
-		case 21:
-			data.animations[i].animType = AnimationState::WALKING_RIGHT;
-			break;
-		case 22:
-			data.animations[i].animType = AnimationState::IDLE_RIGHT;
-			break;
-		case 24:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_LEFT;
-			break;
-		case 33:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_RIGHT;
-			break;
-		case 27:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_LEFT;
-			break;
-		case 30:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_RIGHT;
-			break;
-		case 36:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN;
-			break;
-		case 39:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP;
-			break;
-		case 42:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_LEFT;
-			break;
-		case 54:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
-			break;
-		case 60:
-			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
-			break;
-		case 63:
-			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
-			break;
-		case 66:
-			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
-			break;
-		case 69:
-			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
-			break;
-		}
-
-	}
 }

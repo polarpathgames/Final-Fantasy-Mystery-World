@@ -34,6 +34,8 @@ public:
 	bool CleanUp();
 
 	void OnCollision(Collider* c1, Collider* c2);
+	void OnCollisionEnter(Collider* c1, Collider* c2);
+	void OnCollisionExit(Collider* c1, Collider* c2);
 
 	e1Entity* CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name);
 

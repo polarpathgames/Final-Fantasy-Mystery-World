@@ -91,6 +91,8 @@ public:
 	virtual bool CleanUp() { return true; };
 	virtual void Draw(SDL_Texture* tex, float dt);
 	virtual void OnCollision(Collider* c2) {};
+	virtual void OnCollisionEnter(Collider* c2) {};
+	virtual void OnCollisionExit(Collider* c2) {};
 	const Collider * GetCollider() const;
 
 	void SetPivot(const int &x, const int &y);
