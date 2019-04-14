@@ -234,6 +234,7 @@
     <ClInclude Include="e1Drop.h">
       <Filter>Entities</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\assets\xml\config.xml" />
@@ -268,5 +269,11 @@
     <Filter Include="Tools\pugixml">
       <UniqueIdentifier>{e6a7f851-a874-4b51-9346-717d21b79a04}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Game\assets\ff_icon.ico" />
   </ItemGroup>
 </Project>
