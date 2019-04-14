@@ -85,11 +85,11 @@ void u1GUI::SetPosRespectParent(Position_Type pos, const int& margin)
 	switch (pos)
 	{
 	case CENTERED:
-		x = (parent->section.w - section.w) * 0.5F;
+		x = (parent->section.w - section.w) * 0.5F + margin;
 		y = (parent->section.h - section.h) * 0.5F;
 		break;
 	case CENTERED_UP:
-		x = (parent->section.w - section.w) * 0.5F;
+		x = (parent->section.w - section.w) * 0.5F + margin;
 		y = margin;
 		break;
 	case CENTERED_DOWN:
