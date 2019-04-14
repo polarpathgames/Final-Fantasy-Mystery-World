@@ -24,17 +24,17 @@ public:
 
 	virtual ~e1Enemy();
 
-	bool Update(float dt);
+	virtual bool PreUpdate();
 
-	bool PreUpdate();
+	virtual bool Update(float dt);
 
-	bool PostUpdate();
+	virtual bool PostUpdate();
 
-	bool Load(pugi::xml_node&);
+	virtual bool Load(pugi::xml_node&);
 
-	bool Save(pugi::xml_node&) const;
+	virtual bool Save(pugi::xml_node&) const;
 
-	bool CleanUp();
+	virtual bool CleanUp();
 
 	bool IsPlayerNextTile();
 

@@ -81,7 +81,7 @@ public:
 
 	bool LoadEntityData(const char*);
 	//virtual void LoadProperties(pugi::xml_node&);
-	virtual void IdAnimToEnum();
+	virtual void IdAnimToEnum() {};
 
 	virtual void PushBack() {};
 

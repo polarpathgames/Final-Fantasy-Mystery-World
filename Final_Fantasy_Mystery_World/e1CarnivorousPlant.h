@@ -11,6 +11,15 @@ public:
 
 	virtual ~e1CarnivorousPlant();
 
+	bool PreUpdate();
+
+	bool Update(float dt);
+
+	bool PostUpdate();
+
+	bool CleanUp();
+
+	void IdAnimToEnum();
 
 };
 

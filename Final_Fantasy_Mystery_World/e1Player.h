@@ -120,6 +120,7 @@ public:
 	void GetHitted(const int & damage_taken); // Player Get Damaged
 	void Death();
 	void CreateSkills(); // Skills Appear In Screen
+	void IdAnimToEnum();
 	void DestroySkills(); //Skills Desappear
 
 	bool BlockControls(bool to_block);

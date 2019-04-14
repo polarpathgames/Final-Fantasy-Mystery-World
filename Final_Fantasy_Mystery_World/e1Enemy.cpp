@@ -15,7 +15,7 @@
 
 e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
-	LoadEntityData("assets/entities/Warrior.tsx");
+	
 
 	type = e1Entity::EntityType::ENEMY;
 	ground = App->tex->Load("assets/sprites/enemy_pos.png");
@@ -34,11 +34,7 @@ e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 	actual_tile = App->map->WorldToMap(position.x, position.y);
 
 	// THIS ALWAYS LAST
-	position.x += 8;
-	position.y -= 22;
-
-	target_position = position;
-	initial_position = position;
+	
 	
 }
 
