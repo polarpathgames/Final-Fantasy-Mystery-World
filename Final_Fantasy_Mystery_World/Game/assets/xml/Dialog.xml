@@ -1,6 +1,4 @@
   <!--Dialogue Tree example --> 
-
-
 <dialogue>
   <dialogtree treeid="0" karma="0" tag="0" rect_x="842" rect_y="3091" rect_w="134" rect_h="131">
     <node line="Hello PLAYERNAME, I am the shopkeeper of this small town" id="0">
@@ -33,6 +31,14 @@
     <node line="that revitalize the soul of those who drink it" id="1" karma="0" tag="0">
       <option line="" nextnode="2" karma="0" tag="0"/>
     </node>
+  </dialogtree>
+  <dialogtree treeid="3" karma="0" tag="0" rect_x="1087" rect_y="3090" rect_w="105" rect_h="131">
+    <node line="Stand there! Where did you think you were going?" id="0" karma="0" tag="0">
+      <option line="" nextnode="1" karma="0" tag="0"/>
+    </node>
+  <node line="It is very dangerous to enter the fog. You can not go from here" id="1" karma="0" tag="0">
+    <option line="" nextnode="2" karma="0" tag="0"/>
+  </node>
   </dialogtree>
 </dialogue>
 <!-- Dialogue Tree example -->

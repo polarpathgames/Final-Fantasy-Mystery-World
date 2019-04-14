@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="isometric" renderorder="right-down" width="42" height="40" tilewidth="32" tileheight="16" nextobjectid="133">
+<map version="1.0" orientation="isometric" renderorder="right-down" width="42" height="40" tilewidth="32" tileheight="16" nextobjectid="152">
  <properties>
   <property name="movement" type="int" value="1"/>
  </properties>
@@ -6877,5 +6877,6 @@
   <object id="130" x="242.5" y="337.5"/>
   <object id="131" x="254.5" y="351.5"/>
   <object id="132" x="214.5" y="311.5"/>
+  <object id="150" name="NPC2" type="static" x="303.833" y="528.833" width="15.3333" height="15.3333"/>
  </objectgroup>
 </map>
