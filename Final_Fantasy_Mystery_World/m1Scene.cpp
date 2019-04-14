@@ -332,26 +332,26 @@ void m1Scene::CreateInventory()
 	inventory_panel = App->gui->AddImage(0, 0, { 1024, 1536, 228, 384 }, this, App->gui->screen, true, false, false, false);
 	inventory_panel->SetPosRespectParent(RIGHT_CENTERED);
 
-	player_name = App->gui->AddLabel(80, 7, "Marche", inventory_panel, BLACK, FontType::FF64, nullptr, false); // This shall change when we have different characters
+	player_name = App->gui->AddLabel(80, 7, "Marche", inventory_panel, BLACK, FontType::FF64, nullptr, false); 
 
 	hp_potion_button = App->gui->AddButton(73, 72, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, inventory_panel, true, false, true, true);
 	hp_potion_button->AddListener(this);
 	hp_potion_image = App->gui->AddImage(85, 80, { 1058, 1952, 33, 47 }, this, inventory_panel, true, false, false, false);
-	hp_potion_label = App->gui->AddLabel(50, -10, "x 0", hp_potion_image, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop money and we have the shop
+	hp_potion_label = App->gui->AddLabel(50, -10, std::string("x " + std::to_string(player->stats.num_hp_potions)).data(), hp_potion_image, BLACK, FontType::FF64, nullptr, false); 
 
 	mana_potion_button = App->gui->AddButton(73, 135, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, inventory_panel, true, false, true, true);
 	mana_potion_button->AddListener(this);
 	mana_potion_image = App->gui->AddImage(85, 140, {1091, 1952, 33, 51}, this, inventory_panel, true, false, false, false);
-	mana_potion_label = App->gui->AddLabel(50, -10, "x 0", mana_potion_image, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop money and we have the shop
+	mana_potion_label = App->gui->AddLabel(50, -10, std::string("x " + std::to_string(player->stats.num_mana_potions)).data(), mana_potion_image, BLACK, FontType::FF64, nullptr, false); 
 
 	coin_image = App->gui->AddImage(45, 225, { 1024, 1952, 34, 34 }, this, inventory_panel, true, false, false, false);
-	money_label = App->gui->AddLabel(50, -20, "x 0", coin_image, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop money and we have the shop
+	money_label = App->gui->AddLabel(50, -20, std::string("x " + std::to_string(player->stats.gold)).data(), coin_image, BLACK, FontType::FF64, nullptr, false); 
 
 	level_name_label = App->gui->AddLabel(76, 267, "Level:", inventory_panel, BLACK, FontType::FF64, nullptr, false);
-	level_number_label = App->gui->AddLabel(65, 0, "1", level_name_label, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop exp
+	level_number_label = App->gui->AddLabel(65, 0, std::string("x " + std::to_string(player->stats.level)).data(), level_name_label, BLACK, FontType::FF64, nullptr, false);
 
 	exp_name_label = App->gui->AddLabel(55, 307, "Exp:", inventory_panel, BLACK, FontType::FF64, nullptr, false);
-	exp_number_label = App->gui->AddLabel(50, 0, "0/100", exp_name_label, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop exp
+	exp_number_label = App->gui->AddLabel(50, 0, std::string(std::to_string(player->stats.xp) + "/100").data(), exp_name_label, BLACK, FontType::FF64, nullptr, false);
 
 
 
@@ -665,6 +665,42 @@ void m1Scene::DestroyControlsMenu()
 
 }
 
+void m1Scene::CreateShopMenu()
+{
+	player->BlockControls(true);
+
+	shop_panel = App->gui->AddImage(100, 150, { 1820,1691,227,383 }, (m1Module*)App->scene, App->gui->screen, true, false, false, false);
+	shop_label = App->gui->AddLabel(0, 0, "SHOP", shop_panel, BLACK, FontType::FF64, nullptr, false);
+	shop_label->SetPosRespectParent(CENTERED_UP,20);
+
+	button_close_shop = App->gui->AddButton(130, 330, { 1850,1637,75,35 }, { 1850,1637,55,35 }, { 1850,1637,55,35 }, this, shop_panel, false, false, true, true);
+	label_close_shop = App->gui->AddLabel(140, 321, "Return", shop_panel, BLACK, FontType::FF48, nullptr, false);
+
+
+	shop_hp_potion_image = App->gui->AddImage(58, 101, { 1058, 1952, 33, 47 }, this, shop_panel, true, false, false, false);
+	shop_hp_potion_label = App->gui->AddLabel(102, 93, std::string("x " + std::to_string(price_hp_potion)).data(), shop_panel, BLACK, FontType::FF64, nullptr, false);
+	shop_coin1 = App->gui->AddImage(160, 112, { 1024, 1952, 34, 34 }, this, shop_panel, true, false, false, false);
+	shop_button_hp_potion = App->gui->AddButton(32, 100, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, this, shop_panel, false, false, true, true);
+
+	shop_mana_potion_image = App->gui->AddImage(58, 186, { 1091, 1952, 33, 51 }, this, shop_panel, true, false, false, false);
+	shop_mana_potion_label = App->gui->AddLabel(102, 178, std::string("x " + std::to_string(price_mana_potion)).data(), shop_panel, BLACK, FontType::FF64, nullptr, false);
+	shop_coin2 = App->gui->AddImage(160, 197, { 1024, 1952, 34, 34 }, this, shop_panel, true, false, false, false);
+	shop_button_mana_potion = App->gui->AddButton(32, 185, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, this, shop_panel, false, false, true, true);
+
+
+	App->gui->FocusButton(shop_button_hp_potion);
+
+	menu_state = StatesMenu::SHOP_MENU;
+}
+
+void m1Scene::DestroyShopMenu()
+{
+	player->BlockControls(false);
+	App->gui->DeleteUIElement(shop_panel);
+
+	menu_state = StatesMenu::NO_MENU;
+}
+
 void m1Scene::CreateDebugScreen()
 {
 	debug_screen = App->gui->AddImage(0, 0, App->gui->screen->section, nullptr, App->gui->screen, false, false, false, false);
@@ -811,10 +847,18 @@ bool m1Scene::Interact(u1GUI* interact)
 		break;
 	case StatesMenu::POTION_MENU:
 		if (interact == use_hp_button) {
-			LOG("HP POTION USED");
+			if (player->stats.num_hp_potions >= 1) {
+				--player->stats.num_hp_potions;
+				player->AugmentLives(25);
+				hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
+			}
 		}
 		if (interact == use_mana_button) {
-			LOG("MANA POTION USED");
+			if (player->stats.num_mana_potions >= 1) {
+				--player->stats.num_mana_potions;
+				player->AugmentMana(25);
+				mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
+			}
 		}
 		if (interact == cancel_button) {
 			DeletePotionMenu();
@@ -835,6 +879,31 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == button_controls) {
 			CreateControlsMenu();
 			DestroyOptionsMenu();
+		}
+		break;
+	case StatesMenu::SHOP_MENU:
+		if (interact == button_close_shop) {
+			DestroyShopMenu();
+		}
+		if (interact == shop_button_hp_potion) {
+			if (player->stats.gold >= price_hp_potion) {
+				// audio comprar
+				player->ReduceGold(price_hp_potion);
+				++player->stats.num_hp_potions;
+			}
+			else {
+				// audio no money
+			}
+		}
+		if (interact == shop_button_mana_potion) {
+			if (player->stats.gold >= price_mana_potion) {
+				// audio comprar
+				player->ReduceGold(price_mana_potion);
+				++player->stats.num_mana_potions;
+			}
+			else {
+				// audio no money
+			}
 		}
 		break;
 	case StatesMenu::CONTROLS_MENU:
