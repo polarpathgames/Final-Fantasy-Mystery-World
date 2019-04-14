@@ -8,7 +8,7 @@
 class c1CutsceneMoveEntity :public c1CutsceneAction {
 public:
 	c1CutsceneMoveEntity(uint start, uint duration, float speed_x, float speed_y, std::string entity);
-	~c1CutsceneMoveEntity() {};
+	~c1CutsceneMoveEntity();
 
 	void Execute(float dt);
 
