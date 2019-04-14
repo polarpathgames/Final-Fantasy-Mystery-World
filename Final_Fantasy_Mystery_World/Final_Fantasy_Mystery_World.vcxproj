@@ -122,6 +122,7 @@
     <ClInclude Include="p2ChangeControls.h" />
     <ClInclude Include="p2Random.h" />
     <ClInclude Include="p2Rooms.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="u1CheckBox.h" />
     <ClInclude Include="e1DynamicEntity.h" />
     <ClInclude Include="m1EasingSplines.h" />
@@ -169,6 +170,12 @@
     <None Include="Game\entities\Enemy.tsx" />
     <None Include="Game\entities\Player.tsx" />
     <None Include="Game\entities\WarriorSpritesheet.tsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Game\assets\ff_icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
