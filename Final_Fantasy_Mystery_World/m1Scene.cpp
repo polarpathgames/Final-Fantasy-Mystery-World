@@ -649,7 +649,7 @@ void m1Scene::CreateShopMenu()
 {
 	player->BlockControls(true);
 
-	shop_panel = App->gui->AddImage(100, 50, { 1820,1691,227,383 }, (m1Module*)App->scene, App->gui->screen, true, false, false, false);
+	shop_panel = App->gui->AddImage(100, 150, { 1820,1691,227,383 }, (m1Module*)App->scene, App->gui->screen, true, false, false, false);
 	shop_label = App->gui->AddLabel(0, 0, "SHOP", shop_panel, BLACK, FontType::FF64, nullptr, false);
 	shop_label->SetPosRespectParent(CENTERED_UP,20);
 
