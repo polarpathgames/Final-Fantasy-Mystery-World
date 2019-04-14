@@ -298,6 +298,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\assets\xml\config.xml" />
+    <Xml Include="Game\assets\xml\Scene1.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\entities\Enemy.tsx">

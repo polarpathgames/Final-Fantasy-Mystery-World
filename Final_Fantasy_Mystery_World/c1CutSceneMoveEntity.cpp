@@ -20,9 +20,6 @@ void c1CutsceneMoveEntity::Execute(float dt)
 	if (start < duration_time)
 	{
 		element->GetEntity()->position+= { (int)(player_speed.x * dt), (int)(player_speed.y * dt) };
-		if (duration_time - start < 100)
-		{
-			element->GetEntity()->position = { 0,0 };
-		}
+
 	}
 }

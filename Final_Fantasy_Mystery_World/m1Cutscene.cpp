@@ -35,9 +35,7 @@ bool m1CutScene::Update(float dt)
 
 bool m1CutScene::CleanUp()
 {
-	App->entity_manager->CleanUp();
-	App->gui->CleanUp();
-	App->fonts->CleanUp();
+
 	return true;
 }
 
@@ -191,10 +189,6 @@ void m1CutScene::ClearCutscene()
 	}
 
 	elements.clear();
-
-	App->entity_manager->CleanUp();
-
-	App->render->camera = { 0, -200 };
 }
 
 double m1CutScene::GetTimer()
