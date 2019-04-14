@@ -26,7 +26,7 @@
       <option line="" nextnode ="3" karma="0" tag="0"/>
     </node>
   </dialogtree>
-  <dialogtree treeid="2" karma="0" tag="0" rect_x="0" rect_y="0" rect_w="0" rect_h="0">
+  <dialogtree treeid="2" karma="0" tag="0" rect_x="975" rect_y="3091" rect_w="112" rect_h="131">
     <node line="It is said that the water of this region contains mysterious powers" id="0" karma="0" tag="0">
       <option line="" nextnode="1" karma="0" tag="0"/>  
     </node>
