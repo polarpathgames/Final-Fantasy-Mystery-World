@@ -42,6 +42,7 @@ public:
 public:
 	std::vector <DialogNode*> dialogNodes;
 	int treeid, karma, tag;
+	SDL_Rect face;
 };
 
 class m1DialogSystem : public m1Module
@@ -62,7 +63,10 @@ public:
 	void BlitDialog();
 	bool CompareKarma();
 	void CheckForKarma(DialogOption* karmaNode);
+
+public:
 	bool firstupdate = true, waiting_input = false, end_dial = false, fountain_interaction = false;
+
 private:
 	std::vector <DialogTree*> dialogTrees;
 	DialogNode* currentNode = nullptr;
@@ -75,6 +79,7 @@ private:
 	std::vector <u1Button*> text_button;
 
 	u1Image* dialog_panel = nullptr;
+	u1Image* char_face = nullptr;
 };
 
 #endif

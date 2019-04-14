@@ -2,7 +2,7 @@
 
 
 <dialogue>
-  <dialogtree treeid="0" karma="0" tag="0">
+  <dialogtree treeid="0" karma="0" tag="0" rect_x="842" rect_y="3091" rect_w="134" rect_h="131">
     <node line="Hello PLAYERNAME, I am the shopkeeper of this small town" id="0">
       <option  line="" nextnode="1" karma="-1" tag="0"/>
     </node>
@@ -14,7 +14,7 @@
       <option line="" nextnode="3" karma="0" tag="0"/>
     </node>
   </dialogtree>
-  <dialogtree treeid="1" karma="0" tag="0">
+  <dialogtree treeid="1" karma="0" tag="0" rect_x="0" rect_y="0" rect_w="0" rect_h="0">
     <node line="In front of you a strange source emerges splendidly in the room" id="0">
       <option line="" nextnode="1" karma="0" tag="0"/>
     </node>
@@ -26,9 +26,12 @@
       <option line="" nextnode ="3" karma="0" tag="0"/>
     </node>
   </dialogtree>
-  <dialogtree treeid="2" karma="0" tag="0">
-    <node line="Do">
-      
+  <dialogtree treeid="2" karma="0" tag="0" rect_x="0" rect_y="0" rect_w="0" rect_h="0">
+    <node line="It is said that the water of this region contains mysterious powers" id="0" karma="0" tag="0">
+      <option line="" nextnode="1" karma="0" tag="0"/>  
+    </node>
+    <node line="that revitalize the soul of those who drink it" id="1" karma="0" tag="0">
+      <option line="" nextnode="2" karma="0" tag="0"/>
     </node>
   </dialogtree>
 </dialogue>

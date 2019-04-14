@@ -251,7 +251,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		size.create(frame.w, frame.h);
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x + 1,App->map->WorldToMap(position.x,position.y).y + 1 };
 		interacting_state = InteractingStates::WAITING_INTERACTION;
-		max_distance_to_interact = 3;
+		max_distance_to_interact = 2;
 	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);

@@ -84,7 +84,7 @@ bool m1DialogSystem::PerformDialogue(int tr_id)
 		//Put the player's name in the lines of the npc dialog
 		while (currentNode->text.find("PLAYERNAME") != std::string::npos)
 		{
-			currentNode->text.replace(currentNode->text.find("PLAYERNAME"), 10, "Ivan");
+			currentNode->text.replace(currentNode->text.find("PLAYERNAME"), 10, "Raul");
 		}
 		waiting_input = !waiting_input;
 		BlitDialog(); // Print the dialog in the screen
@@ -95,6 +95,7 @@ bool m1DialogSystem::PerformDialogue(int tr_id)
 void m1DialogSystem::BlitDialog()
 {
 	dialog_panel = App->gui->AddImage(0, App->win->height - 199, {0, 3090,833,165}, this, App->gui->screen, true, false, false, false);
+	char_face = App->gui->AddImage(10, App->win->height - 180, dialogTrees[treeid]->face, this, App->gui->screen, true, false, false, false);
 	npc_text = App->gui->AddLabel(App->win->width * 0.5f, App->win->height-50, currentNode->text.c_str(), dialog_panel, BLACK, FontType::FF48,this, false);
 	npc_text->SetPosRespectParent(CENTERED_UP, 15);
 	int space = 0;
@@ -125,6 +126,8 @@ void m1DialogSystem::DeleteText()
 		text_button[j] = nullptr;
 	}
 	text_button.clear();
+	App->gui->DeleteUIElement(char_face);
+	char_face = nullptr;
 	App->gui->DeleteUIElement(dialog_panel);
 	dialog_panel = nullptr;
 }
@@ -164,6 +167,7 @@ bool m1DialogSystem::LoadDialogue(const char* file)
 			tr->treeid = t.attribute("treeid").as_int();
 			tr->karma = t.attribute("karma").as_int();
 			tr->tag = t.attribute("tag").as_int();
+			tr->face = {t.attribute("rect_x").as_int(),t.attribute("rect_y").as_int(), t.attribute("rect_w").as_int(), t.attribute("rect_h").as_int()};
 			LoadTreeData(t, tr);
 			dialogTrees.push_back(tr);
 		}
