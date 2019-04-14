@@ -102,6 +102,7 @@ public:
 	ChangeControls * control_to_change = nullptr;
 private:
 
+	int price_hp_potion = 20;
 
 	StatesMenu menu_state = StatesMenu::NO_MENU;
 
@@ -178,6 +179,11 @@ private:
 
 	u1Button* button_close_shop = nullptr;
 	u1Label* label_close_shop = nullptr;
+
+	u1Image* shop_hp_potion_image = nullptr;
+	u1Label* shop_hp_potion_label = nullptr;
+	u1Image* shop_mana_potion_image = nullptr;
+	u1Image* shop_coin1 = nullptr;
 
 	// Menu Controls
 

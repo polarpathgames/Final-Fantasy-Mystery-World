@@ -650,15 +650,21 @@ void m1Scene::CreateShopMenu()
 	player->BlockControls(true);
 
 	shop_panel = App->gui->AddImage(100, 50, { 1820,1691,227,383 }, (m1Module*)App->scene, App->gui->screen, true, false, false, false);
+	
+	button_close_shop = App->gui->AddButton(120, 330, { 1850,1637,55,25 }, { 1850,1637,55,25 }, { 1850,1637,55,25 }, this, shop_panel, false, false, true, true);
+	label_close_shop = App->gui->AddLabel(140, 321, "Return", shop_panel, BLACK, FontType::FF48, nullptr, false);
 
-	button_close_shop = App->gui->AddButton(130, 200, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 },this, shop_panel, true, false, true, true);
-	label_close_shop = App->gui->AddLabel(150, 200, "Return", shop_panel, BLACK, FontType::FF32, nullptr, false);
+	shop_hp_potion_image = App->gui->AddImage(62, 100, { 1058, 1952, 33, 47 }, this, shop_panel, true, false, false, false);
+	shop_hp_potion_label = App->gui->AddLabel(102, 93, std::string("x " + std::to_string(price_hp_potion)).data(), shop_panel, BLACK, FontType::FF64, nullptr, false);
+	shop_coin1 = App->gui->AddImage(160, 112, { 1024, 1952, 34, 34 }, this, shop_panel, true, false, false, false);
 
 	menu_state = StatesMenu::SHOP_MENU;
 }
 
 void m1Scene::DestroyShopMenu()
 {
+	player->BlockControls(false);
+	App->gui->DeleteUIElement(shop_panel);
 
 	menu_state = StatesMenu::NO_MENU;
 }
@@ -833,6 +839,11 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == button_controls) {
 			CreateControlsMenu();
 			DestroyOptionsMenu();
+		}
+		break;
+	case StatesMenu::SHOP_MENU:
+		if (interact == button_close_shop) {
+			DestroyShopMenu();
 		}
 		break;
 	case StatesMenu::CONTROLS_MENU:

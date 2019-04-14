@@ -287,10 +287,8 @@ bool e1StaticEntity::Update(float dt)
 			}
 		}			
 	}
-	if (interacting_state == InteractingStates::INTERACTING && actual_tile.DistanceManhattan(player_pos) > max_distance_to_interact || App->dialog->end_dial)
+	if (interacting_state == InteractingStates::INTERACTING && App->dialog->end_dial)
 	{
-		App->dialog->DeleteText();
-	/*	App->dialog->waiting_input = false;*/
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 	}
 
