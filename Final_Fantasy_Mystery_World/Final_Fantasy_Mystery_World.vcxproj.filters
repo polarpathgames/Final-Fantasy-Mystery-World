@@ -105,6 +105,9 @@
     <ClCompile Include="e1Drop.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="e1CarnivorousPlant.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -235,6 +238,9 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="e1CarnivorousPlant.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\assets\xml\config.xml" />

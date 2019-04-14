@@ -70,6 +70,7 @@ public:
 		ENEMY,
 		STATIC,
 		DROP,
+		CARNIVOROUS_PLANT,
 
 		NO_TYPE
 	};

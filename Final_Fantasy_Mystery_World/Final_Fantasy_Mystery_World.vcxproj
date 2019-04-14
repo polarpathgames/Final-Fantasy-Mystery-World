@@ -80,6 +80,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="e1CarnivorousPlant.cpp" />
     <ClCompile Include="e1Drop.cpp" />
     <ClCompile Include="p2ChangeControls.cpp" />
     <ClCompile Include="e1DynamicEntity.cpp" />
@@ -118,6 +119,7 @@
     <ClCompile Include="e1StaticEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="e1CarnivorousPlant.h" />
     <ClInclude Include="e1Drop.h" />
     <ClInclude Include="p2ChangeControls.h" />
     <ClInclude Include="p2Random.h" />
