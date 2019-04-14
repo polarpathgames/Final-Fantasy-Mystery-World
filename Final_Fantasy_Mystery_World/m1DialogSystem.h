@@ -62,7 +62,7 @@ public:
 	void BlitDialog();
 	bool CompareKarma();
 	void CheckForKarma(DialogOption* karmaNode);
-	bool firstupdate = true, waiting_input = false, end_dial = false, fountain_interaction = false;
+	bool firstupdate = true, waiting_input = false, end_dial = true, fountain_interaction = false;
 private:
 	std::vector <DialogTree*> dialogTrees;
 	DialogNode* currentNode = nullptr;

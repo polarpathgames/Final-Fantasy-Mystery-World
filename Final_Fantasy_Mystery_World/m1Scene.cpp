@@ -3,6 +3,7 @@
 #include "App.h"
 #include "m1GUI.h"
 #include "m1Collisions.h"
+#include "m1DialogSystem.h"
 #include "m1Audio.h"
 #include "p2ChangeControls.h"
 #include "m1Render.h"
@@ -122,7 +123,7 @@ bool m1Scene::Update(float dt)
 	
 	switch (menu_state) {
 	case StatesMenu::NO_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
+		if ((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial) {
 			if (App->ChangePause()) {
 				CreatePauseMenu();
 				player->BlockControls(true);
@@ -132,7 +133,7 @@ bool m1Scene::Update(float dt)
 				player->BlockControls(false);
 			}
 		}
-		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
+		if ((App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && player->state == State::IDLE) {
 			if (App->ChangeInventory()) {
 				CreateInventory();
 				player->BlockControls(true);
@@ -142,9 +143,6 @@ bool m1Scene::Update(float dt)
 				player->BlockControls(false);
 			}
 		}
-
-		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
-			CreateGoToQuestMenu();
 		break;
 	case StatesMenu::INVENTORY_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
