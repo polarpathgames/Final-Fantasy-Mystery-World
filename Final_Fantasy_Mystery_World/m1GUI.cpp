@@ -269,7 +269,7 @@ const SDL_Texture* m1GUI::GetAtlas() const
 u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, m1Module * listener = nullptr, u1GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false, bool focus = true)
 {
 
-	u1Image* image = new u1Image(x, y, rect, parent, draw, interact, drag, focus);
+	u1Image* image = DBG_NEW u1Image(x, y, rect, parent, draw, interact, drag, focus);
 
 	if (listener != nullptr) {
 		image->AddListener(listener);
@@ -282,7 +282,7 @@ u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0
 
 u1Button* m1GUI::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* listener, u1GUI* parent, bool draw, bool drag, bool inter, bool focus = true)
 {
-	u1Button* button = new u1Button(x, y, idle, mouse_in, clicked, parent, draw, inter, drag, focus);
+	u1Button* button = DBG_NEW u1Button(x, y, idle, mouse_in, clicked, parent, draw, inter, drag, focus);
 
 	if (listener != nullptr) {
 		button->AddListener(listener);
@@ -295,7 +295,7 @@ u1Button* m1GUI::AddButton(const int &x, const int &y, const SDL_Rect &idle, con
 
 u1Label* m1GUI::AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* listener = nullptr, bool focus = false, const uint32 & wrap, bool has_bg, const SDL_Color& bg_color)
 {
-	u1Label* label = new u1Label(x, y, text, color, font, parent, false, false, wrap, false, has_bg, bg_color);
+	u1Label* label = DBG_NEW u1Label(x, y, text, color, font, parent, false, false, wrap, false, has_bg, bg_color);
 
 	if (listener != nullptr) {
 		label->AddListener(listener);
@@ -308,7 +308,7 @@ u1Label* m1GUI::AddLabel(const int &x, const int &y, const char* text, u1GUI* pa
 
 u1Slider* m1GUI::AddSlider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, bool horizontal, u1GUI* parent, m1Module* callback)
 {
-	u1Slider* slider = new u1Slider(x, y, rect, idle, hover, push, horizontal, parent);
+	u1Slider* slider = DBG_NEW u1Slider(x, y, rect, idle, hover, push, horizontal, parent);
 	
 	if (callback != nullptr) {
 		slider->AddListener(callback);
@@ -321,7 +321,7 @@ u1Slider* m1GUI::AddSlider(const int &x, const int &y, const SDL_Rect &rect, con
 
 u1CheckBox* m1GUI::AddCheckBox(const int &pos_x, const int &pos_y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, u1GUI* parent = nullptr, m1Module* callback)
 {
-	u1CheckBox* checkbox= new u1CheckBox(pos_x, pos_y, idle, hover, push, parent);
+	u1CheckBox* checkbox= DBG_NEW u1CheckBox(pos_x, pos_y, idle, hover, push, parent);
 	
 	if (callback != nullptr) {
 		checkbox->AddListener(callback);

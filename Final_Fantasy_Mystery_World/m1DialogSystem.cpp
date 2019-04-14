@@ -39,11 +39,20 @@ bool m1DialogSystem::CleanUp()
 
 	for (int j = 0; j < dialogTrees.size(); j++)
 	{
-		for (int i = 0; i < dialogTrees[j]->dialogNodes.size(); i++)
-			delete dialogTrees[j]->dialogNodes[i];
+		for (int i = 0; i < dialogTrees[j]->dialogNodes.size(); i++) {
+			for (int k = 0; k < dialogTrees[j]->dialogNodes[i]->dialogOptions.size(); k++) {
+				delete dialogTrees[j]->dialogNodes[i]->dialogOptions[k];
+				dialogTrees[j]->dialogNodes[i]->dialogOptions[k] = nullptr;
+			}
+			dialogTrees[j]->dialogNodes[i]->dialogOptions.clear();
 
+			delete dialogTrees[j]->dialogNodes[i];
+			dialogTrees[j]->dialogNodes[i] = nullptr;
+		}
 		dialogTrees[j]->dialogNodes.clear();
+
 		delete dialogTrees[j];
+		dialogTrees[j] = nullptr;
 	}
 	dialogTrees.clear();
 
@@ -105,10 +114,10 @@ void m1DialogSystem::BlitDialog()
 	int space = 0;
 	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
 	{
-		u1Button* bt = new u1Button();
+		u1Button* bt = DBG_NEW u1Button();
 		bt = App->gui->AddButton(0, space += 30, { 0,0,30,50 }, { 0,0,30,50 }, { 0,0,30,50 }, this, npc_text, false, false, true, true);
 		text_button.push_back(bt);
-		u1Label* lb = new u1Label;
+		u1Label* lb = DBG_NEW u1Label;
 		lb = App->gui->AddLabel(0, 0, currentNode->dialogOptions[i]->text.c_str(), bt, BLACK, FontType::FF48, this, false);
 		player_text.push_back(lb);
 	}
@@ -162,19 +171,22 @@ bool m1DialogSystem::LoadDialogue(const char* file)
 		LOG("Could not load map xml file %s. pugi error: %s", file, result.description());
 		ret = false;
 	}
-	else
+	else {
 		LOG("XML was loaded succesfully!");
 
 		for (pugi::xml_node t = tree_file.child("dialogue").child("dialogtree"); t != NULL; t = t.next_sibling("dialogtree"))
 		{
-			DialogTree* tr = new DialogTree;
+			DialogTree* tr = DBG_NEW DialogTree;
 			tr->treeid = t.attribute("treeid").as_int();
 			tr->karma = t.attribute("karma").as_int();
 			tr->tag = t.attribute("tag").as_int();
-			tr->face = {t.attribute("rect_x").as_int(),t.attribute("rect_y").as_int(), t.attribute("rect_w").as_int(), t.attribute("rect_h").as_int()};
+			tr->face = { t.attribute("rect_x").as_int(),t.attribute("rect_y").as_int(), t.attribute("rect_w").as_int(), t.attribute("rect_h").as_int() };
 			LoadTreeData(t, tr);
 			dialogTrees.push_back(tr);
 		}
+	}
+
+	tree_file.reset();
 
 	return ret;
 }
@@ -186,7 +198,7 @@ bool m1DialogSystem::LoadTreeData(pugi::xml_node& trees, DialogTree* oak)
 	//Filling the dialogue tree information
 	for (pugi::xml_node n = trees.child("node");n != NULL; n = n.next_sibling("node"))
 	{
-		DialogNode* node = new DialogNode;
+		DialogNode* node = DBG_NEW DialogNode;
 		node->text.assign(n.attribute("line").as_string());
 		node->id = n.attribute("id").as_int();
 		node->karma = n.attribute("karma").as_int();
@@ -202,7 +214,7 @@ bool m1DialogSystem::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc
 	bool ret = true;
 	for (pugi::xml_node op = text_node.child("option"); op != NULL; op = op.next_sibling("option"))
 	{
-		DialogOption* option = new DialogOption;
+		DialogOption* option = DBG_NEW DialogOption;
 		option->text.assign(op.attribute("line").as_string());
 		option->nextnode = op.attribute("nextnode").as_int();
 		option->karma = op.attribute("karma").as_int();

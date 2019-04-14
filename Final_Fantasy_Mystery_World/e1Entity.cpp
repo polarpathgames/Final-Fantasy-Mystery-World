@@ -102,13 +102,13 @@ bool e1Entity::LoadEntityData(const char* file) {
 	}
 
 	//reserve memory for all animations
-	data.animations = new EntityAnim[data.num_animations];
+	data.animations = DBG_NEW EntityAnim[data.num_animations];
 
 	//count how many frames for each animation, assign memory for those frames and set id frame start
 	_node = entity_file.child("tileset").child("tile");
 	for (uint i = 0; i < data.num_animations; ++i) {
 		data.animations[i].FrameCount(_node.child("animation").child("frame"));
-		data.animations[i].frames = new SDL_Rect[data.animations[i].num_frames];
+		data.animations[i].frames = DBG_NEW SDL_Rect[data.animations[i].num_frames];
 		data.animations[i].id = _node.attribute("id").as_uint();
 		data.animations[i].speed = _node.child("properties").child("property").attribute("value").as_int(1);
 		_node = _node.next_sibling("tile");

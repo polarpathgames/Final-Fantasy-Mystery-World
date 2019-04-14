@@ -1,4 +1,4 @@
-  <!--Dialogue Tree example --> 
+<?xml version="1.0" encoding="UTF-8"?>
 <dialogue>
   <dialogtree treeid="0" karma="0" tag="0" rect_x="842" rect_y="3091" rect_w="134" rect_h="131">
     <node line="Hello PLAYERNAME, I am the shopkeeper of this small town" id="0">

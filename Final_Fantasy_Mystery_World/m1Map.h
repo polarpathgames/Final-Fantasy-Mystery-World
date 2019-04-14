@@ -131,7 +131,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	// Load new map
+	// Load DBG_NEW map
 	bool Load(const char* path);
 
 	iPoint MapToWorld(int x, int y) const;

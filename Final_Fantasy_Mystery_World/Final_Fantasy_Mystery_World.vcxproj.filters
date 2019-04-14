@@ -243,20 +243,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Game\assets\xml\config.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Game\entities\Enemy.tsx">
-      <Filter>Entities</Filter>
-    </None>
-    <None Include="Game\entities\Player.tsx">
-      <Filter>Entities</Filter>
-    </None>
-    <None Include="Game\entities\WarriorSpritesheet.tsx">
-      <Filter>Entities</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="Modules">
       <UniqueIdentifier>{cdbae3c2-1707-4add-a459-b2679419f751}</UniqueIdentifier>
     </Filter>
@@ -275,11 +261,36 @@
     <Filter Include="Tools\pugixml">
       <UniqueIdentifier>{e6a7f851-a874-4b51-9346-717d21b79a04}</UniqueIdentifier>
     </Filter>
+    <Filter Include="XML">
+      <UniqueIdentifier>{da9fe7ee-1fa7-478f-8d85-84a2d1224bb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\TSX">
+      <UniqueIdentifier>{ba6c7ea9-8435-465f-bdaa-0c78a841bac4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Game\assets\ff_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Game\assets\xml\config.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\Dialog.xml">
+      <Filter>XML</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Game\assets\entities\Enemy.tsx">
+      <Filter>Entities\TSX</Filter>
+    </None>
+    <None Include="Game\assets\entities\Warrior.tsx">
+      <Filter>Entities\TSX</Filter>
+    </None>
+    <None Include="Game\assets\entities\CarnivorousPlant.tsx">
+      <Filter>Entities\TSX</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -167,17 +167,18 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\assets\xml\config.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Game\entities\Enemy.tsx" />
-    <None Include="Game\entities\Player.tsx" />
-    <None Include="Game\entities\WarriorSpritesheet.tsx" />
+    <Xml Include="Game\assets\xml\Dialog.xml" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Game\assets\ff_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Game\assets\entities\CarnivorousPlant.tsx" />
+    <None Include="Game\assets\entities\Enemy.tsx" />
+    <None Include="Game\assets\entities\Warrior.tsx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

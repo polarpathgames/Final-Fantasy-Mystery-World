@@ -4,8 +4,9 @@
 #include "p2Log.h"
 #include "App.h"
 
+
 #define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
+#include <cstdlib>
 #include <crtdbg.h>
 
 #include "SDL/include/SDL.h"
@@ -45,7 +46,7 @@ int main(int argc, char* args[])
 			case CREATE:
 			LOG("CREATION PHASE ===============================");
 
-			App = new Application(argc, args);
+			App = DBG_NEW Application(argc, args);
 
 			if(App != NULL)
 				state = AWAKE;
@@ -116,7 +117,6 @@ int main(int argc, char* args[])
 	LOG("... Bye! :)\n");
 
 	// Dump memory leaks
-	_CrtCheckMemory();
 	_CrtDumpMemoryLeaks();
 
 	return result;

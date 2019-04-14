@@ -202,12 +202,12 @@ e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX
 	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)5, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
-	case e1Entity::EntityType::PLAYER: ret = new e1Player(PositionX, PositionY); break;
-	case e1Entity::EntityType::ENEMY: ret = new e1Enemy(PositionX, PositionY); break;
-	case e1Entity::EntityType::STATIC: ret = new e1StaticEntity(PositionX, PositionY, name.data()); break;
-	case e1Entity::EntityType::DROP: ret = new e1Drop(PositionX, PositionY, name.data()); break;
-	case e1Entity::EntityType::CARNIVOROUS_PLANT: ret = new e1CarnivorousPlant(PositionX, PositionY); break;
-	//case e1Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
+	case e1Entity::EntityType::PLAYER: ret = DBG_NEW e1Player(PositionX, PositionY); break;
+	case e1Entity::EntityType::ENEMY: ret = DBG_NEW e1Enemy(PositionX, PositionY); break;
+	case e1Entity::EntityType::STATIC: ret = DBG_NEW e1StaticEntity(PositionX, PositionY, name.data()); break;
+	case e1Entity::EntityType::DROP: ret = DBG_NEW e1Drop(PositionX, PositionY, name.data()); break;
+	case e1Entity::EntityType::CARNIVOROUS_PLANT: ret = DBG_NEW e1CarnivorousPlant(PositionX, PositionY); break;
+	//case e1Entity::EntityType::NPC: ret = DBG_NEW ent_NPC(PositionX, PositionY, name); break;
 	default:
 		LOG("Cannot find any entity with that type");
 		break;

@@ -13,7 +13,7 @@ m1Input::m1Input() : m1Module()
 {
 	name.assign("input");
 
-	keyboard = new j1KeyState[MAX_KEYS];
+	keyboard = DBG_NEW j1KeyState[MAX_KEYS];
 	memset(keyboard, KEY_IDLE, sizeof(j1KeyState) * MAX_KEYS);
 	memset(mouse_buttons, KEY_IDLE, sizeof(j1KeyState) * NUM_MOUSE_BUTTONS);
 	memset(controller_buttons, KEY_IDLE, sizeof(j1KeyState) * NUM_CONTROLLER_BUTTONS);
@@ -277,7 +277,9 @@ void m1Input::UpdateKeyboard()
 bool m1Input::CleanUp()
 {
 	LOG("Quitting SDL event subsystem");
+	RELEASE_ARRAY(keyboard)
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
+
 	return true;
 }
 
