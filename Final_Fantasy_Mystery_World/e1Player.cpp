@@ -89,12 +89,10 @@ bool e1Player::CleanUp()
 
 void e1Player::OnCollision(Collider * c2)
 {
-	LOG("STAY");
 }
 
 void e1Player::OnCollisionEnter(Collider * c2)
 {
-	LOG("ENTER");
 	if (c2->type == COLLIDER_SHOP) {
 		if (App->map->actual_map == Maps::LOBBY)
 			App->fade_to_black->FadeToBlack(Maps::SHOP);
@@ -114,7 +112,6 @@ void e1Player::OnCollisionEnter(Collider * c2)
 
 void e1Player::OnCollisionExit(Collider * c2)
 {
-	LOG("EXIT");
 }
 
 void e1Player::CheckLobbyCollision(const float & dt, const Direction & dir)
