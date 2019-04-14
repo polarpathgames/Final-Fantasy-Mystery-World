@@ -4,6 +4,8 @@
 #include "m1Fonts.h"
 #include "m1GUI.h"
 #include "m1EntityManager.h"
+#include "m1Scene.h"
+#include "e1Player.h"
 #include "m1CutScene.h"
 #include "c1CutsceneMoveCamera.h"
 #include "c1CutsceneMoveEntity.h"
@@ -140,6 +142,8 @@ bool m1CutScene::LoadCutscene(std::string path)
 		}
 	}
 
+	App->scene->player->BlockControls(true);
+
 	return ret;
 }
 
@@ -189,6 +193,7 @@ void m1CutScene::ClearCutscene()
 	}
 
 	elements.clear();
+	App->scene->player->BlockControls(false);
 }
 
 double m1CutScene::GetTimer()

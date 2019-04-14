@@ -60,10 +60,6 @@ bool e1Player::Update(float dt)
 	if (coll != nullptr)
 		coll->SetPos(position.x, position.y + 25);
 
-	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
-		App->cutscene_manager->PlayCutscene("assets/xml/Scene1.xml");
-	}
-
 	return true;
 }
 
