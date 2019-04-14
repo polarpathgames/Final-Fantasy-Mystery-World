@@ -79,7 +79,7 @@ bool m1EntityManager::Update(float dt)
 	std::vector<e1Entity*> draw_entities;
 
 	UpdateEntities(dt, draw_entities);
-
+	entities_drawn = draw_entities.size();
 	DrawEntities(draw_entities, dt);
 
 	if (App->scene->player != nullptr && App->scene->player->movement_type == Movement_Type::InLobby)
@@ -255,6 +255,11 @@ void m1EntityManager::DeleteEntity(e1Entity* entity_to_delete)
 const std::vector<e1Entity*> m1EntityManager::GetEntities()
 {
 	return entities;
+}
+
+const std::vector<SDL_Texture*> m1EntityManager::GetTextures()
+{
+	return texture;
 }
 
 bool m1EntityManager::SortByYPos(const e1Entity * ent1, const e1Entity * ent2)

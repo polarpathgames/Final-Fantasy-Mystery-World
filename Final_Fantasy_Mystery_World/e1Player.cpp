@@ -21,6 +21,7 @@
 #include "u1UI_Element.h"
 #include "Brofiler/Brofiler.h"
 #include "m1EasingSplines.h"
+#include "m1MainMenu.h"
 
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
@@ -88,7 +89,6 @@ bool e1Player::CleanUp()
 
 void e1Player::OnCollision(Collider * c2)
 {
-	
 	if (c2->type == COLLIDER_SHOP) {
 		if (App->map->actual_map==Maps::LOBBY)
 			App->fade_to_black->FadeToBlack(Maps::SHOP);
@@ -100,6 +100,16 @@ void e1Player::OnCollision(Collider * c2)
 			App->fade_to_black->FadeToBlack(Maps::HOME);
 		else
 			App->fade_to_black->FadeToBlack(Maps::LOBBY);
+	}
+	if (c2->type == COLLIDER_MENU_QUEST) {
+		App->easing_splines->CreateSpline(&position.x, position.x - 1, 100, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y + 1, 100, EASE);
+
+		if (first_collision == true)
+		{
+			App->scene->CreateGoToQuestMenu();
+			first_collision = false;
+		}
 	}
 }
 
@@ -916,19 +926,24 @@ const bool e1Player::MultipleButtons(const Input * input)
 
 void e1Player::GetHitted(const int & damage_taken)
 {
-	stats.live -= damage_taken;
-
 	if (stats.live <= 0) {
 		state = State::DEATH;
 		ChangeAnimation(direction, state);
+		death_time = SDL_GetTicks();
 	}
-
+	else {
+		stats.live -= damage_taken;
+	}	
 }
 
 void e1Player::Death()
 {
-	if (current_animation->Finished()) {
-		App->fade_to_black->FadeToBlack(Maps::HOME);
+	if (current_animation->Finished() && death_time <= SDL_GetTicks() - 1000) {
+		App->map->CleanUp();
+		App->entity_manager->DeleteEntitiesNoPlayer();
+		App->main_menu->CreateGameOver();
+		state = State::MENU;
+		stats.live = 250;
 	}
 }
 

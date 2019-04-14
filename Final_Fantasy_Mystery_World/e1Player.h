@@ -45,13 +45,13 @@ struct Input {
 struct PlayerStats {
 
 	int live = 250;
+	int max_lives = 250;
 	int attack_power = 500;
 	int xp = 0;
 	int mana = 100;
+	int max_mana = 100;
 	int gold = 0;
 	int cost_mana_special_attack1 = 50;
-
-
 };
 
 
@@ -125,13 +125,33 @@ public:
 
 	inline void ReduceMana(const int &cost_mana) {
 		stats.mana -= cost_mana;
+		if (stats.mana < 0)
+			stats.mana = 0;
 	}
 
+	inline void AugmentMana(const int &plus_mana) {
+		stats.mana += plus_mana;
+		if (stats.mana > stats.max_mana)
+			stats.mana = stats.max_mana;
+	}
+
+	inline void ReduceLives(const int &cost_lives) {
+		stats.live -= cost_lives;
+		if (stats.live < 0)
+			stats.live = 0;
+	}
+
+	inline void AugmentLives(const int &plus_lives) {
+		stats.live += plus_lives;
+		if (stats.live > stats.max_lives)
+			stats.live = stats.max_lives;
+	}
 
 public:
-
+	float death_time = 0.0f;
 	bool has_skills = false;
 	bool block_controls = false;
+	bool first_collision = true;
 
 	Input player_input; //VARIABLES DEL INPUT DEL PLAYER
 	Movement_Type movement_type; //EN LOBBY O EN UNA QUEST

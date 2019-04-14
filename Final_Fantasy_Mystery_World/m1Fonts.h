@@ -70,6 +70,7 @@ public:
 	bool ChangeFontSize(const int& size);
 	bool CalcSize(const char* text, int& width, int& height, FontType font);
 	bool CalcSizeWrapped(const char* text, int& width, int& height, FontType font, const uint32& wrap);
+	int CalcLines(const char* text);
 
 public:
 

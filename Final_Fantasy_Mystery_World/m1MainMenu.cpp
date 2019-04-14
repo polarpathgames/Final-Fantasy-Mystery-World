@@ -102,6 +102,26 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		CreateMainMenu();
 		DestroyCredits();
 	}
+	
+	if (interaction == button_continue_lobby) {
+		
+		App->gui->DeleteAllUIElements();
+		App->fade_to_black->FadeToBlack(Maps::HOME);
+		//App->map->ChangeMap(Maps::HOME);
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
+		ret = false;
+	}
+	if (interaction == button_return_main) {
+		
+		App->gui->DeleteAllUIElements();
+		App->entity_manager->Disable();
+		App->map->Disable();
+		active = false; 
+		App->main_menu->Enable();
+		ret = false;
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
+		
+	}
 
 	if (interaction == button_github) {
 		ShellExecuteA(NULL, "open", "https://github.com/polarpathgames", NULL, NULL, SW_SHOWNORMAL);
@@ -219,22 +239,24 @@ void m1MainMenu::DestroyCredits()
 	App->gui->DeleteUIElement(credits_panel);
 }
 
-void m1MainMenu::CreateEndGame()
+void m1MainMenu::CreateGameOver()
 {
-	end_game_panel = App->gui->AddImage(0, 0, { 0, 768, 1024, 768 }, this, App->gui->screen, true, false, false, false);
-	end_game_panel->SetPosRespectParent(CENTERED);
+	game_over_panel = App->gui->AddImage(0, 0, { 1024, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+	game_over_panel->SetPosRespectParent(CENTERED);
 
-	button_retun = App->gui->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, end_game_panel, false, false, true, true);
-	label_return = App->gui->AddLabel(0, 0, "Return", button_retun, BLACK, FontType::FF32, nullptr, false);
-	label_return->SetPosRespectParent(CENTERED);
+	button_continue_lobby = App->gui->AddButton(150, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, game_over_panel, false, false, true, true);
+	label_continue_lobby = App->gui->AddLabel(0, 0, "Continue to Lobby", button_continue_lobby, WHITE, FontType::FF100, nullptr, false);
+	label_continue_lobby->SetPosRespectParent(LEFT_CENTERED);
 
-	button_github = App->gui->AddButton(110, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, end_game_panel, false, false, true, true);
-	label_github = App->gui->AddLabel(0, 0, "Github", button_github, BLACK, FontType::FF32, nullptr, false);
-	label_github->SetPosRespectParent(CENTERED);
+
+	button_return_main = App->gui->AddButton(610, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, game_over_panel, false, false, true, true);
+	label_continue_main = App->gui->AddLabel(0, 0, "Return Main Menu", button_return_main, WHITE, FontType::FF100, nullptr, false);
+	label_continue_main->SetPosRespectParent(LEFT_CENTERED);
+
+	
 }
 
-void m1MainMenu::DestroyEndGame()
+void m1MainMenu::DestroyGameOver()
 {
-	App->gui->DeleteUIElement(end_game_panel);
+	App->gui->DeleteUIElement(game_over_panel);
 }
-

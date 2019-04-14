@@ -66,6 +66,7 @@ public:
 	bool CheckCollision(int x, int y, u1GUI* item);
 
 	bool ShowCursor(bool enable);
+	const u1GUI* GetFocus();
 
 	const SDL_Texture* GetAtlas() const;
 
