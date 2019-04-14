@@ -88,6 +88,9 @@ public:
 	bool CleanUp();
 
 	void OnCollision(Collider* c2);
+	void OnCollisionEnter(Collider* c2);
+	void OnCollisionExit(Collider* c2);
+
 	void CheckLobbyCollision(const float &pdtos, const Direction &dir);
 
 	void CenterPlayerInTile();
@@ -163,7 +166,6 @@ public:
 	float death_time = 0.0f;
 	bool has_skills = false;
 	bool block_controls = false;
-	bool first_collision = true;
 
 	Input player_input; //VARIABLES DEL INPUT DEL PLAYER
 	Movement_Type movement_type; //EN LOBBY O EN UNA QUEST

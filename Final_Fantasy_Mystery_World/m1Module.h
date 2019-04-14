@@ -88,7 +88,9 @@ public:
 	}
 
 	// Callbacks ---
-	virtual void OnCollision(Collider*, Collider*, ColliderInfo) {}
+	virtual void OnCollision(Collider*, Collider*) {}
+	virtual void OnCollisionEnter(Collider*, Collider*) {}
+	virtual void OnCollisionExit(Collider*, Collider*) {}
 	virtual bool Interact(u1GUI* element) { return true; }
 
 public:

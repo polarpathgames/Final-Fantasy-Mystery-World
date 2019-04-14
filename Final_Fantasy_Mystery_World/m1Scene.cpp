@@ -825,12 +825,10 @@ bool m1Scene::Interact(u1GUI* interact)
 		break;
 	case StatesMenu::GO_TO_QUEST_MENU:
 		if (interact == go_to_quest_button) {
-			player->first_collision = true;
 			DestroyGoToQuestMenu();
 			App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 		}
 		if (interact == cancel_quest_button) {
-			player->first_collision = true;
 			DestroyGoToQuestMenu();
 		}
 	case StatesMenu::INVENTORY_MENU:

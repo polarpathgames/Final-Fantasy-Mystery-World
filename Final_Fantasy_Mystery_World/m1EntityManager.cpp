@@ -174,6 +174,26 @@ void m1EntityManager::OnCollision(Collider * c1, Collider * c2)
 
 }
 
+void m1EntityManager::OnCollisionEnter(Collider * c1, Collider * c2)
+{
+	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr && (*item)->GetCollider() == c1) {
+			(*item)->OnCollisionEnter(c2);
+		}
+	}
+}
+
+void m1EntityManager::OnCollisionExit(Collider * c1, Collider * c2)
+{
+	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr && (*item)->GetCollider() == c1) {
+			(*item)->OnCollisionExit(c2);
+		}
+	}
+}
+
 
 //e1Entity Factory
 e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)

@@ -4,6 +4,7 @@
 #include "m1Module.h"
 #include "SDL/include/SDL_rect.h"
 #include <vector>
+#include <list>
 
 enum COLLIDER_TYPE
 {
@@ -23,7 +24,7 @@ enum COLLIDER_TYPE
 enum class ColliderInfo {
 	ENTER,
 	STAY,
-	LEAVE
+	EXIT,
 };
 
 struct Collider
@@ -35,6 +36,7 @@ struct Collider
 	ColliderInfo info = ColliderInfo::ENTER;
 	m1Module* callback = nullptr;
 	bool enable = true;
+	std::list<Collider*> collisions;
 
 	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, m1Module* callback = nullptr) :
 		rect(rectangle),

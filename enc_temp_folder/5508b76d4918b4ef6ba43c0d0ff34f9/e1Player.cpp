@@ -115,6 +115,7 @@ void e1Player::OnCollisionEnter(Collider * c2)
 void e1Player::OnCollisionExit(Collider * c2)
 {
 	LOG("EXIT");
+	App->easing_splines->CreateSpline(&position.x-20, position.x - 20, 100, EASE);
 }
 
 void e1Player::CheckLobbyCollision(const float & dt, const Direction & dir)
