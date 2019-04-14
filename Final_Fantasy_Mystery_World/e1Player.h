@@ -50,8 +50,12 @@ struct PlayerStats {
 	int xp = 0;
 	int mana = 100;
 	int max_mana = 100;
-	int gold = 0;
+	int gold = 100;
+	int num_hp_potions = 0;
+	int num_mana_potions = 0;
 	int cost_mana_special_attack1 = 50;
+	int level = 1;
+
 };
 
 
@@ -121,8 +125,6 @@ public:
 	bool BlockControls(bool to_block);
 
 
-	void GiveGold(const int &gold);
-
 	inline void ReduceMana(const int &cost_mana) {
 		stats.mana -= cost_mana;
 		if (stats.mana < 0)
@@ -145,6 +147,16 @@ public:
 		stats.live += plus_lives;
 		if (stats.live > stats.max_lives)
 			stats.live = stats.max_lives;
+	}
+
+	inline void ReduceGold(const int &cost_gold) {
+		stats.gold -= cost_gold;
+		if (stats.gold < 0)
+			stats.gold = 0;
+	}
+
+	inline void AugmentGold(const int &plus_gold) {
+		stats.gold += plus_gold;
 	}
 
 public:

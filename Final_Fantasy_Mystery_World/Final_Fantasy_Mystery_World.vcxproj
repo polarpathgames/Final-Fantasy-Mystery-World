@@ -14,7 +14,7 @@
     <ProjectGuid>{CA36A83C-2BCF-4BEB-9B41-CD0B834374B8}</ProjectGuid>
     <RootNamespace>programacio_2</RootNamespace>
     <ProjectName>Final Fantasy Mystery World</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -122,6 +122,7 @@
     <ClInclude Include="p2ChangeControls.h" />
     <ClInclude Include="p2Random.h" />
     <ClInclude Include="p2Rooms.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="u1CheckBox.h" />
     <ClInclude Include="e1DynamicEntity.h" />
     <ClInclude Include="m1EasingSplines.h" />
@@ -169,6 +170,12 @@
     <None Include="Game\entities\Enemy.tsx" />
     <None Include="Game\entities\Player.tsx" />
     <None Include="Game\entities\WarriorSpritesheet.tsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Game\assets\ff_icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -966,10 +966,6 @@ bool e1Player::BlockControls(bool to_block)
 	return block_controls = to_block;
 }
 
-void e1Player::GiveGold(const int & gold)
-{
-	stats.gold += gold;
-}
 
 void e1Player::CreateSkills()
 {
