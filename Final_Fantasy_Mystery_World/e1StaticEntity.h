@@ -43,6 +43,7 @@ public:
 		PIECE_SHOP,
 		SHOP_MAN,
 		QUEST_FOUNTAIN,
+		NPC1,
 
 		UNKNOWN
 	};
