@@ -123,6 +123,8 @@ public:
 	iPoint actual_tile;
 	Collider* coll = nullptr;
 	bool to_delete = false;
+	iPoint velocity;
+
 };
 
 #endif

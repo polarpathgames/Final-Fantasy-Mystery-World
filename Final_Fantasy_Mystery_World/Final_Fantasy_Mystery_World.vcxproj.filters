@@ -108,6 +108,30 @@
     <ClCompile Include="e1CarnivorousPlant.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="m1Cutscene.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneModifyimage.cpp">
+      <Filter>CutScenes\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneModifyText.cpp">
+      <Filter>CutScenes\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutsceneMoveCamera.cpp">
+      <Filter>CutScenes\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneMoveEntity.cpp">
+      <Filter>CutScenes\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneEntity.cpp">
+      <Filter>CutScenes\Element</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneImage.cpp">
+      <Filter>CutScenes\Element</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutsceneText.cpp">
+      <Filter>CutScenes\Element</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -241,6 +265,36 @@
     <ClInclude Include="e1CarnivorousPlant.h">
       <Filter>Entities</Filter>
     </ClInclude>
+    <ClInclude Include="m1Cutscene.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneMoveEntity.h">
+      <Filter>CutScenes\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneAction.h">
+      <Filter>CutScenes\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneModifyimage.h">
+      <Filter>CutScenes\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneModifyText.h">
+      <Filter>CutScenes\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutsceneMoveCamera.h">
+      <Filter>CutScenes\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneElement.h">
+      <Filter>CutScenes\Element</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneEntity.h">
+      <Filter>CutScenes\Element</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneImage.h">
+      <Filter>CutScenes\Element</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneText.h">
+      <Filter>CutScenes\Element</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\assets\xml\config.xml" />
@@ -274,6 +328,15 @@
     </Filter>
     <Filter Include="Tools\pugixml">
       <UniqueIdentifier>{e6a7f851-a874-4b51-9346-717d21b79a04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CutScenes">
+      <UniqueIdentifier>{c66c2036-1f3c-4504-861d-3109414a677b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CutScenes\Action">
+      <UniqueIdentifier>{819bab04-2548-4e10-9a33-107a479e0701}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CutScenes\Element">
+      <UniqueIdentifier>{02b36f4f-c285-448c-91e5-833b430d3887}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

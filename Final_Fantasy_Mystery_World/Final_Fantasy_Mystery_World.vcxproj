@@ -80,8 +80,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="c1CutSceneEntity.cpp" />
+    <ClCompile Include="c1CutSceneImage.cpp" />
+    <ClCompile Include="c1CutSceneModifyimage.cpp" />
+    <ClCompile Include="c1CutSceneModifyText.cpp" />
+    <ClCompile Include="c1CutsceneMoveCamera.cpp" />
+    <ClCompile Include="c1CutSceneMoveEntity.cpp" />
+    <ClCompile Include="c1CutsceneText.cpp" />
     <ClCompile Include="e1CarnivorousPlant.cpp" />
     <ClCompile Include="e1Drop.cpp" />
+    <ClCompile Include="m1Cutscene.cpp" />
     <ClCompile Include="p2ChangeControls.cpp" />
     <ClCompile Include="e1DynamicEntity.cpp" />
     <ClCompile Include="m1EasingSplines.cpp" />
@@ -119,8 +127,18 @@
     <ClCompile Include="e1StaticEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="c1CutSceneAction.h" />
+    <ClInclude Include="c1CutSceneElement.h" />
+    <ClInclude Include="c1CutSceneEntity.h" />
+    <ClInclude Include="c1CutSceneImage.h" />
+    <ClInclude Include="c1CutSceneModifyimage.h" />
+    <ClInclude Include="c1CutSceneModifyText.h" />
+    <ClInclude Include="c1CutsceneMoveCamera.h" />
+    <ClInclude Include="c1CutSceneMoveEntity.h" />
+    <ClInclude Include="c1CutSceneText.h" />
     <ClInclude Include="e1CarnivorousPlant.h" />
     <ClInclude Include="e1Drop.h" />
+    <ClInclude Include="m1Cutscene.h" />
     <ClInclude Include="p2ChangeControls.h" />
     <ClInclude Include="p2Random.h" />
     <ClInclude Include="p2Rooms.h" />
