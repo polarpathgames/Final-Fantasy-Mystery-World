@@ -1,13 +1,17 @@
 #include "e1CarnivorousPlant.h"
 #include "e1Enemy.h"
+#include "SDL/include/SDL.h"
+#include "App.h"
+#include "m1Map.h"
+#include "m1Render.h"
 
 e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x, y)
 {
 	LoadEntityData("assets/entities/CarnivorousPlant.tsx");
 
 
-	position.x += 8;
-	position.y -= 22;
+	position.x -= 5;
+	position.y -= 24;
 
 	target_position = position;
 	initial_position = position;
@@ -19,24 +23,57 @@ e1CarnivorousPlant::~e1CarnivorousPlant()
 
 bool e1CarnivorousPlant::PreUpdate()
 {
+	if (state == State::IDLE) {
+		if (IsPlayerNextTile()) {
+			state = State::BEFORE_ATTACK;
+			time_to_wait_before_attack = SDL_GetTicks();
+		}
+		else {
+			state = State::WALKING; //Aixo sha de canviar I know :D
+		}
 
+	}
+	if (state == State::WALKING) {
+		if (!IsPlayerNextTile()) {
+			MovementLogic();
+		}
+	}
+	if (state == State::BEFORE_ATTACK) {
+		if (time_to_wait_before_attack < SDL_GetTicks() - 250) {
+			type_attack = Attacks::BASIC;
+			state = State::ATTACKING;
+			ChangeAnimation(direction, state, type_attack);
+		}
+
+	}
 	return true;
 }
 
 bool e1CarnivorousPlant::Update(float dt)
 {
+	if (state == State::IDLE) {
+		position.x = initial_position.x + movement_count.x;
+		position.y = initial_position.y + movement_count.y;
+		target_position = position;
+	}
 
-	return true;
-}
+	if (state == State::WALKING) {
+		PerformMovement(dt);
+	}
+	if (state == State::ATTACKING) {
+		if (current_animation->Finished()) {
+			CheckBasicAttackEfects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
+			state = State::AFTER_ATTACK;
+			ChangeAnimation(direction, state);
+			time_attack = SDL_GetTicks();
+		}
+	}
+	if (state == State::AFTER_ATTACK) {
+		RestTimeAfterAttack(time_attack);
+	}
 
-bool e1CarnivorousPlant::PostUpdate()
-{
 
-	return true;
-}
-
-bool e1CarnivorousPlant::CleanUp()
-{
+	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
 	return true;
 }
@@ -47,18 +84,31 @@ void e1CarnivorousPlant::IdAnimToEnum()
 	for (uint i = 0; i < data.num_animations; ++i) {
 		switch (data.animations[i].id) {
 		case 0:
+			data.animations[i].animType = AnimationState::WALKING_DOWN_LEFT;
+			break;
+		case 2:
 			data.animations[i].animType = AnimationState::IDLE_DOWN_LEFT;
 			break;
-		case 4:
-			data.animations[i].animType = AnimationState::IDLE_UP_LEFT;
+		case 3:
+			data.animations[i].animType = AnimationState::WALKING_DOWN_RIGHT;
 			break;
-		case 7:
+		case 5:
 			data.animations[i].animType = AnimationState::IDLE_DOWN_RIGHT;
 			break;
+		case 7:
+			data.animations[i].animType = AnimationState::WALKING_UP_LEFT;
+			break;
+		case 9:
+			data.animations[i].animType = AnimationState::IDLE_UP_LEFT;
+			break;
 		case 10:
+			data.animations[i].animType = AnimationState::WALKING_UP_RIGHT;
+			break;
+		case 12:
 			data.animations[i].animType = AnimationState::IDLE_UP_RIGHT;
 			break;
-		case 13:
+
+		case 14:
 			data.animations[i].animType = AnimationState::IDLE_DOWN;
 			break;
 		case 16:

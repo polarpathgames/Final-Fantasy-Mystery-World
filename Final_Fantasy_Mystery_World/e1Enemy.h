@@ -24,11 +24,11 @@ public:
 
 	virtual ~e1Enemy();
 
-	virtual bool PreUpdate();
+	virtual bool PreUpdate() { return true; };
 
-	virtual bool Update(float dt);
+	virtual bool Update(float dt) { return true; };
 
-	virtual bool PostUpdate();
+	virtual bool PostUpdate() { return true; };
 
 	virtual bool Load(pugi::xml_node&);
 
@@ -39,6 +39,7 @@ public:
 	bool IsPlayerNextTile();
 
 	void MovementLogic();
+	void PerformMovement(float dt);
 
 	void GetHitted(const int &damage_taken);
 
