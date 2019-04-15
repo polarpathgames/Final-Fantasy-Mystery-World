@@ -69,13 +69,14 @@ bool m1MainMenu::CleanUp()
 bool m1MainMenu::Interact(u1GUI* interaction)
 {
 	bool ret = true;
+	
+
 	if (interaction == exit_button) {
 		App->QuitGame();
 		ret = false;
 	}
 
 	if (interaction == new_game_button) {
-		App->audio->PlayFx(fx_push_button);
 		/*App->gui->DeleteAllUIElements();
 		active = false; //desactivates main menu
 		App->entity_manager->Enable();
@@ -198,13 +199,18 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 	if (interaction == button_ivan) {
 		ShellExecuteA(NULL, "open", "https://github.com/RoperoIvan", NULL, NULL, SW_SHOWNORMAL);
 	}
+
+	if (interaction != nullptr)
+		App->audio->PlayFx(fx_push_button);
+
 	return ret;
 }
 
 void m1MainMenu::CreateMainMenu()
 {
 	background = App->gui->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->gui->screen, true, false, false,false);
-	App->audio->PlayMusic("assets/audio/music/1.Final Fantasy TA - Main Theme.ogg");
+	App->audio->PlayMusic("assets/audio/music/1.Final Fantasy TA - Main Theme.ogg", 0);
+	
 	int offsetY = 75;
 
 	new_game_button = App->gui->AddButton(684, 337, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);
@@ -230,6 +236,7 @@ void m1MainMenu::CreateMainMenu()
 
 void m1MainMenu::CreateCredits()
 {
+	App->audio->PlayMusic("assets/audio/music/41.Final Fantasy TA - A Place We Should Return To.ogg", 0.5);
 	credits_panel = App->gui->AddImage(0, 0, { 0, 2304, 1024, 768 }, this, App->gui->screen, true, false, false,false);
 	credits_panel->SetPosRespectParent(CENTERED);
 
@@ -285,6 +292,7 @@ void m1MainMenu::DestroyCredits()
 
 void m1MainMenu::CreateGameOver()
 {
+	App->audio->PlayMusic("assets/audio/music/35.Final Fantasy TA - Judge.ogg", 0.5);
 	game_over_panel = App->gui->AddImage(0, 0, { 1024, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
 	game_over_panel->SetPosRespectParent(CENTERED);
 
@@ -307,8 +315,8 @@ void m1MainMenu::DestroyGameOver()
 
 void m1MainMenu::CreateSelectChamp()
 {
+	App->audio->PlayMusic("assets/audio/music/34.Final Fantasy TA - Confusion.ogg", 0.5);
 	background = App->gui->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
-
 	button_warrior = App->gui->AddButton(100, 100, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true, true);
 	button_archer = App->gui->AddButton(400, 100, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true, true);
 	button_mage = App->gui->AddButton(700, 100, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true, true);
