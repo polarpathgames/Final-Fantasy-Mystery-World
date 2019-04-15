@@ -606,7 +606,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		break;
 	case Direction::RIGHT:
 		if (App->map->IsWalkable({ (int)(position.x + floor(180 * dt) + pivot.x), position.y + pivot.y })) {
-			position.x += floor(180 * dt);
+			position.x += floor(velocity.x * dt);
 			current_animation = &GoRight;
 		}
 		else {
@@ -615,7 +615,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		break;
 	case Direction::LEFT:
 		if (App->map->IsWalkable({(int)(position.x - floor(180 * dt) + pivot.x), position.y + pivot.y })) {
-			position.x -= floor(180 * dt);
+			position.x -= floor(velocity.x * dt);
 			current_animation = &GoLeft;
 		}
 		else {
@@ -624,7 +624,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		break;
 	case Direction::UP:
 		if (App->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y - floor(180 * dt)) })) {
-			position.y -= floor(180 * dt);
+			position.y -= floor(velocity.y * 2 * dt);
 			current_animation = &GoUp;
 		}
 		else {
@@ -634,7 +634,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		break;
 	case Direction::DOWN:
 		if (App->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y + floor(180 * dt)) })) {
-			position.y += floor(180 * dt);
+			position.y += floor(velocity.y * 2 * dt);
 			current_animation = &GoDown;
 		}
 		else {
