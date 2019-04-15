@@ -59,7 +59,7 @@ bool m1Textures::CleanUp()
 }
 
 
-// Load new texture from file path
+// Load DBG_NEW texture from file path
 SDL_Texture* const m1Textures::Load(const char* path)
 {
 	SDL_Texture* texture = NULL;

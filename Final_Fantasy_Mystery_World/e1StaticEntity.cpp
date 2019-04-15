@@ -13,7 +13,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	if (strcmp(name,"flower") == 0) {
 		static_type = e1StaticEntity::Type::FLOWER;
 		has_animation = true;
-		idle = new Animation();
+		idle = DBG_NEW Animation();
 		current_animation = idle;
 		idle->PushBack({ 132,103,24,21 });
 		idle->PushBack({ 157,103,24,21 });
@@ -87,7 +87,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	else if (strcmp(name, "fountain") == 0) {
 		static_type = e1StaticEntity::Type::FOUNTAIN;
 		has_animation = true;
-		idle = new Animation();
+		idle = DBG_NEW Animation();
 		current_animation = idle;
 		idle->PushBack({ 160,0,64,48 });
 		idle->PushBack({ 224,0,64,48 });
@@ -179,7 +179,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	else if (strcmp(name, "feather") == 0) {
 		static_type = e1StaticEntity::Type::FEATHER;
 		has_animation = true;
-		idle = new Animation();
+		idle = DBG_NEW Animation();
 		current_animation = idle;
 		idle->PushBack({ 686,3,8,27 });
 		idle->PushBack({ 698,3,8,27 });
@@ -200,7 +200,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	else if (strcmp(name, "candle") == 0) {
 		static_type = e1StaticEntity::Type::CANDLE;
 		has_animation = true;
-		idle = new Animation();
+		idle = DBG_NEW Animation();
 		current_animation = idle;
 		idle->PushBack({ 686,42,28,32 });
 		idle->PushBack({ 720,42,28,32 });
@@ -214,7 +214,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	else if (strcmp(name, "shop_man_place") == 0) {
 		static_type = e1StaticEntity::Type::SHOP_MAN;
 		has_animation = true;
-		idle = new Animation();
+		idle = DBG_NEW Animation();
 		current_animation = idle;
 		idle->PushBack({ 686,82,32,32 });
 		idle->PushBack({ 718,82,32,32 });
@@ -229,7 +229,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	else if (strcmp(name, "quest_fountain") == 0) {
 		static_type = e1StaticEntity::Type::QUEST_FOUNTAIN;
 		has_animation = true;
-		idle = new Animation();
+		idle = DBG_NEW Animation();
 		current_animation = idle;
 		idle->PushBack({ 160,0,64,48 });
 		idle->PushBack({ 224,0,64,48 });
@@ -245,7 +245,11 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	}
 	else if (strcmp(name, "NPC1") == 0) {
 		static_type = e1StaticEntity::Type::NPC1;
-		frame = { 1200,0,16,28 };
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1200,0,16,28 });
+		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
@@ -257,7 +261,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	else if (strcmp(name, "NPC2") == 0) {
 		static_type = e1StaticEntity::Type::NPC2;
 		has_animation = true;
-		idle = new Animation();
+		idle = DBG_NEW Animation();
 		current_animation = idle;
 		idle->PushBack({ 1215,27,16,28 });
 		frame = idle->frames[0];

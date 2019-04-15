@@ -239,7 +239,7 @@ bool m1Map::CleanUp()
 	return true;
 }
 
-// Load new map
+// Load DBG_NEW map
 bool m1Map::Load(const char* file_name)
 {
 	BROFILER_CATEGORY("Load Map", Profiler::Color::DeepPink);
@@ -266,7 +266,7 @@ bool m1Map::Load(const char* file_name)
 	pugi::xml_node tileset;
 	for(tileset = map_file.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
 	{
-		TileSet* set = new TileSet();
+		TileSet* set = DBG_NEW TileSet();
 
 		if(ret == true)
 		{
@@ -285,7 +285,7 @@ bool m1Map::Load(const char* file_name)
 	pugi::xml_node layer;
 	for(layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
 	{
-		MapLayer* lay = new MapLayer();
+		MapLayer* lay = DBG_NEW MapLayer();
 
 		ret = LoadLayer(layer, lay);
 
@@ -301,7 +301,7 @@ bool m1Map::Load(const char* file_name)
 	{
 		for (object = objectGroup.child("object"); object; object = object.next_sibling("object")) {
 
-			ObjectLayer* obj = new ObjectLayer();
+			ObjectLayer* obj = DBG_NEW ObjectLayer();
 
 			if (ret == true && object != NULL)
 				ret = LoadObject(object, obj);
@@ -492,7 +492,7 @@ bool m1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	}
 	else
 	{
-		layer->data = new uint[layer->width*layer->height];
+		layer->data = DBG_NEW uint[layer->width*layer->height];
 		memset(layer->data, 0, layer->width*layer->height);
 
 		int i = 0;
@@ -543,7 +543,7 @@ bool m1Map::LoadProperties(pugi::xml_node& node, Properties<int>* properties)
 
 		for(prop = node.child("property"); prop; prop = prop.next_sibling("property"))
 		{
-			Property<int>* p = new Property<int>();
+			Property<int>* p = DBG_NEW Property<int>();
 
 			p->SetName(prop.attribute("name").as_string());
 			p->SetValue(prop.attribute("value").as_int());
@@ -570,7 +570,7 @@ bool m1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer)
 		if(layer->properties.GetValue("Navigation", 0) == 0)
 			continue;
 
-		uchar* map = new uchar[layer->width*layer->height];
+		uchar* map = DBG_NEW uchar[layer->width*layer->height];
 		memset(map, 1, layer->width*layer->height);
 
 		for(int y = 0; y < data.height; ++y)
@@ -632,7 +632,7 @@ bool m1Map::ChangeMap(Maps type)
 		actual_map = Maps::LOBBY;
 		break;
 	case Maps::TUTORIAL:
-		quest_rooms = new RoomManager(node);
+		quest_rooms = DBG_NEW RoomManager(node);
 		actual_map = Maps::TUTORIAL;
 		return true;
 		break;

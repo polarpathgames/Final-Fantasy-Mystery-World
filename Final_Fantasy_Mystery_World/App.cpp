@@ -32,23 +32,23 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 {
 	PERF_START(ptimer);
 
-	input = new m1Input();
-	win = new m1Window();
-	render = new m1Render();
-	tex = new m1Textures();
-	audio = new m1Audio();
-	map = new m1Map();
-	scene = new m1Scene();
-	gui = new m1GUI();
-	main_menu = new m1MainMenu();
-	fonts = new m1Fonts();
-	dialog = new m1DialogSystem();
-	entity_manager = new m1EntityManager();
-	pathfinding = new m1PathFinding();
-	fade_to_black = new m1FadeToBlack();
-	collision = new m1Collision();
-	easing_splines = new m1EasingSplines();
-	cutscene_manager = new m1CutScene();
+	input = DBG_NEW m1Input();
+	win = DBG_NEW m1Window();
+	render = DBG_NEW m1Render();
+	tex = DBG_NEW m1Textures();
+	audio = DBG_NEW m1Audio();
+	map = DBG_NEW m1Map();
+	scene = DBG_NEW m1Scene();
+	gui = DBG_NEW m1GUI();
+	main_menu = DBG_NEW m1MainMenu();
+	fonts = DBG_NEW m1Fonts();
+	dialog = DBG_NEW m1DialogSystem();
+	entity_manager = DBG_NEW m1EntityManager();
+	pathfinding = DBG_NEW m1PathFinding();
+	fade_to_black = DBG_NEW m1FadeToBlack();
+	collision = DBG_NEW m1Collision();
+	easing_splines = DBG_NEW m1EasingSplines();
+	cutscene_manager = DBG_NEW m1CutScene();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -416,7 +416,7 @@ bool Application::LoadGameNow()
 	{
 		ret = true;
 
-		LOG("Loading new Game State from %s...", load_game.data());
+		LOG("Loading DBG_NEW Game State from %s...", load_game.data());
 
 		root = data.child("game_state");
 

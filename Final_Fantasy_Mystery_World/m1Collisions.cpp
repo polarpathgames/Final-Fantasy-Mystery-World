@@ -207,7 +207,7 @@ bool m1Collision::CleanUp()
 
 Collider* m1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, m1Module* callback)
 {
-	Collider* ret = new Collider(rect, type, callback);
+	Collider* ret = DBG_NEW Collider(rect, type, callback);
 	colliders.push_back(ret);
 
 	return ret;

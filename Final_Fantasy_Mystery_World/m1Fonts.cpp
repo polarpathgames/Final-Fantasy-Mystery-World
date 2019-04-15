@@ -41,7 +41,7 @@ bool m1Fonts::Awake(pugi::xml_node& conf)
 			Load(PATH(path, conf.attribute("file").as_string()),conf.attribute("size").as_uint(DEFAULT_FONT_SIZE));
 		}
 
-		static_assert((int)FontType::NONE == 8, "Update config.xml adding new fonts");
+		static_assert((int)FontType::NONE == 8, "Update config.xml adding DBG_NEW fonts");
 		assert(fonts.size() > (int)FontType::NONE - 1); // Loaded more fonts that declarated
 	}
 
@@ -67,7 +67,7 @@ bool m1Fonts::CleanUp()
 	return true;
 }
 
-// Load new texture from file path
+// Load DBG_NEW texture from file path
 Font* const m1Fonts::Load(const char* path, int size)
 {
 	Font* ret = nullptr;
@@ -78,7 +78,7 @@ Font* const m1Fonts::Load(const char* path, int size)
 		ret = *item;
 	}
 	else { // If item is list.end() (not existing font in list)
-		ret = new Font(TTF_OpenFont(path, size), (FontType)fonts.size(), path);	// Create font
+		ret = DBG_NEW Font(TTF_OpenFont(path, size), (FontType)fonts.size(), path);	// Create font
 		if (ret->font == NULL) {	// if font is NULL, get error and return default font
 			LOG("Could not load TTF font with path: %s. TTF_OpenFont: %s. Closing and using default font", path, TTF_GetError());
 			TTF_CloseFont(ret->font);

@@ -66,7 +66,7 @@ bool m1EasingSplines::CleanUp()
 
 void m1EasingSplines::CreateSpline(int * position, const int target_position, const float time_to_travel, TypeSpline type)
 {
-	EaseSplineInfo* info = new EaseSplineInfo(position, target_position, time_to_travel, type);
+	EaseSplineInfo* info = DBG_NEW EaseSplineInfo(position, target_position, time_to_travel, type);
 
 	if (info != nullptr)
 		easing_splines.push_back(info);

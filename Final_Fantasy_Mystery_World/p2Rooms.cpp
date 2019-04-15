@@ -33,7 +33,7 @@ RoomManager::RoomManager(pugi::xml_node &node)
 
 	for (room_node = node.child("maps").child("tutorial").child("room"); room_node; room_node = room_node.next_sibling("room")) {
 		Room * r = nullptr;
-		r = new Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_int());
+		r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_int());
 		rooms.push_back(r);
 	}
 
@@ -167,7 +167,7 @@ void RoomManager::LoadColliders() // sensors in the doors
 				std::vector<Room*>::iterator item = rooms.begin();
 				for (; item != rooms.end(); ++item) {
 					if ((*item) != nullptr && (*item)->active) {
-						ChangeScene * c = new ChangeScene(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, LocationChangeScene::NEXT_A, (*position)->properties.GetValue("next_id"));
+						ChangeScene * c = DBG_NEW ChangeScene(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, LocationChangeScene::NEXT_A, (*position)->properties.GetValue("next_id"));
 						(*item)->change_scene_points.push_back(c);
 						App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x,App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_NEXT_A, (m1Module*)App->map);
 						break;
@@ -178,7 +178,7 @@ void RoomManager::LoadColliders() // sensors in the doors
 				std::vector<Room*>::iterator item = rooms.begin();
 				for (; item != rooms.end(); ++item) {
 					if ((*item) != nullptr && (*item)->active) {
-						ChangeScene * c = new ChangeScene(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, LocationChangeScene::NEXT_B, (*position)->properties.GetValue("next_id"));
+						ChangeScene * c = DBG_NEW ChangeScene(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, LocationChangeScene::NEXT_B, (*position)->properties.GetValue("next_id"));
 						(*item)->change_scene_points.push_back(c);
 						App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x,App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_NEXT_B, (m1Module*)App->map);
 						break;
@@ -189,7 +189,7 @@ void RoomManager::LoadColliders() // sensors in the doors
 				std::vector<Room*>::iterator item = rooms.begin();
 				for (; item != rooms.end(); ++item) {
 					if ((*item) != nullptr && (*item)->active) {
-						ChangeScene * c = new ChangeScene(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, LocationChangeScene::LAST_A, (*position)->properties.GetValue("next_id"));
+						ChangeScene * c = DBG_NEW ChangeScene(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, LocationChangeScene::LAST_A, (*position)->properties.GetValue("next_id"));
 						(*item)->change_scene_points.push_back(c);
 						App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x,App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_LAST_A, (m1Module*)App->map);
 						break;
@@ -200,7 +200,7 @@ void RoomManager::LoadColliders() // sensors in the doors
 				std::vector<Room*>::iterator item = rooms.begin();
 				for (; item != rooms.end(); ++item) {
 					if ((*item) != nullptr && (*item)->active) {
-						ChangeScene * c = new ChangeScene(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, LocationChangeScene::LAST_B, (*position)->properties.GetValue("next_id"));
+						ChangeScene * c = DBG_NEW ChangeScene(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, LocationChangeScene::LAST_B, (*position)->properties.GetValue("next_id"));
 						(*item)->change_scene_points.push_back(c);
 						App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x,App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_LAST_B, (m1Module*)App->map);
 						break;

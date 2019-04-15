@@ -95,7 +95,7 @@ bool m1Window::CleanUp()
 	return true;
 }
 
-// Set new window title
+// Set DBG_NEW window title
 void m1Window::SetTitle(const char* new_title)
 {
 	//title.create(new_title);

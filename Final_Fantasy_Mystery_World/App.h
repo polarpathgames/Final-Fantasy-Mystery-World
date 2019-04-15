@@ -51,7 +51,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	// Add a new module to handle
+	// Add a DBG_NEW module to handle
 	void AddModule(m1Module* module);
 
 	// Exposing some properties for reading
