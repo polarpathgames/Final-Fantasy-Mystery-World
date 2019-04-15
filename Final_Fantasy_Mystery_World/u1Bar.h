@@ -12,25 +12,26 @@ public:
 	u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* parent, m1Module* callback);
 
 	~u1Bar();
-	/*void DecreaseBar(int quantity);
-	void RecoverBar(int quantity);
+	void DecreaseBar(int quantity, UIType bar_type);
+	//void RecoverBar(int quantity);
 
 	int CalculateBar(int quantity);
-	int CurrentQuantity();*/
 
 public:
 
 	u1Image* empty_bar = nullptr;
-	u1Image* full_hp = nullptr;
+	u1Image* hp_bar = nullptr;
 
 	u1Image* empty_mana_bar = nullptr;
-	u1Image* full_mana = nullptr;
+	u1Image* mana_bar = nullptr;
 
 	e1Entity* entity = nullptr;
 	UIType bar_type;
-	int max_capacity;
-	int current_capacity;
+	int max_capacity = 0;
+	int current_quantity = 0;
 
+	int max_width = 172;
+	int current_width = 0;
 
 };
 #endif
