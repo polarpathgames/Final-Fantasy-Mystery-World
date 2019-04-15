@@ -105,6 +105,8 @@
     <ClCompile Include="e1Drop.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="u1Bar.cpp">
+      <Filter>UI</Filter>
     <ClCompile Include="e1CarnivorousPlant.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
@@ -261,6 +263,8 @@
     <ClInclude Include="e1Drop.h">
       <Filter>Entities</Filter>
     </ClInclude>
+    <ClInclude Include="u1Bar.h">
+      <Filter>UI</Filter>
     <ClInclude Include="resource.h" />
     <ClInclude Include="e1CarnivorousPlant.h">
       <Filter>Entities</Filter>

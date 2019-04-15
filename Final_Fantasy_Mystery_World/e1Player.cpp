@@ -18,6 +18,7 @@
 #include "m1FadeToBlack.h"
 #include "u1Label.h"
 #include "u1Button.h"
+#include "u1Bar.h"
 #include <string>
 #include "u1UI_Element.h"
 #include "Brofiler/Brofiler.h"
@@ -32,6 +33,7 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 	ground = App->tex->Load("assets/sprites/player_pos.png");
 
 	CenterPlayerInTile();
+
 
 }
 
@@ -937,7 +939,12 @@ void e1Player::GetHitted(const int & damage_taken)
 		ChangeAnimation(direction, state);
 		death_time = SDL_GetTicks();
 	}
-	
+
+	else {
+		stats.live -= damage_taken;
+		App->scene->player_hp_bar->UpdateBar(-damage_taken, UIType::HPBAR);
+	}	
+
 }
 
 void e1Player::Death()
@@ -945,6 +952,7 @@ void e1Player::Death()
 	if (current_animation->Finished() && death_time <= SDL_GetTicks() - 1000) {
 		App->map->CleanUp();
 		App->entity_manager->DeleteEntitiesNoPlayer();
+		App->gui->DeleteUIElement((u1GUI*)App->scene->bg_hud);
 		App->main_menu->CreateGameOver();
 		state = State::MENU;
 		stats.live = 250;

@@ -19,6 +19,7 @@
 #include "u1Button.h"
 #include "u1Label.h"
 #include "u1Image.h"
+#include "u1Bar.h"
 #include "u1Slider.h"
 #include "u1CheckBox.h"
 #include "Brofiler/Brofiler.h"
@@ -54,6 +55,8 @@ bool m1Scene::Start()
 		App->ChangeInventory();
 
 	App->gui->ShowCursor(false);
+
+	CreateHUD();
   
 	return true;
 }
@@ -79,6 +82,19 @@ bool m1Scene::Update(float dt)
 			DestroyDebugScreen();
 		}
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+		player_hp_bar->UpdateBar(-25, UIType::HPBAR);
+
+	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
+		player_hp_bar->UpdateBar(25, UIType::HPBAR);
+
+	if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
+		player_mana_bar->UpdateBar(-10, UIType::MANABAR);
+
+	if(App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+		player_mana_bar->UpdateBar(10, UIType::MANABAR);
+
 
 	if(App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
@@ -1061,4 +1077,11 @@ StatesMenu m1Scene::GetMenuState()
 void m1Scene::SetMenuState(const StatesMenu & menu)
 {
 	menu_state = menu;
+}
+
+void m1Scene::CreateHUD()
+{
+	bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+	player_hp_bar = App->gui->AddBar(215, 662, 100, HPBAR, bg_hud, this);
+	player_mana_bar = App->gui->AddBar(215, 700, 200, MANABAR, bg_hud, this);
 }
