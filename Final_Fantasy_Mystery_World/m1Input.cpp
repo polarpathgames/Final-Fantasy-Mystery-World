@@ -96,7 +96,7 @@ void m1Input::DefaultControls()
 	keyboard_buttons.buttons_char.LEFT = "A";
 	keyboard_buttons.buttons_char.RIGHT = "D";
 	keyboard_buttons.buttons_char.UP = "W";
-	keyboard_buttons.buttons_char.HABILITY1 = "F";
+	keyboard_buttons.buttons_char.ABILITY1 = "F";
 	keyboard_buttons.buttons_char.SHOW_SKILLS = "V";
 	keyboard_buttons.buttons_char.INVENTORY = "E";
 
@@ -120,7 +120,7 @@ void m1Input::DefaultControls()
 	controller_Buttons.buttons_char.LEFT = "L-JOSTICK";
 	controller_Buttons.buttons_char.RIGHT = "L-JOSTICK";
 	controller_Buttons.buttons_char.UP = "L-JOSTICK";
-	controller_Buttons.buttons_char.HABILITY1 = "B";
+	controller_Buttons.buttons_char.ABILITY1 = "B";
 	controller_Buttons.buttons_char.SHOW_SKILLS = "LB";
 	controller_Buttons.buttons_char.INVENTORY = "RB";
 }
