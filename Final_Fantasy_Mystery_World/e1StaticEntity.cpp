@@ -324,6 +324,7 @@ bool e1StaticEntity::Update(float dt)
 		switch (static_type) {
 		case e1StaticEntity::Type::SHOP_MAN:
 			if (App->scene->GetMenuState() == StatesMenu::SHOP_MENU || App->scene->GetMenuState() == StatesMenu::POTION_MENU || App->scene->GetMenuState() == StatesMenu::INVENTORY_MENU) {
+				App->dialog->end_dial = true;
 				interacting_state = InteractingStates::WAITING_INTERACTION;
 			}
 			else
