@@ -7,7 +7,9 @@
 #include <vector>
 
 enum class TextureType {
-	PLAYER,
+	WARRIOR,
+	MAGE,
+	ARCHER,
 	CARNIVOROUS_PLANT,
 	BLUE_DOG,
 	STATIC_ENTITIES,

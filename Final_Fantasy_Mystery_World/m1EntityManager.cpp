@@ -7,6 +7,8 @@
 #include "e1Drop.h"
 #include "m1Window.h"
 #include "e1StaticEntity.h"
+#include "e1Mage.h"
+#include "e1Archer.h"
 #include "p2Log.h"
 #include "e1BlueDog.h"
 #include "m1Map.h"
@@ -46,9 +48,11 @@ bool m1EntityManager::Start()
 
 	texture.reserve((uint)TextureType::NONE);
 
-	//static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)6, "add the new texture in the enum and here");
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)9, "add the new texture in the enum and here");
 	
-	texture[(uint)TextureType::PLAYER] = App->tex->Load("assets/sprites/WarriorSpritesheet.png");
+	texture[(uint)TextureType::WARRIOR] = App->tex->Load("assets/sprites/WarriorSpritesheet.png");
+	texture[(uint)TextureType::ARCHER] = App->tex->Load("assets/sprites/WarriorSpritesheet.png");
+	texture[(uint)TextureType::MAGE] = App->tex->Load("assets/sprites/WarriorSpritesheet.png");
 	texture[(uint)TextureType::CARNIVOROUS_PLANT] = App->tex->Load("assets/sprites/Carnivorous Plant.png");
 	texture[(uint)TextureType::BLUE_DOG] = App->tex->Load("assets/sprites/Dog.png");
 	texture[(uint)TextureType::STATIC_ENTITIES] = App->tex->Load("assets/maps/static_objects_tileset.png");
@@ -105,8 +109,19 @@ void m1EntityManager::DrawEntities(std::vector<e1Entity *> &draw_entities, float
 
 	for (std::vector<e1Entity*>::iterator item = draw_entities.begin(); item != draw_entities.end(); ++item) {
 		if ((*item) != nullptr) {
-			if ((*item)->type == e1Entity::EntityType::PLAYER)
-				(*item)->Draw(texture[(uint)TextureType::PLAYER], dt);
+			if ((*item)->type == e1Entity::EntityType::PLAYER) {
+				switch (App->scene->player_type) {
+				case PlayerType::WARRIOR:
+					(*item)->Draw(texture[(uint)TextureType::WARRIOR], dt);
+					break;
+				case PlayerType::ARCHER:
+					(*item)->Draw(texture[(uint)TextureType::ARCHER], dt);
+					break;
+				case PlayerType::MAGE:
+					(*item)->Draw(texture[(uint)TextureType::MAGE], dt);
+					break;
+				}
+			}
 			else if ((*item)->type == e1Entity::EntityType::ENEMY) {
 				e1Enemy *enemy = (e1Enemy*)(*item);
 				switch (enemy->enemy_type) {
@@ -214,7 +229,7 @@ void m1EntityManager::OnCollisionExit(Collider * c1, Collider * c2)
 //e1Entity Factory
 e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
-	//static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)6, "code needs update");
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)9, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
 
@@ -225,6 +240,8 @@ e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX
 	case e1Entity::EntityType::CARNIVOROUS_PLANT: ret = DBG_NEW e1CarnivorousPlant(PositionX, PositionY); break;
 	case e1Entity::EntityType::BLUE_DOG: ret = DBG_NEW e1BlueDog(PositionX, PositionY); break;
 	case e1Entity::EntityType::WARRIOR: ret = DBG_NEW e1Warrior(PositionX, PositionY); break;
+	case e1Entity::EntityType::ARCHER: ret = DBG_NEW e1Archer(PositionX, PositionY); break;
+	case e1Entity::EntityType::MAGE: ret = DBG_NEW e1Mage(PositionX, PositionY); break;
 	//case e1Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
 	default:
 		LOG("Cannot find any entity with that type");
