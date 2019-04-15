@@ -253,6 +253,10 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->scene->player->BlockControls(false);
 				   fountain_interaction = true;
 				   break;
+			   case -3:
+				   //Save function
+				   App->scene->player->BlockControls(false);
+				   break;
 			   default:
 				   App->scene->player->BlockControls(false);
 				   break;

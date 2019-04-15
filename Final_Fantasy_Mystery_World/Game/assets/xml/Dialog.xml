@@ -32,13 +32,11 @@
       <option line="" nextnode="2" karma="0" tag="0"/>
     </node>
   </dialogtree>
-  <dialogtree treeid="3" karma="0" tag="0" rect_x="1087" rect_y="3090" rect_w="105" rect_h="131">
-    <node line="Stand there! Where did you think you were going?" id="0" karma="0" tag="0">
-      <option line="" nextnode="1" karma="0" tag="0"/>
+  <dialogtree treeid="3" karma="0" tag="0" rect_x="1204" rect_y="3089" rect_w="166" rect_h="131">
+    <node line="Do you want to save your progress?" id="0" karma="0" tag="0">
+      <option line="Yes" nextnode="1" karma="0" tag="-3"/>
+       <option line="No" nextnode="1" karma="0" tag="0"/>
     </node>
-  <node line="It is very dangerous to enter the fog. You can not go from here" id="1" karma="0" tag="0">
-    <option line="" nextnode="2" karma="0" tag="0"/>
-  </node>
   </dialogtree>
 </dialogue>
 <!-- Dialogue Tree example -->
