@@ -348,31 +348,59 @@ bool e1StaticEntity::Update(float dt)
 void e1StaticEntity::ChangeAnimation(const iPoint &player_pos)
 {
 
-	if (player_pos.x + 1 == actual_tile.x && player_pos.y == actual_tile.y) {
+	if (player_pos.x + 1 == actual_tile.x && player_pos.y == actual_tile.y) { // up left
 		switch (static_type) {
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1232, 0, 16, 28);
 			break;
 		}
 	}
-	else if (player_pos.x == actual_tile.x && player_pos.y + 1 == actual_tile.y) {
+	else if (player_pos.x == actual_tile.x && player_pos.y + 1 == actual_tile.y) { // up right
 		switch (static_type) {
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1248, 0, 16, 28);
 			break;
 		}
 	}
-	else if (player_pos.x - 1 == actual_tile.x && player_pos.y == actual_tile.y) {
+	else if (player_pos.x - 1 == actual_tile.x && player_pos.y == actual_tile.y) { // down right
 		switch (static_type) {
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1216, 0, 16, 28);
 			break;
 		}
 	}
-	else if (player_pos.x == actual_tile.x && player_pos.y - 1== actual_tile.y) {
+	else if (player_pos.x == actual_tile.x && player_pos.y - 1== actual_tile.y) { // down left
 		switch (static_type) {
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1200, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x + 1== actual_tile.x && player_pos.y + 1 == actual_tile.y) { // up
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1248, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x - 1 == actual_tile.x && player_pos.y + 1 == actual_tile.y) { // right
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1216, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x + 1 == actual_tile.x && player_pos.y - 1 == actual_tile.y) { // left
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1200, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x - 1 == actual_tile.x && player_pos.y - 1 == actual_tile.y) { // down
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1216, 0, 16, 28);
 			break;
 		}
 	}
