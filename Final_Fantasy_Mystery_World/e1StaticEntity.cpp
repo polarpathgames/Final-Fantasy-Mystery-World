@@ -254,6 +254,19 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 		max_distance_to_interact = 1;
 	}
+	else if (strcmp(name, "NPC2") == 0) {
+		static_type = e1StaticEntity::Type::NPC2;
+		has_animation = true;
+		idle = new Animation();
+		current_animation = idle;
+		idle->PushBack({ 1215,27,16,28 });
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x + 1,App->map->WorldToMap(position.x,position.y).y + 1 };
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+		max_distance_to_interact = 2;
+	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
 	}
@@ -323,7 +336,7 @@ bool e1StaticEntity::Update(float dt)
 			ChangeAnimation(player_pos);
 			App->dialog->PerformDialogue(2);
 			break;
-		case e1StaticEntity::Type::FEATHER:
+		case e1StaticEntity::Type::NPC2:
 			App->dialog->PerformDialogue(3);
 			break;
 		default:
