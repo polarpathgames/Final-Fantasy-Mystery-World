@@ -109,10 +109,10 @@ public:
 	void PerformActions(float dt); // Global organizator function 
 
 	void PrepareBasicAttack(); // Prepare Basic Attack
-	void PrepareSpecialAttack1();
+
 	void BasicAttack(); // Basic attack xd 
-	void SpecialAttack1();
-	void CheckSpecialAttack1Efects(const int &damage);
+	
+
 	void PerformMovementInLobby(float dt); // Do the movement in lobby
 	void PerformMovementInQuest(float dt); // Do the movement in quest
 
@@ -170,6 +170,7 @@ public:
 	u1Button* left_button = nullptr;
 	u1Label* left_skill_button = nullptr;
 	u1Label* left_skill_label = nullptr;
+
 
 };
 

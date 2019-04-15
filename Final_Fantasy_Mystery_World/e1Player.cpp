@@ -9,6 +9,9 @@
 #include "e1Enemy.h"
 #include "m1Audio.h"
 #include "m1Map.h"
+#include "e1Warrior.h"
+#include "e1Archer.h"
+#include "e1Mage.h"
 #include "m1EntityManager.h"
 #include "m1Map.h"
 #include "m1GUI.h"
@@ -393,7 +396,23 @@ void e1Player::ReadAttack()
 		return;
 	}
 	if (player_input.pressing_F) {
-		PrepareSpecialAttack1();
+		switch(App->scene->player_type) {
+		case PlayerType::WARRIOR: {
+			e1Warrior * warrior = nullptr;
+			warrior = (e1Warrior*)this;
+			warrior->PrepareSpecialAttack1();
+			break; }
+		case PlayerType::ARCHER: {
+			e1Archer * archer = nullptr;
+			archer = (e1Archer*)this;
+			state = State::IDLE;
+			break; }
+		case PlayerType::MAGE: {
+			e1Mage * mage = nullptr;
+			mage = (e1Mage*)this;
+			state = State::IDLE;
+			break; }
+		}
 		return;
 	}
 }
@@ -435,18 +454,7 @@ void e1Player::PrepareBasicAttack()
 	ChangeAnimation(direction, state, type_attack);
 }
 
-void e1Player::PrepareSpecialAttack1()
-{
-	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {
-		ReduceMana(stats.cost_mana_special_attack1);
-		type_attack = Attacks::SPECIAL_1;
-		state = State::ATTACKING;
-		current_animation = &BasicAttackDown;
-	}
-	else { // no enough mana so return to idle
-		state = State::IDLE;
-	}
-}
+
 	
 	
 void e1Player::PerformActions(float dt)
@@ -480,7 +488,20 @@ void e1Player::PerformActions(float dt)
 			BasicAttack();
 			break;
 		case Attacks::SPECIAL_1:
-			SpecialAttack1();
+			switch (App->scene->player_type) {
+			case PlayerType::WARRIOR: {
+				e1Warrior * warrior = (e1Warrior*)this;
+				warrior->SpecialAttack1();
+				break; }
+			case PlayerType::ARCHER: {
+				e1Archer * warrior = (e1Archer*)this;
+				
+				break; }
+			case PlayerType::MAGE: {
+				e1Mage * warrior = (e1Mage*)this;
+
+				break; }
+			}
 			break;
 		default:
 			LOG("There is no attack type...");
@@ -535,61 +556,9 @@ void e1Player::BasicAttack()
 
 }
 
-void e1Player::SpecialAttack1()
-{
-	if (current_animation->Finished()) {
-		CheckSpecialAttack1Efects(stats.attack_power);
-		state = State::AFTER_ATTACK;
-		ChangeAnimation(direction, state);
-		time_attack = SDL_GetTicks();
-	}
-}
-
-void e1Player::CheckSpecialAttack1Efects(const int & damage)
-{
-	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
-	std::vector<e1Entity*>::const_iterator item = entities.begin();
-
-	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr) {
-			if ((*item)->type == e1Entity::EntityType::ENEMY) {
-				bool has_succeeded = false;
-				if (actual_tile + iPoint{ -1,-1 } == (*item)->actual_tile) {
-					has_succeeded = true;
-				}
-				else if (actual_tile + iPoint{ -1,0 } == (*item)->actual_tile) {
-					has_succeeded = true;
-				}
-				else if (actual_tile + iPoint{ -1,1 } == (*item)->actual_tile) {
-					has_succeeded = true;
-				}
-				else if (actual_tile + iPoint{ 0,1 } == (*item)->actual_tile) {
-					has_succeeded = true;
-				}
-				else if (actual_tile + iPoint{ 1,1 } == (*item)->actual_tile) {
-					has_succeeded = true;
-				}
-				else if (actual_tile + iPoint{ 1,0 } == (*item)->actual_tile) {
-					has_succeeded = true;
-				}
-				else if (actual_tile + iPoint{ 1,-1 } == (*item)->actual_tile) {
-					has_succeeded = true;
-				}
-				else if (actual_tile + iPoint{ 0,-1 } == (*item)->actual_tile) {
-					has_succeeded = true;
-				}
-
-				if (has_succeeded) {
-					e1Enemy* enemy_attacked = (e1Enemy*)(*item);
-					enemy_attacked->GetHitted(damage);
-				}
-			}
-		}
-	}
 
 
 
-}
 
 void e1Player::PerformMovementInLobby(float dt)
 {
