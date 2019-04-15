@@ -2585,7 +2585,7 @@
    <tile gid="362"/>
    <tile/>
    <tile gid="436"/>
-   <tile gid="436"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2627,7 +2627,7 @@
    <tile/>
    <tile/>
    <tile gid="362"/>
-   <tile gid="436"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2669,7 +2669,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="618"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -3965,7 +3965,7 @@
    <tile/>
    <tile/>
    <tile gid="34"/>
-   <tile gid="35"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -5078,7 +5078,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="4" name="Colliders" width="42" height="40">
+ <layer id="4" name="Colliders" width="42" height="40" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>

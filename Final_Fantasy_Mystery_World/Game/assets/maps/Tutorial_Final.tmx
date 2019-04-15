@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="45" height="45" tilewidth="32" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="49">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="45" height="45" tilewidth="32" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="49">
  <tileset firstgid="1" name="tutorial_tileset" tilewidth="32" tileheight="16" tilecount="360" columns="24">
   <image source="tutorial_tileset.png" width="796" height="254"/>
   <terraintypes>
@@ -5022,8 +5022,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="246"/>
    <tile/>
+   <tile gid="169"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5112,8 +5112,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="246"/>
    <tile/>
+   <tile gid="169"/>
    <tile/>
    <tile/>
    <tile/>
@@ -10213,7 +10213,7 @@
   </object>
  </objectgroup>
  <objectgroup id="8" name="colliders">
-  <object id="14" name="room_collider" type="lastB" x="672" y="325.667" width="16.1904" height="39.394">
+  <object id="14" name="room_collider" type="lastB" x="672" y="336" width="16.1904" height="15.644">
    <properties>
     <property name="next_id" type="int" value="6"/>
    </properties>
