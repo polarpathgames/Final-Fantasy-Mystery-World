@@ -940,10 +940,8 @@ void e1Player::GetHitted(const int & damage_taken)
 		death_time = SDL_GetTicks();
 	}
 
-	else {
-		stats.live -= damage_taken;
-		App->scene->player_hp_bar->UpdateBar(-damage_taken, UIType::HPBAR);
-	}	
+	
+
 
 }
 
@@ -955,7 +953,8 @@ void e1Player::Death()
 		App->gui->DeleteUIElement((u1GUI*)App->scene->bg_hud);
 		App->main_menu->CreateGameOver();
 		state = State::MENU;
-		stats.live = 250;
+		stats.live = stats.max_lives;
+		stats.mana = stats.max_mana;
 	}
 }
 
@@ -976,6 +975,38 @@ bool e1Player::BlockControls(bool to_block)
 		ChangeAnimation(direction, state);
 	}
 	return block_controls = to_block;
+}
+
+void e1Player::ReduceMana(const int & cost_mana)
+{
+	stats.mana -= cost_mana;
+	if (stats.mana < 0)
+		stats.mana = 0;
+	App->scene->player_mana_bar->UpdateBar(-cost_mana, MANABAR);
+}
+
+void e1Player::AugmentMana(const int & plus_mana)
+{
+	stats.mana += plus_mana;
+	if (stats.mana > stats.max_mana)
+		stats.mana = stats.max_mana;
+	App->scene->player_mana_bar->UpdateBar(plus_mana, MANABAR);
+}
+
+void e1Player::ReduceLives(const int & cost_lives)
+{
+	stats.live -= cost_lives;
+	if (stats.live < 0)
+		stats.live = 0;
+	App->scene->player_hp_bar->UpdateBar(-cost_lives, HPBAR);
+}
+
+void e1Player::AugmentLives(const int & plus_lives)
+{
+	stats.live += plus_lives;
+	if (stats.live > stats.max_lives)
+		stats.live = stats.max_lives;
+	App->scene->player_hp_bar->UpdateBar(plus_lives, HPBAR);
 }
 
 
