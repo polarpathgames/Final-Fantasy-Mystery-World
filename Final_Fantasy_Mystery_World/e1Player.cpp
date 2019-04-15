@@ -931,14 +931,13 @@ const bool e1Player::MultipleButtons(const Input * input)
 
 void e1Player::GetHitted(const int & damage_taken)
 {
+	ReduceLives(damage_taken);
 	if (stats.live <= 0) {
 		state = State::DEATH;
 		ChangeAnimation(direction, state);
 		death_time = SDL_GetTicks();
 	}
-	else {
-		stats.live -= damage_taken;
-	}	
+	
 }
 
 void e1Player::Death()

@@ -26,7 +26,7 @@
  <tileset firstgid="361" name="lobby_tileset" tilewidth="32" tileheight="16" tilecount="324" columns="18">
   <image source="lobby_tileset.png" width="582" height="290"/>
  </tileset>
- <layer id="1" name="Floor" width="42" height="40">
+ <layer id="1" name="Floor" width="42" height="40" visible="0">
   <data>
    <tile/>
    <tile/>
@@ -2585,7 +2585,7 @@
    <tile gid="362"/>
    <tile/>
    <tile gid="436"/>
-   <tile gid="436"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2627,7 +2627,7 @@
    <tile/>
    <tile/>
    <tile gid="362"/>
-   <tile gid="436"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2669,7 +2669,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="618"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -3965,7 +3965,7 @@
    <tile/>
    <tile/>
    <tile gid="34"/>
-   <tile gid="35"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4144,7 +4144,7 @@
    <tile/>
    <tile/>
    <tile gid="34"/>
-   <tile gid="35"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4179,7 +4179,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="527"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4374,7 +4374,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="65"/>
+   <tile/>
    <tile gid="68"/>
    <tile/>
    <tile/>
@@ -4511,7 +4511,7 @@
    <tile/>
    <tile/>
    <tile gid="34"/>
-   <tile gid="35"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4520,7 +4520,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="65"/>
+   <tile/>
    <tile gid="68"/>
    <tile/>
    <tile/>
@@ -4630,7 +4630,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="65"/>
+   <tile/>
    <tile gid="68"/>
    <tile/>
    <tile/>
@@ -4772,7 +4772,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="457"/>
+   <tile/>
    <tile gid="441"/>
    <tile/>
    <tile/>
@@ -4854,7 +4854,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="455"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -5078,7 +5078,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="4" name="Colliders" width="42" height="40">
+ <layer id="4" name="Colliders" width="42" height="40" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>

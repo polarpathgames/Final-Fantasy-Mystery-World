@@ -832,9 +832,11 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == go_to_quest_button) {
 			DestroyGoToQuestMenu();
 			App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
+			ret = false;
 		}
 		if (interact == cancel_quest_button) {
 			DestroyGoToQuestMenu();
+			ret = false;
 		}
 	case StatesMenu::INVENTORY_MENU:
 		if (interact == hp_potion_button) {
@@ -864,6 +866,7 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == cancel_button) {
 			DeletePotionMenu();
 			menu_state = StatesMenu::INVENTORY_MENU;
+			ret = false;
 		}
 		break;
 	case StatesMenu::OPTIONS_MENU:

@@ -8,6 +8,7 @@
 #include "m1Scene.h"
 #include "e1Player.h"
 #include "p2Log.h"
+#include "m1DialogSystem.h"
 #include "App.h"
 #include "m1Map.h"
 
@@ -67,6 +68,7 @@ bool m1FadeToBlack::Update(float dt)
 
 		if (now >= total_time) {
 			current_step = fade_step::none;
+			App->dialog->end_dial = true;
 			if (App->scene->player != nullptr)
 				App->scene->player->BlockControls(false);
 		}
