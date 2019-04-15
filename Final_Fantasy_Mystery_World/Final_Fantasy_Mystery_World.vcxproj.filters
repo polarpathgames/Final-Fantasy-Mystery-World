@@ -132,6 +132,9 @@
     <ClCompile Include="c1CutsceneText.cpp">
       <Filter>CutScenes\Element</Filter>
     </ClCompile>
+    <ClCompile Include="e1BlueDog.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -294,6 +297,9 @@
     </ClInclude>
     <ClInclude Include="c1CutSceneText.h">
       <Filter>CutScenes\Element</Filter>
+    </ClInclude>
+    <ClInclude Include="e1BlueDog.h">
+      <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
