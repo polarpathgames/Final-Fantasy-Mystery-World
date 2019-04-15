@@ -12,6 +12,7 @@ enum class TextureType {
 	ARCHER,
 	CARNIVOROUS_PLANT,
 	BLUE_DOG,
+	STRANGE_FROG,
 	STATIC_ENTITIES,
 
 	NONE // NONE must be the last one

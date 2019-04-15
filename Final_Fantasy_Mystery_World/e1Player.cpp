@@ -556,10 +556,6 @@ void e1Player::BasicAttack()
 
 }
 
-
-
-
-
 void e1Player::PerformMovementInLobby(float dt)
 {
 	switch (direction)

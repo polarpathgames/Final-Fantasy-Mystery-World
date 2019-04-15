@@ -4,6 +4,7 @@
 #include "m1Textures.h"
 #include "e1Entity.h"
 #include "m1Audio.h"
+#include "e1StrangeFrog.h"
 #include "e1Drop.h"
 #include "m1Window.h"
 #include "e1StaticEntity.h"
@@ -48,12 +49,13 @@ bool m1EntityManager::Start()
 
 	texture.reserve((uint)TextureType::NONE);
 
-	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)9, "add the new texture in the enum and here");
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)10, "add the new texture in the enum and here");
 	
 	texture[(uint)TextureType::WARRIOR] = App->tex->Load("assets/sprites/WarriorSpritesheet.png");
 	texture[(uint)TextureType::ARCHER] = App->tex->Load("assets/sprites/ArcherSpritesheet.png");
 	texture[(uint)TextureType::MAGE] = App->tex->Load("assets/sprites/MageSpritesheet.png");
 	texture[(uint)TextureType::CARNIVOROUS_PLANT] = App->tex->Load("assets/sprites/Carnivorous Plant.png");
+	texture[(uint)TextureType::STRANGE_FROG] = App->tex->Load("assets/sprites/Frog.png");
 	texture[(uint)TextureType::BLUE_DOG] = App->tex->Load("assets/sprites/Dog.png");
 	texture[(uint)TextureType::STATIC_ENTITIES] = App->tex->Load("assets/maps/static_objects_tileset.png");
 
@@ -130,6 +132,9 @@ void m1EntityManager::DrawEntities(std::vector<e1Entity *> &draw_entities, float
 					break;
 				case e1Enemy::EnemyType::BLUE_DOG:
 					(*item)->Draw(texture[(uint)TextureType::BLUE_DOG], dt);
+					break;
+				case e1Enemy::EnemyType::STRANGE_FROG:
+					(*item)->Draw(texture[(uint)TextureType::STRANGE_FROG], dt);
 					break;
 				}
 			}		
@@ -229,7 +234,7 @@ void m1EntityManager::OnCollisionExit(Collider * c1, Collider * c2)
 //e1Entity Factory
 e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
-	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)9, "code needs update");
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)10, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
 
@@ -242,6 +247,7 @@ e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX
 	case e1Entity::EntityType::WARRIOR: ret = DBG_NEW e1Warrior(PositionX, PositionY); break;
 	case e1Entity::EntityType::ARCHER: ret = DBG_NEW e1Archer(PositionX, PositionY); break;
 	case e1Entity::EntityType::MAGE: ret = DBG_NEW e1Mage(PositionX, PositionY); break;
+	case e1Entity::EntityType::STRANGE_FROG: ret = DBG_NEW e1StrangeFrog(PositionX, PositionY); break;
 	//case e1Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
 	default:
 		LOG("Cannot find any entity with that type");
