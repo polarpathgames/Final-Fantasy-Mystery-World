@@ -11268,7 +11268,7 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="15" name="enemy" type="CarnivorousPlant" x="448" y="400" width="15.9688" height="16.0156"/>
+  <object id="15" name="enemy" type="StrangeFrog" x="448" y="400" width="15.9688" height="16.0156"/>
  </objectgroup>
  <objectgroup id="10" name="colliders">
   <object id="10" name="room_collider" type="nextA" x="432" y="224" width="16.1904" height="15.0341">

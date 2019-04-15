@@ -11,8 +11,8 @@ e1StrangeFrog::e1StrangeFrog(const int & x, const int & y) : e1Enemy(x, y)
 
 	enemy_type = EnemyType::STRANGE_FROG;
 
-	position.x -= 5;
-	position.y -= 24;
+	position.x;
+	position.y -= 25;
 
 	target_position = position;
 	initial_position = position;
@@ -96,30 +96,31 @@ void e1StrangeFrog::IdAnimToEnum()
 		case 5:
 			data.animations[i].animType = AnimationState::IDLE_DOWN_RIGHT;
 			break;
-		case 6:
+		case 15:
 			data.animations[i].animType = AnimationState::WALKING_UP_LEFT;
 			break;
-		case 8:
+		case 17:
 			data.animations[i].animType = AnimationState::IDLE_UP_LEFT;
 			break;
-		case 9:
+		case 18:
 			data.animations[i].animType = AnimationState::WALKING_UP_RIGHT;
 			break;
-		case 11:
+		case 20:
 			data.animations[i].animType = AnimationState::IDLE_UP_RIGHT;
 			break;
-		case 12:
+		case 30:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_LEFT;
 			break;
-		case 21:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_RIGHT;
-			break;
-		case 18:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_LEFT;
-			break;
-		case 15:
+		case 45:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_RIGHT;
 			break;
+		case 75:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_RIGHT;
+			break;
+		case 60:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_LEFT;
+			break;
+		
 			/*case 14:
 			data.animations[i].animType = AnimationState::IDLE_DOWN;
 			break;
@@ -146,7 +147,7 @@ void e1StrangeFrog::IdAnimToEnum()
 		case 54:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
-		case 60:
+		case 650:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;
 		case 63:
