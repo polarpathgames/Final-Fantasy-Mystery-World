@@ -331,7 +331,6 @@ bool e1StaticEntity::Update(float dt)
 				App->dialog->PerformDialogue(0);
 			break;
 		case e1StaticEntity::Type::QUEST_FOUNTAIN:
-			if(!App->dialog->fountain_interaction)
 			App->dialog->PerformDialogue(1);			
 			break;
 		case e1StaticEntity::Type::NPC1:
