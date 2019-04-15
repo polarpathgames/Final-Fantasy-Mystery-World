@@ -45,7 +45,7 @@ struct Input {
 struct PlayerStats {
 
 	int live = 100;
-	int max_lives = 50;
+	int max_lives = 100;
 	int attack_power = 500;
 	int xp = 0;
 	int mana = 100;
