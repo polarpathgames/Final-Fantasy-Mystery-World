@@ -3,8 +3,35 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="p2ChangeControls.cpp">
-      <Filter>Tools</Filter>
+    <ClCompile Include="c1CutSceneEntity.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneImage.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneModifyimage.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneModifyText.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutsceneMoveCamera.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneMoveEntity.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutsceneText.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
+    <ClCompile Include="e1BlueDog.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1CarnivorousPlant.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Drop.cpp">
+      <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="e1DynamicEntity.cpp">
       <Filter>Entities</Filter>
@@ -15,7 +42,76 @@
     <ClCompile Include="e1Entity.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="u1UI_Element.cpp">
+    <ClCompile Include="e1Player.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1StaticEntity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Audio.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Collisions.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Cutscene.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1DialogSystem.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1EasingSplines.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1EntityManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1FadeToBlack.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Fonts.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1GUI.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Input.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Map.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Pathfinding.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Render.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Textures.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Window.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="p2ChangeControls.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="p2Log.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="p2PerfTimer.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="p2Rooms.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="p2Timer.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="PugiXml\src\pugixml.cpp">
+      <Filter>Tools\pugixml</Filter>
+    </ClCompile>
+    <ClCompile Include="u1Bar.cpp">
       <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="u1Button.cpp">
@@ -33,65 +129,8 @@
     <ClCompile Include="u1Slider.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="m1EasingSplines.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="m1Audio.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="m1Collisions.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="m1DialogSystem.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="m1EntityManager.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="m1FadeToBlack.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="m1Fonts.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="m1Input.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="m1Map.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="m1Pathfinding.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="p2PerfTimer.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="p2Timer.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="p2Log.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="m1Render.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="m1Textures.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="m1GUI.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="m1Window.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="e1Player.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="PugiXml\src\pugixml.cpp">
-      <Filter>Tools\pugixml</Filter>
-    </ClCompile>
-    <ClCompile Include="e1StaticEntity.cpp">
-      <Filter>Entities</Filter>
+    <ClCompile Include="u1UI_Element.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="m1MainMenu.cpp">
       <Filter>Scenes</Filter>
@@ -99,20 +138,46 @@
     <ClCompile Include="m1Scene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="p2Rooms.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="e1Drop.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="e1CarnivorousPlant.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App.h" />
-    <ClInclude Include="p2ChangeControls.h">
-      <Filter>Tools</Filter>
+    <ClInclude Include="e1CarnivorousPlant.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneAction.h">
+      <Filter>Cutscene</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneElement.h">
+      <Filter>Cutscene</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneEntity.h">
+      <Filter>Cutscene</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneImage.h">
+      <Filter>Cutscene</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneModifyimage.h">
+      <Filter>Cutscene</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneModifyText.h">
+      <Filter>Cutscene</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutsceneMoveCamera.h">
+      <Filter>Cutscene</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneMoveEntity.h">
+      <Filter>Cutscene</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneText.h">
+      <Filter>Cutscene</Filter>
+    </ClInclude>
+    <ClInclude Include="e1BlueDog.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1CarnivorousPlant.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Drop.h">
+      <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="e1DynamicEntity.h">
       <Filter>Entities</Filter>
@@ -123,7 +188,103 @@
     <ClInclude Include="e1Entity.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="u1UI_Element.h">
+    <ClInclude Include="e1Player.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1StaticEntity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Audio.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Collisions.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Cutscene.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1DialogSystem.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1EasingSplines.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1EntityManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1FadeToBlack.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Fonts.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1GUI.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Input.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Map.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Module.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Pathfinding.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Render.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Textures.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Window.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Animation.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2ChangeControls.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Defs.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Line.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Log.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2PerfTimer.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Point.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Properties.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Random.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Rooms.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Timer.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="PugiXml\src\pugixml.hpp">
+      <Filter>Tools\pugixml</Filter>
+    </ClInclude>
+    <ClInclude Include="PugiXml\src\pugiconfig.hpp">
+      <Filter>Tools\pugixml</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Tools\pugixml</Filter>
+    </ClInclude>
+    <ClInclude Include="u1Bar.h">
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="u1Button.h">
@@ -141,105 +302,14 @@
     <ClInclude Include="u1Slider.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="m1EasingSplines.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="m1Audio.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="m1Collisions.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="m1DialogSystem.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="m1EntityManager.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="m1FadeToBlack.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="m1Fonts.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="m1Input.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="m1Map.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="m1Module.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="m1Pathfinding.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="p2PerfTimer.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Timer.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Animation.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Defs.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Line.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Log.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Point.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Properties.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="m1Render.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="m1Textures.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="m1GUI.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="m1Window.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="e1Player.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="PugiXml\src\pugiconfig.hpp">
-      <Filter>Tools\pugixml</Filter>
-    </ClInclude>
-    <ClInclude Include="PugiXml\src\pugixml.hpp">
-      <Filter>Tools\pugixml</Filter>
-    </ClInclude>
-    <ClInclude Include="e1StaticEntity.h">
-      <Filter>Entities</Filter>
+    <ClInclude Include="u1UI_Element.h">
+      <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="m1MainMenu.h">
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="m1Scene.h">
       <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Rooms.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Random.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="e1Drop.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="e1CarnivorousPlant.h">
-      <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -267,9 +337,21 @@
     <Filter Include="Entities\TSX">
       <UniqueIdentifier>{ba6c7ea9-8435-465f-bdaa-0c78a841bac4}</UniqueIdentifier>
     </Filter>
+    <ClInclude Include="App.h" />
+    <Filter Include="Cutscene">
+      <UniqueIdentifier>{f24df7fb-cdae-46b2-8070-e79090694788}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Game\assets\xml\config.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneBlockPass.xml">
+      <Filter>XML</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Game\assets\ff_icon.ico" />

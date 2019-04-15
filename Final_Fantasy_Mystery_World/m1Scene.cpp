@@ -19,6 +19,7 @@
 #include "u1Button.h"
 #include "u1Label.h"
 #include "u1Image.h"
+#include "u1Bar.h"
 #include "u1Slider.h"
 #include "u1CheckBox.h"
 #include "Brofiler/Brofiler.h"
@@ -54,6 +55,8 @@ bool m1Scene::Start()
 		App->ChangeInventory();
 
 	App->gui->ShowCursor(false);
+
+	
   
 	return true;
 }
@@ -240,6 +243,7 @@ void m1Scene::CreateEntities()
 				if ((*position)->ent_type == "default") { // start position
 					player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::PLAYER, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 					App->render->CenterCameraOnPlayer(player->position);
+					CreateHUD();
 				}
 			}
 			else {
@@ -282,6 +286,9 @@ void m1Scene::CreateEntities()
 			if ((*position)->ent_type == "CarnivorousPlant") {
 				App->entity_manager->CreateEntity(e1Entity::EntityType::CARNIVOROUS_PLANT, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 			}
+			else if ((*position)->ent_type == "BlueDog") {
+				App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_DOG, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
 		}
 		else if ((*position)->name == "collider") { // COLLIDERS
 			if ((*position)->properties.FindNameValue("shop")) {
@@ -292,6 +299,9 @@ void m1Scene::CreateEntities()
 			}
 			else if ((*position)->properties.FindNameValue("menu_quest")) {
 				App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x,App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_MENU_QUEST, nullptr);
+			}
+			else if ((*position)->properties.FindNameValue("cutscene_bridge")) {
+				App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x,App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_CUTSCENE_BRIDGE, nullptr);
 			}
 		}
 		else {
@@ -829,9 +839,11 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == go_to_quest_button) {
 			DestroyGoToQuestMenu();
 			App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
+			ret = false;
 		}
 		if (interact == cancel_quest_button) {
 			DestroyGoToQuestMenu();
+			ret = false;
 		}
 	case StatesMenu::INVENTORY_MENU:
 		if (interact == hp_potion_button) {
@@ -849,6 +861,9 @@ bool m1Scene::Interact(u1GUI* interact)
 				--player->stats.num_hp_potions;
 				player->AugmentLives(25);
 				hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
+				DeletePotionMenu();
+				menu_state = StatesMenu::INVENTORY_MENU;
+				ret = false;
 			}
 		}
 		if (interact == use_mana_button) {
@@ -856,11 +871,15 @@ bool m1Scene::Interact(u1GUI* interact)
 				--player->stats.num_mana_potions;
 				player->AugmentMana(25);
 				mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
+				DeletePotionMenu();
+				menu_state = StatesMenu::INVENTORY_MENU;
+				ret = false;
 			}
 		}
 		if (interact == cancel_button) {
 			DeletePotionMenu();
 			menu_state = StatesMenu::INVENTORY_MENU;
+			ret = false;
 		}
 		break;
 	case StatesMenu::OPTIONS_MENU:
@@ -1055,4 +1074,11 @@ StatesMenu m1Scene::GetMenuState()
 void m1Scene::SetMenuState(const StatesMenu & menu)
 {
 	menu_state = menu;
+}
+
+void m1Scene::CreateHUD()
+{
+	bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+	player_hp_bar = App->gui->AddBar(215, 662, player->stats.max_lives, HPBAR, bg_hud, this);
+	player_mana_bar = App->gui->AddBar(215, 700, player->stats.max_mana, MANABAR, bg_hud, this);
 }

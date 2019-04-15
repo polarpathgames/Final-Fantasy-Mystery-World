@@ -193,6 +193,9 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x + 1,App->map->WorldToMap(position.x,position.y).y + 1 };
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+		max_distance_to_interact = 1;
 	}
 	else if (strcmp(name, "candle") == 0) {
 		static_type = e1StaticEntity::Type::CANDLE;
@@ -249,9 +252,11 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
-		actual_tile = { App->map->WorldToMap(position.x,position.y).x + 1,App->map->WorldToMap(position.x,position.y).y + 1 };
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		position.x += 8;
+		position.y -= 16;
 		interacting_state = InteractingStates::WAITING_INTERACTION;
-		max_distance_to_interact = 2;
+		max_distance_to_interact = 1;
 	}
 	else if (strcmp(name, "NPC2") == 0) {
 		static_type = e1StaticEntity::Type::NPC2;
@@ -262,9 +267,6 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
-		actual_tile = { App->map->WorldToMap(position.x,position.y).x + 1,App->map->WorldToMap(position.x,position.y).y + 1 };
-		interacting_state = InteractingStates::WAITING_INTERACTION;
-		max_distance_to_interact = 2;
 	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
@@ -286,7 +288,7 @@ void e1StaticEntity::Draw(SDL_Texture * tex, float dt)
 {
 	if (has_animation) {
 		App->render->Blit(tex, position.x, position.y, &current_animation->GetCurrentFrame(dt), true);
-		App->render->Blit(App->scene->player->ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+		//App->render->Blit(App->scene->player->ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
 	}
 	else {
@@ -305,7 +307,7 @@ bool e1StaticEntity::Update(float dt)
 		return true;
 	iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
 	if (interacting_state == InteractingStates::WAITING_INTERACTION) {
-		if (actual_tile.DistanceManhattan(player_pos) <= max_distance_to_interact) {
+		if (actual_tile.DistanceTo(player_pos) <= max_distance_to_interact) {
 			if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 				App->scene->player->BlockControls(true);
 				interacting_state = InteractingStates::INTERACTING;
@@ -332,24 +334,81 @@ bool e1StaticEntity::Update(float dt)
 			App->dialog->PerformDialogue(1);			
 			break;
 		case e1StaticEntity::Type::NPC1:
+			ChangeAnimation(player_pos);
 			App->dialog->PerformDialogue(2);
 			break;
-		case e1StaticEntity::Type::NPC2:
+		case e1StaticEntity::Type::FEATHER:
 			App->dialog->PerformDialogue(3);
 			break;
 		default:
 			break;
 		}
 	}
-	DebugDrawRangeInteractive();
-
 
 	return true;
 }
-void e1StaticEntity::DebugDrawRangeInteractive()
+
+
+void e1StaticEntity::ChangeAnimation(const iPoint &player_pos)
 {
-	iPoint pos = App->map->MapToWorld(actual_tile.x, actual_tile.y);
-	App->render->DrawCircle(pos.x + pivot.x*1.5f, pos.y + pivot.y/5, 90, 255, 255, 255,255,true);
+
+	if (player_pos.x + 1 == actual_tile.x && player_pos.y == actual_tile.y) { // up left
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1232, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x == actual_tile.x && player_pos.y + 1 == actual_tile.y) { // up right
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1248, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x - 1 == actual_tile.x && player_pos.y == actual_tile.y) { // down right
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1216, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x == actual_tile.x && player_pos.y - 1== actual_tile.y) { // down left
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1200, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x + 1== actual_tile.x && player_pos.y + 1 == actual_tile.y) { // up
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1248, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x - 1 == actual_tile.x && player_pos.y + 1 == actual_tile.y) { // right
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1216, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x + 1 == actual_tile.x && player_pos.y - 1 == actual_tile.y) { // left
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1200, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x - 1 == actual_tile.x && player_pos.y - 1 == actual_tile.y) { // down
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1216, 0, 16, 28);
+			break;
+		}
+	}
+
 
 }
 

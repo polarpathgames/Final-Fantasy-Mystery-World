@@ -9,6 +9,7 @@ e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x
 {
 	LoadEntityData("assets/entities/CarnivorousPlant.tsx");
 
+	enemy_type = EnemyType::CARNIVOROUS_PLANT;
 
 	position.x -= 5;
 	position.y -= 24;

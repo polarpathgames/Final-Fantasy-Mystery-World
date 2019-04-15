@@ -26,6 +26,7 @@ class u1GUI;
 class u1Image;
 class u1Label;
 class u1Button;
+class u1Bar;
 
 class u1CheckBox;
 class u1Slider;
@@ -60,6 +61,7 @@ public:
 	bool CleanUp();
 
 	void CreateEntities();
+	void CreateHUD();
 
 	void CreateInventory();
 	void DestroyInventory();
@@ -97,6 +99,12 @@ public:
 
 	e1Player* player = nullptr;
 	ChangeControls * control_to_change = nullptr;
+
+	// HUD
+	u1Image* bg_hud = nullptr;
+	u1Bar* player_hp_bar = nullptr;
+	u1Bar* player_mana_bar = nullptr;
+
 private:
 
 	int price_hp_potion = 20;

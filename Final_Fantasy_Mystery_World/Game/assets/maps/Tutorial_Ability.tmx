@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="50" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="26">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="40" height="50" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="26">
  <properties>
   <property name="movement" type="int" value="0"/>
  </properties>
@@ -11671,9 +11671,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
    <tile gid="246"/>
-   <tile gid="246"/>
-   <tile gid="246"/>
    <tile/>
    <tile/>
    <tile/>
@@ -11712,8 +11711,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="170"/>
    <tile/>
-   <tile/>
+   <tile gid="170"/>
    <tile/>
    <tile/>
    <tile/>
@@ -14080,7 +14080,7 @@
   </object>
  </objectgroup>
  <objectgroup id="10" name="collider">
-  <object id="15" name="room_collider" type="lastA" x="416" y="640" width="48.5639" height="16.0445">
+  <object id="15" name="room_collider" type="lastA" x="432.955" y="640" width="14.7912" height="16.0445">
    <properties>
     <property name="next_id" type="int" value="4"/>
    </properties>

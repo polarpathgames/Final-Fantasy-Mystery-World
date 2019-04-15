@@ -45,6 +45,8 @@ public:
 
 	void ResetAnims();
 
+	void ChangeAnimsInCutscene(const int &x, const int &y, const int & anim_num);
+
 public:
 
 	Direction direction = Direction::NONE;
@@ -92,7 +94,7 @@ public:
 	Animation BasicAttackDown;
 	Animation DeathDown;
 
-	iPoint velocity;
+
 
 	iPoint target_position;
 	iPoint initial_position; //IMPORTANT: SEMPRE QUE ES CARREGUI UN NOU MAPA AQUESTA VARIABLE SHA DIGUALAR A LA POSICIO INICIAL!!

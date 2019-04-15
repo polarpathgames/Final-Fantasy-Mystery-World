@@ -71,6 +71,7 @@ public:
 		STATIC,
 		DROP,
 		CARNIVOROUS_PLANT,
+		BLUE_DOG,
 
 		NO_TYPE
 	};
@@ -125,6 +126,8 @@ public:
 	iPoint actual_tile;
 	Collider* coll = nullptr;
 	bool to_delete = false;
+	iPoint velocity;
+
 };
 
 #endif

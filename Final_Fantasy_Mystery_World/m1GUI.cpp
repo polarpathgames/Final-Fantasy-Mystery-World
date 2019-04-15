@@ -11,6 +11,7 @@
 #include "u1Label.h"
 #include "u1Slider.h"
 #include "u1CheckBox.h"
+#include "u1Bar.h"
 #include "m1GUI.h"
 #include "Brofiler/Brofiler.h"
 
@@ -331,6 +332,20 @@ u1CheckBox* m1GUI::AddCheckBox(const int &pos_x, const int &pos_y, const SDL_Rec
 	
 	return checkbox;
 }
+
+u1Bar* m1GUI::AddBar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* parent, m1Module* callback)
+{
+	u1Bar* bar = new u1Bar(x, y, max_capacity, type, parent, callback);
+
+	if (callback != nullptr) {
+		bar->AddListener(callback);
+	}
+
+	ui_list.push_back(bar);
+
+	return bar;
+}
+
 
 void m1GUI::CreateScreen()
 {

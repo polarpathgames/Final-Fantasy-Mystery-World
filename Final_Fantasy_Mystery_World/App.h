@@ -27,6 +27,7 @@ class m1FadeToBlack;
 class m1Collision;
 class m1EasingSplines;
 class m1DialogSystem;
+class m1CutScene;
 
 class Application
 {
@@ -122,6 +123,7 @@ public:
 	m1Collision*		collision = nullptr;
 	m1EasingSplines*	easing_splines = nullptr;
 	m1DialogSystem*     dialog = nullptr;
+	m1CutScene*			cutscene_manager = nullptr;
 
 	Random random;
 

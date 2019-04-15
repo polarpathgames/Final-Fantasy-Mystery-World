@@ -20,6 +20,13 @@ public:
 
 public:
 
+	enum class EnemyType {
+		CARNIVOROUS_PLANT,
+		BLUE_DOG,
+
+		NONE
+	};
+
 	e1Enemy(const int &x, const int &y);
 
 	virtual ~e1Enemy();
@@ -49,6 +56,7 @@ public:
 
 	EnemyStats stats;
 	float time_to_wait_before_attack = 0.0f;
+	EnemyType enemy_type = EnemyType::NONE;
 };
 
 
