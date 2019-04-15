@@ -18,6 +18,8 @@ public:
 
 	bool CleanUp();
 
+	void InitStats();
+
 };
 
 

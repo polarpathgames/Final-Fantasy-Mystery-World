@@ -446,7 +446,6 @@ void e1Player::PrepareSpecialAttack1()
 	else { // no enough mana so return to idle
 		state = State::IDLE;
 	}
-
 }
 	
 	

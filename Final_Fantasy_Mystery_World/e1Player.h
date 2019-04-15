@@ -44,17 +44,17 @@ struct Input {
 
 struct PlayerStats {
 
-	int live = 100;
-	int max_lives = 100;
-	int attack_power = 500;
+	int live = 0;
+	int max_lives = 0;
+	int attack_power = 0;
 	int xp = 0;
-	int mana = 100;
-	int max_mana = 100;
-	int gold = 100;
+	int mana = 0;
+	int max_mana = 0;
+	int gold = 0;
 	int num_hp_potions = 0;
 	int num_mana_potions = 0;
-	int cost_mana_special_attack1 = 50;
-	int level = 1;
+	int cost_mana_special_attack1 = 0;
+	int level = 0;
 
 };
 

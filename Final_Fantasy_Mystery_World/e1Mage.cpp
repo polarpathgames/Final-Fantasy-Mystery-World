@@ -31,7 +31,7 @@ e1Mage::e1Mage(const int & x, const int & y) : e1Player(x, y)
 	LoadEntityData("assets/entities/Warrior.tsx");
 
 	ground = App->tex->Load("assets/sprites/player_pos.png");
-
+	InitStats();
 	CenterPlayerInTile();
 }
 
@@ -69,4 +69,20 @@ bool e1Mage::PostUpdate()
 bool e1Mage::CleanUp()
 {
 	return true;
+}
+
+void e1Mage::InitStats()
+{
+	stats.attack_power = 500;
+	stats.cost_mana_special_attack1 = 50;
+	stats.gold = 0;
+	stats.level = 1;
+	stats.live = 250;
+	stats.mana = 100;
+	stats.max_lives = 250;
+	stats.max_mana = 100;
+	stats.num_hp_potions = 0;
+	stats.num_mana_potions = 0;
+	stats.xp = 0;
+
 }
