@@ -26,7 +26,7 @@
  <tileset firstgid="361" name="lobby_tileset" tilewidth="32" tileheight="16" tilecount="324" columns="18">
   <image source="lobby_tileset.png" width="582" height="290"/>
  </tileset>
- <layer id="1" name="Floor" width="42" height="40" visible="0">
+ <layer id="1" name="Floor" width="42" height="40">
   <data>
    <tile/>
    <tile/>
@@ -5078,7 +5078,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="4" name="Colliders" width="42" height="40" visible="0">
+ <layer id="4" name="Colliders" width="42" height="40">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -5736,7 +5736,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="451"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6808,7 +6808,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ffff7f" id="6" name="player" visible="0">
+ <objectgroup color="#ffff7f" id="6" name="player">
   <object id="5" name="player" type="default" x="320" y="400" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
@@ -6872,7 +6872,7 @@
   <object id="119" name="floor" type="static" x="128" y="80" width="16.625" height="14.875"/>
   <object id="120" name="floor" type="static" x="432" y="48" width="16.625" height="14.875"/>
   <object id="121" name="floor" type="static" x="464" y="64" width="16.625" height="14.875"/>
-  <object id="128" name="NPC1" type="static" x="367" y="253.5" width="15.5" height="15.5"/>
+  <object id="128" name="NPC1" type="static" x="352" y="240" width="15.5" height="15.5"/>
   <object id="129" x="240.5" y="331.5"/>
   <object id="130" x="242.5" y="337.5"/>
   <object id="131" x="254.5" y="351.5"/>

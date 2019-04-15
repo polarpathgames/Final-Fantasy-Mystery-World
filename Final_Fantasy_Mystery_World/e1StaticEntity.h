@@ -62,7 +62,8 @@ public:
 	virtual bool Load(pugi::xml_node&) { return true; };
 	virtual bool Save(pugi::xml_node&) const { return true; };
 
-	void DebugDrawRangeInteractive();
+	void ChangeAnimation(const iPoint &player_pos);
+
 	InteractingStates GetState();
 public:
 
