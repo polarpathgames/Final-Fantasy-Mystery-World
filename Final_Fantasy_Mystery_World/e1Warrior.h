@@ -20,6 +20,12 @@ public:
 
 	void InitStats();
 
+	void PrepareSpecialAttack1();
+
+	void SpecialAttack1();
+
+	void CheckSpecialAttack1Efects(const int & damage);
+
 };
 
 
