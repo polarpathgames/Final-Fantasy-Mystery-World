@@ -54,9 +54,7 @@ bool m1Scene::Start()
 
 	App->gui->ShowCursor(false);
 
-	bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, this, App->gui->screen, true, false, false, false);
-	player_hp_bar = App->gui->AddBar(215, 662, 100, HPBAR, bg_hud, this);
-	player_mana_bar = App->gui->AddBar(215, 700, 200, MANABAR, bg_hud, this);
+	CreateHUD();
   
 	return true;
 }
@@ -930,4 +928,11 @@ StatesMenu m1Scene::GetMenuState()
 void m1Scene::SetMenuState(const StatesMenu & menu)
 {
 	menu_state = menu;
+}
+
+void m1Scene::CreateHUD()
+{
+	bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+	player_hp_bar = App->gui->AddBar(215, 662, 100, HPBAR, bg_hud, this);
+	player_mana_bar = App->gui->AddBar(215, 700, 200, MANABAR, bg_hud, this);
 }

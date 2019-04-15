@@ -60,6 +60,7 @@ public:
 	bool CleanUp();
 
 	void CreateEntities();
+	void CreateHUD();
 
 	void CreateInventory();
 	void DestroyInventory();

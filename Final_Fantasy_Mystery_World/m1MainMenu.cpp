@@ -106,6 +106,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		App->fade_to_black->FadeToBlack(Maps::HOME);
 		//App->map->ChangeMap(Maps::HOME);
 		App->scene->SetMenuState(StatesMenu::NO_MENU);
+		App->scene->CreateHUD();
 		ret = false;
 	}
 	if (interaction == button_return_main) {

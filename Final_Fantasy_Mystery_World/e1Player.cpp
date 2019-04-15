@@ -942,6 +942,7 @@ void e1Player::Death()
 	if (current_animation->Finished() && death_time <= SDL_GetTicks() - 1000) {
 		App->map->CleanUp();
 		App->entity_manager->DeleteEntitiesNoPlayer();
+		App->gui->DeleteUIElement((u1GUI*)App->scene->bg_hud);
 		App->main_menu->CreateGameOver();
 		state = State::MENU;
 		stats.live = 250;
