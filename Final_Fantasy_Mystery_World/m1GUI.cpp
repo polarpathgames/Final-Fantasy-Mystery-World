@@ -67,10 +67,8 @@ bool m1GUI::UpdateFocusMouse()
 	int x = 0, y = 0;
 	App->input->GetMouseMotion(x, y);
 
-	if (focus == nullptr) {
+	if (focus == nullptr && ui_list.size() > 1) {
 		FocusFirstUIFocusable();
-		/*using_mouse = false;
-		SDL_ShowCursor(SDL_DISABLE);*/
 	}
 
 	if (focus != nullptr) {
@@ -436,7 +434,7 @@ bool m1GUI::GetElemOnMouse(int x, int y, u1GUI *& element)
 			if (CheckCollision(x, y, *item))
 			{
 				if ((*item)->current_state != Mouse_Event::CLICKED_DOWN && (*item)->current_state != Mouse_Event::CLICKED_REPEAT)
-					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) ? (*item)->current_state = Mouse_Event::CLICKED_DOWN : (*item)->current_state = Mouse_Event::HOVER;
+					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN ? (*item)->current_state = Mouse_Event::CLICKED_DOWN : (*item)->current_state = Mouse_Event::HOVER;
 				else {
 					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) ? (*item)->current_state = Mouse_Event::CLICKED_REPEAT : (*item)->current_state = Mouse_Event::CLICKED_UP;
 				}
