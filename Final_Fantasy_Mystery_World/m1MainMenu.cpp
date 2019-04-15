@@ -5,6 +5,7 @@
 #include "m1EntityManager.h"
 #include "m1Map.h"
 #include "m1Input.h"
+#include "m1Audio.h"
 #include "p2Log.h"
 #include "m1GUI.h"
 #include "m1Map.h"
@@ -29,6 +30,7 @@ bool m1MainMenu::Awake()
 bool m1MainMenu::Start()
 {
 	CreateMainMenu();
+	fx_push_button = App->audio->LoadFx("assets/audio/sfx/MainMenu_Confirm_Selection.wav");
 
 	return true;
 }
@@ -73,6 +75,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 	}
 
 	if (interaction == new_game_button) {
+		App->audio->PlayFx(fx_push_button);
 		/*App->gui->DeleteAllUIElements();
 		active = false; //desactivates main menu
 		App->entity_manager->Enable();
@@ -201,7 +204,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 void m1MainMenu::CreateMainMenu()
 {
 	background = App->gui->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->gui->screen, true, false, false,false);
-
+	App->audio->PlayMusic("assets/audio/music/1.Final Fantasy TA - Main Theme.ogg");
 	int offsetY = 75;
 
 	new_game_button = App->gui->AddButton(684, 337, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);

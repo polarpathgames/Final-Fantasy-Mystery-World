@@ -64,6 +64,8 @@ public:
 
 	void ChangeAnimation(const iPoint &player_pos);
 
+	void DialogWritting();
+
 	InteractingStates GetState();
 public:
 

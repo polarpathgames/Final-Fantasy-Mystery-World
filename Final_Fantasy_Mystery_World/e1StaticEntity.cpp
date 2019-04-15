@@ -6,6 +6,7 @@
 #include "e1Player.h"
 #include "m1DialogSystem.h"
 #include "m1Scene.h"
+#include "m1Audio.h"
 #include "m1Input.h"
 
 e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
@@ -303,6 +304,7 @@ void e1StaticEntity::SetRect(int x, int y, int w, int h)
 
 bool e1StaticEntity::Update(float dt)
 {
+
 	if (interacting_state == InteractingStates::NONE)
 		return true;
 	iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
@@ -311,7 +313,8 @@ bool e1StaticEntity::Update(float dt)
 			if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 				App->scene->player->BlockControls(true);
 				interacting_state = InteractingStates::INTERACTING;
-				App->dialog->end_dial = false;
+				App->audio->PlayFx(App->scene->fx_writting);
+ 				App->dialog->end_dial = false;
 			}
 		}			
 	}
@@ -411,6 +414,16 @@ void e1StaticEntity::ChangeAnimation(const iPoint &player_pos)
 
 
 }
+
+//void e1StaticEntity::DialogWritting()
+//{
+//	static int h = 500, w = 300, x = 0, y= 0;
+//	SDL_Rect rect_square = { x, y, h, w };
+//
+//	SDL_SetRenderDrawColor(App->render->renderer, 255, 255, 255, 255);
+//	SDL_RenderFillRect(App->render->renderer, &rect_square);
+//	
+//}
 
 e1StaticEntity::InteractingStates e1StaticEntity::GetState()
 {

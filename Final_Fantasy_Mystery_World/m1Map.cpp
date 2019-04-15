@@ -12,6 +12,7 @@
 #include "m1FadeToBlack.h"
 #include "m1Pathfinding.h"
 #include "m1Scene.h"
+#include "m1Audio.h"
 #include <string>
 #include "p2Properties.h"
 #include "Brofiler/Brofiler.h"
@@ -628,19 +629,23 @@ bool m1Map::ChangeMap(Maps type)
 	}
 	switch (type) {
 	case Maps::LOBBY:
+		App->audio->PlayMusic("assets/audio/music/10.Final Fantasy TA - Different World Ivalice.ogg");
 		Load(lobby_map.data());
 		actual_map = Maps::LOBBY;
 		break;
 	case Maps::TUTORIAL:
+		App->audio->PlayMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg");
 		quest_rooms = DBG_NEW RoomManager(node);
 		actual_map = Maps::TUTORIAL;
 		return true;
 		break;
 	case Maps::SHOP:
+		App->audio->PlayMusic("assets/audio/music/4.Final Fantasy TA - Magic Beast Farm.ogg");
 		Load(shop_map.data());
 		actual_map = Maps::SHOP;
 		break;
 	case Maps::HOME:
+		App->audio->PlayMusic("assets/audio/music/30.Final Fantasy TA - Ritz.ogg");
 		Load(home_map.data());
 		actual_map = Maps::HOME;
 		break;

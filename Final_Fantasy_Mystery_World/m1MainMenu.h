@@ -96,6 +96,10 @@ private:
 	u1Button* button_warrior = nullptr;
 	u1Button* button_archer = nullptr;
 	u1Button* button_mage = nullptr;
+
+public:
+
+	int fx_push_button;
 };
 
 #endif

@@ -56,7 +56,8 @@ bool m1Scene::Start()
 
 	App->gui->ShowCursor(false);
 
-	
+	fx_writting = App->audio->LoadFx("assets/audio/sfx/Speaking_Words_Sound.wav");
+
   
 	return true;
 }

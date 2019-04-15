@@ -309,6 +309,11 @@ private:
 	u1Label* mouse_label = nullptr;
 	u1Label* entities_label = nullptr;
 
+public:
+
+	// SFX
+	int fx_writting;
+
 };
 
 #endif // __j1SCENE_H__
