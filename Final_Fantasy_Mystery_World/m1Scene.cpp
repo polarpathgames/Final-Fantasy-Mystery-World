@@ -158,14 +158,20 @@ bool m1Scene::Update(float dt)
 				player->BlockControls(false);
 			}
 		}
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B)) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->ChangeInventory();
 			DestroyInventory();
 			player->BlockControls(false);
 		}
 		break;
+	case StatesMenu::POTION_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			DeletePotionMenu();
+			menu_state = StatesMenu::INVENTORY_MENU;
+		}
+		break;
 	case StatesMenu::PAUSE_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->ChangePause();
 			DestroyPauseMenu();
 			menu_state = StatesMenu::NO_MENU;
@@ -173,14 +179,14 @@ bool m1Scene::Update(float dt)
 		}
 		break;
 	case StatesMenu::OPTIONS_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			CreatePauseMenu();
 			DestroyOptionsMenu();
 			player->BlockControls(true);
 		}
 		break;
 	case StatesMenu::CONTROLS_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			CreateOptionsMenu();
 			DestroyControlsMenu();
 		}
@@ -198,12 +204,6 @@ bool m1Scene::Update(float dt)
 	if (options_panel != nullptr) {
 		UpdateOptionsMenu();
 	}
-
-	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
-		App->audio->VolumeDown(-1);
-
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-		App->audio->VolumeUp(-1);
 
 	//if (!App->audio->mute_volume) Mix_VolumeMusic(slider_music_volume->GetValue());
 	//if (!App->audio->mute_fx) App->audio->SliderVolumeFx(slider_fx_volume->GetValue());
