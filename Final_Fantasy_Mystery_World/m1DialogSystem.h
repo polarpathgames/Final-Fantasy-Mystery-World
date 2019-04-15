@@ -65,7 +65,7 @@ public:
 	void CheckForKarma(DialogOption* karmaNode);
   
 public:
-	bool firstupdate = true, waiting_input = false, end_dial = true, fountain_interaction = false;
+	bool firstupdate = true, waiting_input = false, end_dial = true;
   
 private:
 	std::vector <DialogTree*> dialogTrees;
