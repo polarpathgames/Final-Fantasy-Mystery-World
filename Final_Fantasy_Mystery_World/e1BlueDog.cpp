@@ -1,15 +1,15 @@
-#include "e1CarnivorousPlant.h"
+#include "e1BlueDog.h"
 #include "e1Enemy.h"
 #include "SDL/include/SDL.h"
 #include "App.h"
 #include "m1Map.h"
 #include "m1Render.h"
 
-e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x, y)
+e1BlueDog::e1BlueDog(const int & x, const int & y) : e1Enemy(x, y)
 {
-	LoadEntityData("assets/entities/CarnivorousPlant.tsx");
+	LoadEntityData("assets/entities/BlueDog.tsx");
 
-	enemy_type = EnemyType::CARNIVOROUS_PLANT;
+	enemy_type = EnemyType::BLUE_DOG;
 
 	position.x -= 5;
 	position.y -= 24;
@@ -18,11 +18,11 @@ e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x
 	initial_position = position;
 }
 
-e1CarnivorousPlant::~e1CarnivorousPlant()
+e1BlueDog::~e1BlueDog()
 {
 }
 
-bool e1CarnivorousPlant::PreUpdate()
+bool e1BlueDog::PreUpdate()
 {
 	if (state == State::IDLE) {
 		if (IsPlayerNextTile()) {
@@ -50,7 +50,7 @@ bool e1CarnivorousPlant::PreUpdate()
 	return true;
 }
 
-bool e1CarnivorousPlant::Update(float dt)
+bool e1BlueDog::Update(float dt)
 {
 	if (state == State::IDLE) {
 		position.x = initial_position.x + movement_count.x;
@@ -79,7 +79,7 @@ bool e1CarnivorousPlant::Update(float dt)
 	return true;
 }
 
-void e1CarnivorousPlant::IdAnimToEnum()
+void e1BlueDog::IdAnimToEnum()
 {
 
 	for (uint i = 0; i < data.num_animations; ++i) {
@@ -96,40 +96,40 @@ void e1CarnivorousPlant::IdAnimToEnum()
 		case 5:
 			data.animations[i].animType = AnimationState::IDLE_DOWN_RIGHT;
 			break;
-		case 7:
+		case 6:
 			data.animations[i].animType = AnimationState::WALKING_UP_LEFT;
 			break;
-		case 9:
+		case 8:
 			data.animations[i].animType = AnimationState::IDLE_UP_LEFT;
 			break;
-		case 10:
+		case 9:
 			data.animations[i].animType = AnimationState::WALKING_UP_RIGHT;
 			break;
-		case 12:
+		case 11:
 			data.animations[i].animType = AnimationState::IDLE_UP_RIGHT;
 			break;
-		case 14:
+		case 12:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_LEFT;
 			break;
-		case 35:
+		case 21:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_RIGHT;
 			break;
-		case 28:
+		case 18:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_LEFT;
 			break;
-		case 21:
+		case 15:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_RIGHT;
 			break;
-		/*case 14:
+			/*case 14:
 			data.animations[i].animType = AnimationState::IDLE_DOWN;
 			break;
-		case 16:
+			case 16:
 			data.animations[i].animType = AnimationState::IDLE_UP;
 			break;
-		case 19:
+			case 19:
 			data.animations[i].animType = AnimationState::IDLE_LEFT;
 			break;
-		case 22:
+			case 22:
 			data.animations[i].animType = AnimationState::IDLE_RIGHT;
 			break;*/
 
