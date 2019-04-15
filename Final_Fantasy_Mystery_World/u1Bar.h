@@ -12,7 +12,7 @@ public:
 	u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* parent, m1Module* callback);
 
 	~u1Bar();
-	void DecreaseBar(int quantity, UIType bar_type);
+	void UpdateBar(int quantity, UIType bar_type);
 	//void RecoverBar(int quantity);
 
 	int CalculateBar(int quantity);

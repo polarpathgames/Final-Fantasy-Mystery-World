@@ -1,6 +1,7 @@
 #include "App.h"
 #include "u1Bar.h"
 #include "u1Image.h"
+#include "e1Player.h"
 #include "m1Scene.h"
 
 u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* parent, m1Module* callback) :u1GUI(BAR, x, y, parent, {0, 0, 0, 0}, true, false, false, false)
@@ -27,7 +28,7 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 
 u1Bar::~u1Bar() {}
 
-void u1Bar::DecreaseBar(int quantity, UIType bar_type)
+void u1Bar::UpdateBar(int quantity, UIType bar_type)
 {
 	if (empty_bar != nullptr)
 	{
@@ -43,10 +44,23 @@ void u1Bar::DecreaseBar(int quantity, UIType bar_type)
 int u1Bar::CalculateBar(int quantity)
 {
 	int new_width = current_width;
-	int new_quantity = (current_quantity - quantity);
+	int new_quantity = (current_quantity + quantity);
+	current_quantity += quantity;
 
 	if (max_capacity != 0)
 		new_width = (new_quantity * max_width) / max_capacity;
 
+	if (current_quantity <= 0) {
+		current_quantity = 0;
+		return 0;
+	}
+
+	if (current_quantity >= max_capacity) {
+		current_quantity = max_capacity;
+		return max_width;
+	}
+
+
 	return new_width;
+
 }

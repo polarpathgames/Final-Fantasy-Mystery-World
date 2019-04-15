@@ -84,7 +84,11 @@ bool m1Scene::Update(float dt)
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-		player_hp_bar->DecreaseBar(8, UIType::HPBAR);
+		player_hp_bar->UpdateBar(-25, UIType::HPBAR);
+
+	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
+		player_hp_bar->UpdateBar(25, UIType::HPBAR);
+
 
 	if(App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
