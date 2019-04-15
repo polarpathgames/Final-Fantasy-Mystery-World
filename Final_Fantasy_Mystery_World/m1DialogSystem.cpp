@@ -253,14 +253,14 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   break;
 			   case -2:
 				   LOG("FULL MANA");
-				   App->scene->player->AugmentMana(100);
+				   App->scene->player->AugmentMana(50);
 				   LOG("%i", App->scene->player->stats.mana);
 				   App->scene->player->BlockControls(false);
 				   fountain_interaction = true;
 				   break;
 			   case 2:
 				   LOG("FULL HEALTH");
-				   App->scene->player->AugmentLives(250);
+				   App->scene->player->AugmentLives(50);
 				   LOG("%i", App->scene->player->stats.live);
 				   App->scene->player->BlockControls(false);
 				   fountain_interaction = true;

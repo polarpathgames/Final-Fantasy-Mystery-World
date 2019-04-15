@@ -128,6 +128,8 @@ public:
 
 	bool BlockControls(bool to_block);
 
+	void LobbyControls();
+	void QuestControls();
 
 	void ReduceMana(const int &cost_mana);
 

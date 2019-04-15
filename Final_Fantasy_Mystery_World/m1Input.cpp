@@ -82,6 +82,7 @@ void m1Input::DefaultControls()
 	keyboard_buttons.buttons_code.LEFT = SDL_SCANCODE_A;
 	keyboard_buttons.buttons_code.RIGHT = SDL_SCANCODE_D;
 	keyboard_buttons.buttons_code.UP = SDL_SCANCODE_W;
+	keyboard_buttons.buttons_code.HABILTY1 = SDL_SCANCODE_F;
 
 	keyboard_buttons.buttons_char.BASIC_ATTACK = "G";
 	keyboard_buttons.buttons_char.DIAGONALS = "LSHIFT";
@@ -93,6 +94,7 @@ void m1Input::DefaultControls()
 	keyboard_buttons.buttons_char.LEFT = "A";
 	keyboard_buttons.buttons_char.RIGHT = "D";
 	keyboard_buttons.buttons_char.UP = "W";
+	keyboard_buttons.buttons_char.HABILITY1 = "F";
 
 	controller_Buttons.buttons_code.BASIC_ATTACK = SDL_CONTROLLER_BUTTON_A;
 	controller_Buttons.buttons_code.DIAGONALS = SDL_CONTROLLER_AXIS_TRIGGERRIGHT;
@@ -100,6 +102,7 @@ void m1Input::DefaultControls()
 	controller_Buttons.buttons_code.DIRECTION_UP = SDL_CONTROLLER_BUTTON_DPAD_UP;
 	controller_Buttons.buttons_code.DIRECTION_LEFT = SDL_CONTROLLER_BUTTON_DPAD_LEFT;
 	controller_Buttons.buttons_code.DIRECCTION_RIGHT = SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
+	controller_Buttons.buttons_code.HABILTY1 = SDL_CONTROLLER_BUTTON_B;
 
 	controller_Buttons.buttons_char.BASIC_ATTACK = "A";
 	controller_Buttons.buttons_char.DIAGONALS = "LT";
@@ -111,6 +114,7 @@ void m1Input::DefaultControls()
 	controller_Buttons.buttons_char.LEFT = "L-JOSTICK";
 	controller_Buttons.buttons_char.RIGHT = "L-JOSTICK";
 	controller_Buttons.buttons_char.UP = "L-JOSTICK";
+	controller_Buttons.buttons_char.HABILITY1 = "B";
 }
 
 // Called each loop iteration

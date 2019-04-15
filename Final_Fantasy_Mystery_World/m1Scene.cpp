@@ -136,7 +136,7 @@ bool m1Scene::Update(float dt)
 				player->BlockControls(false);
 			}
 		}
-		if ((App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && player->state == State::IDLE) {
+		if ((App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial) {
 			if (App->ChangeInventory()) {
 				CreateInventory();
 				player->BlockControls(true);

@@ -85,22 +85,26 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 
 	if (interaction == load_game_button) {
 		App->LoadGame("save_game.xml");
+		ret = false;
 	}
 
 	if (interaction == options_button) {
 		App->scene->CreateOptionsMenu();
 		App->gui->DeleteUIElement(background);
 		App->scene->UpdateOptionsMenu();
+		ret = false;
 	}
 
 	if (interaction == credits_button) {
 		CreateCredits();
 		App->gui->DeleteUIElement(background);
+		ret = false;
 	}
 
 	if (interaction == button_retun) {
 		CreateMainMenu();
 		DestroyCredits();
+		ret = false;
 	}
 	
 	if (interaction == button_continue_lobby) {
