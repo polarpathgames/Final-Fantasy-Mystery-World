@@ -17,6 +17,7 @@
 #include "m1FadeToBlack.h"
 #include "u1Label.h"
 #include "u1Button.h"
+#include "u1Bar.h"
 #include <string>
 #include "u1UI_Element.h"
 #include "Brofiler/Brofiler.h"
@@ -934,6 +935,7 @@ void e1Player::GetHitted(const int & damage_taken)
 	}
 	else {
 		stats.live -= damage_taken;
+		App->scene->player_hp_bar->UpdateBar(-damage_taken, UIType::HPBAR);
 	}	
 }
 
