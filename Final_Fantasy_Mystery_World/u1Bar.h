@@ -32,6 +32,6 @@ public:
 
 	int max_width = 172;
 	int current_width = 0;
-
+	
 };
 #endif
