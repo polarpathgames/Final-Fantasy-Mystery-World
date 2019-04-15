@@ -6,6 +6,15 @@
 #include "e1Entity.h"
 #include <vector>
 
+enum class TextureType {
+	PLAYER,
+	CARNIVOROUS_PLANT,
+	BLUE_DOG,
+	STATIC_ENTITIES,
+
+	NONE // NONE must be the last one
+};
+
 class m1EntityManager : public m1Module
 {
 public:
@@ -54,7 +63,7 @@ private:
 
 	std::vector<e1Entity*> entities;
 	std::vector<SDL_Texture*> texture;
-
+	
 };
 
 #endif

@@ -87,6 +87,7 @@
     <ClCompile Include="c1CutsceneMoveCamera.cpp" />
     <ClCompile Include="c1CutSceneMoveEntity.cpp" />
     <ClCompile Include="c1CutsceneText.cpp" />
+    <ClCompile Include="e1BlueDog.cpp" />
     <ClCompile Include="e1CarnivorousPlant.cpp" />
     <ClCompile Include="e1Drop.cpp" />
     <ClCompile Include="m1Cutscene.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="c1CutsceneMoveCamera.h" />
     <ClInclude Include="c1CutSceneMoveEntity.h" />
     <ClInclude Include="c1CutSceneText.h" />
+    <ClInclude Include="e1BlueDog.h" />
     <ClInclude Include="e1CarnivorousPlant.h" />
     <ClInclude Include="e1Drop.h" />
     <ClInclude Include="m1Cutscene.h" />
