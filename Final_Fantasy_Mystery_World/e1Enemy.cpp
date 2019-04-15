@@ -300,7 +300,6 @@ void e1Enemy::GetHitted(const int & damage_taken)
 		Drop();
 		App->entity_manager->DeleteEntity(this);
 	}
-
 }
 
 void e1Enemy::Drop()
