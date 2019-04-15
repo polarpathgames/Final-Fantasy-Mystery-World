@@ -60,7 +60,7 @@ struct ButtonChar {
 	char* DIAGONALS;
 	char* SHOW_SKILLS;
 	char* BASIC_ATTACK;
-	char* HABILITY1;
+	char* ABILITY1;
 	char* INVENTORY;
 };
 
