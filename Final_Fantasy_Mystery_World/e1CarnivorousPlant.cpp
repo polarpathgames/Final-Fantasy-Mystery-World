@@ -120,18 +120,31 @@ void e1CarnivorousPlant::IdAnimToEnum()
 		case 21:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_RIGHT;
 			break;
-		/*case 14:
+		case 44:
 			data.animations[i].animType = AnimationState::IDLE_DOWN;
 			break;
-		case 16:
+		case 42:
+			data.animations[i].animType = AnimationState::WALKING_DOWN;
+			break;
+		case 47:
 			data.animations[i].animType = AnimationState::IDLE_UP;
 			break;
-		case 19:
+		case 45:
+			data.animations[i].animType = AnimationState::WALKING_UP;
+			break;
+		case 51:
 			data.animations[i].animType = AnimationState::IDLE_LEFT;
 			break;
-		case 22:
+		case 49:
+			data.animations[i].animType = AnimationState::WALKING_LEFT;
+			break;
+		case 54:
 			data.animations[i].animType = AnimationState::IDLE_RIGHT;
-			break;*/
+			break;
+		case 52:
+			data.animations[i].animType = AnimationState::WALKING_RIGHT;
+			break;
+		
 
 
 		case 36:
@@ -140,10 +153,10 @@ void e1CarnivorousPlant::IdAnimToEnum()
 		case 39:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP;
 			break;
-		case 42:
+		case 452:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_LEFT;
 			break;
-		case 54:
+		case 554:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
 		case 60:
