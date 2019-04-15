@@ -23,6 +23,7 @@ public:
 	enum class EnemyType {
 		CARNIVOROUS_PLANT,
 		BLUE_DOG,
+		STRANGE_FROG,
 
 		NONE
 	};

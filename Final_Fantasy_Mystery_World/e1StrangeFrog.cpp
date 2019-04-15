@@ -1,18 +1,18 @@
-#include "e1BlueDog.h"
+#include "e1StrangeFrog.h"
 #include "e1Enemy.h"
 #include "SDL/include/SDL.h"
 #include "App.h"
 #include "m1Map.h"
 #include "m1Render.h"
 
-e1BlueDog::e1BlueDog(const int & x, const int & y) : e1Enemy(x, y)
+e1StrangeFrog::e1StrangeFrog(const int & x, const int & y) : e1Enemy(x, y)
 {
-	LoadEntityData("assets/entities/BlueDog.tsx");
+	LoadEntityData("assets/entities/StrangeFrog.tsx");
 
-	enemy_type = EnemyType::BLUE_DOG;
+	enemy_type = EnemyType::STRANGE_FROG;
 
-	position.x -= 5;
-	position.y -= 24;
+	position.x;
+	position.y -= 25;
 
 	target_position = position;
 	initial_position = position;
@@ -20,11 +20,11 @@ e1BlueDog::e1BlueDog(const int & x, const int & y) : e1Enemy(x, y)
 	InitStats();
 }
 
-e1BlueDog::~e1BlueDog()
+e1StrangeFrog::~e1StrangeFrog()
 {
 }
 
-bool e1BlueDog::PreUpdate()
+bool e1StrangeFrog::PreUpdate()
 {
 	if (state == State::IDLE) {
 		if (IsPlayerNextTile()) {
@@ -52,7 +52,7 @@ bool e1BlueDog::PreUpdate()
 	return true;
 }
 
-bool e1BlueDog::Update(float dt)
+bool e1StrangeFrog::Update(float dt)
 {
 	if (state == State::IDLE) {
 		position.x = initial_position.x + movement_count.x;
@@ -81,13 +81,14 @@ bool e1BlueDog::Update(float dt)
 	return true;
 }
 
-void e1BlueDog::InitStats()
+void e1StrangeFrog::InitStats()
 {
 	stats.attack_power = 25;
 	stats.live = 100;
+
 }
 
-void e1BlueDog::IdAnimToEnum()
+void e1StrangeFrog::IdAnimToEnum()
 {
 
 	for (uint i = 0; i < data.num_animations; ++i) {
@@ -104,30 +105,31 @@ void e1BlueDog::IdAnimToEnum()
 		case 5:
 			data.animations[i].animType = AnimationState::IDLE_DOWN_RIGHT;
 			break;
-		case 6:
+		case 15:
 			data.animations[i].animType = AnimationState::WALKING_UP_LEFT;
 			break;
-		case 8:
+		case 17:
 			data.animations[i].animType = AnimationState::IDLE_UP_LEFT;
 			break;
-		case 9:
+		case 18:
 			data.animations[i].animType = AnimationState::WALKING_UP_RIGHT;
 			break;
-		case 11:
+		case 20:
 			data.animations[i].animType = AnimationState::IDLE_UP_RIGHT;
 			break;
-		case 12:
+		case 30:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_LEFT;
 			break;
-		case 21:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_RIGHT;
-			break;
-		case 18:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_LEFT;
-			break;
-		case 15:
+		case 45:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_RIGHT;
 			break;
+		case 75:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_RIGHT;
+			break;
+		case 60:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_LEFT;
+			break;
+		
 			/*case 14:
 			data.animations[i].animType = AnimationState::IDLE_DOWN;
 			break;
@@ -154,7 +156,7 @@ void e1BlueDog::IdAnimToEnum()
 		case 54:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
-		case 60:
+		case 650:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;
 		case 63:

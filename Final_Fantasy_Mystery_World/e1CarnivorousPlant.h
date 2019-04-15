@@ -15,14 +15,11 @@ public:
 
 	bool Update(float dt);
 
+	void InitStats();
+
 	void IdAnimToEnum();
 
 };
-
-
-
-
-
 
 
 #endif // !_E1CARNIVOROUSPLANT_H_
