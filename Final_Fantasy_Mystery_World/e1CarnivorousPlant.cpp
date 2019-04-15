@@ -16,6 +16,7 @@ e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x
 
 	target_position = position;
 	initial_position = position;
+	InitStats();
 }
 
 e1CarnivorousPlant::~e1CarnivorousPlant()
@@ -77,6 +78,13 @@ bool e1CarnivorousPlant::Update(float dt)
 	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
 	return true;
+}
+
+void e1CarnivorousPlant::InitStats()
+{
+	stats.attack_power = 25;
+	stats.live = 100;
+
 }
 
 void e1CarnivorousPlant::IdAnimToEnum()

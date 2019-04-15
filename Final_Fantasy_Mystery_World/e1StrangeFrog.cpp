@@ -16,6 +16,8 @@ e1StrangeFrog::e1StrangeFrog(const int & x, const int & y) : e1Enemy(x, y)
 
 	target_position = position;
 	initial_position = position;
+
+	InitStats();
 }
 
 e1StrangeFrog::~e1StrangeFrog()
@@ -77,6 +79,13 @@ bool e1StrangeFrog::Update(float dt)
 	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
 	return true;
+}
+
+void e1StrangeFrog::InitStats()
+{
+	stats.attack_power = 25;
+	stats.live = 100;
+
 }
 
 void e1StrangeFrog::IdAnimToEnum()

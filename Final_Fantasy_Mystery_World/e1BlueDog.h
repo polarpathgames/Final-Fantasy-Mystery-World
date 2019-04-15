@@ -15,6 +15,8 @@ public:
 
 	bool Update(float dt);
 
+	void InitStats();
+
 	void IdAnimToEnum();
 
 };
