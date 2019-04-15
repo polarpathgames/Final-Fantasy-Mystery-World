@@ -185,6 +185,11 @@ bool m1Scene::Update(float dt)
 			player->BlockControls(true);
 		}
 		break;
+	case StatesMenu::SHOP_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			DestroyShopMenu();
+		}
+		break;
 	case StatesMenu::CONTROLS_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			CreateOptionsMenu();
