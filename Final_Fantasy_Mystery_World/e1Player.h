@@ -75,17 +75,17 @@ public:
 
 	virtual ~e1Player();
 
-	bool Update(float dt);
+	virtual bool PreUpdate() { return true; };
 
-	bool PreUpdate();
+	virtual bool Update(float dt) { return true; };
 
-	bool PostUpdate();
+	virtual bool PostUpdate() { return true; };
 
 	bool Load(pugi::xml_node&);
 
 	bool Save(pugi::xml_node&) const;
 
-	bool CleanUp();
+	virtual bool CleanUp();
 
 	void OnCollision(Collider* c2);
 	void OnCollisionEnter(Collider* c2);

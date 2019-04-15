@@ -86,7 +86,39 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		CreateSelectChamp();
 		ret = false;
 	}
-
+	if (interaction == button_warrior) {
+		App->scene->player_type = PlayerType::WARRIOR;
+		App->gui->DeleteAllUIElements();
+		active = false; //desactivates main menu
+		App->entity_manager->Enable();
+		App->map->Enable();
+		App->scene->Enable();
+		App->map->ChangeMap(Maps::LOBBY);
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
+		ret = false;
+	}
+	if (interaction == button_archer) {
+		App->scene->player_type = PlayerType::ARCHER;
+		App->gui->DeleteAllUIElements();
+		active = false; //desactivates main menu
+		App->entity_manager->Enable();
+		App->map->Enable();
+		App->scene->Enable();
+		App->map->ChangeMap(Maps::LOBBY);
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
+		ret = false;
+	}
+	if (interaction == button_mage) {
+		App->scene->player_type = PlayerType::MAGE;
+		App->gui->DeleteAllUIElements();
+		active = false; //desactivates main menu
+		App->entity_manager->Enable();
+		App->map->Enable();
+		App->scene->Enable();
+		App->map->ChangeMap(Maps::LOBBY);
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
+		ret = false;
+	}
 	if (interaction == load_game_button) {
 		App->LoadGame("save_game.xml");
 		ret = false;
@@ -282,4 +314,5 @@ void m1MainMenu::CreateSelectChamp()
 
 void m1MainMenu::DestroySelectChamp()
 {
+	App->gui->DeleteUIElement(background);
 }

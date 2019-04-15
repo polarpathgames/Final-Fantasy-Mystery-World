@@ -72,6 +72,7 @@ public:
 		DROP,
 		CARNIVOROUS_PLANT,
 		BLUE_DOG,
+		WARRIOR,
 
 		NO_TYPE
 	};

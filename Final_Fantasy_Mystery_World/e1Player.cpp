@@ -27,51 +27,10 @@
 
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
-
-	LoadEntityData("assets/entities/Warrior.tsx");
-
-	ground = App->tex->Load("assets/sprites/player_pos.png");
-
-	CenterPlayerInTile();
-
-
 }
 
 e1Player::~e1Player()
 {
-}
-
-bool e1Player::PreUpdate()
-{
-	BROFILER_CATEGORY("PreUpdatePlayer", Profiler::Color::Orange);
-
-	if (!block_controls)
-		ReadPlayerInput();
-	
-	return true;
-}
-
-bool e1Player::Update(float dt)
-{
-	BROFILER_CATEGORY("UpdatePlayer", Profiler::Color::Aqua);
-
-	PerformActions(dt);
-
-	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
-
-	if (coll != nullptr)
-		coll->SetPos(position.x, position.y + 25);
-
-	return true;
-}
-
-
-
-bool e1Player::PostUpdate()
-{
-	BROFILER_CATEGORY("PostUpdatePlayer", Profiler::Color::Purple);
-
-	return true;
 }
 
 bool e1Player::Load(pugi::xml_node &)

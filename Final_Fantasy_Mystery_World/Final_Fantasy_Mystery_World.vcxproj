@@ -90,6 +90,7 @@
     <ClCompile Include="e1BlueDog.cpp" />
     <ClCompile Include="e1CarnivorousPlant.cpp" />
     <ClCompile Include="e1Drop.cpp" />
+    <ClCompile Include="e1Warrior.cpp" />
     <ClCompile Include="m1Cutscene.cpp" />
     <ClCompile Include="p2ChangeControls.cpp" />
     <ClCompile Include="e1DynamicEntity.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="e1BlueDog.h" />
     <ClInclude Include="e1CarnivorousPlant.h" />
     <ClInclude Include="e1Drop.h" />
+    <ClInclude Include="e1Warrior.h" />
     <ClInclude Include="m1Cutscene.h" />
     <ClInclude Include="p2ChangeControls.h" />
     <ClInclude Include="p2Random.h" />

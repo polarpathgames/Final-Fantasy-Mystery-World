@@ -15,6 +15,8 @@ enum class TextureType {
 	NONE // NONE must be the last one
 };
 
+
+
 class m1EntityManager : public m1Module
 {
 public:
