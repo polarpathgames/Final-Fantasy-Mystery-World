@@ -41,8 +41,9 @@ struct ButtonsUsed {
 	int DIRECCTION_RIGHT;
 	int DIAGONALS;
 	int BASIC_ATTACK;
+	int SHOW_SKILLS;
 	int HABILTY1;
-
+	int INVENTORY;
 
 };
 
@@ -57,8 +58,10 @@ struct ButtonChar {
 	char* DIRECTION_LEFT;
 	char* DIRECCTION_RIGHT;
 	char* DIAGONALS;
+	char* SHOW_SKILLS;
 	char* BASIC_ATTACK;
 	char* HABILITY1;
+	char* INVENTORY;
 };
 
 

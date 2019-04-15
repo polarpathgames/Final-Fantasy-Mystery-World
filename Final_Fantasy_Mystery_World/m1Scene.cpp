@@ -136,7 +136,7 @@ bool m1Scene::Update(float dt)
 				player->BlockControls(false);
 			}
 		}
-		if ((App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial) {
+		if ((App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial) {
 			if (App->ChangeInventory()) {
 				CreateInventory();
 				player->BlockControls(true);
@@ -148,7 +148,7 @@ bool m1Scene::Update(float dt)
 		}
 		break;
 	case StatesMenu::INVENTORY_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
+		if (App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) {
 			if (App->ChangeInventory()) {
 				CreateInventory();
 				player->BlockControls(true);
@@ -157,6 +157,11 @@ bool m1Scene::Update(float dt)
 				DestroyInventory();
 				player->BlockControls(false);
 			}
+		}
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B)) {
+			App->ChangeInventory();
+			DestroyInventory();
+			player->BlockControls(false);
 		}
 		break;
 	case StatesMenu::PAUSE_MENU:
