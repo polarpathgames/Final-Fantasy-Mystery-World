@@ -56,7 +56,7 @@ bool m1Scene::Start()
 
 	App->gui->ShowCursor(false);
 
-	CreateHUD();
+	
   
 	return true;
 }
@@ -82,19 +82,6 @@ bool m1Scene::Update(float dt)
 			DestroyDebugScreen();
 		}
 	}
-
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-		player_hp_bar->UpdateBar(-25, UIType::HPBAR);
-
-	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
-		player_hp_bar->UpdateBar(25, UIType::HPBAR);
-
-	if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
-		player_mana_bar->UpdateBar(-10, UIType::MANABAR);
-
-	if(App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-		player_mana_bar->UpdateBar(10, UIType::MANABAR);
-
 
 	if(App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
@@ -256,6 +243,7 @@ void m1Scene::CreateEntities()
 				if ((*position)->ent_type == "default") { // start position
 					player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::PLAYER, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 					App->render->CenterCameraOnPlayer(player->position);
+					CreateHUD();
 				}
 			}
 			else {
@@ -873,6 +861,9 @@ bool m1Scene::Interact(u1GUI* interact)
 				--player->stats.num_hp_potions;
 				player->AugmentLives(25);
 				hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
+				DeletePotionMenu();
+				menu_state = StatesMenu::INVENTORY_MENU;
+				ret = false;
 			}
 		}
 		if (interact == use_mana_button) {
@@ -880,6 +871,9 @@ bool m1Scene::Interact(u1GUI* interact)
 				--player->stats.num_mana_potions;
 				player->AugmentMana(25);
 				mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
+				DeletePotionMenu();
+				menu_state = StatesMenu::INVENTORY_MENU;
+				ret = false;
 			}
 		}
 		if (interact == cancel_button) {
@@ -1085,6 +1079,6 @@ void m1Scene::SetMenuState(const StatesMenu & menu)
 void m1Scene::CreateHUD()
 {
 	bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, this, App->gui->screen, true, false, false, false);
-	player_hp_bar = App->gui->AddBar(215, 662, 100, HPBAR, bg_hud, this);
-	player_mana_bar = App->gui->AddBar(215, 700, 200, MANABAR, bg_hud, this);
+	player_hp_bar = App->gui->AddBar(215, 662, player->stats.max_lives, HPBAR, bg_hud, this);
+	player_mana_bar = App->gui->AddBar(215, 700, player->stats.max_mana, MANABAR, bg_hud, this);
 }
