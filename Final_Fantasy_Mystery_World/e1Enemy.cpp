@@ -15,7 +15,7 @@
 
 e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
-	LoadEntityData("assets/entities/Warrior.tsx");
+	
 
 	type = e1Entity::EntityType::ENEMY;
 	ground = App->tex->Load("assets/sprites/enemy_pos.png");
@@ -34,193 +34,13 @@ e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 	actual_tile = App->map->WorldToMap(position.x, position.y);
 
 	// THIS ALWAYS LAST
-	position.x += 8;
-	position.y -= 22;
-
-	target_position = position;
-	initial_position = position;
+	
 	
 }
 
 e1Enemy::~e1Enemy()
 {
 }
-
-bool e1Enemy::PreUpdate()
-{
-	BROFILER_CATEGORY("PreUpdateEnemy", Profiler::Color::Orange);
-
-	if (state == State::IDLE) {
-		if (IsPlayerNextTile()) {
-			state = State::BEFORE_ATTACK;
-			time_to_wait_before_attack = SDL_GetTicks();
-		}
-		else {
-			state = State::WALKING; //Aixo sha de canviar I know :D
-		}
-
-	}
-	if (state == State::WALKING) {
-		if (!IsPlayerNextTile()) {
-			MovementLogic();
-		}
-	}	
-	if (state == State::BEFORE_ATTACK) {
-		if (time_to_wait_before_attack < SDL_GetTicks() - 250) {
-			type_attack = Attacks::BASIC;
-			state = State::ATTACKING;
-			ChangeAnimation(direction, state, type_attack);
-		}
-
-	}
-	return true;
-}
-
-bool e1Enemy::Update(float dt)
-{
-
-	BROFILER_CATEGORY("UpdateEnemy", Profiler::Color::Aqua);
-
-
-	if (state == State::IDLE) {
-		position.x = initial_position.x + movement_count.x;
-		position.y = initial_position.y + movement_count.y;
-		target_position = position;
-	}
-
-	if (state == State::WALKING) {
-		switch (direction)
-		{
-		case Direction::DOWN_LEFT:
-			if (position.x >= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
-				position.x -= floor(velocity.x * dt);
-				position.y += floor(velocity.y * dt);
-				current_animation = &GoDownLeft;
-			}
-			else {
-				target_position = position;
-				current_animation = &IdleDownLeft;
-				IsPlayerNextTile();
-				state = State::IDLE;
-			}
-			break;
-		case Direction::UP_RIGHT:
-			if (position.x <= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
-				position.x += floor(velocity.x * dt);
-				position.y -= floor(velocity.y * dt);
-				current_animation = &GoUpRight;
-			}
-			else {
-				target_position = position;
-				current_animation = &IdleUpRight;
-				IsPlayerNextTile();
-				state = State::IDLE;
-			}
-			break;
-		case Direction::UP_LEFT:
-			if (position.x >= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
-				position.x -= floor(velocity.x * dt);
-				position.y -= floor(velocity.y * dt);
-				current_animation = &GoUpLeft;
-			}
-			else {
-				target_position = position;
-				current_animation = &IdleUpLeft;
-				IsPlayerNextTile();
-				state = State::IDLE;
-			}
-			break;
-		case Direction::DOWN_RIGHT:
-			if (position.x <= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
-				position.x += floor(velocity.x * dt);
-				position.y += floor(velocity.y * dt);
-				current_animation = &GoDownRight;
-			}
-			else {
-				target_position = position;
-				current_animation = &IdleDownRight;
-				IsPlayerNextTile();
-				state = State::IDLE;
-			}
-			break;
-		case Direction::LEFT:
-			if (position.x >= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
-				position.x -= floor(velocity.x * dt);
-				current_animation = &GoLeft;
-			}
-			else {
-				target_position = position;
-				current_animation = &IdleLeft;
-				IsPlayerNextTile();
-				state = State::IDLE;
-			}
-			break;
-		case Direction::RIGHT:
-			if (position.x <= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
-				position.x += floor(velocity.x * dt);
-				current_animation = &GoRight;
-			}
-			else {
-				target_position = position;
-				current_animation = &IdleRight;
-				IsPlayerNextTile();
-				state = State::IDLE;
-			}
-			break;
-		case Direction::UP:
-			if (position.x == initial_position.x + movement_count.x && position.y >= initial_position.y + movement_count.y) {
-				position.y -= floor(velocity.y * dt);
-				current_animation = &GoUp;
-			}
-			else {
-				target_position = position;
-				current_animation = &IdleUp;
-				IsPlayerNextTile();
-				state = State::IDLE;
-			}
-			break;
-		case Direction::DOWN:
-			if (position.x == initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
-				position.y += floor(velocity.y * dt);
-				current_animation = &GoDown;
-			}
-			else {
-				target_position = position;
-				current_animation = &IdleDown;
-				IsPlayerNextTile();
-				state = State::IDLE;
-			}
-			break;
-		default:
-			break;
-		}
-	}
-	if (state == State::ATTACKING) {
-		if (current_animation->Finished()) {
-			CheckBasicAttackEfects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
-			state = State::AFTER_ATTACK;
-			ChangeAnimation(direction, state);
-			time_attack = SDL_GetTicks();
-		}
-	}
-	if (state == State::AFTER_ATTACK) {
-		RestTimeAfterAttack(time_attack);
-	}
-
-
-	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
-
-	return true;
-}
-
-
-
-bool e1Enemy::PostUpdate()
-{
-	BROFILER_CATEGORY("PostUpdateEnemy", Profiler::Color::Purple);
-	return true;
-}
-
 bool e1Enemy::Load(pugi::xml_node &)
 {
 	return true;
@@ -359,6 +179,116 @@ void e1Enemy::MovementLogic()
 	}
 
 
+
+}
+
+void e1Enemy::PerformMovement(float dt)
+{
+	switch (direction)
+	{
+	case Direction::DOWN_LEFT:
+		if (position.x >= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
+			position.x -= floor(velocity.x * dt);
+			position.y += floor(velocity.y * dt);
+			current_animation = &GoDownLeft;
+		}
+		else {
+			target_position = position;
+			current_animation = &IdleDownLeft;
+			IsPlayerNextTile();
+			state = State::IDLE;
+		}
+		break;
+	case Direction::UP_RIGHT:
+		if (position.x <= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
+			position.x += floor(velocity.x * dt);
+			position.y -= floor(velocity.y * dt);
+			current_animation = &GoUpRight;
+		}
+		else {
+			target_position = position;
+			current_animation = &IdleUpRight;
+			IsPlayerNextTile();
+			state = State::IDLE;
+		}
+		break;
+	case Direction::UP_LEFT:
+		if (position.x >= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
+			position.x -= floor(velocity.x * dt);
+			position.y -= floor(velocity.y * dt);
+			current_animation = &GoUpLeft;
+		}
+		else {
+			target_position = position;
+			current_animation = &IdleUpLeft;
+			IsPlayerNextTile();
+			state = State::IDLE;
+		}
+		break;
+	case Direction::DOWN_RIGHT:
+		if (position.x <= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
+			position.x += floor(velocity.x * dt);
+			position.y += floor(velocity.y * dt);
+			current_animation = &GoDownRight;
+		}
+		else {
+			target_position = position;
+			current_animation = &IdleDownRight;
+			IsPlayerNextTile();
+			state = State::IDLE;
+		}
+		break;
+	case Direction::LEFT:
+		if (position.x >= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
+			position.x -= floor(velocity.x * dt);
+			current_animation = &GoLeft;
+		}
+		else {
+			target_position = position;
+			current_animation = &IdleLeft;
+			IsPlayerNextTile();
+			state = State::IDLE;
+		}
+		break;
+	case Direction::RIGHT:
+		if (position.x <= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
+			position.x += floor(velocity.x * dt);
+			current_animation = &GoRight;
+		}
+		else {
+			target_position = position;
+			current_animation = &IdleRight;
+			IsPlayerNextTile();
+			state = State::IDLE;
+		}
+		break;
+	case Direction::UP:
+		if (position.x == initial_position.x + movement_count.x && position.y >= initial_position.y + movement_count.y) {
+			position.y -= floor(velocity.y * dt);
+			current_animation = &GoUp;
+		}
+		else {
+			target_position = position;
+			current_animation = &IdleUp;
+			IsPlayerNextTile();
+			state = State::IDLE;
+		}
+		break;
+	case Direction::DOWN:
+		if (position.x == initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
+			position.y += floor(velocity.y * dt);
+			current_animation = &GoDown;
+		}
+		else {
+			target_position = position;
+			current_animation = &IdleDown;
+			IsPlayerNextTile();
+			state = State::IDLE;
+		}
+		break;
+	default:
+		break;
+	}
 
 }
 

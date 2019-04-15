@@ -223,6 +223,47 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 		max_distance_to_interact = 3;
 	}
+	else if (strcmp(name, "quest_fountain") == 0) {
+		static_type = e1StaticEntity::Type::QUEST_FOUNTAIN;
+		has_animation = true;
+		idle = new Animation();
+		current_animation = idle;
+		idle->PushBack({ 160,0,64,48 });
+		idle->PushBack({ 224,0,64,48 });
+		idle->PushBack({ 160,48,64,48 });
+		idle->PushBack({ 224,48,64,48 });
+		idle->speed = 5;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x + 1,App->map->WorldToMap(position.x,position.y).y + 1 };
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+		max_distance_to_interact = 3;
+	}
+	else if (strcmp(name, "NPC1") == 0) {
+		static_type = e1StaticEntity::Type::NPC1;
+		frame = { 1200,0,16,28 };
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		position.x += 8;
+		position.y -= 16;
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+		max_distance_to_interact = 1;
+	}
+	else if (strcmp(name, "NPC2") == 0) {
+		static_type = e1StaticEntity::Type::NPC2;
+		has_animation = true;
+		idle = new Animation();
+		current_animation = idle;
+		idle->PushBack({ 1215,27,16,28 });
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x + 1,App->map->WorldToMap(position.x,position.y).y + 1 };
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+		max_distance_to_interact = 2;
+	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
 	}
@@ -243,7 +284,7 @@ void e1StaticEntity::Draw(SDL_Texture * tex, float dt)
 {
 	if (has_animation) {
 		App->render->Blit(tex, position.x, position.y, &current_animation->GetCurrentFrame(dt), true);
-		App->render->Blit(App->scene->player->ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+		//App->render->Blit(App->scene->player->ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
 	}
 	else {
@@ -261,39 +302,109 @@ bool e1StaticEntity::Update(float dt)
 	if (interacting_state == InteractingStates::NONE)
 		return true;
 	iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
-	if (interacting_state == InteractingStates::WAITING_INTERACTION) {	
-		if (actual_tile.DistanceManhattan(player_pos) <= max_distance_to_interact) {
-			if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+	if (interacting_state == InteractingStates::WAITING_INTERACTION) {
+		if (actual_tile.DistanceTo(player_pos) <= max_distance_to_interact) {
+			if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+				App->scene->player->BlockControls(true);
 				interacting_state = InteractingStates::INTERACTING;
 				App->dialog->end_dial = false;
 			}
 		}			
 	}
-	if (interacting_state == InteractingStates::INTERACTING && actual_tile.DistanceManhattan(player_pos) > max_distance_to_interact || App->dialog->end_dial)
+	if (interacting_state == InteractingStates::INTERACTING && App->dialog->end_dial)
 	{
-		App->dialog->DeleteText();
-		App->dialog->waiting_input = false;
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 	}
 
 	if (interacting_state == InteractingStates::INTERACTING) {
 		switch (static_type) {
 		case e1StaticEntity::Type::SHOP_MAN:
-			App->dialog->PerformDialogue(0);
+			if (App->scene->GetMenuState() == StatesMenu::SHOP_MENU) {
+				interacting_state = InteractingStates::WAITING_INTERACTION;
+			}
+			else
+				App->dialog->PerformDialogue(0);
+			break;
+		case e1StaticEntity::Type::QUEST_FOUNTAIN:
+			if(!App->dialog->fountain_interaction)
+			App->dialog->PerformDialogue(1);			
+			break;
+		case e1StaticEntity::Type::NPC1:
+			ChangeAnimation(player_pos);
+			App->dialog->PerformDialogue(2);
+			break;
+		case e1StaticEntity::Type::NPC2:
+			App->dialog->PerformDialogue(3);
 			break;
 		default:
 			break;
 		}
 	}
-	DebugDrawRangeInteractive();
-
 
 	return true;
 }
-void e1StaticEntity::DebugDrawRangeInteractive()
+
+
+void e1StaticEntity::ChangeAnimation(const iPoint &player_pos)
 {
-	iPoint pos = App->map->MapToWorld(actual_tile.x, actual_tile.y);
-	App->render->DrawCircle(pos.x + pivot.x*1.5f, pos.y + pivot.y/5, 90, 255, 255, 255,255,true);
+
+	if (player_pos.x + 1 == actual_tile.x && player_pos.y == actual_tile.y) { // up left
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1232, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x == actual_tile.x && player_pos.y + 1 == actual_tile.y) { // up right
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1248, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x - 1 == actual_tile.x && player_pos.y == actual_tile.y) { // down right
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1216, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x == actual_tile.x && player_pos.y - 1== actual_tile.y) { // down left
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1200, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x + 1== actual_tile.x && player_pos.y + 1 == actual_tile.y) { // up
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1248, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x - 1 == actual_tile.x && player_pos.y + 1 == actual_tile.y) { // right
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1216, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x + 1 == actual_tile.x && player_pos.y - 1 == actual_tile.y) { // left
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1200, 0, 16, 28);
+			break;
+		}
+	}
+	else if (player_pos.x - 1 == actual_tile.x && player_pos.y - 1 == actual_tile.y) { // down
+		switch (static_type) {
+		case e1StaticEntity::Type::NPC1:
+			SetRect(1216, 0, 16, 28);
+			break;
+		}
+	}
+
 
 }
 

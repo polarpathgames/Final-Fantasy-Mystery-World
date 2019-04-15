@@ -3,6 +3,7 @@
 #include "App.h"
 #include "m1Render.h"
 #include "p2Log.h"
+#include "m1Cutscene.h"
 #include "App.h"
 #include "m1Textures.h"
 #include "e1Enemy.h"
@@ -91,10 +92,14 @@ bool e1Player::CleanUp()
 
 void e1Player::OnCollision(Collider * c2)
 {
+}
+
+void e1Player::OnCollisionEnter(Collider * c2)
+{
 	if (c2->type == COLLIDER_SHOP) {
-		if (App->map->actual_map==Maps::LOBBY)
+		if (App->map->actual_map == Maps::LOBBY)
 			App->fade_to_black->FadeToBlack(Maps::SHOP);
-		else 
+		else
 			App->fade_to_black->FadeToBlack(Maps::LOBBY);
 	}
 	if (c2->type == COLLIDER_HOME) {
@@ -104,15 +109,15 @@ void e1Player::OnCollision(Collider * c2)
 			App->fade_to_black->FadeToBlack(Maps::LOBBY);
 	}
 	if (c2->type == COLLIDER_MENU_QUEST) {
-		App->easing_splines->CreateSpline(&position.x, position.x - 1, 100, EASE);
-		App->easing_splines->CreateSpline(&position.y, position.y + 1, 100, EASE);
-
-		if (first_collision == true)
-		{
-			App->scene->CreateGoToQuestMenu();
-			first_collision = false;
-		}
+		App->scene->CreateGoToQuestMenu();
 	}
+	if (c2->type == COLLIDER_CUTSCENE_BRIDGE) {
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneBlockPass.xml");
+	}
+}
+
+void e1Player::OnCollisionExit(Collider * c2)
+{
 }
 
 void e1Player::CheckLobbyCollision(const float & dt, const Direction & dir)
@@ -928,15 +933,18 @@ const bool e1Player::MultipleButtons(const Input * input)
 
 void e1Player::GetHitted(const int & damage_taken)
 {
+	ReduceLives(damage_taken);
 	if (stats.live <= 0) {
 		state = State::DEATH;
 		ChangeAnimation(direction, state);
 		death_time = SDL_GetTicks();
 	}
+
 	else {
 		stats.live -= damage_taken;
 		App->scene->player_hp_bar->UpdateBar(-damage_taken, UIType::HPBAR);
 	}	
+
 }
 
 void e1Player::Death()
@@ -970,10 +978,6 @@ bool e1Player::BlockControls(bool to_block)
 	return block_controls = to_block;
 }
 
-void e1Player::GiveGold(const int & gold)
-{
-	stats.gold += gold;
-}
 
 void e1Player::CreateSkills()
 {
@@ -996,4 +1000,98 @@ void e1Player::CreateSkills()
 	left_skill_label->SetPos(30, 0);
 
 	has_skills = true;
+}
+
+
+void e1Player::IdAnimToEnum() //Assign every id animation to enum animation
+{
+	for (uint i = 0; i < data.num_animations; ++i) {
+		switch (data.animations[i].id) {
+		case 1:
+			data.animations[i].animType = AnimationState::IDLE_DOWN_LEFT;
+			break;
+		case 0:
+			data.animations[i].animType = AnimationState::WALKING_DOWN_LEFT;
+			break;
+		case 3:
+			data.animations[i].animType = AnimationState::WALKING_UP_LEFT;
+			break;
+		case 4:
+			data.animations[i].animType = AnimationState::IDLE_UP_LEFT;
+			break;
+		case 6:
+			data.animations[i].animType = AnimationState::WALKING_DOWN_RIGHT;
+			break;
+		case 7:
+			data.animations[i].animType = AnimationState::IDLE_DOWN_RIGHT;
+			break;
+		case 9:
+			data.animations[i].animType = AnimationState::WALKING_UP_RIGHT;
+			break;
+		case 10:
+			data.animations[i].animType = AnimationState::IDLE_UP_RIGHT;
+			break;
+		case 12:
+			data.animations[i].animType = AnimationState::WALKING_DOWN;
+			break;
+		case 13:
+			data.animations[i].animType = AnimationState::IDLE_DOWN;
+			break;
+		case 15:
+			data.animations[i].animType = AnimationState::WALKING_UP;
+			break;
+		case 16:
+			data.animations[i].animType = AnimationState::IDLE_UP;
+			break;
+		case 18:
+			data.animations[i].animType = AnimationState::WALKING_LEFT;
+			break;
+		case 19:
+			data.animations[i].animType = AnimationState::IDLE_LEFT;
+			break;
+		case 21:
+			data.animations[i].animType = AnimationState::WALKING_RIGHT;
+			break;
+		case 22:
+			data.animations[i].animType = AnimationState::IDLE_RIGHT;
+			break;
+		case 24:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_LEFT;
+			break;
+		case 33:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_RIGHT;
+			break;
+		case 27:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_LEFT;
+			break;
+		case 30:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_RIGHT;
+			break;
+		case 36:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN;
+			break;
+		case 39:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP;
+			break;
+		case 42:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_LEFT;
+			break;
+		case 54:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
+			break;
+		case 60:
+			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
+			break;
+		case 63:
+			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
+			break;
+		case 66:
+			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
+			break;
+		case 69:
+			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
+			break;
+		}
+
+	}
 }

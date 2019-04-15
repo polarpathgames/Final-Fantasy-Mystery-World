@@ -45,12 +45,16 @@ struct Input {
 struct PlayerStats {
 
 	int live = 2;
+	int max_lives = 250;
 	int attack_power = 500;
 	int xp = 0;
 	int mana = 100;
-	int gold = 0;
+	int max_mana = 100;
+	int gold = 100;
+	int num_hp_potions = 0;
+	int num_mana_potions = 0;
 	int cost_mana_special_attack1 = 50;
-
+	int level = 1;
 
 };
 
@@ -84,6 +88,9 @@ public:
 	bool CleanUp();
 
 	void OnCollision(Collider* c2);
+	void OnCollisionEnter(Collider* c2);
+	void OnCollisionExit(Collider* c2);
+
 	void CheckLobbyCollision(const float &pdtos, const Direction &dir);
 
 	void CenterPlayerInTile();
@@ -116,23 +123,50 @@ public:
 	void GetHitted(const int & damage_taken); // Player Get Damaged
 	void Death();
 	void CreateSkills(); // Skills Appear In Screen
+	void IdAnimToEnum();
 	void DestroySkills(); //Skills Desappear
 
 	bool BlockControls(bool to_block);
 
 
-	void GiveGold(const int &gold);
-
 	inline void ReduceMana(const int &cost_mana) {
 		stats.mana -= cost_mana;
+		if (stats.mana < 0)
+			stats.mana = 0;
 	}
 
+	inline void AugmentMana(const int &plus_mana) {
+		stats.mana += plus_mana;
+		if (stats.mana > stats.max_mana)
+			stats.mana = stats.max_mana;
+	}
+
+	inline void ReduceLives(const int &cost_lives) {
+		stats.live -= cost_lives;
+		if (stats.live < 0)
+			stats.live = 0;
+	}
+
+	inline void AugmentLives(const int &plus_lives) {
+		stats.live += plus_lives;
+		if (stats.live > stats.max_lives)
+			stats.live = stats.max_lives;
+	}
+
+	inline void ReduceGold(const int &cost_gold) {
+		stats.gold -= cost_gold;
+		if (stats.gold < 0)
+			stats.gold = 0;
+	}
+
+	inline void AugmentGold(const int &plus_gold) {
+		stats.gold += plus_gold;
+	}
 
 public:
 	float death_time = 0.0f;
 	bool has_skills = false;
 	bool block_controls = false;
-	bool first_collision = true;
 
 	Input player_input; //VARIABLES DEL INPUT DEL PLAYER
 	Movement_Type movement_type; //EN LOBBY O EN UNA QUEST

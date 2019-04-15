@@ -3,6 +3,7 @@
 #include "App.h"
 #include "m1GUI.h"
 #include "m1Collisions.h"
+#include "m1DialogSystem.h"
 #include "m1Audio.h"
 #include "p2ChangeControls.h"
 #include "m1Render.h"
@@ -23,6 +24,7 @@
 #include "u1CheckBox.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Input.h"
+#include "m1Textures.h"
 
 m1Scene::m1Scene() : m1Module()
 {
@@ -137,7 +139,7 @@ bool m1Scene::Update(float dt)
 	
 	switch (menu_state) {
 	case StatesMenu::NO_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
+		if ((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial) {
 			if (App->ChangePause()) {
 				CreatePauseMenu();
 				player->BlockControls(true);
@@ -147,7 +149,7 @@ bool m1Scene::Update(float dt)
 				player->BlockControls(false);
 			}
 		}
-		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
+		if ((App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && player->state == State::IDLE) {
 			if (App->ChangeInventory()) {
 				CreateInventory();
 				player->BlockControls(true);
@@ -157,9 +159,6 @@ bool m1Scene::Update(float dt)
 				player->BlockControls(false);
 			}
 		}
-
-		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
-			CreateGoToQuestMenu();
 		break;
 	case StatesMenu::INVENTORY_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
@@ -204,16 +203,18 @@ bool m1Scene::Update(float dt)
 		UpdateDebugScreen();
 	}
 
-	//if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-	//	App->audio->VolumeDown(-1);
+	if (options_panel != nullptr) {
+		UpdateOptionsMenu();
+	}
 
-	//if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
-	//	App->audio->VolumeUp(-1);
+	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
+		App->audio->VolumeDown(-1);
+
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+		App->audio->VolumeUp(-1);
 
 	//if (!App->audio->mute_volume) Mix_VolumeMusic(slider_music_volume->GetValue());
 	//if (!App->audio->mute_fx) App->audio->SliderVolumeFx(slider_fx_volume->GetValue());
-	//App->audio->volume = slider_music_volume->GetValue(); This crashes
-	//App->audio->volume_fx = slider_fx_volume->GetValue(); This crashes
 
 	return true;
 }
@@ -293,8 +294,10 @@ void m1Scene::CreateEntities()
 		else if ((*position)->ent_type == "static") {
 			App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 		}
-		else if ((*position)->ent_type == "enemy") {
-			App->entity_manager->CreateEntity(e1Entity::EntityType::ENEMY, App->map->TiledToWorld((*position)->coll_x , (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+		else if ((*position)->name == "enemy") {
+			if ((*position)->ent_type == "CarnivorousPlant") {
+				App->entity_manager->CreateEntity(e1Entity::EntityType::CARNIVOROUS_PLANT, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
 		}
 		else if ((*position)->name == "collider") { // COLLIDERS
 			if ((*position)->properties.FindNameValue("shop")) {
@@ -305,6 +308,9 @@ void m1Scene::CreateEntities()
 			}
 			else if ((*position)->properties.FindNameValue("menu_quest")) {
 				App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x,App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_MENU_QUEST, nullptr);
+			}
+			else if ((*position)->properties.FindNameValue("cutscene_bridge")) {
+				App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x,App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_CUTSCENE_BRIDGE, nullptr);
 			}
 		}
 		else {
@@ -345,26 +351,26 @@ void m1Scene::CreateInventory()
 	inventory_panel = App->gui->AddImage(0, 0, { 1024, 1536, 228, 384 }, this, App->gui->screen, true, false, false, false);
 	inventory_panel->SetPosRespectParent(RIGHT_CENTERED);
 
-	player_name = App->gui->AddLabel(80, 7, "Marche", inventory_panel, BLACK, FontType::FF64, nullptr, false); // This shall change when we have different characters
+	player_name = App->gui->AddLabel(80, 7, "Marche", inventory_panel, BLACK, FontType::FF64, nullptr, false); 
 
 	hp_potion_button = App->gui->AddButton(73, 72, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, inventory_panel, true, false, true, true);
 	hp_potion_button->AddListener(this);
 	hp_potion_image = App->gui->AddImage(85, 80, { 1058, 1952, 33, 47 }, this, inventory_panel, true, false, false, false);
-	hp_potion_label = App->gui->AddLabel(50, -10, "x 0", hp_potion_image, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop money and we have the shop
+	hp_potion_label = App->gui->AddLabel(50, -10, std::string("x " + std::to_string(player->stats.num_hp_potions)).data(), hp_potion_image, BLACK, FontType::FF64, nullptr, false); 
 
 	mana_potion_button = App->gui->AddButton(73, 135, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, inventory_panel, true, false, true, true);
 	mana_potion_button->AddListener(this);
 	mana_potion_image = App->gui->AddImage(85, 140, {1091, 1952, 33, 51}, this, inventory_panel, true, false, false, false);
-	mana_potion_label = App->gui->AddLabel(50, -10, "x 0", mana_potion_image, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop money and we have the shop
+	mana_potion_label = App->gui->AddLabel(50, -10, std::string("x " + std::to_string(player->stats.num_mana_potions)).data(), mana_potion_image, BLACK, FontType::FF64, nullptr, false); 
 
 	coin_image = App->gui->AddImage(45, 225, { 1024, 1952, 34, 34 }, this, inventory_panel, true, false, false, false);
-	money_label = App->gui->AddLabel(50, -20, "x 0", coin_image, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop money and we have the shop
+	money_label = App->gui->AddLabel(50, -20, std::string("x " + std::to_string(player->stats.gold)).data(), coin_image, BLACK, FontType::FF64, nullptr, false); 
 
 	level_name_label = App->gui->AddLabel(76, 267, "Level:", inventory_panel, BLACK, FontType::FF64, nullptr, false);
-	level_number_label = App->gui->AddLabel(65, 0, "1", level_name_label, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop exp
+	level_number_label = App->gui->AddLabel(65, 0, std::string("x " + std::to_string(player->stats.level)).data(), level_name_label, BLACK, FontType::FF64, nullptr, false);
 
 	exp_name_label = App->gui->AddLabel(55, 307, "Exp:", inventory_panel, BLACK, FontType::FF64, nullptr, false);
-	exp_number_label = App->gui->AddLabel(50, 0, "0/100", exp_name_label, BLACK, FontType::FF64, nullptr, false); // This shall change when enemies drop exp
+	exp_number_label = App->gui->AddLabel(50, 0, std::string(std::to_string(player->stats.xp) + "/100").data(), exp_name_label, BLACK, FontType::FF64, nullptr, false);
 
 
 
@@ -458,23 +464,23 @@ void m1Scene::CreateOptionsMenu()
 	button_general_volume = App->gui->AddButton(491, 168, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	label_general_volume = App->gui->AddLabel(0, 0, "General Volume", button_general_volume, BLACK, FontType::FF48, nullptr, false);
 	label_general_volume->SetPosRespectParent(LEFT_CENTERED);
+	minus_general_btn = App->gui->AddButton(715, 185, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options_panel, true, false, true, true);
+	plus_general_btn = App->gui->AddButton(805, 185, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options_panel, true, false, true, true);
+	label_general_value = App->gui->AddLabel(760, 172, "", options_panel, BLACK, FontType::FF48, nullptr, false);
 
 	button_music_volume = App->gui->AddButton(491, 246, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	label_music_volume = App->gui->AddLabel(0, 0, "Music Volume", button_music_volume, BLACK, FontType::FF48, nullptr, false);
 	label_music_volume->SetPosRespectParent(LEFT_CENTERED);
+	minus_music_btn = App->gui->AddButton(715, 263, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options_panel, true, false, true, true);
+	plus_music_btn = App->gui->AddButton(805, 263, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options_panel, true, false, true, true);
+	label_music_value = App->gui->AddLabel(760, 250, "", options_panel, BLACK, FontType::FF48, nullptr, false);
 
 	button_fx_volume = App->gui->AddButton(491, 326, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	label_fx_volume = App->gui->AddLabel(0, 0, "FX Volume", button_fx_volume, BLACK, FontType::FF48, nullptr,false);
 	label_fx_volume->SetPosRespectParent(LEFT_CENTERED);
-	
-	slider_general_volume = App->gui->AddSlider(680, 183, { 1566,1536,191,22 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, true, options_panel, this);
-	//slider_music_volume->SetValue(app->audio->max_volume); why crashes�?
-
-	slider_music_volume = App->gui->AddSlider(680, 263, { 1566,1536,191,22 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, true, options_panel, this);
-	slider_music_volume->SetValue(App->audio->volume);
-
-	slider_fx_volume = App->gui->AddSlider(680, 343, { 1566,1536,191,22 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, { 1757,1536, 41,25 }, true, options_panel, this);
-	slider_fx_volume->SetValue(App->audio->volume_fx);
+	minus_fx_btn = App->gui->AddButton(715, 343, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options_panel, true, false, true, true);
+	plus_fx_btn = App->gui->AddButton(805, 343, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options_panel, true, false, true, true);
+	label_fx_value = App->gui->AddLabel(760, 330,"", options_panel, BLACK, FontType::FF48, nullptr, false);
 
 	label_fps = App->gui->AddLabel(491, 413, "FPS Caps",  options_panel, BLACK, FontType::FF48, nullptr, false);
 	checkbox_fps = App->gui->AddCheckBox(760, 413, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
@@ -508,6 +514,24 @@ void m1Scene::CreateOptionsMenu()
 void m1Scene::DestroyOptionsMenu()
 {
 	App->gui->DeleteUIElement(options_panel);
+
+	options_panel = nullptr;
+
+	label_music_value = nullptr;
+	label_fx_value = nullptr;
+	label_general_value = nullptr;
+
+}
+
+void m1Scene::UpdateOptionsMenu()
+{
+	BROFILER_CATEGORY("UpdateOptionsMenu", Profiler::Color::Orange);
+	if (options_panel != nullptr) {
+		label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+		label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+		label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+	}
+	
 }
 
 void m1Scene::CreateControlsMenu()
@@ -660,6 +684,42 @@ void m1Scene::DestroyControlsMenu()
 
 }
 
+void m1Scene::CreateShopMenu()
+{
+	player->BlockControls(true);
+
+	shop_panel = App->gui->AddImage(100, 150, { 1820,1691,227,383 }, (m1Module*)App->scene, App->gui->screen, true, false, false, false);
+	shop_label = App->gui->AddLabel(0, 0, "SHOP", shop_panel, BLACK, FontType::FF64, nullptr, false);
+	shop_label->SetPosRespectParent(CENTERED_UP,20);
+
+	button_close_shop = App->gui->AddButton(130, 330, { 1850,1637,75,35 }, { 1850,1637,55,35 }, { 1850,1637,55,35 }, this, shop_panel, false, false, true, true);
+	label_close_shop = App->gui->AddLabel(140, 321, "Return", shop_panel, BLACK, FontType::FF48, nullptr, false);
+
+
+	shop_hp_potion_image = App->gui->AddImage(58, 101, { 1058, 1952, 33, 47 }, this, shop_panel, true, false, false, false);
+	shop_hp_potion_label = App->gui->AddLabel(102, 93, std::string("x " + std::to_string(price_hp_potion)).data(), shop_panel, BLACK, FontType::FF64, nullptr, false);
+	shop_coin1 = App->gui->AddImage(160, 112, { 1024, 1952, 34, 34 }, this, shop_panel, true, false, false, false);
+	shop_button_hp_potion = App->gui->AddButton(32, 100, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, this, shop_panel, false, false, true, true);
+
+	shop_mana_potion_image = App->gui->AddImage(58, 186, { 1091, 1952, 33, 51 }, this, shop_panel, true, false, false, false);
+	shop_mana_potion_label = App->gui->AddLabel(102, 178, std::string("x " + std::to_string(price_mana_potion)).data(), shop_panel, BLACK, FontType::FF64, nullptr, false);
+	shop_coin2 = App->gui->AddImage(160, 197, { 1024, 1952, 34, 34 }, this, shop_panel, true, false, false, false);
+	shop_button_mana_potion = App->gui->AddButton(32, 185, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, this, shop_panel, false, false, true, true);
+
+
+	App->gui->FocusButton(shop_button_hp_potion);
+
+	menu_state = StatesMenu::SHOP_MENU;
+}
+
+void m1Scene::DestroyShopMenu()
+{
+	player->BlockControls(false);
+	App->gui->DeleteUIElement(shop_panel);
+
+	menu_state = StatesMenu::NO_MENU;
+}
+
 void m1Scene::CreateDebugScreen()
 {
 	debug_screen = App->gui->AddImage(0, 0, App->gui->screen->section, nullptr, App->gui->screen, false, false, false, false);
@@ -674,18 +734,19 @@ void m1Scene::CreateDebugScreen()
 	textures_label = App->gui->AddLabel(0, fps_label->position.y + fps_label->section.h * 2, "textures:\nnumber of textures: %i",
 		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
-	map_label = App->gui->AddLabel(0, textures_label->position.y + textures_label->section.h, "map:\nnumber of layers: %i\nnumber of tilesets: %i\nmap id: %i\nwidth: %i | height: %i\ntile width: %i | tile height: %i\ntiles drawn: %i",
+	map_label = App->gui->AddLabel(0, textures_label->position.y + textures_label->section.h + fps_label->section.h, "map:\nnumber of layers: %i\nnumber of tilesets: %i\nmap id: %i\nwidth: %i | height: %i\ntile width: %i | tile height: %i\ntiles drawn: %i\n menu state: %i",
 		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
-	entities_label = App->gui->AddLabel(0, map_label->position.y + map_label->section.h + fps_label->section.h*2, "entities:\nnumber of entities: %i\ntextures used: %i",
+	entities_label = App->gui->AddLabel(0, map_label->position.y + map_label->section.h + fps_label->section.h*2, "entities:\nnumber of entities: %i\ntextures used: %i\nentities drawn: %i",
 		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
-	player_label = App->gui->AddLabel(0, entities_label->position.y + entities_label->section.h, "player:\nposition: %i\ntile: %i\n movement type: %i\ndirection: %i\n state: %i",
+	player_label = App->gui->AddLabel(0, entities_label->position.y + entities_label->section.h + fps_label->section.h, "player:\nposition: %i\ntile: %i\n movement type: %i\ndirection: %i\n state: %i",
 		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
-	mouse_label = App->gui->AddLabel(0, 0, "mouse:\nposition: (%i, %i)\ntile: (%i, %i)\nUI Element selected:\nposition: (%i, %i)\nsection: (%i, %i)\nnumber of childs: %i\ntype: %i",
+	mouse_label = App->gui->AddLabel(0, 0, "mouse:\nposition: (%i, %i)\nmotion: (%i, %i)\ntile: (%i, %i)\nUI Element selected:\nposition: (%i, %i)\nsection: (%i, %i)\nnumber of childs: %i\ntype: %i",
 		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 	mouse_label->SetPosRespectParent(Position_Type::RIGHT_UP);
+
 }
 
 void m1Scene::DestroyDebugScreen()
@@ -711,14 +772,42 @@ void m1Scene::UpdateDebugScreen()
 	if (debug_screen != nullptr) {
 		fps_label->SetText(std::string("fps: " + std::to_string(App->GetFps())).data());
 
+		textures_label->SetTextWrapped(std::string("textures:\nnumber of textures: " + std::to_string(App->tex->textures.size())).data());
+
 		map_label->SetTextWrapped(std::string("map:\nnumber of layers: " + std::to_string(App->map->data.layers.size()) + "\nnumber of tilesets: " + std::to_string(App->map->data.tilesets.size()) +
 			"\nmap id: " + std::to_string((int)App->map->actual_map) + "\nwidth: " + std::to_string(App->map->data.width) + " | height: " + std::to_string(App->map->data.height) + "\ntile width: "
-			+ std::to_string(App->map->data.tile_width) + "\ntile height: " + std::to_string(App->map->data.tile_height) + "\ntiles drawn: " + std::to_string(App->map->last_tiles_drawn)).data());
+			+ std::to_string(App->map->data.tile_width) + "\ntile height: " + std::to_string(App->map->data.tile_height) + "\ntiles drawn: " + std::to_string(App->map->last_tiles_drawn) + 
+			"\nmenu state : " + std::to_string((int)menu_state)).data());
+
+		entities_label->SetTextWrapped(std::string("entities:\nnumber of entities: " + std::to_string(App->entity_manager->GetEntities().size()) +
+			"\ntextures used: " + std::to_string(App->entity_manager->GetTextures().size()) + "\nentities drawn: " + std::to_string(App->entity_manager->entities_drawn)).data());
 
 		if (player != nullptr) {
 			player_label->SetTextWrapped(std::string("player:\nposition: (" + std::to_string(player->position.x) + ", " + std::to_string(player->position.y) +
 				")\ntile: (" + std::to_string(player->actual_tile.x) + ", " + std::to_string(player->actual_tile.y) + ")\nmovement type: " + std::to_string((int)player->movement_type) +
 				"\ndirection: " + std::to_string((int)player->direction) + "\nstate: " + std::to_string((int)player->state)).data());
+		}
+
+		int x = 0, y = 0, m_x = 0, m_y = 0;
+		App->input->GetMousePosition(x, y);
+		App->input->GetMouseMotion(m_x, m_y);
+		iPoint tile = App->map->WorldToMap(x, y);
+
+		const u1GUI* focus = App->gui->GetFocus();
+
+		if (focus == nullptr) {
+			mouse_label->SetTextWrapped(std::string("mouse:\nposition: (" + std::to_string(x) + ", " + std::to_string(y) +
+				")\nmotion: (" + std::to_string(m_x) + ", " + std::to_string(m_y) +
+				")\ntile: (" + std::to_string(tile.x) + ", " + std::to_string(tile.y) +
+				")\nUI Element selected:\nposition: (00, 00)\nsection: (00, 00)\nnumber of childs: 00\ntype: unknown").data());
+		}
+		else {
+			mouse_label->SetTextWrapped(std::string("mouse:\nposition: (" + std::to_string(x) + ", " + std::to_string(y) +
+				")\nmotion: (" + std::to_string(m_x) + ", " + std::to_string(m_y) +
+				")\ntile: (" + std::to_string(tile.x) + ", " + std::to_string(tile.y) +
+				")\nUI Element selected:\nposition: (" + std::to_string(focus->position.x) + ", " + std::to_string(focus->position.y) +
+				")\nsection: (" + std::to_string(focus->section.w) + ", " + std::to_string(focus->section.w) +
+				")\nnumber of childs: " + std::to_string(focus->childs.size()) + "\ntype: " + std::to_string((int)focus->GetType())).data());
 		}
 	}
 }
@@ -757,13 +846,13 @@ bool m1Scene::Interact(u1GUI* interact)
 		break;
 	case StatesMenu::GO_TO_QUEST_MENU:
 		if (interact == go_to_quest_button) {
-			player->first_collision = true;
 			DestroyGoToQuestMenu();
 			App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
+			ret = false;
 		}
 		if (interact == cancel_quest_button) {
-			player->first_collision = true;
 			DestroyGoToQuestMenu();
+			ret = false;
 		}
 	case StatesMenu::INVENTORY_MENU:
 		if (interact == hp_potion_button) {
@@ -777,14 +866,23 @@ bool m1Scene::Interact(u1GUI* interact)
 		break;
 	case StatesMenu::POTION_MENU:
 		if (interact == use_hp_button) {
-			LOG("HP POTION USED");
+			if (player->stats.num_hp_potions >= 1) {
+				--player->stats.num_hp_potions;
+				player->AugmentLives(25);
+				hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
+			}
 		}
 		if (interact == use_mana_button) {
-			LOG("MANA POTION USED");
+			if (player->stats.num_mana_potions >= 1) {
+				--player->stats.num_mana_potions;
+				player->AugmentMana(25);
+				mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
+			}
 		}
 		if (interact == cancel_button) {
 			DeletePotionMenu();
 			menu_state = StatesMenu::INVENTORY_MENU;
+			ret = false;
 		}
 		break;
 	case StatesMenu::OPTIONS_MENU:
@@ -801,6 +899,31 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == button_controls) {
 			CreateControlsMenu();
 			DestroyOptionsMenu();
+		}
+		break;
+	case StatesMenu::SHOP_MENU:
+		if (interact == button_close_shop) {
+			DestroyShopMenu();
+		}
+		if (interact == shop_button_hp_potion) {
+			if (player->stats.gold >= price_hp_potion) {
+				// audio comprar
+				player->ReduceGold(price_hp_potion);
+				++player->stats.num_hp_potions;
+			}
+			else {
+				// audio no money
+			}
+		}
+		if (interact == shop_button_mana_potion) {
+			if (player->stats.gold >= price_mana_potion) {
+				// audio comprar
+				player->ReduceGold(price_mana_potion);
+				++player->stats.num_mana_potions;
+			}
+			else {
+				// audio no money
+			}
 		}
 		break;
 	case StatesMenu::CONTROLS_MENU:
@@ -915,6 +1038,32 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->win->fullscreen = true;
 			SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_FULLSCREEN);
 		}
+	}
+
+	//Audio------
+	if (interact == button_music_volume) {
+		App->audio->StopMusic(-2);
+	}
+	else if (interact == button_fx_volume) {
+		App->audio->StopMusic(-3);
+	}
+	else if (interact == minus_music_btn) {
+		App->audio->VolumeDown(-2);
+	}
+	else if (interact == plus_music_btn) {
+		App->audio->VolumeUp(-2);
+	}
+	else if (interact == minus_fx_btn) {
+		App->audio->VolumeDown(-3);
+	}
+	else if (interact == plus_fx_btn) {
+		App->audio->VolumeUp(-3);
+	}
+	else if (interact == minus_general_btn) {
+		App->audio->VolumeDown(-1);
+	}
+	else if (interact == plus_general_btn) {
+		App->audio->VolumeUp(-1);
 	}
 
 	return ret;

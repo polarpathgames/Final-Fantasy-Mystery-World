@@ -9,6 +9,7 @@
 #include "e1StaticEntity.h"
 #include "p2Log.h"
 #include "m1Map.h"
+#include "e1CarnivorousPlant.h"
 #include "m1Scene.h"
 #include "e1Player.h"
 #include "e1Enemy.h"
@@ -43,7 +44,7 @@ bool m1EntityManager::Start()
 
 
 	texture.push_back(App->tex->Load("assets/sprites/WarriorSpritesheet.png"));
-	texture.push_back(App->tex->Load("assets/sprites/Enemy.png"));
+	texture.push_back(App->tex->Load("assets/sprites/Carnivorous Plant.png"));
 	texture.push_back(App->tex->Load("assets/maps/static_objects_tileset.png"));
 
 	return ret;
@@ -79,7 +80,7 @@ bool m1EntityManager::Update(float dt)
 	std::vector<e1Entity*> draw_entities;
 
 	UpdateEntities(dt, draw_entities);
-
+	entities_drawn = draw_entities.size();
 	DrawEntities(draw_entities, dt);
 
 	if (App->scene->player != nullptr && App->scene->player->movement_type == Movement_Type::InLobby)
@@ -167,24 +168,45 @@ void m1EntityManager::OnCollision(Collider * c1, Collider * c2)
 {
 	std::vector<e1Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr &&(*item)->GetCollider() == c1) {
+		if ((*item) != nullptr && (*item)->GetCollider() == c1) {
 			(*item)->OnCollision(c2);
 		}
 	}
 
 }
 
+void m1EntityManager::OnCollisionEnter(Collider * c1, Collider * c2)
+{
+	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr && (*item)->GetCollider() == c1) {
+			(*item)->OnCollisionEnter(c2);
+		}
+	}
+}
+
+void m1EntityManager::OnCollisionExit(Collider * c1, Collider * c2)
+{
+	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr && (*item)->GetCollider() == c1) {
+			(*item)->OnCollisionExit(c2);
+		}
+	}
+}
+
 
 //e1Entity Factory
 e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
-	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)4, "code needs update");
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)5, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
 	case e1Entity::EntityType::PLAYER: ret = new e1Player(PositionX, PositionY); break;
 	case e1Entity::EntityType::ENEMY: ret = new e1Enemy(PositionX, PositionY); break;
 	case e1Entity::EntityType::STATIC: ret = new e1StaticEntity(PositionX, PositionY, name.data()); break;
 	case e1Entity::EntityType::DROP: ret = new e1Drop(PositionX, PositionY, name.data()); break;
+	case e1Entity::EntityType::CARNIVOROUS_PLANT: ret = new e1CarnivorousPlant(PositionX, PositionY); break;
 	//case e1Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
 	default:
 		LOG("Cannot find any entity with that type");
@@ -255,6 +277,11 @@ void m1EntityManager::DeleteEntity(e1Entity* entity_to_delete)
 const std::vector<e1Entity*> m1EntityManager::GetEntities()
 {
 	return entities;
+}
+
+const std::vector<SDL_Texture*> m1EntityManager::GetTextures()
+{
+	return texture;
 }
 
 bool m1EntityManager::SortByYPos(const e1Entity * ent1, const e1Entity * ent2)

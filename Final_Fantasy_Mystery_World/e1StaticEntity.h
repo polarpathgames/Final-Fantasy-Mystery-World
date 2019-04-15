@@ -42,6 +42,9 @@ public:
 		CANDLE,
 		PIECE_SHOP,
 		SHOP_MAN,
+		QUEST_FOUNTAIN,
+		NPC1,
+		NPC2,
 
 		UNKNOWN
 	};
@@ -59,7 +62,8 @@ public:
 	virtual bool Load(pugi::xml_node&) { return true; };
 	virtual bool Save(pugi::xml_node&) const { return true; };
 
-	void DebugDrawRangeInteractive();
+	void ChangeAnimation(const iPoint &player_pos);
+
 	InteractingStates GetState();
 public:
 

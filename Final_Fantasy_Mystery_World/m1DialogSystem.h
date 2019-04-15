@@ -20,6 +20,7 @@ public:
 	std::string text;
 	int nextnode;
 	int karma;
+	int tag;
 };
 
 class DialogNode
@@ -40,7 +41,8 @@ public:
 
 public:
 	std::vector <DialogNode*> dialogNodes;
-	int treeid, karma;
+	int treeid, karma, tag;
+	SDL_Rect face;
 };
 
 class m1DialogSystem : public m1Module
@@ -60,9 +62,11 @@ public:
 	bool LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc);
 	void BlitDialog();
 	bool CompareKarma();
-	void CheckForKarma(DialogNode* karmaNode);
-	int input = 7;
-	bool firstupdate = true, waiting_input = false, end_dial = false;
+	void CheckForKarma(DialogOption* karmaNode);
+  
+public:
+	bool firstupdate = true, waiting_input = false, end_dial = true, fountain_interaction = false;
+  
 private:
 	std::vector <DialogTree*> dialogTrees;
 	DialogNode* currentNode = nullptr;
@@ -75,6 +79,7 @@ private:
 	std::vector <u1Button*> text_button;
 
 	u1Image* dialog_panel = nullptr;
+	u1Image* char_face = nullptr;
 };
 
 #endif

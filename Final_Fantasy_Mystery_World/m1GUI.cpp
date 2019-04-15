@@ -467,3 +467,8 @@ bool m1GUI::ShowCursor(bool enable)
 {
 	return show_cursor = enable;
 }
+
+const u1GUI * m1GUI::GetFocus()
+{
+	return focus;
+}

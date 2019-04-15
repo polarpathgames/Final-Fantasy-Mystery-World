@@ -13,6 +13,7 @@ enum class StatesMenu {
 	INVENTORY_MENU,
 	POTION_MENU,
 	GO_TO_QUEST_MENU,
+	SHOP_MENU,
 
 	NONE
 };
@@ -72,12 +73,16 @@ public:
 
 	void CreateOptionsMenu();
 	void DestroyOptionsMenu();
+	void UpdateOptionsMenu();
 
 	void CreateGoToQuestMenu();
 	void DestroyGoToQuestMenu();
 
 	void CreateControlsMenu();
 	void DestroyControlsMenu();
+
+	void CreateShopMenu();
+	void DestroyShopMenu();
 
 	void CreateDebugScreen();
 	void DestroyDebugScreen();
@@ -92,10 +97,6 @@ public:
 	std::list<u1Label*> labels_control;
 	std::list<u1Label*> Clabels_control;
 
-	u1Slider* slider_general_volume = nullptr;
-	u1Slider* slider_music_volume = nullptr;
-	u1Slider* slider_fx_volume = nullptr;
-
 	e1Player* player = nullptr;
 	ChangeControls * control_to_change = nullptr;
 
@@ -106,6 +107,8 @@ public:
 
 private:
 
+	int price_hp_potion = 20;
+	int price_mana_potion = 20;
 
 	StatesMenu menu_state = StatesMenu::NO_MENU;
 
@@ -156,14 +159,21 @@ private:
 
 	u1Label* label_general_volume = nullptr;
 	u1Button* button_general_volume = nullptr;
-	
+	u1Button* minus_general_btn = nullptr;
+	u1Button* plus_general_btn = nullptr;
+	u1Label* label_general_value = nullptr;
+
 	u1Label* label_music_volume = nullptr;
 	u1Button* button_music_volume = nullptr;
-	//u1Button* music_slider_btn = nullptr;
+	u1Button* minus_music_btn = nullptr;
+	u1Button* plus_music_btn = nullptr;
+	u1Label* label_music_value = nullptr;
 
 	u1Label* label_fx_volume = nullptr;
 	u1Button* button_fx_volume = nullptr;
-	//u1Button* fx_slider_btn = nullptr;
+	u1Button* minus_fx_btn = nullptr;
+	u1Button* plus_fx_btn = nullptr;
+	u1Label* label_fx_value = nullptr;
 
 	u1Label* label_fps = nullptr;
 	u1CheckBox* checkbox_fps = nullptr;
@@ -175,6 +185,24 @@ private:
 	u1Button* button_retun = nullptr;
 	u1Label* label_return = nullptr;
 
+
+	// Menu Shop
+
+	u1Image* shop_panel = nullptr;
+	u1Label* shop_label = nullptr;
+
+	u1Button* button_close_shop = nullptr;
+	u1Label* label_close_shop = nullptr;
+
+	u1Button* shop_button_hp_potion = nullptr;
+	u1Image* shop_hp_potion_image = nullptr;
+	u1Label* shop_hp_potion_label = nullptr;
+	u1Image* shop_coin1 = nullptr;
+
+	u1Button* shop_button_mana_potion = nullptr;
+	u1Image* shop_mana_potion_image = nullptr;
+	u1Label* shop_mana_potion_label = nullptr;
+	u1Image* shop_coin2 = nullptr;
 
 	// Menu Controls
 

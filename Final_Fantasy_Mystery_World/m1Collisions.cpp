@@ -28,6 +28,9 @@ m1Collision::m1Collision()
 
 	matrix[COLLIDER_PLAYER][COLLIDER_MENU_QUEST] = true;
 	matrix[COLLIDER_MENU_QUEST][COLLIDER_PLAYER] = true;
+
+	matrix[COLLIDER_PLAYER][COLLIDER_CUTSCENE_BRIDGE] = true;
+	matrix[COLLIDER_CUTSCENE_BRIDGE][COLLIDER_PLAYER] = true;
 }
 
 // Destructor
@@ -71,11 +74,55 @@ bool m1Collision::PreUpdate()
 
 			if (c1->CheckCollision(c2->rect) == true)
 			{
-				if (matrix[c1->type][c2->type] && c1->callback)
-					c1->callback->OnCollision(c1, c2);
-
-				if (matrix[c2->type][c1->type] && c2->callback)
-					c2->callback->OnCollision(c2, c1);
+				if (matrix[c1->type][c2->type] && c1->callback) {
+					switch (c1->info)
+					{
+					case ColliderInfo::ENTER:
+						c1->callback->OnCollisionEnter(c1, c2);
+						c1->collisions.push_back(c2);
+						c1->info = ColliderInfo::STAY;
+						break;
+					case ColliderInfo::STAY:
+						c1->callback->OnCollision(c1, c2);
+						break;
+					default:
+						c1->callback->OnCollision(c1, c2);
+						break;
+					}
+				}
+				if (matrix[c2->type][c1->type] && c2->callback) {
+					switch (c2->info)
+					{
+					case ColliderInfo::ENTER:
+						c2->callback->OnCollisionEnter(c2, c1);
+						c2->collisions.push_back(c1);
+						c2->info = ColliderInfo::STAY;
+						break;
+					case ColliderInfo::STAY:
+						c2->callback->OnCollision(c2, c1);
+						break;
+					default:
+						c2->callback->OnCollision(c2, c1);
+						break;
+					}
+				}
+			}
+			else {
+				if (c1->info == ColliderInfo::STAY && matrix[c1->type][c2->type] && c1->callback) {
+					if (std::find(c1->collisions.begin(), c1->collisions.end(), c2) != c1->collisions.end()) {
+						c1->callback->OnCollisionExit(c1, c2);
+						c1->info = ColliderInfo::ENTER;
+						c1->collisions.remove(c2);
+					}
+				}
+				if (c2->info == ColliderInfo::STAY && matrix[c2->type][c1->type] && c2->callback) {
+					if (std::find(c2->collisions.begin(), c2->collisions.end(), c1) != c2->collisions.end()) {
+						c2->callback->OnCollisionExit(c2, c1);
+						c2->info = ColliderInfo::ENTER;
+						c2->collisions.remove(c1);
+					}
+				}
+					
 			}
 		}
 	}
@@ -131,6 +178,9 @@ void m1Collision::DebugDraw()
 			App->render->DrawQuad((*item)->rect, 255, 255, 255, alpha);
 			break;
 		case COLLIDER_MENU_QUEST: // white
+			App->render->DrawQuad((*item)->rect, 0, 255, 255, alpha);
+			break;
+		case COLLIDER_CUTSCENE_BRIDGE: // white
 			App->render->DrawQuad((*item)->rect, 0, 255, 255, alpha);
 			break;
 		}

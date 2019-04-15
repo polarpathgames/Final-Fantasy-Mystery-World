@@ -29,7 +29,7 @@ bool e1Drop::Update(float adt)
 	if (actual_tile == App->scene->player->actual_tile) {
 		switch (drop_type) {
 		case DropsType::GOLD_DROP:
-			App->scene->player->GiveGold(gold);
+			App->scene->player->AugmentGold(gold);
 			to_delete = true;
 			break;
 		}

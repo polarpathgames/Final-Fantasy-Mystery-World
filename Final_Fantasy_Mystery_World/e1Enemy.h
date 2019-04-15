@@ -24,21 +24,22 @@ public:
 
 	virtual ~e1Enemy();
 
-	bool Update(float dt);
+	virtual bool PreUpdate() { return true; };
 
-	bool PreUpdate();
+	virtual bool Update(float dt) { return true; };
 
-	bool PostUpdate();
+	virtual bool PostUpdate() { return true; };
 
-	bool Load(pugi::xml_node&);
+	virtual bool Load(pugi::xml_node&);
 
-	bool Save(pugi::xml_node&) const;
+	virtual bool Save(pugi::xml_node&) const;
 
-	bool CleanUp();
+	virtual bool CleanUp();
 
 	bool IsPlayerNextTile();
 
 	void MovementLogic();
+	void PerformMovement(float dt);
 
 	void GetHitted(const int &damage_taken);
 

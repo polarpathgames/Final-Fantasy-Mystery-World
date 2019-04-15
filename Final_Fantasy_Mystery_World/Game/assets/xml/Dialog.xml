@@ -1,18 +1,44 @@
   <!--Dialogue Tree example --> 
-
-
 <dialogue>
-  <dialogtree treeid="0" karma="0">
+  <dialogtree treeid="0" karma="0" tag="0" rect_x="842" rect_y="3091" rect_w="134" rect_h="131">
     <node line="Hello PLAYERNAME, I am the shopkeeper of this small town" id="0">
-      <option  line="" nextnode="1" karma="0"/>
+      <option  line="" nextnode="1" karma="-1" tag="0"/>
     </node>
     <node line="Do you want to buy some of my precious goods?" id="1" karma="-1">
-      <option line="Yes" nextnode="3" karma="1"/>
-      <option line="No" nextnode="2" karma="-1"/>
+      <option line="Yes" nextnode="3" karma="0" tag="1"/>
+      <option line="No" nextnode="2" karma="0"/>
     </node>
-    <node line="See you later!" id="2">
-      <option line="" nextnode="3" karma="0"/>
+    <node line="See you later!" id="2" karma="0">
+      <option line="" nextnode="3" karma="0" tag="0"/>
     </node>
+  </dialogtree>
+  <dialogtree treeid="1" karma="0" tag="0" rect_x="0" rect_y="0" rect_w="0" rect_h="0">
+    <node line="In front of you a strange source emerges splendidly in the room" id="0">
+      <option line="" nextnode="1" karma="0" tag="0"/>
+    </node>
+  <node line="A strange energy from the fountain emanates. What do you want to do?" id="1" karma="0">
+      <option line="Recover health" nextnode="2" karma="-1" tag="2"/>
+      <option line="Recover mana" nextnode="2" karma="-1" tag="-2"/>
+  </node>
+    <node line="It seems that the fountain has no power no more." id="2" karma="-1" tag="0">
+      <option line="" nextnode ="3" karma="0" tag="0"/>
+    </node>
+  </dialogtree>
+  <dialogtree treeid="2" karma="0" tag="0" rect_x="975" rect_y="3091" rect_w="112" rect_h="131">
+    <node line="It is said that the water of this region contains mysterious powers" id="0" karma="0" tag="0">
+      <option line="" nextnode="1" karma="0" tag="0"/>  
+    </node>
+    <node line="that revitalize the soul of those who drink it" id="1" karma="0" tag="0">
+      <option line="" nextnode="2" karma="0" tag="0"/>
+    </node>
+  </dialogtree>
+  <dialogtree treeid="3" karma="0" tag="0" rect_x="1087" rect_y="3090" rect_w="105" rect_h="131">
+    <node line="Stand there! Where did you think you were going?" id="0" karma="0" tag="0">
+      <option line="" nextnode="1" karma="0" tag="0"/>
+    </node>
+  <node line="It is very dangerous to enter the fog. You can not go from here" id="1" karma="0" tag="0">
+    <option line="" nextnode="2" karma="0" tag="0"/>
+  </node>
   </dialogtree>
 </dialogue>
 <!-- Dialogue Tree example -->
