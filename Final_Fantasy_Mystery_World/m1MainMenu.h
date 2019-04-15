@@ -35,7 +35,8 @@ public:
 	void CreateGameOver();
 	void DestroyGameOver();
 
-
+	void CreateSelectChamp();
+	void DestroySelectChamp();
 
 private:
 
@@ -92,7 +93,9 @@ private:
 	u1Button* button_return_main = nullptr;
 	u1Label* label_continue_main = nullptr;
 	
-
+	u1Button* button_warrior = nullptr;
+	u1Button* button_archer = nullptr;
+	u1Button* button_mage = nullptr;
 };
 
 #endif

@@ -701,8 +701,6 @@ void e1DynamicEntity::ChangeAnimsInCutscene(const int & x, const int & y, const 
 			current_animation = &IdleDownLeft;
 		}
 	}
-	
-
 }
 
 

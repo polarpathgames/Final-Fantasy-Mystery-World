@@ -251,7 +251,17 @@ void m1Scene::CreateEntities()
 		if ((*position)->name == "player") {
 			if (player == nullptr) {
 				if ((*position)->ent_type == "default") { // start position
-					player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::PLAYER, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+					switch (player_type) {
+					case PlayerType::WARRIOR:
+						player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+						break;
+					case PlayerType::ARCHER:
+						player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+						break;
+					case PlayerType::MAGE:
+						player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+						break;
+					}
 					App->render->CenterCameraOnPlayer(player->position);
 					CreateHUD();
 				}
