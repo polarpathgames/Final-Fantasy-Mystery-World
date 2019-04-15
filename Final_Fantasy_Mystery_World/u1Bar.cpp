@@ -14,15 +14,15 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 	if (type == HPBAR)
 	{
 		current_width = max_width;
-		empty_bar = App->gui->AddImage(x, y, { 1282, 3098, 185, 25 }, App->scene, App->scene->bg_hud, true, false, false, false);
-		hp_bar = App->gui->AddImage(7, 5, { 1288, 3144, 172, 10 }, App->scene, empty_bar, true, false, false, false);
+		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, App->scene->bg_hud, true, false, false, false);
+		hp_bar = App->gui->AddImage(7, 5, { 1405, 3149, 172, 10 }, App->scene, empty_bar, true, false, false, false);
 	}
 
 	if (type == MANABAR)
 	{
 		current_width = max_width;
-		empty_bar = App->gui->AddImage(x, y, { 1282, 3098, 185, 25 }, App->scene, App->scene->bg_hud, true, false, false, false);
-		mana_bar = App->gui->AddImage(7, 5, { 1288, 3180, 172, 10 }, App->scene, empty_bar, true, false, false, false);
+		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, App->scene->bg_hud, true, false, false, false);
+		mana_bar = App->gui->AddImage(7, 5, { 1405, 3185, 172, 10 }, App->scene, empty_bar, true, false, false, false);
 	}
 }
 
