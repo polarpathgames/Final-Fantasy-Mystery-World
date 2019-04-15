@@ -8136,7 +8136,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="5" name="Collider" width="45" height="45" visible="0">
+ <layer id="5" name="Collider" width="45" height="45">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -9084,7 +9084,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="5"/>
    <tile gid="5"/>
    <tile/>
    <tile/>
@@ -9174,7 +9174,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="5"/>
    <tile gid="5"/>
    <tile/>
    <tile/>

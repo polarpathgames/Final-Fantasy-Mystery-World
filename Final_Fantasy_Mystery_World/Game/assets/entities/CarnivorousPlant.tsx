@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.2" name="CarnivorousPlant" tilewidth="45" tileheight="42" tilecount="42" columns="7">
- <image source="../sprites/Carnivorous Plant.png" width="317" height="254"/>
+<tileset version="1.2" tiledversion="1.2.2" name="CarnivorousPlant" tilewidth="45" tileheight="42" tilecount="56" columns="7">
+ <image source="../sprites/Carnivorous Plant.png" width="317" height="338"/>
  <tile id="0">
   <properties>
    <property name="speed" type="int" value="3"/>
@@ -119,6 +119,70 @@
    <frame tileid="39" duration="270"/>
    <frame tileid="40" duration="270"/>
    <frame tileid="41" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="42">
+  <properties>
+   <property name="speed" type="int" value="3"/>
+  </properties>
+  <animation>
+   <frame tileid="42" duration="270"/>
+   <frame tileid="43" duration="270"/>
+   <frame tileid="44" duration="270"/>
+   <frame tileid="43" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="44">
+  <animation>
+   <frame tileid="44" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="45">
+  <properties>
+   <property name="speed" type="int" value="3"/>
+  </properties>
+  <animation>
+   <frame tileid="45" duration="270"/>
+   <frame tileid="46" duration="270"/>
+   <frame tileid="47" duration="270"/>
+   <frame tileid="46" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="47">
+  <animation>
+   <frame tileid="47" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="49">
+  <properties>
+   <property name="speed" type="int" value="3"/>
+  </properties>
+  <animation>
+   <frame tileid="49" duration="270"/>
+   <frame tileid="50" duration="270"/>
+   <frame tileid="51" duration="270"/>
+   <frame tileid="50" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="51">
+  <animation>
+   <frame tileid="51" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="52">
+  <properties>
+   <property name="speed" type="int" value="3"/>
+  </properties>
+  <animation>
+   <frame tileid="52" duration="270"/>
+   <frame tileid="53" duration="270"/>
+   <frame tileid="54" duration="270"/>
+   <frame tileid="53" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="54">
+  <animation>
+   <frame tileid="54" duration="270"/>
   </animation>
  </tile>
 </tileset>

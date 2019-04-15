@@ -136,7 +136,7 @@ bool m1Scene::Update(float dt)
 				player->BlockControls(false);
 			}
 		}
-		if ((App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && player->state == State::IDLE) {
+		if ((App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial) {
 			if (App->ChangeInventory()) {
 				CreateInventory();
 				player->BlockControls(true);
@@ -148,7 +148,7 @@ bool m1Scene::Update(float dt)
 		}
 		break;
 	case StatesMenu::INVENTORY_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
+		if (App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) {
 			if (App->ChangeInventory()) {
 				CreateInventory();
 				player->BlockControls(true);
@@ -158,9 +158,20 @@ bool m1Scene::Update(float dt)
 				player->BlockControls(false);
 			}
 		}
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			App->ChangeInventory();
+			DestroyInventory();
+			player->BlockControls(false);
+		}
+		break;
+	case StatesMenu::POTION_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			DeletePotionMenu();
+			menu_state = StatesMenu::INVENTORY_MENU;
+		}
 		break;
 	case StatesMenu::PAUSE_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->ChangePause();
 			DestroyPauseMenu();
 			menu_state = StatesMenu::NO_MENU;
@@ -168,14 +179,19 @@ bool m1Scene::Update(float dt)
 		}
 		break;
 	case StatesMenu::OPTIONS_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			CreatePauseMenu();
 			DestroyOptionsMenu();
 			player->BlockControls(true);
 		}
 		break;
+	case StatesMenu::SHOP_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			DestroyShopMenu();
+		}
+		break;
 	case StatesMenu::CONTROLS_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			CreateOptionsMenu();
 			DestroyControlsMenu();
 		}
@@ -193,12 +209,6 @@ bool m1Scene::Update(float dt)
 	if (options_panel != nullptr) {
 		UpdateOptionsMenu();
 	}
-
-	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
-		App->audio->VolumeDown(-1);
-
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-		App->audio->VolumeUp(-1);
 
 	//if (!App->audio->mute_volume) Mix_VolumeMusic(slider_music_volume->GetValue());
 	//if (!App->audio->mute_fx) App->audio->SliderVolumeFx(slider_fx_volume->GetValue());
@@ -241,7 +251,17 @@ void m1Scene::CreateEntities()
 		if ((*position)->name == "player") {
 			if (player == nullptr) {
 				if ((*position)->ent_type == "default") { // start position
-					player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::PLAYER, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+					switch (player_type) {
+					case PlayerType::WARRIOR:
+						player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+						break;
+					case PlayerType::ARCHER:
+						player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+						break;
+					case PlayerType::MAGE:
+						player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+						break;
+					}
 					App->render->CenterCameraOnPlayer(player->position);
 					CreateHUD();
 				}
@@ -288,6 +308,9 @@ void m1Scene::CreateEntities()
 			}
 			else if ((*position)->ent_type == "BlueDog") {
 				App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_DOG, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
+			else if ((*position)->ent_type == "StrangeFrog") {
+				App->entity_manager->CreateEntity(e1Entity::EntityType::STRANGE_FROG, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 			}
 		}
 		else if ((*position)->name == "collider") { // COLLIDERS

@@ -138,6 +138,18 @@
     <ClCompile Include="m1Scene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="e1Warrior.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Archer.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Mage.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1StrangeFrog.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="e1CarnivorousPlant.h">
@@ -310,6 +322,18 @@
     </ClInclude>
     <ClInclude Include="m1Scene.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Warrior.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Archer.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Mage.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1StrangeFrog.h">
+      <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

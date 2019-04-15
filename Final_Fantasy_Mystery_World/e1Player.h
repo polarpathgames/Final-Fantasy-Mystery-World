@@ -44,17 +44,17 @@ struct Input {
 
 struct PlayerStats {
 
-	int live = 100;
-	int max_lives = 100;
-	int attack_power = 500;
+	int live = 0;
+	int max_lives = 0;
+	int attack_power = 0;
 	int xp = 0;
-	int mana = 100;
-	int max_mana = 100;
-	int gold = 100;
+	int mana = 0;
+	int max_mana = 0;
+	int gold = 0;
 	int num_hp_potions = 0;
 	int num_mana_potions = 0;
-	int cost_mana_special_attack1 = 50;
-	int level = 1;
+	int cost_mana_special_attack1 = 0;
+	int level = 0;
 
 };
 
@@ -75,17 +75,17 @@ public:
 
 	virtual ~e1Player();
 
-	bool Update(float dt);
+	virtual bool PreUpdate() { return true; };
 
-	bool PreUpdate();
+	virtual bool Update(float dt) { return true; };
 
-	bool PostUpdate();
+	virtual bool PostUpdate() { return true; };
 
 	bool Load(pugi::xml_node&);
 
 	bool Save(pugi::xml_node&) const;
 
-	bool CleanUp();
+	virtual bool CleanUp();
 
 	void OnCollision(Collider* c2);
 	void OnCollisionEnter(Collider* c2);
@@ -109,10 +109,10 @@ public:
 	void PerformActions(float dt); // Global organizator function 
 
 	void PrepareBasicAttack(); // Prepare Basic Attack
-	void PrepareSpecialAttack1();
+
 	void BasicAttack(); // Basic attack xd 
-	void SpecialAttack1();
-	void CheckSpecialAttack1Efects(const int &damage);
+	
+
 	void PerformMovementInLobby(float dt); // Do the movement in lobby
 	void PerformMovementInQuest(float dt); // Do the movement in quest
 
@@ -128,6 +128,8 @@ public:
 
 	bool BlockControls(bool to_block);
 
+	void LobbyControls();
+	void QuestControls();
 
 	void ReduceMana(const int &cost_mana);
 
@@ -168,6 +170,7 @@ public:
 	u1Button* left_button = nullptr;
 	u1Label* left_skill_button = nullptr;
 	u1Label* left_skill_label = nullptr;
+
 
 };
 

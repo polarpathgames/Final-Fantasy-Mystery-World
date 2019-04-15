@@ -9,6 +9,9 @@
 #include "e1Enemy.h"
 #include "m1Audio.h"
 #include "m1Map.h"
+#include "e1Warrior.h"
+#include "e1Archer.h"
+#include "e1Mage.h"
 #include "m1EntityManager.h"
 #include "m1Map.h"
 #include "m1GUI.h"
@@ -27,51 +30,10 @@
 
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
-
-	LoadEntityData("assets/entities/Warrior.tsx");
-
-	ground = App->tex->Load("assets/sprites/player_pos.png");
-
-	CenterPlayerInTile();
-
-
 }
 
 e1Player::~e1Player()
 {
-}
-
-bool e1Player::PreUpdate()
-{
-	BROFILER_CATEGORY("PreUpdatePlayer", Profiler::Color::Orange);
-
-	if (!block_controls)
-		ReadPlayerInput();
-	
-	return true;
-}
-
-bool e1Player::Update(float dt)
-{
-	BROFILER_CATEGORY("UpdatePlayer", Profiler::Color::Aqua);
-
-	PerformActions(dt);
-
-	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
-
-	if (coll != nullptr)
-		coll->SetPos(position.x, position.y + 25);
-
-	return true;
-}
-
-
-
-bool e1Player::PostUpdate()
-{
-	BROFILER_CATEGORY("PostUpdatePlayer", Profiler::Color::Purple);
-
-	return true;
 }
 
 bool e1Player::Load(pugi::xml_node &)
@@ -232,41 +194,12 @@ void e1Player::CenterPlayerInTile()
 
 void e1Player::ReadPlayerInput()
 {
-
-	player_input.pressing_A = App->input->GetKey(App->input->keyboard_buttons.buttons_code.LEFT) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_LEFT);
-	player_input.pressing_S = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DOWN) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_DOWN);
-	player_input.pressing_W = App->input->GetKey(App->input->keyboard_buttons.buttons_code.UP) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_UP);
-	player_input.pressing_D = App->input->GetKey(App->input->keyboard_buttons.buttons_code.RIGHT) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_RIGHT);
-	player_input.pressing_I = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
-	player_input.pressing_J = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;
-	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN;
-	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
-	player_input.pressing_G = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
-	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
-	player_input.pressing_V = App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN;
-	player_input.pressing_F = App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN;
-
 	if (movement_type == Movement_Type::InLobby) {
-		if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT))
-			player_input.pressing_A = player_input.pressing_S = true;
-		else if (App->input->CheckAxisStates(Axis::AXIS_DOWN_RIGHT))
-			player_input.pressing_D = player_input.pressing_S = true;
-		else if (App->input->CheckAxisStates(Axis::AXIS_UP_RIGHT))
-			player_input.pressing_D = player_input.pressing_W = true;
-		else if (App->input->CheckAxisStates(Axis::AXIS_UP_LEFT))
-			player_input.pressing_W = player_input.pressing_A = true;
+		LobbyControls();
 	}
 	else if (movement_type == Movement_Type::InQuest) {
-		if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT))
-			player_input.pressing_S = true;
-		else if (App->input->CheckAxisStates(Axis::AXIS_DOWN_RIGHT))
-			player_input.pressing_D = true;
-		else if (App->input->CheckAxisStates(Axis::AXIS_UP_RIGHT))
-			player_input.pressing_W = true;
-		else if (App->input->CheckAxisStates(Axis::AXIS_UP_LEFT))
-			player_input.pressing_A = true;
+		QuestControls();
 	}
-
 
 	if (state == State::IDLE) {
 		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
@@ -463,7 +396,23 @@ void e1Player::ReadAttack()
 		return;
 	}
 	if (player_input.pressing_F) {
-		PrepareSpecialAttack1();
+		switch(App->scene->player_type) {
+		case PlayerType::WARRIOR: {
+			e1Warrior * warrior = nullptr;
+			warrior = (e1Warrior*)this;
+			warrior->PrepareSpecialAttack1();
+			break; }
+		case PlayerType::ARCHER: {
+			e1Archer * archer = nullptr;
+			archer = (e1Archer*)this;
+			state = State::IDLE;
+			break; }
+		case PlayerType::MAGE: {
+			e1Mage * mage = nullptr;
+			mage = (e1Mage*)this;
+			state = State::IDLE;
+			break; }
+		}
 		return;
 	}
 }
@@ -505,19 +454,7 @@ void e1Player::PrepareBasicAttack()
 	ChangeAnimation(direction, state, type_attack);
 }
 
-void e1Player::PrepareSpecialAttack1()
-{
-	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {
-		ReduceMana(stats.cost_mana_special_attack1);
-		type_attack = Attacks::SPECIAL_1;
-		state = State::ATTACKING;
-		current_animation = &BasicAttackDown;
-	}
-	else { // no enough mana so return to idle
-		state = State::IDLE;
-	}
 
-}
 	
 	
 void e1Player::PerformActions(float dt)
@@ -551,7 +488,20 @@ void e1Player::PerformActions(float dt)
 			BasicAttack();
 			break;
 		case Attacks::SPECIAL_1:
-			SpecialAttack1();
+			switch (App->scene->player_type) {
+			case PlayerType::WARRIOR: {
+				e1Warrior * warrior = (e1Warrior*)this;
+				warrior->SpecialAttack1();
+				break; }
+			case PlayerType::ARCHER: {
+				e1Archer * warrior = (e1Archer*)this;
+				
+				break; }
+			case PlayerType::MAGE: {
+				e1Mage * warrior = (e1Mage*)this;
+
+				break; }
+			}
 			break;
 		default:
 			LOG("There is no attack type...");
@@ -602,62 +552,6 @@ void e1Player::BasicAttack()
 		ChangeAnimation(direction, state);
 		time_attack = SDL_GetTicks();
 	}
-
-
-}
-
-void e1Player::SpecialAttack1()
-{
-	if (current_animation->Finished()) {
-		CheckSpecialAttack1Efects(stats.attack_power);
-		state = State::AFTER_ATTACK;
-		ChangeAnimation(direction, state);
-		time_attack = SDL_GetTicks();
-	}
-}
-
-void e1Player::CheckSpecialAttack1Efects(const int & damage)
-{
-	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
-	std::vector<e1Entity*>::const_iterator item = entities.begin();
-
-	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr) {
-			if ((*item)->type == e1Entity::EntityType::ENEMY) {
-				bool has_succeeded = false;
-				if (actual_tile + iPoint{ -1,-1 } == (*item)->actual_tile) {
-					has_succeeded = true;
-				}
-				else if (actual_tile + iPoint{ -1,0 } == (*item)->actual_tile) {
-					has_succeeded = true;
-				}
-				else if (actual_tile + iPoint{ -1,1 } == (*item)->actual_tile) {
-					has_succeeded = true;
-				}
-				else if (actual_tile + iPoint{ 0,1 } == (*item)->actual_tile) {
-					has_succeeded = true;
-				}
-				else if (actual_tile + iPoint{ 1,1 } == (*item)->actual_tile) {
-					has_succeeded = true;
-				}
-				else if (actual_tile + iPoint{ 1,0 } == (*item)->actual_tile) {
-					has_succeeded = true;
-				}
-				else if (actual_tile + iPoint{ 1,-1 } == (*item)->actual_tile) {
-					has_succeeded = true;
-				}
-				else if (actual_tile + iPoint{ 0,-1 } == (*item)->actual_tile) {
-					has_succeeded = true;
-				}
-
-				if (has_succeeded) {
-					e1Enemy* enemy_attacked = (e1Enemy*)(*item);
-					enemy_attacked->GetHitted(damage);
-				}
-			}
-		}
-	}
-
 
 
 }
@@ -975,6 +869,78 @@ bool e1Player::BlockControls(bool to_block)
 		ChangeAnimation(direction, state);
 	}
 	return block_controls = to_block;
+}
+
+void e1Player::LobbyControls()
+{
+	player_input.pressing_A = App->input->GetKey(App->input->keyboard_buttons.buttons_code.LEFT) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_LEFT);
+	player_input.pressing_S = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DOWN) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_DOWN);
+	player_input.pressing_W = App->input->GetKey(App->input->keyboard_buttons.buttons_code.UP) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_UP);
+	player_input.pressing_D = App->input->GetKey(App->input->keyboard_buttons.buttons_code.RIGHT) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_RIGHT);
+	player_input.pressing_I = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
+	player_input.pressing_J = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;
+	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN;
+	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
+	//player_input.pressing_G = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
+	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
+	//player_input.pressing_V = App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN;
+	//player_input.pressing_F = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILTY1) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.HABILTY1) == KEY_DOWN;
+
+	if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT))
+		player_input.pressing_A = player_input.pressing_S = true;
+	else if (App->input->CheckAxisStates(Axis::AXIS_DOWN_RIGHT))
+		player_input.pressing_D = player_input.pressing_S = true;
+	else if (App->input->CheckAxisStates(Axis::AXIS_UP_RIGHT))
+		player_input.pressing_D = player_input.pressing_W = true;
+	else if (App->input->CheckAxisStates(Axis::AXIS_UP_LEFT))
+		player_input.pressing_W = player_input.pressing_A = true;
+}
+
+void e1Player::QuestControls()
+{
+	player_input.pressing_A = App->input->GetKey(App->input->keyboard_buttons.buttons_code.LEFT) == KEY_REPEAT;
+	player_input.pressing_S = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DOWN) == KEY_REPEAT;
+	player_input.pressing_W = App->input->GetKey(App->input->keyboard_buttons.buttons_code.UP) == KEY_REPEAT;
+	player_input.pressing_D = App->input->GetKey(App->input->keyboard_buttons.buttons_code.RIGHT) == KEY_REPEAT;
+	player_input.pressing_I = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
+	player_input.pressing_J = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;
+	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN;
+	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
+	player_input.pressing_G = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
+	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
+	player_input.pressing_V = App->input->GetKey(App->input->keyboard_buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN;;
+	player_input.pressing_F = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILTY1) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.HABILTY1) == KEY_DOWN;
+
+	if (!player_input.pressing_shift) {
+		if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT)) {
+			player_input.pressing_S = true;
+		}
+		else if (App->input->CheckAxisStates(Axis::AXIS_DOWN_RIGHT)) {
+			player_input.pressing_D = true;
+		}
+		else if (App->input->CheckAxisStates(Axis::AXIS_UP_RIGHT)) {
+			player_input.pressing_W = true;
+		}
+		else if (App->input->CheckAxisStates(Axis::AXIS_UP_LEFT)) {
+			player_input.pressing_A = true;
+		}
+	}
+	else {
+		if (App->input->CheckAxisStates(Axis::AXIS_DOWN)) {
+			player_input.pressing_S = true;
+		}
+		else if (App->input->CheckAxisStates(Axis::AXIS_RIGHT)) {
+			player_input.pressing_D = true;
+		}
+		else if (App->input->CheckAxisStates(Axis::AXIS_UP)) {
+			player_input.pressing_W = true;
+		}
+		else if (App->input->CheckAxisStates(Axis::AXIS_LEFT)) {
+			player_input.pressing_A = true;
+		}
+	}
+	
+		
 }
 
 void e1Player::ReduceMana(const int & cost_mana)

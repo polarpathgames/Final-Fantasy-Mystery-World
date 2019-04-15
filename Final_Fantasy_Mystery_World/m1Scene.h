@@ -18,6 +18,13 @@ enum class StatesMenu {
 	NONE
 };
 
+enum class PlayerType {
+	WARRIOR,
+	ARCHER,
+	MAGE,
+
+	NONE
+};
 
 struct SDL_Texture;
 struct SDL_Rect;
@@ -98,6 +105,8 @@ public:
 	std::list<u1Label*> Clabels_control;
 
 	e1Player* player = nullptr;
+	PlayerType player_type = PlayerType::NONE;
+
 	ChangeControls * control_to_change = nullptr;
 
 	// HUD

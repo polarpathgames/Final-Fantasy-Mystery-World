@@ -73,6 +73,21 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 	}
 
 	if (interaction == new_game_button) {
+		/*App->gui->DeleteAllUIElements();
+		active = false; //desactivates main menu
+		App->entity_manager->Enable();
+		App->map->Enable();
+		App->scene->Enable();
+		App->map->ChangeMap(Maps::LOBBY);
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
+		ret = false;*/
+
+		App->gui->DeleteAllUIElements();
+		CreateSelectChamp();
+		ret = false;
+	}
+	if (interaction == button_warrior) {
+		App->scene->player_type = PlayerType::WARRIOR;
 		App->gui->DeleteAllUIElements();
 		active = false; //desactivates main menu
 		App->entity_manager->Enable();
@@ -82,25 +97,50 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		App->scene->SetMenuState(StatesMenu::NO_MENU);
 		ret = false;
 	}
-
+	if (interaction == button_archer) {
+		App->scene->player_type = PlayerType::ARCHER;
+		App->gui->DeleteAllUIElements();
+		active = false; //desactivates main menu
+		App->entity_manager->Enable();
+		App->map->Enable();
+		App->scene->Enable();
+		App->map->ChangeMap(Maps::LOBBY);
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
+		ret = false;
+	}
+	if (interaction == button_mage) {
+		App->scene->player_type = PlayerType::MAGE;
+		App->gui->DeleteAllUIElements();
+		active = false; //desactivates main menu
+		App->entity_manager->Enable();
+		App->map->Enable();
+		App->scene->Enable();
+		App->map->ChangeMap(Maps::LOBBY);
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
+		ret = false;
+	}
 	if (interaction == load_game_button) {
 		App->LoadGame("save_game.xml");
+		ret = false;
 	}
 
 	if (interaction == options_button) {
 		App->scene->CreateOptionsMenu();
 		App->gui->DeleteUIElement(background);
 		App->scene->UpdateOptionsMenu();
+		ret = false;
 	}
 
 	if (interaction == credits_button) {
 		CreateCredits();
 		App->gui->DeleteUIElement(background);
+		ret = false;
 	}
 
 	if (interaction == button_retun) {
 		CreateMainMenu();
 		DestroyCredits();
+		ret = false;
 	}
 	
 	if (interaction == button_continue_lobby) {
@@ -260,4 +300,19 @@ void m1MainMenu::CreateGameOver()
 void m1MainMenu::DestroyGameOver()
 {
 	App->gui->DeleteUIElement(game_over_panel);
+}
+
+void m1MainMenu::CreateSelectChamp()
+{
+	background = App->gui->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+
+	button_warrior = App->gui->AddButton(100, 100, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true, true);
+	button_archer = App->gui->AddButton(400, 100, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true, true);
+	button_mage = App->gui->AddButton(700, 100, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true, true);
+
+}
+
+void m1MainMenu::DestroySelectChamp()
+{
+	App->gui->DeleteUIElement(background);
 }

@@ -72,6 +72,10 @@ public:
 		DROP,
 		CARNIVOROUS_PLANT,
 		BLUE_DOG,
+		STRANGE_FROG,
+		WARRIOR,
+		ARCHER,
+		MAGE,
 
 		NO_TYPE
 	};

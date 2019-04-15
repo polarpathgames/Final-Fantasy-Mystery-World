@@ -8,7 +8,7 @@
 //#define NUM_KEYS 352
 #define NUM_CONTROLLER_BUTTONS SDL_CONTROLLER_BUTTON_MAX //16
 #define NUM_MOUSE_BUTTONS 5
-#define DEAD_ZONE 10000
+#define DEAD_ZONE 7000
 //#define LAST_KEYS_PRESSED_BUFFER 50
 
 struct SDL_Rect;
@@ -41,7 +41,9 @@ struct ButtonsUsed {
 	int DIRECCTION_RIGHT;
 	int DIAGONALS;
 	int BASIC_ATTACK;
-
+	int SHOW_SKILLS;
+	int HABILTY1;
+	int INVENTORY;
 
 };
 
@@ -56,7 +58,10 @@ struct ButtonChar {
 	char* DIRECTION_LEFT;
 	char* DIRECCTION_RIGHT;
 	char* DIAGONALS;
+	char* SHOW_SKILLS;
 	char* BASIC_ATTACK;
+	char* HABILITY1;
+	char* INVENTORY;
 };
 
 

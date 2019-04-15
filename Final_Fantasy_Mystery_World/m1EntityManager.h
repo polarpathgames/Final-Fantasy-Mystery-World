@@ -7,13 +7,18 @@
 #include <vector>
 
 enum class TextureType {
-	PLAYER,
+	WARRIOR,
+	MAGE,
+	ARCHER,
 	CARNIVOROUS_PLANT,
 	BLUE_DOG,
+	STRANGE_FROG,
 	STATIC_ENTITIES,
 
 	NONE // NONE must be the last one
 };
+
+
 
 class m1EntityManager : public m1Module
 {
