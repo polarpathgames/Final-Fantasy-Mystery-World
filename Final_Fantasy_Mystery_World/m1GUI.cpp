@@ -100,6 +100,7 @@ bool m1GUI::UpdateFocusMouse()
 			u1GUI* element = nullptr;
 			if (GetElemOnMouse(mouse.x*App->win->GetScale(), mouse.y*App->win->GetScale(), element)) {//Check if there is an element on Mouse
 				focus = element;
+				App->audio->PlayFx(fx_focus);
 			}
 			ret = focus->Update();
 		}
