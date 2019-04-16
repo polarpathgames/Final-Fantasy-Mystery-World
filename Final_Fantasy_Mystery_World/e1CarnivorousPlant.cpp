@@ -14,12 +14,17 @@ e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x
 
 	state = State::SLEEPING;
 
-	position.x -= 5;
-	position.y -= 24;
+	position.x -= 3;
+	position.y -= 21;
 
-	/*Sleep.PushBack();
+	Sleep.PushBack({272, 2, 43, 40});
+	Sleep.PushBack({317, 2, 43, 40});
+	Sleep.PushBack({ 272, 44, 43, 40 });
+	Sleep.PushBack({ 317, 44, 43, 40 });
+	Sleep.speed = 2;
+
 	current_animation = &Sleep;
-	*/
+	
 	target_position = position;
 	initial_position = position;
 	InitStats();
