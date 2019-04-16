@@ -269,7 +269,6 @@ void m1Input::UpdateMouse()
 	SDL_GetMouseState(&mouse_x, &mouse_y);
 	mouse_x /= scale;
 	mouse_y /= scale;
-	LOG("LMouse (%i, %i) Mouse (%i, %i)", last_mouse_x, last_mouse_y, mouse_x, mouse_y);
 }
 
 void m1Input::UpdateKeyboard()

@@ -81,7 +81,6 @@ bool m1GUI::UpdateFocusMouse()
 				|| App->input->CheckAxisStates(Axis::AXIS_DOWN)) {
 				using_mouse = false;
 				show_cursor = false;
-				LOG("Using keyboard");
 			}
 
 			else if (!show_cursor) {
@@ -101,7 +100,6 @@ bool m1GUI::UpdateFocusMouse()
 			if (App->input->MovedMouse()) {
 				using_mouse = true;
 				show_cursor = true;
-				LOG("Using mouse");
 			}
 
 			if (show_cursor) {
