@@ -54,6 +54,7 @@ bool e1Enemy::Save(pugi::xml_node &) const
 bool e1Enemy::CleanUp()
 {
 	App->tex->UnLoad(ground);
+	ground = nullptr;
 	return true;
 }
 

@@ -68,6 +68,8 @@ bool e1Warrior::PostUpdate()
 
 bool e1Warrior::CleanUp()
 {
+	App->tex->UnLoad(ground);
+	ground = nullptr;
 	return true;
 }
 

@@ -68,6 +68,9 @@ bool e1Mage::PostUpdate()
 
 bool e1Mage::CleanUp()
 {
+	App->tex->UnLoad(ground);
+	ground = nullptr;
+
 	return true;
 }
 
