@@ -25,6 +25,12 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 	}
+	if (strcmp(name, "furniture") == 0) {
+		static_type = e1StaticEntity::Type::FURNITURE;
+		frame = { 1070,0,64,40 };
+		SetPivot(frame.w*0.5F, frame.h*1.5F);
+		size.create(frame.w, frame.h);
+	}
 	else if (strcmp(name, "rock1") == 0) {
 		static_type = e1StaticEntity::Type::ROCK1;
 		frame = { 64,0,32,32 };

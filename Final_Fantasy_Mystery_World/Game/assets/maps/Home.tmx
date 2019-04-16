@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="right-up" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextobjectid="38">
+<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-up" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="39">
  <properties>
   <property name="movement" type="int" value="1"/>
  </properties>
  <tileset firstgid="1" name="Home" tilewidth="32" tileheight="16" tilecount="117" columns="9">
   <image source="Home.png" trans="0011ff" width="290" height="211"/>
  </tileset>
- <layer name="Home" width="40" height="40">
+ <layer id="1" name="Home" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -1610,7 +1610,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Exit" width="40" height="40">
+ <layer id="2" name="Exit" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -3214,7 +3214,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="colliders" width="40" height="40">
+ <layer id="3" name="colliders" width="40" height="40" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -4822,11 +4822,12 @@
    <tile/>
   </data>
  </layer>
- <objectgroup name="Static objects">
+ <objectgroup id="4" name="Static objects">
   <object id="36" name="feather" type="static" x="336" y="352" width="64" height="49.4688"/>
   <object id="37" name="candle" type="static" x="336" y="320" width="64" height="49.4688"/>
+  <object id="38" name="furniture" type="static" x="368" y="352" width="31.8182" height="31.9233"/>
  </objectgroup>
- <objectgroup name="collider">
+ <objectgroup id="5" name="collider">
   <object id="32" name="collider" x="369.5" y="439" width="10.75" height="7.25">
    <properties>
     <property name="home" type="int" value="0"/>
@@ -4838,7 +4839,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="player">
+ <objectgroup id="6" name="player">
   <object id="31" name="player" type="in_home" x="368" y="416" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>

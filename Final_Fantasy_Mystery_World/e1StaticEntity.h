@@ -45,6 +45,7 @@ public:
 		QUEST_FOUNTAIN,
 		NPC1,
 		NPC2,
+		FURNITURE,
 
 		UNKNOWN
 	};
