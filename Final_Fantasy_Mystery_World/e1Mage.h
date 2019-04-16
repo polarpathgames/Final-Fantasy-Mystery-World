@@ -10,15 +10,13 @@ public:
 	e1Mage(const int &x, const int &y);
 	virtual ~e1Mage();
 
-	bool PreUpdate();
-
-	bool Update(float dt);
-
-	bool PostUpdate();
-
 	bool CleanUp();
 
 	void InitStats();
+
+	void PrepareSpecialAttack1();
+
+	void SpecialAttack1();
 
 };
 

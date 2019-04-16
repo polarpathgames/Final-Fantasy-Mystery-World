@@ -39,33 +39,6 @@ e1Archer::~e1Archer()
 {
 }
 
-bool e1Archer::PreUpdate()
-{
-
-	if (!block_controls)
-		ReadPlayerInput();
-
-	return true;
-}
-
-bool e1Archer::Update(float dt)
-{
-
-	PerformActions(dt);
-
-	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
-
-	if (coll != nullptr)
-		coll->SetPos(position.x, position.y + 25);
-
-	return true;
-}
-
-bool e1Archer::PostUpdate()
-{
-	return true;
-}
-
 bool e1Archer::CleanUp()
 {
 	App->tex->UnLoad(ground);
@@ -88,3 +61,13 @@ void e1Archer::InitStats()
 	stats.xp = 0;
 
 }
+
+void e1Archer::PrepareSpecialAttack1()
+{
+	state = State::IDLE;
+}
+
+void e1Archer::SpecialAttack1()
+{
+}
+
