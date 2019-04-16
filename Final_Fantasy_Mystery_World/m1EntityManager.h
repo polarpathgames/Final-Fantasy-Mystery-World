@@ -14,6 +14,7 @@ enum class TextureType {
 	BLUE_DOG,
 	STRANGE_FROG,
 	STATIC_ENTITIES,
+	PARTICLE,
 
 	NONE // NONE must be the last one
 };

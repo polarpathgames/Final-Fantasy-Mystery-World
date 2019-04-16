@@ -77,6 +77,7 @@ public:
 		WARRIOR,
 		ARCHER,
 		MAGE,
+		PARTICLE,
 
 		NO_TYPE
 	};
