@@ -421,6 +421,7 @@ bool m1GUI::DeleteAllUIElements()
 	bool ret = true;
 
 	ret = DeleteUIElement(screen);
+	SDL_assert(ui_list.size() == 0);
 	CreateScreen();
 	focus = nullptr;
 
