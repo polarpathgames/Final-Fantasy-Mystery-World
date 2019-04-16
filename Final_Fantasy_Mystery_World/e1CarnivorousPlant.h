@@ -19,6 +19,10 @@ public:
 
 	void IdAnimToEnum();
 
+public:
+
+	Animation Sleep;
+
 };
 
 

@@ -4,6 +4,7 @@
 #include "App.h"
 #include "m1Map.h"
 #include "m1Render.h"
+#include "p2Animation.h"
 
 e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x, y)
 {
@@ -11,9 +12,19 @@ e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x
 
 	enemy_type = EnemyType::CARNIVOROUS_PLANT;
 
-	position.x -= 5;
-	position.y -= 24;
+	state = State::SLEEPING;
 
+	position.x -= 3;
+	position.y -= 21;
+
+	Sleep.PushBack({272, 2, 43, 40});
+	Sleep.PushBack({317, 2, 43, 40});
+	Sleep.PushBack({ 272, 44, 43, 40 });
+	Sleep.PushBack({ 317, 44, 43, 40 });
+	Sleep.speed = 2;
+
+	current_animation = &Sleep;
+	
 	target_position = position;
 	initial_position = position;
 	InitStats();
@@ -47,6 +58,12 @@ bool e1CarnivorousPlant::PreUpdate()
 			ChangeAnimation(direction, state, type_attack);
 		}
 
+	}
+	if (state == State::SLEEPING) {
+		if (IsPlayerNextTile()) {
+			state = State::IDLE;
+		}
+		ChangeTurn(type);
 	}
 	return true;
 }
