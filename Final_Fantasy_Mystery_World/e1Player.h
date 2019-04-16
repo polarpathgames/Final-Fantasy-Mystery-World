@@ -103,7 +103,7 @@ public:
 
 	void ReadAttack();
 
-	
+	virtual void InitStats() {};
 
 	//Update
 	void PerformActions(float dt); // Global organizator function 

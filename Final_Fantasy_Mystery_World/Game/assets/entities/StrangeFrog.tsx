@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.2" name="Frog" tilewidth="34" tileheight="40" tilecount="90" columns="15">
- <image source="../sprites/Frog.png" width="512" height="240"/>
+<tileset version="1.2" tiledversion="1.2.2" name="Frog" tilewidth="34" tileheight="40" tilecount="105" columns="15">
+ <image source="../sprites/Frog.png" width="512" height="280"/>
  <tile id="0">
   <properties>
    <property name="speed" type="int" value="5"/>
@@ -147,6 +147,69 @@
    <frame tileid="87" duration="270"/>
    <frame tileid="88" duration="270"/>
    <frame tileid="89" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="90">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="92" duration="270"/>
+   <frame tileid="90" duration="270"/>
+   <frame tileid="91" duration="270"/>
+   <frame tileid="90" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="92">
+  <animation>
+   <frame tileid="92" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="93">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="95" duration="270"/>
+   <frame tileid="93" duration="270"/>
+   <frame tileid="94" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="95">
+  <animation>
+   <frame tileid="95" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="96">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="96" duration="270"/>
+   <frame tileid="97" duration="270"/>
+   <frame tileid="98" duration="270"/>
+   <frame tileid="97" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="98">
+  <animation>
+   <frame tileid="98" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="99">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="99" duration="270"/>
+   <frame tileid="100" duration="270"/>
+   <frame tileid="101" duration="270"/>
+   <frame tileid="100" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="101">
+  <animation>
+   <frame tileid="101" duration="270"/>
   </animation>
  </tile>
 </tileset>

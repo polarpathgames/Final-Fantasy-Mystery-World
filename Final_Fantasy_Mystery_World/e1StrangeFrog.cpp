@@ -129,20 +129,30 @@ void e1StrangeFrog::IdAnimToEnum()
 		case 60:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_LEFT;
 			break;
-		
-			/*case 14:
+		case 92:
 			data.animations[i].animType = AnimationState::IDLE_DOWN;
 			break;
-			case 16:
+		case 95:
 			data.animations[i].animType = AnimationState::IDLE_UP;
 			break;
-			case 19:
+		case 98:
 			data.animations[i].animType = AnimationState::IDLE_LEFT;
 			break;
-			case 22:
+		case 101:
 			data.animations[i].animType = AnimationState::IDLE_RIGHT;
-			break;*/
-
+			break;
+		case 90:
+			data.animations[i].animType = AnimationState::WALKING_DOWN;
+			break;
+		case 93:
+			data.animations[i].animType = AnimationState::WALKING_UP;
+			break;
+		case 96:
+			data.animations[i].animType = AnimationState::WALKING_LEFT;
+			break;
+		case 99:
+			data.animations[i].animType = AnimationState::WALKING_RIGHT;
+			break;
 
 		case 36:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN;
