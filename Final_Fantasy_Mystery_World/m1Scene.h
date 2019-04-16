@@ -14,6 +14,7 @@ enum class StatesMenu {
 	POTION_MENU,
 	GO_TO_QUEST_MENU,
 	SHOP_MENU,
+	DIE_MENU,
 
 	NONE
 };
@@ -94,6 +95,9 @@ public:
 	void CreateDebugScreen();
 	void DestroyDebugScreen();
 	void UpdateDebugScreen();
+
+	void CreateGameOver();
+	void DestroyGameOver();
 
 	bool Interact(u1GUI* interaction);
 	StatesMenu GetMenuState();
@@ -350,6 +354,16 @@ private:
 	u1Label* player_label = nullptr;
 	u1Label* mouse_label = nullptr;
 	u1Label* entities_label = nullptr;
+
+	// game over
+
+	u1Image* game_over_panel = nullptr;
+
+	u1Button* button_continue_lobby = nullptr;
+	u1Label* label_continue_lobby = nullptr;
+
+	u1Button* button_return_main = nullptr;
+	u1Label* label_continue_main = nullptr;
 
 };
 

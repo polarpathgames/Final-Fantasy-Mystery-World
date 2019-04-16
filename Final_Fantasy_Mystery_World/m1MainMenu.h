@@ -43,10 +43,6 @@ public:
 	void CreateCredits();
 	void DestroyCredits();
 
-	
-	void CreateGameOver();
-	void DestroyGameOver();
-
 	void CreateSelectChamp();
 	void DestroySelectChamp();
 
@@ -108,14 +104,6 @@ private:
 	
 	u1Button* button_youtube = nullptr;
 	u1Label* label_youtube = nullptr;
-
-	u1Image* game_over_panel = nullptr;
-
-	u1Button* button_continue_lobby = nullptr;
-	u1Label* label_continue_lobby = nullptr; 
-	
-	u1Button* button_return_main = nullptr;
-	u1Label* label_continue_main = nullptr;
 	
 	u1Image* select_champ_panel = nullptr;
 	u1Button* button_warrior = nullptr;

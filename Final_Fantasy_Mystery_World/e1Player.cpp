@@ -846,7 +846,8 @@ void e1Player::Death()
 		App->map->CleanUp();
 		App->entity_manager->DeleteEntitiesNoPlayer();
 		App->gui->DeleteUIElement((u1GUI*)App->scene->bg_hud);
-		App->main_menu->CreateGameOver();
+		App->scene->CreateGameOver();
+		App->scene->SetMenuState(StatesMenu::DIE_MENU);
 		state = State::MENU;
 		stats.live = stats.max_lives;
 		stats.mana = stats.max_mana;

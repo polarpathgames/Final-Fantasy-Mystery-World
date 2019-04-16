@@ -886,6 +886,26 @@ void m1Scene::UpdateDebugScreen()
 	}
 }
 
+void m1Scene::CreateGameOver()
+{
+	game_over_panel = App->gui->AddImage(0, 0, { 1024, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+	game_over_panel->SetPosRespectParent(CENTERED);
+
+	button_continue_lobby = App->gui->AddButton(150, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, game_over_panel, false, false, true, true);
+	label_continue_lobby = App->gui->AddLabel(0, 0, "Continue to Lobby", button_continue_lobby, WHITE, FontType::FF100, nullptr, false);
+	label_continue_lobby->SetPosRespectParent(LEFT_CENTERED);
+
+
+	button_return_main = App->gui->AddButton(610, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, game_over_panel, false, false, true, true);
+	label_continue_main = App->gui->AddLabel(0, 0, "Return Main Menu", button_return_main, WHITE, FontType::FF100, nullptr, false);
+	label_continue_main->SetPosRespectParent(LEFT_CENTERED);
+}
+
+void m1Scene::DestroyGameOver()
+{
+	App->gui->DeleteUIElement(game_over_panel);
+}
+
 bool m1Scene::Interact(u1GUI* interact)
 {
 	bool ret = true;
@@ -971,6 +991,24 @@ bool m1Scene::Interact(u1GUI* interact)
 			DeletePotionMenu();
 			menu_state = StatesMenu::INVENTORY_MENU;
 			ret = false;
+		}
+		break;
+	case StatesMenu::DIE_MENU:
+		if (interact == button_continue_lobby) {
+			DestroyGameOver();
+			App->fade_to_black->FadeToBlack(Maps::HOME);
+			menu_state = StatesMenu::NO_MENU;
+			CreateHUD();
+			ret = false;
+		}
+		if (interact == button_return_main) {
+			DestroyGameOver();
+			App->entity_manager->Disable();
+			App->map->Disable();
+			active = false;
+			App->main_menu->Enable();
+			ret = false;
+			App->scene->SetMenuState(StatesMenu::NO_MENU);
 		}
 		break;
 	case StatesMenu::OPTIONS_MENU:
