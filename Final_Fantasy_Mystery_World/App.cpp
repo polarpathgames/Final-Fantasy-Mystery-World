@@ -499,6 +499,11 @@ uint32 Application::GetFps()
 	return frames_on_last_update;
 }
 
+float Application::GetDeltaTime()
+{
+	return dt;
+}
+
 bool Application::GetInventory()
 {
 	return is_inventory;

@@ -70,6 +70,7 @@ public:
 
 	void CreateEntities();
 	void CreateHUD();
+	void ShowHUD(bool show_or_hide);
 
 	void CreateInventory();
 	void DestroyInventory();

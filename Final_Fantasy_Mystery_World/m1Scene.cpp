@@ -803,7 +803,7 @@ void m1Scene::CreateDebugScreen()
 
 	project_name_label = App->gui->AddLabel(0, 0, App->GetTitle(), debug_screen, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
 	version_label = App->gui->AddLabel(0, project_name_label->section.h, std::string(std::string("Version: ") + App->GetVersion()).data(), debug_screen, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
-	fps_label = App->gui->AddLabel(0, version_label->position.y + version_label->section.h, "fps: ", project_name_label, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
+	fps_label = App->gui->AddLabel(0, version_label->position.y + version_label->section.h, "fps: 000 | dt: 000", project_name_label, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
 
 	textures_label = App->gui->AddLabel(0, fps_label->position.y + fps_label->section.h * 2, "textures:\nnumber of textures: %i",
 		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
@@ -844,7 +844,7 @@ void m1Scene::UpdateDebugScreen()
 	BROFILER_CATEGORY("UpdateDebugScreen", Profiler::Color::Orange);
 
 	if (debug_screen != nullptr) {
-		fps_label->SetText(std::string("fps: " + std::to_string(App->GetFps())).data());
+		fps_label->SetText(std::string("fps: " + std::to_string(App->GetFps()) + " | dt: " + std::to_string(App->GetDeltaTime())).data());
 
 		textures_label->SetTextWrapped(std::string("textures:\nnumber of textures: " + std::to_string(App->tex->textures.size())).data());
 
@@ -870,13 +870,13 @@ void m1Scene::UpdateDebugScreen()
 		const u1GUI* focus = App->gui->GetFocus();
 
 		if (focus == nullptr) {
-			mouse_label->SetTextWrapped(std::string("mouse:\nposition: (" + std::to_string(x) + ", " + std::to_string(y) +
+			mouse_label->SetTextWrapped(std::string("mouse:\nposition: (" + std::to_string(x*App->win->GetScale()) + ", " + std::to_string(y*App->win->GetScale()) +
 				")\nmotion: (" + std::to_string(m_x) + ", " + std::to_string(m_y) +
 				")\ntile: (" + std::to_string(tile.x) + ", " + std::to_string(tile.y) +
 				")\nUI Element selected:\nposition: (00, 00)\nsection: (00, 00)\nnumber of childs: 00\ntype: unknown").data());
 		}
 		else {
-			mouse_label->SetTextWrapped(std::string("mouse:\nposition: (" + std::to_string(x) + ", " + std::to_string(y) +
+			mouse_label->SetTextWrapped(std::string("mouse:\nposition: (" + std::to_string(x*App->win->GetScale()) + ", " + std::to_string(y*App->win->GetScale()) +
 				")\nmotion: (" + std::to_string(m_x) + ", " + std::to_string(m_y) +
 				")\ntile: (" + std::to_string(tile.x) + ", " + std::to_string(tile.y) +
 				")\nUI Element selected:\nposition: (" + std::to_string(focus->position.x) + ", " + std::to_string(focus->position.y) +
@@ -936,6 +936,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			CreateOptionsMenu();
 			DestroyPauseMenu();
 			menu_state = StatesMenu::OPTIONS_MENU;
+			ShowHUD(false);
 			ret = false;
 		}
 		break;
@@ -1016,6 +1017,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			CreatePauseMenu();
 			DestroyOptionsMenu();
 			menu_state = StatesMenu::PAUSE_MENU;
+      ShowHUD(true);
 			ret = false;
 		}
 		if (interact == button_controls) {
@@ -1207,7 +1209,14 @@ void m1Scene::SetMenuState(const StatesMenu & menu)
 
 void m1Scene::CreateHUD()
 {
-	bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, this, App->gui->screen, true, false, false, false);
-	player_hp_bar = App->gui->AddBar(215, 662, player->stats.max_lives, HPBAR, bg_hud, this);
-	player_mana_bar = App->gui->AddBar(215, 700, player->stats.max_mana, MANABAR, bg_hud, this);
+	bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, nullptr, App->gui->screen, true, false, false, false);
+	player_hp_bar = App->gui->AddBar(215, 662, player->stats.max_lives, HPBAR, bg_hud, nullptr);
+	player_mana_bar = App->gui->AddBar(215, 700, player->stats.max_mana, MANABAR, bg_hud, nullptr);
+}
+
+void m1Scene::ShowHUD(bool show_or_hide)
+{
+	bg_hud->drawable = show_or_hide;
+	player_hp_bar->drawable = show_or_hide;
+	player_mana_bar->drawable = show_or_hide;
 }

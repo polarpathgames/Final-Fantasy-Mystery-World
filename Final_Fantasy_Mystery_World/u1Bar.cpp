@@ -3,6 +3,7 @@
 #include "u1Image.h"
 #include "e1Player.h"
 #include "m1Scene.h"
+#include "m1Render.h"
 
 u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* parent, m1Module* callback) :u1GUI(BAR, x, y, parent, {0, 0, 0, 0}, true, false, false, false)
 {
@@ -14,15 +15,15 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 	if (type == HPBAR)
 	{
 		current_width = max_width;
-		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, App->scene->bg_hud, true, false, false, false);
-		hp_bar = App->gui->AddImage(7, 5, { 1405, 3149, 172, 10 }, App->scene, empty_bar, true, false, false, false);
+		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, App->scene->bg_hud, false, false, false, false);
+		filled_bar = App->gui->AddImage(7, 5, { 1405, 3149, 172, 10 }, App->scene, empty_bar, false, false, false, false);
 	}
 
 	if (type == MANABAR)
 	{
 		current_width = max_width;
-		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, App->scene->bg_hud, true, false, false, false);
-		mana_bar = App->gui->AddImage(7, 5, { 1405, 3185, 172, 10 }, App->scene, empty_bar, true, false, false, false);
+		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, App->scene->bg_hud, false, false, false, false);
+		filled_bar = App->gui->AddImage(7, 5, { 1405, 3185, 172, 10 }, App->scene, empty_bar, false, false, false, false);
 	}
 }
 
@@ -32,19 +33,22 @@ void u1Bar::UpdateBar(int quantity, UIType bar_type)
 {
 	if (empty_bar != nullptr)
 	{
-		if (bar_type == UIType::HPBAR)
-		{
-			current_width = CalculateBar(quantity);
-			App->gui->DeleteUIElement(hp_bar);
-			hp_bar = App->gui->AddImage(7, 5, { 1405, 3149, current_width, 10 }, App->scene, empty_bar, true, false, false, false);
-		}
+		int new_width = CalculateBar(quantity);
 
-		if (bar_type == UIType::MANABAR)
-		{
-			current_width = CalculateBar(quantity);
-			App->gui->DeleteUIElement(mana_bar);
-			mana_bar = App->gui->AddImage(7, 5, { 1405, 3185, current_width, 10 }, App->scene, empty_bar, true, false, false, false);
+		if (new_width != current_width) {
+			current_width = new_width;
+			App->gui->DeleteUIElement(filled_bar);
+			if (bar_type == UIType::HPBAR)
+			{
+				filled_bar = App->gui->AddImage(7, 5, { 1405, 3149, current_width, 10 }, App->scene, empty_bar, false, false, false, false);
+			}
+
+			else if (bar_type == UIType::MANABAR)
+			{
+				filled_bar = App->gui->AddImage(7, 5, { 1405, 3185, current_width, 10 }, App->scene, empty_bar, false, false, false, false);
+			}
 		}
+		
 	}
 }
 
@@ -70,4 +74,12 @@ int u1Bar::CalculateBar(int quantity)
 
 	return new_width;
 
+}
+
+void u1Bar::InnerDraw()
+{
+	if (drawable) {
+		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), empty_bar->draw_offset.x, empty_bar->draw_offset.y, &empty_bar->section, false, SDL_FLIP_NONE, 0);
+		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), filled_bar->draw_offset.x, filled_bar->draw_offset.y, &filled_bar->section, false, SDL_FLIP_NONE, 0);
+	}
 }
