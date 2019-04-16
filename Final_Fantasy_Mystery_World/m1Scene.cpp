@@ -130,38 +130,29 @@ bool m1Scene::Update(float dt)
 			if (App->ChangePause()) {
 				CreatePauseMenu();
 				player->BlockControls(true);
-			}
-			else {
-				DestroyPauseMenu();
-				player->BlockControls(false);
+				menu_state = StatesMenu::PAUSE_MENU;
 			}
 		}
 		if ((App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial) {
 			if (App->ChangeInventory()) {
 				CreateInventory();
 				player->BlockControls(true);
-			}
-			else {
-				DestroyInventory();
-				player->BlockControls(false);
+				menu_state = StatesMenu::INVENTORY_MENU;
 			}
 		}
 		break;
 	case StatesMenu::INVENTORY_MENU:
-		if (App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) {
-			if (App->ChangeInventory()) {
-				CreateInventory();
-				player->BlockControls(true);
-			}
-			else {
-				DestroyInventory();
-				player->BlockControls(false);
-			}
-		}
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+		if (App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->ChangeInventory();
 			DestroyInventory();
 			player->BlockControls(false);
+			menu_state = StatesMenu::NO_MENU;
+		}
+		break;
+	case StatesMenu::GO_TO_QUEST_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			DestroyGoToQuestMenu();
+			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
 	case StatesMenu::POTION_MENU:
@@ -179,21 +170,27 @@ bool m1Scene::Update(float dt)
 		}
 		break;
 	case StatesMenu::OPTIONS_MENU:
+		if (options_panel != nullptr) {
+			UpdateOptionsMenu();
+		}
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			CreatePauseMenu();
 			DestroyOptionsMenu();
 			player->BlockControls(true);
+			menu_state = StatesMenu::PAUSE_MENU;
 		}
 		break;
 	case StatesMenu::SHOP_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			DestroyShopMenu();
+			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
 	case StatesMenu::CONTROLS_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			CreateOptionsMenu();
 			DestroyControlsMenu();
+			menu_state = StatesMenu::OPTIONS_MENU;
 		}
 		if (control_to_change != nullptr && !control_to_change->Update()) {
 			delete control_to_change;
@@ -206,9 +203,7 @@ bool m1Scene::Update(float dt)
 		UpdateDebugScreen();
 	}
 
-	if (options_panel != nullptr) {
-		UpdateOptionsMenu();
-	}
+	
 
 	//if (!App->audio->mute_volume) Mix_VolumeMusic(slider_music_volume->GetValue());
 	//if (!App->audio->mute_fx) App->audio->SliderVolumeFx(slider_fx_volume->GetValue());
@@ -347,7 +342,7 @@ void m1Scene::CreateGoToQuestMenu()
 
 	player->BlockControls(true);
 
-	menu_state = StatesMenu::GO_TO_QUEST_MENU;
+	//menu_state = StatesMenu::GO_TO_QUEST_MENU;
 
 }
 
@@ -357,7 +352,7 @@ void m1Scene::DestroyGoToQuestMenu()
 	App->gui->DeleteUIElement(go_to_quest_panel);
 
 	player->BlockControls(false);
-	menu_state = StatesMenu::NO_MENU;
+	//menu_state = StatesMenu::NO_MENU;
 }
 
 void m1Scene::CreateInventory()
@@ -388,14 +383,14 @@ void m1Scene::CreateInventory()
 
 
 
-	menu_state = StatesMenu::INVENTORY_MENU;
+	//menu_state = StatesMenu::INVENTORY_MENU;
 }
 
 void m1Scene::DestroyInventory()
 {
 	App->gui->DeleteUIElement(inventory_panel);
 	App->gui->ShowCursor(false);
-	menu_state = StatesMenu::NO_MENU;
+	//menu_state = StatesMenu::NO_MENU;
 }
 
 void m1Scene::CreatePotionMenu(u1GUI* potion_button)
@@ -430,13 +425,13 @@ void m1Scene::CreatePotionMenu(u1GUI* potion_button)
 		App->gui->FocusButton(use_mana_button);
 	}
 
-	menu_state = StatesMenu::POTION_MENU;
+	//menu_state = StatesMenu::POTION_MENU;
 }
 
 void m1Scene::DeletePotionMenu()
 {
 	App->gui->DeleteUIElement(potion_panel);
-	menu_state = StatesMenu::INVENTORY_MENU;
+	//menu_state = StatesMenu::INVENTORY_MENU;
 }
 
 void m1Scene::CreatePauseMenu()
@@ -461,7 +456,7 @@ void m1Scene::CreatePauseMenu()
 	label_options = App->gui->AddLabel(0, 0, "Options", button_options, BLACK, FontType::FF48, nullptr,false);
 	label_options->SetPosRespectParent(CENTERED);
 
-	menu_state = StatesMenu::PAUSE_MENU;
+	//menu_state = StatesMenu::PAUSE_MENU;
 }
 
 void m1Scene::DestroyPauseMenu()
@@ -522,7 +517,7 @@ void m1Scene::CreateOptionsMenu()
 	label_return = App->gui->AddLabel(0, 0, "Return", button_retun, BLACK, FontType::FF48, nullptr, false);
 	label_return->SetPosRespectParent(CENTERED);
 
-	menu_state = StatesMenu::OPTIONS_MENU;
+	//menu_state = StatesMenu::OPTIONS_MENU;
 }
 
 void m1Scene::DestroyOptionsMenu()
@@ -545,7 +540,6 @@ void m1Scene::UpdateOptionsMenu()
 		label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
 		label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
 	}
-	
 }
 
 void m1Scene::CreateControlsMenu()
@@ -751,7 +745,7 @@ void m1Scene::CreateControlsMenu()
 
 	
 
-	menu_state = StatesMenu::CONTROLS_MENU;
+	//menu_state = StatesMenu::CONTROLS_MENU;
 }
 
 void m1Scene::DestroyControlsMenu()
@@ -789,7 +783,7 @@ void m1Scene::CreateShopMenu()
 
 	App->gui->FocusButton(shop_button_hp_potion);
 
-	menu_state = StatesMenu::SHOP_MENU;
+	//menu_state = StatesMenu::SHOP_MENU;
 }
 
 void m1Scene::DestroyShopMenu()
@@ -797,7 +791,7 @@ void m1Scene::DestroyShopMenu()
 	player->BlockControls(false);
 	App->gui->DeleteUIElement(shop_panel);
 
-	menu_state = StatesMenu::NO_MENU;
+	//menu_state = StatesMenu::NO_MENU;
 }
 
 void m1Scene::CreateDebugScreen()
@@ -892,6 +886,26 @@ void m1Scene::UpdateDebugScreen()
 	}
 }
 
+void m1Scene::CreateGameOver()
+{
+	game_over_panel = App->gui->AddImage(0, 0, { 1024, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+	game_over_panel->SetPosRespectParent(CENTERED);
+
+	button_continue_lobby = App->gui->AddButton(150, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, game_over_panel, false, false, true, true);
+	label_continue_lobby = App->gui->AddLabel(0, 0, "Continue to Lobby", button_continue_lobby, WHITE, FontType::FF100, nullptr, false);
+	label_continue_lobby->SetPosRespectParent(LEFT_CENTERED);
+
+
+	button_return_main = App->gui->AddButton(610, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, game_over_panel, false, false, true, true);
+	label_continue_main = App->gui->AddLabel(0, 0, "Return Main Menu", button_return_main, WHITE, FontType::FF100, nullptr, false);
+	label_continue_main->SetPosRespectParent(LEFT_CENTERED);
+}
+
+void m1Scene::DestroyGameOver()
+{
+	App->gui->DeleteUIElement(game_over_panel);
+}
+
 bool m1Scene::Interact(u1GUI* interact)
 {
 	bool ret = true;
@@ -912,15 +926,16 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->gui->DeleteAllUIElements();
 			App->entity_manager->Disable();
 			App->map->Disable();
-			active = false; //desactivates main menu
+			active = false; 
 			App->main_menu->Enable();
 			ret = false;
-			menu_state = StatesMenu::NO_MENU;
+			menu_state = StatesMenu::NONE;
 		}
 		if (interact == button_options)
 		{
 			CreateOptionsMenu();
 			DestroyPauseMenu();
+			menu_state = StatesMenu::OPTIONS_MENU;
 			ShowHUD(false);
 			ret = false;
 		}
@@ -929,20 +944,27 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == go_to_quest_button) {
 			DestroyGoToQuestMenu();
 			App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
+			menu_state = StatesMenu::NO_MENU;
 			ret = false;
 		}
 		if (interact == cancel_quest_button) {
 			DestroyGoToQuestMenu();
+			menu_state = StatesMenu::NO_MENU;
 			ret = false;
 		}
+		break;
 	case StatesMenu::INVENTORY_MENU:
 		if (interact == hp_potion_button) {
 			DeletePotionMenu();
 			CreatePotionMenu(hp_potion_button);
+			menu_state = StatesMenu::POTION_MENU;
+			ret = false;
 		}
 		if (interact == mana_potion_button) {
 			DeletePotionMenu();
 			CreatePotionMenu(mana_potion_button);
+			menu_state = StatesMenu::POTION_MENU;
+			ret = false;
 		}
 		break;
 	case StatesMenu::POTION_MENU:
@@ -972,26 +994,94 @@ bool m1Scene::Interact(u1GUI* interact)
 			ret = false;
 		}
 		break;
+	case StatesMenu::DIE_MENU:
+		if (interact == button_continue_lobby) {
+			DestroyGameOver();
+			App->fade_to_black->FadeToBlack(Maps::HOME);
+			menu_state = StatesMenu::NO_MENU;
+			CreateHUD();
+			ret = false;
+		}
+		if (interact == button_return_main) {
+			DestroyGameOver();
+			App->entity_manager->Disable();
+			App->map->Disable();
+			active = false;
+			App->main_menu->Enable();
+			ret = false;
+			App->scene->SetMenuState(StatesMenu::NO_MENU);
+		}
+		break;
 	case StatesMenu::OPTIONS_MENU:
 		if (interact == button_retun) {
-			if (App->main_menu->active) {
-				App->main_menu->CreateMainMenu();
-				DestroyOptionsMenu();
-			}
-			else {
-				CreatePauseMenu();
-				DestroyOptionsMenu();
-				ShowHUD(true);
-			}
+			CreatePauseMenu();
+			DestroyOptionsMenu();
+			menu_state = StatesMenu::PAUSE_MENU;
+      ShowHUD(true);
+			ret = false;
 		}
 		if (interact == button_controls) {
 			CreateControlsMenu();
 			DestroyOptionsMenu();
+			menu_state = StatesMenu::CONTROLS_MENU;
+			ret = false;
+		}
+		if (interact == checkbox_fps)
+		{
+			checkbox_fps->Clicked();
+			if (App->capactivated) {
+				App->capactivated = false;
+			}
+			else {
+				App->capactivated = true;
+			}
+			//App->GetFrameRate();
+		}
+
+		if (interact == checkbox_fullscreen)
+		{
+			checkbox_fullscreen->Clicked();
+
+			if (App->win->fullscreen) {
+				App->win->fullscreen = false;
+				SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_SHOWN);
+			}
+			else {
+				App->win->fullscreen = true;
+				SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_FULLSCREEN);
+			}
+		}
+		//Audio------
+		if (interact == button_music_volume) {
+			App->audio->StopMusic(-2);
+		}
+		else if (interact == button_fx_volume) {
+			App->audio->StopMusic(-3);
+		}
+		else if (interact == minus_music_btn) {
+			App->audio->VolumeDown(-2);
+		}
+		else if (interact == plus_music_btn) {
+			App->audio->VolumeUp(-2);
+		}
+		else if (interact == minus_fx_btn) {
+			App->audio->VolumeDown(-3);
+		}
+		else if (interact == plus_fx_btn) {
+			App->audio->VolumeUp(-3);
+		}
+		else if (interact == minus_general_btn) {
+			App->audio->VolumeDown(-1);
+		}
+		else if (interact == plus_general_btn) {
+			App->audio->VolumeUp(-1);
 		}
 		break;
 	case StatesMenu::SHOP_MENU:
 		if (interact == button_close_shop) {
 			DestroyShopMenu();
+			menu_state = StatesMenu::NO_MENU;
+			ret = false;
 		}
 		if (interact == shop_button_hp_potion) {
 			if (player->stats.gold >= price_hp_potion) {
@@ -1018,6 +1108,8 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == button_retun_to_options) {
 			CreateOptionsMenu();
 			DestroyControlsMenu();
+			menu_state = StatesMenu::OPTIONS_MENU;
+			ret = false;
 		}
 		if (interact == button_up) {
 			if (control_to_change != nullptr)
@@ -1102,58 +1194,6 @@ bool m1Scene::Interact(u1GUI* interact)
 		break;
 	}
 	
-	if (interact == checkbox_fps)
-	{
-		checkbox_fps->Clicked();
-		if (App->capactivated) {
-			App->capactivated = false;
-		}
-		else {
-			App->capactivated = true;
-		}
-		//App->GetFrameRate();
-	}
-
-	if (interact == checkbox_fullscreen)
-	{
-		checkbox_fullscreen->Clicked();
-		
-		if (App->win->fullscreen) {
-			App->win->fullscreen = false;
-			SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_SHOWN);
-		}
-		else {
-			App->win->fullscreen = true;
-			SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_FULLSCREEN);
-		}
-	}
-
-	//Audio------
-	if (interact == button_music_volume) {
-		App->audio->StopMusic(-2);
-	}
-	else if (interact == button_fx_volume) {
-		App->audio->StopMusic(-3);
-	}
-	else if (interact == minus_music_btn) {
-		App->audio->VolumeDown(-2);
-	}
-	else if (interact == plus_music_btn) {
-		App->audio->VolumeUp(-2);
-	}
-	else if (interact == minus_fx_btn) {
-		App->audio->VolumeDown(-3);
-	}
-	else if (interact == plus_fx_btn) {
-		App->audio->VolumeUp(-3);
-	}
-	else if (interact == minus_general_btn) {
-		App->audio->VolumeDown(-1);
-	}
-	else if (interact == plus_general_btn) {
-		App->audio->VolumeUp(-1);
-	}
-
 	return ret;
 }
 

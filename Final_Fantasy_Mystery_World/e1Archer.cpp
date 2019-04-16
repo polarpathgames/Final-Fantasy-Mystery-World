@@ -69,6 +69,8 @@ bool e1Archer::PostUpdate()
 
 bool e1Archer::CleanUp()
 {
+	App->tex->UnLoad(ground);
+	ground = nullptr;
 	return true;
 }
 

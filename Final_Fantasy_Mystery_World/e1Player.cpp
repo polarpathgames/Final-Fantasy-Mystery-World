@@ -72,6 +72,7 @@ void e1Player::OnCollisionEnter(Collider * c2)
 	}
 	if (c2->type == COLLIDER_MENU_QUEST) {
 		App->scene->CreateGoToQuestMenu();
+		App->scene->SetMenuState(StatesMenu::GO_TO_QUEST_MENU);
 	}
 	if (c2->type == COLLIDER_CUTSCENE_BRIDGE) {
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneBlockPass.xml");
@@ -849,7 +850,8 @@ void e1Player::Death()
 		App->map->CleanUp();
 		App->entity_manager->DeleteEntitiesNoPlayer();
 		App->gui->DeleteUIElement((u1GUI*)App->scene->bg_hud);
-		App->main_menu->CreateGameOver();
+		App->scene->CreateGameOver();
+		App->scene->SetMenuState(StatesMenu::DIE_MENU);
 		state = State::MENU;
 		stats.live = stats.max_lives;
 		stats.mana = stats.max_mana;

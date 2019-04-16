@@ -258,7 +258,7 @@ bool m1GUI::CleanUp()
 
 	ui_list.clear();
 	App->tex->UnLoad(atlas);
-
+	atlas = nullptr;
 	return true;
 }
 

@@ -47,18 +47,21 @@ bool m1EntityManager::Start()
 {
 	bool ret = true;
 
-	texture.reserve((uint)TextureType::NONE);
+	if (!textures_loaded) {
+		texture.reserve((uint)TextureType::NONE);
 
-	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)10, "add the new texture in the enum and here");
+		static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)10, "add the new texture in the enum and here");
+
+		texture[(uint)TextureType::WARRIOR] = App->tex->Load("assets/sprites/WarriorSpritesheet.png");
+		texture[(uint)TextureType::ARCHER] = App->tex->Load("assets/sprites/ArcherSpritesheet.png");
+		texture[(uint)TextureType::MAGE] = App->tex->Load("assets/sprites/MageSpritesheet.png");
+		texture[(uint)TextureType::CARNIVOROUS_PLANT] = App->tex->Load("assets/sprites/Carnivorous Plant.png");
+		texture[(uint)TextureType::STRANGE_FROG] = App->tex->Load("assets/sprites/Frog.png");
+		texture[(uint)TextureType::BLUE_DOG] = App->tex->Load("assets/sprites/Dog.png");
+		texture[(uint)TextureType::STATIC_ENTITIES] = App->tex->Load("assets/maps/static_objects_tileset.png");
+		textures_loaded = true;
+	}
 	
-	texture[(uint)TextureType::WARRIOR] = App->tex->Load("assets/sprites/WarriorSpritesheet.png");
-	texture[(uint)TextureType::ARCHER] = App->tex->Load("assets/sprites/ArcherSpritesheet.png");
-	texture[(uint)TextureType::MAGE] = App->tex->Load("assets/sprites/MageSpritesheet.png");
-	texture[(uint)TextureType::CARNIVOROUS_PLANT] = App->tex->Load("assets/sprites/Carnivorous Plant.png");
-	texture[(uint)TextureType::STRANGE_FROG] = App->tex->Load("assets/sprites/Frog.png");
-	texture[(uint)TextureType::BLUE_DOG] = App->tex->Load("assets/sprites/Dog.png");
-	texture[(uint)TextureType::STATIC_ENTITIES] = App->tex->Load("assets/maps/static_objects_tileset.png");
-
 	return ret;
 }
 
@@ -193,6 +196,7 @@ bool m1EntityManager::CleanUp()
 
 	for (std::vector<SDL_Texture*>::iterator item_tx = texture.begin(); item_tx != texture.end(); ++item_tx) {
 		App->tex->UnLoad(*item_tx);
+		*item_tx = nullptr;
 	}
 	texture.clear();
 

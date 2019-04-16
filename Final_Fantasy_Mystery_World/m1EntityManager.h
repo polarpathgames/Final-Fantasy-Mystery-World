@@ -69,6 +69,7 @@ private:
 	std::vector<e1Entity*> entities;
 	std::vector<SDL_Texture*> texture;
 	
+	bool textures_loaded = false;
 };
 
 #endif
