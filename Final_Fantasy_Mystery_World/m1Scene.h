@@ -264,6 +264,30 @@ private:
 	u1Label* label_direction_down = nullptr;
 	u1Label* label_to_show_how_direction_down = nullptr;
 
+	u1Button* button_inventory = nullptr;
+	u1Label* label_inventory = nullptr;
+	u1Label* label_to_show_how_inventory = nullptr;
+
+	u1Button* button_interact = nullptr;
+	u1Label* label_interact = nullptr;
+	u1Label* label_to_show_how_interact = nullptr;
+
+	u1Button* button_abilities = nullptr;
+	u1Label* label_abilities = nullptr;
+	u1Label* label_to_show_how_abilities = nullptr;
+
+	u1Button* button_ability1 = nullptr;
+	u1Label* label_ability1 = nullptr;
+	u1Label* label_to_show_how_ability1 = nullptr;
+
+	u1Button* button_ability2 = nullptr;
+	u1Label* label_ability2 = nullptr;
+	u1Label* label_to_show_how_ability2 = nullptr;
+
+	u1Button* button_ability3 = nullptr;
+	u1Label* label_ability3 = nullptr;
+	u1Label* label_to_show_how_ability3 = nullptr;
+
 	// CONTROLLER
 
 	u1Label* controller = nullptr;
@@ -297,6 +321,24 @@ private:
 
 	u1Button* Cbutton_down = nullptr;
 	u1Label* Clabel_to_show_how_down = nullptr;
+
+	u1Button* Cbutton_inventory = nullptr;
+	u1Label* Clabel_to_show_how_inventory = nullptr;
+
+	u1Button* Cbutton_interact = nullptr;
+	u1Label* Clabel_to_show_how_interact = nullptr;
+
+	u1Button* Cbutton_abilities = nullptr;
+	u1Label* Clabel_to_show_how_abilities = nullptr;
+
+	u1Button* Cbutton_ability1 = nullptr;
+	u1Label* Clabel_to_show_how_ability1 = nullptr;
+
+	u1Button* Cbutton_ability2 = nullptr;
+	u1Label* Clabel_to_show_how_ability2 = nullptr;
+
+	u1Button* Cbutton_ability3 = nullptr;
+	u1Label* Clabel_to_show_how_ability3 = nullptr;
 
 	// Debug Screen
 	u1Image* debug_screen = nullptr;
