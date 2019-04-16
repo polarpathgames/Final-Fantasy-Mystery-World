@@ -1,0 +1,11 @@
+<cutscenes>
+  <actions>
+    <cutscene action="move_entity" entity="daughter">
+      <time start="3000" duration="200" speed_x="160" speed_y="-80"/>
+    </cutscene>
+  </actions>
+  <elements>
+    <element type="entity" name="daughter" pos_x="0" pos_y="0"/>
+  </elements>
+
+</cutscenes>

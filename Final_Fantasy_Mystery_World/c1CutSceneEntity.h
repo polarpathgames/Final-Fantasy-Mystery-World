@@ -3,7 +3,7 @@
 
 #include "c1CutsceneElement.h"
 #include "e1Entity.h"
-
+#include <vector>
 
 class c1CutsceneEntity :public c1CutsceneElement {
 public:

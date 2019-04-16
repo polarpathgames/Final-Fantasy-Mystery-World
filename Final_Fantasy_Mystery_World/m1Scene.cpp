@@ -15,6 +15,7 @@
 #include "m1Scene.h"
 #include "m1MainMenu.h"
 #include <string>
+#include "m1Cutscene.h"
 #include "u1UI_Element.h"
 #include "u1Button.h"
 #include "u1Label.h"
@@ -96,10 +97,10 @@ bool m1Scene::Update(float dt)
 		App->render->camera.y -= 300 * dt;
 
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += 300 * dt;
+		App->render->camera.x += 300 * dt;*/
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 300 * dt;*/
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneTutorial.xml");
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		App->map->grid = !App->map->grid;

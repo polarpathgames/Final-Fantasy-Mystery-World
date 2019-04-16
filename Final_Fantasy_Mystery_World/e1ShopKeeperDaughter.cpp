@@ -6,7 +6,7 @@ e1ShopKeeperDaughter::e1ShopKeeperDaughter(const int &x, const int &y) : e1NPC(x
 {
 	LoadEntityData("assets/entities/Little_Girl.tsx");
 	npc_type = NPCType::DAUGHTER;
-	current_animation = &IdleDownRight;
+	current_animation = &GoUpRight;
 	position.x;
 	position.y;
 }

@@ -201,6 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\assets\xml\config.xml" />
+    <Xml Include="Game\assets\xml\CutsceneTutorial.xml" />
     <Xml Include="Game\assets\xml\Dialog.xml" />
     <Xml Include="Game\assets\xml\CutsceneBlockPass.xml" />
   </ItemGroup>
