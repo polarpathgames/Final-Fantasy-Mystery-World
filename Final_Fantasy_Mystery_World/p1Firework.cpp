@@ -39,7 +39,7 @@ p1Firework::p1Firework(e1Entity* element, iPoint* object, iPoint position_static
 	size_rect = initial_rect.w;
 	for (int i = 0; i < 1; i++)
 	{
-		p1Particle* temp = new p1Particle(pos, iPoint(0, 0), timelife, speed, p_direction, initial_rect, size_rect, n_textures, true);
+		p1Particle* temp = DBG_NEW p1Particle(pos, iPoint(0, 0), timelife, speed, p_direction, initial_rect, size_rect, n_textures, true);
 		particle.push_back(temp);
 	}
 
@@ -87,7 +87,7 @@ void p1Firework::render(fPoint pos)
 			{
 				speed.x = 100;
 				speed.y = 100;
-				p1Particle* temp = new p1Particle(pos, iPoint(0, 0), timelife, speed, P_RANDOM_FIREWORK, i_rect, size_rect, n_textures, true, W_NON, next_textures);
+				p1Particle* temp = DBG_NEW p1Particle(pos, iPoint(0, 0), timelife, speed, P_RANDOM_FIREWORK, i_rect, size_rect, n_textures, true, W_NON, next_textures);
 				particle.push_back(temp);
 			}
 			timelife.y -= 1;
@@ -104,7 +104,7 @@ void p1Firework::render(fPoint pos)
 				{
 					speed.x = 100;
 					speed.y = 100;
-					p1Particle* temp = new p1Particle(particle[i]->GetPosition(), iPoint(0, 0), timelife, speed, P_RANDOM_FIREWORK, i_rect, size_rect, n_textures, true, W_NON, last_textures);
+					p1Particle* temp = DBG_NEW p1Particle(particle[i]->GetPosition(), iPoint(0, 0), timelife, speed, P_RANDOM_FIREWORK, i_rect, size_rect, n_textures, true, W_NON, last_textures);
 					particle.push_back(temp);
 					number_multifirework++;
 				}

@@ -32,7 +32,7 @@ p1Follow::p1Follow(e1Entity* element, iPoint* object, SDL_Rect initial_rect, iPo
 
 	for (int i = 0; i < num_particles; i++)
 	{
-		p1Particle* temp = new p1Particle(pos, area, timelife, fPoint(0,0), P_NON, initial_rect, size_rect, num_textures, active_);
+		p1Particle* temp = DBG_NEW p1Particle(pos, area, timelife, fPoint(0,0), P_NON, initial_rect, size_rect, num_textures, active_);
 		particle.push_back(temp);
 	}
 }

@@ -335,7 +335,7 @@ u1CheckBox* m1GUI::AddCheckBox(const int &pos_x, const int &pos_y, const SDL_Rec
 
 u1Bar* m1GUI::AddBar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* parent, m1Module* callback)
 {
-	u1Bar* bar = new u1Bar(x, y, max_capacity, type, parent, callback);
+	u1Bar* bar = DBG_NEW u1Bar(x, y, max_capacity, type, parent, callback);
 
 	if (callback != nullptr) {
 		bar->AddListener(callback);

@@ -58,7 +58,7 @@ p1Explosion::p1Explosion(e1Entity* element, iPoint* object, iPoint position_stat
 				{
 					for (int k = 0; k < num_particles / 4; k++)
 					{
-						p1Particle* temp = new p1Particle(pos, iPoint(3, 3), timelife, speed, p_direction, initial_rect, size_rect, num_textures, true);
+						p1Particle* temp = DBG_NEW p1Particle(pos, iPoint(3, 3), timelife, speed, p_direction, initial_rect, size_rect, num_textures, true);
 						particle.push_back(temp);
 						num_test++;
 					}
@@ -95,14 +95,14 @@ p1Explosion::p1Explosion(e1Entity* element, iPoint* object, iPoint position_stat
 				{
 					speed.x = -60;
 					speed.y = 0;
-					p1Particle* temp = new p1Particle(pos, iPoint(0, 0), timelife, speed, p_direction, initial_rect, size_rect, num_textures, true);
+					p1Particle* temp = DBG_NEW p1Particle(pos, iPoint(0, 0), timelife, speed, p_direction, initial_rect, size_rect, num_textures, true);
 					particle.push_back(temp);
 				}
 				else
 				{
 					speed.x = 60;
 					speed.y = 0;
-					p1Particle* temp = new p1Particle(pos, iPoint(0, 0), timelife, speed, p_direction, initial_rect, size_rect, num_textures, true);
+					p1Particle* temp = DBG_NEW p1Particle(pos, iPoint(0, 0), timelife, speed, p_direction, initial_rect, size_rect, num_textures, true);
 					particle.push_back(temp);
 				}
 
@@ -121,14 +121,14 @@ p1Explosion::p1Explosion(e1Entity* element, iPoint* object, iPoint position_stat
 				{
 					speed.y = -60;
 					speed.x = 0;
-					p1Particle* temp = new p1Particle(pos, iPoint(0, 0), timelife, speed, p_direction, initial_rect, size_rect, num_textures, true);
+					p1Particle* temp = DBG_NEW p1Particle(pos, iPoint(0, 0), timelife, speed, p_direction, initial_rect, size_rect, num_textures, true);
 					particle.push_back(temp);
 				}
 				else
 				{
 					speed.y = 60;
 					speed.x = 0;
-					p1Particle* temp = new p1Particle(pos, iPoint(0, 0), timelife, speed, p_direction, initial_rect, size_rect, num_textures, true);
+					p1Particle* temp = DBG_NEW p1Particle(pos, iPoint(0, 0), timelife, speed, p_direction, initial_rect, size_rect, num_textures, true);
 					particle.push_back(temp);
 				}
 				pos.y += space_y;
@@ -140,7 +140,7 @@ p1Explosion::p1Explosion(e1Entity* element, iPoint* object, iPoint position_stat
 		speed = speed_particle;
 		for (int i = 0; i < num_particles; i++)//
 		{
-			p1Particle* temp = new p1Particle(pos, perimeter_object, timelife, speed, p_direction, initial_rect, size_rect, num_textures, true);
+			p1Particle* temp = DBG_NEW p1Particle(pos, perimeter_object, timelife, speed, p_direction, initial_rect, size_rect, num_textures, true);
 			particle.push_back(temp);
 		}
 	}

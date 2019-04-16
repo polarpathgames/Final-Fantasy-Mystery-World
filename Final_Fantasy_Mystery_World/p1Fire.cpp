@@ -45,7 +45,7 @@ p1Fire::p1Fire(e1Entity* element, iPoint* object, iPoint position_static, SDL_Re
 	size_rect = initial_rect.w;
 	for (int i = 0; i < num_particles; i++)
 	{
-		p1Particle* temp = new p1Particle(pos, area, timelife, speed, p_direction, initial_rect, size_rect, n_textures, true);
+		p1Particle* temp = DBG_NEW p1Particle(pos, area, timelife, speed, p_direction, initial_rect, size_rect, n_textures, true);
 		particle.push_back(temp);
 	}
 }
