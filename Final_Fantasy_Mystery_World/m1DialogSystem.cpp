@@ -11,6 +11,7 @@
 #include "u1Label.h"
 #include "u1Button.h"
 #include "u1Image.h"
+#include "Brofiler/Brofiler.h"
 
 m1DialogSystem::m1DialogSystem()
 {
@@ -35,6 +36,7 @@ bool m1DialogSystem::Update(float dt)
 
 bool m1DialogSystem::CleanUp()
 {
+	BROFILER_CATEGORY("DialogSystem CleanUp", Profiler::Color::GreenYellow)
 	bool ret = true;
 
 	for (int j = 0; j < dialogTrees.size(); j++)
@@ -61,6 +63,7 @@ bool m1DialogSystem::CleanUp()
 
 bool m1DialogSystem::PerformDialogue(int tr_id)
 {
+	BROFILER_CATEGORY("DialogSystem PerformDialogue", Profiler::Color::GreenYellow)
 	bool ret = true;
 	treeid = tr_id;
 
@@ -107,6 +110,8 @@ bool m1DialogSystem::PerformDialogue(int tr_id)
 
 void m1DialogSystem::BlitDialog()
 {
+	BROFILER_CATEGORY("DialogSystem BlitDialog", Profiler::Color::GreenYellow)
+
 	dialog_panel = App->gui->AddImage(App->win->width*0.5f - 352, App->win->height - 199, {0, 3090,704,162}, this, App->gui->screen, true, false, false, false);
 	char_face = App->gui->AddImage(8, 20, dialogTrees[treeid]->face, this, dialog_panel, true, false, false, false);
 	npc_text = App->gui->AddLabel(App->win->width * 0.5f, App->win->height-50, currentNode->text.c_str(), dialog_panel, BLACK, FontType::FF48,this, false);
@@ -114,17 +119,14 @@ void m1DialogSystem::BlitDialog()
 	int space = 0;
 	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
 	{
-		u1Button* bt = DBG_NEW u1Button();
-		bt = App->gui->AddButton(0, space += 30, { 0,0,30,50 }, { 0,0,30,50 }, { 0,0,30,50 }, this, npc_text, false, false, true, true);
-		text_button.push_back(bt);
-		u1Label* lb = DBG_NEW u1Label;
-		lb = App->gui->AddLabel(0, 0, currentNode->dialogOptions[i]->text.c_str(), bt, BLACK, FontType::FF48, this, false);
-		player_text.push_back(lb);
+		text_button.push_back(App->gui->AddButton(0, space += 30, { 0,0,30,50 }, { 0,0,30,50 }, { 0,0,30,50 }, this, npc_text, false, false, true, true));
+		player_text.push_back(App->gui->AddLabel(0, 0, currentNode->dialogOptions[i]->text.c_str(), text_button[i], BLACK, FontType::FF48, this, false));
 	}
 }
 
 void m1DialogSystem::DeleteText()
 {
+	BROFILER_CATEGORY("DialogSystem DeleteText", Profiler::Color::GreenYellow)
 	App->gui->DeleteUIElement(npc_text);
 	npc_text = nullptr;
 	for (int i = 0; i < player_text.size(); i++)
@@ -162,6 +164,7 @@ void m1DialogSystem::CheckForKarma(DialogOption* karmaNode)
 
 bool m1DialogSystem::LoadDialogue(const char* file)
 {
+	BROFILER_CATEGORY("DialogSystem LoadDialogue", Profiler::Color::GreenYellow)
 	bool ret = true;
 
 	pugi::xml_parse_result result = tree_file.load_file(file);
@@ -193,6 +196,8 @@ bool m1DialogSystem::LoadDialogue(const char* file)
 
 bool m1DialogSystem::LoadTreeData(pugi::xml_node& trees, DialogTree* oak)
 {
+	BROFILER_CATEGORY("DialogSystem LoadTreeData", Profiler::Color::GreenYellow)
+
 	bool ret = true;
 
 	//Filling the dialogue tree information
