@@ -57,13 +57,13 @@ void u1ChButton::PrintInfo()
 	switch (player_type)
 	{
 	case PlayerType::WARRIOR:
-		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), 0, 0, &warrior_rect, false, SDL_FLIP_NONE, 0.0F);
+		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), 500, 175, &warrior_rect, false, SDL_FLIP_NONE, 0.0F);
 		break;
 	case PlayerType::ARCHER:
-		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), 0, 0, &archer_rect, false, SDL_FLIP_NONE, 0.0F);
+		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), 580, 180, &archer_rect, false, SDL_FLIP_NONE, 0.0F);
 		break;
 	case PlayerType::MAGE:
-		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), 0, 0, &mage_rect, false, SDL_FLIP_NONE, 0.0F);
+		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), 580, 180, &mage_rect, false, SDL_FLIP_NONE, 0.0F);
 		break;
 	}
 }

@@ -40,8 +40,8 @@ private:
 	u1Image* mage_image = nullptr;
 
 	SDL_Rect warrior_rect = { 1052, 4079, 327, 358 };
-	SDL_Rect archer_rect = { 1701, 4094, 194, 349 };
-	SDL_Rect mage_rect = { 1414, 4089, 218, 353 };
+	SDL_Rect archer_rect = { 1701, 4079, 194, 369 };
+	SDL_Rect mage_rect = { 1414, 4079, 218, 363 };
 
 	PlayerType player_type;
 };
