@@ -209,4 +209,44 @@
    <frame tileid="56" duration="270"/>
   </animation>
  </tile>
+ <tile id="60">
+  <properties>
+   <property name="speed" type="int" value="3"/>
+  </properties>
+  <animation>
+   <frame tileid="60" duration="270"/>
+   <frame tileid="61" duration="270"/>
+   <frame tileid="62" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="63">
+  <properties>
+   <property name="speed" type="int" value="3"/>
+  </properties>
+  <animation>
+   <frame tileid="63" duration="270"/>
+   <frame tileid="64" duration="270"/>
+   <frame tileid="65" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="66">
+  <properties>
+   <property name="speed" type="int" value="3"/>
+  </properties>
+  <animation>
+   <frame tileid="66" duration="270"/>
+   <frame tileid="67" duration="270"/>
+   <frame tileid="68" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="69">
+  <properties>
+   <property name="speed" type="int" value="3"/>
+  </properties>
+  <animation>
+   <frame tileid="69" duration="270"/>
+   <frame tileid="70" duration="270"/>
+   <frame tileid="71" duration="270"/>
+  </animation>
+ </tile>
 </tileset>
