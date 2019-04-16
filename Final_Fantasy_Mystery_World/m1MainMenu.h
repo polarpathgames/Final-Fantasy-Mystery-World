@@ -100,6 +100,7 @@ private:
 public:
 
 	int fx_push_button;
+	int fx_push_button_return;
 };
 
 #endif

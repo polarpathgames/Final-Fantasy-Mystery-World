@@ -6,6 +6,7 @@
 #include "m1Render.h"
 #include "m1Scene.h"
 #include "e1Player.h"
+#include "m1Audio.h"
 #include "m1EntityManager.h"
 #include "m1Pathfinding.h"
 
@@ -113,6 +114,9 @@ void RoomManager::LoadRoom(const int & id)
 	App->fade_to_black->FadeToBlack(0.5f);
 	App->entity_manager->DeleteEntitiesNoPlayer();
 	App->map->CleanUp();
+
+	
+
 	std::vector<Room*>::iterator item = rooms.begin();
 	for (; item != rooms.end(); ++item) {
 		if ((*item) != nullptr && (*item)->id == id) {
@@ -131,6 +135,39 @@ void RoomManager::LoadRoom(const int & id)
 	PlacePlayer();
 	LoadColliders();
 
+	if (id == 1 || id == 2 || id == 6) {
+		player_room = RoomType::PACEFUL;
+	}
+	if (id == 3 || id == 4 || id == 5) {
+		player_room = RoomType::COMBAT;
+	}
+	if (id == 8) {
+		player_room = RoomType::BOSS;
+	}
+	if (id == 7) {
+		player_room = RoomType::FOUNTAIN;
+	}
+
+
+	// ROOM TYPE
+	switch (player_room)
+	{
+	case RoomType::PACEFUL:
+		App->audio->PlayMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg", 5);
+		break;
+	case RoomType::FOUNTAIN:
+		App->audio->PlayMusic("assets/audio/music/5.Final Fantasy TA - Crystal.ogg", 0.5);
+		break;
+	case RoomType::COMBAT:
+		App->audio->PlayMusic("assets/audio/music/20.Final Fantasy TA - Painful Battle.ogg", 0.5);
+		break;
+	case RoomType::BOSS:
+		App->audio->PlayMusic("assets/audio/music/39.Final Fantasy TA - Incarnation.ogg", 0.5);
+		break;
+	default:
+		App->audio->PlayMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg", 5);
+		break;
+	}
 }
 
 void RoomManager::PlacePlayer() // place player in front of the door

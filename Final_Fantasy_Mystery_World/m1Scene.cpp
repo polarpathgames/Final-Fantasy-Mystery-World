@@ -57,7 +57,7 @@ bool m1Scene::Start()
 	App->gui->ShowCursor(false);
 
 	fx_writting = App->audio->LoadFx("assets/audio/sfx/Speaking_Words_Sound.wav");
-	fx_attack = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Punch2.wav");
+	fx_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_Steps_on_Water1.wav");
 	fx_frog_attack = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Punch1.wav");
 	fx_ability_warrior = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Sword_Hit.wav");
 
@@ -839,6 +839,7 @@ bool m1Scene::Interact(u1GUI* interact)
 	case StatesMenu::PAUSE_MENU:
 		if (interact == button_resume)
 		{
+			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			DestroyPauseMenu();
 			if (App->GetPause())
 				App->ChangePause();
@@ -863,6 +864,10 @@ bool m1Scene::Interact(u1GUI* interact)
 			DestroyPauseMenu();
 			ret = false;
 		}
+
+		if (interact != nullptr && interact != button_resume) {
+			App->audio->PlayFx(App->main_menu->fx_push_button);
+		}
 		break;
 	case StatesMenu::GO_TO_QUEST_MENU:
 		if (interact == go_to_quest_button) {
@@ -871,8 +876,13 @@ bool m1Scene::Interact(u1GUI* interact)
 			ret = false;
 		}
 		if (interact == cancel_quest_button) {
+			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			DestroyGoToQuestMenu();
 			ret = false;
+		}
+
+		if (interact != nullptr && interact != cancel_quest_button) {
+			App->audio->PlayFx(App->main_menu->fx_push_button);
 		}
 	case StatesMenu::INVENTORY_MENU:
 		if (interact == hp_potion_button) {
@@ -882,6 +892,10 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == mana_potion_button) {
 			DeletePotionMenu();
 			CreatePotionMenu(mana_potion_button);
+		}
+
+		if (interact != nullptr) {
+			App->audio->PlayFx(App->main_menu->fx_push_button);
 		}
 		break;
 	case StatesMenu::POTION_MENU:
@@ -906,13 +920,19 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 		}
 		if (interact == cancel_button) {
+			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			DeletePotionMenu();
 			menu_state = StatesMenu::INVENTORY_MENU;
 			ret = false;
 		}
+
+		if (interact != nullptr && interact != cancel_button) {
+			App->audio->PlayFx(App->main_menu->fx_push_button);
+		}
 		break;
 	case StatesMenu::OPTIONS_MENU:
 		if (interact == button_retun) {
+			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			if (App->main_menu->active) {
 				App->main_menu->CreateMainMenu();
 				DestroyOptionsMenu();
@@ -926,9 +946,14 @@ bool m1Scene::Interact(u1GUI* interact)
 			CreateControlsMenu();
 			DestroyOptionsMenu();
 		}
+		if (interact != nullptr && interact != button_retun) {
+			App->audio->PlayFx(App->main_menu->fx_push_button);
+
+		}
 		break;
 	case StatesMenu::SHOP_MENU:
 		if (interact == button_close_shop) {
+			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			DestroyShopMenu();
 		}
 		if (interact == shop_button_hp_potion) {
@@ -941,6 +966,7 @@ bool m1Scene::Interact(u1GUI* interact)
 				// audio no money
 			}
 		}
+		
 		if (interact == shop_button_mana_potion) {
 			if (player->stats.gold >= price_mana_potion) {
 				// audio comprar
@@ -949,11 +975,17 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 			else {
 				// audio no money
+
 			}
+		}
+
+		if (interact != nullptr && interact != button_close_shop) {
+			App->audio->PlayFx(App->main_menu->fx_push_button);
 		}
 		break;
 	case StatesMenu::CONTROLS_MENU:
 		if (interact == button_retun_to_options) {
+			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			CreateOptionsMenu();
 			DestroyControlsMenu();
 		}
@@ -1037,6 +1069,9 @@ bool m1Scene::Interact(u1GUI* interact)
 				delete control_to_change;
 			control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_basic_attack, &App->input->controller_Buttons.buttons_code.BASIC_ATTACK, &App->input->controller_Buttons.buttons_char.BASIC_ATTACK, true);
 		}
+		if (interact != nullptr && interact != button_retun_to_options) {
+			App->audio->PlayFx(App->main_menu->fx_push_button);
+		}
 		break;
 	}
 	
@@ -1092,6 +1127,7 @@ bool m1Scene::Interact(u1GUI* interact)
 		App->audio->VolumeUp(-1);
 	}
 
+	
 	return ret;
 }
 

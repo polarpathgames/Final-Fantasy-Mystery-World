@@ -31,6 +31,7 @@ bool m1MainMenu::Start()
 {
 	CreateMainMenu();
 	fx_push_button = App->audio->LoadFx("assets/audio/sfx/MainMenu_Confirm_Selection.wav");
+	fx_push_button_return = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Message.wav");
 
 	return true;
 }
@@ -77,14 +78,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 	}
 
 	if (interaction == new_game_button) {
-		/*App->gui->DeleteAllUIElements();
-		active = false; //desactivates main menu
-		App->entity_manager->Enable();
-		App->map->Enable();
-		App->scene->Enable();
-		App->map->ChangeMap(Maps::LOBBY);
-		App->scene->SetMenuState(StatesMenu::NO_MENU);
-		ret = false;*/
+		App->audio->PlayFx(fx_push_button_return);
 
 		App->gui->DeleteAllUIElements();
 		CreateSelectChamp();
@@ -142,6 +136,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 	}
 
 	if (interaction == button_retun) {
+		App->audio->PlayFx(fx_push_button_return);
 		CreateMainMenu();
 		DestroyCredits();
 		ret = false;
@@ -157,7 +152,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		ret = false;
 	}
 	if (interaction == button_return_main) {
-		
+		App->audio->PlayFx(fx_push_button_return);
 		App->gui->DeleteAllUIElements();
 		App->entity_manager->Disable();
 		App->map->Disable();
@@ -200,8 +195,8 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		ShellExecuteA(NULL, "open", "https://github.com/RoperoIvan", NULL, NULL, SW_SHOWNORMAL);
 	}
 
-	/*if (interaction != nullptr)
-		App->audio->PlayFx(fx_push_button);*/
+	if (interaction != nullptr && interaction != button_return_main && interaction != button_retun && interaction != new_game_button)
+		App->audio->PlayFx(fx_push_button);
 
 	return ret;
 }

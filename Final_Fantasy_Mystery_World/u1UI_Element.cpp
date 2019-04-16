@@ -64,7 +64,6 @@ bool u1GUI::Update()
 		for (std::list<m1Module*>::iterator module = listeners.begin(); module != listeners.end(); ++module) {
 			if (*module != nullptr)
 				if (!(*module)->Interact(this))
-					App->audio->PlayFx(App->main_menu->fx_push_button);
 					break;
 		}
 	}

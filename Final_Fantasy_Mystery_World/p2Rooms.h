@@ -16,6 +16,15 @@ enum class LocationChangeScene {
 	NONE
 };
 
+enum class RoomType {
+	COMBAT,
+	FOUNTAIN,
+	BOSS,
+	PACEFUL,
+
+	NONE
+};
+
 struct ChangeScene {
 	ChangeScene(const int & x, const int &y, LocationChangeScene type, const uint &id);
 	iPoint location = { 0,0 };
@@ -54,6 +63,7 @@ public:
 	Room* actual_room = nullptr;
 	std::vector<Room*> rooms;
 	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
+	RoomType player_room = RoomType::PACEFUL;
 
 
 };
