@@ -128,6 +128,7 @@ bool m1Scene::Update(float dt)
 	switch (menu_state) {
 	case StatesMenu::NO_MENU:
 		if ((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial) {
+			App->audio->PlayFx(App->gui->fx_pause);
 			if (App->ChangePause()) {
 				CreatePauseMenu();
 				player->BlockControls(true);
@@ -138,6 +139,7 @@ bool m1Scene::Update(float dt)
 			}
 		}
 		if ((App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial) {
+			App->audio->PlayFx(App->gui->fx_inventory);
 			if (App->ChangeInventory()) {
 				CreateInventory();
 				player->BlockControls(true);

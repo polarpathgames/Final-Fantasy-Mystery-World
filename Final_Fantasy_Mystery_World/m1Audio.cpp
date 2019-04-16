@@ -29,7 +29,7 @@ bool m1Audio::Awake(pugi::xml_node& config)
 
 	//load config var
 	// THIS IN CONFIG.XML
-	volume = 100;
+	volume = 30;
 	volume_fx = 100;
 	max_volume = 100;
 	default_music_fade_time = 0.5F;
@@ -75,6 +75,9 @@ bool m1Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
+
+	Mix_VolumeMusic(volume);
+
 	return ret;
 }
 
@@ -107,23 +110,23 @@ bool m1Audio::CleanUp()
 bool m1Audio::PlayMusic(const char* path, float fade_time)
 {
 	bool ret = true;
-
 	if (!active)
 		return false;
 
 	if (music != NULL)
 	{
-		if (fade_time  > 0.0f)
+		/*if (fade_time  > 0.0f)
 		{
 			Mix_FadeOutMusic(int(fade_time  * 1000.0f));
+
 		}
 		else
 		{
 			Mix_HaltMusic();
-		}
+		}*/
 
 		// this call blocks until fade out is done
-		Mix_FreeMusic(music);
+		//Mix_FreeMusic(music);
 	}
 
 	music = Mix_LoadMUS(path);
@@ -336,15 +339,15 @@ void m1Audio::VolumeDown(int vol)
 
 }
 
-void m1Audio::SliderVolumeFx(int vol)
-{
-	for (int id = 1; id <= fx.size(); id++)
-	{
-		std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
-		Mix_VolumeChunk((*item), vol);
-	}
-	volume_fx = vol;
-}
+//void m1Audio::SliderVolumeFx(int vol)
+//{
+//	for (int id = 1; id <= fx.size(); id++)
+//	{
+//		std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
+//		Mix_VolumeChunk((*item), vol);
+//	}
+//	volume_fx = vol;
+//}
 
 bool m1Audio::Load(pugi::xml_node & node)
 {

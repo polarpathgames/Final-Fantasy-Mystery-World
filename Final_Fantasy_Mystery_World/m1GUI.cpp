@@ -7,6 +7,7 @@
 #include "m1Textures.h"
 #include "m1Fonts.h"
 #include "u1Image.h"
+#include "m1Audio.h"
 #include "u1Button.h"
 #include "u1Label.h"
 #include "u1Slider.h"
@@ -40,6 +41,10 @@ bool m1GUI::Awake(pugi::xml_node &node)
 bool m1GUI::Start()
 {
 	atlas = App->tex->Load("assets/gui/atlas.png");
+	fx_pause = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Input_Text.wav");
+	fx_focus = App->audio->LoadFx("assets/audio/sfx/InBattle_Menu_Cursor_Move.wav");
+	fx_inventory = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Potion_Glup.wav");
+
 	SDL_ShowCursor(SDL_DISABLE);
 
 	return true;
@@ -128,6 +133,7 @@ void m1GUI::FocusInput()
 				if ((*item)->allow_focus && (*item)->position.y < focus->position.y) {
 					if (focus == new_focus) {
 						new_focus = (*item);
+						App->audio->PlayFx(fx_focus);
 					}
 					else if ((*item)->position.y >= new_focus->position.y && abs(focus->position.x - new_focus->position.x) >= abs(focus->position.x - (*item)->position.x)) {
 						new_focus = *item;
@@ -145,6 +151,7 @@ void m1GUI::FocusInput()
 				if ((*item)->allow_focus && (*item)->position.y > focus->position.y) {
 					if (focus == new_focus) {
 						new_focus = (*item);
+						App->audio->PlayFx(fx_focus);
 					}
 					else if ((*item)->position.y <= new_focus->position.y && abs(focus->position.x - new_focus->position.x) >= abs(focus->position.x - (*item)->position.x)) {
 						new_focus = *item;
@@ -162,6 +169,7 @@ void m1GUI::FocusInput()
 				if ((*item)->allow_focus && (*item)->position.x < focus->position.x) {
 					if (focus == new_focus) {
 						new_focus = (*item);
+						App->audio->PlayFx(fx_focus);
 					}
 					else if ((*item)->position.x >= new_focus->position.x && abs(focus->position.y - new_focus->position.y) >= abs(focus->position.y - (*item)->position.y)) {
 						new_focus = *item;
@@ -179,6 +187,7 @@ void m1GUI::FocusInput()
 				if ((*item)->allow_focus && (*item)->position.x > focus->position.x) {
 					if (focus == new_focus) {
 						new_focus = (*item);
+						App->audio->PlayFx(fx_focus);
 					}
 					else if ((*item)->position.x <= new_focus->position.x && abs(focus->position.y - new_focus->position.y) >= abs(focus->position.y - (*item)->position.y)) {
 						new_focus = *item;

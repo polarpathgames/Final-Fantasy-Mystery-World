@@ -209,7 +209,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 void m1MainMenu::CreateMainMenu()
 {
 	background = App->gui->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->gui->screen, true, false, false,false);
-	App->audio->PlayMusic("assets/audio/music/1.Final Fantasy TA - Main Theme.ogg", 0);
+	App->audio->PlayMusic("assets/audio/music/1.Final Fantasy TA - Main Theme.ogg", 5);
 	
 	int offsetY = 75;
 
