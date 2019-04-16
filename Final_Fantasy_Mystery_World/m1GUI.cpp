@@ -13,6 +13,7 @@
 #include "u1CheckBox.h"
 #include "u1Bar.h"
 #include "m1GUI.h"
+#include "m1Audio.h"
 #include "Brofiler/Brofiler.h"
 
 #include <queue>
@@ -57,6 +58,11 @@ bool m1GUI::PreUpdate()
 	ret = UpdateFocusMouse();
 
 	return ret;
+}
+
+bool m1GUI::Update()
+{
+	
 }
 
 bool m1GUI::UpdateFocusMouse()
@@ -132,9 +138,9 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-			focus->current_state = Mouse_Event::NONE;
+			focus->current_state = Element_Event::NONE;
 			focus = new_focus;
-			focus->current_state = Mouse_Event::HOVER;
+			focus->current_state = Element_Event::FIRST_HOVER;
 		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN || App->input->CheckAxisStates(Axis::AXIS_DOWN)) {
@@ -150,9 +156,9 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-			focus->current_state = Mouse_Event::NONE;
+			focus->current_state = Element_Event::NONE;
 			focus = new_focus;
-			focus->current_state = Mouse_Event::HOVER;
+			focus->current_state = Element_Event::FIRST_HOVER;
 		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) {
@@ -168,9 +174,9 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-			focus->current_state = Mouse_Event::NONE;
+			focus->current_state = Element_Event::NONE;
 			focus = new_focus;
-			focus->current_state = Mouse_Event::HOVER;
+			focus->current_state = Element_Event::FIRST_HOVER;
 		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) {
@@ -186,9 +192,9 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-			focus->current_state = Mouse_Event::NONE;
+			focus->current_state = Element_Event::NONE;
 			focus = new_focus;
-			focus->current_state = Mouse_Event::HOVER;
+			focus->current_state = Element_Event::FIRST_HOVER;
 		}
 	}
 }
@@ -436,16 +442,16 @@ bool m1GUI::GetElemOnMouse(int x, int y, u1GUI *& element)
 		{
 			if (CheckCollision(x, y, *item))
 			{
-				if ((*item)->current_state != Mouse_Event::CLICKED_DOWN && (*item)->current_state != Mouse_Event::CLICKED_REPEAT)
-					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN ? (*item)->current_state = Mouse_Event::CLICKED_DOWN : (*item)->current_state = Mouse_Event::HOVER;
+				if ((*item)->current_state != Element_Event::CLICKED_DOWN && (*item)->current_state != Element_Event::CLICKED_REPEAT)
+					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN ? (*item)->current_state = Element_Event::CLICKED_DOWN : (*item)->current_state = Element_Event::FIRST_HOVER;
 				else {
-					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) ? (*item)->current_state = Mouse_Event::CLICKED_REPEAT : (*item)->current_state = Mouse_Event::CLICKED_UP;
+					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) ? (*item)->current_state = Element_Event::CLICKED_REPEAT : (*item)->current_state = Element_Event::CLICKED_UP;
 				}
 				element = *item;
 				return true;
 			}
 			else {
-				(*item)->current_state = Mouse_Event::NONE;
+				(*item)->current_state = Element_Event::NONE;
 			}
 		}
 	}

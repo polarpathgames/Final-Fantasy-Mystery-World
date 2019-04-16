@@ -45,14 +45,14 @@ public:
 	bool Awake(pugi::xml_node&);
 	bool Start();
 	bool PreUpdate();
+	bool Update();
+	bool PostUpdate();
+	bool CleanUp();
+
 	bool UpdateFocusMouse();
 	void FocusInput();
 	bool FocusFirstUIFocusable();
 	bool FocusButton(u1Button* button);
-	bool PostUpdate();
-	bool CleanUp();
-
-
 
 	u1Slider* AddSlider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, bool horizontal, u1GUI* parent, m1Module* callback = nullptr);
 	u1CheckBox* AddCheckBox(const int &pos_x, const int &pos_y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, u1GUI* parent, m1Module* callback = nullptr);
