@@ -876,13 +876,13 @@ void m1Scene::UpdateDebugScreen()
 		const u1GUI* focus = App->gui->GetFocus();
 
 		if (focus == nullptr) {
-			mouse_label->SetTextWrapped(std::string("mouse:\nposition: (" + std::to_string(x) + ", " + std::to_string(y) +
+			mouse_label->SetTextWrapped(std::string("mouse:\nposition: (" + std::to_string(x*App->win->GetScale()) + ", " + std::to_string(y*App->win->GetScale()) +
 				")\nmotion: (" + std::to_string(m_x) + ", " + std::to_string(m_y) +
 				")\ntile: (" + std::to_string(tile.x) + ", " + std::to_string(tile.y) +
 				")\nUI Element selected:\nposition: (00, 00)\nsection: (00, 00)\nnumber of childs: 00\ntype: unknown").data());
 		}
 		else {
-			mouse_label->SetTextWrapped(std::string("mouse:\nposition: (" + std::to_string(x) + ", " + std::to_string(y) +
+			mouse_label->SetTextWrapped(std::string("mouse:\nposition: (" + std::to_string(x*App->win->GetScale()) + ", " + std::to_string(y*App->win->GetScale()) +
 				")\nmotion: (" + std::to_string(m_x) + ", " + std::to_string(m_y) +
 				")\ntile: (" + std::to_string(tile.x) + ", " + std::to_string(tile.y) +
 				")\nUI Element selected:\nposition: (" + std::to_string(focus->position.x) + ", " + std::to_string(focus->position.y) +

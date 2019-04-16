@@ -156,6 +156,7 @@ public:
 	// Get mouse / axis position
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
+	bool MovedMouse();
 
 	KeyboardButtons keyboard_buttons;
 	ControllerButtons controller_Buttons;

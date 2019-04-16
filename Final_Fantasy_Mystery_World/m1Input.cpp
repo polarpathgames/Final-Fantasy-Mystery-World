@@ -219,13 +219,10 @@ void m1Input::UpdateEvents(SDL_Event &event)
 			break;
 		case SDL_MOUSEMOTION:
 			int scale = App->win->GetScale();
-			last_mouse_x = mouse_x;
-			last_mouse_y = mouse_y;
+			
 			mouse_motion_x = event.motion.xrel / scale;
 			mouse_motion_y = event.motion.yrel / scale;
-			SDL_GetMouseState(&mouse_x, &mouse_y);
-			mouse_x /= scale;
-			mouse_y /= scale;
+			
 			//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
 			break;
 		}
@@ -264,6 +261,15 @@ void m1Input::UpdateMouse()
 		if (mouse_buttons[i] == KEY_UP)
 			mouse_buttons[i] = KEY_IDLE;
 	}
+
+	int scale = App->win->GetScale();
+
+	last_mouse_x = mouse_x;
+	last_mouse_y = mouse_y;
+	SDL_GetMouseState(&mouse_x, &mouse_y);
+	mouse_x /= scale;
+	mouse_y /= scale;
+	LOG("LMouse (%i, %i) Mouse (%i, %i)", last_mouse_x, last_mouse_y, mouse_x, mouse_y);
 }
 
 void m1Input::UpdateKeyboard()
@@ -317,6 +323,11 @@ void m1Input::GetMouseMotion(int& x, int& y)
 {
 	x = mouse_motion_x;
 	y = mouse_motion_y;
+}
+
+bool m1Input::MovedMouse()
+{
+	return mouse_x != last_mouse_x || mouse_y != last_mouse_y;
 }
 
 bool m1Input::CheckAxisStates(const Axis &axis) {
