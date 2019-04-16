@@ -101,7 +101,7 @@ public:
 
 	void ReadAttack();
 
-	virtual void InitStats() {};
+	virtual void InitStats();
 
 	virtual void PrepareSpecialAttack1() {};
 
@@ -126,7 +126,7 @@ public:
 	void GetHitted(const int & damage_taken); // Player Get Damaged
 	void Death();
 	void CreateSkills(); // Skills Appear In Screen
-	void IdAnimToEnum();
+	virtual void IdAnimToEnum() {};
 	void DestroySkills(); //Skills Desappear
 
 	bool BlockControls(bool to_block);

@@ -18,6 +18,8 @@ public:
 
 	void SpecialAttack1();
 
+	void IdAnimToEnum();
+
 };
 
 

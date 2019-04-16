@@ -11,7 +11,7 @@ public:
 	virtual ~e1Warrior();
 
 	bool CleanUp();
-
+	void IdAnimToEnum();
 	void InitStats();
 
 	void PrepareSpecialAttack1();
