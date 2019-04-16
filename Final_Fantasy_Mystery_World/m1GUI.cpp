@@ -64,8 +64,6 @@ bool m1GUI::UpdateFocusMouse()
 	BROFILER_CATEGORY("UpdateFocusMouse", Profiler::Color::Orange);
 
 	bool ret = true;
-	int x = 0, y = 0;
-	App->input->GetMouseMotion(x, y);
 
 	if (focus == nullptr && ui_list.size() > 1) {
 		FocusFirstUIFocusable();
@@ -99,7 +97,7 @@ bool m1GUI::UpdateFocusMouse()
 			ret = focus->Update();
 		}
 		if (!using_mouse) {
-			if (x != 0 || y != 0) {
+			if (App->input->MovedMouse()) {
 				using_mouse = true;
 				show_cursor = true;
 			}
@@ -421,6 +419,7 @@ bool m1GUI::DeleteAllUIElements()
 	bool ret = true;
 
 	ret = DeleteUIElement(screen);
+	SDL_assert(ui_list.size() == 0);
 	CreateScreen();
 	focus = nullptr;
 
