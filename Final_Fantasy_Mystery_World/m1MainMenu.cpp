@@ -186,6 +186,41 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_basic_attack, &App->input->controller_Buttons.buttons_code.BASIC_ATTACK, &App->input->controller_Buttons.buttons_char.BASIC_ATTACK, true);
 		}
 		break;
+	case MainMenuStates::SELECTION_MENU:
+		if (interaction == button_warrior) {
+			App->scene->player_type = PlayerType::WARRIOR;
+			DestroySelectChamp();
+			active = false; 
+			App->entity_manager->Enable();
+			App->map->Enable();
+			App->scene->Enable();
+			App->map->ChangeMap(Maps::LOBBY);
+			App->scene->SetMenuState(StatesMenu::NO_MENU);
+			ret = false;
+		}
+		if (interaction == button_archer) {
+			App->scene->player_type = PlayerType::ARCHER;
+			DestroySelectChamp();
+			active = false; 
+			App->entity_manager->Enable();
+			App->map->Enable();
+			App->scene->Enable();
+			App->map->ChangeMap(Maps::LOBBY);
+			App->scene->SetMenuState(StatesMenu::NO_MENU);
+			ret = false;
+		}
+		if (interaction == button_mage) {
+			App->scene->player_type = PlayerType::MAGE;
+			DestroySelectChamp();
+			active = false; 
+			App->entity_manager->Enable();
+			App->map->Enable();
+			App->scene->Enable();
+			App->map->ChangeMap(Maps::LOBBY);
+			App->scene->SetMenuState(StatesMenu::NO_MENU);
+			ret = false;
+		}
+		break;
 	case MainMenuStates::OPTIONS_MENU:
 		if (interaction == button_retun_options) {
 			CreateMainMenu();
@@ -328,64 +363,10 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 
 	/*
 
-	if (interaction == new_game_button) {
-		/*App->gui->DeleteAllUIElements();
-		active = false; //desactivates main menu
-		App->entity_manager->Enable();
-		App->map->Enable();
-		App->scene->Enable();
-		App->map->ChangeMap(Maps::LOBBY);
-		App->scene->SetMenuState(StatesMenu::NO_MENU);
-		ret = false;
-
-		App->gui->DeleteUIElement(background);
-		CreateSelectChamp();
-		ret = false;
-	}
-	if (interaction == button_warrior) {
-		App->scene->player_type = PlayerType::WARRIOR;
-		App->gui->DeleteAllUIElements();
-		active = false; //desactivates main menu
-		App->entity_manager->Enable();
-		App->map->Enable();
-		App->scene->Enable();
-		App->map->ChangeMap(Maps::LOBBY);
-		App->scene->SetMenuState(StatesMenu::NO_MENU);
-		ret = false;
-	}
-	if (interaction == button_archer) {
-		App->scene->player_type = PlayerType::ARCHER;
-		App->gui->DeleteAllUIElements();
-		active = false; //desactivates main menu
-		App->entity_manager->Enable();
-		App->map->Enable();
-		App->scene->Enable();
-		App->map->ChangeMap(Maps::LOBBY);
-		App->scene->SetMenuState(StatesMenu::NO_MENU);
-		ret = false;
-	}
-	if (interaction == button_mage) {
-		App->scene->player_type = PlayerType::MAGE;
-		App->gui->DeleteAllUIElements();
-		active = false; //desactivates main menu
-		App->entity_manager->Enable();
-		App->map->Enable();
-		App->scene->Enable();
-		App->map->ChangeMap(Maps::LOBBY);
-		App->scene->SetMenuState(StatesMenu::NO_MENU);
-		ret = false;
-	}
+	
 	
 
 	
-
-
-
-	if (interaction == button_retun) {
-		CreateMainMenu();
-		DestroyCredits();
-		ret = false;
-	}
 	
 	if (interaction == button_continue_lobby) {
 		
