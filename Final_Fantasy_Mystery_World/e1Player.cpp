@@ -30,7 +30,7 @@
 
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
-	
+	InitStats();
 }
 
 e1Player::~e1Player()
@@ -191,7 +191,7 @@ void e1Player::CenterPlayerInTile()
 
 	current_animation = &IdleDownLeft;
 
-	SetPivot(10, 30);
+	
 	velocity.x = 160;
 	velocity.y = 80;
 	has_turn = true;
@@ -207,9 +207,16 @@ void e1Player::CenterPlayerInTile()
 	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (m1Module*)App->entity_manager);
 	movement_count = { 0,0 };
 	// THIS ALWAYS LAST
-
-	position.x += 8;
-	position.y -= 22;
+	if (App->scene->player_type == PlayerType::WARRIOR) {
+		SetPivot(14, 27);
+		position.x += 3;
+		position.y -= 19;
+	}
+	else {
+		SetPivot(10, 30);
+		position.x += 8;
+		position.y -= 22;
+	}
 
 	target_position = position;
 	initial_position = position;
@@ -426,6 +433,10 @@ void e1Player::ReadAttack()
 		PrepareSpecialAttack1();
 		return;
 	}
+}
+
+void e1Player::InitStats()
+{
 }
 
 void e1Player::PrepareBasicAttack()
