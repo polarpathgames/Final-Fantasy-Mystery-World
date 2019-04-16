@@ -1,8 +1,10 @@
 #include "e1Particles.h"
+#include "App.h"
+#include "m1Map.h"
 
 e1Particles::e1Particles(const int & x, const int & y) : e1DynamicEntity(x, y)
 {
-	
+	type = e1Entity::EntityType::PARTICLE;
 }
 
 e1Particles::~e1Particles()
@@ -11,17 +13,21 @@ e1Particles::~e1Particles()
 
 bool e1Particles::PreUpdate()
 {
-	return false;
+	return true;
 }
 
 bool e1Particles::Update(float dt)
 {
-	return false;
+
+	position.x -= 160 * dt;
+	position.y += 80 * dt;
+
+	return true;
 }
 
 bool e1Particles::CleanUp()
 {
-	return false;
+	return true;
 }
 
 void e1Particles::SetParticle(const ParticleType & particle_type, const Direction & dir)
@@ -33,6 +39,7 @@ void e1Particles::SetParticle(const ParticleType & particle_type, const Directio
 		switch (direction) {
 		case Direction::DOWN_LEFT:
 			GoDownLeft.PushBack({ 70,122,85,86 });
+			size.create(20, 20);
 			current_animation = &GoDownLeft;
 			break;
 		}
@@ -40,5 +47,5 @@ void e1Particles::SetParticle(const ParticleType & particle_type, const Directio
 	default:
 		break;
 	}
-	position = App->
+	position = App->map->MapToWorld(position.x, position.y);
 }
