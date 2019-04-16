@@ -10,15 +10,13 @@ public:
 	e1Archer(const int &x, const int &y);
 	virtual ~e1Archer();
 
-	bool PreUpdate();
-
-	bool Update(float dt);
-
-	bool PostUpdate();
-
 	bool CleanUp();
 
 	void InitStats();
+
+	void PrepareSpecialAttack1();
+
+	void SpecialAttack1();
 
 };
 
