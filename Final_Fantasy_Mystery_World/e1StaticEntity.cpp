@@ -25,10 +25,22 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 	}
-	if (strcmp(name, "furniture") == 0) {
+	else if (strcmp(name, "furniture") == 0) {
 		static_type = e1StaticEntity::Type::FURNITURE;
 		frame = { 1070,0,64,40 };
 		SetPivot(frame.w*0.5F, frame.h*1.5F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "door_home") == 0) {
+		static_type = e1StaticEntity::Type::DOORHOME;
+		frame = { 959,44,62,48 };
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "door_shop") == 0) {
+		static_type = e1StaticEntity::Type::DOORSHOP;
+		frame = { 1043,44,45,62 };
+		SetPivot(frame.w*0.5F, frame.h*0.9F);
 		size.create(frame.w, frame.h);
 	}
 	else if (strcmp(name, "rock1") == 0) {

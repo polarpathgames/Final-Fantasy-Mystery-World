@@ -46,6 +46,8 @@ public:
 		NPC1,
 		NPC2,
 		FURNITURE,
+		DOORHOME,
+		DOORSHOP,
 
 		UNKNOWN
 	};

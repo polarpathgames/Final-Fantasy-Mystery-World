@@ -58,7 +58,8 @@ bool m1Scene::Start()
 
 	fx_writting = App->audio->LoadFx("assets/audio/sfx/Speaking_Words_Sound.wav");
 	fx_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_Steps_on_Water1.wav");
-	fx_frog_attack = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Punch1.wav");
+	fx_frog_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_BasicAttack.wav");
+	fx_plant_attack = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Punch1.wav");
 	fx_ability_warrior = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Sword_Hit.wav");
 
   

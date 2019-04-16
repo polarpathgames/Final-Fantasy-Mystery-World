@@ -68,6 +68,7 @@ bool e1StrangeFrog::Update(float dt)
 
 	if (state == State::ATTACKING) {
 		if (current_animation->Finished()) {
+			App->audio->PlayFx(App->scene->fx_frog_attack);
 			CheckBasicAttackEfects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
 			state = State::AFTER_ATTACK;
 			ChangeAnimation(direction, state);
@@ -76,7 +77,6 @@ bool e1StrangeFrog::Update(float dt)
 	}
 	if (state == State::AFTER_ATTACK) {
 		RestTimeAfterAttack(time_attack);
-		App->audio->PlayFx(App->scene->fx_frog_attack);
 	}
 
 
