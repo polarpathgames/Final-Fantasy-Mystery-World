@@ -11,6 +11,8 @@ e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x
 
 	enemy_type = EnemyType::CARNIVOROUS_PLANT;
 
+	state = State::SLEEPING;
+
 	position.x -= 5;
 	position.y -= 24;
 
@@ -47,6 +49,12 @@ bool e1CarnivorousPlant::PreUpdate()
 			ChangeAnimation(direction, state, type_attack);
 		}
 
+	}
+	if (state == State::SLEEPING) {
+		if (IsPlayerNextTile()) {
+			state = State::IDLE;
+		}
+		ChangeTurn(type);
 	}
 	return true;
 }
