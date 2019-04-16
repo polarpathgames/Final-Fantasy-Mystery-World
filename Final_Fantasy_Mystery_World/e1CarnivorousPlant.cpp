@@ -4,6 +4,7 @@
 #include "App.h"
 #include "m1Map.h"
 #include "m1Render.h"
+#include "p2Animation.h"
 
 e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x, y)
 {
@@ -16,6 +17,9 @@ e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x
 	position.x -= 5;
 	position.y -= 24;
 
+	/*Sleep.PushBack();
+	current_animation = &Sleep;
+	*/
 	target_position = position;
 	initial_position = position;
 	InitStats();
