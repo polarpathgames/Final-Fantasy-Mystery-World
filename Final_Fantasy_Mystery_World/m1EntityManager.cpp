@@ -14,6 +14,8 @@
 #include "e1BlueDog.h"
 #include "m1Map.h"
 #include "e1CarnivorousPlant.h"
+#include "e1NPC.h"
+#include "e1ShopKeeperDaughter.h"
 #include "m1Scene.h"
 #include "e1Player.h"
 #include "e1Warrior.h"
@@ -50,7 +52,7 @@ bool m1EntityManager::Start()
 	if (!textures_loaded) {
 		texture.reserve((uint)TextureType::NONE);
 
-		static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)10, "add the new texture in the enum and here");
+		static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)12, "add the new texture in the enum and here");
 
 		texture[(uint)TextureType::WARRIOR] = App->tex->Load("assets/sprites/WarriorSpritesheet.png");
 		texture[(uint)TextureType::ARCHER] = App->tex->Load("assets/sprites/ArcherSpritesheet.png");
@@ -59,6 +61,7 @@ bool m1EntityManager::Start()
 		texture[(uint)TextureType::STRANGE_FROG] = App->tex->Load("assets/sprites/Frog.png");
 		texture[(uint)TextureType::BLUE_DOG] = App->tex->Load("assets/sprites/Dog.png");
 		texture[(uint)TextureType::STATIC_ENTITIES] = App->tex->Load("assets/maps/static_objects_tileset.png");
+		texture[(uint)TextureType::DAUGHTER] = App->tex->Load("assets/maps/Little_Girl.png");
 		textures_loaded = true;
 	}
 	
@@ -140,7 +143,12 @@ void m1EntityManager::DrawEntities(std::vector<e1Entity *> &draw_entities, float
 					(*item)->Draw(texture[(uint)TextureType::STRANGE_FROG], dt);
 					break;
 				}
-			}		
+			}
+			else if ((*item)->type == e1Entity::EntityType::NPC)
+			{
+				(*item)->Draw(texture[(uint)TextureType::DAUGHTER], dt);
+				break;
+			}
 			else if ((*item)->type == e1Entity::EntityType::STATIC)
 				(*item)->Draw(texture[(uint)TextureType::STATIC_ENTITIES], dt);
 
@@ -238,7 +246,7 @@ void m1EntityManager::OnCollisionExit(Collider * c1, Collider * c2)
 //e1Entity Factory
 e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
-	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)10, "code needs update");
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)12, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
 
@@ -252,7 +260,8 @@ e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX
 	case e1Entity::EntityType::ARCHER: ret = DBG_NEW e1Archer(PositionX, PositionY); break;
 	case e1Entity::EntityType::MAGE: ret = DBG_NEW e1Mage(PositionX, PositionY); break;
 	case e1Entity::EntityType::STRANGE_FROG: ret = DBG_NEW e1StrangeFrog(PositionX, PositionY); break;
-	//case e1Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
+	case e1Entity::EntityType::NPC: ret = DBG_NEW e1NPC(PositionX, PositionY); break;
+	case e1Entity::EntityType::DAUGHTER: ret = DBG_NEW e1ShopKeeperDaughter(PositionX, PositionY); break;
 	default:
 		LOG("Cannot find any entity with that type");
 		break;

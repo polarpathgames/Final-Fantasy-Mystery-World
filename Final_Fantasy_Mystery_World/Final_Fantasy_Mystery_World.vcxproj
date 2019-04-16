@@ -92,9 +92,11 @@
     <ClCompile Include="e1CarnivorousPlant.cpp" />
     <ClCompile Include="e1Drop.cpp" />
     <ClCompile Include="e1Mage.cpp" />
+    <ClCompile Include="e1ShopKeeperDaughter.cpp" />
     <ClCompile Include="e1StrangeFrog.cpp" />
     <ClCompile Include="e1Warrior.cpp" />
     <ClCompile Include="m1Cutscene.cpp" />
+    <ClCompile Include="e1NPC.cpp" />
     <ClCompile Include="p2ChangeControls.cpp" />
     <ClCompile Include="e1DynamicEntity.cpp" />
     <ClCompile Include="m1EasingSplines.cpp" />
@@ -147,9 +149,11 @@
     <ClInclude Include="e1CarnivorousPlant.h" />
     <ClInclude Include="e1Drop.h" />
     <ClInclude Include="e1Mage.h" />
+    <ClInclude Include="e1ShopKeeperDaughter.h" />
     <ClInclude Include="e1StrangeFrog.h" />
     <ClInclude Include="e1Warrior.h" />
     <ClInclude Include="m1Cutscene.h" />
+    <ClInclude Include="e1NPC.h" />
     <ClInclude Include="p2ChangeControls.h" />
     <ClInclude Include="p2Random.h" />
     <ClInclude Include="p2Rooms.h" />
