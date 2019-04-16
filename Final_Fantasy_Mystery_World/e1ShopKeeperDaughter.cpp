@@ -4,7 +4,7 @@
 
 e1ShopKeeperDaughter::e1ShopKeeperDaughter(const int &x, const int &y) : e1NPC(x, y)
 {
-	LoadEntityData("assets/entities/StrangeFrog.tsx");
+	LoadEntityData("assets/entities/Little_Girl.tsx");
 	npc_type = NPCType::DAUGHTER;
 	position.x;
 	position.y;
