@@ -77,6 +77,8 @@ public:
 		WARRIOR,
 		ARCHER,
 		MAGE,
+		NPC,
+		DAUGHTER,
 
 		NO_TYPE
 	};

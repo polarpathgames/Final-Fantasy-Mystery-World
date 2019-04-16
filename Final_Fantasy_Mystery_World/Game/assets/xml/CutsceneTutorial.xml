@@ -1,0 +1,23 @@
+<cutscenes>
+  <actions>
+    <cutscene action="move_entity" entity="daughter">
+      <time start="1000" duration="60" speed_x="160" speed_y="-80"/>
+    </cutscene>
+    <cutscene action="move_entity" entity="daughter">
+    <time start="1101" duration="560" speed_x="40" speed_y="-80"/>
+  </cutscene>
+    <cutscene action="move_entity" entity="daughter">
+    <time start="1662" duration="10" speed_x="-160" speed_y="80"/>
+  </cutscene>
+  <cutscene action="move_entity" entity="daughter">
+    <time start="1763" duration="1000" speed_x="0" speed_y="0"/>
+  </cutscene>
+    <cutscene action="move_entity" entity="daughter">
+    <time start="2674" duration="560" speed_x="-160" speed_y="-80"/>
+  </cutscene>
+  </actions>
+  <elements>
+    <element type="entity" name="daughter" pos_x="0" pos_y="0"/>
+  </elements>
+
+</cutscenes>
