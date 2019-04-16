@@ -32,6 +32,7 @@ e1Warrior::e1Warrior(const int & x, const int & y) : e1Player(x, y)
 
 	ground = App->tex->Load("assets/sprites/player_pos.png");
 	CenterPlayerInTile();
+	InitStats();
 }
 
 e1Warrior::~e1Warrior()
