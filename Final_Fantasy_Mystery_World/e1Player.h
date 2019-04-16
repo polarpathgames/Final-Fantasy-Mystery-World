@@ -101,9 +101,12 @@ public:
 
 	void ReadAttack();
 
+	virtual void InitStats() {};
+
 	virtual void PrepareSpecialAttack1() {};
 
 	virtual void SpecialAttack1() {};
+
 
 	//Update
 	void PerformActions(float dt); // Global organizator function 

@@ -32,7 +32,6 @@ e1Archer::e1Archer(const int & x, const int & y) : e1Player(x, y)
 
 	ground = App->tex->Load("assets/sprites/player_pos.png");
 
-	InitStats();
 	CenterPlayerInTile();
 }
 
