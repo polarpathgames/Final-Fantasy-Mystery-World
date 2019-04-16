@@ -104,11 +104,16 @@ private:
 	
 	u1Button* button_youtube = nullptr;
 	u1Label* label_youtube = nullptr;
-	
+
+	//select character
+
 	u1Image* select_champ_panel = nullptr;
 	u1Button* button_warrior = nullptr;
+	u1Label* label_warrior = nullptr;
 	u1Button* button_archer = nullptr;
+	u1Label* label_archer = nullptr;
 	u1Button* button_mage = nullptr;
+	u1Label* label_mage = nullptr;
 
 
 	//options
