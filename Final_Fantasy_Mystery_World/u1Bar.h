@@ -17,13 +17,12 @@ public:
 
 	int CalculateBar(int quantity);
 
+	void InnerDraw();
+
 public:
 
 	u1Image* empty_bar = nullptr;
-	u1Image* hp_bar = nullptr;
-
-	u1Image* empty_mana_bar = nullptr;
-	u1Image* mana_bar = nullptr;
+	u1Image* filled_bar = nullptr;
 
 	e1Entity* entity = nullptr;
 	UIType bar_type;

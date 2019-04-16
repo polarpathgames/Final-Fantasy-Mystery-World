@@ -71,6 +71,7 @@ public:
 	bool ChangePause();
 
 	uint32 GetFps();
+	float GetDeltaTime();
 
 	bool GetInventory();
 	bool ChangeInventory();

@@ -123,7 +123,7 @@ void m1GUI::FocusInput()
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN|| App->input->CheckAxisStates(Axis::AXIS_UP)) {
 		u1GUI* new_focus = focus;
-		if (focus != nullptr && focus->parent != nullptr)
+		if (focus != nullptr && focus->parent != nullptr) {
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
 				if ((*item)->allow_focus && (*item)->position.y < focus->position.y) {
 					if (focus == new_focus) {
@@ -134,13 +134,14 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-		focus->current_state = Mouse_Event::NONE;
-		focus = new_focus;
-		focus->current_state = Mouse_Event::HOVER;
+			focus->current_state = Mouse_Event::NONE;
+			focus = new_focus;
+			focus->current_state = Mouse_Event::HOVER;
+		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN || App->input->CheckAxisStates(Axis::AXIS_DOWN)) {
 		u1GUI* new_focus = focus;
-		if (focus != nullptr && focus->parent != nullptr)
+		if (focus != nullptr && focus->parent != nullptr) {
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
 				if ((*item)->allow_focus && (*item)->position.y > focus->position.y) {
 					if (focus == new_focus) {
@@ -151,13 +152,14 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-		focus->current_state = Mouse_Event::NONE;
-		focus = new_focus;
-		focus->current_state = Mouse_Event::HOVER;
+			focus->current_state = Mouse_Event::NONE;
+			focus = new_focus;
+			focus->current_state = Mouse_Event::HOVER;
+		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) {
 		u1GUI* new_focus = focus;
-		if (focus != nullptr && focus->parent != nullptr)
+		if (focus != nullptr && focus->parent != nullptr) {
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
 				if ((*item)->allow_focus && (*item)->position.x < focus->position.x) {
 					if (focus == new_focus) {
@@ -168,13 +170,14 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-		focus->current_state = Mouse_Event::NONE;
-		focus = new_focus;
-		focus->current_state = Mouse_Event::HOVER;
+			focus->current_state = Mouse_Event::NONE;
+			focus = new_focus;
+			focus->current_state = Mouse_Event::HOVER;
+		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) {
 		u1GUI* new_focus = focus;
-		if (focus != nullptr && focus->parent != nullptr)
+		if (focus != nullptr && focus->parent != nullptr) {
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
 				if ((*item)->allow_focus && (*item)->position.x > focus->position.x) {
 					if (focus == new_focus) {
@@ -185,9 +188,10 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-		focus->current_state = Mouse_Event::NONE;
-		focus = new_focus;
-		focus->current_state = Mouse_Event::HOVER;
+			focus->current_state = Mouse_Event::NONE;
+			focus = new_focus;
+			focus->current_state = Mouse_Event::HOVER;
+		}
 	}
 }
 
