@@ -165,6 +165,47 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
 	return list_to_fill.list.size();
 }
 
+uint PathNode::FindWalkableAdjacents(PathList & list_to_fill, const std::vector<iPoint>& no_walkables) const
+{
+	iPoint cell;
+
+	cell.create(pos.x - 1, pos.y - 1);
+	if (App->map->IsWalkable(cell, false) && (std::find(no_walkables.begin(), no_walkables.end(), cell) == no_walkables.end()))
+		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+
+	// west
+	cell.create(pos.x + 1, pos.y + 1);
+	if (App->map->IsWalkable(cell, false) && (std::find(no_walkables.begin(), no_walkables.end(), cell) == no_walkables.end()))
+		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+
+	cell.create(pos.x - 1, pos.y + 1);
+	if (App->map->IsWalkable(cell, false) && (std::find(no_walkables.begin(), no_walkables.end(), cell) == no_walkables.end()))
+		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+
+	cell.create(pos.x + 1, pos.y - 1);
+	if (App->map->IsWalkable(cell, false) && (std::find(no_walkables.begin(), no_walkables.end(), cell) == no_walkables.end()))
+		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+
+	cell.create(pos.x - 1, pos.y);
+	if (App->map->IsWalkable(cell, false) && (std::find(no_walkables.begin(), no_walkables.end(), cell) == no_walkables.end()))
+		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+
+	// west
+	cell.create(pos.x + 1, pos.y);
+	if (App->map->IsWalkable(cell, false) && (std::find(no_walkables.begin(), no_walkables.end(), cell) == no_walkables.end()))
+		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+
+	cell.create(pos.x, pos.y + 1);
+	if (App->map->IsWalkable(cell, false) && (std::find(no_walkables.begin(), no_walkables.end(), cell) == no_walkables.end()))
+		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+
+	cell.create(pos.x, pos.y - 1);
+	if (App->map->IsWalkable(cell, false) && (std::find(no_walkables.begin(), no_walkables.end(), cell) == no_walkables.end()))
+		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+
+	return list_to_fill.list.size();
+}
+
 // PathNode -------------------------------------------------------------------------
 // Calculates this tile score
 // ----------------------------------------------------------------------------------
@@ -254,6 +295,78 @@ int m1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			}
 		}
 	}
+
+	return 1;
+}
+
+int m1PathFinding::RecalculatePath(const iPoint & origin, const iPoint & destination, const std::vector<iPoint>& no_walkables)
+{
+	BROFILER_CATEGORY("RecalculatePathFinding", Profiler::Color::Brown);
+
+	last_path.clear();
+
+	if (!App->map->IsWalkable(origin, false) || !App->map->IsWalkable(destination, false))
+		return -1;
+
+	PathList open, close;
+	PathNode ori(0, origin.DistanceNoSqrt(destination), origin, nullptr);
+	open.list.push_back(ori);
+
+	while (open.list.size() > 0) {
+
+		PathNode* current_node = (PathNode*)open.GetNodeLowestScore();
+		close.list.push_back(*current_node);
+
+		std::list<PathNode>::iterator item = open.list.begin();
+		while (item != open.list.end()) {
+
+			if (&(*item) == &(*current_node))
+				break;
+			item++;
+		}
+		open.list.erase(item);
+
+		if (close.list.back().pos == destination) {
+
+			for (PathNode node = close.list.back(); node.parent != nullptr; node = *close.Find(node.parent->pos)) {
+
+				last_path.push_back(node.pos);
+			}
+
+			last_path.push_back(close.list.front().pos);
+
+			std::reverse(last_path.begin(), last_path.end());
+			break;
+		}
+		else if (close.list.back().pos != destination) {
+
+			PathList adjacents_nodes;
+			close.list.back().FindWalkableAdjacents(adjacents_nodes, no_walkables);
+
+			std::list<PathNode>::iterator item = adjacents_nodes.list.begin();
+
+			while (item != adjacents_nodes.list.end()) {
+
+				if (close.Find((*item).pos) != nullptr) {
+					++item;
+					continue;
+				}
+				(*item).CalculateF(destination);
+				if (open.Find((*item).pos) != nullptr) {
+
+					PathNode n = *open.Find((*item).pos);
+					if ((*item).g < n.g)
+						n.parent = (*item).parent;
+				}
+				else {
+					open.list.push_back(*item);
+				}
+				++item;
+			}
+		}
+	}
+
+
 
 	return 1;
 }

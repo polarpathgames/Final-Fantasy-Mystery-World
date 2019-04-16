@@ -28,11 +28,11 @@
 
 e1Warrior::e1Warrior(const int & x, const int & y) : e1Player(x, y)
 {
-	LoadEntityData("assets/entities/Warrior.tsx");
+	LoadEntityData("assets/entities/merche.tsx");
 
 	ground = App->tex->Load("assets/sprites/player_pos.png");
 	CenterPlayerInTile();
-	InitStats();
+	//InitStats();
 }
 
 e1Warrior::~e1Warrior()
@@ -49,7 +49,7 @@ bool e1Warrior::CleanUp()
 void e1Warrior::InitStats()
 {
 	stats.attack_power = 500;
-	stats.cost_mana_special_attack1 = 50;
+	stats.cost_mana_special_attack1 = 0;
 	stats.gold = 0;
 	stats.level = 1;
 	stats.live = 250;
@@ -67,7 +67,7 @@ void e1Warrior::PrepareSpecialAttack1()
 		ReduceMana(stats.cost_mana_special_attack1);
 		type_attack = Attacks::SPECIAL_1;
 		state = State::ATTACKING;
-		current_animation = &BasicAttackDown;
+		current_animation = &AbilitiDownLeft1;
 	}
 	else { // no enough mana so return to idle
 		state = State::IDLE;
@@ -124,5 +124,122 @@ void e1Warrior::CheckSpecialAttack1Efects(const int & damage)
 				}
 			}
 		}
+	}
+}
+
+void e1Warrior::IdAnimToEnum() //Assign every id animation to enum animation
+{
+	for (uint i = 0; i < data.num_animations; ++i) {
+		switch (data.animations[i].id) {
+		case 1:
+			data.animations[i].animType = AnimationState::IDLE_DOWN_LEFT;
+			break;//
+		case 0:
+			data.animations[i].animType = AnimationState::WALKING_DOWN_LEFT;
+			break;//
+		case 3:
+			data.animations[i].animType = AnimationState::WALKING_UP_LEFT;
+			break;//
+		case 4:
+			data.animations[i].animType = AnimationState::IDLE_UP_LEFT;
+			break;//
+		case 6:
+			data.animations[i].animType = AnimationState::WALKING_DOWN_RIGHT;
+			break;//
+		case 7:
+			data.animations[i].animType = AnimationState::IDLE_DOWN_RIGHT;
+			break;//
+		case 9:
+			data.animations[i].animType = AnimationState::WALKING_UP_RIGHT;
+			break;//
+		case 10:
+			data.animations[i].animType = AnimationState::IDLE_UP_RIGHT;
+			break;//
+		case 12:
+			data.animations[i].animType = AnimationState::WALKING_DOWN;
+			break;//
+		case 13:
+			data.animations[i].animType = AnimationState::IDLE_DOWN;
+			break;//
+		case 15:
+			data.animations[i].animType = AnimationState::WALKING_UP;
+			break;//
+		case 16:
+			data.animations[i].animType = AnimationState::IDLE_UP;
+			break;//
+		case 18:
+			data.animations[i].animType = AnimationState::WALKING_LEFT;
+			break;//
+		case 19:
+			data.animations[i].animType = AnimationState::IDLE_LEFT;
+			break;//
+		case 21:
+			data.animations[i].animType = AnimationState::WALKING_RIGHT;
+			break;//
+		case 22:
+			data.animations[i].animType = AnimationState::IDLE_RIGHT;
+			break;//
+		case 24:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_LEFT;
+			break;//
+		case 33:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_RIGHT;
+			break;//
+		case 27:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_LEFT;
+			break;//
+		case 30:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_RIGHT;
+			break;//
+		case 36:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN;
+			break;//
+		case 39:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP;
+			break;//
+		case 42:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_LEFT;
+			break;//
+		case 54:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
+			break;//
+		case 60:
+			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
+			break;//
+		case 63:
+			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
+			break;//
+		case 66:
+			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
+			break;//
+		case 69:
+			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
+			break;//
+		case 72:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_LEFT_1;
+			break;//
+		case 78:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_RIGHT_1;
+			break;//
+		case 76:
+			data.animations[i].animType = AnimationState::ABILITY_UP_RIGHT_1;
+			break;//
+		case 74:
+			data.animations[i].animType = AnimationState::ABILITY_UP_LEFT_1;
+			break;//
+		case 73:
+			data.animations[i].animType = AnimationState::ABILITY_LEFT_1;
+			break;//
+		case 75:
+			data.animations[i].animType = AnimationState::ABILITY_UP_1;
+			break;//
+		case 77:
+			data.animations[i].animType = AnimationState::ABILITY_RIGHT_1;
+			break;//
+		case 79:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_1;
+			break;//
+		}
+
 	}
 }

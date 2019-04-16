@@ -54,7 +54,7 @@ bool m1EntityManager::Start()
 
 		static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)12, "add the new texture in the enum and here");
 
-		texture[(uint)TextureType::WARRIOR] = App->tex->Load("assets/sprites/WarriorSpritesheet.png");
+		texture[(uint)TextureType::WARRIOR] = App->tex->Load("assets/sprites/Warrior.png");
 		texture[(uint)TextureType::ARCHER] = App->tex->Load("assets/sprites/ArcherSpritesheet.png");
 		texture[(uint)TextureType::MAGE] = App->tex->Load("assets/sprites/MageSpritesheet.png");
 		texture[(uint)TextureType::CARNIVOROUS_PLANT] = App->tex->Load("assets/sprites/Carnivorous Plant.png");
