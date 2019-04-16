@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.2" name="Little_Girl" tilewidth="18" tileheight="34" tilecount="24" columns="12">
+<tileset version="1.2" tiledversion="1.2.3" name="Little_Girl" tilewidth="18" tileheight="34" tilecount="24" columns="12">
  <image source="../sprites/Little_Girl.png" width="218" height="72"/>
  <tile id="0">
   <properties>
@@ -28,6 +28,11 @@
    <frame tileid="4" duration="100"/>
   </animation>
  </tile>
+ <tile id="4">
+  <animation>
+   <frame tileid="4" duration="100"/>
+  </animation>
+ </tile>
  <tile id="6">
   <properties>
    <property name="speed" type="int" value="7"/>
@@ -39,6 +44,11 @@
    <frame tileid="7" duration="100"/>
   </animation>
  </tile>
+ <tile id="7">
+  <animation>
+   <frame tileid="7" duration="100"/>
+  </animation>
+ </tile>
  <tile id="9">
   <properties>
    <property name="speed" type="int" value="7"/>
@@ -47,6 +57,11 @@
    <frame tileid="9" duration="100"/>
    <frame tileid="10" duration="100"/>
    <frame tileid="11" duration="100"/>
+   <frame tileid="10" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="10">
+  <animation>
    <frame tileid="10" duration="100"/>
   </animation>
  </tile>
