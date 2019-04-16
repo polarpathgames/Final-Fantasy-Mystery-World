@@ -3,6 +3,7 @@
 #include "App.h"
 #include "m1Input.h"
 #include "m1Window.h"
+#include "SDL/include/SDL.h"
 #include "Brofiler/Brofiler.h"
 
 
@@ -65,6 +66,8 @@ bool m1Input::Start()
 	mouse_motion_y = 0;
 	mouse_x= 0;
 	mouse_y = 0;
+	last_mouse_x = 0;
+	last_mouse_y = 0;
 
 
 	return true;
@@ -216,10 +219,13 @@ void m1Input::UpdateEvents(SDL_Event &event)
 			break;
 		case SDL_MOUSEMOTION:
 			int scale = App->win->GetScale();
+			last_mouse_x = mouse_x;
+			last_mouse_y = mouse_y;
 			mouse_motion_x = event.motion.xrel / scale;
 			mouse_motion_y = event.motion.yrel / scale;
-			mouse_x = event.motion.x / scale;
-			mouse_y = event.motion.y / scale;
+			SDL_GetMouseState(&mouse_x, &mouse_y);
+			mouse_x /= scale;
+			mouse_y /= scale;
 			//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
 			break;
 		}

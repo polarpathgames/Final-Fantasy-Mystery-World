@@ -173,6 +173,8 @@ private:
 	int			mouse_motion_y = 0;
 	int			mouse_x = 0;
 	int			mouse_y = 0;
+	int			last_mouse_x = 0;
+	int			last_mouse_y = 0;
 	int			axis_x = 0;
 	int			axis_y = 0;
 
