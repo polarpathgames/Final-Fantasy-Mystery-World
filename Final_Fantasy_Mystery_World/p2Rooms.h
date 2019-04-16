@@ -36,7 +36,7 @@ class Room {
 
 public:
 
-	Room(const std::string &location, const int &id);
+	Room(const std::string &location, const int &id, const std::string &type);
 	~Room();
 
 
@@ -45,6 +45,7 @@ public:
 	uint id = 0; 
 	std::vector<ChangeScene*> change_scene_points; 
 	bool active = false;
+	RoomType room_type = RoomType::NONE;
 };
 
 class RoomManager {
@@ -63,7 +64,7 @@ public:
 	Room* actual_room = nullptr;
 	std::vector<Room*> rooms;
 	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
-	RoomType player_room = RoomType::PACEFUL;
+	
 
 
 };

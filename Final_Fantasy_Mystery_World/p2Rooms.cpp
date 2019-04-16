@@ -10,10 +10,23 @@
 #include "m1EntityManager.h"
 #include "m1Pathfinding.h"
 
-Room::Room(const std::string &location, const int &id) 
+Room::Room(const std::string &location, const int &id, const std::string &type)
 {
 	tmx_location = location;
 	this->id = id;
+	
+	if (strcmp(type.data(), "paceful") == 0) {
+		room_type = RoomType::PACEFUL;
+	}
+	else if (strcmp(type.data(), "combat") == 0) {
+		room_type = RoomType::COMBAT;
+	}
+	else if (strcmp(type.data(), "boss") == 0) {
+		room_type = RoomType::BOSS;
+	}
+	else if (strcmp(type.data(), "fountain") == 0) {
+		room_type = RoomType::FOUNTAIN;
+	}
 }
 
 Room::~Room()
@@ -34,7 +47,7 @@ RoomManager::RoomManager(pugi::xml_node &node)
 
 	for (room_node = node.child("maps").child("tutorial").child("room"); room_node; room_node = room_node.next_sibling("room")) {
 		Room * r = nullptr;
-		r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_int());
+		r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_int(), room_node.child("type").child_value());
 		rooms.push_back(r);
 	}
 
@@ -135,7 +148,7 @@ void RoomManager::LoadRoom(const int & id)
 	PlacePlayer();
 	LoadColliders();
 
-	if (id == 1 || id == 2 || id == 6) {
+	/*if (id == 1 || id == 2 || id == 6) {
 		player_room = RoomType::PACEFUL;
 	}
 	if (id == 3 || id == 4 || id == 5) {
@@ -146,11 +159,11 @@ void RoomManager::LoadRoom(const int & id)
 	}
 	if (id == 7) {
 		player_room = RoomType::FOUNTAIN;
-	}
+	}*/
 
 
 	// ROOM TYPE
-	switch (player_room)
+	switch (actual_room->room_type)
 	{
 	case RoomType::PACEFUL:
 		App->audio->PlayMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg", 5);
