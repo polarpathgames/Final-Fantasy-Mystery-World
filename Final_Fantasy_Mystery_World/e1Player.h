@@ -75,11 +75,9 @@ public:
 
 	virtual ~e1Player();
 
-	virtual bool PreUpdate() { return true; };
+	bool PreUpdate();
 
-	virtual bool Update(float dt) { return true; };
-
-	virtual bool PostUpdate() { return true; };
+	bool Update(float dt);
 
 	bool Load(pugi::xml_node&);
 
@@ -103,7 +101,9 @@ public:
 
 	void ReadAttack();
 
-	
+	virtual void PrepareSpecialAttack1() {};
+
+	virtual void SpecialAttack1() {};
 
 	//Update
 	void PerformActions(float dt); // Global organizator function 

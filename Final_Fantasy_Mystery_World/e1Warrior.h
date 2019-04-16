@@ -10,12 +10,6 @@ public:
 	e1Warrior(const int &x, const int &y);
 	virtual ~e1Warrior();
 
-	bool PreUpdate();
-
-	bool Update(float dt);
-
-	bool PostUpdate();
-
 	bool CleanUp();
 
 	void InitStats();

@@ -38,6 +38,8 @@ void m1PathFinding::SetMap(const uint& width, const uint& height, uchar* data)
 	RELEASE_ARRAY(map);
 	map = DBG_NEW uchar[width*height];
 	memcpy(map, data, width*height);
+	RELEASE(data);
+	RELEASE_ARRAY(data);
 }
 
 // Utility: return true if pos is inside the map boundaries
