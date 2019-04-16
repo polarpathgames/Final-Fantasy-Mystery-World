@@ -157,28 +157,28 @@ void e1Warrior::IdAnimToEnum() //Assign every id animation to enum animation
 			break;//
 		case 12:
 			data.animations[i].animType = AnimationState::WALKING_DOWN;
-			break;
+			break;//
 		case 13:
 			data.animations[i].animType = AnimationState::IDLE_DOWN;
-			break;
+			break;//
 		case 15:
 			data.animations[i].animType = AnimationState::WALKING_UP;
-			break;
+			break;//
 		case 16:
 			data.animations[i].animType = AnimationState::IDLE_UP;
-			break;
+			break;//
 		case 18:
 			data.animations[i].animType = AnimationState::WALKING_LEFT;
-			break;
+			break;//
 		case 19:
 			data.animations[i].animType = AnimationState::IDLE_LEFT;
-			break;
+			break;//
 		case 21:
 			data.animations[i].animType = AnimationState::WALKING_RIGHT;
-			break;
+			break;//
 		case 22:
 			data.animations[i].animType = AnimationState::IDLE_RIGHT;
-			break;
+			break;//
 		case 24:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_LEFT;
 			break;
