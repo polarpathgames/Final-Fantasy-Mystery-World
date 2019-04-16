@@ -61,7 +61,7 @@ bool m1EntityManager::Start()
 		texture[(uint)TextureType::STRANGE_FROG] = App->tex->Load("assets/sprites/Frog.png");
 		texture[(uint)TextureType::BLUE_DOG] = App->tex->Load("assets/sprites/Dog.png");
 		texture[(uint)TextureType::STATIC_ENTITIES] = App->tex->Load("assets/maps/static_objects_tileset.png");
-		texture[(uint)TextureType::DAUGHTER] = App->tex->Load("assets/maps/Little_Girl.png");
+		texture[(uint)TextureType::DAUGHTER] = App->tex->Load("assets/sprites/Little_Girl.png");
 		textures_loaded = true;
 	}
 	
@@ -146,8 +146,12 @@ void m1EntityManager::DrawEntities(std::vector<e1Entity *> &draw_entities, float
 			}
 			else if ((*item)->type == e1Entity::EntityType::NPC)
 			{
-				(*item)->Draw(texture[(uint)TextureType::DAUGHTER], dt);
-				break;
+				e1NPC *npc = (e1NPC*)(*item);
+				switch (npc->npc_type) {
+				case e1NPC::NPCType::DAUGHTER:
+					(*item)->Draw(texture[(uint)TextureType::DAUGHTER], dt);
+					break;
+				}
 			}
 			else if ((*item)->type == e1Entity::EntityType::STATIC)
 				(*item)->Draw(texture[(uint)TextureType::STATIC_ENTITIES], dt);
