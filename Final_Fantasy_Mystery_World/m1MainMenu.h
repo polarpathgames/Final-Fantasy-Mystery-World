@@ -11,6 +11,17 @@ class u1Button;
 class u1Label;
 class u1Image;
 
+
+enum class MainMenuStates {
+	MAIN_MENU,
+	OPTIONS_MENU,
+	CREDITS_MENU,
+	SELECTION_MENU,
+	CONTROLS_MENU,
+
+	NONE
+};
+
 class m1MainMenu : public m1Module
 {
 public:
@@ -38,7 +49,13 @@ public:
 	void CreateSelectChamp();
 	void DestroySelectChamp();
 
+	void SetMainMenuState(const MainMenuStates &state);
+
+	void DestroyMainMenu();
+
 private:
+
+	MainMenuStates main_states = MainMenuStates::NONE;
 
 	u1GUI* background = nullptr;
 

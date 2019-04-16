@@ -29,7 +29,7 @@ bool m1MainMenu::Awake()
 bool m1MainMenu::Start()
 {
 	CreateMainMenu();
-
+	main_states = MainMenuStates::MAIN_MENU;
 	return true;
 }
 
@@ -67,6 +67,35 @@ bool m1MainMenu::CleanUp()
 bool m1MainMenu::Interact(u1GUI* interaction)
 {
 	bool ret = true;
+
+	switch (main_states) {
+	case MainMenuStates::MAIN_MENU:
+		if (interaction == new_game_button) {
+			DestroyMainMenu();
+			CreateSelectChamp();
+			main_states = MainMenuStates::SELECTION_MENU;
+			ret = false;
+		}
+		break;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/*
+
+
+
 	if (interaction == exit_button) {
 		App->QuitGame();
 		ret = false;
@@ -80,9 +109,9 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		App->scene->Enable();
 		App->map->ChangeMap(Maps::LOBBY);
 		App->scene->SetMenuState(StatesMenu::NO_MENU);
-		ret = false;*/
+		ret = false;
 
-		App->gui->DeleteAllUIElements();
+		App->gui->DeleteUIElement(background);
 		CreateSelectChamp();
 		ret = false;
 	}
@@ -195,6 +224,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 	if (interaction == button_ivan) {
 		ShellExecuteA(NULL, "open", "https://github.com/RoperoIvan", NULL, NULL, SW_SHOWNORMAL);
 	}
+	*/
 	return ret;
 }
 
@@ -313,6 +343,16 @@ void m1MainMenu::CreateSelectChamp()
 }
 
 void m1MainMenu::DestroySelectChamp()
+{
+	App->gui->DeleteUIElement(background);
+}
+
+void m1MainMenu::SetMainMenuState(const MainMenuStates & state)
+{
+	main_states = state;
+}
+
+void m1MainMenu::DestroyMainMenu()
 {
 	App->gui->DeleteUIElement(background);
 }

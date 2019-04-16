@@ -249,6 +249,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			   {
 			   case 1: // SHOP
 				   App->scene->CreateShopMenu();
+				   App->scene->SetMenuState(StatesMenu::SHOP_MENU);
 				   break;
 			   case -2: //FOUNTAIN MANA
 				   App->scene->player->AugmentMana(100);
