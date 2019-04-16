@@ -6,8 +6,11 @@
     <cutscene action="move_entity" entity="daughter">
     <time start="1101" duration="560" speed_x="40" speed_y="-80"/>
   </cutscene>
-  <cutscene action="move_entity" entity="daughter">
-    <time start="1661" duration="560" speed_x="-160" speed_y="-80"/>
+    <cutscene action="move_entity" entity="daughter">
+    <time start="1662" duration="20" speed_x="-160" speed_y="80"/>
+  </cutscene>
+    <cutscene action="move_entity" entity="daughter">
+    <time start="2664" duration="560" speed_x="-160" speed_y="-80"/>
   </cutscene>
   </actions>
   <elements>
