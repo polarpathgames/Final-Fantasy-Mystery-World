@@ -249,4 +249,188 @@
    <frame tileid="71" duration="270"/>
   </animation>
  </tile>
+ <tile id="72">
+  <properties>
+   <property name="speed" type="int" value="20"/>
+  </properties>
+  <animation>
+   <frame tileid="72" duration="270"/>
+   <frame tileid="73" duration="270"/>
+   <frame tileid="74" duration="270"/>
+   <frame tileid="75" duration="270"/>
+   <frame tileid="76" duration="270"/>
+   <frame tileid="77" duration="270"/>
+   <frame tileid="78" duration="270"/>
+   <frame tileid="79" duration="270"/>
+   <frame tileid="72" duration="170"/>
+   <frame tileid="73" duration="170"/>
+   <frame tileid="74" duration="170"/>
+   <frame tileid="75" duration="170"/>
+   <frame tileid="76" duration="170"/>
+   <frame tileid="77" duration="170"/>
+   <frame tileid="78" duration="170"/>
+   <frame tileid="79" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="73">
+  <properties>
+   <property name="speed" type="int" value="20"/>
+  </properties>
+  <animation>
+   <frame tileid="73" duration="170"/>
+   <frame tileid="74" duration="170"/>
+   <frame tileid="75" duration="170"/>
+   <frame tileid="76" duration="170"/>
+   <frame tileid="77" duration="170"/>
+   <frame tileid="78" duration="170"/>
+   <frame tileid="79" duration="170"/>
+   <frame tileid="72" duration="170"/>
+   <frame tileid="73" duration="170"/>
+   <frame tileid="74" duration="170"/>
+   <frame tileid="75" duration="170"/>
+   <frame tileid="76" duration="170"/>
+   <frame tileid="77" duration="170"/>
+   <frame tileid="78" duration="170"/>
+   <frame tileid="79" duration="170"/>
+   <frame tileid="72" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="74">
+  <properties>
+   <property name="speed" type="int" value="20"/>
+  </properties>
+  <animation>
+   <frame tileid="74" duration="170"/>
+   <frame tileid="75" duration="170"/>
+   <frame tileid="76" duration="170"/>
+   <frame tileid="77" duration="170"/>
+   <frame tileid="78" duration="170"/>
+   <frame tileid="79" duration="170"/>
+   <frame tileid="72" duration="170"/>
+   <frame tileid="73" duration="170"/>
+   <frame tileid="74" duration="170"/>
+   <frame tileid="75" duration="170"/>
+   <frame tileid="76" duration="170"/>
+   <frame tileid="77" duration="170"/>
+   <frame tileid="78" duration="170"/>
+   <frame tileid="79" duration="170"/>
+   <frame tileid="72" duration="170"/>
+   <frame tileid="73" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="75">
+  <properties>
+   <property name="speed" type="int" value="20"/>
+  </properties>
+  <animation>
+   <frame tileid="75" duration="170"/>
+   <frame tileid="76" duration="170"/>
+   <frame tileid="77" duration="170"/>
+   <frame tileid="78" duration="170"/>
+   <frame tileid="79" duration="170"/>
+   <frame tileid="72" duration="170"/>
+   <frame tileid="73" duration="170"/>
+   <frame tileid="74" duration="170"/>
+   <frame tileid="75" duration="170"/>
+   <frame tileid="76" duration="170"/>
+   <frame tileid="77" duration="170"/>
+   <frame tileid="78" duration="170"/>
+   <frame tileid="79" duration="170"/>
+   <frame tileid="72" duration="170"/>
+   <frame tileid="73" duration="170"/>
+   <frame tileid="74" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="76">
+  <properties>
+   <property name="speed" type="int" value="20"/>
+  </properties>
+  <animation>
+   <frame tileid="76" duration="170"/>
+   <frame tileid="77" duration="170"/>
+   <frame tileid="78" duration="170"/>
+   <frame tileid="79" duration="170"/>
+   <frame tileid="72" duration="170"/>
+   <frame tileid="73" duration="170"/>
+   <frame tileid="74" duration="170"/>
+   <frame tileid="75" duration="170"/>
+   <frame tileid="76" duration="170"/>
+   <frame tileid="77" duration="170"/>
+   <frame tileid="78" duration="170"/>
+   <frame tileid="79" duration="170"/>
+   <frame tileid="72" duration="170"/>
+   <frame tileid="73" duration="170"/>
+   <frame tileid="74" duration="170"/>
+   <frame tileid="75" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="77">
+  <properties>
+   <property name="speed" type="int" value="20"/>
+  </properties>
+  <animation>
+   <frame tileid="77" duration="170"/>
+   <frame tileid="78" duration="170"/>
+   <frame tileid="79" duration="170"/>
+   <frame tileid="72" duration="170"/>
+   <frame tileid="73" duration="170"/>
+   <frame tileid="74" duration="170"/>
+   <frame tileid="75" duration="170"/>
+   <frame tileid="76" duration="170"/>
+   <frame tileid="77" duration="170"/>
+   <frame tileid="78" duration="170"/>
+   <frame tileid="79" duration="170"/>
+   <frame tileid="72" duration="170"/>
+   <frame tileid="73" duration="170"/>
+   <frame tileid="74" duration="170"/>
+   <frame tileid="75" duration="170"/>
+   <frame tileid="76" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="78">
+  <properties>
+   <property name="speed" type="int" value="20"/>
+  </properties>
+  <animation>
+   <frame tileid="78" duration="170"/>
+   <frame tileid="79" duration="170"/>
+   <frame tileid="72" duration="170"/>
+   <frame tileid="73" duration="170"/>
+   <frame tileid="74" duration="170"/>
+   <frame tileid="75" duration="170"/>
+   <frame tileid="76" duration="170"/>
+   <frame tileid="77" duration="170"/>
+   <frame tileid="78" duration="170"/>
+   <frame tileid="79" duration="170"/>
+   <frame tileid="72" duration="170"/>
+   <frame tileid="73" duration="170"/>
+   <frame tileid="74" duration="170"/>
+   <frame tileid="75" duration="170"/>
+   <frame tileid="76" duration="170"/>
+   <frame tileid="77" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="79">
+  <properties>
+   <property name="speed" type="int" value="20"/>
+  </properties>
+  <animation>
+   <frame tileid="79" duration="170"/>
+   <frame tileid="72" duration="170"/>
+   <frame tileid="73" duration="170"/>
+   <frame tileid="74" duration="170"/>
+   <frame tileid="75" duration="170"/>
+   <frame tileid="76" duration="170"/>
+   <frame tileid="77" duration="170"/>
+   <frame tileid="78" duration="170"/>
+   <frame tileid="79" duration="170"/>
+   <frame tileid="72" duration="170"/>
+   <frame tileid="73" duration="170"/>
+   <frame tileid="74" duration="170"/>
+   <frame tileid="75" duration="170"/>
+   <frame tileid="76" duration="170"/>
+   <frame tileid="77" duration="170"/>
+   <frame tileid="78" duration="170"/>
+  </animation>
+ </tile>
 </tileset>

@@ -276,6 +276,62 @@ void e1DynamicEntity::PushBack()
 					DeathDownLeft.loop = false;
 				}
 				break;
+			case AnimationState::ABILITY_DOWN_LEFT_1:
+				AbilitiDownLeft1.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiDownLeft1.speed = data.animations[i].speed;
+					AbilitiDownLeft1.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_DOWN_RIGHT_1:
+				AbilitiDownRight1.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiDownRight1.speed = data.animations[i].speed;
+					AbilitiDownRight1.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_UP_RIGHT_1:
+				AbilitiUpRight1.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiUpRight1.speed = data.animations[i].speed;
+					AbilitiUpRight1.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_UP_1:
+				AbilitiUp1.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiUp1.speed = data.animations[i].speed;
+					AbilitiUp1.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_LEFT_1:
+				AbilitiLeft1.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiLeft1.speed = data.animations[i].speed;
+					AbilitiLeft1.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_DOWN_1:
+				AbilitiDown1.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiDown1.speed = data.animations[i].speed;
+					AbilitiDown1.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_UP_LEFT_1:
+				AbilitiUpLeft1.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiUpLeft1.speed = data.animations[i].speed;
+					AbilitiUpLeft1.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_RIGHT_1:
+				AbilitiRight1.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiRight1.speed = data.animations[i].speed;
+					AbilitiRight1.loop = false;
+				}
+				break;
 			default:
 				break;
 			}
@@ -667,7 +723,14 @@ void e1DynamicEntity::ResetAnims()
 	BasicAttackUp.Reset();
 	BasicAttackUpLeft.Reset();
 	BasicAttackUpRight.Reset();
-	
+	AbilitiDownLeft1.Reset();
+	AbilitiDownRight1.Reset();
+	AbilitiUpLeft1.Reset();
+	AbilitiUpRight1.Reset();
+	AbilitiLeft1.Reset();
+	AbilitiDown1.Reset();
+	AbilitiUp1.Reset();
+	AbilitiRight1.Reset();
 	
 }
 

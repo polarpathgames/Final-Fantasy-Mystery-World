@@ -49,7 +49,7 @@ bool e1Warrior::CleanUp()
 void e1Warrior::InitStats()
 {
 	stats.attack_power = 500;
-	stats.cost_mana_special_attack1 = 50;
+	stats.cost_mana_special_attack1 = 0;
 	stats.gold = 0;
 	stats.level = 1;
 	stats.live = 250;
@@ -67,7 +67,7 @@ void e1Warrior::PrepareSpecialAttack1()
 		ReduceMana(stats.cost_mana_special_attack1);
 		type_attack = Attacks::SPECIAL_1;
 		state = State::ATTACKING;
-		current_animation = &BasicAttackDown;
+		current_animation = &AbilitiDownLeft1;
 	}
 	else { // no enough mana so return to idle
 		state = State::IDLE;
@@ -205,16 +205,40 @@ void e1Warrior::IdAnimToEnum() //Assign every id animation to enum animation
 			break;//
 		case 60:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
-			break;
+			break;//
 		case 63:
 			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
-			break;
+			break;//
 		case 66:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
-			break;
+			break;//
 		case 69:
 			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
-			break; 
+			break;//
+		case 72:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_LEFT_1;
+			break;//
+		case 78:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_RIGHT_1;
+			break;//
+		case 76:
+			data.animations[i].animType = AnimationState::ABILITY_UP_RIGHT_1;
+			break;//
+		case 74:
+			data.animations[i].animType = AnimationState::ABILITY_UP_LEFT_1;
+			break;//
+		case 73:
+			data.animations[i].animType = AnimationState::ABILITY_LEFT_1;
+			break;//
+		case 75:
+			data.animations[i].animType = AnimationState::ABILITY_UP_1;
+			break;//
+		case 77:
+			data.animations[i].animType = AnimationState::ABILITY_RIGHT_1;
+			break;//
+		case 79:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_1;
+			break;//
 		}
 
 	}
