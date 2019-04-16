@@ -11,6 +11,7 @@ class u1Button;
 class u1Label;
 class u1CheckBox;
 class u1Image;
+class u1ChButton;
 
 
 enum class MainMenuStates {
@@ -108,11 +109,11 @@ private:
 	//select character
 
 	u1Image* select_champ_panel = nullptr;
-	u1Button* button_warrior = nullptr;
+	u1ChButton* button_warrior = nullptr;
 	u1Label* label_warrior = nullptr;
-	u1Button* button_archer = nullptr;
+	u1ChButton* button_archer = nullptr;
 	u1Label* label_archer = nullptr;
-	u1Button* button_mage = nullptr;
+	u1ChButton* button_mage = nullptr;
 	u1Label* label_mage = nullptr;
 
 

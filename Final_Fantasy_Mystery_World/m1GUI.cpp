@@ -9,6 +9,7 @@
 #include "u1Image.h"
 #include "u1Button.h"
 #include "u1Label.h"
+#include "u1ChButton.h"
 #include "u1Slider.h"
 #include "u1CheckBox.h"
 #include "u1Bar.h"
@@ -292,6 +293,19 @@ u1Button* m1GUI::AddButton(const int &x, const int &y, const SDL_Rect &idle, con
 	ui_list.push_back(button);
 	
 	return button;
+}
+
+u1ChButton* m1GUI::AddChButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* listener, u1GUI* parent, PlayerType player_type, bool draw, bool drag, bool inter, bool focus)
+{
+	u1ChButton* character_button = DBG_NEW u1ChButton(x, y, idle, mouse_in, clicked, parent, player_type, draw, inter, drag, focus);
+
+	if (listener != nullptr) {
+		character_button->AddListener(listener);
+	}
+
+	ui_list.push_back(character_button);
+
+	return character_button;
 }
 
 u1Label* m1GUI::AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* listener = nullptr, bool focus = false, const uint32 & wrap, bool has_bg, const SDL_Color& bg_color)

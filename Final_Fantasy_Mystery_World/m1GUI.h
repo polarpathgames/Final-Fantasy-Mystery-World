@@ -27,11 +27,13 @@ struct SDL_Rect;
 
 enum Color;
 enum class FontType;
+enum class PlayerType;
 
 class u1UI_ELEMENT;
 class u1Image;
 class u1Label;
 class u1Button;
+class u1ChButton;
 class u1Slider;
 class u1CheckBox;
 class u1Bar;
@@ -59,6 +61,7 @@ public:
 
 	u1Image* AddImage(const int &x, const int &y, const SDL_Rect & rect, m1Module * callback, u1GUI * parent, bool draw, bool drag, bool interact, bool focus);
 	u1Button* AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* callback, u1GUI* parent, bool draw, bool drag, bool inter, bool focus);
+	u1ChButton* AddChButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* callback, u1GUI* parent, PlayerType player_type, bool draw, bool drag, bool inter, bool focus);
 	u1Label* AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* callback, bool focus, const uint32 & wrap = 0u, bool has_bg = false, const SDL_Color& bg_color = { 255,255,255,255 });
 	u1Bar* AddBar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* parent, m1Module* callback);
 

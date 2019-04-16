@@ -102,6 +102,7 @@
     <ClCompile Include="e1Entity.cpp" />
     <ClCompile Include="p2Rooms.cpp" />
     <ClCompile Include="u1Bar.cpp" />
+    <ClCompile Include="u1ChButton.cpp" />
     <ClCompile Include="u1CheckBox.cpp" />
     <ClCompile Include="u1Slider.cpp" />
     <ClCompile Include="m1Collisions.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="p2Rooms.h" />
     <ClInclude Include="u1Bar.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="u1ChButton.h" />
     <ClInclude Include="u1CheckBox.h" />
     <ClInclude Include="e1DynamicEntity.h" />
     <ClInclude Include="m1EasingSplines.h" />

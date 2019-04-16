@@ -13,6 +13,7 @@
 #include "u1Label.h"
 #include "u1CheckBox.h"
 #include "u1Image.h"
+#include "u1ChButton.h"
 #include "u1UI_Element.h"
 #include "Brofiler/Brofiler.h"
 #include <windows.h>
@@ -438,12 +439,14 @@ void m1MainMenu::CreateSelectChamp()
 {
 	select_champ_panel = App->gui->AddImage(0, 0, { 1024, 3256, 1024, 768 }, this, App->gui->screen, true, false, false, false);
 
-	button_warrior = App->gui->AddButton(100, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, select_champ_panel, true, false, true, true);
+	button_warrior = App->gui->AddChButton(100, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, select_champ_panel, PlayerType::WARRIOR, true, false, true, true);
 	label_warrior = App->gui->AddLabel(65, -13, "Warrior", button_warrior, BLACK, FontType::FF64, nullptr, false);
-	button_archer = App->gui->AddButton(100, 350, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, select_champ_panel, true, false, true, true);
+	button_archer = App->gui->AddChButton(100, 350, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, select_champ_panel, PlayerType::ARCHER, true, false, true, true);
 	label_archer = App->gui->AddLabel(68, -13, "Archer", button_archer, BLACK, FontType::FF64, nullptr, false);
-	button_mage = App->gui->AddButton(100, 450, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, select_champ_panel, true, false, true, true);
+	button_mage = App->gui->AddChButton(100, 450, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, select_champ_panel, PlayerType::MAGE, true, false, true, true);
 	label_mage = App->gui->AddLabel(75, -13, "Mage", button_mage, BLACK, FontType::FF64, nullptr, false);
+
+
 }
 
 void m1MainMenu::DestroySelectChamp()

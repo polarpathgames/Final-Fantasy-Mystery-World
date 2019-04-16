@@ -150,6 +150,9 @@
     <ClCompile Include="e1StrangeFrog.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="u1ChButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="e1CarnivorousPlant.h">
@@ -334,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="e1StrangeFrog.h">
       <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="u1ChButton.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
