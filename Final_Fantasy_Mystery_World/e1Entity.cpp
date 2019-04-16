@@ -28,6 +28,11 @@ void e1Entity::SetPivot(const int & x, const int & y)
 	pivot.create(x, y);
 }
 
+iPoint e1Entity::GetPosition() const
+{
+	return position + pivot;
+}
+
 void e1Entity::LoadXML(std::string name_xml_file)
 {
 	config = App->LoadConfig(config_file, name_xml_file.data());
