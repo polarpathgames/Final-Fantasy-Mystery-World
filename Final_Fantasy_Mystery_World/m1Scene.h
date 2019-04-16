@@ -313,6 +313,9 @@ public:
 
 	// SFX
 	int fx_writting;
+	int fx_attack;
+	int fx_frog_attack;
+	int fx_ability_warrior;
 
 };
 

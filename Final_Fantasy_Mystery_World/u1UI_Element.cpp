@@ -3,6 +3,9 @@
 #include "m1Render.h"
 #include "u1Button.h"
 #include "m1Window.h"
+#include "m1Audio.h"
+#include "m1MainMenu.h"
+#include "m1Input.h"
 #include "m1Input.h"
 #include "p2Log.h"
 #include "u1UI_Element.h"
@@ -61,6 +64,7 @@ bool u1GUI::Update()
 		for (std::list<m1Module*>::iterator module = listeners.begin(); module != listeners.end(); ++module) {
 			if (*module != nullptr)
 				if (!(*module)->Interact(this))
+					App->audio->PlayFx(App->main_menu->fx_push_button);
 					break;
 		}
 	}

@@ -393,6 +393,7 @@ void e1Player::ReadAttack()
 {
 	if (player_input.pressing_G) {
 		PrepareBasicAttack();
+		App->audio->PlayFx(App->scene->fx_attack);
 		return;
 	}
 	if (player_input.pressing_F) {

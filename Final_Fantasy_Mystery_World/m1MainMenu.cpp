@@ -200,8 +200,8 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		ShellExecuteA(NULL, "open", "https://github.com/RoperoIvan", NULL, NULL, SW_SHOWNORMAL);
 	}
 
-	if (interaction != nullptr)
-		App->audio->PlayFx(fx_push_button);
+	/*if (interaction != nullptr)
+		App->audio->PlayFx(fx_push_button);*/
 
 	return ret;
 }

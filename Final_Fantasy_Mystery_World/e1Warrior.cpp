@@ -88,6 +88,7 @@ void e1Warrior::InitStats()
 }
 void e1Warrior::PrepareSpecialAttack1()
 {
+	App->audio->PlayFx(App->scene->fx_ability_warrior);
 	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {
 		ReduceMana(stats.cost_mana_special_attack1);
 		type_attack = Attacks::SPECIAL_1;
