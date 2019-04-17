@@ -35,7 +35,6 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 
 e1Player::~e1Player()
 {
-	App->particles->DeleteFollow_p(p_trace);
 }
 
 bool e1Player::PreUpdate()
