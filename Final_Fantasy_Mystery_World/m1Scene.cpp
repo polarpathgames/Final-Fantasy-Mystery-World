@@ -100,9 +100,9 @@ bool m1Scene::Update(float dt)
 	
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {
 		e1Particles* particle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, player->actual_tile.x, player->actual_tile.y, "bfud");
-		particle->SetParticle(e1Particles::ParticleType::ARROW, Direction::RIGHT);
+		particle->SetParticle(e1Particles::ParticleType::FIREBALL, Direction::RIGHT);
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)

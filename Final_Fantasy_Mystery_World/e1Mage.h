@@ -1,6 +1,7 @@
 #ifndef _E1MAGE_H_
 #define _E1MAGE_H_
 
+#include "e1Particles.h"
 #include "e1Player.h"
 
 class e1Mage : public e1Player {
@@ -19,6 +20,14 @@ public:
 	void SpecialAttack1();
 
 	void IdAnimToEnum();
+
+private:
+
+	void SetFireBalls();
+
+public:
+
+	e1Particles * fire_ball = nullptr;
 
 };
 
