@@ -347,6 +347,24 @@ void m1Render::CenterCameraOnPlayer(iPoint playerpos)
 	camera.y = smoth_position.y;
 }
 
+bool m1Render::CameraTremble()
+{
+	static int index_tremble = 0;
+	static int tremble = 0;
+
+	if (index_tremble == 0)
+		camera.x += tremble;
+	else if (index_tremble == 1)
+		camera.x -= tremble;
+	else if (index_tremble == 2)
+		camera.x += tremble;
+	else if (index_tremble > 2)
+	{
+		index_tremble = 0;
+	}
+	index_tremble++;
+	return false;
+}
 
 
 

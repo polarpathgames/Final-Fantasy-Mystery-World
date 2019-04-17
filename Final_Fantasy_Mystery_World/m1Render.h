@@ -48,6 +48,7 @@ public:
 
 	void SmoothCamera(iPoint playerpos);
 	void CenterCameraOnPlayer(iPoint playerpos);
+	bool CameraTremble();
 
 
 	// Set background color

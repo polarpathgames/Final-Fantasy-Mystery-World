@@ -510,6 +510,7 @@ void e1DynamicEntity::CheckBasicAttackEfects(const e1Entity::EntityType & type, 
 				if (type == e1Entity::EntityType::ENEMY) {
 					e1Enemy* enemy_attacked = (e1Enemy*)(*item);
 					enemy_attacked->GetHitted(attack_damage);
+					App->render->CameraTremble();
 				}
 				else if (type == e1Entity::EntityType::PLAYER) {
 					e1Player* player_attacked = (e1Player*)(*item);

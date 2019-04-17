@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="50" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="38">
+<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="50" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="40">
  <properties>
   <property name="movement" type="int" value="0"/>
  </properties>
@@ -14062,18 +14062,6 @@
   <object id="23" name="rock2" type="static" x="416" y="384" width="32" height="32"/>
   <object id="24" name="rock1" type="static" x="416" y="400" width="32" height="32"/>
   <object id="25" name="rock1" type="static" x="400" y="400" width="32" height="32"/>
-  <object id="26" name="rock2" type="static" x="432" y="400" width="32" height="32"/>
-  <object id="27" name="rock2" type="static" x="432" y="400" width="32" height="32"/>
-  <object id="28" name="rock2" type="static" x="432" y="400" width="32" height="32"/>
-  <object id="29" name="rock2" type="static" x="432" y="400" width="32" height="32"/>
-  <object id="30" name="rock2" type="static" x="432" y="400" width="32" height="32"/>
-  <object id="31" name="rock2" type="static" x="432" y="400" width="32" height="32"/>
-  <object id="32" name="rock2" type="static" x="432" y="400" width="32" height="32"/>
-  <object id="33" name="rock2" type="static" x="432" y="400" width="32" height="32"/>
-  <object id="34" name="rock2" type="static" x="432" y="400" width="32" height="32"/>
-  <object id="35" name="rock2" type="static" x="432" y="400" width="32" height="32"/>
-  <object id="36" name="rock2" type="static" x="432" y="400" width="32" height="32"/>
-  <object id="37" name="rock2" type="static" x="432" y="400" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="9" name="entities">
   <object id="10" name="Enemy Test" type="enemy" x="432" y="288" width="15.9688" height="16.0156"/>
