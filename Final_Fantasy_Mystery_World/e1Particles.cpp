@@ -129,16 +129,22 @@ void e1Particles::SetArrow()
 		max_arrow_distance.create(arrow_tile.x, arrow_tile.y + MAX_ARROW);
 		break;
 	case Direction::UP_RIGHT: // need fix
+		position.x += 9;
+		position.y -= 16;
 		GoUpRight.PushBack({ 37,8,20,20 });
 		SetPivot(10, 10);
 		size.create(20, 20);
 		current_animation = &GoUpRight;
+		max_arrow_distance.create(arrow_tile.x, arrow_tile.y - MAX_ARROW);
 		break;
 	case Direction::UP_LEFT: // need fix
+		//position.x += 13;
+		position.y -= 16;
 		GoUpLeft.PushBack({ 16,8,20,20 });
 		SetPivot(10, 10);
 		size.create(20, 20);
 		current_animation = &GoUpLeft;
+		max_arrow_distance.create(arrow_tile.x - MAX_ARROW, arrow_tile.y);
 		break;
 	case Direction::DOWN_RIGHT: // need fix
 		position.x += 11;
@@ -244,8 +250,20 @@ void e1Particles::MoveArrow(float dt)
 		}
 		
 		break; }
-	case Direction::UP_LEFT:
-		break;
+	case Direction::UP_LEFT: {
+		actual_tile.y += 1;
+		actual_tile.x += 2;
+		if (arrow_tile.x - 1 == actual_tile.x && arrow_tile.y == actual_tile.y) {
+			arrow_tile = actual_tile;
+		}
+		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			position.x -= floor(velocity.x * dt);
+			position.y -= floor(velocity.y * dt);
+		}
+		else {
+			to_delete = true;
+		}
+		break; }
 	case Direction::DOWN_LEFT: {
 		actual_tile.x += 1;
 		if (arrow_tile.x == actual_tile.x && arrow_tile.y + 1 == actual_tile.y) {
@@ -259,8 +277,20 @@ void e1Particles::MoveArrow(float dt)
 			to_delete = true;
 		}
 		break; }
-	case Direction::UP_RIGHT:
-		break;
+	case Direction::UP_RIGHT: {
+		actual_tile.x += 1;
+		actual_tile.y += 3;
+		if (arrow_tile.x == actual_tile.x && arrow_tile.y - 1 == actual_tile.y) {
+			arrow_tile = actual_tile;
+		}
+		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			position.x += floor(velocity.x * dt);
+			position.y -= floor(velocity.y * dt);
+		}
+		else {
+			to_delete = true;
+		}
+		break; }
 	case Direction::DOWN_RIGHT: {
 		actual_tile.y += 2;
 		if (arrow_tile.x + 1 == actual_tile.x && arrow_tile.y == actual_tile.y) {
