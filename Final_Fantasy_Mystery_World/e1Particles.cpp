@@ -168,7 +168,7 @@ void e1Particles::SetArrow()
 		SetPivot(7, 4);
 		size.create(20, 20);
 		current_animation = &GoLeft;
-		max_arrow_distance.create(arrow_tile.x - MAX_ARROW, arrow_tile.y - MAX_ARROW);
+		max_arrow_distance.create(arrow_tile.x - MAX_ARROW, arrow_tile.y + MAX_ARROW);
 		break;
 	case Direction::RIGHT:
 		position.x += 10;
@@ -189,8 +189,8 @@ void e1Particles::MoveArrow(float dt)
 	switch (direction)
 	{
 	case Direction::UP: {
-		actual_tile.x += 1;
-		actual_tile.y += 1;
+		actual_tile.x += 2;
+		actual_tile.y += 2;
 		if (arrow_tile.x - 1 == actual_tile.x && arrow_tile.y - 1 == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
@@ -217,7 +217,7 @@ void e1Particles::MoveArrow(float dt)
 
 		break; }
 	case Direction::LEFT: {
-		actual_tile.x += 1;
+		actual_tile.y += 1;
 		if (arrow_tile.x - 1 == actual_tile.x && arrow_tile.y + 1 == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
