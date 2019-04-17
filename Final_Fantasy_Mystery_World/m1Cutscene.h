@@ -36,14 +36,14 @@ private:
 	bool LoadCutscene(std::string path);
 private:
 	p2PerfTimer cutscene_timer;
-	bool is_executing = false;
+	
 	bool start = true;
 
 public:
 	pugi::xml_document cutscene_file;
 	std::vector<c1CutsceneAction*> actions;
 	std::map<std::string, c1CutsceneElement*> elements;
-
+	bool is_executing = false;
 	std::vector<c1CutsceneAction*>::iterator item;
 
 };

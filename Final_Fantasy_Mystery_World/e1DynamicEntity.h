@@ -45,7 +45,7 @@ public:
 
 	void ResetAnims();
 
-	void ChangeAnimsInCutscene(const int &x, const int &y, const int & anim_num);
+	void ChangeAnimsInCutscene(const int &x, const int &y, const int & anim_num, int &pos_x, int &pos_y);
 
 public:
 
