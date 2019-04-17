@@ -1,7 +1,7 @@
 #ifndef _E1PARTICLES_H_
 #define _E1PARTICLES_H_
 
-#define MAX_ARROW 3
+#define MAX_ARROW 4
 
 #include "e1DynamicEntity.h"
 

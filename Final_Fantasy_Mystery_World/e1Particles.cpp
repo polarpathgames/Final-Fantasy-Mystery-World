@@ -4,7 +4,10 @@
 #include "m1EntityManager.h"
 #include "e1DynamicEntity.h"
 #include "m1Render.h"
+#include "e1Player.h"
+#include "e1Archer.h"
 #include "m1Scene.h"
+#include "e1Enemy.h"
 #include "e1Player.h"
 
 
@@ -206,7 +209,8 @@ void e1Particles::MoveArrow(float dt)
 		if (arrow_tile.x - 1 == actual_tile.x && arrow_tile.y - 1 == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
-		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			EnemyNextTile(direction);
 			position.y -= floor(velocity.y * dt * 2);
 		}
 		else {
@@ -217,7 +221,8 @@ void e1Particles::MoveArrow(float dt)
 		if (arrow_tile.x + 1 == actual_tile.x && arrow_tile.y + 1 == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
-		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			EnemyNextTile(direction);
 			position.y += floor(velocity.y * dt * 2);
 		}
 		else {
@@ -229,7 +234,8 @@ void e1Particles::MoveArrow(float dt)
 		if (arrow_tile.x + 1 == actual_tile.x && arrow_tile.y - 1 == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
-		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			EnemyNextTile(direction);
 			position.x += floor(velocity.x * dt);
 		}
 		else {
@@ -242,7 +248,8 @@ void e1Particles::MoveArrow(float dt)
 		if (arrow_tile.x - 1 == actual_tile.x && arrow_tile.y + 1 == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
-		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			EnemyNextTile(direction);
 			position.x -= floor(velocity.x * dt);
 		}
 		else {
@@ -252,11 +259,11 @@ void e1Particles::MoveArrow(float dt)
 		break; }
 	case Direction::UP_LEFT: {
 		actual_tile.y += 1;
-		actual_tile.x += 2;
 		if (arrow_tile.x - 1 == actual_tile.x && arrow_tile.y == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
-		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			EnemyNextTile(direction);
 			position.x -= floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 		}
@@ -266,10 +273,12 @@ void e1Particles::MoveArrow(float dt)
 		break; }
 	case Direction::DOWN_LEFT: {
 		actual_tile.x += 1;
+		actual_tile.y += 2;
 		if (arrow_tile.x == actual_tile.x && arrow_tile.y + 1 == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
-		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			EnemyNextTile(direction);
 			position.x -= floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
 		}
@@ -279,11 +288,12 @@ void e1Particles::MoveArrow(float dt)
 		break; }
 	case Direction::UP_RIGHT: {
 		actual_tile.x += 1;
-		actual_tile.y += 3;
+		actual_tile.y += 1;
 		if (arrow_tile.x == actual_tile.x && arrow_tile.y - 1 == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
-		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			EnemyNextTile(direction);
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 		}
@@ -293,10 +303,12 @@ void e1Particles::MoveArrow(float dt)
 		break; }
 	case Direction::DOWN_RIGHT: {
 		actual_tile.y += 2;
+		actual_tile.x += 2;
 		if (arrow_tile.x + 1 == actual_tile.x && arrow_tile.y == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
-		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			EnemyNextTile(direction);
 			position.x += floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
 		}
@@ -320,49 +332,9 @@ bool e1Particles::EnemyNextTile(const Direction & dir)
 		if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY) {
 			iPoint origin = arrow_tile;
 			iPoint destination = (*item)->actual_tile;
-
-			switch (dir) {
-			case Direction::DOWN:
-				origin += {1, 1};
-				if (destination == origin)
-					ret = true;
-				break;
-			case Direction::UP:
-				origin += {-1, -1};
-				if (destination == origin)
-					ret = true;
-				break;
-			case Direction::LEFT:
-				origin += {-1, 1};
-				if (destination == origin)
-					ret = true;
-				break;
-			case Direction::RIGHT:
-				origin += {1, -1};
-				if (destination == origin)
-					ret = true;
-				break;
-			case Direction::DOWN_LEFT:
-				origin += {0, 1};
-				if (destination == origin)
-					ret = true;
-				break;
-			case Direction::DOWN_RIGHT:
-				origin += {1, 0};
-				if (destination == origin)
-					ret = true;
-				break;
-			case Direction::UP_LEFT:
-				origin += {-1, 0};
-				if (destination == origin)
-					ret = true;
-				break;
-			case Direction::UP_RIGHT:
-				origin += {0, -1};
-				if (destination == origin)
-					ret = true;
-				break;
-			}
+			e1Enemy* enemy = (e1Enemy*)(*item);
+			if (origin == destination)
+				enemy->GetHitted(App->scene->player->stats.attack_power);
 		}
 	}
 
