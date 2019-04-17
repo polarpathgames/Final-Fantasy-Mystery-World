@@ -115,18 +115,7 @@ bool m1Audio::PlayMusic(const char* path, float fade_time)
 
 	if (music != NULL)
 	{
-		/*if (fade_time  > 0.0f)
-		{
-			Mix_FadeOutMusic(int(fade_time  * 1000.0f));
 
-		}
-		else
-		{
-			Mix_HaltMusic();
-		}*/
-
-		// this call blocks until fade out is done
-		//Mix_FreeMusic(music);
 	}
 
 	music = Mix_LoadMUS(path);
@@ -159,7 +148,6 @@ bool m1Audio::PlayMusic(const char* path, float fade_time)
 	LOG("Successfully playing %s", path);
 	return ret;
 }
-
 // Load WAV
 unsigned int m1Audio::LoadFx(const char* path)
 {

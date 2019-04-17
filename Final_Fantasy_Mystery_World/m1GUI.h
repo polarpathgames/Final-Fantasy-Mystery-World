@@ -94,9 +94,11 @@ public:
 	bool debug_ui = false;
 
 	// SFX
+
 	int fx_pause;
 	int fx_focus;
 	int fx_inventory;
+
 
 
 };

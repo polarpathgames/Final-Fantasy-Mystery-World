@@ -15,6 +15,7 @@
 #include "u1Bar.h"
 #include "m1GUI.h"
 #include "Brofiler/Brofiler.h"
+#include "m1Audio.h"
 
 #include <queue>
 
@@ -41,6 +42,7 @@ bool m1GUI::Awake(pugi::xml_node &node)
 bool m1GUI::Start()
 {
 	atlas = App->tex->Load("assets/gui/atlas.png");
+
 	fx_pause = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Input_Text.wav");
 	fx_focus = App->audio->LoadFx("assets/audio/sfx/InBattle_Menu_Cursor_Move.wav");
 	fx_inventory = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Potion_Glup.wav");
@@ -143,9 +145,12 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-			focus->current_state = Mouse_Event::NONE;
-			focus = new_focus;
-			focus->current_state = Mouse_Event::HOVER;
+			if (new_focus != focus) {
+				focus->current_state = Mouse_Event::NONE;
+				focus = new_focus;
+				focus->current_state = Mouse_Event::HOVER;
+				App->audio->PlayFx(fx_focus);
+			}
 		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN || App->input->CheckAxisStates(Axis::AXIS_DOWN)) {
@@ -161,9 +166,12 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-			focus->current_state = Mouse_Event::NONE;
-			focus = new_focus;
-			focus->current_state = Mouse_Event::HOVER;
+			if (new_focus != focus) {
+				focus->current_state = Mouse_Event::NONE;
+				focus = new_focus;
+				focus->current_state = Mouse_Event::HOVER;
+				App->audio->PlayFx(fx_focus);
+			}
 		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) {
@@ -179,9 +187,12 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-			focus->current_state = Mouse_Event::NONE;
-			focus = new_focus;
-			focus->current_state = Mouse_Event::HOVER;
+			if (new_focus != focus) {
+				focus->current_state = Mouse_Event::NONE;
+				focus = new_focus;
+				focus->current_state = Mouse_Event::HOVER;
+				App->audio->PlayFx(fx_focus);
+			}
 		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) {
@@ -197,15 +208,16 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
+			if (new_focus != focus) {
+				focus->current_state = Mouse_Event::NONE;
+				focus = new_focus;
+				focus->current_state = Mouse_Event::HOVER;
+				App->audio->PlayFx(fx_focus);
+			}
+		}
+
 	}
 
-	if (new_focus != focus) {
-		focus->current_state = Mouse_Event::NONE;
-		focus = new_focus;
-		focus->current_state = Mouse_Event::HOVER;
-		App->audio->PlayFx(fx_focus);
-
-	}
 }
 
 bool m1GUI::FocusFirstUIFocusable()

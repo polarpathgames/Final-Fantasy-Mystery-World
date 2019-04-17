@@ -119,6 +119,8 @@ public:
 	u1Bar* player_hp_bar = nullptr;
 	u1Bar* player_mana_bar = nullptr;
 
+
+
 private:
 
 	int price_hp_potion = 20;
@@ -366,7 +368,7 @@ private:
 
 	u1Button* button_return_main = nullptr;
 	u1Label* label_continue_main = nullptr;
-
+	
 public:
 
 	// SFX
@@ -378,8 +380,6 @@ public:
 	int fx_ability_menu;
 	int fx_drop_pick_up;
 	int fx_door_enter;
-
-
 
 };
 

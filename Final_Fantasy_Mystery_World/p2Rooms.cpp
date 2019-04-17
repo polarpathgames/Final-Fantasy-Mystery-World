@@ -14,7 +14,7 @@ Room::Room(const std::string &location, const int &id, const std::string &type)
 {
 	tmx_location = location;
 	this->id = id;
-	
+
 	if (strcmp(type.data(), "paceful") == 0) {
 		room_type = RoomType::PACEFUL;
 	}
@@ -43,7 +43,7 @@ Room::~Room()
 RoomManager::RoomManager(pugi::xml_node &node)
 {
 
-	pugi::xml_node room_node; 
+	pugi::xml_node room_node;
 
 	for (room_node = node.child("maps").child("tutorial").child("room"); room_node; room_node = room_node.next_sibling("room")) {
 		Room * r = nullptr;
@@ -63,7 +63,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 {
 	iPoint pos_coll = { c1->rect.x,c1->rect.y };
 	pos_coll = App->map->WorldToMap(pos_coll.x, pos_coll.y);
-	
+
 	if (App->scene->player->actual_tile == pos_coll) {
 		std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
 		switch (c1->type)
@@ -122,7 +122,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 			break;
 		}
 	}
-	
+
 
 }
 
@@ -132,7 +132,6 @@ void RoomManager::LoadRoom(const int & id)
 	App->entity_manager->DeleteEntitiesNoPlayer();
 	App->map->CleanUp();
 
-	
 
 	std::vector<Room*>::iterator item = rooms.begin();
 	for (; item != rooms.end(); ++item) {
@@ -147,7 +146,7 @@ void RoomManager::LoadRoom(const int & id)
 	uchar* data = nullptr;
 	if (App->map->CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
-	
+
 	App->scene->CreateEntities();
 	PlacePlayer();
 	LoadColliders();
@@ -173,7 +172,6 @@ void RoomManager::LoadRoom(const int & id)
 			break;
 		}
 	}
-	
 }
 
 void RoomManager::PlacePlayer() // place player in front of the door
@@ -256,7 +254,7 @@ void RoomManager::LoadColliders() // sensors in the doors
 			}
 		}
 	}
-	
+
 
 }
 

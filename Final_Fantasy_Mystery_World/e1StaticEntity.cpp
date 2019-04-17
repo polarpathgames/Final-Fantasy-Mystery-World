@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "App.h"
 #include "m1Render.h"
+#include "m1Audio.h"
 #include "m1Map.h"
 #include "e1Player.h"
 #include "m1DialogSystem.h"
@@ -328,6 +329,7 @@ bool e1StaticEntity::Update(float dt)
 				App->scene->player->BlockControls(true);
 				interacting_state = InteractingStates::INTERACTING;
 				ChangeAnimation(player_pos);
+				App->audio->PlayFx(App->scene->fx_writting);
 				App->dialog->end_dial = false;
 				App->audio->PlayFx(App->scene->fx_writting);
 
