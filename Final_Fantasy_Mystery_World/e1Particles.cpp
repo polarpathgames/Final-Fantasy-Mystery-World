@@ -120,25 +120,28 @@ void e1Particles::SetArrow()
 	velocity.x = 160;
 	velocity.y = 80;
 	switch (direction) {
-	case Direction::DOWN_LEFT:
+	case Direction::DOWN_LEFT: // need fix
+		//position.x += 13;
+		position.y -= 10;
 		GoDownLeft.PushBack({ 16,29,20,20 });
 		SetPivot(10, 10);
 		size.create(20, 20);
 		current_animation = &GoDownLeft;
+		max_arrow_distance.create(arrow_tile.x, arrow_tile.y + MAX_ARROW);
 		break;
-	case Direction::UP_RIGHT:
+	case Direction::UP_RIGHT: // need fix
 		GoUpRight.PushBack({ 37,8,20,20 });
 		SetPivot(10, 10);
 		size.create(20, 20);
 		current_animation = &GoUpRight;
 		break;
-	case Direction::UP_LEFT:
+	case Direction::UP_LEFT: // need fix
 		GoUpLeft.PushBack({ 16,8,20,20 });
 		SetPivot(10, 10);
 		size.create(20, 20);
 		current_animation = &GoUpLeft;
 		break;
-	case Direction::DOWN_RIGHT:
+	case Direction::DOWN_RIGHT: // need fix
 		GoDownRight.PushBack({ 37,29,20,20 });
 		SetPivot(10, 10);
 		size.create(20, 20);
@@ -241,8 +244,20 @@ void e1Particles::MoveArrow(float dt)
 		break; }
 	case Direction::UP_LEFT:
 		break;
-	case Direction::DOWN_LEFT:
-		break;
+	case Direction::DOWN_LEFT: {
+		actual_tile.x += 1;
+		if (arrow_tile.x == actual_tile.x && arrow_tile.y + 1 == actual_tile.y) {
+			arrow_tile = actual_tile;
+		}
+		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			position.x -= floor(velocity.x * dt);
+			position.y += floor(velocity.y * dt);
+		}
+		else {
+			to_delete = true;
+		}
+
+		break; }
 	case Direction::UP_RIGHT:
 		break;
 	case Direction::DOWN_RIGHT:
