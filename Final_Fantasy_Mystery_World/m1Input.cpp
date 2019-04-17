@@ -47,6 +47,11 @@ bool m1Input::Awake(pugi::xml_node& config)
 	{
 		LOG("GamePad controller could not initialize! SDL_Error: %s\n", SDL_GetError());
 	}
+	if (SDL_InitSubSystem(SDL_INIT_HAPTIC) < 0)
+	{
+		LOG("SDL_GAMECONTROLLER HAPTIC could not initialize! SDL_Error: %s\n", SDL_GetError());
+		ret = false;
+	}
 
 	Controller = SDL_GameControllerOpen(0);
 
@@ -218,13 +223,66 @@ void m1Input::UpdateEvents(SDL_Event &event)
 			//LOG("Mouse button %d up", event.button.button-1);
 			break;
 		case SDL_MOUSEMOTION:
+		{
 			int scale = App->win->GetScale();
-			
+
 			mouse_motion_x = event.motion.xrel / scale;
 			mouse_motion_y = event.motion.yrel / scale;
-			
+
 			//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
+		}
+		break;
+
+		case SDL_CONTROLLERDEVICEADDED:
+		{
+			//Open the first available controller
+			for (int i = 0; i < SDL_NumJoysticks(); ++i) {
+				if (SDL_IsGameController(i)) {
+					Pad = SDL_GameControllerOpen(i);
+					if (Pad) {
+
+						if (SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(Pad)) > 0)
+						{
+							haptic = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(Pad));
+
+							if (haptic != nullptr)
+							{
+								LOG("HAPTIC SUCCESS");
+								//Get initialize rumble 
+								if (SDL_HapticRumbleInit(haptic) < 0) // initialize simple rumble
+								{
+									LOG("Warning: Unable to initialize rumble! SDL Error: %s\n", SDL_GetError());
+								}
+
+								if (SDL_HapticRumblePlay(haptic, 0.3f, 1000) < 0)
+								{
+									LOG("rumble play error");
+								}
+							}
+						}
+						else
+						{
+							LOG("haptic error! SDL_Error: %s\n", SDL_GetError());
+						}
+					}
+					else {
+						LOG("gamepad awake assign failed");
+					}
+				}
+			}
 			break;
+		}
+
+		case SDL_CONTROLLERDEVICEREMOVED:
+			LOG("disconnected gamepad");
+			if (Pad != nullptr)
+			{
+				SDL_HapticClose(haptic);
+				haptic = nullptr;
+				SDL_GameControllerClose(Pad);
+				Pad = nullptr;
+				break;
+			}
 		}
 
 	}
@@ -302,7 +360,9 @@ bool m1Input::CleanUp()
 	LOG("Quitting SDL event subsystem");
 	RELEASE_ARRAY(keyboard)
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
-
+	SDL_HapticStopAll(haptic);
+	SDL_HapticClose(haptic);
+	SDL_QuitSubSystem(SDL_INIT_HAPTIC);
 	return true;
 }
 
@@ -376,4 +436,10 @@ bool m1Input::CheckAxisStates(const Axis &axis) {
 	
 
 	return ret;
+}
+
+bool m1Input::ControllerVibration(float strength, uint32 duration)
+{
+	SDL_HapticRumblePlay(haptic, strength, duration);
+	return false;
 }
