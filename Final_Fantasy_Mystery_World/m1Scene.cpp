@@ -14,6 +14,7 @@
 #include "m1EntityManager.h"
 #include "m1Scene.h"
 #include "m1MainMenu.h"
+#include "e1Particles.h"
 #include <string>
 #include "m1Cutscene.h"
 #include "u1UI_Element.h"
@@ -82,6 +83,23 @@ bool m1Scene::Update(float dt)
 		else {
 			DestroyDebugScreen();
 		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {
+		e1Particles* particle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, player->actual_tile.x, player->actual_tile.y,"SHIT");
+		particle->SetParticle(e1Particles::ParticleType::ARROW, Direction::DOWN_LEFT);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
+		e1Particles* particle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, player->actual_tile.x, player->actual_tile.y, "SHIT");
+		particle->SetParticle(e1Particles::ParticleType::ARROW, Direction::DOWN_RIGHT);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN) {
+		e1Particles* particle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, player->actual_tile.x, player->actual_tile.y, "SHIT");
+		particle->SetParticle(e1Particles::ParticleType::ARROW, Direction::UP_LEFT);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
+		e1Particles* particle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, player->actual_tile.x, player->actual_tile.y, "SHIT");
+		particle->SetParticle(e1Particles::ParticleType::ARROW, Direction::UP_RIGHT);
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)

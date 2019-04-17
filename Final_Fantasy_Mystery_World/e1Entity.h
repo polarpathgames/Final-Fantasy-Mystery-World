@@ -77,6 +77,7 @@ public:
 		WARRIOR,
 		ARCHER,
 		MAGE,
+		PARTICLE,
 		NPC,
 		DAUGHTER,
 

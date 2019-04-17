@@ -31,7 +31,7 @@ e1Archer::e1Archer(const int & x, const int & y) : e1Player(x, y)
 	LoadEntityData("assets/entities/Warrior.tsx");
 
 	ground = App->tex->Load("assets/sprites/player_pos.png");
-	//InitStats();
+	InitStats();
 	CenterPlayerInTile();
 }
 

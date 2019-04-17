@@ -17,6 +17,7 @@
 #include "e1NPC.h"
 #include "e1ShopKeeperDaughter.h"
 #include "m1Scene.h"
+#include "e1Particles.h"
 #include "e1Player.h"
 #include "e1Warrior.h"
 #include "e1Enemy.h"
@@ -52,7 +53,8 @@ bool m1EntityManager::Start()
 	if (!textures_loaded) {
 		texture.reserve((uint)TextureType::NONE);
 
-		static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)12, "add the new texture in the enum and here");
+		static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)13, "add the new texture in the enum and here");
+
 
 		texture[(uint)TextureType::WARRIOR] = App->tex->Load("assets/sprites/Warrior.png");
 		texture[(uint)TextureType::ARCHER] = App->tex->Load("assets/sprites/ArcherSpritesheet.png");
@@ -61,6 +63,8 @@ bool m1EntityManager::Start()
 		texture[(uint)TextureType::STRANGE_FROG] = App->tex->Load("assets/sprites/Frog.png");
 		texture[(uint)TextureType::BLUE_DOG] = App->tex->Load("assets/sprites/Dog.png");
 		texture[(uint)TextureType::STATIC_ENTITIES] = App->tex->Load("assets/maps/static_objects_tileset.png");
+		texture[(uint)TextureType::STATIC_ENTITIES] = App->tex->Load("assets/maps/static_objects_tileset.png");
+		texture[(uint)TextureType::PARTICLE] = App->tex->Load("assets/sprites/Particles.png");
 		texture[(uint)TextureType::DAUGHTER] = App->tex->Load("assets/sprites/Little_Girl.png");
 		textures_loaded = true;
 	}
@@ -155,6 +159,8 @@ void m1EntityManager::DrawEntities(std::vector<e1Entity *> &draw_entities, float
 			}
 			else if ((*item)->type == e1Entity::EntityType::STATIC)
 				(*item)->Draw(texture[(uint)TextureType::STATIC_ENTITIES], dt);
+			else if ((*item)->type == e1Entity::EntityType::PARTICLE)
+				(*item)->Draw(texture[(uint)TextureType::PARTICLE], dt);
 
 			App->render->DrawCircle((*item)->position.x + (*item)->pivot.x, (*item)->position.y + (*item)->pivot.y, 3, 255, 255, 255);
 		}
@@ -250,7 +256,8 @@ void m1EntityManager::OnCollisionExit(Collider * c1, Collider * c2)
 //e1Entity Factory
 e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
-	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)12, "code needs update");
+
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)13, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
 
@@ -264,6 +271,8 @@ e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX
 	case e1Entity::EntityType::ARCHER: ret = DBG_NEW e1Archer(PositionX, PositionY); break;
 	case e1Entity::EntityType::MAGE: ret = DBG_NEW e1Mage(PositionX, PositionY); break;
 	case e1Entity::EntityType::STRANGE_FROG: ret = DBG_NEW e1StrangeFrog(PositionX, PositionY); break;
+	case e1Entity::EntityType::PARTICLE: ret = DBG_NEW e1Particles(PositionX, PositionY); break;
+	//case e1Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
 	case e1Entity::EntityType::NPC: ret = DBG_NEW e1NPC(PositionX, PositionY); break;
 	case e1Entity::EntityType::DAUGHTER: ret = DBG_NEW e1ShopKeeperDaughter(PositionX, PositionY); break;
 	default:

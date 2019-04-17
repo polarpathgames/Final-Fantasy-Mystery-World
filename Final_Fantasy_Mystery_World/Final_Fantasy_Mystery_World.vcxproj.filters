@@ -150,6 +150,9 @@
     <ClCompile Include="e1StrangeFrog.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="e1Particles.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
     <ClCompile Include="e1ShopKeeperDaughter.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
@@ -342,6 +345,9 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="e1StrangeFrog.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Particles.h">
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="e1ShopKeeperDaughter.h">
