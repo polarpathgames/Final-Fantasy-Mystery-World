@@ -4,12 +4,13 @@
 #include "App.h"
 #include "p2Log.h"
 
-p1Follow::p1Follow(e1Entity* element, iPoint* object, SDL_Rect initial_rect, iPoint area_, iPoint timelife_, int num_textures, int num_particles, bool active_, bool mouse)
+p1Follow::p1Follow(e1Entity* element, iPoint* object, SDL_Rect initial_rect, iPoint area, iPoint timelife, int num_textures, int num_particles, bool active_, bool mouse):
+	area(area), number_particles(num_particles), isMouse(mouse),timelife(timelife),n_textures(num_textures),size_rect(initial_rect.w)
 {
 	if (element != nullptr)
 	{
-		pos.x = element->position.x + element->pivot.x;
-		pos.y = element->position.y + element->pivot.y;
+		pos.x = element->GetPosition().x;
+		pos.y = element->GetPosition().y;
 		element_to_follow = element;
 		object_follow = nullptr;
 	}
@@ -20,15 +21,6 @@ p1Follow::p1Follow(e1Entity* element, iPoint* object, SDL_Rect initial_rect, iPo
 		object_follow = object;
 		element_to_follow = nullptr;
 	}
-
-	area = area_;
-	number_particles = num_particles;
-	godelete = false;
-	isMouse = mouse;
-	active = active_;
-	timelife = timelife_;
-	n_textures = num_textures;
-	size_rect = initial_rect.w;
 
 	for (int i = 0; i < num_particles; i++)
 	{

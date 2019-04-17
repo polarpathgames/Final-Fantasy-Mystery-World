@@ -10,6 +10,7 @@
 class u1GUI;
 class u1Button;
 class u1Label;
+class p1Follow;
 
 
 struct Input {
@@ -174,11 +175,7 @@ public:
 	u1Label* left_skill_button = nullptr;
 	u1Label* left_skill_label = nullptr;
 
+	p1Follow* p_trace = nullptr;
 
 };
-
-
-
-#endif // 
-
-
+#endif

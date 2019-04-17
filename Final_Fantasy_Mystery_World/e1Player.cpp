@@ -31,11 +31,12 @@
 
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
-	App->particles->CreateFollow_P(this, nullptr, SDL_Rect{ 0,6,2,0 }, iPoint(5, 2), iPoint(15, 5), 4, 20, true, true);
+	p_trace =  App->particles->CreateFollow(this, nullptr, SDL_Rect{ 0,6,2,0 }, iPoint(5, 2), iPoint(15, 5), 4, 20, true, true);
 }
 
 e1Player::~e1Player()
 {
+	App->particles->DeleteFollow_p(p_trace);
 }
 
 bool e1Player::PreUpdate()
