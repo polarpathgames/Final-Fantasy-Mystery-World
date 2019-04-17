@@ -380,6 +380,9 @@ public:
 	int fx_ability_menu;
 	int fx_drop_pick_up;
 	int fx_door_enter;
+	int fx_potion;
+	int fx_denegated_potion;
+	int fx_potion_menu;
 
 };
 

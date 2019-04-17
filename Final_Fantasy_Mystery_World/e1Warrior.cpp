@@ -50,7 +50,7 @@ void e1Warrior::InitStats()
 {
 	stats.attack_power = 500;
 	stats.cost_mana_special_attack1 = 0;
-	stats.gold = 0;
+	stats.gold = 400;
 	stats.level = 1;
 	stats.live = 250;
 	stats.mana = 100;

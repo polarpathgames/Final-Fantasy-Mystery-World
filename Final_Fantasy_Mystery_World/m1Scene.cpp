@@ -59,7 +59,7 @@ bool m1Scene::Start()
 
 	App->gui->ShowCursor(false);
 
-	fx_writting = App->audio->LoadFx("assets/audio/sfx/Speaking_Words_Sound.wav");
+	fx_writting = App->audio->LoadFx("assets/audio/sfx/LTTP_Text_Done.wav");
 	fx_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_Steps_on_Water1.wav");
 	fx_frog_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_BasicAttack.wav");
 	fx_plant_attack = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Punch1.wav");
@@ -67,6 +67,9 @@ bool m1Scene::Start()
 	fx_ability_menu = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_InBattle_Selection.wav");
 	fx_drop_pick_up = App->audio->LoadFx("assets/audio/sfx/retro_collect_pickup_coin_03.wav");
 	fx_door_enter = App->audio->LoadFx("assets/audio/sfx/MC_Stairs_Up.wav");
+	fx_potion = App->audio->LoadFx("assets/audio/sfx/Potion.wav");
+	fx_denegated_potion = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Land_on_Wood.wav");
+	fx_potion_menu = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_L1R1L2R2_Shifting.wav");
   
 	return true;
 }
@@ -994,7 +997,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			ret = false;
 		}
 		if (interact != nullptr && interact != cancel_quest_button) {
-			App->audio->PlayFx(App->main_menu->fx_push_button);
+			App->audio->PlayFx(fx_potion_menu);
 		}
 		break;
 	case StatesMenu::INVENTORY_MENU:
@@ -1011,12 +1014,13 @@ bool m1Scene::Interact(u1GUI* interact)
 			ret = false;
 		}
 		if (interact != nullptr) {
-			App->audio->PlayFx(App->main_menu->fx_push_button);
+			App->audio->PlayFx(fx_potion_menu);
 		}
 		break;
 	case StatesMenu::POTION_MENU:
 		if (interact == use_hp_button) {
 			if (player->stats.num_hp_potions >= 1) {
+				App->audio->PlayFx(fx_potion);
 				--player->stats.num_hp_potions;
 				player->AugmentLives(25);
 				hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
@@ -1024,9 +1028,12 @@ bool m1Scene::Interact(u1GUI* interact)
 				menu_state = StatesMenu::INVENTORY_MENU;
 				ret = false;
 			}
+			else
+				App->audio->PlayFx(fx_denegated_potion);
 		}
 		if (interact == use_mana_button) {
 			if (player->stats.num_mana_potions >= 1) {
+				App->audio->PlayFx(fx_potion);
 				--player->stats.num_mana_potions;
 				player->AugmentMana(25);
 				mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
@@ -1034,16 +1041,18 @@ bool m1Scene::Interact(u1GUI* interact)
 				menu_state = StatesMenu::INVENTORY_MENU;
 				ret = false;
 			}
+			else
+				App->audio->PlayFx(fx_denegated_potion);
 		}
 		if (interact == cancel_button) {
+			App->audio->PlayFx(fx_potion_menu);
 			DeletePotionMenu();
-			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			menu_state = StatesMenu::INVENTORY_MENU;
 			ret = false;
 		}
-		if (interact != nullptr && interact != cancel_button) {
-			App->audio->PlayFx(App->main_menu->fx_push_button);
-		}
+		/*if (interact != nullptr) {
+			
+		}*/
 		break;
 	case StatesMenu::DIE_MENU:
 		if (interact == button_continue_lobby) {
@@ -1166,6 +1175,7 @@ bool m1Scene::Interact(u1GUI* interact)
 		break;
 	case StatesMenu::CONTROLS_MENU:
 		if (interact == button_retun_to_options) {
+			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			CreateOptionsMenu();
 			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			DestroyControlsMenu();

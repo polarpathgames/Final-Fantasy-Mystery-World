@@ -103,6 +103,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		break;
 	case MainMenuStates::CONTROLS_MENU:
 		if (interaction == button_retun_to_options) {
+			App->audio->PlayFx(fx_push_button_return);
 			CreateOptions();
 			DestroyControls();
 			main_states = MainMenuStates::OPTIONS_MENU;
@@ -226,6 +227,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		break;
 	case MainMenuStates::OPTIONS_MENU:
 		if (interaction == button_retun_options) {
+			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			CreateMainMenu();
 			DestroyOptions();
 			main_states = MainMenuStates::MAIN_MENU;
@@ -349,9 +351,10 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			main_states = MainMenuStates::MAIN_MENU;
 			ret = false;
 		}
+		
 		break;
 	}
-	if (interaction != nullptr && interaction != button_retun && interaction != new_game_button)
+	if (interaction != nullptr && interaction != button_retun && interaction != new_game_button && interaction != button_retun_to_options && interaction != button_retun_options)
 		App->audio->PlayFx(fx_push_button);
 	return ret;
 }
