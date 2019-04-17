@@ -91,21 +91,27 @@ void u1ChButton::PrintImages()
 	{
 	/*	App->main_menu->archer_image = App->gui->AddImage(580, 180, { 1701, 4079, 194, 369 }, App->main_menu, App->gui->screen, false, false, false, false);
 		App->main_menu->mage_image = App->gui->AddImage(580, 180, { 1414, 4079, 218, 363 }, App->main_menu, App->gui->screen, false, false, false, false);*/
-		App->main_menu->warrior_image = App->gui->AddImage(500, 175, { 1052, 4079, 327, 358 }, App->main_menu, App->gui->screen, true, false, false, false);
+		App->main_menu->warrior_image->drawable = true;
+		App->main_menu->archer_image->drawable = false;
+		App->main_menu->mage_image->drawable = false;
 	}
 
 	else if (App->gui->GetFocus() == App->main_menu->button_archer)
 	{
 		/*App->main_menu->warrior_image = App->gui->AddImage(500, 175, { 1052, 4079, 327, 358 }, App->main_menu, App->gui->screen, false, false, false, false);
 		App->main_menu->mage_image = App->gui->AddImage(580, 180, { 1414, 4079, 218, 363 }, App->main_menu, App->gui->screen, false, false, false, false);*/
-		App->main_menu->archer_image = App->gui->AddImage(580, 180, { 1701, 4079, 194, 369 }, App->main_menu, App->gui->screen, true, false, false, false);
+		App->main_menu->archer_image->drawable = true;
+		App->main_menu->warrior_image->drawable = false;
+		App->main_menu->mage_image->drawable = false;
 	}
 
 	else if (App->gui->GetFocus() == App->main_menu->button_mage)
 	{
 	/*	App->main_menu->warrior_image = App->gui->AddImage(500, 175, { 1052, 4079, 327, 358 }, App->main_menu, App->gui->screen, false, false, false, false);
 		App->main_menu->archer_image = App->gui->AddImage(580, 180, { 1701, 4079, 194, 369 }, App->main_menu, App->gui->screen, false, false, false, false);*/
-		App->main_menu->mage_image = App->gui->AddImage(580, 180, { 1414, 4079, 218, 363 }, App->main_menu, App->gui->screen, true, false, false, false);
+		App->main_menu->mage_image->drawable = true;
+		App->main_menu->warrior_image->drawable = false;
+		App->main_menu->archer_image->drawable = false;
 	}
 
 }
