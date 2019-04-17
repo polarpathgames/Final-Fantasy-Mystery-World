@@ -439,6 +439,9 @@
     <Xml Include="Game\assets\xml\CutsceneBlockPass.xml">
       <Filter>XML</Filter>
     </Xml>
+    <Xml Include="Game\assets\xml\CutsceneTutorial.xml">
+      <Filter>XML</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Game\assets\ff_icon.ico" />

@@ -5,6 +5,7 @@
 #include "App.h"
 #include "m1Render.h"
 #include "m1Scene.h"
+#include "m1DialogSystem.h"
 #include "e1Player.h"
 #include "m1Audio.h"
 #include "m1EntityManager.h"
@@ -26,6 +27,7 @@ Room::Room(const std::string &location, const int &id, const std::string &type)
 	}
 	else if (strcmp(type.data(), "fountain") == 0) {
 		room_type = RoomType::FOUNTAIN;
+		App->dialog->dialogTrees[1]->karma = 0;
 	}
 }
 

@@ -66,9 +66,10 @@ public:
   
 public:
 	bool firstupdate = true, waiting_input = false, end_dial = true;
-  
-private:
 	std::vector <DialogTree*> dialogTrees;
+
+private:
+	
 	DialogNode* currentNode = nullptr;
 	
 	int treeid = 0;
