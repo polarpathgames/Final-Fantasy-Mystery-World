@@ -14,7 +14,7 @@
     <ProjectGuid>{CA36A83C-2BCF-4BEB-9B41-CD0B834374B8}</ProjectGuid>
     <RootNamespace>programacio_2</RootNamespace>
     <ProjectName>Final Fantasy Mystery World</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -93,12 +93,18 @@
     <ClCompile Include="e1CarnivorousPlant.cpp" />
     <ClCompile Include="e1Drop.cpp" />
     <ClCompile Include="e1Mage.cpp" />
+    <ClCompile Include="e1NPC.cpp" />
     <ClCompile Include="e1Particles.cpp" />
     <ClCompile Include="e1ShopKeeperDaughter.cpp" />
     <ClCompile Include="e1StrangeFrog.cpp" />
     <ClCompile Include="e1Warrior.cpp" />
     <ClCompile Include="m1Cutscene.cpp" />
-    <ClCompile Include="e1NPC.cpp" />
+    <ClCompile Include="m1ParticleManager.cpp" />
+    <ClCompile Include="p1Explosion.cpp" />
+    <ClCompile Include="p1Fire.cpp" />
+    <ClCompile Include="p1Firework.cpp" />
+    <ClCompile Include="p1Follow.cpp" />
+    <ClCompile Include="p1Particle.cpp" />
     <ClCompile Include="p2ChangeControls.cpp" />
     <ClCompile Include="e1DynamicEntity.cpp" />
     <ClCompile Include="m1EasingSplines.cpp" />
@@ -152,12 +158,18 @@
     <ClInclude Include="e1CarnivorousPlant.h" />
     <ClInclude Include="e1Drop.h" />
     <ClInclude Include="e1Mage.h" />
+    <ClInclude Include="e1NPC.h" />
     <ClInclude Include="e1Particles.h" />
     <ClInclude Include="e1ShopKeeperDaughter.h" />
     <ClInclude Include="e1StrangeFrog.h" />
     <ClInclude Include="e1Warrior.h" />
     <ClInclude Include="m1Cutscene.h" />
-    <ClInclude Include="e1NPC.h" />
+    <ClInclude Include="m1ParticleManager.h" />
+    <ClInclude Include="p1Explosion.h" />
+    <ClInclude Include="p1Fire.h" />
+    <ClInclude Include="p1Firework.h" />
+    <ClInclude Include="p1Follow.h" />
+    <ClInclude Include="p1Particle.h" />
     <ClInclude Include="p2ChangeControls.h" />
     <ClInclude Include="p2Random.h" />
     <ClInclude Include="p2Rooms.h" />

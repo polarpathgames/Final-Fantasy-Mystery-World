@@ -7,7 +7,7 @@
 struct SDL_Texture;
 struct SDL_Rect;
 
-enum class Mouse_Event {
+enum class Element_Event {
 	HOVER,
 	CLICKED_DOWN,
 	CLICKED_REPEAT,
@@ -88,7 +88,7 @@ public:
 
 	std::list<u1GUI*> childs;
 
-	Mouse_Event current_state = Mouse_Event::NONE;
+	Element_Event current_state = Element_Event::NONE;
 	iPoint last_mouse;
 
 private:

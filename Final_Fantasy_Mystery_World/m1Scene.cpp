@@ -1071,7 +1071,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			CreatePauseMenu();
 			DestroyOptionsMenu();
 			menu_state = StatesMenu::PAUSE_MENU;
-			 ShowHUD(true);
+			ShowHUD(true);
 			ret = false;
 		}
 		if (interact != nullptr && interact != button_retun) {

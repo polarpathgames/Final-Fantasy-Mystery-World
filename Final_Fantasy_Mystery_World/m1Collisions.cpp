@@ -41,7 +41,7 @@ bool m1Collision::PreUpdate()
 {
 	BROFILER_CATEGORY("Collisions: PreUpdate", Profiler::Color::Magenta);
 	// Remove all colliders scheduled for deletion
-	for (std::vector<Collider*>::iterator item = colliders.begin(); item != colliders.end(); ++item)
+	/*for (std::vector<Collider*>::iterator item = colliders.begin(); item != colliders.end(); ++item)
 	{
 		if (*item != nullptr && (*item)->to_delete == true)
 		{
@@ -49,7 +49,7 @@ bool m1Collision::PreUpdate()
 			*item = nullptr;
 			colliders.erase(item);
 		}
-	}
+	}*/
 
 	// Test all collisions
 	Collider* c1 = nullptr;
