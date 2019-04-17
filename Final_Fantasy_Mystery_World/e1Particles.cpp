@@ -87,7 +87,7 @@ bool e1Particles::Update(float dt)
 	*/
 
 	iPoint pos = App->map->MapToWorld(arrow_tile.x, arrow_tile.y);
-	App->render->Blit(App->scene->player->ground, pos.x + 1, pos.y - 8, NULL, true);
+	//App->render->Blit(App->scene->player->ground, pos.x + 1, pos.y - 8, NULL, true);
 
 	return true;
 }
@@ -102,6 +102,7 @@ void e1Particles::SetParticle(const ParticleType & particle_type, const Directio
 	this->particle_type = particle_type;
 	direction = dir;
 	actual_tile = App->map->WorldToMap(position.x, position.y);
+	arrow_tile = actual_tile;
 	switch (particle_type) {
 	case ParticleType::ARROW:
 		velocity.x = 160;
@@ -154,7 +155,7 @@ void e1Particles::SetParticle(const ParticleType & particle_type, const Directio
 			SetPivot(7, 4);
 			size.create(20, 20);
 			current_animation = &GoLeft;
-			arrow_tile = actual_tile;
+			max_arrow_distance.create(arrow_tile.x - MAX_ARROW, arrow_tile.y + MAX_ARROW);
 			break;
 		case Direction::RIGHT:
 			GoRight.PushBack({ 0,0,28,7 });
@@ -187,7 +188,7 @@ void e1Particles::MoveArrow(float dt)
 		if (arrow_tile.x - 1 == actual_tile.x && arrow_tile.y + 1 == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
-		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false)) {
+		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
 			position.x -= floor(velocity.x * dt);
 		}
 		else {

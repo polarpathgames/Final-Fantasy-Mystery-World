@@ -1,6 +1,8 @@
 #ifndef _E1PARTICLES_H_
 #define _E1PARTICLES_H_
 
+#define MAX_ARROW 3
+
 #include "e1DynamicEntity.h"
 
 class e1Particles : public e1DynamicEntity {
@@ -36,7 +38,7 @@ public:
 	ParticleType particle_type = ParticleType::NONE;
 
 	iPoint arrow_tile = { 0,0 };
-
+	iPoint max_arrow_distance = { 0,0 };
 };
 
 
