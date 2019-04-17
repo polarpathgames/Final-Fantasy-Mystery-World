@@ -65,4 +65,17 @@
    <frame tileid="10" duration="100"/>
   </animation>
  </tile>
+ <tile id="15">
+  <animation>
+   <frame tileid="15" duration="100"/>
+   <frame tileid="16" duration="100"/>
+   <frame tileid="17" duration="100"/>
+   <frame tileid="15" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="16">
+  <animation>
+   <frame tileid="16" duration="100"/>
+  </animation>
+ </tile>
 </tileset>
