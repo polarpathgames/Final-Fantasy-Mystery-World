@@ -11,10 +11,13 @@
 #include "u1Button.h"
 #include "m1FadeToBlack.h"
 #include "u1Label.h"
+#include "u1CheckBox.h"
 #include "u1Image.h"
 #include "u1UI_Element.h"
 #include "Brofiler/Brofiler.h"
 #include <windows.h>
+#include "m1Audio.h"
+#include "m1Window.h"
 
 
 m1MainMenu::m1MainMenu(){}
@@ -29,7 +32,7 @@ bool m1MainMenu::Awake()
 bool m1MainMenu::Start()
 {
 	CreateMainMenu();
-
+	main_states = MainMenuStates::MAIN_MENU;
 	return true;
 }
 
@@ -46,8 +49,6 @@ bool m1MainMenu::Update(float dt)
 		delete App->scene->control_to_change;
 		App->scene->control_to_change = nullptr;
 	}
-	App->scene->UpdateOptionsMenu();
-
 	return true;
 }
 
@@ -67,134 +68,286 @@ bool m1MainMenu::CleanUp()
 bool m1MainMenu::Interact(u1GUI* interaction)
 {
 	bool ret = true;
-	if (interaction == exit_button) {
-		App->QuitGame();
-		ret = false;
-	}
 
-	if (interaction == new_game_button) {
-		/*App->gui->DeleteAllUIElements();
-		active = false; //desactivates main menu
-		App->entity_manager->Enable();
-		App->map->Enable();
-		App->scene->Enable();
-		App->map->ChangeMap(Maps::LOBBY);
-		App->scene->SetMenuState(StatesMenu::NO_MENU);
-		ret = false;*/
-
-		App->gui->DeleteAllUIElements();
-		CreateSelectChamp();
-		ret = false;
-	}
-	if (interaction == button_warrior) {
-		App->scene->player_type = PlayerType::WARRIOR;
-		App->gui->DeleteAllUIElements();
-		active = false; //desactivates main menu
-		App->entity_manager->Enable();
-		App->map->Enable();
-		App->scene->Enable();
-		App->map->ChangeMap(Maps::LOBBY);
-		App->scene->SetMenuState(StatesMenu::NO_MENU);
-		ret = false;
-	}
-	if (interaction == button_archer) {
-		App->scene->player_type = PlayerType::ARCHER;
-		App->gui->DeleteAllUIElements();
-		active = false; //desactivates main menu
-		App->entity_manager->Enable();
-		App->map->Enable();
-		App->scene->Enable();
-		App->map->ChangeMap(Maps::LOBBY);
-		App->scene->SetMenuState(StatesMenu::NO_MENU);
-		ret = false;
-	}
-	if (interaction == button_mage) {
-		App->scene->player_type = PlayerType::MAGE;
-		App->gui->DeleteAllUIElements();
-		active = false; //desactivates main menu
-		App->entity_manager->Enable();
-		App->map->Enable();
-		App->scene->Enable();
-		App->map->ChangeMap(Maps::LOBBY);
-		App->scene->SetMenuState(StatesMenu::NO_MENU);
-		ret = false;
-	}
-	if (interaction == load_game_button) {
-		App->LoadGame("save_game.xml");
-		ret = false;
-	}
-
-	if (interaction == options_button) {
-		App->scene->CreateOptionsMenu();
-		App->gui->DeleteUIElement(background);
-		App->scene->UpdateOptionsMenu();
-		ret = false;
-	}
-
-	if (interaction == credits_button) {
-		CreateCredits();
-		App->gui->DeleteUIElement(background);
-		ret = false;
-	}
-
-	if (interaction == button_retun) {
-		CreateMainMenu();
-		DestroyCredits();
-		ret = false;
-	}
-	
-	if (interaction == button_continue_lobby) {
+	switch (main_states) {
+	case MainMenuStates::MAIN_MENU:
+		if (interaction == new_game_button) {
+			CreateSelectChamp();
+			DestroyMainMenu();
+			main_states = MainMenuStates::SELECTION_MENU;
+			ret = false;
+		}
+		if (interaction == exit_button) {
+			App->QuitGame();
+			ret = false;
+		}
+		if (interaction == credits_button) {
+			CreateCredits();
+			DestroyMainMenu();
+			main_states = MainMenuStates::CREDITS_MENU;
+			ret = false;
+		}
+		if (interaction == options_button) {
+			CreateOptions();
+			DestroyMainMenu();
+			main_states = MainMenuStates::OPTIONS_MENU;
+			ret = false;
+		}
+		if (interaction == load_game_button) {
+			App->LoadGame("save_game.xml");
+			ret = false;
+		}
+		break;
+	case MainMenuStates::CONTROLS_MENU:
+		if (interaction == button_retun_to_options) {
+			CreateOptions();
+			DestroyControls();
+			main_states = MainMenuStates::OPTIONS_MENU;
+			ret = false;
+		}
+		if (interaction == button_up) {
+			if (App->scene->control_to_change != nullptr)
+				delete App->scene->control_to_change;
+			App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_up, &App->input->keyboard_buttons.buttons_code.UP, &App->input->keyboard_buttons.buttons_char.UP, false);
+		}
+		if (interaction == button_right) {
+			if (App->scene->control_to_change != nullptr)
+				delete App->scene->control_to_change;
+			App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_right, &App->input->keyboard_buttons.buttons_code.RIGHT, &App->input->keyboard_buttons.buttons_char.RIGHT, false);
+		}
+		if (interaction == button_left) {
+			if (App->scene->control_to_change != nullptr)
+				delete App->scene->control_to_change;
+			App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_left, &App->input->keyboard_buttons.buttons_code.LEFT, &App->input->keyboard_buttons.buttons_char.LEFT, false);
+		}
+		if (interaction == button_down) {
+			if (App->scene->control_to_change != nullptr)
+				delete App->scene->control_to_change;
+			App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_down, &App->input->keyboard_buttons.buttons_code.DOWN, &App->input->keyboard_buttons.buttons_char.DOWN, false);
+		}
+		if (interaction == button_diagonals) {
+			if (App->scene->control_to_change != nullptr)
+				delete App->scene->control_to_change;
+			App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_diagonals, &App->input->keyboard_buttons.buttons_code.DIAGONALS, &App->input->keyboard_buttons.buttons_char.DIAGONALS, false);
+		}
+		if (interaction == button_direction_up) {
+			if (App->scene->control_to_change != nullptr)
+				delete App->scene->control_to_change;
+			App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_up, &App->input->keyboard_buttons.buttons_code.DIRECTION_UP, &App->input->keyboard_buttons.buttons_char.DIRECTION_UP, false);
+		}
+		if (interaction == button_direction_right) {
+			if (App->scene->control_to_change != nullptr)
+				delete App->scene->control_to_change;
+			App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_right, &App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT, &App->input->keyboard_buttons.buttons_char.DIRECCTION_RIGHT, false);
+		}
+		if (interaction == button_direction_left) {
+			if (App->scene->control_to_change != nullptr)
+				delete App->scene->control_to_change;
+			App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_left, &App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT, &App->input->keyboard_buttons.buttons_char.DIRECTION_LEFT, false);
+		}
+		if (interaction == button_direction_down) {
+			if (App->scene->control_to_change != nullptr)
+				delete App->scene->control_to_change;
+			App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_down, &App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN, &App->input->keyboard_buttons.buttons_char.DIRECCTION_DOWN, false);
+		}
+		if (interaction == button_basic_attack) {
+			if (App->scene->control_to_change != nullptr)
+				delete App->scene->control_to_change;
+			App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_basic_attack, &App->input->keyboard_buttons.buttons_code.BASIC_ATTACK, &App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, false);
+		}
+		if (interaction == Cbutton_direction_up) {
+			if (App->scene->control_to_change != nullptr)
+				delete App->scene->control_to_change;
+			App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_up, &App->input->controller_Buttons.buttons_code.DIRECTION_UP, &App->input->controller_Buttons.buttons_char.DIRECTION_UP, true);
+		}
+		if (interaction == Cbutton_direction_right) {
+			if (App->scene->control_to_change != nullptr)
+				delete App->scene->control_to_change;
+			App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_right, &App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT, &App->input->controller_Buttons.buttons_char.DIRECCTION_RIGHT, true);
+		}
+		if (interaction == Cbutton_direction_left) {
+			if (App->scene->control_to_change != nullptr)
+				delete App->scene->control_to_change;
+			App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_left, &App->input->controller_Buttons.buttons_code.DIRECTION_LEFT, &App->input->controller_Buttons.buttons_char.DIRECTION_LEFT, true);
+		}
+		if (interaction == Cbutton_direction_down) {
+			if (App->scene->control_to_change != nullptr)
+				delete App->scene->control_to_change;
+			App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_down, &App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN, &App->input->controller_Buttons.buttons_char.DIRECCTION_DOWN, true);
+		}
+		if (interaction == Cbutton_diagonals) {
+			if (App->scene->control_to_change != nullptr)
+				delete App->scene->control_to_change;
+			App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_diagonals, &App->input->controller_Buttons.buttons_code.DIAGONALS, &App->input->controller_Buttons.buttons_char.DIAGONALS, true);
+		}
+		if (interaction == Cbutton_basic_attack) {
+			if (App->scene->control_to_change != nullptr)
+				delete App->scene->control_to_change;
+			App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_basic_attack, &App->input->controller_Buttons.buttons_code.BASIC_ATTACK, &App->input->controller_Buttons.buttons_char.BASIC_ATTACK, true);
+		}
+		break;
+	case MainMenuStates::SELECTION_MENU:
+		if (interaction == button_warrior) {
+			App->scene->player_type = PlayerType::WARRIOR;
+			DestroySelectChamp();
+			active = false; 
+			App->entity_manager->Enable();
+			App->map->Enable();
+			App->scene->Enable();
+			App->map->ChangeMap(Maps::LOBBY);
+			App->scene->SetMenuState(StatesMenu::NO_MENU);
+			ret = false;
+		}
+		if (interaction == button_archer) {
+			App->scene->player_type = PlayerType::ARCHER;
+			DestroySelectChamp();
+			active = false; 
+			App->entity_manager->Enable();
+			App->map->Enable();
+			App->scene->Enable();
+			App->map->ChangeMap(Maps::LOBBY);
+			App->scene->SetMenuState(StatesMenu::NO_MENU);
+			ret = false;
+		}
+		if (interaction == button_mage) {
+			App->scene->player_type = PlayerType::MAGE;
+			DestroySelectChamp();
+			active = false; 
+			App->entity_manager->Enable();
+			App->map->Enable();
+			App->scene->Enable();
+			App->map->ChangeMap(Maps::LOBBY);
+			App->scene->SetMenuState(StatesMenu::NO_MENU);
+			ret = false;
+		}
+		break;
+	case MainMenuStates::OPTIONS_MENU:
+		if (interaction == button_retun_options) {
+			CreateMainMenu();
+			DestroyOptions();
+			main_states = MainMenuStates::MAIN_MENU;
+			ret = false;
+		}
+		if (interaction == button_controls) {
+			CreateControls();
+			DestroyOptions();
+			main_states = MainMenuStates::CONTROLS_MENU;
+			ret = false;
+		}
+		if (interaction == checkbox_fps)
+		{
+			checkbox_fps->Clicked();
+			if (App->capactivated) {
+				App->capactivated = false;
+			}
+			else {
+				App->capactivated = true;
+			}
+			//App->GetFrameRate();
+		}
 		
-		App->gui->DeleteAllUIElements();
-		App->fade_to_black->FadeToBlack(Maps::HOME);
-		//App->map->ChangeMap(Maps::HOME);
-		App->scene->SetMenuState(StatesMenu::NO_MENU);
-		App->scene->CreateHUD();
-		ret = false;
-	}
-	if (interaction == button_return_main) {
-		
-		App->gui->DeleteAllUIElements();
-		App->entity_manager->Disable();
-		App->map->Disable();
-		active = false; 
-		App->main_menu->Enable();
-		ret = false;
-		App->scene->SetMenuState(StatesMenu::NO_MENU);
-		
+		if (interaction == checkbox_fullscreen)
+		{
+			checkbox_fullscreen->Clicked();
+
+			if (App->win->fullscreen) {
+				App->win->fullscreen = false;
+				SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_SHOWN);
+			}
+			else {
+				App->win->fullscreen = true;
+				SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_FULLSCREEN);
+			}
+		}
+		if (interaction == button_music_volume) {
+			App->audio->StopMusic(-2);
+			label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+			label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+			label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+		}
+		if (interaction ==button_fx_volume) {
+			App->audio->StopMusic(-3);
+			label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+			label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+			label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+		}
+		if (interaction == minus_music_btn) {
+			App->audio->VolumeDown(-2);
+			label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+			label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+			label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+		}
+		if (interaction == plus_music_btn) {
+			App->audio->VolumeUp(-2);
+			label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+			label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+			label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+		}
+		if (interaction == minus_fx_btn) {
+			App->audio->VolumeDown(-3);
+			label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+			label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+			label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+		}
+		if (interaction == plus_fx_btn) {
+			App->audio->VolumeUp(-3); 
+			label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+			label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+			label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+		}
+		if (interaction == minus_general_btn) {
+			App->audio->VolumeDown(-1);
+			label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+			label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+			label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+		}
+		if (interaction == plus_general_btn) {
+			App->audio->VolumeUp(-1);
+			label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+			label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+			label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+		}
+		break;
+	case MainMenuStates::CREDITS_MENU:
+		if (interaction == button_github) {
+			ShellExecuteA(NULL, "open", "https://github.com/polarpathgames", NULL, NULL, SW_SHOWNORMAL);
+		}
+		if (interaction == button_youtube) {
+			ShellExecuteA(NULL, "open", "https://www.youtube.com/channel/UCx2jJZu3o-egIp2R8nH6vuA", NULL, NULL, SW_SHOWNORMAL);
+		}
+		if (interaction == button_twitter) {
+			ShellExecuteA(NULL, "open", "https://twitter.com/polarpathgames", NULL, NULL, SW_SHOWNORMAL);
+		}
+		if (interaction == button_christian) {
+			ShellExecuteA(NULL, "open", "https://github.com/christt105", NULL, NULL, SW_SHOWNORMAL);
+		}
+		if (interaction == button_lluis) {
+			ShellExecuteA(NULL, "open", "https://github.com/youis11", NULL, NULL, SW_SHOWNORMAL);
+		}
+		if (interaction == button_marc) {
+			ShellExecuteA(NULL, "open", "https://github.com/optus23", NULL, NULL, SW_SHOWNORMAL);
+		}
+		if (interaction == button_enric) {
+			ShellExecuteA(NULL, "open", "https://github.com/PerezEnric", NULL, NULL, SW_SHOWNORMAL);
+		}
+		if (interaction == button_oriol) {
+			ShellExecuteA(NULL, "open", "https://github.com/OriolCS2", NULL, NULL, SW_SHOWNORMAL);
+		}
+		if (interaction == button_nadine) {
+			ShellExecuteA(NULL, "open", "https://github.com/Nadine044", NULL, NULL, SW_SHOWNORMAL);
+		}
+		if (interaction == button_ivan) {
+			ShellExecuteA(NULL, "open", "https://github.com/RoperoIvan", NULL, NULL, SW_SHOWNORMAL);
+		}
+		if (interaction == button_retun) {
+			CreateMainMenu();
+			DestroyCredits();
+			main_states = MainMenuStates::MAIN_MENU;
+			ret = false;
+		}
+		break;
 	}
 
-	if (interaction == button_github) {
-		ShellExecuteA(NULL, "open", "https://github.com/polarpathgames", NULL, NULL, SW_SHOWNORMAL);
-	}
-	if (interaction == button_youtube) {
-		ShellExecuteA(NULL, "open", "https://www.youtube.com/channel/UCx2jJZu3o-egIp2R8nH6vuA", NULL, NULL, SW_SHOWNORMAL);
-	}
-	if (interaction == button_twitter) {
-		ShellExecuteA(NULL, "open", "https://twitter.com/polarpathgames", NULL, NULL, SW_SHOWNORMAL);
-	}
-
-	if (interaction == button_christian) {
-		ShellExecuteA(NULL, "open", "https://github.com/christt105", NULL, NULL, SW_SHOWNORMAL);
-	}
-	if (interaction == button_lluis) {
-		ShellExecuteA(NULL, "open", "https://github.com/youis11", NULL, NULL, SW_SHOWNORMAL);
-	}
-	if (interaction == button_marc) {
-		ShellExecuteA(NULL, "open", "https://github.com/optus23", NULL, NULL, SW_SHOWNORMAL);
-	}
-	if (interaction == button_enric) {
-		ShellExecuteA(NULL, "open", "https://github.com/PerezEnric", NULL, NULL, SW_SHOWNORMAL);
-	}
-	if (interaction == button_oriol) {
-		ShellExecuteA(NULL, "open", "https://github.com/OriolCS2", NULL, NULL, SW_SHOWNORMAL);
-	}
-	if (interaction == button_nadine) {
-		ShellExecuteA(NULL, "open", "https://github.com/Nadine044", NULL, NULL, SW_SHOWNORMAL);
-	}
-	if (interaction == button_ivan) {
-		ShellExecuteA(NULL, "open", "https://github.com/RoperoIvan", NULL, NULL, SW_SHOWNORMAL);
-	}
 	return ret;
 }
 
@@ -280,39 +433,306 @@ void m1MainMenu::DestroyCredits()
 	App->gui->DeleteUIElement(credits_panel);
 }
 
-void m1MainMenu::CreateGameOver()
-{
-	game_over_panel = App->gui->AddImage(0, 0, { 1024, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
-	game_over_panel->SetPosRespectParent(CENTERED);
-
-	button_continue_lobby = App->gui->AddButton(150, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, game_over_panel, false, false, true, true);
-	label_continue_lobby = App->gui->AddLabel(0, 0, "Continue to Lobby", button_continue_lobby, WHITE, FontType::FF100, nullptr, false);
-	label_continue_lobby->SetPosRespectParent(LEFT_CENTERED);
-
-
-	button_return_main = App->gui->AddButton(610, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, game_over_panel, false, false, true, true);
-	label_continue_main = App->gui->AddLabel(0, 0, "Return Main Menu", button_return_main, WHITE, FontType::FF100, nullptr, false);
-	label_continue_main->SetPosRespectParent(LEFT_CENTERED);
-
-	
-}
-
-void m1MainMenu::DestroyGameOver()
-{
-	App->gui->DeleteUIElement(game_over_panel);
-}
 
 void m1MainMenu::CreateSelectChamp()
 {
-	background = App->gui->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+	select_champ_panel = App->gui->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
 
-	button_warrior = App->gui->AddButton(100, 100, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true, true);
-	button_archer = App->gui->AddButton(400, 100, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true, true);
-	button_mage = App->gui->AddButton(700, 100, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, true, false, true, true);
+	button_warrior = App->gui->AddButton(100, 100, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, select_champ_panel, true, false, true, true);
+	button_archer = App->gui->AddButton(400, 100, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, select_champ_panel, true, false, true, true);
+	button_mage = App->gui->AddButton(700, 100, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, select_champ_panel, true, false, true, true);
 
 }
 
 void m1MainMenu::DestroySelectChamp()
 {
+	App->gui->DeleteUIElement(select_champ_panel);
+}
+
+void m1MainMenu::SetMainMenuState(const MainMenuStates & state)
+{
+	main_states = state;
+}
+
+void m1MainMenu::DestroyMainMenu()
+{
 	App->gui->DeleteUIElement(background);
 }
+
+void m1MainMenu::CreateOptions()
+{
+	options_panel = App->gui->AddImage(0, 0, { 1024,768,1024,768 }, this, App->gui->screen, true, false, false, false);
+	options_panel->SetPosRespectParent(CENTERED);
+
+	button_general_volume = App->gui->AddButton(491, 168, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
+	label_general_volume = App->gui->AddLabel(0, 0, "General Volume", button_general_volume, BLACK, FontType::FF48, nullptr, false);
+	label_general_volume->SetPosRespectParent(LEFT_CENTERED);
+	minus_general_btn = App->gui->AddButton(715, 185, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options_panel, true, false, true, true);
+	plus_general_btn = App->gui->AddButton(805, 185, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options_panel, true, false, true, true);
+	label_general_value = App->gui->AddLabel(760, 172, "", options_panel, BLACK, FontType::FF48, nullptr, false);
+
+	button_music_volume = App->gui->AddButton(491, 246, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
+	label_music_volume = App->gui->AddLabel(0, 0, "Music Volume", button_music_volume, BLACK, FontType::FF48, nullptr, false);
+	label_music_volume->SetPosRespectParent(LEFT_CENTERED);
+	minus_music_btn = App->gui->AddButton(715, 263, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options_panel, true, false, true, true);
+	plus_music_btn = App->gui->AddButton(805, 263, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options_panel, true, false, true, true);
+	label_music_value = App->gui->AddLabel(760, 250, "", options_panel, BLACK, FontType::FF48, nullptr, false);
+
+	button_fx_volume = App->gui->AddButton(491, 326, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
+	label_fx_volume = App->gui->AddLabel(0, 0, "FX Volume", button_fx_volume, BLACK, FontType::FF48, nullptr, false);
+	label_fx_volume->SetPosRespectParent(LEFT_CENTERED);
+	minus_fx_btn = App->gui->AddButton(715, 343, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options_panel, true, false, true, true);
+	plus_fx_btn = App->gui->AddButton(805, 343, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options_panel, true, false, true, true);
+	label_fx_value = App->gui->AddLabel(760, 330, "", options_panel, BLACK, FontType::FF48, nullptr, false);
+
+	label_fps = App->gui->AddLabel(491, 413, "FPS Caps", options_panel, BLACK, FontType::FF48, nullptr, false);
+	checkbox_fps = App->gui->AddCheckBox(760, 413, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
+	checkbox_fps->is_option = true;
+	checkbox_fps->draggable = false;
+	checkbox_fps->drawable = true;
+	checkbox_fps->box_clicked = App->capactivated;
+	checkbox_fps->interactable = true;
+	checkbox_fps->AddListener(this);
+
+	label_fullscreen = App->gui->AddLabel(491, 503, "Fullscreen", options_panel, BLACK, FontType::FF48, nullptr, false);
+	checkbox_fullscreen = App->gui->AddCheckBox(760, 503, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
+	checkbox_fullscreen->is_option = true;
+	checkbox_fullscreen->box_clicked = App->win->fullscreen;
+	checkbox_fullscreen->draggable = false;
+	checkbox_fullscreen->drawable = true;
+	checkbox_fullscreen->interactable = true;
+	checkbox_fullscreen->AddListener(this);
+
+	button_controls = App->gui->AddButton(491, 595, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
+	label_controls = App->gui->AddLabel(0, 0, "Controls", button_controls, BLACK, FontType::FF48, nullptr, false);
+	label_controls->SetPosRespectParent(LEFT_CENTERED);
+
+	button_retun_options = App->gui->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
+	label_return_options = App->gui->AddLabel(0, 0, "Return", button_retun_options, BLACK, FontType::FF48, nullptr, false);
+	label_return_options->SetPosRespectParent(CENTERED);
+
+	label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+	label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+	label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+
+}
+
+void m1MainMenu::DestroyOptions()
+{
+	App->gui->DeleteUIElement(options_panel);
+
+}
+
+void m1MainMenu::CreateControls()
+{
+
+	controls_panel = App->gui->AddImage(0, 0, { 0,3256,1024,768 }, this, App->gui->screen, true, false, false, false);
+	controls_panel->SetPosRespectParent(CENTERED);
+
+
+	button_retun_to_options = App->gui->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, controls_panel, false, false, true, true);
+	label_return_to_options = App->gui->AddLabel(0, 0, "Return", button_retun_to_options, BLACK, FontType::FF48, nullptr, false);
+	label_return_to_options->SetPosRespectParent(CENTERED);
+
+	// Actions
+	// KEYS/BUTTONS
+	int offset_between_y = 35;
+	int actions_offset_x = 200;
+	int first_control_y = 130;
+
+	label_up = App->gui->AddLabel(actions_offset_x, first_control_y, "Move Up", controls_panel, BLACK, FontType::FF48, nullptr, false);
+	label_right = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y, "Move Right", controls_panel, BLACK, FontType::FF48, nullptr, false);
+	label_left = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 2, "Move Left", controls_panel, BLACK, FontType::FF48, nullptr, false);
+	label_down = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 3, "Move Down", controls_panel, BLACK, FontType::FF48, nullptr, false);
+	label_diagonals = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 4, "Use Diagonals", controls_panel, BLACK, FontType::FF48, nullptr, false);
+	label_direction_up = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 5, "Look Up", controls_panel, BLACK, FontType::FF48, nullptr, false);
+	label_direction_right = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 6, "Look Right", controls_panel, BLACK, FontType::FF48, nullptr, false);
+	label_direction_left = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 7, "Look Left", controls_panel, BLACK, FontType::FF48, nullptr, false);
+	label_direction_down = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 8, "Look Down", controls_panel, BLACK, FontType::FF48, nullptr, false);
+	label_basic_attack = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 9, "Basic Attack", controls_panel, BLACK, FontType::FF48, nullptr, false);
+	label_abilities = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 10, "Show Abilities", controls_panel, BLACK, FontType::FF48, nullptr, false);
+	label_ability1 = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 11, "Ability 1", controls_panel, BLACK, FontType::FF48, nullptr, false);
+	label_ability2 = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 12, "Ability 2", controls_panel, BLACK, FontType::FF48, nullptr, false);
+	label_ability3 = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 13, "Ability 3", controls_panel, BLACK, FontType::FF48, nullptr, false);
+	label_interact = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 14, "Interact", controls_panel, BLACK, FontType::FF48, nullptr, false);
+	label_inventory = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 15, "Inventory", controls_panel, BLACK, FontType::FF48, nullptr, false);
+
+
+	// KEYBOARD
+	int keyboard_offset_x = actions_offset_x + 150;
+	SDL_Rect button_rect = { 1570,1631,211,30 };
+
+	keyboard = App->gui->AddLabel(keyboard_offset_x, first_control_y - 30, "KEYBOARD", controls_panel, BLACK, FontType::FF48, nullptr, false);
+
+	button_up = App->gui->AddButton(keyboard_offset_x, first_control_y + 10, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	label_to_show_how_up = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.UP, button_up, BLACK, FontType::FF32, nullptr, false);
+	label_to_show_how_up->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(label_to_show_how_up);
+
+	button_right = App->gui->AddButton(keyboard_offset_x, button_up->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	label_to_show_how_right = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.RIGHT, button_right, BLACK, FontType::FF32, nullptr, false);
+	label_to_show_how_right->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(label_to_show_how_right);
+
+	button_left = App->gui->AddButton(keyboard_offset_x, button_right->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	label_to_show_how_left = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.LEFT, button_left, BLACK, FontType::FF32, nullptr, false);
+	label_to_show_how_left->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(label_to_show_how_left);
+
+	button_down = App->gui->AddButton(keyboard_offset_x, button_left->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	label_to_show_how_down = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DOWN, button_down, BLACK, FontType::FF32, nullptr, true);
+	label_to_show_how_down->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(label_to_show_how_down);
+
+	button_diagonals = App->gui->AddButton(keyboard_offset_x, button_down->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	label_to_show_how_diagonals = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIAGONALS, button_diagonals, BLACK, FontType::FF32, nullptr, false);
+	label_to_show_how_diagonals->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(label_to_show_how_diagonals);
+
+	button_direction_up = App->gui->AddButton(keyboard_offset_x, button_diagonals->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	label_to_show_how_direction_up = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECTION_UP, button_direction_up, BLACK, FontType::FF32, nullptr, false);
+	label_to_show_how_direction_up->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(label_to_show_how_direction_up);
+
+	button_direction_right = App->gui->AddButton(keyboard_offset_x, button_direction_up->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	label_to_show_how_direction_right = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECCTION_RIGHT, button_direction_right, BLACK, FontType::FF32, nullptr, false);
+	label_to_show_how_direction_right->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(label_to_show_how_direction_right);
+
+	button_direction_left = App->gui->AddButton(keyboard_offset_x, button_direction_right->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	label_to_show_how_direction_left = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECTION_LEFT, button_direction_left, BLACK, FontType::FF32, nullptr, false);
+	label_to_show_how_direction_left->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(label_to_show_how_direction_left);
+
+	button_direction_down = App->gui->AddButton(keyboard_offset_x, button_direction_left->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	label_to_show_how_direction_down = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.DIRECCTION_DOWN, button_direction_down, BLACK, FontType::FF32, nullptr, false);
+	label_to_show_how_direction_down->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(label_to_show_how_direction_down);
+
+	button_basic_attack = App->gui->AddButton(keyboard_offset_x, button_direction_down->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	label_to_show_how_basic_attack = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, button_basic_attack, BLACK, FontType::FF32, nullptr, false);
+	label_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(label_to_show_how_basic_attack);
+
+	button_abilities = App->gui->AddButton(keyboard_offset_x, button_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	label_to_show_how_abilities = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.SHOW_SKILLS, button_abilities, BLACK, FontType::FF32, nullptr, false);
+	label_to_show_how_abilities->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(label_to_show_how_abilities);
+
+	button_ability1 = App->gui->AddButton(keyboard_offset_x, button_abilities->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	label_to_show_how_ability1 = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.ABILITY1, button_ability1, BLACK, FontType::FF32, nullptr, false);
+	label_to_show_how_ability1->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(label_to_show_how_ability1);
+
+	button_ability2 = App->gui->AddButton(keyboard_offset_x, button_ability1->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	label_to_show_how_ability2 = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.ABILITY1, button_ability2, BLACK, FontType::FF32, nullptr, false);
+	label_to_show_how_ability2->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(label_to_show_how_ability2);
+
+	button_ability3 = App->gui->AddButton(keyboard_offset_x, button_ability2->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	label_to_show_how_ability3 = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.ABILITY1, button_ability3, BLACK, FontType::FF32, nullptr, false);
+	label_to_show_how_ability3->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(label_to_show_how_ability3);
+
+	button_interact = App->gui->AddButton(keyboard_offset_x, button_ability3->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	label_to_show_how_interact = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, button_interact, BLACK, FontType::FF32, nullptr, false);
+	label_to_show_how_interact->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(label_to_show_how_interact);
+
+	button_inventory = App->gui->AddButton(keyboard_offset_x, button_interact->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	label_to_show_how_inventory = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.INVENTORY, button_inventory, BLACK, FontType::FF32, nullptr, false);
+	label_to_show_how_inventory->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(label_to_show_how_inventory);
+
+	// CONTROLLER
+	int controller_offset_x = actions_offset_x + 400;
+
+	controller = App->gui->AddLabel(controller_offset_x, first_control_y - 30, "CONTROLLER", controls_panel, BLACK, FontType::FF48, nullptr, false);
+
+	Cbutton_up = App->gui->AddButton(controller_offset_x, first_control_y + 10, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	Clabel_to_show_how_up = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.UP, Cbutton_up, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_up->SetPosRespectParent(CENTERED);
+
+	Cbutton_right = App->gui->AddButton(controller_offset_x, Cbutton_up->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	Clabel_to_show_how_right = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.RIGHT, Cbutton_right, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_right->SetPosRespectParent(CENTERED);
+
+	Cbutton_left = App->gui->AddButton(controller_offset_x, Cbutton_right->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	Clabel_to_show_how_left = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.LEFT, Cbutton_left, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_left->SetPosRespectParent(CENTERED);
+
+	Cbutton_down = App->gui->AddButton(controller_offset_x, Cbutton_left->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	Clabel_to_show_how_down = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DOWN, Cbutton_down, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_down->SetPosRespectParent(CENTERED);
+
+	Cbutton_diagonals = App->gui->AddButton(controller_offset_x, Cbutton_down->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	Clabel_to_show_how_diagonals = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIAGONALS, Cbutton_diagonals, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_diagonals->SetPosRespectParent(CENTERED);
+	App->scene->Clabels_control.push_back(Clabel_to_show_how_diagonals);
+
+	Cbutton_direction_up = App->gui->AddButton(controller_offset_x, Cbutton_diagonals->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	Clabel_to_show_how_direction_up = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECTION_UP, Cbutton_direction_up, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_direction_up->SetPosRespectParent(CENTERED);
+	App->scene->Clabels_control.push_back(Clabel_to_show_how_direction_up);
+
+	Cbutton_direction_right = App->gui->AddButton(controller_offset_x, Cbutton_direction_up->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	Clabel_to_show_how_direction_right = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECCTION_RIGHT, Cbutton_direction_right, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_direction_right->SetPosRespectParent(CENTERED);
+	App->scene->Clabels_control.push_back(Clabel_to_show_how_direction_right);
+
+	Cbutton_direction_left = App->gui->AddButton(controller_offset_x, Cbutton_direction_right->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	Clabel_to_show_how_direction_left = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECTION_LEFT, Cbutton_direction_left, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_direction_left->SetPosRespectParent(CENTERED);
+	App->scene->Clabels_control.push_back(Clabel_to_show_how_direction_left);
+
+	Cbutton_direction_down = App->gui->AddButton(controller_offset_x, Cbutton_direction_left->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	Clabel_to_show_how_direction_down = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.DIRECCTION_DOWN, Cbutton_direction_down, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_direction_down->SetPosRespectParent(CENTERED);
+	App->scene->Clabels_control.push_back(Clabel_to_show_how_direction_down);
+
+	Cbutton_basic_attack = App->gui->AddButton(controller_offset_x, Cbutton_direction_down->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	Clabel_to_show_how_basic_attack = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.BASIC_ATTACK, Cbutton_basic_attack, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
+	App->scene->Clabels_control.push_back(Clabel_to_show_how_basic_attack);
+
+	Cbutton_abilities = App->gui->AddButton(controller_offset_x, Cbutton_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	Clabel_to_show_how_abilities = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.SHOW_SKILLS, Cbutton_abilities, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_abilities->SetPosRespectParent(CENTERED);
+	App->scene->Clabels_control.push_back(Clabel_to_show_how_abilities);
+
+	Cbutton_ability1 = App->gui->AddButton(controller_offset_x, Cbutton_abilities->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	Clabel_to_show_how_ability1 = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.ABILITY1, Cbutton_ability1, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_ability1->SetPosRespectParent(CENTERED);
+	App->scene->Clabels_control.push_back(Clabel_to_show_how_ability1);
+
+	Cbutton_ability2 = App->gui->AddButton(controller_offset_x, Cbutton_ability1->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	Clabel_to_show_how_ability2 = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.ABILITY1, Cbutton_ability2, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_ability2->SetPosRespectParent(CENTERED);
+	App->scene->Clabels_control.push_back(Clabel_to_show_how_ability2);
+
+	Cbutton_ability3 = App->gui->AddButton(controller_offset_x, Cbutton_ability2->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	Clabel_to_show_how_ability3 = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.ABILITY1, Cbutton_ability3, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_ability3->SetPosRespectParent(CENTERED);
+	App->scene->Clabels_control.push_back(Clabel_to_show_how_ability3);
+
+	Cbutton_interact = App->gui->AddButton(controller_offset_x, Cbutton_ability3->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	Clabel_to_show_how_interact = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.BASIC_ATTACK, Cbutton_interact, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_interact->SetPosRespectParent(CENTERED);
+	App->scene->Clabels_control.push_back(Clabel_to_show_how_interact);
+
+	Cbutton_inventory = App->gui->AddButton(controller_offset_x, Cbutton_interact->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls_panel, true, false, true, true);
+	Clabel_to_show_how_inventory = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.INVENTORY, Cbutton_inventory, BLACK, FontType::FF32, nullptr, false);
+	Clabel_to_show_how_inventory->SetPosRespectParent(CENTERED);
+	App->scene->Clabels_control.push_back(Clabel_to_show_how_inventory);
+
+}
+
+void m1MainMenu::DestroyControls()
+{
+	App->scene->control_to_change = nullptr;
+	App->gui->DeleteUIElement(controls_panel);
+
+	App->scene->labels_control.clear();
+	App->scene->Clabels_control.clear();
+}
+

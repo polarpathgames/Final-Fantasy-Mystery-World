@@ -10,6 +10,7 @@
 class u1GUI;
 class u1Button;
 class u1Label;
+class p1Follow;
 
 
 struct Input {
@@ -75,11 +76,9 @@ public:
 
 	virtual ~e1Player();
 
-	virtual bool PreUpdate() { return true; };
+	bool PreUpdate();
 
-	virtual bool Update(float dt) { return true; };
-
-	virtual bool PostUpdate() { return true; };
+	bool Update(float dt);
 
 	bool Load(pugi::xml_node&);
 
@@ -103,7 +102,12 @@ public:
 
 	void ReadAttack();
 
-	
+	virtual void InitStats() {};
+
+	virtual void PrepareSpecialAttack1() {};
+
+	virtual void SpecialAttack1() {};
+
 
 	//Update
 	void PerformActions(float dt); // Global organizator function 
@@ -171,11 +175,7 @@ public:
 	u1Label* left_skill_button = nullptr;
 	u1Label* left_skill_label = nullptr;
 
+	p1Follow* p_trace = nullptr;
 
 };
-
-
-
-#endif // 
-
-
+#endif

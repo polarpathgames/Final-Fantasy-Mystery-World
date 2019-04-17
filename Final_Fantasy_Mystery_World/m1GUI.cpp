@@ -64,8 +64,6 @@ bool m1GUI::UpdateFocusMouse()
 	BROFILER_CATEGORY("UpdateFocusMouse", Profiler::Color::Orange);
 
 	bool ret = true;
-	int x = 0, y = 0;
-	App->input->GetMouseMotion(x, y);
 
 	if (focus == nullptr && ui_list.size() > 1) {
 		FocusFirstUIFocusable();
@@ -99,7 +97,7 @@ bool m1GUI::UpdateFocusMouse()
 			ret = focus->Update();
 		}
 		if (!using_mouse) {
-			if (x != 0 || y != 0) {
+			if (App->input->MovedMouse()) {
 				using_mouse = true;
 				show_cursor = true;
 			}
@@ -260,7 +258,7 @@ bool m1GUI::CleanUp()
 
 	ui_list.clear();
 	App->tex->UnLoad(atlas);
-
+	atlas = nullptr;
 	return true;
 }
 
@@ -337,7 +335,7 @@ u1CheckBox* m1GUI::AddCheckBox(const int &pos_x, const int &pos_y, const SDL_Rec
 
 u1Bar* m1GUI::AddBar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* parent, m1Module* callback)
 {
-	u1Bar* bar = new u1Bar(x, y, max_capacity, type, parent, callback);
+	u1Bar* bar = DBG_NEW u1Bar(x, y, max_capacity, type, parent, callback);
 
 	if (callback != nullptr) {
 		bar->AddListener(callback);
@@ -421,6 +419,7 @@ bool m1GUI::DeleteAllUIElements()
 	bool ret = true;
 
 	ret = DeleteUIElement(screen);
+	SDL_assert(ui_list.size() == 0);
 	CreateScreen();
 	focus = nullptr;
 

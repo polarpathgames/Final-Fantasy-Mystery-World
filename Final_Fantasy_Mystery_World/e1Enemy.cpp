@@ -7,6 +7,7 @@
 #include "e1Drop.h"
 #include "m1EntityManager.h"
 #include "m1Map.h"
+#include <vector>
 #include <string>
 #include "m1Pathfinding.h"
 #include "e1Player.h"
@@ -54,10 +55,77 @@ bool e1Enemy::Save(pugi::xml_node &) const
 bool e1Enemy::CleanUp()
 {
 	App->tex->UnLoad(ground);
+	ground = nullptr;
 	return true;
 }
 
-bool e1Enemy::IsPlayerNextTile() 
+bool e1Enemy::IsAnotherEnemyNextTile()
+{
+	bool ret = false;
+	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+	std::vector<e1Entity*>::iterator item = entities.begin();
+
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY) {
+			iPoint origin = actual_tile;
+			iPoint destination = (*item)->actual_tile;
+
+			if (origin.x + 1 == destination.x && origin.y == destination.y) {
+				direction = Direction::DOWN_RIGHT;
+				current_animation = &IdleDownRight;
+				next_enemy_pos.push_back(destination);
+				ret = true;
+			}
+			if (origin.x == destination.x && origin.y + 1 == destination.y) {
+				direction = Direction::DOWN_LEFT;
+				current_animation = &IdleDownLeft;
+				next_enemy_pos.push_back(destination);
+				ret = true;
+			}
+			if (origin.x == destination.x && origin.y - 1 == destination.y) {
+				direction = Direction::UP_RIGHT;
+				current_animation = &IdleUpRight;
+				next_enemy_pos.push_back(destination);
+				ret = true;
+			}
+			if (origin.x - 1 == destination.x && origin.y == destination.y) {
+				direction = Direction::UP_LEFT;
+				current_animation = &IdleUpLeft;
+				next_enemy_pos.push_back(destination);
+				ret = true;
+			}
+			if (origin.x + 1 == destination.x && origin.y + 1 == destination.y) {
+				direction = Direction::DOWN;
+				current_animation = &IdleDown;
+				next_enemy_pos.push_back(destination);
+				ret = true;
+			}
+			if (origin.x - 1 == destination.x && origin.y + 1 == destination.y) {
+				direction = Direction::LEFT;
+				current_animation = &IdleLeft;
+				next_enemy_pos.push_back(destination);
+				ret = true;
+			}
+			if (origin.x - 1 == destination.x && origin.y - 1 == destination.y) {
+				direction = Direction::UP;
+				current_animation = &IdleUp;
+				next_enemy_pos.push_back(destination);
+				ret = true;
+			}
+			if (origin.x + 1 == destination.x && origin.y - 1 == destination.y) {
+				direction = Direction::RIGHT;
+				current_animation = &IdleRight;
+				next_enemy_pos.push_back(destination);
+				ret = true;
+			}
+
+		}
+	}
+
+	return ret;
+}
+
+bool e1Enemy::IsPlayerNextTile()
 {
 	bool ret = false;
 	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
@@ -119,8 +187,14 @@ void e1Enemy::MovementLogic()
 {
 	iPoint origin = actual_tile;
 	iPoint destination = App->scene->player->actual_tile;
-	App->pathfinding->CreatePath(origin, destination);
 
+	if (!IsAnotherEnemyNextTile())
+		App->pathfinding->CreatePath(origin, destination);
+	else {
+		App->pathfinding->RecalculatePath(origin, destination, next_enemy_pos);
+		next_enemy_pos.clear();
+	}
+		
 	iPoint target = App->pathfinding->GetLastPath();
 	if (target_position == position && !IsPlayerNextTile()) {
 		if (target.x == origin.x && target.y > origin.y) {

@@ -95,6 +95,12 @@
     <ClCompile Include="e1StrangeFrog.cpp" />
     <ClCompile Include="e1Warrior.cpp" />
     <ClCompile Include="m1Cutscene.cpp" />
+    <ClCompile Include="m1ParticleManager.cpp" />
+    <ClCompile Include="p1Explosion.cpp" />
+    <ClCompile Include="p1Fire.cpp" />
+    <ClCompile Include="p1Firework.cpp" />
+    <ClCompile Include="p1Follow.cpp" />
+    <ClCompile Include="p1Particle.cpp" />
     <ClCompile Include="p2ChangeControls.cpp" />
     <ClCompile Include="e1DynamicEntity.cpp" />
     <ClCompile Include="m1EasingSplines.cpp" />
@@ -150,6 +156,12 @@
     <ClInclude Include="e1StrangeFrog.h" />
     <ClInclude Include="e1Warrior.h" />
     <ClInclude Include="m1Cutscene.h" />
+    <ClInclude Include="m1ParticleManager.h" />
+    <ClInclude Include="p1Explosion.h" />
+    <ClInclude Include="p1Fire.h" />
+    <ClInclude Include="p1Firework.h" />
+    <ClInclude Include="p1Follow.h" />
+    <ClInclude Include="p1Particle.h" />
     <ClInclude Include="p2ChangeControls.h" />
     <ClInclude Include="p2Random.h" />
     <ClInclude Include="p2Rooms.h" />

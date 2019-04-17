@@ -39,35 +39,11 @@ e1Mage::~e1Mage()
 {
 }
 
-bool e1Mage::PreUpdate()
-{
-
-	if (!block_controls)
-		ReadPlayerInput();
-
-	return true;
-}
-
-bool e1Mage::Update(float dt)
-{
-
-	PerformActions(dt);
-
-	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
-
-	if (coll != nullptr)
-		coll->SetPos(position.x, position.y + 25);
-
-	return true;
-}
-
-bool e1Mage::PostUpdate()
-{
-	return true;
-}
-
 bool e1Mage::CleanUp()
 {
+	App->tex->UnLoad(ground);
+	ground = nullptr;
+
 	return true;
 }
 
@@ -86,3 +62,13 @@ void e1Mage::InitStats()
 	stats.xp = 0;
 
 }
+
+void e1Mage::PrepareSpecialAttack1()
+{
+	state = State::IDLE;
+}
+
+void e1Mage::SpecialAttack1()
+{
+}
+

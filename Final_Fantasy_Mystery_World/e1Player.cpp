@@ -27,6 +27,7 @@
 #include "Brofiler/Brofiler.h"
 #include "m1EasingSplines.h"
 #include "m1MainMenu.h"
+#include "m1ParticleManager.h"
 
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
@@ -34,6 +35,27 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 
 e1Player::~e1Player()
 {
+}
+
+bool e1Player::PreUpdate()
+{
+	if (!block_controls)
+		ReadPlayerInput();
+
+	return true;
+}
+
+bool e1Player::Update(float dt)
+{
+	PerformActions(dt);
+
+	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+
+	if (coll != nullptr)
+		coll->SetPos(position.x, position.y + 25);
+
+
+	return true;
 }
 
 bool e1Player::Load(pugi::xml_node &)
@@ -72,6 +94,7 @@ void e1Player::OnCollisionEnter(Collider * c2)
 	}
 	if (c2->type == COLLIDER_MENU_QUEST) {
 		App->scene->CreateGoToQuestMenu();
+		App->scene->SetMenuState(StatesMenu::GO_TO_QUEST_MENU);
 	}
 	if (c2->type == COLLIDER_CUTSCENE_BRIDGE) {
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneBlockPass.xml");
@@ -400,23 +423,7 @@ void e1Player::ReadAttack()
 		return;
 	}
 	if (player_input.pressing_F) {
-		switch(App->scene->player_type) {
-		case PlayerType::WARRIOR: {
-			e1Warrior * warrior = nullptr;
-			warrior = (e1Warrior*)this;
-			warrior->PrepareSpecialAttack1();
-			break; }
-		case PlayerType::ARCHER: {
-			e1Archer * archer = nullptr;
-			archer = (e1Archer*)this;
-			state = State::IDLE;
-			break; }
-		case PlayerType::MAGE: {
-			e1Mage * mage = nullptr;
-			mage = (e1Mage*)this;
-			state = State::IDLE;
-			break; }
-		}
+		PrepareSpecialAttack1();
 		return;
 	}
 }
@@ -492,20 +499,7 @@ void e1Player::PerformActions(float dt)
 			BasicAttack();
 			break;
 		case Attacks::SPECIAL_1:
-			switch (App->scene->player_type) {
-			case PlayerType::WARRIOR: {
-				e1Warrior * warrior = (e1Warrior*)this;
-				warrior->SpecialAttack1();
-				break; }
-			case PlayerType::ARCHER: {
-				e1Archer * warrior = (e1Archer*)this;
-				
-				break; }
-			case PlayerType::MAGE: {
-				e1Mage * warrior = (e1Mage*)this;
-
-				break; }
-			}
+			SpecialAttack1();
 			break;
 		default:
 			LOG("There is no attack type...");
@@ -849,7 +843,8 @@ void e1Player::Death()
 		App->map->CleanUp();
 		App->entity_manager->DeleteEntitiesNoPlayer();
 		App->gui->DeleteUIElement((u1GUI*)App->scene->bg_hud);
-		App->main_menu->CreateGameOver();
+		App->scene->CreateGameOver();
+		App->scene->SetMenuState(StatesMenu::DIE_MENU);
 		state = State::MENU;
 		stats.live = stats.max_lives;
 		stats.mana = stats.max_mana;

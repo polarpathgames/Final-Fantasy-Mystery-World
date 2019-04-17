@@ -105,6 +105,8 @@ public:
 	virtual bool Load(pugi::xml_node&) { return true; };
 	virtual bool Save(pugi::xml_node&) const { return true; };
 
+	iPoint GetPosition() const;
+
 	void LoadXML(std::string name_xml_file);
 	Animation LoadPushbacks(pugi::xml_node&, std::string NameAnim) const;
 

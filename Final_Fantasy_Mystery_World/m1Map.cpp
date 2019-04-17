@@ -235,7 +235,8 @@ bool m1Map::CleanUp()
 	App->collision->CleanUp();
 	// Clean up the pugui tree
 	map_file.reset();
-
+	App->tex->UnLoad(quad);
+	quad = nullptr;
 	return true;
 }
 
@@ -245,6 +246,9 @@ bool m1Map::Load(const char* file_name)
 	BROFILER_CATEGORY("Load Map", Profiler::Color::DeepPink);
 
 	bool ret = true;
+
+	quad = App->tex->Load("assets/maps/cuadradito.png");
+
 	std::string tmp = folder.data();
 	tmp += file_name;
 	pugi::xml_parse_result result = map_file.load_file(tmp.data());
