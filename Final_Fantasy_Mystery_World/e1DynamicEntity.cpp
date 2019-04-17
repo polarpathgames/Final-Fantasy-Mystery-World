@@ -744,6 +744,9 @@ void e1DynamicEntity::ChangeAnimsInCutscene(const int & x, const int & y, const 
 			if (x > 0 && y > 0) {
 				current_animation = &GoDownRight;
 			}
+			else if (x == -40 && y == -80) {
+				current_animation = &GoUp;
+			}
 			else if (x < 0 && y < 0) {
 				current_animation = &GoUpLeft;
 			}
