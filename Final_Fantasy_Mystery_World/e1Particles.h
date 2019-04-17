@@ -5,6 +5,8 @@
 
 #include "e1DynamicEntity.h"
 
+class p1Follow;
+
 class e1Particles : public e1DynamicEntity {
 
 public:
@@ -41,9 +43,8 @@ public:
 
 	iPoint arrow_tile = { 0,0 };
 	iPoint max_arrow_distance = { 0,0 };
+
+	p1Follow* particle_follow = nullptr;
 };
 
-
-
 #endif // !_E1PARTICLES_H_
-

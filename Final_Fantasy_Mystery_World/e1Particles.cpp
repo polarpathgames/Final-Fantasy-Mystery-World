@@ -8,6 +8,7 @@
 #include "e1Archer.h"
 #include "m1Scene.h"
 #include "e1Enemy.h"
+#include "m1ParticleManager.h"
 #include "e1Player.h"
 
 
@@ -19,6 +20,7 @@ e1Particles::e1Particles(const int & x, const int & y) : e1DynamicEntity(x, y)
 
 e1Particles::~e1Particles()
 {
+	App->particles->DeleteFollow_p(particle_follow);
 }
 
 bool e1Particles::PreUpdate()
@@ -122,6 +124,9 @@ void e1Particles::SetArrow()
 	arrow_tile = actual_tile;
 	velocity.x = 160;
 	velocity.y = 80;
+
+	particle_follow = App->particles->CreateFollow(this, nullptr, { 4,8,4,2 }, {12,2}, { 20,10 }, 10, 50);
+
 	switch (direction) {
 	case Direction::DOWN_LEFT: // need fix
 		position.y -= 10;
