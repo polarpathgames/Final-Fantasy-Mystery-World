@@ -68,20 +68,26 @@
           <type>combat</type>
         </room>
         <room>
-          <location>Tutorial_PreFinal.tmx</location>
+          <location>Tutorial_Attack3.tmx</location>
           <id num="6"></id>
+          <type>combat</type>
+        </room>
+        <room>
+          <location>Tutorial_PreFinal.tmx</location>
+          <id num="7"></id>
           <type>paceful</type>
         </room>
         <room>
           <location>Tutorial_Fountain.tmx</location>
-          <id num="7"></id>
+          <id num="8"></id>
           <type>fountain</type>
         </room>
         <room>
           <location>Tutorial_Final.tmx</location>
-          <id num="8"></id>
+          <id num="9"></id>
           <type>boss</type>
         </room>
+        
         
       </tutorial>
       
