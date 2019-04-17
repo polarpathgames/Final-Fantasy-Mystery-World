@@ -19,6 +19,7 @@
 #include "m1Collisions.h"
 #include "m1Scene.h"
 #include "m1FadeToBlack.h"
+#include "m1Scene.h"
 #include "u1Label.h"
 #include "u1Button.h"
 #include "u1Bar.h"
@@ -49,7 +50,7 @@ bool e1Player::Update(float dt)
 {
 	PerformActions(dt);
 
-	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+	//App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
 	if (coll != nullptr)
 		coll->SetPos(position.x, position.y + 25);
@@ -191,7 +192,7 @@ void e1Player::CenterPlayerInTile()
 
 	current_animation = &IdleDownLeft;
 
-	SetPivot(10, 30);
+	
 	velocity.x = 160;
 	velocity.y = 80;
 	has_turn = true;
@@ -207,9 +208,16 @@ void e1Player::CenterPlayerInTile()
 	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (m1Module*)App->entity_manager);
 	movement_count = { 0,0 };
 	// THIS ALWAYS LAST
-
-	position.x += 8;
-	position.y -= 22;
+	if (App->scene->player_type == PlayerType::WARRIOR) {
+		SetPivot(14, 27);
+		position.x += 3;
+		position.y -= 19;
+	}
+	else {
+		SetPivot(10, 30);
+		position.x += 8;
+		position.y -= 22;
+	}
 
 	target_position = position;
 	initial_position = position;
@@ -420,12 +428,17 @@ void e1Player::ReadAttack()
 {
 	if (player_input.pressing_G) {
 		PrepareBasicAttack();
+		App->audio->PlayFx(App->scene->fx_attack);
 		return;
 	}
 	if (player_input.pressing_F) {
 		PrepareSpecialAttack1();
 		return;
 	}
+}
+
+void e1Player::InitStats()
+{
 }
 
 void e1Player::PrepareBasicAttack()
@@ -471,6 +484,7 @@ void e1Player::PrepareBasicAttack()
 void e1Player::PerformActions(float dt)
 {
 	if (player_input.pressing_V && App->scene->GetMenuState() != StatesMenu::OPTIONS_MENU && App->scene->GetMenuState() != StatesMenu::CONTROLS_MENU && App->scene->GetMenuState() != StatesMenu::PAUSE_MENU){
+		App->audio->PlayFx(App->scene->fx_ability_menu);
 		(has_skills) ? DestroySkills() : CreateSkills();
 	}
 
@@ -825,6 +839,7 @@ const bool e1Player::MultipleButtons(const Input * input)
 
 void e1Player::GetHitted(const int & damage_taken)
 {
+	App->render->CameraTremble();
 	ReduceLives(damage_taken);
 	if (stats.live <= 0) {
 		state = State::DEATH;
@@ -999,95 +1014,3 @@ void e1Player::CreateSkills()
 }
 
 
-void e1Player::IdAnimToEnum() //Assign every id animation to enum animation
-{
-	for (uint i = 0; i < data.num_animations; ++i) {
-		switch (data.animations[i].id) {
-		case 1:
-			data.animations[i].animType = AnimationState::IDLE_DOWN_LEFT;
-			break;
-		case 0:
-			data.animations[i].animType = AnimationState::WALKING_DOWN_LEFT;
-			break;
-		case 3:
-			data.animations[i].animType = AnimationState::WALKING_UP_LEFT;
-			break;
-		case 4:
-			data.animations[i].animType = AnimationState::IDLE_UP_LEFT;
-			break;
-		case 6:
-			data.animations[i].animType = AnimationState::WALKING_DOWN_RIGHT;
-			break;
-		case 7:
-			data.animations[i].animType = AnimationState::IDLE_DOWN_RIGHT;
-			break;
-		case 9:
-			data.animations[i].animType = AnimationState::WALKING_UP_RIGHT;
-			break;
-		case 10:
-			data.animations[i].animType = AnimationState::IDLE_UP_RIGHT;
-			break;
-		case 12:
-			data.animations[i].animType = AnimationState::WALKING_DOWN;
-			break;
-		case 13:
-			data.animations[i].animType = AnimationState::IDLE_DOWN;
-			break;
-		case 15:
-			data.animations[i].animType = AnimationState::WALKING_UP;
-			break;
-		case 16:
-			data.animations[i].animType = AnimationState::IDLE_UP;
-			break;
-		case 18:
-			data.animations[i].animType = AnimationState::WALKING_LEFT;
-			break;
-		case 19:
-			data.animations[i].animType = AnimationState::IDLE_LEFT;
-			break;
-		case 21:
-			data.animations[i].animType = AnimationState::WALKING_RIGHT;
-			break;
-		case 22:
-			data.animations[i].animType = AnimationState::IDLE_RIGHT;
-			break;
-		case 24:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_LEFT;
-			break;
-		case 33:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_RIGHT;
-			break;
-		case 27:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_LEFT;
-			break;
-		case 30:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_RIGHT;
-			break;
-		case 36:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN;
-			break;
-		case 39:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP;
-			break;
-		case 42:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_LEFT;
-			break;
-		case 54:
-			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
-			break;
-		case 60:
-			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
-			break;
-		case 63:
-			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
-			break;
-		case 66:
-			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
-			break;
-		case 69:
-			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
-			break;
-		}
-
-	}
-}

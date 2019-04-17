@@ -3,7 +3,10 @@
 #include "SDL/include/SDL.h"
 #include "App.h"
 #include "m1Map.h"
+#include "m1Audio.h"
+#include "m1Scene.h"
 #include "m1Render.h"
+#include "p2Animation.h"
 
 e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x, y)
 {
@@ -11,9 +14,19 @@ e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x
 
 	enemy_type = EnemyType::CARNIVOROUS_PLANT;
 
-	position.x -= 5;
-	position.y -= 24;
+	state = State::SLEEPING;
 
+	position.x -= 6;
+	position.y -= 22;
+	SetPivot(21,33);
+	Sleep.PushBack({272, 2, 43, 40});
+	Sleep.PushBack({317, 2, 43, 40});
+	Sleep.PushBack({ 272, 44, 43, 40 });
+	Sleep.PushBack({ 317, 44, 43, 40 });
+	Sleep.speed = 2;
+
+	current_animation = &Sleep;
+	
 	target_position = position;
 	initial_position = position;
 	InitStats();
@@ -48,6 +61,12 @@ bool e1CarnivorousPlant::PreUpdate()
 		}
 
 	}
+	if (state == State::SLEEPING) {
+		if (IsPlayerNextTile()) {
+			state = State::IDLE;
+		}
+		ChangeTurn(type);
+	}
 	return true;
 }
 
@@ -64,6 +83,7 @@ bool e1CarnivorousPlant::Update(float dt)
 	}
 	if (state == State::ATTACKING) {
 		if (current_animation->Finished()) {
+			App->audio->PlayFx(App->scene->fx_plant_attack);
 			CheckBasicAttackEfects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
 			state = State::AFTER_ATTACK;
 			ChangeAnimation(direction, state);

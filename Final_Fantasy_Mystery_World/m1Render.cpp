@@ -3,6 +3,7 @@
 #include "App.h"
 #include "m1Window.h"
 #include "m1Render.h"
+#include "m1Cutscene.h"
 #include "m1Map.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Input.h"
@@ -325,7 +326,7 @@ void m1Render::ResetCamera()
 void m1Render::SmoothCamera(iPoint playerpos)
 {
 	BROFILER_CATEGORY("SmoothCamera", Profiler::Color::Aquamarine);
-	if (App->fade_to_black->current_step != App->fade_to_black->fade_to_black) {
+	if (App->fade_to_black->current_step != App->fade_to_black->fade_to_black && App->cutscene_manager->is_executing == false) {
 		playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
 		smoth_position.x -= (playerpos.x + camera.x) / smooth_speed;
 		camera.x = smoth_position.x;
@@ -346,6 +347,65 @@ void m1Render::CenterCameraOnPlayer(iPoint playerpos)
 	camera.y = smoth_position.y;
 }
 
+bool m1Render::CameraTremble()
+{
+	static int index_tremble = 0;
+	static int tremble = 7;
+
+	if (index_tremble == 0)
+		camera.x += tremble;
+	else if (index_tremble == 1)
+		camera.x -= tremble;
+	else if (index_tremble == 2)
+		camera.x += tremble;
+	else if (index_tremble == 3)
+		camera.x += tremble;
+	else if (index_tremble > 3)
+	{
+		index_tremble = 0;
+	}
+	index_tremble++;
+
+
+	
+	int effect_id;
+
+	// Open the device
+	haptic = SDL_HapticOpenFromJoystick(joystick);
+	if (haptic == NULL) return -1; // Most likely joystick isn't haptic
+
+								   // See if it can do sine waves
+	if ((SDL_HapticQuery(haptic) & SDL_HAPTIC_SINE) == 0) {
+		SDL_HapticClose(haptic); // No sine effect
+		return -1;
+	}
+
+	// Create the effect
+	SDL_memset(&effect, 0, sizeof(SDL_HapticEffect)); // 0 is safe default
+	effect.type = SDL_HAPTIC_SINE;
+	effect.periodic.direction.type = SDL_HAPTIC_POLAR; // Polar coordinates
+	effect.periodic.direction.dir[0] = 18000; // Force comes from south
+	effect.periodic.period = 1000; // 1000 ms
+	effect.periodic.magnitude = 20000; // 20000/32767 strength
+	effect.periodic.length = 5000; // 5 seconds long
+	effect.periodic.attack_length = 1000; // Takes 1 second to get max strength
+	effect.periodic.fade_length = 1000; // Takes 1 second to fade away
+
+										// Upload the effect
+	effect_id = SDL_HapticNewEffect(haptic, &effect);
+
+	// Test the effect
+	SDL_HapticRunEffect(haptic, effect_id, 1);
+	SDL_Delay(5000); // Wait for the effect to finish
+
+					 // We destroy the effect, although closing the device also does this
+	SDL_HapticDestroyEffect(haptic, effect_id);
+
+	// Close the device
+	SDL_HapticClose(haptic);
+
+	return false;
+}
 
 
 

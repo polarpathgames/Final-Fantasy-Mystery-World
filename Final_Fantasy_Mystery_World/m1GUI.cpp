@@ -7,6 +7,7 @@
 #include "m1Textures.h"
 #include "m1Fonts.h"
 #include "u1Image.h"
+#include "m1Audio.h"
 #include "u1Button.h"
 #include "u1Label.h"
 #include "u1Slider.h"
@@ -14,6 +15,7 @@
 #include "u1Bar.h"
 #include "m1GUI.h"
 #include "Brofiler/Brofiler.h"
+#include "m1Audio.h"
 
 #include <queue>
 
@@ -40,6 +42,11 @@ bool m1GUI::Awake(pugi::xml_node &node)
 bool m1GUI::Start()
 {
 	atlas = App->tex->Load("assets/gui/atlas.png");
+
+	fx_pause = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Input_Text.wav");
+	fx_focus = App->audio->LoadFx("assets/audio/sfx/InBattle_Menu_Cursor_Move.wav");
+	fx_inventory = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Potion_Glup.wav");
+
 	SDL_ShowCursor(SDL_DISABLE);
 
 	return true;
@@ -92,7 +99,10 @@ bool m1GUI::UpdateFocusMouse()
 			App->input->GetMousePosition(mouse.x, mouse.y);
 			u1GUI* element = nullptr;
 			if (GetElemOnMouse(mouse.x*App->win->GetScale(), mouse.y*App->win->GetScale(), element)) {//Check if there is an element on Mouse
-				focus = element;
+				if (focus != element) {
+					focus = element;
+					App->audio->PlayFx(fx_focus);
+				}
 			}
 			ret = focus->Update();
 		}
@@ -119,7 +129,10 @@ void m1GUI::FocusInput()
 
 	BROFILER_CATEGORY("FocusInput", Profiler::Color::Orange);
 
+	u1GUI* new_focus = focus;
+
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN|| App->input->CheckAxisStates(Axis::AXIS_UP)) {
+
 		u1GUI* new_focus = focus;
 		if (focus != nullptr && focus->parent != nullptr) {
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
@@ -132,9 +145,12 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-			focus->current_state = Mouse_Event::NONE;
-			focus = new_focus;
-			focus->current_state = Mouse_Event::HOVER;
+			if (new_focus != focus) {
+				focus->current_state = Mouse_Event::NONE;
+				focus = new_focus;
+				focus->current_state = Mouse_Event::HOVER;
+				App->audio->PlayFx(fx_focus);
+			}
 		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN || App->input->CheckAxisStates(Axis::AXIS_DOWN)) {
@@ -150,9 +166,12 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-			focus->current_state = Mouse_Event::NONE;
-			focus = new_focus;
-			focus->current_state = Mouse_Event::HOVER;
+			if (new_focus != focus) {
+				focus->current_state = Mouse_Event::NONE;
+				focus = new_focus;
+				focus->current_state = Mouse_Event::HOVER;
+				App->audio->PlayFx(fx_focus);
+			}
 		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) {
@@ -168,9 +187,12 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-			focus->current_state = Mouse_Event::NONE;
-			focus = new_focus;
-			focus->current_state = Mouse_Event::HOVER;
+			if (new_focus != focus) {
+				focus->current_state = Mouse_Event::NONE;
+				focus = new_focus;
+				focus->current_state = Mouse_Event::HOVER;
+				App->audio->PlayFx(fx_focus);
+			}
 		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) {
@@ -186,11 +208,16 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-			focus->current_state = Mouse_Event::NONE;
-			focus = new_focus;
-			focus->current_state = Mouse_Event::HOVER;
+			if (new_focus != focus) {
+				focus->current_state = Mouse_Event::NONE;
+				focus = new_focus;
+				focus->current_state = Mouse_Event::HOVER;
+				App->audio->PlayFx(fx_focus);
+			}
 		}
+
 	}
+
 }
 
 bool m1GUI::FocusFirstUIFocusable()

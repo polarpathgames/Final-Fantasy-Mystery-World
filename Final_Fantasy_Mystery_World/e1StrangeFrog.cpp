@@ -3,6 +3,8 @@
 #include "SDL/include/SDL.h"
 #include "App.h"
 #include "m1Map.h"
+#include "m1Audio.h"
+#include "m1Scene.h"
 #include "m1Render.h"
 
 e1StrangeFrog::e1StrangeFrog(const int & x, const int & y) : e1Enemy(x, y)
@@ -13,7 +15,7 @@ e1StrangeFrog::e1StrangeFrog(const int & x, const int & y) : e1Enemy(x, y)
 
 	position.x;
 	position.y -= 25;
-
+	SetPivot(21, 33);
 	target_position = position;
 	initial_position = position;
 
@@ -63,8 +65,10 @@ bool e1StrangeFrog::Update(float dt)
 	if (state == State::WALKING) {
 		PerformMovement(dt);
 	}
+
 	if (state == State::ATTACKING) {
 		if (current_animation->Finished()) {
+			App->audio->PlayFx(App->scene->fx_frog_attack);
 			CheckBasicAttackEfects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
 			state = State::AFTER_ATTACK;
 			ChangeAnimation(direction, state);

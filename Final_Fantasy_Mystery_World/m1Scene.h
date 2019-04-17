@@ -119,6 +119,8 @@ public:
 	u1Bar* player_hp_bar = nullptr;
 	u1Bar* player_mana_bar = nullptr;
 
+
+
 private:
 
 	int price_hp_potion = 20;
@@ -356,6 +358,7 @@ private:
 	u1Label* mouse_label = nullptr;
 	u1Label* entities_label = nullptr;
 
+
 	// game over
 
 	u1Image* game_over_panel = nullptr;
@@ -365,6 +368,21 @@ private:
 
 	u1Button* button_return_main = nullptr;
 	u1Label* label_continue_main = nullptr;
+	
+public:
+
+	// SFX
+	int fx_writting;
+	int fx_attack;
+	int fx_frog_attack;
+	int fx_plant_attack;
+	int fx_ability_warrior;
+	int fx_ability_menu;
+	int fx_drop_pick_up;
+	int fx_door_enter;
+	int fx_potion;
+	int fx_denegated_potion;
+	int fx_potion_menu;
 
 };
 

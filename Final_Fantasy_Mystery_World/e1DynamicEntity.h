@@ -45,56 +45,60 @@ public:
 
 	void ResetAnims();
 
-	void ChangeAnimsInCutscene(const int &x, const int &y, const int & anim_num);
+	void ChangeAnimsInCutscene(const int &x, const int &y, const int & anim_num, int &pos_x, int &pos_y);
 
 public:
 
 	Direction direction = Direction::NONE;
 	State state = State::NONE;
 
-	Animation AttackSpecial1;
-
 	Animation GoDownLeft;
 	Animation IdleDownLeft;
 	Animation BasicAttackDownLeft;
 	Animation DeathDownLeft;
+	Animation AbilitiDownLeft1;
 
 	Animation GoDownRight;
 	Animation IdleDownRight;
 	Animation BasicAttackDownRight;
 	Animation DeathDownRight;
+	Animation AbilitiDownRight1;
 
 	Animation GoUpRight;
 	Animation IdleUpRight;
 	Animation BasicAttackUpRight;
 	Animation DeathUpRight;
+	Animation AbilitiUpRight1;
 
 	Animation GoUpLeft;
 	Animation IdleUpLeft;
 	Animation BasicAttackUpLeft;
 	Animation DeathUpLeft;
+	Animation AbilitiUpLeft1;
 
 	Animation GoLeft;
 	Animation IdleLeft;
 	Animation BasicAttackLeft;
 	Animation DeathLeft;
+	Animation AbilitiLeft1;
 
 	Animation GoRight;
 	Animation IdleRight;
 	Animation BasicAttackRight;
 	Animation DeathRight;
+	Animation AbilitiRight1;
 
 	Animation GoUp;
 	Animation IdleUp;
 	Animation BasicAttackUp;
 	Animation DeathUp;
+	Animation AbilitiUp1;
 
 	Animation GoDown;
 	Animation IdleDown;
 	Animation BasicAttackDown;
 	Animation DeathDown;
-
-
+	Animation AbilitiDown1;
 
 	iPoint target_position;
 	iPoint initial_position; //IMPORTANT: SEMPRE QUE ES CARREGUI UN NOU MAPA AQUESTA VARIABLE SHA DIGUALAR A LA POSICIO INICIAL!!
