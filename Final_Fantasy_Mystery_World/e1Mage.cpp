@@ -51,6 +51,7 @@ bool e1Mage::CleanUp()
 void e1Mage::InitStats()
 {
 	stats.attack_power = 500;
+	stats.attack_power_ability_1 = 100;
 	stats.cost_mana_special_attack1 = 0;
 	stats.gold = 0;
 	stats.level = 1;

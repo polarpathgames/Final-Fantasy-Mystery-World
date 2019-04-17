@@ -38,6 +38,7 @@ private:
 
 	void SetFireBall();
 	void MoveFireBall(float dt);
+	void FireBallExplosionCollision();
 
 public:
 

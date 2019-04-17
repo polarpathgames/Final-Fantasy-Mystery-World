@@ -39,7 +39,8 @@ bool e1Particles::Update(float dt)
 	default:
 		break;
 	}
-
+	iPoint pos = App->map->MapToWorld(fireball_tile_objective.x, fireball_tile_objective.y);
+	App->render->Blit(App->scene->player->ground, pos.x + 1, pos.y - 8, NULL, true);
 	return true;
 }
 
@@ -276,7 +277,6 @@ void e1Particles::MoveArrow(float dt)
 
 void e1Particles::LookForEnemyCollision()
 {
-	bool ret = false;
 	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
 	std::vector<e1Entity*>::iterator item = entities.begin();
 
@@ -286,7 +286,7 @@ void e1Particles::LookForEnemyCollision()
 			iPoint destination = (*item)->actual_tile;
 			e1Enemy* enemy = (e1Enemy*)(*item);
 			if (origin == destination)
-				enemy->GetHitted(App->scene->player->stats.attack_power);
+				enemy->GetHitted(App->scene->player->stats.attack_power_ability_1);
 		}
 	}
 }
@@ -296,7 +296,7 @@ void e1Particles::SetFireBall()
 	velocity.y = 160;
 	position.y -= FIREBALL_ELEVATED_POS;
 	position.x += 5;
-	actual_tile -= {1, 1};
+	//actual_tile -= {1, 1};
 	fireball_tile_objective = actual_tile;
 	GoDown.PushBack({ 71,0,22,28 });
 	GoDown.PushBack({ 93,0,22,28 });
@@ -311,13 +311,32 @@ void e1Particles::SetFireBall()
 
 void e1Particles::MoveFireBall(float dt)
 {
-	iPoint pos = App->map->WorldToMap(position.x, position.y + 3);
+	iPoint pos = App->map->WorldToMap(position.x, position.y + 20);
 
 	if (pos == fireball_tile_objective) {
+		FireBallExplosionCollision();
 		to_delete = true;
 	}
 
 	position.y += floor(velocity.y * dt);
 	
+
+}
+
+void e1Particles::FireBallExplosionCollision()
+{
+	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+	std::vector<e1Entity*>::iterator item = entities.begin();
+
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY) {
+			iPoint origin = fireball_tile_objective;
+			iPoint destination = (*item)->actual_tile;
+			e1Enemy* enemy = (e1Enemy*)(*item);
+			if (origin == destination)
+				enemy->GetHitted(App->scene->player->stats.attack_power_ability_1);
+		}
+	}
+
 
 }

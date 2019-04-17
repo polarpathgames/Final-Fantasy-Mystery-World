@@ -81,7 +81,7 @@ bool m1EntityManager::PreUpdate()
 		if ((*item) != nullptr && (*item)->to_delete) {
 			delete *item;
 			*item = nullptr;
-		}
+		}// USE ERASE IMPORTANT
 	}
 
 	item = entities.begin();
