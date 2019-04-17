@@ -267,6 +267,10 @@ private:
 
 	u1Button* Cbutton_ability3 = nullptr;
 	u1Label* Clabel_to_show_how_ability3 = nullptr;
+public:
+	int fx_push_button;
+	int fx_push_button_return;
+
 };
 
 #endif

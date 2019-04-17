@@ -104,26 +104,26 @@ bool m1Audio::CleanUp()
 }
 
 // Play a music file
-bool m1Audio::PlayMusic(const char* path)
+bool m1Audio::PlayMusic(const char* path, float fade_time)
 {
 	bool ret = true;
-
 	if (!active)
 		return false;
 
 	if (music != NULL)
 	{
-		if (default_music_fade_time  > 0.0f)
+		/*if (fade_time  > 0.0f)
 		{
-			Mix_FadeOutMusic(int(default_music_fade_time  * 1000.0f));
+		Mix_FadeOutMusic(int(fade_time  * 1000.0f));
+
 		}
 		else
 		{
-			Mix_HaltMusic();
-		}
+		Mix_HaltMusic();
+		}*/
 
 		// this call blocks until fade out is done
-		Mix_FreeMusic(music);
+		//Mix_FreeMusic(music);
 	}
 
 	music = Mix_LoadMUS(path);
@@ -135,9 +135,9 @@ bool m1Audio::PlayMusic(const char* path)
 	}
 	else
 	{
-		if (default_music_fade_time  > 0.0f)
+		if (fade_time  > 0.0f)
 		{
-			if (Mix_FadeInMusic(music, -1, (int)(default_music_fade_time  * 1000.0f)) < 0)
+			if (Mix_FadeInMusic(music, -1, (int)(fade_time  * 1000.0f)) < 0)
 			{
 				LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
 				ret = false;
@@ -156,7 +156,6 @@ bool m1Audio::PlayMusic(const char* path)
 	LOG("Successfully playing %s", path);
 	return ret;
 }
-
 // Load WAV
 unsigned int m1Audio::LoadFx(const char* path)
 {

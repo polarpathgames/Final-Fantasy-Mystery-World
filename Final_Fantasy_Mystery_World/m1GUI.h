@@ -93,5 +93,10 @@ public:
 	u1GUI * screen = nullptr;
 	bool debug_ui = false;
 
+	// SFX
+	uint fx_pause;
+	uint fx_focus;
+	uint fx_inventory;
+
 };
 #endif // !__j1UIMANAGER_H__
