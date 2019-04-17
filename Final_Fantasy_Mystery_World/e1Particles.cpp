@@ -121,7 +121,6 @@ void e1Particles::SetArrow()
 	velocity.y = 80;
 	switch (direction) {
 	case Direction::DOWN_LEFT: // need fix
-		//position.x += 13;
 		position.y -= 10;
 		GoDownLeft.PushBack({ 16,29,20,20 });
 		SetPivot(10, 10);
@@ -142,10 +141,13 @@ void e1Particles::SetArrow()
 		current_animation = &GoUpLeft;
 		break;
 	case Direction::DOWN_RIGHT: // need fix
+		position.x += 11;
+		position.y -= 11;
 		GoDownRight.PushBack({ 37,29,20,20 });
 		SetPivot(10, 10);
 		size.create(20, 20);
 		current_animation = &GoDownRight;
+		max_arrow_distance.create(arrow_tile.x + MAX_ARROW, arrow_tile.y);
 		break;
 	case Direction::DOWN:
 		position.x += 13;
@@ -256,12 +258,22 @@ void e1Particles::MoveArrow(float dt)
 		else {
 			to_delete = true;
 		}
-
 		break; }
 	case Direction::UP_RIGHT:
 		break;
-	case Direction::DOWN_RIGHT:
-		break;
+	case Direction::DOWN_RIGHT: {
+		actual_tile.y += 2;
+		if (arrow_tile.x + 1 == actual_tile.x && arrow_tile.y == actual_tile.y) {
+			arrow_tile = actual_tile;
+		}
+		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			position.x += floor(velocity.x * dt);
+			position.y += floor(velocity.y * dt);
+		}
+		else {
+			to_delete = true;
+		}
+		break; }
 	default:
 		break;
 	}
