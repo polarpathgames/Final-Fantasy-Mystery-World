@@ -122,7 +122,7 @@ void e1Particles::SetArrow()
 	switch (direction) {
 	case Direction::DOWN_LEFT: // need fix
 		position.y -= 10;
-		GoDownLeft.PushBack({ 16,29,20,20 });
+		GoDownLeft.PushBack({ 17,25,23,15 });
 		SetPivot(10, 10);
 		size.create(20, 20);
 		current_animation = &GoDownLeft;
@@ -131,7 +131,7 @@ void e1Particles::SetArrow()
 	case Direction::UP_RIGHT: // need fix
 		position.x += 9;
 		position.y -= 16;
-		GoUpRight.PushBack({ 37,8,20,20 });
+		GoUpRight.PushBack({ 41,9,23,15 });
 		SetPivot(10, 10);
 		size.create(20, 20);
 		current_animation = &GoUpRight;
@@ -140,7 +140,7 @@ void e1Particles::SetArrow()
 	case Direction::UP_LEFT: // need fix
 		//position.x += 13;
 		position.y -= 16;
-		GoUpLeft.PushBack({ 16,8,20,20 });
+		GoUpLeft.PushBack({ 17,9,23,15 });
 		SetPivot(10, 10);
 		size.create(20, 20);
 		current_animation = &GoUpLeft;
@@ -149,7 +149,7 @@ void e1Particles::SetArrow()
 	case Direction::DOWN_RIGHT: // need fix
 		position.x += 11;
 		position.y -= 11;
-		GoDownRight.PushBack({ 37,29,20,20 });
+		GoDownRight.PushBack({ 41,25,23,15 });
 		SetPivot(10, 10);
 		size.create(20, 20);
 		current_animation = &GoDownRight;

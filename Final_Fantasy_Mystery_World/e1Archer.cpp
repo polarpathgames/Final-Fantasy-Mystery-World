@@ -49,7 +49,7 @@ bool e1Archer::CleanUp()
 void e1Archer::InitStats()
 {
 	stats.attack_power = 500;
-	stats.cost_mana_special_attack1 = 50;
+	stats.cost_mana_special_attack1 = 0;
 	stats.gold = 0;
 	stats.level = 1;
 	stats.live = 250;
@@ -64,11 +64,27 @@ void e1Archer::InitStats()
 
 void e1Archer::PrepareSpecialAttack1()
 {
-	state = State::IDLE;
+	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {
+		ReduceMana(stats.cost_mana_special_attack1);
+		type_attack = Attacks::SPECIAL_1;
+		state = State::ATTACKING;
+		arrow = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, actual_tile.x, actual_tile.y, "arrow");
+		arrow->SetParticle(e1Particles::ParticleType::ARROW, direction);
+	}
+	else { // no enough mana so return to idle
+		state = State::IDLE;
+	}
 }
 
 void e1Archer::SpecialAttack1()
 {
+	std::vector<e1Entity*> item = App->entity_manager->GetEntities();
+	if (std::find(item.begin(),item.end(),(e1Entity*)arrow) == item.end()) {
+		arrow = nullptr;
+		state = State::AFTER_ATTACK;
+		ChangeAnimation(direction, state);
+		time_attack = SDL_GetTicks();
+	}
 }
 
 void e1Archer::IdAnimToEnum() //Assign every id animation to enum animation
