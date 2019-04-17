@@ -8582,6 +8582,7 @@
    <tile gid="49"/>
    <tile gid="52"/>
    <tile/>
+   <tile gid="63"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8663,8 +8664,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
    <tile gid="111"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8982,8 +8983,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
    <tile gid="39"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
