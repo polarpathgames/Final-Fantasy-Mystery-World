@@ -395,6 +395,7 @@
     <ClInclude Include="c1CutSceneDeleteEntity.h">
       <Filter>Cutscene</Filter>
     </ClInclude>
+    <ClInclude Include="GlobalGameAdvances.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">

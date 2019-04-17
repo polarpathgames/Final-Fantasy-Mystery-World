@@ -32,6 +32,9 @@
 
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
+	direction = Direction::DOWN_LEFT;
+	state = State::IDLE;
+	current_animation = &IdleDownLeft;
 }
 
 e1Player::~e1Player()
@@ -190,15 +193,10 @@ void e1Player::CenterPlayerInTile()
 {
 	type = e1Entity::EntityType::PLAYER;
 
-	current_animation = &IdleDownLeft;
-
-	
 	velocity.x = 160;
 	velocity.y = 80;
 	has_turn = true;
-	direction = Direction::DOWN_LEFT;
-	state = State::IDLE;
-
+	
 	if (App->map->data.properties.GetValue("movement") == 1)
 		movement_type = Movement_Type::InLobby;
 	else
