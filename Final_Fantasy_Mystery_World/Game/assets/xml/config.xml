@@ -51,6 +51,7 @@
           <location>Tutorial_Diagonal.tmx</location>
           <id num="2"></id>
           <type>paceful</type>
+          <cut_scene>assets/xml/CutsceneTutorial.xml</cut_scene>
         </room>
         <room>
           <location>Tutorial_Attack.tmx</location>
