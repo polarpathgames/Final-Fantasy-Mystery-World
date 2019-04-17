@@ -2,6 +2,7 @@
 #define _E1ARCHER_H_
 
 #include "e1Player.h"
+#include "e1Particles.h"
 
 class e1Archer : public e1Player {
 
@@ -19,6 +20,10 @@ public:
 	void SpecialAttack1();
 
 	void IdAnimToEnum();
+
+public:
+
+	e1Particles * arrow = nullptr;
 
 };
 

@@ -13,7 +13,7 @@ e1BlueDog::e1BlueDog(const int & x, const int & y) : e1Enemy(x, y)
 
 	position.x -= 5;
 	position.y -= 24;
-
+	SetPivot(21, 33);
 	target_position = position;
 	initial_position = position;
 

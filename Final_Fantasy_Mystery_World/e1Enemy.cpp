@@ -22,8 +22,6 @@ e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 	ground = App->tex->Load("assets/sprites/enemy_pos.png");
 	current_animation = &IdleDownLeft;
 
-	SetPivot(10, 30);
-
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
 	has_turn = false;
@@ -372,7 +370,7 @@ void e1Enemy::GetHitted(const int & damage_taken)
 
 	if (stats.live <= 0) {
 		Drop();
-		App->entity_manager->DeleteEntity(this);
+		this->to_delete = true;
 	}
 }
 

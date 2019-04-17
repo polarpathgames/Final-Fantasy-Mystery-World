@@ -4,7 +4,10 @@
 #include "m1EntityManager.h"
 #include "e1DynamicEntity.h"
 #include "m1Render.h"
+#include "e1Player.h"
+#include "e1Archer.h"
 #include "m1Scene.h"
+#include "e1Enemy.h"
 #include "e1Player.h"
 
 
@@ -122,7 +125,7 @@ void e1Particles::SetArrow()
 	switch (direction) {
 	case Direction::DOWN_LEFT: // need fix
 		position.y -= 10;
-		GoDownLeft.PushBack({ 16,29,20,20 });
+		GoDownLeft.PushBack({ 17,25,23,15 });
 		SetPivot(10, 10);
 		size.create(20, 20);
 		current_animation = &GoDownLeft;
@@ -131,7 +134,7 @@ void e1Particles::SetArrow()
 	case Direction::UP_RIGHT: // need fix
 		position.x += 9;
 		position.y -= 16;
-		GoUpRight.PushBack({ 37,8,20,20 });
+		GoUpRight.PushBack({ 41,9,23,15 });
 		SetPivot(10, 10);
 		size.create(20, 20);
 		current_animation = &GoUpRight;
@@ -140,7 +143,7 @@ void e1Particles::SetArrow()
 	case Direction::UP_LEFT: // need fix
 		//position.x += 13;
 		position.y -= 16;
-		GoUpLeft.PushBack({ 16,8,20,20 });
+		GoUpLeft.PushBack({ 17,9,23,15 });
 		SetPivot(10, 10);
 		size.create(20, 20);
 		current_animation = &GoUpLeft;
@@ -149,7 +152,7 @@ void e1Particles::SetArrow()
 	case Direction::DOWN_RIGHT: // need fix
 		position.x += 11;
 		position.y -= 11;
-		GoDownRight.PushBack({ 37,29,20,20 });
+		GoDownRight.PushBack({ 41,25,23,15 });
 		SetPivot(10, 10);
 		size.create(20, 20);
 		current_animation = &GoDownRight;
@@ -201,12 +204,13 @@ void e1Particles::MoveArrow(float dt)
 	switch (direction)
 	{
 	case Direction::UP: {
-		actual_tile.x += 2;
-		actual_tile.y += 2;
+		actual_tile.x += 1;
+		actual_tile.y += 1;
 		if (arrow_tile.x - 1 == actual_tile.x && arrow_tile.y - 1 == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
-		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			LookForEnemyCollision();
 			position.y -= floor(velocity.y * dt * 2);
 		}
 		else {
@@ -214,10 +218,13 @@ void e1Particles::MoveArrow(float dt)
 		}
 		break; }
 	case Direction::DOWN: {
+		actual_tile.x += 1;
+		actual_tile.y += 1;
 		if (arrow_tile.x + 1 == actual_tile.x && arrow_tile.y + 1 == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
-		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			LookForEnemyCollision();
 			position.y += floor(velocity.y * dt * 2);
 		}
 		else {
@@ -225,11 +232,12 @@ void e1Particles::MoveArrow(float dt)
 		}
 		break; }
 	case Direction::RIGHT: {
-		actual_tile.y += 1;
+		actual_tile.x += 1;
 		if (arrow_tile.x + 1 == actual_tile.x && arrow_tile.y - 1 == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
-		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			LookForEnemyCollision();
 			position.x += floor(velocity.x * dt);
 		}
 		else {
@@ -238,11 +246,13 @@ void e1Particles::MoveArrow(float dt)
 
 		break; }
 	case Direction::LEFT: {
-		actual_tile.x += 1;
+		//actual_tile.x += 1;
+		actual_tile.y += 1;
 		if (arrow_tile.x - 1 == actual_tile.x && arrow_tile.y + 1 == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
-		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			LookForEnemyCollision();
 			position.x -= floor(velocity.x * dt);
 		}
 		else {
@@ -252,11 +262,11 @@ void e1Particles::MoveArrow(float dt)
 		break; }
 	case Direction::UP_LEFT: {
 		actual_tile.y += 1;
-		actual_tile.x += 2;
 		if (arrow_tile.x - 1 == actual_tile.x && arrow_tile.y == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
-		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			LookForEnemyCollision();
 			position.x -= floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 		}
@@ -266,10 +276,12 @@ void e1Particles::MoveArrow(float dt)
 		break; }
 	case Direction::DOWN_LEFT: {
 		actual_tile.x += 1;
+		actual_tile.y += 2;
 		if (arrow_tile.x == actual_tile.x && arrow_tile.y + 1 == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
-		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			LookForEnemyCollision();
 			position.x -= floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
 		}
@@ -279,11 +291,12 @@ void e1Particles::MoveArrow(float dt)
 		break; }
 	case Direction::UP_RIGHT: {
 		actual_tile.x += 1;
-		actual_tile.y += 3;
+		actual_tile.y += 1;
 		if (arrow_tile.x == actual_tile.x && arrow_tile.y - 1 == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
-		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			LookForEnemyCollision();
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 		}
@@ -293,10 +306,12 @@ void e1Particles::MoveArrow(float dt)
 		break; }
 	case Direction::DOWN_RIGHT: {
 		actual_tile.y += 2;
+		actual_tile.x += 2;
 		if (arrow_tile.x + 1 == actual_tile.x && arrow_tile.y == actual_tile.y) {
 			arrow_tile = actual_tile;
 		}
-		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			LookForEnemyCollision();
 			position.x += floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
 		}
@@ -310,7 +325,7 @@ void e1Particles::MoveArrow(float dt)
 
 }
 
-bool e1Particles::EnemyNextTile(const Direction & dir)
+void e1Particles::LookForEnemyCollision()
 {
 	bool ret = false;
 	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
@@ -320,51 +335,9 @@ bool e1Particles::EnemyNextTile(const Direction & dir)
 		if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY) {
 			iPoint origin = arrow_tile;
 			iPoint destination = (*item)->actual_tile;
-
-			switch (dir) {
-			case Direction::DOWN:
-				origin += {1, 1};
-				if (destination == origin)
-					ret = true;
-				break;
-			case Direction::UP:
-				origin += {-1, -1};
-				if (destination == origin)
-					ret = true;
-				break;
-			case Direction::LEFT:
-				origin += {-1, 1};
-				if (destination == origin)
-					ret = true;
-				break;
-			case Direction::RIGHT:
-				origin += {1, -1};
-				if (destination == origin)
-					ret = true;
-				break;
-			case Direction::DOWN_LEFT:
-				origin += {0, 1};
-				if (destination == origin)
-					ret = true;
-				break;
-			case Direction::DOWN_RIGHT:
-				origin += {1, 0};
-				if (destination == origin)
-					ret = true;
-				break;
-			case Direction::UP_LEFT:
-				origin += {-1, 0};
-				if (destination == origin)
-					ret = true;
-				break;
-			case Direction::UP_RIGHT:
-				origin += {0, -1};
-				if (destination == origin)
-					ret = true;
-				break;
-			}
+			e1Enemy* enemy = (e1Enemy*)(*item);
+			if (origin == destination)
+				enemy->GetHitted(App->scene->player->stats.attack_power);
 		}
 	}
-
-	return ret;
 }
