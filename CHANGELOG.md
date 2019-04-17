@@ -3,6 +3,87 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0] - 17/04/2019
+
+Added: 
+--------
+- Use of potions
+- NPCs implemented
+- Cutscene research implemented
+- 2 Cutscenes added
+- 3 enemies implemented (not fully)
+- HUD added
+- 3 characters implemented(not fully)
+- Dynamic NPCs added
+- Game icon added to exe
+
+Changed:
+--------
+- Controller fully implemented
+- Fountain fully implemented
+- Debug screen fully implemented
+- Shop logic fully implemented
+- Drop sprite added
+- Movement Quest
+- Controls menu changed and fixed
+- Warrior ability animation added
+
+Removed: 
+--------
+
+Fixed: 
+--------
+- #195 Game crash at new game button (Bug photo inside)
+- #180 Game crash if you click cancel button and then tutorial button
+- #178 The game crash when you click in return main menu when dead
+- #177 The game crash when you click Tutorial or cancel button to go to the tutorial map
+- #145 Elements from inventory disappear (even the iventory, blocking the players game)
+- #138 If you click in return when in control menu it returns to pause or main menu
+- #137 If you click the options in the main menu it will click the fullscreen checkbox too
+
+## [0.4.1] - 12/04/2019
+
+Added: 
+--------
+- First Ability
+- Go to quest
+- Shop Logic (not finished)
+- All tutorial rooms
+- Room Logic
+- Game over screen
+- NPC shop
+- Drops
+- Debug Screen (not finished)
+
+
+
+Changed:
+--------
+- Credits screen
+- Focus improved
+- More static entities (trees, rocks)
+- Mouse icon changed
+- Collision slide
+- Movement change
+- New controller controls
+
+Removed: 
+--------
+
+
+
+Fixed: 
+--------
+
+- #134 If you try to connect the controller when the game is running it won't work
+- #133 If you try to use inventory in option menu in the main menu then in the game you cannot use it
+- #132 Fountain room crashes game
+- #131 If you return to room 4 from room 5 the game crashes
+- #130 Go to shop, pause menu go to main menu = crash
+- #94 Options focus doesn't work properly on controls options
+- #90 The option menu doesn't "remember visually the changes
+- #88 Lobby Fountain incorrectly printed
+
 ## [0.4.0] - 07/04/2019
 
 Added: 

@@ -3,7 +3,7 @@
 
 #include "c1CutsceneElement.h"
 #include "e1Entity.h"
-
+#include <vector>
 
 class c1CutsceneEntity :public c1CutsceneElement {
 public:
@@ -12,8 +12,8 @@ public:
 
 	e1Entity* GetEntity();
 
-protected:
-	e1Entity * entity = nullptr;
+public:
+	e1Entity * entity_c = nullptr;
 
 };
 

@@ -734,21 +734,41 @@ void e1DynamicEntity::ResetAnims()
 	
 }
 
-void e1DynamicEntity::ChangeAnimsInCutscene(const int & x, const int & y, const int & anim_num)
+void e1DynamicEntity::ChangeAnimsInCutscene(const int & x, const int & y, const int & anim_num, int & pos_x, int & pos_y)
 {
+	Animation* last_anim;
+	last_anim = current_animation;
+
 	if (anim_num == 1) {
-		if (x > 0 && y > 0) {
-			current_animation = &GoDownRight;
+		if (x != 0 && y != 0) {
+			if (x > 0 && y > 0) {
+				current_animation = &GoDownRight;
+			}
+			else if (x < 0 && y < 0) {
+				current_animation = &GoUpLeft;
+			}
+			else if (x > 0 && y < 0) {
+				current_animation = &GoUpRight;
+			}
+			else if (x < 0 && y > 0) {
+				current_animation = &GoDownLeft;
+			}
 		}
-		else if (x < 0 && y < 0) {
-			current_animation = &GoUpLeft;
+		if (x == 0 && y == 0) {
+			if (last_anim == &GoDownRight) {
+				current_animation = &IdleDownRight;
+			}
+			else if (last_anim == &GoUpLeft) {
+				current_animation = &IdleUpLeft;
+			}
+			else if (last_anim == &GoUpRight) {
+				current_animation = &IdleUpRight;
+			}
+			else if (last_anim == &GoDownLeft) {
+				current_animation = &IdleDownLeft;
+			}
 		}
-		else if (x > 0 && y < 0) {
-			current_animation = &GoUpRight;
-		}
-		else if (x < 0 && y > 0) {
-			current_animation = &GoDownLeft;
-		}
+		
 	}
 	if (anim_num == 2) {
 		if (x > 0 && y > 0) {

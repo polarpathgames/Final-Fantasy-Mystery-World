@@ -78,6 +78,8 @@ public:
 		ARCHER,
 		MAGE,
 		PARTICLE,
+		NPC,
+		DAUGHTER,
 
 		NO_TYPE
 	};

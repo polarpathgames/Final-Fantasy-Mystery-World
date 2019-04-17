@@ -153,6 +153,15 @@
     <ClCompile Include="e1Particles.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="e1ShopKeeperDaughter.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1NPC.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneDeleteEntity.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="e1CarnivorousPlant.h">
@@ -341,6 +350,15 @@
     <ClInclude Include="e1Particles.h">
       <Filter>Entities</Filter>
     </ClInclude>
+    <ClInclude Include="e1ShopKeeperDaughter.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1NPC.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneDeleteEntity.h">
+      <Filter>Cutscene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -380,6 +398,9 @@
       <Filter>XML</Filter>
     </Xml>
     <Xml Include="Game\assets\xml\CutsceneBlockPass.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneTutorial.xml">
       <Filter>XML</Filter>
     </Xml>
   </ItemGroup>
