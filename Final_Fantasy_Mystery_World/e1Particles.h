@@ -2,6 +2,7 @@
 #define _E1PARTICLES_H_
 
 #define MAX_ARROW 4
+#define FIREBALL_ELEVATED_POS 190
 
 #include "e1DynamicEntity.h"
 
@@ -11,6 +12,7 @@ public:
 
 	enum class ParticleType {
 		ARROW,
+		FIREBALL,
 
 		NONE
 	};
@@ -32,8 +34,10 @@ private:
 
 	void SetArrow();
 	void MoveArrow(float dt);
-
 	void LookForEnemyCollision();
+
+	void SetFireBall();
+	void MoveFireBall(float dt);
 
 public:
 
@@ -41,6 +45,7 @@ public:
 
 	iPoint arrow_tile = { 0,0 };
 	iPoint max_arrow_distance = { 0,0 };
+	iPoint fireball_tile_objective = { 0,0 };
 };
 
 
