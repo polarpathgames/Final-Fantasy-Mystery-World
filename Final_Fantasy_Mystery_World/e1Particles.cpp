@@ -210,7 +210,7 @@ void e1Particles::MoveArrow(float dt)
 			arrow_tile = actual_tile;
 		}
 		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
-			EnemyNextTile(direction);
+			LookForEnemyCollision();
 			position.y -= floor(velocity.y * dt * 2);
 		}
 		else {
@@ -224,7 +224,7 @@ void e1Particles::MoveArrow(float dt)
 			arrow_tile = actual_tile;
 		}
 		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
-			EnemyNextTile(direction);
+			LookForEnemyCollision();
 			position.y += floor(velocity.y * dt * 2);
 		}
 		else {
@@ -237,7 +237,7 @@ void e1Particles::MoveArrow(float dt)
 			arrow_tile = actual_tile;
 		}
 		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
-			EnemyNextTile(direction);
+			LookForEnemyCollision();
 			position.x += floor(velocity.x * dt);
 		}
 		else {
@@ -252,7 +252,7 @@ void e1Particles::MoveArrow(float dt)
 			arrow_tile = actual_tile;
 		}
 		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
-			EnemyNextTile(direction);
+			LookForEnemyCollision();
 			position.x -= floor(velocity.x * dt);
 		}
 		else {
@@ -266,7 +266,7 @@ void e1Particles::MoveArrow(float dt)
 			arrow_tile = actual_tile;
 		}
 		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
-			EnemyNextTile(direction);
+			LookForEnemyCollision();
 			position.x -= floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 		}
@@ -281,7 +281,7 @@ void e1Particles::MoveArrow(float dt)
 			arrow_tile = actual_tile;
 		}
 		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
-			EnemyNextTile(direction);
+			LookForEnemyCollision();
 			position.x -= floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
 		}
@@ -296,7 +296,7 @@ void e1Particles::MoveArrow(float dt)
 			arrow_tile = actual_tile;
 		}
 		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
-			EnemyNextTile(direction);
+			LookForEnemyCollision();
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 		}
@@ -311,7 +311,7 @@ void e1Particles::MoveArrow(float dt)
 			arrow_tile = actual_tile;
 		}
 		if (App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
-			EnemyNextTile(direction);
+			LookForEnemyCollision();
 			position.x += floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
 		}
@@ -325,7 +325,7 @@ void e1Particles::MoveArrow(float dt)
 
 }
 
-bool e1Particles::EnemyNextTile(const Direction & dir)
+void e1Particles::LookForEnemyCollision()
 {
 	bool ret = false;
 	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
@@ -340,6 +340,4 @@ bool e1Particles::EnemyNextTile(const Direction & dir)
 				enemy->GetHitted(App->scene->player->stats.attack_power);
 		}
 	}
-
-	return ret;
 }
