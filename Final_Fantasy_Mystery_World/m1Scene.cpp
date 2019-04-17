@@ -96,6 +96,10 @@ bool m1Scene::Update(float dt)
 		e1Particles* particle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, player->actual_tile.x, player->actual_tile.y, "SHIT");
 		particle->SetParticle(e1Particles::ParticleType::ARROW, Direction::UP);
 	}
+	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
+		e1Particles* particle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, player->actual_tile.x, player->actual_tile.y, "SHIT");
+		particle->SetParticle(e1Particles::ParticleType::ARROW, Direction::DOWN);
+	}
 
 	if(App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
