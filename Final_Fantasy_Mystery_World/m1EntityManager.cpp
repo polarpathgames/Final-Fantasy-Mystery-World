@@ -77,11 +77,14 @@ bool m1EntityManager::PreUpdate()
 	BROFILER_CATEGORY("PreUpdateEntityM", Profiler::Color::Orange);
 	
 	std::vector<e1Entity*>::iterator item = entities.begin();
-	for (; item != entities.end(); ++item) {
+	while (item != entities.end()) {
 		if ((*item) != nullptr && (*item)->to_delete) {
-			delete *item;
-			*item = nullptr;
-		}// USE ERASE IMPORTANT
+			delete (*item);
+			(*item) = nullptr;
+			item = entities.erase(item);
+		}
+		else
+			++item;
 	}
 
 	item = entities.begin();
