@@ -193,14 +193,10 @@ void e1Player::CenterPlayerInTile()
 {
 	type = e1Entity::EntityType::PLAYER;
 
-	
-
-	
 	velocity.x = 160;
 	velocity.y = 80;
 	has_turn = true;
 	
-
 	if (App->map->data.properties.GetValue("movement") == 1)
 		movement_type = Movement_Type::InLobby;
 	else
