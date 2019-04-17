@@ -3,6 +3,7 @@
 #include "App.h"
 #include "m1Window.h"
 #include "m1Render.h"
+#include "m1Cutscene.h"
 #include "m1Map.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Input.h"
@@ -325,7 +326,7 @@ void m1Render::ResetCamera()
 void m1Render::SmoothCamera(iPoint playerpos)
 {
 	BROFILER_CATEGORY("SmoothCamera", Profiler::Color::Aquamarine);
-	if (App->fade_to_black->current_step != App->fade_to_black->fade_to_black) {
+	if (App->fade_to_black->current_step != App->fade_to_black->fade_to_black && App->cutscene_manager->is_executing == false) {
 		playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
 		smoth_position.x -= (playerpos.x + camera.x) / smooth_speed;
 		camera.x = smoth_position.x;

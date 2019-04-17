@@ -14,6 +14,7 @@
 #include "c1CutsceneEntity.h"
 #include "c1CutsceneText.h"
 #include "c1CutsceneImage.h"
+#include "c1CutSceneDeleteEntity.h"
 
 m1CutScene::m1CutScene()
 {
@@ -77,28 +78,32 @@ bool m1CutScene::LoadCutscene(std::string path)
 
 			if (action == "move_camera")
 			{
-				cutscene_action = new c1CutsceneMoveCamera(start, duration, cutscene_action_node.child("time").attribute("speed_x").as_int(), cutscene_action_node.child("time").attribute("speed_y").as_int());
+				cutscene_action = DBG_NEW c1CutsceneMoveCamera(start, duration, cutscene_action_node.child("time").attribute("speed_x").as_int(), cutscene_action_node.child("time").attribute("speed_y").as_int());
 			}
 			else if (action == "move_entity")
 			{
-				cutscene_action = new c1CutsceneMoveEntity(start, duration,
+				cutscene_action = DBG_NEW c1CutsceneMoveEntity(start, duration,
 					cutscene_action_node.child("time").attribute("speed_x").as_float(), cutscene_action_node.child("time").attribute("speed_y").as_float(),
 					cutscene_action_node.attribute("entity").as_string());
 			}
 			else if (action == "modify_text")
 			{
-				cutscene_action = new c1CutsceneModifyText(start, duration,
+				cutscene_action = DBG_NEW c1CutsceneModifyText(start, duration,
 					cutscene_action_node.attribute("name").as_string(),
 					cutscene_action_node.child("time").attribute("type").as_string(),
 					cutscene_action_node.child("time").attribute("text").as_string());
 			}
 			else if (action == "modify_image")
 			{
-				cutscene_action = new c1CutsceneModifyImage(start, duration,
+				cutscene_action = DBG_NEW c1CutsceneModifyImage(start, duration,
 					cutscene_action_node.attribute("name").as_string(),
 					cutscene_action_node.child("time").attribute("type").as_string());
 			}
+			else if (action == "delete_entity")
+			{
+				cutscene_action = DBG_NEW c1CutSceneDeleteEntity(start, duration, cutscene_action_node.attribute("entity").as_string());
 
+			}
 			actions.push_back(cutscene_action);
 		}
 
@@ -112,13 +117,13 @@ bool m1CutScene::LoadCutscene(std::string path)
 
 			if (type == "entity")
 			{
-				cutscene_element = new c1CutsceneEntity(cutscene_element_node.attribute("pos_x").as_int(),
+				cutscene_element = DBG_NEW c1CutsceneEntity(cutscene_element_node.attribute("pos_x").as_int(),
 					cutscene_element_node.attribute("pos_y").as_int(),
 					cutscene_element_node.attribute("name").as_string());
 			}
 			else if (type == "text")
 			{
-				cutscene_element = new c1CutsceneText(cutscene_element_node.attribute("pos_x").as_int(),
+				cutscene_element = DBG_NEW c1CutsceneText(cutscene_element_node.attribute("pos_x").as_int(),
 					cutscene_element_node.attribute("pos_y").as_int(),
 					cutscene_element_node.attribute("txt").as_string(),
 					cutscene_element_node.attribute("size").as_uint(),
@@ -127,7 +132,7 @@ bool m1CutScene::LoadCutscene(std::string path)
 			}
 			else if (type == "image")
 			{
-				cutscene_element = new c1CutsceneImage(cutscene_element_node.attribute("pos_x").as_int(),
+				cutscene_element = DBG_NEW c1CutsceneImage(cutscene_element_node.attribute("pos_x").as_int(),
 					cutscene_element_node.attribute("pos_y").as_int(),
 					{
 						cutscene_element_node.attribute("rect_x").as_int(),

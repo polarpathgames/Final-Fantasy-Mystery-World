@@ -1,20 +1,31 @@
 <cutscenes>
   <actions>
-    <cutscene action="move_entity" entity="daughter">
-      <time start="1000" duration="60" speed_x="160" speed_y="-80"/>
+    <cutscene action="move_camera">
+      <time start="100" duration="3000" speed_x="80" speed_y="-40"/>
     </cutscene>
     <cutscene action="move_entity" entity="daughter">
-    <time start="1101" duration="560" speed_x="40" speed_y="-80"/>
-  </cutscene>
+      <time start="4500" duration="650" speed_x="-160" speed_y="80"/>
+    </cutscene>
     <cutscene action="move_entity" entity="daughter">
-    <time start="1662" duration="10" speed_x="-160" speed_y="80"/>
-  </cutscene>
+      <time start="5150" duration="2000" speed_x="0" speed_y="0"/>
+    </cutscene>
+    <cutscene action="move_entity" entity="daughter">
+      <time start="7150" duration="380" speed_x="-160" speed_y="-80"/>
+    </cutscene>
   <cutscene action="move_entity" entity="daughter">
-    <time start="1763" duration="1000" speed_x="0" speed_y="0"/>
-  </cutscene>
-    <cutscene action="move_entity" entity="daughter">
-    <time start="2674" duration="560" speed_x="-160" speed_y="-80"/>
-  </cutscene>
+      <time start="7530" duration="550" speed_x="-40" speed_y="-80"/>
+    </cutscene>
+  <cutscene action="move_entity" entity="daughter">
+      <time start="8080" duration="570" speed_x="-160" speed_y="-80"/>
+    </cutscene>
+    <cutscene action="delete_entity" entity="daughter">
+    </cutscene>
+     <cutscene action="move_camera">
+      <time start="8700" duration="1000" speed_x="0" speed_y="0"/>
+    </cutscene>
+<cutscene action="move_camera">
+      <time start="9700" duration="3000" speed_x="-160" speed_y="80"/>
+    </cutscene>
   </actions>
   <elements>
     <element type="entity" name="daughter" pos_x="0" pos_y="0"/>

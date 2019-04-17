@@ -156,6 +156,9 @@
     <ClCompile Include="e1NPC.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="c1CutSceneDeleteEntity.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="e1CarnivorousPlant.h">
@@ -346,6 +349,9 @@
     </ClInclude>
     <ClInclude Include="e1NPC.h">
       <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneDeleteEntity.h">
+      <Filter>Cutscene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
