@@ -57,7 +57,7 @@ public:
 	//FUNCTIONS TO CREATE
 
 	//Create & Delete Follow Group
-	p1Follow* CreateFollow(e1Entity* element_to_follow, iPoint* object_follow, SDL_Rect initial_rect, iPoint area = { 12, 2 }, iPoint timelife = { 15,5 }, int num_textures = 4, int num_particles = 20, bool active_ = false, bool isMouse = false);
+	p1Follow* CreateFollow(e1Entity* element_to_follow, iPoint* object_follow, SDL_Rect initial_rect, iPoint area = { 12, 2 }, iPoint timelife = { 15,5 }, int num_textures = 4, int num_particles = 20, bool active_ = false, bool isMouse = false, const iPoint & offset = { 0,0 });
 	bool DeleteFollow_p(p1Follow* group);
 
 	//Create & DeleteFire Group

@@ -11,7 +11,7 @@ class p1Particle;
 class p1Follow
 {
 public:
-	p1Follow(e1Entity* element_to_follow, iPoint* object_follow, SDL_Rect initial_rect = { 0,0,8,2 }, iPoint area = { 12, 2 }, iPoint timelife = { 15,5 }, int num_textures = 4, int num_particles = 20, bool active_ = false, bool isMouse = false);
+	p1Follow(e1Entity* element_to_follow, iPoint* object_follow, SDL_Rect initial_rect = { 0,0,8,2 }, iPoint area = { 12, 2 }, iPoint timelife = { 15,5 }, int num_textures = 4, int num_particles = 20, bool active_ = false, bool isMouse = false, const iPoint& offset = { 0,0 });
 	~p1Follow();
 
 	// Called each loop iteration
@@ -42,6 +42,7 @@ public:
 	fPoint pos;
 	int size_rect;
 	int n_textures;
+	iPoint offset = { 0,0 };
 
 	//velocity
 	//fPoint speed;

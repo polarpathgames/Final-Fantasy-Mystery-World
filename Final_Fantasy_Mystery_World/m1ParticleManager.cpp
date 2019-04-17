@@ -157,9 +157,9 @@ bool m1ParticleManager::CleanUp()
 
 //CREATE GROUPS -------------------------------------------------------------------------------------------------------------------------------------
 
-p1Follow* m1ParticleManager::CreateFollow(e1Entity* element_to_follow, iPoint* object_follow, SDL_Rect initial_rect, iPoint area, iPoint timelife, int num_textures, int num_particles, bool active, bool isMouse)
+p1Follow* m1ParticleManager::CreateFollow(e1Entity* element_to_follow, iPoint* object_follow, SDL_Rect initial_rect, iPoint area, iPoint timelife, int num_textures, int num_particles, bool active, bool isMouse, const iPoint & offset)
 {
-	p1Follow* ret = DBG_NEW p1Follow(element_to_follow, object_follow, initial_rect, area, timelife, num_textures, num_particles, active, isMouse);
+	p1Follow* ret = DBG_NEW p1Follow(element_to_follow, object_follow, initial_rect, area, timelife, num_textures, num_particles, active, isMouse, offset);
 	Group_Follow.push_back(ret);
 	return ret;
 }
