@@ -45,6 +45,7 @@ public:
 	std::map<std::string, c1CutsceneElement*> elements;
 	bool is_executing = false;
 	std::vector<c1CutsceneAction*>::iterator item;
+	e1Entity* ent;
 
 };
 

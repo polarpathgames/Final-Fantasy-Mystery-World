@@ -12,7 +12,7 @@ public:
 
 	e1Entity* GetEntity();
 
-protected:
+public:
 	e1Entity * entity_c = nullptr;
 
 };
