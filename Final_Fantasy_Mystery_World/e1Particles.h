@@ -26,9 +26,16 @@ public:
 
 	void SetParticle(const ParticleType & particle_type, const Direction &dir);
 
+private:
+
+	void MoveArrow(float dt);
+	bool EnemyNextTile(const Direction &dir);
+
 public:
 
 	ParticleType particle_type = ParticleType::NONE;
+
+	iPoint arrow_tile = { 0,0 };
 
 };
 
