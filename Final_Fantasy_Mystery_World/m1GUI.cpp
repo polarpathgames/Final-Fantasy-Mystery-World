@@ -14,6 +14,7 @@
 #include "u1CheckBox.h"
 #include "u1Bar.h"
 #include "m1GUI.h"
+#include "m1Audio.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Audio.h"
 
@@ -146,9 +147,9 @@ void m1GUI::FocusInput()
 				}
 			}
 			if (new_focus != focus) {
-				focus->current_state = Mouse_Event::NONE;
+				focus->current_state = Element_Event::NONE;
 				focus = new_focus;
-				focus->current_state = Mouse_Event::HOVER;
+				focus->current_state = Element_Event::HOVER;
 				App->audio->PlayFx(fx_focus);
 			}
 		}
@@ -167,9 +168,9 @@ void m1GUI::FocusInput()
 				}
 			}
 			if (new_focus != focus) {
-				focus->current_state = Mouse_Event::NONE;
+				focus->current_state = Element_Event::NONE;
 				focus = new_focus;
-				focus->current_state = Mouse_Event::HOVER;
+				focus->current_state = Element_Event::HOVER;
 				App->audio->PlayFx(fx_focus);
 			}
 		}
@@ -188,9 +189,9 @@ void m1GUI::FocusInput()
 				}
 			}
 			if (new_focus != focus) {
-				focus->current_state = Mouse_Event::NONE;
+				focus->current_state = Element_Event::NONE;
 				focus = new_focus;
-				focus->current_state = Mouse_Event::HOVER;
+				focus->current_state = Element_Event::HOVER;
 				App->audio->PlayFx(fx_focus);
 			}
 		}
@@ -209,13 +210,12 @@ void m1GUI::FocusInput()
 				}
 			}
 			if (new_focus != focus) {
-				focus->current_state = Mouse_Event::NONE;
+				focus->current_state = Element_Event::NONE;
 				focus = new_focus;
-				focus->current_state = Mouse_Event::HOVER;
+				focus->current_state = Element_Event::HOVER;
 				App->audio->PlayFx(fx_focus);
 			}
 		}
-
 	}
 
 }
@@ -463,16 +463,16 @@ bool m1GUI::GetElemOnMouse(int x, int y, u1GUI *& element)
 		{
 			if (CheckCollision(x, y, *item))
 			{
-				if ((*item)->current_state != Mouse_Event::CLICKED_DOWN && (*item)->current_state != Mouse_Event::CLICKED_REPEAT)
-					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN ? (*item)->current_state = Mouse_Event::CLICKED_DOWN : (*item)->current_state = Mouse_Event::HOVER;
+				if ((*item)->current_state != Element_Event::CLICKED_DOWN && (*item)->current_state != Element_Event::CLICKED_REPEAT)
+					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN ? (*item)->current_state = Element_Event::CLICKED_DOWN : (*item)->current_state = Element_Event::HOVER;
 				else {
-					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) ? (*item)->current_state = Mouse_Event::CLICKED_REPEAT : (*item)->current_state = Mouse_Event::CLICKED_UP;
+					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) ? (*item)->current_state = Element_Event::CLICKED_REPEAT : (*item)->current_state = Element_Event::CLICKED_UP;
 				}
 				element = *item;
 				return true;
 			}
 			else {
-				(*item)->current_state = Mouse_Event::NONE;
+				(*item)->current_state = Element_Event::NONE;
 			}
 		}
 	}

@@ -168,6 +168,18 @@
     <ClCompile Include="m1ParticleManager.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="e1Particles.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1NPC.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1ShopKeeperDaughter.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneDeleteEntity.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="e1CarnivorousPlant.h">
@@ -370,6 +382,18 @@
     </ClInclude>
     <ClInclude Include="m1ParticleManager.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Particles.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1NPC.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1ShopKeeperDaughter.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneDeleteEntity.h">
+      <Filter>Cutscene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
