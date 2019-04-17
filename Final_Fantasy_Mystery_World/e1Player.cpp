@@ -28,6 +28,7 @@
 #include "Brofiler/Brofiler.h"
 #include "m1EasingSplines.h"
 #include "m1MainMenu.h"
+#include "m1ParticleManager.h"
 
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {

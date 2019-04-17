@@ -150,13 +150,31 @@
     <ClCompile Include="e1StrangeFrog.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="p1Follow.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="p1Particle.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="p1Explosion.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="p1Fire.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="p1Firework.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="m1ParticleManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
     <ClCompile Include="e1Particles.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="e1ShopKeeperDaughter.cpp">
+    <ClCompile Include="e1NPC.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="e1NPC.cpp">
+    <ClCompile Include="e1ShopKeeperDaughter.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="c1CutSceneDeleteEntity.cpp">
@@ -347,13 +365,31 @@
     <ClInclude Include="e1StrangeFrog.h">
       <Filter>Entities</Filter>
     </ClInclude>
+    <ClInclude Include="p1Follow.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="p1Particle.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="p1Explosion.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="p1Fire.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="p1Firework.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="m1ParticleManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
     <ClInclude Include="e1Particles.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="e1ShopKeeperDaughter.h">
+    <ClInclude Include="e1NPC.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="e1NPC.h">
+    <ClInclude Include="e1ShopKeeperDaughter.h">
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="c1CutSceneDeleteEntity.h">
@@ -389,6 +425,9 @@
     <Filter Include="Cutscene">
       <UniqueIdentifier>{f24df7fb-cdae-46b2-8070-e79090694788}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particles">
+      <UniqueIdentifier>{d54c014f-ca6d-4221-8d73-cf663d117b50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
@@ -401,9 +440,6 @@
       <Filter>XML</Filter>
     </Xml>
     <Xml Include="Game\assets\xml\CutsceneTutorial.xml">
-      <Filter>XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneFinalRoom.xml">
       <Filter>XML</Filter>
     </Xml>
   </ItemGroup>

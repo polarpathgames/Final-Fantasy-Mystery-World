@@ -28,6 +28,7 @@ class m1Collision;
 class m1EasingSplines;
 class m1DialogSystem;
 class m1CutScene;
+class m1ParticleManager;
 
 class Application
 {
@@ -125,6 +126,7 @@ public:
 	m1EasingSplines*	easing_splines = nullptr;
 	m1DialogSystem*     dialog = nullptr;
 	m1CutScene*			cutscene_manager = nullptr;
+	m1ParticleManager*	particles = nullptr;
 
 	Random random;
 
