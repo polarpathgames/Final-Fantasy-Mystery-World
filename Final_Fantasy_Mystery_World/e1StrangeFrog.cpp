@@ -15,7 +15,7 @@ e1StrangeFrog::e1StrangeFrog(const int & x, const int & y) : e1Enemy(x, y)
 
 	position.x;
 	position.y -= 25;
-
+	SetPivot(21, 33);
 	target_position = position;
 	initial_position = position;
 

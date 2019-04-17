@@ -18,7 +18,7 @@ e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x
 
 	position.x -= 6;
 	position.y -= 22;
-
+	SetPivot(21,33);
 	Sleep.PushBack({272, 2, 43, 40});
 	Sleep.PushBack({317, 2, 43, 40});
 	Sleep.PushBack({ 272, 44, 43, 40 });
