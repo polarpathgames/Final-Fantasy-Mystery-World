@@ -6,6 +6,7 @@
 #include "e1Player.h"
 #include "m1DialogSystem.h"
 #include "m1Scene.h"
+#include "m1Audio.h"
 #include "m1Input.h"
 
 e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
@@ -22,6 +23,24 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		idle->speed = 2;
 		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "furniture") == 0) {
+		static_type = e1StaticEntity::Type::FURNITURE;
+		frame = { 1070,0,64,40 };
+		SetPivot(frame.w*0.5F, frame.h*1.5F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "door_home") == 0) {
+		static_type = e1StaticEntity::Type::DOORHOME;
+		frame = { 959,44,62,48 };
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "door_shop") == 0) {
+		static_type = e1StaticEntity::Type::DOORSHOP;
+		frame = { 1043,44,45,62 };
+		SetPivot(frame.w*0.5F, frame.h*0.9F);
 		size.create(frame.w, frame.h);
 	}
 	else if (strcmp(name, "rock1") == 0) {
@@ -74,7 +93,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	}
 	else if (strcmp(name, "red_plant") == 0) {
 		static_type = e1StaticEntity::Type::RED_PLANT;
-		frame = { 32,8,38,24 };
+		frame = { 32,8,32,24 };
 		SetPivot(frame.w*0.5F, frame.h*0.75F);
 		size.create(frame.w, frame.h);
 	}
@@ -299,6 +318,7 @@ void e1StaticEntity::SetRect(int x, int y, int w, int h)
 
 bool e1StaticEntity::Update(float dt)
 {
+
 	if (interacting_state == InteractingStates::NONE)
 		return true;
 	iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
@@ -309,6 +329,8 @@ bool e1StaticEntity::Update(float dt)
 				interacting_state = InteractingStates::INTERACTING;
 				ChangeAnimation(player_pos);
 				App->dialog->end_dial = false;
+				App->audio->PlayFx(App->scene->fx_writting);
+
 			}
 		}			
 	}
@@ -407,6 +429,16 @@ void e1StaticEntity::ChangeAnimation(const iPoint &player_pos)
 
 
 }
+
+//void e1StaticEntity::DialogWritting()
+//{
+//	static int h = 500, w = 300, x = 0, y= 0;
+//	SDL_Rect rect_square = { x, y, h, w };
+//
+//	SDL_SetRenderDrawColor(App->render->renderer, 255, 255, 255, 255);
+//	SDL_RenderFillRect(App->render->renderer, &rect_square);
+//	
+//}
 
 e1StaticEntity::InteractingStates e1StaticEntity::GetState()
 {

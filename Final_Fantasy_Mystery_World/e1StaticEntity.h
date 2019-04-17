@@ -45,6 +45,9 @@ public:
 		QUEST_FOUNTAIN,
 		NPC1,
 		NPC2,
+		FURNITURE,
+		DOORHOME,
+		DOORSHOP,
 
 		UNKNOWN
 	};
@@ -63,6 +66,8 @@ public:
 	virtual bool Save(pugi::xml_node&) const { return true; };
 
 	void ChangeAnimation(const iPoint &player_pos);
+
+	void DialogWritting();
 
 	InteractingStates GetState();
 public:
