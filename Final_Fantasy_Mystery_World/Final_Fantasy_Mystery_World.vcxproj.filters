@@ -180,6 +180,9 @@
     <ClCompile Include="c1CutSceneDeleteEntity.cpp">
       <Filter>Cutscene</Filter>
     </ClCompile>
+    <ClCompile Include="e1Rock.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="e1CarnivorousPlant.h">
@@ -394,6 +397,9 @@
     </ClInclude>
     <ClInclude Include="c1CutSceneDeleteEntity.h">
       <Filter>Cutscene</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Rock.h">
+      <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
