@@ -66,6 +66,11 @@ public:
 	int				smooth_speed = 7;
 	SDL_Surface*	surface = NULL;
 
+	//Controler Haptic
+	SDL_Joystick *joystick;
+	SDL_Haptic *haptic;
+	SDL_HapticEffect effect;
+
 	//DEBUG ZOOM
 	int				zoom = 1;
 	int				max_zoom = 4;

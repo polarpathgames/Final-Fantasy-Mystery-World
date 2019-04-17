@@ -95,6 +95,10 @@ bool m1Scene::Update(float dt)
 			DestroyDebugScreen();
 		}
 	}
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
+		App->render->CameraTremble();
+	
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {
 		e1Particles* particle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, player->actual_tile.x, player->actual_tile.y,"SHIT");
