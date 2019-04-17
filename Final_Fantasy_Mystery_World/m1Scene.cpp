@@ -60,7 +60,10 @@ bool m1Scene::Start()
 	fx_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_Steps_on_Water1.wav");
 	fx_frog_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_BasicAttack.wav");
 	fx_plant_attack = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Punch1.wav");
-	fx_ability_warrior = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Sword_Hit.wav");
+	fx_ability_warrior = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Critical_Hit.wav");
+	fx_ability_menu = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_InBattle_Selection.wav");
+	fx_drop_pick_up = App->audio->LoadFx("assets/audio/sfx/retro_collect_pickup_coin_03.wav");
+	fx_door_enter = App->audio->LoadFx("assets/audio/sfx/MC_Stairs_Up.wav");
 
   
 	return true;

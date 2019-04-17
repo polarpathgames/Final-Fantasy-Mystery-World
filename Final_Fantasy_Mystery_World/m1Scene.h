@@ -317,6 +317,10 @@ public:
 	int fx_frog_attack;
 	int fx_plant_attack;
 	int fx_ability_warrior;
+	int fx_ability_menu;
+	int fx_drop_pick_up;
+	int fx_door_enter;
+
 
 };
 
