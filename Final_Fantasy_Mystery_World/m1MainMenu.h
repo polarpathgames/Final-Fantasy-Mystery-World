@@ -106,16 +106,6 @@ private:
 	u1Button* button_youtube = nullptr;
 	u1Label* label_youtube = nullptr;
 
-	//select character
-
-	u1Image* select_champ_panel = nullptr;
-	u1ChButton* button_warrior = nullptr;
-	u1Label* label_warrior = nullptr;
-	u1ChButton* button_archer = nullptr;
-	u1Label* label_archer = nullptr;
-	u1ChButton* button_mage = nullptr;
-	u1Label* label_mage = nullptr;
-
 
 	//options
 	u1Image* options_panel = nullptr;
@@ -273,6 +263,21 @@ private:
 
 	u1Button* Cbutton_ability3 = nullptr;
 	u1Label* Clabel_to_show_how_ability3 = nullptr;
+
+public:
+	//select character
+
+	u1Image* select_champ_panel = nullptr;
+	u1ChButton* button_warrior = nullptr;
+	u1Label* label_warrior = nullptr;
+	u1ChButton* button_archer = nullptr;
+	u1Label* label_archer = nullptr;
+	u1ChButton* button_mage = nullptr;
+	u1Label* label_mage = nullptr;
+
+	u1Image* warrior_image = nullptr;
+    u1Image* archer_image = nullptr;
+    u1Image* mage_image = nullptr;
 };
 
 #endif

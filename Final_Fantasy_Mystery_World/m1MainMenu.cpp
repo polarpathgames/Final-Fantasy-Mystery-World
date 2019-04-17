@@ -21,6 +21,7 @@
 #include "m1Window.h"
 
 
+
 m1MainMenu::m1MainMenu(){}
 
 m1MainMenu::~m1MainMenu(){}
@@ -50,6 +51,7 @@ bool m1MainMenu::Update(float dt)
 		delete App->scene->control_to_change;
 		App->scene->control_to_change = nullptr;
 	}
+
 	return true;
 }
 
@@ -439,13 +441,16 @@ void m1MainMenu::CreateSelectChamp()
 {
 	select_champ_panel = App->gui->AddImage(0, 0, { 1024, 3256, 1024, 768 }, this, App->gui->screen, true, false, false, false);
 
+	warrior_image = App->gui->AddImage(500, 175, { 1052, 4079, 327, 358 }, App->main_menu, App->gui->screen, false, false, false, false);
+	archer_image = App->gui->AddImage(580, 180, { 1701, 4079, 194, 369 }, App->main_menu, App->gui->screen, false, false, false, false);
+	mage_image = App->gui->AddImage(580, 180, { 1414, 4079, 218, 363 }, App->main_menu, App->gui->screen, false, false, false, false);
+
 	button_warrior = App->gui->AddChButton(100, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, select_champ_panel, PlayerType::WARRIOR, true, false, true, true);
 	label_warrior = App->gui->AddLabel(65, -13, "Warrior", button_warrior, BLACK, FontType::FF64, nullptr, false);
 	button_archer = App->gui->AddChButton(100, 350, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, select_champ_panel, PlayerType::ARCHER, true, false, true, true);
 	label_archer = App->gui->AddLabel(68, -13, "Archer", button_archer, BLACK, FontType::FF64, nullptr, false);
 	button_mage = App->gui->AddChButton(100, 450, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, select_champ_panel, PlayerType::MAGE, true, false, true, true);
 	label_mage = App->gui->AddLabel(75, -13, "Mage", button_mage, BLACK, FontType::FF64, nullptr, false);
-
 
 }
 

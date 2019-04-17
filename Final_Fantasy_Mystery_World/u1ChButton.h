@@ -26,10 +26,12 @@ public:
 	~u1ChButton();
 
 	void InnerDraw();
-	void PrintInfo();
+	void PrintInfo(bool draw);
 
 	void SetRects(const SDL_Rect &std_rect, const SDL_Rect &hover_rect, const SDL_Rect &click_rect);
 
+	SDL_Rect* GetLastRect(SDL_Rect* rect);
+	void PrintImages();
 
 private:
 	//SDL_Rect idle_rect = { 0,0,0,0 }; idle rect is section rect
@@ -45,6 +47,15 @@ private:
 	SDL_Rect mage_info = { 98, 4414, 523, 97 };
 
 	PlayerType player_type;
+	SDL_Rect* last_rect = nullptr;
+
+	bool is_warrior = false;
+	bool is_archer = false;
+	bool is_mage = false;
+
+	//u1Image* warrior_image = nullptr;
+	//u1Image* archer_image = nullptr;
+	//u1Image* mage_image = nullptr;
 };
 
 #endif
