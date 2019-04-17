@@ -65,6 +65,7 @@ public:
 	Room* last_room = nullptr;
 	std::vector<Room*> rooms;
 	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
+	
 
 
 };

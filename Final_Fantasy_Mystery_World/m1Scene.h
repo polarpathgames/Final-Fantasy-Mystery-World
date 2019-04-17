@@ -358,6 +358,7 @@ private:
 	u1Label* mouse_label = nullptr;
 	u1Label* entities_label = nullptr;
 
+
 	// game over
 
 	u1Image* game_over_panel = nullptr;
@@ -379,6 +380,7 @@ public:
 	int fx_ability_menu;
 	int fx_drop_pick_up;
 	int fx_door_enter;
+
 };
 
 #endif // __j1SCENE_H__

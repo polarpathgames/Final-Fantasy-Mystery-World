@@ -94,9 +94,12 @@ public:
 	bool debug_ui = false;
 
 	// SFX
-	uint fx_pause;
-	uint fx_focus;
-	uint fx_inventory;
+
+	int fx_pause;
+	int fx_focus;
+	int fx_inventory;
+
+
 
 };
 #endif // !__j1UIMANAGER_H__

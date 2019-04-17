@@ -133,7 +133,6 @@ void RoomManager::LoadRoom(const int & id)
 	App->map->CleanUp();
 
 
-
 	std::vector<Room*>::iterator item = rooms.begin();
 	for (; item != rooms.end(); ++item) {
 		if ((*item) != nullptr && (*item)->id == id) {
@@ -173,7 +172,6 @@ void RoomManager::LoadRoom(const int & id)
 			break;
 		}
 	}
-
 }
 
 void RoomManager::PlacePlayer() // place player in front of the door

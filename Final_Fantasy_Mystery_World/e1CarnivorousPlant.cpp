@@ -3,6 +3,8 @@
 #include "SDL/include/SDL.h"
 #include "App.h"
 #include "m1Map.h"
+#include "m1Audio.h"
+#include "m1Scene.h"
 #include "m1Render.h"
 #include "p2Animation.h"
 
@@ -81,6 +83,7 @@ bool e1CarnivorousPlant::Update(float dt)
 	}
 	if (state == State::ATTACKING) {
 		if (current_animation->Finished()) {
+			App->audio->PlayFx(App->scene->fx_plant_attack);
 			CheckBasicAttackEfects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
 			state = State::AFTER_ATTACK;
 			ChangeAnimation(direction, state);

@@ -7,6 +7,7 @@
 #include "m1Textures.h"
 #include "m1Fonts.h"
 #include "u1Image.h"
+#include "m1Audio.h"
 #include "u1Button.h"
 #include "u1Label.h"
 #include "u1Slider.h"
@@ -128,7 +129,10 @@ void m1GUI::FocusInput()
 
 	BROFILER_CATEGORY("FocusInput", Profiler::Color::Orange);
 
+	u1GUI* new_focus = focus;
+
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN|| App->input->CheckAxisStates(Axis::AXIS_UP)) {
+
 		u1GUI* new_focus = focus;
 		if (focus != nullptr && focus->parent != nullptr) {
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
@@ -211,7 +215,9 @@ void m1GUI::FocusInput()
 				App->audio->PlayFx(fx_focus);
 			}
 		}
+
 	}
+
 }
 
 bool m1GUI::FocusFirstUIFocusable()

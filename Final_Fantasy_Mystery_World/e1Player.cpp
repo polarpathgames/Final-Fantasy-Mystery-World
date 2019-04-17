@@ -19,6 +19,7 @@
 #include "m1Collisions.h"
 #include "m1Scene.h"
 #include "m1FadeToBlack.h"
+#include "m1Scene.h"
 #include "u1Label.h"
 #include "u1Button.h"
 #include "u1Bar.h"
@@ -426,6 +427,7 @@ void e1Player::ReadAttack()
 {
 	if (player_input.pressing_G) {
 		PrepareBasicAttack();
+		App->audio->PlayFx(App->scene->fx_attack);
 		return;
 	}
 	if (player_input.pressing_F) {
@@ -481,6 +483,7 @@ void e1Player::PrepareBasicAttack()
 void e1Player::PerformActions(float dt)
 {
 	if (player_input.pressing_V && App->scene->GetMenuState() != StatesMenu::OPTIONS_MENU && App->scene->GetMenuState() != StatesMenu::CONTROLS_MENU && App->scene->GetMenuState() != StatesMenu::PAUSE_MENU){
+		App->audio->PlayFx(App->scene->fx_ability_menu);
 		(has_skills) ? DestroySkills() : CreateSkills();
 	}
 
