@@ -30,7 +30,10 @@ public:
 
 private:
 
+	void SetArrow();
 	void MoveArrow(float dt);
+
+
 	bool EnemyNextTile(const Direction &dir);
 
 public:

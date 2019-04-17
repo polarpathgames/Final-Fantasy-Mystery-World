@@ -87,7 +87,9 @@ bool e1Particles::Update(float dt)
 	*/
 
 	iPoint pos = App->map->MapToWorld(arrow_tile.x, arrow_tile.y);
-	//App->render->Blit(App->scene->player->ground, pos.x + 1, pos.y - 8, NULL, true);
+	App->render->Blit(App->scene->player->ground, pos.x + 1, pos.y - 8, NULL, true);
+	iPoint pos2 = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+	//App->render->Blit(App->scene->player->ground, pos2.x + 1, pos2.y - 8, NULL, true);
 
 	return true;
 }
@@ -102,73 +104,81 @@ void e1Particles::SetParticle(const ParticleType & particle_type, const Directio
 	this->particle_type = particle_type;
 	direction = dir;
 	actual_tile = App->map->WorldToMap(position.x, position.y);
-	arrow_tile = actual_tile;
 	switch (particle_type) {
 	case ParticleType::ARROW:
-		velocity.x = 160;
-		velocity.y = 80;
-		switch (direction) {
-		case Direction::DOWN_LEFT:
-			GoDownLeft.PushBack({ 16,29,20,20 });
-			SetPivot(10, 10);
-			size.create(20, 20);
-			current_animation = &GoDownLeft;
-			break;
-		case Direction::UP_RIGHT:
-			GoUpRight.PushBack({ 37,8,20,20 });
-			SetPivot(10, 10);
-			size.create(20, 20);
-			current_animation = &GoUpRight;
-			break;
-		case Direction::UP_LEFT:
-			GoUpLeft.PushBack({ 16,8,20,20 });
-			SetPivot(10, 10);
-			size.create(20, 20);
-			current_animation = &GoUpLeft;
-			break;
-		case Direction::DOWN_RIGHT:
-			GoDownRight.PushBack({ 37,29,20,20 });
-			SetPivot(10, 10);
-			size.create(20, 20);
-			current_animation = &GoDownRight;
-			break;
-		case Direction::DOWN:
-			position.x += 13;
-			position.y -= 10;
-			GoDown.PushBack({ 8,8,8,27 });
-			SetPivot(10, 10);
-			size.create(20, 20);
-			current_animation = &GoDown;
-			break;
-		case Direction::UP:
-			position.x += 13;
-			position.y -= 13;
-			GoUp.PushBack({ 0,8,8,27 });
-			SetPivot(10, 10);
-			size.create(20, 20);
-			current_animation = &GoUp;
-			break;
-		case Direction::LEFT:
-			position.x -= 5;
-			position.y -= 7;
-			GoLeft.PushBack({ 28,0,28,7 });
-			SetPivot(7, 4);
-			size.create(20, 20);
-			current_animation = &GoLeft;
-			max_arrow_distance.create(arrow_tile.x - MAX_ARROW, arrow_tile.y + MAX_ARROW);
-			break;
-		case Direction::RIGHT:
-			GoRight.PushBack({ 0,0,28,7 });
-			SetPivot(10, 10);
-			size.create(20, 20);
-			current_animation = &GoRight;
-			break;
-		}
+		SetArrow();
 		break;
 	default:
 		break;
 	}
 	
+}
+
+void e1Particles::SetArrow()
+{
+	arrow_tile = actual_tile;
+	velocity.x = 160;
+	velocity.y = 80;
+	switch (direction) {
+	case Direction::DOWN_LEFT:
+		GoDownLeft.PushBack({ 16,29,20,20 });
+		SetPivot(10, 10);
+		size.create(20, 20);
+		current_animation = &GoDownLeft;
+		break;
+	case Direction::UP_RIGHT:
+		GoUpRight.PushBack({ 37,8,20,20 });
+		SetPivot(10, 10);
+		size.create(20, 20);
+		current_animation = &GoUpRight;
+		break;
+	case Direction::UP_LEFT:
+		GoUpLeft.PushBack({ 16,8,20,20 });
+		SetPivot(10, 10);
+		size.create(20, 20);
+		current_animation = &GoUpLeft;
+		break;
+	case Direction::DOWN_RIGHT:
+		GoDownRight.PushBack({ 37,29,20,20 });
+		SetPivot(10, 10);
+		size.create(20, 20);
+		current_animation = &GoDownRight;
+		break;
+	case Direction::DOWN:
+		position.x += 13;
+		position.y -= 10;
+		GoDown.PushBack({ 8,8,8,27 });
+		SetPivot(10, 10);
+		size.create(20, 20);
+		current_animation = &GoDown;
+		break;
+	case Direction::UP:
+		position.x += 13;
+		position.y -= 13;
+		GoUp.PushBack({ 0,8,8,27 });
+		SetPivot(10, 10);
+		size.create(20, 20);
+		current_animation = &GoUp;
+		break;
+	case Direction::LEFT:
+		position.x -= 5;
+		position.y -= 7;
+		GoLeft.PushBack({ 28,0,28,7 });
+		SetPivot(7, 4);
+		size.create(20, 20);
+		current_animation = &GoLeft;
+		max_arrow_distance.create(arrow_tile.x - MAX_ARROW, arrow_tile.y + MAX_ARROW);
+		break;
+	case Direction::RIGHT:
+		position.x += 10;
+		position.y -= 7;
+		GoRight.PushBack({ 0,0,28,7 });
+		SetPivot(21, 4);
+		size.create(20, 20);
+		current_animation = &GoRight;
+		max_arrow_distance.create(arrow_tile.x + MAX_ARROW, arrow_tile.y - MAX_ARROW);
+		break;
+	}
 }
 
 void e1Particles::MoveArrow(float dt)
@@ -181,8 +191,19 @@ void e1Particles::MoveArrow(float dt)
 		break;
 	case Direction::DOWN:
 		break;
-	case Direction::RIGHT:
-		break;
+	case Direction::RIGHT: {
+		actual_tile.x += 1;
+		if (arrow_tile.x + 1 == actual_tile.x && arrow_tile.y - 1 == actual_tile.y) {
+			arrow_tile = actual_tile;
+		}
+		if (!EnemyNextTile(direction) && App->map->IsWalkable(arrow_tile, false) && arrow_tile != max_arrow_distance) {
+			position.x += floor(velocity.x * dt);
+		}
+		else {
+			to_delete = true;
+		}
+
+		break; }
 	case Direction::LEFT: {
 		actual_tile.x += 1;
 		if (arrow_tile.x - 1 == actual_tile.x && arrow_tile.y + 1 == actual_tile.y) {
