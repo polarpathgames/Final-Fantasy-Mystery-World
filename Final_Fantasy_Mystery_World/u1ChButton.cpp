@@ -8,6 +8,7 @@
 #include "m1Scene.h"
 #include "m1MainMenu.h"
 #include "m1GUI.h"
+#include "m1DialogSystem.h"
 
 u1ChButton::u1ChButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, u1GUI* parent, PlayerType type, bool draw, bool inter, bool drag, bool focus = true)
 	:u1GUI(BUTTON, x, y, parent, idle, draw, inter, drag, focus)
@@ -58,12 +59,15 @@ void u1ChButton::PrintInfo()
 	{
 	case PlayerType::WARRIOR:
 		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), 500, 175, &warrior_rect, false, SDL_FLIP_NONE, 0.0F);
+		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), 370, 600, &warrior_info, false, SDL_FLIP_NONE, 0.0F);
 		break;
 	case PlayerType::ARCHER:
 		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), 580, 180, &archer_rect, false, SDL_FLIP_NONE, 0.0F);
+		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), 370, 600, &archer_info, false, SDL_FLIP_NONE, 0.0F);
 		break;
 	case PlayerType::MAGE:
 		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), 580, 180, &mage_rect, false, SDL_FLIP_NONE, 0.0F);
+		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), 370, 600, &mage_info, false, SDL_FLIP_NONE, 0.0F);
 		break;
 	}
 }
