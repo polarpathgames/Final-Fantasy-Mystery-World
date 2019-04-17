@@ -34,12 +34,13 @@ bool m1EasingSplines::Update(float dt)
 	for (; item != easing_splines.end(); ++item) {
 		if (*item != nullptr) {
 			if (!(*item)->Update(dt)) {
-				//easing_splines.erase(item); // look this, not sure :(
 				delete(*item);
 				(*item) = nullptr;
 			}
 		}
 	}
+
+	easing_splines.remove(nullptr);
 
 	return true;
 }
@@ -55,7 +56,6 @@ bool m1EasingSplines::CleanUp()
 		if (*item != nullptr) {
 			delete(*item);
 			(*item) = nullptr;
-			easing_splines.erase(item);
 		}
 	}
 

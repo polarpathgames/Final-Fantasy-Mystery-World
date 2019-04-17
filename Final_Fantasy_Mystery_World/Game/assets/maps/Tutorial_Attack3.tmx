@@ -14487,7 +14487,7 @@
  <objectgroup id="12" name="colliders">
   <object id="12" name="room_collider" type="nextB" x="320" y="336" width="16.1904" height="16.7273">
    <properties>
-    <property name="next_id" type="int" value="8"/>
+    <property name="next_id" type="int" value="7"/>
    </properties>
   </object>
   <object id="16" name="room_collider" type="lastB" x="561.182" y="336.607" width="13.9177" height="14.3788">
