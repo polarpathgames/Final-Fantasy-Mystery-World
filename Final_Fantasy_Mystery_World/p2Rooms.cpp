@@ -6,15 +6,21 @@
 #include "m1Render.h"
 #include "m1Scene.h"
 #include "m1DialogSystem.h"
+#include "GlobalGameAdvances.h"
 #include "e1Player.h"
 #include "m1Audio.h"
+#include "m1Cutscene.h"
 #include "m1EntityManager.h"
 #include "m1Pathfinding.h"
 
-Room::Room(const std::string &location, const int &id, const std::string &type)
+Room::Room(const std::string &tmx_location, const int &id, const std::string &type, const std::string &cutscene_location)
 {
-	tmx_location = location;
+	this->tmx_location = tmx_location;
 	this->id = id;
+
+	if (!cutscene_location.empty()) {
+		this->cutscene_location = cutscene_location;
+	}
 
 	if (strcmp(type.data(), "paceful") == 0) {
 		room_type = RoomType::PACEFUL;
@@ -49,7 +55,7 @@ RoomManager::RoomManager(pugi::xml_node &node)
 
 	for (room_node = node.child("maps").child("tutorial").child("room"); room_node; room_node = room_node.next_sibling("room")) {
 		Room * r = nullptr;
-		r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_int(), room_node.child("type").child_value());
+		r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_int(), room_node.child("type").child_value(), room_node.child("cut_scene").child_value());
 		rooms.push_back(r);
 	}
 
@@ -152,28 +158,10 @@ void RoomManager::LoadRoom(const int & id)
 	App->scene->CreateEntities();
 	PlacePlayer();
 	LoadColliders();
-
-	// ROOM TYPE
-	if (last_room == nullptr || (last_room->room_type != actual_room->room_type)) {
-		switch (actual_room->room_type)
-		{
-		case RoomType::PACEFUL:
-			App->audio->PlayMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg", 5);
-			break;
-		case RoomType::FOUNTAIN:
-			App->audio->PlayMusic("assets/audio/music/5.Final Fantasy TA - Crystal.ogg", 0.5);
-			break;
-		case RoomType::COMBAT:
-			App->audio->PlayMusic("assets/audio/music/20.Final Fantasy TA - Painful Battle.ogg", 0.5);
-			break;
-		case RoomType::BOSS:
-			App->audio->PlayMusic("assets/audio/music/39.Final Fantasy TA - Incarnation.ogg", 0.5);
-			break;
-		default:
-			App->audio->PlayMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg", 5);
-			break;
-		}
-	}
+	PlayMusic();
+	PlayCutScene();
+	
+	
 }
 
 void RoomManager::PlacePlayer() // place player in front of the door
@@ -258,6 +246,43 @@ void RoomManager::LoadColliders() // sensors in the doors
 	}
 
 
+}
+
+void RoomManager::PlayMusic()
+{
+	// ROOM TYPE
+	if (last_room == nullptr || (last_room->room_type != actual_room->room_type)) {
+		switch (actual_room->room_type)
+		{
+		case RoomType::PACEFUL:
+			App->audio->PlayMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg", 5);
+			break;
+		case RoomType::FOUNTAIN:
+			App->audio->PlayMusic("assets/audio/music/5.Final Fantasy TA - Crystal.ogg", 0.5);
+			break;
+		case RoomType::COMBAT:
+			App->audio->PlayMusic("assets/audio/music/20.Final Fantasy TA - Painful Battle.ogg", 0.5);
+			break;
+		case RoomType::BOSS:
+			App->audio->PlayMusic("assets/audio/music/39.Final Fantasy TA - Incarnation.ogg", 0.5);
+			break;
+		default:
+			App->audio->PlayMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg", 5);
+			break;
+		}
+	}
+}
+
+void RoomManager::PlayCutScene()
+{
+	if (!actual_room->cutscene_location.empty()) {
+		if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneTutorial.xml") == 0 && !CutSceneTutorialGirlEscapingPlayed) {
+			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
+			CutSceneTutorialGirlEscapingPlayed = true;
+		}
+			
+	}
+		
 }
 
 ChangeScene::ChangeScene(const int & x, const int & y, LocationChangeScene type, const uint & id)
