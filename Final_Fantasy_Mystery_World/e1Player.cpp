@@ -205,6 +205,10 @@ void e1Player::CenterPlayerInTile()
 		DeathDownRight.Reset();
 		DeathUpRight.Reset();
 		DeathUpLeft.Reset();
+		DeathDown.Reset();
+		DeathRight.Reset();
+		DeathUp.Reset();
+		DeathLeft.Reset();
 	}
 
 	if (App->map->data.properties.GetValue("movement") == 1)
