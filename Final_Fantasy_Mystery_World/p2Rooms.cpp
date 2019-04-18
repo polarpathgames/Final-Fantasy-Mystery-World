@@ -9,6 +9,7 @@
 #include "GlobalGameAdvances.h"
 #include "e1Player.h"
 #include "m1Audio.h"
+#include "SDL/include/SDL.h"
 #include "m1Cutscene.h"
 #include "m1EntityManager.h"
 #include "m1Pathfinding.h"
@@ -45,7 +46,7 @@ Room::~Room()
 		delete (*item);
 		(*item) = nullptr;
 	}
-
+	entities.clear();
 }
 
 RoomManager::RoomManager(pugi::xml_node &node)
@@ -65,7 +66,6 @@ RoomManager::RoomManager(pugi::xml_node &node)
 
 RoomManager::~RoomManager()
 {
-	entities_info.clear();
 }
 
 void RoomManager::OnCollision(Collider * c1, Collider * c2)
@@ -209,9 +209,10 @@ void RoomManager::LoadRoom(const int & id)
 		else if ((*position)->name == "enemy") {
 			if ((*position)->ent_type == "CarnivorousPlant") {
 				bool create = true;
-				std::map<iPoint, int>::iterator item = entities_info.begin();
-				for (; item != entities_info.end(); ++item) {
-					if ((*item).first == iPoint{ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y } && (*item).second == actual_room->id) {
+				std::map<int, int>::iterator item = actual_room->entities.begin();
+				for (; item != actual_room->entities.end(); ++item) {
+					const SDL_Point point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
+					if ((*item).first == point.x && (*item).second == point.y) {
 						create = false;
 						break;
 					}
@@ -222,15 +223,6 @@ void RoomManager::LoadRoom(const int & id)
 			}
 		}
 	}
-
-
-
-
-
-
-
-
-
 
 
 
@@ -369,7 +361,7 @@ void RoomManager::PlayCutScene()
 
 void RoomManager::AddEntityToNotRepeat(iPoint pos)
 {
-	entities_info.insert(std::pair <iPoint, int>(pos, actual_room->id));
+	actual_room->entities.insert(std::pair<int, int>(pos.x, pos.y));
 }
 
 ChangeScene::ChangeScene(const int & x, const int & y, LocationChangeScene type, const uint & id)

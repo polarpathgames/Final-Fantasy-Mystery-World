@@ -49,6 +49,8 @@ public:
 	bool active = false;
 	RoomType room_type = RoomType::NONE;
 	std::string cutscene_location;
+	std::map<int, int> entities;
+
 };
 
 class RoomManager {
@@ -72,7 +74,7 @@ public:
 	Room* last_room = nullptr;
 	std::vector<Room*> rooms;
 	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
-	std::map<iPoint,int> entities_info;
+
 
 
 };
