@@ -163,19 +163,9 @@ public:
 		stats.gold += plus_gold;
 	}
 
-	void UpdateExperience(int experience) {
-		if (stats.xp >= stats.max_xp) {
-			stats.level += 1;
-			stats.xp = 0;
-			UpdateLevel();
-		}			
-		else	
-			stats.xp += experience;		
-	}
-	void UpdateLevel()
-	{
-		stats.max_xp *= stats.level;
-	}
+	void UpdateExperience(int experience);
+
+	void UpdateLevel();
 
 public:
 	float death_time = 0.0f;
