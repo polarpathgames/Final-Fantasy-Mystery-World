@@ -368,8 +368,9 @@ void e1Enemy::GetHitted(const int & damage_taken)
 {
 	stats.live -= damage_taken;
 
-	if (stats.live <= 0) {
+	if (stats.live <= 0 || App->scene->player->god_mode) {
 		Drop();
+		App->scene->player->UpdateExperience(stats.experience);
 		this->to_delete = true;
 	}
 }

@@ -68,7 +68,9 @@ void e1Mage::InitStats()
 void e1Mage::PrepareSpecialAttack1()
 {
 	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {
+		if(!god_mode)
 		ReduceMana(stats.cost_mana_special_attack1);
+
 		type_attack = Attacks::SPECIAL_1;
 		state = State::ATTACKING;
 		SetFireBalls();

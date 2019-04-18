@@ -51,6 +51,7 @@ struct PlayerStats {
 	int max_lives = 0;
 	int attack_power = 0;
 	int xp = 0;
+	int max_xp = 100;
 	int mana = 0;
 	int max_mana = 0;
 	int gold = 0;
@@ -162,11 +163,15 @@ public:
 		stats.gold += plus_gold;
 	}
 
+	void UpdateExperience(int experience);
+
+	void UpdateLevel();
+
 public:
 	float death_time = 0.0f;
 	bool has_skills = false;
 	bool block_controls = false;
-
+	bool god_mode = false;
 	float flash_time = 0.0F;
 	iPoint flash_position{ 0,0 };
 

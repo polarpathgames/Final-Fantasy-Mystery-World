@@ -7,6 +7,7 @@
 #include "m1Audio.h"
 #include "p2ChangeControls.h"
 #include "m1Render.h"
+#include "u1InputText.h"
 #include "m1FadeToBlack.h"
 #include "m1Window.h"
 #include "m1Map.h"
@@ -29,6 +30,7 @@
 #include "m1Input.h"
 #include "m1Textures.h"
 #include "e1Drop.h"
+#include "m1Textures.h"
 
 m1Scene::m1Scene() : m1Module()
 {
@@ -101,11 +103,9 @@ bool m1Scene::Update(float dt)
 		App->input->ControllerVibration(0.3F, 1000);
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-		App->LoadGame("save_game.xml");
-
-	if(App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-		App->SaveGame("save_game.xml");
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+		App->scene->player->god_mode = !App->scene->player->god_mode;
+  
 
 	/*if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y += 300 * dt;
@@ -303,12 +303,12 @@ void m1Scene::CreateEntities()
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
-				else if ((*position)->ent_type == "in_home" && player->state != State::DEATH) { // position in the home
+				else if ((*position)->ent_type == "in_home" && player->state != State::MENU) { // position in the home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
-				else if ((*position)->ent_type == "after_death" && player->state == State::DEATH) { // position in the home
+				else if ((*position)->ent_type == "after_death" && player->state == State::MENU) { // position in the home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
@@ -417,7 +417,7 @@ void m1Scene::CreateInventory()
 	level_number_label = App->gui->AddLabel(65, 0, std::string("x " + std::to_string(player->stats.level)).data(), level_name_label, BLACK, FontType::FF64, nullptr, false);
 
 	exp_name_label = App->gui->AddLabel(55, 307, "Exp:", inventory_panel, BLACK, FontType::FF64, nullptr, false);
-	exp_number_label = App->gui->AddLabel(50, 0, std::string(std::to_string(player->stats.xp) + "/100").data(), exp_name_label, BLACK, FontType::FF64, nullptr, false);
+	exp_number_label = App->gui->AddLabel(50, 0, std::string(std::to_string(player->stats.xp) + "/" + std::to_string(player->stats.max_xp)).data(), exp_name_label, BLACK, FontType::FF64, nullptr, false);
 
 
 
@@ -485,7 +485,12 @@ void m1Scene::CreatePauseMenu()
 	label_main_menu = App->gui->AddLabel(0, 0, "Return to main menu", button_main_menu, BLACK, FontType::FF48, nullptr, false);
 	label_main_menu->SetPosRespectParent(CENTERED);
 
-	button_abort_quest = App->gui->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true, true);
+	if (App->map->actual_map == Maps::LOBBY || App->map->actual_map == Maps::SHOP ||App->map->actual_map == Maps::HOME)
+		button_abort_quest = App->gui->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel,true, false, false, false);
+	else
+		button_abort_quest = App->gui->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true, true);
+
+
 	label_abort_quest = App->gui->AddLabel(0, 0, "Abort quest", button_abort_quest, BLACK, FontType::FF48, nullptr, false);
 	label_abort_quest->SetPosRespectParent(CENTERED);
 
@@ -1153,7 +1158,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->audio->PlayFx(App->main_menu->fx_push_button);
 		}
 		if (interact == shop_button_hp_potion) {
-			if (player->stats.gold >= price_hp_potion) {
+			if (player->stats.gold >= price_hp_potion || player->god_mode) {
 				// audio comprar
 				player->ReduceGold(price_hp_potion);
 				++player->stats.num_hp_potions;
@@ -1163,7 +1168,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 		}
 		if (interact == shop_button_mana_potion) {
-			if (player->stats.gold >= price_mana_potion) {
+			if (player->stats.gold >= price_mana_potion || player->god_mode) {
 				// audio comprar
 				player->ReduceGold(price_mana_potion);
 				++player->stats.num_mana_potions;

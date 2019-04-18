@@ -84,10 +84,13 @@ bool m1ParticleManager::Update(float dt)
 	std::list<p1Explosion*>::iterator item_3 = Group_Explosion.begin();
 	while (item_3 != Group_Explosion.end())
 	{
-		if (item_3._Ptr->_Myval->godelete)
+		if ((*item_3)->godelete)
 		{
-			item_3._Ptr->_Myval->particle.clear();
-			Group_Explosion.erase(item_3);
+			for (std::vector<p1Particle*>::iterator particle = (*item_3)->particle.begin(); particle != (*item_3)->particle.end(); particle++) {
+				RELEASE(*particle);
+			}
+			(*item_3)->particle.clear();
+			RELEASE(*item_3);
 		}
 		else
 		{
@@ -95,6 +98,7 @@ bool m1ParticleManager::Update(float dt)
 		}
 		item_3++;
 	}
+	Group_Explosion.remove(nullptr);
 
 	//Group FIREWORK -------------------------------------------------
 	std::list<p1Firework*>::iterator item_4 = Group_Firework.begin();
@@ -221,9 +225,9 @@ p1Fire* m1ParticleManager::CreateFire(e1Entity* element_to_follow, iPoint* objec
 	return ret;
 }
 
-p1Explosion* m1ParticleManager::CreateExplosion(e1Entity* element_to_follow, iPoint* object_follow, iPoint position_static, SDL_Rect initial_rect, Explosion_Type type, iPoint perimeter, iPoint timelife, fPoint speed, P_Direction p_direction, int num_particles, int num_textures)
+p1Explosion* m1ParticleManager::CreateExplosion(e1Entity* element_to_follow, iPoint* object_follow, iPoint position_static, SDL_Rect initial_rect, Explosion_Type type, iPoint perimeter, iPoint timelife, fPoint speed, P_Direction p_direction, int num_particles, int num_textures, const fPoint& gravity)
 {
-	p1Explosion* ret = DBG_NEW p1Explosion(element_to_follow, object_follow, position_static, initial_rect, type, perimeter, timelife, speed, p_direction, num_particles, num_textures);
+	p1Explosion* ret = DBG_NEW p1Explosion(element_to_follow, object_follow, position_static, initial_rect, type, perimeter, timelife, speed, p_direction, num_particles, num_textures, gravity);
 	Group_Explosion.push_back(ret);
 	return ret;
 }

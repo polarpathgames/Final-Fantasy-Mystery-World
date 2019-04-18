@@ -46,6 +46,9 @@ bool e1Player::PreUpdate()
 	if (!block_controls)
 		ReadPlayerInput();
 
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-15 }, { 8,0,2,2 }, RANDOM, { 20,20 }, { 10,5 }, { 0,0 }, P_UP, 200, 4, { 0,-2 });
+
 	return true;
 }
 
@@ -197,6 +200,20 @@ void e1Player::CenterPlayerInTile()
 	velocity.y = 80;
 	has_turn = true;
 	
+	if (state == State::MENU) {
+		direction = Direction::DOWN_LEFT;
+		state = State::IDLE;
+		current_animation = &IdleDownLeft;
+		DeathDownLeft.Reset();
+		DeathDownRight.Reset();
+		DeathUpRight.Reset();
+		DeathUpLeft.Reset();
+		DeathDown.Reset();
+		DeathRight.Reset();
+		DeathUp.Reset();
+		DeathLeft.Reset();
+	}
+
 	if (App->map->data.properties.GetValue("movement") == 1)
 		movement_type = Movement_Type::InLobby;
 	else
@@ -219,8 +236,6 @@ void e1Player::CenterPlayerInTile()
 
 	target_position = position;
 	initial_position = position;
-
-
 }
 
 
@@ -264,7 +279,7 @@ void e1Player::ReadPlayerInput()
 			break;
 		}
 	}
-	if (state == State::BEFORE_ATTACK) {
+	if (state == State::BEFORE_ATTACK && App->map->quest_rooms->actual_room->room_type != RoomType::FOUNTAIN) {
 		ReadAttack();
 	}
 	if (state == State::BEFORE_FLASH) {
@@ -849,8 +864,12 @@ const bool e1Player::MultipleButtons(const Input * input)
 
 void e1Player::GetHitted(const int & damage_taken)
 {
+
 	App->input->ControllerVibration(0.1F, 100);
-	ReduceLives(damage_taken);
+
+	if(!god_mode)
+		ReduceLives(damage_taken);
+
 	if (stats.live <= 0) {
 		state = State::DEATH;
 		ChangeAnimation(direction, state);
@@ -1003,6 +1022,7 @@ void e1Player::LookFlash()
 		drawable = false;
 		flash_position = next_pos;
 		flash_time = SDL_GetTicks();
+		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{0,-10}, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
 	}
 	else
 		state = State::IDLE;
@@ -1012,7 +1032,7 @@ void e1Player::LookFlash()
 void e1Player::Flashing()
 {
 
-	if (flash_time < SDL_GetTicks() - 1000) {
+	if (flash_time < SDL_GetTicks() - 500) {
 		actual_tile = flash_position;
 		state = State::AFTER_FLASH;
 		drawable = true;
@@ -1026,6 +1046,8 @@ void e1Player::Flashing()
 			position.x += 8;
 			position.y -= 22;
 		}
+
+		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
 		target_position = position;
 		initial_position = position;
 		flash_time = SDL_GetTicks();
@@ -1115,4 +1137,20 @@ void e1Player::CreateSkills()
 	has_skills = true;
 }
 
-
+void e1Player::UpdateExperience(int experience) {
+	if (stats.xp < stats.max_xp) {
+		stats.xp += experience;
+		LOG("HOLA");
+	}
+	if(stats.xp >= stats.max_xp) {
+		stats.level += 1;
+		stats.xp = 0;
+		UpdateLevel();
+	}
+		
+}
+void e1Player::UpdateLevel()
+{
+	stats.max_xp *= stats.level;
+	App->particles->CreateExplosion(this, nullptr, { 0,0 }, { 8,0,2,2 }, RANDOM);
+}

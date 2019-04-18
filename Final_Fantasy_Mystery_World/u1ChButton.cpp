@@ -16,6 +16,8 @@ u1ChButton::u1ChButton(const int &x, const int &y, const SDL_Rect &idle, const S
 	hovered_rect = hover;
 	clicked_rect = push;
 	player_type = type;
+
+
 }
 
 u1ChButton::~u1ChButton() {}

@@ -7,6 +7,7 @@
 #include "m1Input.h"
 #include "p2Log.h"
 #include "m1GUI.h"
+#include "u1InputText.h"
 #include "m1Map.h"
 #include "u1Button.h"
 #include "m1FadeToBlack.h"
@@ -52,6 +53,9 @@ bool m1MainMenu::Update(float dt)
 		App->scene->control_to_change = nullptr;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
+		App->gui->AddInputText(100, 100, "Write Your Name", App->gui->screen, BLACK, FontType::FF64, nullptr,true);
+	}
 	return true;
 }
 
@@ -191,38 +195,41 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_basic_attack, &App->input->controller_Buttons.buttons_code.BASIC_ATTACK, &App->input->controller_Buttons.buttons_char.BASIC_ATTACK, true);
 		}
 		break;
+	case MainMenuStates::CHOOSE_NAME_MENU:
+		if (interaction == button_okay) {
+			if (!input_text->GetText().empty()) {
+				DestroyNameMenu();
+				active = false;
+				App->entity_manager->Enable();
+				App->map->Enable();
+				App->scene->Enable();
+				App->map->ChangeMap(Maps::LOBBY);
+				App->scene->SetMenuState(StatesMenu::NO_MENU);
+				ret = false;
+			}
+		}
+		break;
 	case MainMenuStates::SELECTION_MENU:
 		if (interaction == button_warrior) {
+
 			App->scene->player_type = PlayerType::WARRIOR;
+			CreateNameMenu();
 			DestroySelectChamp();
-			active = false; 
-			App->entity_manager->Enable();
-			App->map->Enable();
-			App->scene->Enable();
-			App->map->ChangeMap(Maps::LOBBY);
-			App->scene->SetMenuState(StatesMenu::NO_MENU);
+			main_states = MainMenuStates::CHOOSE_NAME_MENU;
 			ret = false;
 		}
 		if (interaction == button_archer) {
 			App->scene->player_type = PlayerType::ARCHER;
+			CreateNameMenu();
 			DestroySelectChamp();
-			active = false; 
-			App->entity_manager->Enable();
-			App->map->Enable();
-			App->scene->Enable();
-			App->map->ChangeMap(Maps::LOBBY);
-			App->scene->SetMenuState(StatesMenu::NO_MENU);
+			main_states = MainMenuStates::CHOOSE_NAME_MENU;
 			ret = false;
 		}
 		if (interaction == button_mage) {
 			App->scene->player_type = PlayerType::MAGE;
+			CreateNameMenu();
 			DestroySelectChamp();
-			active = false; 
-			App->entity_manager->Enable();
-			App->map->Enable();
-			App->scene->Enable();
-			App->map->ChangeMap(Maps::LOBBY);
-			App->scene->SetMenuState(StatesMenu::NO_MENU);
+			main_states = MainMenuStates::CHOOSE_NAME_MENU;
 			ret = false;
 		}
 		break;
@@ -457,11 +464,11 @@ void m1MainMenu::CreateSelectChamp()
 	archer_info = App->gui->AddImage(370, 600, { 99, 4273, 537, 97 }, App->main_menu, select_champ_panel, false, false, false, false);
 	mage_info = App->gui->AddImage(370, 600, { 98, 4414, 518, 97 }, App->main_menu, select_champ_panel, false, false, false, false);
 
-	button_warrior = App->gui->AddChButton(100, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, select_champ_panel, PlayerType::WARRIOR, true, false, true, true);
+	button_warrior = App->gui->AddChButton(100, 250, { 1850,1637,198,50 }, { 1569,1688,198,50 }, { 1569,1756,198,50 }, this, select_champ_panel, PlayerType::WARRIOR, true, false, true, true);
 	label_warrior = App->gui->AddLabel(65, -13, "Warrior", button_warrior, BLACK, FontType::FF64, nullptr,false);
-	button_archer = App->gui->AddChButton(100, 350, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, select_champ_panel, PlayerType::ARCHER, true, false, true, true);
+	button_archer = App->gui->AddChButton(100, 350, { 1850,1637,198,50 }, { 1569,1688,198,50 }, { 1569,1756,198,50 }, this, select_champ_panel, PlayerType::ARCHER, true, false, true, true);
 	label_archer = App->gui->AddLabel(68, -13, "Archer", button_archer, BLACK, FontType::FF64, nullptr, false);
-	button_mage = App->gui->AddChButton(100, 450, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, select_champ_panel, PlayerType::MAGE, true, false, true, true);
+	button_mage = App->gui->AddChButton(100, 450, { 1850,1637,198,50 }, { 1569,1688,198,50 }, { 1569,1756,198,50 }, this, select_champ_panel, PlayerType::MAGE, true, false, true, true);
 	label_mage = App->gui->AddLabel(75, -13, "Mage", button_mage, BLACK, FontType::FF64, nullptr, false);
 
 	App->audio->PlayMusic("assets/audio/music/34.Final Fantasy TA - Confusion.ogg", 0.5);
@@ -469,6 +476,7 @@ void m1MainMenu::CreateSelectChamp()
 
 
 	App->gui->FocusButton((u1Button*)button_warrior);
+
 
 }
 
@@ -762,5 +770,21 @@ void m1MainMenu::DestroyControls()
 
 	App->scene->labels_control.clear();
 	App->scene->Clabels_control.clear();
+}
+
+void m1MainMenu::CreateNameMenu()
+{
+	input_text_image = App->gui->AddImage(0, 0, { 1024, 3256, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+
+	input_text = App->gui->AddInputText(0, 0, "ChooseYourCharacterName", input_text_image, BLACK, FontType::FF64, this, true, true, { 255,0,0 });
+	input_text->SetPosRespectParent(CENTERED);
+
+	button_okay = App->gui->AddButton(0, 0, { 1570, 1631, 211, 30 }, { 1570, 1631, 211, 30 }, { 1570, 1631, 211, 30 }, this, input_text, true, false, true, true);
+	button_okay->SetPosRespectParent(RIGHT_CENTERED, -300);
+}
+
+void m1MainMenu::DestroyNameMenu()
+{
+	App->gui->DeleteUIElement(input_text_image);
 }
 

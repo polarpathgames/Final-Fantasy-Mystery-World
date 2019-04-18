@@ -23,8 +23,7 @@ m1Map::m1Map() : m1Module(), map_loaded(false)
 }
 
 // Destructor
-m1Map::~m1Map()
-{}
+m1Map::~m1Map() {}
 
 bool m1Map::Start()
 {
@@ -40,11 +39,10 @@ bool m1Map::Awake(pugi::xml_node& config)
 	node = config;
 	folder.assign(config.child("folder").child_value());
 
-	tutorial_map = config.child("maps").child("tutorial_map").text().as_string();
-	shop_map = config.child("maps").child("shop_map").text().as_string();
-	lobby_map = config.child("maps").child("lobby_map").text().as_string();
-	home_map = config.child("maps").child("home_map").text().as_string();
-	
+	tutorial_map.assign(config.child("maps").child("tutorial_map").text().as_string());
+	shop_map.assign(config.child("maps").child("shop_map").text().as_string());
+	lobby_map.assign(config.child("maps").child("lobby_map").text().as_string());
+	home_map.assign(config.child("maps").child("home_map").text().as_string());
 	
 	return ret;
 }
@@ -236,8 +234,10 @@ bool m1Map::CleanUp()
 	App->collision->CleanUp();
 	// Clean up the pugui tree
 	map_file.reset();
+	
 	App->tex->UnLoad(quad);
 	quad = nullptr;
+
 	return true;
 }
 

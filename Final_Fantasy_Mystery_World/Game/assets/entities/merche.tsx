@@ -219,6 +219,16 @@
    <frame tileid="62" duration="270"/>
   </animation>
  </tile>
+ <tile id="61">
+  <properties>
+   <property name="speed" type="int" value="3"/>
+  </properties>
+  <animation>
+   <frame tileid="60" duration="170"/>
+   <frame tileid="61" duration="170"/>
+   <frame tileid="62" duration="170"/>
+  </animation>
+ </tile>
  <tile id="63">
   <properties>
    <property name="speed" type="int" value="3"/>
@@ -227,6 +237,26 @@
    <frame tileid="63" duration="270"/>
    <frame tileid="64" duration="270"/>
    <frame tileid="65" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="64">
+  <properties>
+   <property name="speed" type="int" value="3"/>
+  </properties>
+  <animation>
+   <frame tileid="63" duration="170"/>
+   <frame tileid="64" duration="170"/>
+   <frame tileid="65" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="65">
+  <properties>
+   <property name="speed" type="int" value="3"/>
+  </properties>
+  <animation>
+   <frame tileid="63" duration="170"/>
+   <frame tileid="64" duration="170"/>
+   <frame tileid="65" duration="170"/>
   </animation>
  </tile>
  <tile id="66">
@@ -247,6 +277,16 @@
    <frame tileid="69" duration="270"/>
    <frame tileid="70" duration="270"/>
    <frame tileid="71" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="70">
+  <properties>
+   <property name="speed" type="int" value="3"/>
+  </properties>
+  <animation>
+   <frame tileid="69" duration="170"/>
+   <frame tileid="70" duration="170"/>
+   <frame tileid="71" duration="170"/>
   </animation>
  </tile>
  <tile id="72">
