@@ -84,10 +84,13 @@ bool m1ParticleManager::Update(float dt)
 	std::list<p1Explosion*>::iterator item_3 = Group_Explosion.begin();
 	while (item_3 != Group_Explosion.end())
 	{
-		if (item_3._Ptr->_Myval->godelete)
+		if ((*item_3)->godelete)
 		{
-			item_3._Ptr->_Myval->particle.clear();
-			Group_Explosion.erase(item_3);
+			for (std::vector<p1Particle*>::iterator particle = (*item_3)->particle.begin(); particle != (*item_3)->particle.end(); particle++) {
+				RELEASE(*particle);
+			}
+			(*item_3)->particle.clear();
+			RELEASE(*item_3);
 		}
 		else
 		{
@@ -95,6 +98,7 @@ bool m1ParticleManager::Update(float dt)
 		}
 		item_3++;
 	}
+	Group_Explosion.remove(nullptr);
 
 	//Group FIREWORK -------------------------------------------------
 	std::list<p1Firework*>::iterator item_4 = Group_Firework.begin();

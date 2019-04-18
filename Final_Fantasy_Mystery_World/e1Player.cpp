@@ -1003,6 +1003,7 @@ void e1Player::LookFlash()
 		drawable = false;
 		flash_position = next_pos;
 		flash_time = SDL_GetTicks();
+		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{0,-10}, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
 	}
 	else
 		state = State::IDLE;
@@ -1012,7 +1013,7 @@ void e1Player::LookFlash()
 void e1Player::Flashing()
 {
 
-	if (flash_time < SDL_GetTicks() - 1000) {
+	if (flash_time < SDL_GetTicks() - 500) {
 		actual_tile = flash_position;
 		state = State::AFTER_FLASH;
 		drawable = true;
@@ -1026,6 +1027,8 @@ void e1Player::Flashing()
 			position.x += 8;
 			position.y -= 22;
 		}
+
+		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
 		target_position = position;
 		initial_position = position;
 		flash_time = SDL_GetTicks();
