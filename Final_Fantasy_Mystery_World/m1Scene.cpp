@@ -28,6 +28,7 @@
 #include "Brofiler/Brofiler.h"
 #include "m1Input.h"
 #include "m1Textures.h"
+#include "e1Drop.h"
 
 m1Scene::m1Scene() : m1Module()
 {
@@ -162,6 +163,12 @@ bool m1Scene::Update(float dt)
 			App->ChangeInventory();
 			DestroyInventory();
 			player->BlockControls(false);
+			menu_state = StatesMenu::NO_MENU;
+		}
+		break;
+	case StatesMenu::FIRSTABILITY_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+			DestroyFirstAbilityPanel();
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
@@ -314,6 +321,9 @@ void m1Scene::CreateEntities()
 		else if ((*position)->ent_type == "static") {
 			if ((*position)->name == "rock") {
 				App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
+			else if ((*position)->name == "ability1") {
+				App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 			}
 			else
 				App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
@@ -1292,11 +1302,10 @@ void m1Scene::CreateFirstAbilityPanel()
 	ability1_screen_button = App->gui->AddButton(73, 72, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, inventory_panel, true, false, true, true);
 	ability1_screen_button->AddListener(this);
 	ability1_screen_label = App->gui->AddLabel(0, 0, "Continue", first_ability_panel, WHITE, FontType::FF100, nullptr, false);
-	menu_state = StatesMenu::FIRSTABILITY_MENU;
+
 }
 
 void m1Scene::DestroyFirstAbilityPanel()
 {
 	App->gui->DeleteUIElement(first_ability_panel);
-	menu_state = StatesMenu::NO_MENU;
 }
