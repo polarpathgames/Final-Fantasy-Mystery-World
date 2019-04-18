@@ -8,6 +8,7 @@
 #include "e1Archer.h"
 #include "m1Scene.h"
 #include "e1Enemy.h"
+#include "m1ParticleManager.h"
 #include "e1Player.h"
 
 
@@ -19,6 +20,12 @@ e1Particles::e1Particles(const int & x, const int & y) : e1DynamicEntity(x, y)
 
 e1Particles::~e1Particles()
 {
+	for (std::list<p1Follow*>::iterator item = particle_follow.begin(); item != particle_follow.end(); ++item) {
+		App->particles->DeleteFollow_p(*item);
+	}
+	for (std::list<p1Fire*>::iterator item = particle_fire.begin(); item != particle_fire.end(); ++item) {
+		App->particles->DeleteFire_p(*item);
+	}
 }
 
 bool e1Particles::PreUpdate()
@@ -72,21 +79,25 @@ void e1Particles::SetArrow()
 	arrow_tile = actual_tile;
 	velocity.x = 160;
 	velocity.y = 80;
+	size.create(20, 20);
+
+	iPoint particle_offset = { 0,0 };
+
 	switch (direction) {
 	case Direction::DOWN_LEFT: // need fix
 		position.y -= 10;
 		GoDownLeft.PushBack({ 17,25,23,15 });
-		SetPivot(10, 10);
-		size.create(20, 20);
+		SetPivot(6, 12);
 		current_animation = &GoDownLeft;
 		max_arrow_distance.create(arrow_tile.x, arrow_tile.y + MAX_ARROW);
+		particle_offset.create(10, -10);
 		break;
 	case Direction::UP_RIGHT: // need fix
 		position.x += 9;
 		position.y -= 16;
 		GoUpRight.PushBack({ 41,9,23,15 });
-		SetPivot(10, 10);
-		size.create(20, 20);
+		SetPivot(17, 4);
+		particle_offset.create(-10, 10);
 		current_animation = &GoUpRight;
 		max_arrow_distance.create(arrow_tile.x, arrow_tile.y - MAX_ARROW);
 		break;
@@ -94,18 +105,18 @@ void e1Particles::SetArrow()
 		//position.x += 13;
 		position.y -= 16;
 		GoUpLeft.PushBack({ 17,9,23,15 });
-		SetPivot(10, 10);
-		size.create(20, 20);
+		SetPivot(5, 4);
 		current_animation = &GoUpLeft;
+		particle_offset.create(10, 10);
 		max_arrow_distance.create(arrow_tile.x - MAX_ARROW, arrow_tile.y);
 		break;
 	case Direction::DOWN_RIGHT: // need fix
 		position.x += 11;
 		position.y -= 11;
 		GoDownRight.PushBack({ 41,25,23,15 });
-		SetPivot(10, 10);
-		size.create(20, 20);
+		SetPivot(18, 13);
 		current_animation = &GoDownRight;
+		particle_offset.create(-10, -10);
 		max_arrow_distance.create(arrow_tile.x + MAX_ARROW, arrow_tile.y);
 		break;
 	case Direction::DOWN:
@@ -113,8 +124,8 @@ void e1Particles::SetArrow()
 		position.y -= 5;
 		GoDown.PushBack({ 8,8,8,27 });
 		SetPivot(4, 21);
-		size.create(20, 20);
 		current_animation = &GoDown;
+		particle_offset.create(0, -5);
 		max_arrow_distance.create(arrow_tile.x + MAX_ARROW, arrow_tile.y + MAX_ARROW);
 		break;
 	case Direction::UP:
@@ -122,8 +133,8 @@ void e1Particles::SetArrow()
 		position.y -= 15;
 		GoUp.PushBack({ 0,8,8,27 });
 		SetPivot(4, 7);
-		size.create(20, 20);
 		current_animation = &GoUp;
+		particle_offset.create(0, 5);
 		max_arrow_distance.create(arrow_tile.x - MAX_ARROW, arrow_tile.y - MAX_ARROW);
 		break;
 	case Direction::LEFT:
@@ -131,8 +142,8 @@ void e1Particles::SetArrow()
 		position.y -= 7;
 		GoLeft.PushBack({ 28,0,28,7 });
 		SetPivot(7, 4);
-		size.create(20, 20);
 		current_animation = &GoLeft;
+		particle_offset.create(5, 0);
 		max_arrow_distance.create(arrow_tile.x - MAX_ARROW, arrow_tile.y + MAX_ARROW);
 		break;
 	case Direction::RIGHT:
@@ -140,11 +151,14 @@ void e1Particles::SetArrow()
 		position.y -= 7;
 		GoRight.PushBack({ 0,0,28,7 });
 		SetPivot(21, 4);
-		size.create(20, 20);
 		current_animation = &GoRight;
+		particle_offset.create(-5, 0);
 		max_arrow_distance.create(arrow_tile.x + MAX_ARROW, arrow_tile.y - MAX_ARROW);
 		break;
 	}
+
+	particle_follow.push_back(App->particles->CreateFollow(this, nullptr, { 8,0,2,2 }, { 12,2 }, { 20,10 }, 5, 60, true, false, particle_offset));
+	particle_follow.push_back(App->particles->CreateFollow(this, nullptr, { 8,0,2,2 }, { 12,2 }, { 20,10 }, 5, 60, true, false));
 }
 
 void e1Particles::MoveArrow(float dt)
@@ -304,7 +318,7 @@ void e1Particles::SetFireBall()
 	GoDown.PushBack({ 137,0,22,28 });
 	GoDown.speed = 3.0f;
 	current_animation = &GoDown;
-
+	particle_fire.push_back(App->particles->CreateFire(this, nullptr, { 0,0 }, { 0,2,2,0 }, { 20,10 }, { 20,4 }, { 60,-60 }, P_RANDOM, 65, 4, true, W_NON, { 11, 20 }));
 	SetPivot(11, 2800);
 	size.create(20, 20);
 }
