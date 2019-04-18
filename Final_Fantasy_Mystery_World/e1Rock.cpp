@@ -15,6 +15,7 @@ e1Rock::e1Rock(const int &x, const int &y, const char* name) : e1StaticEntity(x,
 		actual_tile += {1, 1};
 		position.y -= 5;
 		position.x -= 2;
+		static_type = e1StaticEntity::Type::BREAKABLE_ROCK;
 	}
 }
 e1Rock::~e1Rock()

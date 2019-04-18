@@ -4,6 +4,7 @@
 #include "m1EntityManager.h"
 #include "e1DynamicEntity.h"
 #include "m1Render.h"
+#include "e1Rock.h"
 #include "e1Player.h"
 #include "e1Archer.h"
 #include "m1Scene.h"
@@ -302,6 +303,17 @@ void e1Particles::LookForEnemyCollision()
 			if (origin == destination)
 				enemy->GetHitted(App->scene->player->stats.attack_power_ability_1);
 		}
+		else if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::STATIC) {
+			e1StaticEntity* ent = (e1StaticEntity*)(*item);
+			if (ent->static_type == e1StaticEntity::Type::BREAKABLE_ROCK) {
+				iPoint origin = arrow_tile;
+				iPoint destination = (*item)->actual_tile;
+				if (origin == destination) {
+					e1Rock* rock = (e1Rock*)(*item);
+					rock->GetHitted();
+				}
+			}
+		}
 	}
 }
 
@@ -349,6 +361,17 @@ void e1Particles::FireBallExplosionCollision()
 			e1Enemy* enemy = (e1Enemy*)(*item);
 			if (origin == destination)
 				enemy->GetHitted(App->scene->player->stats.attack_power_ability_1);
+		}
+		else if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::STATIC) {
+			e1StaticEntity* ent = (e1StaticEntity*)(*item);
+			if (ent->static_type == e1StaticEntity::Type::BREAKABLE_ROCK) {
+				iPoint origin = fireball_tile_objective;
+				iPoint destination = (*item)->actual_tile;
+				if (origin == destination) {
+					e1Rock* rock = (e1Rock*)(*item);
+					rock->GetHitted();
+				}
+			}
 		}
 	}
 
