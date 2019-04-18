@@ -60,6 +60,7 @@ public:
 	EnemyStats stats;
 	float time_to_wait_before_attack = 0.0f;
 	EnemyType enemy_type = EnemyType::NONE;
+	iPoint original_position{ 0,0 };
 };
 
 

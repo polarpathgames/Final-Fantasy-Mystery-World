@@ -4,6 +4,8 @@
 #include "p2Point.h"
 #include "PugiXml/src/pugixml.hpp"
 #include <vector>
+#include "e1Enemy.h"
+#include <map>
 
 struct Collider;
 
@@ -63,12 +65,14 @@ public:
 	void PlayMusic();
 	void PlayCutScene();
 
+	void AddEntityToNotRepeat(iPoint pos);
+
 public:
 	Room* actual_room = nullptr;
 	Room* last_room = nullptr;
 	std::vector<Room*> rooms;
 	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
-	
+	std::map<iPoint,int> entities_info;
 
 
 };

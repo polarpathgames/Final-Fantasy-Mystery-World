@@ -65,6 +65,7 @@ RoomManager::RoomManager(pugi::xml_node &node)
 
 RoomManager::~RoomManager()
 {
+	entities_info.clear();
 }
 
 void RoomManager::OnCollision(Collider * c1, Collider * c2)
@@ -189,7 +190,50 @@ void RoomManager::LoadRoom(const int & id)
 	if (App->map->CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
 
-	App->scene->CreateEntities();
+	//App->scene->CreateEntities();
+
+
+
+
+	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
+		if ((*position)->ent_type == "static") {
+			if ((*position)->name == "rock") {
+				App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
+			else if ((*position)->name == "ability1") {
+				App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
+			else
+				App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+		}
+		else if ((*position)->name == "enemy") {
+			if ((*position)->ent_type == "CarnivorousPlant") {
+				bool create = true;
+				std::map<iPoint, int>::iterator item = entities_info.begin();
+				for (; item != entities_info.end(); ++item) {
+					if ((*item).first == iPoint{ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y } && (*item).second == actual_room->id) {
+						create = false;
+						break;
+					}
+				}
+				if (create) {
+					App->entity_manager->CreateEntity(e1Entity::EntityType::CARNIVOROUS_PLANT, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+				}
+			}
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
 	PlacePlayer();
 	LoadColliders();
 	PlayMusic();
@@ -321,6 +365,11 @@ void RoomManager::PlayCutScene()
 		}
 	}
 		
+}
+
+void RoomManager::AddEntityToNotRepeat(iPoint pos)
+{
+	entities_info.insert(std::pair <iPoint, int>(pos, actual_room->id));
 }
 
 ChangeScene::ChangeScene(const int & x, const int & y, LocationChangeScene type, const uint & id)

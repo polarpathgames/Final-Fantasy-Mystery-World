@@ -11268,7 +11268,7 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="31" name="enemy" type="CarnivorousPlant" x="368" y="352" width="15.9688" height="16.0156">
+  <object id="31" name="enemy" type="CarnivorousPlant" x="384" y="320" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
