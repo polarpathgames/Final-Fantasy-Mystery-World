@@ -382,7 +382,7 @@ void RoomManager::PlayCutScene()
 	if (!actual_room->cutscene_location.empty()) {
 		App->scene->player->BlockControls(true);
 		if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneTutorial.xml") == 0 && !CutSceneTutorialGirlEscapingPlayed) {
-			//App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
+			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
 			CutSceneTutorialGirlEscapingPlayed = true;
 		}
 		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneFinalRoom.xml") == 0 && !CutSceneFinalRoomTutorialPlayed) {
