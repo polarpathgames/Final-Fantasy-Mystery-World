@@ -15,6 +15,7 @@ enum class StatesMenu {
 	GO_TO_QUEST_MENU,
 	SHOP_MENU,
 	DIE_MENU,
+	FIRSTABILITY_MENU,
 
 	NONE
 };
@@ -99,6 +100,9 @@ public:
 
 	void CreateGameOver();
 	void DestroyGameOver();
+	
+	void CreateFirstAbilityPanel();
+	void DestroyFirstAbilityPanel();
 
 	bool Interact(u1GUI* interaction);
 	StatesMenu GetMenuState();
@@ -358,9 +362,11 @@ private:
 	u1Label* mouse_label = nullptr;
 	u1Label* entities_label = nullptr;
 
+	// First Ability panel
+	u1Image* first_ability_panel = nullptr;
+
 
 	// game over
-
 	u1Image* game_over_panel = nullptr;
 
 	u1Button* button_continue_lobby = nullptr;

@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2018 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -25,8 +25,8 @@
  *  Include file for SDL mouse event handling.
  */
 
-#ifndef _SDL_mouse_h
-#define _SDL_mouse_h
+#ifndef SDL_mouse_h_
+#define SDL_mouse_h_
 
 #include "SDL_stdinc.h"
 #include "SDL_error.h"
@@ -38,10 +38,10 @@
 extern "C" {
 #endif
 
-typedef struct SDL_Cursor SDL_Cursor;   /* Implementation dependent */
+typedef struct SDL_Cursor SDL_Cursor;   /**< Implementation dependent */
 
 /**
- * \brief Cursor types for SDL_CreateSystemCursor.
+ * \brief Cursor types for SDL_CreateSystemCursor().
  */
 typedef enum
 {
@@ -166,7 +166,7 @@ extern DECLSPEC int SDLCALL SDL_SetRelativeMouseMode(SDL_bool enabled);
  *
  *  \param enabled Whether or not to enable capturing
  *
- *  Capturing enables your App to obtain mouse events globally, instead of
+ *  Capturing enables your app to obtain mouse events globally, instead of
  *  just within your window. Not all video targets support this function.
  *  When capturing is enabled, the current window will get all mouse events,
  *  but unlike relative mode, no change is made to the cursor and it is
@@ -177,7 +177,7 @@ extern DECLSPEC int SDLCALL SDL_SetRelativeMouseMode(SDL_bool enabled);
  *  function sparingly, and in small bursts. For example, you might want to
  *  track the mouse while the user is dragging something, until the user
  *  releases a mouse button. It is not recommended that you capture the mouse
- *  for long periods of time, such as the entire time your App is running.
+ *  for long periods of time, such as the entire time your app is running.
  *
  *  While captured, mouse events still report coordinates relative to the
  *  current (foreground) window, but those coordinates may be outside the
@@ -254,9 +254,11 @@ extern DECLSPEC SDL_Cursor *SDLCALL SDL_GetCursor(void);
 extern DECLSPEC SDL_Cursor *SDLCALL SDL_GetDefaultCursor(void);
 
 /**
- *  \brief Frees a cursor created with SDL_CreateCursor().
+ *  \brief Frees a cursor created with SDL_CreateCursor() or similar functions.
  *
  *  \sa SDL_CreateCursor()
+ *  \sa SDL_CreateColorCursor()
+ *  \sa SDL_CreateSystemCursor()
  */
 extern DECLSPEC void SDLCALL SDL_FreeCursor(SDL_Cursor * cursor);
 
@@ -295,6 +297,6 @@ extern DECLSPEC int SDLCALL SDL_ShowCursor(int toggle);
 #endif
 #include "close_code.h"
 
-#endif /* _SDL_mouse_h */
+#endif /* SDL_mouse_h_ */
 
 /* vi: set ts=4 sw=4 expandtab: */

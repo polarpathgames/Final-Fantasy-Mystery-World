@@ -352,7 +352,7 @@ bool m1Render::CameraTremble()
 	static int index_tremble = 0;
 	static int tremble = 7;
 
-	App->input->ControllerVibration(0.5F, 1000);
+	App->input->ControllerVibration(0.3F, 500);
 
 	if (index_tremble == 0)
 		camera.x += tremble;

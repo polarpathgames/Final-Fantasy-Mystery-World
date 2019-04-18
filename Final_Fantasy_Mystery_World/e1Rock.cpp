@@ -24,6 +24,7 @@ e1Rock::~e1Rock()
 
 void e1Rock::GetHitted()
 {
+	App->render->CameraTremble();
 	has_animation = true;
 	idle = DBG_NEW Animation();
 	current_animation = idle;

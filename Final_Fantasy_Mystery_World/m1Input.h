@@ -5,7 +5,7 @@
 #include "SDL\include\SDL_scancode.h"
 #include "SDL\include\SDL.h"
 #include "SDL\include\SDL_gamecontroller.h"
-#include "SDL/include/SDL_haptic.h"
+#include "SDL\include\SDL_haptic.h"
 
 //#define NUM_KEYS 352
 #define NUM_CONTROLLER_BUTTONS SDL_CONTROLLER_BUTTON_MAX //16

@@ -192,7 +192,10 @@ void m1Input::UpdateEvents(SDL_Event &event)
 			{
 				LOG("GamePad controller could not initialize! SDL_Error: %s\n", SDL_GetError());
 			}
-
+			if (SDL_HapticRumblePlay(haptic, 0.3f, 1000) < 0)
+			{
+				LOG("rumble play error");
+			}
 			Controller = SDL_GameControllerOpen(0);
 
 			break;
@@ -254,10 +257,10 @@ void m1Input::UpdateEvents(SDL_Event &event)
 									LOG("Warning: Unable to initialize rumble! SDL Error: %s\n", SDL_GetError());
 								}
 
-								if (SDL_HapticRumblePlay(haptic, 0.3f, 1000) < 0)
+								/*if (SDL_HapticRumblePlay(haptic, 0.3f, 1000) < 0)
 								{
 									LOG("rumble play error");
-								}
+								}*/
 							}
 						}
 						else
@@ -441,6 +444,8 @@ bool m1Input::CheckAxisStates(const Axis &axis) {
 
 bool m1Input::ControllerVibration(float strength, uint32 duration)
 {
+	//strength 0.0F(min) - 1.0F(max)
+	//duration in milliseconds
 	SDL_HapticRumblePlay(haptic, strength, duration);
 	return false;
 }

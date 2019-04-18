@@ -123,6 +123,7 @@ void e1Warrior::CheckSpecialAttack1Efects(const int & damage)
 				}
 
 				if (has_succeeded) {
+					App->input->ControllerVibration(0.2F, 200);
 					e1Enemy* enemy_attacked = (e1Enemy*)(*item);
 					enemy_attacked->GetHitted(damage);
 				}

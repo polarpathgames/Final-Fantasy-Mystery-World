@@ -13,10 +13,20 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 	if (strcmp(name, "gold") == 0) {
 		actual_tile = { x,y };
 		drop_type = DropsType::GOLD_DROP;
-		this->gold = gold;
 		frame = { 1030,4,28,12 };
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
+		position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+	}
+
+	else if (strcmp(name, "ability1") == 0) {
+		actual_tile = { x,y };
+		drop_type = DropsType::ABILITY1;
+		frame = { 1044,21,11,16 };
+		SetPivot(frame.w*0.35F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		//actual_tile = { App->map->WorldToMap(actual_tile.x, actual_tile.y) };
+
 		position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
 	}
 }
@@ -30,11 +40,23 @@ bool e1Drop::Update(float adt)
 	if (actual_tile == App->scene->player->actual_tile) {
 		switch (drop_type) {
 		case DropsType::GOLD_DROP:
+		{
 			App->audio->PlayFx(App->scene->fx_drop_pick_up);
 			App->scene->player->AugmentGold(gold);
 			to_delete = true;
 			break;
 		}
+		case DropsType::ABILITY1:
+		{
+			App->audio->PlayFx(App->scene->fx_drop_pick_up);
+			App->scene->CreateFirstAbilityPanel();
+			to_delete = true;
+			break;
+		}
+		}
+
+			
+	
 	}
 
 	return true;
