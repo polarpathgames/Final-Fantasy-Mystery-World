@@ -52,6 +52,9 @@ bool m1MainMenu::Update(float dt)
 		App->scene->control_to_change = nullptr;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
+		App->gui->AddInputText(100, 100, "HOLA", App->gui->screen, BLACK, FontType::FF64, nullptr, true);
+	}
 	return true;
 }
 

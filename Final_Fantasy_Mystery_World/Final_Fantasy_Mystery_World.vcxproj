@@ -14,7 +14,7 @@
     <ProjectGuid>{CA36A83C-2BCF-4BEB-9B41-CD0B834374B8}</ProjectGuid>
     <RootNamespace>programacio_2</RootNamespace>
     <ProjectName>Final Fantasy Mystery World</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -116,6 +116,7 @@
     <ClCompile Include="u1Bar.cpp" />
     <ClCompile Include="u1ChButton.cpp" />
     <ClCompile Include="u1CheckBox.cpp" />
+    <ClCompile Include="u1InputText.cpp" />
     <ClCompile Include="u1Slider.cpp" />
     <ClCompile Include="m1Collisions.cpp" />
     <ClCompile Include="m1DialogSystem.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="m1EasingSplines.h" />
     <ClInclude Include="e1Enemy.h" />
     <ClInclude Include="e1Entity.h" />
+    <ClInclude Include="u1InputText.h" />
     <ClInclude Include="u1Slider.h" />
     <ClInclude Include="m1Collisions.h" />
     <ClInclude Include="m1DialogSystem.h" />

@@ -172,7 +172,7 @@ public:
 	SDL_Haptic *haptic;
 	SDL_GameController *Pad;
 	SDL_HapticEffect effect;
-
+	std::string text_input;
 private:
 	bool		windowEvents[WE_COUNT];
 	j1KeyState*	keyboard;

@@ -7,6 +7,7 @@
 #include "m1Audio.h"
 #include "p2ChangeControls.h"
 #include "m1Render.h"
+#include "u1InputText.h"
 #include "m1FadeToBlack.h"
 #include "m1Window.h"
 #include "m1Map.h"
@@ -99,7 +100,6 @@ bool m1Scene::Update(float dt)
 		App->render->CameraTremble();
 	
 	}
-
 
 
 	if(App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
