@@ -238,12 +238,12 @@ void m1Input::UpdateEvents(SDL_Event &event)
 			//Open the first available controller
 			for (int i = 0; i < SDL_NumJoysticks(); ++i) {
 				if (SDL_IsGameController(i)) {
-					Pad = SDL_GameControllerOpen(i);
-					if (Pad) {
+					Controller = SDL_GameControllerOpen(i);
+					if (Controller) {
 
-						if (SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(Pad)) > 0)
+						if (SDL_JoystickIsHaptic(Controller) > 0)
 						{
-							haptic = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(Pad));
+							haptic = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(Controller));
 
 							if (haptic != nullptr)
 							{
@@ -263,6 +263,7 @@ void m1Input::UpdateEvents(SDL_Event &event)
 						else
 						{
 							LOG("haptic error! SDL_Error: %s\n", SDL_GetError());
+							LOG("haptic error! SDL_Error: %i\n", SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(Controller)));
 						}
 					}
 					else {
@@ -275,12 +276,12 @@ void m1Input::UpdateEvents(SDL_Event &event)
 
 		case SDL_CONTROLLERDEVICEREMOVED:
 			LOG("disconnected gamepad");
-			if (Pad != nullptr)
+			if (Controller != nullptr)
 			{
 				SDL_HapticClose(haptic);
 				haptic = nullptr;
-				SDL_GameControllerClose(Pad);
-				Pad = nullptr;
+				SDL_GameControllerClose(Controller);
+				Controller = nullptr;
 				break;
 			}
 		}
