@@ -96,6 +96,7 @@
     <ClCompile Include="e1Mage.cpp" />
     <ClCompile Include="e1NPC.cpp" />
     <ClCompile Include="e1Particles.cpp" />
+    <ClCompile Include="e1Rock.cpp" />
     <ClCompile Include="e1ShopKeeperDaughter.cpp" />
     <ClCompile Include="e1StrangeFrog.cpp" />
     <ClCompile Include="e1Warrior.cpp" />
@@ -113,6 +114,7 @@
     <ClCompile Include="e1Entity.cpp" />
     <ClCompile Include="p2Rooms.cpp" />
     <ClCompile Include="u1Bar.cpp" />
+    <ClCompile Include="u1ChButton.cpp" />
     <ClCompile Include="u1CheckBox.cpp" />
     <ClCompile Include="u1Slider.cpp" />
     <ClCompile Include="m1Collisions.cpp" />
@@ -162,6 +164,7 @@
     <ClInclude Include="e1Mage.h" />
     <ClInclude Include="e1NPC.h" />
     <ClInclude Include="e1Particles.h" />
+    <ClInclude Include="e1Rock.h" />
     <ClInclude Include="e1ShopKeeperDaughter.h" />
     <ClInclude Include="e1StrangeFrog.h" />
     <ClInclude Include="e1Warrior.h" />
@@ -178,6 +181,7 @@
     <ClInclude Include="p2Rooms.h" />
     <ClInclude Include="u1Bar.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="u1ChButton.h" />
     <ClInclude Include="u1CheckBox.h" />
     <ClInclude Include="e1DynamicEntity.h" />
     <ClInclude Include="m1EasingSplines.h" />

@@ -314,7 +314,11 @@ void m1Scene::CreateEntities()
 			}
 		}
 		else if ((*position)->ent_type == "static") {
-			App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			if ((*position)->name == "rock") {
+				App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
+			else
+				App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 		}
 		else if ((*position)->name == "enemy") {
 			if ((*position)->ent_type == "CarnivorousPlant") {
@@ -1095,11 +1099,11 @@ bool m1Scene::Interact(u1GUI* interact)
 
 			if (App->win->fullscreen) {
 				App->win->fullscreen = false;
-				SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_SHOWN);
+				SDL_SetWindowFullscreen(App->win->window, 0);
 			}
 			else {
 				App->win->fullscreen = true;
-				SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_FULLSCREEN);
+				SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 			}
 		}
 		//Audio------

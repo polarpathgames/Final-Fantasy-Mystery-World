@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.2" name="CarnivorousPlant" tilewidth="45" tileheight="42" tilecount="56" columns="7">
- <image source="../sprites/Carnivorous Plant.png" width="317" height="338"/>
+<tileset version="1.2" tiledversion="1.2.2" name="CarnivorousPlant" tilewidth="45" tileheight="42" tilecount="84" columns="7">
+ <image source="../sprites/Carnivorous Plant.png" width="317" height="506"/>
  <tile id="0">
   <properties>
    <property name="speed" type="int" value="3"/>
@@ -183,6 +183,61 @@
  <tile id="54">
   <animation>
    <frame tileid="54" duration="270"/>
+  </animation>
+ </tile>
+ <tile id="56">
+  <properties>
+   <property name="speed" type="int" value="9"/>
+  </properties>
+  <animation>
+   <frame tileid="56" duration="170"/>
+   <frame tileid="57" duration="170"/>
+   <frame tileid="58" duration="170"/>
+   <frame tileid="59" duration="170"/>
+   <frame tileid="60" duration="170"/>
+   <frame tileid="61" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="63">
+  <properties>
+   <property name="speed" type="int" value="9"/>
+  </properties>
+  <animation>
+   <frame tileid="63" duration="170"/>
+   <frame tileid="64" duration="170"/>
+   <frame tileid="65" duration="170"/>
+   <frame tileid="66" duration="170"/>
+   <frame tileid="67" duration="170"/>
+   <frame tileid="68" duration="170"/>
+   <frame tileid="69" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="70">
+  <properties>
+   <property name="speed" type="int" value="9"/>
+  </properties>
+  <animation>
+   <frame tileid="70" duration="170"/>
+   <frame tileid="71" duration="170"/>
+   <frame tileid="72" duration="170"/>
+   <frame tileid="73" duration="170"/>
+   <frame tileid="74" duration="170"/>
+   <frame tileid="75" duration="170"/>
+   <frame tileid="76" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="77">
+  <properties>
+   <property name="speed" type="int" value="9"/>
+  </properties>
+  <animation>
+   <frame tileid="77" duration="170"/>
+   <frame tileid="78" duration="170"/>
+   <frame tileid="79" duration="170"/>
+   <frame tileid="80" duration="170"/>
+   <frame tileid="81" duration="170"/>
+   <frame tileid="82" duration="170"/>
+   <frame tileid="83" duration="170"/>
   </animation>
  </tile>
 </tileset>

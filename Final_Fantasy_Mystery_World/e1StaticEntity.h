@@ -24,6 +24,7 @@ public:
 		PLANT2,
 		ROCK1,
 		ROCK2,
+		BREAKABLE_ROCK,
 		STREETLIGHT,
 		HOUSE1,
 		HOUSE2,
@@ -82,13 +83,14 @@ private:
 
 public:
 	SDL_Rect frame;
+	Animation* idle = nullptr;
+	bool has_animation = false;
+	Type static_type = Type::UNKNOWN;
 private:
 	
-	Type static_type = Type::UNKNOWN;
+	
 	bool has_dialog = false;
-	bool has_animation = false;
-	Animation* idle = nullptr;
-
+	
 	InteractingStates interacting_state = InteractingStates::NONE;
 	int max_distance_to_interact = 0; // distance in tiles
 

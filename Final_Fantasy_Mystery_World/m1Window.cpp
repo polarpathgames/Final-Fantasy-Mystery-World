@@ -4,6 +4,7 @@
 #include "m1Window.h"
 #include <string>
 #include "SDL/include/SDL.h"
+#include "SDL_image/include/SDL_image.h"
 
 
 m1Window::m1Window() : m1Module()
@@ -73,6 +74,10 @@ bool m1Window::Awake(pugi::xml_node& config)
 		{
 			//Get window surface
 			screen_surface = SDL_GetWindowSurface(window);
+
+			SDL_Surface* logo = IMG_Load(config.child("icon").attribute("path").as_string());
+			SDL_SetWindowIcon(window, logo);
+			SDL_FreeSurface(logo);
 		}
 	}
 

@@ -6,6 +6,11 @@
 
 #include "e1DynamicEntity.h"
 
+#include <list>
+
+class p1Follow;
+class p1Fire;
+
 class e1Particles : public e1DynamicEntity {
 
 public:
@@ -35,6 +40,7 @@ private:
 	void SetArrow();
 	void MoveArrow(float dt);
 	void LookForEnemyCollision();
+	void LookForRocks();
 
 	void SetFireBall();
 	void MoveFireBall(float dt);
@@ -47,9 +53,9 @@ public:
 	iPoint arrow_tile = { 0,0 };
 	iPoint max_arrow_distance = { 0,0 };
 	iPoint fireball_tile_objective = { 0,0 };
+
+	std::list<p1Follow*> particle_follow;
+	std::list<p1Fire*> particle_fire;
 };
 
-
-
 #endif // !_E1PARTICLES_H_
-
