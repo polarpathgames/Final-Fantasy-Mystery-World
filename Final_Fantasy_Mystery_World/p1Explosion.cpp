@@ -4,7 +4,9 @@
 #include "e1Entity.h"
 #include "App.h"
 
-p1Explosion::p1Explosion(e1Entity* element, iPoint* object, iPoint position_static, SDL_Rect initial_rect, Explosion_Type type, iPoint perimeter_object, iPoint timelife_particle, fPoint speed_particle, P_Direction p_direction, int num_particles, int num_textures)
+p1Explosion::p1Explosion(e1Entity* element, iPoint* object, iPoint position_static, SDL_Rect initial_rect, Explosion_Type type,
+	iPoint perimeter_object, iPoint timelife_particle, fPoint speed_particle, P_Direction p_direction, int num_particles, int num_textures, const fPoint & gravity)
+	:timelife(timelife_particle),number_particles(num_particles), n_textures(num_textures),type_explosion(type),gravity(gravity)
 {
 	if (element != nullptr)
 	{
@@ -27,14 +29,8 @@ p1Explosion::p1Explosion(e1Entity* element, iPoint* object, iPoint position_stat
 		object_follow = nullptr;
 		element_to_follow = nullptr;
 	}
-	//
-	timelife = timelife_particle;
-	number_particles = num_particles;
 	godelete = false;
 	size_rect = initial_rect.w;
-	n_textures = num_textures;
-
-	type_explosion = type;
 	//CIRCLE
 	if (type == CIRCLE)
 	{
@@ -192,7 +188,7 @@ void p1Explosion::MoveParticles()
 	{
 		for (int i = 0; i < number_particles; i++)
 		{
-			particle[i]->SetSpeedGreavity(fPoint(0, 5));
+			particle[i]->SetSpeedGreavity(gravity);
 		}
 	}
 	for (int i = 0; i < number_particles; i++)
