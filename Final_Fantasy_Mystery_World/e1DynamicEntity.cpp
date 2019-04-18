@@ -276,6 +276,62 @@ void e1DynamicEntity::PushBack()
 					DeathDownLeft.loop = false;
 				}
 				break;
+			case AnimationState::ABILITY_DOWN_LEFT_1:
+				AbilitiDownLeft1.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiDownLeft1.speed = data.animations[i].speed;
+					AbilitiDownLeft1.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_DOWN_RIGHT_1:
+				AbilitiDownRight1.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiDownRight1.speed = data.animations[i].speed;
+					AbilitiDownRight1.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_UP_RIGHT_1:
+				AbilitiUpRight1.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiUpRight1.speed = data.animations[i].speed;
+					AbilitiUpRight1.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_UP_1:
+				AbilitiUp1.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiUp1.speed = data.animations[i].speed;
+					AbilitiUp1.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_LEFT_1:
+				AbilitiLeft1.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiLeft1.speed = data.animations[i].speed;
+					AbilitiLeft1.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_DOWN_1:
+				AbilitiDown1.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiDown1.speed = data.animations[i].speed;
+					AbilitiDown1.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_UP_LEFT_1:
+				AbilitiUpLeft1.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiUpLeft1.speed = data.animations[i].speed;
+					AbilitiUpLeft1.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_RIGHT_1:
+				AbilitiRight1.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiRight1.speed = data.animations[i].speed;
+					AbilitiRight1.loop = false;
+				}
+				break;
 			default:
 				break;
 			}
@@ -454,6 +510,7 @@ void e1DynamicEntity::CheckBasicAttackEfects(const e1Entity::EntityType & type, 
 				if (type == e1Entity::EntityType::ENEMY) {
 					e1Enemy* enemy_attacked = (e1Enemy*)(*item);
 					enemy_attacked->GetHitted(attack_damage);
+					App->render->CameraTremble();
 				}
 				else if (type == e1Entity::EntityType::PLAYER) {
 					e1Player* player_attacked = (e1Player*)(*item);
@@ -667,25 +724,55 @@ void e1DynamicEntity::ResetAnims()
 	BasicAttackUp.Reset();
 	BasicAttackUpLeft.Reset();
 	BasicAttackUpRight.Reset();
-	
+	AbilitiDownLeft1.Reset();
+	AbilitiDownRight1.Reset();
+	AbilitiUpLeft1.Reset();
+	AbilitiUpRight1.Reset();
+	AbilitiLeft1.Reset();
+	AbilitiDown1.Reset();
+	AbilitiUp1.Reset();
+	AbilitiRight1.Reset();
 	
 }
 
-void e1DynamicEntity::ChangeAnimsInCutscene(const int & x, const int & y, const int & anim_num)
+void e1DynamicEntity::ChangeAnimsInCutscene(const int & x, const int & y, const int & anim_num, int & pos_x, int & pos_y)
 {
+	Animation* last_anim;
+	last_anim = current_animation;
+
 	if (anim_num == 1) {
-		if (x > 0 && y > 0) {
-			current_animation = &GoDownRight;
+		if (x != 0 && y != 0) {
+			if (x > 0 && y > 0) {
+				current_animation = &GoDownRight;
+			}
+			else if (x == -40 && y == -80) {
+				current_animation = &GoUp;
+			}
+			else if (x < 0 && y < 0) {
+				current_animation = &GoUpLeft;
+			}
+			else if (x > 0 && y < 0) {
+				current_animation = &GoUpRight;
+			}
+			else if (x < 0 && y > 0) {
+				current_animation = &GoDownLeft;
+			}
 		}
-		else if (x < 0 && y < 0) {
-			current_animation = &GoUpLeft;
+		if (x == 0 && y == 0) {
+			if (last_anim == &GoDownRight) {
+				current_animation = &IdleDownRight;
+			}
+			else if (last_anim == &GoUpLeft) {
+				current_animation = &IdleUpLeft;
+			}
+			else if (last_anim == &GoUpRight) {
+				current_animation = &IdleUpRight;
+			}
+			else if (last_anim == &GoDownLeft) {
+				current_animation = &IdleDownLeft;
+			}
 		}
-		else if (x > 0 && y < 0) {
-			current_animation = &GoUpRight;
-		}
-		else if (x < 0 && y > 0) {
-			current_animation = &GoDownLeft;
-		}
+		
 	}
 	if (anim_num == 2) {
 		if (x > 0 && y > 0) {

@@ -265,6 +265,7 @@ private:
 	u1Label* Clabel_to_show_how_ability3 = nullptr;
 
 public:
+
 	//select character
 
 	u1Image* select_champ_panel = nullptr;
@@ -282,6 +283,11 @@ public:
 	u1Image* warrior_info = nullptr;
 	u1Image* archer_info = nullptr;
 	u1Image* mage_info = nullptr;
+
+
+	int fx_push_button;
+	int fx_push_button_return;
+
 
 };
 

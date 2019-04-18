@@ -10,6 +10,7 @@
 class u1GUI;
 class u1Button;
 class u1Label;
+class p1Follow;
 
 
 struct Input {
@@ -55,6 +56,7 @@ struct PlayerStats {
 	int num_mana_potions = 0;
 	int cost_mana_special_attack1 = 0;
 	int level = 0;
+	int attack_power_ability_1 = 0;
 
 };
 
@@ -101,7 +103,7 @@ public:
 
 	void ReadAttack();
 
-	virtual void InitStats() {};
+	virtual void InitStats();
 
 	virtual void PrepareSpecialAttack1() {};
 
@@ -126,7 +128,7 @@ public:
 	void GetHitted(const int & damage_taken); // Player Get Damaged
 	void Death();
 	void CreateSkills(); // Skills Appear In Screen
-	void IdAnimToEnum();
+	virtual void IdAnimToEnum() {};
 	void DestroySkills(); //Skills Desappear
 
 	bool BlockControls(bool to_block);
@@ -174,11 +176,7 @@ public:
 	u1Label* left_skill_button = nullptr;
 	u1Label* left_skill_label = nullptr;
 
+	p1Follow* p_trace = nullptr;
 
 };
-
-
-
-#endif // 
-
-
+#endif

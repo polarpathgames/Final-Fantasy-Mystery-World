@@ -44,6 +44,7 @@ public:
 
 	virtual bool CleanUp();
 
+	bool IsAnotherEnemyNextTile();
 	bool IsPlayerNextTile();
 
 	void MovementLogic();
@@ -54,7 +55,7 @@ public:
 	void Drop();
 
 public:
-
+	std::vector<iPoint> next_enemy_pos;
 	EnemyStats stats;
 	float time_to_wait_before_attack = 0.0f;
 	EnemyType enemy_type = EnemyType::NONE;

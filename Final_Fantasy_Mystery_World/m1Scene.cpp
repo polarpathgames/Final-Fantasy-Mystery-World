@@ -14,7 +14,9 @@
 #include "m1EntityManager.h"
 #include "m1Scene.h"
 #include "m1MainMenu.h"
+#include "e1Particles.h"
 #include <string>
+#include "m1Cutscene.h"
 #include "u1UI_Element.h"
 #include "u1Button.h"
 #include "u1Label.h"
@@ -22,6 +24,7 @@
 #include "u1Bar.h"
 #include "u1Slider.h"
 #include "u1CheckBox.h"
+#include "m1Audio.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Input.h"
 #include "m1Textures.h"
@@ -56,7 +59,17 @@ bool m1Scene::Start()
 
 	App->gui->ShowCursor(false);
 
-	
+	fx_writting = App->audio->LoadFx("assets/audio/sfx/LTTP_Text_Done.wav");
+	fx_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_Steps_on_Water1.wav");
+	fx_frog_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_BasicAttack.wav");
+	fx_plant_attack = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Punch1.wav");
+	fx_ability_warrior = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Critical_Hit.wav");
+	fx_ability_menu = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_InBattle_Selection.wav");
+	fx_drop_pick_up = App->audio->LoadFx("assets/audio/sfx/retro_collect_pickup_coin_03.wav");
+	fx_door_enter = App->audio->LoadFx("assets/audio/sfx/MC_Stairs_Up.wav");
+	fx_potion = App->audio->LoadFx("assets/audio/sfx/Potion.wav");
+	fx_denegated_potion = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Land_on_Wood.wav");
+	fx_potion_menu = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_L1R1L2R2_Shifting.wav");
   
 	return true;
 }
@@ -82,6 +95,12 @@ bool m1Scene::Update(float dt)
 			DestroyDebugScreen();
 		}
 	}
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
+		App->render->CameraTremble();
+	
+	}
+
+
 
 	if(App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
@@ -96,10 +115,7 @@ bool m1Scene::Update(float dt)
 		App->render->camera.y -= 300 * dt;
 
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += 300 * dt;
-
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 300 * dt;*/
+		App->render->camera.x += 300 * dt;*/
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		App->map->grid = !App->map->grid;
@@ -128,6 +144,7 @@ bool m1Scene::Update(float dt)
 	case StatesMenu::NO_MENU:
 		if ((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial) {
 			if (App->ChangePause()) {
+				App->audio->PlayFx(App->gui->fx_pause);
 				CreatePauseMenu();
 				player->BlockControls(true);
 				menu_state = StatesMenu::PAUSE_MENU;
@@ -135,6 +152,7 @@ bool m1Scene::Update(float dt)
 		}
 		if ((App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial) {
 			if (App->ChangeInventory()) {
+				App->audio->PlayFx(App->gui->fx_inventory);
 				CreateInventory();
 				player->BlockControls(true);
 				menu_state = StatesMenu::INVENTORY_MENU;
@@ -163,6 +181,7 @@ bool m1Scene::Update(float dt)
 		break;
 	case StatesMenu::PAUSE_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			App->ChangePause();
 			DestroyPauseMenu();
 			menu_state = StatesMenu::NO_MENU;
@@ -295,7 +314,11 @@ void m1Scene::CreateEntities()
 			}
 		}
 		else if ((*position)->ent_type == "static") {
-			App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			if ((*position)->name == "rock") {
+				App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
+			else
+				App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 		}
 		else if ((*position)->name == "enemy") {
 			if ((*position)->ent_type == "CarnivorousPlant") {
@@ -307,6 +330,11 @@ void m1Scene::CreateEntities()
 			else if ((*position)->ent_type == "StrangeFrog") {
 				App->entity_manager->CreateEntity(e1Entity::EntityType::STRANGE_FROG, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 			}
+		}
+		else if ((*position)->name == "npc") {
+			if ((*position)->ent_type == "Daughter") {
+				App->entity_manager->CreateEntity(e1Entity::EntityType::DAUGHTER, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}			
 		}
 		else if ((*position)->name == "collider") { // COLLIDERS
 			if ((*position)->properties.FindNameValue("shop")) {
@@ -888,6 +916,7 @@ void m1Scene::UpdateDebugScreen()
 
 void m1Scene::CreateGameOver()
 {
+	App->audio->PlayMusic("assets/audio/music/35.Final Fantasy TA - Judge.ogg", 0.5);
 	game_over_panel = App->gui->AddImage(0, 0, { 1024, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
 	game_over_panel->SetPosRespectParent(CENTERED);
 
@@ -913,6 +942,7 @@ bool m1Scene::Interact(u1GUI* interact)
 	case StatesMenu::PAUSE_MENU:
 		if (interact == button_resume)
 		{
+			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			DestroyPauseMenu();
 			if (App->GetPause())
 				App->ChangePause();
@@ -939,6 +969,9 @@ bool m1Scene::Interact(u1GUI* interact)
 			ShowHUD(false);
 			ret = false;
 		}
+		if (interact != nullptr && interact != button_resume) {
+			App->audio->PlayFx(App->main_menu->fx_push_button);
+		}
 		break;
 	case StatesMenu::GO_TO_QUEST_MENU:
 		if (interact == go_to_quest_button) {
@@ -948,9 +981,13 @@ bool m1Scene::Interact(u1GUI* interact)
 			ret = false;
 		}
 		if (interact == cancel_quest_button) {
+			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			DestroyGoToQuestMenu();
 			menu_state = StatesMenu::NO_MENU;
 			ret = false;
+		}
+		if (interact != nullptr && interact != cancel_quest_button) {
+			App->audio->PlayFx(fx_potion_menu);
 		}
 		break;
 	case StatesMenu::INVENTORY_MENU:
@@ -966,10 +1003,14 @@ bool m1Scene::Interact(u1GUI* interact)
 			menu_state = StatesMenu::POTION_MENU;
 			ret = false;
 		}
+		if (interact != nullptr) {
+			App->audio->PlayFx(fx_potion_menu);
+		}
 		break;
 	case StatesMenu::POTION_MENU:
 		if (interact == use_hp_button) {
 			if (player->stats.num_hp_potions >= 1) {
+				App->audio->PlayFx(fx_potion);
 				--player->stats.num_hp_potions;
 				player->AugmentLives(25);
 				hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
@@ -977,9 +1018,12 @@ bool m1Scene::Interact(u1GUI* interact)
 				menu_state = StatesMenu::INVENTORY_MENU;
 				ret = false;
 			}
+			else
+				App->audio->PlayFx(fx_denegated_potion);
 		}
 		if (interact == use_mana_button) {
 			if (player->stats.num_mana_potions >= 1) {
+				App->audio->PlayFx(fx_potion);
 				--player->stats.num_mana_potions;
 				player->AugmentMana(25);
 				mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
@@ -987,12 +1031,18 @@ bool m1Scene::Interact(u1GUI* interact)
 				menu_state = StatesMenu::INVENTORY_MENU;
 				ret = false;
 			}
+			else
+				App->audio->PlayFx(fx_denegated_potion);
 		}
 		if (interact == cancel_button) {
+			App->audio->PlayFx(fx_potion_menu);
 			DeletePotionMenu();
 			menu_state = StatesMenu::INVENTORY_MENU;
 			ret = false;
 		}
+		/*if (interact != nullptr) {
+			
+		}*/
 		break;
 	case StatesMenu::DIE_MENU:
 		if (interact == button_continue_lobby) {
@@ -1003,6 +1053,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			ret = false;
 		}
 		if (interact == button_return_main) {
+			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			DestroyGameOver();
 			App->entity_manager->Disable();
 			App->map->Disable();
@@ -1014,11 +1065,15 @@ bool m1Scene::Interact(u1GUI* interact)
 		break;
 	case StatesMenu::OPTIONS_MENU:
 		if (interact == button_retun) {
+			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			CreatePauseMenu();
 			DestroyOptionsMenu();
 			menu_state = StatesMenu::PAUSE_MENU;
-      ShowHUD(true);
+			ShowHUD(true);
 			ret = false;
+		}
+		if (interact != nullptr && interact != button_retun) {
+			App->audio->PlayFx(App->main_menu->fx_push_button);
 		}
 		if (interact == button_controls) {
 			CreateControlsMenu();
@@ -1080,8 +1135,12 @@ bool m1Scene::Interact(u1GUI* interact)
 	case StatesMenu::SHOP_MENU:
 		if (interact == button_close_shop) {
 			DestroyShopMenu();
+			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			menu_state = StatesMenu::NO_MENU;
 			ret = false;
+		}
+		if (interact != nullptr && interact != button_close_shop) {
+			App->audio->PlayFx(App->main_menu->fx_push_button);
 		}
 		if (interact == shop_button_hp_potion) {
 			if (player->stats.gold >= price_hp_potion) {
@@ -1106,10 +1165,15 @@ bool m1Scene::Interact(u1GUI* interact)
 		break;
 	case StatesMenu::CONTROLS_MENU:
 		if (interact == button_retun_to_options) {
+			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			CreateOptionsMenu();
+			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			DestroyControlsMenu();
 			menu_state = StatesMenu::OPTIONS_MENU;
 			ret = false;
+		}
+		if (interact != nullptr && interact != button_retun_to_options) {
+			App->audio->PlayFx(App->main_menu->fx_push_button);
 		}
 		if (interact == button_up) {
 			if (control_to_change != nullptr)
@@ -1193,7 +1257,7 @@ bool m1Scene::Interact(u1GUI* interact)
 		}
 		break;
 	}
-	
+
 	return ret;
 }
 

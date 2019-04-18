@@ -3,6 +3,7 @@
 #include "App.h"
 #include "m1Window.h"
 #include "m1Render.h"
+#include "m1Cutscene.h"
 #include "m1Map.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Input.h"
@@ -325,7 +326,7 @@ void m1Render::ResetCamera()
 void m1Render::SmoothCamera(iPoint playerpos)
 {
 	BROFILER_CATEGORY("SmoothCamera", Profiler::Color::Aquamarine);
-	if (App->fade_to_black->current_step != App->fade_to_black->fade_to_black) {
+	if (App->fade_to_black->current_step != App->fade_to_black->fade_to_black && App->cutscene_manager->is_executing == false) {
 		playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
 		smoth_position.x -= (playerpos.x + camera.x) / smooth_speed;
 		camera.x = smoth_position.x;
@@ -346,6 +347,31 @@ void m1Render::CenterCameraOnPlayer(iPoint playerpos)
 	camera.y = smoth_position.y;
 }
 
+bool m1Render::CameraTremble()
+{
+	static int index_tremble = 0;
+	static int tremble = 7;
+
+	App->input->ControllerVibration(0.5F, 1000);
+
+	if (index_tremble == 0)
+		camera.x += tremble;
+	else if (index_tremble == 1)
+		camera.x -= tremble;
+	else if (index_tremble == 2)
+		camera.x += tremble;
+	else if (index_tremble == 3)
+		camera.x += tremble;
+	else if (index_tremble > 3)
+	{
+		index_tremble = 0;
+	}
+	index_tremble++;
+
+	
+
+	return false;
+}
 
 
 

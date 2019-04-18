@@ -2,6 +2,7 @@
 #include "m1Scene.h"
 #include "App.h"
 #include "e1Player.h"
+#include "m1Audio.h"
 #include "m1EntityManager.h"
 #include "p2log.h"
 #include "m1Map.h"
@@ -29,6 +30,7 @@ bool e1Drop::Update(float adt)
 	if (actual_tile == App->scene->player->actual_tile) {
 		switch (drop_type) {
 		case DropsType::GOLD_DROP:
+			App->audio->PlayFx(App->scene->fx_drop_pick_up);
 			App->scene->player->AugmentGold(gold);
 			to_delete = true;
 			break;

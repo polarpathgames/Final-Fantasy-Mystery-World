@@ -48,6 +48,7 @@ public:
 
 	void SmoothCamera(iPoint playerpos);
 	void CenterCameraOnPlayer(iPoint playerpos);
+	bool CameraTremble();
 
 
 	// Set background color
@@ -64,6 +65,8 @@ public:
 	iPoint			smoth_position = { 0,0 };
 	int				smooth_speed = 7;
 	SDL_Surface*	surface = NULL;
+
+	
 
 	//DEBUG ZOOM
 	int				zoom = 1;

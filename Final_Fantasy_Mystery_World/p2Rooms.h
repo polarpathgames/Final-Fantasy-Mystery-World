@@ -16,6 +16,15 @@ enum class LocationChangeScene {
 	NONE
 };
 
+enum class RoomType {
+	COMBAT,
+	FOUNTAIN,
+	BOSS,
+	PACEFUL,
+
+	NONE
+};
+
 struct ChangeScene {
 	ChangeScene(const int & x, const int &y, LocationChangeScene type, const uint &id);
 	iPoint location = { 0,0 };
@@ -27,7 +36,7 @@ class Room {
 
 public:
 
-	Room(const std::string &location, const int &id);
+	Room(const std::string &tmx_location, const int &id, const std::string &type, const std::string &cutscene_location);
 	~Room();
 
 
@@ -36,6 +45,8 @@ public:
 	uint id = 0; 
 	std::vector<ChangeScene*> change_scene_points; 
 	bool active = false;
+	RoomType room_type = RoomType::NONE;
+	std::string cutscene_location;
 };
 
 class RoomManager {
@@ -49,11 +60,15 @@ public:
 	void LoadRoom(const int & id);
 	void PlacePlayer();
 	void LoadColliders();
+	void PlayMusic();
+	void PlayCutScene();
 
 public:
 	Room* actual_room = nullptr;
+	Room* last_room = nullptr;
 	std::vector<Room*> rooms;
 	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
+	
 
 
 };

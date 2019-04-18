@@ -14,7 +14,11 @@
 #include "e1BlueDog.h"
 #include "m1Map.h"
 #include "e1CarnivorousPlant.h"
+#include "e1NPC.h"
+#include "e1ShopKeeperDaughter.h"
+#include "e1Rock.h"
 #include "m1Scene.h"
+#include "e1Particles.h"
 #include "e1Player.h"
 #include "e1Warrior.h"
 #include "e1Enemy.h"
@@ -50,15 +54,19 @@ bool m1EntityManager::Start()
 	if (!textures_loaded) {
 		texture.reserve((uint)TextureType::NONE);
 
-		static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)10, "add the new texture in the enum and here");
+		static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)14, "add the new texture in the enum and here");
 
-		texture[(uint)TextureType::WARRIOR] = App->tex->Load("assets/sprites/WarriorSpritesheet.png");
+
+		texture[(uint)TextureType::WARRIOR] = App->tex->Load("assets/sprites/Warrior.png");
 		texture[(uint)TextureType::ARCHER] = App->tex->Load("assets/sprites/ArcherSpritesheet.png");
 		texture[(uint)TextureType::MAGE] = App->tex->Load("assets/sprites/MageSpritesheet.png");
 		texture[(uint)TextureType::CARNIVOROUS_PLANT] = App->tex->Load("assets/sprites/Carnivorous Plant.png");
 		texture[(uint)TextureType::STRANGE_FROG] = App->tex->Load("assets/sprites/Frog.png");
 		texture[(uint)TextureType::BLUE_DOG] = App->tex->Load("assets/sprites/Dog.png");
 		texture[(uint)TextureType::STATIC_ENTITIES] = App->tex->Load("assets/maps/static_objects_tileset.png");
+		texture[(uint)TextureType::STATIC_ENTITIES] = App->tex->Load("assets/maps/static_objects_tileset.png");
+		texture[(uint)TextureType::PARTICLE] = App->tex->Load("assets/sprites/Particles.png");
+		texture[(uint)TextureType::DAUGHTER] = App->tex->Load("assets/sprites/Little_Girl.png");
 		textures_loaded = true;
 	}
 	
@@ -70,11 +78,14 @@ bool m1EntityManager::PreUpdate()
 	BROFILER_CATEGORY("PreUpdateEntityM", Profiler::Color::Orange);
 	
 	std::vector<e1Entity*>::iterator item = entities.begin();
-	for (; item != entities.end(); ++item) {
+	while (item != entities.end()) {
 		if ((*item) != nullptr && (*item)->to_delete) {
-			delete *item;
-			*item = nullptr;
+			delete (*item);
+			(*item) = nullptr;
+			item = entities.erase(item);
 		}
+		else
+			++item;
 	}
 
 	item = entities.begin();
@@ -140,9 +151,20 @@ void m1EntityManager::DrawEntities(std::vector<e1Entity *> &draw_entities, float
 					(*item)->Draw(texture[(uint)TextureType::STRANGE_FROG], dt);
 					break;
 				}
-			}		
+			}
+			else if ((*item)->type == e1Entity::EntityType::NPC)
+			{
+				e1NPC *npc = (e1NPC*)(*item);
+				switch (npc->npc_type) {
+				case e1NPC::NPCType::DAUGHTER:
+					(*item)->Draw(texture[(uint)TextureType::DAUGHTER], dt);
+					break;
+				}
+			}
 			else if ((*item)->type == e1Entity::EntityType::STATIC)
 				(*item)->Draw(texture[(uint)TextureType::STATIC_ENTITIES], dt);
+			else if ((*item)->type == e1Entity::EntityType::PARTICLE)
+				(*item)->Draw(texture[(uint)TextureType::PARTICLE], dt);
 
 			App->render->DrawCircle((*item)->position.x + (*item)->pivot.x, (*item)->position.y + (*item)->pivot.y, 3, 255, 255, 255);
 		}
@@ -238,13 +260,15 @@ void m1EntityManager::OnCollisionExit(Collider * c1, Collider * c2)
 //e1Entity Factory
 e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
-	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)10, "code needs update");
+
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)14, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
 
 	//case e1Entity::EntityType::PLAYER: ret = DBG_NEW e1Player(PositionX, PositionY); break;
 	case e1Entity::EntityType::ENEMY: ret = DBG_NEW e1Enemy(PositionX, PositionY); break;
 	case e1Entity::EntityType::STATIC: ret = DBG_NEW e1StaticEntity(PositionX, PositionY, name.data()); break;
+	case e1Entity::EntityType::ROCK: ret = DBG_NEW e1Rock(PositionX, PositionY, name.data()); break;
 	case e1Entity::EntityType::DROP: ret = DBG_NEW e1Drop(PositionX, PositionY, name.data()); break;
 	case e1Entity::EntityType::CARNIVOROUS_PLANT: ret = DBG_NEW e1CarnivorousPlant(PositionX, PositionY); break;
 	case e1Entity::EntityType::BLUE_DOG: ret = DBG_NEW e1BlueDog(PositionX, PositionY); break;
@@ -252,7 +276,10 @@ e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX
 	case e1Entity::EntityType::ARCHER: ret = DBG_NEW e1Archer(PositionX, PositionY); break;
 	case e1Entity::EntityType::MAGE: ret = DBG_NEW e1Mage(PositionX, PositionY); break;
 	case e1Entity::EntityType::STRANGE_FROG: ret = DBG_NEW e1StrangeFrog(PositionX, PositionY); break;
+	case e1Entity::EntityType::PARTICLE: ret = DBG_NEW e1Particles(PositionX, PositionY); break;
 	//case e1Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
+	case e1Entity::EntityType::NPC: ret = DBG_NEW e1NPC(PositionX, PositionY); break;
+	case e1Entity::EntityType::DAUGHTER: ret = DBG_NEW e1ShopKeeperDaughter(PositionX, PositionY); break;
 	default:
 		LOG("Cannot find any entity with that type");
 		break;

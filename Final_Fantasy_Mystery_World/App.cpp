@@ -25,6 +25,7 @@
 #include "m1FadeToBlack.h"
 #include "m1Pathfinding.h"
 #include "m1DialogSystem.h"
+#include "m1ParticleManager.h"
 #include "Brofiler/Brofiler.h"
 
 // Constructor
@@ -49,6 +50,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	collision = DBG_NEW m1Collision();
 	easing_splines = DBG_NEW m1EasingSplines();
 	cutscene_manager = DBG_NEW m1CutScene();
+	particles = DBG_NEW m1ParticleManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -62,6 +64,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(main_menu);
 	AddModule(fonts);
 	AddModule(collision);
+	AddModule(particles);
 
 	AddModule(entity_manager);
 	AddModule(gui);
