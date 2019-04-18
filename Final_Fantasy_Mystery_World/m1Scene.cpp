@@ -1285,20 +1285,18 @@ void m1Scene::ShowHUD(bool show_or_hide)
 
 void m1Scene::CreateFirstAbilityPanel()
 {
+	App->gui->ShowCursor(false);
 	first_ability_panel = App->gui->AddImage(0, 0, { 0, 4792, 1025, 768 }, this, App->gui->screen, true, false, false, false);
 	first_ability_panel->SetPosRespectParent(RIGHT_CENTERED);
 
-	hp_potion_button = App->gui->AddButton(73, 72, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, inventory_panel, true, false, true, true);
-	hp_potion_button->AddListener(this);
-	hp_potion_image = App->gui->AddImage(85, 80, { 1058, 1952, 33, 47 }, this, first_ability_panel, true, false, false, false);
-	hp_potion_label = App->gui->AddLabel(50, -10, std::string("x " + std::to_string(player->stats.num_hp_potions)).data(), hp_potion_image, BLACK, FontType::FF64, nullptr, false);
-
+	ability1_screen_button = App->gui->AddButton(73, 72, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, inventory_panel, true, false, true, true);
+	ability1_screen_button->AddListener(this);
+	ability1_screen_label = App->gui->AddLabel(0, 0, "Continue", first_ability_panel, WHITE, FontType::FF100, nullptr, false);
 	menu_state = StatesMenu::FIRSTABILITY_MENU;
 }
 
 void m1Scene::DestroyFirstAbilityPanel()
 {
 	App->gui->DeleteUIElement(first_ability_panel);
-	App->gui->ShowCursor(false);
-	//menu_state = StatesMenu::NO_MENU;
+	menu_state = StatesMenu::NO_MENU;
 }

@@ -364,7 +364,8 @@ private:
 
 	// First Ability panel
 	u1Image* first_ability_panel = nullptr;
-
+	u1Button* ability1_screen_button = nullptr;
+	u1Label* ability1_screen_label = nullptr;
 
 	// game over
 	u1Image* game_over_panel = nullptr;
@@ -374,6 +375,7 @@ private:
 
 	u1Button* button_return_main = nullptr;
 	u1Label* label_continue_main = nullptr;
+
 	
 public:
 

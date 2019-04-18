@@ -12,8 +12,8 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 
 	if (strcmp(name, "gold") == 0) {
 		actual_tile = { x,y };
-		drop_type = DropsType::GOLD_DROP;
-		frame = { 1030,4,28,12 };
+		drop_type = DropsType::ABILITY1;
+		frame = { 1044,21,11,16 };
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
