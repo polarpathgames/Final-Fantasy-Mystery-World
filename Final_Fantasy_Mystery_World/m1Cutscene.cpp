@@ -15,6 +15,7 @@
 #include "c1CutsceneText.h"
 #include "c1CutsceneImage.h"
 #include "c1CutSceneDeleteEntity.h"
+#include "c1CutSceneAddAudio.h"
 
 m1CutScene::m1CutScene()
 {
@@ -104,6 +105,10 @@ bool m1CutScene::LoadCutscene(std::string path)
 			{
 				cutscene_action = DBG_NEW c1CutSceneDeleteEntity(start, duration, cutscene_action_node.attribute("entity").as_string());
 
+			}
+			else if (action == "add_audio")
+			{
+				cutscene_action = DBG_NEW c1CutSceneAddAudio(start, duration, cutscene_action_node.attribute("entity").as_string(), cutscene_action_node.attribute("path").as_string());
 			}
 			actions.push_back(cutscene_action);
 		}

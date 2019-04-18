@@ -80,6 +80,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="c1CutSceneAddAudio.cpp" />
     <ClCompile Include="c1CutSceneDeleteEntity.cpp" />
     <ClCompile Include="c1CutSceneEntity.cpp" />
     <ClCompile Include="c1CutSceneImage.cpp" />
@@ -144,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="c1CutSceneAction.h" />
+    <ClInclude Include="c1CutSceneAddAudio.h" />
     <ClInclude Include="c1CutSceneDeleteEntity.h" />
     <ClInclude Include="c1CutSceneElement.h" />
     <ClInclude Include="c1CutSceneEntity.h" />
