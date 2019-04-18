@@ -850,7 +850,9 @@ const bool e1Player::MultipleButtons(const Input * input)
 void e1Player::GetHitted(const int & damage_taken)
 {
 	App->render->CameraTremble();
+	if(!god_mode)
 	ReduceLives(damage_taken);
+
 	if (stats.live <= 0) {
 		state = State::DEATH;
 		ChangeAnimation(direction, state);

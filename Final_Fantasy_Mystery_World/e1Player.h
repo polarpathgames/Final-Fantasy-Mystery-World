@@ -171,7 +171,7 @@ public:
 	float death_time = 0.0f;
 	bool has_skills = false;
 	bool block_controls = false;
-
+	bool god_mode = false;
 	float flash_time = 0.0F;
 	iPoint flash_position{ 0,0 };
 

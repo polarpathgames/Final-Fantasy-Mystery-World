@@ -103,13 +103,9 @@ bool m1Scene::Update(float dt)
 		App->input->ControllerVibration(0.3F, 1000);
 	}
 
-
-	if(App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-		App->LoadGame("save_game.xml");
-
-	if(App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-		App->SaveGame("save_game.xml");
-
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+		App->scene->player->god_mode = !App->scene->player->god_mode;
+  
 	/*if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y += 300 * dt;
 
@@ -1173,7 +1169,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->audio->PlayFx(App->main_menu->fx_push_button);
 		}
 		if (interact == shop_button_hp_potion) {
-			if (player->stats.gold >= price_hp_potion) {
+			if (player->stats.gold >= price_hp_potion || player->god_mode) {
 				// audio comprar
 				player->ReduceGold(price_hp_potion);
 				++player->stats.num_hp_potions;
@@ -1185,7 +1181,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 		}
 		if (interact == shop_button_mana_potion) {
-			if (player->stats.gold >= price_mana_potion) {
+			if (player->stats.gold >= price_mana_potion || player->god_mode) {
 				// audio comprar
 				player->ReduceGold(price_mana_potion);
 				++player->stats.num_mana_potions;
