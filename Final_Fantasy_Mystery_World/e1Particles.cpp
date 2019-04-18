@@ -23,6 +23,9 @@ e1Particles::~e1Particles()
 	for (std::list<p1Follow*>::iterator item = particle_follow.begin(); item != particle_follow.end(); ++item) {
 		App->particles->DeleteFollow_p(*item);
 	}
+	for (std::list<p1Fire*>::iterator item = particle_fire.begin(); item != particle_fire.end(); ++item) {
+		App->particles->DeleteFire_p(*item);
+	}
 }
 
 bool e1Particles::PreUpdate()
@@ -315,7 +318,7 @@ void e1Particles::SetFireBall()
 	GoDown.PushBack({ 137,0,22,28 });
 	GoDown.speed = 3.0f;
 	current_animation = &GoDown;
-
+	particle_fire.push_back(App->particles->CreateFire(this, nullptr, { 0,0 }, { 0,2,2,0 }, { 20,10 }, { 20,4 }, { 60,-60 }, P_RANDOM, 65, 4, true, W_NON, { 11, 20 }));
 	SetPivot(11, 2800);
 	size.create(20, 20);
 }

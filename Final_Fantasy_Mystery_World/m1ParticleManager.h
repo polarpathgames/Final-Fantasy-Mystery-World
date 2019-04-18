@@ -61,7 +61,7 @@ public:
 	bool DeleteFollow_p(p1Follow* group);
 
 	//Create & DeleteFire Group
-	p1Fire* CreateFire(e1Entity* element_to_follow, iPoint* object_follow, iPoint position_static, SDL_Rect initial_rect, iPoint area = { 12, 2 }, iPoint timelife = { 15,5 }, fPoint speed = { 0,0 }, P_Direction p_direction = P_NON, int num_particles = 20, int num_textures = 4, bool active_ = false, Wind dir = W_NON);
+	p1Fire* CreateFire(e1Entity* element_to_follow, iPoint* object_follow, iPoint position_static, SDL_Rect initial_rect, iPoint area = { 12, 2 }, iPoint timelife = { 15,5 }, fPoint speed = { 0,0 }, P_Direction p_direction = P_NON, int num_particles = 20, int num_textures = 4, bool active_ = false, Wind dir = W_NON, const iPoint &offset = { 0,0 });
 	bool DeleteFire_p(p1Fire* group);
 
 	//Create & Delete Explosion Group
