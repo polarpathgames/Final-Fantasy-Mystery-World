@@ -9,14 +9,6 @@ class u1Image;
 
 enum class PlayerType;
 
-enum class PlayerButton
-{
-	WARRIOR,
-	ARCHER,
-	MAGE,
-
-	NONE,
-};
 
 class u1ChButton : public u1GUI
 {
@@ -38,24 +30,8 @@ private:
 	SDL_Rect hovered_rect = { 0,0,0,0 };
 	SDL_Rect clicked_rect = { 0,0,0,0 };
 
-	SDL_Rect warrior_rect = { 1052, 4079, 327, 358 };
-	SDL_Rect archer_rect = { 1701, 4079, 194, 369 };
-	SDL_Rect mage_rect = { 1414, 4079, 218, 363 };
-
-	SDL_Rect warrior_info = { 99, 4120, 585, 97 };
-	SDL_Rect archer_info = { 99, 4273, 537, 97 };
-	SDL_Rect mage_info = { 98, 4414, 523, 97 };
-
 	PlayerType player_type;
-	SDL_Rect* last_rect = nullptr;
 
-	bool is_warrior = false;
-	bool is_archer = false;
-	bool is_mage = false;
-
-	//u1Image* warrior_image = nullptr;
-	//u1Image* archer_image = nullptr;
-	//u1Image* mage_image = nullptr;
 };
 
 #endif

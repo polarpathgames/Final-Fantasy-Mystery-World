@@ -278,6 +278,11 @@ public:
 	u1Image* warrior_image = nullptr;
     u1Image* archer_image = nullptr;
     u1Image* mage_image = nullptr;
+
+	u1Image* warrior_info = nullptr;
+	u1Image* archer_info = nullptr;
+	u1Image* mage_info = nullptr;
+
 };
 
 #endif
