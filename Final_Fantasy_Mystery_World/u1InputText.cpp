@@ -37,9 +37,11 @@ void u1InputText::UpdateElement()
 
 	if (text.length() <= MAX_CHARACTERS || first_update) {
 		SDL_StartTextInput();
-		std::string t = App->input->text_input;
-		App->input->text_input.clear();
-		AddText(t.data());
+		if (!App->input->text_input.empty()) {
+			std::string t = App->input->text_input;
+			App->input->text_input.clear();
+			AddText(t.data());
+		}
 	}
 	else 
 		App->input->text_input.clear();
