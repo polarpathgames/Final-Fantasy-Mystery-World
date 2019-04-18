@@ -477,6 +477,7 @@ void m1MainMenu::CreateSelectChamp()
 
 	App->gui->FocusButton((u1Button*)button_warrior);
 
+
 }
 
 void m1MainMenu::DestroySelectChamp()

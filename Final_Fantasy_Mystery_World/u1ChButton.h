@@ -18,11 +18,9 @@ public:
 	~u1ChButton();
 
 	void InnerDraw();
-	void PrintInfo(bool draw);
 
 	void SetRects(const SDL_Rect &std_rect, const SDL_Rect &hover_rect, const SDL_Rect &click_rect);
 
-	SDL_Rect* GetLastRect(SDL_Rect* rect);
 	void PrintImages();
 
 private:

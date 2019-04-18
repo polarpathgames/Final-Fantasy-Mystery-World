@@ -499,6 +499,7 @@ bool m1GUI::GetElemOnMouse(int x, int y, u1GUI *& element)
 				element = *item;
 				return true;
 			}
+			
 			else {
 				(*item)->current_state = Element_Event::NONE;
 			}
