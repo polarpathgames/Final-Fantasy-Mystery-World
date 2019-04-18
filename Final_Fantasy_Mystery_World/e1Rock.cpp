@@ -37,5 +37,4 @@ void e1Rock::GetHitted()
 		idle->speed = 10;
 		App->map->data.no_walkables.remove(actual_tile + iPoint{ 0,-1 });
 	}
-	
 }

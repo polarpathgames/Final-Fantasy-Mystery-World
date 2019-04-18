@@ -298,12 +298,12 @@ void m1Scene::CreateEntities()
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
-				else if ((*position)->ent_type == "in_home" && player->state != State::DEATH) { // position in the home
+				else if ((*position)->ent_type == "in_home" && player->state != State::MENU) { // position in the home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
-				else if ((*position)->ent_type == "after_death" && player->state == State::DEATH) { // position in the home
+				else if ((*position)->ent_type == "after_death" && player->state == State::MENU) { // position in the home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
