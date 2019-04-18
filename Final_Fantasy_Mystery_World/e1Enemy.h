@@ -15,6 +15,7 @@ public:
 	struct EnemyStats {
 		int live = 100;
 		int attack_power = 25;
+		int experience = 20;
 	};
 
 

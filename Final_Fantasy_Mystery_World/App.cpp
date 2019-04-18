@@ -343,10 +343,13 @@ bool Application::CleanUp()
 
 	while (item != modules.rend() && ret == true)
 	{
-		if (*item != NULL)
+		if (*item != NULL) {
 			ret = (*item)->CleanUp();
+		}
 		++item;
 	}
+
+	config_file.reset();
 
 	PERF_PEEK(ptimer);
 	return ret;

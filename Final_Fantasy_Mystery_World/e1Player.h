@@ -51,6 +51,7 @@ struct PlayerStats {
 	int max_lives = 0;
 	int attack_power = 0;
 	int xp = 0;
+	int max_xp = 100;
 	int mana = 0;
 	int max_mana = 0;
 	int gold = 0;
@@ -161,6 +162,10 @@ public:
 	inline void AugmentGold(const int &plus_gold) {
 		stats.gold += plus_gold;
 	}
+
+	void UpdateExperience(int experience);
+
+	void UpdateLevel();
 
 public:
 	float death_time = 0.0f;
