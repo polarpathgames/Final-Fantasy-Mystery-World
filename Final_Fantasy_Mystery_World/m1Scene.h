@@ -4,6 +4,7 @@
 #include "m1Module.h"
 #include "p2ChangeControls.h"
 #include <list>
+#include "p2Animation.h"
 
 enum class StatesMenu {
 	NO_MENU,
@@ -366,6 +367,7 @@ private:
 	u1Image* first_ability_panel = nullptr;
 	u1Button* button_ability1_screen = nullptr;
 	u1Label* label_ability1_screen = nullptr;
+
 
 	// game over
 	u1Image* game_over_panel = nullptr;
