@@ -168,10 +168,7 @@ public:
 	SDL_GameController* Controller = nullptr;
 
 	//Controler Haptic
-	SDL_Joystick *joystick;
-	SDL_Haptic *haptic;
-	SDL_GameController *Pad;
-	SDL_HapticEffect effect;
+	SDL_Haptic *haptic = nullptr;
 
 private:
 	bool		windowEvents[WE_COUNT];

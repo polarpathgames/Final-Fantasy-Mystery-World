@@ -10,7 +10,7 @@ c1CutsceneEntity::c1CutsceneEntity(int pos_x, int pos_y, std::string name)
 		entity_c = (e1Entity*)App->scene->player;
 	}
 	else if (strcmp(name.data(), "daughter") == 0) {
-		entity_c = App->entity_manager->CreateEntity(e1Entity::EntityType::DAUGHTER, 195, 349, name);
+		entity_c = App->entity_manager->CreateEntity(e1Entity::EntityType::DAUGHTER, pos_x, pos_y, name);
 		
 	}
 	App->cutscene_manager->ent = entity_c;

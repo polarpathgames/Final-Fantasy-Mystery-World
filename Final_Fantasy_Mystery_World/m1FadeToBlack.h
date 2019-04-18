@@ -21,6 +21,7 @@ public:
 	bool FadeToBlack(float time);
 	bool FadeToBlack(Maps type, float time = 1.0f);
 	bool FadeToBlack(m1Module* module_off, Maps type, float time = 1.0f);
+	bool FadeToBlack(bool IsQuest, float time = 1.0f);
 	bool IsFading() const;
 
 	enum fade_step
@@ -40,6 +41,7 @@ private:
 	
 	Maps map_to_change;
 	bool want_to_change_map = false;
+	bool is_quest = false;
 };
 
 #endif

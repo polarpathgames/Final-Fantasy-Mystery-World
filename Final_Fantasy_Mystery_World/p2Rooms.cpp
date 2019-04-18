@@ -72,7 +72,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 	iPoint pos_coll = { c1->rect.x,c1->rect.y };
 	pos_coll = App->map->WorldToMap(pos_coll.x, pos_coll.y);
 
-	if (App->scene->player->actual_tile == pos_coll) {
+	if (App->scene->player->actual_tile == pos_coll && actual_room->active) {
 		std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
 		switch (c1->type)
 		{
@@ -80,10 +80,19 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 			for (; item != actual_room->change_scene_points.end(); ++item) {
 				if ((*item) != nullptr) {
 					if ((*item)->change_type == LocationChangeScene::NEXT_A) {
+						App->scene->player->BlockControls(true);
 						actual_room->active = false;
 						last_room = actual_room;
 						player_next_pos = LocationChangeScene::NEXT_A;
-						LoadRoom((*item)->id_next_room);
+						std::vector<Room*>::iterator item2 = rooms.begin();
+						for (; item2 != rooms.end(); ++item2) {
+							if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
+								actual_room = (*item2);
+								break;
+							}
+						}
+						App->fade_to_black->FadeToBlack(true, 0.5f);
+						App->audio->PlayFx(App->scene->fx_door_enter);
 						break;
 					}
 				}
@@ -93,10 +102,19 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 			for (; item != actual_room->change_scene_points.end(); ++item) {
 				if ((*item) != nullptr) {
 					if ((*item)->change_type == LocationChangeScene::LAST_A) {
+						App->scene->player->BlockControls(true);
 						actual_room->active = false;
 						last_room = actual_room;
 						player_next_pos = LocationChangeScene::LAST_A;
-						LoadRoom((*item)->id_next_room);
+						std::vector<Room*>::iterator item2 = rooms.begin();
+						for (; item2 != rooms.end(); ++item2) {
+							if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
+								actual_room = (*item2);
+								break;
+							}
+						}
+						App->fade_to_black->FadeToBlack(true, 0.5f);
+						App->audio->PlayFx(App->scene->fx_door_enter);
 						break;
 					}
 				}
@@ -106,10 +124,19 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 			for (; item != actual_room->change_scene_points.end(); ++item) {
 				if ((*item) != nullptr) {
 					if ((*item)->change_type == LocationChangeScene::NEXT_B) {
+						App->scene->player->BlockControls(true);
 						actual_room->active = false;
 						last_room = actual_room;
 						player_next_pos = LocationChangeScene::NEXT_B;
-						LoadRoom((*item)->id_next_room);
+						std::vector<Room*>::iterator item2 = rooms.begin();
+						for (; item2 != rooms.end(); ++item2) {
+							if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
+								actual_room = (*item2);
+								break;
+							}
+						}
+						App->fade_to_black->FadeToBlack(true, 0.5f);
+						App->audio->PlayFx(App->scene->fx_door_enter);
 						break;
 					}
 				}
@@ -119,10 +146,19 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 			for (; item != actual_room->change_scene_points.end(); ++item) {
 				if ((*item) != nullptr) {
 					if ((*item)->change_type == LocationChangeScene::LAST_B) {
+						App->scene->player->BlockControls(true);
 						actual_room->active = false;
 						last_room = actual_room;
 						player_next_pos = LocationChangeScene::LAST_B;
-						LoadRoom((*item)->id_next_room);
+						std::vector<Room*>::iterator item2 = rooms.begin();
+						for (; item2 != rooms.end(); ++item2) {
+							if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
+								actual_room = (*item2);
+								break;
+							}
+						}
+						App->fade_to_black->FadeToBlack(true, 0.5f);
+						App->audio->PlayFx(App->scene->fx_door_enter);
 						break;
 					}
 				}
@@ -136,10 +172,8 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 
 void RoomManager::LoadRoom(const int & id)
 {
-	App->fade_to_black->FadeToBlack(0.5f);
 	App->entity_manager->DeleteEntitiesNoPlayer();
 	App->map->CleanUp();
-
 
 	std::vector<Room*>::iterator item = rooms.begin();
 	for (; item != rooms.end(); ++item) {
@@ -170,19 +204,15 @@ void RoomManager::PlacePlayer() // place player in front of the door
 	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
 		if ((*position)->name == "player") {
 			if ((*position)->ent_type == "lastA" && player_next_pos == LocationChangeScene::LAST_A) {
-				App->audio->PlayFx(App->scene->fx_door_enter);
 				App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 			}
 			else if ((*position)->ent_type == "lastB" && player_next_pos == LocationChangeScene::LAST_B) {
-				App->audio->PlayFx(App->scene->fx_door_enter);
 				App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 			}
 			else if ((*position)->ent_type == "nextA" && player_next_pos == LocationChangeScene::NEXT_A) {
-				App->audio->PlayFx(App->scene->fx_door_enter);
 				App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 			}
 			else if ((*position)->ent_type == "nextB" && player_next_pos == LocationChangeScene::NEXT_B) {
-				App->audio->PlayFx(App->scene->fx_door_enter);
 				App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 			}
 			else if ((*position)->ent_type == "default" && player_next_pos == LocationChangeScene::NONE) {
@@ -276,11 +306,15 @@ void RoomManager::PlayMusic()
 void RoomManager::PlayCutScene()
 {
 	if (!actual_room->cutscene_location.empty()) {
+		App->scene->player->BlockControls(true);
 		if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneTutorial.xml") == 0 && !CutSceneTutorialGirlEscapingPlayed) {
 			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
 			CutSceneTutorialGirlEscapingPlayed = true;
 		}
-			
+		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneFinalRoom.xml") == 0 && !CutSceneFinalRoomTutorialPlayed) {
+			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
+			CutSceneFinalRoomTutorialPlayed = true;
+		}
 	}
 		
 }

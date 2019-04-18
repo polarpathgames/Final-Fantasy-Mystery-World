@@ -48,22 +48,184 @@
     <ClCompile Include="m1Fonts.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="m1Audio.cpp" />
-    <ClCompile Include="m1Input.cpp" />
-    <ClCompile Include="m1Map.cpp" />
-    <ClCompile Include="m1Pathfinding.cpp" />
-    <ClCompile Include="p2PerfTimer.cpp" />
-    <ClCompile Include="m1Scene.cpp" />
-    <ClCompile Include="p2Timer.cpp" />
-    <ClCompile Include="m1GUI.cpp" />
-    <ClCompile Include="m1MainMenu.cpp" />
-    <ClCompile Include="p2Log.cpp" />
-    <ClCompile Include="m1Render.cpp" />
-    <ClCompile Include="m1Textures.cpp" />
-    <ClCompile Include="m1Window.cpp" />
-    <ClCompile Include="e1Player.cpp" />
-    <ClCompile Include="PugiXml\src\pugixml.cpp" />
-    <ClCompile Include="e1StaticEntity.cpp" />
+    <ClCompile Include="c1CutSceneEntity.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneImage.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneModifyimage.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneModifyText.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutsceneMoveCamera.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneMoveEntity.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutsceneText.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
+    <ClCompile Include="e1BlueDog.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1CarnivorousPlant.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Drop.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1DynamicEntity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Enemy.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Entity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Player.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1StaticEntity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Audio.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Collisions.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Cutscene.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1DialogSystem.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1EasingSplines.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1EntityManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1FadeToBlack.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Fonts.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1GUI.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Input.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Map.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Pathfinding.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Render.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Textures.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Window.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="p2ChangeControls.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="p2Log.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="p2PerfTimer.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="p2Rooms.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="p2Timer.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="PugiXml\src\pugixml.cpp">
+      <Filter>Tools\pugixml</Filter>
+    </ClCompile>
+    <ClCompile Include="u1Bar.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="u1Button.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="u1CheckBox.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="u1Image.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="u1Label.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="u1Slider.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="u1UI_Element.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="m1MainMenu.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Scene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Warrior.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Archer.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Mage.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1StrangeFrog.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="p1Follow.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="p1Particle.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="p1Explosion.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="p1Fire.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="p1Firework.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="m1ParticleManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Particles.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1NPC.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1ShopKeeperDaughter.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneDeleteEntity.cpp">
+      <Filter>Cutscene</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneAddAudio.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="c1CutSceneAction.h" />
@@ -88,6 +250,7 @@
     <ClInclude Include="e1StrangeFrog.h" />
     <ClInclude Include="e1Warrior.h" />
     <ClInclude Include="GlobalGameAdvances.h" />
+    <ClInclude Include="c1CutSceneAddAudio.h" />
     <ClInclude Include="m1Cutscene.h" />
     <ClInclude Include="m1ParticleManager.h" />
     <ClInclude Include="p1Explosion.h" />
@@ -128,6 +291,32 @@
     <ClInclude Include="m1Input.h" />
     <ClInclude Include="p2Line.h" />
     <ClInclude Include="p2Log.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Modules">
+      <UniqueIdentifier>{cdbae3c2-1707-4add-a459-b2679419f751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{411798fc-1f95-4968-94ab-5f587ffe7077}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{b2bedcf8-c7df-496e-8fd9-21196aefaea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{3af2881a-7a12-4e8b-b711-7d90c6dbc325}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{a31c113f-57d7-487c-ab64-d89e34bd9995}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools\pugixml">
+      <UniqueIdentifier>{e6a7f851-a874-4b51-9346-717d21b79a04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XML">
+      <UniqueIdentifier>{da9fe7ee-1fa7-478f-8d85-84a2d1224bb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\TSX">
+      <UniqueIdentifier>{ba6c7ea9-8435-465f-bdaa-0c78a841bac4}</UniqueIdentifier>
+    </Filter>
     <ClInclude Include="App.h" />
     <ClInclude Include="p2Defs.h" />
     <ClInclude Include="m1Module.h" />
@@ -145,10 +334,19 @@
     <ResourceCompile Include="icon.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Game\assets\xml\config.xml" />
-    <Xml Include="Game\assets\xml\CutsceneTutorial.xml" />
+    <Xml Include="Game\assets\xml\config.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneBlockPass.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneTutorial.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneFinalRoom.xml">
+      <Filter>XML</Filter>
+    </Xml>
     <Xml Include="Game\assets\xml\Dialog.xml" />
-    <Xml Include="Game\assets\xml\CutsceneBlockPass.xml" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Game\assets\ff_icon.ico" />

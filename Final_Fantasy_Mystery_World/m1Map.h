@@ -155,7 +155,7 @@ private:
 	TileSet* GetTilesetFromTileId(int id) const;
 
 public:
-
+	RoomManager * quest_rooms = nullptr;
 	MapData		data;
 	bool		grid = false;
 	Maps		actual_map = Maps::NONE;
@@ -176,7 +176,7 @@ private:
 	std::string home_map;
 	
 	pugi::xml_node node;
-	RoomManager* quest_rooms = nullptr;
+
 };
 
 #endif // __j1MAP_H__
