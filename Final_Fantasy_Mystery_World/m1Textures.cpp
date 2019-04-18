@@ -1,8 +1,10 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "App.h"
+#include "p2Rooms.h"
 #include "m1Render.h"
 #include "m1Textures.h"
+#include "m1Map.h"
 #include <list>
 
 #include "SDL_image/include/SDL_image.h"
@@ -55,6 +57,18 @@ bool m1Textures::CleanUp()
 
 	textures.clear();
 	IMG_Quit();
+
+	if (App->map->quest_rooms != nullptr) {
+		std::vector<Room*>::iterator item = App->map->quest_rooms->rooms.begin();
+		for (; item != App->map->quest_rooms->rooms.end(); ++item) {
+			if ((*item) != nullptr) {
+				delete (*item);
+				(*item) = nullptr;
+			}
+		}
+		delete App->map->quest_rooms;
+		App->map->quest_rooms = nullptr;
+	}
 	return true;
 }
 

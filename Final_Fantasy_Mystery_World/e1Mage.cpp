@@ -29,7 +29,7 @@
 
 e1Mage::e1Mage(const int & x, const int & y) : e1Player(x, y)
 {
-	LoadEntityData("assets/entities/Warrior.tsx");
+	LoadEntityData("assets/entities/Mage.tsx");
 
 	ground = App->tex->Load("assets/sprites/player_pos.png");
 	InitStats();
