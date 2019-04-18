@@ -13,9 +13,12 @@ public:
 		bool has_background = false, const SDL_Color& bg_color = { 255,255,255,255 });
 	~u1InputText();
 
+	void UpdateElement();
 	void InnerDraw();
 
 	void SetText(const char* txt);
+	void AddText(const char* txt);
+	void DeleteText();
 	void SetTextWrapped(const char * txt);
 
 	void SetColor(const Color& c);
@@ -35,6 +38,8 @@ protected:
 	uint32			wrap = 0U;
 	bool			has_background = false;
 	SDL_Color		background_color = { 255,255,255,255 };
+	SDL_Rect		input_box{ 0,0,0,0 };
+	bool			first_update = true;
 
 };
 

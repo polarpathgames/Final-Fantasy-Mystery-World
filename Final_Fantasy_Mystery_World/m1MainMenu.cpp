@@ -53,7 +53,7 @@ bool m1MainMenu::Update(float dt)
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
-		App->gui->AddInputText(100, 100, "HOLA", App->gui->screen, BLACK, FontType::FF64, nullptr, true);
+		App->gui->AddInputText(100, 100, "Write Your Name", App->gui->screen, BLACK, FontType::FF64, nullptr,true);
 	}
 	return true;
 }

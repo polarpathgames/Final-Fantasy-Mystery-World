@@ -13,9 +13,10 @@ u1InputText::u1InputText(const int & pos_x, const int & pos_y, const char * txt,
 	:u1GUI(LABEL, pos_x, pos_y, parent, { 0,0,0,0 }, true, false, false, focus),
 
 	id_font(font), has_background(has_background), background_color(bg_color), wrap(wrap_length)
-{
+{		
 	text.assign(txt);
-
+	this->interactable = true;
+	this->allow_focus = true;
 	SetColor(c);
 	if (wrap_length == 0U) {
 		texture = App->fonts->Print(text.data(), color, id_font);
@@ -29,24 +30,30 @@ u1InputText::u1InputText(const int & pos_x, const int & pos_y, const char * txt,
 
 u1InputText::~u1InputText()
 {
+	SDL_StopTextInput();
 }
 
-void u1InputText::InnerDraw()
+void u1InputText::UpdateElement() 
 {
 
-	int x, y;
-	App->input->GetMousePosition(x, y);
-	//bool is_inside = x > position.x && x < position.x + area.w && y > position.y && y < position.y + area.h;
 
 	SDL_StartTextInput();
 	SDL_Rect rect{ 100,100,100,100 };
 	SDL_SetTextInputRect(&(rect));
 	std::string t = App->input->text_input;
-	SetText(t.data());
+	App->input->text_input.clear();
+	AddText(t.data());
+	
 
+	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN)
+	{
+		DeleteText();
+	}
 
+}
 
-
+void u1InputText::InnerDraw()
+{
 	if (has_background) {
 		App->render->DrawQuad({ draw_offset.x,draw_offset.y,section.w,section.h }, background_color.r, background_color.g, background_color.b, background_color.a, true, false);
 	}
@@ -56,12 +63,30 @@ void u1InputText::InnerDraw()
 
 void u1InputText::SetText(const char * txt)
 {
-	text.assign(txt);
+	text = txt;
 	App->tex->UnLoad(texture);
 	texture = App->fonts->Print(text.data(), color, id_font);
 	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
 }
+void u1InputText::AddText(const char * txt)
+{
+	if (first_update) {
+		text.clear();
+		first_update = false;
+	}
+	text += txt;
+	App->tex->UnLoad(texture);
+	texture = App->fonts->Print(text.data(), color, id_font);
+	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
+}
+void u1InputText::DeleteText()
+{
 
+	text.pop_back();
+	App->tex->UnLoad(texture);
+	texture = App->fonts->Print(text.data(), color, id_font);
+	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
+}
 void u1InputText::SetTextWrapped(const char * txt)
 {
 	text.assign(txt);
