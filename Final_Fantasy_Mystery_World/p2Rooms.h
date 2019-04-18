@@ -49,7 +49,7 @@ public:
 	bool active = false;
 	RoomType room_type = RoomType::NONE;
 	std::string cutscene_location;
-	std::map<int, int> entities;
+	std::vector<iPoint> entities;
 
 };
 
