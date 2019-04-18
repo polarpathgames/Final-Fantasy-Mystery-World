@@ -182,6 +182,9 @@
     <ClCompile Include="e1StrangeFrog.cpp">
       <Filter>Entities\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="u1ChButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="c1CutSceneAction.h">
@@ -399,6 +402,9 @@
     </ClInclude>
     <ClInclude Include="e1StrangeFrog.h">
       <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="u1ChButton.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

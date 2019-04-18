@@ -24,7 +24,7 @@ enum class PlayerType {
 	ARCHER,
 	MAGE,
 
-	NONE
+	NONE,
 };
 
 struct SDL_Texture;

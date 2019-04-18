@@ -11,6 +11,7 @@ class u1Button;
 class u1Label;
 class u1CheckBox;
 class u1Image;
+class u1ChButton;
 
 
 enum class MainMenuStates {
@@ -104,11 +105,6 @@ private:
 	
 	u1Button* button_youtube = nullptr;
 	u1Label* label_youtube = nullptr;
-	
-	u1Image* select_champ_panel = nullptr;
-	u1Button* button_warrior = nullptr;
-	u1Button* button_archer = nullptr;
-	u1Button* button_mage = nullptr;
 
 
 	//options
@@ -270,8 +266,28 @@ private:
 
 public:
 
+	//select character
+
+	u1Image* select_champ_panel = nullptr;
+	u1ChButton* button_warrior = nullptr;
+	u1Label* label_warrior = nullptr;
+	u1ChButton* button_archer = nullptr;
+	u1Label* label_archer = nullptr;
+	u1ChButton* button_mage = nullptr;
+	u1Label* label_mage = nullptr;
+
+	u1Image* warrior_image = nullptr;
+    u1Image* archer_image = nullptr;
+    u1Image* mage_image = nullptr;
+
+	u1Image* warrior_info = nullptr;
+	u1Image* archer_info = nullptr;
+	u1Image* mage_info = nullptr;
+
+
 	int fx_push_button;
 	int fx_push_button_return;
+
 
 };
 
