@@ -1167,7 +1167,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->audio->PlayFx(App->main_menu->fx_push_button);
 		}
 		if (interact == shop_button_hp_potion) {
-			if (player->stats.gold >= price_hp_potion) {
+			if (player->stats.gold >= price_hp_potion || player->god_mode) {
 				// audio comprar
 				player->ReduceGold(price_hp_potion);
 				++player->stats.num_hp_potions;
@@ -1179,7 +1179,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 		}
 		if (interact == shop_button_mana_potion) {
-			if (player->stats.gold >= price_mana_potion) {
+			if (player->stats.gold >= price_mana_potion || player->god_mode) {
 				// audio comprar
 				player->ReduceGold(price_mana_potion);
 				++player->stats.num_mana_potions;

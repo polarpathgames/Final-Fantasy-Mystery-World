@@ -167,7 +167,6 @@ public:
 
 	void UpdateLevel();
 
-	void GodMode();
 public:
 	float death_time = 0.0f;
 	bool has_skills = false;
