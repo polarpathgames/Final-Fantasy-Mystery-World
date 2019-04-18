@@ -40,6 +40,7 @@ private:
 	void SetArrow();
 	void MoveArrow(float dt);
 	void LookForEnemyCollision();
+	void LookForRocks();
 
 	void SetFireBall();
 	void MoveFireBall(float dt);
