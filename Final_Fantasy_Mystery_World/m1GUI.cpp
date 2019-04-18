@@ -258,7 +258,7 @@ bool m1GUI::PostUpdate()
 		for (std::list<u1GUI*>::iterator item = tree.begin(); item != tree.end(); item++) {
 			(*item)->Draw();
 			if (focus == *item) {
-				App->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - focus_tx.w, (focus->section.h - focus_tx.h) * 0.5F + focus->GetGlobalPosition().y + 5, &focus_tx);
+				App->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - focus_tx.w + focus->focus_offset.x, (focus->section.h - focus_tx.h) * 0.5F + focus->GetGlobalPosition().y + 5 + focus->focus_offset.y, &focus_tx);
 			}
 			if (debug_ui) {
 				(*item)->DebugDraw();
@@ -310,9 +310,9 @@ u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0
 	return image;
 }
 
-u1Button* m1GUI::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* listener, u1GUI* parent, bool draw, bool drag, bool inter, bool focus = true)
+u1Button* m1GUI::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* listener, u1GUI* parent, bool draw, bool drag, bool inter, bool focus = true, const iPoint &focus_offset)
 {
-	u1Button* button = DBG_NEW u1Button(x, y, idle, mouse_in, clicked, parent, draw, inter, drag, focus);
+	u1Button* button = DBG_NEW u1Button(x, y, idle, mouse_in, clicked, parent, draw, inter, drag, focus, focus_offset);
 
 	if (listener != nullptr) {
 		button->AddListener(listener);
