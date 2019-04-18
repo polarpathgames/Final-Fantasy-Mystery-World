@@ -152,7 +152,57 @@ bool m1ParticleManager::PostUpdate()
 
 bool m1ParticleManager::CleanUp()
 {
-	return true;
+	for (std::list<p1Follow*>::iterator item = Group_Follow.begin(); item != Group_Follow.end(); ++item) {
+		for (std::vector<p1Particle*>::iterator item_p = (*item)->particle.begin(); item_p != (*item)->particle.end(); item_p++) {
+			delete *item_p;
+			*item_p = nullptr;
+		}
+		(*item)->particle.clear();
+
+		delete *item;
+		*item = nullptr;
+	}
+	Group_Follow.remove(nullptr);
+
+	for (std::list<p1Fire*>::iterator item = Group_Fire.begin(); item != Group_Fire.end(); ++item) {
+		for (std::vector<p1Particle*>::iterator item_p = (*item)->particle.begin(); item_p != (*item)->particle.end(); item_p++) {
+			delete *item_p;
+			*item_p = nullptr;
+		}
+		(*item)->particle.clear();
+
+		delete *item;
+		*item = nullptr;
+	}
+	Group_Fire.remove(nullptr);
+
+	for (std::list<p1Explosion*>::iterator item = Group_Explosion.begin(); item != Group_Explosion.end(); ++item) {
+		for (std::vector<p1Particle*>::iterator item_p = (*item)->particle.begin(); item_p != (*item)->particle.end(); item_p++) {
+			delete *item_p;
+			*item_p = nullptr;
+		}
+		(*item)->particle.clear();
+
+		delete *item;
+		*item = nullptr;
+	}
+	Group_Explosion.remove(nullptr);
+
+	for (std::list<p1Firework*>::iterator item = Group_Firework.begin(); item != Group_Firework.end(); ++item) {
+		for (std::vector<p1Particle*>::iterator item_p = (*item)->particle.begin(); item_p != (*item)->particle.end(); item_p++) {
+			delete *item_p;
+			*item_p = nullptr;
+		}
+		(*item)->particle.clear();
+
+		delete *item;
+		*item = nullptr;
+	}
+	Group_Firework.remove(nullptr);
+
+	SDL_assert(Group_Explosion.size() == 0 && Group_Follow.size() == 0 && Group_Fire.size() == 0 && Group_Firework.size() == 0);
+
+	return Group_Explosion.size() == 0 && Group_Follow.size() == 0 && Group_Fire.size() == 0 && Group_Firework.size() == 0;
 }
 
 //CREATE GROUPS -------------------------------------------------------------------------------------------------------------------------------------
@@ -164,9 +214,9 @@ p1Follow* m1ParticleManager::CreateFollow(e1Entity* element_to_follow, iPoint* o
 	return ret;
 }
 
-p1Fire* m1ParticleManager::CreateFire(e1Entity* element_to_follow, iPoint* object_follow, iPoint position_static, SDL_Rect initial_rect, iPoint area, iPoint timelife, fPoint speed, P_Direction p_direction, int num_particles, int num_textures, bool active, Wind w_dir)
+p1Fire* m1ParticleManager::CreateFire(e1Entity* element_to_follow, iPoint* object_follow, iPoint position_static, SDL_Rect initial_rect, iPoint area, iPoint timelife, fPoint speed, P_Direction p_direction, int num_particles, int num_textures, bool active, Wind w_dir, const iPoint &offset)
 {
-	p1Fire* ret = DBG_NEW p1Fire(element_to_follow, object_follow, position_static, initial_rect, area, timelife, speed, p_direction, num_particles, num_textures, active, w_dir);
+	p1Fire* ret = DBG_NEW p1Fire(element_to_follow, object_follow, position_static, initial_rect, area, timelife, speed, p_direction, num_particles, num_textures, active, w_dir, offset);
 	Group_Fire.push_back(ret);
 	return ret;
 }

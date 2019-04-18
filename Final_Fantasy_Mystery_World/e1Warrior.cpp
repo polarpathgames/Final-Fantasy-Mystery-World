@@ -49,6 +49,7 @@ bool e1Warrior::CleanUp()
 void e1Warrior::InitStats()
 {
 	stats.attack_power = 500;
+	stats.attack_power_ability_1 = 100;
 	stats.cost_mana_special_attack1 = 0;
 	stats.gold = 400;
 	stats.level = 1;
@@ -78,7 +79,7 @@ void e1Warrior::PrepareSpecialAttack1()
 void e1Warrior::SpecialAttack1()
 {
 	if (current_animation->Finished()) {
-		CheckSpecialAttack1Efects(stats.attack_power);
+		CheckSpecialAttack1Efects(stats.attack_power_ability_1);
 		state = State::AFTER_ATTACK;
 		ChangeAnimation(direction, state);
 		time_attack = SDL_GetTicks();

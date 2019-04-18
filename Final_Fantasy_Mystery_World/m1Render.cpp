@@ -352,6 +352,8 @@ bool m1Render::CameraTremble()
 	static int index_tremble = 0;
 	static int tremble = 7;
 
+	App->input->ControllerVibration(0.5F, 1000);
+
 	if (index_tremble == 0)
 		camera.x += tremble;
 	else if (index_tremble == 1)
@@ -366,43 +368,7 @@ bool m1Render::CameraTremble()
 	}
 	index_tremble++;
 
-
 	
-	int effect_id;
-
-	// Open the device
-	haptic = SDL_HapticOpenFromJoystick(joystick);
-	if (haptic == NULL) return -1; // Most likely joystick isn't haptic
-
-								   // See if it can do sine waves
-	if ((SDL_HapticQuery(haptic) & SDL_HAPTIC_SINE) == 0) {
-		SDL_HapticClose(haptic); // No sine effect
-		return -1;
-	}
-
-	// Create the effect
-	SDL_memset(&effect, 0, sizeof(SDL_HapticEffect)); // 0 is safe default
-	effect.type = SDL_HAPTIC_SINE;
-	effect.periodic.direction.type = SDL_HAPTIC_POLAR; // Polar coordinates
-	effect.periodic.direction.dir[0] = 18000; // Force comes from south
-	effect.periodic.period = 1000; // 1000 ms
-	effect.periodic.magnitude = 20000; // 20000/32767 strength
-	effect.periodic.length = 5000; // 5 seconds long
-	effect.periodic.attack_length = 1000; // Takes 1 second to get max strength
-	effect.periodic.fade_length = 1000; // Takes 1 second to fade away
-
-										// Upload the effect
-	effect_id = SDL_HapticNewEffect(haptic, &effect);
-
-	// Test the effect
-	SDL_HapticRunEffect(haptic, effect_id, 1);
-	SDL_Delay(5000); // Wait for the effect to finish
-
-					 // We destroy the effect, although closing the device also does this
-	SDL_HapticDestroyEffect(haptic, effect_id);
-
-	// Close the device
-	SDL_HapticClose(haptic);
 
 	return false;
 }

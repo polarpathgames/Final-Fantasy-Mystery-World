@@ -4,26 +4,27 @@
 #include "m1Render.h"
 #include "m1Window.h"
 
-p1Fire::p1Fire(e1Entity* element, iPoint* object, iPoint position_static, SDL_Rect initial_rect, iPoint area_, iPoint timelife_, fPoint speed_particle, P_Direction p_direction, int num_particles, int num_textures, bool active_, Wind dir)
+p1Fire::p1Fire(e1Entity* element, iPoint* object, iPoint position_static, SDL_Rect initial_rect, iPoint area_, iPoint timelife_, fPoint speed_particle, P_Direction p_direction, int num_particles, int num_textures, bool active_, Wind dir, const iPoint &offset)
+	:offset(offset)
 {
 	if (element != nullptr)
 	{
-		pos.x = element->position.x;
-		pos.y = element->position.y;
+		pos.x = element->position.x + offset.x;
+		pos.y = element->position.y + offset.y;
 		element_to_follow = element;
 		object = nullptr;
 	}
 	else if (object != nullptr)
 	{
-		pos.x = object->x;
-		pos.y = object->y;
+		pos.x = object->x + offset.x;
+		pos.y = object->y + offset.y;
 		object_follow = object;
 		element_to_follow = nullptr;
 	}
 	else
 	{
-		pos.x = position_static.x;
-		pos.y = position_static.y;
+		pos.x = position_static.x + offset.x;
+		pos.y = position_static.y + offset.y;
 		object_follow = nullptr;
 		element_to_follow = nullptr;
 	}
@@ -58,16 +59,12 @@ bool p1Fire::Update(float dt)
 {
 	if (element_to_follow != nullptr && object_follow == nullptr)
 	{
-		pos.x = element_to_follow->position.x;
-		pos.y = element_to_follow->position.y;
+		pos.x = element_to_follow->position.x + offset.x;
+		pos.y = element_to_follow->position.y + offset.y;
 	}
 	else if (element_to_follow == nullptr && object_follow != nullptr)
 	{
 		Update_position(object_follow);
-	}
-	else
-	{
-
 	}
 
 	MoveParticles();

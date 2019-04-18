@@ -100,10 +100,7 @@ bool m1Scene::Update(float dt)
 	
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN) {
-		e1Particles* particle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, player->actual_tile.x, player->actual_tile.y, "bfud");
-		particle->SetParticle(e1Particles::ParticleType::ARROW, Direction::RIGHT);
-	}
+
 
 	if(App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
@@ -119,9 +116,6 @@ bool m1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		App->render->camera.x += 300 * dt;*/
-
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneTutorial.xml");
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		App->map->grid = !App->map->grid;

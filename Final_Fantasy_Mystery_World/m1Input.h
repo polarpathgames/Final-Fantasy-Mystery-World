@@ -5,6 +5,8 @@
 #include "SDL\include\SDL_scancode.h"
 #include "SDL\include\SDL.h"
 #include "SDL\include\SDL_gamecontroller.h"
+#include "SDL/include/SDL_haptic.h"
+
 //#define NUM_KEYS 352
 #define NUM_CONTROLLER_BUTTONS SDL_CONTROLLER_BUTTON_MAX //16
 #define NUM_MOUSE_BUTTONS 5
@@ -150,6 +152,9 @@ public:
 
 	bool CheckAxisStates(const Axis &axis);
 
+	bool ControllerVibration(float strength, uint32 duration);
+	
+
 	// Check if a certain window event happened
 	bool GetWindowEvent(int code);
 
@@ -161,6 +166,12 @@ public:
 	KeyboardButtons keyboard_buttons;
 	ControllerButtons controller_Buttons;
 	SDL_GameController* Controller = nullptr;
+
+	//Controler Haptic
+	SDL_Joystick *joystick;
+	SDL_Haptic *haptic;
+	SDL_GameController *Pad;
+	SDL_HapticEffect effect;
 
 private:
 	bool		windowEvents[WE_COUNT];
