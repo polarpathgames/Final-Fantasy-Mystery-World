@@ -8,24 +8,21 @@
 #include "m1Input.h"
 
 u1InputText::u1InputText(const int & pos_x, const int & pos_y, const char * txt, const Color & c, FontType font, u1GUI * parent,
-	bool interactable, bool draggable, uint32 wrap_length, bool focus,
+	bool interactable, bool draggable, bool focus,
 	bool has_background, const SDL_Color& bg_color)
-	:u1GUI(LABEL, pos_x, pos_y, parent, { 0,0,0,0 }, true, false, false, focus),
+	:u1GUI(LABEL, pos_x, pos_y, parent, { 0,0,0,0 },true, false, true, focus),
 
-	id_font(font), has_background(has_background), background_color(bg_color), wrap(wrap_length)
+	id_font(font), has_background(has_background), background_color(bg_color)
 {		
 	text.assign(txt);
 	this->interactable = true;
-	this->allow_focus = true;
+	//this->allow_focus = true;
 	SetColor(c);
-	if (wrap_length == 0U) {
-		texture = App->fonts->Print(text.data(), color, id_font);
-		App->fonts->CalcSize(txt, section.w, section.h, id_font);
-	}
-	else {
-		texture = App->fonts->PrintWrapped(text.data(), color, id_font, wrap_length);
-		App->fonts->CalcSizeWrapped(txt, section.w, section.h, id_font, wrap_length);
-	}
+
+	texture = App->fonts->Print(text.data(), color, id_font);
+	App->fonts->CalcSize(txt, section.w, section.h, id_font);
+
+
 }
 
 u1InputText::~u1InputText()
@@ -36,14 +33,14 @@ u1InputText::~u1InputText()
 void u1InputText::UpdateElement() 
 {
 
-
-	SDL_StartTextInput();
-	SDL_Rect rect{ 100,100,100,100 };
-	SDL_SetTextInputRect(&(rect));
-	std::string t = App->input->text_input;
-	App->input->text_input.clear();
-	AddText(t.data());
-	
+	if (text.length() <= MAX_CHARACTERS || first_update) {
+		SDL_StartTextInput();
+		std::string t = App->input->text_input;
+		App->input->text_input.clear();
+		AddText(t.data());
+	}
+	else 
+		App->input->text_input.clear();
 
 	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN)
 	{
@@ -81,7 +78,6 @@ void u1InputText::AddText(const char * txt)
 }
 void u1InputText::DeleteText()
 {
-
 	text.pop_back();
 	App->tex->UnLoad(texture);
 	texture = App->fonts->Print(text.data(), color, id_font);

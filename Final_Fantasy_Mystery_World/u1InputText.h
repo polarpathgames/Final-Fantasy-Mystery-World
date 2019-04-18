@@ -1,6 +1,8 @@
 #ifndef _U1INPUTTEXT_H_
 #define _U1INPUTTEXT_H_
 
+#define MAX_CHARACTERS 10
+
 #include "u1UI_Element.h"
 #include "m1GUI.h"
 
@@ -9,7 +11,7 @@ class u1InputText : public u1GUI {
 public:
 
 	u1InputText(const int & pos_x, const int & pos_y, const char* txt, const Color &c, FontType font, u1GUI* parent = nullptr,
-		bool interactable = false, bool draggable = false, uint32 wrap_length = 0, bool focus = false,
+		bool interactable = false, bool draggable = false, bool focus = false,
 		bool has_background = false, const SDL_Color& bg_color = { 255,255,255,255 });
 	~u1InputText();
 
