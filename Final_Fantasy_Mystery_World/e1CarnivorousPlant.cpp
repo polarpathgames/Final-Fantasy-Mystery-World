@@ -20,9 +20,9 @@ e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x
 	position.y -= 22;
 	SetPivot(21,33);
 	Sleep.PushBack({272, 2, 43, 40});
-	Sleep.PushBack({317, 2, 43, 40});
+	Sleep.PushBack({272, 253, 43, 40});
 	Sleep.PushBack({ 272, 44, 43, 40 });
-	Sleep.PushBack({ 317, 44, 43, 40 });
+	Sleep.PushBack({ 272, 295, 43, 40 });
 	Sleep.speed = 2;
 
 	current_animation = &Sleep;
@@ -172,25 +172,23 @@ void e1CarnivorousPlant::IdAnimToEnum()
 		case 52:
 			data.animations[i].animType = AnimationState::WALKING_RIGHT;
 			break;
-		
-
-
-		case 36:
+		case 56:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN;
 			break;
-		case 39:
+		case 63:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP;
 			break;
-		case 452:
+		case 70:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_LEFT;
 			break;
-		case 554:
+		case 77:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
+
 		case 60:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;
-		case 63:
+		case 643:
 			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
 			break;
 		case 66:
