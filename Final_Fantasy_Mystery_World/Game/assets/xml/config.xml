@@ -17,6 +17,7 @@
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>
+    <icon path="assets/ff_icon.png"/>
   </window>
 
   <fonts>

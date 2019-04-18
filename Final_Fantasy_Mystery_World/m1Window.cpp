@@ -75,7 +75,7 @@ bool m1Window::Awake(pugi::xml_node& config)
 			//Get window surface
 			screen_surface = SDL_GetWindowSurface(window);
 
-			SDL_Surface* logo = IMG_Load("assets/ff_icon.png");
+			SDL_Surface* logo = IMG_Load(config.child("icon").attribute("path").as_string());
 			SDL_SetWindowIcon(window, logo);
 			SDL_FreeSurface(logo);
 		}
