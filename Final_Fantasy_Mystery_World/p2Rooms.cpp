@@ -72,7 +72,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 	iPoint pos_coll = { c1->rect.x,c1->rect.y };
 	pos_coll = App->map->WorldToMap(pos_coll.x, pos_coll.y);
 
-	if (App->scene->player->actual_tile == pos_coll) {
+	if (App->scene->player->actual_tile == pos_coll && actual_room->active) {
 		std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
 		switch (c1->type)
 		{
@@ -92,6 +92,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 							}
 						}
 						App->fade_to_black->FadeToBlack(true, 0.5f);
+						App->audio->PlayFx(App->scene->fx_door_enter);
 						break;
 					}
 				}
@@ -113,6 +114,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 							}
 						}
 						App->fade_to_black->FadeToBlack(true, 0.5f);
+						App->audio->PlayFx(App->scene->fx_door_enter);
 						break;
 					}
 				}
@@ -134,6 +136,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 							}
 						}
 						App->fade_to_black->FadeToBlack(true, 0.5f);
+						App->audio->PlayFx(App->scene->fx_door_enter);
 						break;
 					}
 				}
@@ -155,6 +158,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 							}
 						}
 						App->fade_to_black->FadeToBlack(true, 0.5f);
+						App->audio->PlayFx(App->scene->fx_door_enter);
 						break;
 					}
 				}
@@ -200,19 +204,15 @@ void RoomManager::PlacePlayer() // place player in front of the door
 	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
 		if ((*position)->name == "player") {
 			if ((*position)->ent_type == "lastA" && player_next_pos == LocationChangeScene::LAST_A) {
-				App->audio->PlayFx(App->scene->fx_door_enter);
 				App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 			}
 			else if ((*position)->ent_type == "lastB" && player_next_pos == LocationChangeScene::LAST_B) {
-				App->audio->PlayFx(App->scene->fx_door_enter);
 				App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 			}
 			else if ((*position)->ent_type == "nextA" && player_next_pos == LocationChangeScene::NEXT_A) {
-				App->audio->PlayFx(App->scene->fx_door_enter);
 				App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 			}
 			else if ((*position)->ent_type == "nextB" && player_next_pos == LocationChangeScene::NEXT_B) {
-				App->audio->PlayFx(App->scene->fx_door_enter);
 				App->scene->player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 			}
 			else if ((*position)->ent_type == "default" && player_next_pos == LocationChangeScene::NONE) {
