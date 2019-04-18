@@ -971,19 +971,41 @@ void e1Player::LookFlash()
 {
 
 	state = State::FLASHING;
-
+	iPoint next_pos{ 0,0 };
 	switch (direction) {
 	case Direction::DOWN_LEFT:
-		iPoint next_pos = actual_tile + iPoint{ 0,3 };
-		if (App->map->IsWalkable(next_pos, false) && !IsEnemyInThatPosition(next_pos)) {
-			drawable = false;
-			flash_position = next_pos;
-			flash_time = SDL_GetTicks();
-		}
-		else
-			state = State::IDLE;
+		next_pos = actual_tile + iPoint{ 0,3 };
+		break;
+	case Direction::UP_LEFT:
+		next_pos = actual_tile + iPoint{ -3,0 };
+		break;
+	case Direction::UP_RIGHT:
+		next_pos = actual_tile + iPoint{ 0,-3 };
+		break;
+	case Direction::DOWN_RIGHT:
+		next_pos = actual_tile + iPoint{ 3,0 };
+		break;
+	case Direction::LEFT:
+		next_pos = actual_tile + iPoint{ -3,3 };
+		break;
+	case Direction::UP:
+		next_pos = actual_tile + iPoint{ -3,-3 };
+		break;
+	case Direction::RIGHT:
+		next_pos = actual_tile + iPoint{ 3,-3 };
+		break;
+	case Direction::DOWN:
+		next_pos = actual_tile + iPoint{ 3,3 };
 		break;
 	}
+
+	if (App->map->IsWalkable(next_pos, false) && !IsEnemyInThatPosition(next_pos)) {
+		drawable = false;
+		flash_position = next_pos;
+		flash_time = SDL_GetTicks();
+	}
+	else
+		state = State::IDLE;
 
 }
 
