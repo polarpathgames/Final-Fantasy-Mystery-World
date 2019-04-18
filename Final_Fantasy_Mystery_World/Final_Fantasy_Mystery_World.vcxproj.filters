@@ -156,6 +156,8 @@
     <ClCompile Include="c1CutSceneDeleteEntity.cpp">
       <Filter>Cutscene</Filter>
     </ClCompile>
+    <ClCompile Include="e1Rock.cpp">
+      <Filter>Entities</Filter>
     <ClCompile Include="e1Archer.cpp">
       <Filter>Entities\Player</Filter>
     </ClCompile>
@@ -371,6 +373,8 @@
     <ClInclude Include="c1CutSceneDeleteEntity.h">
       <Filter>Cutscene</Filter>
     </ClInclude>
+    <ClInclude Include="e1Rock.h">
+      <Filter>Entities</Filter>
     <ClInclude Include="GlobalGameAdvances.h" />
     <ClInclude Include="e1Archer.h">
       <Filter>Entities\Player</Filter>
