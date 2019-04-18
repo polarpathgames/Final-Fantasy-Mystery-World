@@ -864,9 +864,11 @@ const bool e1Player::MultipleButtons(const Input * input)
 
 void e1Player::GetHitted(const int & damage_taken)
 {
-	App->render->CameraTremble();
+
+	App->input->ControllerVibration(0.1F, 100);
+
 	if(!god_mode)
-	ReduceLives(damage_taken);
+		ReduceLives(damage_taken);
 
 	if (stats.live <= 0) {
 		state = State::DEATH;
@@ -906,7 +908,7 @@ bool e1Player::BlockControls(bool to_block)
 {
 	if (to_block) {
 		player_input.Reset();
-		state = State::IDLE;
+		//state = State::IDLE;
 		ChangeAnimation(direction, state);
 	}
 	return block_controls = to_block;

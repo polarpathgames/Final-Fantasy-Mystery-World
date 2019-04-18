@@ -29,6 +29,7 @@
 #include "Brofiler/Brofiler.h"
 #include "m1Input.h"
 #include "m1Textures.h"
+#include "e1Drop.h"
 #include "m1Textures.h"
 
 m1Scene::m1Scene() : m1Module()
@@ -99,14 +100,13 @@ bool m1Scene::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
 		App->render->CameraTremble();
-	
-	}if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 		App->input->ControllerVibration(0.3F, 1000);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		App->scene->player->god_mode = !App->scene->player->god_mode;
   
+
 	/*if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y += 300 * dt;
 
@@ -165,6 +165,14 @@ bool m1Scene::Update(float dt)
 			player->BlockControls(false);
 			menu_state = StatesMenu::NO_MENU;
 		}
+		break;
+	case StatesMenu::FIRSTABILITY_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+			DestroyFirstAbilityPanel();
+			menu_state = StatesMenu::NO_MENU;
+			player->BlockControls(false);
+		}
+	
 		break;
 	case StatesMenu::GO_TO_QUEST_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
@@ -316,6 +324,9 @@ void m1Scene::CreateEntities()
 			if ((*position)->name == "rock") {
 				App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 			}
+			else if ((*position)->name == "ability1") {
+				App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
 			else
 				App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 		}
@@ -385,7 +396,7 @@ void m1Scene::DestroyGoToQuestMenu()
 void m1Scene::CreateInventory()
 {
 	inventory_panel = App->gui->AddImage(0, 0, { 1024, 1536, 228, 384 }, this, App->gui->screen, true, false, false, false);
-	inventory_panel->SetPosRespectParent(RIGHT_CENTERED,8);
+	inventory_panel->SetPosRespectParent(RIGHT_CENTERED);
 
 	player_name = App->gui->AddLabel(80, 7, "Marche", inventory_panel, BLACK, FontType::FF64, nullptr, false); 
 
@@ -795,7 +806,6 @@ void m1Scene::CreateShopMenu()
 	player->BlockControls(true);
 
 	shop_panel = App->gui->AddImage(100, 150, { 1820,1691,227,383 }, (m1Module*)App->scene, App->gui->screen, true, false, false, false);
-	shop_panel->SetPosRespectParent(LEFT_CENTERED, 200);
 	shop_label = App->gui->AddLabel(0, 0, "SHOP", shop_panel, BLACK, FontType::FF64, nullptr, false);
 	shop_label->SetPosRespectParent(CENTERED_UP,20);
 
@@ -813,43 +823,16 @@ void m1Scene::CreateShopMenu()
 	shop_coin2 = App->gui->AddImage(160, 197, { 1024, 1952, 34, 34 }, this, shop_panel, true, false, false, false);
 	shop_button_mana_potion = App->gui->AddButton(32, 185, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, this, shop_panel, false, false, true, true);
 
-	inventory_panel = App->gui->AddImage(0, 0, { 1024, 1536, 228, 384 }, this, App->gui->screen, true, false, false, false);
-	inventory_panel->SetPosRespectParent(RIGHT_CENTERED, 200);
-
-	player_name = App->gui->AddLabel(80, 7, "Marche", inventory_panel, BLACK, FontType::FF64, nullptr, false);
-
-	hp_potion_button = App->gui->AddButton(73, 72, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, inventory_panel, true, false, false,false);
-	hp_potion_button->AddListener(this);
-	hp_potion_image = App->gui->AddImage(85, 80, { 1058, 1952, 33, 47 }, this, inventory_panel, true, false, false, false);
-	hp_potion_label = App->gui->AddLabel(50, -10, std::string("x " + std::to_string(player->stats.num_hp_potions)).data(), hp_potion_image, BLACK, FontType::FF64, nullptr, false);
-
-	mana_potion_button = App->gui->AddButton(73, 135, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, inventory_panel, true, false, false, false);
-	mana_potion_button->AddListener(this);
-	mana_potion_image = App->gui->AddImage(85, 140, { 1091, 1952, 33, 51 }, this, inventory_panel, true, false, false, false);
-	mana_potion_label = App->gui->AddLabel(50, -10, std::string("x " + std::to_string(player->stats.num_mana_potions)).data(), mana_potion_image, BLACK, FontType::FF64, nullptr, false);
-
-	coin_image = App->gui->AddImage(45, 225, { 1024, 1952, 34, 34 }, this, inventory_panel, true, false, false, false);
-	money_label = App->gui->AddLabel(50, -20, std::string("x " + std::to_string(player->stats.gold)).data(), coin_image, BLACK, FontType::FF64, nullptr, false);
-
-	level_name_label = App->gui->AddLabel(76, 267, "Level:", inventory_panel, BLACK, FontType::FF64, nullptr, false);
-	level_number_label = App->gui->AddLabel(65, 0, std::string("x " + std::to_string(player->stats.level)).data(), level_name_label, BLACK, FontType::FF64, nullptr, false);
-
-	exp_name_label = App->gui->AddLabel(55, 307, "Exp:", inventory_panel, BLACK, FontType::FF64, nullptr, false);
-	exp_number_label = App->gui->AddLabel(50, 0, std::string(std::to_string(player->stats.xp) + "/100").data(), exp_name_label, BLACK, FontType::FF64, nullptr, false);
-
-
-
 
 	App->gui->FocusButton(shop_button_hp_potion);
 
-	
+	//menu_state = StatesMenu::SHOP_MENU;
 }
 
 void m1Scene::DestroyShopMenu()
 {
 	player->BlockControls(false);
 	App->gui->DeleteUIElement(shop_panel);
-	DestroyInventory();
 
 	//menu_state = StatesMenu::NO_MENU;
 }
@@ -1179,8 +1162,6 @@ bool m1Scene::Interact(u1GUI* interact)
 				// audio comprar
 				player->ReduceGold(price_hp_potion);
 				++player->stats.num_hp_potions;
-				hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
-				money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
 			}
 			else {
 				// audio no money
@@ -1191,8 +1172,6 @@ bool m1Scene::Interact(u1GUI* interact)
 				// audio comprar
 				player->ReduceGold(price_mana_potion);
 				++player->stats.num_mana_potions;
-				mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
-				money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
 			}
 			else {
 				// audio no money
@@ -1292,6 +1271,13 @@ bool m1Scene::Interact(u1GUI* interact)
 			control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_basic_attack, &App->input->controller_Buttons.buttons_code.BASIC_ATTACK, &App->input->controller_Buttons.buttons_char.BASIC_ATTACK, true);
 		}
 		break;
+	case StatesMenu::FIRSTABILITY_MENU:
+		if (interact == button_ability1_screen) {
+			DestroyFirstAbilityPanel();
+			menu_state = StatesMenu::NO_MENU;
+			player->BlockControls(false);
+			ret = false;
+		}
 	}
 
 	return ret;
@@ -1319,4 +1305,33 @@ void m1Scene::ShowHUD(bool show_or_hide)
 	bg_hud->drawable = show_or_hide;
 	player_hp_bar->drawable = show_or_hide;
 	player_mana_bar->drawable = show_or_hide;
+}
+
+void m1Scene::CreateFirstAbilityPanel()
+{
+	App->gui->ShowCursor(false);
+
+	switch (player_type) {
+	case PlayerType::WARRIOR:
+		first_ability_panel = App->gui->AddImage(0, 0, { 0, 4792, 1025, 768 }, this, App->gui->screen, true, false, false, false);
+		first_ability_panel->SetPosRespectParent(RIGHT_CENTERED);
+		break;
+	case PlayerType::ARCHER:
+		first_ability_panel = App->gui->AddImage(0, 0, { 0, 4792, 1025, 768 }, this, App->gui->screen, true, false, false, false);
+		first_ability_panel->SetPosRespectParent(RIGHT_CENTERED);
+		break;
+	case PlayerType::MAGE:
+		first_ability_panel = App->gui->AddImage(0, 0, { 0, 4792, 1025, 768 }, this, App->gui->screen, true, false, false, false);
+		first_ability_panel->SetPosRespectParent(RIGHT_CENTERED);
+		break;
+	}
+
+	button_ability1_screen = App->gui->AddButton(800, 600, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, first_ability_panel, false, false, true, true);
+	label_ability1_screen = App->gui->AddLabel(0, 0, "Continue", button_ability1_screen, WHITE, FontType::FF100, nullptr, true);
+	
+}
+
+void m1Scene::DestroyFirstAbilityPanel()
+{
+	App->gui->DeleteUIElement(first_ability_panel);
 }
