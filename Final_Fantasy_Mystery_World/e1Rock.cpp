@@ -8,6 +8,7 @@
 e1Rock::e1Rock(const int &x, const int &y, const char* name) : e1StaticEntity(x, y, name)
 {
 	if (strcmp(name, "rock") == 0) {
+		original_pos = { x,y };
 		frame = { 755,91,40,37 };
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
@@ -37,5 +38,6 @@ void e1Rock::GetHitted()
 		idle->loop = false;
 		idle->speed = 10;
 		App->map->data.no_walkables.remove(actual_tile + iPoint{ 0,-1 });
+		App->map->quest_rooms->AddEntityToNotRepeat(original_pos);
 	}
 }

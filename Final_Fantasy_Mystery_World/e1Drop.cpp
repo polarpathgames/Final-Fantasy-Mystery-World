@@ -25,8 +25,8 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		actual_tile = { App->map->WorldToMap(position.x, position.y) };
-		/*position.x += 8;
-		position.y -= 20;*/
+		position.x += 8;
+		position.y -= 20;
 		
 		moving_pos.x = position.x;
 		moving_pos.y = position.y;
@@ -63,16 +63,16 @@ bool e1Drop::Update(float adt)
 		}
 	}
 
-	if (position.y > - 5.0F && moving)
+	if (position.y > moving_pos.y -13.0F && moving)
 	{
 		position.y -= 1;
-		if (position.y <= moving_pos.y - 5.0F)
+		if (position.y <= moving_pos.y - 13.0F)
 			moving = false;
 	}
-	else if (position.y < + 5.0F && !moving)
+	else if (position.y < moving_pos.y +13.0F && !moving)
 	{
-		position.y += 0;
-		if (position.y >= position.y + 5.0F)
+		position.y += 1;
+		if (position.y >= moving_pos.y + 13.0F)
 			moving = true;
 	}
 

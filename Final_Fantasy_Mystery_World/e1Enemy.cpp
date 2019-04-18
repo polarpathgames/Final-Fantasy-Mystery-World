@@ -6,6 +6,7 @@
 #include "m1Audio.h"
 #include "e1Drop.h"
 #include "m1EntityManager.h"
+#include "p2Rooms.h"
 #include "m1Map.h"
 #include <vector>
 #include <string>
@@ -13,6 +14,7 @@
 #include "e1Player.h"
 #include "m1Scene.h"
 #include "Brofiler/Brofiler.h"
+#include <map>
 
 e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
@@ -28,7 +30,7 @@ e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 	velocity.x = 160;
 	velocity.y = 80;
 	
-
+	original_position = position;
 	movement_count = { 0,0 };
 	actual_tile = App->map->WorldToMap(position.x, position.y);
 
@@ -371,6 +373,8 @@ void e1Enemy::GetHitted(const int & damage_taken)
 	if (stats.live <= 0 || App->scene->player->god_mode) {
 		Drop();
 		App->scene->player->UpdateExperience(stats.experience);
+		//App->map->quest_rooms->entities_info.emplace(original_position, App->map->quest_rooms->actual_room->id);
+		App->map->quest_rooms->AddEntityToNotRepeat(original_position);
 		this->to_delete = true;
 	}
 }
