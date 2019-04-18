@@ -142,8 +142,6 @@ bool Application::Awake()
 		}
 	}
 
-	config_file.reset();
-
 	PERF_PEEK(ptimer);
 
 	return ret;
@@ -350,6 +348,8 @@ bool Application::CleanUp()
 		}
 		++item;
 	}
+
+	config_file.reset();
 
 	PERF_PEEK(ptimer);
 	return ret;
