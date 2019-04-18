@@ -438,9 +438,6 @@
     <ClInclude Include="m1Input.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="m1MainMenu.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="m1Map.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -454,9 +451,6 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="m1Render.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="m1Scene.h">
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="m1Textures.h">
@@ -545,6 +539,12 @@
     </ClInclude>
     <ClInclude Include="u1UI_Element.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="m1MainMenu.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Scene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
