@@ -55,14 +55,13 @@ void e1Warrior::InitStats()
 	stats.cost_mana_special_attack1 = 0;
 	stats.gold = 400;
 	stats.level = 1;
-	stats.live = 250;
+	stats.live = 25;
 	stats.mana = 100;
 	stats.max_lives = 250;
 	stats.max_mana = 100;
 	stats.num_hp_potions = 0;
 	stats.num_mana_potions = 0;
 	stats.xp = 0;
-
 }
 void e1Warrior::PrepareSpecialAttack1()
 {
@@ -280,6 +279,18 @@ void e1Warrior::IdAnimToEnum() //Assign every id animation to enum animation
 			break;//
 		case 79:
 			data.animations[i].animType = AnimationState::ABILITY_DOWN_1;
+			break;//
+		case 61:
+			data.animations[i].animType = AnimationState::DEATH_DOWN;
+			break;//
+		case 64:
+			data.animations[i].animType = AnimationState::DEATH_LEFT;
+			break;//
+		case 70:
+			data.animations[i].animType = AnimationState::DEATH_RIGHT;
+			break;//
+		case 65:
+			data.animations[i].animType = AnimationState::DEATH_UP;
 			break;//
 		}
 

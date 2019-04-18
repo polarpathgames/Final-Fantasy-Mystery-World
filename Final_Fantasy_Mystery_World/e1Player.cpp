@@ -197,6 +197,20 @@ void e1Player::CenterPlayerInTile()
 	velocity.y = 80;
 	has_turn = true;
 	
+	if (state == State::MENU) {
+		direction = Direction::DOWN_LEFT;
+		state = State::IDLE;
+		current_animation = &IdleDownLeft;
+		DeathDownLeft.Reset();
+		DeathDownRight.Reset();
+		DeathUpRight.Reset();
+		DeathUpLeft.Reset();
+		DeathDown.Reset();
+		DeathRight.Reset();
+		DeathUp.Reset();
+		DeathLeft.Reset();
+	}
+
 	if (App->map->data.properties.GetValue("movement") == 1)
 		movement_type = Movement_Type::InLobby;
 	else
@@ -219,8 +233,6 @@ void e1Player::CenterPlayerInTile()
 
 	target_position = position;
 	initial_position = position;
-
-
 }
 
 
