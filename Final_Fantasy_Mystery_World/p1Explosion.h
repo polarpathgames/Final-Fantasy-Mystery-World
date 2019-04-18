@@ -11,7 +11,7 @@ class p1Particle;
 class p1Explosion
 {
 public:
-	p1Explosion(e1Entity* element, iPoint* object_follow, iPoint position_static, SDL_Rect initial_rect = { 0,0,8,2 }, Explosion_Type type = RANDOM, iPoint perimeter = { 20, 20 }, iPoint timelife = { 20,10 }, fPoint speed = { 0,0 }, P_Direction p_direction = P_NON, int num_particles = 20, int num_textures = 4);
+	p1Explosion(e1Entity* element, iPoint* object_follow, iPoint position_static, SDL_Rect initial_rect = { 0,0,8,2 }, Explosion_Type type = RANDOM, iPoint perimeter = { 20, 20 }, iPoint timelife = { 20,10 }, fPoint speed = { 0,0 }, P_Direction p_direction = P_NON, int num_particles = 20, int num_textures = 4, const fPoint & gravity = { 0.0f,5.0f });
 	~p1Explosion();
 
 	// Called each loop iteration
@@ -43,6 +43,7 @@ public:
 
 	//velocity
 	fPoint speed;
+	fPoint gravity = { 0.0f,0.0f };
 	bool active;
 
 	bool godelete;

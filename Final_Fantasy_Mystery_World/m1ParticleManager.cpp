@@ -225,9 +225,9 @@ p1Fire* m1ParticleManager::CreateFire(e1Entity* element_to_follow, iPoint* objec
 	return ret;
 }
 
-p1Explosion* m1ParticleManager::CreateExplosion(e1Entity* element_to_follow, iPoint* object_follow, iPoint position_static, SDL_Rect initial_rect, Explosion_Type type, iPoint perimeter, iPoint timelife, fPoint speed, P_Direction p_direction, int num_particles, int num_textures)
+p1Explosion* m1ParticleManager::CreateExplosion(e1Entity* element_to_follow, iPoint* object_follow, iPoint position_static, SDL_Rect initial_rect, Explosion_Type type, iPoint perimeter, iPoint timelife, fPoint speed, P_Direction p_direction, int num_particles, int num_textures, const fPoint& gravity)
 {
-	p1Explosion* ret = DBG_NEW p1Explosion(element_to_follow, object_follow, position_static, initial_rect, type, perimeter, timelife, speed, p_direction, num_particles, num_textures);
+	p1Explosion* ret = DBG_NEW p1Explosion(element_to_follow, object_follow, position_static, initial_rect, type, perimeter, timelife, speed, p_direction, num_particles, num_textures, gravity);
 	Group_Explosion.push_back(ret);
 	return ret;
 }

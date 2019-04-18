@@ -65,7 +65,7 @@ public:
 	bool DeleteFire_p(p1Fire* group);
 
 	//Create & Delete Explosion Group
-	p1Explosion* CreateExplosion(e1Entity* element_to_follow, iPoint* object_follow, iPoint position_static, SDL_Rect initial_rect, Explosion_Type type, iPoint perimeter = { 20, 20 }, iPoint timelife = { 20,10 }, fPoint speed = { 0,0 }, P_Direction p_direction = P_NON, int num_particles = 20, int num_textures = 4);
+	p1Explosion* CreateExplosion(e1Entity* element_to_follow, iPoint* object_follow, iPoint position_static, SDL_Rect initial_rect, Explosion_Type type, iPoint perimeter = { 20, 20 }, iPoint timelife = { 20,10 }, fPoint speed = { 0,0 }, P_Direction p_direction = P_NON, int num_particles = 20, int num_textures = 4, const fPoint& gravity = { 0.0f,5.0f });
 	bool DeleteExplosion_p(p1Explosion* group);
 
 	//Create & Delete Firework Group
