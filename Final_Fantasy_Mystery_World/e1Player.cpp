@@ -53,7 +53,7 @@ bool e1Player::Update(float dt)
 {
 	PerformActions(dt);
 
-	//App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
 	if (coll != nullptr)
 		coll->SetPos(position.x, position.y + 25);
@@ -241,6 +241,9 @@ void e1Player::ReadPlayerInput()
 		else if (player_input.pressing_G || player_input.pressing_F) {
 			state = State::BEFORE_ATTACK;
 		}
+		else if (player_input.pressing_H) {
+			state = State::BEFORE_FLASH;
+		}
 		else if (movement_type == Movement_Type::InQuest){
 			position.x = initial_position.x + movement_count.x;
 			position.y = initial_position.y + movement_count.y;
@@ -263,6 +266,9 @@ void e1Player::ReadPlayerInput()
 	}
 	if (state == State::BEFORE_ATTACK) {
 		ReadAttack();
+	}
+	if (state == State::BEFORE_FLASH) {
+		LookFlash();
 	}
 }
 
@@ -520,6 +526,12 @@ void e1Player::PerformActions(float dt)
 	}
 	if (state == State::AFTER_ATTACK) {
 		RestTimeAfterAttack(time_attack);
+	}
+	if (state == State::FLASHING) {
+		Flashing();
+	}
+	if (state == State::AFTER_FLASH) {
+		RestTimeAfterFlash();
 	}
 }
 
@@ -922,7 +934,7 @@ void e1Player::QuestControls()
 	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
 	player_input.pressing_V = App->input->GetKey(App->input->keyboard_buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN;;
 	player_input.pressing_F = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILTY1) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.HABILTY1) == KEY_DOWN;
-
+	player_input.pressing_H = App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN;
 	if (!player_input.pressing_shift) {
 		if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT)) {
 			player_input.pressing_S = true;
@@ -955,6 +967,80 @@ void e1Player::QuestControls()
 		
 }
 
+void e1Player::LookFlash()
+{
+
+	state = State::FLASHING;
+	iPoint next_pos{ 0,0 };
+	switch (direction) {
+	case Direction::DOWN_LEFT:
+		next_pos = actual_tile + iPoint{ 0,3 };
+		break;
+	case Direction::UP_LEFT:
+		next_pos = actual_tile + iPoint{ -3,0 };
+		break;
+	case Direction::UP_RIGHT:
+		next_pos = actual_tile + iPoint{ 0,-3 };
+		break;
+	case Direction::DOWN_RIGHT:
+		next_pos = actual_tile + iPoint{ 3,0 };
+		break;
+	case Direction::LEFT:
+		next_pos = actual_tile + iPoint{ -3,3 };
+		break;
+	case Direction::UP:
+		next_pos = actual_tile + iPoint{ -3,-3 };
+		break;
+	case Direction::RIGHT:
+		next_pos = actual_tile + iPoint{ 3,-3 };
+		break;
+	case Direction::DOWN:
+		next_pos = actual_tile + iPoint{ 3,3 };
+		break;
+	}
+
+	if (App->map->IsWalkable(next_pos, false) && !IsEnemyInThatPosition(next_pos)) {
+		drawable = false;
+		flash_position = next_pos;
+		flash_time = SDL_GetTicks();
+	}
+	else
+		state = State::IDLE;
+
+}
+
+void e1Player::Flashing()
+{
+
+	if (flash_time < SDL_GetTicks() - 1000) {
+		actual_tile = flash_position;
+		state = State::AFTER_FLASH;
+		drawable = true;
+		position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+		movement_count = { 0,0 };
+		if (App->scene->player_type == PlayerType::WARRIOR) {
+			position.x += 3;
+			position.y -= 19;
+		}
+		else {
+			position.x += 8;
+			position.y -= 22;
+		}
+		target_position = position;
+		initial_position = position;
+		flash_time = SDL_GetTicks();
+	}
+
+}
+
+void e1Player::RestTimeAfterFlash()
+{
+	if (flash_time <= SDL_GetTicks() - 400) {
+		ChangeTurn(type);
+		state = State::IDLE;
+	}
+}
+
 void e1Player::ReduceMana(const int & cost_mana)
 {
 	stats.mana -= cost_mana;
@@ -985,6 +1071,24 @@ void e1Player::AugmentLives(const int & plus_lives)
 	if (stats.live > stats.max_lives)
 		stats.live = stats.max_lives;
 	App->scene->player_hp_bar->UpdateBar(plus_lives, HPBAR);
+}
+
+bool e1Player::IsEnemyInThatPosition(const iPoint & pos)
+{
+	bool ret = false;
+
+	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+	std::vector<e1Entity*>::iterator item = entities.begin();
+
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY) {
+			if (pos == (*item)->actual_tile) {
+				ret = true;
+			}
+		}
+	}
+
+	return ret;
 }
 
 

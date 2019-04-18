@@ -25,7 +25,8 @@ struct Input {
 	bool pressing_G = false; // BASIC ATTACK
 	bool pressing_shift = false; // DIAGONALS
 	bool pressing_V = false; // SHOW SKILLS
-	bool pressing_F = false;
+	bool pressing_F = false; // ability 1
+	bool pressing_H = false; // falsh
 
 	void Reset() {
 		pressing_A = false;
@@ -40,6 +41,7 @@ struct Input {
 		pressing_shift = false;
 		pressing_V = false;
 		pressing_J = false;
+		pressing_H = false;
 	}
 };
 
@@ -136,6 +138,10 @@ public:
 	void LobbyControls();
 	void QuestControls();
 
+	void LookFlash();
+	void Flashing();
+	void RestTimeAfterFlash();
+
 	void ReduceMana(const int &cost_mana);
 
 	void AugmentMana(const int &plus_mana);
@@ -143,6 +149,8 @@ public:
 	void ReduceLives(const int &cost_lives);
 
 	void AugmentLives(const int &plus_lives);
+
+	bool IsEnemyInThatPosition(const iPoint & pos);
 
 	inline void ReduceGold(const int &cost_gold) {
 		stats.gold -= cost_gold;
@@ -158,6 +166,9 @@ public:
 	float death_time = 0.0f;
 	bool has_skills = false;
 	bool block_controls = false;
+
+	float flash_time = 0.0F;
+	iPoint flash_position{ 0,0 };
 
 	Input player_input; //VARIABLES DEL INPUT DEL PLAYER
 	Movement_Type movement_type; //EN LOBBY O EN UNA QUEST
@@ -176,7 +187,6 @@ public:
 	u1Label* left_skill_button = nullptr;
 	u1Label* left_skill_label = nullptr;
 
-	p1Follow* p_trace = nullptr;
 
 };
 #endif
