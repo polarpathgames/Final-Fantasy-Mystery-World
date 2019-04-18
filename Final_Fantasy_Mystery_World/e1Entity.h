@@ -13,7 +13,7 @@ struct SDL_Texture;
 struct Collider;
 
 enum class State {
-	IDLE, WALKING, BEFORE_ATTACK, ATTACKING, AFTER_ATTACK, DEATH, MENU, SLEEPING,NONE
+	IDLE, WALKING, BEFORE_ATTACK, ATTACKING, AFTER_ATTACK, DEATH, MENU, SLEEPING, BEFORE_FLASH, FLASHING, AFTER_FLASH,NONE
 };
 
 enum class AnimationState {
@@ -131,7 +131,7 @@ public:
 	pugi::xml_node		config;
 	pugi::xml_node		node;
 
-
+	bool drawable = true;
 	bool has_turn = true;
 	bool turn_done = false;
 	iPoint actual_tile;
