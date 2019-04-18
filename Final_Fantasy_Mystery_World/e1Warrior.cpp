@@ -8,6 +8,8 @@
 #include "App.h"
 #include "m1Textures.h"
 #include "e1Enemy.h"
+#include "e1StaticEntity.h"
+#include "e1Rock.h"
 #include "m1Audio.h"
 #include "m1Map.h"
 #include "m1EntityManager.h"
@@ -124,6 +126,42 @@ void e1Warrior::CheckSpecialAttack1Efects(const int & damage)
 					e1Enemy* enemy_attacked = (e1Enemy*)(*item);
 					enemy_attacked->GetHitted(damage);
 				}
+			}
+			else if ((*item)->type == e1Entity::EntityType::STATIC) {
+				bool has_succeeded = false;
+				e1StaticEntity* ent = (e1StaticEntity*)*item;
+				if (ent->static_type == e1StaticEntity::Type::BREAKABLE_ROCK) {
+					if (actual_tile + iPoint{ -1,-1 } == (*item)->actual_tile) {
+						has_succeeded = true;
+					}
+					else if (actual_tile + iPoint{ -1,0 } == (*item)->actual_tile) {
+						has_succeeded = true;
+					}
+					else if (actual_tile + iPoint{ -1,1 } == (*item)->actual_tile) {
+						has_succeeded = true;
+					}
+					else if (actual_tile + iPoint{ 0,1 } == (*item)->actual_tile) {
+						has_succeeded = true;
+					}
+					else if (actual_tile + iPoint{ 1,1 } == (*item)->actual_tile) {
+						has_succeeded = true;
+					}
+					else if (actual_tile + iPoint{ 1,0 } == (*item)->actual_tile) {
+						has_succeeded = true;
+					}
+					else if (actual_tile + iPoint{ 1,-1 } == (*item)->actual_tile) {
+						has_succeeded = true;
+					}
+					else if (actual_tile + iPoint{ 0,-1 } == (*item)->actual_tile) {
+						has_succeeded = true;
+					}
+
+					if (has_succeeded) {
+						e1Rock* enemy_attacked = (e1Rock*)(*item);
+						enemy_attacked->GetHitted();
+					}
+				}
+				
 			}
 		}
 	}
