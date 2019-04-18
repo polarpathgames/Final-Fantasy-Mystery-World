@@ -264,7 +264,7 @@ void e1Player::ReadPlayerInput()
 			break;
 		}
 	}
-	if (state == State::BEFORE_ATTACK) {
+	if (state == State::BEFORE_ATTACK && App->map->quest_rooms->actual_room->room_type != RoomType::FOUNTAIN) {
 		ReadAttack();
 	}
 	if (state == State::BEFORE_FLASH) {
