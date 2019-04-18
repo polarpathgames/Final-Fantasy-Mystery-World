@@ -9,6 +9,7 @@
 #include "GlobalGameAdvances.h"
 #include "e1Player.h"
 #include "m1Audio.h"
+#include "e1Rock.h"
 #include "SDL/include/SDL.h"
 #include "m1Cutscene.h"
 #include "m1EntityManager.h"
@@ -193,7 +194,20 @@ void RoomManager::LoadRoom(const int & id)
 	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
 		if ((*position)->ent_type == "static") {
 			if ((*position)->name == "rock") {
-				App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+				bool destroied = true;
+				std::vector<iPoint>::iterator item = actual_room->entities.begin();
+				for (; item != actual_room->entities.end(); ++item) {
+					iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
+					if ((*item) == point) {
+						destroied = false;
+						break;
+					}
+				}
+				e1Rock* rock = (e1Rock*)App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+				if (destroied) {
+					rock->frame = { 955,91,32,37 };
+					App->map->data.no_walkables.remove(rock->actual_tile + iPoint{ 0,-1 });
+				}
 			}
 			else if ((*position)->name == "ability1") {
 				App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);

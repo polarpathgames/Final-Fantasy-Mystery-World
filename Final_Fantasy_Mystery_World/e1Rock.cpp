@@ -37,5 +37,6 @@ void e1Rock::GetHitted()
 		idle->loop = false;
 		idle->speed = 10;
 		App->map->data.no_walkables.remove(actual_tile + iPoint{ 0,-1 });
+		App->map->quest_rooms->AddEntityToNotRepeat(actual_tile);
 	}
 }
