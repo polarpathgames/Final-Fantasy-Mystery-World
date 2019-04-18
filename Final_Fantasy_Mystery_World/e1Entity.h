@@ -80,6 +80,7 @@ public:
 		PARTICLE,
 		NPC,
 		DAUGHTER,
+		ROCK,
 
 		NO_TYPE
 	};

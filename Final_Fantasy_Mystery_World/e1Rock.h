@@ -14,8 +14,6 @@ public:
 	~e1Rock();
 	void GetHitted();
 
-public:
-	Animation* idle;
 };
 
 

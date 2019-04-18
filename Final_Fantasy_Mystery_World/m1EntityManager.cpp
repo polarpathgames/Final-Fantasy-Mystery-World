@@ -16,6 +16,7 @@
 #include "e1CarnivorousPlant.h"
 #include "e1NPC.h"
 #include "e1ShopKeeperDaughter.h"
+#include "e1Rock.h"
 #include "m1Scene.h"
 #include "e1Particles.h"
 #include "e1Player.h"
@@ -53,7 +54,7 @@ bool m1EntityManager::Start()
 	if (!textures_loaded) {
 		texture.reserve((uint)TextureType::NONE);
 
-		static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)13, "add the new texture in the enum and here");
+		static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)14, "add the new texture in the enum and here");
 
 
 		texture[(uint)TextureType::WARRIOR] = App->tex->Load("assets/sprites/Warrior.png");
@@ -257,13 +258,14 @@ void m1EntityManager::OnCollisionExit(Collider * c1, Collider * c2)
 e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
 
-	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)13, "code needs update");
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)14, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
 
 	//case e1Entity::EntityType::PLAYER: ret = DBG_NEW e1Player(PositionX, PositionY); break;
 	case e1Entity::EntityType::ENEMY: ret = DBG_NEW e1Enemy(PositionX, PositionY); break;
 	case e1Entity::EntityType::STATIC: ret = DBG_NEW e1StaticEntity(PositionX, PositionY, name.data()); break;
+	case e1Entity::EntityType::ROCK: ret = DBG_NEW e1Rock(PositionX, PositionY, name.data()); break;
 	case e1Entity::EntityType::DROP: ret = DBG_NEW e1Drop(PositionX, PositionY, name.data()); break;
 	case e1Entity::EntityType::CARNIVOROUS_PLANT: ret = DBG_NEW e1CarnivorousPlant(PositionX, PositionY); break;
 	case e1Entity::EntityType::BLUE_DOG: ret = DBG_NEW e1BlueDog(PositionX, PositionY); break;
