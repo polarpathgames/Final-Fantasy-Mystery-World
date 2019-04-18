@@ -80,10 +80,18 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 			for (; item != actual_room->change_scene_points.end(); ++item) {
 				if ((*item) != nullptr) {
 					if ((*item)->change_type == LocationChangeScene::NEXT_A) {
+						App->scene->player->BlockControls(true);
 						actual_room->active = false;
 						last_room = actual_room;
 						player_next_pos = LocationChangeScene::NEXT_A;
-						LoadRoom((*item)->id_next_room);
+						std::vector<Room*>::iterator item2 = rooms.begin();
+						for (; item2 != rooms.end(); ++item2) {
+							if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
+								actual_room = (*item2);
+								break;
+							}
+						}
+						App->fade_to_black->FadeToBlack(true, 0.5f);
 						break;
 					}
 				}
@@ -93,10 +101,18 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 			for (; item != actual_room->change_scene_points.end(); ++item) {
 				if ((*item) != nullptr) {
 					if ((*item)->change_type == LocationChangeScene::LAST_A) {
+						App->scene->player->BlockControls(true);
 						actual_room->active = false;
 						last_room = actual_room;
 						player_next_pos = LocationChangeScene::LAST_A;
-						LoadRoom((*item)->id_next_room);
+						std::vector<Room*>::iterator item2 = rooms.begin();
+						for (; item2 != rooms.end(); ++item2) {
+							if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
+								actual_room = (*item2);
+								break;
+							}
+						}
+						App->fade_to_black->FadeToBlack(true, 0.5f);
 						break;
 					}
 				}
@@ -106,10 +122,18 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 			for (; item != actual_room->change_scene_points.end(); ++item) {
 				if ((*item) != nullptr) {
 					if ((*item)->change_type == LocationChangeScene::NEXT_B) {
+						App->scene->player->BlockControls(true);
 						actual_room->active = false;
 						last_room = actual_room;
 						player_next_pos = LocationChangeScene::NEXT_B;
-						LoadRoom((*item)->id_next_room);
+						std::vector<Room*>::iterator item2 = rooms.begin();
+						for (; item2 != rooms.end(); ++item2) {
+							if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
+								actual_room = (*item2);
+								break;
+							}
+						}
+						App->fade_to_black->FadeToBlack(true, 0.5f);
 						break;
 					}
 				}
@@ -119,10 +143,18 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 			for (; item != actual_room->change_scene_points.end(); ++item) {
 				if ((*item) != nullptr) {
 					if ((*item)->change_type == LocationChangeScene::LAST_B) {
+						App->scene->player->BlockControls(true);
 						actual_room->active = false;
 						last_room = actual_room;
 						player_next_pos = LocationChangeScene::LAST_B;
-						LoadRoom((*item)->id_next_room);
+						std::vector<Room*>::iterator item2 = rooms.begin();
+						for (; item2 != rooms.end(); ++item2) {
+							if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
+								actual_room = (*item2);
+								break;
+							}
+						}
+						App->fade_to_black->FadeToBlack(true, 0.5f);
 						break;
 					}
 				}
@@ -136,10 +168,8 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 
 void RoomManager::LoadRoom(const int & id)
 {
-	App->fade_to_black->FadeToBlack(0.5f);
 	App->entity_manager->DeleteEntitiesNoPlayer();
 	App->map->CleanUp();
-
 
 	std::vector<Room*>::iterator item = rooms.begin();
 	for (; item != rooms.end(); ++item) {

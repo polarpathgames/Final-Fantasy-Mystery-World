@@ -56,6 +56,9 @@ bool m1FadeToBlack::Update(float dt)
 				to_enable->Enable();
 			if (want_to_change_map)
 				App->map->ChangeMap(map_to_change);
+			if (is_quest && App->map->quest_rooms != nullptr) {
+				App->map->quest_rooms->LoadRoom(App->map->quest_rooms->actual_room->id);
+			}
 			total_time += total_time;
 			start_time = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;
@@ -95,6 +98,7 @@ bool m1FadeToBlack::FadeToBlack(m1Module* module_off, m1Module* module_on, float
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 		to_enable = module_on;
 		to_disable = module_off;
+		is_quest = false;
 		want_to_change_map = false;
 		ret = true;
 	}
@@ -112,6 +116,7 @@ bool m1FadeToBlack::FadeToBlack(m1Module * module_off, float time)
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 		to_disable = module_off;
 		want_to_change_map = false;
+		is_quest = false;
 		ret = true;
 	}
 
@@ -128,6 +133,7 @@ bool m1FadeToBlack::FadeToBlack(float time, m1Module * module_on)
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 		to_enable = module_on;
 		want_to_change_map = false;
+		is_quest = false;
 		ret = true;
 	}
 
@@ -143,6 +149,7 @@ bool m1FadeToBlack::FadeToBlack(float time)
 		current_step = fade_step::fade_to_black;
 		start_time = SDL_GetTicks();
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
+		is_quest = false;
 		want_to_change_map = false;
 		ret = true;
 	}
@@ -160,6 +167,7 @@ bool m1FadeToBlack::FadeToBlack(Maps type, float time)
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 		want_to_change_map = true;
 		map_to_change = type;
+		is_quest = false;
 		ret = true;
 	}
 
@@ -177,6 +185,23 @@ bool m1FadeToBlack::FadeToBlack(m1Module * module_off, Maps type, float time)
 		want_to_change_map = true;
 		to_disable = module_off;
 		map_to_change = type;
+		is_quest = false;
+		ret = true;
+	}
+
+	return ret;
+}
+bool m1FadeToBlack::FadeToBlack(bool IsQuest, float time)
+{
+	bool ret = false;
+
+	if (current_step == fade_step::none)
+	{
+		current_step = fade_step::fade_to_black;
+		start_time = SDL_GetTicks();
+		total_time = (Uint32)(time * 0.5f * 1000.0f);
+		want_to_change_map = false;
+		is_quest = IsQuest;
 		ret = true;
 	}
 
