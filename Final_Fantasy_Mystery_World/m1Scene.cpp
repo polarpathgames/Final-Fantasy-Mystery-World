@@ -29,6 +29,7 @@
 #include "Brofiler/Brofiler.h"
 #include "m1Input.h"
 #include "m1Textures.h"
+#include "m1Textures.h"
 
 m1Scene::m1Scene() : m1Module()
 {
@@ -473,7 +474,12 @@ void m1Scene::CreatePauseMenu()
 	label_main_menu = App->gui->AddLabel(0, 0, "Return to main menu", button_main_menu, BLACK, FontType::FF48, nullptr, false);
 	label_main_menu->SetPosRespectParent(CENTERED);
 
-	button_abort_quest = App->gui->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true, true);
+	if (App->map->actual_map == Maps::LOBBY || App->map->actual_map == Maps::SHOP ||App->map->actual_map == Maps::HOME)
+		button_abort_quest = App->gui->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel,true, false, false, false);
+	else
+		button_abort_quest = App->gui->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true, true);
+
+
 	label_abort_quest = App->gui->AddLabel(0, 0, "Abort quest", button_abort_quest, BLACK, FontType::FF48, nullptr, false);
 	label_abort_quest->SetPosRespectParent(CENTERED);
 
