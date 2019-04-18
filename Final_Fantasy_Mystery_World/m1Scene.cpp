@@ -1254,6 +1254,13 @@ bool m1Scene::Interact(u1GUI* interact)
 			control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_basic_attack, &App->input->controller_Buttons.buttons_code.BASIC_ATTACK, &App->input->controller_Buttons.buttons_char.BASIC_ATTACK, true);
 		}
 		break;
+	case StatesMenu::FIRSTABILITY_MENU:
+		if (interact == button_ability1_screen) {
+			DestroyFirstAbilityPanel();
+			menu_state = StatesMenu::NO_MENU;
+			CreateHUD();
+			ret = false;
+		}
 	}
 
 	return ret;
@@ -1289,9 +1296,8 @@ void m1Scene::CreateFirstAbilityPanel()
 	first_ability_panel = App->gui->AddImage(0, 0, { 0, 4792, 1025, 768 }, this, App->gui->screen, true, false, false, false);
 	first_ability_panel->SetPosRespectParent(RIGHT_CENTERED);
 
-	ability1_screen_button = App->gui->AddButton(73, 72, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, inventory_panel, true, false, true, true);
-	ability1_screen_button->AddListener(this);
-	ability1_screen_label = App->gui->AddLabel(0, 0, "Continue", first_ability_panel, WHITE, FontType::FF100, nullptr, false);
+	button_ability1_screen = App->gui->AddButton(800, 600, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, first_ability_panel, false, false, true, true);
+	label_ability1_screen = App->gui->AddLabel(0, 0, "Continue", button_ability1_screen, WHITE, FontType::FF100, nullptr, true);
 	menu_state = StatesMenu::FIRSTABILITY_MENU;
 }
 
