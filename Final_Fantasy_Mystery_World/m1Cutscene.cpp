@@ -58,6 +58,7 @@ bool m1CutScene::LoadCutscene(std::string path)
 	//TODO 1: Iterate the differents cutscene. Save the cutscene in the cutscenes vector.
 
 	bool ret = false;
+	App->scene->ShowHUD(false);
 
 	pugi::xml_parse_result result = cutscene_file.load_file(path.c_str());
 
@@ -148,8 +149,6 @@ bool m1CutScene::LoadCutscene(std::string path)
 		}
 	}
 
-	App->scene->player->BlockControls(true);
-
 	return ret;
 }
 
@@ -199,6 +198,7 @@ void m1CutScene::ClearCutscene()
 	}
 
 	elements.clear();
+	App->scene->ShowHUD(true);
 	App->scene->player->BlockControls(false);
 }
 

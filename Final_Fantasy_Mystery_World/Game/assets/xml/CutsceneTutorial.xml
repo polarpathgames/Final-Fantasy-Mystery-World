@@ -28,7 +28,7 @@
     </cutscene>
   </actions>
   <elements>
-    <element type="entity" name="daughter" pos_x="0" pos_y="0"/>
+    <element type="entity" name="daughter" pos_x="195" pos_y="349"/>
   </elements>
 
 </cutscenes>

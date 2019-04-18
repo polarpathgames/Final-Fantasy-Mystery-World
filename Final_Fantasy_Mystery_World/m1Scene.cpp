@@ -112,10 +112,10 @@ bool m1Scene::Update(float dt)
 		App->render->camera.y += 300 * dt;
 
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= 300 * dt;
+		App->render->camera.y -= 300 * dt;*/
 
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += 300 * dt;*/
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneFinalRoom.xml");
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		App->map->grid = !App->map->grid;
