@@ -225,9 +225,7 @@
     <ClCompile Include="c1CutSceneDeleteEntity.cpp">
       <Filter>Cutscene</Filter>
     </ClCompile>
-    <ClCompile Include="c1CutSceneAddAudio.cpp">
-      <Filter>Cutscene</Filter>
-    </ClCompile>
+    <ClCompile Include="c1CutSceneAddAudio.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="c1CutSceneAction.h" />
@@ -252,9 +250,47 @@
     <ClInclude Include="e1StrangeFrog.h" />
     <ClInclude Include="e1Warrior.h" />
     <ClInclude Include="GlobalGameAdvances.h" />
-    <ClInclude Include="c1CutSceneAddAudio.h">
-      <Filter>Cutscene</Filter>
-    </ClInclude>
+    <ClInclude Include="c1CutSceneAddAudio.h" />
+    <ClInclude Include="m1Cutscene.h" />
+    <ClInclude Include="m1ParticleManager.h" />
+    <ClInclude Include="p1Explosion.h" />
+    <ClInclude Include="p1Fire.h" />
+    <ClInclude Include="p1Firework.h" />
+    <ClInclude Include="p1Follow.h" />
+    <ClInclude Include="p1Particle.h" />
+    <ClInclude Include="p2ChangeControls.h" />
+    <ClInclude Include="p2Random.h" />
+    <ClInclude Include="p2Rooms.h" />
+    <ClInclude Include="u1Bar.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="u1ChButton.h" />
+    <ClInclude Include="u1CheckBox.h" />
+    <ClInclude Include="e1DynamicEntity.h" />
+    <ClInclude Include="m1EasingSplines.h" />
+    <ClInclude Include="e1Enemy.h" />
+    <ClInclude Include="e1Entity.h" />
+    <ClInclude Include="u1Slider.h" />
+    <ClInclude Include="m1Collisions.h" />
+    <ClInclude Include="m1DialogSystem.h" />
+    <ClInclude Include="m1EntityManager.h" />
+    <ClInclude Include="u1UI_Element.h" />
+    <ClInclude Include="u1Button.h" />
+    <ClInclude Include="u1Image.h" />
+    <ClInclude Include="u1Label.h" />
+    <ClInclude Include="m1FadeToBlack.h" />
+    <ClInclude Include="m1Fonts.h" />
+    <ClInclude Include="m1Map.h" />
+    <ClInclude Include="m1Pathfinding.h" />
+    <ClInclude Include="p2PerfTimer.h" />
+    <ClInclude Include="m1Scene.h" />
+    <ClInclude Include="p2Timer.h" />
+    <ClInclude Include="m1GUI.h" />
+    <ClInclude Include="m1MainMenu.h" />
+    <ClInclude Include="p2Animation.h" />
+    <ClInclude Include="m1Audio.h" />
+    <ClInclude Include="m1Input.h" />
+    <ClInclude Include="p2Line.h" />
+    <ClInclude Include="p2Log.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -310,6 +346,7 @@
     <Xml Include="Game\assets\xml\CutsceneFinalRoom.xml">
       <Filter>XML</Filter>
     </Xml>
+    <Xml Include="Game\assets\xml\Dialog.xml" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Game\assets\ff_icon.ico" />
