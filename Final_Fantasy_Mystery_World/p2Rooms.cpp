@@ -191,15 +191,24 @@ void RoomManager::LoadRoom(const int & id)
 	if (App->map->CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
 
+	LoadEntities();
+	PlacePlayer();
+	LoadColliders();
+	PlayMusic();
+	PlayCutScene();
+}
+
+void RoomManager::LoadEntities()
+{
 	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
 		if ((*position)->ent_type == "static") {
 			if ((*position)->name == "rock") {
-				bool destroied = true;
+				bool destroied = false;
 				std::vector<iPoint>::iterator item = actual_room->entities.begin();
 				for (; item != actual_room->entities.end(); ++item) {
 					iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
 					if ((*item) == point) {
-						destroied = false;
+						destroied = true;
 						break;
 					}
 				}
@@ -261,14 +270,6 @@ void RoomManager::LoadRoom(const int & id)
 		}
 	}
 
-
-
-	PlacePlayer();
-	LoadColliders();
-	PlayMusic();
-	PlayCutScene();
-	
-	
 }
 
 void RoomManager::PlacePlayer() // place player in front of the door
@@ -381,7 +382,7 @@ void RoomManager::PlayCutScene()
 	if (!actual_room->cutscene_location.empty()) {
 		App->scene->player->BlockControls(true);
 		if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneTutorial.xml") == 0 && !CutSceneTutorialGirlEscapingPlayed) {
-			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
+			//App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
 			CutSceneTutorialGirlEscapingPlayed = true;
 		}
 		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneFinalRoom.xml") == 0 && !CutSceneFinalRoomTutorialPlayed) {

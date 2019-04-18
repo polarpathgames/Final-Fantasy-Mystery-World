@@ -14,6 +14,7 @@ public:
 	~e1Rock();
 	void GetHitted();
 
+	iPoint original_pos{ 0,0 };
 };
 
 

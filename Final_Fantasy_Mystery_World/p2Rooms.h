@@ -62,6 +62,7 @@ public:
 
 	void OnCollision(Collider* c1, Collider* C2);
 	void LoadRoom(const int & id);
+	void LoadEntities();
 	void PlacePlayer();
 	void LoadColliders();
 	void PlayMusic();
