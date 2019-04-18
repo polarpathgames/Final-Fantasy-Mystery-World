@@ -9,6 +9,7 @@
 #include "u1Image.h"
 #include "m1Audio.h"
 #include "u1Button.h"
+#include "u1InputText.h"
 #include "u1Label.h"
 #include "u1ChButton.h"
 #include "u1Slider.h"
@@ -346,6 +347,19 @@ u1Label* m1GUI::AddLabel(const int &x, const int &y, const char* text, u1GUI* pa
 	ui_list.push_back(label);
 	
 	return label;
+}
+
+u1InputText* m1GUI::AddInputText(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* listener = nullptr, bool focus = false, bool has_bg, const SDL_Color& bg_color)
+{
+	u1InputText* input_text = DBG_NEW u1InputText(x, y, text, color, font, parent, false, false, false, has_bg, bg_color);
+
+	if (listener != nullptr) {
+		input_text->AddListener(listener);
+	}
+
+	ui_list.push_back(input_text);
+
+	return input_text;
 }
 
 u1Slider* m1GUI::AddSlider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, bool horizontal, u1GUI* parent, m1Module* callback)

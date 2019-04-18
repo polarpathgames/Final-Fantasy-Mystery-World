@@ -226,6 +226,9 @@
       <Filter>Cutscene</Filter>
     </ClCompile>
     <ClCompile Include="c1CutSceneAddAudio.cpp" />
+    <ClCompile Include="u1InputText.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="c1CutSceneAction.h" />
@@ -291,6 +294,9 @@
     <ClInclude Include="m1Input.h" />
     <ClInclude Include="p2Line.h" />
     <ClInclude Include="p2Log.h" />
+    <ClInclude Include="u1InputText.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">

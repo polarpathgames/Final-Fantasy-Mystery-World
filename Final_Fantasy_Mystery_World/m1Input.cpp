@@ -162,7 +162,9 @@ void m1Input::UpdateEvents(SDL_Event &event)
 		case SDL_QUIT:
 			windowEvents[WE_QUIT] = true;
 			break;
-
+		case SDL_TEXTINPUT:
+			text_input = (std::string)event.text.text;
+			break;
 		case SDL_WINDOWEVENT:
 			switch (event.window.event)
 			{

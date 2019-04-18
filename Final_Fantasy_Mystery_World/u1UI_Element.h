@@ -52,6 +52,7 @@ public:
 	virtual bool PostUpdate() { return true; }
 	void Draw();
 	virtual void InnerDraw();
+	virtual void UpdateElement() {};
 	virtual bool CleanUp();
 
 	void SetPos(const int &x, const int &y);
