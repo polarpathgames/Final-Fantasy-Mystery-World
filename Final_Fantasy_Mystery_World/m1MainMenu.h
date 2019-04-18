@@ -12,6 +12,7 @@ class u1Label;
 class u1CheckBox;
 class u1Image;
 class u1ChButton;
+class u1InputText;
 
 
 enum class MainMenuStates {
@@ -20,6 +21,7 @@ enum class MainMenuStates {
 	CREDITS_MENU,
 	SELECTION_MENU,
 	CONTROLS_MENU,
+	CHOOSE_NAME_MENU,
 
 	NONE
 };
@@ -57,9 +59,15 @@ public:
 	void CreateControls();
 	void DestroyControls();
 
+	void CreateNameMenu();
+	void DestroyNameMenu();
+
 private:
 
 	MainMenuStates main_states = MainMenuStates::NONE;
+
+	u1InputText* input_text = nullptr;
+	u1Image* input_text_image = nullptr;
 
 	u1GUI* background = nullptr;
 

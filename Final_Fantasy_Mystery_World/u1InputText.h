@@ -6,6 +6,8 @@
 #include "u1UI_Element.h"
 #include "m1GUI.h"
 
+class u1Image;
+
 class u1InputText : public u1GUI {
 
 public:
@@ -19,9 +21,6 @@ public:
 	void InnerDraw();
 
 	void SetText(const char* txt);
-	void AddText(const char* txt);
-	void DeleteText();
-	void SetTextWrapped(const char * txt);
 
 	void SetColor(const Color& c);
 
@@ -30,6 +29,10 @@ public:
 	std::string GetText();
 
 	void ChangeFont(const char* f, const int &size);
+
+private:
+	void AddText(const char* txt);
+	void DeleteText();
 
 protected:
 
@@ -42,6 +45,7 @@ protected:
 	SDL_Color		background_color = { 255,255,255,255 };
 	SDL_Rect		input_box{ 0,0,0,0 };
 	bool			first_update = true;
+
 
 };
 

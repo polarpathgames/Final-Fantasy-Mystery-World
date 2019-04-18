@@ -7,6 +7,7 @@
 #include "m1Fonts.h"
 #include "m1Input.h"
 
+
 u1InputText::u1InputText(const int & pos_x, const int & pos_y, const char * txt, const Color & c, FontType font, u1GUI * parent,
 	bool interactable, bool draggable, bool focus,
 	bool has_background, const SDL_Color& bg_color)
@@ -16,7 +17,7 @@ u1InputText::u1InputText(const int & pos_x, const int & pos_y, const char * txt,
 {		
 	text.assign(txt);
 	this->interactable = true;
-	//this->allow_focus = true;
+	this->allow_focus = true;
 	SetColor(c);
 
 	texture = App->fonts->Print(text.data(), color, id_font);
@@ -28,6 +29,7 @@ u1InputText::u1InputText(const int & pos_x, const int & pos_y, const char * txt,
 u1InputText::~u1InputText()
 {
 	SDL_StopTextInput();
+
 }
 
 void u1InputText::UpdateElement() 
@@ -65,6 +67,7 @@ void u1InputText::SetText(const char * txt)
 	texture = App->fonts->Print(text.data(), color, id_font);
 	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
 }
+
 void u1InputText::AddText(const char * txt)
 {
 	if (first_update) {
@@ -76,6 +79,7 @@ void u1InputText::AddText(const char * txt)
 	texture = App->fonts->Print(text.data(), color, id_font);
 	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
 }
+
 void u1InputText::DeleteText()
 {
 	text.pop_back();
@@ -83,13 +87,7 @@ void u1InputText::DeleteText()
 	texture = App->fonts->Print(text.data(), color, id_font);
 	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
 }
-void u1InputText::SetTextWrapped(const char * txt)
-{
-	text.assign(txt);
-	App->tex->UnLoad(texture);
-	texture = App->fonts->PrintWrapped(text.data(), color, id_font, wrap);
-	App->fonts->CalcSizeWrapped(text.data(), section.w, section.h, id_font, wrap);
-}
+
 
 void u1InputText::SetColor(const Color & c)
 {

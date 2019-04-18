@@ -7,6 +7,7 @@
 #include "m1Input.h"
 #include "p2Log.h"
 #include "m1GUI.h"
+#include "u1InputText.h"
 #include "m1Map.h"
 #include "u1Button.h"
 #include "m1FadeToBlack.h"
@@ -196,14 +197,16 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		break;
 	case MainMenuStates::SELECTION_MENU:
 		if (interaction == button_warrior) {
+
 			App->scene->player_type = PlayerType::WARRIOR;
+			CreateNameMenu();
 			DestroySelectChamp();
-			active = false; 
+			/*active = false; 
 			App->entity_manager->Enable();
 			App->map->Enable();
 			App->scene->Enable();
 			App->map->ChangeMap(Maps::LOBBY);
-			App->scene->SetMenuState(StatesMenu::NO_MENU);
+			App->scene->SetMenuState(StatesMenu::NO_MENU);*/
 			ret = false;
 		}
 		if (interaction == button_archer) {
@@ -765,5 +768,18 @@ void m1MainMenu::DestroyControls()
 
 	App->scene->labels_control.clear();
 	App->scene->Clabels_control.clear();
+}
+
+void m1MainMenu::CreateNameMenu()
+{
+	input_text_image = App->gui->AddImage(0, 0, { 1024, 3256, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+
+	input_text = App->gui->AddInputText(0, 0, "ChooseYourCharacterName", input_text_image, BLACK, FontType::FF64, this, true, true, { 255,0,0 });
+	input_text->SetPosRespectParent(CENTERED);
+}
+
+void m1MainMenu::DestroyNameMenu()
+{
+
 }
 
