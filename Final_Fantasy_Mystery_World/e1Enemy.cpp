@@ -370,6 +370,7 @@ void e1Enemy::GetHitted(const int & damage_taken)
 
 	if (stats.live <= 0) {
 		Drop();
+		App->scene->player->UpdateExperience(stats.experience);
 		this->to_delete = true;
 	}
 }
