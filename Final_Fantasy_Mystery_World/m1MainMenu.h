@@ -68,6 +68,7 @@ private:
 
 	u1InputText* input_text = nullptr;
 	u1Image* input_text_image = nullptr;
+	u1Button* button_okay = nullptr;
 
 	u1GUI* background = nullptr;
 
