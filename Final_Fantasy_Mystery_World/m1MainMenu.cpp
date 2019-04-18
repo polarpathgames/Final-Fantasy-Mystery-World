@@ -20,8 +20,6 @@
 #include "m1Audio.h"
 #include "m1Window.h"
 
-
-
 m1MainMenu::m1MainMenu(){}
 
 m1MainMenu::~m1MainMenu(){}
