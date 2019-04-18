@@ -72,7 +72,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 	iPoint pos_coll = { c1->rect.x,c1->rect.y };
 	pos_coll = App->map->WorldToMap(pos_coll.x, pos_coll.y);
 
-	if (App->scene->player->actual_tile == pos_coll) {
+	if (App->scene->player->actual_tile == pos_coll && actual_room->active) {
 		std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
 		switch (c1->type)
 		{
