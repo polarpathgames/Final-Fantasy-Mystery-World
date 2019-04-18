@@ -97,10 +97,38 @@ bool m1Scene::Update(float dt)
 			DestroyDebugScreen();
 		}
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+		e1Player* swap = nullptr;
+		switch(player_type) {
+		case PlayerType::WARRIOR:
+			swap = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::ARCHER, 0, 0, "");
+			swap->position = player->position;
+			App->entity_manager->DeleteEntity(player);
+			player = swap;
+			player_type = PlayerType::ARCHER;
+			break;
+		case PlayerType::ARCHER:
+			swap = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::MAGE, 0, 0, "");
+			swap->position = player->position;
+			App->entity_manager->DeleteEntity(player);
+			player = swap;
+			player_type = PlayerType::MAGE;
+			break;
+		case PlayerType::MAGE:
+			swap = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, 0, 0, "");
+			swap->position = player->position;
+			App->entity_manager->DeleteEntity(player);
+			player = swap;
+			player_type = PlayerType::WARRIOR;
+			break;
+		}
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
 		App->render->CameraTremble();
-	
-	}if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 		App->input->ControllerVibration(0.3F, 1000);
 	}
 
