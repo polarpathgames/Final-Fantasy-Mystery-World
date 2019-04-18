@@ -7,6 +7,7 @@
 #include "m1Audio.h"
 #include "p2ChangeControls.h"
 #include "m1Render.h"
+#include "u1InputText.h"
 #include "m1FadeToBlack.h"
 #include "m1Window.h"
 #include "m1Map.h"
@@ -101,9 +102,10 @@ bool m1Scene::Update(float dt)
 	}if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 		App->input->ControllerVibration(0.3F, 1000);
 	}
+
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		App->scene->player->god_mode = !App->scene->player->god_mode;
-
+  
 	/*if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y += 300 * dt;
 

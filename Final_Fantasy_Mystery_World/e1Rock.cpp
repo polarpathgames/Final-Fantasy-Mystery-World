@@ -24,15 +24,18 @@ e1Rock::~e1Rock()
 
 void e1Rock::GetHitted()
 {
-	has_animation = true;
-	idle = DBG_NEW Animation();
-	current_animation = idle;
-	idle->PushBack({ 795,91,32,37 });
-	idle->PushBack({ 835,91,32,37 });
-	idle->PushBack({ 875,91,32,37 });
-	idle->PushBack({ 915,91,32,37 });
-	idle->PushBack({ 955,91,32,37 });
-	idle->loop = false;
-	idle->speed = 10;
-	App->map->data.no_walkables.remove(actual_tile + iPoint{0,-1});
+	if (!has_animation) {
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 795,91,32,37 });
+		idle->PushBack({ 835,91,32,37 });
+		idle->PushBack({ 875,91,32,37 });
+		idle->PushBack({ 915,91,32,37 });
+		idle->PushBack({ 955,91,32,37 });
+		idle->loop = false;
+		idle->speed = 10;
+		App->map->data.no_walkables.remove(actual_tile + iPoint{ 0,-1 });
+	}
+	
 }
