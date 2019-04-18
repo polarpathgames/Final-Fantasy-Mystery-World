@@ -82,6 +82,7 @@ public:
 
 	bool to_delete = false;
 	iPoint draw_offset = { 0,0 };
+	iPoint focus_offset = { 0,0 };
 
 	bool clipable = false;
 

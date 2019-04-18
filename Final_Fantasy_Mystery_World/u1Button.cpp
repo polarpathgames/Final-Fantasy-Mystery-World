@@ -6,12 +6,13 @@
 #include "m1Render.h"
 #include "m1Scene.h"
 
-u1Button::u1Button(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, u1GUI* parent, bool draw, bool inter, bool drag, bool focus = true)
+u1Button::u1Button(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, u1GUI* parent, bool draw, bool inter, bool drag, bool focus = true, const iPoint& focus_offset)
 	:u1GUI(BUTTON, x, y, parent, idle, draw, inter, drag, focus)
 {
 	hovered_rect = hover;
 	clicked_rect = push;
 
+	this->focus_offset = focus_offset;
 }
 
 u1Button::~u1Button() {}
