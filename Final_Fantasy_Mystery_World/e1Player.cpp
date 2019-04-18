@@ -51,6 +51,9 @@ bool e1Player::PreUpdate()
 
 bool e1Player::Update(float dt)
 {
+	if (god_mode)
+		GodMode();
+
 	PerformActions(dt);
 
 	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
@@ -850,7 +853,9 @@ const bool e1Player::MultipleButtons(const Input * input)
 void e1Player::GetHitted(const int & damage_taken)
 {
 	App->render->CameraTremble();
+	if(!god_mode)
 	ReduceLives(damage_taken);
+
 	if (stats.live <= 0) {
 		state = State::DEATH;
 		ChangeAnimation(direction, state);
@@ -1130,4 +1135,11 @@ void e1Player::UpdateExperience(int experience) {
 void e1Player::UpdateLevel()
 {
 	stats.max_xp *= stats.level;
+}
+
+void e1Player::GodMode()
+{
+	stats.gold = MAXINT;
+	stats.attack_power = MAXINT;
+	stats.attack_power_ability_1 = MAXINT;
 }

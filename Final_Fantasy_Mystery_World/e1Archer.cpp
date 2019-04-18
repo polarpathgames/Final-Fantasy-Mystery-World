@@ -66,7 +66,9 @@ void e1Archer::InitStats()
 void e1Archer::PrepareSpecialAttack1()
 {
 	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {
+		if(!god_mode)
 		ReduceMana(stats.cost_mana_special_attack1);
+
 		type_attack = Attacks::SPECIAL_1;
 		state = State::ATTACKING;
 		arrow = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, actual_tile.x, actual_tile.y, "arrow");

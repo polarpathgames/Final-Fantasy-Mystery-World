@@ -101,14 +101,8 @@ bool m1Scene::Update(float dt)
 	}if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 		App->input->ControllerVibration(0.3F, 1000);
 	}
-
-
-
-	if(App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-		App->LoadGame("save_game.xml");
-
-	if(App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-		App->SaveGame("save_game.xml");
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+		App->scene->player->god_mode = !App->scene->player->god_mode;
 
 	/*if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y += 300 * dt;
