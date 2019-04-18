@@ -25,8 +25,13 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		actual_tile = { App->map->WorldToMap(position.x, position.y) };
-		position.x += 12;
-		position.y -= 4;
+		/*position.x += 8;
+		position.y -= 20;*/
+		
+		moving_pos.x = position.x;
+		moving_pos.y = position.y;
+
+		
 	}
 }
 
@@ -36,6 +41,7 @@ e1Drop::~e1Drop()
 
 bool e1Drop::Update(float adt)
 {
+
 	if (actual_tile == App->scene->player->actual_tile) {
 		switch (drop_type) {
 		case DropsType::GOLD_DROP:
@@ -57,6 +63,18 @@ bool e1Drop::Update(float adt)
 		}
 	}
 
+	if (position.y > - 5.0F && moving)
+	{
+		position.y -= 1;
+		if (position.y <= moving_pos.y - 5.0F)
+			moving = false;
+	}
+	else if (position.y < + 5.0F && !moving)
+	{
+		position.y += 0;
+		if (position.y >= position.y + 5.0F)
+			moving = true;
+	}
 
 	return true;
 }

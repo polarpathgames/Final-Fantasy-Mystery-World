@@ -8714,7 +8714,7 @@
    <tile gid="51"/>
    <tile/>
    <tile gid="97"/>
-   <tile gid="100"/>
+   <tile gid="219"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8754,46 +8754,6 @@
    <tile gid="52"/>
    <tile/>
    <tile/>
-   <tile gid="219"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile gid="243"/>
    <tile/>
@@ -8819,8 +8779,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="50"/>
-   <tile gid="51"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8859,8 +8819,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="49"/>
-   <tile gid="52"/>
+   <tile gid="50"/>
+   <tile gid="51"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8879,6 +8839,46 @@
    <tile/>
    <tile gid="291"/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="49"/>
+   <tile gid="52"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="315"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8918,7 +8918,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="315"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -11284,14 +11284,14 @@
    </properties>
   </object>
   <object id="16" name="plant1" type="static" x="480" y="400" width="32" height="32"/>
-  <object id="17" name="plant1" type="static" x="512" y="288" width="32" height="32"/>
+  <object id="17" name="plant1" type="static" x="512" y="272" width="32" height="32"/>
   <object id="18" name="plant1" type="static" x="400" y="256" width="32" height="32"/>
   <object id="19" name="rock" type="static" x="320" y="272" width="32" height="32"/>
   <object id="20" name="rock" type="static" x="320" y="336" width="32" height="32"/>
   <object id="21" name="red_plant" type="static" x="466.333" y="306.333" width="32" height="32"/>
   <object id="22" name="plant2" type="static" x="448" y="240" width="32" height="32"/>
   <object id="23" name="half_tree" type="static" x="385.167" y="288.167" width="46.8333" height="47.8333"/>
-  <object id="24" name="quest_tree3" type="static" x="464" y="272" width="95.1818" height="98.2121"/>
+  <object id="24" name="quest_tree3" type="static" x="464" y="256" width="95.1818" height="98.2121"/>
   <object id="25" name="quest_tree1" type="static" x="304" y="192" width="95.1818" height="98.2121"/>
  </objectgroup>
 </map>
