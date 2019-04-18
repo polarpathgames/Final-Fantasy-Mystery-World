@@ -46,9 +46,6 @@ bool e1Player::PreUpdate()
 	if (!block_controls)
 		ReadPlayerInput();
 
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-15 }, { 8,0,2,2 }, RANDOM, { 20,20 }, { 10,5 }, { 0,0 }, P_UP, 200, 4, { 0,-2 });
-
 	return true;
 }
 
@@ -1150,5 +1147,5 @@ void e1Player::UpdateExperience(int experience) {
 void e1Player::UpdateLevel()
 {
 	stats.max_xp *= stats.level;
-	App->particles->CreateExplosion(this, nullptr, { 0,0 }, { 8,0,2,2 }, RANDOM);
+	App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-15 }, { 8,0,2,2 }, RANDOM, { 20,20 }, { 10,5 }, { 0,0 }, P_UP, 200, 4, { 0,-2 });
 }
