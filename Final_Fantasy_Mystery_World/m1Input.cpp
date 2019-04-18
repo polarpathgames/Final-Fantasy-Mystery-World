@@ -241,7 +241,7 @@ void m1Input::UpdateEvents(SDL_Event &event)
 					Controller = SDL_GameControllerOpen(i);
 					if (Controller) {
 
-						if (SDL_JoystickIsHaptic(Controller) > 0)
+						if (SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(Controller)) > 0)
 						{
 							haptic = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(Controller));
 
