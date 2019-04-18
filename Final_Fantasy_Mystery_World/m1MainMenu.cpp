@@ -467,7 +467,7 @@ void m1MainMenu::CreateSelectChamp()
 	label_mage = App->gui->AddLabel(75, -13, "Mage", button_mage, BLACK, FontType::FF64, nullptr, false);
 
 	App->audio->PlayMusic("assets/audio/music/34.Final Fantasy TA - Confusion.ogg", 0.5);
-	select_champ_panel = App->gui->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+
 
 
 	App->gui->FocusButton((u1Button*)button_warrior);
