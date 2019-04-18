@@ -73,6 +73,7 @@
           <location>Tutorial_Attack3.tmx</location>
           <id num="6"></id>
           <type>combat</type>
+          <cut_scene>assets/xml/CutsceneMiddleRoom.xml</cut_scene>
         </room>
         <room>
           <location>Tutorial_PreFinal.tmx</location>

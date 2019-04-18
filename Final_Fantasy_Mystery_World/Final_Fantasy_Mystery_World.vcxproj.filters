@@ -353,6 +353,9 @@
       <Filter>XML</Filter>
     </Xml>
     <Xml Include="Game\assets\xml\Dialog.xml" />
+    <Xml Include="Game\assets\xml\CutsceneMiddleRoom.xml">
+      <Filter>XML</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Game\assets\ff_icon.ico" />

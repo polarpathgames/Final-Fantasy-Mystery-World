@@ -315,6 +315,10 @@ void RoomManager::PlayCutScene()
 			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
 			CutSceneFinalRoomTutorialPlayed = true;
 		}
+		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneMiddleRoom.xml") == 0 && !CutSceneMiddleRoomTutorialPlayed) {
+			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
+			CutSceneFinalRoomTutorialPlayed = true;
+		}
 	}
 		
 }
