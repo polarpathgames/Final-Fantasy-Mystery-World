@@ -14,7 +14,7 @@ public:
 	~m1FadeToBlack();
 
 	bool Start();
-	bool Update(float dt);
+	bool PostUpdate();
 	bool FadeToBlack(m1Module* module_off, m1Module* module_on , float time = 1.0f);
 	bool FadeToBlack(m1Module* module_off,  float time = 1.0f);
 	bool FadeToBlack(float time, m1Module* module_on);

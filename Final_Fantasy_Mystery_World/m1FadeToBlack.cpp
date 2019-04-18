@@ -34,7 +34,7 @@ bool m1FadeToBlack::Start()
 }
 
 // Update: draw background
-bool m1FadeToBlack::Update(float dt)
+bool m1FadeToBlack::PostUpdate()
 {
 	BROFILER_CATEGORY("UpdateFadeToBlack", Profiler::Color::DarkOrchid);
 
