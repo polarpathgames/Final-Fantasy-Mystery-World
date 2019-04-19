@@ -75,8 +75,6 @@ void u1InputText::InnerDraw()
 
 	App->render->Blit(texture, pos.x, pos.y, NULL, false, SDL_FLIP_NONE, 0.0F);
 
-	focus_offset.create(-(int)width_ * 0.5F, 0);
-
 	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), pos.x + width_, pos.y + HEIGHT*0.4F, &(cursor->GetCurrentFrame(App->GetDeltaTime())), false, SDL_FLIP_NONE, 0.0F);
 }
 
