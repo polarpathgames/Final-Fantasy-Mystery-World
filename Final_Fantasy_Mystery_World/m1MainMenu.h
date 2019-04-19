@@ -13,7 +13,7 @@ class u1CheckBox;
 class u1Image;
 class u1ChButton;
 class u1InputText;
-
+class e1Player;
 
 enum class MainMenuStates {
 	MAIN_MENU,
@@ -292,7 +292,6 @@ public:
 	u1Image* warrior_info = nullptr;
 	u1Image* archer_info = nullptr;
 	u1Image* mage_info = nullptr;
-
 
 	int fx_push_button;
 	int fx_push_button_return;

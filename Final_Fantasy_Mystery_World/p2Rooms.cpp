@@ -6,7 +6,6 @@
 #include "m1Render.h"
 #include "m1Scene.h"
 #include "m1DialogSystem.h"
-#include "GlobalGameAdvances.h"
 #include "e1Player.h"
 #include "m1Audio.h"
 #include "e1Rock.h"
@@ -351,17 +350,17 @@ void RoomManager::PlayCutScene()
 {
 	if (!actual_room->cutscene_location.empty()) {
 		App->scene->player->BlockControls(true);
-		if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneTutorial.xml") == 0 && !CutSceneTutorialGirlEscapingPlayed) {
+		if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneTutorial.xml") == 0 && !App->globals.CutSceneTutorialGirlEscapingPlayed) {
 			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
-			CutSceneTutorialGirlEscapingPlayed = true;
+			App->globals.CutSceneTutorialGirlEscapingPlayed = true;
 		}
-		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneFinalRoom.xml") == 0 && !CutSceneFinalRoomTutorialPlayed) {
+		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneFinalRoom.xml") == 0 && !App->globals.CutSceneFinalRoomTutorialPlayed) {
 			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
-			CutSceneFinalRoomTutorialPlayed = true;
+			App->globals.CutSceneFinalRoomTutorialPlayed = true;
 		}
-		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneMiddleRoom.xml") == 0 && !CutSceneMiddleRoomTutorialPlayed) {
+		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneMiddleRoom.xml") == 0 && !App->globals.CutSceneMiddleRoomTutorialPlayed) {
 			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
-			CutSceneMiddleRoomTutorialPlayed = true;
+			App->globals.CutSceneMiddleRoomTutorialPlayed = true;
 		}
 	}
 		
