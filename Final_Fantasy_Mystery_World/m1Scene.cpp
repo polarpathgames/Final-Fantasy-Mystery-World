@@ -101,7 +101,7 @@ bool m1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		e1Player* swap = nullptr;
-		iPoint new_pos(player->GetPosition().x, player->GetPosition().y);
+		iPoint new_pos = App->map->MapToWorld(player->actual_tile.x, player->actual_tile.y);
 		switch(player_type) {
 		case PlayerType::WARRIOR:
 			player_type = PlayerType::ARCHER;

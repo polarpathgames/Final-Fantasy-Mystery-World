@@ -55,8 +55,6 @@ void e1Player::Init()
 		movement_type = Movement_Type::InQuest;
 
 	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (m1Module*)App->entity_manager);
-
-	CenterPlayerInTile();
 }
 
 e1Player::~e1Player()
