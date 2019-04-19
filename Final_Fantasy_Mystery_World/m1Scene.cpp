@@ -816,7 +816,7 @@ void m1Scene::CreateShopMenu()
 	inventory_panel = App->gui->AddImage(0, 0, { 1024, 1536, 228, 384 }, this, App->gui->screen, true, false, false, false);
 	inventory_panel->SetPosRespectParent(RIGHT_CENTERED, 200);
 
-	player_name = App->gui->AddLabel(80, 7, "Marche", inventory_panel, BLACK, FontType::FF64, nullptr, false);
+	player_name = App->gui->AddLabel(80, 7, App->globals.player_name.c_str(), inventory_panel, BLACK, FontType::FF64, nullptr, false);
 
 	hp_potion_button = App->gui->AddButton(73, 72, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, inventory_panel, true, false, false, false);
 	hp_potion_button->AddListener(this);
