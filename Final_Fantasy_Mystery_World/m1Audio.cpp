@@ -176,6 +176,36 @@ Mix_Chunk* m1Audio::LoadFx(const char* path)
 	return chunk;
 }
 
+bool m1Audio::UnLoadMusic(Mix_Music * mus)
+{
+
+	std::vector<Mix_Music*>::iterator item = music.begin();
+	for (; item != music.end(); ++item) {
+		if ((*item) != nullptr && (*item) == mus) {
+			Mix_FreeMusic(mus);
+			(*item) = nullptr;
+			break;
+ 		}
+	}
+
+	return true;
+}
+
+bool m1Audio::UnLoadFx(Mix_Chunk * chunk)
+{
+
+	std::vector<Mix_Chunk*>::iterator item = fx.begin();
+	for (; item != fx.end(); ++item) {
+		if ((*item) != nullptr && (*item) == chunk) {
+			Mix_FreeChunk(chunk);
+			(*item) = nullptr;
+			break;
+		}
+	}
+
+	return true;
+}
+
 // Play WAV
 bool m1Audio::PlayFx(Mix_Chunk* chunk, int repeat)
 {

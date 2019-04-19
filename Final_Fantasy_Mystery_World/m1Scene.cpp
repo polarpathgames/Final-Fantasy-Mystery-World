@@ -260,6 +260,19 @@ bool m1Scene::CleanUp()
 {
 	LOG("Freeing scene");
 
+	App->audio->UnLoadMusic(mus_game_over);
+	App->audio->UnLoadFx(fx_ability_menu);
+	App->audio->UnLoadFx(fx_ability_warrior);
+	App->audio->UnLoadFx(fx_attack);
+	App->audio->UnLoadFx(fx_denegated_potion);
+	App->audio->UnLoadFx(fx_door_enter);
+	App->audio->UnLoadFx(fx_drop_pick_up);
+	App->audio->UnLoadFx(fx_frog_attack);
+	App->audio->UnLoadFx(fx_plant_attack);
+	App->audio->UnLoadFx(fx_potion);
+	App->audio->UnLoadFx(fx_potion_menu);
+	App->audio->UnLoadFx(fx_writting);
+
 	//delete control_to_change;
 	//labels_control.clear();
 

@@ -31,6 +31,9 @@ public:
 	// Load a WAV in memory
 	Mix_Music* LoadMusic(const char* path);
 	Mix_Chunk* LoadFx(const char* path);
+	bool UnLoadMusic(Mix_Music* mus);
+	bool UnLoadFx(Mix_Chunk* fx);
+
 
 	// Play a previously loaded WAV
 	bool PlayFx(Mix_Chunk* chunk, int repeat = 0);
