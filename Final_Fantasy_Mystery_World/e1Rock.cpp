@@ -25,7 +25,7 @@ e1Rock::~e1Rock()
 
 void e1Rock::GetHitted()
 {
-	if (!has_animation) {
+	if (!hitted) {
 		App->render->CameraTremble();
 		has_animation = true;
 		idle = DBG_NEW Animation();
@@ -37,6 +37,7 @@ void e1Rock::GetHitted()
 		idle->PushBack({ 955,91,32,37 });
 		idle->loop = false;
 		idle->speed = 10;
+		hitted = true;
 		App->map->data.no_walkables.remove(actual_tile + iPoint{ 0,-1 });
 		App->map->quest_rooms->AddEntityToNotRepeat(original_pos);
 	}
