@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="27">
+<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="34">
  <tileset firstgid="1" name="tutorial_tileset" tilewidth="32" tileheight="16" tilecount="360" columns="24">
   <image source="tutorial_tileset.png" width="796" height="254"/>
   <terraintypes>
@@ -14470,6 +14470,12 @@
   <object id="24" name="plant1" type="static" x="448" y="224" width="32" height="32"/>
   <object id="25" name="plant2" type="static" x="352" y="288" width="32" height="32"/>
   <object id="26" name="quest_tree2" type="static" x="320" y="224" width="95.1818" height="98.2121"/>
+  <object id="27" name="rock" type="static" x="320" y="336" width="32" height="32"/>
+  <object id="28" name="rock" type="static" x="320" y="320" width="32" height="32"/>
+  <object id="29" name="rock" type="static" x="320" y="304" width="32" height="32"/>
+  <object id="30" name="rock" type="static" x="336" y="320" width="32" height="32"/>
+  <object id="31" name="rock" type="static" x="336" y="336" width="32" height="32"/>
+  <object id="32" name="rock" type="static" x="320" y="352" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="11" name="entities">
   <properties>
@@ -14507,5 +14513,6 @@
     <property name="next_id" type="int" value="6"/>
    </properties>
   </object>
+  <object id="33" name="rock" type="static" x="320" y="304" width="32" height="32"/>
  </objectgroup>
 </map>

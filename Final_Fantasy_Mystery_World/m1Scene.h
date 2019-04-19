@@ -393,13 +393,26 @@ public:
 	int fx_attack;
 	int fx_frog_attack;
 	int fx_plant_attack;
+	int fx_dog_attack;
 	int fx_ability_warrior;
-	int fx_ability_menu;
+	int fx_ability_mage;
+	int fx_ability_mage_prepare;
+	int fx_ability_archer;
+	int fx_ability_no_mana;
+	int fx_ability_screen;
 	int fx_drop_pick_up;
 	int fx_door_enter;
 	int fx_potion;
 	int fx_denegated_potion;
 	int fx_potion_menu;
+	int fx_flash;
+	int fx_die;
+	int fx_rock;
+	int fx_kill_enemy;
+	int fx_no_money;
+	int fx_controller_conection;
+	int fx_surprise;
+	int fx_buy;
 
 };
 

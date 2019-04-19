@@ -503,7 +503,6 @@ void e1Player::PrepareBasicAttack()
 void e1Player::PerformActions(float dt)
 {
 	if (player_input.pressing_V && App->scene->GetMenuState() != StatesMenu::OPTIONS_MENU && App->scene->GetMenuState() != StatesMenu::CONTROLS_MENU && App->scene->GetMenuState() != StatesMenu::PAUSE_MENU && !App->cutscene_manager->is_executing){
-		App->audio->PlayFx(App->scene->fx_ability_menu);
 		(has_skills) ? DestroySkills() : CreateSkills();
 	}
 
@@ -547,6 +546,7 @@ void e1Player::PerformActions(float dt)
 	}
 	if (state == State::AFTER_FLASH) {
 		RestTimeAfterFlash();
+
 	}
 }
 
@@ -874,6 +874,7 @@ void e1Player::GetHitted(const int & damage_taken)
 		state = State::DEATH;
 		ChangeAnimation(direction, state);
 		death_time = SDL_GetTicks();
+		
 	}
 
 	
@@ -884,6 +885,7 @@ void e1Player::GetHitted(const int & damage_taken)
 void e1Player::Death()
 {
 	if (current_animation->Finished() && death_time <= SDL_GetTicks() - 1000) {
+		App->audio->PlayFx(App->scene->fx_die);
 		App->map->CleanUp();
 		App->entity_manager->DeleteEntitiesNoPlayer();
 		App->gui->DeleteUIElement((u1GUI*)App->scene->bg_hud);
@@ -1035,12 +1037,14 @@ void e1Player::Flashing()
 
 	if (flash_time < SDL_GetTicks() - 500) {
 		actual_tile = flash_position;
+		App->audio->PlayFx(App->scene->fx_flash);
 		state = State::AFTER_FLASH;
 		drawable = true;
 		position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
 		movement_count = { 0,0 };
 		if (App->scene->player_type == PlayerType::WARRIOR) {
 			position.x += 3;
+			position.y -= 19;
 			position.y -= 19;
 		}
 		else {
@@ -1152,6 +1156,7 @@ void e1Player::UpdateExperience(int experience) {
 }
 void e1Player::UpdateLevel()
 {
+	App->audio->PlayFx(App->scene->fx_controller_conection);
 	stats.max_xp *= stats.level;
 	App->particles->CreateExplosion(this, nullptr, { 0,0 }, { 8,0,2,2 }, RANDOM);
 }

@@ -68,6 +68,7 @@ void e1Archer::PrepareSpecialAttack1()
 	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {
 		if(!god_mode)
 		ReduceMana(stats.cost_mana_special_attack1);
+		App->audio->PlayFx(App->scene->fx_ability_archer);
 
 		type_attack = Attacks::SPECIAL_1;
 		state = State::ATTACKING;
@@ -75,6 +76,7 @@ void e1Archer::PrepareSpecialAttack1()
 		arrow->SetParticle(e1Particles::ParticleType::ARROW, direction);
 	}
 	else { // no enough mana so return to idle
+		App->audio->PlayFx(App->scene->fx_ability_no_mana);
 		state = State::IDLE;
 	}
 }
