@@ -23,12 +23,17 @@ u1InputText::u1InputText(const int & pos_x, const int & pos_y, const char * txt,
 	texture = App->fonts->Print(text.data(), color, id_font);
 	App->fonts->CalcSize(txt, section.w, section.h, id_font);
 
-
+	cursor.PushBack({ 1608,3102,2,30 });
+	cursor.PushBack({ 0,0,0,0 });
+	cursor.speed = 2.0F;
+	uint width_ = 0u;
+	App->tex->GetSize(texture, width_, HEIGHT);
 }
 
 u1InputText::~u1InputText()
 {
 	SDL_StopTextInput();
+
 
 }
 
@@ -60,6 +65,11 @@ void u1InputText::InnerDraw()
 	}
 
 	App->render->Blit(texture, draw_offset.x, draw_offset.y, NULL, false, SDL_FLIP_NONE, 0.0F);
+
+	uint width_ = 0u, height_ = 0u;
+	App->tex->GetSize(texture, width_, height_);
+
+	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x + width_, draw_offset.y + HEIGHT*0.4F, &(cursor.GetCurrentFrame(App->GetDeltaTime())), false, SDL_FLIP_NONE, 0.0F);
 }
 
 void u1InputText::SetText(const char * txt)

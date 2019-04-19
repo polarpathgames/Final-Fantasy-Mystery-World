@@ -45,7 +45,8 @@ protected:
 	SDL_Color		background_color = { 255,255,255,255 };
 	SDL_Rect		input_box{ 0,0,0,0 };
 	bool			first_update = true;
-
+	Animation		cursor;
+	uint			HEIGHT = 0u;
 
 };
 
