@@ -69,6 +69,7 @@ void e1Archer::PrepareSpecialAttack1()
 		if(!god_mode)
 		ReduceMana(stats.cost_mana_special_attack1);
 		App->audio->PlayFx(App->scene->fx_ability_archer);
+		App->input->ControllerVibration(0.2F, 200);
 
 		type_attack = Attacks::SPECIAL_1;
 		state = State::ATTACKING;
