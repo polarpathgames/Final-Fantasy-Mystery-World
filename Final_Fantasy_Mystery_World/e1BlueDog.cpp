@@ -1,6 +1,8 @@
 #include "e1BlueDog.h"
 #include "e1Enemy.h"
 #include "SDL/include/SDL.h"
+#include "m1Scene.h"
+#include "e1Player.h"
 #include "App.h"
 #include "m1Map.h"
 #include "m1Render.h"
@@ -31,9 +33,10 @@ bool e1BlueDog::PreUpdate()
 			state = State::BEFORE_ATTACK;
 			time_to_wait_before_attack = SDL_GetTicks();
 		}
-		else {
+		else if (actual_tile.DistanceTo(App->scene->player->actual_tile) <= 7) {
 			state = State::WALKING; //Aixo sha de canviar I know :D
 		}
+		else ChangeTurn(type);
 
 	}
 	if (state == State::WALKING) {
