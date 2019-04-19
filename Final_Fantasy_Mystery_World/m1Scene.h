@@ -20,7 +20,13 @@ enum class StatesMenu {
 
 	NONE
 };
+enum class QuestType {
+	TUTORIAL,
+	QUEST2,
+	QUEST3,
 
+	NONE,
+};
 enum class PlayerType {
 	WARRIOR,
 	ARCHER,
@@ -116,6 +122,7 @@ public:
 
 	e1Player* player = nullptr;
 	PlayerType player_type = PlayerType::NONE;
+	QuestType quest_type = QuestType::TUTORIAL;
 
 	ChangeControls * control_to_change = nullptr;
 

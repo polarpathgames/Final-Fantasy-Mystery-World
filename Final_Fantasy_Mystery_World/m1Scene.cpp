@@ -948,7 +948,7 @@ void m1Scene::CreateGameOver()
 	game_over_panel->SetPosRespectParent(CENTERED);
 
 	button_continue_lobby = App->gui->AddButton(150, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, game_over_panel, false, false, true, true);
-	label_continue_lobby = App->gui->AddLabel(0, 0, "Continue to Lobby", button_continue_lobby, WHITE, FontType::FF100, nullptr, false);
+	label_continue_lobby = App->gui->AddLabel(0, 0, "Continue", button_continue_lobby, WHITE, FontType::FF100, nullptr, false);
 	label_continue_lobby->SetPosRespectParent(LEFT_CENTERED);
 
 
@@ -1075,10 +1075,16 @@ bool m1Scene::Interact(u1GUI* interact)
 	case StatesMenu::DIE_MENU:
 		if (interact == button_continue_lobby) {
 			DestroyGameOver();
-			App->fade_to_black->FadeToBlack(Maps::HOME);
+
+			if (quest_type == QuestType::TUTORIAL) 
+				App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
+			else 
+				App->fade_to_black->FadeToBlack(Maps::HOME);
+			
 			menu_state = StatesMenu::NO_MENU;
 			CreateHUD();
 			ret = false;
+			
 		}
 		if (interact == button_return_main) {
 			App->audio->PlayFx(App->main_menu->fx_push_button_return);
