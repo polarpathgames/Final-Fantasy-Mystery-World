@@ -220,6 +220,14 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 				ret = false;
 			}
 		}
+		if (interaction == button_upper) {
+			minus_letters->drawable = false;
+			max_letters->drawable = true;
+		}
+		if (interaction == button_lower) {
+			minus_letters->drawable = true;
+			max_letters->drawable = false;
+		}
 		break;
 	case MainMenuStates::SELECTION_MENU:
 		if (interaction == button_warrior) {
@@ -787,13 +795,19 @@ void m1MainMenu::DestroyControls()
 
 void m1MainMenu::CreateNameMenu()
 {
-	input_text_image = App->gui->AddImage(0, 0, { 1024, 3256, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+	input_text_image = App->gui->AddImage(0, 0, { 1025, 4792, 1024, 768 }, this, App->gui->screen, true, false, false, false);
 
-	input_text = App->gui->AddInputText(0, 0, "ChooseYourCharacterName", input_text_image, BLACK, FontType::FF64, {100,100,500,50}, this);
-	input_text->SetPosRespectParent(CENTERED);
+	input_text = App->gui->AddInputText(190, 258, "ChooseYourCharacterName", input_text_image, BLACK, FontType::FF64, {1214,5050,600,63}, this);
+	
+	minus_letters = App->gui->AddImage(137, 350, { 1022,5657,741,337 }, nullptr, input_text_image, true, false, false, false);
+	max_letters = App->gui->AddImage(137, 350, { 120,5659,741,337 }, nullptr, input_text_image, false, false, false, false);
 
-	button_okay = App->gui->AddButton(0, 0, { 1570, 1631, 211, 30 }, { 1570, 1631, 211, 30 }, { 1570, 1631, 211, 30 }, this, input_text, true, false, true, true);
-	button_okay->SetPosRespectParent(RIGHT_CENTERED, -300);
+	button_upper = App->gui->AddButton(662, 0, { 0,0,80,47 }, { 0,0,80,47 }, { 0,0,80,47 }, this, max_letters, false, false, true, true);
+	button_lower = App->gui->AddButton(662, 73, { 0,0,80,47 }, { 0,0,80,47 }, { 0,0,80,47 }, this, max_letters, false, false, true, true);
+
+
+	button_okay = App->gui->AddButton(662, 149, { 0, 0, 60, 47 }, { 0, 0, 60, 47 }, { 0, 0, 60, 47 }, this, max_letters, false, false, true, true);
+
 }
 
 void m1MainMenu::DestroyNameMenu()

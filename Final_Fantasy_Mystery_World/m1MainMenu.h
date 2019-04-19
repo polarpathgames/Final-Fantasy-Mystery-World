@@ -66,9 +66,18 @@ private:
 
 	MainMenuStates main_states = MainMenuStates::NONE;
 
+	// input text screen
+
 	u1InputText* input_text = nullptr;
 	u1Image* input_text_image = nullptr;
 	u1Button* button_okay = nullptr;
+	u1Button* button_swap = nullptr;
+	u1Button* button_upper = nullptr;
+	u1Button* button_lower = nullptr;
+	u1Image* minus_letters = nullptr;
+	u1Image* max_letters = nullptr;
+
+	// main menu
 
 	u1GUI* background = nullptr;
 
