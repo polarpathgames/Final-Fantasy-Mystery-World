@@ -211,7 +211,6 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		break;
 	case MainMenuStates::SELECTION_MENU:
 		if (interaction == button_warrior) {
-
 			App->scene->player_type = PlayerType::WARRIOR;
 			CreateNameMenu();
 			DestroySelectChamp();
@@ -232,6 +231,8 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			main_states = MainMenuStates::CHOOSE_NAME_MENU;
 			ret = false;
 		}
+		App->audio->PlayFx(fx_push_button_return);
+
 		break;
 	case MainMenuStates::OPTIONS_MENU:
 		if (interaction == button_retun_options) {
@@ -362,7 +363,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		
 		break;
 	}
-	if (interaction != nullptr && interaction != button_retun && interaction != new_game_button && interaction != button_retun_to_options && interaction != button_retun_options)
+	if (interaction != nullptr && interaction != button_retun && interaction != new_game_button && interaction != button_retun_to_options && interaction != button_retun_options && interaction != button_warrior && interaction != button_mage && interaction != button_archer)
 		App->audio->PlayFx(fx_push_button);
 	return ret;
 }
