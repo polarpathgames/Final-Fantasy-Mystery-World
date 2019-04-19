@@ -77,6 +77,7 @@ public:
 	bool CleanUp();
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, m1Module* callback = nullptr);
+	bool DeleteCollider(Collider* col);
 
 
 	void DebugDraw();

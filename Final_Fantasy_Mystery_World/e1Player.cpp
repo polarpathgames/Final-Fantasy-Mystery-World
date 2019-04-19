@@ -32,13 +32,30 @@
 
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
+	type = EntityType::PLAYER;
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
 	current_animation = &IdleDownLeft;
+
+	ground = App->tex->Load("assets/sprites/player_pos.png");
+
+	velocity.x = 160;
+	velocity.y = 80;
+	has_turn = true;
+
+	if (App->map->data.properties.GetValue("movement") == 1)
+		movement_type = Movement_Type::InLobby;
+	else
+		movement_type = Movement_Type::InQuest;
+
+	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (m1Module*)App->entity_manager);
+
 }
 
 e1Player::~e1Player()
 {
+	App->tex->UnLoad(ground);
+	ground = nullptr;
 }
 
 bool e1Player::PreUpdate()
@@ -184,19 +201,10 @@ void e1Player::CheckLobbyCollision(const float & dt, const Direction & dir)
 		LOG("No direction found");
 		break;
 	}
-
-
-
 }
 
 void e1Player::CenterPlayerInTile()
 {
-	type = e1Entity::EntityType::PLAYER;
-
-	velocity.x = 160;
-	velocity.y = 80;
-	has_turn = true;
-	
 	if (state == State::MENU) {
 		direction = Direction::DOWN_LEFT;
 		state = State::IDLE;
@@ -211,25 +219,11 @@ void e1Player::CenterPlayerInTile()
 		DeathLeft.Reset();
 	}
 
-	if (App->map->data.properties.GetValue("movement") == 1)
-		movement_type = Movement_Type::InLobby;
-	else
-		movement_type = Movement_Type::InQuest;
-	
 	actual_tile = App->map->WorldToMap(position.x, position.y);
-	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (m1Module*)App->entity_manager);
 	movement_count = { 0,0 };
-	// THIS ALWAYS LAST
-	if (App->scene->player_type == PlayerType::WARRIOR) {
-		SetPivot(14, 27);
-		position.x += 3;
-		position.y -= 19;
-	}
-	else {
-		SetPivot(10, 30);
-		position.x += 8;
-		position.y -= 22;
-	}
+	position = App->map->MapToWorld(actual_tile.x, actual_tile.y) - pivot;
+	position.x += App->map->data.tile_width*0.5F;
+	position.y += App->map->data.tile_height*0.5F;
 
 	target_position = position;
 	initial_position = position;

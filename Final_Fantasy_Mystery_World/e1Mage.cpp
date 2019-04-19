@@ -31,7 +31,8 @@ e1Mage::e1Mage(const int & x, const int & y) : e1Player(x, y)
 {
 	LoadEntityData("assets/entities/Mage.tsx");
 
-	ground = App->tex->Load("assets/sprites/player_pos.png");
+	SetPivot(10, 31);
+
 	InitStats();
 	CenterPlayerInTile();
 }
@@ -42,9 +43,6 @@ e1Mage::~e1Mage()
 
 bool e1Mage::CleanUp()
 {
-	App->tex->UnLoad(ground);
-	ground = nullptr;
-
 	return true;
 }
 

@@ -3,27 +3,6 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="c1CutSceneEntity.cpp">
-      <Filter>Cutscene</Filter>
-    </ClCompile>
-    <ClCompile Include="c1CutSceneImage.cpp">
-      <Filter>Cutscene</Filter>
-    </ClCompile>
-    <ClCompile Include="c1CutSceneModifyimage.cpp">
-      <Filter>Cutscene</Filter>
-    </ClCompile>
-    <ClCompile Include="c1CutSceneModifyText.cpp">
-      <Filter>Cutscene</Filter>
-    </ClCompile>
-    <ClCompile Include="c1CutsceneMoveCamera.cpp">
-      <Filter>Cutscene</Filter>
-    </ClCompile>
-    <ClCompile Include="c1CutSceneMoveEntity.cpp">
-      <Filter>Cutscene</Filter>
-    </ClCompile>
-    <ClCompile Include="c1CutsceneText.cpp">
-      <Filter>Cutscene</Filter>
-    </ClCompile>
     <ClCompile Include="e1BlueDog.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
@@ -177,9 +156,6 @@
     <ClCompile Include="e1ShopKeeperDaughter.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="c1CutSceneDeleteEntity.cpp">
-      <Filter>Cutscene</Filter>
-    </ClCompile>
     <ClCompile Include="u1InputText.cpp">
       <Filter>UI</Filter>
     </ClCompile>
@@ -320,6 +296,30 @@
     </ClCompile>
     <ClCompile Include="u1UI_Element.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneDeleteEntity.cpp">
+      <Filter>CutScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneEntity.cpp">
+      <Filter>CutScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneImage.cpp">
+      <Filter>CutScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneModifyimage.cpp">
+      <Filter>CutScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneModifyText.cpp">
+      <Filter>CutScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutsceneMoveCamera.cpp">
+      <Filter>CutScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneMoveEntity.cpp">
+      <Filter>CutScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutsceneText.cpp">
+      <Filter>CutScenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

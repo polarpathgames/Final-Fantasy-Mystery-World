@@ -6,6 +6,7 @@
 #include "m1Map.h"
 #include "p2Log.h"
 #include "m1Textures.h"
+#include "m1Collisions.h"
 
 
 e1Entity::e1Entity(const int& x, const int& y)
@@ -16,6 +17,9 @@ e1Entity::e1Entity(const int& x, const int& y)
 
 e1Entity::~e1Entity()
 {
+	if (coll != nullptr) {
+		App->collision->DeleteCollider(coll);
+	}
 }
 
 void e1Entity::Draw(SDL_Texture * tex, float dt)
