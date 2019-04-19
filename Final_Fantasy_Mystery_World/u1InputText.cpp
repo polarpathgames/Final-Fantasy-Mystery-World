@@ -23,9 +23,11 @@ u1InputText::u1InputText(const int & pos_x, const int & pos_y, const char * txt,
 	texture = App->fonts->Print(text.data(), color, id_font);
 	App->fonts->CalcSize(txt, section.w, section.h, id_font);
 
-	cursor.PushBack({ 1608,3102,2,30 });
-	cursor.PushBack({ 0,0,0,0 });
-	cursor.speed = 2.0F;
+	cursor = new Animation();
+	cursor->PushBack({ 1608,3102,2,30 });
+	cursor->PushBack({ 0,0,0,0 });
+	cursor->speed = 2.0F;
+	cursor->loop = true;
 	uint width_ = 0u;
 	App->tex->GetSize(texture, width_, HEIGHT);
 }
@@ -33,7 +35,8 @@ u1InputText::u1InputText(const int & pos_x, const int & pos_y, const char * txt,
 u1InputText::~u1InputText()
 {
 	SDL_StopTextInput();
-
+	delete cursor;
+	cursor = nullptr;
 
 }
 
@@ -69,7 +72,7 @@ void u1InputText::InnerDraw()
 	uint width_ = 0u, height_ = 0u;
 	App->tex->GetSize(texture, width_, height_);
 
-	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x + width_, draw_offset.y + HEIGHT*0.4F, &(cursor.GetCurrentFrame(App->GetDeltaTime())), false, SDL_FLIP_NONE, 0.0F);
+	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x + width_, draw_offset.y + HEIGHT*0.4F, &(cursor->GetCurrentFrame(App->GetDeltaTime())), false, SDL_FLIP_NONE, 0.0F);
 }
 
 void u1InputText::SetText(const char * txt)
