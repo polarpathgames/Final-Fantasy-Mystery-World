@@ -12852,7 +12852,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="9" name="Collider" width="40" height="40" visible="0">
+ <layer id="9" name="Collider" width="40" height="40">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -13639,7 +13639,7 @@
    <tile gid="5"/>
    <tile/>
    <tile gid="5"/>
-   <tile/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile/>
@@ -13679,8 +13679,8 @@
    <tile gid="5"/>
    <tile gid="5"/>
    <tile gid="5"/>
-   <tile/>
-   <tile/>
+   <tile gid="5"/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile/>
@@ -13719,8 +13719,8 @@
    <tile gid="5"/>
    <tile gid="5"/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="5"/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile/>
@@ -13759,7 +13759,7 @@
    <tile gid="5"/>
    <tile gid="5"/>
    <tile gid="5"/>
-   <tile/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile/>
@@ -14462,7 +14462,6 @@
  </layer>
  <objectgroup id="10" name="Static animation objects">
   <object id="18" name="rock" type="static" x="480" y="384" width="32" height="32"/>
-  <object id="19" name="rock" type="static" x="336" y="368" width="32" height="32"/>
   <object id="20" name="half_tree" type="static" x="412.833" y="379.833" width="46.8333" height="47.8333"/>
   <object id="21" name="red_plant" type="static" x="484.5" y="260.833" width="32" height="32"/>
   <object id="22" name="plant1" type="static" x="384" y="416" width="32" height="32"/>

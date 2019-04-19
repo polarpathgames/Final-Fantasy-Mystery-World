@@ -90,6 +90,7 @@ void e1Mage::SpecialAttack1()
 		fire_ball = nullptr;
 		state = State::AFTER_ATTACK;
 		App->audio->PlayFx(App->scene->fx_ability_mage);
+
 		ChangeAnimation(direction, state);
 		time_attack = SDL_GetTicks();
 	}
