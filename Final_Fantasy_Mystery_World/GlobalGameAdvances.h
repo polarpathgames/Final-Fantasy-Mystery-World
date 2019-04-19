@@ -4,6 +4,7 @@
 
 bool CutSceneTutorialGirlEscapingPlayed = false;
 bool CutSceneFinalRoomTutorialPlayed = false;
+bool CutSceneMiddleRoomTutorialPlayed = false;
 
 
 #endif // !_GLOBALGAMEADVANCES_H_

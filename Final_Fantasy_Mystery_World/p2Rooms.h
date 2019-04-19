@@ -4,6 +4,8 @@
 #include "p2Point.h"
 #include "PugiXml/src/pugixml.hpp"
 #include <vector>
+#include "e1Enemy.h"
+#include <map>
 
 struct Collider;
 
@@ -47,6 +49,8 @@ public:
 	bool active = false;
 	RoomType room_type = RoomType::NONE;
 	std::string cutscene_location;
+	std::vector<iPoint> entities;
+
 };
 
 class RoomManager {
@@ -58,17 +62,20 @@ public:
 
 	void OnCollision(Collider* c1, Collider* C2);
 	void LoadRoom(const int & id);
+	void LoadEntities();
 	void PlacePlayer();
 	void LoadColliders();
 	void PlayMusic();
 	void PlayCutScene();
+
+	void AddEntityToNotRepeat(iPoint pos);
 
 public:
 	Room* actual_room = nullptr;
 	Room* last_room = nullptr;
 	std::vector<Room*> rooms;
 	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
-	
+
 
 
 };

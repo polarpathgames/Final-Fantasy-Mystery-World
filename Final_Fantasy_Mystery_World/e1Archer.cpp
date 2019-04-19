@@ -28,7 +28,7 @@
 
 e1Archer::e1Archer(const int & x, const int & y) : e1Player(x, y)
 {
-	LoadEntityData("assets/entities/Warrior.tsx");
+	LoadEntityData("assets/entities/ArcherSpritesheet.tsx");
 
 	SetPivot(10, 31);
 

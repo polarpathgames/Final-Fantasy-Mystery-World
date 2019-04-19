@@ -9,6 +9,8 @@
 #include "GlobalGameAdvances.h"
 #include "e1Player.h"
 #include "m1Audio.h"
+#include "e1Rock.h"
+#include "SDL/include/SDL.h"
 #include "m1Cutscene.h"
 #include "m1EntityManager.h"
 #include "m1Pathfinding.h"
@@ -45,7 +47,7 @@ Room::~Room()
 		delete (*item);
 		(*item) = nullptr;
 	}
-
+	entities.clear();
 }
 
 RoomManager::RoomManager(pugi::xml_node &node)
@@ -189,13 +191,55 @@ void RoomManager::LoadRoom(const int & id)
 	if (App->map->CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
 
-	App->scene->CreateEntities();
+	LoadEntities();
 	PlacePlayer();
 	LoadColliders();
 	PlayMusic();
 	PlayCutScene();
-	
-	
+}
+
+void RoomManager::LoadEntities()
+{
+	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
+		if ((*position)->ent_type == "static") {
+			if ((*position)->name == "rock") {
+				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
+				if (std::find(actual_room->entities.begin(), actual_room->entities.end(), point) == actual_room->entities.end()) {
+					App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+				}
+				else {
+					e1Rock* rock = (e1Rock*)App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+					rock->frame = { 955,91,32,37 };
+					App->map->data.no_walkables.remove(rock->actual_tile + iPoint{ 0,-1 });
+				}
+			}
+			else if ((*position)->name == "ability1") {
+				App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
+			else
+				App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+		}
+		else if ((*position)->name == "enemy") {
+			if ((*position)->ent_type == "CarnivorousPlant") {
+				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
+				if (std::find(actual_room->entities.begin(), actual_room->entities.end(), point) == actual_room->entities.end()) {
+					App->entity_manager->CreateEntity(e1Entity::EntityType::CARNIVOROUS_PLANT, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+				}
+			}
+			else if ((*position)->ent_type == "BlueDog") {
+				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
+				if (std::find(actual_room->entities.begin(), actual_room->entities.end(), point) == actual_room->entities.end()) {
+					App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_DOG, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+				}
+			}
+			else if ((*position)->ent_type == "StrangeFrog") {
+				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
+				if (std::find(actual_room->entities.begin(),actual_room->entities.end(),point) == actual_room->entities.end()) {
+					App->entity_manager->CreateEntity(e1Entity::EntityType::STRANGE_FROG, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+				}
+			}
+		}
+	}
 }
 
 void RoomManager::PlacePlayer() // place player in front of the door
@@ -315,8 +359,17 @@ void RoomManager::PlayCutScene()
 			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
 			CutSceneFinalRoomTutorialPlayed = true;
 		}
+		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneMiddleRoom.xml") == 0 && !CutSceneMiddleRoomTutorialPlayed) {
+			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
+			CutSceneFinalRoomTutorialPlayed = true;
+		}
 	}
 		
+}
+
+void RoomManager::AddEntityToNotRepeat(iPoint pos)
+{
+	actual_room->entities.push_back(pos);
 }
 
 ChangeScene::ChangeScene(const int & x, const int & y, LocationChangeScene type, const uint & id)

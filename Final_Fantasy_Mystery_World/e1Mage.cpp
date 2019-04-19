@@ -71,6 +71,7 @@ void e1Mage::PrepareSpecialAttack1()
 
 		type_attack = Attacks::SPECIAL_1;
 		state = State::ATTACKING;
+		ChangeAnimation(direction, state, type_attack);
 		SetFireBalls();
 	}
 	else { // no enough mana so return to idle
@@ -177,28 +178,28 @@ void e1Mage::IdAnimToEnum() //Assign every id animation to enum animation
 		case 69:
 			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
 			break;//
-		case 72:
+		case 75:
 			data.animations[i].animType = AnimationState::ABILITY_DOWN_LEFT_1;
 			break;//
-		case 78:
+		case 79:
 			data.animations[i].animType = AnimationState::ABILITY_DOWN_RIGHT_1;
 			break;//
-		case 76:
+		case 78:
 			data.animations[i].animType = AnimationState::ABILITY_UP_RIGHT_1;
 			break;//
-		case 74:
+		case 76:
 			data.animations[i].animType = AnimationState::ABILITY_UP_LEFT_1;
 			break;//
-		case 73:
+		case 74:
 			data.animations[i].animType = AnimationState::ABILITY_LEFT_1;
 			break;//
-		case 75:
+		case 73:
 			data.animations[i].animType = AnimationState::ABILITY_UP_1;
 			break;//
 		case 77:
 			data.animations[i].animType = AnimationState::ABILITY_RIGHT_1;
 			break;//
-		case 79:
+		case 72:
 			data.animations[i].animType = AnimationState::ABILITY_DOWN_1;
 			break;//
 		}

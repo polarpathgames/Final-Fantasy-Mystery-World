@@ -596,6 +596,8 @@
     <Xml Include="Game\assets\xml\CutsceneFinalRoom.xml">
       <Filter>XML</Filter>
     </Xml>
+    <Xml Include="Game\assets\xml\Dialog.xml" />
+    <Xml Include="Game\assets\xml\CutsceneMiddleRoom.xml">
     <Xml Include="Game\assets\xml\Dialog.xml">
       <Filter>XML</Filter>
     </Xml>

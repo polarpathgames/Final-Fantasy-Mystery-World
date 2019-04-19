@@ -4,6 +4,7 @@
 #include "m1Module.h"
 #include "p2ChangeControls.h"
 #include <list>
+#include "p2Animation.h"
 
 enum class StatesMenu {
 	NO_MENU,
@@ -15,6 +16,7 @@ enum class StatesMenu {
 	GO_TO_QUEST_MENU,
 	SHOP_MENU,
 	DIE_MENU,
+	FIRSTABILITY_MENU,
 
 	NONE
 };
@@ -99,6 +101,9 @@ public:
 
 	void CreateGameOver();
 	void DestroyGameOver();
+	
+	void CreateFirstAbilityPanel();
+	void DestroyFirstAbilityPanel();
 
 	bool Interact(u1GUI* interaction);
 	StatesMenu GetMenuState();
@@ -358,9 +363,13 @@ private:
 	u1Label* mouse_label = nullptr;
 	u1Label* entities_label = nullptr;
 
+	// First Ability panel
+	u1Image* first_ability_panel = nullptr;
+	u1Button* button_ability1_screen = nullptr;
+	u1Label* label_ability1_screen = nullptr;
+
 
 	// game over
-
 	u1Image* game_over_panel = nullptr;
 
 	u1Button* button_continue_lobby = nullptr;
@@ -368,6 +377,7 @@ private:
 
 	u1Button* button_return_main = nullptr;
 	u1Label* label_continue_main = nullptr;
+
 	
 public:
 

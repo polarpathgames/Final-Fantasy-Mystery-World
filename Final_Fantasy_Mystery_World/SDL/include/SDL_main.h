@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2018 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef _SDL_main_h
-#define _SDL_main_h
+#ifndef SDL_main_h_
+#define SDL_main_h_
 
 #include "SDL_stdinc.h"
 
@@ -46,7 +46,7 @@
    Please note that #include'ing SDL_main.h is not enough to get a main()
    function working.  In non-XAML apps, the file,
    src/main/winrt/SDL_WinRT_main_NonXAML.cpp, or a copy of it, must be compiled
-   into the App itself.  In XAML apps, the function, SDL_WinRTRunApp must be
+   into the app itself.  In XAML apps, the function, SDL_WinRTRunApp must be
    called, with a pointer to the Direct3D-hosted XAML control passed in.
 */
 #define SDL_MAIN_NEEDED
@@ -63,9 +63,12 @@
 /* On Android SDL provides a Java class in SDLActivity.java that is the
    main activity entry point.
 
-   See README-android.txt for more details on extending that class.
+   See docs/README-android.md for more details on extending that class.
  */
 #define SDL_MAIN_NEEDED
+
+/* We need to export SDL_main so it can be launched from Java */
+#define SDLMAIN_DECLSPEC    DECLSPEC
 
 #elif defined(__NACL__)
 /* On NACL we use ppapi_simple to set up the application helper code,
@@ -84,6 +87,10 @@
 #else
 #define C_LINKAGE
 #endif /* __cplusplus */
+
+#ifndef SDLMAIN_DECLSPEC
+#define SDLMAIN_DECLSPEC
+#endif
 
 /**
  *  \file SDL_main.h
@@ -107,7 +114,7 @@
 /**
  *  The prototype for the application's main() function
  */
-extern C_LINKAGE int SDL_main(int argc, char *argv[]);
+extern C_LINKAGE SDLMAIN_DECLSPEC int SDL_main(int argc, char *argv[]);
 
 
 #include "begin_code.h"
@@ -141,7 +148,7 @@ extern DECLSPEC void SDLCALL SDL_UnregisterApp(void);
 /**
  *  \brief Initializes and launches an SDL/WinRT application.
  *
- *  \param mainFunction The SDL App's C-style main().
+ *  \param mainFunction The SDL app's C-style main().
  *  \param reserved Reserved for future use; should be NULL
  *  \return 0 on success, -1 on failure.  On failure, use SDL_GetError to retrieve more
  *      information on the failure.
@@ -156,6 +163,6 @@ extern DECLSPEC int SDLCALL SDL_WinRTRunApp(int (*mainFunction)(int, char **), v
 #endif
 #include "close_code.h"
 
-#endif /* _SDL_main_h */
+#endif /* SDL_main_h_ */
 
 /* vi: set ts=4 sw=4 expandtab: */

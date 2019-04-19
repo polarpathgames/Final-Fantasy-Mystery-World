@@ -12,7 +12,7 @@
 enum class DropsType {
 
 	GOLD_DROP,
-
+	ABILITY1,
 	NONE
 };
 
@@ -31,6 +31,8 @@ public:
 
 	DropsType drop_type = DropsType::NONE;
 	int gold = 0;
+	fPoint			  moving_pos = { NULL, NULL };
+	bool			  moving = true;
 };
 
 #endif
