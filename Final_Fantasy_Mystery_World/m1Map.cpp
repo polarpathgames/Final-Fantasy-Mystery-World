@@ -238,7 +238,6 @@ bool m1Map::CleanUp()
 	App->collision->CleanUp();
 	// Clean up the pugui tree
 	map_file.reset();
-	
 	App->tex->UnLoad(quad);
 	quad = nullptr;
 

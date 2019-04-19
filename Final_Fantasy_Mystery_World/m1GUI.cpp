@@ -288,6 +288,9 @@ bool m1GUI::CleanUp()
 	ui_list.clear();
 	App->tex->UnLoad(atlas);
 	atlas = nullptr;
+	App->audio->UnLoadFx(fx_focus);
+	App->audio->UnLoadFx(fx_inventory);
+	App->audio->UnLoadFx(fx_pause);
 	return true;
 }
 
