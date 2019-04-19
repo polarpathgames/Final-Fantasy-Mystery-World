@@ -154,7 +154,7 @@ Mix_Music * m1Audio::LoadMusic(const char * path)
 		LOG("Cannot load music %s. Mix_GetError(): %s", path, Mix_GetError());
 	}
 	else {
-		if (std::find(music.begin(), music.end(), mus) == music.end()) {
+		if (std::find(music.begin(), music.end(), mus) == music.begin()) {
 			music.push_back(mus);
 			return mus;
 		}
@@ -185,7 +185,7 @@ Mix_Chunk* m1Audio::LoadFx(const char* path)
 	}
 	else
 	{
-		if (std::find(fx.begin(), fx.end(), chunk) == fx.end()) {
+		if (std::find(fx.begin(), fx.end(), chunk) == fx.begin()) {
 			fx.push_back(chunk);
 			return chunk;
 		}
