@@ -4,6 +4,7 @@
 #include "m1Module.h"
 #include "p2ChangeControls.h"
 #include <list>
+#include "SDL_mixer/include/SDL_mixer.h"
 #include "p2Animation.h"
 
 enum class StatesMenu {
@@ -393,6 +394,8 @@ public:
 	Mix_Chunk* fx_potion;
 	Mix_Chunk* fx_denegated_potion;
 	Mix_Chunk* fx_potion_menu;
+
+	Mix_Music* mus_game_over;
 
 };
 

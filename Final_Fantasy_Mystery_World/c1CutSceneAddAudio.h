@@ -4,6 +4,7 @@
 #include "c1CutSceneAction.h"
 #include "c1CutSceneEntity.h"
 #include "p2Log.h"
+#include "SDL_mixer/include/SDL_mixer.h"
 
 class c1CutSceneAddAudio : public c1CutsceneAction
 {
@@ -14,6 +15,7 @@ public:
 protected:
 	std::string names;
 	std::string paths;
+	Mix_Chunk* fx = nullptr;
 };
 
 

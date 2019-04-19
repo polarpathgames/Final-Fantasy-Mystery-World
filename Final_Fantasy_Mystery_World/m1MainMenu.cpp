@@ -34,9 +34,14 @@ bool m1MainMenu::Awake()
 
 bool m1MainMenu::Start()
 {
-	CreateMainMenu();
+	
 	fx_push_button = App->audio->LoadFx("assets/audio/sfx/MainMenu_Confirm_Selection.wav");
 	fx_push_button_return = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Message.wav");
+
+	mus_main_menu = App->audio->LoadMusic("assets/audio/music/1.Final Fantasy TA - Main Theme.ogg");
+	mus_credits = App->audio->LoadMusic("assets/audio/music/41.Final Fantasy TA - A Place We Should Return To.ogg");
+	mus_selection = App->audio->LoadMusic("assets/audio/music/34.Final Fantasy TA - Confusion.ogg");
+	CreateMainMenu();
 	main_states = MainMenuStates::MAIN_MENU;
 	return true;
 }
@@ -370,7 +375,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 void m1MainMenu::CreateMainMenu()
 {
 	background = App->gui->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->gui->screen, true, false, false,false);
-	App->audio->PlayMusic("assets/audio/music/1.Final Fantasy TA - Main Theme.ogg", 5);
+	App->audio->PlayMusic(mus_main_menu, 5);
 	int offsetY = 75;
 
 	new_game_button = App->gui->AddButton(684, 337, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);
@@ -396,7 +401,7 @@ void m1MainMenu::CreateMainMenu()
 
 void m1MainMenu::CreateCredits()
 {
-	App->audio->PlayMusic("assets/audio/music/41.Final Fantasy TA - A Place We Should Return To.ogg", 0.5);
+	App->audio->PlayMusic(mus_credits, 0.5);
 	credits_panel = App->gui->AddImage(0, 0, { 0, 2304, 1024, 768 }, this, App->gui->screen, true, false, false,false);
 	credits_panel->SetPosRespectParent(CENTERED);
 
@@ -471,7 +476,7 @@ void m1MainMenu::CreateSelectChamp()
 	button_mage = App->gui->AddChButton(100, 450, { 1850,1637,198,50 }, { 1569,1688,198,50 }, { 1569,1756,198,50 }, this, select_champ_panel, PlayerType::MAGE, true, false, true, true);
 	label_mage = App->gui->AddLabel(75, -13, "Mage", button_mage, BLACK, FontType::FF64, nullptr, false);
 
-	App->audio->PlayMusic("assets/audio/music/34.Final Fantasy TA - Confusion.ogg", 0.5);
+	App->audio->PlayMusic(mus_selection, 0.5);
 
 
 

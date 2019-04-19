@@ -73,7 +73,9 @@ bool m1Scene::Start()
 	fx_potion = App->audio->LoadFx("assets/audio/sfx/Potion.wav");
 	fx_denegated_potion = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Land_on_Wood.wav");
 	fx_potion_menu = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_L1R1L2R2_Shifting.wav");
-  
+	
+	mus_game_over = App->audio->LoadMusic("assets/audio/music/35.Final Fantasy TA - Judge.ogg");
+
 	return true;
 }
 
@@ -943,7 +945,7 @@ void m1Scene::UpdateDebugScreen()
 
 void m1Scene::CreateGameOver()
 {
-	App->audio->PlayMusic("assets/audio/music/35.Final Fantasy TA - Judge.ogg", 0.5);
+	App->audio->PlayMusic(mus_game_over, 0.5);
 	game_over_panel = App->gui->AddImage(0, 0, { 1024, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
 	game_over_panel->SetPosRespectParent(CENTERED);
 

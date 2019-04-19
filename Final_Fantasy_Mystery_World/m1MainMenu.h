@@ -3,7 +3,7 @@
 
 #include "m1Module.h"
 #include <list>
-
+#include "SDL_mixer/include/SDL_mixer.h"
 
 struct SDL_Rect;
 class u1GUI;
@@ -296,6 +296,9 @@ public:
 	Mix_Chunk* fx_push_button;
 	Mix_Chunk* fx_push_button_return;
 
+	Mix_Music* mus_main_menu;
+	Mix_Music* mus_credits;
+	Mix_Music* mus_selection;
 
 };
 
