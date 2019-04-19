@@ -8,6 +8,7 @@
 #include "p2Properties.h"
 #include "SDL/include/SDL_rect.h"
 #include "p2Rooms.h"
+#include "SDL_mixer/include/SDL_mixer.h"
 #include <string>
 
 struct SDL_Texture;
@@ -174,6 +175,10 @@ private:
 	std::string lobby_map;
 	std::string shop_map;
 	std::string home_map;
+
+	Mix_Music* mus_shop = nullptr;
+	Mix_Music* mus_lobby = nullptr;
+	Mix_Music* mus_home = nullptr;
 	
 	pugi::xml_node node;
 
