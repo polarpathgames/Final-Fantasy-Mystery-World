@@ -72,7 +72,7 @@ void e1Warrior::PrepareSpecialAttack1()
 
 		type_attack = Attacks::SPECIAL_1;
 		state = State::ATTACKING;
-		current_animation = &AbilitiDownLeft1;
+		ChangeAnimation(direction, state, type_attack);
 	}
 	else { // no enough mana so return to idle
 		state = State::IDLE;

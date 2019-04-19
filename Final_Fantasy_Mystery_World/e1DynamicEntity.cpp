@@ -592,6 +592,9 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 			case Attacks::BASIC:
 				current_animation = &BasicAttackDown;
 				break;
+			case Attacks::SPECIAL_1:
+				current_animation = &AbilitiDown1;
+				break;
 			default:
 				LOG("No attack type found");
 				break;
@@ -601,6 +604,9 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 			switch (attacks) {
 			case Attacks::BASIC:
 				current_animation = &BasicAttackUp;
+				break;
+			case Attacks::SPECIAL_1:
+				current_animation = &AbilitiUp1;
 				break;
 			default:
 				LOG("No attack type found");
@@ -612,6 +618,9 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 			case Attacks::BASIC:
 				current_animation = &BasicAttackRight;
 				break;
+			case Attacks::SPECIAL_1:
+				current_animation = &AbilitiRight1;
+				break;
 			default:
 				LOG("No attack type found");
 				break;
@@ -621,6 +630,9 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 			switch (attacks) {
 			case Attacks::BASIC:
 				current_animation = &BasicAttackLeft;
+				break;
+			case Attacks::SPECIAL_1:
+				current_animation = &AbilitiLeft1;
 				break;
 			default:
 				LOG("No attack type found");
@@ -632,6 +644,9 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 			case Attacks::BASIC:
 				current_animation = &BasicAttackUpRight;
 				break;
+			case Attacks::SPECIAL_1:
+				current_animation = &AbilitiUpRight1;
+				break;
 			default:
 				LOG("No attack type found");
 				break;
@@ -641,6 +656,9 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 			switch (attacks) {
 			case Attacks::BASIC:
 				current_animation = &BasicAttackDownRight;
+				break;
+			case Attacks::SPECIAL_1:
+				current_animation = &AbilitiDownRight1;
 				break;
 			default:
 				LOG("No attack type found");
@@ -652,6 +670,9 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 			case Attacks::BASIC:
 				current_animation = &BasicAttackDownLeft;
 				break;
+			case Attacks::SPECIAL_1:
+				current_animation = &AbilitiDownLeft1;
+				break;
 			default:
 				LOG("No attack type found");
 				break;
@@ -661,6 +682,9 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 			switch (attacks) {
 			case Attacks::BASIC:
 				current_animation = &BasicAttackUpLeft;
+				break;
+			case Attacks::SPECIAL_1:
+				current_animation = &AbilitiUpLeft1;
 				break;
 			default:
 				LOG("No attack type found");
