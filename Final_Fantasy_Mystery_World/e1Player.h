@@ -78,6 +78,8 @@ public:
 
 	e1Player(const int &x, const int &y);
 
+	void Init();
+
 	virtual ~e1Player();
 
 	bool PreUpdate();

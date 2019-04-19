@@ -31,10 +31,9 @@ e1Mage::e1Mage(const int & x, const int & y) : e1Player(x, y)
 {
 	LoadEntityData("assets/entities/Mage.tsx");
 
-	SetPivot(10, 31);
-
-	InitStats();
+	SetPivot(8, 24);
 	CenterPlayerInTile();
+	InitStats();
 }
 
 e1Mage::~e1Mage()

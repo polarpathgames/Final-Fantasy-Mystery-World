@@ -101,7 +101,7 @@ bool m1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		e1Player* swap = nullptr;
-		iPoint new_pos(player->position.x, player->GetPosition().y);
+		iPoint new_pos(player->GetPosition().x, player->GetPosition().y);
 		switch(player_type) {
 		case PlayerType::WARRIOR:
 			player_type = PlayerType::ARCHER;
@@ -317,32 +317,32 @@ void m1Scene::CreateEntities()
 			else {
 				if ((*position)->ent_type == "shop" && App->map->last_map == Maps::SHOP) { // position after leaving shop
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
-					player->CenterPlayerInTile();
+					player->Init();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "home" && App->map->last_map == Maps::HOME){ // position after leaving home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
-					player->CenterPlayerInTile();
+					player->Init();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "in_shop") { // position in the shop
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
-					player->CenterPlayerInTile();
+					player->Init();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "in_home" && player->state != State::MENU) { // position in the home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
-					player->CenterPlayerInTile();
+					player->Init();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "after_death" && player->state == State::MENU) { // position in the home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
-					player->CenterPlayerInTile();
+					player->Init();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "default" && App->map->last_map == Maps::TUTORIAL) {
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
-					player->CenterPlayerInTile();
+					player->Init();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
 			}

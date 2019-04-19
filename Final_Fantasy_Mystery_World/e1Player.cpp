@@ -33,6 +33,12 @@
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
 	type = EntityType::PLAYER;
+	Init();
+
+}
+
+void e1Player::Init()
+{
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
 	current_animation = &IdleDownLeft;
@@ -50,6 +56,7 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 
 	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (m1Module*)App->entity_manager);
 
+	CenterPlayerInTile();
 }
 
 e1Player::~e1Player()
