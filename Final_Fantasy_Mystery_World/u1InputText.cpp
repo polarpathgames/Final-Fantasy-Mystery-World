@@ -100,11 +100,11 @@ void u1InputText::AddText(const char * txt)
 
 void u1InputText::DeleteText()
 {
-	/*if (first_update) {
-		text.assign("");
-		first_update = false;
-	}*/
 	text.pop_back();
+	if (first_update) {
+		text.clear();
+		first_update = false;
+	}
 	App->tex->UnLoad(texture);
 	texture = App->fonts->Print(text.data(), color, id_font);
 }
