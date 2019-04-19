@@ -12,7 +12,7 @@ c1CutSceneAddAudio::c1CutSceneAddAudio(uint start, uint duration, std::string na
 }
 c1CutSceneAddAudio::~c1CutSceneAddAudio()
 {
-	LOG("DO UNLOAD FX IMPORTANT 19/04/2019 18:02");
+	App->audio->UnLoadFx(fx);
 }
 
 void c1CutSceneAddAudio::Execute(float dt)
