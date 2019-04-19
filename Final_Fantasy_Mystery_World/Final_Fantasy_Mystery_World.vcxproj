@@ -169,7 +169,6 @@
     <ClInclude Include="e1ShopKeeperDaughter.h" />
     <ClInclude Include="e1StrangeFrog.h" />
     <ClInclude Include="e1Warrior.h" />
-    <ClInclude Include="GlobalGameAdvances.h" />
     <ClInclude Include="m1Cutscene.h" />
     <ClInclude Include="m1ParticleManager.h" />
     <ClInclude Include="p1Explosion.h" />

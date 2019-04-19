@@ -179,7 +179,6 @@ public:
 	Movement_Type movement_type; //EN LOBBY O EN UNA QUEST
 
 	PlayerStats stats;
-
 	u1Button* upper_button = nullptr;
 	u1Label* upper_skill_button = nullptr;
 	u1Label* upper_skill_label = nullptr;
