@@ -265,6 +265,7 @@ void RoomManager::PlacePlayer() // place player in front of the door
 		}
 	}
 	App->scene->player->Init();
+	App->scene->player->CenterPlayerInTile();
 	App->render->CenterCameraOnPlayer(App->scene->player->position);
 }
 
