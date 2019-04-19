@@ -26,19 +26,20 @@ public:
 	bool CleanUp();
 
 	// Play a music file
-	bool PlayMusic(const char* path, float fade_time); //float fade_time = DEFAULT_MUSIC_FADE_TIME
+	bool PlayMusic(Mix_Music* mus, float fade_time); //float fade_time = DEFAULT_MUSIC_FADE_TIME
 
 	// Load a WAV in memory
-	unsigned int LoadFx(const char* path);
+	Mix_Music* LoadMusic(const char* path);
+	Mix_Chunk* LoadFx(const char* path);
 
 	// Play a previously loaded WAV
-	bool PlayFx(unsigned int fx, int repeat = 0);
+	bool PlayFx(Mix_Chunk* chunk, int repeat = 0);
 
 	//Control Volume
 	void StopMusic(int mut);
 	void VolumeUp(int vol);
 	void VolumeDown(int vol);
-	void SliderVolumeFx(int vol);
+
 
 	//Save & Load volume
 	bool Load(pugi::xml_node&);
@@ -57,8 +58,8 @@ public:
 
 private:
 	
-	_Mix_Music*			music = nullptr;
-	std::list<Mix_Chunk*>	fx;
+	std::vector<Mix_Music*> music;
+	std::vector<Mix_Chunk*>	fx;
 };
 
 #endif // __j1AUDIO_H__

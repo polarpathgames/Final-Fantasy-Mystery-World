@@ -382,17 +382,17 @@ private:
 public:
 
 	// SFX
-	int fx_writting;
-	int fx_attack;
-	int fx_frog_attack;
-	int fx_plant_attack;
-	int fx_ability_warrior;
-	int fx_ability_menu;
-	int fx_drop_pick_up;
-	int fx_door_enter;
-	int fx_potion;
-	int fx_denegated_potion;
-	int fx_potion_menu;
+	Mix_Chunk* fx_writting;
+	Mix_Chunk* fx_attack;
+	Mix_Chunk* fx_frog_attack;
+	Mix_Chunk* fx_plant_attack;
+	Mix_Chunk* fx_ability_warrior;
+	Mix_Chunk* fx_ability_menu;
+	Mix_Chunk* fx_drop_pick_up;
+	Mix_Chunk* fx_door_enter;
+	Mix_Chunk* fx_potion;
+	Mix_Chunk* fx_denegated_potion;
+	Mix_Chunk* fx_potion_menu;
 
 };
 

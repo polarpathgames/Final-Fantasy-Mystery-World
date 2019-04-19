@@ -293,8 +293,8 @@ public:
 	u1Image* archer_info = nullptr;
 	u1Image* mage_info = nullptr;
 
-	int fx_push_button;
-	int fx_push_button_return;
+	Mix_Chunk* fx_push_button;
+	Mix_Chunk* fx_push_button_return;
 
 
 };

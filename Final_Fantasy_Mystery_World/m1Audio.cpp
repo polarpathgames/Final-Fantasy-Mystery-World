@@ -13,7 +13,6 @@
 
 m1Audio::m1Audio() : m1Module()
 {
-	music = NULL;
 	name.assign("audio");
 }
 
@@ -84,18 +83,24 @@ bool m1Audio::Awake(pugi::xml_node& config)
 // Called before quitting
 bool m1Audio::CleanUp()
 {
-	if (!active)
-		return true;
-
+	
 	LOG("Freeing sound FX, closing Mixer and Audio subsystem");
 
-	if (music != NULL)
-	{
-		Mix_FreeMusic(music);
+	std::vector < Mix_Music*>::iterator m = music.begin();
+	for (; m != music.end(); ++m) {
+		if ((*m) != nullptr) {
+			Mix_FreeMusic((*m));
+			(*m) = nullptr;
+		}
 	}
+	music.clear();
 
-	for (std::list<Mix_Chunk*>::iterator item = fx.begin(); item != fx.end(); ++item) {
-		Mix_FreeChunk(*item);
+	std::vector<Mix_Chunk*>::iterator f = fx.begin();
+	for (; f != fx.end(); ++f) {
+		if ((*f) != nullptr) {
+			Mix_FreeChunk((*f));
+			(*f) = nullptr;
+		}
 	}
 	fx.clear();
 
@@ -107,82 +112,108 @@ bool m1Audio::CleanUp()
 }
 
 // Play a music file
-bool m1Audio::PlayMusic(const char* path, float fade_time)
+bool m1Audio::PlayMusic(Mix_Music* mus, float fade_time)
 {
 	bool ret = true;
-	if (!active)
-		return false;
 
-	if (music != NULL)
+	if (mus == nullptr)
 	{
-
-	}
-
-	music = Mix_LoadMUS(path);
-
-	if (music == NULL)
-	{
-		LOG("Cannot load music %s. Mix_GetError(): %s\n", path, Mix_GetError());
+		LOG("Cannot load music. Mix_GetError():\n", Mix_GetError());
 		ret = false;
 	}
 	else
 	{
 		if (fade_time  > 0.0f)
 		{
-			if (Mix_FadeInMusic(music, -1, (int)(fade_time  * 1000.0f)) < 0)
+			if (Mix_FadeInMusic(mus, -1, (int)(fade_time  * 1000.0f)) < 0)
 			{
-				LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
+				LOG("Cannot fade in music. Mix_GetError()", Mix_GetError());
 				ret = false;
 			}
 		}
 		else
 		{
-			if (Mix_PlayMusic(music, -1) < 0)
+			if (Mix_PlayMusic(mus, -1) < 0)
 			{
-				LOG("Cannot play in music %s. Mix_GetError(): %s", path, Mix_GetError());
+				LOG("Cannot play in music. Mix_GetError()", Mix_GetError());
 				ret = false;
 			}
 		}
 	}
 
-	LOG("Successfully playing %s", path);
+	LOG("Successfully playing");
 	return ret;
 }
-// Load WAV
-unsigned int m1Audio::LoadFx(const char* path)
+Mix_Music * m1Audio::LoadMusic(const char * path)
 {
-	unsigned int ret = 0;
+	Mix_Music* mus = nullptr;
 
-	if (!active)
-		return 0;
+	mus = Mix_LoadMUS(path);
 
-	Mix_Chunk* chunk = Mix_LoadWAV(path);
+	if (mus == nullptr) {
+		LOG("Cannot load music %s. Mix_GetError(): %s", path, Mix_GetError());
+	}
+	else {
+		if (std::find(music.begin(), music.end(), mus) == music.end()) {
+			music.push_back(mus);
+			return mus;
+		}
+		else {
+			std::vector<Mix_Music*>::iterator item = music.begin();
+			for (; item != music.end(); ++item) {
+				if ((*item) != nullptr && (*item) == mus) {
+					Mix_FreeMusic(mus);
+					mus = nullptr;
+					return *item;
+				}
+			}
+		}
+	}
 
-	if (chunk == NULL)
+	return nullptr;
+}
+// Load WAV
+Mix_Chunk* m1Audio::LoadFx(const char* path)
+{
+	Mix_Chunk* chunk = nullptr;
+
+	chunk = Mix_LoadWAV(path);
+
+	if (chunk == nullptr)
 	{
 		LOG("Cannot load wav %s. Mix_GetError(): %s", path, Mix_GetError());
 	}
 	else
 	{
-		fx.push_back(chunk);
-		ret = fx.size();
+		if (std::find(fx.begin(), fx.end(), chunk) == fx.end()) {
+			fx.push_back(chunk);
+			return chunk;
+		}
+		else {
+			std::vector<Mix_Chunk*>::iterator item = fx.begin();
+			for (; item != fx.end(); ++item) {
+				if ((*item) != nullptr && (*item) == chunk) {
+					Mix_FreeChunk(chunk);
+					chunk = nullptr;
+					return *item;
+				}
+			}
+		}
 	}
-
-	return ret;
+	return nullptr;
 }
 
 // Play WAV
-bool m1Audio::PlayFx(unsigned int id, int repeat)
+bool m1Audio::PlayFx(Mix_Chunk* chunk, int repeat)
 {
 	bool ret = false;
-
-	if (!active)
-		return false;
-
-	if (id > 0 && id <= fx.size())
-	{
-		std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
-		Mix_PlayChannel(-1, (*item), repeat, 0);
+	
+	std::vector<Mix_Chunk*>::iterator item = fx.begin();
+	for (; item != fx.end(); ++item) {
+		if ((*item) != nullptr && (*item) == chunk) {
+			Mix_PlayChannel(-1, (*item), repeat, 0);
+			break;
+		}
 	}
 
 	return ret;
@@ -198,10 +229,11 @@ void m1Audio::StopMusic(int mut)
 		mute_fx = mute;
 		if (mute == true)
 		{
-			for (int id = 1; id <= fx.size(); id++)
-			{
-				std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
-				Mix_VolumeChunk((*item), 0);
+			std::vector<Mix_Chunk*>::iterator item = fx.begin();
+			for (; item != fx.end(); ++item) {
+				if ((*item) != nullptr) {
+					Mix_VolumeChunk((*item), 0);
+				}
 			}
 		}
 		else
@@ -209,8 +241,12 @@ void m1Audio::StopMusic(int mut)
 			Mix_VolumeMusic(volume);
 			for (int id = 1; id <= fx.size(); id++)
 			{
-				std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
-				Mix_VolumeChunk((*item), volume_fx);
+				std::vector<Mix_Chunk*>::iterator item = fx.begin();
+				for (; item != fx.end(); ++item) {
+					if ((*item) != nullptr) {
+						Mix_VolumeChunk((*item), volume_fx);
+					}
+				}
 			}
 		}
 		break;
@@ -229,18 +265,20 @@ void m1Audio::StopMusic(int mut)
 		mute_fx = !mute_fx;
 		if (mute_fx == true)
 		{
-			for (int id = 1; id <= fx.size(); id++)
-			{
-				std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
-				Mix_VolumeChunk((*item), 0);
+			std::vector<Mix_Chunk*>::iterator item = fx.begin();
+			for (; item != fx.end(); ++item) {
+				if ((*item) != nullptr) {
+					Mix_VolumeChunk((*item), 0);
+				}
 			}
 		}
 		else
 		{
-			for (int id = 1; id <= fx.size(); id++)
-			{
-				std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
-				Mix_VolumeChunk((*item), volume_fx);
+			std::vector<Mix_Chunk*>::iterator item = fx.begin();
+			for (; item != fx.end(); ++item) {
+				if ((*item) != nullptr) {
+					Mix_VolumeChunk((*item), volume_fx);
+				}
 			}
 		}
 		break;
@@ -269,10 +307,11 @@ void m1Audio::VolumeUp(int vol)
 		case -3:
 			if (volume_fx < max_volume) {
 				volume_fx += volume_change_ratio;
-				for (int id = 1; id <= fx.size(); id++)
-				{
-					std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
-					Mix_VolumeChunk((*item), volume_fx);
+				std::vector<Mix_Chunk*>::iterator item = fx.begin();
+				for (; item != fx.end(); ++item) {
+					if ((*item) != nullptr) {
+						Mix_VolumeChunk((*item), volume_fx);
+					}
 				}
 			}
 			break;
@@ -310,8 +349,12 @@ void m1Audio::VolumeDown(int vol)
 				volume_fx -= volume_change_ratio;
 				for (int id = 1; id <= fx.size(); id++)
 				{
-					std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
-					Mix_VolumeChunk((*item), volume_fx);
+					std::vector<Mix_Chunk*>::iterator item = fx.begin();
+					for (; item != fx.end(); ++item) {
+						if ((*item) != nullptr) {
+							Mix_VolumeChunk((*item), volume_fx);
+						}
+					}
 				}
 			}
 			break;
@@ -326,16 +369,6 @@ void m1Audio::VolumeDown(int vol)
 
 
 }
-
-//void m1Audio::SliderVolumeFx(int vol)
-//{
-//	for (int id = 1; id <= fx.size(); id++)
-//	{
-//		std::list< Mix_Chunk*>::iterator item = next(fx.begin(), id - 1);
-//		Mix_VolumeChunk((*item), vol);
-//	}
-//	volume_fx = vol;
-//}
 
 bool m1Audio::Load(pugi::xml_node & node)
 {

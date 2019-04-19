@@ -100,9 +100,9 @@ public:
 
 	// SFX
 
-	int fx_pause;
-	int fx_focus;
-	int fx_inventory;
+	Mix_Chunk* fx_pause;
+	Mix_Chunk* fx_focus;
+	Mix_Chunk* fx_inventory;
 
 
 
