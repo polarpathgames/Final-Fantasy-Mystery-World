@@ -46,7 +46,7 @@ void u1InputText::UpdateElement()
 	else 
 		App->input->text_input.clear();
 
-	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN && !text.empty())
 	{
 		DeleteText();
 	}
