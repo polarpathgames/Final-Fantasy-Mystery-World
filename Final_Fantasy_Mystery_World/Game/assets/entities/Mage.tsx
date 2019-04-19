@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.2" name="Mage" tilewidth="18" tileheight="28" tilecount="84" columns="12">
- <image source="../sprites/MageSpritesheet.png" width="216" height="196"/>
+<tileset version="1.2" tiledversion="1.2.3" name="Mage" tilewidth="18" tileheight="28" tilecount="108" columns="12">
+ <image source="../sprites/MageSpritesheet.png" width="216" height="252"/>
  <tile id="0">
   <properties>
    <property name="speed" type="int" value="7"/>
@@ -290,43 +290,203 @@
   </animation>
  </tile>
  <tile id="72">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
-   <frame tileid="72" duration="170"/>
+   <frame tileid="84" duration="100"/>
+   <frame tileid="72" duration="100"/>
+   <frame tileid="72" duration="100"/>
+   <frame tileid="72" duration="100"/>
+   <frame tileid="72" duration="100"/>
+   <frame tileid="72" duration="100"/>
+   <frame tileid="72" duration="100"/>
+   <frame tileid="84" duration="100"/>
+   <frame tileid="13" duration="100"/>
   </animation>
  </tile>
  <tile id="73">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
-   <frame tileid="73" duration="170"/>
+   <frame tileid="85" duration="100"/>
+   <frame tileid="73" duration="100"/>
+   <frame tileid="73" duration="100"/>
+   <frame tileid="73" duration="100"/>
+   <frame tileid="73" duration="100"/>
+   <frame tileid="73" duration="100"/>
+   <frame tileid="73" duration="100"/>
+   <frame tileid="85" duration="100"/>
+   <frame tileid="16" duration="100"/>
   </animation>
  </tile>
  <tile id="74">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
-   <frame tileid="74" duration="170"/>
+   <frame tileid="86" duration="100"/>
+   <frame tileid="74" duration="100"/>
+   <frame tileid="74" duration="100"/>
+   <frame tileid="74" duration="100"/>
+   <frame tileid="74" duration="100"/>
+   <frame tileid="74" duration="100"/>
+   <frame tileid="74" duration="100"/>
+   <frame tileid="86" duration="100"/>
+   <frame tileid="19" duration="100"/>
   </animation>
  </tile>
  <tile id="75">
+  <properties>
+   <property name="speed " type="int" value="5"/>
+  </properties>
   <animation>
-   <frame tileid="75" duration="170"/>
+   <frame tileid="87" duration="100"/>
+   <frame tileid="75" duration="100"/>
+   <frame tileid="75" duration="100"/>
+   <frame tileid="75" duration="100"/>
+   <frame tileid="75" duration="100"/>
+   <frame tileid="75" duration="100"/>
+   <frame tileid="75" duration="100"/>
+   <frame tileid="87" duration="100"/>
+   <frame tileid="1" duration="100"/>
   </animation>
  </tile>
  <tile id="76">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
-   <frame tileid="76" duration="170"/>
+   <frame tileid="88" duration="100"/>
+   <frame tileid="76" duration="100"/>
+   <frame tileid="76" duration="100"/>
+   <frame tileid="76" duration="100"/>
+   <frame tileid="76" duration="100"/>
+   <frame tileid="76" duration="100"/>
+   <frame tileid="76" duration="100"/>
+   <frame tileid="88" duration="100"/>
+   <frame tileid="4" duration="100"/>
   </animation>
  </tile>
  <tile id="77">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
-   <frame tileid="77" duration="170"/>
+   <frame tileid="89" duration="100"/>
+   <frame tileid="77" duration="100"/>
+   <frame tileid="77" duration="100"/>
+   <frame tileid="77" duration="100"/>
+   <frame tileid="77" duration="100"/>
+   <frame tileid="77" duration="100"/>
+   <frame tileid="77" duration="100"/>
+   <frame tileid="89" duration="100"/>
+   <frame tileid="22" duration="100"/>
   </animation>
  </tile>
  <tile id="78">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
-   <frame tileid="78" duration="170"/>
+   <frame tileid="90" duration="100"/>
+   <frame tileid="78" duration="100"/>
+   <frame tileid="78" duration="100"/>
+   <frame tileid="78" duration="100"/>
+   <frame tileid="78" duration="100"/>
+   <frame tileid="78" duration="100"/>
+   <frame tileid="78" duration="100"/>
+   <frame tileid="90" duration="100"/>
+   <frame tileid="10" duration="100"/>
   </animation>
  </tile>
  <tile id="79">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
-   <frame tileid="79" duration="170"/>
+   <frame tileid="91" duration="100"/>
+   <frame tileid="79" duration="100"/>
+   <frame tileid="79" duration="100"/>
+   <frame tileid="79" duration="100"/>
+   <frame tileid="79" duration="100"/>
+   <frame tileid="79" duration="100"/>
+   <frame tileid="79" duration="100"/>
+   <frame tileid="91" duration="100"/>
+   <frame tileid="7" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="96">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="13" duration="100"/>
+   <frame tileid="96" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="97">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="16" duration="100"/>
+   <frame tileid="97" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="98">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="19" duration="100"/>
+   <frame tileid="98" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="99">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="1" duration="100"/>
+   <frame tileid="99" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="100">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="4" duration="100"/>
+   <frame tileid="100" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="101">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="22" duration="100"/>
+   <frame tileid="101" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="102">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="7" duration="100"/>
+   <frame tileid="102" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="103">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="10" duration="100"/>
+   <frame tileid="103" duration="100"/>
   </animation>
  </tile>
 </tileset>

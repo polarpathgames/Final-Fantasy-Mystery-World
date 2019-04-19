@@ -4,6 +4,7 @@
 #include "m1Module.h"
 #include "p2Animation.h"
 #include <list>
+#include "SDL_mixer/include/SDL_mixer.h"
 
 #include "p2Defs.h"
 #include "p2Point.h"
@@ -19,6 +20,7 @@ enum UIType
 	HPBAR,
 	MANABAR,
 	ENEMYBAR,
+	INPUT_BOX,
 	NON,
 };
 
@@ -63,7 +65,7 @@ public:
 	u1Button* AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* callback, u1GUI* parent, bool draw, bool drag, bool inter, bool focus, const iPoint &focus_offset = { 0,0 });
 	u1ChButton* AddChButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* callback, u1GUI* parent, PlayerType player_type, bool draw, bool drag, bool inter, bool focus);
 	u1Label* AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* callback, bool focus, const uint32 & wrap = 0u, bool has_bg = false, const SDL_Color& bg_color = { 255,255,255,255 });
-	u1InputText * AddInputText(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* callback, bool focus, bool has_bg = false, const SDL_Color& bg_color = { 255,255,255,255 });
+	u1InputText * AddInputText(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, const SDL_Rect &rect,m1Module* callback);
 	u1Bar* AddBar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* parent, m1Module* callback);
 
 	void CreateScreen();
@@ -99,9 +101,9 @@ public:
 
 	// SFX
 
-	int fx_pause;
-	int fx_focus;
-	int fx_inventory;
+	Mix_Chunk* fx_pause;
+	Mix_Chunk* fx_focus;
+	Mix_Chunk* fx_inventory;
 
 
 

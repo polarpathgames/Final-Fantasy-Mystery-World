@@ -73,7 +73,9 @@ bool m1Scene::Start()
 	fx_potion = App->audio->LoadFx("assets/audio/sfx/Potion.wav");
 	fx_denegated_potion = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Land_on_Wood.wav");
 	fx_potion_menu = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_L1R1L2R2_Shifting.wav");
-  
+	
+	mus_game_over = App->audio->LoadMusic("assets/audio/music/35.Final Fantasy TA - Judge.ogg");
+
 	return true;
 }
 
@@ -168,7 +170,7 @@ bool m1Scene::Update(float dt)
 	
 	switch (menu_state) {
 	case StatesMenu::NO_MENU:
-		if ((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial) {
+		if ((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing) {
 			if (App->ChangePause()) {
 				App->audio->PlayFx(App->gui->fx_pause);
 				CreatePauseMenu();
@@ -176,7 +178,7 @@ bool m1Scene::Update(float dt)
 				menu_state = StatesMenu::PAUSE_MENU;
 			}
 		}
-		if ((App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial) {
+		if ((App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing) {
 			if (App->ChangeInventory()) {
 				App->audio->PlayFx(App->gui->fx_inventory);
 				CreateInventory();
@@ -284,6 +286,19 @@ bool m1Scene::PostUpdate()
 bool m1Scene::CleanUp()
 {
 	LOG("Freeing scene");
+
+	App->audio->UnLoadMusic(mus_game_over);
+	App->audio->UnLoadFx(fx_ability_menu);
+	App->audio->UnLoadFx(fx_ability_warrior);
+	App->audio->UnLoadFx(fx_attack);
+	App->audio->UnLoadFx(fx_denegated_potion);
+	App->audio->UnLoadFx(fx_door_enter);
+	App->audio->UnLoadFx(fx_drop_pick_up);
+	App->audio->UnLoadFx(fx_frog_attack);
+	App->audio->UnLoadFx(fx_plant_attack);
+	App->audio->UnLoadFx(fx_potion);
+	App->audio->UnLoadFx(fx_potion_menu);
+	App->audio->UnLoadFx(fx_writting);
 
 	//delete control_to_change;
 	//labels_control.clear();
@@ -417,7 +432,7 @@ void m1Scene::CreateInventory()
 	inventory_panel = App->gui->AddImage(0, 0, { 1024, 1536, 228, 384 }, this, App->gui->screen, true, false, false, false);
 	inventory_panel->SetPosRespectParent(RIGHT_CENTERED, 8);
 
-	player_name = App->gui->AddLabel(80, 7, "Marche", inventory_panel, BLACK, FontType::FF64, nullptr, false); 
+	player_name = App->gui->AddLabel(80, 7,App->globals.player_name.c_str(), inventory_panel, BLACK, FontType::FF64, nullptr, false); 
 
 	hp_potion_button = App->gui->AddButton(73, 72, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, inventory_panel, true, false, true, true);
 	hp_potion_button->AddListener(this);
@@ -849,7 +864,7 @@ void m1Scene::CreateShopMenu()
 	inventory_panel = App->gui->AddImage(0, 0, { 1024, 1536, 228, 384 }, this, App->gui->screen, true, false, false, false);
 	inventory_panel->SetPosRespectParent(RIGHT_CENTERED, 200);
 
-	player_name = App->gui->AddLabel(80, 7, "Marche", inventory_panel, BLACK, FontType::FF64, nullptr, false);
+	player_name = App->gui->AddLabel(80, 7, App->globals.player_name.c_str(), inventory_panel, BLACK, FontType::FF64, nullptr, false);
 
 	hp_potion_button = App->gui->AddButton(73, 72, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, this, inventory_panel, true, false, false, false);
 	hp_potion_button->AddListener(this);
@@ -976,12 +991,12 @@ void m1Scene::UpdateDebugScreen()
 
 void m1Scene::CreateGameOver()
 {
-	App->audio->PlayMusic("assets/audio/music/35.Final Fantasy TA - Judge.ogg", 0.5);
+	App->audio->PlayMusic(mus_game_over, 0.5);
 	game_over_panel = App->gui->AddImage(0, 0, { 1024, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
 	game_over_panel->SetPosRespectParent(CENTERED);
 
 	button_continue_lobby = App->gui->AddButton(150, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, game_over_panel, false, false, true, true);
-	label_continue_lobby = App->gui->AddLabel(0, 0, "Continue to Lobby", button_continue_lobby, WHITE, FontType::FF100, nullptr, false);
+	label_continue_lobby = App->gui->AddLabel(0, 0, "Continue", button_continue_lobby, WHITE, FontType::FF100, nullptr, false);
 	label_continue_lobby->SetPosRespectParent(LEFT_CENTERED);
 
 
@@ -1016,6 +1031,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->gui->DeleteAllUIElements();
 			App->entity_manager->Disable();
 			App->map->Disable();
+			App->ChangePause();
 			active = false; 
 			App->main_menu->Enable();
 			ret = false;
@@ -1107,16 +1123,23 @@ bool m1Scene::Interact(u1GUI* interact)
 	case StatesMenu::DIE_MENU:
 		if (interact == button_continue_lobby) {
 			DestroyGameOver();
-			App->fade_to_black->FadeToBlack(Maps::HOME);
+
+			if (quest_type == QuestType::TUTORIAL) 
+				App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
+			else 
+				App->fade_to_black->FadeToBlack(Maps::HOME);
+			
 			menu_state = StatesMenu::NO_MENU;
 			CreateHUD();
 			ret = false;
+			
 		}
 		if (interact == button_return_main) {
 			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			DestroyGameOver();
 			App->entity_manager->Disable();
 			App->map->Disable();
+			App->ChangePause();
 			active = false;
 			App->main_menu->Enable();
 			ret = false;

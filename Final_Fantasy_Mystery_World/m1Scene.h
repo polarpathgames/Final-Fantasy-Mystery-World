@@ -4,6 +4,7 @@
 #include "m1Module.h"
 #include "p2ChangeControls.h"
 #include <list>
+#include "SDL_mixer/include/SDL_mixer.h"
 #include "p2Animation.h"
 
 enum class StatesMenu {
@@ -20,7 +21,13 @@ enum class StatesMenu {
 
 	NONE
 };
+enum class QuestType {
+	TUTORIAL,
+	QUEST2,
+	QUEST3,
 
+	NONE,
+};
 enum class PlayerType {
 	WARRIOR,
 	ARCHER,
@@ -116,6 +123,7 @@ public:
 
 	e1Player* player = nullptr;
 	PlayerType player_type = PlayerType::NONE;
+	QuestType quest_type = QuestType::TUTORIAL;
 
 	ChangeControls * control_to_change = nullptr;
 
@@ -382,17 +390,19 @@ private:
 public:
 
 	// SFX
-	int fx_writting;
-	int fx_attack;
-	int fx_frog_attack;
-	int fx_plant_attack;
-	int fx_ability_warrior;
-	int fx_ability_menu;
-	int fx_drop_pick_up;
-	int fx_door_enter;
-	int fx_potion;
-	int fx_denegated_potion;
-	int fx_potion_menu;
+	Mix_Chunk* fx_writting;
+	Mix_Chunk* fx_attack;
+	Mix_Chunk* fx_frog_attack;
+	Mix_Chunk* fx_plant_attack;
+	Mix_Chunk* fx_ability_warrior;
+	Mix_Chunk* fx_ability_menu;
+	Mix_Chunk* fx_drop_pick_up;
+	Mix_Chunk* fx_door_enter;
+	Mix_Chunk* fx_potion;
+	Mix_Chunk* fx_denegated_potion;
+	Mix_Chunk* fx_potion_menu;
+
+	Mix_Music* mus_game_over;
 
 };
 

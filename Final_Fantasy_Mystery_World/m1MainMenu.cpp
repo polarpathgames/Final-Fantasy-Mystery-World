@@ -13,6 +13,8 @@
 #include "m1FadeToBlack.h"
 #include "u1Label.h"
 #include "u1CheckBox.h"
+#include "m1Scene.h"
+#include "e1Player.h"
 #include "u1Image.h"
 #include "u1ChButton.h"
 #include "u1UI_Element.h"
@@ -32,9 +34,14 @@ bool m1MainMenu::Awake()
 
 bool m1MainMenu::Start()
 {
-	CreateMainMenu();
+	
 	fx_push_button = App->audio->LoadFx("assets/audio/sfx/MainMenu_Confirm_Selection.wav");
 	fx_push_button_return = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Message.wav");
+
+	mus_main_menu = App->audio->LoadMusic("assets/audio/music/1.Final Fantasy TA - Main Theme.ogg");
+	mus_credits = App->audio->LoadMusic("assets/audio/music/41.Final Fantasy TA - A Place We Should Return To.ogg");
+	mus_selection = App->audio->LoadMusic("assets/audio/music/34.Final Fantasy TA - Confusion.ogg");
+	CreateMainMenu();
 	main_states = MainMenuStates::MAIN_MENU;
 	return true;
 }
@@ -53,9 +60,6 @@ bool m1MainMenu::Update(float dt)
 		App->scene->control_to_change = nullptr;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
-		App->gui->AddInputText(100, 100, "Write Your Name", App->gui->screen, BLACK, FontType::FF64, nullptr,true);
-	}
 	return true;
 }
 
@@ -69,6 +73,13 @@ bool m1MainMenu::PostUpdate()
 
 bool m1MainMenu::CleanUp()
 {
+
+	App->audio->UnLoadFx(fx_push_button);
+	App->audio->UnLoadFx(fx_push_button_return);
+	App->audio->UnLoadMusic(mus_credits);
+	App->audio->UnLoadMusic(mus_main_menu);
+	App->audio->UnLoadMusic(mus_selection);
+
 	return true;
 }
 
@@ -198,6 +209,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 	case MainMenuStates::CHOOSE_NAME_MENU:
 		if (interaction == button_okay) {
 			if (!input_text->GetText().empty()) {
+				App->globals.player_name = input_text->GetText();
 				DestroyNameMenu();
 				active = false;
 				App->entity_manager->Enable();
@@ -211,7 +223,6 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		break;
 	case MainMenuStates::SELECTION_MENU:
 		if (interaction == button_warrior) {
-
 			App->scene->player_type = PlayerType::WARRIOR;
 			CreateNameMenu();
 			DestroySelectChamp();
@@ -232,6 +243,8 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			main_states = MainMenuStates::CHOOSE_NAME_MENU;
 			ret = false;
 		}
+		App->audio->PlayFx(fx_push_button_return);
+
 		break;
 	case MainMenuStates::OPTIONS_MENU:
 		if (interaction == button_retun_options) {
@@ -362,7 +375,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		
 		break;
 	}
-	if (interaction != nullptr && interaction != button_retun && interaction != new_game_button && interaction != button_retun_to_options && interaction != button_retun_options)
+	if (interaction != nullptr && interaction != button_retun && interaction != new_game_button && interaction != button_retun_to_options && interaction != button_retun_options && interaction != button_warrior && interaction != button_mage && interaction != button_archer)
 		App->audio->PlayFx(fx_push_button);
 	return ret;
 }
@@ -370,7 +383,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 void m1MainMenu::CreateMainMenu()
 {
 	background = App->gui->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->gui->screen, true, false, false,false);
-	App->audio->PlayMusic("assets/audio/music/1.Final Fantasy TA - Main Theme.ogg", 5);
+	App->audio->PlayMusic(mus_main_menu, 5);
 	int offsetY = 75;
 
 	new_game_button = App->gui->AddButton(684, 337, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);
@@ -396,7 +409,7 @@ void m1MainMenu::CreateMainMenu()
 
 void m1MainMenu::CreateCredits()
 {
-	App->audio->PlayMusic("assets/audio/music/41.Final Fantasy TA - A Place We Should Return To.ogg", 0.5);
+	App->audio->PlayMusic(mus_credits, 0.5);
 	credits_panel = App->gui->AddImage(0, 0, { 0, 2304, 1024, 768 }, this, App->gui->screen, true, false, false,false);
 	credits_panel->SetPosRespectParent(CENTERED);
 
@@ -471,7 +484,7 @@ void m1MainMenu::CreateSelectChamp()
 	button_mage = App->gui->AddChButton(100, 450, { 1850,1637,198,50 }, { 1569,1688,198,50 }, { 1569,1756,198,50 }, this, select_champ_panel, PlayerType::MAGE, true, false, true, true);
 	label_mage = App->gui->AddLabel(75, -13, "Mage", button_mage, BLACK, FontType::FF64, nullptr, false);
 
-	App->audio->PlayMusic("assets/audio/music/34.Final Fantasy TA - Confusion.ogg", 0.5);
+	App->audio->PlayMusic(mus_selection, 0.5);
 
 
 
@@ -776,7 +789,7 @@ void m1MainMenu::CreateNameMenu()
 {
 	input_text_image = App->gui->AddImage(0, 0, { 1024, 3256, 1024, 768 }, this, App->gui->screen, true, false, false, false);
 
-	input_text = App->gui->AddInputText(0, 0, "ChooseYourCharacterName", input_text_image, BLACK, FontType::FF64, this, true, true, { 255,0,0 });
+	input_text = App->gui->AddInputText(0, 0, "ChooseYourCharacterName", input_text_image, BLACK, FontType::FF64, {100,100,500,50}, this);
 	input_text->SetPosRespectParent(CENTERED);
 
 	button_okay = App->gui->AddButton(0, 0, { 1570, 1631, 211, 30 }, { 1570, 1631, 211, 30 }, { 1570, 1631, 211, 30 }, this, input_text, true, false, true, true);

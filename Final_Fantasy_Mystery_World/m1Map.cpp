@@ -28,6 +28,10 @@ m1Map::~m1Map() {}
 bool m1Map::Start()
 {
 	quad = App->tex->Load("assets/maps/cuadradito.png");
+	mus_home = App->audio->LoadMusic("assets/audio/music/30.Final Fantasy TA - Ritz.ogg");
+	mus_shop = App->audio->LoadMusic("assets/audio/music/4.Final Fantasy TA - Magic Beast Farm.ogg");
+	mus_lobby = App->audio->LoadMusic("assets/audio/music/10.Final Fantasy TA - Different World Ivalice.ogg");
+
 	return true;
 }
 
@@ -234,7 +238,6 @@ bool m1Map::CleanUp()
 	App->collision->CleanUp();
 	// Clean up the pugui tree
 	map_file.reset();
-	
 	App->tex->UnLoad(quad);
 	quad = nullptr;
 
@@ -633,7 +636,7 @@ bool m1Map::ChangeMap(Maps type)
 	}
 	switch (type) {
 	case Maps::LOBBY:
-		App->audio->PlayMusic("assets/audio/music/10.Final Fantasy TA - Different World Ivalice.ogg", 5);
+		App->audio->PlayMusic(mus_lobby, 5);
 		Load(lobby_map.data());
 		actual_map = Maps::LOBBY;
 		break;
@@ -644,12 +647,12 @@ bool m1Map::ChangeMap(Maps type)
 		return true;
 		break;
 	case Maps::SHOP:
-		App->audio->PlayMusic("assets/audio/music/4.Final Fantasy TA - Magic Beast Farm.ogg", 5);
+		App->audio->PlayMusic(mus_shop, 5);
 		Load(shop_map.data());
 		actual_map = Maps::SHOP;
 		break;
 	case Maps::HOME:
-		App->audio->PlayMusic("assets/audio/music/30.Final Fantasy TA - Ritz.ogg", 5);
+		App->audio->PlayMusic(mus_home, 5);
 		Load(home_map.data());
 		actual_map = Maps::HOME;
 		break;

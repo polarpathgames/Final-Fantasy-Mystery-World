@@ -3,7 +3,7 @@
 
 #include "m1Module.h"
 #include <list>
-
+#include "SDL_mixer/include/SDL_mixer.h"
 
 struct SDL_Rect;
 class u1GUI;
@@ -13,7 +13,7 @@ class u1CheckBox;
 class u1Image;
 class u1ChButton;
 class u1InputText;
-
+class e1Player;
 
 enum class MainMenuStates {
 	MAIN_MENU,
@@ -293,10 +293,12 @@ public:
 	u1Image* archer_info = nullptr;
 	u1Image* mage_info = nullptr;
 
+	Mix_Chunk* fx_push_button;
+	Mix_Chunk* fx_push_button_return;
 
-	int fx_push_button;
-	int fx_push_button_return;
-
+	Mix_Music* mus_main_menu;
+	Mix_Music* mus_credits;
+	Mix_Music* mus_selection;
 
 };
 

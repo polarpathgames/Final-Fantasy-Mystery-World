@@ -6,7 +6,6 @@
 #include "m1Render.h"
 #include "m1Scene.h"
 #include "m1DialogSystem.h"
-#include "GlobalGameAdvances.h"
 #include "e1Player.h"
 #include "m1Audio.h"
 #include "e1Rock.h"
@@ -55,6 +54,11 @@ RoomManager::RoomManager(pugi::xml_node &node)
 
 	pugi::xml_node room_node;
 
+	mus_paceful = App->audio->LoadMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg");
+	mus_combat = App->audio->LoadMusic("assets/audio/music/20.Final Fantasy TA - Painful Battle.ogg");
+	mus_boss = App->audio->LoadMusic("assets/audio/music/39.Final Fantasy TA - Incarnation.ogg");
+	mus_fountain = App->audio->LoadMusic("assets/audio/music/5.Final Fantasy TA - Crystal.ogg");
+
 	for (room_node = node.child("maps").child("tutorial").child("room"); room_node; room_node = room_node.next_sibling("room")) {
 		Room * r = nullptr;
 		r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_int(), room_node.child("type").child_value(), room_node.child("cut_scene").child_value());
@@ -67,6 +71,10 @@ RoomManager::RoomManager(pugi::xml_node &node)
 
 RoomManager::~RoomManager()
 {
+	App->audio->UnLoadMusic(mus_boss);
+	App->audio->UnLoadMusic(mus_combat);
+	App->audio->UnLoadMusic(mus_fountain);
+	App->audio->UnLoadMusic(mus_paceful);
 }
 
 void RoomManager::OnCollision(Collider * c1, Collider * c2)
@@ -209,6 +217,7 @@ void RoomManager::LoadEntities()
 				}
 				else {
 					e1Rock* rock = (e1Rock*)App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+					rock->hitted = true;
 					rock->frame = { 955,91,32,37 };
 					App->map->data.no_walkables.remove(rock->actual_tile + iPoint{ 0,-1 });
 				}
@@ -330,19 +339,19 @@ void RoomManager::PlayMusic()
 		switch (actual_room->room_type)
 		{
 		case RoomType::PACEFUL:
-			App->audio->PlayMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg", 5);
+			App->audio->PlayMusic(mus_paceful, 5);
 			break;
 		case RoomType::FOUNTAIN:
-			App->audio->PlayMusic("assets/audio/music/5.Final Fantasy TA - Crystal.ogg", 0.5);
+			App->audio->PlayMusic(mus_fountain, 0.5);
 			break;
 		case RoomType::COMBAT:
-			App->audio->PlayMusic("assets/audio/music/20.Final Fantasy TA - Painful Battle.ogg", 0.5);
+			App->audio->PlayMusic(mus_combat, 0.5);
 			break;
 		case RoomType::BOSS:
-			App->audio->PlayMusic("assets/audio/music/39.Final Fantasy TA - Incarnation.ogg", 0.5);
+			App->audio->PlayMusic(mus_boss, 0.5);
 			break;
 		default:
-			App->audio->PlayMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg", 5);
+			App->audio->PlayMusic(mus_paceful, 5);
 			break;
 		}
 	}
@@ -352,17 +361,17 @@ void RoomManager::PlayCutScene()
 {
 	if (!actual_room->cutscene_location.empty()) {
 		App->scene->player->BlockControls(true);
-		if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneTutorial.xml") == 0 && !CutSceneTutorialGirlEscapingPlayed) {
+		if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneTutorial.xml") == 0 && !App->globals.CutSceneTutorialGirlEscapingPlayed) {
 			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
-			CutSceneTutorialGirlEscapingPlayed = true;
+			App->globals.CutSceneTutorialGirlEscapingPlayed = true;
 		}
-		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneFinalRoom.xml") == 0 && !CutSceneFinalRoomTutorialPlayed) {
+		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneFinalRoom.xml") == 0 && !App->globals.CutSceneFinalRoomTutorialPlayed) {
 			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
-			CutSceneFinalRoomTutorialPlayed = true;
+			App->globals.CutSceneFinalRoomTutorialPlayed = true;
 		}
-		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneMiddleRoom.xml") == 0 && !CutSceneMiddleRoomTutorialPlayed) {
+		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneMiddleRoom.xml") == 0 && !App->globals.CutSceneMiddleRoomTutorialPlayed) {
 			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
-			CutSceneFinalRoomTutorialPlayed = true;
+			App->globals.CutSceneMiddleRoomTutorialPlayed = true;
 		}
 	}
 		

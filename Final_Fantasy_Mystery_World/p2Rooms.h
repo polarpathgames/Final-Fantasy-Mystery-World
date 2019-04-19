@@ -4,6 +4,7 @@
 #include "p2Point.h"
 #include "PugiXml/src/pugixml.hpp"
 #include <vector>
+#include "SDL_mixer/include/SDL_mixer.h"
 #include "e1Enemy.h"
 #include <map>
 
@@ -75,6 +76,10 @@ public:
 	Room* last_room = nullptr;
 	std::vector<Room*> rooms;
 	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
+	Mix_Music* mus_paceful;
+	Mix_Music* mus_boss;
+	Mix_Music* mus_combat;
+	Mix_Music* mus_fountain;
 
 
 
