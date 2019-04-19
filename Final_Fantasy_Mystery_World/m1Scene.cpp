@@ -100,7 +100,7 @@ bool m1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		e1Player* swap = nullptr;
-		iPoint new_pos(player->GetPosition().x, player->GetPosition().y);
+		iPoint new_pos(player->position.x, player->GetPosition().y);
 		switch(player_type) {
 		case PlayerType::WARRIOR:
 			player_type = PlayerType::ARCHER;
@@ -115,9 +115,11 @@ bool m1Scene::Update(float dt)
 			swap = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, new_pos.x, new_pos.y, "");
 			break;
 		}
-		swap->position = player->GetPosition() - swap->pivot;
-		App->entity_manager->DeleteEntity(player);
-		player = swap;
+		if (swap != nullptr) {
+			swap->position = player->GetPosition() - swap->pivot;
+			App->entity_manager->DeleteEntity(player);
+			player = swap;
+		}
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
