@@ -30,9 +30,9 @@ e1Archer::e1Archer(const int & x, const int & y) : e1Player(x, y)
 {
 	LoadEntityData("assets/entities/ArcherSpritesheet.tsx");
 
-	ground = App->tex->Load("assets/sprites/player_pos.png");
-	InitStats();
+	SetPivot(8, 25);
 	CenterPlayerInTile();
+	InitStats();
 }
 
 e1Archer::~e1Archer()
@@ -41,8 +41,6 @@ e1Archer::~e1Archer()
 
 bool e1Archer::CleanUp()
 {
-	App->tex->UnLoad(ground);
-	ground = nullptr;
 	return true;
 }
 
