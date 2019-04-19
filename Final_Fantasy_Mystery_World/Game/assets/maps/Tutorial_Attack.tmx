@@ -3821,8 +3821,8 @@
    <tile gid="3221225642"/>
    <tile gid="3221225642"/>
    <tile gid="3221225642"/>
-   <tile gid="3221225642"/>
-   <tile gid="3221225642"/>
+   <tile/>
+   <tile/>
    <tile gid="3221225642"/>
    <tile gid="3221225642"/>
    <tile gid="3221225642"/>
@@ -8582,7 +8582,7 @@
    <tile gid="49"/>
    <tile gid="52"/>
    <tile/>
-   <tile gid="63"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8623,7 +8623,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="87"/>
+   <tile/>
    <tile/>
    <tile gid="268"/>
    <tile/>
@@ -8664,7 +8664,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="111"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8942,7 +8942,7 @@
    <tile/>
    <tile gid="321"/>
    <tile/>
-   <tile gid="15"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8983,7 +8983,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="39"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -11265,7 +11265,7 @@
   <object id="22" name="red_plant" type="static" x="324.167" y="340.5" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="9" name="entities">
-  <object id="9" name="enemy" type="StrangeFrog" x="352" y="320" width="15.9688" height="16.0156"/>
+  <object id="9" name="enemy" type="StrangeFrog" x="368" y="400" width="15.9688" height="16.0156"/>
   <object id="10" name="player" type="nextB" x="544" y="320" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
