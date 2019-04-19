@@ -60,7 +60,7 @@ bool m1CutScene::LoadCutscene(std::string path)
 
 	bool ret = false;
 	App->scene->ShowHUD(false);
-
+	App->scene->player->BlockControls(true);
 	pugi::xml_parse_result result = cutscene_file.load_file(path.c_str());
 
 	if (result == NULL)
