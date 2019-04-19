@@ -62,20 +62,23 @@ bool e1Drop::Update(float adt)
 		}
 		}
 	}
-
-	if (position.y > moving_pos.y -13.0F && moving)
-	{
-		position.y -= 1;
-		if (position.y <= moving_pos.y - 13.0F)
-			moving = false;
+	switch (drop_type) {
+	case DropsType::ABILITY1:
+		if (position.y > moving_pos.y - 13.0F && moving)
+		{
+			position.y -= 100 * App->GetDeltaTime();
+			if (position.y <= moving_pos.y - 13.0F)
+				moving = false;
+		}
+		else if (position.y < moving_pos.y + 13.0F && !moving)
+		{
+			position.y += 100 * App->GetDeltaTime();
+			if (position.y >= moving_pos.y + 13.0F)
+				moving = true;
+		}
+		break;
 	}
-	else if (position.y < moving_pos.y +13.0F && !moving)
-	{
-		position.y += 1;
-		if (position.y >= moving_pos.y + 13.0F)
-			moving = true;
-	}
-
+	
 	return true;
 }
 

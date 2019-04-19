@@ -203,17 +203,12 @@ void RoomManager::LoadEntities()
 	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
 		if ((*position)->ent_type == "static") {
 			if ((*position)->name == "rock") {
-				bool destroied = false;
-				std::vector<iPoint>::iterator item = actual_room->entities.begin();
-				for (; item != actual_room->entities.end(); ++item) {
-					iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
-					if ((*item) == point) {
-						destroied = true;
-						break;
-					}
+				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
+				if (std::find(actual_room->entities.begin(), actual_room->entities.end(), point) == actual_room->entities.end()) {
+					App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 				}
-				e1Rock* rock = (e1Rock*)App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
-				if (destroied) {
+				else {
+					e1Rock* rock = (e1Rock*)App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 					rock->frame = { 955,91,32,37 };
 					App->map->data.no_walkables.remove(rock->actual_tile + iPoint{ 0,-1 });
 				}
@@ -226,50 +221,25 @@ void RoomManager::LoadEntities()
 		}
 		else if ((*position)->name == "enemy") {
 			if ((*position)->ent_type == "CarnivorousPlant") {
-				bool create = true;
-				std::vector<iPoint>::iterator item = actual_room->entities.begin();
-				for (; item != actual_room->entities.end(); ++item) {
-					iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
-					if ((*item) == point) {
-						create = false;
-						break;
-					}
-				}
-				if (create) {
+				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
+				if (std::find(actual_room->entities.begin(), actual_room->entities.end(), point) == actual_room->entities.end()) {
 					App->entity_manager->CreateEntity(e1Entity::EntityType::CARNIVOROUS_PLANT, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 				}
 			}
 			else if ((*position)->ent_type == "BlueDog") {
-				bool create = true;
-				std::vector<iPoint>::iterator item = actual_room->entities.begin();
-				for (; item != actual_room->entities.end(); ++item) {
-					iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
-					if ((*item) == point) {
-						create = false;
-						break;
-					}
-				}
-				if (create) {
+				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
+				if (std::find(actual_room->entities.begin(), actual_room->entities.end(), point) == actual_room->entities.end()) {
 					App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_DOG, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 				}
 			}
 			else if ((*position)->ent_type == "StrangeFrog") {
-				bool create = true;
-				std::vector<iPoint>::iterator item = actual_room->entities.begin();
-				for (; item != actual_room->entities.end(); ++item) {
-					iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
-					if ((*item) == point) {
-						create = false;
-						break;
-					}
-				}
-				if (create) {
+				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
+				if (std::find(actual_room->entities.begin(),actual_room->entities.end(),point) == actual_room->entities.end()) {
 					App->entity_manager->CreateEntity(e1Entity::EntityType::STRANGE_FROG, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 				}
 			}
 		}
 	}
-
 }
 
 void RoomManager::PlacePlayer() // place player in front of the door
