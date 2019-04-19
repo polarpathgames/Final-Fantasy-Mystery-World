@@ -11946,9 +11946,9 @@
    <tile gid="299"/>
    <tile/>
    <tile gid="324"/>
+   <tile gid="15"/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="40"/>
    <tile/>
    <tile/>
    <tile/>
@@ -11987,9 +11987,9 @@
    <tile gid="323"/>
    <tile/>
    <tile/>
+   <tile gid="39"/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="64"/>
    <tile/>
    <tile/>
    <tile gid="98"/>
@@ -12028,9 +12028,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="63"/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="88"/>
    <tile/>
    <tile gid="97"/>
    <tile gid="100"/>
@@ -12069,9 +12069,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="87"/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="112"/>
    <tile/>
    <tile/>
    <tile/>
@@ -12110,7 +12110,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="111"/>
    <tile/>
    <tile/>
    <tile/>
@@ -12151,7 +12151,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="135"/>
    <tile/>
    <tile/>
    <tile/>
@@ -12852,7 +12852,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="9" name="Collider" width="40" height="40">
+ <layer id="9" name="Collider" width="40" height="40" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
