@@ -53,9 +53,6 @@ bool m1MainMenu::Update(float dt)
 		App->scene->control_to_change = nullptr;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
-		App->gui->AddInputText(100, 100, "Write Your Name", App->gui->screen, BLACK, FontType::FF64, nullptr,true);
-	}
 	return true;
 }
 
@@ -776,7 +773,7 @@ void m1MainMenu::CreateNameMenu()
 {
 	input_text_image = App->gui->AddImage(0, 0, { 1024, 3256, 1024, 768 }, this, App->gui->screen, true, false, false, false);
 
-	input_text = App->gui->AddInputText(0, 0, "ChooseYourCharacterName", input_text_image, BLACK, FontType::FF64, this, true, true, { 255,0,0 });
+	input_text = App->gui->AddInputText(0, 0, "ChooseYourCharacterName", input_text_image, BLACK, FontType::FF64, {100,100,100,50}, this);
 	input_text->SetPosRespectParent(CENTERED);
 
 	button_okay = App->gui->AddButton(0, 0, { 1570, 1631, 211, 30 }, { 1570, 1631, 211, 30 }, { 1570, 1631, 211, 30 }, this, input_text, true, false, true, true);
