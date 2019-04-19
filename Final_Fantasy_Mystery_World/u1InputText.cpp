@@ -8,27 +8,36 @@
 #include "m1Input.h"
 
 
-u1InputText::u1InputText(const int & pos_x, const int & pos_y, const char * txt, const Color & c, FontType font, u1GUI * parent,
-	bool interactable, bool draggable, bool focus,
-	bool has_background, const SDL_Color& bg_color)
-	:u1GUI(LABEL, pos_x, pos_y, parent, { 0,0,0,0 },true, false, true, focus),
+u1InputText::u1InputText(const int & pos_x, const int & pos_y, const char * txt, const Color & c, FontType font, const SDL_Rect& rect,u1GUI * parent)
+	:u1GUI(INPUT_BOX, pos_x, pos_y, parent, { 0,0,0,0 },true, false, true, true),
 
-	id_font(font), has_background(has_background), background_color(bg_color)
+	id_font(font)
 {		
-	text.assign(txt);
 	this->interactable = true;
 	this->allow_focus = true;
+
+	text.assign(txt);
+	box = rect;
 	SetColor(c);
 
 	texture = App->fonts->Print(text.data(), color, id_font);
-	App->fonts->CalcSize(txt, section.w, section.h, id_font);
 
+	cursor = new Animation();
+	cursor->PushBack({ 1608,3102,2,30 });
+	cursor->PushBack({ 0,0,0,0 });
+	cursor->speed = 2.0F;
 
+	uint width_ = 0u;
+	App->tex->GetSize(texture, width_, HEIGHT);
+	section.w = box.w;
+	section.h = box.h;
 }
 
 u1InputText::~u1InputText()
 {
 	SDL_StopTextInput();
+	delete cursor;
+	cursor = nullptr;
 
 }
 
@@ -46,7 +55,7 @@ void u1InputText::UpdateElement()
 	else 
 		App->input->text_input.clear();
 
-	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN && !text.empty())
 	{
 		DeleteText();
 	}
@@ -55,11 +64,18 @@ void u1InputText::UpdateElement()
 
 void u1InputText::InnerDraw()
 {
-	if (has_background) {
-		App->render->DrawQuad({ draw_offset.x,draw_offset.y,section.w,section.h }, background_color.r, background_color.g, background_color.b, background_color.a, true, false);
-	}
+	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &box, false);
 
-	App->render->Blit(texture, draw_offset.x, draw_offset.y, NULL, false, SDL_FLIP_NONE, 0.0F);
+	uint width_ = 0u, height_ = 0u;
+	App->tex->GetSize(texture, width_, height_);
+	iPoint pos{ 0,0 };
+	pos.x = (box.w - (int)width_)*0.5F;
+	pos.y = (box.h - (int)HEIGHT)*0.5F;
+	pos += draw_offset;
+
+	App->render->Blit(texture, pos.x, pos.y, NULL, false, SDL_FLIP_NONE, 0.0F);
+
+	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), pos.x + width_, pos.y + HEIGHT*0.4F, &(cursor->GetCurrentFrame(App->GetDeltaTime())), false, SDL_FLIP_NONE, 0.0F);
 }
 
 void u1InputText::SetText(const char * txt)
@@ -67,7 +83,6 @@ void u1InputText::SetText(const char * txt)
 	text = txt;
 	App->tex->UnLoad(texture);
 	texture = App->fonts->Print(text.data(), color, id_font);
-	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
 }
 
 void u1InputText::AddText(const char * txt)
@@ -79,15 +94,17 @@ void u1InputText::AddText(const char * txt)
 	text += txt;
 	App->tex->UnLoad(texture);
 	texture = App->fonts->Print(text.data(), color, id_font);
-	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
 }
 
 void u1InputText::DeleteText()
 {
 	text.pop_back();
+	if (first_update) {
+		text.clear();
+		first_update = false;
+	}
 	App->tex->UnLoad(texture);
 	texture = App->fonts->Print(text.data(), color, id_font);
-	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
 }
 
 
@@ -135,7 +152,7 @@ void u1InputText::ChangeFont(const char * f, const int & size)
 {
 	id_font = App->fonts->Load(f, size)->type;
 	texture = App->fonts->Print(text.data(), color, id_font);
-	App->fonts->CalcSize(text.data(), section.w, section.h, id_font);
+
 }
 
 

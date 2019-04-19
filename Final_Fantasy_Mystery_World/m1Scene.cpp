@@ -983,6 +983,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->gui->DeleteAllUIElements();
 			App->entity_manager->Disable();
 			App->map->Disable();
+			App->ChangePause();
 			active = false; 
 			App->main_menu->Enable();
 			ret = false;
@@ -1084,6 +1085,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			DestroyGameOver();
 			App->entity_manager->Disable();
 			App->map->Disable();
+			App->ChangePause();
 			active = false;
 			App->main_menu->Enable();
 			ret = false;

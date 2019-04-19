@@ -349,9 +349,9 @@ u1Label* m1GUI::AddLabel(const int &x, const int &y, const char* text, u1GUI* pa
 	return label;
 }
 
-u1InputText* m1GUI::AddInputText(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* listener = nullptr, bool focus = false, bool has_bg, const SDL_Color& bg_color)
+u1InputText* m1GUI::AddInputText(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, const SDL_Rect&rect,m1Module* listener = nullptr)
 {
-	u1InputText* input_text = DBG_NEW u1InputText(x, y, text, color, font, parent, false, false, false, has_bg, bg_color);
+	u1InputText* input_text = DBG_NEW u1InputText(x, y, text, color, font, rect ,parent);
 
 	if (listener != nullptr) {
 		input_text->AddListener(listener);
@@ -514,8 +514,11 @@ bool m1GUI::CheckCollision(int x, int y, u1GUI *item)
 {
 	if (item != nullptr) {
 		iPoint pos = item->GetGlobalPosition();
-		return (x > pos.x && x < pos.x + item->section.w) &&
-			(y > pos.y && y < pos.y + item->section.h);
+
+			return (x > pos.x && x < pos.x + item->section.w) &&
+				(y > pos.y && y < pos.y + item->section.h);
+		
+		
 	}
 	return false;
 }
