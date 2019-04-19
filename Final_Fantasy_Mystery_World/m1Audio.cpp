@@ -154,23 +154,9 @@ Mix_Music * m1Audio::LoadMusic(const char * path)
 		LOG("Cannot load music %s. Mix_GetError(): %s", path, Mix_GetError());
 	}
 	else {
-		if (std::find(music.begin(), music.end(), mus) == music.begin()) {
-			music.push_back(mus);
-			return mus;
-		}
-		else {
-			std::vector<Mix_Music*>::iterator item = music.begin();
-			for (; item != music.end(); ++item) {
-				if ((*item) != nullptr && (*item) == mus) {
-					Mix_FreeMusic(mus);
-					mus = nullptr;
-					return *item;
-				}
-			}
-		}
+		music.push_back(mus);
 	}
-
-	return nullptr;
+	return mus;
 }
 // Load WAV
 Mix_Chunk* m1Audio::LoadFx(const char* path)
@@ -185,22 +171,9 @@ Mix_Chunk* m1Audio::LoadFx(const char* path)
 	}
 	else
 	{
-		if (std::find(fx.begin(), fx.end(), chunk) == fx.begin()) {
-			fx.push_back(chunk);
-			return chunk;
-		}
-		else {
-			std::vector<Mix_Chunk*>::iterator item = fx.begin();
-			for (; item != fx.end(); ++item) {
-				if ((*item) != nullptr && (*item) == chunk) {
-					Mix_FreeChunk(chunk);
-					chunk = nullptr;
-					return *item;
-				}
-			}
-		}
+		fx.push_back(chunk);
 	}
-	return nullptr;
+	return chunk;
 }
 
 // Play WAV
