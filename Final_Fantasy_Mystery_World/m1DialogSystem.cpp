@@ -97,7 +97,7 @@ bool m1DialogSystem::PerformDialogue(int tr_id)
 		//Put the player's name in the lines of the npc dialog
 		while (currentNode->text.find("PLAYERNAME") != std::string::npos)
 		{
-			currentNode->text.replace(currentNode->text.find("PLAYERNAME"), 10, "Raul");
+			currentNode->text.replace(currentNode->text.find("PLAYERNAME"), 10, App->globals.player_name);
 		}
 		waiting_input = !waiting_input;
 		BlitDialog(); // Print the dialog in the screen

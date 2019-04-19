@@ -13,6 +13,8 @@
 #include "m1FadeToBlack.h"
 #include "u1Label.h"
 #include "u1CheckBox.h"
+#include "m1Scene.h"
+#include "e1Player.h"
 #include "u1Image.h"
 #include "u1ChButton.h"
 #include "u1UI_Element.h"
@@ -195,6 +197,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 	case MainMenuStates::CHOOSE_NAME_MENU:
 		if (interaction == button_okay) {
 			if (!input_text->GetText().empty()) {
+				App->globals.player_name = input_text->GetText();
 				DestroyNameMenu();
 				active = false;
 				App->entity_manager->Enable();
