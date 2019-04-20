@@ -140,7 +140,8 @@ bool m1Scene::Update(float dt)
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
-		App->render->CameraTremble();
+		/*App->render->CameraTremble();*/
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyTutorial.xml");
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 		App->input->ControllerVibration(0.3F, 1000);
