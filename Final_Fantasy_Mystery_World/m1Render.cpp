@@ -77,7 +77,7 @@ bool m1Render::PreUpdate()
 	SDL_RenderClear(renderer);
 
 	//ZOOM
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
 	{
 		debug_border = true;
 
@@ -87,7 +87,7 @@ bool m1Render::PreUpdate()
 			SDL_RenderSetLogicalSize(renderer, camera.w * zoom, camera.h * zoom);
 		}
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	else if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
 	{
 		if (zoom > 1)
 		{
