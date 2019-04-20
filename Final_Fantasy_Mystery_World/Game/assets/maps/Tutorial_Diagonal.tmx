@@ -11291,6 +11291,6 @@
   <object id="23" name="half_tree" type="static" x="385.167" y="288.167" width="46.8333" height="47.8333"/>
   <object id="24" name="quest_tree3" type="static" x="464" y="256" width="95.1818" height="98.2121"/>
   <object id="25" name="quest_tree1" type="static" x="304" y="192" width="95.1818" height="98.2121"/>
-  <object id="31" name="help1" type="static" x="432" y="400" width="16.625" height="16.625"/>
+  <object id="31" name="help1" type="static" x="417.25" y="385.25" width="31.375" height="31.375"/>
  </objectgroup>
 </map>
