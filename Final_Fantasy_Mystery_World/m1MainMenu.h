@@ -296,6 +296,9 @@ public:
 	u1Image* archer_info = nullptr;
 	u1Image* mage_info = nullptr;
 
+	u1Button* return_select_champ_button = nullptr;
+	u1Label* return_select_champ_label = nullptr;
+
 	Mix_Chunk* fx_push_button;
 	Mix_Chunk* fx_push_button_return;
 

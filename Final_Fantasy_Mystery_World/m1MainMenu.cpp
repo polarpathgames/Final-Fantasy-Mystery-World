@@ -244,6 +244,13 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			main_states = MainMenuStates::CHOOSE_NAME_MENU;
 			ret = false;
 		}
+
+		if (interaction == return_select_champ_button) {
+			CreateMainMenu();
+			DestroySelectChamp();
+			main_states = MainMenuStates::MAIN_MENU;
+			ret = false;
+		}
 		App->audio->PlayFx(fx_push_button_return);
 
 		break;
@@ -498,7 +505,8 @@ void m1MainMenu::CreateSelectChamp()
 
 	App->audio->PlayMusic(mus_selection, 0.5);
 
-
+	return_select_champ_button = App->gui->AddButton(120, 640, { 1000, 1000, 80, 50 }, { 1000, 1000, 80, 50 }, { 1000, 1000, 80, 50 }, this, select_champ_panel, false, false, true, true, {-10, 3});
+	return_select_champ_label = App->gui->AddLabel(0, 0, "Return", return_select_champ_button, BLACK, FontType::FF64, this, false);
 
 	App->gui->FocusButton((u1Button*)button_warrior);
 
