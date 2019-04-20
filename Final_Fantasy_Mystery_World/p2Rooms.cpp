@@ -14,11 +14,12 @@
 #include "m1EntityManager.h"
 #include "m1Pathfinding.h"
 
-Room::Room(const std::string &tmx_location, const int &id, const std::string &type, const std::string &cutscene_location, bool door_closed)
+Room::Room(const std::string &tmx_location, const uint &id, const std::string &type, const std::string &cutscene_location, bool door_closed, const uint &update_number)
 {
 	this->tmx_location = tmx_location;
 	this->id = id;
 	this->door_closed = door_closed;
+	this->update_number = update_number;
 
 	if (!cutscene_location.empty()) {
 		this->cutscene_location = cutscene_location;
@@ -65,8 +66,8 @@ RoomManager::RoomManager(pugi::xml_node &node)
 
 	for (room_node = node.child("maps").child("tutorial").child("room"); room_node; room_node = room_node.next_sibling("room")) {
 		Room * r = nullptr;
-		r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_int(), room_node.child("type").child_value(), 
-			room_node.child("cut_scene").child_value(), room_node.child("door").attribute("active").as_bool(false));
+		r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_uint(), room_node.child("type").child_value(), 
+			room_node.child("cut_scene").child_value(), room_node.child("door").attribute("active").as_bool(false), room_node.child("update").attribute("num").as_uint(0u));
 		rooms.push_back(r);
 	}
 
@@ -283,7 +284,7 @@ void RoomManager::PlacePlayer() // place player in front of the door
 	App->render->CenterCameraOnPlayer(App->scene->player->position);
 }
 
-void RoomManager::LoadColliders() // sensors in the doors
+void RoomManager::LoadColliders() // colliders in the doors
 {
 	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
 		if ((*position)->name == "room_collider") {
@@ -398,6 +399,18 @@ void RoomManager::AddEntityToNotRepeat(iPoint pos)
 
 void RoomManager::UpdateRoomEvents()
 {
+
+	switch (actual_room->update_number) {
+	case 1u: // BOSS ROOM TUTORIAL
+
+		break;
+	default:
+		break;
+	}
+
+
+
+	// if no more enemies door opens
 	if (actual_room != nullptr && actual_room->active && actual_room->door_closed && !App->entity_manager->ThereAreEnemies()) {
 		actual_room->door_closed = false;
 		std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();

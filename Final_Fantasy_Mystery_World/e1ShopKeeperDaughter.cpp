@@ -1,18 +1,28 @@
 #include "e1ShopKeeperDaughter.h"
 #include "e1NPC.h"
-
+#include "App.h"
+#include "m1Map.h"
+#include "p2Rooms.h"
+#include "m1Cutscene.h"
+#include "m1EntityManager.h"
+#include "m1Input.h"
+#include "m1FadeToBlack.h"
+#include "m1Scene.h"
+#include "e1Player.h"
+#include "m1Render.h"
 
 e1ShopKeeperDaughter::e1ShopKeeperDaughter(const int &x, const int &y) : e1NPC(x, y)
 {
 	LoadEntityData("assets/entities/Little_Girl.tsx");
 	npc_type = NPCType::DAUGHTER;
 	current_animation = &IdleUpRight;
-	position.x;
-	position.y;
+	actual_tile = App->map->WorldToMap(position.x + 16, position.y + 38);
+	App->map->data.no_walkables.push_back(actual_tile + iPoint{ 0,-1 });
 }
 
 e1ShopKeeperDaughter::~e1ShopKeeperDaughter()
 {
+	App->map->data.no_walkables.remove(actual_tile + iPoint{ 0,-1 });
 }
 
 bool e1ShopKeeperDaughter::PreUpdate()
@@ -22,6 +32,18 @@ bool e1ShopKeeperDaughter::PreUpdate()
 
 bool e1ShopKeeperDaughter::Update(float dt)
 {
+
+	if (App->map->quest_rooms != nullptr && App->map->quest_rooms->actual_room != nullptr && !App->entity_manager->ThereAreEnemies()) {
+		if (actual_tile.DistanceTo(App->scene->player->actual_tile) <= 1) {
+			if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+				App->cutscene_manager->PlayCutscene("assets/xml/CutsceneAfterBossTutorial.xml");
+				App->globals.CutSceneAfterBossTutorialPlayed = true;
+			}
+		}
+		if (App->globals.CutSceneAfterBossTutorialPlayed && !App->cutscene_manager->is_executing) {
+			App->fade_to_black->FadeToBlack(Maps::LOBBY);
+		}
+	}
 	return true;
 }
 
