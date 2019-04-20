@@ -289,6 +289,12 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		frame = { 1248,99,16,29 };
 		SetPivot(frame.w*0.2F, frame.h*0.9F);
 		size.create(frame.w, frame.h);
+		max_distance_to_interact = 1;
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		actual_tile += {1, 1};
+		position.y -= 1;
+		position.x += 9;
+		interacting_state = InteractingStates::WAITING_INTERACTION;
 	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
@@ -310,11 +316,12 @@ void e1StaticEntity::Draw(SDL_Texture * tex, float dt)
 {
 	if (has_animation) {
 		App->render->Blit(tex, position.x, position.y, &current_animation->GetCurrentFrame(dt), true);
-		//App->render->Blit(App->scene->player->ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+	
 
 	}
 	else {
 		App->render->Blit(tex, position.x, position.y, &frame, true);
+		//App->render->Blit(App->scene->player->ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 	}
 }
 
@@ -366,6 +373,9 @@ bool e1StaticEntity::Update(float dt)
 			break;
 		case e1StaticEntity::Type::FEATHER:
 			App->dialog->PerformDialogue(3);
+			break;
+		case e1StaticEntity::Type::HELP1:
+			App->dialog->PerformDialogue(4);
 			break;
 		default:
 			break;

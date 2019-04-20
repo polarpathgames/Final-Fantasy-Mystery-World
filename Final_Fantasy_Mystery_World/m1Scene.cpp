@@ -255,6 +255,13 @@ bool m1Scene::Update(float dt)
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
+	case StatesMenu::HELP_DIAGONAL_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			DestroyHelpDiagonalMenu();
+			player->BlockControls(false);
+			menu_state = StatesMenu::NO_MENU;
+		}
+		break;
 	case StatesMenu::CONTROLS_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			CreateOptionsMenu();
@@ -1023,6 +1030,18 @@ void m1Scene::CreateGameOver()
 void m1Scene::DestroyGameOver()
 {
 	App->gui->DeleteUIElement(game_over_panel);
+}
+
+void m1Scene::CreateHelpDiagonalMenu()
+{
+
+	help_diagonal = App->gui->AddImage(0, 0, { 0,6329,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+
+}
+
+void m1Scene::DestroyHelpDiagonalMenu()
+{
+	App->gui->DeleteUIElement(help_diagonal);
 }
 
 bool m1Scene::Interact(u1GUI* interact)

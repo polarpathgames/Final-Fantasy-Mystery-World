@@ -18,6 +18,7 @@ enum class StatesMenu {
 	SHOP_MENU,
 	DIE_MENU,
 	FIRSTABILITY_MENU,
+	HELP_DIAGONAL_MENU,
 
 	NONE
 };
@@ -112,6 +113,9 @@ public:
 	void CreateFirstAbilityPanel();
 	void DestroyFirstAbilityPanel();
 
+	void CreateHelpDiagonalMenu();
+	void DestroyHelpDiagonalMenu();
+
 	bool Interact(u1GUI* interaction);
 	StatesMenu GetMenuState();
 	void SetMenuState(const StatesMenu &menu);
@@ -141,6 +145,10 @@ private:
 	int price_mana_potion = 20;
 
 	StatesMenu menu_state = StatesMenu::NO_MENU;
+
+	// help diagonal
+
+	u1Image* help_diagonal = nullptr;
 
 	//pause
 	u1Image* pause_panel = nullptr;
