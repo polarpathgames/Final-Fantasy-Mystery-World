@@ -51,8 +51,8 @@ bool m1Render::Awake(pugi::xml_node& config)
 	}
 	else
 	{
-		camera.w = App->win->screen_surface->w;
-		camera.h = App->win->screen_surface->h;
+		camera.w = App->win->width;
+		camera.h = App->win->height;
 		camera.x = 0;
 		camera.y = 0;
 	}
@@ -328,11 +328,11 @@ void m1Render::SmoothCamera(fPoint playerpos)
 {
 	BROFILER_CATEGORY("SmoothCamera", Profiler::Color::Aquamarine);
 	if (App->fade_to_black->current_step != App->fade_to_black->fade_to_black && App->cutscene_manager->is_executing == false) {
-		playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
+		playerpos.x = (playerpos.x * App->win->GetScale() - camera.w * 0.5F);
 		smoth_position.x -= (playerpos.x + camera.x) / smooth_speed * App->GetDeltaTime();
 		camera.x = smoth_position.x;
 
-		playerpos.y = (playerpos.y * App->win->GetScale() - camera.h / 2);
+		playerpos.y = (playerpos.y * App->win->GetScale() - camera.h * 0.5F);
 		smoth_position.y -= (playerpos.y + camera.y) / smooth_speed * App->GetDeltaTime();
 		camera.y = smoth_position.y;
 	}
@@ -340,8 +340,8 @@ void m1Render::SmoothCamera(fPoint playerpos)
 
 void m1Render::CenterCameraOnPlayer(fPoint playerpos)
 {
-	playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
-	playerpos.y = (playerpos.y * App->win->GetScale() - camera.h / 2);
+	playerpos.x = (playerpos.x * App->win->GetScale() - camera.w * 0.5F);
+	playerpos.y = (playerpos.y * App->win->GetScale() - camera.h * 0.5F);
 	smoth_position.x -= (playerpos.x + camera.x);
 	camera.x = smoth_position.x;
 	smoth_position.y -= (playerpos.y + camera.y);
