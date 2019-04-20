@@ -1179,7 +1179,7 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == button_continue_lobby) {
 			DestroyGameOver();
 
-			if (quest_type == QuestType::TUTORIAL) 
+			if (App->map->actual_map == Maps::TUTORIAL && !App->globals.CutSceneFinalRoomTutorialPlayed) 
 				App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 			else 
 				App->fade_to_black->FadeToBlack(Maps::HOME);
