@@ -1036,15 +1036,7 @@ void e1Player::Flashing()
 		drawable = true;
 		position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
 		movement_count = { 0,0 };
-		if (App->scene->player_type == PlayerType::WARRIOR) {
-			position.x += 3;
-			position.y -= 19;
-			position.y -= 19;
-		}
-		else {
-			position.x += 8;
-			position.y -= 22;
-		}
+		CenterPlayerInTile();
 
 		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
 		target_position = position;

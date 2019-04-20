@@ -9,7 +9,7 @@
 #include "m1Scene.h"
 #include "m1Audio.h"
 #include "m1Input.h"
-
+#include "m1EasingSplines.h"
 e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 {
 	if (strcmp(name,"flower") == 0) {
@@ -286,14 +286,14 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	}
 	else if (strcmp(name, "help1") == 0) {
 		static_type = e1StaticEntity::Type::HELP1;
-		frame = { 1248,99,16,29 };
+		frame = { 1234,75,30,53 };
 		SetPivot(frame.w*0.2F, frame.h*0.9F);
 		size.create(frame.w, frame.h);
 		max_distance_to_interact = 1;
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
-		actual_tile += {1, 1};
-		position.y -= 1;
-		position.x += 9;
+		actual_tile += {3, 3};
+		position.y += 8;
+		position.x += 2;
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 	}
 	else {
@@ -338,7 +338,9 @@ bool e1StaticEntity::Update(float dt)
 	iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
 	if (interacting_state == InteractingStates::WAITING_INTERACTION) {
 		if (actual_tile.DistanceTo(player_pos) <= max_distance_to_interact) {
-			if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+			if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN && App->scene->GetMenuState() == StatesMenu::NO_MENU) {
+				App->scene->player->state = State::IDLE;
+				App->easing_splines->CleanUp();
 				App->scene->player->BlockControls(true);
 				interacting_state = InteractingStates::INTERACTING;
 				ChangeAnimation(player_pos);
