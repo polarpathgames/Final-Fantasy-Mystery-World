@@ -12,7 +12,6 @@ public:
 
 	bool CleanUp();
 	void IdAnimToEnum();
-	void InitStats();
 
 	void PrepareSpecialAttack1();
 

@@ -44,23 +44,6 @@ bool e1Archer::CleanUp()
 	return true;
 }
 
-void e1Archer::InitStats()
-{
-	stats.attack_power = 500;
-	stats.attack_power_ability_1 = 100;
-	stats.cost_mana_special_attack1 = 0;
-	stats.gold = 0;
-	stats.level = 1;
-	stats.live = 250;
-	stats.mana = 100;
-	stats.max_lives = 250;
-	stats.max_mana = 100;
-	stats.num_hp_potions = 0;
-	stats.num_mana_potions = 0;
-	stats.xp = 0;
-
-}
-
 void e1Archer::PrepareSpecialAttack1()
 {
 	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {

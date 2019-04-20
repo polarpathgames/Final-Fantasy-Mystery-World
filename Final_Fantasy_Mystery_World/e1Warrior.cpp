@@ -30,7 +30,7 @@
 
 e1Warrior::e1Warrior(const int & x, const int & y) : e1Player(x, y)
 {
-	LoadEntityData("assets/entities/merche.tsx");
+	LoadEntityData("assets/entities/Warrior.tsx");
 
 	SetPivot(14, 27);
 	CenterPlayerInTile();
@@ -46,21 +46,6 @@ bool e1Warrior::CleanUp()
 	return true;
 }
 
-void e1Warrior::InitStats()
-{
-	stats.attack_power = 500;
-	stats.attack_power_ability_1 = 100;
-	stats.cost_mana_special_attack1 = 0;
-	stats.gold = 400;
-	stats.level = 1;
-	stats.live = 25;
-	stats.mana = 100;
-	stats.max_lives = 250;
-	stats.max_mana = 100;
-	stats.num_hp_potions = 0;
-	stats.num_mana_potions = 0;
-	stats.xp = 0;
-}
 void e1Warrior::PrepareSpecialAttack1()
 {
 	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.2.3" name="Mage" tilewidth="18" tileheight="28" tilecount="108" columns="12">
+ <properties>
+  <property name="attack_power" type="int" value="500"/>
+  <property name="attack_power_ability" type="int" value="100"/>
+  <property name="cost_mana_special_attack" type="int" value="0"/>
+  <property name="max_lives" type="int" value="250"/>
+  <property name="max_mana" type="int" value="4562"/>
+ </properties>
  <image source="../sprites/MageSpritesheet.png" width="216" height="252"/>
  <tile id="0">
   <properties>

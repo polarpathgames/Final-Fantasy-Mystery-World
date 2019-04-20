@@ -6,7 +6,7 @@
 #include "p2Animation.h"
 #include "PugiXml\src\pugixml.hpp"
 #include "p2PerfTimer.h"
-
+#include "p2Properties.h"
 
 
 struct SDL_Texture;
@@ -90,7 +90,7 @@ public:
 	virtual ~e1Entity();
 
 	bool LoadEntityData(const char*);
-	//virtual void LoadProperties(pugi::xml_node&);
+	void LoadProperties(pugi::xml_node&);
 	virtual void IdAnimToEnum() {};
 
 	virtual void PushBack() {};
@@ -138,6 +138,8 @@ public:
 	Collider* coll = nullptr;
 	bool to_delete = false;
 	iPoint velocity;
+
+	Properties<int> general_properties;
 
 };
 

@@ -20,6 +20,7 @@ e1Entity::~e1Entity()
 	if (coll != nullptr) {
 		App->collision->DeleteCollider(coll);
 	}
+	general_properties.CleanUp();
 }
 
 void e1Entity::Draw(SDL_Texture * tex, float dt)
@@ -146,7 +147,7 @@ bool e1Entity::LoadEntityData(const char* file) {
 	}
 
 	//Load data
-	//LoadProperties(entity_file.child("tileset").child("properties").child("property")); //Load properties, is a virtual function because every entity has its variables
+	LoadProperties(entity_file.child("tileset").child("properties").child("property")); //Load properties
 
 	//LoadCollider(entity_file.child("tileset").child("tile").child("objectgroup").child("object")); //Load collider
 
@@ -168,6 +169,14 @@ bool e1Entity::LoadEntityData(const char* file) {
 	}
 
 	return ret;
+}
+
+void e1Entity::LoadProperties(pugi::xml_node &property)
+{
+	for (; property != NULL; property = property.next_sibling()) {
+		Property<int>* prop = DBG_NEW Property<int>(property.attribute("name").as_string(), property.attribute("value").as_int());
+		general_properties.properties.push_back(prop);
+	}
 }
 
 //Functions to help loading data in xml-------------------------------------
