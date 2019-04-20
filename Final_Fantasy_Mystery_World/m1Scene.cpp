@@ -1405,6 +1405,7 @@ void m1Scene::CreateHUD()
 void m1Scene::ShowHUD(bool show_or_hide)
 {
 	bg_hud->drawable = show_or_hide;
+	player_hud_image->drawable = show_or_hide;
 	player_hp_bar->drawable = show_or_hide;
 	player_mana_bar->drawable = show_or_hide;
 }
