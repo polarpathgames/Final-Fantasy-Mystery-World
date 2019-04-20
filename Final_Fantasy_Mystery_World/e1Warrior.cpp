@@ -32,7 +32,7 @@ e1Warrior::e1Warrior(const int & x, const int & y) : e1Player(x, y)
 {
 	LoadEntityData("assets/entities/merche.tsx");
 
-	ground = App->tex->Load("assets/sprites/player_pos.png");
+	SetPivot(14, 27);
 	CenterPlayerInTile();
 	InitStats();
 }
@@ -43,8 +43,6 @@ e1Warrior::~e1Warrior()
 
 bool e1Warrior::CleanUp()
 {
-	App->tex->UnLoad(ground);
-	ground = nullptr;
 	return true;
 }
 

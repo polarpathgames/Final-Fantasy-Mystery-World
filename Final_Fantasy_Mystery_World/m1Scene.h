@@ -4,6 +4,7 @@
 #include "m1Module.h"
 #include "p2ChangeControls.h"
 #include <list>
+#include "SDL_mixer/include/SDL_mixer.h"
 #include "p2Animation.h"
 
 enum class StatesMenu {
@@ -413,6 +414,33 @@ public:
 	int fx_controller_conection;
 	int fx_surprise;
 	int fx_buy;
+
+  Mix_Chunk* fx_writting;
+	Mix_Chunk* fx_attack;
+	Mix_Chunk* fx_frog_attack;
+	Mix_Chunk* fx_plant_attack;
+  Mix_Chunk* fx_dog_attack;
+	Mix_Chunk* fx_ability_warrior;
+  Mix_Chunk* fx_ability_mage;
+	Mix_Chunk* fx_ability_mage_prepare;
+	Mix_Chunk* fx_ability_archer;
+	Mix_Chunk* fx_ability_no_mana;
+	Mix_Chunk* fx_ability_screen;
+	Mix_Chunk* fx_drop_pick_up;
+	Mix_Chunk* fx_door_enter;
+	Mix_Chunk* fx_potion;
+	Mix_Chunk* fx_denegated_potion;
+	Mix_Chunk* fx_potion_menu;
+  Mix_Chunk* fx_flash;
+	Mix_Chunk* fx_die;
+	Mix_Chunk* fx_rock;
+	Mix_Chunk* fx_kill_enemy;
+	Mix_Chunk* fx_no_money;
+	Mix_Chunk* fx_controller_conection;
+	Mix_Chunk* fx_surprise;
+	Mix_Chunk* fx_buy;
+
+	Mix_Music* mus_game_over;
 
 };
 

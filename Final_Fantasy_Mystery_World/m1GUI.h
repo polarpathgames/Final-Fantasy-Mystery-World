@@ -4,6 +4,7 @@
 #include "m1Module.h"
 #include "p2Animation.h"
 #include <list>
+#include "SDL_mixer/include/SDL_mixer.h"
 
 #include "p2Defs.h"
 #include "p2Point.h"
@@ -100,9 +101,9 @@ public:
 
 	// SFX
 
-	int fx_pause;
-	int fx_focus;
-	int fx_inventory;
+	Mix_Chunk* fx_pause;
+	Mix_Chunk* fx_focus;
+	Mix_Chunk* fx_inventory;
 
 
 

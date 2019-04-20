@@ -213,6 +213,23 @@ Collider* m1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, m1Module* 
 	return ret;
 }
 
+bool m1Collision::DeleteCollider(Collider* col)
+{
+	bool ret = false;
+	std::vector<Collider*>::iterator item = colliders.begin();
+	for (; item != colliders.end();++item) {
+		if ((*item) == col) {
+			delete (*item);
+			(*item) = nullptr;
+			item = colliders.erase(item);
+			ret = true;
+			break;
+		}
+	}
+
+	return ret;
+}
+
 // -----------------------------------------------------
 
 bool Collider::CheckCollision(const SDL_Rect& r) const

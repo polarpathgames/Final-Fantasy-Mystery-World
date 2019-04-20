@@ -87,6 +87,9 @@ bool m1Scene::Start()
 	fx_surprise = App->audio->LoadFx("assets/audio/sfx/MC_Shield.wav");
 	fx_buy = App->audio->LoadFx("assets/audio/sfx/MainMenu_Cancel_Selection.wav");
   
+	mus_game_over = App->audio->LoadMusic("assets/audio/music/35.Final Fantasy TA - Judge.ogg");
+
+
 	return true;
 }
 
@@ -111,8 +114,35 @@ bool m1Scene::Update(float dt)
 			DestroyDebugScreen();
 		}
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+		e1Player* swap = nullptr;
+		iPoint new_pos = App->map->MapToWorld(player->actual_tile.x, player->actual_tile.y);
+		switch(player_type) {
+		case PlayerType::WARRIOR:
+			player_type = PlayerType::ARCHER;
+			swap = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::ARCHER, new_pos.x, new_pos.y, "");
+			break;
+		case PlayerType::ARCHER:
+			player_type = PlayerType::MAGE;
+			swap = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::MAGE, new_pos.x, new_pos.y, "");
+			break;
+		case PlayerType::MAGE:
+			player_type = PlayerType::WARRIOR;
+			swap = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, new_pos.x, new_pos.y, "");
+			break;
+		}
+		if (swap != nullptr) {
+			swap->position = player->GetPosition() - swap->pivot;
+			App->entity_manager->DeleteEntity(player);
+			player = swap;
+		}
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
 		App->render->CameraTremble();
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 		App->input->ControllerVibration(0.3F, 1000);
 	}
 
@@ -271,6 +301,19 @@ bool m1Scene::CleanUp()
 {
 	LOG("Freeing scene");
 
+	App->audio->UnLoadMusic(mus_game_over);
+	App->audio->UnLoadFx(fx_ability_menu);
+	App->audio->UnLoadFx(fx_ability_warrior);
+	App->audio->UnLoadFx(fx_attack);
+	App->audio->UnLoadFx(fx_denegated_potion);
+	App->audio->UnLoadFx(fx_door_enter);
+	App->audio->UnLoadFx(fx_drop_pick_up);
+	App->audio->UnLoadFx(fx_frog_attack);
+	App->audio->UnLoadFx(fx_plant_attack);
+	App->audio->UnLoadFx(fx_potion);
+	App->audio->UnLoadFx(fx_potion_menu);
+	App->audio->UnLoadFx(fx_writting);
+
 	//delete control_to_change;
 	//labels_control.clear();
 
@@ -303,31 +346,37 @@ void m1Scene::CreateEntities()
 			else {
 				if ((*position)->ent_type == "shop" && App->map->last_map == Maps::SHOP) { // position after leaving shop
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->Init();
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "home" && App->map->last_map == Maps::HOME){ // position after leaving home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->Init();
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "in_shop") { // position in the shop
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->Init();
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "in_home" && player->state != State::MENU) { // position in the home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->Init();
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "after_death" && player->state == State::MENU) { // position in the home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->Init();
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "default" && App->map->last_map == Maps::TUTORIAL) {
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->Init();
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
@@ -957,7 +1006,7 @@ void m1Scene::UpdateDebugScreen()
 
 void m1Scene::CreateGameOver()
 {
-	App->audio->PlayMusic("assets/audio/music/35.Final Fantasy TA - Judge.ogg", 0.5);
+	App->audio->PlayMusic(mus_game_over, 0.5);
 	game_over_panel = App->gui->AddImage(0, 0, { 1024, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
 	game_over_panel->SetPosRespectParent(CENTERED);
 
