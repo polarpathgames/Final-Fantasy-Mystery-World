@@ -147,6 +147,9 @@ private:
 	u1Button* button_retun_options = nullptr;
 	u1Label* label_return_options = nullptr;
 
+	u1CheckBox* checkbox_mute_music = nullptr;
+	u1CheckBox* checkbox_mute_fx = nullptr;
+
 	// Menu Controls
 
 	u1Image* controls_panel = nullptr;

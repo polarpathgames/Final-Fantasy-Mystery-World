@@ -261,6 +261,11 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			main_states = MainMenuStates::CONTROLS_MENU;
 			ret = false;
 		}
+		if (interaction == checkbox_mute_music)
+		{
+			checkbox_mute_music->Clicked();
+			App->audio->StopMusic(-2);
+		}
 		if (interaction == checkbox_fps)
 		{
 			checkbox_fps->Clicked();
@@ -527,6 +532,13 @@ void m1MainMenu::CreateOptions()
 	minus_music_btn = App->gui->AddButton(715, 263, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options_panel, true, false, true, true);
 	plus_music_btn = App->gui->AddButton(805, 263, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options_panel, true, false, true, true);
 	label_music_value = App->gui->AddLabel(760, 250, "", options_panel, BLACK, FontType::FF48, nullptr, false);
+
+	checkbox_mute_music = App->gui->AddCheckBox(900, 263, { 1618, 1834, 33, 33 }, { 1618, 1834, 33, 33 }, { 1581, 1836, 26, 29 }, options_panel);
+	checkbox_mute_music->is_option = true;
+	checkbox_mute_music->draggable = false;
+	checkbox_mute_music->drawable = true;
+	checkbox_mute_music->interactable = true;
+	checkbox_mute_music->AddListener(this);
 
 	button_fx_volume = App->gui->AddButton(491, 326, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	label_fx_volume = App->gui->AddLabel(0, 0, "FX Volume", button_fx_volume, BLACK, FontType::FF48, nullptr, false);
