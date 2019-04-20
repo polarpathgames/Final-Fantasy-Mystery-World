@@ -86,12 +86,6 @@ bool e1BlueDog::Update(float dt)
 	return true;
 }
 
-void e1BlueDog::InitStats()
-{
-	stats.attack_power = 25;
-	stats.live = 100;
-}
-
 void e1BlueDog::IdAnimToEnum()
 {
 

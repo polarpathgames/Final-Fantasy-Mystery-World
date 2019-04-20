@@ -2,6 +2,7 @@
 #define __P2PROPERTIES_H__
 
 #include <string>
+#include <list>
 
 template<class TYPE>
 class Property {

@@ -108,7 +108,7 @@ public:
 
 	void ReadAttack();
 
-	virtual void InitStats();
+	void InitStats();
 
 	virtual void PrepareSpecialAttack1() {};
 

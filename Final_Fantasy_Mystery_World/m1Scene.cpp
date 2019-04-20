@@ -1389,6 +1389,17 @@ void m1Scene::SetMenuState(const StatesMenu & menu)
 void m1Scene::CreateHUD()
 {
 	bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, nullptr, App->gui->screen, true, false, false, false);
+	switch (player_type) {
+	case PlayerType::WARRIOR:
+		player_hud_image = App->gui->AddImage(28, 653, { 1163,4079,76,98 }, nullptr, bg_hud, true, false, false, false);
+		break;
+	case PlayerType::ARCHER:
+		player_hud_image = App->gui->AddImage(28, 653, { 1740,4088,76,98 }, nullptr, bg_hud, true, false, false, false);
+		break;
+	case PlayerType::MAGE:
+		player_hud_image = App->gui->AddImage(28, 653, { 1458,4084,76,98 }, nullptr, bg_hud, true, false, false, false);
+		break;
+	}
 	player_hp_bar = App->gui->AddBar(215, 662, player->stats.max_lives, HPBAR, bg_hud, nullptr);
 	player_mana_bar = App->gui->AddBar(215, 700, player->stats.max_mana, MANABAR, bg_hud, nullptr);
 }
@@ -1396,6 +1407,7 @@ void m1Scene::CreateHUD()
 void m1Scene::ShowHUD(bool show_or_hide)
 {
 	bg_hud->drawable = show_or_hide;
+	player_hud_image->drawable = show_or_hide;
 	player_hp_bar->drawable = show_or_hide;
 	player_mana_bar->drawable = show_or_hide;
 }

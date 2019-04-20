@@ -100,13 +100,6 @@ bool e1CarnivorousPlant::Update(float dt)
 	return true;
 }
 
-void e1CarnivorousPlant::InitStats()
-{
-	stats.attack_power = 25;
-	stats.live = 100;
-	stats.experience = 30;
-}
-
 void e1CarnivorousPlant::IdAnimToEnum()
 {
 

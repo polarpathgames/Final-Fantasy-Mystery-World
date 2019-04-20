@@ -33,6 +33,8 @@ public:
 
 	virtual ~e1Enemy();
 
+	void InitStats();
+
 	virtual bool PreUpdate() { return true; };
 
 	virtual bool Update(float dt) { return true; };

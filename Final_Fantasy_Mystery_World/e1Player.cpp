@@ -33,6 +33,7 @@
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
 	type = EntityType::PLAYER;
+	ground = App->tex->Load("assets/sprites/player_pos.png");
 	Init();
 }
 
@@ -41,8 +42,6 @@ void e1Player::Init()
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
 	current_animation = &IdleDownLeft;
-
-	ground = App->tex->Load("assets/sprites/player_pos.png");
 
 	velocity.x = 160;
 	velocity.y = 80;
@@ -453,6 +452,23 @@ void e1Player::ReadAttack()
 
 void e1Player::InitStats()
 {
+	for (std::list<Property<int>*>::iterator item = general_properties.properties.begin(); item != general_properties.properties.end(); item++) {
+		if (strcmp((*item)->GetName(), "max_lives") == 0) {
+			stats.max_lives = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "attack_power") == 0) {
+			stats.attack_power = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "max_mana") == 0) {
+			stats.max_mana = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "attack_power_ability") == 0) {
+			stats.attack_power_ability_1 = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "cost_mana_special_attack") == 0) {
+			stats.cost_mana_special_attack1 = (*item)->GetValue();
+		}
+	}
 }
 
 void e1Player::PrepareBasicAttack()
