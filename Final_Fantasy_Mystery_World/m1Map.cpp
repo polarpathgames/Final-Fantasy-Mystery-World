@@ -58,8 +58,6 @@ void m1Map::Draw()
 	if(map_loaded == false)
 		return;
 
-	if (quest_rooms != nullptr)
-		quest_rooms->UpdateRoomEvents();
 
 	std::list<MapLayer*>::iterator item = data.layers.begin();
 	
@@ -103,6 +101,9 @@ void m1Map::Draw()
 			}
 		}
 	}
+	if (quest_rooms != nullptr)
+		quest_rooms->UpdateRoomEvents();
+
 }
 
 TileSet* m1Map::GetTilesetFromTileId(int id) const

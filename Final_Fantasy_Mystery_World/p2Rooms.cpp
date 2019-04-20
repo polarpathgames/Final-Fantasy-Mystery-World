@@ -294,6 +294,9 @@ void RoomManager::LoadColliders() // sensors in the doors
 						ChangeScene * c = DBG_NEW ChangeScene(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, LocationChangeScene::NEXT_A, (*position)->properties.GetValue("next_id"));
 						(*item)->change_scene_points.push_back(c);
 						App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x,App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_NEXT_A, (m1Module*)App->map);
+						if (!actual_room->door_closed) {
+							App->map->data.no_walkables.remove(c->location + iPoint{ 0,-1 });
+						}
 						break;
 					}
 				}
@@ -305,6 +308,9 @@ void RoomManager::LoadColliders() // sensors in the doors
 						ChangeScene * c = DBG_NEW ChangeScene(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, LocationChangeScene::NEXT_B, (*position)->properties.GetValue("next_id"));
 						(*item)->change_scene_points.push_back(c);
 						App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x,App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_NEXT_B, (m1Module*)App->map);
+						if (!actual_room->door_closed) {
+							App->map->data.no_walkables.remove(c->location + iPoint{ 0,-1 });
+						}
 						break;
 					}
 				}
@@ -392,13 +398,15 @@ void RoomManager::AddEntityToNotRepeat(iPoint pos)
 
 void RoomManager::UpdateRoomEvents()
 {
-
 	if (actual_room != nullptr && actual_room->active && actual_room->door_closed && !App->entity_manager->ThereAreEnemies()) {
 		actual_room->door_closed = false;
+		std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
+		for (; item != actual_room->change_scene_points.end(); ++item) {
+			if ((*item) != nullptr && ((*item)->change_type == LocationChangeScene::NEXT_A || (*item)->change_type == LocationChangeScene::NEXT_B)) {
+				App->map->data.no_walkables.remove((*item)->location + iPoint{ 0,-1 });
+			}
+		}
 	}
-
-
-
 }
 
 ChangeScene::ChangeScene(const int & x, const int & y, LocationChangeScene type, const uint & id)
