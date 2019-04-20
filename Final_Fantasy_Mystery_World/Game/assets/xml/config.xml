@@ -58,6 +58,7 @@
           <location>Tutorial_Attack.tmx</location>
           <id num="3"></id>
           <type>combat</type>
+          <door active="true"></door>
         </room>
         <room>
           <location>Tutorial_Attack2.tmx</location>
@@ -90,7 +91,6 @@
           <id num="9"></id>
           <type>boss_tutorial</type>
           <cut_scene>assets/xml/CutsceneFinalRoom.xml</cut_scene>
-          <cut_scene>assets/xml/CutsceneAfterBossTutorial.xml</cut_scene>
         </room>
         
         

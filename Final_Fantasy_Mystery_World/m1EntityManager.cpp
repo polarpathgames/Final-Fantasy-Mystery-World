@@ -385,6 +385,7 @@ bool m1EntityManager::ThereAreEnemies()
 	{
 		if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY) {
 			ret = true;
+			break;
 		}			
 	}
 	return ret;

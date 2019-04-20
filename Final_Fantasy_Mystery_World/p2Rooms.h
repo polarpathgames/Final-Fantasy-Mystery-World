@@ -40,19 +40,20 @@ class Room {
 
 public:
 
-	Room(const std::string &tmx_location, const int &id, const std::string &type, const std::string &cutscene_location);
+	Room(const std::string &tmx_location, const uint &id, const std::string &type, const std::string &cutscene_location, bool door_closed, const uint & update_number);
 	~Room();
 
 
 public:
 	std::string tmx_location;  
-	uint id = 0; 
+	uint id = 0u; 
 	std::vector<ChangeScene*> change_scene_points; 
 	bool active = false;
 	RoomType room_type = RoomType::NONE;
 	std::string cutscene_location;
 	std::vector<iPoint> entities;
-
+	bool door_closed = false;
+	uint update_number = 0u;
 };
 
 class RoomManager {
@@ -64,18 +65,24 @@ public:
 
 	void OnCollision(Collider* c1, Collider* C2);
 	void LoadRoom(const int & id);
+	void AddEntityToNotRepeat(iPoint pos);
+	void UpdateRoomEvents();
+
+private:
+
 	void LoadEntities();
 	void PlacePlayer();
 	void LoadColliders();
 	void PlayMusic();
 	void PlayCutScene();
-	void AddEntityToNotRepeat(iPoint pos);
-
+	
 public:
+
 	Room* actual_room = nullptr;
 	Room* last_room = nullptr;
 	std::vector<Room*> rooms;
 	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
+
 	Mix_Music* mus_paceful;
 	Mix_Music* mus_boss;
 	Mix_Music* mus_combat;
