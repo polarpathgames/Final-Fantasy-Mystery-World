@@ -165,7 +165,6 @@ void e1BlueDog::IdAnimToEnum()
 			break;
 			
 
-
 		case 360:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;
