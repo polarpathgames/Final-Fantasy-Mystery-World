@@ -266,6 +266,12 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			checkbox_mute_music->Clicked();
 			App->audio->StopMusic(-2);
 		}
+
+		if (interaction == checkbox_mute_fx)
+		{
+			checkbox_mute_fx->Clicked();
+			App->audio->StopMusic(-3);
+		}
 		if (interaction == checkbox_fps)
 		{
 			checkbox_fps->Clicked();
@@ -546,6 +552,13 @@ void m1MainMenu::CreateOptions()
 	minus_fx_btn = App->gui->AddButton(715, 343, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options_panel, true, false, true, true);
 	plus_fx_btn = App->gui->AddButton(805, 343, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options_panel, true, false, true, true);
 	label_fx_value = App->gui->AddLabel(760, 330, "", options_panel, BLACK, FontType::FF48, nullptr, false);
+
+	checkbox_mute_fx = App->gui->AddCheckBox(900, 343, { 1618, 1834, 33, 33 }, { 1618, 1834, 33, 33 }, { 1581, 1836, 26, 29 }, options_panel);
+	checkbox_mute_fx->is_option = true;
+	checkbox_mute_fx->draggable = false;
+	checkbox_mute_fx->drawable = true;
+	checkbox_mute_fx->interactable = true;
+	checkbox_mute_fx->AddListener(this);
 
 	label_fps = App->gui->AddLabel(491, 413, "FPS Caps", options_panel, BLACK, FontType::FF48, nullptr, false);
 	checkbox_fps = App->gui->AddCheckBox(760, 413, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
