@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.2.3" name="BlueDog" tilewidth="45" tileheight="42" tilecount="72" columns="12">
  <properties>
-  <property name="attack_power" type="int" value="25"/>
-  <property name="experience" type="int" value="100"/>
-  <property name="live" type="int" value="20"/>
+  <property name="attack_power" type="int" value="80"/>
+  <property name="experience" type="int" value="500"/>
+  <property name="live" type="int" value="350"/>
  </properties>
  <image source="../sprites/Dog.png" width="543" height="254"/>
  <tile id="0">
