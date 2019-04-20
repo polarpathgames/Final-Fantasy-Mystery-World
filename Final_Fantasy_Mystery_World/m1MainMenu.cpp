@@ -228,6 +228,174 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			minus_letters->drawable = true;
 			max_letters->drawable = false;
 		}
+		if (interaction == button_A) {
+			if (minus_letters->drawable) {
+				input_text->AddText("a");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("A");
+			}
+		}
+		if (interaction == button_B) {
+			if (minus_letters->drawable) {
+				input_text->AddText("b");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("B");
+			}
+		}
+		if (interaction == button_C) {
+			if (minus_letters->drawable) {
+				input_text->AddText("c");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("C");
+			}
+		}
+		if (interaction == button_D) {
+			if (minus_letters->drawable) {
+				input_text->AddText("d");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("D");
+			}
+		}
+		if (interaction == button_E) {
+			if (minus_letters->drawable) {
+				input_text->AddText("e");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("E");
+			}
+		}
+		if (interaction == button_F) {
+			if (minus_letters->drawable) {
+				input_text->AddText("f");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("F");
+			}
+		}
+		if (interaction == button_H) {
+			if (minus_letters->drawable) {
+				input_text->AddText("h");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("H");
+			}
+		}
+		if (interaction == button_G) {
+			if (minus_letters->drawable) {
+				input_text->AddText("g");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("G");
+			}
+		}
+		if (interaction == button_I) {
+			if (minus_letters->drawable) {
+				input_text->AddText("i");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("I");
+			}
+		}
+		if (interaction == button_J) {
+			if (minus_letters->drawable) {
+				input_text->AddText("j");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("J");
+			}
+		}
+		if (interaction == button_K) {
+			if (minus_letters->drawable) {
+				input_text->AddText("k");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("K");
+			}
+		}
+		if (interaction == button_L) {
+			if (minus_letters->drawable) {
+				input_text->AddText("l");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("L");
+			}
+		}
+		if (interaction == button_M) {
+			if (minus_letters->drawable) {
+				input_text->AddText("m");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("M");
+			}
+		}
+		if (interaction == button_N) {
+			if (minus_letters->drawable) {
+				input_text->AddText("n");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("N");
+			}
+		}
+		if (interaction == button_O) {
+			if (minus_letters->drawable) {
+				input_text->AddText("o");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("O");
+			}
+		}
+		if (interaction == button_P) {
+			if (minus_letters->drawable) {
+				input_text->AddText("p");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("P");
+			}
+		}
+		if (interaction == button_Q) {
+			if (minus_letters->drawable) {
+				input_text->AddText("q");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("Q");
+			}
+		}
+		if (interaction == button_R) {
+			if (minus_letters->drawable) {
+				input_text->AddText("r");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("R");
+			}
+		}
+		if (interaction == button_S) {
+			if (minus_letters->drawable) {
+				input_text->AddText("s");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("S");
+			}
+		}
+		if (interaction == button_T) {
+			if (minus_letters->drawable) {
+				input_text->AddText("t");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("T");
+			}
+		}
+		if (interaction == button_U) {
+			if (minus_letters->drawable) {
+				input_text->AddText("u");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("U");
+			}
+		}
 		break;
 	case MainMenuStates::SELECTION_MENU:
 		if (interaction == button_warrior) {
@@ -799,14 +967,39 @@ void m1MainMenu::CreateNameMenu()
 
 	input_text = App->gui->AddInputText(190, 258, "ChooseYourCharacterName", input_text_image, BLACK, FontType::FF64, {1214,5050,600,63}, this);
 	
-	minus_letters = App->gui->AddImage(137, 350, { 1022,5657,741,337 }, nullptr, input_text_image, true, false, false, false);
-	max_letters = App->gui->AddImage(137, 350, { 120,5659,741,337 }, nullptr, input_text_image, false, false, false, false);
-
-	button_upper = App->gui->AddButton(662, 0, { 0,0,80,47 }, { 0,0,80,47 }, { 0,0,80,47 }, this, max_letters, false, false, true, true);
-	button_lower = App->gui->AddButton(662, 73, { 0,0,80,47 }, { 0,0,80,47 }, { 0,0,80,47 }, this, max_letters, false, false, true, true);
+	minus_letters = App->gui->AddImage(137, 350, { 1024,5658,743,334 }, nullptr, input_text_image, true, false, false, false);
+	max_letters = App->gui->AddImage(137, 350, { 119,5658,743,334 }, nullptr, input_text_image, false, false, false, false);
 
 
-	button_okay = App->gui->AddButton(662, 149, { 0, 0, 60, 47 }, { 0, 0, 60, 47 }, { 0, 0, 60, 47 }, this, max_letters, false, false, true, true);
+	// 
+	button_A = App->gui->AddButton(0, 0, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_B = App->gui->AddButton(94, 0, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_C = App->gui->AddButton(188, 0, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_D = App->gui->AddButton(282, 0, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_E = App->gui->AddButton(378, 0, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_F = App->gui->AddButton(471, 0, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_G = App->gui->AddButton(565, 0, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_upper = App->gui->AddButton(662, 0, { 0,0,80,47 }, { 0,0,80,47 }, { 0,0,80,47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	//
+	button_H = App->gui->AddButton(0, 74, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_I = App->gui->AddButton(94, 74, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_J = App->gui->AddButton(188, 74, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_K = App->gui->AddButton(282, 74, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_L = App->gui->AddButton(378, 74, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_M = App->gui->AddButton(471, 74, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_N = App->gui->AddButton(565, 74, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_lower = App->gui->AddButton(662, 73, { 0,0,80,47 }, { 0,0,80,47 }, { 0,0,80,47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	//
+	button_O = App->gui->AddButton(0, 148, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_P = App->gui->AddButton(94, 148, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_Q = App->gui->AddButton(188, 148, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_R = App->gui->AddButton(282, 148, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_S = App->gui->AddButton(378, 148, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_T = App->gui->AddButton(471, 148, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_U = App->gui->AddButton(565, 148, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_okay = App->gui->AddButton(662, 149, { 0, 0, 60, 47 }, { 0, 0, 60, 47 }, { 0, 0, 60, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+
+	//
 
 }
 
