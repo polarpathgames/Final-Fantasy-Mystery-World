@@ -65,16 +65,30 @@ bool m1Scene::Start()
 	fx_writting = App->audio->LoadFx("assets/audio/sfx/LTTP_Text_Done.wav");
 	fx_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_Steps_on_Water1.wav");
 	fx_frog_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_BasicAttack.wav");
+	fx_dog_attack = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Door_Hit.wav");
 	fx_plant_attack = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Punch1.wav");
 	fx_ability_warrior = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Critical_Hit.wav");
-	fx_ability_menu = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_InBattle_Selection.wav");
+	fx_ability_mage = App->audio->LoadFx("assets/audio/sfx/explosion_large_07.wav");
+	fx_ability_mage_prepare = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Magic_Charge1.wav");
+	fx_ability_archer = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Arrow3.wav");
+	fx_ability_no_mana = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Not_Enough_Money.wav");
+	fx_ability_screen = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Sparkle1.wav");
 	fx_drop_pick_up = App->audio->LoadFx("assets/audio/sfx/retro_collect_pickup_coin_03.wav");
 	fx_door_enter = App->audio->LoadFx("assets/audio/sfx/MC_Stairs_Up.wav");
 	fx_potion = App->audio->LoadFx("assets/audio/sfx/Potion.wav");
 	fx_denegated_potion = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Land_on_Wood.wav");
 	fx_potion_menu = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_L1R1L2R2_Shifting.wav");
-	
+	fx_flash = App->audio->LoadFx("assets/audio/sfx/sci-fi_device_item_power_up_flash_01.wav");
+	fx_die = App->audio->LoadFx("assets/audio/sfx/Hurt4.wav");
+	fx_rock = App->audio->LoadFx("assets/audio/sfx/LTTP_Bomb_Drop.wav");
+	fx_kill_enemy = App->audio->LoadFx("assets/audio/sfx/MC_Enemy_Kill.wav");
+	fx_no_money = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Sit_Down.wav");
+	fx_controller_conection = App->audio->LoadFx("assets/audio/sfx/ST_Passenger_Pleased.wav");
+	fx_surprise = App->audio->LoadFx("assets/audio/sfx/MC_Shield.wav");
+	fx_buy = App->audio->LoadFx("assets/audio/sfx/MainMenu_Cancel_Selection.wav");
+  
 	mus_game_over = App->audio->LoadMusic("assets/audio/music/35.Final Fantasy TA - Judge.ogg");
+
 
 	return true;
 }
@@ -142,10 +156,10 @@ bool m1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 		App->render->camera.y -= 300 * dt;*/
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	/*if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneFinalRoom.xml");
-
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+*/
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		App->map->grid = !App->map->grid;
 
 	if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {
@@ -402,6 +416,7 @@ void m1Scene::CreateEntities()
 
 void m1Scene::CreateGoToQuestMenu()
 {
+	App->audio->PlayFx(App->gui->fx_inventory);
 	go_to_quest_panel = App->gui->AddImage(100, 70, { 1878, 1536, 170, 101 }, this, App->gui->screen, true, false, false, false);
 
 	go_to_quest_label = App->gui->AddLabel(50, -5, "Tutorial", go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
@@ -1051,6 +1066,8 @@ bool m1Scene::Interact(u1GUI* interact)
 		break;
 	case StatesMenu::GO_TO_QUEST_MENU:
 		if (interact == go_to_quest_button) {
+			App->audio->PlayFx(fx_ability_warrior);
+
 			DestroyGoToQuestMenu();
 			App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 			menu_state = StatesMenu::NO_MENU;
@@ -1222,12 +1239,11 @@ bool m1Scene::Interact(u1GUI* interact)
 			menu_state = StatesMenu::NO_MENU;
 			ret = false;
 		}
-		if (interact != nullptr && interact != button_close_shop) {
-			App->audio->PlayFx(App->main_menu->fx_push_button);
-		}
+
 		if (interact == shop_button_hp_potion) {
 			if (player->stats.gold >= price_hp_potion || player->god_mode) {
 				// audio comprar
+				App->audio->PlayFx(App->scene->fx_buy);
 				player->ReduceGold(price_hp_potion);
 				++player->stats.num_hp_potions;
 				hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
@@ -1235,11 +1251,13 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 			else {
 				// audio no money
+				App->audio->PlayFx(App->scene->fx_no_money);
 			}
 		}
 		if (interact == shop_button_mana_potion) {
 			if (player->stats.gold >= price_mana_potion || player->god_mode) {
 				// audio comprar
+				App->audio->PlayFx(App->scene->fx_buy);
 				player->ReduceGold(price_mana_potion);
 				++player->stats.num_mana_potions;
 				mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
@@ -1247,6 +1265,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 			else {
 				// audio no money
+				App->audio->PlayFx(App->scene->fx_no_money);
 			}
 		}
 		break;
@@ -1381,6 +1400,8 @@ void m1Scene::ShowHUD(bool show_or_hide)
 
 void m1Scene::CreateFirstAbilityPanel()
 {
+	App->audio->PlayFx(App->scene->fx_ability_screen);
+
 	App->gui->ShowCursor(false);
 
 	switch (player_type) {

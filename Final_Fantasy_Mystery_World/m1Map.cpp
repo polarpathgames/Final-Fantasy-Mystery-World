@@ -643,6 +643,7 @@ bool m1Map::ChangeMap(Maps type)
 	case Maps::TUTORIAL:
 		//App->audio->PlayMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg", 5);
 		quest_rooms = DBG_NEW RoomManager(node);
+		Load(tutorial_map.data());
 		actual_map = Maps::TUTORIAL;
 		return true;
 		break;
