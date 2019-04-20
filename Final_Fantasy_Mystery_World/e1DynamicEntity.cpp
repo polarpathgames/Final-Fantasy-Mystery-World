@@ -758,7 +758,7 @@ void e1DynamicEntity::ResetAnims()
 	
 }
 
-void e1DynamicEntity::ChangeAnimsInCutscene(const int & x, const int & y, const int & anim_num, int & pos_x, int & pos_y)
+void e1DynamicEntity::ChangeAnimsInCutscene(const int & x, const int & y, const int & anim_num)
 {
 	Animation* last_anim;
 	last_anim = current_animation;
@@ -812,7 +812,3 @@ void e1DynamicEntity::ChangeAnimsInCutscene(const int & x, const int & y, const 
 		}
 	}
 }
-
-
-
-

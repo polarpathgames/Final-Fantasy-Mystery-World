@@ -17,10 +17,4 @@ protected:
 	std::string paths;
 	Mix_Chunk* fx = nullptr;
 };
-
-
-
-
-
 #endif
-

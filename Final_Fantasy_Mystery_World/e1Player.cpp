@@ -33,14 +33,14 @@
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
 	type = EntityType::PLAYER;
+	direction = Direction::DOWN_LEFT;
+	state = State::IDLE;
+	current_animation = &IdleDownLeft;
 	Init();
 }
 
 void e1Player::Init()
 {
-	direction = Direction::DOWN_LEFT;
-	state = State::IDLE;
-	current_animation = &IdleDownLeft;
 
 	ground = App->tex->Load("assets/sprites/player_pos.png");
 
