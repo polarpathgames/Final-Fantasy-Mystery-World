@@ -14,7 +14,6 @@ e1StrangeFrog::e1StrangeFrog(const int & x, const int & y) : e1Enemy(x, y)
 
 	enemy_type = EnemyType::STRANGE_FROG;
 
-	position.x;
 	position.y -= 25;
 	SetPivot(21, 33);
 	target_position = position;
@@ -85,13 +84,6 @@ bool e1StrangeFrog::Update(float dt)
 	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
 	return true;
-}
-
-void e1StrangeFrog::InitStats()
-{
-	stats.attack_power = 25;
-	stats.live = 100;
-
 }
 
 void e1StrangeFrog::IdAnimToEnum()
