@@ -400,10 +400,7 @@ void RoomManager::AddEntityToNotRepeat(iPoint pos)
 void RoomManager::UpdateRoomEvents()
 {
 
-	switch (actual_room->update_number) {
-	case 1u: // BOSS ROOM TUTORIAL
-
-		break;
+	switch (actual_room->update_number) { // IM SURE WE WILL USE THIS METHOD // ORIOL 21/04/2019 0:25
 	default:
 		break;
 	}

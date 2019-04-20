@@ -32,8 +32,7 @@ bool e1ShopKeeperDaughter::PreUpdate()
 
 bool e1ShopKeeperDaughter::Update(float dt)
 {
-
-	if (App->map->quest_rooms != nullptr && App->map->quest_rooms->actual_room != nullptr && !App->entity_manager->ThereAreEnemies()) {
+	if (App->map->quest_rooms != nullptr && App->map->quest_rooms->actual_room != nullptr && !App->entity_manager->ThereAreEnemies() && !App->cutscene_manager->is_executing) {
 		if (actual_tile.DistanceTo(App->scene->player->actual_tile) <= 1) {
 			if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 				App->cutscene_manager->PlayCutscene("assets/xml/CutsceneAfterBossTutorial.xml");

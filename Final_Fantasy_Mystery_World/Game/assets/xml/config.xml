@@ -90,7 +90,6 @@
           <location>Tutorial_Final.tmx</location>
           <id num="9"></id>
           <type>boss_tutorial</type>
-          <update num="1u"></update>
           <cut_scene>assets/xml/CutsceneFinalRoom.xml</cut_scene>
         </room>
         
