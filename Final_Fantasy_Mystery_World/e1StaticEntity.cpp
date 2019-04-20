@@ -332,13 +332,14 @@ bool e1StaticEntity::Update(float dt)
 				App->audio->PlayFx(App->scene->fx_writting);
 				App->dialog->end_dial = false;
 				App->audio->PlayFx(App->scene->fx_writting);
-
+				App->scene->ShowHUD(false);
 			}
 		}			
 	}
 	if (interacting_state == InteractingStates::INTERACTING && App->dialog->end_dial)
 	{
 		interacting_state = InteractingStates::WAITING_INTERACTION;
+		App->scene->ShowHUD(true);
 	}
 
 	if (interacting_state == InteractingStates::INTERACTING) {
