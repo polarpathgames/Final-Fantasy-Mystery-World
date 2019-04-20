@@ -253,10 +253,10 @@ void e1Player::ReadPlayerInput()
 		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
 			state = State::WALKING;
 		}
-		else if (player_input.pressing_G || player_input.pressing_F) {
+		else if (player_input.pressing_SPACE || player_input.pressing_1) {
 			state = State::BEFORE_ATTACK;
 		}
-		else if (player_input.pressing_H) {
+		else if (player_input.pressing_2) {
 			state = State::BEFORE_FLASH;
 		}
 		else if (movement_type == Movement_Type::InQuest){
@@ -445,12 +445,12 @@ void e1Player::ReadPlayerMovementInLobby()
 
 void e1Player::ReadAttack()
 {
-	if (player_input.pressing_G) {
+	if (player_input.pressing_SPACE) {
 		PrepareBasicAttack();
 		App->audio->PlayFx(App->scene->fx_attack);
 		return;
 	}
-	if (player_input.pressing_F) {
+	if (player_input.pressing_1) {
 		PrepareSpecialAttack1();
 		return;
 	}
@@ -951,9 +951,9 @@ void e1Player::QuestControls()
 	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
 	player_input.pressing_V = App->input->GetKey(App->input->keyboard_buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN;;
 	if (App->map->quest_rooms->actual_room->room_type != RoomType::FOUNTAIN) {
-		player_input.pressing_G = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
-		player_input.pressing_F = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILTY1) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.HABILTY1) == KEY_DOWN;
-		player_input.pressing_H = App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN;
+		player_input.pressing_SPACE = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
+		player_input.pressing_1 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILTY1) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.HABILTY1) == KEY_DOWN;
+		player_input.pressing_2 = App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN;
 
 	}
 

@@ -11255,9 +11255,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="8" name="Static animation objects" visible="0">
-  <object id="8" name="paper_falling" type="static_anim" x="255.542" y="161.542" width="192.458" height="174.458"/>
- </objectgroup>
+ <objectgroup id="8" name="Static animation objects"/>
  <objectgroup color="#ffff7f" id="9" name="entities">
   <object id="11" name="player" type="lastB" x="336" y="320" width="15.9688" height="16.0156">
    <properties>

@@ -129,7 +129,7 @@ bool m1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneFinalRoom.xml");
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		App->map->grid = !App->map->grid;
 
 	if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {
