@@ -149,16 +149,6 @@ bool m1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		App->scene->player->god_mode = !App->scene->player->god_mode;
   
-
-	/*if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += 300 * dt;
-
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= 300 * dt;*/
-
-	/*if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneFinalRoom.xml");
-*/
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		App->map->grid = !App->map->grid;
 
@@ -285,13 +275,12 @@ bool m1Scene::Update(float dt)
 	if (debug_screen != nullptr) {
 		UpdateDebugScreen();
 	}
-	if (App->globals.CutSceneFinalRoomTutorialPlayed == true && App->globals.CutSceneAfterBossTutorialPlayed == false && App->entity_manager->ThereAreEnemies() == false)
+	if (!App->globals.CutSceneAfterBossTutorialPlayed && !App->entity_manager->ThereAreEnemies() && App->map->quest_rooms != nullptr && App->map->quest_rooms->actual_room->room_type == RoomType::BOSS_TUTORIAL && App->map->quest_rooms->actual_room->active)
 	{
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneAfterBossTutorial.xml");
 		App->globals.CutSceneAfterBossTutorialPlayed = true;
 	}
-	//if (!App->audio->mute_volume) Mix_VolumeMusic(slider_music_volume->GetValue());
-	//if (!App->audio->mute_fx) App->audio->SliderVolumeFx(slider_fx_volume->GetValue());
+
 
 	return true;
 }
