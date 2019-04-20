@@ -35,6 +35,7 @@ struct GlobalGameAdvances
 	bool CutSceneTutorialGirlEscapingPlayed = false;
 	bool CutSceneFinalRoomTutorialPlayed = false;
 	bool CutSceneMiddleRoomTutorialPlayed = false;
+	bool CutSceneAfterBossTutorialPlayed = false;
 	std::string player_name;
 };
 

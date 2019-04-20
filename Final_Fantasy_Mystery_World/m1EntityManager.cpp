@@ -375,3 +375,17 @@ bool m1EntityManager::Save(pugi::xml_node& save) const
 	
 	return ret;
 }
+
+bool m1EntityManager::ThereAreEnemies()
+{
+	bool ret = false;
+
+	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item)
+	{
+		if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY) {
+			ret = true;
+		}			
+	}
+	return ret;
+}

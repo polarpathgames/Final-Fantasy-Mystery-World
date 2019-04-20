@@ -90,6 +90,7 @@
           <id num="9"></id>
           <type>boss</type>
           <cut_scene>assets/xml/CutsceneFinalRoom.xml</cut_scene>
+          <cut_scene>assets/xml/CutsceneAfterBossTutorial.xml</cut_scene>
         </room>
         
         

@@ -271,9 +271,11 @@ bool m1Scene::Update(float dt)
 	if (debug_screen != nullptr) {
 		UpdateDebugScreen();
 	}
-
-	
-
+	if (App->globals.CutSceneFinalRoomTutorialPlayed == true && App->globals.CutSceneAfterBossTutorialPlayed == false && App->entity_manager->ThereAreEnemies() == false)
+	{
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneAfterBossTutorial.xml");
+		App->globals.CutSceneAfterBossTutorialPlayed = true;
+	}
 	//if (!App->audio->mute_volume) Mix_VolumeMusic(slider_music_volume->GetValue());
 	//if (!App->audio->mute_fx) App->audio->SliderVolumeFx(slider_fx_volume->GetValue());
 

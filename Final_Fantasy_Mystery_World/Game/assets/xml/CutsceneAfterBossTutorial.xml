@@ -1,0 +1,9 @@
+<cutscenes>
+  <actions>
+    <cutscene action="move_camera" entity="daughter">
+      <time start="100" duration="1000" speed_x="160" speed_y="80"/>
+    </cutscene>
+  </actions>
+  <elements>
+  </elements>
+</cutscenes>
