@@ -373,10 +373,6 @@ void RoomManager::PlayCutScene()
 			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
 			App->globals.CutSceneMiddleRoomTutorialPlayed = true;
 		}
-		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneAfterTutorialBoss.xml") == 0 && !App->globals.CutSceneAfterBossTutorialPlayed && App->entity_manager->ThereAreEnemies() == false) {
-			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
-			App->globals.CutSceneAfterBossTutorialPlayed = true;
-		}
 	}
 		
 }

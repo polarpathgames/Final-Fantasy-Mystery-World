@@ -1140,7 +1140,6 @@ void e1Player::CreateSkills()
 void e1Player::UpdateExperience(int experience) {
 	if (stats.xp < stats.max_xp) {
 		stats.xp += experience;
-		LOG("HOLA");
 	}
 	if(stats.xp >= stats.max_xp) {
 		stats.level += 1;

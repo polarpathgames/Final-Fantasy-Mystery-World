@@ -33,8 +33,6 @@
      <cutscene action="move_camera">
       <time start="8700" duration="1000" speed_x="0" speed_y="0"/>
     </cutscene>
-
-
     <cutscene action="move_camera">
       <time start="9700" duration="3000" speed_x="-160" speed_y="80"/>
     </cutscene>
