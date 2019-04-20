@@ -50,6 +50,7 @@ public:
 		DOORHOME,
 		DOORSHOP,
 		HELP1,
+		HELP2,
 
 		UNKNOWN
 	};

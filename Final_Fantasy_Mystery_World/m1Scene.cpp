@@ -262,6 +262,13 @@ bool m1Scene::Update(float dt)
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
+	case StatesMenu::HELP_ATTACK_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
+			DestroyHelpAttackMenu();
+			player->BlockControls(false);
+			menu_state = StatesMenu::NO_MENU;
+		}
+		break;
 	case StatesMenu::CONTROLS_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			CreateOptionsMenu();
@@ -1044,6 +1051,16 @@ void m1Scene::CreateHelpDiagonalMenu()
 void m1Scene::DestroyHelpDiagonalMenu()
 {
 	App->gui->DeleteUIElement(help_diagonal);
+}
+
+void m1Scene::CreateHelpAttackMenu()
+{
+	help_attack = App->gui->AddImage(0, 0, { 1024,6329,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+}
+
+void m1Scene::DestroyHelpAttackMenu()
+{
+	App->gui->DeleteUIElement(help_attack);
 }
 
 bool m1Scene::Interact(u1GUI* interact)

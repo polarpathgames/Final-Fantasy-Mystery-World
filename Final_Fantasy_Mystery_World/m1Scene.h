@@ -19,6 +19,7 @@ enum class StatesMenu {
 	DIE_MENU,
 	FIRSTABILITY_MENU,
 	HELP_DIAGONAL_MENU,
+	HELP_ATTACK_MENU,
 
 	NONE
 };
@@ -116,6 +117,9 @@ public:
 	void CreateHelpDiagonalMenu();
 	void DestroyHelpDiagonalMenu();
 
+	void CreateHelpAttackMenu();
+	void DestroyHelpAttackMenu();
+
 	bool Interact(u1GUI* interaction);
 	StatesMenu GetMenuState();
 	void SetMenuState(const StatesMenu &menu);
@@ -147,8 +151,9 @@ private:
 	StatesMenu menu_state = StatesMenu::NO_MENU;
 
 	// help diagonal
-
 	u1Image* help_diagonal = nullptr;
+	// help ATTACK
+	u1Image* help_attack = nullptr;
 
 	//pause
 	u1Image* pause_panel = nullptr;

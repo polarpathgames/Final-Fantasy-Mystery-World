@@ -296,6 +296,18 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		position.x += 2;
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 	}
+	else if (strcmp(name, "help2") == 0) {
+		static_type = e1StaticEntity::Type::HELP2;
+		frame = { 1234,75,30,53 };
+		SetPivot(frame.w*0.2F, frame.h*0.9F);
+		size.create(frame.w, frame.h);
+		max_distance_to_interact = 1;
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		actual_tile += {3, 3};
+		position.y += 8;
+		position.x += 2;
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
 	}
@@ -378,6 +390,9 @@ bool e1StaticEntity::Update(float dt)
 			break;
 		case e1StaticEntity::Type::HELP1:
 			App->dialog->PerformDialogue(4);
+			break;
+		case e1StaticEntity::Type::HELP2:
+			App->dialog->PerformDialogue(5);
 			break;
 		default:
 			break;
