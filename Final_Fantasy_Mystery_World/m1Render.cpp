@@ -34,7 +34,7 @@ bool m1Render::Awake(pugi::xml_node& config)
 	// load flags
 	Uint32 flags = SDL_RENDERER_ACCELERATED;
 
-	if(config.child("vsync").attribute("value").as_bool(true) == true)
+	if (config.child("vsync").attribute("value").as_bool(true) == true)
 	{
 		flags |= SDL_RENDERER_PRESENTVSYNC;
 		LOG("Using vsync");
@@ -42,16 +42,17 @@ bool m1Render::Awake(pugi::xml_node& config)
 	}
 
 	renderer = SDL_CreateRenderer(App->win->window, -1, flags);
+	SDL_RenderSetLogicalSize(renderer, App->win->width, App->win->height);
 
-	if(renderer == NULL)
+	if (renderer == NULL)
 	{
 		LOG("Could not create the renderer! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
 	else
 	{
-		camera.w = App->win->screen_surface->w;
-		camera.h = App->win->screen_surface->h;
+		camera.w = App->win->width;
+		camera.h = App->win->height;
 		camera.x = 0;
 		camera.y = 0;
 	}
@@ -76,7 +77,7 @@ bool m1Render::PreUpdate()
 	SDL_RenderClear(renderer);
 
 	//ZOOM
-	if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
 		debug_border = true;
 
@@ -86,7 +87,7 @@ bool m1Render::PreUpdate()
 			SDL_RenderSetLogicalSize(renderer, camera.w * zoom, camera.h * zoom);
 		}
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+	else if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 	{
 		if (zoom > 1)
 		{
@@ -178,7 +179,7 @@ bool m1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		rect.y = y;
 	}
 
-	if(section != NULL)
+	if (section != NULL)
 	{
 		rect.w = section->w;
 		rect.h = section->h;
@@ -192,19 +193,19 @@ bool m1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	{
 		rect.w *= scale;
 		rect.h *= scale;
-	}	
+	}
 
 	SDL_Point* p = NULL;
 	SDL_Point pivot;
 
-	if(pivot_x != INT_MAX && pivot_y != INT_MAX)
+	if (pivot_x != INT_MAX && pivot_y != INT_MAX)
 	{
 		pivot.x = pivot_x;
 		pivot.y = pivot_y;
 		p = &pivot;
 	}
 
-	if(SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, flip) != 0)
+	if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, flip) != 0)
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		ret = false;
@@ -222,7 +223,7 @@ bool m1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 
 	SDL_Rect rec(rect);
-	if(use_camera)
+	if (use_camera)
 	{
 		rec.x = (int)(camera.x + rect.x * scale);
 		rec.y = (int)(camera.y + rect.y * scale);
@@ -232,7 +233,7 @@ bool m1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a
 
 	int result = (filled) ? SDL_RenderFillRect(renderer, &rec) : SDL_RenderDrawRect(renderer, &rec);
 
-	if(result != 0)
+	if (result != 0)
 	{
 		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
 		ret = false;
@@ -251,12 +252,12 @@ bool m1Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 
 
 	int result = -1;
 
-	if(use_camera)
+	if (use_camera)
 		result = SDL_RenderDrawLine(renderer, camera.x + x1 * scale, camera.y + y1 * scale, camera.x + x2 * scale, camera.y + y2 * scale);
 	else
 		result = SDL_RenderDrawLine(renderer, x1 * scale, y1 * scale, x2 * scale, y2 * scale);
 
-	if(result != 0)
+	if (result != 0)
 	{
 		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
 		ret = false;
@@ -327,20 +328,22 @@ void m1Render::SmoothCamera(iPoint playerpos)
 {
 	BROFILER_CATEGORY("SmoothCamera", Profiler::Color::Aquamarine);
 	if (App->fade_to_black->current_step != App->fade_to_black->fade_to_black && App->cutscene_manager->is_executing == false) {
-		playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
-		smoth_position.x -= (playerpos.x + camera.x) / smooth_speed;
+		playerpos.x = (playerpos.x * (int)App->win->scale - camera.w * 0.5F);
+		smoth_position.x -= (playerpos.x + camera.x) / smooth_speed * App->GetDeltaTime();
 		camera.x = smoth_position.x;
 
-		playerpos.y = (playerpos.y * App->win->GetScale() - camera.h / 2);
-		smoth_position.y -= (playerpos.y + camera.y) / smooth_speed;
+		playerpos.y = (playerpos.y * (int)App->win->scale - camera.h * 0.5F);
+		smoth_position.y -= (playerpos.y + camera.y) / smooth_speed * App->GetDeltaTime();
 		camera.y = smoth_position.y;
+
+		LOG("(%.2f, %.2f)", smoth_position.x, smoth_position.y);
 	}
 }
 
 void m1Render::CenterCameraOnPlayer(iPoint playerpos)
 {
-	playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
-	playerpos.y = (playerpos.y * App->win->GetScale() - camera.h / 2);
+	playerpos.x = (playerpos.x * (int)App->win->scale - camera.w * 0.5F);
+	playerpos.y = (playerpos.y * (int)App->win->scale - camera.h * 0.5F);
 	smoth_position.x -= (playerpos.x + camera.x);
 	camera.x = smoth_position.x;
 	smoth_position.y -= (playerpos.y + camera.y);
@@ -368,10 +371,7 @@ bool m1Render::CameraTremble()
 	}
 	index_tremble++;
 
-	
+
 
 	return false;
 }
-
-
-
