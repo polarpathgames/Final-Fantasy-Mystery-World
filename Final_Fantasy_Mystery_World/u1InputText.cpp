@@ -87,24 +87,28 @@ void u1InputText::SetText(const char * txt)
 
 void u1InputText::AddText(const char * txt)
 {
-	if (first_update) {
-		text.clear();
-		first_update = false;
+	if (text.length() <= MAX_CHARACTERS || first_update) {
+		if (first_update) {
+			text.clear();
+			first_update = false;
+		}
+		text += txt;
+		App->tex->UnLoad(texture);
+		texture = App->fonts->Print(text.data(), color, id_font);
 	}
-	text += txt;
-	App->tex->UnLoad(texture);
-	texture = App->fonts->Print(text.data(), color, id_font);
 }
 
 void u1InputText::DeleteText()
 {
-	text.pop_back();
-	if (first_update) {
-		text.clear();
-		first_update = false;
+	if (!text.empty()) {
+		text.pop_back();
+		if (first_update) {
+			text.clear();
+			first_update = false;
+		}
+		App->tex->UnLoad(texture);
+		texture = App->fonts->Print(text.data(), color, id_font);
 	}
-	App->tex->UnLoad(texture);
-	texture = App->fonts->Print(text.data(), color, id_font);
 }
 
 

@@ -28,7 +28,7 @@ public:
 
 	void ChangeFont(const char* f, const int &size);
 
-private:
+public:
 	void AddText(const char* txt);
 	void DeleteText();
 
