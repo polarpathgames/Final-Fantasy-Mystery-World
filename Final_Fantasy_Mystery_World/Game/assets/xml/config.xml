@@ -47,6 +47,7 @@
           <location>Tutorial_Movement.tmx</location>
           <id num="1"></id>
           <type>paceful</type>
+          <door active="true"/>
         </room>
         <room>
           <location>Tutorial_Diagonal.tmx</location>
@@ -90,7 +91,6 @@
           <id num="9"></id>
           <type>boss_tutorial</type>
           <cut_scene>assets/xml/CutsceneFinalRoom.xml</cut_scene>
-          <cut_scene>assets/xml/CutsceneAfterBossTutorial.xml</cut_scene>
         </room>
         
         

@@ -14,10 +14,11 @@
 #include "m1EntityManager.h"
 #include "m1Pathfinding.h"
 
-Room::Room(const std::string &tmx_location, const int &id, const std::string &type, const std::string &cutscene_location)
+Room::Room(const std::string &tmx_location, const int &id, const std::string &type, const std::string &cutscene_location, bool door_closed)
 {
 	this->tmx_location = tmx_location;
 	this->id = id;
+	this->door_closed = door_closed;
 
 	if (!cutscene_location.empty()) {
 		this->cutscene_location = cutscene_location;
@@ -64,7 +65,8 @@ RoomManager::RoomManager(pugi::xml_node &node)
 
 	for (room_node = node.child("maps").child("tutorial").child("room"); room_node; room_node = room_node.next_sibling("room")) {
 		Room * r = nullptr;
-		r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_int(), room_node.child("type").child_value(), room_node.child("cut_scene").child_value());
+		r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_int(), room_node.child("type").child_value(), 
+			room_node.child("cut_scene").child_value(), room_node.child("door").attribute("active").as_bool(false));
 		rooms.push_back(r);
 	}
 
@@ -85,7 +87,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 	iPoint pos_coll = { c1->rect.x,c1->rect.y };
 	pos_coll = App->map->WorldToMap(pos_coll.x, pos_coll.y);
 
-	if (App->scene->player->actual_tile == pos_coll && actual_room->active) {
+	if (App->scene->player->actual_tile == pos_coll && actual_room->active && !actual_room->door_closed) {
 		std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
 		switch (c1->type)
 		{
@@ -386,6 +388,17 @@ void RoomManager::PlayCutScene()
 void RoomManager::AddEntityToNotRepeat(iPoint pos)
 {
 	actual_room->entities.push_back(pos);
+}
+
+void RoomManager::UpdateRoomEvents()
+{
+
+	if (actual_room != nullptr && actual_room->active && actual_room->door_closed && !App->entity_manager->ThereAreEnemies()) {
+		actual_room->door_closed = false;
+	}
+
+
+
 }
 
 ChangeScene::ChangeScene(const int & x, const int & y, LocationChangeScene type, const uint & id)

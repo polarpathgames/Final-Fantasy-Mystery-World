@@ -40,7 +40,7 @@ class Room {
 
 public:
 
-	Room(const std::string &tmx_location, const int &id, const std::string &type, const std::string &cutscene_location);
+	Room(const std::string &tmx_location, const int &id, const std::string &type, const std::string &cutscene_location, bool door_closed);
 	~Room();
 
 
@@ -52,6 +52,7 @@ public:
 	RoomType room_type = RoomType::NONE;
 	std::string cutscene_location;
 	std::vector<iPoint> entities;
+	bool door_closed = false;
 
 };
 
@@ -64,13 +65,15 @@ public:
 
 	void OnCollision(Collider* c1, Collider* C2);
 	void LoadRoom(const int & id);
+	void AddEntityToNotRepeat(iPoint pos);
+	void UpdateRoomEvents();
+private:
 	void LoadEntities();
 	void PlacePlayer();
 	void LoadColliders();
 	void PlayMusic();
 	void PlayCutScene();
-	void AddEntityToNotRepeat(iPoint pos);
-
+	
 public:
 	Room* actual_room = nullptr;
 	Room* last_room = nullptr;
