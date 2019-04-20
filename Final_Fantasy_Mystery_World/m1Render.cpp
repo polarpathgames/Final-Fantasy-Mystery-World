@@ -323,7 +323,7 @@ void m1Render::ResetCamera()
 	camera.y = 0;
 }
 
-void m1Render::SmoothCamera(iPoint playerpos)
+void m1Render::SmoothCamera(fPoint playerpos)
 {
 	BROFILER_CATEGORY("SmoothCamera", Profiler::Color::Aquamarine);
 	if (App->fade_to_black->current_step != App->fade_to_black->fade_to_black && App->cutscene_manager->is_executing == false) {
@@ -337,7 +337,7 @@ void m1Render::SmoothCamera(iPoint playerpos)
 	}
 }
 
-void m1Render::CenterCameraOnPlayer(iPoint playerpos)
+void m1Render::CenterCameraOnPlayer(fPoint playerpos)
 {
 	playerpos.x = (playerpos.x * App->win->GetScale() - camera.w / 2);
 	playerpos.y = (playerpos.y * App->win->GetScale() - camera.h / 2);

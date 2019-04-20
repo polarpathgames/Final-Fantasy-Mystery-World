@@ -16,7 +16,8 @@
 e1Particles::e1Particles(const int & x, const int & y) : e1DynamicEntity(x, y)
 {
 	type = e1Entity::EntityType::PARTICLE;
-	position = App->map->MapToWorld(position.x, position.y);
+	iPoint tmp = App->map->MapToWorld(position.x, position.y);
+	position = fPoint(tmp.x,tmp.y);
 }
 
 e1Particles::~e1Particles()

@@ -120,7 +120,7 @@ public:
 	EntityType type = EntityType::NO_TYPE;
 	EntityInfo data;
 
-	iPoint position = { 0,0 };
+	fPoint position = { 0,0 };
 	iPoint pivot = { 0, 0 };
 	iPoint size = { 0,0 };
 

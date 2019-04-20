@@ -16,7 +16,7 @@ c1CutsceneMoveEntity::~c1CutsceneMoveEntity()
 	c1CutsceneEntity* element = nullptr;
 	element = (c1CutsceneEntity*)App->cutscene_manager->elements.find(entity_name)->second;
 	e1DynamicEntity* ent = (e1DynamicEntity*)element->GetEntity();
-	ent->ChangeAnimsInCutscene(player_speed.x, player_speed.y, 2, ent->position.x, ent->position.y);
+	ent->ChangeAnimsInCutscene(player_speed.x, player_speed.y, 2, (int&)ent->position.x, (int&)ent->position.y);
 	
 }
 
@@ -29,9 +29,8 @@ void c1CutsceneMoveEntity::Execute(float dt)
 
 	if (start < duration_time)
 	{
-		element->GetEntity()->position+= { (int)(player_speed.x * dt), (int)(player_speed.y * dt) };
+		element->GetEntity()->position+= { (player_speed.x * dt), (player_speed.y * dt) };
 		e1DynamicEntity* ent = (e1DynamicEntity*)element->GetEntity();
-		ent->ChangeAnimsInCutscene(player_speed.x, player_speed.y, 1, ent->position.x, ent->position.y);
-	}
-	
+		ent->ChangeAnimsInCutscene(player_speed.x, player_speed.y, 1, (int&)ent->position.x, (int&)ent->position.y);
+	}	
 }

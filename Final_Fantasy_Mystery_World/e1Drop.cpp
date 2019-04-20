@@ -17,7 +17,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		frame = { 1030,4,28,12 };
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
-		position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+		position = fPoint(App->map->MapToWorld(actual_tile.x, actual_tile.y).x,App->map->MapToWorld(actual_tile.x, actual_tile.y).y);
 	}
 	else if (strcmp(name, "ability1") == 0) {
 		drop_type = DropsType::ABILITY1;

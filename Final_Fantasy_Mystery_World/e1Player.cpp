@@ -225,7 +225,8 @@ void e1Player::CenterPlayerInTile()
 
 	actual_tile = App->map->WorldToMap(position.x, position.y);
 	movement_count = { 0,0 };
-	position = App->map->MapToWorld(actual_tile.x, actual_tile.y) - pivot;
+	iPoint tmp = App->map->MapToWorld(actual_tile.x, actual_tile.y) - pivot;
+	position = fPoint(tmp.x, tmp.y);
 	position.x += App->map->data.tile_width*0.5F;
 	position.y += App->map->data.tile_height*0.5F;
 
@@ -461,32 +462,32 @@ void e1Player::PrepareBasicAttack()
 	state = State::ATTACKING;
 	switch (direction) {
 	case Direction::DOWN_LEFT:
-		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
-		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+		App->easing_splines->CreateSpline((int*)&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline((int*)&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
 		break;
 	case Direction::UP_RIGHT:
-		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
-		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+		App->easing_splines->CreateSpline((int*)&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline((int*)&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
 		break;
 	case Direction::DOWN_RIGHT:
-		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
-		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+		App->easing_splines->CreateSpline((int*)&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline((int*)&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
 		break;
 	case Direction::UP_LEFT:
-		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
-		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+		App->easing_splines->CreateSpline((int*)&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline((int*)&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
 		break;
 	case Direction::UP:
-		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3, 200, EASE);
+		App->easing_splines->CreateSpline((int*)&position.y, position.y - App->map->data.tile_height / 3, 200, EASE);
 		break;
 	case Direction::DOWN:
-		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3, 200, EASE);
+		App->easing_splines->CreateSpline((int*)&position.y, position.y + App->map->data.tile_height / 3, 200, EASE);
 		break;
 	case Direction::RIGHT:
-		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3, 200, EASE);
+		App->easing_splines->CreateSpline((int*)&position.x, position.x + App->map->data.tile_width / 3, 200, EASE);
 		break;
 	case Direction::LEFT:
-		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3, 200, EASE);
+		App->easing_splines->CreateSpline((int*)&position.x, position.x - App->map->data.tile_width / 3, 200, EASE);
 		break;
 	}
 	ChangeAnimation(direction, state, type_attack);
@@ -551,32 +552,32 @@ void e1Player::BasicAttack()
 	if (current_animation->Finished()) {
 		switch (direction) {
 		case Direction::DOWN_LEFT:
-			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
-			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline((int*)&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline((int*)&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
 			break;
 		case Direction::UP_RIGHT:
-			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
-			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline((int*)&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline((int*)&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
 			break;
 		case Direction::DOWN_RIGHT:
-			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
-			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline((int*)&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline((int*)&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
 			break;
 		case Direction::UP_LEFT:
-			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
-			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline((int*)&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline((int*)&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
 			break;
 		case Direction::UP:
-			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3 + 1, 200, EASE);
+			App->easing_splines->CreateSpline((int*)&position.y, position.y + App->map->data.tile_height / 3 + 1, 200, EASE);
 			break;
 		case Direction::DOWN:
-			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3 + 1, 200, EASE);
+			App->easing_splines->CreateSpline((int*)&position.y, position.y - App->map->data.tile_height / 3 + 1, 200, EASE);
 			break;
 		case Direction::RIGHT:
-			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3 + 1, 200, EASE);
+			App->easing_splines->CreateSpline((int*)&position.x, position.x - App->map->data.tile_width / 3 + 1, 200, EASE);
 			break;
 		case Direction::LEFT:
-			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3 + 1, 200, EASE);
+			App->easing_splines->CreateSpline((int*)&position.x, position.x + App->map->data.tile_width / 3 + 1, 200, EASE);
 			break;
 		}
 		CheckBasicAttackEfects(e1Entity::EntityType::ENEMY, direction, stats.attack_power);
@@ -593,7 +594,7 @@ void e1Player::PerformMovementInLobby(float dt)
 	switch (direction)
 	{
 	case Direction::DOWN_LEFT:
-		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
+		if (App->map->IsWalkable(iPoint((position.x - floor(velocity.x * dt) + pivot.x), (position.y + pivot.y + floor(velocity.y * dt))))) {
 			position.x -= floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
 			current_animation = &GoDownLeft;
@@ -604,7 +605,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		}
 		break;
 	case Direction::UP_RIGHT:
-		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
+		if (App->map->IsWalkable(iPoint((position.x + floor(velocity.x * dt) + pivot.x), (position.y + pivot.y - floor(velocity.y * dt))))) {
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 			current_animation = &GoUpRight;
@@ -615,7 +616,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		}
 		break;
 	case Direction::UP_LEFT:
-		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
+		if (App->map->IsWalkable(iPoint((position.x - floor(velocity.x * dt) + pivot.x), (position.y + pivot.y - floor(velocity.y * dt))))) {
 			position.x -= floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 			current_animation = &GoUpLeft;
@@ -626,7 +627,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		}
 		break;
 	case Direction::DOWN_RIGHT:
-		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
+		if (App->map->IsWalkable(iPoint((position.x + floor(velocity.x * dt) + pivot.x), (position.y + pivot.y + floor(velocity.y * dt))))) {
 			position.x += floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
 			current_animation = &GoDownRight;
@@ -637,7 +638,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		}
 		break;
 	case Direction::RIGHT:
-		if (App->map->IsWalkable({ (int)(position.x + floor(180 * dt) + pivot.x), position.y + pivot.y })) {
+		if (App->map->IsWalkable(iPoint((position.x + floor(180 * dt) + pivot.x), position.y + pivot.y))) {
 			position.x += floor(velocity.x * dt);
 			current_animation = &GoRight;
 		}
@@ -646,7 +647,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		}
 		break;
 	case Direction::LEFT:
-		if (App->map->IsWalkable({(int)(position.x - floor(180 * dt) + pivot.x), position.y + pivot.y })) {
+		if (App->map->IsWalkable(iPoint((position.x - floor(180 * dt) + pivot.x), position.y + pivot.y))) {
 			position.x -= floor(velocity.x * dt);
 			current_animation = &GoLeft;
 		}
@@ -655,7 +656,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		}
 		break;
 	case Direction::UP:
-		if (App->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y - floor(180 * dt)) })) {
+		if (App->map->IsWalkable(iPoint((position.x + pivot.x), (position.y + pivot.y - floor(180 * dt))))) {
 			position.y -= floor(velocity.y * 2 * dt);
 			current_animation = &GoUp;
 		}
@@ -665,7 +666,7 @@ void e1Player::PerformMovementInLobby(float dt)
 
 		break;
 	case Direction::DOWN:
-		if (App->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y + floor(180 * dt)) })) {
+		if (App->map->IsWalkable(iPoint((position.x + pivot.x), (position.y + pivot.y + floor(180 * dt))))) {
 			position.y += floor(velocity.y * 2 * dt);
 			current_animation = &GoDown;
 		}
@@ -1032,7 +1033,8 @@ void e1Player::Flashing()
 		actual_tile = flash_position;
 		state = State::AFTER_FLASH;
 		drawable = true;
-		position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+		iPoint tmp = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+		position = fPoint(tmp.x, tmp.y);
 		movement_count = { 0,0 };
 		if (App->scene->player_type == PlayerType::WARRIOR) {
 			position.x += 3;

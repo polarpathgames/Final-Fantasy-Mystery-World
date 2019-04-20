@@ -119,7 +119,7 @@ bool m1Scene::Update(float dt)
 			break;
 		}
 		if (swap != nullptr) {
-			swap->position = player->GetPosition() - swap->pivot;
+			iPoint(swap->position.x, swap->position.y) = player->GetPosition() - swap->pivot;
 			App->entity_manager->DeleteEntity(player);
 			player = swap;
 		}

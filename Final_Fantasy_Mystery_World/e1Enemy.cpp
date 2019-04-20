@@ -374,7 +374,7 @@ void e1Enemy::GetHitted(const int & damage_taken)
 		Drop();
 		App->scene->player->UpdateExperience(stats.experience);
 		//App->map->quest_rooms->entities_info.emplace(original_position, App->map->quest_rooms->actual_room->id);
-		App->map->quest_rooms->AddEntityToNotRepeat(original_position);
+		App->map->quest_rooms->AddEntityToNotRepeat(iPoint(original_position.x,original_position.y));
 		this->to_delete = true;
 	}
 }

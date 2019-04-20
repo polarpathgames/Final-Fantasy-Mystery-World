@@ -46,8 +46,8 @@ public:
 	bool IsOnCamera(const int&x, const int&y, const int&w, const int& h) const;
 	void ResetCamera();
 
-	void SmoothCamera(iPoint playerpos);
-	void CenterCameraOnPlayer(iPoint playerpos);
+	void SmoothCamera(fPoint playerpos);
+	void CenterCameraOnPlayer(fPoint playerpos);
 	bool CameraTremble();
 
 
