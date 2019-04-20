@@ -6,6 +6,7 @@
 #include "App.h"
 #include "m1Map.h"
 #include "m1Render.h"
+#include "m1Audio.h"
 
 e1BlueDog::e1BlueDog(const int & x, const int & y) : e1Enemy(x, y)
 {
@@ -68,6 +69,7 @@ bool e1BlueDog::Update(float dt)
 	}
 	if (state == State::ATTACKING) {
 		if (current_animation->Finished()) {
+			App->audio->PlayFx(App->scene->fx_dog_attack);
 			CheckBasicAttackEfects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
 			state = State::AFTER_ATTACK;
 			ChangeAnimation(direction, state);

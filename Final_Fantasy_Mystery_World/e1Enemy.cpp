@@ -372,6 +372,7 @@ void e1Enemy::GetHitted(const int & damage_taken)
 
 	if (stats.live <= 0 || App->scene->player->god_mode) {
 		Drop();
+		App->audio->PlayFx(App->scene->fx_kill_enemy);
 		App->scene->player->UpdateExperience(stats.experience);
 		//App->map->quest_rooms->entities_info.emplace(original_position, App->map->quest_rooms->actual_room->id);
 		App->map->quest_rooms->AddEntityToNotRepeat(original_position);

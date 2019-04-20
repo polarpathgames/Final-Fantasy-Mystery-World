@@ -215,6 +215,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 				App->entity_manager->Enable();
 				App->map->Enable();
 				App->scene->Enable();
+				//App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 				App->map->ChangeMap(Maps::LOBBY);
 				App->scene->SetMenuState(StatesMenu::NO_MENU);
 				ret = false;

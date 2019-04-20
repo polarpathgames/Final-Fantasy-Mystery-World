@@ -31,9 +31,9 @@ e1Mage::e1Mage(const int & x, const int & y) : e1Player(x, y)
 {
 	LoadEntityData("assets/entities/Mage.tsx");
 
-	ground = App->tex->Load("assets/sprites/player_pos.png");
-	InitStats();
+	SetPivot(8, 24);
 	CenterPlayerInTile();
+	InitStats();
 }
 
 e1Mage::~e1Mage()
@@ -42,9 +42,6 @@ e1Mage::~e1Mage()
 
 bool e1Mage::CleanUp()
 {
-	App->tex->UnLoad(ground);
-	ground = nullptr;
-
 	return true;
 }
 
@@ -70,6 +67,7 @@ void e1Mage::PrepareSpecialAttack1()
 	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {
 		if(!god_mode)
 		ReduceMana(stats.cost_mana_special_attack1);
+		App->audio->PlayFx(App->scene->fx_ability_mage_prepare);
 
 		type_attack = Attacks::SPECIAL_1;
 		state = State::ATTACKING;
@@ -77,6 +75,7 @@ void e1Mage::PrepareSpecialAttack1()
 		SetFireBalls();
 	}
 	else { // no enough mana so return to idle
+		App->audio->PlayFx(App->scene->fx_ability_no_mana);
 		state = State::IDLE;
 	}
 }
@@ -87,6 +86,9 @@ void e1Mage::SpecialAttack1()
 	if (std::find(item.begin(), item.end(), (e1Entity*)fire_ball) == item.end()) {
 		fire_ball = nullptr;
 		state = State::AFTER_ATTACK;
+		App->audio->PlayFx(App->scene->fx_ability_mage);
+		App->input->ControllerVibration(0.2F, 200);
+
 		ChangeAnimation(direction, state);
 		time_attack = SDL_GetTicks();
 	}

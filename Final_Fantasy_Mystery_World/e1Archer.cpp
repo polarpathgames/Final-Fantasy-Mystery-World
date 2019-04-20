@@ -30,9 +30,9 @@ e1Archer::e1Archer(const int & x, const int & y) : e1Player(x, y)
 {
 	LoadEntityData("assets/entities/ArcherSpritesheet.tsx");
 
-	ground = App->tex->Load("assets/sprites/player_pos.png");
-	InitStats();
+	SetPivot(8, 25);
 	CenterPlayerInTile();
+	InitStats();
 }
 
 e1Archer::~e1Archer()
@@ -41,8 +41,6 @@ e1Archer::~e1Archer()
 
 bool e1Archer::CleanUp()
 {
-	App->tex->UnLoad(ground);
-	ground = nullptr;
 	return true;
 }
 
@@ -68,6 +66,8 @@ void e1Archer::PrepareSpecialAttack1()
 	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {
 		if(!god_mode)
 		ReduceMana(stats.cost_mana_special_attack1);
+		App->audio->PlayFx(App->scene->fx_ability_archer);
+		App->input->ControllerVibration(0.2F, 200);
 
 		type_attack = Attacks::SPECIAL_1;
 		state = State::ATTACKING;
@@ -75,6 +75,7 @@ void e1Archer::PrepareSpecialAttack1()
 		arrow->SetParticle(e1Particles::ParticleType::ARROW, direction);
 	}
 	else { // no enough mana so return to idle
+		App->audio->PlayFx(App->scene->fx_ability_no_mana);
 		state = State::IDLE;
 	}
 }

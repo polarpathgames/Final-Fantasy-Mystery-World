@@ -54,7 +54,6 @@ bool e1Drop::Update(float adt)
 		case DropsType::ABILITY1:
 		{
 			App->scene->player->BlockControls(true);
-			App->audio->PlayFx(App->scene->fx_drop_pick_up);
 			App->scene->CreateFirstAbilityPanel();
 			App->scene->SetMenuState(StatesMenu::FIRSTABILITY_MENU);
 			to_delete = true;

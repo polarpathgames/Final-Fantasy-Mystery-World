@@ -32,7 +32,7 @@ e1Warrior::e1Warrior(const int & x, const int & y) : e1Player(x, y)
 {
 	LoadEntityData("assets/entities/merche.tsx");
 
-	ground = App->tex->Load("assets/sprites/player_pos.png");
+	SetPivot(14, 27);
 	CenterPlayerInTile();
 	InitStats();
 }
@@ -43,8 +43,6 @@ e1Warrior::~e1Warrior()
 
 bool e1Warrior::CleanUp()
 {
-	App->tex->UnLoad(ground);
-	ground = nullptr;
 	return true;
 }
 
@@ -65,16 +63,16 @@ void e1Warrior::InitStats()
 }
 void e1Warrior::PrepareSpecialAttack1()
 {
-	App->audio->PlayFx(App->scene->fx_ability_warrior);
 	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {
 		if(!god_mode)
 		ReduceMana(stats.cost_mana_special_attack1);
-
+		App->audio->PlayFx(App->scene->fx_ability_warrior);
 		type_attack = Attacks::SPECIAL_1;
 		state = State::ATTACKING;
 		ChangeAnimation(direction, state, type_attack);
 	}
 	else { // no enough mana so return to idle
+		App->audio->PlayFx(App->scene->fx_ability_no_mana);
 		state = State::IDLE;
 	}
 }

@@ -15,10 +15,12 @@
     <cutscene action="modify_text" name="dialog">
       <time start ="3200" type="activate"/>
     </cutscene>
+    <cutscene action="add_audio" entity="daughter" path="assets/audio/sfx/FFMW_SFX_Emotion_Laugh2.wav">
+    </cutscene>
     <cutscene action="move_camera">
       <time start="3100" duration="3000" speed_x="0" speed_y="0"/>
     </cutscene>
-    <cutscene action="add_audio" entity="daughter" path="assets/audio/sfx/MainMenu_Confirm_Selection.wav"> 
+    <cutscene action="add_audio" entity="daughter" path="assets/audio/sfx/MC_Shield.wav"> 
     </cutscene>
     <cutscene action="modify_text" name="dialog">
       <time start="4200" type="change" text="HEEEEELP ME!!!"/>

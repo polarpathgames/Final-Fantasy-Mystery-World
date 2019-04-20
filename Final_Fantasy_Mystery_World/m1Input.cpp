@@ -80,17 +80,17 @@ bool m1Input::Start()
 
 void m1Input::DefaultControls()
 {
-	keyboard_buttons.buttons_code.BASIC_ATTACK = SDL_SCANCODE_G;
+	keyboard_buttons.buttons_code.BASIC_ATTACK = SDL_SCANCODE_SPACE;
 	keyboard_buttons.buttons_code.DIAGONALS = SDL_SCANCODE_LSHIFT;
-	keyboard_buttons.buttons_code.DIRECCTION_DOWN = SDL_SCANCODE_K;
-	keyboard_buttons.buttons_code.DIRECCTION_RIGHT = SDL_SCANCODE_L;
-	keyboard_buttons.buttons_code.DIRECTION_LEFT = SDL_SCANCODE_J;
-	keyboard_buttons.buttons_code.DIRECTION_UP = SDL_SCANCODE_I;
+	keyboard_buttons.buttons_code.DIRECCTION_DOWN = SDL_SCANCODE_DOWN;
+	keyboard_buttons.buttons_code.DIRECCTION_RIGHT = SDL_SCANCODE_RIGHT;
+	keyboard_buttons.buttons_code.DIRECTION_LEFT = SDL_SCANCODE_LEFT;
+	keyboard_buttons.buttons_code.DIRECTION_UP = SDL_SCANCODE_UP;
 	keyboard_buttons.buttons_code.DOWN = SDL_SCANCODE_S;
 	keyboard_buttons.buttons_code.LEFT = SDL_SCANCODE_A;
 	keyboard_buttons.buttons_code.RIGHT = SDL_SCANCODE_D;
 	keyboard_buttons.buttons_code.UP = SDL_SCANCODE_W;
-	keyboard_buttons.buttons_code.HABILTY1 = SDL_SCANCODE_F;
+	keyboard_buttons.buttons_code.HABILTY1 = SDL_SCANCODE_1;
 	keyboard_buttons.buttons_code.SHOW_SKILLS = SDL_SCANCODE_V;
 	keyboard_buttons.buttons_code.INVENTORY = SDL_SCANCODE_E;
 
