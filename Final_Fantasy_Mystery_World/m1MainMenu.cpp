@@ -439,6 +439,9 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		if (interaction == button_Delete) {
 			input_text->DeleteText();
 		}
+		if (interaction == button_Space) {
+			input_text->AddText(" ");
+		}
 		break;
 	case MainMenuStates::SELECTION_MENU:
 		if (interaction == button_warrior) {
@@ -1013,7 +1016,6 @@ void m1MainMenu::CreateNameMenu()
 	minus_letters = App->gui->AddImage(137, 350, { 1024,5658,743,334 }, nullptr, input_text_image, true, false, false, false);
 	max_letters = App->gui->AddImage(137, 350, { 119,5658,743,334 }, nullptr, input_text_image, false, false, false, false);
 
-
 	// 
 	button_A = App->gui->AddButton(0, 0, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_B = App->gui->AddButton(94, 0, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
@@ -1048,6 +1050,9 @@ void m1MainMenu::CreateNameMenu()
 	button_Y = App->gui->AddButton(282, 223, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_Z = App->gui->AddButton(378, 223, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_Delete = App->gui->AddButton(471, 223, { 0, 0, 93, 47 }, { 0, 0, 93, 47 }, { 0, 0, 93, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	//
+	button_Space = App->gui->AddButton(188, 295, { 0, 0, 235, 40 }, { 0, 0, 93, 47 }, { 0, 0, 93, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+
 }
 
 void m1MainMenu::DestroyNameMenu()
