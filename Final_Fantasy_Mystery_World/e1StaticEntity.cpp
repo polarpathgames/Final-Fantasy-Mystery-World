@@ -284,6 +284,12 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 	}
+	else if (strcmp(name, "help1") == 0) {
+		static_type = e1StaticEntity::Type::HELP1;
+		frame = { 1248,99,16,29 };
+		SetPivot(frame.w*0.2F, frame.h*0.9F);
+		size.create(frame.w, frame.h);
+	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
 	}
@@ -432,16 +438,6 @@ void e1StaticEntity::ChangeAnimation(const iPoint &player_pos)
 
 
 }
-
-//void e1StaticEntity::DialogWritting()
-//{
-//	static int h = 500, w = 300, x = 0, y= 0;
-//	SDL_Rect rect_square = { x, y, h, w };
-//
-//	SDL_SetRenderDrawColor(App->render->renderer, 255, 255, 255, 255);
-//	SDL_RenderFillRect(App->render->renderer, &rect_square);
-//	
-//}
 
 e1StaticEntity::InteractingStates e1StaticEntity::GetState()
 {
