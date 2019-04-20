@@ -4,6 +4,7 @@
 #include "m1Scene.h"
 #include "m1EntityManager.h"
 #include "m1Map.h"
+#include "m1Render.h"
 #include "m1Input.h"
 #include "p2Log.h"
 #include "m1GUI.h"
@@ -215,8 +216,11 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 				App->entity_manager->Enable();
 				App->map->Enable();
 				App->scene->Enable();
-				//App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
-				App->map->ChangeMap(Maps::LOBBY);
+				App->map->ChangeMap(Maps::TUTORIAL);
+				App->scene->player->Init();
+				App->scene->player->CenterPlayerInTile();
+				App->render->CenterCameraOnPlayer(App->scene->player->position);
+				App->scene->CreateHUD();
 				App->scene->SetMenuState(StatesMenu::NO_MENU);
 				ret = false;
 			}
@@ -449,6 +453,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			App->scene->player_type = PlayerType::WARRIOR;
 			CreateNameMenu();
 			DestroySelectChamp();
+			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, -100, -100,"warrior");
 			main_states = MainMenuStates::CHOOSE_NAME_MENU;
 			ret = false;
 		}
@@ -456,6 +461,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			App->scene->player_type = PlayerType::ARCHER;
 			CreateNameMenu();
 			DestroySelectChamp();
+			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::ARCHER, -100, -100, "archer");
 			main_states = MainMenuStates::CHOOSE_NAME_MENU;
 			ret = false;
 		}
@@ -463,6 +469,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			App->scene->player_type = PlayerType::MAGE;
 			CreateNameMenu();
 			DestroySelectChamp();
+			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::MAGE, -100, -100, "mage");
 			main_states = MainMenuStates::CHOOSE_NAME_MENU;
 			ret = false;
 		}

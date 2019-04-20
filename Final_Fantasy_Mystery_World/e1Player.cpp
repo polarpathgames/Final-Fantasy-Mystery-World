@@ -961,7 +961,7 @@ void e1Player::QuestControls()
 	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
 	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
 	player_input.pressing_V = App->input->GetKey(App->input->keyboard_buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN;;
-	if (App->map->quest_rooms->actual_room->room_type != RoomType::FOUNTAIN) {
+	if (App->map->quest_rooms != nullptr &&App->map->quest_rooms->actual_room->room_type != RoomType::FOUNTAIN) {
 		player_input.pressing_SPACE = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
 		player_input.pressing_1 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILTY1) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.HABILTY1) == KEY_DOWN;
 		player_input.pressing_2 = App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN;
