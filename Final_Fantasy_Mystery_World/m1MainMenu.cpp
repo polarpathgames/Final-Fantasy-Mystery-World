@@ -396,6 +396,46 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 				input_text->AddText("U");
 			}
 		}
+		if (interaction == button_V) {
+			if (minus_letters->drawable) {
+				input_text->AddText("v");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("V");
+			}
+		}
+		if (interaction == button_W) {
+			if (minus_letters->drawable) {
+				input_text->AddText("w");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("W");
+			}
+		}
+		if (interaction == button_X) {
+			if (minus_letters->drawable) {
+				input_text->AddText("x");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("X");
+			}
+		}
+		if (interaction == button_Y) {
+			if (minus_letters->drawable) {
+				input_text->AddText("y");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("Y");
+			}
+		}
+		if (interaction == button_Z) {
+			if (minus_letters->drawable) {
+				input_text->AddText("z");
+			}
+			else if (max_letters->drawable) {
+				input_text->AddText("Z");
+			}
+		}
 		break;
 	case MainMenuStates::SELECTION_MENU:
 		if (interaction == button_warrior) {
@@ -988,7 +1028,7 @@ void m1MainMenu::CreateNameMenu()
 	button_L = App->gui->AddButton(378, 74, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_M = App->gui->AddButton(471, 74, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_N = App->gui->AddButton(565, 74, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
-	button_lower = App->gui->AddButton(662, 73, { 0,0,80,47 }, { 0,0,80,47 }, { 0,0,80,47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_lower = App->gui->AddButton(662, 74, { 0,0,80,47 }, { 0,0,80,47 }, { 0,0,80,47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	//
 	button_O = App->gui->AddButton(0, 148, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_P = App->gui->AddButton(94, 148, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
@@ -997,9 +1037,13 @@ void m1MainMenu::CreateNameMenu()
 	button_S = App->gui->AddButton(378, 148, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_T = App->gui->AddButton(471, 148, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_U = App->gui->AddButton(565, 148, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
-	button_okay = App->gui->AddButton(662, 149, { 0, 0, 60, 47 }, { 0, 0, 60, 47 }, { 0, 0, 60, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
-
+	button_okay = App->gui->AddButton(662, 148, { 0, 0, 60, 47 }, { 0, 0, 60, 47 }, { 0, 0, 60, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	//
+	button_V = App->gui->AddButton(0, 223, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_W = App->gui->AddButton(94, 223, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_X = App->gui->AddButton(188, 223, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_Y = App->gui->AddButton(282, 223, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	button_Z = App->gui->AddButton(378, 223, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 
 }
 
