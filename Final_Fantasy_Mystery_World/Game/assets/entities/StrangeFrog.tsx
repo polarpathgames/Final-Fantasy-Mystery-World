@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.2" name="Frog" tilewidth="34" tileheight="40" tilecount="105" columns="15">
- <image source="../sprites/Frog.png" width="512" height="280"/>
+<tileset version="1.2" tiledversion="1.2.3" name="Frog" tilewidth="34" tileheight="40" tilecount="165" columns="15">
+ <properties>
+  <property name="attack_power" type="int" value="25"/>
+  <property name="experience" type="int" value="20"/>
+  <property name="live" type="int" value="100"/>
+ </properties>
+ <image source="../sprites/Frog.png" width="512" height="440"/>
  <tile id="0">
   <properties>
    <property name="speed" type="int" value="5"/>

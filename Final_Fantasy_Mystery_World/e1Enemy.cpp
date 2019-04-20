@@ -42,6 +42,22 @@ e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 e1Enemy::~e1Enemy()
 {
 }
+
+void e1Enemy::InitStats()
+{
+	for (std::list<Property<int>*>::iterator item = general_properties.properties.begin(); item != general_properties.properties.end(); item++) {
+		if (strcmp((*item)->GetName(), "experience") == 0) {
+			stats.experience = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "attack_power") == 0) {
+			stats.attack_power = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "live") == 0) {
+			stats.live = (*item)->GetValue();
+		}
+	}
+}
+
 bool e1Enemy::Load(pugi::xml_node &)
 {
 	return true;

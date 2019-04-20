@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.2" name="CarnivorousPlant" tilewidth="45" tileheight="42" tilecount="84" columns="7">
+<tileset version="1.2" tiledversion="1.2.3" name="CarnivorousPlant" tilewidth="45" tileheight="42" tilecount="84" columns="7">
+ <properties>
+  <property name="attack_power" type="int" value="25"/>
+  <property name="experience" type="int" value="100"/>
+  <property name="live" type="int" value="20"/>
+ </properties>
  <image source="../sprites/Carnivorous Plant.png" width="317" height="506"/>
  <tile id="0">
   <properties>
