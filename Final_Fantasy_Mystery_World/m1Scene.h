@@ -390,7 +390,7 @@ private:
 public:
 
 	// SFX
-	int fx_writting;
+	/*int fx_writting;
 	int fx_attack;
 	int fx_frog_attack;
 	int fx_plant_attack;
@@ -413,15 +413,15 @@ public:
 	int fx_no_money;
 	int fx_controller_conection;
 	int fx_surprise;
-	int fx_buy;
+	int fx_buy;*/
 
-  Mix_Chunk* fx_writting;
+    Mix_Chunk* fx_writting;
 	Mix_Chunk* fx_attack;
 	Mix_Chunk* fx_frog_attack;
 	Mix_Chunk* fx_plant_attack;
-  Mix_Chunk* fx_dog_attack;
+    Mix_Chunk* fx_dog_attack;
 	Mix_Chunk* fx_ability_warrior;
-  Mix_Chunk* fx_ability_mage;
+    Mix_Chunk* fx_ability_mage;
 	Mix_Chunk* fx_ability_mage_prepare;
 	Mix_Chunk* fx_ability_archer;
 	Mix_Chunk* fx_ability_no_mana;
@@ -431,7 +431,7 @@ public:
 	Mix_Chunk* fx_potion;
 	Mix_Chunk* fx_denegated_potion;
 	Mix_Chunk* fx_potion_menu;
-  Mix_Chunk* fx_flash;
+    Mix_Chunk* fx_flash;
 	Mix_Chunk* fx_die;
 	Mix_Chunk* fx_rock;
 	Mix_Chunk* fx_kill_enemy;

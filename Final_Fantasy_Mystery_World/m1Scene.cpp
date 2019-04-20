@@ -302,7 +302,7 @@ bool m1Scene::CleanUp()
 	LOG("Freeing scene");
 
 	App->audio->UnLoadMusic(mus_game_over);
-	App->audio->UnLoadFx(fx_ability_menu);
+	App->audio->UnLoadFx(fx_ability_screen);
 	App->audio->UnLoadFx(fx_ability_warrior);
 	App->audio->UnLoadFx(fx_attack);
 	App->audio->UnLoadFx(fx_denegated_potion);
