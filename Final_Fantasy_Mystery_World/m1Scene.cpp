@@ -276,12 +276,7 @@ bool m1Scene::Update(float dt)
 	if (debug_screen != nullptr) {
 		UpdateDebugScreen();
 	}
-	if (!App->globals.CutSceneAfterBossTutorialPlayed && !App->entity_manager->ThereAreEnemies() && App->map->quest_rooms != nullptr && App->map->quest_rooms->actual_room->room_type == RoomType::BOSS_TUTORIAL && App->map->quest_rooms->actual_room->active)
-	{
-		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneAfterBossTutorial.xml");
-		App->globals.CutSceneAfterBossTutorialPlayed = true;
-	}
-
+	ShitFunctionJAJA();
 
 	return true;
 }
@@ -446,6 +441,23 @@ void m1Scene::DestroyGoToQuestMenu()
 
 	player->BlockControls(false);
 	//menu_state = StatesMenu::NO_MENU;
+}
+
+void m1Scene::ShitFunctionJAJA()
+{
+	if (!App->globals.CutSceneAfterBossTutorialPlayed && !App->entity_manager->ThereAreEnemies() && App->map->quest_rooms != nullptr && App->map->quest_rooms->actual_room->room_type == RoomType::BOSS_TUTORIAL && App->map->quest_rooms->actual_room->active && !App->globals.CutSceneLobbyExplain)
+	{
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneAfterBossTutorial.xml");
+		App->globals.CutSceneAfterBossTutorialPlayed = true;
+	}
+	if (App->globals.CutSceneAfterBossTutorialPlayed && App->map->quest_rooms != nullptr && App->map->quest_rooms->actual_room->room_type == RoomType::BOSS_TUTORIAL && App->map->quest_rooms->actual_room->active && App->globals.CutSceneAfterBossTutorialPlayed && !App->cutscene_manager->is_executing && !App->globals.CutSceneLobbyExplain)
+	{
+		App->fade_to_black->FadeToBlack(Maps::LOBBY);
+	}
+	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && !App->globals.CutSceneLobbyExplain && App->map->actual_map == Maps::LOBBY) {
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyTutorial.xml");
+		App->globals.CutSceneLobbyExplain = true;
+	}
 }
 
 void m1Scene::CreateInventory()
