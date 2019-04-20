@@ -303,12 +303,12 @@ e1StaticEntity::~e1StaticEntity()
 void e1StaticEntity::Draw(SDL_Texture * tex, float dt)
 {
 	if (has_animation) {
-		App->render->Blit(tex, position.x, position.y, &current_animation->GetCurrentFrame(dt), true);
+		App->render->Blit(tex, floor(position.x), floor(position.y), &current_animation->GetCurrentFrame(dt), true);
 		//App->render->Blit(App->scene->player->ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
 	}
 	else {
-		App->render->Blit(tex, position.x, position.y, &frame, true);
+		App->render->Blit(tex, floor(position.x), floor(position.y), &frame, true);
 	}
 }
 

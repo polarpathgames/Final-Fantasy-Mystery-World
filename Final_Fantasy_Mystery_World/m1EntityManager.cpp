@@ -109,9 +109,7 @@ bool m1EntityManager::Update(float dt)
 	entities_drawn = draw_entities.size();
 	DrawEntities(draw_entities, dt);
 
-	if (App->scene->player != nullptr && App->scene->player->movement_type == Movement_Type::InLobby)
-		App->render->SmoothCamera(App->scene->player->position);
-	else if (App->scene->player != nullptr && App->scene->player->movement_type == Movement_Type::InQuest)
+	if (App->scene->player != nullptr)
 		App->render->SmoothCamera(App->scene->player->position);
 
 	return true;

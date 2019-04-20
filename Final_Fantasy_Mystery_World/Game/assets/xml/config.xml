@@ -8,12 +8,12 @@
   </app>
 
   <renderer>
-    <vsync value="false"/>
+    <vsync value="true"/>
   </renderer>
 
   <window>
     <resolution width="1024" height="768" scale="3"/>
-    <fullscreen value="false"/>
+    <fullscreen value="true"/>
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>

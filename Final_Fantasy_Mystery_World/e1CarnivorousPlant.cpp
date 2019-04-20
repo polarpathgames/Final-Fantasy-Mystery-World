@@ -7,6 +7,7 @@
 #include "m1Scene.h"
 #include "m1Render.h"
 #include "p2Animation.h"
+#include "m1Collisions.h"
 
 e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x, y)
 {
@@ -94,8 +95,8 @@ bool e1CarnivorousPlant::Update(float dt)
 		RestTimeAfterAttack(time_attack);
 	}
 
-
-	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+	if (App->collision->debug)
+		App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
 	return true;
 }

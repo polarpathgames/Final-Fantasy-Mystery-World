@@ -6,6 +6,7 @@
 #include "App.h"
 #include "m1Map.h"
 #include "m1Render.h"
+#include "m1Collisions.h"
 
 e1BlueDog::e1BlueDog(const int & x, const int & y) : e1Enemy(x, y)
 {
@@ -78,8 +79,8 @@ bool e1BlueDog::Update(float dt)
 		RestTimeAfterAttack(time_attack);
 	}
 
-
-	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+	if (App->collision->debug)
+		App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
 	return true;
 }
