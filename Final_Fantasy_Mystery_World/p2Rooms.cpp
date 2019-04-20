@@ -45,12 +45,12 @@ Room::Room(const std::string &tmx_location, const uint &id, const std::string &t
 
 Room::~Room()
 {
-
 	std::vector<ChangeScene*>::iterator item = change_scene_points.begin();
 	for (; item != change_scene_points.end(); ++item) {
 		delete (*item);
 		(*item) = nullptr;
 	}
+	change_scene_points.clear();
 	entities.clear();
 }
 
