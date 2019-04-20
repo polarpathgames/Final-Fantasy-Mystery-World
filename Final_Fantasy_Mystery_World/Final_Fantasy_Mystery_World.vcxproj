@@ -225,6 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\assets\xml\config.xml" />
+    <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml" />
     <Xml Include="Game\assets\xml\CutsceneFinalRoom.xml" />
     <Xml Include="Game\assets\xml\CutsceneMiddleRoom.xml" />
     <Xml Include="Game\assets\xml\CutsceneTutorial.xml" />

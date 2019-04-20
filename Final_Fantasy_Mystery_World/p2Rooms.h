@@ -68,7 +68,6 @@ public:
 	void LoadColliders();
 	void PlayMusic();
 	void PlayCutScene();
-
 	void AddEntityToNotRepeat(iPoint pos);
 
 public:
