@@ -101,6 +101,7 @@ private:
 	u1Button* button_X = nullptr;
 	u1Button* button_Y = nullptr;
 	u1Button* button_Z = nullptr;
+	u1Button* button_Delete = nullptr;
 
 	// main menu
 

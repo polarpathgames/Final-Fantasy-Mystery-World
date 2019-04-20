@@ -436,6 +436,9 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 				input_text->AddText("Z");
 			}
 		}
+		if (interaction == button_Delete) {
+			input_text->DeleteText();
+		}
 		break;
 	case MainMenuStates::SELECTION_MENU:
 		if (interaction == button_warrior) {
@@ -1044,7 +1047,7 @@ void m1MainMenu::CreateNameMenu()
 	button_X = App->gui->AddButton(188, 223, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_Y = App->gui->AddButton(282, 223, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_Z = App->gui->AddButton(378, 223, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
-
+	button_Delete = App->gui->AddButton(471, 223, { 0, 0, 93, 47 }, { 0, 0, 93, 47 }, { 0, 0, 93, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 }
 
 void m1MainMenu::DestroyNameMenu()
