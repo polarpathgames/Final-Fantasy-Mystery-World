@@ -183,6 +183,9 @@ private:
 	u1Button* button_retun_options = nullptr;
 	u1Label* label_return_options = nullptr;
 
+	u1CheckBox* checkbox_mute_music = nullptr;
+	u1CheckBox* checkbox_mute_fx = nullptr;
+
 	// Menu Controls
 
 	u1Image* controls_panel = nullptr;
@@ -328,6 +331,9 @@ public:
 	u1Image* warrior_info = nullptr;
 	u1Image* archer_info = nullptr;
 	u1Image* mage_info = nullptr;
+
+	u1Button* return_select_champ_button = nullptr;
+	u1Label* return_select_champ_label = nullptr;
 
 	Mix_Chunk* fx_push_button;
 	Mix_Chunk* fx_push_button_return;

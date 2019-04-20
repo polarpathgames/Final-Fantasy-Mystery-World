@@ -466,6 +466,13 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			main_states = MainMenuStates::CHOOSE_NAME_MENU;
 			ret = false;
 		}
+
+		if (interaction == return_select_champ_button) {
+			CreateMainMenu();
+			DestroySelectChamp();
+			main_states = MainMenuStates::MAIN_MENU;
+			ret = false;
+		}
 		App->audio->PlayFx(fx_push_button_return);
 
 		break;
@@ -482,6 +489,17 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			DestroyOptions();
 			main_states = MainMenuStates::CONTROLS_MENU;
 			ret = false;
+		}
+		if (interaction == checkbox_mute_music)
+		{
+			checkbox_mute_music->Clicked();
+			App->audio->StopMusic(-2);
+		}
+
+		if (interaction == checkbox_mute_fx)
+		{
+			checkbox_mute_fx->Clicked();
+			App->audio->StopMusic(-3);
 		}
 		if (interaction == checkbox_fps)
 		{
@@ -709,7 +727,8 @@ void m1MainMenu::CreateSelectChamp()
 
 	App->audio->PlayMusic(mus_selection, 0.5);
 
-
+	return_select_champ_button = App->gui->AddButton(120, 640, { 1000, 1000, 80, 50 }, { 1000, 1000, 80, 50 }, { 1000, 1000, 80, 50 }, this, select_champ_panel, false, false, true, true, {-10, 3});
+	return_select_champ_label = App->gui->AddLabel(0, 0, "Return", return_select_champ_button, BLACK, FontType::FF64, this, false);
 
 	App->gui->FocusButton((u1Button*)button_warrior);
 
@@ -750,12 +769,26 @@ void m1MainMenu::CreateOptions()
 	plus_music_btn = App->gui->AddButton(805, 263, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options_panel, true, false, true, true);
 	label_music_value = App->gui->AddLabel(760, 250, "", options_panel, BLACK, FontType::FF48, nullptr, false);
 
+	checkbox_mute_music = App->gui->AddCheckBox(900, 263, { 1618, 1834, 33, 33 }, { 1618, 1834, 33, 33 }, { 1581, 1836, 26, 29 }, options_panel);
+	checkbox_mute_music->is_option = true;
+	checkbox_mute_music->draggable = false;
+	checkbox_mute_music->drawable = true;
+	checkbox_mute_music->interactable = true;
+	checkbox_mute_music->AddListener(this);
+
 	button_fx_volume = App->gui->AddButton(491, 326, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	label_fx_volume = App->gui->AddLabel(0, 0, "FX Volume", button_fx_volume, BLACK, FontType::FF48, nullptr, false);
 	label_fx_volume->SetPosRespectParent(LEFT_CENTERED);
 	minus_fx_btn = App->gui->AddButton(715, 343, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options_panel, true, false, true, true);
 	plus_fx_btn = App->gui->AddButton(805, 343, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options_panel, true, false, true, true);
 	label_fx_value = App->gui->AddLabel(760, 330, "", options_panel, BLACK, FontType::FF48, nullptr, false);
+
+	checkbox_mute_fx = App->gui->AddCheckBox(900, 343, { 1618, 1834, 33, 33 }, { 1618, 1834, 33, 33 }, { 1581, 1836, 26, 29 }, options_panel);
+	checkbox_mute_fx->is_option = true;
+	checkbox_mute_fx->draggable = false;
+	checkbox_mute_fx->drawable = true;
+	checkbox_mute_fx->interactable = true;
+	checkbox_mute_fx->AddListener(this);
 
 	label_fps = App->gui->AddLabel(491, 413, "FPS Caps", options_panel, BLACK, FontType::FF48, nullptr, false);
 	checkbox_fps = App->gui->AddCheckBox(760, 413, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
