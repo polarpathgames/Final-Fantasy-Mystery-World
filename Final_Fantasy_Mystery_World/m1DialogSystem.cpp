@@ -268,6 +268,10 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   //Save function
 				   App->scene->player->BlockControls(false);
 				   break;
+			   case 30: //old statue tutorial diagonal
+				   App->scene->CreateHelpDiagonalMenu();
+				   App->scene->SetMenuState(StatesMenu::HELP_DIAGONAL_MENU);
+				   break;
 			   default:
 				   App->scene->player->BlockControls(false);
 				   break;

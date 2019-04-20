@@ -49,6 +49,7 @@ public:
 		FURNITURE,
 		DOORHOME,
 		DOORSHOP,
+		HELP1,
 
 		UNKNOWN
 	};
@@ -67,8 +68,6 @@ public:
 	virtual bool Save(pugi::xml_node&) const { return true; };
 
 	void ChangeAnimation(const iPoint &player_pos);
-
-	void DialogWritting();
 
 	InteractingStates GetState();
 public:
