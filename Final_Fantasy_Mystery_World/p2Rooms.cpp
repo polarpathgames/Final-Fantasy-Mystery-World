@@ -34,9 +34,6 @@ Room::Room(const std::string &tmx_location, const uint &id, const std::string &t
 	else if (strcmp(type.data(), "boss") == 0) {
 		room_type = RoomType::BOSS;
 	}
-	else if (strcmp(type.data(), "boss_tutorial") == 0) {
-		room_type = RoomType::BOSS_TUTORIAL;
-	}
 	else if (strcmp(type.data(), "fountain") == 0) {
 		room_type = RoomType::FOUNTAIN;
 		App->dialog->dialogTrees[1]->karma = 0;
@@ -360,9 +357,6 @@ void RoomManager::PlayMusic()
 			App->audio->PlayMusic(mus_combat, 0.5);
 			break;
 		case RoomType::BOSS:
-			App->audio->PlayMusic(mus_boss, 0.5);
-			break;
-		case RoomType::BOSS_TUTORIAL:
 			App->audio->PlayMusic(mus_boss, 0.5);
 			break;
 		default:

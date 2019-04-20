@@ -24,7 +24,6 @@ enum class RoomType {
 	FOUNTAIN,
 	BOSS,
 	PACEFUL,
-	BOSS_TUTORIAL,
 
 	NONE
 };
