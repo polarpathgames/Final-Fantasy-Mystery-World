@@ -290,8 +290,8 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	}
 	else if (strcmp(name, "help1") == 0) {
 		static_type = e1StaticEntity::Type::HELP1;
-		frame = { 1234,75,30,53 };
-		SetPivot(frame.w*0.2F, frame.h*0.9F);
+		frame = { 1219,63,45,65 };
+		SetPivot(frame.w*0.5F, frame.h*0.7F);
 		size.create(frame.w, frame.h);
 		max_distance_to_interact = 1;
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
@@ -302,8 +302,8 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	}
 	else if (strcmp(name, "help2") == 0) {
 		static_type = e1StaticEntity::Type::HELP2;
-		frame = { 1234,75,30,53 };
-		SetPivot(frame.w*0.2F, frame.h*0.9F);
+		frame = { 1219,63,45,65 };
+		SetPivot(frame.w*0.5F, frame.h*0.7F);
 		size.create(frame.w, frame.h);
 		max_distance_to_interact = 1;
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
