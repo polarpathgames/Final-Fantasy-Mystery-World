@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.2.2" name="Frog" tilewidth="34" tileheight="40" tilecount="165" columns="15">
  <properties>
-  <property name="attack_power" type="int" value="50"/>
+  <property name="attack_power" type="int" value="20"/>
   <property name="experience" type="int" value="30"/>
   <property name="live" type="int" value="125"/>
  </properties>

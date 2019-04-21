@@ -115,6 +115,10 @@ bool m1Scene::Update(float dt)
 		}
 	}
 
+	if (App->map->actual_map == Maps::LOBBY) {
+		ShowHUD(false);
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		e1Player* swap = nullptr;
 		iPoint new_pos = App->map->MapToWorld(player->actual_tile.x, player->actual_tile.y);
@@ -1128,7 +1132,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			if (player->stats.num_hp_potions >= 1) {
 				App->audio->PlayFx(fx_potion);
 				--player->stats.num_hp_potions;
-				player->AugmentLives(25);
+				player->AugmentLives(75);
 				hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
 				DeletePotionMenu();
 				menu_state = StatesMenu::INVENTORY_MENU;
@@ -1141,7 +1145,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			if (player->stats.num_mana_potions >= 1) {
 				App->audio->PlayFx(fx_potion);
 				--player->stats.num_mana_potions;
-				player->AugmentMana(25);
+				player->AugmentMana(100);
 				mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
 				DeletePotionMenu();
 				menu_state = StatesMenu::INVENTORY_MENU;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.2.3" name="warrior" tilewidth="28" tileheight="31" tilecount="84" columns="12">
  <properties>
-  <property name="attack_power" type="int" value="50"/>
+  <property name="attack_power" type="int" value="80"/>
   <property name="attack_power_ability" type="int" value="150"/>
   <property name="cost_mana_special_attack" type="int" value="20"/>
   <property name="max_lives" type="int" value="350"/>
