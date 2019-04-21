@@ -80,7 +80,7 @@ SDL_Texture* const m1Textures::Load(const char* path)
 
 	std::map<SDL_Texture*, std::string>::iterator item = textures.begin();
 	for (; item != textures.end(); ++item) {
-		if ((*item).first != nullptr && (*item).second == path) {
+		if ((*item).first != nullptr && (*item).second.compare(path) == 0) {
 			return (*item).first;
 		}
 	}
