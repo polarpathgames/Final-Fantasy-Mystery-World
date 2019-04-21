@@ -67,18 +67,18 @@
         </room>
         <room>
           <location>Tutorial_Ability.tmx</location>
-          <id num="5"></id>
+          <id num="7"></id>
           <type>combat</type>
         </room>
         <room>
           <location>Tutorial_Attack3.tmx</location>
-          <id num="6"></id>
+          <id num="5"></id>
           <type>combat</type>
           <cut_scene>assets/xml/CutsceneMiddleRoom.xml</cut_scene>
         </room>
         <room>
           <location>Tutorial_PreFinal.tmx</location>
-          <id num="7"></id>
+          <id num="6"></id>
           <type>paceful</type>
         </room>
         <room>

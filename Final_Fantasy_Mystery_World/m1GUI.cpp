@@ -51,7 +51,7 @@ bool m1GUI::Start()
 	fx_inventory = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Potion_Glup.wav");
 
 	SDL_ShowCursor(SDL_DISABLE);
-
+	
 	return true;
 }
 
@@ -290,9 +290,7 @@ bool m1GUI::CleanUp()
 	ui_list.clear();
 	App->tex->UnLoad(atlas);
 	atlas = nullptr;
-	App->audio->UnLoadFx(fx_focus);
-	App->audio->UnLoadFx(fx_inventory);
-	App->audio->UnLoadFx(fx_pause);
+
 	return true;
 }
 

@@ -5,7 +5,7 @@
 #include "m1Window.h"
 #include "SDL/include/SDL.h"
 #include "Brofiler/Brofiler.h"
-
+#include "m1Textures.h"
 
 
 #define MAX_KEYS 300
@@ -294,6 +294,7 @@ void m1Input::UpdateEvents(SDL_Event &event)
 		}
 
 	}
+
 }
 
 void m1Input::UpdateController()

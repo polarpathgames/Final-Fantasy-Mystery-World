@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.3" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="34">
+ <properties>
+  <property name="next_id" type="int" value="6"/>
+ </properties>
  <tileset firstgid="1" name="tutorial_tileset" tilewidth="32" tileheight="16" tilecount="360" columns="24">
   <image source="tutorial_tileset.png" width="796" height="254"/>
   <terraintypes>
@@ -12852,7 +12855,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="9" name="Collider" width="40" height="40">
+ <layer id="9" name="Collider" width="40" height="40" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -14503,12 +14506,12 @@
   </object>
   <object id="15" name="room_collider" type="nextA" x="432" y="224" width="16.1904" height="16.7273">
    <properties>
-    <property name="next_id" type="int" value="8"/>
+    <property name="next_id" type="int" value="7"/>
    </properties>
   </object>
   <object id="16" name="room_collider" type="lastB" x="561.182" y="336.607" width="13.9177" height="14.3788">
    <properties>
-    <property name="next_id" type="int" value="6"/>
+    <property name="next_id" type="int" value="5"/>
    </properties>
   </object>
   <object id="33" name="rock" type="static" x="320" y="304" width="32" height="32"/>

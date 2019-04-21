@@ -1,7 +1,7 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "m1Audio.h"
-#include <list>
+#include <map>
 #include <string>
 #include "m1Input.h"
 #include "App.h"
@@ -86,20 +86,18 @@ bool m1Audio::CleanUp()
 	
 	LOG("Freeing sound FX, closing Mixer and Audio subsystem");
 
-	std::vector < Mix_Music*>::iterator m = music.begin();
+	std::map < Mix_Music*,std::string>::iterator m = music.begin();
 	for (; m != music.end(); ++m) {
-		if ((*m) != nullptr) {
-			Mix_FreeMusic((*m));
-			(*m) = nullptr;
+		if ((*m).first != nullptr) {
+			Mix_FreeMusic((*m).first);
 		}
 	}
 	music.clear();
 
-	std::vector<Mix_Chunk*>::iterator f = fx.begin();
+	std::map<Mix_Chunk*,std::string>::iterator f = fx.begin();
 	for (; f != fx.end(); ++f) {
-		if ((*f) != nullptr) {
-			Mix_FreeChunk((*f));
-			(*f) = nullptr;
+		if ((*f).first != nullptr) {
+			Mix_FreeChunk((*f).first);
 		}
 	}
 	fx.clear();
@@ -146,6 +144,14 @@ bool m1Audio::PlayMusic(Mix_Music* mus, float fade_time)
 }
 Mix_Music * m1Audio::LoadMusic(const char * path)
 {
+
+	std::map<Mix_Music*, std::string>::iterator item = music.begin();
+	for (; item != music.end(); ++item) {
+		if ((*item).first != nullptr && (*item).second == path) {
+			return (*item).first;
+		}
+	}
+
 	Mix_Music* mus = nullptr;
 
 	mus = Mix_LoadMUS(path);
@@ -154,13 +160,21 @@ Mix_Music * m1Audio::LoadMusic(const char * path)
 		LOG("Cannot load music %s. Mix_GetError(): %s", path, Mix_GetError());
 	}
 	else {
-		music.push_back(mus);
+		music.insert(std::pair<Mix_Music*, std::string>(mus, path));
 	}
 	return mus;
 }
 // Load WAV
 Mix_Chunk* m1Audio::LoadFx(const char* path)
 {
+
+	std::map<Mix_Chunk*, std::string>::iterator item = fx.begin();
+	for (; item != fx.end(); ++item) {
+		if ((*item).first != nullptr && (*item).second == path) {
+			return (*item).first;
+		}
+	}
+
 	Mix_Chunk* chunk = nullptr;
 
 	chunk = Mix_LoadWAV(path);
@@ -171,50 +185,22 @@ Mix_Chunk* m1Audio::LoadFx(const char* path)
 	}
 	else
 	{
-		fx.push_back(chunk);
+		fx.insert(std::pair<Mix_Chunk*, std::string>(chunk, path));
 	}
 	return chunk;
 }
 
-bool m1Audio::UnLoadMusic(Mix_Music * mus)
-{
 
-	std::vector<Mix_Music*>::iterator item = music.begin();
-	for (; item != music.end(); ++item) {
-		if ((*item) != nullptr && (*item) == mus) {
-			Mix_FreeMusic(mus);
-			(*item) = nullptr;
-			break;
- 		}
-	}
-
-	return true;
-}
-
-bool m1Audio::UnLoadFx(Mix_Chunk * chunk)
-{
-
-	std::vector<Mix_Chunk*>::iterator item = fx.begin();
-	for (; item != fx.end(); ++item) {
-		if ((*item) != nullptr && (*item) == chunk) {
-			Mix_FreeChunk(chunk);
-			(*item) = nullptr;
-			break;
-		}
-	}
-
-	return true;
-}
 
 // Play WAV
 bool m1Audio::PlayFx(Mix_Chunk* chunk, int repeat)
 {
 	bool ret = false;
 	
-	std::vector<Mix_Chunk*>::iterator item = fx.begin();
+	std::map<Mix_Chunk*,std::string>::iterator item = fx.begin();
 	for (; item != fx.end(); ++item) {
-		if ((*item) != nullptr && (*item) == chunk) {
-			Mix_PlayChannel(-1, (*item), repeat, 0);
+		if ((*item).first != nullptr && (*item).first == chunk) {
+			Mix_PlayChannel(-1, (*item).first, repeat, 0);
 			break;
 		}
 	}
@@ -239,10 +225,10 @@ void m1Audio::StopMusic(int mut)
 			Mix_VolumeMusic(volume);
 			for (int id = 1; id <= fx.size(); id++)
 			{
-				std::vector<Mix_Chunk*>::iterator item = fx.begin();
+				std::map<Mix_Chunk*,std::string>::iterator item = fx.begin();
 				for (; item != fx.end(); ++item) {
-					if ((*item) != nullptr) {
-						Mix_VolumeChunk((*item), volume_fx);
+					if ((*item).first != nullptr) {
+						Mix_VolumeChunk((*item).first, volume_fx);
 					}
 				}
 			}
@@ -267,10 +253,10 @@ void m1Audio::StopMusic(int mut)
 		}
 		else
 		{
-			std::vector<Mix_Chunk*>::iterator item = fx.begin();
+			std::map<Mix_Chunk*,std::string>::iterator item = fx.begin();
 			for (; item != fx.end(); ++item) {
-				if ((*item) != nullptr) {
-					Mix_VolumeChunk((*item), volume_fx);
+				if ((*item).first != nullptr) {
+					Mix_VolumeChunk((*item).first, volume_fx);
 				}
 			}
 		}
@@ -300,10 +286,10 @@ void m1Audio::VolumeUp(int vol)
 		case -3:
 			if (volume_fx < max_volume) {
 				volume_fx += volume_change_ratio;
-				std::vector<Mix_Chunk*>::iterator item = fx.begin();
+				std::map<Mix_Chunk*,std::string>::iterator item = fx.begin();
 				for (; item != fx.end(); ++item) {
-					if ((*item) != nullptr) {
-						Mix_VolumeChunk((*item), volume_fx);
+					if ((*item).first != nullptr) {
+						Mix_VolumeChunk((*item).first, volume_fx);
 					}
 				}
 			}

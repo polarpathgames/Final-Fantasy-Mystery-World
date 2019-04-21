@@ -64,7 +64,6 @@ bool m1EntityManager::Start()
 		texture[(uint)TextureType::STRANGE_FROG] = App->tex->Load("assets/sprites/Frog.png");
 		texture[(uint)TextureType::BLUE_DOG] = App->tex->Load("assets/sprites/Dog.png");
 		texture[(uint)TextureType::STATIC_ENTITIES] = App->tex->Load("assets/maps/static_objects_tileset.png");
-		texture[(uint)TextureType::STATIC_ENTITIES] = App->tex->Load("assets/maps/static_objects_tileset.png");
 		texture[(uint)TextureType::PARTICLE] = App->tex->Load("assets/sprites/Particles.png");
 		texture[(uint)TextureType::DAUGHTER] = App->tex->Load("assets/sprites/Little_Girl.png");
 		textures_loaded = true;
@@ -184,7 +183,6 @@ void m1EntityManager::UpdateEntities(float dt, std::vector<e1Entity *> &draw_ent
 	std::vector<e1Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr) {
-			LOG("Updating %i", (int)(*item)->type);
 			(*item)->Update(dt);
 
 			if (App->render->IsOnCamera((*item)->position.x, (*item)->position.y, (*item)->size.x, (*item)->size.y)) {
