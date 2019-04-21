@@ -157,12 +157,24 @@ void e1Mage::IdAnimToEnum() //Assign every id animation to enum animation
 		case 54:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;//
+		case 61:
+			data.animations[i].animType = AnimationState::DEATH_DOWN;
+			break;//
+		case 64:
+			data.animations[i].animType = AnimationState::DEATH_LEFT;
+			break;//
+		case 70:
+			data.animations[i].animType = AnimationState::DEATH_RIGHT;
+			break;//
+		case 65:
+			data.animations[i].animType = AnimationState::DEATH_UP;
+			break;//
 		case 60:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;//
 		case 63:
 			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
-			break;//
+			break;
 		case 66:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
 			break;//
