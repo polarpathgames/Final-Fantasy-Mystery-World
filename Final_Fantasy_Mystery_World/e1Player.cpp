@@ -63,6 +63,8 @@ e1Player::~e1Player()
 
 bool e1Player::PreUpdate()
 {
+	BROFILER_CATEGORY("Player PreUpdate", Profiler::Color::Yellow);
+
 	if (!block_controls)
 		ReadPlayerInput();
 
@@ -71,6 +73,8 @@ bool e1Player::PreUpdate()
 
 bool e1Player::Update(float dt)
 {
+	BROFILER_CATEGORY("Player Update", Profiler::Color::Yellow);
+
 	PerformActions(dt);
 
 	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
@@ -135,6 +139,8 @@ void e1Player::OnCollisionExit(Collider * c2)
 
 void e1Player::CheckLobbyCollision(const float & dt, const Direction & dir)
 {
+	BROFILER_CATEGORY("Player CheckLobbyCollision", Profiler::Color::Yellow);
+
 	switch (direction) {
 	case Direction::RIGHT:
 		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt))})) {
@@ -236,6 +242,8 @@ void e1Player::CenterPlayerInTile()
 
 void e1Player::ReadPlayerInput()
 {
+	BROFILER_CATEGORY("ReadPlayerInput", Profiler::Color::Yellow);
+
 	if (movement_type == Movement_Type::InLobby) {
 		LobbyControls();
 	}
@@ -283,6 +291,8 @@ void e1Player::ReadPlayerInput()
 
 void e1Player::ReadPlayerMovementInQuest()
 {
+	BROFILER_CATEGORY("ReadPlayerMovementInQuest", Profiler::Color::Yellow);
+
 	if (target_position == position) {
 		bool is_movement_acepted = false;
 		if (MultipleButtons(&player_input)) {
@@ -407,6 +417,8 @@ void e1Player::ReadPlayerMovementInQuest()
 
 void e1Player::ReadPlayerMovementInLobby()
 {
+	BROFILER_CATEGORY("ReadPlayerMovementInLobby", Profiler::Color::Yellow);
+
 	if (player_input.pressing_A) {
 		direction = Direction::LEFT;
 	}
@@ -439,6 +451,8 @@ void e1Player::ReadPlayerMovementInLobby()
 
 void e1Player::ReadAttack()
 {
+	BROFILER_CATEGORY("ReadAttack", Profiler::Color::Yellow);
+
 	if (player_input.pressing_SPACE) {
 		PrepareBasicAttack();
 		App->audio->PlayFx(App->scene->fx_attack);
@@ -475,6 +489,8 @@ void e1Player::InitStats()
 
 void e1Player::PrepareBasicAttack()
 {
+	BROFILER_CATEGORY("PrepareBasicAttack", Profiler::Color::Yellow);
+
 	type_attack = Attacks::BASIC;
 	state = State::ATTACKING;
 	switch (direction) {
@@ -515,6 +531,8 @@ void e1Player::PrepareBasicAttack()
 	
 void e1Player::PerformActions(float dt)
 {
+	BROFILER_CATEGORY("PerformActions", Profiler::Color::Yellow);
+
 	if (player_input.pressing_V && App->scene->GetMenuState() != StatesMenu::OPTIONS_MENU && App->scene->GetMenuState() != StatesMenu::CONTROLS_MENU && App->scene->GetMenuState() != StatesMenu::PAUSE_MENU && !App->cutscene_manager->is_executing){
 		(has_skills) ? DestroySkills() : CreateSkills();
 	}
@@ -565,6 +583,7 @@ void e1Player::PerformActions(float dt)
 
 void e1Player::BasicAttack()
 {
+	BROFILER_CATEGORY("basicAttack", Profiler::Color::Yellow);
 
 	if (current_animation->Finished()) {
 		switch (direction) {
@@ -597,7 +616,7 @@ void e1Player::BasicAttack()
 			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3 + 1, 200, EASE);
 			break;
 		}
-		CheckBasicAttackEfects(e1Entity::EntityType::ENEMY, direction, stats.attack_power);
+		CheckBasicAttackEffects(e1Entity::EntityType::ENEMY, direction, stats.attack_power);
 		state = State::AFTER_ATTACK;
 		ChangeAnimation(direction, state);
 		time_attack = SDL_GetTicks();
@@ -608,6 +627,8 @@ void e1Player::BasicAttack()
 
 void e1Player::PerformMovementInLobby(float dt)
 {
+	BROFILER_CATEGORY("PerformMovementInLobby", Profiler::Color::Yellow);
+
 	switch (direction)
 	{
 	case Direction::DOWN_LEFT:
@@ -698,6 +719,8 @@ void e1Player::PerformMovementInLobby(float dt)
 
 void e1Player::PerformMovementInQuest(float dt)
 {
+	BROFILER_CATEGORY("PerformMovementInQuest", Profiler::Color::Yellow);
+
 	switch (direction)
 	{
 	case Direction::DOWN_LEFT:
@@ -897,6 +920,8 @@ void e1Player::GetHitted(const int & damage_taken)
 
 void e1Player::Death()
 {
+	BROFILER_CATEGORY("Player Death", Profiler::Color::Yellow);
+
 	if (current_animation->Finished() && death_time <= SDL_GetTicks() - 1000) {
 		App->audio->PlayFx(App->scene->fx_die);
 		App->map->CleanUp();

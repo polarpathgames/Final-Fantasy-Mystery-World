@@ -7,6 +7,7 @@
 #include "m1Map.h"
 #include "m1Render.h"
 #include "m1Audio.h"
+#include "Brofiler/Brofiler.h"
 
 e1BlueDog::e1BlueDog(const int & x, const int & y) : e1Enemy(x, y)
 {
@@ -29,6 +30,8 @@ e1BlueDog::~e1BlueDog()
 
 bool e1BlueDog::PreUpdate()
 {
+	BROFILER_CATEGORY("BlueDog PreUpdate", Profiler::Color::Yellow);
+
 	if (state == State::IDLE) {
 		if (IsPlayerNextTile()) {
 			state = State::BEFORE_ATTACK;
@@ -58,6 +61,8 @@ bool e1BlueDog::PreUpdate()
 
 bool e1BlueDog::Update(float dt)
 {
+	BROFILER_CATEGORY("BlueDog Update", Profiler::Color::Yellow);
+
 	if (state == State::IDLE) {
 		position.x = initial_position.x + movement_count.x;
 		position.y = initial_position.y + movement_count.y;
@@ -70,7 +75,7 @@ bool e1BlueDog::Update(float dt)
 	if (state == State::ATTACKING) {
 		if (current_animation->Finished()) {
 			App->audio->PlayFx(App->scene->fx_dog_attack);
-			CheckBasicAttackEfects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
+			CheckBasicAttackEffects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
 			state = State::AFTER_ATTACK;
 			ChangeAnimation(direction, state);
 			time_attack = SDL_GetTicks();

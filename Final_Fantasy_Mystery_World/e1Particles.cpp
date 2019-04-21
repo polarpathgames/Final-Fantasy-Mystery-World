@@ -11,6 +11,7 @@
 #include "e1Enemy.h"
 #include "m1ParticleManager.h"
 #include "e1Player.h"
+#include "Brofiler/Brofiler.h"
 
 
 e1Particles::e1Particles(const int & x, const int & y) : e1DynamicEntity(x, y)
@@ -36,6 +37,8 @@ bool e1Particles::PreUpdate()
 
 bool e1Particles::Update(float dt)
 {
+	BROFILER_CATEGORY("Update Particles Entoty", Profiler::Color::Yellow);
+
 	switch (particle_type)
 	{
 	case e1Particles::ParticleType::ARROW: {
@@ -59,6 +62,8 @@ bool e1Particles::CleanUp()
 
 void e1Particles::SetParticle(const ParticleType & particle_type, const Direction & dir)
 {
+	BROFILER_CATEGORY("SetParticle Entity", Profiler::Color::Yellow);
+
 	this->particle_type = particle_type;
 	direction = dir;
 	actual_tile = App->map->WorldToMap(position.x, position.y);
@@ -300,6 +305,8 @@ void e1Particles::MoveArrow(float dt)
 
 void e1Particles::LookForEnemyCollision()
 {
+	BROFILER_CATEGORY("LookForEnemyCollsion", Profiler::Color::Yellow);
+
 	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
 	std::vector<e1Entity*>::iterator item = entities.begin();
 
@@ -317,6 +324,8 @@ void e1Particles::LookForEnemyCollision()
 
 void e1Particles::LookForRocks()
 {
+	BROFILER_CATEGORY("LookForRocks", Profiler::Color::Yellow);
+
 	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
 	std::vector<e1Entity*>::iterator item = entities.begin();
 
@@ -369,6 +378,8 @@ void e1Particles::MoveFireBall(float dt)
 
 void e1Particles::FireBallExplosionCollision()
 {
+	BROFILER_CATEGORY("FireBallExplosionCollision", Profiler::Color::Yellow);
+
 	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
 	std::vector<e1Entity*>::iterator item = entities.begin();
 

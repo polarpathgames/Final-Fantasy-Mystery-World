@@ -77,6 +77,7 @@ bool e1Enemy::CleanUp()
 
 bool e1Enemy::IsAnotherEnemyNextTile()
 {
+	BROFILER_CATEGORY("IsAnotherEnemyNextTile", Profiler::Color::SeaGreen);
 	bool ret = false;
 	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
 	std::vector<e1Entity*>::iterator item = entities.begin();
@@ -143,6 +144,7 @@ bool e1Enemy::IsAnotherEnemyNextTile()
 
 bool e1Enemy::IsPlayerNextTile()
 {
+	BROFILER_CATEGORY("IsAnotherPlayerNextTile", Profiler::Color::SeaGreen);
 	bool ret = false;
 	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
 	std::vector<e1Entity*>::iterator item = entities.begin();
@@ -201,6 +203,7 @@ bool e1Enemy::IsPlayerNextTile()
 
 void e1Enemy::MovementLogic()
 {
+	BROFILER_CATEGORY("MovementLogic Enemy", Profiler::Color::SeaGreen);
 	iPoint origin = actual_tile;
 	iPoint destination = App->scene->player->actual_tile;
 
@@ -274,6 +277,7 @@ void e1Enemy::MovementLogic()
 
 void e1Enemy::PerformMovement(float dt)
 {
+	BROFILER_CATEGORY("PerformMovement Enemy", Profiler::Color::SeaGreen);
 	switch (direction)
 	{
 	case Direction::DOWN_LEFT:

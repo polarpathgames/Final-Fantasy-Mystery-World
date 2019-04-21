@@ -39,7 +39,7 @@ public:
 
 	void RestTimeAfterAttack(float time_finish);
 
-	void CheckBasicAttackEfects(const e1Entity::EntityType &type, const Direction & direction, const int &attack_damage);
+	void CheckBasicAttackEffects(const e1Entity::EntityType &type, const Direction & direction, const int &attack_damage);
 
 	void ChangeAnimation(Direction &dir, State &states, Attacks attacks = Attacks::NONE);
 

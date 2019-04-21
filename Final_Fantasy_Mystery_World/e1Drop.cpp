@@ -4,7 +4,8 @@
 #include "e1Player.h"
 #include "m1Audio.h"
 #include "m1EntityManager.h"
-#include "p2log.h"
+#include "p2Log.h"
+#include "Brofiler/Brofiler.h"
 #include "m1Render.h"
 #include "m1Map.h"
 
@@ -40,6 +41,7 @@ e1Drop::~e1Drop()
 
 bool e1Drop::Update(float adt)
 {
+	BROFILER_CATEGORY("Drop Update", Profiler::Color::Yellow);
 
 	if (actual_tile == App->scene->player->actual_tile) {
 		switch (drop_type) {

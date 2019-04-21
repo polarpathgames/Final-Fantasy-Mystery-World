@@ -113,21 +113,30 @@ bool m1EntityManager::Update(float dt)
 
 	UpdateEntities(dt, draw_entities);
 	entities_drawn = draw_entities.size();
+	SortEntities(draw_entities);
 	DrawEntities(draw_entities, dt);
 
-	if (App->scene->player != nullptr && App->scene->player->movement_type == Movement_Type::InLobby)
-		App->render->SmoothCamera(App->scene->player->position);
-	else if (App->scene->player != nullptr && App->scene->player->movement_type == Movement_Type::InQuest)
+	if (App->scene->player != nullptr)
 		App->render->SmoothCamera(App->scene->player->position);
 
 	return true;
 }
 
+void m1EntityManager::SortEntities(std::vector<e1Entity *> &entities_to_sort)
+{
+	BROFILER_CATEGORY("Sort TO Draw Entities", Profiler::Color::Aqua);
+	std::sort(entities_to_sort.begin(), entities_to_sort.end(), m1EntityManager::SortByYPos);
+}
+
+void m1EntityManager::SortAllEntities()
+{
+	BROFILER_CATEGORY("Sort All Entities", Profiler::Color::Aqua);
+	std::sort(entities.begin(), entities.end(), m1EntityManager::SortByYPos);
+}
+
 void m1EntityManager::DrawEntities(std::vector<e1Entity *> &draw_entities, float dt)
 {
-	BROFILER_CATEGORY("Sort&DrawEntities", Profiler::Color::Aqua);
-
-	std::sort(draw_entities.begin(), draw_entities.end(), m1EntityManager::SortByYPos);
+	BROFILER_CATEGORY("DrawEntities", Profiler::Color::Aqua);
 
 	for (std::vector<e1Entity*>::iterator item = draw_entities.begin(); item != draw_entities.end(); ++item) {
 		if ((*item) != nullptr) {
@@ -179,12 +188,11 @@ void m1EntityManager::DrawEntities(std::vector<e1Entity *> &draw_entities, float
 
 void m1EntityManager::UpdateEntities(float dt, std::vector<e1Entity *> &draw_entities)
 {
-	BROFILER_CATEGORY("UpdateEntityM", Profiler::Color::Aqua);
+	BROFILER_CATEGORY("UpdateEntities", Profiler::Color::Aqua);
 
 	std::vector<e1Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr) {
-			LOG("Updating %i", (int)(*item)->type);
 			(*item)->Update(dt);
 
 			if (App->render->IsOnCamera((*item)->position.x, (*item)->position.y, (*item)->size.x, (*item)->size.y)) {

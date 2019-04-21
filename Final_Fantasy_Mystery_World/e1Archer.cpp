@@ -46,9 +46,11 @@ bool e1Archer::CleanUp()
 
 void e1Archer::PrepareSpecialAttack1()
 {
+	BROFILER_CATEGORY("PrepareSpecialAttack1", Profiler::Color::Yellow);
+
 	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {
-		if(!god_mode)
-		ReduceMana(stats.cost_mana_special_attack1);
+		if (!god_mode)
+			ReduceMana(stats.cost_mana_special_attack1);
 		App->audio->PlayFx(App->scene->fx_ability_archer);
 		App->input->ControllerVibration(0.2F, 200);
 
@@ -65,6 +67,8 @@ void e1Archer::PrepareSpecialAttack1()
 
 void e1Archer::SpecialAttack1()
 {
+	BROFILER_CATEGORY("ApecialAttack1", Profiler::Color::Yellow);
+
 	std::vector<e1Entity*> item = App->entity_manager->GetEntities();
 	if (std::find(item.begin(),item.end(),(e1Entity*)arrow) == item.end()) {
 		arrow = nullptr;
