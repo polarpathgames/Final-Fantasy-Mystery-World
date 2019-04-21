@@ -25,7 +25,14 @@ enum class Axis {
 	AXIS_UP_RIGHT,
 	AXIS_DOWN_LEFT,
 	AXIS_DOWN_RIGHT,
-
+	R_AXIS_UP,
+	R_AXIS_DOWN,
+	R_AXIS_RIGHT,
+	R_AXIS_LEFT,
+	R_AXIS_UP_LEFT,
+	R_AXIS_UP_RIGHT,
+	R_AXIS_DOWN_LEFT,
+	R_AXIS_DOWN_RIGHT,
 	NONE
 
 };
@@ -150,6 +157,13 @@ public:
 	const int GetAxisY() {
 		return axis_y;
 	}
+	const int GetRightAxisX() {
+		return r_axis_x;
+	}
+	const int GetRightAxisY() {
+		return r_axis_y;
+	}
+
 	void DefaultControls();
 
 	bool CheckAxisStates(const Axis &axis);
@@ -195,7 +209,8 @@ private:
 	int			last_mouse_y = 0;
 	int			axis_x = 0;
 	int			axis_y = 0;
-
+	int         r_axis_x = 0;
+	int         r_axis_y = 0;
 };
 
 #endif // __j1INPUT_H__
