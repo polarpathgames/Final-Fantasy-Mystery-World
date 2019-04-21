@@ -232,12 +232,7 @@ void m1Audio::StopMusic(int mut)
 		mute_fx = mute;
 		if (mute == true)
 		{
-			std::vector<Mix_Chunk*>::iterator item = fx.begin();
-			for (; item != fx.end(); ++item) {
-				if ((*item) != nullptr) {
-					Mix_VolumeChunk((*item), 0);
-				}
-			}
+			Mix_Volume(-1, 0);
 		}
 		else
 		{
@@ -268,12 +263,7 @@ void m1Audio::StopMusic(int mut)
 		mute_fx = !mute_fx;
 		if (mute_fx == true)
 		{
-			std::vector<Mix_Chunk*>::iterator item = fx.begin();
-			for (; item != fx.end(); ++item) {
-				if ((*item) != nullptr) {
-					Mix_VolumeChunk((*item), 0);
-				}
-			}
+			Mix_Volume(-1, 0);
 		}
 		else
 		{
@@ -344,21 +334,13 @@ void m1Audio::VolumeDown(int vol)
 		case -2:
 			if (volume > 0) {
 				volume -= volume_change_ratio;
-				Mix_VolumeMusic(volume);
+				Mix_Volume(-1, 0);
 			}
 			break;
 		case -3:
 			if (volume_fx > 0) {
 				volume_fx -= volume_change_ratio;
-				for (int id = 1; id <= fx.size(); id++)
-				{
-					std::vector<Mix_Chunk*>::iterator item = fx.begin();
-					for (; item != fx.end(); ++item) {
-						if ((*item) != nullptr) {
-							Mix_VolumeChunk((*item), volume_fx);
-						}
-					}
-				}
+				Mix_Volume(-1, volume_fx);
 			}
 			break;
 		default:
