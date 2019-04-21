@@ -95,6 +95,12 @@ bool m1EntityManager::PreUpdate()
 		}
 	}
 	
+	item = entities_to_create.begin();
+	for (; item != entities_to_create.end(); ++item) {
+		entities.push_back(*item);
+	}
+	entities_to_create.clear();
+
 	return true;
 }
 
@@ -178,6 +184,7 @@ void m1EntityManager::UpdateEntities(float dt, std::vector<e1Entity *> &draw_ent
 	std::vector<e1Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr) {
+			LOG("Updating %i", (int)(*item)->type);
 			(*item)->Update(dt);
 
 			if (App->render->IsOnCamera((*item)->position.x, (*item)->position.y, (*item)->size.x, (*item)->size.y)) {
@@ -285,7 +292,7 @@ e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX
 		break;
 	}
 	if (ret != nullptr) {
-		entities.push_back(ret);
+		entities_to_create.push_back(ret);
 		//ret->Start();
 	}
 

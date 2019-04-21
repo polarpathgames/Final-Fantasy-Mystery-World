@@ -48,8 +48,8 @@ bool e1Mage::CleanUp()
 void e1Mage::PrepareSpecialAttack1()
 {
 	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {
-		if(!god_mode)
-		ReduceMana(stats.cost_mana_special_attack1);
+		if (!god_mode)
+			ReduceMana(stats.cost_mana_special_attack1);
 		App->audio->PlayFx(App->scene->fx_ability_mage_prepare);
 
 		type_attack = Attacks::SPECIAL_1;
