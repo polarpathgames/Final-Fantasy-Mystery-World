@@ -11548,10 +11548,10 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="21" name="enemy" type="StrangeFrog" x="416" y="304" width="15.9688" height="16.0156"/>
-  <object id="22" name="enemy" type="StrangeFrog" x="416" y="352" width="15.9688" height="16.0156"/>
-  <object id="23" name="enemy" type="BlueDog" x="368" y="320" width="15.9688" height="16.0156"/>
-  <object id="49" name="enemy" type="StrangeFrog" x="464" y="336" width="15.9688" height="16.0156"/>
+  <object id="21" name="enemy" type="StrangeFrog" x="432" y="304" width="15.9688" height="16.0156"/>
+  <object id="22" name="enemy" type="StrangeFrog" x="432" y="352" width="15.9688" height="16.0156"/>
+  <object id="23" name="enemy" type="BlueDog" x="400" y="320" width="15.9688" height="16.0156"/>
+  <object id="49" name="enemy" type="StrangeFrog" x="480" y="336" width="15.9688" height="16.0156"/>
  </objectgroup>
  <objectgroup id="8" name="colliders">
   <object id="14" name="room_collider" type="lastB" x="672" y="336" width="16.1904" height="15.644">
