@@ -19,6 +19,7 @@
 #include "m1Audio.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Audio.h"
+#include "u1HitPointLabel.h"
 
 #include <queue>
 
@@ -403,6 +404,16 @@ u1Bar* m1GUI::AddBar(const int &x, const int &y, int max_capacity, UIType type, 
 
 	return bar;
 }
+
+u1HitPointLabel * m1GUI::AddHitPointLabel(const int & x, const int & y, const char * text, u1GUI* parent,const Color & color, const FontType & type)
+{
+	u1HitPointLabel* hit_point = DBG_NEW u1HitPointLabel(x, y, text, parent, color, type);
+
+	ui_list.push_back(hit_point);
+
+	return hit_point;
+}
+
 
 
 void m1GUI::CreateScreen()

@@ -3,7 +3,7 @@
 #include "App.h"
 #include "m1Textures.h"
 #include "m1Fonts.h"
-
+#include "SDL/include/SDL.h"
 #include <assert.h>
 
 #include "SDL/include/SDL.h"
@@ -132,12 +132,16 @@ std::list<Font*>::const_iterator m1Fonts::FindPathFont(const char* name, const i
 }
 
 // Print text using font
-SDL_Texture* m1Fonts::Print(const char* text, SDL_Color color, FontType font_type)
+SDL_Texture* m1Fonts::Print(const char* text, SDL_Color color, FontType font_type, Uint8 alpha)
 {
 	SDL_Texture* ret = NULL;
 
 	std::list<Font*>::const_iterator item;
 	SDL_Surface* surface = TTF_RenderText_Blended(((item = FindIdFont(font_type)) != fonts.end()) ? (*item)->font : default->font, text, color);
+
+	if (alpha != 255) {
+		SDL_SetSurfaceAlphaMod(surface, alpha);
+	}
 
 	if (surface == NULL)
 	{
