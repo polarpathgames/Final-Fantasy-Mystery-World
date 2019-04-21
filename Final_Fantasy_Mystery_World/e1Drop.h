@@ -33,6 +33,7 @@ public:
 	int gold = 0;
 	fPoint			  moving_pos = { NULL, NULL };
 	bool			  moving = true;
+	iPoint original_position{ 0,0 };
 };
 
 #endif
