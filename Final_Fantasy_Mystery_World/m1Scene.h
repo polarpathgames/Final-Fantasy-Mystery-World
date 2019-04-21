@@ -116,6 +116,7 @@ public:
 	void CreateHelpAttackMenu();
 	void DestroyHelpAttackMenu();
 
+	void GodModeIndicator(bool is_god_mode);
 	bool Interact(u1GUI* interaction);
 	StatesMenu GetMenuState();
 	void SetMenuState(const StatesMenu &menu);
@@ -145,6 +146,9 @@ private:
 	int price_mana_potion = 20;
 
 	StatesMenu menu_state = StatesMenu::NO_MENU;
+
+	//god mode
+	u1Label* god_text = nullptr;
 
 	// help diagonal
 	u1Image* help_diagonal = nullptr;
