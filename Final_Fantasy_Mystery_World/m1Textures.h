@@ -2,7 +2,7 @@
 #define __m1TEXTURES_H__
 
 #include "m1Module.h"
-#include <list>
+#include <map>
 
 struct SDL_Texture;
 struct SDL_Surface;
@@ -28,12 +28,12 @@ public:
 	// Load Texture
 	SDL_Texture* const	Load(const char* path);
 	bool				UnLoad(SDL_Texture* texture);
-	SDL_Texture* const	LoadSurface(SDL_Surface* surface);
+	SDL_Texture* const	LoadSurface(SDL_Surface* surface, const char* path);
 	void				GetSize(const SDL_Texture* texture, uint& width, uint& height) const;
 
 public:
 
-	std::list<SDL_Texture*> textures;
+	std::map<SDL_Texture*,std::string> textures;
 };
 
 

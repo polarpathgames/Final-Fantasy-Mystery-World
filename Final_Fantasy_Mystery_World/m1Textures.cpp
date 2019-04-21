@@ -5,7 +5,7 @@
 #include "m1Render.h"
 #include "m1Textures.h"
 #include "m1Map.h"
-#include <list>
+#include <map>
 
 #include "SDL_image/include/SDL_image.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
@@ -51,8 +51,9 @@ bool m1Textures::CleanUp()
 	LOG("Freeing textures and Image library");
 
 
-	for (std::list<SDL_Texture*>::iterator item = textures.begin(); item != textures.end(); ++item) {
-		SDL_DestroyTexture(*item);
+	for (std::map<SDL_Texture*,std::string>::iterator item = textures.begin(); item != textures.end(); ++item) {
+		SDL_DestroyTexture((*item).first);
+		(*item).second.clear();
 	}
 
 	textures.clear();
@@ -76,6 +77,14 @@ bool m1Textures::CleanUp()
 // Load DBG_NEW texture from file path
 SDL_Texture* const m1Textures::Load(const char* path)
 {
+
+	std::map<SDL_Texture*, std::string>::iterator item = textures.begin();
+	for (; item != textures.end(); ++item) {
+		if ((*item).first != nullptr && (*item).second.compare(path) == 0) {
+			return (*item).first;
+		}
+	}
+
 	SDL_Texture* texture = NULL;
 	SDL_Surface* surface = IMG_Load(path);
 
@@ -85,7 +94,7 @@ SDL_Texture* const m1Textures::Load(const char* path)
 	}
 	else
 	{
-		texture = LoadSurface(surface);
+		texture = LoadSurface(surface, path);
 		SDL_FreeSurface(surface);
 	}
 
@@ -96,10 +105,11 @@ SDL_Texture* const m1Textures::Load(const char* path)
 bool m1Textures::UnLoad(SDL_Texture* texture)
 {
 
-	for (std::list<SDL_Texture*>::iterator item = textures.begin(); item != textures.end(); ++item) {
-		if (texture == *item)
+	for (std::map<SDL_Texture*, std::string>::iterator item = textures.begin(); item != textures.end(); ++item) {
+		if (texture == (*item).first)
 		{
-			SDL_DestroyTexture(*item);
+			SDL_DestroyTexture((*item).first);
+			(*item).second.clear();
 			textures.erase(item);
 			return true;
 		}
@@ -109,7 +119,7 @@ bool m1Textures::UnLoad(SDL_Texture* texture)
 }
 
 // Translate a surface into a texture
-SDL_Texture* const m1Textures::LoadSurface(SDL_Surface* surface)
+SDL_Texture* const m1Textures::LoadSurface(SDL_Surface* surface, const char* path)
 {
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(App->render->renderer, surface);
 
@@ -119,7 +129,7 @@ SDL_Texture* const m1Textures::LoadSurface(SDL_Surface* surface)
 	}
 	else
 	{
-		textures.push_back(texture);
+		textures.insert(std::pair<SDL_Texture*, std::string>(texture, path));
 	}
 
 	return texture;

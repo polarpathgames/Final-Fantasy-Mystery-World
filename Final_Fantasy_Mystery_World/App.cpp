@@ -300,7 +300,7 @@ bool Application::DoUpdate()
 		if (pModule->active == false) {
 			continue;
 		}
-
+		
 		ret = (*item)->Update(dt);
 	}
 

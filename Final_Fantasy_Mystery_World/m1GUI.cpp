@@ -51,7 +51,7 @@ bool m1GUI::Start()
 	fx_inventory = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Potion_Glup.wav");
 
 	SDL_ShowCursor(SDL_DISABLE);
-
+	
 	return true;
 }
 
