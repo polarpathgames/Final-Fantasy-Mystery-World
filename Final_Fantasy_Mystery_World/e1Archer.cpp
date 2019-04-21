@@ -154,18 +154,6 @@ void e1Archer::IdAnimToEnum() //Assign every id animation to enum animation
 		case 54:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;//
-		case 60:
-			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
-			break;//
-		case 63:
-			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
-			break;//
-		case 66:
-			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
-			break;//
-		case 69:
-			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
-			break;//
 		case 72:
 			data.animations[i].animType = AnimationState::ABILITY_DOWN_LEFT_1;
 			break;//
@@ -189,6 +177,30 @@ void e1Archer::IdAnimToEnum() //Assign every id animation to enum animation
 			break;//
 		case 79:
 			data.animations[i].animType = AnimationState::ABILITY_DOWN_1;
+			break;//
+		case 61:
+			data.animations[i].animType = AnimationState::DEATH_DOWN;
+			break;//
+		case 64:
+			data.animations[i].animType = AnimationState::DEATH_LEFT;
+			break;//
+		case 70:
+			data.animations[i].animType = AnimationState::DEATH_RIGHT;
+			break;//
+		case 65:
+			data.animations[i].animType = AnimationState::DEATH_UP;
+			break;//
+		case 60:
+			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
+			break;//
+		case 63:
+			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
+			break;
+		case 66:
+			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
+			break;//
+		case 69:
+			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
 			break;//
 		}
 
