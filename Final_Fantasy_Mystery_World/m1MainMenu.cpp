@@ -75,11 +75,6 @@ bool m1MainMenu::PostUpdate()
 bool m1MainMenu::CleanUp()
 {
 
-	App->audio->UnLoadFx(fx_push_button);
-	App->audio->UnLoadFx(fx_push_button_return);
-	App->audio->UnLoadMusic(mus_credits);
-	App->audio->UnLoadMusic(mus_main_menu);
-	App->audio->UnLoadMusic(mus_selection);
 
 	return true;
 }
