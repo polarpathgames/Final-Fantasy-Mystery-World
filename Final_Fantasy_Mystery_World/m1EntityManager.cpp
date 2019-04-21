@@ -184,7 +184,6 @@ void m1EntityManager::UpdateEntities(float dt, std::vector<e1Entity *> &draw_ent
 	std::vector<e1Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr) {
-			LOG("Updating %i", (int)(*item)->type);
 			(*item)->Update(dt);
 
 			if (App->render->IsOnCamera((*item)->position.x, (*item)->position.y, (*item)->size.x, (*item)->size.y)) {

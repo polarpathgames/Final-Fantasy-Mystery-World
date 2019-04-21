@@ -90,7 +90,6 @@ bool m1Audio::CleanUp()
 	for (; m != music.end(); ++m) {
 		if ((*m).first != nullptr) {
 			Mix_FreeMusic((*m).first);
-			(*m).second.clear();
 		}
 	}
 	music.clear();
@@ -99,7 +98,6 @@ bool m1Audio::CleanUp()
 	for (; f != fx.end(); ++f) {
 		if ((*f).first != nullptr) {
 			Mix_FreeChunk((*f).first);
-			(*f).second.clear();
 		}
 	}
 	fx.clear();
@@ -192,35 +190,7 @@ Mix_Chunk* m1Audio::LoadFx(const char* path)
 	return chunk;
 }
 
-bool m1Audio::UnLoadMusic(Mix_Music * mus)
-{
 
-	std::map<Mix_Music*,std::string>::iterator item = music.begin();
-	for (; item != music.end(); ++item) {
-		if ((*item).first != nullptr && (*item).first == mus) {
-			Mix_FreeMusic(mus);
-			(*item).second.clear();
-			break;
- 		}
-	}
-
-	return true;
-}
-
-bool m1Audio::UnLoadFx(Mix_Chunk * chunk)
-{
-
-	std::map<Mix_Chunk*,std::string>::iterator item = fx.begin();
-	for (; item != fx.end(); ++item) {
-		if ((*item).first != nullptr && (*item).first == chunk) {
-			Mix_FreeChunk(chunk);
-			(*item).second.clear();
-			break;
-		}
-	}
-
-	return true;
-}
 
 // Play WAV
 bool m1Audio::PlayFx(Mix_Chunk* chunk, int repeat)

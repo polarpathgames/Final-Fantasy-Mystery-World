@@ -74,10 +74,7 @@ RoomManager::RoomManager(pugi::xml_node &node)
 
 RoomManager::~RoomManager()
 {
-	App->audio->UnLoadMusic(mus_boss);
-	App->audio->UnLoadMusic(mus_combat);
-	App->audio->UnLoadMusic(mus_fountain);
-	App->audio->UnLoadMusic(mus_paceful);
+
 }
 
 void RoomManager::OnCollision(Collider * c1, Collider * c2)
