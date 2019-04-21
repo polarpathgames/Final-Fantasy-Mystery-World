@@ -39,7 +39,7 @@
   </actions>
   <elements>
     <element type="entity" name="daughter" pos_x="195" pos_y="349"/>
-    <element type="image" name ="interrogation" pos_x ="525" pos_y="410" rect_x="1666" rect_y="3114" rect_w="68" rect_h="68" active="false"/>
+    <element type="image" name ="interrogation" pos_x ="528" pos_y="413" rect_x="1666" rect_y="3114" rect_w="68" rect_h="68" active="false"/>
   </elements>
 
 </cutscenes>
