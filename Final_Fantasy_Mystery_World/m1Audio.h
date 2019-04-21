@@ -3,7 +3,7 @@
 
 #include "m1Module.h"
 #include "SDL_mixer\include\SDL_mixer.h"
-#include <vector>
+#include <map>
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
 
@@ -61,8 +61,8 @@ public:
 
 private:
 	
-	std::vector<Mix_Music*> music;
-	std::vector<Mix_Chunk*>	fx;
+	std::map<Mix_Music*, std::string> music;
+	std::map<Mix_Chunk*, std::string>	fx;
 };
 
 #endif // __j1AUDIO_H__
