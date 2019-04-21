@@ -47,6 +47,8 @@ bool e1Mage::CleanUp()
 
 void e1Mage::PrepareSpecialAttack1()
 {
+	BROFILER_CATEGORY("PrepareSpecialAttack1 Mage", Profiler::Color::Yellow);
+
 	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {
 		if (!god_mode)
 			ReduceMana(stats.cost_mana_special_attack1);
@@ -65,6 +67,8 @@ void e1Mage::PrepareSpecialAttack1()
 
 void e1Mage::SpecialAttack1()
 {
+	BROFILER_CATEGORY("SpecialAttack1 Mage", Profiler::Color::Yellow);
+
 	std::vector<e1Entity*> item = App->entity_manager->GetEntities();
 	if (std::find(item.begin(), item.end(), (e1Entity*)fire_ball) == item.end()) {
 		fire_ball = nullptr;
@@ -196,6 +200,8 @@ void e1Mage::IdAnimToEnum() //Assign every id animation to enum animation
 
 void e1Mage::SetFireBalls()
 {
+	BROFILER_CATEGORY("SetFireBalls Mage", Profiler::Color::Yellow);
+
 	iPoint fire_ball_pos = actual_tile;
 
 	e1Particles* fire_ball2 = nullptr;

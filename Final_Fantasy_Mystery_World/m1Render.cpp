@@ -310,6 +310,7 @@ iPoint m1Render::ScreenToWorld(int x, int y) const
 
 bool m1Render::IsOnCamera(const int & x, const int & y, const int & w, const int & h) const
 {
+	BROFILER_CATEGORY("IsOnCamera", Profiler::Color::Aqua);
 	int scale = App->win->GetScale();
 
 	SDL_Rect r = { x*scale,y*scale,w*scale,h*scale };

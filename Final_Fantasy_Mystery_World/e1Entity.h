@@ -112,7 +112,6 @@ public:
 
 	iPoint GetPosition() const;
 
-	void LoadXML(std::string name_xml_file);
 	Animation LoadPushbacks(pugi::xml_node&, std::string NameAnim) const;
 
 public:

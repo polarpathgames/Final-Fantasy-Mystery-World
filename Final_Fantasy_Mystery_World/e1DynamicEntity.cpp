@@ -8,6 +8,7 @@
 #include "m1Map.h"
 #include "p2Log.h"
 #include "m1EntityManager.h"
+#include "Brofiler/Brofiler.h"
 #include <list>
 
 e1DynamicEntity::e1DynamicEntity(const int &x, const int &y) : e1Entity(x,y)
@@ -20,10 +21,10 @@ e1DynamicEntity::~e1DynamicEntity()
 
 }
 
-
-
 void e1DynamicEntity::ChangeTurn(EntityType type)
 {
+	BROFILER_CATEGORY("ChangeTurn", Profiler::Color::Yellow);
+
 	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
 	switch (type) {
 	case EntityType::PLAYER: {
@@ -73,6 +74,8 @@ void e1DynamicEntity::ChangeTurn(EntityType type)
 }
 void e1DynamicEntity::PushBack()
 {
+	BROFILER_CATEGORY("DynamicEntity Pushback", Profiler::Color::Yellow);
+
 	for (uint i = 0; i < data.num_animations; ++i) {
 		for (uint j = 0; j < data.animations[i].num_frames; ++j) {
 			switch (data.animations[i].animType) {
@@ -341,6 +344,7 @@ void e1DynamicEntity::PushBack()
 
 bool e1DynamicEntity::NextTileFree(const Direction & dir) const
 {
+	BROFILER_CATEGORY("NextTileFree DynamicEntity", Profiler::Color::Yellow);
 	bool ret = true;
 	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
 	std::vector<e1Entity*>::iterator item = entities.begin();
@@ -444,8 +448,10 @@ void e1DynamicEntity::RestTimeAfterAttack(float time_finish)
 	}
 }
 
-void e1DynamicEntity::CheckBasicAttackEfects(const e1Entity::EntityType & type, const Direction & direction, const int & attack_damage)
+void e1DynamicEntity::CheckBasicAttackEffects(const e1Entity::EntityType & type, const Direction & direction, const int & attack_damage)
 {
+	BROFILER_CATEGORY("DynamicEntity CheckBasicAttackEffects", Profiler::Color::Yellow);
+
 	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
 	std::vector<e1Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
@@ -812,7 +818,3 @@ void e1DynamicEntity::ChangeAnimsInCutscene(const int & x, const int & y, const 
 		}
 	}
 }
-
-
-
-

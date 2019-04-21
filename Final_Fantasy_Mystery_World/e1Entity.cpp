@@ -7,6 +7,7 @@
 #include "p2Log.h"
 #include "m1Textures.h"
 #include "m1Collisions.h"
+#include "Brofiler/Brofiler.h"
 
 
 e1Entity::e1Entity(const int& x, const int& y)
@@ -39,21 +40,10 @@ iPoint e1Entity::GetPosition() const
 	return position + pivot;
 }
 
-void e1Entity::LoadXML(std::string name_xml_file)
-{
-	config = App->LoadConfig(config_file, name_xml_file.data());
-	switch (type) {
-	case EntityType::PLAYER:
-		node = config.child("player");
-		break;
-	default:
-		LOG("Could not LoadXML");
-		break;
-	}
-}
-
 Animation e1Entity::LoadPushbacks(pugi::xml_node &config, std::string NameAnim) const
 {
+	BROFILER_CATEGORY("LoadPushbacks Entity", Profiler::Color::Yellow);
+
 	std::string XML_NAME_ANIM;
 	SDL_Rect rect;
 	Animation anim;
@@ -73,6 +63,8 @@ Animation e1Entity::LoadPushbacks(pugi::xml_node &config, std::string NameAnim) 
 }
 
 bool e1Entity::LoadEntityData(const char* file) {
+
+	BROFILER_CATEGORY("LoadEntityData", Profiler::Color::Yellow);
 
 	bool ret = true;
 

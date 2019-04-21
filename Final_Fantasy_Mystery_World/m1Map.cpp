@@ -674,6 +674,7 @@ bool m1Map::ChangeMap(Maps type)
 	if (CreateWalkabilityMap(w, h, &data_wm))
 		App->pathfinding->SetMap(w, h, data_wm);
 	App->scene->CreateEntities();
+	App->entity_manager->SortAllEntities();
 	
 
 	return true;

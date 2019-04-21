@@ -37,6 +37,9 @@ public:
 
 	bool Update(float dt);
 
+	void SortEntities(std::vector<e1Entity *> &draw_entities);
+	void SortAllEntities();
+
 	void DrawEntities(std::vector<e1Entity *> &draw_entities, float dt);
 
 	void UpdateEntities(float dt, std::vector<e1Entity *> &draw_entities);

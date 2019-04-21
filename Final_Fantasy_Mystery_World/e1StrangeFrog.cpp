@@ -8,6 +8,7 @@
 #include "m1Scene.h"
 #include "m1Render.h"
 #include "m1EasingSplines.h"
+#include "Brofiler/Brofiler.h"
 
 e1StrangeFrog::e1StrangeFrog(const int & x, const int & y) : e1Enemy(x, y)
 {
@@ -29,6 +30,8 @@ e1StrangeFrog::~e1StrangeFrog()
 
 bool e1StrangeFrog::PreUpdate()
 {
+	BROFILER_CATEGORY("StrangeFrog PreUpdate", Profiler::Color::Yellow);
+
 	if (state == State::IDLE) {
 		if (IsPlayerNextTile()) {
 			state = State::BEFORE_ATTACK;
@@ -88,6 +91,8 @@ bool e1StrangeFrog::PreUpdate()
 
 bool e1StrangeFrog::Update(float dt)
 {
+	BROFILER_CATEGORY("StrangeFrog Update", Profiler::Color::Yellow);
+
 	if (state == State::IDLE) {
 		position.x = initial_position.x + movement_count.x;
 		position.y = initial_position.y + movement_count.y;
@@ -131,7 +136,7 @@ bool e1StrangeFrog::Update(float dt)
 				break;
 			}
 			App->audio->PlayFx(App->scene->fx_frog_attack);
-			CheckBasicAttackEfects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
+			CheckBasicAttackEffects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
 			state = State::AFTER_ATTACK;
 			ChangeAnimation(direction, state);
 			time_attack = SDL_GetTicks();

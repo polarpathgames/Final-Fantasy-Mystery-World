@@ -10,8 +10,12 @@
 #include "m1Audio.h"
 #include "m1Input.h"
 #include "m1EasingSplines.h"
+#include "Brofiler/Brofiler.h"
+
 e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 {
+	BROFILER_CATEGORY("StaticEntity Constructor", Profiler::Color::Yellow);
+
 	if (strcmp(name,"flower") == 0) {
 		static_type = e1StaticEntity::Type::FLOWER;
 		has_animation = true;
@@ -344,6 +348,7 @@ void e1StaticEntity::SetRect(int x, int y, int w, int h)
 
 bool e1StaticEntity::Update(float dt)
 {
+	BROFILER_CATEGORY("StaticEntity Update", Profiler::Color::Yellow);
 
 	if (interacting_state == InteractingStates::NONE)
 		return true;
