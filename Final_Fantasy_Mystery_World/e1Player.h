@@ -22,11 +22,11 @@ struct Input {
 	bool pressing_J = false; // CHANGE DIRECTION
 	bool pressing_K = false; // CHANGE DIRECTION
 	bool pressing_L = false; // CHANGE DIRECTION
-	bool pressing_G = false; // BASIC ATTACK
+	bool pressing_SPACE = false; // BASIC ATTACK
 	bool pressing_shift = false; // DIAGONALS
 	bool pressing_V = false; // SHOW SKILLS
-	bool pressing_F = false; // ability 1
-	bool pressing_H = false; // falsh
+	bool pressing_1 = false; // ability 1
+	bool pressing_2 = false; // falsh
 
 	void Reset() {
 		pressing_A = false;
@@ -37,11 +37,11 @@ struct Input {
 		pressing_J = false;
 		pressing_K = false;
 		pressing_L = false;
-		pressing_G = false;
+		pressing_SPACE = false;
 		pressing_shift = false;
 		pressing_V = false;
 		pressing_J = false;
-		pressing_H = false;
+		pressing_2 = false;
 	}
 };
 
@@ -78,6 +78,8 @@ public:
 
 	e1Player(const int &x, const int &y);
 
+	void Init();
+
 	virtual ~e1Player();
 
 	bool PreUpdate();
@@ -106,7 +108,7 @@ public:
 
 	void ReadAttack();
 
-	virtual void InitStats();
+	void InitStats();
 
 	virtual void PrepareSpecialAttack1() {};
 

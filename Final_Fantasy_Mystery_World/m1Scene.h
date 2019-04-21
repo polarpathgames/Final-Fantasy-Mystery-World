@@ -18,16 +18,12 @@ enum class StatesMenu {
 	SHOP_MENU,
 	DIE_MENU,
 	FIRSTABILITY_MENU,
+	HELP_DIAGONAL_MENU,
+	HELP_ATTACK_MENU,
 
 	NONE
 };
-enum class QuestType {
-	TUTORIAL,
-	QUEST2,
-	QUEST3,
 
-	NONE,
-};
 enum class PlayerType {
 	WARRIOR,
 	ARCHER,
@@ -71,6 +67,8 @@ public:
 	// Called each loop iteration
 	bool Update(float dt);
 
+	void ShitFunctionJAJA();
+
 	// Called before all Updates
 	bool PostUpdate();
 
@@ -112,6 +110,13 @@ public:
 	void CreateFirstAbilityPanel();
 	void DestroyFirstAbilityPanel();
 
+	void CreateHelpDiagonalMenu();
+	void DestroyHelpDiagonalMenu();
+
+	void CreateHelpAttackMenu();
+	void DestroyHelpAttackMenu();
+
+	void GodModeIndicator(bool is_god_mode);
 	bool Interact(u1GUI* interaction);
 	StatesMenu GetMenuState();
 	void SetMenuState(const StatesMenu &menu);
@@ -123,12 +128,13 @@ public:
 
 	e1Player* player = nullptr;
 	PlayerType player_type = PlayerType::NONE;
-	QuestType quest_type = QuestType::TUTORIAL;
+
 
 	ChangeControls * control_to_change = nullptr;
 
 	// HUD
 	u1Image* bg_hud = nullptr;
+	u1Image* player_hud_image = nullptr;
 	u1Bar* player_hp_bar = nullptr;
 	u1Bar* player_mana_bar = nullptr;
 
@@ -140,6 +146,14 @@ private:
 	int price_mana_potion = 20;
 
 	StatesMenu menu_state = StatesMenu::NO_MENU;
+
+	//god mode
+	u1Label* god_text = nullptr;
+
+	// help diagonal
+	u1Image* help_diagonal = nullptr;
+	// help ATTACK
+	u1Image* help_attack = nullptr;
 
 	//pause
 	u1Image* pause_panel = nullptr;
@@ -390,17 +404,55 @@ private:
 public:
 
 	// SFX
-	Mix_Chunk* fx_writting;
+	/*int fx_writting;
+	int fx_attack;
+	int fx_frog_attack;
+	int fx_plant_attack;
+	int fx_dog_attack;
+	int fx_ability_warrior;
+	int fx_ability_mage;
+	int fx_ability_mage_prepare;
+	int fx_ability_archer;
+	int fx_ability_no_mana;
+	int fx_ability_screen;
+	int fx_drop_pick_up;
+	int fx_door_enter;
+	int fx_potion;
+	int fx_denegated_potion;
+	int fx_potion_menu;
+	int fx_flash;
+	int fx_die;
+	int fx_rock;
+	int fx_kill_enemy;
+	int fx_no_money;
+	int fx_controller_conection;
+	int fx_surprise;
+	int fx_buy;*/
+
+    Mix_Chunk* fx_writting;
 	Mix_Chunk* fx_attack;
 	Mix_Chunk* fx_frog_attack;
 	Mix_Chunk* fx_plant_attack;
+    Mix_Chunk* fx_dog_attack;
 	Mix_Chunk* fx_ability_warrior;
-	Mix_Chunk* fx_ability_menu;
+    Mix_Chunk* fx_ability_mage;
+	Mix_Chunk* fx_ability_mage_prepare;
+	Mix_Chunk* fx_ability_archer;
+	Mix_Chunk* fx_ability_no_mana;
+	Mix_Chunk* fx_ability_screen;
 	Mix_Chunk* fx_drop_pick_up;
 	Mix_Chunk* fx_door_enter;
 	Mix_Chunk* fx_potion;
 	Mix_Chunk* fx_denegated_potion;
 	Mix_Chunk* fx_potion_menu;
+    Mix_Chunk* fx_flash;
+	Mix_Chunk* fx_die;
+	Mix_Chunk* fx_rock;
+	Mix_Chunk* fx_kill_enemy;
+	Mix_Chunk* fx_no_money;
+	Mix_Chunk* fx_controller_conection;
+	Mix_Chunk* fx_surprise;
+	Mix_Chunk* fx_buy;
 
 	Mix_Music* mus_game_over;
 

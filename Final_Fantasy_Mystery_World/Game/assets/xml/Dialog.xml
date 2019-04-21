@@ -38,6 +38,17 @@
        <option line="No" nextnode="1" karma="0" tag="0"/>
     </node>
   </dialogtree>
+  <dialogtree treeid="4" karma="0" tag="0" rect_x="1751" rect_y="3090" rect_w="166" rect_h="131">
+    <node line="It seems that the statue has a message engraved on it" id="0" karma="0" tag="0">
+      <option line="Examine" nextnode="1" karma="0" tag="30"/>
+    </node>
+  </dialogtree>
+  <dialogtree treeid="5" karma="0" tag="0" rect_x="1751" rect_y="3090" rect_w="166" rect_h="131">
+    <node line="It seems that the statue has a message engraved on it" id="0" karma="0" tag="0">
+      <option line="Examine" nextnode="1" karma="0" tag="60"/>
+    </node>
+  </dialogtree>
+  
 </dialogue>
 <!-- Dialogue Tree example -->
 

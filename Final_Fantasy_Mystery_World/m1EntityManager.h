@@ -54,7 +54,7 @@ public:
 	void OnCollisionExit(Collider* c1, Collider* c2);
 
 	e1Entity* CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name);
-
+	bool ThereAreEnemies();
 	void DeleteEntities();
 	void DeleteEntitiesNoPlayer();
 	void DeleteEntity(e1Entity* entity_to_delete);
@@ -69,6 +69,7 @@ public:
 private:
 
 	std::vector<e1Entity*> entities;
+	std::vector<e1Entity*> entities_to_create;
 	std::vector<SDL_Texture*> texture;
 	
 	bool textures_loaded = false;

@@ -19,7 +19,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		size.create(frame.w, frame.h);
 		position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
 	}
-	else if (strcmp(name, "ability1") == 0) {
+	else if (strcmp(name, "ability1") == 0 && App->globals.ability1_gained == false) {
 		drop_type = DropsType::ABILITY1;
 		frame = { 1044,21,11,16 };
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
@@ -30,9 +30,8 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		
 		moving_pos.x = position.x;
 		moving_pos.y = position.y;
-
-		
 	}
+	original_position = position;
 }
 
 e1Drop::~e1Drop()
@@ -54,13 +53,13 @@ bool e1Drop::Update(float adt)
 		case DropsType::ABILITY1:
 		{
 			App->scene->player->BlockControls(true);
-			App->audio->PlayFx(App->scene->fx_drop_pick_up);
 			App->scene->CreateFirstAbilityPanel();
 			App->scene->SetMenuState(StatesMenu::FIRSTABILITY_MENU);
 			to_delete = true;
+			App->globals.ability1_gained = true;
 			break;
 		}
-		}
+	  }
 	}
 	switch (drop_type) {
 	case DropsType::ABILITY1:

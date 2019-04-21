@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="43">
+<map version="1.2" tiledversion="1.2.3" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="44">
  <properties>
   <property name="movement" type="int" value="0"/>
  </properties>
@@ -5302,7 +5302,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="56"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5341,9 +5340,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="55"/>
    <tile/>
-   <tile gid="80"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5382,9 +5379,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="79"/>
    <tile/>
-   <tile gid="104"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5423,9 +5418,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="103"/>
    <tile/>
-   <tile gid="128"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5464,7 +5457,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="127"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5542,7 +5534,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="37"/>
    <tile/>
+   <tile gid="62"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5581,7 +5575,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="61"/>
    <tile/>
+   <tile gid="86"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5620,7 +5616,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="85"/>
    <tile/>
+   <tile gid="110"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5659,6 +5657,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="109"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5699,6 +5698,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="133"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6945,9 +6945,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="57"/>
    <tile/>
-   <tile gid="82"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6986,9 +6984,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="81"/>
    <tile/>
-   <tile gid="106"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7027,7 +7023,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="105"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7068,7 +7063,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="129"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7144,43 +7138,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="35"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="60"/>
    <tile/>
    <tile gid="244"/>
    <tile/>
@@ -7219,7 +7179,10 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="59"/>
    <tile/>
+   <tile gid="84"/>
+   <tile gid="244"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7257,7 +7220,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="83"/>
    <tile/>
+   <tile gid="108"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7296,6 +7261,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="107"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7303,6 +7269,40 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="131"/>
    <tile/>
    <tile/>
    <tile/>
@@ -11262,7 +11262,7 @@
   <object id="38" name="quest_tree2" type="static" x="272" y="176" width="95.1818" height="98.2121"/>
   <object id="39" name="plant2" type="static" x="368" y="256" width="32" height="32"/>
   <object id="40" name="rock" type="static" x="448" y="224" width="32" height="32"/>
-  <object id="41" name="rock" type="static" x="384" y="224" width="32" height="32"/>
+  <object id="43" name="help2" type="static" x="352" y="192" width="61.9205" height="62.375"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="9" name="entities">
   <object id="10" name="enemy" type="StrangeFrog" x="384" y="288" width="15.9688" height="16.0156"/>
@@ -11272,7 +11272,7 @@
    </properties>
   </object>
   <object id="17" name="player" type="nextA" x="432" y="448" width="15.9688" height="16.0156"/>
-  <object id="32" name="player" type="lastA" x="432" y="240" width="15.9688" height="16.0156"/>
+  <object id="32" name="player" type="lastB" x="336" y="320" width="15.9688" height="16.0156"/>
  </objectgroup>
  <objectgroup id="10" name="collider">
   <object id="19" x="392.5" y="490.833"/>
@@ -11288,7 +11288,7 @@
     <property name="next_id" type="int" value="3"/>
    </properties>
   </object>
-  <object id="33" name="room_collider" type="nextA" x="432" y="224" width="15.7457" height="15.2946">
+  <object id="33" name="room_collider" type="nextB" x="320" y="320" width="15.7457" height="15.2946">
    <properties>
     <property name="next_id" type="int" value="5"/>
    </properties>

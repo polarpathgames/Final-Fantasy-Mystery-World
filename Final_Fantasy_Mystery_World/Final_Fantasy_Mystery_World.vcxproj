@@ -14,7 +14,7 @@
     <ProjectGuid>{CA36A83C-2BCF-4BEB-9B41-CD0B834374B8}</ProjectGuid>
     <RootNamespace>programacio_2</RootNamespace>
     <ProjectName>Final Fantasy Mystery World</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -225,7 +225,11 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\assets\xml\config.xml" />
+    <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="Game\assets\xml\CutsceneFinalRoom.xml" />
+    <Xml Include="Game\assets\xml\CutsceneLobbyTutorial.xml" />
     <Xml Include="Game\assets\xml\CutsceneMiddleRoom.xml" />
     <Xml Include="Game\assets\xml\CutsceneTutorial.xml" />
     <Xml Include="Game\assets\xml\Dialog.xml" />

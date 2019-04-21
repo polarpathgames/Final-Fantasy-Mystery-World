@@ -13,8 +13,6 @@ public:
 
 	bool CleanUp();
 
-	void InitStats();
-
 	void PrepareSpecialAttack1();
 
 	void SpecialAttack1();

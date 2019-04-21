@@ -58,14 +58,18 @@ void m1Map::Draw()
 	if(map_loaded == false)
 		return;
 
+
 	std::list<MapLayer*>::iterator item = data.layers.begin();
 	
 	last_tiles_drawn = 0u;
 	for (; item != data.layers.end(); ++item)
 	{
 		MapLayer* layer = *item;
-
+		
 		if (layer->properties.GetValue("NoDraw") != 0 && !App->collision->debug)
+			continue;
+
+		if (layer->name == "DoorClosed" && quest_rooms != nullptr && !quest_rooms->actual_room->door_closed)
 			continue;
 
 		for (int i = 0; i < data.width; ++i)
@@ -97,6 +101,9 @@ void m1Map::Draw()
 			}
 		}
 	}
+	if (quest_rooms != nullptr)
+		quest_rooms->UpdateRoomEvents();
+
 }
 
 TileSet* m1Map::GetTilesetFromTileId(int id) const
@@ -643,6 +650,7 @@ bool m1Map::ChangeMap(Maps type)
 	case Maps::TUTORIAL:
 		//App->audio->PlayMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg", 5);
 		quest_rooms = DBG_NEW RoomManager(node);
+		Load(tutorial_map.data());
 		actual_map = Maps::TUTORIAL;
 		return true;
 		break;

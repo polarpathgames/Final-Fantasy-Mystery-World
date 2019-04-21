@@ -80,17 +80,18 @@ bool m1Input::Start()
 
 void m1Input::DefaultControls()
 {
-	keyboard_buttons.buttons_code.BASIC_ATTACK = SDL_SCANCODE_G;
+	keyboard_buttons.buttons_code.BASIC_ATTACK = SDL_SCANCODE_SPACE;
 	keyboard_buttons.buttons_code.DIAGONALS = SDL_SCANCODE_LSHIFT;
-	keyboard_buttons.buttons_code.DIRECCTION_DOWN = SDL_SCANCODE_K;
-	keyboard_buttons.buttons_code.DIRECCTION_RIGHT = SDL_SCANCODE_L;
-	keyboard_buttons.buttons_code.DIRECTION_LEFT = SDL_SCANCODE_J;
-	keyboard_buttons.buttons_code.DIRECTION_UP = SDL_SCANCODE_I;
+	keyboard_buttons.buttons_code.DIRECCTION_DOWN = SDL_SCANCODE_DOWN;
+	keyboard_buttons.buttons_code.DIRECCTION_RIGHT = SDL_SCANCODE_RIGHT;
+	keyboard_buttons.buttons_code.DIRECTION_LEFT = SDL_SCANCODE_LEFT;
+	keyboard_buttons.buttons_code.DIRECTION_UP = SDL_SCANCODE_UP;
 	keyboard_buttons.buttons_code.DOWN = SDL_SCANCODE_S;
 	keyboard_buttons.buttons_code.LEFT = SDL_SCANCODE_A;
 	keyboard_buttons.buttons_code.RIGHT = SDL_SCANCODE_D;
 	keyboard_buttons.buttons_code.UP = SDL_SCANCODE_W;
-	keyboard_buttons.buttons_code.HABILTY1 = SDL_SCANCODE_F;
+	keyboard_buttons.buttons_code.HABILTY1 = SDL_SCANCODE_1;
+	keyboard_buttons.buttons_code.HABILITY2 = SDL_SCANCODE_2;
 	keyboard_buttons.buttons_code.SHOW_SKILLS = SDL_SCANCODE_V;
 	keyboard_buttons.buttons_code.INVENTORY = SDL_SCANCODE_E;
 
@@ -115,6 +116,7 @@ void m1Input::DefaultControls()
 	controller_Buttons.buttons_code.DIRECTION_LEFT = SDL_CONTROLLER_BUTTON_DPAD_LEFT;
 	controller_Buttons.buttons_code.DIRECCTION_RIGHT = SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
 	controller_Buttons.buttons_code.HABILTY1 = SDL_CONTROLLER_BUTTON_B;
+	controller_Buttons.buttons_code.HABILITY2 = SDL_CONTROLLER_BUTTON_X;
 	controller_Buttons.buttons_code.SHOW_SKILLS = SDL_CONTROLLER_BUTTON_LEFTSHOULDER;
 	controller_Buttons.buttons_code.INVENTORY = SDL_CONTROLLER_BUTTON_RIGHTSHOULDER;
 
@@ -312,6 +314,8 @@ void m1Input::UpdateController()
 	if (Controller != nullptr) {
 		axis_x = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTX);
 		axis_y = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTY);
+		r_axis_x = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_RIGHTX);
+		r_axis_y = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_RIGHTY);
 		//LOG("X: %i Y: %i", axis_x, axis_y);
 	}
 }
@@ -433,6 +437,38 @@ bool m1Input::CheckAxisStates(const Axis &axis) {
 			break;
 		case Axis::AXIS_DOWN:
 			if (axis_x > -DEAD_ZONE && axis_x < DEAD_ZONE && axis_y > DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::R_AXIS_UP_RIGHT:
+			if (r_axis_x > DEAD_ZONE && r_axis_y < -DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::R_AXIS_DOWN_RIGHT:
+			if (r_axis_x > DEAD_ZONE && r_axis_y > DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::R_AXIS_DOWN_LEFT:
+			if (r_axis_x < -DEAD_ZONE && r_axis_y > DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::R_AXIS_UP_LEFT:
+			if (r_axis_x < -DEAD_ZONE && r_axis_y < -DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::R_AXIS_RIGHT:
+			if (r_axis_x > DEAD_ZONE && r_axis_y > -DEAD_ZONE && r_axis_y < DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::R_AXIS_LEFT:
+			if (r_axis_x < -DEAD_ZONE && r_axis_y > -DEAD_ZONE && r_axis_y < DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::R_AXIS_UP:
+			if (r_axis_x > -DEAD_ZONE && r_axis_x < DEAD_ZONE && r_axis_y < -DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::R_AXIS_DOWN:
+			if (r_axis_x > -DEAD_ZONE && r_axis_x < DEAD_ZONE && r_axis_y > DEAD_ZONE)
 				ret = true;
 			break;
 		default:

@@ -14,10 +14,12 @@
 #include "m1EntityManager.h"
 #include "m1Pathfinding.h"
 
-Room::Room(const std::string &tmx_location, const int &id, const std::string &type, const std::string &cutscene_location)
+Room::Room(const std::string &tmx_location, const uint &id, const std::string &type, const std::string &cutscene_location, bool door_closed, const uint &update_number)
 {
 	this->tmx_location = tmx_location;
 	this->id = id;
+	this->door_closed = door_closed;
+	this->update_number = update_number;
 
 	if (!cutscene_location.empty()) {
 		this->cutscene_location = cutscene_location;
@@ -40,12 +42,12 @@ Room::Room(const std::string &tmx_location, const int &id, const std::string &ty
 
 Room::~Room()
 {
-
 	std::vector<ChangeScene*>::iterator item = change_scene_points.begin();
 	for (; item != change_scene_points.end(); ++item) {
 		delete (*item);
 		(*item) = nullptr;
 	}
+	change_scene_points.clear();
 	entities.clear();
 }
 
@@ -61,7 +63,8 @@ RoomManager::RoomManager(pugi::xml_node &node)
 
 	for (room_node = node.child("maps").child("tutorial").child("room"); room_node; room_node = room_node.next_sibling("room")) {
 		Room * r = nullptr;
-		r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_int(), room_node.child("type").child_value(), room_node.child("cut_scene").child_value());
+		r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_uint(), room_node.child("type").child_value(), 
+			room_node.child("cut_scene").child_value(), room_node.child("door").attribute("active").as_bool(false), room_node.child("update").attribute("num").as_uint(0u));
 		rooms.push_back(r);
 	}
 
@@ -71,10 +74,7 @@ RoomManager::RoomManager(pugi::xml_node &node)
 
 RoomManager::~RoomManager()
 {
-	App->audio->UnLoadMusic(mus_boss);
-	App->audio->UnLoadMusic(mus_combat);
-	App->audio->UnLoadMusic(mus_fountain);
-	App->audio->UnLoadMusic(mus_paceful);
+
 }
 
 void RoomManager::OnCollision(Collider * c1, Collider * c2)
@@ -82,7 +82,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 	iPoint pos_coll = { c1->rect.x,c1->rect.y };
 	pos_coll = App->map->WorldToMap(pos_coll.x, pos_coll.y);
 
-	if (App->scene->player->actual_tile == pos_coll && actual_room->active) {
+	if (App->scene->player->actual_tile == pos_coll && actual_room->active && !actual_room->door_closed) {
 		std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
 		switch (c1->type)
 		{
@@ -273,11 +273,12 @@ void RoomManager::PlacePlayer() // place player in front of the door
 			}
 		}
 	}
+	App->scene->player->Init();
 	App->scene->player->CenterPlayerInTile();
 	App->render->CenterCameraOnPlayer(App->scene->player->position);
 }
 
-void RoomManager::LoadColliders() // sensors in the doors
+void RoomManager::LoadColliders() // colliders in the doors
 {
 	for (std::list<ObjectLayer*>::iterator position = App->map->data.objects.begin(); position != App->map->data.objects.end(); position++) {
 		if ((*position)->name == "room_collider") {
@@ -288,6 +289,9 @@ void RoomManager::LoadColliders() // sensors in the doors
 						ChangeScene * c = DBG_NEW ChangeScene(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, LocationChangeScene::NEXT_A, (*position)->properties.GetValue("next_id"));
 						(*item)->change_scene_points.push_back(c);
 						App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x,App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_NEXT_A, (m1Module*)App->map);
+						if (!actual_room->door_closed) {
+							App->map->data.no_walkables.remove(c->location + iPoint{ 0,-1 });
+						}
 						break;
 					}
 				}
@@ -299,6 +303,9 @@ void RoomManager::LoadColliders() // sensors in the doors
 						ChangeScene * c = DBG_NEW ChangeScene(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, LocationChangeScene::NEXT_B, (*position)->properties.GetValue("next_id"));
 						(*item)->change_scene_points.push_back(c);
 						App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x,App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_NEXT_B, (m1Module*)App->map);
+						if (!actual_room->door_closed) {
+							App->map->data.no_walkables.remove(c->location + iPoint{ 0,-1 });
+						}
 						break;
 					}
 				}
@@ -379,6 +386,28 @@ void RoomManager::PlayCutScene()
 void RoomManager::AddEntityToNotRepeat(iPoint pos)
 {
 	actual_room->entities.push_back(pos);
+}
+
+void RoomManager::UpdateRoomEvents()
+{
+
+	switch (actual_room->update_number) { // IM SURE WE WILL USE THIS METHOD // ORIOL 21/04/2019 0:25
+	default:
+		break;
+	}
+
+
+
+	// if no more enemies door opens
+	if (actual_room != nullptr && actual_room->active && actual_room->door_closed && !App->entity_manager->ThereAreEnemies()) {
+		actual_room->door_closed = false;
+		std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
+		for (; item != actual_room->change_scene_points.end(); ++item) {
+			if ((*item) != nullptr && ((*item)->change_type == LocationChangeScene::NEXT_A || (*item)->change_type == LocationChangeScene::NEXT_B)) {
+				App->map->data.no_walkables.remove((*item)->location + iPoint{ 0,-1 });
+			}
+		}
+	}
 }
 
 ChangeScene::ChangeScene(const int & x, const int & y, LocationChangeScene type, const uint & id)

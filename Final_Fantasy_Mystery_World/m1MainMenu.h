@@ -66,9 +66,45 @@ private:
 
 	MainMenuStates main_states = MainMenuStates::NONE;
 
+	// input text screen
+
 	u1InputText* input_text = nullptr;
 	u1Image* input_text_image = nullptr;
 	u1Button* button_okay = nullptr;
+	u1Button* button_upper = nullptr;
+	u1Button* button_lower = nullptr;
+	u1Image* minus_letters = nullptr;
+	u1Image* max_letters = nullptr;
+	u1Button* button_A = nullptr;
+	u1Button* button_B = nullptr;
+	u1Button* button_C = nullptr;
+	u1Button* button_D = nullptr;
+	u1Button* button_E = nullptr;
+	u1Button* button_F = nullptr;
+	u1Button* button_G = nullptr;
+	u1Button* button_H = nullptr;
+	u1Button* button_I = nullptr;
+	u1Button* button_J = nullptr;
+	u1Button* button_K = nullptr;
+	u1Button* button_L = nullptr;
+	u1Button* button_M = nullptr;
+	u1Button* button_N = nullptr;
+	u1Button* button_O = nullptr;
+	u1Button* button_P = nullptr;
+	u1Button* button_Q = nullptr;
+	u1Button* button_R = nullptr;
+	u1Button* button_S = nullptr;
+	u1Button* button_T = nullptr;
+	u1Button* button_U = nullptr;
+	u1Button* button_V = nullptr;
+	u1Button* button_W = nullptr;
+	u1Button* button_X = nullptr;
+	u1Button* button_Y = nullptr;
+	u1Button* button_Z = nullptr;
+	u1Button* button_Delete = nullptr;
+	u1Button* button_Space = nullptr;
+
+	// main menu
 
 	u1GUI* background = nullptr;
 
@@ -146,6 +182,9 @@ private:
 
 	u1Button* button_retun_options = nullptr;
 	u1Label* label_return_options = nullptr;
+
+	u1CheckBox* checkbox_mute_music = nullptr;
+	u1CheckBox* checkbox_mute_fx = nullptr;
 
 	// Menu Controls
 
@@ -292,6 +331,9 @@ public:
 	u1Image* warrior_info = nullptr;
 	u1Image* archer_info = nullptr;
 	u1Image* mage_info = nullptr;
+
+	u1Button* return_select_champ_button = nullptr;
+	u1Label* return_select_champ_label = nullptr;
 
 	Mix_Chunk* fx_push_button;
 	Mix_Chunk* fx_push_button_return;

@@ -42,6 +42,22 @@ e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 e1Enemy::~e1Enemy()
 {
 }
+
+void e1Enemy::InitStats()
+{
+	for (std::list<Property<int>*>::iterator item = general_properties.properties.begin(); item != general_properties.properties.end(); item++) {
+		if (strcmp((*item)->GetName(), "experience") == 0) {
+			stats.experience = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "attack_power") == 0) {
+			stats.attack_power = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "live") == 0) {
+			stats.live = (*item)->GetValue();
+		}
+	}
+}
+
 bool e1Enemy::Load(pugi::xml_node &)
 {
 	return true;
@@ -372,10 +388,11 @@ void e1Enemy::GetHitted(const int & damage_taken)
 
 	if (stats.live <= 0 || App->scene->player->god_mode) {
 		Drop();
+		App->audio->PlayFx(App->scene->fx_kill_enemy);
 		App->scene->player->UpdateExperience(stats.experience);
 		//App->map->quest_rooms->entities_info.emplace(original_position, App->map->quest_rooms->actual_room->id);
 		App->map->quest_rooms->AddEntityToNotRepeat(original_position);
-		this->to_delete = true;
+		to_delete = true;
 	}
 }
 

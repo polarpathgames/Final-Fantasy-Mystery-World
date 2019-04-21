@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="27">
+<map version="1.2" tiledversion="1.2.3" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="34">
+ <properties>
+  <property name="next_id" type="int" value="6"/>
+ </properties>
  <tileset firstgid="1" name="tutorial_tileset" tilewidth="32" tileheight="16" tilecount="360" columns="24">
   <image source="tutorial_tileset.png" width="796" height="254"/>
   <terraintypes>
@@ -928,14 +931,14 @@
    <tile gid="27"/>
    <tile gid="27"/>
    <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
    <tile gid="27"/>
    <tile gid="27"/>
    <tile gid="27"/>
    <tile gid="27"/>
    <tile gid="27"/>
    <tile gid="27"/>
-   <tile gid="27"/>
-   <tile gid="27"/>
    <tile/>
    <tile/>
    <tile/>
@@ -969,8 +972,8 @@
    <tile gid="4"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -1010,8 +1013,8 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -1049,11 +1052,11 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
+   <tile gid="4"/>
    <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
    <tile gid="4"/>
    <tile gid="4"/>
    <tile/>
@@ -1088,7 +1091,7 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="1"/>
+   <tile gid="4"/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -1128,7 +1131,7 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="1"/>
+   <tile gid="4"/>
    <tile gid="3"/>
    <tile gid="1"/>
    <tile gid="4"/>
@@ -11946,9 +11949,9 @@
    <tile gid="299"/>
    <tile/>
    <tile gid="324"/>
+   <tile gid="15"/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="40"/>
    <tile/>
    <tile/>
    <tile/>
@@ -11987,9 +11990,9 @@
    <tile gid="323"/>
    <tile/>
    <tile/>
+   <tile gid="39"/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="64"/>
    <tile/>
    <tile/>
    <tile gid="98"/>
@@ -12028,9 +12031,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="63"/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="88"/>
    <tile/>
    <tile gid="97"/>
    <tile gid="100"/>
@@ -12069,9 +12072,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="87"/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="112"/>
    <tile/>
    <tile/>
    <tile/>
@@ -12110,7 +12113,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="111"/>
    <tile/>
    <tile/>
    <tile/>
@@ -12151,7 +12154,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="135"/>
    <tile/>
    <tile/>
    <tile/>
@@ -13639,7 +13642,7 @@
    <tile gid="5"/>
    <tile/>
    <tile gid="5"/>
-   <tile/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile/>
@@ -13679,7 +13682,7 @@
    <tile gid="5"/>
    <tile gid="5"/>
    <tile gid="5"/>
-   <tile/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile/>
@@ -13719,8 +13722,8 @@
    <tile gid="5"/>
    <tile gid="5"/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="5"/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile/>
@@ -13759,13 +13762,13 @@
    <tile gid="5"/>
    <tile gid="5"/>
    <tile gid="5"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile gid="5"/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
+   <tile gid="5"/>
+   <tile gid="5"/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile/>
@@ -13803,10 +13806,10 @@
    <tile/>
    <tile gid="5"/>
    <tile gid="5"/>
-   <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="5"/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile/>
@@ -13834,20 +13837,20 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5"/>
    <tile gid="5"/>
    <tile gid="5"/>
    <tile gid="5"/>
    <tile gid="5"/>
    <tile gid="5"/>
    <tile gid="5"/>
-   <tile gid="5"/>
-   <tile/>
    <tile/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="5"/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile/>
@@ -13886,12 +13889,12 @@
    <tile/>
    <tile/>
    <tile gid="5"/>
-   <tile/>
    <tile/>
-   <tile/>
+   <tile gid="5"/>
    <tile gid="5"/>
    <tile gid="5"/>
    <tile gid="5"/>
+   <tile gid="5"/>
    <tile/>
    <tile gid="5"/>
    <tile gid="5"/>
@@ -13920,11 +13923,11 @@
    <tile gid="5"/>
    <tile gid="5"/>
    <tile gid="5"/>
-   <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile/>
@@ -13964,7 +13967,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile gid="5"/>
@@ -14462,7 +14465,6 @@
  </layer>
  <objectgroup id="10" name="Static animation objects">
   <object id="18" name="rock" type="static" x="480" y="384" width="32" height="32"/>
-  <object id="19" name="rock" type="static" x="336" y="368" width="32" height="32"/>
   <object id="20" name="half_tree" type="static" x="412.833" y="379.833" width="46.8333" height="47.8333"/>
   <object id="21" name="red_plant" type="static" x="484.5" y="260.833" width="32" height="32"/>
   <object id="22" name="plant1" type="static" x="384" y="416" width="32" height="32"/>
@@ -14470,6 +14472,11 @@
   <object id="24" name="plant1" type="static" x="448" y="224" width="32" height="32"/>
   <object id="25" name="plant2" type="static" x="352" y="288" width="32" height="32"/>
   <object id="26" name="quest_tree2" type="static" x="320" y="224" width="95.1818" height="98.2121"/>
+  <object id="27" name="rock" type="static" x="320" y="336" width="32" height="32"/>
+  <object id="28" name="rock" type="static" x="320" y="320" width="32" height="32"/>
+  <object id="29" name="rock" type="static" x="320" y="304" width="32" height="32"/>
+  <object id="30" name="rock" type="static" x="336" y="320" width="32" height="32"/>
+  <object id="31" name="rock" type="static" x="336" y="336" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="11" name="entities">
   <properties>
@@ -14499,13 +14506,14 @@
   </object>
   <object id="15" name="room_collider" type="nextA" x="432" y="224" width="16.1904" height="16.7273">
    <properties>
-    <property name="next_id" type="int" value="8"/>
+    <property name="next_id" type="int" value="7"/>
    </properties>
   </object>
   <object id="16" name="room_collider" type="lastB" x="561.182" y="336.607" width="13.9177" height="14.3788">
    <properties>
-    <property name="next_id" type="int" value="6"/>
+    <property name="next_id" type="int" value="5"/>
    </properties>
   </object>
+  <object id="33" name="rock" type="static" x="320" y="304" width="32" height="32"/>
  </objectgroup>
 </map>

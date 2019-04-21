@@ -65,16 +65,30 @@ bool m1Scene::Start()
 	fx_writting = App->audio->LoadFx("assets/audio/sfx/LTTP_Text_Done.wav");
 	fx_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_Steps_on_Water1.wav");
 	fx_frog_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_BasicAttack.wav");
+	fx_dog_attack = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Door_Hit.wav");
 	fx_plant_attack = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Punch1.wav");
 	fx_ability_warrior = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Critical_Hit.wav");
-	fx_ability_menu = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_InBattle_Selection.wav");
+	fx_ability_mage = App->audio->LoadFx("assets/audio/sfx/explosion_large_07.wav");
+	fx_ability_mage_prepare = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Magic_Charge1.wav");
+	fx_ability_archer = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Arrow3.wav");
+	fx_ability_no_mana = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Not_Enough_Money.wav");
+	fx_ability_screen = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Sparkle1.wav");
 	fx_drop_pick_up = App->audio->LoadFx("assets/audio/sfx/retro_collect_pickup_coin_03.wav");
 	fx_door_enter = App->audio->LoadFx("assets/audio/sfx/MC_Stairs_Up.wav");
 	fx_potion = App->audio->LoadFx("assets/audio/sfx/Potion.wav");
 	fx_denegated_potion = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Land_on_Wood.wav");
 	fx_potion_menu = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_L1R1L2R2_Shifting.wav");
-	
+	fx_flash = App->audio->LoadFx("assets/audio/sfx/sci-fi_device_item_power_up_flash_01.wav");
+	fx_die = App->audio->LoadFx("assets/audio/sfx/Hurt4.wav");
+	fx_rock = App->audio->LoadFx("assets/audio/sfx/LTTP_Bomb_Drop.wav");
+	fx_kill_enemy = App->audio->LoadFx("assets/audio/sfx/MC_Enemy_Kill.wav");
+	fx_no_money = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Sit_Down.wav");
+	fx_controller_conection = App->audio->LoadFx("assets/audio/sfx/ST_Passenger_Pleased.wav");
+	fx_surprise = App->audio->LoadFx("assets/audio/sfx/MC_Shield.wav");
+	fx_buy = App->audio->LoadFx("assets/audio/sfx/MainMenu_Cancel_Selection.wav");
+  
 	mus_game_over = App->audio->LoadMusic("assets/audio/music/35.Final Fantasy TA - Judge.ogg");
+
 
 	return true;
 }
@@ -100,25 +114,47 @@ bool m1Scene::Update(float dt)
 			DestroyDebugScreen();
 		}
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+		e1Player* swap = nullptr;
+		iPoint new_pos = App->map->MapToWorld(player->actual_tile.x, player->actual_tile.y);
+		switch(player_type) {
+		case PlayerType::WARRIOR:
+			player_type = PlayerType::ARCHER;
+			swap = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::ARCHER, new_pos.x, new_pos.y, "");
+			break;
+		case PlayerType::ARCHER:
+			player_type = PlayerType::MAGE;
+			swap = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::MAGE, new_pos.x, new_pos.y, "");
+			break;
+		case PlayerType::MAGE:
+			player_type = PlayerType::WARRIOR;
+			swap = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, new_pos.x, new_pos.y, "");
+			break;
+		}
+		if (swap != nullptr) {
+			swap->position = player->GetPosition() - swap->pivot;
+			App->entity_manager->DeleteEntity(player);
+			player = swap;
+		}
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
-		App->render->CameraTremble();
+		/*App->render->CameraTremble();*/
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyTutorial.xml");
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 		App->input->ControllerVibration(0.3F, 1000);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
 		App->scene->player->god_mode = !App->scene->player->god_mode;
+		GodModeIndicator(App->scene->player->god_mode);
+	}
+		
   
-
-	/*if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += 300 * dt;
-
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= 300 * dt;*/
-
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneFinalRoom.xml");
-
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		App->map->grid = !App->map->grid;
 
 	if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {
@@ -214,6 +250,20 @@ bool m1Scene::Update(float dt)
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
+	case StatesMenu::HELP_DIAGONAL_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
+			DestroyHelpDiagonalMenu();
+			player->BlockControls(false);
+			menu_state = StatesMenu::NO_MENU;
+		}
+		break;
+	case StatesMenu::HELP_ATTACK_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
+			DestroyHelpAttackMenu();
+			player->BlockControls(false);
+			menu_state = StatesMenu::NO_MENU;
+		}
+		break;
 	case StatesMenu::CONTROLS_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			CreateOptionsMenu();
@@ -230,11 +280,7 @@ bool m1Scene::Update(float dt)
 	if (debug_screen != nullptr) {
 		UpdateDebugScreen();
 	}
-
-	
-
-	//if (!App->audio->mute_volume) Mix_VolumeMusic(slider_music_volume->GetValue());
-	//if (!App->audio->mute_fx) App->audio->SliderVolumeFx(slider_fx_volume->GetValue());
+	ShitFunctionJAJA();
 
 	return true;
 }
@@ -260,18 +306,6 @@ bool m1Scene::CleanUp()
 {
 	LOG("Freeing scene");
 
-	App->audio->UnLoadMusic(mus_game_over);
-	App->audio->UnLoadFx(fx_ability_menu);
-	App->audio->UnLoadFx(fx_ability_warrior);
-	App->audio->UnLoadFx(fx_attack);
-	App->audio->UnLoadFx(fx_denegated_potion);
-	App->audio->UnLoadFx(fx_door_enter);
-	App->audio->UnLoadFx(fx_drop_pick_up);
-	App->audio->UnLoadFx(fx_frog_attack);
-	App->audio->UnLoadFx(fx_plant_attack);
-	App->audio->UnLoadFx(fx_potion);
-	App->audio->UnLoadFx(fx_potion_menu);
-	App->audio->UnLoadFx(fx_writting);
 
 	//delete control_to_change;
 	//labels_control.clear();
@@ -305,31 +339,37 @@ void m1Scene::CreateEntities()
 			else {
 				if ((*position)->ent_type == "shop" && App->map->last_map == Maps::SHOP) { // position after leaving shop
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->Init();
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "home" && App->map->last_map == Maps::HOME){ // position after leaving home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->Init();
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "in_shop") { // position in the shop
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->Init();
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "in_home" && player->state != State::MENU) { // position in the home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->Init();
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "after_death" && player->state == State::MENU) { // position in the home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->Init();
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
 				else if ((*position)->ent_type == "default" && App->map->last_map == Maps::TUTORIAL) {
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->Init();
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
@@ -369,6 +409,7 @@ void m1Scene::CreateEntities()
 
 void m1Scene::CreateGoToQuestMenu()
 {
+	App->audio->PlayFx(App->gui->fx_inventory);
 	go_to_quest_panel = App->gui->AddImage(100, 70, { 1878, 1536, 170, 101 }, this, App->gui->screen, true, false, false, false);
 
 	go_to_quest_label = App->gui->AddLabel(50, -5, "Tutorial", go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
@@ -392,6 +433,14 @@ void m1Scene::DestroyGoToQuestMenu()
 
 	player->BlockControls(false);
 	//menu_state = StatesMenu::NO_MENU;
+}
+
+void m1Scene::ShitFunctionJAJA()
+{
+	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && !App->globals.CutSceneLobbyExplain && App->map->actual_map == Maps::LOBBY) {
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyTutorial.xml");
+		App->globals.CutSceneLobbyExplain = true;
+	}
 }
 
 void m1Scene::CreateInventory()
@@ -977,6 +1026,28 @@ void m1Scene::DestroyGameOver()
 	App->gui->DeleteUIElement(game_over_panel);
 }
 
+void m1Scene::CreateHelpDiagonalMenu()
+{
+
+	help_diagonal = App->gui->AddImage(0, 0, { 0,6329,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+
+}
+
+void m1Scene::DestroyHelpDiagonalMenu()
+{
+	App->gui->DeleteUIElement(help_diagonal);
+}
+
+void m1Scene::CreateHelpAttackMenu()
+{
+	help_attack = App->gui->AddImage(0, 0, { 1024,6329,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+}
+
+void m1Scene::DestroyHelpAttackMenu()
+{
+	App->gui->DeleteUIElement(help_attack);
+}
+
 bool m1Scene::Interact(u1GUI* interact)
 {
 	bool ret = true;
@@ -1018,6 +1089,8 @@ bool m1Scene::Interact(u1GUI* interact)
 		break;
 	case StatesMenu::GO_TO_QUEST_MENU:
 		if (interact == go_to_quest_button) {
+			App->audio->PlayFx(fx_ability_warrior);
+
 			DestroyGoToQuestMenu();
 			App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 			menu_state = StatesMenu::NO_MENU;
@@ -1091,7 +1164,7 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == button_continue_lobby) {
 			DestroyGameOver();
 
-			if (quest_type == QuestType::TUTORIAL) 
+			if (App->map->actual_map == Maps::TUTORIAL && !App->globals.CutSceneFinalRoomTutorialPlayed) 
 				App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 			else 
 				App->fade_to_black->FadeToBlack(Maps::HOME);
@@ -1189,12 +1262,11 @@ bool m1Scene::Interact(u1GUI* interact)
 			menu_state = StatesMenu::NO_MENU;
 			ret = false;
 		}
-		if (interact != nullptr && interact != button_close_shop) {
-			App->audio->PlayFx(App->main_menu->fx_push_button);
-		}
+
 		if (interact == shop_button_hp_potion) {
 			if (player->stats.gold >= price_hp_potion || player->god_mode) {
 				// audio comprar
+				App->audio->PlayFx(App->scene->fx_buy);
 				player->ReduceGold(price_hp_potion);
 				++player->stats.num_hp_potions;
 				hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
@@ -1202,11 +1274,13 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 			else {
 				// audio no money
+				App->audio->PlayFx(App->scene->fx_no_money);
 			}
 		}
 		if (interact == shop_button_mana_potion) {
 			if (player->stats.gold >= price_mana_potion || player->god_mode) {
 				// audio comprar
+				App->audio->PlayFx(App->scene->fx_buy);
 				player->ReduceGold(price_mana_potion);
 				++player->stats.num_mana_potions;
 				mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
@@ -1214,6 +1288,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 			else {
 				// audio no money
+				App->audio->PlayFx(App->scene->fx_no_money);
 			}
 		}
 		break;
@@ -1335,6 +1410,17 @@ void m1Scene::SetMenuState(const StatesMenu & menu)
 void m1Scene::CreateHUD()
 {
 	bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, nullptr, App->gui->screen, true, false, false, false);
+	switch (player_type) {
+	case PlayerType::WARRIOR:
+		player_hud_image = App->gui->AddImage(28, 653, { 1163,4079,76,98 }, nullptr, bg_hud, true, false, false, false);
+		break;
+	case PlayerType::ARCHER:
+		player_hud_image = App->gui->AddImage(28, 653, { 1740,4088,76,98 }, nullptr, bg_hud, true, false, false, false);
+		break;
+	case PlayerType::MAGE:
+		player_hud_image = App->gui->AddImage(28, 653, { 1458,4084,76,98 }, nullptr, bg_hud, true, false, false, false);
+		break;
+	}
 	player_hp_bar = App->gui->AddBar(215, 662, player->stats.max_lives, HPBAR, bg_hud, nullptr);
 	player_mana_bar = App->gui->AddBar(215, 700, player->stats.max_mana, MANABAR, bg_hud, nullptr);
 }
@@ -1342,12 +1428,15 @@ void m1Scene::CreateHUD()
 void m1Scene::ShowHUD(bool show_or_hide)
 {
 	bg_hud->drawable = show_or_hide;
+	player_hud_image->drawable = show_or_hide;
 	player_hp_bar->drawable = show_or_hide;
 	player_mana_bar->drawable = show_or_hide;
 }
 
 void m1Scene::CreateFirstAbilityPanel()
 {
+	App->audio->PlayFx(App->scene->fx_ability_screen);
+
 	App->gui->ShowCursor(false);
 
 	switch (player_type) {
@@ -1373,4 +1462,16 @@ void m1Scene::CreateFirstAbilityPanel()
 void m1Scene::DestroyFirstAbilityPanel()
 {
 	App->gui->DeleteUIElement(first_ability_panel);
+}
+
+void m1Scene::GodModeIndicator(bool is_god_mode)
+{
+	if (is_god_mode)
+	{
+		god_text = App->gui->AddLabel(50, 0, "GOD MODE", App->gui->screen, RED, FontType::FF64, nullptr, false);
+    }
+	else
+	{
+		App->gui->DeleteUIElement(god_text);
+	}
 }

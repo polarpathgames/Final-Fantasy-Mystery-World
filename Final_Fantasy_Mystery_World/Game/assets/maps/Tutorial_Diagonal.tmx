@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="31">
+<map version="1.2" tiledversion="1.2.3" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="33">
  <properties>
   <property name="movement" type="int" value="0"/>
  </properties>
@@ -10282,7 +10282,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="5"/>
    <tile/>
    <tile/>
    <tile gid="5"/>
@@ -10554,7 +10554,7 @@
    <tile gid="5"/>
    <tile gid="5"/>
    <tile gid="5"/>
-   <tile gid="5"/>
+   <tile/>
    <tile gid="5"/>
    <tile gid="5"/>
    <tile gid="5"/>
@@ -11255,9 +11255,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="8" name="Static animation objects" visible="0">
-  <object id="8" name="paper_falling" type="static_anim" x="255.542" y="161.542" width="192.458" height="174.458"/>
- </objectgroup>
+ <objectgroup id="8" name="Static animation objects"/>
  <objectgroup color="#ffff7f" id="9" name="entities">
   <object id="11" name="player" type="lastB" x="336" y="320" width="15.9688" height="16.0156">
    <properties>
@@ -11293,5 +11291,6 @@
   <object id="23" name="half_tree" type="static" x="385.167" y="288.167" width="46.8333" height="47.8333"/>
   <object id="24" name="quest_tree3" type="static" x="464" y="256" width="95.1818" height="98.2121"/>
   <object id="25" name="quest_tree1" type="static" x="304" y="192" width="95.1818" height="98.2121"/>
+  <object id="32" name="help1" type="static" x="416" y="192" width="61.9205" height="62.375"/>
  </objectgroup>
 </map>

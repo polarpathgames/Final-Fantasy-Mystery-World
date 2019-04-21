@@ -9,7 +9,7 @@
 #include "m1Scene.h"
 #include "m1Audio.h"
 #include "m1Input.h"
-
+#include "m1EasingSplines.h"
 e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 {
 	if (strcmp(name,"flower") == 0) {
@@ -284,6 +284,30 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 	}
+	else if (strcmp(name, "help1") == 0) {
+		static_type = e1StaticEntity::Type::HELP1;
+		frame = { 1234,75,30,53 };
+		SetPivot(frame.w*0.2F, frame.h*0.9F);
+		size.create(frame.w, frame.h);
+		max_distance_to_interact = 1;
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		actual_tile += {3, 3};
+		position.y += 8;
+		position.x += 2;
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+	}
+	else if (strcmp(name, "help2") == 0) {
+		static_type = e1StaticEntity::Type::HELP2;
+		frame = { 1234,75,30,53 };
+		SetPivot(frame.w*0.2F, frame.h*0.9F);
+		size.create(frame.w, frame.h);
+		max_distance_to_interact = 1;
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		actual_tile += {3, 3};
+		position.y += 8;
+		position.x += 2;
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
 	}
@@ -304,11 +328,12 @@ void e1StaticEntity::Draw(SDL_Texture * tex, float dt)
 {
 	if (has_animation) {
 		App->render->Blit(tex, position.x, position.y, &current_animation->GetCurrentFrame(dt), true);
-		//App->render->Blit(App->scene->player->ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+	
 
 	}
 	else {
 		App->render->Blit(tex, position.x, position.y, &frame, true);
+		//App->render->Blit(App->scene->player->ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 	}
 }
 
@@ -325,20 +350,23 @@ bool e1StaticEntity::Update(float dt)
 	iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
 	if (interacting_state == InteractingStates::WAITING_INTERACTION) {
 		if (actual_tile.DistanceTo(player_pos) <= max_distance_to_interact) {
-			if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+			if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN && App->scene->GetMenuState() == StatesMenu::NO_MENU) {
+				App->scene->player->state = State::IDLE;
+				App->easing_splines->CleanUp();
 				App->scene->player->BlockControls(true);
 				interacting_state = InteractingStates::INTERACTING;
 				ChangeAnimation(player_pos);
 				App->audio->PlayFx(App->scene->fx_writting);
 				App->dialog->end_dial = false;
 				App->audio->PlayFx(App->scene->fx_writting);
-
+				App->scene->ShowHUD(false);
 			}
 		}			
 	}
 	if (interacting_state == InteractingStates::INTERACTING && App->dialog->end_dial)
 	{
 		interacting_state = InteractingStates::WAITING_INTERACTION;
+		App->scene->ShowHUD(true);
 	}
 
 	if (interacting_state == InteractingStates::INTERACTING) {
@@ -359,6 +387,12 @@ bool e1StaticEntity::Update(float dt)
 			break;
 		case e1StaticEntity::Type::FEATHER:
 			App->dialog->PerformDialogue(3);
+			break;
+		case e1StaticEntity::Type::HELP1:
+			App->dialog->PerformDialogue(4);
+			break;
+		case e1StaticEntity::Type::HELP2:
+			App->dialog->PerformDialogue(5);
 			break;
 		default:
 			break;
@@ -431,16 +465,6 @@ void e1StaticEntity::ChangeAnimation(const iPoint &player_pos)
 
 
 }
-
-//void e1StaticEntity::DialogWritting()
-//{
-//	static int h = 500, w = 300, x = 0, y= 0;
-//	SDL_Rect rect_square = { x, y, h, w };
-//
-//	SDL_SetRenderDrawColor(App->render->renderer, 255, 255, 255, 255);
-//	SDL_RenderFillRect(App->render->renderer, &rect_square);
-//	
-//}
 
 e1StaticEntity::InteractingStates e1StaticEntity::GetState()
 {

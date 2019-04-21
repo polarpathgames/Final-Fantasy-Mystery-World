@@ -6,6 +6,7 @@
 #include "App.h"
 #include "m1Map.h"
 #include "m1Render.h"
+#include "m1Audio.h"
 
 e1BlueDog::e1BlueDog(const int & x, const int & y) : e1Enemy(x, y)
 {
@@ -68,6 +69,7 @@ bool e1BlueDog::Update(float dt)
 	}
 	if (state == State::ATTACKING) {
 		if (current_animation->Finished()) {
+			App->audio->PlayFx(App->scene->fx_dog_attack);
 			CheckBasicAttackEfects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
 			state = State::AFTER_ATTACK;
 			ChangeAnimation(direction, state);
@@ -82,12 +84,6 @@ bool e1BlueDog::Update(float dt)
 	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
 	return true;
-}
-
-void e1BlueDog::InitStats()
-{
-	stats.attack_power = 25;
-	stats.live = 100;
 }
 
 void e1BlueDog::IdAnimToEnum()
@@ -155,32 +151,30 @@ void e1BlueDog::IdAnimToEnum()
 		case 59:
 			data.animations[i].animType = AnimationState::WALKING_RIGHT;
 			break;
-
-
-
-
-		case 376:
+		case 60:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN;
 			break;
-		case 379:
+		case 63:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP;
 			break;
-		case 42:
+		case 66:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_LEFT;
 			break;
-		case 564:
+		case 69:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
-		case 60:
+			
+
+		case 360:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;
-		case 63:
+		case 633:
 			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
 			break;
-		case 66:
+		case 636:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
 			break;
-		case 69:
+		case 639:
 			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
 			break;
 		}

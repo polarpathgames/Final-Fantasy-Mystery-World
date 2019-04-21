@@ -62,8 +62,8 @@ public:
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
-	iPoint			smoth_position = { 0,0 };
-	int				smooth_speed = 7;
+	fPoint			smoth_position = { 0,0 };
+	float			smooth_speed = 0.3f;
 	SDL_Surface*	surface = NULL;
 
 	

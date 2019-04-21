@@ -94,6 +94,12 @@ bool m1EntityManager::PreUpdate()
 		}
 	}
 	
+	item = entities_to_create.begin();
+	for (; item != entities_to_create.end(); ++item) {
+		entities.push_back(*item);
+	}
+	entities_to_create.clear();
+
 	return true;
 }
 
@@ -284,7 +290,7 @@ e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX
 		break;
 	}
 	if (ret != nullptr) {
-		entities.push_back(ret);
+		entities_to_create.push_back(ret);
 		//ret->Start();
 	}
 
@@ -372,5 +378,20 @@ bool m1EntityManager::Save(pugi::xml_node& save) const
 {
 	bool ret = true;
 	
+	return ret;
+}
+
+bool m1EntityManager::ThereAreEnemies()
+{
+	bool ret = false;
+
+	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item)
+	{
+		if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY) {
+			ret = true;
+			break;
+		}			
+	}
 	return ret;
 }
