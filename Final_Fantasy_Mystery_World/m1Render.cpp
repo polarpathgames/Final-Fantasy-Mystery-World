@@ -335,8 +335,6 @@ void m1Render::SmoothCamera(iPoint playerpos)
 		playerpos.y = (playerpos.y * (int)App->win->scale - camera.h * 0.5F);
 		smoth_position.y -= (playerpos.y + camera.y) / smooth_speed * App->GetDeltaTime();
 		camera.y = smoth_position.y;
-
-		LOG("(%.2f, %.2f)", smoth_position.x, smoth_position.y);
 	}
 }
 
