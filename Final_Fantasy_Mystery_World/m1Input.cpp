@@ -313,6 +313,8 @@ void m1Input::UpdateController()
 	if (Controller != nullptr) {
 		axis_x = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTX);
 		axis_y = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTY);
+		r_axis_x = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_RIGHTX);
+		r_axis_y = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_RIGHTY);
 		//LOG("X: %i Y: %i", axis_x, axis_y);
 	}
 }
@@ -434,6 +436,38 @@ bool m1Input::CheckAxisStates(const Axis &axis) {
 			break;
 		case Axis::AXIS_DOWN:
 			if (axis_x > -DEAD_ZONE && axis_x < DEAD_ZONE && axis_y > DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::R_AXIS_UP_RIGHT:
+			if (r_axis_x > DEAD_ZONE && r_axis_y < -DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::R_AXIS_DOWN_RIGHT:
+			if (r_axis_x > DEAD_ZONE && r_axis_y > DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::R_AXIS_DOWN_LEFT:
+			if (r_axis_x < -DEAD_ZONE && r_axis_y > DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::R_AXIS_UP_LEFT:
+			if (r_axis_x < -DEAD_ZONE && r_axis_y < -DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::R_AXIS_RIGHT:
+			if (r_axis_x > DEAD_ZONE && r_axis_y > -DEAD_ZONE && r_axis_y < DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::R_AXIS_LEFT:
+			if (r_axis_x < -DEAD_ZONE && r_axis_y > -DEAD_ZONE && r_axis_y < DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::R_AXIS_UP:
+			if (r_axis_x > -DEAD_ZONE && r_axis_x < DEAD_ZONE && r_axis_y < -DEAD_ZONE)
+				ret = true;
+			break;
+		case Axis::R_AXIS_DOWN:
+			if (r_axis_x > -DEAD_ZONE && r_axis_x < DEAD_ZONE && r_axis_y > DEAD_ZONE)
 				ret = true;
 			break;
 		default:
