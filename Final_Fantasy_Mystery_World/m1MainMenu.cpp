@@ -526,11 +526,11 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 
 			if (App->win->fullscreen) {
 				App->win->fullscreen = false;
-				SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_SHOWN);
+				SDL_SetWindowFullscreen(App->win->window, 0);
 			}
 			else {
 				App->win->fullscreen = true;
-				SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_FULLSCREEN);
+				SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 			}
 		}
 		if (interaction == button_music_volume) {

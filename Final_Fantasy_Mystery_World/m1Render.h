@@ -63,7 +63,7 @@ public:
 	SDL_Rect		viewport;
 	SDL_Color		background;
 	fPoint			smoth_position = { 0,0 };
-	float			smooth_speed = 0.7f;
+	float			smooth_speed = 0.3f;
 	SDL_Surface*	surface = NULL;
 
 	
