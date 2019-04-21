@@ -59,7 +59,7 @@ RoomManager::RoomManager(const char* name)
 	mus_boss = App->audio->LoadMusic("assets/audio/music/39.Final Fantasy TA - Incarnation.ogg");
 	mus_fountain = App->audio->LoadMusic("assets/audio/music/5.Final Fantasy TA - Crystal.ogg");
 
-	pugi::xml_parse_result result = map.load_file("assets/xml/Rooms.xml");
+	pugi::xml_parse_result result = room_manager_file.load_file("assets/xml/Rooms.xml");
 
 	if (result == NULL)
 	{
@@ -68,15 +68,16 @@ RoomManager::RoomManager(const char* name)
 	else {
 		LOG("XML was loaded succesfully!");
 
-		for (pugi::xml_node room_node = map.child("room_manager").child(name).child("room"); room_node; room_node = room_node.next_sibling("room")) {
-			Room * r = nullptr;
-			r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_uint(), room_node.child("type").child_value(),
+		for (pugi::xml_node room_node = room_manager_file.child("room_manager").child(name).child("room"); room_node; room_node = room_node.next_sibling("room")) {
+			Room * r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_uint(), room_node.child("type").child_value(),
 				room_node.child("cut_scene").child_value(), room_node.child("door").attribute("active").as_bool(false), room_node.child("update").attribute("num").as_uint(0u));
 			rooms.push_back(r);
 		}
 
 		LoadRoom(1);
 	}
+
+	room_manager_file.reset();
 }
 
 RoomManager::~RoomManager()

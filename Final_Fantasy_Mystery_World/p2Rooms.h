@@ -82,7 +82,7 @@ public:
 	std::vector<Room*> rooms;
 	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
 
-	pugi::xml_document map;
+	pugi::xml_document room_manager_file;
 
 	Mix_Music* mus_paceful;
 	Mix_Music* mus_boss;
