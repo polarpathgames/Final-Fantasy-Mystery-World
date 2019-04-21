@@ -170,6 +170,7 @@ public:
 	void UpdateLevel();
 
 public:
+	bool update = true;
 	float death_time = 0.0f;
 	bool has_skills = false;
 	bool block_controls = false;

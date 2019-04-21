@@ -44,7 +44,7 @@ void e1Player::Init()
 
 	ground = App->tex->Load("assets/sprites/player_pos.png");
 
-	velocity.x = 160;
+	velocity.x = 80;
 	velocity.y = 80;
 	has_turn = true;
 
@@ -256,9 +256,9 @@ void e1Player::ReadPlayerInput()
 			state = State::BEFORE_FLASH;
 		}
 		else if (movement_type == Movement_Type::InQuest){
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
-			target_position = position;
+			//position.x = initial_position.x + movement_count.x;
+			//position.y = initial_position.y + movement_count.y;
+			//target_position = position;
 		}
 	}
 	if (state == State::WALKING) {
@@ -595,8 +595,8 @@ void e1Player::PerformMovementInLobby(float dt)
 	{
 	case Direction::DOWN_LEFT:
 		if (App->map->IsWalkable(iPoint((position.x - floor(velocity.x * dt) + pivot.x), (position.y + pivot.y + floor(velocity.y * dt))))) {
-			position.x -= floor(velocity.x * dt);
-			position.y += floor(velocity.y * dt);
+			position.x -=velocity.x * dt;
+			position.y += velocity.y * dt;
 			current_animation = &GoDownLeft;
 		}
 		else {
@@ -606,8 +606,8 @@ void e1Player::PerformMovementInLobby(float dt)
 		break;
 	case Direction::UP_RIGHT:
 		if (App->map->IsWalkable(iPoint((position.x + floor(velocity.x * dt) + pivot.x), (position.y + pivot.y - floor(velocity.y * dt))))) {
-			position.x += floor(velocity.x * dt);
-			position.y -= floor(velocity.y * dt);
+			position.x += velocity.x * dt;
+			position.y -= velocity.y * dt;
 			current_animation = &GoUpRight;
 		}
 		else {
@@ -617,8 +617,8 @@ void e1Player::PerformMovementInLobby(float dt)
 		break;
 	case Direction::UP_LEFT:
 		if (App->map->IsWalkable(iPoint((position.x - floor(velocity.x * dt) + pivot.x), (position.y + pivot.y - floor(velocity.y * dt))))) {
-			position.x -= floor(velocity.x * dt);
-			position.y -= floor(velocity.y * dt);
+			position.x -= velocity.x * dt;
+			position.y -= velocity.y * dt;
 			current_animation = &GoUpLeft;
 		}
 		else {
@@ -628,8 +628,8 @@ void e1Player::PerformMovementInLobby(float dt)
 		break;
 	case Direction::DOWN_RIGHT:
 		if (App->map->IsWalkable(iPoint((position.x + floor(velocity.x * dt) + pivot.x), (position.y + pivot.y + floor(velocity.y * dt))))) {
-			position.x += floor(velocity.x * dt);
-			position.y += floor(velocity.y * dt);
+			position.x += velocity.x * dt;
+			position.y += velocity.y * dt;
 			current_animation = &GoDownRight;
 		}
 		else {
@@ -639,7 +639,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		break;
 	case Direction::RIGHT:
 		if (App->map->IsWalkable(iPoint((position.x + floor(180 * dt) + pivot.x), position.y + pivot.y))) {
-			position.x += floor(velocity.x * dt);
+			position.x += velocity.x * dt;
 			current_animation = &GoRight;
 		}
 		else {
@@ -648,7 +648,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		break;
 	case Direction::LEFT:
 		if (App->map->IsWalkable(iPoint((position.x - floor(180 * dt) + pivot.x), position.y + pivot.y))) {
-			position.x -= floor(velocity.x * dt);
+			position.x -= velocity.x * dt;
 			current_animation = &GoLeft;
 		}
 		else {
@@ -657,7 +657,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		break;
 	case Direction::UP:
 		if (App->map->IsWalkable(iPoint((position.x + pivot.x), (position.y + pivot.y - floor(180 * dt))))) {
-			position.y -= floor(velocity.y * 2 * dt);
+			position.y -= velocity.y * 2 * dt;
 			current_animation = &GoUp;
 		}
 		else {
@@ -667,7 +667,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		break;
 	case Direction::DOWN:
 		if (App->map->IsWalkable(iPoint((position.x + pivot.x), (position.y + pivot.y + floor(180 * dt))))) {
-			position.y += floor(velocity.y * 2 * dt);
+			position.y += velocity.y * 2 * dt;
 			current_animation = &GoDown;
 		}
 		else {
@@ -686,12 +686,18 @@ void e1Player::PerformMovementInQuest(float dt)
 	case Direction::DOWN_LEFT:
 		if (position.x >= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.x -= floor(velocity.x * dt);
-			position.y += floor(velocity.y * dt);
+			if (update) {
+				position.y += floor(velocity.y * dt);
+				update = false;
+			}
+			else {
+				update = true;
+			}
 			current_animation = &GoDownLeft;
 		}
 		else {
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
+			//position.x = initial_position.x + movement_count.x;
+			//position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
 			current_animation = &IdleDownLeft;
@@ -700,12 +706,18 @@ void e1Player::PerformMovementInQuest(float dt)
 	case Direction::UP_RIGHT:
 		if (position.x <= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 			position.x += floor(velocity.x * dt);
-			position.y -= floor(velocity.y * dt);
+			if (update) {
+				position.y -= floor(velocity.y * dt);
+				update = false;
+			}
+			else {
+				update = true;
+			}
 			current_animation = &GoUpRight;
 		}
 		else {
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
+			//position.x = initial_position.x + movement_count.x;
+			//position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
 			current_animation = &IdleUpRight;
@@ -714,12 +726,18 @@ void e1Player::PerformMovementInQuest(float dt)
 	case Direction::UP_LEFT:
 		if (position.x >= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 			position.x -= floor(velocity.x * dt);
-			position.y -= floor(velocity.y * dt);
+			if (update) {
+				position.y -= floor(velocity.y * dt);
+				update = false;
+			}
+			else {
+				update = true;
+			}
 			current_animation = &GoUpLeft;
 		}
 		else {
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
+			//position.x = initial_position.x + movement_count.x;
+			//position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
 			current_animation = &IdleUpLeft;
@@ -728,12 +746,18 @@ void e1Player::PerformMovementInQuest(float dt)
 	case Direction::DOWN_RIGHT:
 		if (position.x <= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.x += floor(velocity.x * dt);
-			position.y += floor(velocity.y * dt);
+			if (update) {
+				position.y += floor(velocity.y * dt);
+				update = false;
+			}
+			else {
+				update = true;
+			}
 			current_animation = &GoDownRight;
 		}
 		else {
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
+			//position.x = initial_position.x + movement_count.x;
+			//position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
 			current_animation = &IdleDownRight;
@@ -745,8 +769,8 @@ void e1Player::PerformMovementInQuest(float dt)
 			current_animation = &GoLeft;
 		}
 		else {
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
+			//position.x = initial_position.x + movement_count.x;
+			//position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
 			current_animation = &IdleLeft;
@@ -758,8 +782,8 @@ void e1Player::PerformMovementInQuest(float dt)
 			current_animation = &GoRight;
 		}
 		else {
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
+			//position.x = initial_position.x + movement_count.x;
+			//position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
 			current_animation = &IdleRight;
@@ -767,12 +791,18 @@ void e1Player::PerformMovementInQuest(float dt)
 		break;
 	case Direction::UP:
 		if (position.x == initial_position.x + movement_count.x && position.y >= initial_position.y + movement_count.y) {
-			position.y -= floor(velocity.y * dt);
+			if (update) {
+				position.y -= floor(velocity.y * dt);
+				update = false;
+			}
+			else {
+				update = true;
+			}
 			current_animation = &GoUp;
 		}
 		else {
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
+			//position.x = initial_position.x + movement_count.x;
+			//position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
 			current_animation = &IdleUp;
@@ -780,12 +810,18 @@ void e1Player::PerformMovementInQuest(float dt)
 		break;
 	case Direction::DOWN:
 		if (position.x == initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
-			position.y += floor(velocity.y * dt);
+			if (update) {
+				position.y += floor(velocity.y * dt);
+				update = false;
+			}
+			else {
+				update = true;
+			}
 			current_animation = &GoDown;
 		}
 		else {
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
+			//position.x = initial_position.x + movement_count.x;
+			//position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
 			current_animation = &IdleDown;

@@ -3,7 +3,7 @@
  <image source="../sprites/Warrior.png" width="336" height="217"/>
  <tile id="0">
   <properties>
-   <property name="speed" type="int" value="7"/>
+   <property name="speed" type="int" value="4"/>
   </properties>
   <animation>
    <frame tileid="0" duration="270"/>
@@ -19,7 +19,7 @@
  </tile>
  <tile id="3">
   <properties>
-   <property name="speed" type="int" value="7"/>
+   <property name="speed" type="int" value="4"/>
   </properties>
   <animation>
    <frame tileid="3" duration="270"/>
@@ -35,7 +35,7 @@
  </tile>
  <tile id="6">
   <properties>
-   <property name="speed" type="int" value="7"/>
+   <property name="speed" type="int" value="4"/>
   </properties>
   <animation>
    <frame tileid="6" duration="270"/>
@@ -51,7 +51,7 @@
  </tile>
  <tile id="9">
   <properties>
-   <property name="speed" type="int" value="7"/>
+   <property name="speed" type="int" value="4"/>
   </properties>
   <animation>
    <frame tileid="9" duration="270"/>
@@ -67,7 +67,7 @@
  </tile>
  <tile id="12">
   <properties>
-   <property name="speed" type="int" value="7"/>
+   <property name="speed" type="int" value="4"/>
   </properties>
   <animation>
    <frame tileid="12" duration="270"/>
@@ -83,7 +83,7 @@
  </tile>
  <tile id="15">
   <properties>
-   <property name="speed" type="int" value="7"/>
+   <property name="speed" type="int" value="4"/>
   </properties>
   <animation>
    <frame tileid="15" duration="270"/>
@@ -99,7 +99,7 @@
  </tile>
  <tile id="18">
   <properties>
-   <property name="speed" type="int" value="7"/>
+   <property name="speed" type="int" value="4"/>
   </properties>
   <animation>
    <frame tileid="18" duration="270"/>
@@ -115,7 +115,7 @@
  </tile>
  <tile id="21">
   <properties>
-   <property name="speed" type="int" value="7"/>
+   <property name="speed" type="int" value="4"/>
   </properties>
   <animation>
    <frame tileid="21" duration="270"/>
