@@ -256,8 +256,8 @@ void e1Player::ReadPlayerInput()
 			state = State::BEFORE_FLASH;
 		}
 		else if (movement_type == Movement_Type::InQuest){
-			//position.x = initial_position.x + movement_count.x;
-			//position.y = initial_position.y + movement_count.y;
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
 		}
 	}
@@ -685,8 +685,7 @@ void e1Player::PerformMovementInQuest(float dt)
 	{
 	case Direction::DOWN_LEFT:
 		if (position.x >= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
-			float x2 = velocity.x * dt;;
-				position.x -= x2;
+			position.x -= velocity.x * dt;
 			//if (update) {
 			float x = velocity.y * dt;
 			position.y += x;
@@ -698,8 +697,8 @@ void e1Player::PerformMovementInQuest(float dt)
 			current_animation = &GoDownLeft;
 		}
 		else {
-			//position.x = initial_position.x + movement_count.x;
-			//position.y = initial_position.y + movement_count.y;
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
 			current_animation = &IdleDownLeft;
@@ -719,8 +718,8 @@ void e1Player::PerformMovementInQuest(float dt)
 			current_animation = &GoUpRight;
 		}
 		else {
-			//position.x = initial_position.x + movement_count.x;
-			//position.y = initial_position.y + movement_count.y;
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
 			current_animation = &IdleUpRight;
@@ -740,8 +739,8 @@ void e1Player::PerformMovementInQuest(float dt)
 			current_animation = &GoUpLeft;
 		}
 		else {
-			//position.x = initial_position.x + movement_count.x;
-			//position.y = initial_position.y + movement_count.y;
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
 			current_animation = &IdleUpLeft;
@@ -761,8 +760,8 @@ void e1Player::PerformMovementInQuest(float dt)
 			current_animation = &GoDownRight;
 		}
 		else {
-			//position.x = initial_position.x + movement_count.x;
-			//position.y = initial_position.y + movement_count.y;
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
 			current_animation = &IdleDownRight;
@@ -770,13 +769,12 @@ void e1Player::PerformMovementInQuest(float dt)
 		break;
 	case Direction::LEFT:
 		if (position.x >= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
-			float x2 = velocity.x * dt;
-			position.x -= x2;
+			position.x -= floor(velocity.x * dt);
 			current_animation = &GoLeft;
 		}
 		else {
-			//position.x = initial_position.x + movement_count.x;
-			//position.y = initial_position.y + movement_count.y;
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
 			current_animation = &IdleLeft;
@@ -784,13 +782,12 @@ void e1Player::PerformMovementInQuest(float dt)
 		break;
 	case Direction::RIGHT:
 		if (position.x <= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
-			float x2 = velocity.x * dt;
-			position.x += x2;
+			position.x += floor(velocity.x * dt);
 			current_animation = &GoRight;
 		}
 		else {
-			//position.x = initial_position.x + movement_count.x;
-			//position.y = initial_position.y + movement_count.y;
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
 			current_animation = &IdleRight;
@@ -799,7 +796,7 @@ void e1Player::PerformMovementInQuest(float dt)
 	case Direction::UP:
 		if (position.x == initial_position.x + movement_count.x && position.y >= initial_position.y + movement_count.y) {
 			//if (update) {
-			float x = velocity.y * dt*2;
+			float x = velocity.y * dt;
 			position.y -= x;
 				//update = false;
 			//}
@@ -809,8 +806,8 @@ void e1Player::PerformMovementInQuest(float dt)
 			current_animation = &GoUp;
 		}
 		else {
-			//position.x = initial_position.x + movement_count.x;
-			//position.y = initial_position.y + movement_count.y;
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
 			current_animation = &IdleUp;
@@ -819,7 +816,7 @@ void e1Player::PerformMovementInQuest(float dt)
 	case Direction::DOWN:
 		if (position.x == initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			//if (update) {
-			float x =velocity.y * dt*2;
+			float x =velocity.y * dt;
 				position.y += x;
 				//update = false;
 			//}
@@ -829,8 +826,8 @@ void e1Player::PerformMovementInQuest(float dt)
 			current_animation = &GoDown;
 		}
 		else {
-		//	position.x = initial_position.x + movement_count.x;
-		//	position.y = initial_position.y + movement_count.y;
+			position.x = initial_position.x + movement_count.x;
+			position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
 			current_animation = &IdleDown;
