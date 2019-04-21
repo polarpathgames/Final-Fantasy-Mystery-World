@@ -148,7 +148,11 @@ bool m1Scene::Update(float dt)
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
 		App->scene->player->god_mode = !App->scene->player->god_mode;
+		GodModeIndicator(App->scene->player->god_mode);
+	}
+		
   
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		App->map->grid = !App->map->grid;
@@ -1470,4 +1474,16 @@ void m1Scene::CreateFirstAbilityPanel()
 void m1Scene::DestroyFirstAbilityPanel()
 {
 	App->gui->DeleteUIElement(first_ability_panel);
+}
+
+void m1Scene::GodModeIndicator(bool is_god_mode)
+{
+	if (is_god_mode)
+	{
+		god_text = App->gui->AddLabel(50, 0, "GOD MODE", App->gui->screen, RED, FontType::FF64, nullptr, false);
+    }
+	else
+	{
+		App->gui->DeleteUIElement(god_text);
+	}
 }
