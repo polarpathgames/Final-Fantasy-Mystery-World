@@ -59,7 +59,7 @@ class RoomManager {
 
 public:
 
-	RoomManager(pugi::xml_node &node);
+	RoomManager(const char* name);
 	~RoomManager();
 
 	void OnCollision(Collider* c1, Collider* C2);
@@ -81,6 +81,8 @@ public:
 	Room* last_room = nullptr;
 	std::vector<Room*> rooms;
 	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
+
+	pugi::xml_document map;
 
 	Mix_Music* mus_paceful;
 	Mix_Music* mus_boss;

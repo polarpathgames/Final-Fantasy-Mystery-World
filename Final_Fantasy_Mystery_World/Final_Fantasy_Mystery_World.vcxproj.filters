@@ -156,6 +156,7 @@
     <Xml Include="Game\assets\xml\CutsceneBlockPass.xml" />
     <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml" />
     <Xml Include="Game\assets\xml\CutsceneLobbyTutorial.xml" />
+    <Xml Include="Game\assets\xml\Rooms.xml" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Game\assets\ff_icon.ico" />

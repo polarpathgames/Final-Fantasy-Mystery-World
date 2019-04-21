@@ -40,7 +40,6 @@ bool m1Map::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Map Parser");
 	bool ret = true;
-	node = config;
 	folder.assign(config.child("folder").child_value());
 
 	tutorial_map.assign(config.child("maps").child("tutorial_map").text().as_string());
@@ -649,7 +648,7 @@ bool m1Map::ChangeMap(Maps type)
 		break;
 	case Maps::TUTORIAL:
 		//App->audio->PlayMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg", 5);
-		quest_rooms = DBG_NEW RoomManager(node);
+		quest_rooms = DBG_NEW RoomManager("tutorial");
 		Load(tutorial_map.data());
 		actual_map = Maps::TUTORIAL;
 		return true;

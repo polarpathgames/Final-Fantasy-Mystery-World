@@ -192,16 +192,18 @@ void m1CutScene::ClearCutscene()
 	for (std::vector<c1CutsceneAction*>::iterator it = actions.begin(); it != actions.end(); ++it)
 	{
 		delete (*it);
+		*it = nullptr;
 	}
 
 	actions.clear();
 
 	for (std::map<std::string, c1CutsceneElement*>::iterator it = elements.begin(); it != elements.end(); ++it)
 	{
-		(*it).second->~c1CutsceneElement();
 		delete (*it).second;
+		(*it).second = nullptr;
 	}
 
+	cutscene_file.reset();
 	elements.clear();
 	App->scene->ShowHUD(true);
 	App->scene->player->BlockControls(false);

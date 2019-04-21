@@ -160,6 +160,8 @@ bool e1Entity::LoadEntityData(const char* file) {
 		data.animations = nullptr;
 	}
 
+	entity_file.reset();
+
 	return ret;
 }
 
