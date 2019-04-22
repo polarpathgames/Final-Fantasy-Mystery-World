@@ -147,11 +147,11 @@ public:
 
 	void ReduceMana(const int &cost_mana);
 
-	void AugmentMana(const int &plus_mana);
+	void AugmentMana(const int &plus_mana, bool level_up = false);
 
 	void ReduceLives(const int &cost_lives);
 
-	void AugmentLives(const int &plus_lives);
+	void AugmentLives(const int &plus_lives, bool level_up = false);
 
 	bool IsEnemyInThatPosition(const iPoint & pos);
 
