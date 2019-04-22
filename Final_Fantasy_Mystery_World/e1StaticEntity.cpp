@@ -364,42 +364,45 @@ bool e1StaticEntity::Update(float dt)
 	iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
 	if (interacting_state == InteractingStates::WAITING_INTERACTION) {
 		if (actual_tile.DistanceTo(player_pos) <= max_distance_to_interact) {
-			if (button_interact == nullptr) {
-				button_interact = App->gui->AddImage(0, 0, { 1120,1920,32,32 }, nullptr, App->gui->screen, true, false, false, false);
+			if (App->scene->GetMenuState() == StatesMenu::NO_MENU) {
+				if (button_interact == nullptr) {
+					button_interact = App->gui->AddImage(0, 0, { 1120,1920,32,32 }, nullptr, App->gui->screen, true, false, false, false);
 
-				iPoint pos{ 0,0 };
-				pos.x = (int)(App->render->camera.x) + (App->scene->player->GetPosition().x) * (int)App->win->GetScale() - button_interact->section.w*0.5F;
-				pos.y = (int)(App->render->camera.y) + (App->scene->player->position.y) * (int)App->win->GetScale() - button_interact->section.h;
+					iPoint pos{ 0,0 };
+					pos.x = (int)(App->render->camera.x) + (App->scene->player->GetPosition().x) * (int)App->win->GetScale() - button_interact->section.w*0.5F;
+					pos.y = (int)(App->render->camera.y) + (App->scene->player->position.y) * (int)App->win->GetScale() - button_interact->section.h;
 
-				button_interact->SetPos(pos.x, pos.y);
+					button_interact->SetPos(pos.x, pos.y);
+				}
+				else {
+					iPoint pos{ 0,0 };
+					pos.x = (int)(App->render->camera.x) + (App->scene->player->GetPosition().x) * (int)App->win->GetScale() - button_interact->section.w*0.5F;
+					pos.y = (int)(App->render->camera.y) + (App->scene->player->position.y) * (int)App->win->GetScale() - button_interact->section.h;
+					button_interact->SetPos(pos.x, pos.y);
+				}
+
+				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+					App->scene->player->state = State::IDLE;
+					App->easing_splines->CleanUp();
+					App->scene->player->BlockControls(true);
+					interacting_state = InteractingStates::INTERACTING;
+					ChangeAnimation(player_pos);
+					App->audio->PlayFx(App->scene->fx_writting);
+					App->dialog->end_dial = false;
+					App->audio->PlayFx(App->scene->fx_writting);
+					App->scene->ShowHUD(false);
+					App->gui->DeleteUIElement((u1GUI*)button_interact);
+					button_interact = nullptr;
+				}
 			}
 			else {
-				iPoint pos{ 0,0 };
-				pos.x = (int)(App->render->camera.x) + (App->scene->player->GetPosition().x) * (int)App->win->GetScale() - button_interact->section.w*0.5F;
-				pos.y = (int)(App->render->camera.y) + (App->scene->player->position.y) * (int)App->win->GetScale() - button_interact->section.h;
-				button_interact->SetPos(pos.x, pos.y);
+				if (button_interact != nullptr) {
+					App->gui->DeleteUIElement((u1GUI*)button_interact);
+					button_interact = nullptr;
+				}
 			}
-
-			if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && App->scene->GetMenuState() == StatesMenu::NO_MENU) {
-				App->scene->player->state = State::IDLE;
-				App->easing_splines->CleanUp();
-				App->scene->player->BlockControls(true);
-				interacting_state = InteractingStates::INTERACTING;
-				ChangeAnimation(player_pos);
-				App->audio->PlayFx(App->scene->fx_writting);
-				App->dialog->end_dial = false;
-				App->audio->PlayFx(App->scene->fx_writting);
-				App->scene->ShowHUD(false);
-				App->gui->DeleteUIElement((u1GUI*)button_interact);
-				button_interact = nullptr;
 			}
-		}
-		else {
-			if (button_interact != nullptr) {
-				App->gui->DeleteUIElement((u1GUI*)button_interact);
-				button_interact = nullptr;
-			}
-		}
+			
 	}
 	if (interacting_state == InteractingStates::INTERACTING && App->dialog->end_dial)
 	{
