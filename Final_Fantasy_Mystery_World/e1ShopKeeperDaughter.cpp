@@ -37,6 +37,7 @@ bool e1ShopKeeperDaughter::Update(float dt)
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 				App->cutscene_manager->PlayCutscene("assets/xml/CutsceneAfterBossTutorial.xml");
 				App->globals.CutSceneAfterBossTutorialPlayed = true;
+				App->globals.CutSceneFinalRoomTutorialPlayed = true;
 			}
 		}
 		if (App->globals.CutSceneAfterBossTutorialPlayed && !App->cutscene_manager->is_executing) {
