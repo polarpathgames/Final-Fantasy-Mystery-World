@@ -22,6 +22,11 @@ struct Input {
 	bool pressing_J = false; // CHANGE DIRECTION
 	bool pressing_K = false; // CHANGE DIRECTION
 	bool pressing_L = false; // CHANGE DIRECTION
+	bool pressing_UP_LEFT = false; // CHANGE DIRECTION
+	bool pressing_UP_RIGHT = false; // CHANGE DIRECTION
+	bool pressing_DOWN_LEFT = false; // CHANGE DIRECTION
+	bool pressing_DOWN_RIGHT = false; // CHANGE DIRECTION
+
 	bool pressing_SPACE = false; // BASIC ATTACK
 	bool pressing_shift = false; // DIAGONALS
 	bool pressing_V = false; // SHOW SKILLS
