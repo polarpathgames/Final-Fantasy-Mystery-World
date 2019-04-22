@@ -115,7 +115,7 @@ bool m1Scene::Update(float dt)
 		}
 	}
 
-	if (App->map->actual_map == Maps::LOBBY) {
+	if (App->map->actual_map == Maps::LOBBY || App->map->actual_map == Maps::HOME || App->map->actual_map == Maps::SHOP) {
 		ShowHUD(false);
 	}
 
@@ -209,7 +209,7 @@ bool m1Scene::Update(float dt)
 		}
 		break;
 	case StatesMenu::FIRSTABILITY_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			DestroyFirstAbilityPanel();
 			menu_state = StatesMenu::NO_MENU;
 			player->BlockControls(false);
@@ -255,14 +255,14 @@ bool m1Scene::Update(float dt)
 		}
 		break;
 	case StatesMenu::HELP_DIAGONAL_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			DestroyHelpDiagonalMenu();
 			player->BlockControls(false);
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
 	case StatesMenu::HELP_ATTACK_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			DestroyHelpAttackMenu();
 			player->BlockControls(false);
 			menu_state = StatesMenu::NO_MENU;
@@ -1182,7 +1182,7 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == button_continue_lobby) {
 			DestroyGameOver();
 
-			if (App->map->actual_map == Maps::TUTORIAL && !App->globals.CutSceneFinalRoomTutorialPlayed) 
+			if (App->map->actual_map == Maps::TUTORIAL && !App->globals.CutSceneAfterBossTutorialPlayed)
 				App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 			else 
 				App->fade_to_black->FadeToBlack(Maps::HOME);
