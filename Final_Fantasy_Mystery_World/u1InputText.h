@@ -34,6 +34,7 @@ public:
 
 public:
 	SDL_Rect		box = { 0,0,0,0 };
+	bool			first_update = true;
 protected:
 
 	FontType		id_font;
@@ -41,7 +42,7 @@ protected:
 	SDL_Color		color = { 255,255,255,255 };
 	std::string		text;
 	SDL_Rect		input_box{ 0,0,0,0 };
-	bool			first_update = true;
+	
 	Animation*		cursor = nullptr;
 	uint			HEIGHT = 0u;
 
