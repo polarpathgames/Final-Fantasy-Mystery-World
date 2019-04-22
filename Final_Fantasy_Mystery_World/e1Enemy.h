@@ -5,6 +5,7 @@
 #include "p2Point.h"
 #include "e1DynamicEntity.h"
 #include "p2PerfTimer.h"
+#include "e1Particles.h"
 #include <vector>
 
 
@@ -60,6 +61,7 @@ public:
 public:
 	std::vector<iPoint> next_enemy_pos;
 	EnemyStats stats;
+	float arrow_time = 0;
 	float time_to_wait_before_attack = 0.0f;
 	EnemyType enemy_type = EnemyType::NONE;
 	iPoint original_position{ 0,0 };
