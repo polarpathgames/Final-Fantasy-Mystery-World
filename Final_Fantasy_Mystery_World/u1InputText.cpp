@@ -20,7 +20,7 @@ u1InputText::u1InputText(const int & pos_x, const int & pos_y, const char * txt,
 	box = rect;
 	SetColor(c);
 
-	texture = App->fonts->Print(text.data(), color, id_font);
+	texture = App->fonts->Print("f", color, id_font);
 
 	cursor = DBG_NEW Animation();
 	cursor->PushBack({ 1608,3102,2,30 });
@@ -29,6 +29,9 @@ u1InputText::u1InputText(const int & pos_x, const int & pos_y, const char * txt,
 
 	uint width_ = 0u;
 	App->tex->GetSize(texture, width_, HEIGHT);
+
+	SetText("");
+
 	section.w = box.w;
 	section.h = box.h;
 }
@@ -43,7 +46,7 @@ u1InputText::~u1InputText()
 
 void u1InputText::UpdateElement() 
 {
-	if (text.length() <= MAX_CHARACTERS || first_update) {
+	if (text.length() <= MAX_CHARACTERS) {
 		SDL_StartTextInput();
 		if (!App->input->text_input.empty()) {
 			std::string t = App->input->text_input;
@@ -85,11 +88,7 @@ void u1InputText::SetText(const char * txt)
 
 void u1InputText::AddText(const char * txt)
 {
-	if (text.length() <= MAX_CHARACTERS || first_update) {
-		if (first_update) {
-			text.clear();
-			first_update = false;
-		}
+	if (text.length() <= MAX_CHARACTERS) {
 		text += txt;
 		App->tex->UnLoad(texture);
 		texture = App->fonts->Print(text.data(), color, id_font);
@@ -100,10 +99,6 @@ void u1InputText::DeleteText()
 {
 	if (!text.empty()) {
 		text.pop_back();
-		if (first_update) {
-			text.clear();
-			first_update = false;
-		}
 		App->tex->UnLoad(texture);
 		texture = App->fonts->Print(text.data(), color, id_font);
 	}

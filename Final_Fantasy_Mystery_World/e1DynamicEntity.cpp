@@ -520,6 +520,34 @@ void e1DynamicEntity::CheckBasicAttackEffects(const e1Entity::EntityType & type,
 				else if (type == e1Entity::EntityType::PLAYER) {
 					e1Player* player_attacked = (e1Player*)(*item);
 					player_attacked->GetHitted(attack_damage);
+					switch (this->direction) {
+					case Direction::DOWN:
+						player_attacked->current_animation = &player_attacked->IdleUp;
+						break;
+					case Direction::UP:
+						player_attacked->current_animation = &player_attacked->IdleDown;
+						break;
+					case Direction::LEFT:
+						player_attacked->current_animation = &player_attacked->IdleRight;
+						break;
+					case Direction::RIGHT:
+						player_attacked->current_animation = &player_attacked->IdleLeft;
+						break;
+					case Direction::UP_RIGHT:
+						player_attacked->current_animation = &player_attacked->IdleDownLeft;
+						break;
+					case Direction::DOWN_LEFT:
+						player_attacked->current_animation = &player_attacked->IdleUpRight;
+						break;
+					case Direction::DOWN_RIGHT:
+						player_attacked->current_animation = &player_attacked->IdleUpLeft;
+						break;
+					case Direction::UP_LEFT:
+						player_attacked->current_animation = &player_attacked->IdleDownRight;
+						break;
+					default:
+						break;
+					}
 				}
 			}
 		}

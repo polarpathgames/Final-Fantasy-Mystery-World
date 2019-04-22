@@ -34,7 +34,6 @@ public:
 
 public:
 	SDL_Rect		box = { 0,0,0,0 };
-	bool			first_update = true;
 protected:
 
 	FontType		id_font;
