@@ -14,6 +14,7 @@
 #include "e1Mage.h"
 #include "m1EntityManager.h"
 #include "m1Map.h"
+#include "m1Window.h"
 #include "m1GUI.h"
 #include "m1Pathfinding.h"
 #include "m1Collisions.h"
@@ -1099,6 +1100,10 @@ void e1Player::RestTimeAfterFlash()
 
 void e1Player::ReduceMana(const int & cost_mana)
 {
+	iPoint pos{ 0,0 };
+	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 5) * (int)App->win->GetScale();
+	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
+	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(-cost_mana).data(), App->gui->screen, BLUE, FontType::PMIX24);
 	stats.mana -= cost_mana;
 	if (stats.mana < 0)
 		stats.mana = 0;
@@ -1107,6 +1112,10 @@ void e1Player::ReduceMana(const int & cost_mana)
 
 void e1Player::AugmentMana(const int & plus_mana)
 {
+	iPoint pos{ 0,0 };
+	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 5) * (int)App->win->GetScale();
+	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
+	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(plus_mana).data(), App->gui->screen, BLUE, FontType::PMIX24);
 	stats.mana += plus_mana;
 	if (stats.mana > stats.max_mana)
 		stats.mana = stats.max_mana;
@@ -1115,6 +1124,10 @@ void e1Player::AugmentMana(const int & plus_mana)
 
 void e1Player::ReduceLives(const int & cost_lives)
 {
+	iPoint pos{ 0,0 };
+	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 5) * (int)App->win->GetScale();
+	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
+	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(cost_lives).data(), App->gui->screen, RED, FontType::PMIX24);
 	stats.live -= cost_lives;
 	if (stats.live < 0)
 		stats.live = 0;
@@ -1123,6 +1136,10 @@ void e1Player::ReduceLives(const int & cost_lives)
 
 void e1Player::AugmentLives(const int & plus_lives)
 {
+	iPoint pos{ 0,0 };
+	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 5) * (int)App->win->GetScale();
+	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
+	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(plus_lives).data(), App->gui->screen, GREEN, FontType::PMIX24);
 	stats.live += plus_lives;
 	if (stats.live > stats.max_lives)
 		stats.live = stats.max_lives;
@@ -1147,6 +1164,17 @@ bool e1Player::IsEnemyInThatPosition(const iPoint & pos)
 	return ret;
 }
 
+void e1Player::ReduceGold(const int & cost_gold)
+{
+	iPoint pos{ 0,0 };
+	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 5) * (int)App->win->GetScale();
+	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
+	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(-cost_gold).data(), App->gui->screen, YELLOW, FontType::PMIX24);
+	stats.gold -= cost_gold;
+	if (stats.gold < 0)
+		stats.gold = 0;
+}
+
 
 void e1Player::CreateSkills()
 {
@@ -1169,6 +1197,15 @@ void e1Player::CreateSkills()
 	left_skill_label->SetPos(30, 0);
 
 	has_skills = true;
+}
+
+void e1Player::AugmentGold(const int & plus_gold)
+{
+	iPoint pos{ 0,0 };
+	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 5) * (int)App->win->GetScale();
+	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
+	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(plus_gold).data(), App->gui->screen, YELLOW, FontType::PMIX24);
+	stats.gold += plus_gold;
 }
 
 void e1Player::UpdateExperience(int experience) {

@@ -22,7 +22,7 @@ u1InputText::u1InputText(const int & pos_x, const int & pos_y, const char * txt,
 
 	texture = App->fonts->Print(text.data(), color, id_font);
 
-	cursor = new Animation();
+	cursor = DBG_NEW Animation();
 	cursor->PushBack({ 1608,3102,2,30 });
 	cursor->PushBack({ 0,0,0,0 });
 	cursor->speed = 2.0F;
@@ -43,7 +43,6 @@ u1InputText::~u1InputText()
 
 void u1InputText::UpdateElement() 
 {
-
 	if (text.length() <= MAX_CHARACTERS || first_update) {
 		SDL_StartTextInput();
 		if (!App->input->text_input.empty()) {
@@ -59,7 +58,6 @@ void u1InputText::UpdateElement()
 	{
 		DeleteText();
 	}
-
 }
 
 void u1InputText::InnerDraw()

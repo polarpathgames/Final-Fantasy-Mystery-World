@@ -4,7 +4,7 @@
   <app framerate_cap="60">
     <title>Final Fantasy: Mystery World</title>
     <organization>UPC</organization>
-    <version>0.3.1</version>
+    <version>0.5.1</version>
   </app>
 
   <renderer>
@@ -27,6 +27,7 @@
     <font file="Final_Fantasy_font.ttf" size="64"/>
     <font file="Final_Fantasy_font.ttf" size="100"/>
     <font file="pixelmix.ttf" size="16"/>
+    <font file="pixelmix.ttf" size="24"/>
     <font file="pixelmix.ttf" size="32"/>
     <font file="pixelmix.ttf" size="48"/>
     <font file="pixelmix.ttf" size="64"/>

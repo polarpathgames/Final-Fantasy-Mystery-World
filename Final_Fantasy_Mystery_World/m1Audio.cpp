@@ -320,7 +320,7 @@ void m1Audio::VolumeDown(int vol)
 		case -2:
 			if (volume > 0) {
 				volume -= volume_change_ratio;
-				Mix_Volume(-1, 0);
+				Mix_VolumeMusic(volume);
 			}
 			break;
 		case -3:

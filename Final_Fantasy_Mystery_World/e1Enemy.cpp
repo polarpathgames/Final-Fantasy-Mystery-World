@@ -4,8 +4,11 @@
 #include "m1Render.h"
 #include "m1Textures.h"
 #include "m1Audio.h"
+#include "u1UI_Element.h"
 #include "e1Drop.h"
+#include "m1GUI.h"
 #include "m1EntityManager.h"
+#include "m1Fonts.h"
 #include "p2Rooms.h"
 #include "m1Map.h"
 #include <vector>
@@ -13,6 +16,7 @@
 #include "m1Pathfinding.h"
 #include "e1Player.h"
 #include "m1Scene.h"
+#include "m1Window.h"
 #include "Brofiler/Brofiler.h"
 #include <map>
 
@@ -389,12 +393,15 @@ void e1Enemy::PerformMovement(float dt)
 void e1Enemy::GetHitted(const int & damage_taken)
 {
 	stats.live -= damage_taken;
-
+	//(int)(camera.x * speed) + x * scale;
+	iPoint pos{ 0,0 };
+	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 5) * (int)App->win->GetScale();
+	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
+	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(damage_taken).data(), App->gui->screen,RED, FontType::PMIX24);
 	if (stats.live <= 0 || App->scene->player->god_mode) {
 		Drop();
 		App->audio->PlayFx(App->scene->fx_kill_enemy);
 		App->scene->player->UpdateExperience(stats.experience);
-		//App->map->quest_rooms->entities_info.emplace(original_position, App->map->quest_rooms->actual_room->id);
 		App->map->quest_rooms->AddEntityToNotRepeat(original_position);
 		to_delete = true;
 	}
