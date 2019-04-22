@@ -149,6 +149,7 @@ bool m1Scene::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 		App->input->ControllerVibration(0.3F, 1000);
+		App->debug = !App->debug;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
