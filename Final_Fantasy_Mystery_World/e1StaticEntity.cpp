@@ -395,12 +395,13 @@ bool e1StaticEntity::Update(float dt)
 					button_interact = nullptr;
 				}
 			}
+			
+			}				
 			else {
 				if (button_interact != nullptr) {
 					App->gui->DeleteUIElement((u1GUI*)button_interact);
 					button_interact = nullptr;
 				}
-			}
 			}
 			
 	}

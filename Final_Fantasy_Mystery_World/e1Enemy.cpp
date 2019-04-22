@@ -400,6 +400,7 @@ void e1Enemy::GetHitted(const int & damage_taken)
 	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 5) * (int)App->win->GetScale();
 	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
 	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(damage_taken).data(), App->gui->screen,RED, FontType::PMIX24);
+	state = State::IDLE;
 	if (stats.live <= 0 || App->scene->player->god_mode) {
 		state = State::DEATH;
 		ChangeAnimation(direction, state);
