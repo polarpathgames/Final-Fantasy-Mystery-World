@@ -197,14 +197,18 @@ void e1CarnivorousPlant::IdAnimToEnum()
 			break;
 		case 84:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
+			data.animations[i].animType = AnimationState::DEATH_LEFT;
+			data.animations[i].animType = AnimationState::DEATH_DOWN;
 			break;
 		case 85:
 			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
+			data.animations[i].animType = AnimationState::DEATH_UP;
 			break;
 		case 86:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
+			data.animations[i].animType = AnimationState::DEATH_RIGHT;
 			break;
-		case 69:
+		case 87:
 			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
 			break;
 		}

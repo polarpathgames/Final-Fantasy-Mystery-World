@@ -278,4 +278,15 @@
    <frame tileid="91" duration="100"/>
   </animation>
  </tile>
+ <tile id="87">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
+  <animation>
+   <frame tileid="87" duration="100"/>
+   <frame tileid="100" duration="100"/>
+   <frame tileid="99" duration="100"/>
+   <frame tileid="98" duration="100"/>
+  </animation>
+ </tile>
 </tileset>
