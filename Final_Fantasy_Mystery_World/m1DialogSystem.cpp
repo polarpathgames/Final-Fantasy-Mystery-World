@@ -8,9 +8,12 @@
 #include "m1Window.h"
 #include "App.h"
 #include "m1Input.h"
+#include "m1Map.h"
 #include "u1Label.h"
+#include "e1StaticEntity.h"
 #include "u1Button.h"
 #include "u1Image.h"
+#include "m1EntityManager.h"
 #include "Brofiler/Brofiler.h"
 
 m1DialogSystem::m1DialogSystem()
@@ -250,6 +253,8 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			   dialogTrees[treeid]->karma += currentNode->dialogOptions[i]->karma;
 			   dialogTrees[treeid]->tag += currentNode->dialogOptions[i]->tag;
 			   DeleteText();
+			   std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+			   std::vector<e1Entity*>::iterator item = entities.begin();
 			   switch (dialogTrees[treeid]->tag)
 			   {
 			   case 1: // SHOP
@@ -259,10 +264,39 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			   case -2: //FOUNTAIN MANA
 				   App->scene->player->AugmentMana(100);
 				   App->scene->player->BlockControls(false);
-				   break;
+				   for (; item != entities.end(); ++item) {
+					   if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::STATIC) {
+						   e1StaticEntity* stat = (e1StaticEntity*)(*item);
+						   if (stat->static_type == e1StaticEntity::Type::QUEST_FOUNTAIN) {
+							   delete stat->idle;
+							   stat->idle = nullptr;
+							   stat->idle = new Animation();
+							   stat->idle->PushBack({ 1141, 5,50,43 });
+							   stat->frame = stat->idle->frames[0];
+							   stat->current_animation = stat->idle;
+							   break;
+						   }
+					   }
+				   }
+			   
 			   case 2: //FOUNTAIN LIVES
 				   App->scene->player->AugmentLives(250);
 				   App->scene->player->BlockControls(false);
+				   for (; item != entities.end(); ++item) {
+					   if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::STATIC) {
+						   e1StaticEntity* stat = (e1StaticEntity*)(*item);
+						   if (stat->static_type == e1StaticEntity::Type::QUEST_FOUNTAIN) {
+							   delete stat->idle;
+							   stat->idle = nullptr;
+							   stat->idle = new Animation();
+							   stat->idle->PushBack({  1141, 5,50,43  });
+							   stat->frame = stat->idle->frames[0];
+							   stat->current_animation = stat->idle;
+							   stat->position = { stat->position.x + 7, stat->position.y + 5 };
+							   break;
+						   }
+					   }
+				   }
 				   break;
 			   case -3://SAVE FUNCTION
 				   //Save function

@@ -1,4 +1,5 @@
 #include "e1StaticEntity.h"
+#include "m1EntityManager.h"
 #include "p2Log.h"
 #include "App.h"
 #include "m1Render.h"
@@ -266,6 +267,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x + 1,App->map->WorldToMap(position.x,position.y).y + 1 };
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 		max_distance_to_interact = 3;
+		
 	}
 	else if (strcmp(name, "NPC1") == 0) {
 		static_type = e1StaticEntity::Type::NPC1;
@@ -475,3 +477,4 @@ e1StaticEntity::InteractingStates e1StaticEntity::GetState()
 {
 	return interacting_state;
 }
+
