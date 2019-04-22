@@ -12,6 +12,9 @@
 #include "m1Input.h"
 #include "m1EasingSplines.h"
 #include "Brofiler/Brofiler.h"
+#include "m1GUI.h"
+#include "m1Window.h"
+#include "u1Image.h"
 
 e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 {
@@ -328,6 +331,10 @@ e1StaticEntity::~e1StaticEntity()
 		idle = nullptr;
 		current_animation = nullptr;
 	}
+	if (button_interact != nullptr) {
+		App->gui->DeleteUIElement((u1GUI*)button_interact);
+		button_interact = nullptr;
+	}
 }
 
 void e1StaticEntity::Draw(SDL_Texture * tex, float dt)
@@ -357,6 +364,22 @@ bool e1StaticEntity::Update(float dt)
 	iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
 	if (interacting_state == InteractingStates::WAITING_INTERACTION) {
 		if (actual_tile.DistanceTo(player_pos) <= max_distance_to_interact) {
+			if (button_interact == nullptr) {
+				button_interact = App->gui->AddImage(0, 0, { 1120,1920,32,32 }, nullptr, App->gui->screen, true, false, false, false);
+
+				iPoint pos{ 0,0 };
+				pos.x = (int)(App->render->camera.x) + (App->scene->player->GetPosition().x) * (int)App->win->GetScale() - button_interact->section.w*0.5F;
+				pos.y = (int)(App->render->camera.y) + (App->scene->player->position.y) * (int)App->win->GetScale() - button_interact->section.h;
+
+				button_interact->SetPos(pos.x, pos.y);
+			}
+			else {
+				iPoint pos{ 0,0 };
+				pos.x = (int)(App->render->camera.x) + (App->scene->player->GetPosition().x) * (int)App->win->GetScale() - button_interact->section.w*0.5F;
+				pos.y = (int)(App->render->camera.y) + (App->scene->player->position.y) * (int)App->win->GetScale() - button_interact->section.h;
+				button_interact->SetPos(pos.x, pos.y);
+			}
+
 			if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && App->scene->GetMenuState() == StatesMenu::NO_MENU) {
 				App->scene->player->state = State::IDLE;
 				App->easing_splines->CleanUp();
@@ -367,8 +390,16 @@ bool e1StaticEntity::Update(float dt)
 				App->dialog->end_dial = false;
 				App->audio->PlayFx(App->scene->fx_writting);
 				App->scene->ShowHUD(false);
+				App->gui->DeleteUIElement((u1GUI*)button_interact);
+				button_interact = nullptr;
 			}
-		}			
+		}
+		else {
+			if (button_interact != nullptr) {
+				App->gui->DeleteUIElement((u1GUI*)button_interact);
+				button_interact = nullptr;
+			}
+		}
 	}
 	if (interacting_state == InteractingStates::INTERACTING && App->dialog->end_dial)
 	{
@@ -387,7 +418,7 @@ bool e1StaticEntity::Update(float dt)
 				App->dialog->PerformDialogue(0);
 			break;
 		case e1StaticEntity::Type::QUEST_FOUNTAIN:
-			App->dialog->PerformDialogue(1);			
+			App->dialog->PerformDialogue(1);
 			break;
 		case e1StaticEntity::Type::NPC1:
 			App->dialog->PerformDialogue(2);
