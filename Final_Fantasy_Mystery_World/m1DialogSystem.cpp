@@ -274,6 +274,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 							   stat->idle->PushBack({ 1141, 5,50,43 });
 							   stat->frame = stat->idle->frames[0];
 							   stat->current_animation = stat->idle;
+							   stat->position = { stat->position.x + 7, stat->position.y + 5 };
 							   break;
 						   }
 					   }
