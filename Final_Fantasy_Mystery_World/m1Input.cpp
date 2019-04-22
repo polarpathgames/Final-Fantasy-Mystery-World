@@ -90,8 +90,8 @@ void m1Input::DefaultControls()
 	keyboard_buttons.buttons_code.LEFT = SDL_SCANCODE_A;
 	keyboard_buttons.buttons_code.RIGHT = SDL_SCANCODE_D;
 	keyboard_buttons.buttons_code.UP = SDL_SCANCODE_W;
-	keyboard_buttons.buttons_code.HABILTY1 = SDL_SCANCODE_1;
-	keyboard_buttons.buttons_code.HABILITY2 = SDL_SCANCODE_2;
+	keyboard_buttons.buttons_code.HABILTY1 = SDL_SCANCODE_F;
+	keyboard_buttons.buttons_code.HABILITY2 = SDL_SCANCODE_G;
 	keyboard_buttons.buttons_code.SHOW_SKILLS = SDL_SCANCODE_V;
 	keyboard_buttons.buttons_code.INVENTORY = SDL_SCANCODE_E;
 
