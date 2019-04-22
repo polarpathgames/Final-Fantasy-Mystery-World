@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.3" name="warrior" tilewidth="28" tileheight="31" tilecount="96" columns="12">
+<tileset version="1.2" tiledversion="1.2.2" name="warrior" tilewidth="28" tileheight="31" tilecount="96" columns="12">
  <properties>
   <property name="attack_power" type="int" value="80"/>
   <property name="attack_power_ability" type="int" value="150"/>
@@ -21,7 +21,7 @@
  </tile>
  <tile id="1">
   <properties>
-   <property name="speed" type="int" value="2"/>
+   <property name="speed" type="int" value="4"/>
   </properties>
   <animation>
    <frame tileid="1" duration="270"/>
@@ -45,7 +45,7 @@
  </tile>
  <tile id="4">
   <properties>
-   <property name="speed" type="int" value="2"/>
+   <property name="speed" type="int" value="4"/>
   </properties>
   <animation>
    <frame tileid="4" duration="270"/>
@@ -69,7 +69,7 @@
  </tile>
  <tile id="7">
   <properties>
-   <property name="speed" type="int" value="2"/>
+   <property name="speed" type="int" value="4"/>
   </properties>
   <animation>
    <frame tileid="7" duration="270"/>
@@ -93,7 +93,7 @@
  </tile>
  <tile id="10">
   <properties>
-   <property name="speed" type="int" value="2"/>
+   <property name="speed" type="int" value="4"/>
   </properties>
   <animation>
    <frame tileid="10" duration="270"/>
@@ -117,7 +117,7 @@
  </tile>
  <tile id="13">
   <properties>
-   <property name="speed" type="int" value="2"/>
+   <property name="speed" type="int" value="4"/>
   </properties>
   <animation>
    <frame tileid="13" duration="270"/>
@@ -141,7 +141,7 @@
  </tile>
  <tile id="16">
   <properties>
-   <property name="speed" type="int" value="2"/>
+   <property name="speed" type="int" value="4"/>
   </properties>
   <animation>
    <frame tileid="16" duration="270"/>
@@ -165,7 +165,7 @@
  </tile>
  <tile id="19">
   <properties>
-   <property name="speed" type="int" value="2"/>
+   <property name="speed" type="int" value="4"/>
   </properties>
   <animation>
    <frame tileid="19" duration="270"/>
@@ -189,7 +189,7 @@
  </tile>
  <tile id="22">
   <properties>
-   <property name="speed" type="int" value="2"/>
+   <property name="speed" type="int" value="4"/>
   </properties>
   <animation>
    <frame tileid="22" duration="270"/>
