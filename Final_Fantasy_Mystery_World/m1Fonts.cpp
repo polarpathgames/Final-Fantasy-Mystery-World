@@ -3,7 +3,7 @@
 #include "App.h"
 #include "m1Textures.h"
 #include "m1Fonts.h"
-
+#include "SDL/include/SDL.h"
 #include <assert.h>
 
 #include "SDL/include/SDL.h"
@@ -41,7 +41,7 @@ bool m1Fonts::Awake(pugi::xml_node& conf)
 			Load(PATH(path, conf.attribute("file").as_string()),conf.attribute("size").as_uint(DEFAULT_FONT_SIZE));
 		}
 
-		static_assert((int)FontType::NONE == 8, "Update config.xml adding DBG_NEW fonts");
+		static_assert((int)FontType::NONE == 9, "Update config.xml adding DBG_NEW fonts");
 		assert(fonts.size() > (int)FontType::NONE - 1); // Loaded more fonts that declarated
 	}
 
@@ -132,12 +132,16 @@ std::list<Font*>::const_iterator m1Fonts::FindPathFont(const char* name, const i
 }
 
 // Print text using font
-SDL_Texture* m1Fonts::Print(const char* text, SDL_Color color, FontType font_type)
+SDL_Texture* m1Fonts::Print(const char* text, SDL_Color color, FontType font_type, Uint8 alpha)
 {
 	SDL_Texture* ret = NULL;
 
 	std::list<Font*>::const_iterator item;
 	SDL_Surface* surface = TTF_RenderText_Blended(((item = FindIdFont(font_type)) != fonts.end()) ? (*item)->font : default->font, text, color);
+
+	if (alpha != 255 && alpha > 0) {
+		SDL_SetSurfaceAlphaMod(surface, alpha);
+	}
 
 	if (surface == NULL)
 	{
