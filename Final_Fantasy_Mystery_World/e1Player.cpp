@@ -29,6 +29,7 @@
 #include "m1EasingSplines.h"
 #include "m1MainMenu.h"
 #include "m1ParticleManager.h"
+#include "p2math.h"
 
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
@@ -36,6 +37,7 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
 	current_animation = &IdleDownLeft;
+	target_position = position.Aproximate();
 	Init();
 }
 
@@ -74,7 +76,7 @@ bool e1Player::Update(float dt)
 {
 	PerformActions(dt);
 
-	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL);
 
 	if (coll != nullptr)
 		coll->SetPos(position.x, position.y + 25);
@@ -224,14 +226,11 @@ void e1Player::CenterPlayerInTile()
 	}
 
 	actual_tile = App->map->WorldToMap(position.x, position.y);
-	movement_count = { 0,0 };
-	iPoint tmp = App->map->MapToWorld(actual_tile.x, actual_tile.y) - pivot;
-	position = fPoint(tmp.x, tmp.y);
-	position.x += App->map->data.tile_width*0.5F;
-	position.y += App->map->data.tile_height*0.5F;
+	position.x += App->map->data.tile_width * 0.5F - pivot.x;
+	position.y += App->map->data.tile_height * 0.5F - pivot.y;
 
-	target_position = position;
-	initial_position = position;
+	target_position = position.Aproximate();
+	target_tile = actual_tile;
 }
 
 
@@ -254,11 +253,6 @@ void e1Player::ReadPlayerInput()
 		}
 		else if (player_input.pressing_H) {
 			state = State::BEFORE_FLASH;
-		}
-		else if (movement_type == Movement_Type::InQuest){
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
-			target_position = position;
 		}
 	}
 	if (state == State::WALKING) {
@@ -285,15 +279,14 @@ void e1Player::ReadPlayerInput()
 
 void e1Player::ReadPlayerMovementInQuest()
 {
-	if (target_position == position) {
+	if (target_position == position.Aproximate()) {
 		bool is_movement_acepted = false;
 		if (MultipleButtons(&player_input)) {
 			if (player_input.pressing_A && player_input.pressing_shift) {
 				direction = Direction::LEFT;
-				if (NextTileFree(direction) && App->map->IsWalkable({actual_tile.x - 1, actual_tile.y + 1},false)) {
-					target_position.create(position.x - App->map->data.tile_width, position.y);
-					movement_count.x -= App->map->data.tile_width;
-					actual_tile += {-1, 1};
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y + 1 }, false)) {
+					target_tile = { actual_tile.x,actual_tile.y + 1 };
+					target_position = { (int)floor((floor(target_tile.x) + 0.5F)*App->map->data.tile_width), (int)floor((floor(target_tile.y) + 0.5F)*App->map->data.tile_height) };
 					is_movement_acepted = true;
 				}
 				else {
@@ -302,10 +295,9 @@ void e1Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_D && player_input.pressing_shift) {
 				direction = Direction::RIGHT;
-				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y - 1 },false)) {
-					target_position.create(position.x + App->map->data.tile_width, position.y);
-					movement_count.x += App->map->data.tile_width;
-					actual_tile += {1, -1};
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y - 1 }, false)) {
+					target_tile = { actual_tile.x,actual_tile.y + 1 };
+					target_position = { (int)floor((floor(target_tile.x) + 0.5F)*App->map->data.tile_width), (int)floor((floor(target_tile.y) + 0.5F)*App->map->data.tile_height) };
 					is_movement_acepted = true;
 				}
 				else {
@@ -314,10 +306,9 @@ void e1Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_W && player_input.pressing_shift) {
 				direction = Direction::UP;
-				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y - 1 },false)) {
-					target_position.create(position.x, position.y - App->map->data.tile_height);
-					movement_count.y -= App->map->data.tile_height;
-					actual_tile += {-1, -1};
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y - 1 }, false)) {
+					target_tile = { actual_tile.x,actual_tile.y + 1 };
+					target_position = { (int)floor((floor(target_tile.x) + 0.5F)*App->map->data.tile_width), (int)floor((floor(target_tile.y) + 0.5F)*App->map->data.tile_height) };
 					is_movement_acepted = true;
 				}
 				else {
@@ -326,10 +317,9 @@ void e1Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_S && player_input.pressing_shift) {
 				direction = Direction::DOWN;
-				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y + 1 },false)) {
-					target_position.create(position.x, position.y + App->map->data.tile_height);
-					movement_count.y += App->map->data.tile_height;
-					actual_tile += {1, 1};
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y + 1 }, false)) {
+					target_tile = { actual_tile.x,actual_tile.y + 1 };
+					target_position = { (int)floor((floor(target_tile.x) + 0.5F)*App->map->data.tile_width), (int)floor((floor(target_tile.y) + 0.5F)*App->map->data.tile_height) };
 					is_movement_acepted = true;
 				}
 				else {
@@ -339,10 +329,8 @@ void e1Player::ReadPlayerMovementInQuest()
 			if (player_input.pressing_S && !player_input.pressing_shift) {
 				direction = Direction::DOWN_LEFT;
 				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x, actual_tile.y + 1 },false)) {
-					target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
-					movement_count.x -= (App->map->data.tile_width / 2);
-					movement_count.y += (App->map->data.tile_height / 2);
-					actual_tile += {0, 1};
+					target_tile = { actual_tile.x,actual_tile.y + 1 };
+					target_position = { (int)floor((floor(target_tile.x) + 0.5F)*App->map->data.tile_width), (int)floor((floor(target_tile.y) + 0.5F)*App->map->data.tile_height) };
 					is_movement_acepted = true;
 				}
 				else {
@@ -351,11 +339,9 @@ void e1Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_D && !player_input.pressing_shift) {
 				direction = Direction::DOWN_RIGHT;
-				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y},false)) {
-					target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
-					movement_count.x += (App->map->data.tile_width / 2);
-					movement_count.y += (App->map->data.tile_height / 2);
-					actual_tile += {1, 0};
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y }, false)) {
+					target_tile = { actual_tile.x,actual_tile.y + 1 };
+					target_position = { (int)floor((floor(target_tile.x) + 0.5F)*App->map->data.tile_width), (int)floor((floor(target_tile.y) + 0.5F)*App->map->data.tile_height) };
 					is_movement_acepted = true;
 				}
 				else {
@@ -364,11 +350,9 @@ void e1Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_W && !player_input.pressing_shift) {
 				direction = Direction::UP_RIGHT;
-				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x, actual_tile.y - 1 },false)) {
-					target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
-					movement_count.x += (App->map->data.tile_width / 2);
-					movement_count.y -= (App->map->data.tile_height / 2);
-					actual_tile += {0, -1};
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x, actual_tile.y - 1 }, false)) {
+					target_tile = { actual_tile.x,actual_tile.y + 1 };
+					target_position = { (int)floor((floor(target_tile.x) + 0.5F)*App->map->data.tile_width), (int)floor((floor(target_tile.y) + 0.5F)*App->map->data.tile_height) };
 					is_movement_acepted = true;
 				}
 				else {
@@ -377,11 +361,9 @@ void e1Player::ReadPlayerMovementInQuest()
 			}
 			else if (player_input.pressing_A && !player_input.pressing_shift) {
 				direction = Direction::UP_LEFT;
-				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y},false)) {
-					target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
-					movement_count.x -= (App->map->data.tile_width / 2);
-					movement_count.y -= (App->map->data.tile_height / 2);
-					actual_tile += {-1, 0};
+				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y }, false)) {
+					target_tile = { actual_tile.x,actual_tile.y + 1 };
+					target_position = { (int)floor((floor(target_tile.x) + 0.5F)*App->map->data.tile_width), (int)floor((floor(target_tile.y) + 0.5F)*App->map->data.tile_height) };
 					is_movement_acepted = true;
 				}
 				else {
@@ -389,20 +371,17 @@ void e1Player::ReadPlayerMovementInQuest()
 				}
 			}
 			
-			
-		}
-		if (!MultipleButtons(&player_input)) {
-			state = State::IDLE;
-			target_position = position;
-			ChangeAnimation(direction, state);
-		}
-		else {
 			if (is_movement_acepted) {
 				ChangeTurn(type);
 			}
 			else {
 				ChangeAnimation(direction, state);
 			}
+		}
+		else {
+			state = State::IDLE;
+			target_position = position.Aproximate();
+			ChangeAnimation(direction, state);
 		}
 	}
 }
@@ -493,9 +472,6 @@ void e1Player::PrepareBasicAttack()
 	ChangeAnimation(direction, state, type_attack);
 }
 
-
-	
-	
 void e1Player::PerformActions(float dt)
 {
 	if (player_input.pressing_V && App->scene->GetMenuState() != StatesMenu::OPTIONS_MENU && App->scene->GetMenuState() != StatesMenu::CONTROLS_MENU && App->scene->GetMenuState() != StatesMenu::PAUSE_MENU && !App->cutscene_manager->is_executing){
@@ -681,157 +657,41 @@ void e1Player::PerformMovementInLobby(float dt)
 
 void e1Player::PerformMovementInQuest(float dt)
 {
+	if (position.Aproximate() != target_position) {
+		move += vel;
+		position = lerp(position.Aproximate(), target_position, move);
+	}
+	else {
+		target_position = position.Aproximate();
+		state = State::IDLE;
+		move = 0.0f;
+	}
+
 	switch (direction)
 	{
 	case Direction::DOWN_LEFT:
-		if (position.x >= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
-			position.x -= velocity.x * dt;
-			//if (update) {
-			float x = velocity.y * dt;
-			position.y += x;
-			//	update = false;
-		//	}
-			//else {
-			//	update = true;
-			//}
-			current_animation = &GoDownLeft;
-		}
-		else {
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
-			target_position = position;
-			state = State::IDLE;
-			current_animation = &IdleDownLeft;
-		}
+		
 		break;
 	case Direction::UP_RIGHT:
-		if (position.x <= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
-			position.x += velocity.x * dt;
-			//if (update) {
-			float x = velocity.y * dt;
-				position.y -= x;
-			//	update = false;
-			//}
-			//else {
-			//	update = true;
-			//}
-			current_animation = &GoUpRight;
-		}
-		else {
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
-			target_position = position;
-			state = State::IDLE;
-			current_animation = &IdleUpRight;
-		}
+		
 		break;
 	case Direction::UP_LEFT:
-		if (position.x >= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
-			position.x -= velocity.x * dt;
-			//if (update) {
-				float x = velocity.y * dt;
-				position.y -= x;
-				//update = false;
-			//}
-			//else {
-			//	update = true;
-			//}
-			current_animation = &GoUpLeft;
-		}
-		else {
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
-			target_position = position;
-			state = State::IDLE;
-			current_animation = &IdleUpLeft;
-		}
+		
 		break;
 	case Direction::DOWN_RIGHT:
-		if (position.x <= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
-			position.x += velocity.x * dt;
-			//if (update) {
-			float x = velocity.y * dt;
-				position.y += x;
-			//	update = false;
-			//}
-			//else {
-			//	update = true;
-			//}
-			current_animation = &GoDownRight;
-		}
-		else {
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
-			target_position = position;
-			state = State::IDLE;
-			current_animation = &IdleDownRight;
-		}
+		
 		break;
 	case Direction::LEFT:
-		if (position.x >= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
-			position.x -= floor(velocity.x * dt);
-			current_animation = &GoLeft;
-		}
-		else {
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
-			target_position = position;
-			state = State::IDLE;
-			current_animation = &IdleLeft;
-		}
+		
 		break;
 	case Direction::RIGHT:
-		if (position.x <= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
-			position.x += floor(velocity.x * dt);
-			current_animation = &GoRight;
-		}
-		else {
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
-			target_position = position;
-			state = State::IDLE;
-			current_animation = &IdleRight;
-		}
+		
 		break;
 	case Direction::UP:
-		if (position.x == initial_position.x + movement_count.x && position.y >= initial_position.y + movement_count.y) {
-			//if (update) {
-			float x = velocity.y * dt;
-			position.y -= x;
-				//update = false;
-			//}
-			//else {
-			//	update = true;
-			//}
-			current_animation = &GoUp;
-		}
-		else {
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
-			target_position = position;
-			state = State::IDLE;
-			current_animation = &IdleUp;
-		}
+		
 		break;
 	case Direction::DOWN:
-		if (position.x == initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
-			//if (update) {
-			float x =velocity.y * dt;
-				position.y += x;
-				//update = false;
-			//}
-			//else {
-			//	update = true;
-			//}
-			current_animation = &GoDown;
-		}
-		else {
-			position.x = initial_position.x + movement_count.x;
-			position.y = initial_position.y + movement_count.y;
-			target_position = position;
-			state = State::IDLE;
-			current_animation = &IdleDown;
-		}
+		
 		break;
 	default:
 		break;
@@ -876,10 +736,6 @@ void e1Player::ChangeDirection()
 			current_animation = &IdleUpRight;
 		}
 	}
-
-
-
-
 }
 
 const bool e1Player::MultipleButtons(const Input * input)
@@ -913,10 +769,6 @@ void e1Player::GetHitted(const int & damage_taken)
 		ChangeAnimation(direction, state);
 		death_time = SDL_GetTicks();
 	}
-
-	
-
-
 }
 
 void e1Player::Death()
@@ -1071,7 +923,7 @@ void e1Player::LookFlash()
 void e1Player::Flashing()
 {
 
-	if (flash_time < SDL_GetTicks() - 500) {
+	/*if (flash_time < SDL_GetTicks() - 500) {
 		actual_tile = flash_position;
 		state = State::AFTER_FLASH;
 		drawable = true;
@@ -1091,7 +943,7 @@ void e1Player::Flashing()
 		target_position = position;
 		initial_position = position;
 		flash_time = SDL_GetTicks();
-	}
+	}*/
 
 }
 

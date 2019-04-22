@@ -17,8 +17,8 @@ e1StrangeFrog::e1StrangeFrog(const int & x, const int & y) : e1Enemy(x, y)
 	position.x;
 	position.y -= 25;
 	SetPivot(21, 33);
-	target_position = position;
-	initial_position = position;
+	/*target_position = position;
+	initial_position = position;*/
 
 	InitStats();
 }
@@ -59,9 +59,9 @@ bool e1StrangeFrog::PreUpdate()
 bool e1StrangeFrog::Update(float dt)
 {
 	if (state == State::IDLE) {
-		position.x = initial_position.x + movement_count.x;
+		/*position.x = initial_position.x + movement_count.x;
 		position.y = initial_position.y + movement_count.y;
-		target_position = position;
+		target_position = position;*/
 	}
 
 	if (state == State::WALKING) {
@@ -82,7 +82,7 @@ bool e1StrangeFrog::Update(float dt)
 	}
 
 
-	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL);
 
 	return true;
 }

@@ -79,7 +79,7 @@ int u1Bar::CalculateBar(int quantity)
 void u1Bar::InnerDraw()
 {
 	if (drawable) {
-		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), empty_bar->draw_offset.x, empty_bar->draw_offset.y, &empty_bar->section, false, SDL_FLIP_NONE, 0);
-		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), filled_bar->draw_offset.x, filled_bar->draw_offset.y, &filled_bar->section, false, SDL_FLIP_NONE, 0);
+		App->render->BlitUI((SDL_Texture*)App->gui->GetAtlas(), empty_bar->draw_offset.x, empty_bar->draw_offset.y, &empty_bar->section);
+		App->render->BlitUI((SDL_Texture*)App->gui->GetAtlas(), filled_bar->draw_offset.x, filled_bar->draw_offset.y, &filled_bar->section);
 	}
 }

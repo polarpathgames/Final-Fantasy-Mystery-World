@@ -138,6 +138,8 @@ public:
 	Collider* coll = nullptr;
 	bool to_delete = false;
 	iPoint velocity;
+	float vel = 0.1f;
+	float move = 0.0f;
 
 };
 

@@ -72,7 +72,8 @@ void m1Map::Draw()
 		{
 			for (int j = 0; j < data.height; ++j)
 			{
-				iPoint tile_pos = MapToWorld(i, j);
+				//iPoint tile_pos = { (int)(i*data.tile_width*0.5f),j*data.tile_height };
+				iPoint tile_pos = MapToWorld(i,j);
 				int tile_id = layer->Get(i, j);
 				if (tile_id > 0)
 				{
@@ -81,7 +82,7 @@ void m1Map::Draw()
 					{
 						SDL_Rect r = tileset->GetTileRect(tile_id);
 
-						App->render->Blit(tileset->texture, tile_pos.x, tile_pos.y, &r, true);
+						App->render->Blit(tileset->texture, tile_pos.x, tile_pos.y, &r);
 						last_tiles_drawn++;
 					}
 				}
@@ -93,7 +94,7 @@ void m1Map::Draw()
 		for (int i = 0; i < data.width; ++i) {
 			for (int j = 0; j < data.height; ++j) {
 
-				App->render->Blit(quad, MapToWorld(i, j).x + 1, MapToWorld(i, j).y - 8, NULL, true);
+				App->render->Blit(quad, MapToWorld(i, j).x + 1, MapToWorld(i, j).y - 8, NULL);
 			}
 		}
 	}

@@ -64,7 +64,7 @@ void u1InputText::UpdateElement()
 
 void u1InputText::InnerDraw()
 {
-	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &box, false);
+	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &box);
 
 	uint width_ = 0u, height_ = 0u;
 	App->tex->GetSize(texture, width_, height_);
@@ -73,9 +73,9 @@ void u1InputText::InnerDraw()
 	pos.y = (box.h - (int)HEIGHT)*0.5F;
 	pos += draw_offset;
 
-	App->render->Blit(texture, pos.x, pos.y, NULL, false, SDL_FLIP_NONE, 0.0F);
+	App->render->BlitUI(texture, pos.x, pos.y, NULL);
 
-	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), pos.x + width_, pos.y + HEIGHT*0.4F, &(cursor->GetCurrentFrame(App->GetDeltaTime())), false, SDL_FLIP_NONE, 0.0F);
+	App->render->BlitUI((SDL_Texture*)App->gui->GetAtlas(), pos.x + width_, pos.y + HEIGHT*0.4F, &(cursor->GetCurrentFrame(App->GetDeltaTime())));
 }
 
 void u1InputText::SetText(const char * txt)

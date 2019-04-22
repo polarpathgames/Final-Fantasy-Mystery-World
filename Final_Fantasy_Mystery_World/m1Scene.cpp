@@ -325,7 +325,7 @@ void m1Scene::CreateEntities()
 						player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::MAGE, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 						break;
 					}
-					App->render->CenterCameraOnPlayer(player->position);
+					App->render->CenterCameraOnPlayer(player->position.Aproximate());
 					CreateHUD();
 				}
 			}
@@ -334,37 +334,37 @@ void m1Scene::CreateEntities()
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->Init();
 					player->CenterPlayerInTile();
-					App->render->CenterCameraOnPlayer(player->position);
+					App->render->CenterCameraOnPlayer(player->position.Aproximate());
 				}
 				else if ((*position)->ent_type == "home" && App->map->last_map == Maps::HOME){ // position after leaving home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->Init();
 					player->CenterPlayerInTile();
-					App->render->CenterCameraOnPlayer(player->position);
+					App->render->CenterCameraOnPlayer(player->position.Aproximate());
 				}
 				else if ((*position)->ent_type == "in_shop") { // position in the shop
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->Init();
 					player->CenterPlayerInTile();
-					App->render->CenterCameraOnPlayer(player->position);
+					App->render->CenterCameraOnPlayer(player->position.Aproximate());
 				}
 				else if ((*position)->ent_type == "in_home" && player->state != State::MENU) { // position in the home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->Init();
 					player->CenterPlayerInTile();
-					App->render->CenterCameraOnPlayer(player->position);
+					App->render->CenterCameraOnPlayer(player->position.Aproximate());
 				}
 				else if ((*position)->ent_type == "after_death" && player->state == State::MENU) { // position in the home
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->Init();
 					player->CenterPlayerInTile();
-					App->render->CenterCameraOnPlayer(player->position);
+					App->render->CenterCameraOnPlayer(player->position.Aproximate());
 				}
 				else if ((*position)->ent_type == "default" && App->map->last_map == Maps::TUTORIAL) {
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->Init();
 					player->CenterPlayerInTile();
-					App->render->CenterCameraOnPlayer(player->position);
+					App->render->CenterCameraOnPlayer(player->position.Aproximate());
 				}
 			}
 		}

@@ -258,7 +258,7 @@ bool m1GUI::PostUpdate()
 		for (std::list<u1GUI*>::iterator item = tree.begin(); item != tree.end(); item++) {
 			(*item)->Draw();
 			if (focus == *item) {
-				App->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - focus_tx.w + focus->focus_offset.x, (focus->section.h - focus_tx.h) * 0.5F + focus->GetGlobalPosition().y + 5 + focus->focus_offset.y, &focus_tx);
+				App->render->BlitUI((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - focus_tx.w + focus->focus_offset.x, (focus->section.h - focus_tx.h) * 0.5F + focus->GetGlobalPosition().y + 5 + focus->focus_offset.y, &focus_tx);
 			}
 			if (debug_ui) {
 				(*item)->DebugDraw();
@@ -268,7 +268,7 @@ bool m1GUI::PostUpdate()
 
 		App->input->GetMousePosition(cursor_position.x, cursor_position.y);
 		if (show_cursor)
-			App->render->Blit((SDL_Texture*)GetAtlas(), cursor_position.x * App->win->GetScale() + cursor_offset.x, cursor_position.y * App->win->GetScale() + cursor_offset.y, &cursor_rect);
+			App->render->BlitUI((SDL_Texture*)GetAtlas(), cursor_position.x * App->win->GetScale() + cursor_offset.x, cursor_position.y * App->win->GetScale() + cursor_offset.y, &cursor_rect);
 
 	}
 	return ret;

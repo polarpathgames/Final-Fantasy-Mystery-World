@@ -31,7 +31,6 @@ e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 	velocity.y = 80;
 	
 	original_position = position;
-	movement_count = { 0,0 };
 	actual_tile = App->map->WorldToMap(position.x, position.y);
 
 	// THIS ALWAYS LAST
@@ -183,82 +182,60 @@ bool e1Enemy::IsPlayerNextTile()
 	return ret;
 }
 
-void e1Enemy::MovementLogic()
-{
-	iPoint origin = actual_tile;
-	iPoint destination = App->scene->player->actual_tile;
+void e1Enemy::MovementLogic(){
 
-	if (!IsAnotherEnemyNextTile())
-		App->pathfinding->CreatePath(origin, destination);
-	else {
-		App->pathfinding->RecalculatePath(origin, destination, next_enemy_pos);
-		next_enemy_pos.clear();
-	}
-		
-	iPoint target = App->pathfinding->GetLastPath();
-	if (target_position == position && !IsPlayerNextTile()) {
-		if (target.x == origin.x && target.y > origin.y) {
-			direction = Direction::DOWN_LEFT;
-			target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
-			movement_count.x -= (App->map->data.tile_width / 2);
-			movement_count.y += (App->map->data.tile_height / 2);
-			actual_tile += {0, 1};
-		}
-		else if (target.x > origin.x && target.y == origin.y) {
-			direction = Direction::DOWN_RIGHT;
-			target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
-			movement_count.x += (App->map->data.tile_width / 2);
-			movement_count.y += (App->map->data.tile_height / 2);
-			actual_tile += {1, 0};
-		}
-		else if (target.x == origin.x && target.y < origin.y) {
-			direction = Direction::UP_RIGHT;
-			target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
-			movement_count.x += (App->map->data.tile_width / 2);
-			movement_count.y -= (App->map->data.tile_height / 2);
-			actual_tile += {0, -1};
-		}
-		else if (target.x < origin.x && target.y == origin.y) {
-			direction = Direction::UP_LEFT;
-			target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
-			movement_count.x -= (App->map->data.tile_width / 2);
-			movement_count.y -= (App->map->data.tile_height / 2);
-			actual_tile += {-1, 0};
-		}
-		else if (target.x < origin.x && target.y < origin.y) {
-			direction = Direction::UP;
-			target_position.create(position.x, position.y - App->map->data.tile_height);
-			movement_count.y -= App->map->data.tile_height;
-			actual_tile += {-1, -1};
-		}
-		else if (target.x > origin.x && target.y > origin.y) {
-			direction = Direction::DOWN;
-			target_position.create(position.x, position.y + App->map->data.tile_height);
-			movement_count.y += App->map->data.tile_height;
-			actual_tile += {1, 1};
-		}
-		else if (target.x < origin.x && target.y > origin.y) {
-			direction = Direction::LEFT;
-			target_position.create(position.x - App->map->data.tile_width, position.y);
-			movement_count.x -= App->map->data.tile_width;
-			actual_tile += {-1, 1};
-		}
-		else if (target.x > origin.x && target.y < origin.y) {
-			direction = Direction::RIGHT;
-			target_position.create(position.x + App->map->data.tile_width, position.y);
-			movement_count.x += App->map->data.tile_width;
-			actual_tile += {1, -1};
-		}
-		ChangeTurn(type);
-	}
-
-
+//	iPoint origin = actual_tile;
+//	iPoint destination = App->scene->player->actual_tile;
+//
+//	if (!IsAnotherEnemyNextTile())
+//		App->pathfinding->CreatePath(origin, destination);
+//	else {
+//		App->pathfinding->RecalculatePath(origin, destination, next_enemy_pos);
+//		next_enemy_pos.clear();
+//	}
+//		
+//	iPoint target = App->pathfinding->GetLastPath();
+//	if (target_position == position && !IsPlayerNextTile()) {
+//		if (target.x == origin.x && target.y > origin.y) {
+//			direction = Direction::DOWN_LEFT;
+//			target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
+//			/*movement_count.x -= (App->map->data.tile_width / 2);
+//			movement_count.y += (App->map->data.tile_height / 2);*/
+//			actual_tile += {0, 1};
+//		}
+//		else if (target.x > origin.x && target.y == origin.y) {
+//			
+//		}
+//		else if (target.x == origin.x && target.y < origin.y) {
+//			
+//		}
+//		else if (target.x < origin.x && target.y == origin.y) {
+//			direction = Direction::UP_LEFT;
+//			
+//		}
+//		else if (target.x < origin.x && target.y < origin.y) {
+//			
+//		}
+//		else if (target.x > origin.x && target.y > origin.y) {
+//			
+//		}
+//		else if (target.x < origin.x && target.y > origin.y) {
+//			
+//		}
+//		else if (target.x > origin.x && target.y < origin.y) {
+//			direction = Direction::RIGHT;
+//			
+//		}
+//		ChangeTurn(type);
+//	}
+//
+//
 
 }
 
 void e1Enemy::PerformMovement(float dt)
 {
-	switch (direction)
+	/*switch (direction)
 	{
 	case Direction::DOWN_LEFT:
 		if (position.x >= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
@@ -362,7 +339,7 @@ void e1Enemy::PerformMovement(float dt)
 		break;
 	default:
 		break;
-	}
+	}*/
 
 }
 

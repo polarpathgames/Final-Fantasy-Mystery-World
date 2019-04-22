@@ -38,7 +38,7 @@ void u1Label::InnerDraw()
 		App->render->DrawQuad({ draw_offset.x,draw_offset.y,section.w,section.h }, background_color.r, background_color.g, background_color.b, background_color.a, true, false);
 	}
 
-	App->render->Blit(texture, draw_offset.x, draw_offset.y, NULL, false, SDL_FLIP_NONE, 0.0F);
+	App->render->BlitUI(texture, draw_offset.x, draw_offset.y, NULL);
 }
 
 void u1Label::SetText(const char * txt)

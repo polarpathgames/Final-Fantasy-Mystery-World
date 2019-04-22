@@ -11,8 +11,7 @@
 
 e1Entity::e1Entity(const int& x, const int& y)
 {
-	position.x = x;
-	position.y = y;
+	position.create(x, y);
 }
 
 e1Entity::~e1Entity()
@@ -24,8 +23,9 @@ e1Entity::~e1Entity()
 
 void e1Entity::Draw(SDL_Texture * tex, float dt)
 {
-	if (drawable)
-		App->render->Blit(tex, floor(position.x), floor(position.y), &(current_animation->GetCurrentFrame(dt)), true);
+	if (drawable) {
+		App->render->Blit(tex, floor(position.x), floor(position.y), &(current_animation->GetCurrentFrame(dt)));
+	}
 }
 
 void e1Entity::SetPivot(const int & x, const int & y)

@@ -164,20 +164,19 @@ void m1Render::ResetViewPort()
 }
 
 // Blit to screen
-bool m1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool apply_scale, SDL_RendererFlip flip, float speed, double angle, int pivot_x, int pivot_y) const
+bool m1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section) const
 {
 	bool ret = true;
 	uint scale = App->win->GetScale();
 
 	SDL_Rect rect;
-	if (apply_scale) {
-		rect.x = (int)(camera.x * speed) + x * scale;
-		rect.y = (int)(camera.y * speed) + y * scale;
-	}
-	else {
-		rect.x = x;
-		rect.y = y;
-	}
+	
+	rect.x = (x - y);
+	rect.y = (x + y) * 0.5F;
+
+	rect.x = camera.x + x * scale;
+	rect.y = camera.y + y * scale;
+	
 
 	if(section != NULL)
 	{
@@ -189,23 +188,37 @@ bool m1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
 	}
 
-	if (apply_scale)
-	{
-		rect.w *= scale;
-		rect.h *= scale;
-	}	
+	rect.w *= scale;
+	rect.h *= scale;
 
-	SDL_Point* p = NULL;
-	SDL_Point pivot;
-
-	if(pivot_x != INT_MAX && pivot_y != INT_MAX)
+	if(SDL_RenderCopy(renderer, texture, section, &rect) != 0)
 	{
-		pivot.x = pivot_x;
-		pivot.y = pivot_y;
-		p = &pivot;
+		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		ret = false;
 	}
 
-	if(SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, flip) != 0)
+	return ret;
+}
+
+bool m1Render::BlitUI(SDL_Texture * texture, int x, int y, const SDL_Rect * section) const
+{
+	bool ret = true;
+
+	SDL_Rect rect;
+	rect.x = x;
+	rect.y = y;
+
+	if (section != NULL)
+	{
+		rect.w = section->w;
+		rect.h = section->h;
+	}
+	else
+	{
+		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+	}
+
+	if (SDL_RenderCopy(renderer, texture, section, &rect) != 0)
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		ret = false;
@@ -324,24 +337,24 @@ void m1Render::ResetCamera()
 	camera.y = 0;
 }
 
-void m1Render::SmoothCamera(fPoint playerpos)
+void m1Render::SmoothCamera(iPoint playerpos)
 {
 	BROFILER_CATEGORY("SmoothCamera", Profiler::Color::Aquamarine);
 	if (App->fade_to_black->current_step != App->fade_to_black->fade_to_black && App->cutscene_manager->is_executing == false) {
-		playerpos.x = (playerpos.x * App->win->GetScale() - camera.w * 0.5F);
+		playerpos.x = (playerpos.x * (int)App->win->GetScale() - camera.w * 0.5F);
 		smoth_position.x -= (playerpos.x + camera.x) / smooth_speed * App->GetDeltaTime();
 		camera.x = smoth_position.x;
 
-		playerpos.y = (playerpos.y * App->win->GetScale() - camera.h * 0.5F);
+		playerpos.y = (playerpos.y * (int)App->win->GetScale() - camera.h * 0.5F);
 		smoth_position.y -= (playerpos.y + camera.y) / smooth_speed * App->GetDeltaTime();
 		camera.y = smoth_position.y;
 	}
 }
 
-void m1Render::CenterCameraOnPlayer(fPoint playerpos)
+void m1Render::CenterCameraOnPlayer(iPoint playerpos)
 {
-	playerpos.x = (playerpos.x * App->win->GetScale() - camera.w * 0.5F);
-	playerpos.y = (playerpos.y * App->win->GetScale() - camera.h * 0.5F);
+	playerpos.x = (playerpos.x * (int)App->win->GetScale() - camera.w * 0.5F);
+	playerpos.y = (playerpos.y * (int)App->win->GetScale() - camera.h * 0.5F);
 	smoth_position.x -= (playerpos.x + camera.x);
 	camera.x = smoth_position.x;
 	smoth_position.y -= (playerpos.y + camera.y);

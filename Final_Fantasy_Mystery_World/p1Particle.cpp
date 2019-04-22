@@ -152,7 +152,7 @@ void p1Particle::render()
 		degrade.y = 0;
 	}
 	SDL_SetTextureAlphaMod(App->particles->atlas_particle, degrade.y);
-	App->render->Blit(App->particles->atlas_particle, position.x, position.y, &rect, true);
+	App->render->Blit(App->particles->atlas_particle, position.x, position.y, &rect);
 }
 
 void p1Particle::Move(fPoint speed, Wind dir, bool Move_alternative)

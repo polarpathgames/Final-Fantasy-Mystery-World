@@ -70,6 +70,8 @@ void e1DynamicEntity::ChangeTurn(EntityType type)
 		break;
 	}
 
+	CenterInTile();
+
 }
 void e1DynamicEntity::PushBack()
 {
@@ -344,54 +346,39 @@ bool e1DynamicEntity::NextTileFree(const Direction & dir) const
 	bool ret = true;
 	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
 	std::vector<e1Entity*>::iterator item = entities.begin();
+	iPoint destination = actual_tile;
+
+	switch (dir) {
+	case Direction::DOWN:
+		destination += {1, 1};
+		break;
+	case Direction::UP:
+		destination += {-1, -1};
+		break;
+	case Direction::LEFT:
+		destination += {-1, 1};
+		break;
+	case Direction::RIGHT:
+		destination += {1, -1};
+		break;
+	case Direction::DOWN_LEFT:
+		destination += {0, 1};
+		break;
+	case Direction::DOWN_RIGHT:
+		destination += {1, 0};
+		break;
+	case Direction::UP_LEFT:
+		destination += {-1, 0};
+		break;
+	case Direction::UP_RIGHT:
+		destination += {0, -1};
+		break;
+	}
 
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY) {
-			iPoint origin = actual_tile;
-			iPoint destination = (*item)->actual_tile;
-
-			switch (dir) {
-			case Direction::DOWN:
-				origin += {1, 1};
-				if (destination == origin)
-					ret = false;
-				break;
-			case Direction::UP:
-				origin += {-1, -1};
-				if (destination == origin)
-					ret = false;
-				break;
-			case Direction::LEFT:
-				origin += {-1, 1};
-				if (destination == origin)
-					ret = false;
-				break;
-			case Direction::RIGHT:
-				origin += {1, -1};
-				if (destination == origin)
-					ret = false;
-				break;
-			case Direction::DOWN_LEFT:
-				origin += {0, 1};
-				if (destination == origin)
-					ret = false;
-				break;
-			case Direction::DOWN_RIGHT:
-				origin += {1, 0};
-				if (destination == origin)
-					ret = false;
-				break;
-			case Direction::UP_LEFT:
-				origin += {-1, 0};
-				if (destination == origin)
-					ret = false;
-				break;
-			case Direction::UP_RIGHT:
-				origin += {0, -1};
-				if (destination == origin)
-					ret = false;
-				break;
-			}
+			if ((*item)->actual_tile == destination)
+				return false;
 		}
 	}
 
@@ -407,7 +394,7 @@ void e1DynamicEntity::RestTimeAfterAttack(float time_finish)
 		ResetAnims();
 	}
 	else {
-		if (target_position == position)
+		if (target_tile == actual_tile)
 			ChangeAnimation(direction, state);
 		else {
 			switch (direction)
@@ -756,6 +743,19 @@ void e1DynamicEntity::ResetAnims()
 	AbilitiUp1.Reset();
 	AbilitiRight1.Reset();
 	
+}
+
+void e1DynamicEntity::CenterInTile()
+{
+	actual_tile = App->map->WorldToMap(position.x, position.y);/*
+	movement_count = { 0,0 };*/
+	iPoint tmp = App->map->MapToWorld(actual_tile.x, actual_tile.y) - pivot;
+	position = fPoint(tmp.x, tmp.y);
+	position.x += App->map->data.tile_width*0.5F;
+	position.y += App->map->data.tile_height*0.5F;
+
+	//target_position = position;
+	//initial_position = position;
 }
 
 void e1DynamicEntity::ChangeAnimsInCutscene(const int & x, const int & y, const int & anim_num)

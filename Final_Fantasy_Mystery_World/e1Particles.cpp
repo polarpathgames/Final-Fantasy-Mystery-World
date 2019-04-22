@@ -49,7 +49,7 @@ bool e1Particles::Update(float dt)
 		break;
 	}
 	iPoint pos = App->map->MapToWorld(fireball_tile_objective.x, fireball_tile_objective.y);
-	App->render->Blit(App->scene->player->ground, pos.x + 1, pos.y - 8, NULL, true);
+	App->render->Blit(App->scene->player->ground, pos.x + 1, pos.y - 8, NULL);
 	return true;
 }
 

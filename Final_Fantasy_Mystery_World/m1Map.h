@@ -138,6 +138,7 @@ public:
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 	iPoint TiledToWorld(int x, int y) const;
+	iPoint TilePointCenter(const iPoint &tile) const;
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer);
 
 	bool ChangeMap(Maps type);

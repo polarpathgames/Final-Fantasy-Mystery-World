@@ -110,7 +110,7 @@ bool m1EntityManager::Update(float dt)
 	DrawEntities(draw_entities, dt);
 
 	if (App->scene->player != nullptr)
-		App->render->SmoothCamera(App->scene->player->position);
+		App->render->SmoothCamera(App->scene->player->position.Aproximate());
 
 	return true;
 }

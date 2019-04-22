@@ -41,7 +41,7 @@ void u1GUI::Draw()
 
 void u1GUI::InnerDraw()
 {
-	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0);
+	App->render->BlitUI((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &section);
 }
 
 bool u1GUI::Update()

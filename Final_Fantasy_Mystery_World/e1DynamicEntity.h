@@ -45,6 +45,8 @@ public:
 
 	void ResetAnims();
 
+	void CenterInTile();
+
 	void ChangeAnimsInCutscene(const int &x, const int &y, const int & anim_num);
 
 
@@ -102,10 +104,9 @@ public:
 	Animation DeathDown;
 	Animation AbilitiDown1;
 
-	fPoint target_position;
-	fPoint initial_position; //IMPORTANT: SEMPRE QUE ES CARREGUI UN NOU MAPA AQUESTA VARIABLE SHA DIGUALAR A LA POSICIO INICIAL!!
-	fPoint movement_count; //IMPORTANT: SEMPRE QUE ES CARREGUI UN NOU MAPA AQUESTA VARIABLE SHA DE POSAR A 0!! 
-
+	iPoint target_tile;
+	iPoint initial_tile;
+	iPoint target_position;
 
 	SDL_Texture * ground = nullptr;
 

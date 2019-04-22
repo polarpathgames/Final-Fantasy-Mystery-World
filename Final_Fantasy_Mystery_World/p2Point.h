@@ -131,6 +131,10 @@ public:
 	{
 		return abs(v.x - x) + abs(v.y - y);
 	}
+
+	p2Point<int> Aproximate() const {
+		return p2Point<int>((int)x, (int)y);
+	}
 };
 
 typedef p2Point<int> iPoint;
