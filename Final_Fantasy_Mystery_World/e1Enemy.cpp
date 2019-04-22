@@ -402,7 +402,7 @@ void e1Enemy::GetHitted(const int & damage_taken)
 	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(damage_taken).data(), App->gui->screen,RED, FontType::PMIX24);
 	if (stats.live <= 0 || App->scene->player->god_mode) {
 		state = State::DEATH;
-		current_animation = &DeathDownLeft;
+		ChangeAnimation(direction, state);
 	}
 }
 
