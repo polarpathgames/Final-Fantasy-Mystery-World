@@ -713,7 +713,7 @@ void m1MainMenu::CreateSelectChamp()
 	select_champ_panel = App->gui->AddImage(0, 0, { 1024, 3256, 1024, 768 }, this, App->gui->screen, true, false, false, false);
 
 	warrior_image = App->gui->AddImage(500, 175, { 1052, 4079, 327, 358 }, App->main_menu, select_champ_panel, true, false, false, false);
-	archer_image = App->gui->AddImage(580, 180, { 1701, 4079, 194, 369 }, App->main_menu, select_champ_panel, false, false, false, false);
+	archer_image = App->gui->AddImage(580, 180, { 1681, 4050, 244, 400 }, App->main_menu, select_champ_panel, false, false, false, false);
 	mage_image = App->gui->AddImage(580, 180, { 1414, 4079, 218, 363 }, App->main_menu, select_champ_panel, false, false, false, false);
 
 	warrior_info = App->gui->AddImage(370, 600, { 99, 4120, 585, 97 }, App->main_menu, select_champ_panel, true, false, false, false);
