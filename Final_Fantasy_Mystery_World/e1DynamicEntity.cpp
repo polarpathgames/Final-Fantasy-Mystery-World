@@ -69,9 +69,6 @@ void e1DynamicEntity::ChangeTurn(EntityType type)
 	default:
 		break;
 	}
-
-	CenterInTile();
-
 }
 void e1DynamicEntity::PushBack()
 {

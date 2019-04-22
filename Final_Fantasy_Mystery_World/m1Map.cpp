@@ -72,8 +72,8 @@ void m1Map::Draw()
 		{
 			for (int j = 0; j < data.height; ++j)
 			{
-				//iPoint tile_pos = { (int)(i*data.tile_width*0.5f),j*data.tile_height };
-				iPoint tile_pos = MapToWorld(i,j);
+				iPoint tile_pos = { (int)(i*data.tile_width * 0.5F),(int)(j*data.tile_height) };
+				//iPoint tile_pos = MapToWorld(i,j);
 				int tile_id = layer->Get(i, j);
 				if (tile_id > 0)
 				{

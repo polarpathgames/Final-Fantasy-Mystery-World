@@ -285,7 +285,7 @@ void e1Player::ReadPlayerMovementInQuest()
 			if (player_input.pressing_A && player_input.pressing_shift) {
 				direction = Direction::LEFT;
 				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y + 1 }, false)) {
-					target_tile = { actual_tile.x,actual_tile.y + 1 };
+					target_tile = { actual_tile.x - 1,actual_tile.y + 1 };
 					target_position = { (int)floor((floor(target_tile.x) + 0.5F)*App->map->data.tile_width), (int)floor((floor(target_tile.y) + 0.5F)*App->map->data.tile_height) };
 					is_movement_acepted = true;
 				}
@@ -296,7 +296,7 @@ void e1Player::ReadPlayerMovementInQuest()
 			else if (player_input.pressing_D && player_input.pressing_shift) {
 				direction = Direction::RIGHT;
 				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y - 1 }, false)) {
-					target_tile = { actual_tile.x,actual_tile.y + 1 };
+					target_tile = { actual_tile.x + 1,actual_tile.y - 1 };
 					target_position = { (int)floor((floor(target_tile.x) + 0.5F)*App->map->data.tile_width), (int)floor((floor(target_tile.y) + 0.5F)*App->map->data.tile_height) };
 					is_movement_acepted = true;
 				}
@@ -307,7 +307,7 @@ void e1Player::ReadPlayerMovementInQuest()
 			else if (player_input.pressing_W && player_input.pressing_shift) {
 				direction = Direction::UP;
 				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y - 1 }, false)) {
-					target_tile = { actual_tile.x,actual_tile.y + 1 };
+					target_tile = { actual_tile.x - 1,actual_tile.y - 1 };
 					target_position = { (int)floor((floor(target_tile.x) + 0.5F)*App->map->data.tile_width), (int)floor((floor(target_tile.y) + 0.5F)*App->map->data.tile_height) };
 					is_movement_acepted = true;
 				}
@@ -318,7 +318,7 @@ void e1Player::ReadPlayerMovementInQuest()
 			else if (player_input.pressing_S && player_input.pressing_shift) {
 				direction = Direction::DOWN;
 				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y + 1 }, false)) {
-					target_tile = { actual_tile.x,actual_tile.y + 1 };
+					target_tile = { actual_tile.x + 1,actual_tile.y + 1 };
 					target_position = { (int)floor((floor(target_tile.x) + 0.5F)*App->map->data.tile_width), (int)floor((floor(target_tile.y) + 0.5F)*App->map->data.tile_height) };
 					is_movement_acepted = true;
 				}
@@ -340,7 +340,7 @@ void e1Player::ReadPlayerMovementInQuest()
 			else if (player_input.pressing_D && !player_input.pressing_shift) {
 				direction = Direction::DOWN_RIGHT;
 				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y }, false)) {
-					target_tile = { actual_tile.x,actual_tile.y + 1 };
+					target_tile = { actual_tile.x + 1,actual_tile.y };
 					target_position = { (int)floor((floor(target_tile.x) + 0.5F)*App->map->data.tile_width), (int)floor((floor(target_tile.y) + 0.5F)*App->map->data.tile_height) };
 					is_movement_acepted = true;
 				}
@@ -351,7 +351,7 @@ void e1Player::ReadPlayerMovementInQuest()
 			else if (player_input.pressing_W && !player_input.pressing_shift) {
 				direction = Direction::UP_RIGHT;
 				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x, actual_tile.y - 1 }, false)) {
-					target_tile = { actual_tile.x,actual_tile.y + 1 };
+					target_tile = { actual_tile.x,actual_tile.y - 1 };
 					target_position = { (int)floor((floor(target_tile.x) + 0.5F)*App->map->data.tile_width), (int)floor((floor(target_tile.y) + 0.5F)*App->map->data.tile_height) };
 					is_movement_acepted = true;
 				}
@@ -362,7 +362,7 @@ void e1Player::ReadPlayerMovementInQuest()
 			else if (player_input.pressing_A && !player_input.pressing_shift) {
 				direction = Direction::UP_LEFT;
 				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y }, false)) {
-					target_tile = { actual_tile.x,actual_tile.y + 1 };
+					target_tile = { actual_tile.x - 1,actual_tile.y };
 					target_position = { (int)floor((floor(target_tile.x) + 0.5F)*App->map->data.tile_width), (int)floor((floor(target_tile.y) + 0.5F)*App->map->data.tile_height) };
 					is_movement_acepted = true;
 				}

@@ -174,8 +174,8 @@ bool m1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section)
 	rect.x = (x - y);
 	rect.y = (x + y) * 0.5F;
 
-	rect.x = camera.x + x * scale;
-	rect.y = camera.y + y * scale;
+	rect.x = (camera.x + rect.x) * scale;
+	rect.y = (camera.y + rect.y) * scale;
 	
 
 	if(section != NULL)
@@ -295,8 +295,8 @@ bool m1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 
 	for (uint i = 0; i < 360; ++i)
 	{
-		points[i].x = (int)(camera.x + x * scale + radius * cos(i * factor));
-		points[i].y = (int)(camera.y + y * scale + radius * sin(i * factor));
+		points[i].x = (int)(camera.x + (x-y) * scale + radius * cos(i * factor));
+		points[i].y = (int)(camera.y + (y+x)*0.5F * scale + radius * sin(i * factor));
 	}
 
 	result = SDL_RenderDrawPoints(renderer, points, 360);
@@ -341,13 +341,28 @@ void m1Render::SmoothCamera(iPoint playerpos)
 {
 	BROFILER_CATEGORY("SmoothCamera", Profiler::Color::Aquamarine);
 	if (App->fade_to_black->current_step != App->fade_to_black->fade_to_black && App->cutscene_manager->is_executing == false) {
-		playerpos.x = (playerpos.x * (int)App->win->GetScale() - camera.w * 0.5F);
+		/*playerpos.x = (playerpos.x * (int)App->win->GetScale() - camera.w * 0.5F);
 		smoth_position.x -= (playerpos.x + camera.x) / smooth_speed * App->GetDeltaTime();
 		camera.x = smoth_position.x;
 
 		playerpos.y = (playerpos.y * (int)App->win->GetScale() - camera.h * 0.5F);
 		smoth_position.y -= (playerpos.y + camera.y) / smooth_speed * App->GetDeltaTime();
-		camera.y = smoth_position.y;
+		camera.y = smoth_position.y;*/
+
+		/*camera.x = (playerpos.x - playerpos.y) * (int)App->win->GetScale() - camera.w*0.5F;
+		camera.y = (playerpos.y + playerpos.y) * 0.5F * (int)App->win->GetScale() - camera.h*0.5F;*/
+		if (App->input->GetKey(SDL_SCANCODE_UP)) {
+			camera.y += 10;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_DOWN)) {
+			camera.y -= 10;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_LEFT)) {
+			camera.x += 10;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT)) {
+			camera.x -= 10;
+		}
 	}
 }
 
