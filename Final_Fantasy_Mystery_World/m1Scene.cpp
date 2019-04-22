@@ -255,14 +255,14 @@ bool m1Scene::Update(float dt)
 		}
 		break;
 	case StatesMenu::HELP_DIAGONAL_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			DestroyHelpDiagonalMenu();
 			player->BlockControls(false);
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
 	case StatesMenu::HELP_ATTACK_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			DestroyHelpAttackMenu();
 			player->BlockControls(false);
 			menu_state = StatesMenu::NO_MENU;

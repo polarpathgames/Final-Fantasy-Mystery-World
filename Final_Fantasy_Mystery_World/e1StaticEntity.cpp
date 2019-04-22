@@ -357,7 +357,7 @@ bool e1StaticEntity::Update(float dt)
 	iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
 	if (interacting_state == InteractingStates::WAITING_INTERACTION) {
 		if (actual_tile.DistanceTo(player_pos) <= max_distance_to_interact) {
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN && App->scene->GetMenuState() == StatesMenu::NO_MENU) {
+			if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && App->scene->GetMenuState() == StatesMenu::NO_MENU) {
 				App->scene->player->state = State::IDLE;
 				App->easing_splines->CleanUp();
 				App->scene->player->BlockControls(true);
