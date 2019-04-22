@@ -204,7 +204,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		break;
 	case MainMenuStates::CHOOSE_NAME_MENU:
 		if (interaction == button_okay) {
-			if (!input_text->GetText().empty() && !input_text->first_update) {
+			if (!input_text->GetText().empty()) {
 				App->globals.player_name = input_text->GetText();
 				DestroyNameMenu();
 				active = false;
@@ -1061,7 +1061,7 @@ void m1MainMenu::CreateNameMenu()
 	button_F = App->gui->AddButton(471, 0, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_G = App->gui->AddButton(565, 0, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_upper = App->gui->AddButton(662, 0, { 0,0,80,47 }, { 0,0,80,47 }, { 0,0,80,47 }, this, max_letters, false, false, true, true, { -2,-5 });
-	input_text = App->gui->AddInputText(52, -91, "ChooseYourCharacterName", max_letters, BLACK, FontType::FF64, { 1214,5050,600,63 }, this);
+	input_text = App->gui->AddInputText(52, -91, "", max_letters, BLACK, FontType::FF64, { 1214,5050,600,63 }, this);
 	//
 	button_H = App->gui->AddButton(0, 74, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_I = App->gui->AddButton(94, 74, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
@@ -1089,6 +1089,8 @@ void m1MainMenu::CreateNameMenu()
 	button_Delete = App->gui->AddButton(471, 223, { 0, 0, 93, 47 }, { 0, 0, 93, 47 }, { 0, 0, 93, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	//
 	button_Space = App->gui->AddButton(188, 295, { 0, 0, 235, 40 }, { 0, 0, 93, 47 }, { 0, 0, 93, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+
+	App->gui->FocusButton((u1Button*)input_text);
 
 }
 

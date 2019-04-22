@@ -9671,7 +9671,5 @@
     <property name="next_id" type="int" value="2"/>
    </properties>
   </object>
-  <object id="39" name="enemy" type="CarnivorousPlant" x="400" y="352" width="15.9688" height="16.0156"/>
-  <object id="40" name="enemy" type="BlueDog" x="432" y="352" width="15.9688" height="16.0156"/>
  </objectgroup>
 </map>
