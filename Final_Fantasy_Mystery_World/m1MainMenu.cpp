@@ -1047,10 +1047,10 @@ void m1MainMenu::CreateNameMenu()
 {
 	input_text_image = App->gui->AddImage(0, 0, { 1025, 4792, 1024, 768 }, this, App->gui->screen, true, false, false, false);
 
-	input_text = App->gui->AddInputText(190, 258, "ChooseYourCharacterName", button_A, BLACK, FontType::FF64, {1214,5050,600,63}, this);
+	input_text = App->gui->AddInputText(190, 258, "ChooseYourCharacterName", input_text_image, BLACK, FontType::FF64, {1214,5050,600,63}, this);
 	
-	minus_letters = App->gui->AddImage(137, 350, { 1024,5658,743,334 }, nullptr, button_A, true, false, false, false);
-	max_letters = App->gui->AddImage(137, 350, { 119,5658,743,334 }, nullptr, button_A, false, false, false, false);
+	minus_letters = App->gui->AddImage(137, 350, { 1024,5658,743,334 }, nullptr, input_text_image, true, false, false, false);
+	max_letters = App->gui->AddImage(137, 350, { 119,5658,743,334 }, nullptr, input_text_image, false, false, false, false);
 
 	// 
 	button_A = App->gui->AddButton(0, 0, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
