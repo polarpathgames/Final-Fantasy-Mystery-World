@@ -66,7 +66,7 @@ void m1Map::Draw()
 	{
 		MapLayer* layer = *item;
 		
-		if (layer->properties.GetValue("NoDraw") != 0 && !App->collision->debug)
+		if (layer->properties.GetValue("NoDraw") != 0 && !App->debug)
 			continue;
 
 		if (layer->name == "DoorClosed" && quest_rooms != nullptr && !quest_rooms->actual_room->door_closed)

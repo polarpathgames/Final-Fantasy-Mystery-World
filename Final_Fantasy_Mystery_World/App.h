@@ -92,6 +92,8 @@ public:
 
 	bool capactivated = true;
 
+	bool debug = false;
+
 private:
 
 	// Load config file
