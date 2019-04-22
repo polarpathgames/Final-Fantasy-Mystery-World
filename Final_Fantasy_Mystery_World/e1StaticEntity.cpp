@@ -12,6 +12,7 @@
 #include "m1Input.h"
 #include "m1EasingSplines.h"
 #include "Brofiler/Brofiler.h"
+#include "m1GUI.h"
 
 e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 {
@@ -328,6 +329,10 @@ e1StaticEntity::~e1StaticEntity()
 		idle = nullptr;
 		current_animation = nullptr;
 	}
+	if (button_interact != nullptr) {
+		App->gui->DeleteUIElement((u1GUI*)button_interact);
+		button_interact = nullptr;
+	}
 }
 
 void e1StaticEntity::Draw(SDL_Texture * tex, float dt)
@@ -357,6 +362,9 @@ bool e1StaticEntity::Update(float dt)
 	iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
 	if (interacting_state == InteractingStates::WAITING_INTERACTION) {
 		if (actual_tile.DistanceTo(player_pos) <= max_distance_to_interact) {
+			if (button_interact == nullptr)
+				button_interact = App->gui->AddImage(0, 0, { 1120,1920,32,32 }, nullptr, App->gui->screen, true, false, false, false);
+
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN && App->scene->GetMenuState() == StatesMenu::NO_MENU) {
 				App->scene->player->state = State::IDLE;
 				App->easing_splines->CleanUp();
@@ -367,8 +375,16 @@ bool e1StaticEntity::Update(float dt)
 				App->dialog->end_dial = false;
 				App->audio->PlayFx(App->scene->fx_writting);
 				App->scene->ShowHUD(false);
+				App->gui->DeleteUIElement((u1GUI*)button_interact);
+				button_interact = nullptr;
 			}
-		}			
+		}
+		else {
+			if (button_interact != nullptr) {
+				App->gui->DeleteUIElement((u1GUI*)button_interact);
+				button_interact = nullptr;
+			}
+		}
 	}
 	if (interacting_state == InteractingStates::INTERACTING && App->dialog->end_dial)
 	{
