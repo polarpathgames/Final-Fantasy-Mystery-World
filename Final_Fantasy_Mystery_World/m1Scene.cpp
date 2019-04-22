@@ -115,10 +115,6 @@ bool m1Scene::Update(float dt)
 		}
 	}
 
-	if (App->map->actual_map == Maps::LOBBY) {
-		ShowHUD(false);
-	}
-
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		e1Player* swap = nullptr;
 		iPoint new_pos = App->map->MapToWorld(player->actual_tile.x, player->actual_tile.y);

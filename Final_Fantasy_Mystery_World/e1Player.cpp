@@ -1223,5 +1223,7 @@ void e1Player::UpdateLevel()
 {
 	App->audio->PlayFx(App->scene->fx_controller_conection);
 	stats.max_xp *= stats.level;
+	AugmentLives(stats.max_lives*0.3f);
+	AugmentMana(stats.max_mana*0.3f);
 	App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-15 }, { 8,0,2,2 }, RANDOM, { 20,20 }, { 10,5 }, { 0,0 }, P_UP, 200, 4, { 0,-2 });
 }
