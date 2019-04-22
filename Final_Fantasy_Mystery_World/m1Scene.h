@@ -206,6 +206,9 @@ private:
 	u1Button* plus_general_btn = nullptr;
 	u1Label* label_general_value = nullptr;
 
+	u1CheckBox* checkbox_mute_music = nullptr;
+	u1CheckBox* checkbox_mute_fx = nullptr;
+
 	u1Label* label_music_volume = nullptr;
 	u1Button* button_music_volume = nullptr;
 	u1Button* minus_music_btn = nullptr;
