@@ -84,7 +84,16 @@ bool e1BlueDog::Update(float dt)
 	if (state == State::AFTER_ATTACK) {
 		RestTimeAfterAttack(time_attack);
 	}
-
+	if (state == State::DEATH) {
+		if (current_animation->Finished()) {
+			Drop();
+			App->audio->PlayFx(App->scene->fx_kill_enemy);
+			App->scene->player->UpdateExperience(stats.experience);
+			App->map->quest_rooms->AddEntityToNotRepeat(original_position);
+			to_delete = true;
+			ChangeTurn(type);
+		}
+	}
 
 	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 

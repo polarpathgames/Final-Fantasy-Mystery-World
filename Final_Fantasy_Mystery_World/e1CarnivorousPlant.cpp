@@ -3,7 +3,9 @@
 #include "SDL/include/SDL.h"
 #include "App.h"
 #include "m1Map.h"
+#include "m1Scene.h"
 #include "m1Audio.h"
+#include "e1Player.h"
 #include "m1Scene.h"
 #include "m1Render.h"
 #include "p2Animation.h"
@@ -98,7 +100,16 @@ bool e1CarnivorousPlant::Update(float dt)
 	if (state == State::AFTER_ATTACK) {
 		RestTimeAfterAttack(time_attack);
 	}
-
+	if (state == State::DEATH) {
+		if (current_animation->Finished()) {
+			Drop();
+			App->audio->PlayFx(App->scene->fx_kill_enemy);
+			App->scene->player->UpdateExperience(stats.experience);
+			App->map->quest_rooms->AddEntityToNotRepeat(original_position);
+			to_delete = true;
+			ChangeTurn(type);
+		}
+	}
 
 	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
@@ -182,8 +193,7 @@ void e1CarnivorousPlant::IdAnimToEnum()
 		case 77:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
-
-		case 60:
+		case 84:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;
 		case 643:
