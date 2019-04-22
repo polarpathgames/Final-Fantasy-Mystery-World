@@ -19,7 +19,7 @@
 #include "m1Window.h"
 #include "Brofiler/Brofiler.h"
 #include <map>
-#include <stdlib.h> 
+
 
 
 e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
@@ -401,13 +401,6 @@ void e1Enemy::GetHitted(const int & damage_taken)
 	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
 	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(damage_taken).data(), App->gui->screen,RED, FontType::PMIX24);
 	if (stats.live <= 0 || App->scene->player->god_mode) {
-		rand_num = rand() % 3;
-		if(rand_num  == 0)
-			Drop();
-		App->audio->PlayFx(App->scene->fx_kill_enemy);
-		App->scene->player->UpdateExperience(stats.experience);
-		App->map->quest_rooms->AddEntityToNotRepeat(original_position);
-		to_delete = true;
 		state = State::DEATH;
 		current_animation = &DeathDownLeft;
 	}

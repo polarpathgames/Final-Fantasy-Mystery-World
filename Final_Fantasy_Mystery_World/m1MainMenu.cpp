@@ -204,7 +204,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		break;
 	case MainMenuStates::CHOOSE_NAME_MENU:
 		if (interaction == button_okay) {
-			if (!input_text->GetText().empty()) {
+			if (!input_text->GetText().empty() && !input_text->first_update) {
 				App->globals.player_name = input_text->GetText();
 				DestroyNameMenu();
 				active = false;
