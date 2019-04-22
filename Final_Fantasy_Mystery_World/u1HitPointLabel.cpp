@@ -3,6 +3,7 @@
 #include "m1Render.h"
 #include "App.h"
 #include "m1Textures.h"
+#include "p2Log.h"
 
 u1HitPointLabel::u1HitPointLabel(const int & x, const int & y, const char* text, u1GUI* parent, const Color & color, const FontType & type)
 	: u1GUI(HIT_POINT_LABEL, x, y, parent, {0,0,0,0}, true, false, false, false)
@@ -15,6 +16,13 @@ u1HitPointLabel::u1HitPointLabel(const int & x, const int & y, const char* text,
 	texture = App->fonts->Print(text, this->color, id_font);
 	App->fonts->CalcSize(text, section.w, section.h, id_font);
 
+}
+
+u1HitPointLabel::~u1HitPointLabel()
+{
+	text.clear();
+	App->tex->UnLoad(texture);
+	texture = nullptr;
 }
 
 void u1HitPointLabel::SetColor(const Color & c)
@@ -54,13 +62,16 @@ void u1HitPointLabel::UpdateElement()
 
 void u1HitPointLabel::InnerDraw()
 {
-	if (alpha > 20) {
-		alpha -= 60 * App->GetDeltaTime();
-		App->tex->UnLoad(texture);
-		texture = App->fonts->Print(text.data(), color, id_font, alpha);
+	
+	if (time < SDL_GetTicks() - 500) {
+		if (alpha > 0) {
+			alpha -= 125 * App->GetDeltaTime();
+			if (alpha >= 1) {
+				App->tex->UnLoad(texture);
+				texture = App->fonts->Print(text.data(), color, id_font, alpha);
+			}
+		}
+		else to_delete = true;
 	}
-		
-
-
 	App->render->Blit(texture, draw_offset.x, draw_offset.y, NULL, false, SDL_FLIP_NONE, 0.0F);
 }

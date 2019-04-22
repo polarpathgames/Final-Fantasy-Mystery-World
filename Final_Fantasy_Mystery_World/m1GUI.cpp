@@ -61,6 +61,18 @@ bool m1GUI::PreUpdate()
 	BROFILER_CATEGORY("PreUpdateUIM", Profiler::Color::Orange);
 
 	bool ret = true;
+
+	std::list<u1GUI*>::iterator item = ui_list.begin();
+	while (item != ui_list.end()) {
+		if ((*item) != nullptr && (*item)->to_delete) {
+			DeleteUIElement(*item);
+			item = ui_list.begin();
+			//item = ui_list.erase(item);
+		}
+		else ++item;
+		
+	}
+	ui_list.remove(nullptr);
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 		debug_ui = !debug_ui;
 	}
@@ -230,7 +242,7 @@ bool m1GUI::FocusFirstUIFocusable()
 	BROFILER_CATEGORY("FindElementToFocus", Profiler::Color::Aqua);
 
 	for (std::list<u1GUI*>::iterator item = ui_list.begin(); item != ui_list.end(); ++item) {
-		if ((*item)->allow_focus && *item != nullptr) {
+		if (*item != nullptr && (*item)->allow_focus) {
 			focus = *item;
 			return true;
 		}
@@ -470,7 +482,7 @@ void m1GUI::BFS(std::list<u1GUI*>& visited, u1GUI * elem)
 		while (frontier.empty() == false) {
 			if ((item = frontier.front()) != nullptr) {			//Pop las item of array
 				frontier.pop();
-				if(item->childs.empty() == false)
+				if(item->childs.front() != nullptr && item->childs.empty() == false)
 					for (std::list<u1GUI*>::iterator it = item->childs.begin(); it != item->childs.end(); ++it) { //iterate for all childs of node
 						if (std::find(visited.begin(),visited.end(),*it) == visited.end()) {	//if child is not on visited list we added on it and on prontier to search its childs
 							frontier.push(*it);

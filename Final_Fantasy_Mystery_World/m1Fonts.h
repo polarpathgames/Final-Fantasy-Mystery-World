@@ -18,6 +18,7 @@ enum class FontType {
 	FF64,
 	FF100,
 	PMIX16,
+	PMIX24,
 	PMIX32,
 	PMIX48,
 	PMIX64,
