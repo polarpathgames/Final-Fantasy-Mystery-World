@@ -107,7 +107,7 @@ bool m1Textures::UnLoad(SDL_Texture* texture)
 
 	std::map<SDL_Texture*, std::string>::iterator item = textures.begin();
 	while (item != textures.end()) {
-		if (texture == (*item).first)
+		if ((*item).first != nullptr && (*item).first == texture)
 		{
 			SDL_DestroyTexture((*item).first);
 			(*item).second.clear();
