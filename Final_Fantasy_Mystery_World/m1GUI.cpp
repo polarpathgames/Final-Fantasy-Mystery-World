@@ -437,7 +437,6 @@ void m1GUI::CreateScreen()
 
 bool m1GUI::DeleteUIElement(u1GUI * element)
 {
-	focus = nullptr;
 	if (element != nullptr) {
 		std::list<u1GUI*>::iterator item_ui = std::find(ui_list.begin(), ui_list.end(), element);
 		if (item_ui != ui_list.end()) {															//if element doesn't find in ui list it cannot be deleted
@@ -454,6 +453,9 @@ bool m1GUI::DeleteUIElement(u1GUI * element)
 				}
 				std::list<u1GUI*>::iterator elem = std::find(ui_list.begin(), ui_list.end(), *item_tree);	//find item on ui objects list
 				if (elem != ui_list.end() && *elem != nullptr) {						//if it is valid
+					if ((*elem) == focus) {
+						focus = nullptr;
+					}
 					delete *elem;
 					*elem = nullptr;						//delete from list
 															//delete item and deallocate memory
