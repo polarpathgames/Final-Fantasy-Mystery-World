@@ -365,15 +365,18 @@ bool e1StaticEntity::Update(float dt)
 	if (interacting_state == InteractingStates::WAITING_INTERACTION) {
 		if (actual_tile.DistanceTo(player_pos) <= max_distance_to_interact) {
 			if (button_interact == nullptr) {
+				button_interact = App->gui->AddImage(0, 0, { 1120,1920,32,32 }, nullptr, App->gui->screen, true, false, false, false);
+
 				iPoint pos{ 0,0 };
-				pos.x = (int)(App->render->camera.x) + (App->scene->player->position.x) * (int)App->win->GetScale();
-				pos.y = (int)(App->render->camera.y) + App->scene->player->position.y * (int)App->win->GetScale();
-				button_interact = App->gui->AddImage(pos.x, pos.y, { 1120,1920,32,32 }, nullptr, App->gui->screen, true, false, false, false);
+				pos.x = (int)(App->render->camera.x) + (App->scene->player->GetPosition().x) * (int)App->win->GetScale() - button_interact->section.w*0.5F;
+				pos.y = (int)(App->render->camera.y) + (App->scene->player->position.y) * (int)App->win->GetScale() - button_interact->section.h;
+				
+				button_interact->SetPos(pos.x, pos.y);
 			}
 			else {
 				iPoint pos{ 0,0 };
-				pos.x = (int)(App->render->camera.x) + (App->scene->player->position.x) * (int)App->win->GetScale();
-				pos.y = (int)(App->render->camera.y) + App->scene->player->position.y * (int)App->win->GetScale();
+				pos.x = (int)(App->render->camera.x) + (App->scene->player->GetPosition().x) * (int)App->win->GetScale() - button_interact->section.w*0.5F;
+				pos.y = (int)(App->render->camera.y) + (App->scene->player->position.y) * (int)App->win->GetScale() - button_interact->section.h;
 				button_interact->SetPos(pos.x, pos.y);
 			}
 
