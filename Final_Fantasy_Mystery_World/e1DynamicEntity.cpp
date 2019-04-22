@@ -523,27 +523,35 @@ void e1DynamicEntity::CheckBasicAttackEffects(const e1Entity::EntityType & type,
 					switch (this->direction) {
 					case Direction::DOWN:
 						player_attacked->current_animation = &player_attacked->IdleUp;
+						player_attacked->direction = Direction::UP;
 						break;
 					case Direction::UP:
 						player_attacked->current_animation = &player_attacked->IdleDown;
+						player_attacked->direction = Direction::DOWN;
 						break;
 					case Direction::LEFT:
 						player_attacked->current_animation = &player_attacked->IdleRight;
+						player_attacked->direction = Direction::RIGHT;
 						break;
 					case Direction::RIGHT:
 						player_attacked->current_animation = &player_attacked->IdleLeft;
+						player_attacked->direction = Direction::LEFT;
 						break;
 					case Direction::UP_RIGHT:
 						player_attacked->current_animation = &player_attacked->IdleDownLeft;
+						player_attacked->direction = Direction::DOWN_LEFT;
 						break;
 					case Direction::DOWN_LEFT:
 						player_attacked->current_animation = &player_attacked->IdleUpRight;
+						player_attacked->direction = Direction::UP_RIGHT;
 						break;
 					case Direction::DOWN_RIGHT:
 						player_attacked->current_animation = &player_attacked->IdleUpLeft;
+						player_attacked->direction = Direction::UP_LEFT;
 						break;
 					case Direction::UP_LEFT:
 						player_attacked->current_animation = &player_attacked->IdleDownRight;
+						player_attacked->direction = Direction::DOWN_RIGHT;
 						break;
 					default:
 						break;
