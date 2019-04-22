@@ -155,15 +155,13 @@ public:
 
 	bool IsEnemyInThatPosition(const iPoint & pos);
 
-	inline void ReduceGold(const int &cost_gold) {
-		stats.gold -= cost_gold;
-		if (stats.gold < 0)
-			stats.gold = 0;
-	}
+	void ReduceGold(const int &cost_gold);
 
-	inline void AugmentGold(const int &plus_gold) {
-		stats.gold += plus_gold;
-	}
+
+
+	void AugmentGold(const int &plus_gold);
+		
+
 
 	void UpdateExperience(int experience);
 

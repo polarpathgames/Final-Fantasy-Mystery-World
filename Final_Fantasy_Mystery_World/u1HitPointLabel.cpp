@@ -12,6 +12,7 @@ u1HitPointLabel::u1HitPointLabel(const int & x, const int & y, const char* text,
 	id_font = type;
 	this->text.assign(text);
 	SetColor(color);
+	color_type = color;
 	time = SDL_GetTicks();
 	texture = App->fonts->Print(text, this->color, id_font);
 	App->fonts->CalcSize(text, section.w, section.h, id_font);
@@ -62,10 +63,37 @@ void u1HitPointLabel::UpdateElement()
 
 void u1HitPointLabel::InnerDraw()
 {
-	
 	if (time < SDL_GetTicks() - 500) {
 		if (alpha > 0) {
-			alpha -= 125 * App->GetDeltaTime();
+			switch (color_type) {
+			case RED:
+				position.y += 100 * App->GetDeltaTime();
+				break;
+			case BLUE: {
+				const char* minus = text.data();
+				const char* min = "-";
+				if (minus[0] == min[0])
+					position.y += 100 * App->GetDeltaTime();
+				else 
+					position.y -= 100 * App->GetDeltaTime();
+				break; }
+			case GREEN:
+				position.y -= 100 * App->GetDeltaTime();
+				break;
+			case YELLOW: {
+				const char* minus = text.data();
+				const char* min = "-";
+				if (minus[0] == min[0])
+					position.y += 100 * App->GetDeltaTime();
+				else
+					position.y -= 100 * App->GetDeltaTime();
+				break; }
+				break;
+			default:
+				break;
+			}
+			
+			alpha -= 250 * App->GetDeltaTime();
 			if (alpha >= 1) {
 				App->tex->UnLoad(texture);
 				texture = App->fonts->Print(text.data(), color, id_font, alpha);
