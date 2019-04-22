@@ -142,8 +142,8 @@ public:
 
 private:
 
-	int price_hp_potion = 20;
-	int price_mana_potion = 20;
+	int price_hp_potion = 75;
+	int price_mana_potion = 75;
 
 	StatesMenu menu_state = StatesMenu::NO_MENU;
 
