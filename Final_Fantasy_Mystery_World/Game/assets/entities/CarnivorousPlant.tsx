@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.3" name="CarnivorousPlant" tilewidth="45" tileheight="42" tilecount="84" columns="7">
+<tileset version="1.2" tiledversion="1.2.2" name="CarnivorousPlant" tilewidth="45" tileheight="42" tilecount="140" columns="7">
  <properties>
   <property name="attack_power" type="int" value="15"/>
   <property name="experience" type="int" value="50"/>
   <property name="live" type="int" value="170"/>
  </properties>
- <image source="../sprites/Carnivorous Plant.png" width="317" height="506"/>
+ <image source="../sprites/Carnivorous Plant.png" width="317" height="865"/>
  <tile id="0">
   <properties>
    <property name="speed" type="int" value="3"/>
@@ -243,6 +243,17 @@
    <frame tileid="81" duration="170"/>
    <frame tileid="82" duration="170"/>
    <frame tileid="83" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="84">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="90" duration="170"/>
+   <frame tileid="84" duration="170"/>
+   <frame tileid="88" duration="170"/>
+   <frame tileid="89" duration="170"/>
   </animation>
  </tile>
 </tileset>

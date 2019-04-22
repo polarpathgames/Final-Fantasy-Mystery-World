@@ -408,6 +408,8 @@ void e1Enemy::GetHitted(const int & damage_taken)
 		App->scene->player->UpdateExperience(stats.experience);
 		App->map->quest_rooms->AddEntityToNotRepeat(original_position);
 		to_delete = true;
+		state = State::DEATH;
+		current_animation = &DeathDownLeft;
 	}
 }
 
