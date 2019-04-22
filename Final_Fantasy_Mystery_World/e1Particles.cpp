@@ -86,7 +86,7 @@ void e1Particles::SetArrow()
 	velocity.x = 160;
 	velocity.y = 80;
 	size.create(20, 20);
-
+	arrow_time = SDL_GetTicks();
 	iPoint particle_offset = { 0,0 };
 
 	switch (direction) {
@@ -315,8 +315,10 @@ void e1Particles::LookForEnemyCollision()
 			iPoint origin = arrow_tile;
 			iPoint destination = (*item)->actual_tile;
 			e1Enemy* enemy = (e1Enemy*)(*item);
-			if (origin == destination)
+			if (origin == destination && enemy->arrow_time != arrow_time) {
+				enemy->arrow_time = arrow_time;
 				enemy->GetHitted(App->scene->player->stats.attack_power_ability_1);
+			}
 		}
 	}
 

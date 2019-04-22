@@ -56,6 +56,8 @@ public:
 
 	std::list<p1Follow*> particle_follow;
 	std::list<p1Fire*> particle_fire;
+
+	float arrow_time = 0;
 };
 
 #endif // !_E1PARTICLES_H_

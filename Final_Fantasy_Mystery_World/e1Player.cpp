@@ -858,19 +858,19 @@ void e1Player::ChangeDirection()
 		}
 	}
 	else if (!player_input.pressing_shift) {
-		if (player_input.pressing_J) {
+		if (player_input.pressing_UP_LEFT) {
 			direction = Direction::UP_LEFT;
 			current_animation = &IdleUpLeft;
 		}
-		if (player_input.pressing_K) {
+		if (player_input.pressing_DOWN_LEFT) {
 			direction = Direction::DOWN_LEFT;
 			current_animation = &IdleDownLeft;
 		}
-		if (player_input.pressing_L) {
+		if (player_input.pressing_DOWN_RIGHT) {
 			direction = Direction::DOWN_RIGHT;
 			current_animation = &IdleDownRight;
 		}
-		if (player_input.pressing_I) {
+		if (player_input.pressing_UP_RIGHT) {
 			direction = Direction::UP_RIGHT;
 			current_animation = &IdleUpRight;
 		}
@@ -965,6 +965,14 @@ void e1Player::LobbyControls()
 	player_input.pressing_J = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->CheckAxisStates(Axis::R_AXIS_LEFT);
 	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->CheckAxisStates(Axis::R_AXIS_DOWN);
 	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->CheckAxisStates(Axis::R_AXIS_RIGHT);
+	
+	player_input.pressing_UP_LEFT = App->input->CheckAxisStates(Axis::R_AXIS_UP_LEFT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;;
+	player_input.pressing_UP_RIGHT = App->input->CheckAxisStates(Axis::R_AXIS_UP_RIGHT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
+	player_input.pressing_DOWN_LEFT = App->input->CheckAxisStates(Axis::R_AXIS_DOWN_LEFT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN; 
+	player_input.pressing_DOWN_RIGHT = App->input->CheckAxisStates(Axis::R_AXIS_DOWN_RIGHT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
+
+	
+	
 	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
 
 	if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT))
@@ -989,6 +997,13 @@ void e1Player::QuestControls()
 	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->CheckAxisStates(Axis::R_AXIS_RIGHT);
 	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
 	player_input.pressing_V = App->input->GetKey(App->input->keyboard_buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN;;
+	
+	player_input.pressing_UP_LEFT = App->input->CheckAxisStates(Axis::R_AXIS_UP_LEFT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;;
+	player_input.pressing_UP_RIGHT = App->input->CheckAxisStates(Axis::R_AXIS_UP_RIGHT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
+	player_input.pressing_DOWN_LEFT = App->input->CheckAxisStates(Axis::R_AXIS_DOWN_LEFT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN;
+	player_input.pressing_DOWN_RIGHT = App->input->CheckAxisStates(Axis::R_AXIS_DOWN_RIGHT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
+
+	
 	if (App->map->quest_rooms != nullptr &&App->map->quest_rooms->actual_room->room_type != RoomType::FOUNTAIN) {
 		player_input.pressing_SPACE = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
 		player_input.pressing_1 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILTY1) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.HABILTY1) == KEY_DOWN;
@@ -1110,12 +1125,15 @@ void e1Player::ReduceMana(const int & cost_mana)
 	App->scene->player_mana_bar->UpdateBar(-cost_mana, MANABAR);
 }
 
-void e1Player::AugmentMana(const int & plus_mana)
+void e1Player::AugmentMana(const int & plus_mana, bool level_up)
 {
-	iPoint pos{ 0,0 };
-	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 5) * (int)App->win->GetScale();
-	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
-	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(plus_mana).data(), App->gui->screen, BLUE, FontType::PMIX24);
+	if (!level_up) {
+		iPoint pos{ 0,0 };
+		pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 5) * (int)App->win->GetScale();
+		pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
+		App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(plus_mana).data(), App->gui->screen, BLUE, FontType::PMIX24);
+	}
+
 	stats.mana += plus_mana;
 	if (stats.mana > stats.max_mana)
 		stats.mana = stats.max_mana;
@@ -1134,12 +1152,15 @@ void e1Player::ReduceLives(const int & cost_lives)
 	App->scene->player_hp_bar->UpdateBar(-cost_lives, HPBAR);
 }
 
-void e1Player::AugmentLives(const int & plus_lives)
+void e1Player::AugmentLives(const int & plus_lives, bool level_up)
 {
-	iPoint pos{ 0,0 };
-	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 5) * (int)App->win->GetScale();
-	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
-	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(plus_lives).data(), App->gui->screen, GREEN, FontType::PMIX24);
+	if (!level_up) {
+		iPoint pos{ 0,0 };
+		pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 5) * (int)App->win->GetScale();
+		pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
+		App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(plus_lives).data(), App->gui->screen, GREEN, FontType::PMIX24);
+	}
+
 	stats.live += plus_lives;
 	if (stats.live > stats.max_lives)
 		stats.live = stats.max_lives;
@@ -1223,7 +1244,21 @@ void e1Player::UpdateLevel()
 {
 	App->audio->PlayFx(App->scene->fx_controller_conection);
 	stats.max_xp *= stats.level;
-	AugmentLives(stats.max_lives*0.3f);
-	AugmentMana(stats.max_mana*0.3f);
+	AugmentLives(stats.max_lives*0.3f,true);
+	AugmentMana(stats.max_mana*0.3f,true);
 	App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-15 }, { 8,0,2,2 }, RANDOM, { 20,20 }, { 10,5 }, { 0,0 }, P_UP, 200, 4, { 0,-2 });
+	
+	int mana = (int)stats.max_mana*0.3f;
+	int life = (int)stats.max_lives*0.3f;
+
+	iPoint pos{ 0,0 };
+	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 10) * (int)App->win->GetScale();
+	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
+	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(life).data(), App->gui->screen, GREEN, FontType::PMIX24);
+
+	iPoint pos2{ 0,0 };
+	pos2.x = (int)(App->render->camera.x) + (position.x + pivot.x + 10) * (int)App->win->GetScale();
+	pos2.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
+	App->gui->AddHitPointLabel(pos2.x, pos2.y, std::to_string(mana).data(), App->gui->screen, BLUE, FontType::PMIX24);
+
 }
