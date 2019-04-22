@@ -178,7 +178,7 @@ void m1EntityManager::UpdateEntities(float dt, std::vector<e1Entity *> &draw_ent
 		if ((*item) != nullptr) {
 			(*item)->Update(dt);
 
-			if (App->render->IsOnCamera((*item)->position.x - (*item)->position.y, ((*item)->position.x + (*item)->position.y) * 0.5F, (*item)->size.x, (*item)->size.y)) {
+			if (App->render->IsOnCamera((*item)->position.x, (*item)->position.y, (*item)->size.x, (*item)->size.y)) {
 				draw_entities.push_back(*item);
 			}
 		}

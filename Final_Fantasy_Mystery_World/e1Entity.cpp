@@ -35,7 +35,7 @@ void e1Entity::SetPivot(const int & x, const int & y)
 
 iPoint e1Entity::GetPosition() const
 {
-	return iPoint(position.x,position.y) + pivot;
+	return position.Aproximate() + pivot;
 }
 
 void e1Entity::LoadXML(std::string name_xml_file)
