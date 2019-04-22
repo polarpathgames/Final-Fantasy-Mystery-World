@@ -1093,11 +1093,12 @@ void m1MainMenu::CreateNameMenu()
 	button_Y = App->gui->AddButton(282, 223, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_Z = App->gui->AddButton(378, 223, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_Delete = App->gui->AddButton(471, 223, { 0, 0, 93, 47 }, { 0, 0, 93, 47 }, { 0, 0, 93, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	//return_btn_input_screen = App->gui->AddButton(662, 210, { 1850,1637,80,50 }, { 1850,1637,80,50 }, { 1850,1637,80,50 }, this, max_letters, false, false, true, true, { -3, 5 });
+	//return_label_input_screen = App->gui->AddLabel(0, 0, "Return", return_btn_input_screen, BLACK, FontType::FF64, this, false);
 	//
 	button_Space = App->gui->AddButton(188, 295, { 0, 0, 235, 40 }, { 0, 0, 93, 47 }, { 0, 0, 93, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 
-	return_btn_input_screen = App->gui->AddButton(662, 210, { 1850,1637,80,50 }, { 1850,1637,80,50 }, { 1850,1637,80,50 }, this, max_letters, false, false, true, true, {-3, 5});
-	return_label_input_screen = App->gui->AddLabel(0, 0, "Return", return_btn_input_screen, BLACK, FontType::FF64, this, false);
+
 
 }
 
