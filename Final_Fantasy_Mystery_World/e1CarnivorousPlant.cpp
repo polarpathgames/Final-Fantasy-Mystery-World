@@ -54,9 +54,9 @@ bool e1CarnivorousPlant::PreUpdate()
 
 	}
 	if (state == State::WALKING) {
-		if (!IsPlayerNextTile()) {
+		//if (!IsPlayerNextTile()) {
 			MovementLogic();
-		}
+		//}
 	}
 	if (state == State::BEFORE_ATTACK) {
 		if (time_to_wait_before_attack < SDL_GetTicks() - 250) {
