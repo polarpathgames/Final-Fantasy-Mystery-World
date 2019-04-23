@@ -9664,7 +9664,6 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="47" x="390.091" y="353.182"/>
  </objectgroup>
  <objectgroup id="10" name="colliders">
   <object id="10" name="room_collider" type="nextA" x="432" y="224" width="16.1904" height="15.0341">
@@ -9672,8 +9671,5 @@
     <property name="next_id" type="int" value="2"/>
    </properties>
   </object>
-  <object id="44" name="enemy" type="BlueDog" x="387.182" y="343.364" width="12.6364" height="15.7273"/>
-  <object id="45" name="enemy" type="BlueDog" x="389.273" y="347.091"/>
-  <object id="46" x="388.818" y="346.455"/>
  </objectgroup>
 </map>

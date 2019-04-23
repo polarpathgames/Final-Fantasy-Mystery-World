@@ -230,7 +230,7 @@ bool m1Scene::Update(float dt)
 		break;
 	case StatesMenu::FIRSTABILITY_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
-			DestroyFirstAbilityPanel();
+			DestroyHelpAbilityMenu();
 			menu_state = StatesMenu::NO_MENU;
 			player->BlockControls(false);
 		}
