@@ -774,6 +774,7 @@ void m1MainMenu::CreateOptions()
 
 	checkbox_mute_music = App->gui->AddCheckBox(900, 263, { 1618, 1834, 33, 33 }, { 1618, 1834, 33, 33 }, { 1581, 1836, 26, 29 }, options_panel);
 	checkbox_mute_music->is_option = true;
+	checkbox_mute_music->box_clicked = App->audio->mute_volume;
 	checkbox_mute_music->draggable = false;
 	checkbox_mute_music->drawable = true;
 	checkbox_mute_music->interactable = true;
@@ -788,6 +789,7 @@ void m1MainMenu::CreateOptions()
 
 	checkbox_mute_fx = App->gui->AddCheckBox(900, 343, { 1618, 1834, 33, 33 }, { 1618, 1834, 33, 33 }, { 1581, 1836, 26, 29 }, options_panel);
 	checkbox_mute_fx->is_option = true;
+	checkbox_mute_fx->box_clicked = App->audio->mute_fx;
 	checkbox_mute_fx->draggable = false;
 	checkbox_mute_fx->drawable = true;
 	checkbox_mute_fx->interactable = true;
