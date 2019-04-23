@@ -1100,7 +1100,21 @@ void m1Scene::DestroyHelpAttackMenu()
 void m1Scene::CreateHelpAbilityMenu()
 {
 	App->audio->PlayFx(App->scene->fx_ability_screen);
-	help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+	switch (player_type) {
+	case PlayerType::WARRIOR:
+		help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+		break;
+	case PlayerType::MAGE:
+		help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+		break;
+	case PlayerType::ARCHER:
+		help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+		break;
+	default:
+		help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+		break;
+	}
+
 }
 
 void m1Scene::DestroyHelpAbilityMenu()

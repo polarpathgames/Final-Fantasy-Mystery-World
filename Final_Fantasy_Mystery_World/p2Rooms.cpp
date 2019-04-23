@@ -203,6 +203,7 @@ void RoomManager::LoadRoom(const int & id)
 			App->map->Load((*item)->tmx_location.data());
 			(*item)->active = true;
 			actual_room = (*item);
+			actual_room->active = true;
 			break;
 		}
 	}

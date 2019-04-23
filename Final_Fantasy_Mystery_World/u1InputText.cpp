@@ -46,6 +46,13 @@ u1InputText::~u1InputText()
 
 void u1InputText::UpdateElement() 
 {
+	
+}
+
+void u1InputText::InnerDraw()
+{
+
+
 	if (text.length() <= MAX_CHARACTERS) {
 		SDL_StartTextInput();
 		if (!App->input->text_input.empty()) {
@@ -54,17 +61,14 @@ void u1InputText::UpdateElement()
 			AddText(t.data());
 		}
 	}
-	else 
+	else
 		App->input->text_input.clear();
 
 	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN && !text.empty())
 	{
 		DeleteText();
 	}
-}
 
-void u1InputText::InnerDraw()
-{
 	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &box, false);
 
 	uint width_ = 0u, height_ = 0u;
