@@ -28,6 +28,8 @@ enum class RoomType {
 	NONE
 };
 
+enum COLLIDER_TYPE;
+
 struct ChangeScene {
 	ChangeScene(const int & x, const int &y, LocationChangeScene type, const uint &id);
 	iPoint location = { 0,0 };
@@ -63,6 +65,7 @@ public:
 	~RoomManager();
 
 	void OnCollision(Collider* c1, Collider* C2);
+	bool change_room(COLLIDER_TYPE type, bool debug_change = false);
 	void LoadRoom(const int & id);
 	void AddEntityToNotRepeat(iPoint pos);
 	void UpdateRoomEvents();

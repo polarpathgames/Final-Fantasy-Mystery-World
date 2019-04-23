@@ -82,9 +82,18 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 	iPoint pos_coll = { c1->rect.x,c1->rect.y };
 	pos_coll = App->map->WorldToMap(pos_coll.x, pos_coll.y);
 
-	if (App->scene->player->actual_tile == pos_coll && actual_room->active && !actual_room->door_closed) {
+	if (App->scene->player->actual_tile == pos_coll)
+		change_room(c1->type, false);
+
+
+}
+
+bool RoomManager::change_room(COLLIDER_TYPE type, bool debug_pass)
+{
+	bool ret = false;
+	if (actual_room->active && !actual_room->door_closed || debug_pass) {
 		std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
-		switch (c1->type)
+		switch (type)
 		{
 		case COLLIDER_NEXT_A:
 			for (; item != actual_room->change_scene_points.end(); ++item) {
@@ -103,6 +112,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 						}
 						App->fade_to_black->FadeToBlack(true, 0.5f);
 						App->audio->PlayFx(App->scene->fx_door_enter);
+						ret = true;
 						break;
 					}
 				}
@@ -125,6 +135,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 						}
 						App->fade_to_black->FadeToBlack(true, 0.5f);
 						App->audio->PlayFx(App->scene->fx_door_enter);
+						ret = true;
 						break;
 					}
 				}
@@ -147,6 +158,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 						}
 						App->fade_to_black->FadeToBlack(true, 0.5f);
 						App->audio->PlayFx(App->scene->fx_door_enter);
+						ret = true;
 						break;
 					}
 				}
@@ -169,6 +181,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 						}
 						App->fade_to_black->FadeToBlack(true, 0.5f);
 						App->audio->PlayFx(App->scene->fx_door_enter);
+						ret = true;
 						break;
 					}
 				}
@@ -176,8 +189,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 			break;
 		}
 	}
-
-
+	return ret;
 }
 
 void RoomManager::LoadRoom(const int & id)

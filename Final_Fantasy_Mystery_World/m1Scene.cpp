@@ -115,9 +115,9 @@ bool m1Scene::Update(float dt)
 		}
 	}
 
-	if (App->map->actual_map == Maps::LOBBY || App->map->actual_map == Maps::HOME || App->map->actual_map == Maps::SHOP) {
+	/*if (App->map->actual_map == Maps::LOBBY || App->map->actual_map == Maps::HOME || App->map->actual_map == Maps::SHOP) {
 		ShowHUD(false);
-	}
+	}*/
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		e1Player* swap = nullptr;
@@ -143,12 +143,28 @@ bool m1Scene::Update(float dt)
 		}
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_LSHIFT)) {
+			App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_NEXT_B, true);
+		}
+		else {
+			App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_NEXT_A, true);
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_LSHIFT)) {
+			App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_LAST_B, true);
+		}
+		else {
+			App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_LAST_A, true);
+		}
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
-		/*App->render->CameraTremble();*/
-		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyTutorial.xml");
+		App->input->ControllerVibration(0.3F, 1000);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
-		App->input->ControllerVibration(0.3F, 1000);
 		App->debug = !App->debug;
 	}
 
@@ -157,7 +173,6 @@ bool m1Scene::Update(float dt)
 		App->scene->player->god_mode = !App->scene->player->god_mode;
 		GodModeIndicator(App->scene->player->god_mode);
 	}
-		
   
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		App->map->grid = !App->map->grid;
@@ -1503,5 +1518,6 @@ void m1Scene::GodModeIndicator(bool is_god_mode)
 	else
 	{
 		App->gui->DeleteUIElement(god_text);
+		god_text = nullptr;
 	}
 }
