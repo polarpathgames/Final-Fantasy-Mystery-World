@@ -150,20 +150,24 @@ bool m1Scene::Update(float dt)
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
-		if (App->input->GetKey(SDL_SCANCODE_LSHIFT)) {
-			App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_NEXT_B, true);
-		}
-		else {
-			App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_NEXT_A, true);
+		if (App->map->actual_map != Maps::SHOP && App->map->actual_map != Maps::NONE && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::LOBBY) {
+			if (App->input->GetKey(SDL_SCANCODE_LSHIFT)) {
+				App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_NEXT_B, true);
+			}
+			else {
+				App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_NEXT_A, true);
+			}
 		}
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
-		if (App->input->GetKey(SDL_SCANCODE_LSHIFT)) {
-			App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_LAST_B, true);
-		}
-		else {
-			App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_LAST_A, true);
+		if (App->map->actual_map != Maps::SHOP && App->map->actual_map != Maps::NONE && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::LOBBY) {
+			if (App->input->GetKey(SDL_SCANCODE_LSHIFT)) {
+				App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_LAST_B, true);
+			}
+			else {
+				App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_LAST_A, true);
+			}
 		}
 	}
 
