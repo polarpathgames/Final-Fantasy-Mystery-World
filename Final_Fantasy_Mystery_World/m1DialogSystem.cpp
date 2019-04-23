@@ -311,6 +311,10 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->scene->CreateHelpAttackMenu();
 				   App->scene->SetMenuState(StatesMenu::HELP_ATTACK_MENU);
 				   break;
+			   case 90: //old statue tutorial ATTACK
+				   App->scene->CreateHelpAbilityMenu();
+				   App->scene->SetMenuState(StatesMenu::HELP_ABILITY_MENU);
+				   break;
 			   default:
 				   App->scene->player->BlockControls(false);
 				   break;

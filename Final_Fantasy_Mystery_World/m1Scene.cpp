@@ -275,15 +275,22 @@ bool m1Scene::Update(float dt)
 		}
 		break;
 	case StatesMenu::HELP_DIAGONAL_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			DestroyHelpDiagonalMenu();
 			player->BlockControls(false);
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
 	case StatesMenu::HELP_ATTACK_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			DestroyHelpAttackMenu();
+			player->BlockControls(false);
+			menu_state = StatesMenu::NO_MENU;
+		}
+		break;
+	case StatesMenu::HELP_ABILITY_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			DestroyHelpAbilityMenu();
 			player->BlockControls(false);
 			menu_state = StatesMenu::NO_MENU;
 		}
@@ -1066,7 +1073,7 @@ void m1Scene::DestroyGameOver()
 
 void m1Scene::CreateHelpDiagonalMenu()
 {
-
+	App->audio->PlayFx(App->scene->fx_ability_screen);
 	help_diagonal = App->gui->AddImage(0, 0, { 0,6329,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
 
 }
@@ -1078,12 +1085,25 @@ void m1Scene::DestroyHelpDiagonalMenu()
 
 void m1Scene::CreateHelpAttackMenu()
 {
+	App->audio->PlayFx(App->scene->fx_ability_screen);
 	help_attack = App->gui->AddImage(0, 0, { 1024,6329,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
 }
 
 void m1Scene::DestroyHelpAttackMenu()
 {
 	App->gui->DeleteUIElement(help_attack);
+}
+
+void m1Scene::CreateHelpAbilityMenu()
+{
+	App->audio->PlayFx(App->scene->fx_ability_screen);
+	help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+}
+
+void m1Scene::DestroyHelpAbilityMenu()
+{
+
+	App->gui->DeleteUIElement(help_ability);
 }
 
 bool m1Scene::Interact(u1GUI* interact)

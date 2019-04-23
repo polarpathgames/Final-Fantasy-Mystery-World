@@ -52,6 +52,7 @@ public:
 		DOORSHOP,
 		HELP1,
 		HELP2,
+		HELP3,
 
 		UNKNOWN
 	};
