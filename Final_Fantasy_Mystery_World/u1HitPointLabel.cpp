@@ -30,7 +30,7 @@ void u1HitPointLabel::SetColor(const Color & c)
 {
 	switch (c) {
 	case RED: //Granate
-		color = { 110,11,20,color.a };
+		color = { 190,11,20,color.a };
 		break;
 	case GREEN:
 		color = { 0,255,0,color.a };

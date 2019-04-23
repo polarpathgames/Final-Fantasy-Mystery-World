@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.3" name="BlueDog" tilewidth="45" tileheight="42" tilecount="108" columns="12">
+<tileset version="1.2" tiledversion="1.2.2" name="BlueDog" tilewidth="45" tileheight="42" tilecount="108" columns="12">
  <properties>
   <property name="attack_power" type="int" value="50"/>
   <property name="experience" type="int" value="300"/>
@@ -211,6 +211,9 @@
   </animation>
  </tile>
  <tile id="72">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
   <animation>
    <frame tileid="72" duration="200"/>
    <frame tileid="73" duration="200"/>
@@ -220,6 +223,9 @@
   </animation>
  </tile>
  <tile id="73">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
   <animation>
    <frame tileid="72" duration="200"/>
    <frame tileid="73" duration="200"/>
@@ -229,6 +235,9 @@
   </animation>
  </tile>
  <tile id="74">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
   <animation>
    <frame tileid="74" duration="200"/>
    <frame tileid="75" duration="200"/>
@@ -238,6 +247,9 @@
   </animation>
  </tile>
  <tile id="75">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
   <animation>
    <frame tileid="74" duration="200"/>
    <frame tileid="75" duration="200"/>
@@ -247,6 +259,9 @@
   </animation>
  </tile>
  <tile id="76">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
   <animation>
    <frame tileid="76" duration="200"/>
    <frame tileid="77" duration="200"/>
@@ -256,6 +271,9 @@
   </animation>
  </tile>
  <tile id="77">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
   <animation>
    <frame tileid="76" duration="200"/>
    <frame tileid="77" duration="200"/>
@@ -265,6 +283,9 @@
   </animation>
  </tile>
  <tile id="78">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
   <animation>
    <frame tileid="78" duration="200"/>
    <frame tileid="79" duration="200"/>
@@ -274,6 +295,9 @@
   </animation>
  </tile>
  <tile id="79">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
   <animation>
    <frame tileid="78" duration="200"/>
    <frame tileid="79" duration="200"/>
@@ -281,5 +305,10 @@
    <frame tileid="81" duration="200"/>
    <frame tileid="82" duration="200"/>
   </animation>
+ </tile>
+ <tile id="85">
+  <properties>
+   <property name="speed" type="int" value="4"/>
+  </properties>
  </tile>
 </tileset>
