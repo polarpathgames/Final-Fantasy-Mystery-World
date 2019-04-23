@@ -417,13 +417,13 @@ bool ChangeControls::ChangingKeyboard()
 			return false;
 		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+	/*if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("SPACE")) {
 			SetSaveText("SPACE");
 			*code_to_change = SDL_SCANCODE_SPACE;
 			return false;
 		}
-	}
+	}*/
 	if (App->input->GetKey(SDL_SCANCODE_RCTRL) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("RCTRL")) {
 			SetSaveText("RCTRL");
