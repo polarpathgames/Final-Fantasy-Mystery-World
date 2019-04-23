@@ -180,8 +180,6 @@ void e1BlueDog::IdAnimToEnum()
 		case 69:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
-			
-
 		case 360:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;
