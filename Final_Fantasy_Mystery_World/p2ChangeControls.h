@@ -32,6 +32,7 @@ private:
 	int * code_to_change = nullptr;
 	char ** save_char = nullptr;
 	bool is_changing_controller = false;
+	bool first_input = true;
 };
 
 
