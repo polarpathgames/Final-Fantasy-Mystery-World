@@ -180,17 +180,29 @@ void e1BlueDog::IdAnimToEnum()
 		case 69:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
-		case 360:
+		case 72:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;
-		case 633:
+		case 74:
 			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
 			break;
-		case 636:
+		case 76:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
 			break;
-		case 639:
+		case 78:
 			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
+			break;
+		case 77:
+			data.animations[i].animType = AnimationState::DEATH_DOWN;
+			break;
+		case 73:
+			data.animations[i].animType = AnimationState::DEATH_LEFT;
+			break;
+		case 79:
+			data.animations[i].animType = AnimationState::DEATH_RIGHT;
+			break;
+		case 75:
+			data.animations[i].animType = AnimationState::DEATH_UP;
 			break;
 		}
 
