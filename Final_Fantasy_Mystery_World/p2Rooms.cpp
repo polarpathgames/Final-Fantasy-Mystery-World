@@ -91,102 +91,104 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 bool RoomManager::change_room(COLLIDER_TYPE type, bool debug_pass)
 {
 	bool ret = false;
-	if ((actual_room->active && !actual_room->door_closed) || debug_pass) {
-		std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
-		switch (type)
-		{
-		case COLLIDER_NEXT_A:
-			for (; item != actual_room->change_scene_points.end(); ++item) {
-				if ((*item) != nullptr) {
-					if ((*item)->change_type == LocationChangeScene::NEXT_A) {
-						App->scene->player->BlockControls(true);
-						actual_room->active = false;
-						last_room = actual_room;
-						player_next_pos = LocationChangeScene::NEXT_A;
-						std::vector<Room*>::iterator item2 = rooms.begin();
-						for (; item2 != rooms.end(); ++item2) {
-							if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
-								actual_room = (*item2);
-								break;
+	if (actual_room != nullptr) {
+		if ((actual_room->active && !actual_room->door_closed) || debug_pass) {
+			std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
+			switch (type)
+			{
+			case COLLIDER_NEXT_A:
+				for (; item != actual_room->change_scene_points.end(); ++item) {
+					if ((*item) != nullptr) {
+						if ((*item)->change_type == LocationChangeScene::NEXT_A) {
+							App->scene->player->BlockControls(true);
+							actual_room->active = false;
+							last_room = actual_room;
+							player_next_pos = LocationChangeScene::NEXT_A;
+							std::vector<Room*>::iterator item2 = rooms.begin();
+							for (; item2 != rooms.end(); ++item2) {
+								if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
+									actual_room = (*item2);
+									break;
+								}
 							}
+							App->fade_to_black->FadeToBlack(true, 0.5f);
+							App->audio->PlayFx(App->scene->fx_door_enter);
+							ret = true;
+							break;
 						}
-						App->fade_to_black->FadeToBlack(true, 0.5f);
-						App->audio->PlayFx(App->scene->fx_door_enter);
-						ret = true;
-						break;
 					}
 				}
-			}
-			break;
-		case COLLIDER_LAST_A:
-			for (; item != actual_room->change_scene_points.end(); ++item) {
-				if ((*item) != nullptr) {
-					if ((*item)->change_type == LocationChangeScene::LAST_A) {
-						App->scene->player->BlockControls(true);
-						actual_room->active = false;
-						last_room = actual_room;
-						player_next_pos = LocationChangeScene::LAST_A;
-						std::vector<Room*>::iterator item2 = rooms.begin();
-						for (; item2 != rooms.end(); ++item2) {
-							if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
-								actual_room = (*item2);
-								break;
+				break;
+			case COLLIDER_LAST_A:
+				for (; item != actual_room->change_scene_points.end(); ++item) {
+					if ((*item) != nullptr) {
+						if ((*item)->change_type == LocationChangeScene::LAST_A) {
+							App->scene->player->BlockControls(true);
+							actual_room->active = false;
+							last_room = actual_room;
+							player_next_pos = LocationChangeScene::LAST_A;
+							std::vector<Room*>::iterator item2 = rooms.begin();
+							for (; item2 != rooms.end(); ++item2) {
+								if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
+									actual_room = (*item2);
+									break;
+								}
 							}
+							App->fade_to_black->FadeToBlack(true, 0.5f);
+							App->audio->PlayFx(App->scene->fx_door_enter);
+							ret = true;
+							break;
 						}
-						App->fade_to_black->FadeToBlack(true, 0.5f);
-						App->audio->PlayFx(App->scene->fx_door_enter);
-						ret = true;
-						break;
 					}
 				}
-			}
-			break;
-		case COLLIDER_NEXT_B:
-			for (; item != actual_room->change_scene_points.end(); ++item) {
-				if ((*item) != nullptr) {
-					if ((*item)->change_type == LocationChangeScene::NEXT_B) {
-						App->scene->player->BlockControls(true);
-						actual_room->active = false;
-						last_room = actual_room;
-						player_next_pos = LocationChangeScene::NEXT_B;
-						std::vector<Room*>::iterator item2 = rooms.begin();
-						for (; item2 != rooms.end(); ++item2) {
-							if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
-								actual_room = (*item2);
-								break;
+				break;
+			case COLLIDER_NEXT_B:
+				for (; item != actual_room->change_scene_points.end(); ++item) {
+					if ((*item) != nullptr) {
+						if ((*item)->change_type == LocationChangeScene::NEXT_B) {
+							App->scene->player->BlockControls(true);
+							actual_room->active = false;
+							last_room = actual_room;
+							player_next_pos = LocationChangeScene::NEXT_B;
+							std::vector<Room*>::iterator item2 = rooms.begin();
+							for (; item2 != rooms.end(); ++item2) {
+								if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
+									actual_room = (*item2);
+									break;
+								}
 							}
+							App->fade_to_black->FadeToBlack(true, 0.5f);
+							App->audio->PlayFx(App->scene->fx_door_enter);
+							ret = true;
+							break;
 						}
-						App->fade_to_black->FadeToBlack(true, 0.5f);
-						App->audio->PlayFx(App->scene->fx_door_enter);
-						ret = true;
-						break;
 					}
 				}
-			}
-			break;
-		case COLLIDER_LAST_B:
-			for (; item != actual_room->change_scene_points.end(); ++item) {
-				if ((*item) != nullptr) {
-					if ((*item)->change_type == LocationChangeScene::LAST_B) {
-						App->scene->player->BlockControls(true);
-						actual_room->active = false;
-						last_room = actual_room;
-						player_next_pos = LocationChangeScene::LAST_B;
-						std::vector<Room*>::iterator item2 = rooms.begin();
-						for (; item2 != rooms.end(); ++item2) {
-							if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
-								actual_room = (*item2);
-								break;
+				break;
+			case COLLIDER_LAST_B:
+				for (; item != actual_room->change_scene_points.end(); ++item) {
+					if ((*item) != nullptr) {
+						if ((*item)->change_type == LocationChangeScene::LAST_B) {
+							App->scene->player->BlockControls(true);
+							actual_room->active = false;
+							last_room = actual_room;
+							player_next_pos = LocationChangeScene::LAST_B;
+							std::vector<Room*>::iterator item2 = rooms.begin();
+							for (; item2 != rooms.end(); ++item2) {
+								if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
+									actual_room = (*item2);
+									break;
+								}
 							}
+							App->fade_to_black->FadeToBlack(true, 0.5f);
+							App->audio->PlayFx(App->scene->fx_door_enter);
+							ret = true;
+							break;
 						}
-						App->fade_to_black->FadeToBlack(true, 0.5f);
-						App->audio->PlayFx(App->scene->fx_door_enter);
-						ret = true;
-						break;
 					}
 				}
+				break;
 			}
-			break;
 		}
 	}
 	return ret;
