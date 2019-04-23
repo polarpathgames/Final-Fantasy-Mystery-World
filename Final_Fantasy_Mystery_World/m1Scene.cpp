@@ -115,10 +115,6 @@ bool m1Scene::Update(float dt)
 		}
 	}
 
-	if (App->map->actual_map == Maps::LOBBY || App->map->actual_map == Maps::HOME || App->map->actual_map == Maps::SHOP) {
-		ShowHUD(false);
-	}
-
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		e1Player* swap = nullptr;
 		iPoint new_pos = App->map->MapToWorld(player->actual_tile.x, player->actual_tile.y);
@@ -143,6 +139,7 @@ bool m1Scene::Update(float dt)
 		}
 	}
 
+
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
 		/*App->render->CameraTremble();*/
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyTutorial.xml");
@@ -161,6 +158,11 @@ bool m1Scene::Update(float dt)
   
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		App->map->grid = !App->map->grid;
+
+	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
+		player->ability1_gained = true;
+		player->ability2_gained = true;
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {
 		App->fade_to_black->FadeToBlack(Maps::LOBBY);
