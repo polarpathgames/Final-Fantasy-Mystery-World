@@ -49,7 +49,7 @@ void e1Mage::PrepareSpecialAttack1()
 {
 	BROFILER_CATEGORY("PrepareSpecialAttack1 Mage", Profiler::Color::Yellow);
 
-	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {
+	if (stats.mana - stats.cost_mana_special_attack1 >= 0 || god_mode == true) {
 		if (!god_mode)
 			ReduceMana(stats.cost_mana_special_attack1);
 		App->audio->PlayFx(App->scene->fx_ability_mage_prepare);
