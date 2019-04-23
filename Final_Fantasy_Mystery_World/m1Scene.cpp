@@ -471,6 +471,7 @@ void m1Scene::ShitFunctionJAJA()
 	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && !App->globals.CutSceneLobbyExplain && App->map->actual_map == Maps::LOBBY) {
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyTutorial.xml");
 		App->globals.CutSceneLobbyExplain = true;
+		App->globals.Tutorial_first_time = false;
 	}
 }
 
