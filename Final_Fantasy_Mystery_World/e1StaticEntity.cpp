@@ -303,38 +303,66 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		size.create(frame.w, frame.h);
 	}
 	else if (strcmp(name, "help1") == 0) {
+
 		static_type = e1StaticEntity::Type::HELP1;
-		frame = { 1219,63,45,65 };
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1219,80,45,48 });
+		idle->PushBack({ 1264,80,45,48 });
+		idle->PushBack({ 1309,80,45,48 });
+		idle->PushBack({ 1264,80,45,48 });
+
+		idle->speed = 1;
+		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.7F);
 		size.create(frame.w, frame.h);
 		max_distance_to_interact = 1;
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
 		actual_tile += {3, 3};
-		position.y += 8;
+		position.y += 28;
 		position.x += 2;
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 	}
 	else if (strcmp(name, "help2") == 0) {
 		static_type = e1StaticEntity::Type::HELP2;
-		frame = { 1219,63,45,65 };
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1219,80,45,48 });
+		idle->PushBack({ 1264,80,45,48 });
+		idle->PushBack({ 1309,80,45,48 });
+		idle->PushBack({ 1264,80,45,48 });
+
+		idle->speed = 1;
+		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.7F);
 		size.create(frame.w, frame.h);
 		max_distance_to_interact = 1;
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
 		actual_tile += {3, 3};
-		position.y += 8;
+		position.y += 28;
 		position.x += 2;
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 	}
 	else if (strcmp(name, "help3") == 0) {
 		static_type = e1StaticEntity::Type::HELP3;
-		frame = { 1219,63,45,65 };
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1219,80,45,48 });
+		idle->PushBack({ 1264,80,45,48 });
+		idle->PushBack({ 1309,80,45,48 });
+		idle->PushBack({ 1264,80,45,48 });
+
+		idle->speed = 1;
+		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.7F);
 		size.create(frame.w, frame.h);
 		max_distance_to_interact = 1;
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
 		actual_tile += {3, 3};
-		position.y += 8;
+		position.y += 28;
 		position.x += 2;
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 	}
