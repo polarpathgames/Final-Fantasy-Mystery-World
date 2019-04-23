@@ -221,8 +221,8 @@ private:
 	u1Button* plus_fx_btn = nullptr;
 	u1Label* label_fx_value = nullptr;
 
-	u1Label* label_fps = nullptr;
-	u1CheckBox* checkbox_fps = nullptr;
+	/*u1Label* label_fps = nullptr;
+	u1CheckBox* checkbox_fps = nullptr;*/
 	u1Label* label_fullscreen = nullptr;
 	u1CheckBox* checkbox_fullscreen = nullptr;
 	u1Button* button_controls = nullptr;

@@ -567,7 +567,7 @@ void m1Scene::CreateOptionsMenu()
 {
 	options_panel = App->gui->AddImage(0, 0, { 1024,768,1024,768 }, this, App->gui->screen, true, false, false, false);
 	options_panel->SetPosRespectParent(CENTERED);
-	
+
 	button_general_volume = App->gui->AddButton(491, 168, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	label_general_volume = App->gui->AddLabel(0, 0, "General Volume", button_general_volume, BLACK, FontType::FF48, nullptr, false);
 	label_general_volume->SetPosRespectParent(LEFT_CENTERED);
@@ -603,17 +603,17 @@ void m1Scene::CreateOptionsMenu()
 	checkbox_mute_fx->interactable = true;
 	checkbox_mute_fx->AddListener(this);
 
-	label_fps = App->gui->AddLabel(491, 413, "FPS Caps",  options_panel, BLACK, FontType::FF48, nullptr, false);
+	/*label_fps = App->gui->AddLabel(491, 413, "FPS Caps",  options_panel, BLACK, FontType::FF48, nullptr, false);
 	checkbox_fps = App->gui->AddCheckBox(760, 413, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
 	checkbox_fps->is_option = true;
 	checkbox_fps->draggable = false;
 	checkbox_fps->drawable = true;
 	checkbox_fps->box_clicked = App->capactivated;
 	checkbox_fps->interactable = true;
-	checkbox_fps->AddListener(this);
+	checkbox_fps->AddListener(this);*/
 
-	label_fullscreen = App->gui->AddLabel(491, 503, "Fullscreen", options_panel, BLACK, FontType::FF48, nullptr, false);
-	checkbox_fullscreen = App->gui->AddCheckBox(760, 503, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
+	label_fullscreen = App->gui->AddLabel(491, 413, "Fullscreen", options_panel, BLACK, FontType::FF48, nullptr, false);
+	checkbox_fullscreen = App->gui->AddCheckBox(760, 420, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
 	checkbox_fullscreen->is_option = true;
 	checkbox_fullscreen->box_clicked = App->win->fullscreen;
 	checkbox_fullscreen->draggable = false;
@@ -621,7 +621,7 @@ void m1Scene::CreateOptionsMenu()
 	checkbox_fullscreen->interactable = true;
 	checkbox_fullscreen->AddListener(this);
 
-	button_controls = App->gui->AddButton(491, 595, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
+	button_controls = App->gui->AddButton(491, 503, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	label_controls = App->gui->AddLabel(0, 0, "Controls", button_controls, BLACK, FontType::FF48, nullptr, false);
 	label_controls->SetPosRespectParent(LEFT_CENTERED);
 
@@ -1234,17 +1234,17 @@ bool m1Scene::Interact(u1GUI* interact)
 			checkbox_mute_fx->Clicked();
 			App->audio->StopMusic(-3);
 		}
-		if (interact == checkbox_fps)
-		{
-			checkbox_fps->Clicked();
-			if (App->capactivated) {
-				App->capactivated = false;
-			}
-			else {
-				App->capactivated = true;
-			}
-			//App->GetFrameRate();
-		}
+		//if (interact == checkbox_fps)
+		//{
+		//	checkbox_fps->Clicked();
+		//	if (App->capactivated) {
+		//		App->capactivated = false;
+		//	}
+		//	else {
+		//		App->capactivated = true;
+		//	}
+		//	//App->GetFrameRate();
+		//}
 
 		if (interact == checkbox_fullscreen)
 		{
