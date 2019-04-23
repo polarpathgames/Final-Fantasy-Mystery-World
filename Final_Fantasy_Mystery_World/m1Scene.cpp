@@ -23,6 +23,7 @@
 #include "u1Label.h"
 #include "u1Image.h"
 #include "u1Bar.h"
+#include "p2Rooms.h"
 #include "u1Slider.h"
 #include "u1CheckBox.h"
 #include "m1Audio.h"
