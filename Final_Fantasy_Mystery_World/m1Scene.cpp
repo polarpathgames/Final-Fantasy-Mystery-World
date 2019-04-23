@@ -121,8 +121,8 @@ bool m1Scene::Update(float dt)
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
-		player->ability1_gained = true;
-		player->ability2_gained = true;
+		App->globals.ability1_gained = true;
+		App->globals.ability2_gained = true;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {

@@ -257,10 +257,10 @@ void e1Player::ReadPlayerInput()
 		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
 			state = State::WALKING;
 		}
-		else if (player_input.pressing_SPACE || player_input.pressing_1 && ability1_gained == true) {
+		else if (player_input.pressing_SPACE || player_input.pressing_1 && App->globals.ability1_gained == true) {
 			state = State::BEFORE_ATTACK;
 		}
-		else if (player_input.pressing_2 && ability2_gained == true) {
+		else if (player_input.pressing_2 && App->globals.ability2_gained == true) {
 			state = State::BEFORE_FLASH;
 		}
 		else if (movement_type == Movement_Type::InQuest){
@@ -460,7 +460,7 @@ void e1Player::ReadAttack()
 		App->audio->PlayFx(App->scene->fx_attack);
 		return;
 	}
-	if (player_input.pressing_1 && ability1_gained == true) {
+	if (player_input.pressing_1 && App->globals.ability1_gained == true) {
 		PrepareSpecialAttack1();
 		return;
 	}
