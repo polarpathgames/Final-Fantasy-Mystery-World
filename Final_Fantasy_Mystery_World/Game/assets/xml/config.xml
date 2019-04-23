@@ -4,7 +4,7 @@
   <app framerate_cap="60">
     <title>Final Fantasy: Mystery World</title>
     <organization>UPC</organization>
-    <version>0.5.2</version>
+    <version>0.5.3</version>
   </app>
 
   <renderer>
@@ -16,7 +16,7 @@
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>
-    <fullscreen_window value="false"/>
+    <fullscreen_window value="true"/>
     <icon path="assets/ff_icon.png"/>
   </window>
 
