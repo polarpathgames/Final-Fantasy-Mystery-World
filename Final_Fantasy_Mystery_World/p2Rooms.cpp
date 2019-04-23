@@ -408,7 +408,6 @@ void RoomManager::UpdateRoomEvents()
 	}
 
 
-
 	// if no more enemies door opens
 	if (actual_room != nullptr && actual_room->active && actual_room->door_closed && !App->entity_manager->ThereAreEnemies()) {
 		actual_room->door_closed = false;

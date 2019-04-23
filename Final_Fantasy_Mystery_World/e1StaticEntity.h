@@ -88,6 +88,7 @@ public:
 	Animation* idle = nullptr;
 	bool has_animation = false;
 	Type static_type = Type::UNKNOWN;
+	bool drunk = false;
 private:
 	
 	

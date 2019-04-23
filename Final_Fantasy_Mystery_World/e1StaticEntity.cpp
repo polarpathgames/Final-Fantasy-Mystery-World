@@ -257,14 +257,23 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	else if (strcmp(name, "quest_fountain") == 0) {
 		static_type = e1StaticEntity::Type::QUEST_FOUNTAIN;
 		has_animation = true;
-		idle = DBG_NEW Animation();
-		current_animation = idle;
-		idle->PushBack({ 160,0,64,48 });
-		idle->PushBack({ 224,0,64,48 });
-		idle->PushBack({ 160,48,64,48 });
-		idle->PushBack({ 224,48,64,48 });
-		idle->speed = 5;
-		frame = idle->frames[0];
+		if (App->dialog->dialogTrees[1]->karma == -1) {
+			idle = new Animation();
+			idle->PushBack({ 1141, 5,50,43 });
+			frame = idle->frames[0];
+			current_animation = idle;
+			position = { position.x + 7, position.y + 5 };
+		}
+		else {
+			idle = DBG_NEW Animation();
+			current_animation = idle;
+			idle->PushBack({ 160,0,64,48 });
+			idle->PushBack({ 224,0,64,48 });
+			idle->PushBack({ 160,48,64,48 });
+			idle->PushBack({ 224,48,64,48 });
+			idle->speed = 5;
+			frame = idle->frames[0];
+		}
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x + 1,App->map->WorldToMap(position.x,position.y).y + 1 };
