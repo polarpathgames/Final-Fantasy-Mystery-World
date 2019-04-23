@@ -366,7 +366,7 @@ bool e1StaticEntity::Update(float dt)
 		if (actual_tile.DistanceTo(player_pos) <= max_distance_to_interact) {
 			if (App->scene->GetMenuState() == StatesMenu::NO_MENU) {
 				if (button_interact == nullptr) {
-					button_interact = App->gui->AddImage(0, 0, { 1120,1920,32,32 }, nullptr, App->gui->screen, true, false, false, false);
+					button_interact = App->gui->AddImage(0, 0, { 1524,2052,31,31 }, nullptr, App->gui->screen, true, false, false, false);
 
 					iPoint pos{ 0,0 };
 					pos.x = (int)(App->render->camera.x) + (App->scene->player->GetPosition().x) * (int)App->win->GetScale() - button_interact->section.w*0.5F;
