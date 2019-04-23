@@ -648,8 +648,10 @@ bool m1Map::ChangeMap(Maps type)
 		App->audio->PlayMusic(mus_lobby, 5);
 		Load(lobby_map.data());
 		actual_map = Maps::LOBBY;
-		App->scene->player->AugmentLives(App->scene->player->stats.max_lives);
-		App->scene->player->AugmentMana(App->scene->player->stats.max_mana);
+		if (last_map != Maps::HOME && last_map != Maps::SHOP) {
+			App->scene->player->AugmentLives(App->scene->player->stats.max_lives);
+			App->scene->player->AugmentMana(App->scene->player->stats.max_mana);
+		}
 		break;
 	case Maps::TUTORIAL:
 		//App->audio->PlayMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg", 5);
