@@ -44,9 +44,9 @@ bool e1StrangeFrog::PreUpdate()
 
 	}
 	if (state == State::WALKING) {
-		if (!IsPlayerNextTile()) {
+		//if (!IsPlayerNextTile()) {
 			MovementLogic();
-		}
+		//}
 	}
 	if (state == State::BEFORE_ATTACK) {
 		if (time_to_wait_before_attack < SDL_GetTicks() - 250) {
@@ -158,7 +158,8 @@ bool e1StrangeFrog::Update(float dt)
 		}
 	}
 
-	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+	if (App->debug)
+		App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
 	return true;
 }

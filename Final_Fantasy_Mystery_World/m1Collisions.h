@@ -81,7 +81,6 @@ public:
 
 
 	void DebugDraw();
-	bool debug = false;
 
 private:
 

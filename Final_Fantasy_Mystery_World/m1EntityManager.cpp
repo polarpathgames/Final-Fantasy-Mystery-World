@@ -179,7 +179,8 @@ void m1EntityManager::DrawEntities(std::vector<e1Entity *> &draw_entities, float
 			else if ((*item)->type == e1Entity::EntityType::PARTICLE)
 				(*item)->Draw(texture[(uint)TextureType::PARTICLE], dt);
 
-			App->render->DrawCircle((*item)->position.x + (*item)->pivot.x, (*item)->position.y + (*item)->pivot.y, 3, 255, 255, 255);
+			if (App->debug)
+				App->render->DrawCircle((*item)->position.x + (*item)->pivot.x, (*item)->position.y + (*item)->pivot.y, 3, 255, 255, 255);
 		}
 	}
 }

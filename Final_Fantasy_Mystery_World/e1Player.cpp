@@ -35,14 +35,14 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
 	type = EntityType::PLAYER;
 	ground = App->tex->Load("assets/sprites/player_pos.png");
+	current_animation = &IdleDownLeft;
+	direction = Direction::DOWN_LEFT;
 	Init();
 }
 
 void e1Player::Init()
 {
-	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
-	current_animation = &IdleDownLeft;
 
 	velocity.x = 160;
 	velocity.y = 80;
@@ -78,7 +78,8 @@ bool e1Player::Update(float dt)
 
 	PerformActions(dt);
 
-	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+	if (App->debug)
+		App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
 	if (coll != nullptr)
 		coll->SetPos(position.x, position.y + 25);

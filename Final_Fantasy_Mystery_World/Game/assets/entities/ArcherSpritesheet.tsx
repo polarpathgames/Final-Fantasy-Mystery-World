@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.3" name="ArcherSpritesheet" tilewidth="18" tileheight="28" tilecount="84" columns="12">
+<tileset version="1.2" tiledversion="1.2.2" name="ArcherSpritesheet" tilewidth="18" tileheight="28" tilecount="84" columns="12">
  <properties>
   <property name="attack_power" type="int" value="90"/>
   <property name="attack_power_ability" type="int" value="150"/>
@@ -20,8 +20,12 @@
   </animation>
  </tile>
  <tile id="1">
+  <properties>
+   <property name="speed" type="int" value="2"/>
+  </properties>
   <animation>
    <frame tileid="1" duration="100"/>
+   <frame tileid="75" duration="170"/>
   </animation>
  </tile>
  <tile id="3">
@@ -36,8 +40,12 @@
   </animation>
  </tile>
  <tile id="4">
+  <properties>
+   <property name="speed" type="int" value="2"/>
+  </properties>
   <animation>
    <frame tileid="4" duration="100"/>
+   <frame tileid="76" duration="170"/>
   </animation>
  </tile>
  <tile id="6">
@@ -52,8 +60,12 @@
   </animation>
  </tile>
  <tile id="7">
+  <properties>
+   <property name="speed" type="int" value="2"/>
+  </properties>
   <animation>
    <frame tileid="7" duration="100"/>
+   <frame tileid="78" duration="170"/>
   </animation>
  </tile>
  <tile id="9">
@@ -68,8 +80,12 @@
   </animation>
  </tile>
  <tile id="10">
+  <properties>
+   <property name="speed" type="int" value="2"/>
+  </properties>
   <animation>
    <frame tileid="10" duration="100"/>
+   <frame tileid="79" duration="170"/>
   </animation>
  </tile>
  <tile id="12">
@@ -84,8 +100,12 @@
   </animation>
  </tile>
  <tile id="13">
+  <properties>
+   <property name="speed" type="int" value="2"/>
+  </properties>
   <animation>
    <frame tileid="13" duration="100"/>
+   <frame tileid="72" duration="170"/>
   </animation>
  </tile>
  <tile id="15">
@@ -100,8 +120,12 @@
   </animation>
  </tile>
  <tile id="16">
+  <properties>
+   <property name="speed" type="int" value="2"/>
+  </properties>
   <animation>
    <frame tileid="16" duration="100"/>
+   <frame tileid="73" duration="170"/>
   </animation>
  </tile>
  <tile id="18">
@@ -116,8 +140,12 @@
   </animation>
  </tile>
  <tile id="19">
+  <properties>
+   <property name="speed" type="int" value="2"/>
+  </properties>
   <animation>
    <frame tileid="19" duration="100"/>
+   <frame tileid="74" duration="170"/>
   </animation>
  </tile>
  <tile id="21">
@@ -132,8 +160,12 @@
   </animation>
  </tile>
  <tile id="22">
+  <properties>
+   <property name="speed" type="int" value="2"/>
+  </properties>
   <animation>
    <frame tileid="22" duration="100"/>
+   <frame tileid="77" duration="170"/>
   </animation>
  </tile>
  <tile id="24">
