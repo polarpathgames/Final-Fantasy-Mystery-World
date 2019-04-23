@@ -91,7 +91,7 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 bool RoomManager::change_room(COLLIDER_TYPE type, bool debug_pass)
 {
 	bool ret = false;
-	if (actual_room->active && !actual_room->door_closed || debug_pass) {
+	if ((actual_room->active && !actual_room->door_closed) || debug_pass) {
 		std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
 		switch (type)
 		{
