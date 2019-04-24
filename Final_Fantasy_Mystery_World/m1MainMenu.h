@@ -104,6 +104,9 @@ private:
 	u1Button* button_Delete = nullptr;
 	u1Button* button_Space = nullptr;
 
+	u1Button* return_btn_input_screen = nullptr;
+	u1Label* return_label_input_screen = nullptr;
+
 	// main menu
 
 	u1GUI* background = nullptr;
@@ -173,8 +176,8 @@ private:
 	u1Button* plus_fx_btn = nullptr;
 	u1Label* label_fx_value = nullptr;
 
-	u1Label* label_fps = nullptr;
-	u1CheckBox* checkbox_fps = nullptr;
+	/*u1Label* label_fps = nullptr;
+	u1CheckBox* checkbox_fps = nullptr;*/
 	u1Label* label_fullscreen = nullptr;
 	u1CheckBox* checkbox_fullscreen = nullptr;
 	u1Button* button_controls = nullptr;

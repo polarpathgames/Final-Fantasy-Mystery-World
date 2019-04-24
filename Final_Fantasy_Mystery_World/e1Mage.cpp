@@ -49,7 +49,7 @@ void e1Mage::PrepareSpecialAttack1()
 {
 	BROFILER_CATEGORY("PrepareSpecialAttack1 Mage", Profiler::Color::Yellow);
 
-	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {
+	if (stats.mana - stats.cost_mana_special_attack1 >= 0 || god_mode == true) {
 		if (!god_mode)
 			ReduceMana(stats.cost_mana_special_attack1);
 		App->audio->PlayFx(App->scene->fx_ability_mage_prepare);
@@ -157,12 +157,24 @@ void e1Mage::IdAnimToEnum() //Assign every id animation to enum animation
 		case 54:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;//
+		case 61:
+			data.animations[i].animType = AnimationState::DEATH_DOWN;
+			break;//
+		case 64:
+			data.animations[i].animType = AnimationState::DEATH_LEFT;
+			break;//
+		case 70:
+			data.animations[i].animType = AnimationState::DEATH_RIGHT;
+			break;//
+		case 65:
+			data.animations[i].animType = AnimationState::DEATH_UP;
+			break;//
 		case 60:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;//
 		case 63:
 			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
-			break;//
+			break;
 		case 66:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
 			break;//
@@ -206,10 +218,11 @@ void e1Mage::SetFireBalls()
 
 	e1Particles* fire_ball2 = nullptr;
 	e1Particles* fire_ball3 = nullptr;
+
 	switch (direction) {
 	case Direction::DOWN: {
 		fire_ball_pos += {2, 2};
-		fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x, fire_ball_pos.y, "fire_ball");
+		fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x -1, fire_ball_pos.y -1, "fire_ball");
 		fire_ball->SetParticle(e1Particles::ParticleType::FIREBALL, direction);
 		fire_ball2 = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x, fire_ball_pos.y - 1, "fire_ball");
 		fire_ball2->SetParticle(e1Particles::ParticleType::FIREBALL, direction);
@@ -218,7 +231,7 @@ void e1Mage::SetFireBalls()
 		break; }
 	case Direction::UP: {
 		fire_ball_pos += {-2, -2};
-		fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x, fire_ball_pos.y, "fire_ball");
+		fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x +1, fire_ball_pos.y +1, "fire_ball");
 		fire_ball->SetParticle(e1Particles::ParticleType::FIREBALL, direction);
 		fire_ball2 = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x, fire_ball_pos.y + 1, "fire_ball");
 		fire_ball2->SetParticle(e1Particles::ParticleType::FIREBALL, direction);
@@ -227,7 +240,7 @@ void e1Mage::SetFireBalls()
 		break; }
 	case Direction::LEFT: {
 		fire_ball_pos += {-2, 2};
-		fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x, fire_ball_pos.y, "fire_ball");
+		fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x+1 , fire_ball_pos.y -1, "fire_ball");
 		fire_ball->SetParticle(e1Particles::ParticleType::FIREBALL, direction);
 		fire_ball2 = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x, fire_ball_pos.y - 1, "fire_ball");
 		fire_ball2->SetParticle(e1Particles::ParticleType::FIREBALL, direction);
@@ -236,7 +249,7 @@ void e1Mage::SetFireBalls()
 		break; }
 	case Direction::RIGHT: {
 		fire_ball_pos += {2, -2};
-		fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x, fire_ball_pos.y, "fire_ball");
+		fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x -1, fire_ball_pos.y+1 , "fire_ball");
 		fire_ball->SetParticle(e1Particles::ParticleType::FIREBALL, direction);
 		fire_ball2 = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x, fire_ball_pos.y + 1, "fire_ball");
 		fire_ball2->SetParticle(e1Particles::ParticleType::FIREBALL, direction);
@@ -245,7 +258,7 @@ void e1Mage::SetFireBalls()
 		break; }
 	case Direction::UP_RIGHT: {
 		fire_ball_pos += {0, -2};
-		fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x, fire_ball_pos.y, "fire_ball");
+		fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x, fire_ball_pos.y+1, "fire_ball");
 		fire_ball->SetParticle(e1Particles::ParticleType::FIREBALL, direction);
 		fire_ball2 = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x + 1, fire_ball_pos.y, "fire_ball");
 		fire_ball2->SetParticle(e1Particles::ParticleType::FIREBALL, direction);
@@ -254,7 +267,7 @@ void e1Mage::SetFireBalls()
 		break; }
 	case Direction::UP_LEFT: {
 		fire_ball_pos += {-2, 0};
-		fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x, fire_ball_pos.y, "fire_ball");
+		fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x+1, fire_ball_pos.y, "fire_ball");
 		fire_ball->SetParticle(e1Particles::ParticleType::FIREBALL, direction);
 		fire_ball2 = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x, fire_ball_pos.y + 1, "fire_ball");
 		fire_ball2->SetParticle(e1Particles::ParticleType::FIREBALL, direction);
@@ -263,7 +276,7 @@ void e1Mage::SetFireBalls()
 		break; }
 	case Direction::DOWN_LEFT: {
 		fire_ball_pos += {0, 2};
-		fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x, fire_ball_pos.y, "fire_ball");
+		fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x, fire_ball_pos.y-1, "fire_ball");
 		fire_ball->SetParticle(e1Particles::ParticleType::FIREBALL, direction);
 		fire_ball2 = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x + 1, fire_ball_pos.y, "fire_ball");
 		fire_ball2->SetParticle(e1Particles::ParticleType::FIREBALL, direction);
@@ -272,7 +285,7 @@ void e1Mage::SetFireBalls()
 		break; }
 	case Direction::DOWN_RIGHT: {
 		fire_ball_pos += {2, 0};
-		fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x, fire_ball_pos.y, "fire_ball");
+		fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x-1, fire_ball_pos.y, "fire_ball");
 		fire_ball->SetParticle(e1Particles::ParticleType::FIREBALL, direction);
 		fire_ball2 = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, fire_ball_pos.x, fire_ball_pos.y + 1, "fire_ball");
 		fire_ball2->SetParticle(e1Particles::ParticleType::FIREBALL, direction);

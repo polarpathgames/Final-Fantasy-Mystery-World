@@ -44,9 +44,9 @@ bool e1BlueDog::PreUpdate()
 
 	}
 	if (state == State::WALKING) {
-		if (!IsPlayerNextTile()) {
+		//if (!IsPlayerNextTile()) {
 			MovementLogic();
-		}
+		//}
 	}
 	if (state == State::BEFORE_ATTACK) {
 		if (time_to_wait_before_attack < SDL_GetTicks() - 250) {
@@ -84,9 +84,21 @@ bool e1BlueDog::Update(float dt)
 	if (state == State::AFTER_ATTACK) {
 		RestTimeAfterAttack(time_attack);
 	}
+	if (state == State::DEATH) {
+		if (current_animation->Finished()) {
+			int drop = App->random.Generate(1, 3);
+			if (drop == 1)
+				Drop();
+			App->audio->PlayFx(App->scene->fx_kill_enemy);
+			App->scene->player->UpdateExperience(stats.experience);
+			App->map->quest_rooms->AddEntityToNotRepeat(original_position);
+			to_delete = true;
+			ChangeTurn(type);
+		}
+	}
 
-
-	App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+	if (App->debug)
+		App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
 	return true;
 }
@@ -168,19 +180,29 @@ void e1BlueDog::IdAnimToEnum()
 		case 69:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
-			
-
-		case 360:
+		case 72:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;
-		case 633:
+		case 74:
 			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
 			break;
-		case 636:
+		case 76:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
 			break;
-		case 639:
+		case 78:
 			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
+			break;
+		case 77:
+			data.animations[i].animType = AnimationState::DEATH_DOWN;
+			break;
+		case 73:
+			data.animations[i].animType = AnimationState::DEATH_LEFT;
+			break;
+		case 79:
+			data.animations[i].animType = AnimationState::DEATH_RIGHT;
+			break;
+		case 75:
+			data.animations[i].animType = AnimationState::DEATH_UP;
 			break;
 		}
 

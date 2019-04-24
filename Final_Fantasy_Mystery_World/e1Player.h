@@ -22,6 +22,11 @@ struct Input {
 	bool pressing_J = false; // CHANGE DIRECTION
 	bool pressing_K = false; // CHANGE DIRECTION
 	bool pressing_L = false; // CHANGE DIRECTION
+	bool pressing_UP_LEFT = false; // CHANGE DIRECTION
+	bool pressing_UP_RIGHT = false; // CHANGE DIRECTION
+	bool pressing_DOWN_LEFT = false; // CHANGE DIRECTION
+	bool pressing_DOWN_RIGHT = false; // CHANGE DIRECTION
+
 	bool pressing_SPACE = false; // BASIC ATTACK
 	bool pressing_shift = false; // DIAGONALS
 	bool pressing_V = false; // SHOW SKILLS
@@ -147,23 +152,21 @@ public:
 
 	void ReduceMana(const int &cost_mana);
 
-	void AugmentMana(const int &plus_mana);
+	void AugmentMana(const int &plus_mana, bool level_up = false);
 
 	void ReduceLives(const int &cost_lives);
 
-	void AugmentLives(const int &plus_lives);
+	void AugmentLives(const int &plus_lives, bool level_up = false);
 
 	bool IsEnemyInThatPosition(const iPoint & pos);
 
-	inline void ReduceGold(const int &cost_gold) {
-		stats.gold -= cost_gold;
-		if (stats.gold < 0)
-			stats.gold = 0;
-	}
+	void ReduceGold(const int &cost_gold);
 
-	inline void AugmentGold(const int &plus_gold) {
-		stats.gold += plus_gold;
-	}
+
+
+	void AugmentGold(const int &plus_gold);
+		
+
 
 	void UpdateExperience(int experience);
 
@@ -174,6 +177,7 @@ public:
 	bool has_skills = false;
 	bool block_controls = false;
 	bool god_mode = false;
+
 	float flash_time = 0.0F;
 	iPoint flash_position{ 0,0 };
 

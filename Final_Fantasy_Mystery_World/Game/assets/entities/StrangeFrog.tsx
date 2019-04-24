@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.2" name="Frog" tilewidth="34" tileheight="40" tilecount="165" columns="15">
+<tileset version="1.2" tiledversion="1.2.3" name="Frog" tilewidth="34" tileheight="40" tilecount="195" columns="15">
  <properties>
-  <property name="attack_power" type="int" value="50"/>
+  <property name="attack_power" type="int" value="20"/>
   <property name="experience" type="int" value="30"/>
   <property name="live" type="int" value="125"/>
  </properties>
- <image source="../sprites/Frog.png" width="512" height="440"/>
+ <image source="../sprites/Frog.png" width="512" height="525"/>
  <tile id="0">
   <properties>
    <property name="speed" type="int" value="5"/>
@@ -303,6 +303,94 @@
    <frame tileid="162" duration="170"/>
    <frame tileid="163" duration="170"/>
    <frame tileid="164" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="165">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
+  <animation>
+   <frame tileid="165" duration="200"/>
+   <frame tileid="169" duration="200"/>
+   <frame tileid="173" duration="200"/>
+   <frame tileid="180" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="166">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
+  <animation>
+   <frame tileid="166" duration="200"/>
+   <frame tileid="170" duration="200"/>
+   <frame tileid="174" duration="200"/>
+   <frame tileid="181" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="167">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
+  <animation>
+   <frame tileid="167" duration="200"/>
+   <frame tileid="171" duration="200"/>
+   <frame tileid="175" duration="200"/>
+   <frame tileid="182" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="168">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
+  <animation>
+   <frame tileid="168" duration="200"/>
+   <frame tileid="172" duration="200"/>
+   <frame tileid="176" duration="200"/>
+   <frame tileid="183" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="169">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
+  <animation>
+   <frame tileid="165" duration="200"/>
+   <frame tileid="169" duration="200"/>
+   <frame tileid="173" duration="200"/>
+   <frame tileid="180" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="170">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
+  <animation>
+   <frame tileid="166" duration="200"/>
+   <frame tileid="170" duration="200"/>
+   <frame tileid="174" duration="200"/>
+   <frame tileid="181" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="171">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
+  <animation>
+   <frame tileid="171" duration="200"/>
+   <frame tileid="167" duration="200"/>
+   <frame tileid="175" duration="200"/>
+   <frame tileid="182" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="172">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
+  <animation>
+   <frame tileid="168" duration="200"/>
+   <frame tileid="172" duration="200"/>
+   <frame tileid="176" duration="200"/>
+   <frame tileid="183" duration="200"/>
   </animation>
  </tile>
 </tileset>

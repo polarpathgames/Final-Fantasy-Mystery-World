@@ -205,6 +205,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 	case MainMenuStates::CHOOSE_NAME_MENU:
 		if (interaction == button_okay) {
 			if (!input_text->GetText().empty()) {
+				App->globals.Reset();
 				App->globals.player_name = input_text->GetText();
 				DestroyNameMenu();
 				active = false;
@@ -503,17 +504,17 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			checkbox_mute_fx->Clicked();
 			App->audio->StopMusic(-3);
 		}
-		if (interaction == checkbox_fps)
-		{
-			checkbox_fps->Clicked();
-			if (App->capactivated) {
-				App->capactivated = false;
-			}
-			else {
-				App->capactivated = true;
-			}
-			//App->GetFrameRate();
-		}
+		//if (interaction == checkbox_fps)
+		//{
+		//	checkbox_fps->Clicked();
+		//	if (App->capactivated) {
+		//		App->capactivated = false;
+		//	}
+		//	else {
+		//		App->capactivated = true;
+		//	}
+		//	//App->GetFrameRate();
+		//}
 		
 		if (interaction == checkbox_fullscreen)
 		{
@@ -713,7 +714,7 @@ void m1MainMenu::CreateSelectChamp()
 	select_champ_panel = App->gui->AddImage(0, 0, { 1024, 3256, 1024, 768 }, this, App->gui->screen, true, false, false, false);
 
 	warrior_image = App->gui->AddImage(500, 175, { 1052, 4079, 327, 358 }, App->main_menu, select_champ_panel, true, false, false, false);
-	archer_image = App->gui->AddImage(580, 180, { 1701, 4079, 194, 369 }, App->main_menu, select_champ_panel, false, false, false, false);
+	archer_image = App->gui->AddImage(580, 180, { 1681, 4050, 244, 400 }, App->main_menu, select_champ_panel, false, false, false, false);
 	mage_image = App->gui->AddImage(580, 180, { 1414, 4079, 218, 363 }, App->main_menu, select_champ_panel, false, false, false, false);
 
 	warrior_info = App->gui->AddImage(370, 600, { 99, 4120, 585, 97 }, App->main_menu, select_champ_panel, true, false, false, false);
@@ -773,6 +774,7 @@ void m1MainMenu::CreateOptions()
 
 	checkbox_mute_music = App->gui->AddCheckBox(900, 263, { 1618, 1834, 33, 33 }, { 1618, 1834, 33, 33 }, { 1581, 1836, 26, 29 }, options_panel);
 	checkbox_mute_music->is_option = true;
+	checkbox_mute_music->box_clicked = App->audio->mute_volume;
 	checkbox_mute_music->draggable = false;
 	checkbox_mute_music->drawable = true;
 	checkbox_mute_music->interactable = true;
@@ -787,22 +789,23 @@ void m1MainMenu::CreateOptions()
 
 	checkbox_mute_fx = App->gui->AddCheckBox(900, 343, { 1618, 1834, 33, 33 }, { 1618, 1834, 33, 33 }, { 1581, 1836, 26, 29 }, options_panel);
 	checkbox_mute_fx->is_option = true;
+	checkbox_mute_fx->box_clicked = App->audio->mute_fx;
 	checkbox_mute_fx->draggable = false;
 	checkbox_mute_fx->drawable = true;
 	checkbox_mute_fx->interactable = true;
 	checkbox_mute_fx->AddListener(this);
 
-	label_fps = App->gui->AddLabel(491, 413, "FPS Caps", options_panel, BLACK, FontType::FF48, nullptr, false);
+	/*label_fps = App->gui->AddLabel(491, 413, "FPS Caps", options_panel, BLACK, FontType::FF48, nullptr, false);
 	checkbox_fps = App->gui->AddCheckBox(760, 413, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
 	checkbox_fps->is_option = true;
 	checkbox_fps->draggable = false;
 	checkbox_fps->drawable = true;
 	checkbox_fps->box_clicked = App->capactivated;
 	checkbox_fps->interactable = true;
-	checkbox_fps->AddListener(this);
+	checkbox_fps->AddListener(this);*/
 
-	label_fullscreen = App->gui->AddLabel(491, 503, "Fullscreen", options_panel, BLACK, FontType::FF48, nullptr, false);
-	checkbox_fullscreen = App->gui->AddCheckBox(760, 503, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
+	label_fullscreen = App->gui->AddLabel(491, 413, "Fullscreen", options_panel, BLACK, FontType::FF48, nullptr, false);
+	checkbox_fullscreen = App->gui->AddCheckBox(760, 420, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
 	checkbox_fullscreen->is_option = true;
 	checkbox_fullscreen->box_clicked = App->win->fullscreen;
 	checkbox_fullscreen->draggable = false;
@@ -810,7 +813,7 @@ void m1MainMenu::CreateOptions()
 	checkbox_fullscreen->interactable = true;
 	checkbox_fullscreen->AddListener(this);
 
-	button_controls = App->gui->AddButton(491, 595, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
+	button_controls = App->gui->AddButton(491, 503, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	label_controls = App->gui->AddLabel(0, 0, "Controls", button_controls, BLACK, FontType::FF48, nullptr, false);
 	label_controls->SetPosRespectParent(LEFT_CENTERED);
 
@@ -1047,7 +1050,7 @@ void m1MainMenu::CreateNameMenu()
 {
 	input_text_image = App->gui->AddImage(0, 0, { 1025, 4792, 1024, 768 }, this, App->gui->screen, true, false, false, false);
 
-	input_text = App->gui->AddInputText(190, 258, "ChooseYourCharacterName", input_text_image, BLACK, FontType::FF64, {1214,5050,600,63}, this);
+	
 	
 	minus_letters = App->gui->AddImage(137, 350, { 1024,5658,743,334 }, nullptr, input_text_image, true, false, false, false);
 	max_letters = App->gui->AddImage(137, 350, { 119,5658,743,334 }, nullptr, input_text_image, false, false, false, false);
@@ -1061,6 +1064,7 @@ void m1MainMenu::CreateNameMenu()
 	button_F = App->gui->AddButton(471, 0, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_G = App->gui->AddButton(565, 0, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_upper = App->gui->AddButton(662, 0, { 0,0,80,47 }, { 0,0,80,47 }, { 0,0,80,47 }, this, max_letters, false, false, true, true, { -2,-5 });
+	input_text = App->gui->AddInputText(52, -91, "", max_letters, BLACK, FontType::FF64, { 1214,5050,600,63 }, this);
 	//
 	button_H = App->gui->AddButton(0, 74, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	button_I = App->gui->AddButton(94, 74, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, { 0, 0, 47, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
@@ -1088,6 +1092,8 @@ void m1MainMenu::CreateNameMenu()
 	button_Delete = App->gui->AddButton(471, 223, { 0, 0, 93, 47 }, { 0, 0, 93, 47 }, { 0, 0, 93, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
 	//
 	button_Space = App->gui->AddButton(188, 295, { 0, 0, 235, 40 }, { 0, 0, 93, 47 }, { 0, 0, 93, 47 }, this, max_letters, false, false, true, true, { -2,-5 });
+
+	App->gui->FocusButton((u1Button*)input_text);
 
 }
 

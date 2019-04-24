@@ -134,9 +134,7 @@ bool m1Collision::PreUpdate()
 bool m1Collision::Update(float dt)
 {
 	BROFILER_CATEGORY("Collisions: Update", Profiler::Color::Magenta);
-	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-		debug = !debug;
-	if (debug)
+	if (App->debug)
 		DebugDraw();
 
 	return true;

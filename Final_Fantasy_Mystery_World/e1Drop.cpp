@@ -27,7 +27,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		size.create(frame.w, frame.h);
 		actual_tile = { App->map->WorldToMap(position.x, position.y) };
 		position.x += 8;
-		position.y -= 20;
+		position.y -= 13;
 		
 		moving_pos.x = position.x;
 		moving_pos.y = position.y;
@@ -54,18 +54,18 @@ bool e1Drop::Update(float adt)
 		}
 		case DropsType::ABILITY1:
 		{
+			App->globals.ability1_gained = true;
 			App->scene->player->BlockControls(true);
-			App->scene->CreateFirstAbilityPanel();
+			App->scene->CreateHelpAbilityMenu();
 			App->scene->SetMenuState(StatesMenu::FIRSTABILITY_MENU);
 			to_delete = true;
-			App->globals.ability1_gained = true;
 			break;
 		}
 	  }
 	}
 	switch (drop_type) {
 	case DropsType::ABILITY1:
-		if (position.y > moving_pos.y - 13.0F && moving)
+		/*if (position.y > moving_pos.y - 13.0F && moving)
 		{
 			position.y -= 100 * App->GetDeltaTime();
 			if (position.y <= moving_pos.y - 13.0F)
@@ -76,7 +76,7 @@ bool e1Drop::Update(float adt)
 			position.y += 100 * App->GetDeltaTime();
 			if (position.y >= moving_pos.y + 13.0F)
 				moving = true;
-		}
+		}*/
 		break;
 	}
 	

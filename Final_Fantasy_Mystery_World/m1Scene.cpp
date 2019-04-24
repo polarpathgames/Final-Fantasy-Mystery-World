@@ -23,6 +23,7 @@
 #include "u1Label.h"
 #include "u1Image.h"
 #include "u1Bar.h"
+#include "p2Rooms.h"
 #include "u1Slider.h"
 #include "u1CheckBox.h"
 #include "m1Audio.h"
@@ -115,6 +116,15 @@ bool m1Scene::Update(float dt)
 		}
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+		App->map->grid = !App->map->grid;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
+		App->globals.ability1_gained = true;
+		App->globals.ability2_gained = true;
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		e1Player* swap = nullptr;
 		iPoint new_pos = App->map->MapToWorld(player->actual_tile.x, player->actual_tile.y);
@@ -139,12 +149,34 @@ bool m1Scene::Update(float dt)
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
-		/*App->render->CameraTremble();*/
-		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyTutorial.xml");
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+		if (App->map->actual_map != Maps::SHOP && App->map->actual_map != Maps::NONE && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::LOBBY) {
+			if (App->input->GetKey(SDL_SCANCODE_LSHIFT)) {
+				App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_NEXT_B, true);
+			}
+			else {
+				App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_NEXT_A, true);
+			}
+		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
+
+	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
+		if (App->map->actual_map != Maps::SHOP && App->map->actual_map != Maps::NONE && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::LOBBY) {
+			if (App->input->GetKey(SDL_SCANCODE_LSHIFT)) {
+				App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_LAST_B, true);
+			}
+			else {
+				App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_LAST_A, true);
+			}
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
 		App->input->ControllerVibration(0.3F, 1000);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
+		App->debug = !App->debug;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -152,10 +184,6 @@ bool m1Scene::Update(float dt)
 		App->scene->player->god_mode = !App->scene->player->god_mode;
 		GodModeIndicator(App->scene->player->god_mode);
 	}
-		
-  
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-		App->map->grid = !App->map->grid;
 
 	if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {
 		App->fade_to_black->FadeToBlack(Maps::LOBBY);
@@ -205,8 +233,8 @@ bool m1Scene::Update(float dt)
 		}
 		break;
 	case StatesMenu::FIRSTABILITY_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
-			DestroyFirstAbilityPanel();
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			DestroyHelpAbilityMenu();
 			menu_state = StatesMenu::NO_MENU;
 			player->BlockControls(false);
 		}
@@ -251,15 +279,22 @@ bool m1Scene::Update(float dt)
 		}
 		break;
 	case StatesMenu::HELP_DIAGONAL_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			DestroyHelpDiagonalMenu();
 			player->BlockControls(false);
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
 	case StatesMenu::HELP_ATTACK_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			DestroyHelpAttackMenu();
+			player->BlockControls(false);
+			menu_state = StatesMenu::NO_MENU;
+		}
+		break;
+	case StatesMenu::HELP_ABILITY_MENU:
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			DestroyHelpAbilityMenu();
 			player->BlockControls(false);
 			menu_state = StatesMenu::NO_MENU;
 		}
@@ -440,6 +475,7 @@ void m1Scene::ShitFunctionJAJA()
 	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && !App->globals.CutSceneLobbyExplain && App->map->actual_map == Maps::LOBBY) {
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyTutorial.xml");
 		App->globals.CutSceneLobbyExplain = true;
+		App->globals.Tutorial_first_time = false;
 	}
 }
 
@@ -562,7 +598,7 @@ void m1Scene::CreateOptionsMenu()
 {
 	options_panel = App->gui->AddImage(0, 0, { 1024,768,1024,768 }, this, App->gui->screen, true, false, false, false);
 	options_panel->SetPosRespectParent(CENTERED);
-	
+
 	button_general_volume = App->gui->AddButton(491, 168, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	label_general_volume = App->gui->AddLabel(0, 0, "General Volume", button_general_volume, BLACK, FontType::FF48, nullptr, false);
 	label_general_volume->SetPosRespectParent(LEFT_CENTERED);
@@ -577,6 +613,14 @@ void m1Scene::CreateOptionsMenu()
 	plus_music_btn = App->gui->AddButton(805, 263, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options_panel, true, false, true, true);
 	label_music_value = App->gui->AddLabel(760, 250, "", options_panel, BLACK, FontType::FF48, nullptr, false);
 
+	checkbox_mute_music = App->gui->AddCheckBox(900, 263, { 1618, 1834, 33, 33 }, { 1618, 1834, 33, 33 }, { 1581, 1836, 26, 29 }, options_panel);
+	checkbox_mute_music->is_option = true;
+	checkbox_mute_music->box_clicked = App->audio->mute_volume;
+	checkbox_mute_music->draggable = false;
+	checkbox_mute_music->drawable = true;
+	checkbox_mute_music->interactable = true;
+	checkbox_mute_music->AddListener(this);
+
 	button_fx_volume = App->gui->AddButton(491, 326, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	label_fx_volume = App->gui->AddLabel(0, 0, "FX Volume", button_fx_volume, BLACK, FontType::FF48, nullptr,false);
 	label_fx_volume->SetPosRespectParent(LEFT_CENTERED);
@@ -584,17 +628,25 @@ void m1Scene::CreateOptionsMenu()
 	plus_fx_btn = App->gui->AddButton(805, 343, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options_panel, true, false, true, true);
 	label_fx_value = App->gui->AddLabel(760, 330,"", options_panel, BLACK, FontType::FF48, nullptr, false);
 
-	label_fps = App->gui->AddLabel(491, 413, "FPS Caps",  options_panel, BLACK, FontType::FF48, nullptr, false);
+	checkbox_mute_fx = App->gui->AddCheckBox(900, 343, { 1618, 1834, 33, 33 }, { 1618, 1834, 33, 33 }, { 1581, 1836, 26, 29 }, options_panel);
+	checkbox_mute_fx->is_option = true;
+	checkbox_mute_fx->box_clicked = App->audio->mute_fx;
+	checkbox_mute_fx->draggable = false;
+	checkbox_mute_fx->drawable = true;
+	checkbox_mute_fx->interactable = true;
+	checkbox_mute_fx->AddListener(this);
+
+	/*label_fps = App->gui->AddLabel(491, 413, "FPS Caps",  options_panel, BLACK, FontType::FF48, nullptr, false);
 	checkbox_fps = App->gui->AddCheckBox(760, 413, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
 	checkbox_fps->is_option = true;
 	checkbox_fps->draggable = false;
 	checkbox_fps->drawable = true;
 	checkbox_fps->box_clicked = App->capactivated;
 	checkbox_fps->interactable = true;
-	checkbox_fps->AddListener(this);
+	checkbox_fps->AddListener(this);*/
 
-	label_fullscreen = App->gui->AddLabel(491, 503, "Fullscreen", options_panel, BLACK, FontType::FF48, nullptr, false);
-	checkbox_fullscreen = App->gui->AddCheckBox(760, 503, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
+	label_fullscreen = App->gui->AddLabel(491, 413, "Fullscreen", options_panel, BLACK, FontType::FF48, nullptr, false);
+	checkbox_fullscreen = App->gui->AddCheckBox(760, 420, { 1659,1575,33,33 }, { 1659,1575,33,33 }, { 1566,1559,48,36 }, options_panel);
 	checkbox_fullscreen->is_option = true;
 	checkbox_fullscreen->box_clicked = App->win->fullscreen;
 	checkbox_fullscreen->draggable = false;
@@ -602,7 +654,7 @@ void m1Scene::CreateOptionsMenu()
 	checkbox_fullscreen->interactable = true;
 	checkbox_fullscreen->AddListener(this);
 
-	button_controls = App->gui->AddButton(491, 595, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
+	button_controls = App->gui->AddButton(491, 503, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
 	label_controls = App->gui->AddLabel(0, 0, "Controls", button_controls, BLACK, FontType::FF48, nullptr, false);
 	label_controls->SetPosRespectParent(LEFT_CENTERED);
 
@@ -1028,7 +1080,7 @@ void m1Scene::DestroyGameOver()
 
 void m1Scene::CreateHelpDiagonalMenu()
 {
-
+	App->audio->PlayFx(App->scene->fx_ability_screen);
 	help_diagonal = App->gui->AddImage(0, 0, { 0,6329,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
 
 }
@@ -1040,12 +1092,38 @@ void m1Scene::DestroyHelpDiagonalMenu()
 
 void m1Scene::CreateHelpAttackMenu()
 {
+	App->audio->PlayFx(App->scene->fx_ability_screen);
 	help_attack = App->gui->AddImage(0, 0, { 1024,6329,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
 }
 
 void m1Scene::DestroyHelpAttackMenu()
 {
 	App->gui->DeleteUIElement(help_attack);
+}
+
+void m1Scene::CreateHelpAbilityMenu()
+{
+	App->audio->PlayFx(App->scene->fx_ability_screen);
+	switch (player_type) {
+	case PlayerType::WARRIOR:
+		help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+		break;
+	case PlayerType::MAGE:
+		help_ability = App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+		break;
+	case PlayerType::ARCHER:
+		help_ability = App->gui->AddImage(0, 0, { 0,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+		break;
+	default:
+		help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+		break;
+	}
+}
+
+void m1Scene::DestroyHelpAbilityMenu()
+{
+
+	App->gui->DeleteUIElement(help_ability);
 }
 
 bool m1Scene::Interact(u1GUI* interact)
@@ -1128,7 +1206,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			if (player->stats.num_hp_potions >= 1) {
 				App->audio->PlayFx(fx_potion);
 				--player->stats.num_hp_potions;
-				player->AugmentLives(25);
+				player->AugmentLives(75);
 				hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
 				DeletePotionMenu();
 				menu_state = StatesMenu::INVENTORY_MENU;
@@ -1141,7 +1219,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			if (player->stats.num_mana_potions >= 1) {
 				App->audio->PlayFx(fx_potion);
 				--player->stats.num_mana_potions;
-				player->AugmentMana(25);
+				player->AugmentMana(100);
 				mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
 				DeletePotionMenu();
 				menu_state = StatesMenu::INVENTORY_MENU;
@@ -1164,7 +1242,7 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == button_continue_lobby) {
 			DestroyGameOver();
 
-			if (App->map->actual_map == Maps::TUTORIAL && !App->globals.CutSceneFinalRoomTutorialPlayed) 
+			if (App->map->actual_map == Maps::TUTORIAL && !App->globals.CutSceneAfterBossTutorialPlayed)
 				App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 			else 
 				App->fade_to_black->FadeToBlack(Maps::HOME);
@@ -1204,17 +1282,28 @@ bool m1Scene::Interact(u1GUI* interact)
 			menu_state = StatesMenu::CONTROLS_MENU;
 			ret = false;
 		}
-		if (interact == checkbox_fps)
+		if (interact == checkbox_mute_music)
 		{
-			checkbox_fps->Clicked();
-			if (App->capactivated) {
-				App->capactivated = false;
-			}
-			else {
-				App->capactivated = true;
-			}
-			//App->GetFrameRate();
+			checkbox_mute_music->Clicked();
+			App->audio->StopMusic(-2);
 		}
+
+		if (interact == checkbox_mute_fx)
+		{
+			checkbox_mute_fx->Clicked();
+			App->audio->StopMusic(-3);
+		}
+		//if (interact == checkbox_fps)
+		//{
+		//	checkbox_fps->Clicked();
+		//	if (App->capactivated) {
+		//		App->capactivated = false;
+		//	}
+		//	else {
+		//		App->capactivated = true;
+		//	}
+		//	//App->GetFrameRate();
+		//}
 
 		if (interact == checkbox_fullscreen)
 		{
@@ -1473,5 +1562,6 @@ void m1Scene::GodModeIndicator(bool is_god_mode)
 	else
 	{
 		App->gui->DeleteUIElement(god_text);
+		god_text = nullptr;
 	}
 }

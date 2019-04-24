@@ -18,6 +18,7 @@ enum class FontType {
 	FF64,
 	FF100,
 	PMIX16,
+	PMIX24,
 	PMIX32,
 	PMIX48,
 	PMIX64,
@@ -65,7 +66,7 @@ public:
 	std::list<Font*>::const_iterator FindPathFont(const char* name, const int& size = 0);
 
 	// Create a surface from text
-	SDL_Texture* Print(const char* text, SDL_Color color = { 255, 255, 255, 255 }, FontType type = FontType::NONE);
+	SDL_Texture* Print(const char* text, SDL_Color color = { 255, 255, 255, 255 }, FontType type = FontType::NONE, Uint8 alpha = 255);
 	SDL_Texture* PrintWrapped(const char* text, SDL_Color color, FontType type, Uint32 wrap_length);
 	bool ChangeFontSize(const int& size);
 	bool CalcSize(const char* text, int& width, int& height, FontType font);

@@ -14483,12 +14483,12 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="28" name="enemy" type="CarnivorousPlant" x="416" y="416" width="15.9688" height="16.0156">
+  <object id="28" name="enemy" type="CarnivorousPlant" x="416" y="400" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="29" name="enemy" type="CarnivorousPlant" x="384" y="352" width="15.9688" height="16.0156">
+  <object id="29" name="enemy" type="CarnivorousPlant" x="352" y="336" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>

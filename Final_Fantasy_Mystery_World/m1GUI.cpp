@@ -19,6 +19,7 @@
 #include "m1Audio.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Audio.h"
+#include "u1HitPointLabel.h"
 
 #include <queue>
 
@@ -60,6 +61,18 @@ bool m1GUI::PreUpdate()
 	BROFILER_CATEGORY("PreUpdateUIM", Profiler::Color::Orange);
 
 	bool ret = true;
+
+	std::list<u1GUI*>::iterator item = ui_list.begin();
+	while (item != ui_list.end()) {
+		if ((*item) != nullptr && (*item)->to_delete) {
+			DeleteUIElement(*item);
+			item = ui_list.begin();
+			//item = ui_list.erase(item);
+		}
+		else ++item;
+		
+	}
+	ui_list.remove(nullptr);
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 		debug_ui = !debug_ui;
 	}
@@ -126,6 +139,8 @@ bool m1GUI::UpdateFocusMouse()
 		}
 	}
 
+
+
 	return ret;
 }
 
@@ -136,7 +151,7 @@ void m1GUI::FocusInput()
 
 	u1GUI* new_focus = focus;
 
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN|| App->input->CheckAxisStates(Axis::AXIS_UP)) {
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN|| App->input->CheckAxisStates(Axis::AXIS_UP)) {
 
 		u1GUI* new_focus = focus;
 		if (focus != nullptr && focus->parent != nullptr) {
@@ -158,7 +173,7 @@ void m1GUI::FocusInput()
 			}
 		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN  || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN || App->input->CheckAxisStates(Axis::AXIS_DOWN)) {
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN || App->input->CheckAxisStates(Axis::AXIS_DOWN)) {
 		u1GUI* new_focus = focus;
 		if (focus != nullptr && focus->parent != nullptr) {
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
@@ -179,7 +194,7 @@ void m1GUI::FocusInput()
 			}
 		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN  || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) {
 		u1GUI* new_focus = focus;
 		if (focus != nullptr && focus->parent != nullptr) {
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
@@ -200,7 +215,7 @@ void m1GUI::FocusInput()
 			}
 		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN  || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) {
 		u1GUI* new_focus = focus;
 		if (focus != nullptr && focus->parent != nullptr) {
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
@@ -229,7 +244,7 @@ bool m1GUI::FocusFirstUIFocusable()
 	BROFILER_CATEGORY("FindElementToFocus", Profiler::Color::Aqua);
 
 	for (std::list<u1GUI*>::iterator item = ui_list.begin(); item != ui_list.end(); ++item) {
-		if ((*item)->allow_focus && *item != nullptr) {
+		if (*item != nullptr && (*item)->allow_focus) {
 			focus = *item;
 			return true;
 		}
@@ -404,6 +419,16 @@ u1Bar* m1GUI::AddBar(const int &x, const int &y, int max_capacity, UIType type, 
 	return bar;
 }
 
+u1HitPointLabel * m1GUI::AddHitPointLabel(const int & x, const int & y, const char * text, u1GUI* parent,const Color & color, const FontType & type)
+{
+	u1HitPointLabel* hit_point = DBG_NEW u1HitPointLabel(x, y, text, parent, color, type);
+
+	ui_list.push_back(hit_point);
+
+	return hit_point;
+}
+
+
 
 void m1GUI::CreateScreen()
 {
@@ -414,7 +439,6 @@ void m1GUI::CreateScreen()
 
 bool m1GUI::DeleteUIElement(u1GUI * element)
 {
-	focus = nullptr;
 	if (element != nullptr) {
 		std::list<u1GUI*>::iterator item_ui = std::find(ui_list.begin(), ui_list.end(), element);
 		if (item_ui != ui_list.end()) {															//if element doesn't find in ui list it cannot be deleted
@@ -431,6 +455,9 @@ bool m1GUI::DeleteUIElement(u1GUI * element)
 				}
 				std::list<u1GUI*>::iterator elem = std::find(ui_list.begin(), ui_list.end(), *item_tree);	//find item on ui objects list
 				if (elem != ui_list.end() && *elem != nullptr) {						//if it is valid
+					if ((*elem) == focus) {
+						focus = nullptr;
+					}
 					delete *elem;
 					*elem = nullptr;						//delete from list
 															//delete item and deallocate memory
@@ -459,7 +486,7 @@ void m1GUI::BFS(std::list<u1GUI*>& visited, u1GUI * elem)
 		while (frontier.empty() == false) {
 			if ((item = frontier.front()) != nullptr) {			//Pop las item of array
 				frontier.pop();
-				if(item->childs.empty() == false)
+				if(item->childs.front() != nullptr && item->childs.empty() == false)
 					for (std::list<u1GUI*>::iterator it = item->childs.begin(); it != item->childs.end(); ++it) { //iterate for all childs of node
 						if (std::find(visited.begin(),visited.end(),*it) == visited.end()) {	//if child is not on visited list we added on it and on prontier to search its childs
 							frontier.push(*it);

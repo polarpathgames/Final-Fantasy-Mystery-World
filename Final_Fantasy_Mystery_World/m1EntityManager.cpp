@@ -56,7 +56,6 @@ bool m1EntityManager::Start()
 
 		static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)14, "add the new texture in the enum and here");
 
-
 		texture[(uint)TextureType::WARRIOR] = App->tex->Load("assets/sprites/Warrior.png");
 		texture[(uint)TextureType::ARCHER] = App->tex->Load("assets/sprites/ArcherSpritesheet.png");
 		texture[(uint)TextureType::MAGE] = App->tex->Load("assets/sprites/MageSpritesheet.png");
@@ -180,7 +179,8 @@ void m1EntityManager::DrawEntities(std::vector<e1Entity *> &draw_entities, float
 			else if ((*item)->type == e1Entity::EntityType::PARTICLE)
 				(*item)->Draw(texture[(uint)TextureType::PARTICLE], dt);
 
-			App->render->DrawCircle((*item)->position.x + (*item)->pivot.x, (*item)->position.y + (*item)->pivot.y, 3, 255, 255, 255);
+			if (App->debug)
+				App->render->DrawCircle((*item)->position.x + (*item)->pivot.x, (*item)->position.y + (*item)->pivot.y, 3, 255, 255, 255);
 		}
 	}
 }
@@ -401,6 +401,21 @@ bool m1EntityManager::ThereAreEnemies()
 			ret = true;
 			break;
 		}			
+	}
+	return ret;
+}
+
+bool m1EntityManager::ThereIsEntity(e1Entity::EntityType type)
+{
+	bool ret = false;
+
+	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item)
+	{
+		if ((*item) != nullptr && (*item)->type == type) {
+			ret = true;
+			break;
+		}
 	}
 	return ret;
 }

@@ -10,6 +10,8 @@
 #include "m1EntityManager.h"
 #include <list>
 #include "m1FadeToBlack.h"
+#include "m1Scene.h"
+#include "e1Player.h"
 #include "m1Pathfinding.h"
 #include "m1Scene.h"
 #include "m1Audio.h"
@@ -65,7 +67,7 @@ void m1Map::Draw()
 	{
 		MapLayer* layer = *item;
 		
-		if (layer->properties.GetValue("NoDraw") != 0 && !App->collision->debug)
+		if (layer->properties.GetValue("NoDraw") != 0 && !App->debug)
 			continue;
 
 		if (layer->name == "DoorClosed" && quest_rooms != nullptr && !quest_rooms->actual_room->door_closed)
@@ -645,6 +647,10 @@ bool m1Map::ChangeMap(Maps type)
 		App->audio->PlayMusic(mus_lobby, 5);
 		Load(lobby_map.data());
 		actual_map = Maps::LOBBY;
+		if (last_map != Maps::HOME && last_map != Maps::SHOP) {
+			App->scene->player->AugmentLives(App->scene->player->stats.max_lives);
+			App->scene->player->AugmentMana(App->scene->player->stats.max_mana);
+		}
 		break;
 	case Maps::TUTORIAL:
 		//App->audio->PlayMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg", 5);

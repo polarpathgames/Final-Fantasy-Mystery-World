@@ -8,6 +8,7 @@
 #include "p2PerfTimer.h"
 #include "e1Entity.h"
 
+class u1Image;
 
 class e1StaticEntity : public e1Entity
 {
@@ -51,6 +52,7 @@ public:
 		DOORSHOP,
 		HELP1,
 		HELP2,
+		HELP3,
 
 		UNKNOWN
 	};
@@ -86,6 +88,7 @@ public:
 	Animation* idle = nullptr;
 	bool has_animation = false;
 	Type static_type = Type::UNKNOWN;
+	bool drunk = false;
 private:
 	
 	
@@ -93,6 +96,8 @@ private:
 	
 	InteractingStates interacting_state = InteractingStates::NONE;
 	int max_distance_to_interact = 0; // distance in tiles
+
+	u1Image* button_interact = nullptr;
 
 };
 

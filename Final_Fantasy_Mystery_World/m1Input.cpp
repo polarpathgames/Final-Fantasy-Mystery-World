@@ -115,8 +115,8 @@ void m1Input::DefaultControls()
 	controller_Buttons.buttons_code.DIRECTION_UP = SDL_CONTROLLER_BUTTON_DPAD_UP;
 	controller_Buttons.buttons_code.DIRECTION_LEFT = SDL_CONTROLLER_BUTTON_DPAD_LEFT;
 	controller_Buttons.buttons_code.DIRECCTION_RIGHT = SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
-	controller_Buttons.buttons_code.HABILTY1 = SDL_CONTROLLER_BUTTON_B;
-	controller_Buttons.buttons_code.HABILITY2 = SDL_CONTROLLER_BUTTON_X;
+	controller_Buttons.buttons_code.HABILTY1 = SDL_CONTROLLER_BUTTON_X;
+	controller_Buttons.buttons_code.HABILITY2 = SDL_CONTROLLER_BUTTON_B;
 	controller_Buttons.buttons_code.SHOW_SKILLS = SDL_CONTROLLER_BUTTON_LEFTSHOULDER;
 	controller_Buttons.buttons_code.INVENTORY = SDL_CONTROLLER_BUTTON_RIGHTSHOULDER;
 

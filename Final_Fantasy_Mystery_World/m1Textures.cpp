@@ -105,17 +105,18 @@ SDL_Texture* const m1Textures::Load(const char* path)
 bool m1Textures::UnLoad(SDL_Texture* texture)
 {
 
-	for (std::map<SDL_Texture*, std::string>::iterator item = textures.begin(); item != textures.end(); ++item) {
-		if (texture == (*item).first)
+	std::map<SDL_Texture*, std::string>::iterator item = textures.begin();
+	while (item != textures.end()) {
+		if ((*item).first != nullptr && (*item).first == texture)
 		{
 			SDL_DestroyTexture((*item).first);
 			(*item).second.clear();
-			textures.erase(item);
 			return true;
 		}
+		else ++item;
 	}
 
-	return false;
+	return true;
 }
 
 // Translate a surface into a texture

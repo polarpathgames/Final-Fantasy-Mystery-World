@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.3" name="CarnivorousPlant" tilewidth="45" tileheight="42" tilecount="84" columns="7">
+<tileset version="1.2" tiledversion="1.2.3" name="CarnivorousPlant" tilewidth="45" tileheight="42" tilecount="140" columns="7">
  <properties>
-  <property name="attack_power" type="int" value="60"/>
-  <property name="experience" type="int" value="150"/>
-  <property name="live" type="int" value="100"/>
+  <property name="attack_power" type="int" value="15"/>
+  <property name="experience" type="int" value="50"/>
+  <property name="live" type="int" value="170"/>
  </properties>
- <image source="../sprites/Carnivorous Plant.png" width="317" height="506"/>
+ <image source="../sprites/Carnivorous Plant.png" width="317" height="865"/>
  <tile id="0">
   <properties>
    <property name="speed" type="int" value="3"/>
@@ -243,6 +243,94 @@
    <frame tileid="81" duration="170"/>
    <frame tileid="82" duration="170"/>
    <frame tileid="83" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="84">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
+  <animation>
+   <frame tileid="84" duration="170"/>
+   <frame tileid="88" duration="170"/>
+   <frame tileid="89" duration="170"/>
+   <frame tileid="90" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="85">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
+  <animation>
+   <frame tileid="85" duration="100"/>
+   <frame tileid="94" duration="100"/>
+   <frame tileid="95" duration="100"/>
+   <frame tileid="96" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="86">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
+  <animation>
+   <frame tileid="86" duration="100"/>
+   <frame tileid="93" duration="100"/>
+   <frame tileid="92" duration="100"/>
+   <frame tileid="91" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="87">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
+  <animation>
+   <frame tileid="87" duration="100"/>
+   <frame tileid="100" duration="100"/>
+   <frame tileid="99" duration="100"/>
+   <frame tileid="98" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="88">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
+  <animation>
+   <frame tileid="84" duration="100"/>
+   <frame tileid="88" duration="100"/>
+   <frame tileid="89" duration="100"/>
+   <frame tileid="90" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="89">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
+  <animation>
+   <frame tileid="84" duration="100"/>
+   <frame tileid="88" duration="100"/>
+   <frame tileid="89" duration="100"/>
+   <frame tileid="90" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="93">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
+  <animation>
+   <frame tileid="86" duration="100"/>
+   <frame tileid="93" duration="100"/>
+   <frame tileid="92" duration="100"/>
+   <frame tileid="91" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="100">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
+  <animation>
+   <frame tileid="87" duration="100"/>
+   <frame tileid="100" duration="100"/>
+   <frame tileid="99" duration="100"/>
+   <frame tileid="98" duration="100"/>
   </animation>
  </tile>
 </tileset>

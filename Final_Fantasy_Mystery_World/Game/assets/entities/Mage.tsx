@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.2.3" name="Mage" tilewidth="18" tileheight="28" tilecount="108" columns="12">
  <properties>
-  <property name="attack_power" type="int" value="30"/>
+  <property name="attack_power" type="int" value="75"/>
   <property name="attack_power_ability" type="int" value="200"/>
   <property name="cost_mana_special_attack" type="int" value="20"/>
-  <property name="max_lives" type="int" value="200"/>
+  <property name="max_lives" type="int" value="300"/>
   <property name="max_mana" type="int" value="250"/>
  </properties>
  <image source="../sprites/MageSpritesheet.png" width="216" height="252"/>
@@ -20,8 +20,16 @@
   </animation>
  </tile>
  <tile id="1">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
    <frame tileid="1" duration="170"/>
+   <frame tileid="1" duration="100"/>
+   <frame tileid="1" duration="100"/>
+   <frame tileid="1" duration="100"/>
+   <frame tileid="1" duration="100"/>
+   <frame tileid="99" duration="100"/>
   </animation>
  </tile>
  <tile id="3">
@@ -36,8 +44,16 @@
   </animation>
  </tile>
  <tile id="4">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
    <frame tileid="4" duration="170"/>
+   <frame tileid="4" duration="100"/>
+   <frame tileid="4" duration="100"/>
+   <frame tileid="4" duration="100"/>
+   <frame tileid="4" duration="100"/>
+   <frame tileid="100" duration="100"/>
   </animation>
  </tile>
  <tile id="6">
@@ -52,8 +68,16 @@
   </animation>
  </tile>
  <tile id="7">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
    <frame tileid="7" duration="170"/>
+   <frame tileid="7" duration="100"/>
+   <frame tileid="7" duration="100"/>
+   <frame tileid="7" duration="100"/>
+   <frame tileid="7" duration="100"/>
+   <frame tileid="102" duration="100"/>
   </animation>
  </tile>
  <tile id="9">
@@ -68,8 +92,16 @@
   </animation>
  </tile>
  <tile id="10">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
    <frame tileid="10" duration="170"/>
+   <frame tileid="10" duration="100"/>
+   <frame tileid="10" duration="100"/>
+   <frame tileid="10" duration="100"/>
+   <frame tileid="10" duration="100"/>
+   <frame tileid="103" duration="100"/>
   </animation>
  </tile>
  <tile id="12">
@@ -84,8 +116,16 @@
   </animation>
  </tile>
  <tile id="13">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
    <frame tileid="13" duration="170"/>
+   <frame tileid="13" duration="100"/>
+   <frame tileid="13" duration="100"/>
+   <frame tileid="13" duration="100"/>
+   <frame tileid="13" duration="100"/>
+   <frame tileid="96" duration="100"/>
   </animation>
  </tile>
  <tile id="15">
@@ -100,8 +140,16 @@
   </animation>
  </tile>
  <tile id="16">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
    <frame tileid="16" duration="170"/>
+   <frame tileid="16" duration="100"/>
+   <frame tileid="16" duration="100"/>
+   <frame tileid="16" duration="100"/>
+   <frame tileid="16" duration="100"/>
+   <frame tileid="97" duration="100"/>
   </animation>
  </tile>
  <tile id="18">
@@ -116,8 +164,16 @@
   </animation>
  </tile>
  <tile id="19">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
    <frame tileid="19" duration="170"/>
+   <frame tileid="19" duration="100"/>
+   <frame tileid="19" duration="100"/>
+   <frame tileid="19" duration="100"/>
+   <frame tileid="19" duration="100"/>
+   <frame tileid="98" duration="100"/>
   </animation>
  </tile>
  <tile id="21">
@@ -132,8 +188,16 @@
   </animation>
  </tile>
  <tile id="22">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
   <animation>
    <frame tileid="22" duration="170"/>
+   <frame tileid="22" duration="100"/>
+   <frame tileid="22" duration="100"/>
+   <frame tileid="22" duration="100"/>
+   <frame tileid="22" duration="100"/>
+   <frame tileid="101" duration="100"/>
   </animation>
  </tile>
  <tile id="24">
