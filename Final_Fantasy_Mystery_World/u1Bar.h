@@ -16,7 +16,6 @@ public:
 	//void RecoverBar(int quantity);
 
 	int CalculateBar(int quantity);
-
 	void InnerDraw();
 
 public:
@@ -31,6 +30,8 @@ public:
 
 	int max_width = 172;
 	int current_width = 0;
-	
+	int targe_width = 0;
+	bool has_change = false;
+
 };
 #endif
