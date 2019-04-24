@@ -58,6 +58,7 @@ public:
 
 	e1Entity* CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name);
 	bool ThereAreEnemies();
+	bool ThereIsEntity(e1Entity::EntityType type);
 	void DeleteEntities();
 	void DeleteEntitiesNoPlayer();
 	void DeleteEntity(e1Entity* entity_to_delete);

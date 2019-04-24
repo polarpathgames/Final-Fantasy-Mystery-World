@@ -20,6 +20,7 @@ enum class StatesMenu {
 	FIRSTABILITY_MENU,
 	HELP_DIAGONAL_MENU,
 	HELP_ATTACK_MENU,
+	HELP_ABILITY_MENU,
 
 	NONE
 };
@@ -115,6 +116,9 @@ public:
 
 	void CreateHelpAttackMenu();
 	void DestroyHelpAttackMenu();
+	
+	void CreateHelpAbilityMenu();
+	void DestroyHelpAbilityMenu();
 
 	void GodModeIndicator(bool is_god_mode);
 	bool Interact(u1GUI* interaction);
@@ -154,6 +158,8 @@ private:
 	u1Image* help_diagonal = nullptr;
 	// help ATTACK
 	u1Image* help_attack = nullptr;
+	// help ABILITY
+	u1Image* help_ability = nullptr;
 
 	//pause
 	u1Image* pause_panel = nullptr;
@@ -221,8 +227,8 @@ private:
 	u1Button* plus_fx_btn = nullptr;
 	u1Label* label_fx_value = nullptr;
 
-	u1Label* label_fps = nullptr;
-	u1CheckBox* checkbox_fps = nullptr;
+	/*u1Label* label_fps = nullptr;
+	u1CheckBox* checkbox_fps = nullptr;*/
 	u1Label* label_fullscreen = nullptr;
 	u1CheckBox* checkbox_fullscreen = nullptr;
 	u1Button* button_controls = nullptr;

@@ -54,11 +54,11 @@ bool e1Drop::Update(float adt)
 		}
 		case DropsType::ABILITY1:
 		{
+			App->globals.ability1_gained = true;
 			App->scene->player->BlockControls(true);
-			App->scene->CreateFirstAbilityPanel();
+			App->scene->CreateHelpAbilityMenu();
 			App->scene->SetMenuState(StatesMenu::FIRSTABILITY_MENU);
 			to_delete = true;
-			App->globals.ability1_gained = true;
 			break;
 		}
 	  }

@@ -29,14 +29,14 @@ u1HitPointLabel::~u1HitPointLabel()
 void u1HitPointLabel::SetColor(const Color & c)
 {
 	switch (c) {
-	case RED:
-		color = { 255,0,0,color.a };
+	case RED: //Granate
+		color = { 190,11,20,color.a };
 		break;
 	case GREEN:
 		color = { 0,255,0,color.a };
 		break;
-	case BLUE:
-		color = { 0,0,255,color.a };
+	case BLUE: //Azul mana
+		color = { 20, 116, 225,color.a };
 		break;
 	case YELLOW:
 		color = { 255,255,0,color.a };

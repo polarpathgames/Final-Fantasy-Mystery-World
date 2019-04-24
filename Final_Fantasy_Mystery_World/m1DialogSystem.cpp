@@ -279,7 +279,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 						   }
 					   }
 				   }
-			   
+				   break;
 			   case 2: //FOUNTAIN LIVES
 				   App->scene->player->AugmentLives(250);
 				   App->scene->player->BlockControls(false);
@@ -310,6 +310,10 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			   case 60: //old statue tutorial ATTACK
 				   App->scene->CreateHelpAttackMenu();
 				   App->scene->SetMenuState(StatesMenu::HELP_ATTACK_MENU);
+				   break;
+			   case 90: //old statue tutorial ATTACK
+				   App->scene->CreateHelpAbilityMenu();
+				   App->scene->SetMenuState(StatesMenu::HELP_ABILITY_MENU);
 				   break;
 			   default:
 				   App->scene->player->BlockControls(false);

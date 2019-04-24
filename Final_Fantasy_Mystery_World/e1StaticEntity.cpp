@@ -257,14 +257,23 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	else if (strcmp(name, "quest_fountain") == 0) {
 		static_type = e1StaticEntity::Type::QUEST_FOUNTAIN;
 		has_animation = true;
-		idle = DBG_NEW Animation();
-		current_animation = idle;
-		idle->PushBack({ 160,0,64,48 });
-		idle->PushBack({ 224,0,64,48 });
-		idle->PushBack({ 160,48,64,48 });
-		idle->PushBack({ 224,48,64,48 });
-		idle->speed = 5;
-		frame = idle->frames[0];
+		if (App->dialog->dialogTrees[1]->karma == -1) {
+			idle = new Animation();
+			idle->PushBack({ 1141, 5,50,43 });
+			frame = idle->frames[0];
+			current_animation = idle;
+			position = { position.x + 7, position.y + 5 };
+		}
+		else {
+			idle = DBG_NEW Animation();
+			current_animation = idle;
+			idle->PushBack({ 160,0,64,48 });
+			idle->PushBack({ 224,0,64,48 });
+			idle->PushBack({ 160,48,64,48 });
+			idle->PushBack({ 224,48,64,48 });
+			idle->speed = 5;
+			frame = idle->frames[0];
+		}
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x + 1,App->map->WorldToMap(position.x,position.y).y + 1 };
@@ -294,19 +303,6 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		size.create(frame.w, frame.h);
 	}
 	else if (strcmp(name, "help1") == 0) {
-		//static_type = e1StaticEntity::Type::HELP1;
-		//frame = { 1219,63,45,65 };
-		//SetPivot(frame.w*0.5F, frame.h*0.7F);
-		//size.create(frame.w, frame.h);
-		//max_distance_to_interact = 1;
-		//actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
-		//actual_tile += {3, 3};
-		//position.y += 8;
-		//position.x += 2;
-		//interacting_state = InteractingStates::WAITING_INTERACTION;
-
-
-
 		static_type = e1StaticEntity::Type::HELP1;
 		has_animation = true;
 		idle = DBG_NEW Animation();
@@ -329,13 +325,43 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	}
 	else if (strcmp(name, "help2") == 0) {
 		static_type = e1StaticEntity::Type::HELP2;
-		frame = { 1219,63,45,65 };
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1219,80,45,48 });
+		idle->PushBack({ 1264,80,45,48 });
+		idle->PushBack({ 1309,80,45,48 });
+		idle->PushBack({ 1264,80,45,48 });
+
+		idle->speed = 1;
+		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.7F);
 		size.create(frame.w, frame.h);
 		max_distance_to_interact = 1;
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
 		actual_tile += {3, 3};
-		position.y += 8;
+		position.y += 28;
+		position.x += 2;
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+	}
+	else if (strcmp(name, "help3") == 0) {
+		static_type = e1StaticEntity::Type::HELP3;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1219,80,45,48 });
+		idle->PushBack({ 1264,80,45,48 });
+		idle->PushBack({ 1309,80,45,48 });
+		idle->PushBack({ 1264,80,45,48 });
+
+		idle->speed = 1;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.7F);
+		size.create(frame.w, frame.h);
+		max_distance_to_interact = 1;
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		actual_tile += {3, 3};
+		position.y += 28;
 		position.x += 2;
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 	}
@@ -388,7 +414,7 @@ bool e1StaticEntity::Update(float dt)
 		if (actual_tile.DistanceTo(player_pos) <= max_distance_to_interact) {
 			if (App->scene->GetMenuState() == StatesMenu::NO_MENU) {
 				if (button_interact == nullptr) {
-					button_interact = App->gui->AddImage(0, 0, { 1120,1920,32,32 }, nullptr, App->gui->screen, true, false, false, false);
+					button_interact = App->gui->AddImage(0, 0, { 1524,2052,31,31 }, nullptr, App->gui->screen, true, false, false, false);
 
 					iPoint pos{ 0,0 };
 					pos.x = (int)(App->render->camera.x) + (App->scene->player->GetPosition().x) * (int)App->win->GetScale() - button_interact->section.w*0.5F;
@@ -457,6 +483,9 @@ bool e1StaticEntity::Update(float dt)
 			break;
 		case e1StaticEntity::Type::HELP2:
 			App->dialog->PerformDialogue(5);
+			break;
+		case e1StaticEntity::Type::HELP3:
+			App->dialog->PerformDialogue(6);
 			break;
 		default:
 			break;

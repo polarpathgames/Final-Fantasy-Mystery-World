@@ -52,6 +52,7 @@ public:
 		DOORSHOP,
 		HELP1,
 		HELP2,
+		HELP3,
 
 		UNKNOWN
 	};
@@ -87,6 +88,7 @@ public:
 	Animation* idle = nullptr;
 	bool has_animation = false;
 	Type static_type = Type::UNKNOWN;
+	bool drunk = false;
 private:
 	
 	

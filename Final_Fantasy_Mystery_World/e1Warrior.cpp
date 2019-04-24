@@ -48,7 +48,7 @@ bool e1Warrior::CleanUp()
 
 void e1Warrior::PrepareSpecialAttack1()
 {
-	if (stats.mana - stats.cost_mana_special_attack1 >= 0) {
+	if (stats.mana - stats.cost_mana_special_attack1 >= 0 || god_mode == true) {
 		if(!god_mode)
 		ReduceMana(stats.cost_mana_special_attack1);
 		App->audio->PlayFx(App->scene->fx_ability_warrior);

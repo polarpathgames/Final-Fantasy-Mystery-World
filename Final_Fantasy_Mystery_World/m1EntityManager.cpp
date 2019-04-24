@@ -404,3 +404,18 @@ bool m1EntityManager::ThereAreEnemies()
 	}
 	return ret;
 }
+
+bool m1EntityManager::ThereIsEntity(e1Entity::EntityType type)
+{
+	bool ret = false;
+
+	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item)
+	{
+		if ((*item) != nullptr && (*item)->type == type) {
+			ret = true;
+			break;
+		}
+	}
+	return ret;
+}
