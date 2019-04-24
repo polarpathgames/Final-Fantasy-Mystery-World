@@ -303,7 +303,6 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		size.create(frame.w, frame.h);
 	}
 	else if (strcmp(name, "help1") == 0) {
-
 		static_type = e1StaticEntity::Type::HELP1;
 		has_animation = true;
 		idle = DBG_NEW Animation();
