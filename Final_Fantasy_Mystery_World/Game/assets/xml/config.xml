@@ -40,65 +40,8 @@
       <tutorial_map>Tutorial_Movement.tmx</tutorial_map>
       <lobby_map>Lobby.tmx</lobby_map>
       <shop_map>Shop.tmx</shop_map>
-      <home_map>Home.tmx</home_map>
-
-      <tutorial>
-
-        <room>
-          <location>Tutorial_Movement.tmx</location>
-          <id num="1"></id>
-          <type>paceful</type>
-        </room>
-        <room>
-          <location>Tutorial_Diagonal.tmx</location>
-          <id num="2"></id>
-          <type>paceful</type>
-          <cut_scene>assets/xml/CutsceneTutorial.xml</cut_scene>
-        </room>
-        <room>
-          <location>Tutorial_Attack.tmx</location>
-          <id num="3"></id>
-          <type>combat</type>
-          <door active="true"></door>
-        </room>
-        <room>
-          <location>Tutorial_Attack2.tmx</location>
-          <id num="4"></id>
-          <type>combat</type>
-        </room>
-        <room>
-          <location>Tutorial_Ability.tmx</location>
-          <id num="7"></id>
-          <type>combat</type>
-        </room>
-        <room>
-          <location>Tutorial_Attack3.tmx</location>
-          <id num="5"></id>
-          <type>combat</type>
-          <cut_scene>assets/xml/CutsceneMiddleRoom.xml</cut_scene>
-        </room>
-        <room>
-          <location>Tutorial_PreFinal.tmx</location>
-          <id num="6"></id>
-          <type>paceful</type>
-        </room>
-        <room>
-          <location>Tutorial_Fountain.tmx</location>
-          <id num="8"></id>
-          <type>fountain</type>
-        </room>
-        <room>
-          <location>Tutorial_Final.tmx</location>
-          <id num="9"></id>
-          <type>boss</type>
-          <cut_scene>assets/xml/CutsceneFinalRoom.xml</cut_scene>
-        </room>
-        
-        
-      </tutorial>
-      
+      <home_map>Home.tmx</home_map>      
     </maps>
-
   </map>
 
 </config>

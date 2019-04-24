@@ -142,6 +142,8 @@ bool Application::Awake()
 		}
 	}
 
+	config_file.reset();
+
 	PERF_PEEK(ptimer);
 
 	return ret;
@@ -207,7 +209,7 @@ pugi::xml_node Application::LoadConfig(pugi::xml_document& config_file, std::str
 		LOG("Could not load map xml file config.xml. pugi error: %s", result.description());
 	else
 		ret = config_file.child("config");
-
+	
 	return ret;
 }
 

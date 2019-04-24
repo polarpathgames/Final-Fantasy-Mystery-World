@@ -51,25 +51,33 @@ Room::~Room()
 	entities.clear();
 }
 
-RoomManager::RoomManager(pugi::xml_node &node)
+RoomManager::RoomManager(const char* name)
 {
-
-	pugi::xml_node room_node;
 
 	mus_paceful = App->audio->LoadMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg");
 	mus_combat = App->audio->LoadMusic("assets/audio/music/20.Final Fantasy TA - Painful Battle.ogg");
 	mus_boss = App->audio->LoadMusic("assets/audio/music/39.Final Fantasy TA - Incarnation.ogg");
 	mus_fountain = App->audio->LoadMusic("assets/audio/music/5.Final Fantasy TA - Crystal.ogg");
 
-	for (room_node = node.child("maps").child("tutorial").child("room"); room_node; room_node = room_node.next_sibling("room")) {
-		Room * r = nullptr;
-		r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_uint(), room_node.child("type").child_value(), 
-			room_node.child("cut_scene").child_value(), room_node.child("door").attribute("active").as_bool(false), room_node.child("update").attribute("num").as_uint(0u));
-		rooms.push_back(r);
+	pugi::xml_parse_result result = room_manager_file.load_file("assets/xml/Rooms.xml");
+
+	if (result == NULL)
+	{
+		LOG("Could not load map xml file %s. pugi error: %s", "assets/xml/Rooms.xml", result.description());
+	}
+	else {
+		LOG("XML was loaded succesfully!");
+
+		for (pugi::xml_node room_node = room_manager_file.child("room_manager").child(name).child("room"); room_node; room_node = room_node.next_sibling("room")) {
+			Room * r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_uint(), room_node.child("type").child_value(),
+				room_node.child("cut_scene").child_value(), room_node.child("door").attribute("active").as_bool(false), room_node.child("update").attribute("num").as_uint(0u));
+			rooms.push_back(r);
+		}
+
+		LoadRoom(1);
 	}
 
-	LoadRoom(1);
-
+	room_manager_file.reset();
 }
 
 RoomManager::~RoomManager()

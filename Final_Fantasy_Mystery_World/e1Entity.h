@@ -125,7 +125,6 @@ public:
 
 	Animation* current_animation = nullptr;
 
-	pugi::xml_document	config_file;
 	pugi::xml_document	entity_file;
 	pugi::xml_node		config;
 	pugi::xml_node		node;
