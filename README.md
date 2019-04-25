@@ -1,26 +1,44 @@
 ﻿# Final Fantasy: Mystery World
 
-Final Fantasy Mystery World v.0.1.0
+Final Fantasy Mystery World v.0.5.0
 
 ## Description
 
-Added:
+Added: 
 --------
-- Player movement 
-- Entities management
-- Pathfinding (not fully implemented)
-- Turns system (not fully implemented)
+- Use of potions
+- NPCs implemented
+- Cutscene research implemented
+- 2 Cutscenes added
+- 3 enemies implemented (not fully)
+- HUD added
+- 3 characters implemented(not fully)
+- Dynamic NPCs added
+- Game icon added to exe
 
 Changed:
 --------
+- Controller fully implemented
+- Fountain fully implemented
+- Debug screen fully implemented
+- Shop logic fully implemented
+- Drop sprite added
+- Movement Quest
+- Controls menu changed and fixed
+- Warrior ability animation added
 
 Removed: 
 --------
 
 Fixed: 
 --------
-
-
+- #195 Game crash at new game button (Bug photo inside)
+- #180 Game crash if you click cancel button and then tutorial button
+- #178 The game crash when you click in return main menu when dead
+- #177 The game crash when you click Tutorial or cancel button to go to the tutorial map
+- #145 Elements from inventory disappear (even the iventory, blocking the players game)
+- #138 If you click in return when in control menu it returns to pause or main menu
+- #137 If you click the options in the main menu it will click the fullscreen checkbox too
 
 ## Links
 
@@ -65,17 +83,32 @@ Oriol Capdevila [OriolCS2](https://github.com/OriolCS2)
   
   - WASD: move the player
   - LSHIFT: change to a diagonally movement
+  - ILKJ: change direction
+  - V: show abilities menu
+  - G: attack/interact
+  - F: ability
+  - E: inventory
 
 - Controller:
   
   - LEFT JOYSTICK: move the player
   - RT: change to a diagonally movement
+  - DPAD: change direction
+  - LB: show abilities menu
+  - RB: Inventory
+  - A: attack/interact
+  - B: ability
+ 
 
 ### Debug keys:
 
-- 2: Spawn the player
-- 4: Spawn the enemy
+- 6: go to the lobby
+- 7: go to tutorial map
 - ARROWS: move the camera
+- F9: colliders
+- F1: UI
+- F2: Debug Screen
+- F3/F4: scale
 
 ## Instructions to execute
 

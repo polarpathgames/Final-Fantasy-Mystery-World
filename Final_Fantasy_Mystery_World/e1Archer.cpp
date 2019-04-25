@@ -1,0 +1,209 @@
+#include "e1Archer.h"
+#include "e1Player.h"
+#include "m1Input.h"
+#include "App.h"
+#include "m1Render.h"
+#include "p2Log.h"
+#include "m1Cutscene.h"
+#include "App.h"
+#include "m1Textures.h"
+#include "e1Enemy.h"
+#include "m1Audio.h"
+#include "m1Map.h"
+#include "m1EntityManager.h"
+#include "m1Map.h"
+#include "m1GUI.h"
+#include "m1Pathfinding.h"
+#include "m1Collisions.h"
+#include "m1Scene.h"
+#include "m1FadeToBlack.h"
+#include "u1Label.h"
+#include "u1Button.h"
+#include "u1Bar.h"
+#include <string>
+#include "u1UI_Element.h"
+#include "Brofiler/Brofiler.h"
+#include "m1EasingSplines.h"
+#include "m1MainMenu.h"
+
+e1Archer::e1Archer(const int & x, const int & y) : e1Player(x, y)
+{
+	LoadEntityData("assets/entities/ArcherSpritesheet.tsx");
+
+	SetPivot(8, 25);
+	CenterPlayerInTile();
+	InitStats();
+}
+
+e1Archer::~e1Archer()
+{
+}
+
+bool e1Archer::CleanUp()
+{
+	return true;
+}
+
+void e1Archer::PrepareSpecialAttack1()
+{
+	BROFILER_CATEGORY("PrepareSpecialAttack1", Profiler::Color::Yellow);
+
+	if (stats.mana - stats.cost_mana_special_attack1 >= 0 || god_mode == true) {
+		if (!god_mode)
+			ReduceMana(stats.cost_mana_special_attack1);
+		App->audio->PlayFx(App->scene->fx_ability_archer);
+		App->input->ControllerVibration(0.2F, 200);
+
+		type_attack = Attacks::SPECIAL_1;
+		state = State::ATTACKING;
+		arrow = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, actual_tile.x, actual_tile.y, "arrow");
+		arrow->SetParticle(e1Particles::ParticleType::ARROW, direction);
+	}
+	else { // no enough mana so return to idle
+		App->audio->PlayFx(App->scene->fx_ability_no_mana);
+		state = State::IDLE;
+	}
+}
+
+void e1Archer::SpecialAttack1()
+{
+	BROFILER_CATEGORY("ApecialAttack1", Profiler::Color::Yellow);
+
+	std::vector<e1Entity*> item = App->entity_manager->GetEntities();
+	if (std::find(item.begin(),item.end(),(e1Entity*)arrow) == item.end()) {
+		arrow = nullptr;
+		state = State::AFTER_ATTACK;
+		ChangeAnimation(direction, state);
+		time_attack = SDL_GetTicks();
+	}
+}
+
+void e1Archer::IdAnimToEnum() //Assign every id animation to enum animation
+{
+	for (uint i = 0; i < data.num_animations; ++i) {
+		switch (data.animations[i].id) {
+		case 1:
+			data.animations[i].animType = AnimationState::IDLE_DOWN_LEFT;
+			break;//
+		case 0:
+			data.animations[i].animType = AnimationState::WALKING_DOWN_LEFT;
+			break;//
+		case 3:
+			data.animations[i].animType = AnimationState::WALKING_UP_LEFT;
+			break;//
+		case 4:
+			data.animations[i].animType = AnimationState::IDLE_UP_LEFT;
+			break;//
+		case 6:
+			data.animations[i].animType = AnimationState::WALKING_DOWN_RIGHT;
+			break;//
+		case 7:
+			data.animations[i].animType = AnimationState::IDLE_DOWN_RIGHT;
+			break;//
+		case 9:
+			data.animations[i].animType = AnimationState::WALKING_UP_RIGHT;
+			break;//
+		case 10:
+			data.animations[i].animType = AnimationState::IDLE_UP_RIGHT;
+			break;//
+		case 12:
+			data.animations[i].animType = AnimationState::WALKING_DOWN;
+			break;//
+		case 13:
+			data.animations[i].animType = AnimationState::IDLE_DOWN;
+			break;//
+		case 15:
+			data.animations[i].animType = AnimationState::WALKING_UP;
+			break;//
+		case 16:
+			data.animations[i].animType = AnimationState::IDLE_UP;
+			break;//
+		case 18:
+			data.animations[i].animType = AnimationState::WALKING_LEFT;
+			break;//
+		case 19:
+			data.animations[i].animType = AnimationState::IDLE_LEFT;
+			break;//
+		case 21:
+			data.animations[i].animType = AnimationState::WALKING_RIGHT;
+			break;//
+		case 22:
+			data.animations[i].animType = AnimationState::IDLE_RIGHT;
+			break;//
+		case 24:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_LEFT;
+			break;//
+		case 33:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_RIGHT;
+			break;//
+		case 27:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_LEFT;
+			break;//
+		case 30:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_RIGHT;
+			break;//
+		case 36:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN;
+			break;//
+		case 39:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP;
+			break;//
+		case 42:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_LEFT;
+			break;//
+		case 54:
+			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
+			break;//
+		case 72:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_LEFT_1;
+			break;//
+		case 78:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_RIGHT_1;
+			break;//
+		case 76:
+			data.animations[i].animType = AnimationState::ABILITY_UP_RIGHT_1;
+			break;//
+		case 74:
+			data.animations[i].animType = AnimationState::ABILITY_UP_LEFT_1;
+			break;//
+		case 73:
+			data.animations[i].animType = AnimationState::ABILITY_LEFT_1;
+			break;//
+		case 75:
+			data.animations[i].animType = AnimationState::ABILITY_UP_1;
+			break;//
+		case 77:
+			data.animations[i].animType = AnimationState::ABILITY_RIGHT_1;
+			break;//
+		case 79:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_1;
+			break;//
+		case 61:
+			data.animations[i].animType = AnimationState::DEATH_DOWN;
+			break;//
+		case 64:
+			data.animations[i].animType = AnimationState::DEATH_LEFT;
+			break;//
+		case 70:
+			data.animations[i].animType = AnimationState::DEATH_RIGHT;
+			break;//
+		case 65:
+			data.animations[i].animType = AnimationState::DEATH_UP;
+			break;//
+		case 60:
+			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
+			break;//
+		case 63:
+			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
+			break;
+		case 66:
+			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
+			break;//
+		case 69:
+			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
+			break;//
+		}
+
+	}
+}
+
