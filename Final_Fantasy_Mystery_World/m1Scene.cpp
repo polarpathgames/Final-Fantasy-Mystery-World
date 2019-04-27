@@ -125,6 +125,15 @@ bool m1Scene::Update(float dt)
 		App->globals.ability2_gained = true;
 	}
 
+	//--------------------- INPUT FROM COMPASS HARDCODED
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
+		ChangeCompass(true);
+	}
+
+	else
+		ChangeCompass(false);
+	//---------------------
+
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		e1Player* swap = nullptr;
 		iPoint new_pos = App->map->MapToWorld(player->actual_tile.x, player->actual_tile.y);
@@ -1499,6 +1508,9 @@ void m1Scene::SetMenuState(const StatesMenu & menu)
 void m1Scene::CreateHUD()
 {
 	bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, nullptr, App->gui->screen, true, false, false, false);
+	vertical_compass = App->gui->AddImage(925, 670, { 1949, 3159, 82, 86 }, this, bg_hud, false, false, false, false);
+	diagonal_compass = App->gui->AddImage(925, 675, { 1880, 3084, 81, 73 }, this, bg_hud, true, false, false, false);
+
 	switch (player_type) {
 	case PlayerType::WARRIOR:
 		player_hud_image = App->gui->AddImage(28, 653, { 1163,4079,76,98 }, nullptr, bg_hud, true, false, false, false);
@@ -1563,5 +1575,22 @@ void m1Scene::GodModeIndicator(bool is_god_mode)
 	{
 		App->gui->DeleteUIElement(god_text);
 		god_text = nullptr;
+	}
+}
+
+void m1Scene::ChangeCompass(bool shift_pressed)
+{
+
+	if (shift_pressed)
+	{
+		vertical_compass->drawable = true;
+		diagonal_compass->drawable = false;
+	}
+
+	else
+	{
+
+		diagonal_compass->drawable = true;
+		vertical_compass->drawable = false;
 	}
 }
