@@ -24,10 +24,10 @@ e1Entity::~e1Entity()
 	general_properties.CleanUp();
 }
 
-void e1Entity::Draw(SDL_Texture * tex, float dt)
+void e1Entity::Draw(float dt)
 {
 	if (drawable)
-		App->render->Blit(tex, position.x, position.y, &(current_animation->GetCurrentFrame(dt)), true);
+		App->render->Blit(data.tileset.texture, position.x, position.y, &(current_animation->GetCurrentFrame(dt)), true);
 }
 
 void e1Entity::SetPivot(const int & x, const int & y)
@@ -86,15 +86,13 @@ bool e1Entity::LoadEntityData(const char* file) {
 	data.tileset.margin = _node.attribute("margin").as_uint();
 	data.tileset.tilecount = _node.attribute("tilecount").as_uint();
 	data.tileset.columns = _node.attribute("columns").as_uint();
-	data.tileset.imagePath = _node.child("image").attribute("source").as_string();
+	data.tileset.imagePath = std::string("assets/") + _node.child("image").attribute("source").as_string();
 	data.tileset.width = _node.child("image").attribute("width").as_uint();
 	data.tileset.height = _node.child("image").attribute("height").as_uint();
 
 	size.create(data.tileset.tilewidth, data.tileset.tileheight);
 
-	//provisional ubication -----------------------------
-	//data.tileset.texture = App->tex->Load(data.tileset.imagePath.data());
-	//----------------------------
+	data.tileset.texture = App->tex->Load(data.tileset.imagePath.data());
 
 	//count how many animations are in file
 	_node = _node.child("tile");

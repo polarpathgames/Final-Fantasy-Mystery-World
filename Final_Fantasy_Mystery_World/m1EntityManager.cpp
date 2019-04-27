@@ -50,23 +50,6 @@ bool m1EntityManager::Awake(pugi::xml_node& config)
 bool m1EntityManager::Start()
 {
 	bool ret = true;
-
-	if (!textures_loaded) {
-		texture.reserve((uint)TextureType::NONE);
-
-		static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)14, "add the new texture in the enum and here");
-
-		texture[(uint)TextureType::WARRIOR] = App->tex->Load("assets/sprites/Warrior.png");
-		texture[(uint)TextureType::ARCHER] = App->tex->Load("assets/sprites/ArcherSpritesheet.png");
-		texture[(uint)TextureType::MAGE] = App->tex->Load("assets/sprites/MageSpritesheet.png");
-		texture[(uint)TextureType::CARNIVOROUS_PLANT] = App->tex->Load("assets/sprites/Carnivorous Plant.png");
-		texture[(uint)TextureType::STRANGE_FROG] = App->tex->Load("assets/sprites/Frog.png");
-		texture[(uint)TextureType::BLUE_DOG] = App->tex->Load("assets/sprites/Dog.png");
-		texture[(uint)TextureType::STATIC_ENTITIES] = App->tex->Load("assets/maps/static_objects_tileset.png");
-		texture[(uint)TextureType::PARTICLE] = App->tex->Load("assets/sprites/Particles.png");
-		texture[(uint)TextureType::DAUGHTER] = App->tex->Load("assets/sprites/Little_Girl.png");
-		textures_loaded = true;
-	}
 	
 	return ret;
 }
@@ -138,46 +121,7 @@ void m1EntityManager::DrawEntities(std::vector<e1Entity *> &draw_entities, float
 
 	for (std::vector<e1Entity*>::iterator item = draw_entities.begin(); item != draw_entities.end(); ++item) {
 		if ((*item) != nullptr) {
-			if ((*item)->type == e1Entity::EntityType::PLAYER) {
-				switch (App->scene->player_type) {
-				case PlayerType::WARRIOR:
-					(*item)->Draw(texture[(uint)TextureType::WARRIOR], dt);
-					break;
-				case PlayerType::ARCHER:
-					(*item)->Draw(texture[(uint)TextureType::ARCHER], dt);
-					break;
-				case PlayerType::MAGE:
-					(*item)->Draw(texture[(uint)TextureType::MAGE], dt);
-					break;
-				}
-			}
-			else if ((*item)->type == e1Entity::EntityType::ENEMY) {
-				e1Enemy *enemy = (e1Enemy*)(*item);
-				switch (enemy->enemy_type) {
-				case e1Enemy::EnemyType::CARNIVOROUS_PLANT:
-					(*item)->Draw(texture[(uint)TextureType::CARNIVOROUS_PLANT], dt);
-					break;
-				case e1Enemy::EnemyType::BLUE_DOG:
-					(*item)->Draw(texture[(uint)TextureType::BLUE_DOG], dt);
-					break;
-				case e1Enemy::EnemyType::STRANGE_FROG:
-					(*item)->Draw(texture[(uint)TextureType::STRANGE_FROG], dt);
-					break;
-				}
-			}
-			else if ((*item)->type == e1Entity::EntityType::NPC)
-			{
-				e1NPC *npc = (e1NPC*)(*item);
-				switch (npc->npc_type) {
-				case e1NPC::NPCType::DAUGHTER:
-					(*item)->Draw(texture[(uint)TextureType::DAUGHTER], dt);
-					break;
-				}
-			}
-			else if ((*item)->type == e1Entity::EntityType::STATIC)
-				(*item)->Draw(texture[(uint)TextureType::STATIC_ENTITIES], dt);
-			else if ((*item)->type == e1Entity::EntityType::PARTICLE)
-				(*item)->Draw(texture[(uint)TextureType::PARTICLE], dt);
+			(*item)->Draw(dt);
 
 			if (App->debug)
 				App->render->DrawCircle((*item)->position.x + (*item)->pivot.x, (*item)->position.y + (*item)->pivot.y, 3, 255, 255, 255);

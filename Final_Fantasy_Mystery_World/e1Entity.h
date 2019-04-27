@@ -41,7 +41,7 @@ struct TileSetEntity {
 	uint tilecount = 0;
 	uint columns = 0;
 	std::string imagePath;
-	//SDL_Texture* texture = nullptr;
+	SDL_Texture* texture = nullptr;
 	uint width = 0;
 	uint height = 0;
 };
@@ -99,7 +99,7 @@ public:
 	virtual bool Update(float dt) { return true; };
 	virtual bool PostUpdate() { return true; };
 	virtual bool CleanUp() { return true; };
-	virtual void Draw(SDL_Texture* tex, float dt);
+	virtual void Draw(float dt);
 	virtual void OnCollision(Collider* c2) {};
 	virtual void OnCollisionEnter(Collider* c2) {};
 	virtual void OnCollisionExit(Collider* c2) {};
