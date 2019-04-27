@@ -32,6 +32,22 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		moving_pos.x = position.x;
 		moving_pos.y = position.y;
 	}
+	else if (strcmp(name, "health_potion") == 0) {
+		actual_tile = { x,y };
+		drop_type = DropsType::HEALTH_POTION;
+		frame = { 1057,2,12,15 };
+		SetPivot(frame.w*0.35F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+	}
+	else if (strcmp(name, "mana_potion") == 0) {
+		actual_tile = { x,y };
+		drop_type = DropsType::MANA_POTION;
+		frame = { 1070,2,12,16 };
+		SetPivot(frame.w*0.35F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+	}
 	original_position = position;
 }
 
@@ -58,6 +74,18 @@ bool e1Drop::Update(float adt)
 			App->scene->player->BlockControls(true);
 			App->scene->CreateHelpAbilityMenu();
 			App->scene->SetMenuState(StatesMenu::FIRSTABILITY_MENU);
+			to_delete = true;
+			break;
+		}
+		case DropsType::HEALTH_POTION:
+		{
+			App->scene->player->stats.num_hp_potions++;
+			to_delete = true;
+			break;
+		}
+		case DropsType::MANA_POTION:
+		{
+			App->scene->player->stats.num_mana_potions++;
 			to_delete = true;
 			break;
 		}
