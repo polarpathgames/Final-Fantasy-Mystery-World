@@ -1509,7 +1509,7 @@ void m1Scene::CreateHUD()
 {
 	bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, nullptr, App->gui->screen, true, false, false, false);
 	vertical_compass = App->gui->AddImage(925, 670, { 1949, 3159, 82, 86 }, this, bg_hud, false, false, false, false);
-	diagonal_compass = App->gui->AddImage(925, 675, { 1880, 3084, 81, 73 }, this, bg_hud, true, false, false, false);
+	diagonal_compass = App->gui->AddImage(925, 675, { 1876, 3084, 88, 74 }, this, bg_hud, true, false, false, false);
 
 	switch (player_type) {
 	case PlayerType::WARRIOR:
