@@ -63,6 +63,8 @@ bool m1Scene::Start()
 
 	App->gui->ShowCursor(false);
 
+	menu_state = StatesMenu::NO_MENU;
+
 	fx_writting = App->audio->LoadFx("assets/audio/sfx/LTTP_Text_Done.wav");
 	fx_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_Steps_on_Water1.wav");
 	fx_frog_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_BasicAttack.wav");

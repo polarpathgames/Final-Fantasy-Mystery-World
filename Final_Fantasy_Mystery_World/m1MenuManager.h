@@ -49,6 +49,46 @@ struct UI_input {
 
 	u1Button* return_btn_input_screen = nullptr;
 	u1Label* return_label_input_screen = nullptr;
+
+	void Reset() {
+		input_text = nullptr;
+		input_text_image = nullptr;
+		button_okay = nullptr;
+		button_upper = nullptr;
+		button_lower = nullptr;
+		minus_letters = nullptr;
+		max_letters = nullptr;
+		button_A = nullptr;
+		button_B = nullptr;
+		button_C = nullptr;
+		button_D = nullptr;
+		button_E = nullptr;
+		button_F = nullptr;
+		button_G = nullptr;
+		button_H = nullptr;
+		button_I = nullptr;
+		button_J = nullptr;
+		button_K = nullptr;
+		button_L = nullptr;
+		button_M = nullptr;
+		button_N = nullptr;
+		button_O = nullptr;
+		button_P = nullptr;
+		button_Q = nullptr;
+		button_R = nullptr;
+		button_S = nullptr;
+		button_T = nullptr;
+		button_U = nullptr;
+		button_V = nullptr;
+		button_W = nullptr;
+		button_X = nullptr;
+		button_Y = nullptr;
+		button_Z = nullptr;
+		button_Delete = nullptr;
+		button_Space = nullptr;
+		return_btn_input_screen = nullptr;
+		return_label_input_screen = nullptr;
+	}
 };
 
 struct UI_main_menu {
@@ -176,6 +216,35 @@ struct UI_options {
 
 	u1CheckBox* checkbox_mute_music = nullptr;
 	u1CheckBox* checkbox_mute_fx = nullptr;
+
+	void Reset() {
+		options_panel = nullptr;
+		label_general_volume = nullptr;
+		button_general_volume = nullptr;
+		minus_general_btn = nullptr;
+		plus_general_btn = nullptr;
+		label_general_value = nullptr;
+		label_music_volume = nullptr;
+		button_music_volume = nullptr;
+		minus_music_btn = nullptr;
+		plus_music_btn = nullptr;
+		label_music_value = nullptr;
+		label_fx_volume = nullptr;
+		button_fx_volume = nullptr;
+		minus_fx_btn = nullptr;
+		plus_fx_btn = nullptr;
+		label_fx_value = nullptr;
+		/*label_fps = nullptr;
+		checkbox_fps = nullptr;*/
+		label_fullscreen = nullptr;
+		checkbox_fullscreen = nullptr;
+		button_controls = nullptr;
+		label_controls = nullptr;
+		button_retun_options = nullptr;
+		label_return_options = nullptr;
+		checkbox_mute_music = nullptr;
+		checkbox_mute_fx = nullptr;
+	}
 };
 
 struct UI_controls_keyboard{
@@ -302,8 +371,8 @@ struct UI_controls_controller {
 struct UI_controls {
 	u1Image* controls_panel = nullptr;
 
-	ui_controls_keyboard keyboard;
-	ui_controls_controller controller;
+	UI_controls_keyboard keyboard;
+	UI_controls_controller controller;
 
 	u1Button* button_retun_to_options = nullptr;
 	u1Label* label_return_to_options = nullptr;

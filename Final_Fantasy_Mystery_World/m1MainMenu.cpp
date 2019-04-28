@@ -20,7 +20,7 @@
 #include "u1ChButton.h"
 #include "u1UI_Element.h"
 #include "Brofiler/Brofiler.h"
-#include <windows.h>
+#include <shellapi.h>
 #include "m1Audio.h"
 #include "m1Window.h"
 #include "m1MenuManager.h"
@@ -122,81 +122,76 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 
 	// SELECT PLAYER ==============================================================================================
 
-		if (interaction == App->menu_manager->select_champ.button_warrior) {
-			App->scene->player_type = PlayerType::WARRIOR;
-			App->menu_manager->CreateNameMenu();
-			App->menu_manager->DestroySelectChamp();
-			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, -100, -100,"warrior");
-			main_states = MainMenuStates::CHOOSE_NAME_MENU;
-			ret = false;
-		}
-		else if (interaction == App->menu_manager->select_champ.button_archer) {
-			App->scene->player_type = PlayerType::ARCHER;
-			App->menu_manager->CreateNameMenu();
-			App->menu_manager->DestroySelectChamp();
-			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::ARCHER, -100, -100, "archer");
-			main_states = MainMenuStates::CHOOSE_NAME_MENU;
-			ret = false;
-		}
-		else if (interaction == App->menu_manager->select_champ.button_mage) {
-			App->scene->player_type = PlayerType::MAGE;
-			App->menu_manager->CreateNameMenu();
-			App->menu_manager->DestroySelectChamp();
-			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::MAGE, -100, -100, "mage");
-			main_states = MainMenuStates::CHOOSE_NAME_MENU;
-			ret = false;
-		}
-
-		else if (interaction == App->menu_manager->select_champ.return_select_champ_button) {
-			App->menu_manager->CreateMainMenu();
-			App->menu_manager->DestroySelectChamp();
-			App->audio->PlayFx(fx_push_button_return);
-			main_states = MainMenuStates::MAIN_MENU;
-			ret = false;
-		}
-
-	case MainMenuStates::CREDITS_MENU:
-		if (interaction == button_github) {
-			ShellExecuteA(NULL, "open", "https://github.com/polarpathgames", NULL, NULL, SW_SHOWNORMAL);
-		}
-		if (interaction == button_youtube) {
-			ShellExecuteA(NULL, "open", "https://www.youtube.com/channel/UCx2jJZu3o-egIp2R8nH6vuA", NULL, NULL, SW_SHOWNORMAL);
-		}
-		if (interaction == button_twitter) {
-			ShellExecuteA(NULL, "open", "https://twitter.com/polarpathgames", NULL, NULL, SW_SHOWNORMAL);
-		}
-		if (interaction == button_christian) {
-			ShellExecuteA(NULL, "open", "https://github.com/christt105", NULL, NULL, SW_SHOWNORMAL);
-		}
-		if (interaction == button_lluis) {
-			ShellExecuteA(NULL, "open", "https://github.com/youis11", NULL, NULL, SW_SHOWNORMAL);
-		}
-		if (interaction == button_marc) {
-			ShellExecuteA(NULL, "open", "https://github.com/optus23", NULL, NULL, SW_SHOWNORMAL);
-		}
-		if (interaction == button_enric) {
-			ShellExecuteA(NULL, "open", "https://github.com/PerezEnric", NULL, NULL, SW_SHOWNORMAL);
-		}
-		if (interaction == button_oriol) {
-			ShellExecuteA(NULL, "open", "https://github.com/OriolCS2", NULL, NULL, SW_SHOWNORMAL);
-		}
-		if (interaction == button_nadine) {
-			ShellExecuteA(NULL, "open", "https://github.com/Nadine044", NULL, NULL, SW_SHOWNORMAL);
-		}
-		if (interaction == button_ivan) {
-			ShellExecuteA(NULL, "open", "https://github.com/RoperoIvan", NULL, NULL, SW_SHOWNORMAL);
-		}
-		if (interaction == button_credits_return_menu) {
-			App->audio->PlayFx(fx_push_button_return);
-			CreateMainMenu();
-			DestroyCredits();
-			main_states = MainMenuStates::MAIN_MENU;
-			ret = false;
-		}
-		
-		break;
+	if (interaction == App->menu_manager->select_champ.button_warrior) {
+		App->scene->player_type = PlayerType::WARRIOR;
+		App->menu_manager->CreateNameMenu();
+		App->menu_manager->DestroySelectChamp();
+		App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, -100, -100, "warrior");
+		ret = false;
 	}
-	if (interaction != nullptr && interaction != button_credits_return_menu && interaction != new_game_button && interaction != button_retun_to_options && interaction != button_retun_options && interaction != button_warrior && interaction != button_mage && interaction != button_archer)
-		App->audio->PlayFx(fx_push_button);
+	else if (interaction == App->menu_manager->select_champ.button_archer) {
+		App->scene->player_type = PlayerType::ARCHER;
+		App->menu_manager->CreateNameMenu();
+		App->menu_manager->DestroySelectChamp();
+		App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::ARCHER, -100, -100, "archer");
+		ret = false;
+	}
+	else if (interaction == App->menu_manager->select_champ.button_mage) {
+		App->scene->player_type = PlayerType::MAGE;
+		App->menu_manager->CreateNameMenu();
+		App->menu_manager->DestroySelectChamp();
+		App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::MAGE, -100, -100, "mage");
+		ret = false;
+	}
+
+	else if (interaction == App->menu_manager->select_champ.return_select_champ_button) {
+		App->menu_manager->CreateMainMenu();
+		App->menu_manager->DestroySelectChamp();
+		App->audio->PlayFx(fx_push_button_return);
+		ret = false;
+	}
+
+	// Credits ============================================================================================================
+
+	else if (interaction == App->menu_manager->credits.button_github) {
+		ShellExecuteA(NULL, "open", "https://github.com/polarpathgames", NULL, NULL, SW_SHOWNORMAL);
+	}
+	else if (interaction == App->menu_manager->credits.button_youtube) {
+		ShellExecuteA(NULL, "open", "https://www.youtube.com/channel/UCx2jJZu3o-egIp2R8nH6vuA", NULL, NULL, SW_SHOWNORMAL);
+	}
+	else if (interaction == App->menu_manager->credits.button_twitter) {
+		ShellExecuteA(NULL, "open", "https://twitter.com/polarpathgames", NULL, NULL, SW_SHOWNORMAL);
+	}
+	else if (interaction == App->menu_manager->credits.button_christian) {
+		ShellExecuteA(NULL, "open", "https://github.com/christt105", NULL, NULL, SW_SHOWNORMAL);
+	}
+	else if (interaction == App->menu_manager->credits.button_lluis) {
+		ShellExecuteA(NULL, "open", "https://github.com/youis11", NULL, NULL, SW_SHOWNORMAL);
+	}
+	else if (interaction == App->menu_manager->credits.button_marc) {
+		ShellExecuteA(NULL, "open", "https://github.com/optus23", NULL, NULL, SW_SHOWNORMAL);
+	}
+	else if (interaction == App->menu_manager->credits.button_enric) {
+		ShellExecuteA(NULL, "open", "https://github.com/PerezEnric", NULL, NULL, SW_SHOWNORMAL);
+	}
+	else if (interaction == App->menu_manager->credits.button_oriol) {
+		ShellExecuteA(NULL, "open", "https://github.com/OriolCS2", NULL, NULL, SW_SHOWNORMAL);
+	}
+	else if (interaction == App->menu_manager->credits.button_nadine) {
+		ShellExecuteA(NULL, "open", "https://github.com/Nadine044", NULL, NULL, SW_SHOWNORMAL);
+	}
+	else if (interaction == App->menu_manager->credits.button_ivan) {
+		ShellExecuteA(NULL, "open", "https://github.com/RoperoIvan", NULL, NULL, SW_SHOWNORMAL);
+	}
+	else if (interaction == App->menu_manager->credits.button_credits_return_menu) {
+		App->audio->PlayFx(fx_push_button_return);
+		App->menu_manager->CreateMainMenu();
+		App->menu_manager->DestroyCredits();
+		ret = false;
+	}
+
+
+	/*if (interaction != nullptr && interaction != button_credits_return_menu && interaction != new_game_button && interaction != button_retun_to_options && interaction != button_retun_options && interaction != button_warrior && interaction != button_mage && interaction != button_archer)
+		App->audio->PlayFx(fx_push_button);*/ // Create var in buttons to sound specific fx when click
 	return ret;
 }

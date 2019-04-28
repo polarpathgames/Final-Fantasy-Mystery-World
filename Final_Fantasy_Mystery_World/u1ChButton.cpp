@@ -33,12 +33,14 @@ void u1ChButton::UpdateElement()
 
 void u1ChButton::AddElementsToShow(u1GUI * element)
 {
+	element->drawable = false;
 	elements_to_show.push_back(element);
 }
 
 void u1ChButton::AddElementsToShow(std::list<u1GUI*> elements)
 {
 	for (std::list<u1GUI*>::iterator item = elements.begin(); item != elements.end(); ++item) {
+		(*item)->drawable = false;
 		elements_to_show.push_back(*item);
 	}
 }
