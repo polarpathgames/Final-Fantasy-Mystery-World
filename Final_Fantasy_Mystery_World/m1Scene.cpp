@@ -1573,7 +1573,7 @@ void m1Scene::GodModeIndicator(bool is_god_mode)
 
 void m1Scene::ChangeCompass(bool shift_pressed)
 {
-
+	
 	if (shift_pressed)
 	{
 		vertical_compass->drawable = true;
@@ -1582,8 +1582,15 @@ void m1Scene::ChangeCompass(bool shift_pressed)
 
 	else
 	{
-
-		diagonal_compass->drawable = true;
-		vertical_compass->drawable = false;
+		if (App->cutscene_manager->is_executing == true)
+		{
+			diagonal_compass->drawable = false;
+			vertical_compass->drawable = false;
+		}
+		else
+		{
+			diagonal_compass->drawable = true;
+			vertical_compass->drawable = false;
+		}
 	}
 }
