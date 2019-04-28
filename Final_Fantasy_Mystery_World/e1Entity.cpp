@@ -22,6 +22,9 @@ e1Entity::~e1Entity()
 		App->collision->DeleteCollider(coll);
 	}
 	general_properties.CleanUp();
+	if (data.tileset.texture != nullptr) {
+		App->tex->UnLoad(data.tileset.texture);
+	}
 }
 
 void e1Entity::Draw(float dt)
