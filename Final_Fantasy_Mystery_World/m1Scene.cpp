@@ -125,14 +125,6 @@ bool m1Scene::Update(float dt)
 		App->globals.ability2_gained = true;
 	}
 
-	//--------------------- INPUT FROM COMPASS HARDCODED
-	//if (player->player_input.pressing_shift)
-	//	ChangeCompass(true);
-
-	//else
-	//	ChangeCompass(false);
-	//---------------------
-
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		e1Player* swap = nullptr;
 		iPoint new_pos = App->map->MapToWorld(player->actual_tile.x, player->actual_tile.y);
