@@ -1241,25 +1241,3 @@ void e1Player::UpdateExperience(int experience) {
 	}
 		
 }
-void e1Player::UpdateLevel()
-{
-	App->audio->PlayFx(App->scene->fx_controller_conection);
-	stats.max_xp *= stats.level;
-	AugmentLives(stats.max_lives*0.3f,true);
-	AugmentMana(stats.max_mana*0.3f,true);
-	App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-15 }, { 8,0,2,2 }, RANDOM, { 20,20 }, { 10,5 }, { 0,0 }, P_UP, 200, 4, { 0,-2 });
-	
-	int mana = (int)stats.max_mana*0.3f;
-	int life = (int)stats.max_lives*0.3f;
-
-	iPoint pos{ 0,0 };
-	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 10) * (int)App->win->GetScale();
-	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
-	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(life).data(), App->gui->screen, GREEN, FontType::PMIX24);
-
-	iPoint pos2{ 0,0 };
-	pos2.x = (int)(App->render->camera.x) + (position.x + pivot.x + 10) * (int)App->win->GetScale();
-	pos2.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
-	App->gui->AddHitPointLabel(pos2.x, pos2.y, std::to_string(mana).data(), App->gui->screen, BLUE, FontType::PMIX24);
-
-}
