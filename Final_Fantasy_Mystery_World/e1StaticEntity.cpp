@@ -371,7 +371,8 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	}
 
 	type = e1Entity::EntityType::STATIC;
-	data.tileset.texture = App->tex->Load("assets/maps/static_objects_tileset.png");
+	data.tileset.imagePath.assign("assets/maps/static_objects_tileset.png");
+	data.tileset.texture = App->tex->Load(data.tileset.imagePath.data());
 	
 }
 
