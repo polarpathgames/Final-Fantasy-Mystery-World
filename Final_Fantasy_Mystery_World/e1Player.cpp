@@ -1012,6 +1012,7 @@ void e1Player::QuestControls()
 	}
 
 	if (!player_input.pressing_shift) {
+		App->scene->ChangeCompass(false);
 		if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT)) {
 			player_input.pressing_S = true;
 		}
@@ -1026,6 +1027,7 @@ void e1Player::QuestControls()
 		}
 	}
 	else {
+		App->scene->ChangeCompass(true);
 		if (App->input->CheckAxisStates(Axis::AXIS_DOWN)) {
 			player_input.pressing_S = true;
 		}
