@@ -67,6 +67,7 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="e1StaticEntity.cpp" />
     <ClCompile Include="u1HitPointLabel.cpp" />
+    <ClCompile Include="m1MenuManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="c1CutSceneAction.h" />
@@ -145,6 +146,7 @@
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
     <ClInclude Include="e1StaticEntity.h" />
     <ClInclude Include="u1HitPointLabel.h" />
+    <ClInclude Include="m1MenuManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

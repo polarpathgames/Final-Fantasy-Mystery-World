@@ -658,9 +658,9 @@ void m1Scene::CreateOptionsMenu()
 	label_controls = App->gui->AddLabel(0, 0, "Controls", button_controls, BLACK, FontType::FF48, nullptr, false);
 	label_controls->SetPosRespectParent(LEFT_CENTERED);
 
-	button_retun = App->gui->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
-	label_return = App->gui->AddLabel(0, 0, "Return", button_retun, BLACK, FontType::FF48, nullptr, false);
-	label_return->SetPosRespectParent(CENTERED);
+	button_credits_return_menu = App->gui->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options_panel, false, false, true, true);
+	label_credits_return_menu = App->gui->AddLabel(0, 0, "Return", button_credits_return_menu, BLACK, FontType::FF48, nullptr, false);
+	label_credits_return_menu->SetPosRespectParent(CENTERED);
 
 	//menu_state = StatesMenu::OPTIONS_MENU;
 }
@@ -982,7 +982,7 @@ void m1Scene::CreateDebugScreen()
 	map_label = App->gui->AddLabel(0, textures_label->position.y + textures_label->section.h + fps_label->section.h, "map:\nnumber of layers: %i\nnumber of tilesets: %i\nmap id: %i\nwidth: %i | height: %i\ntile width: %i | tile height: %i\ntiles drawn: %i\n menu state: %i",
 		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
-	entities_label = App->gui->AddLabel(0, map_label->position.y + map_label->section.h + fps_label->section.h*2, "entities:\nnumber of entities: %i\ntextures used: %i\nentities drawn: %i",
+	entities_label = App->gui->AddLabel(0, map_label->position.y + map_label->section.h + fps_label->section.h*2, "entities:\nnumber of entities: %i\nentities drawn: %i",
 		debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
 	player_label = App->gui->AddLabel(0, entities_label->position.y + entities_label->section.h + fps_label->section.h, "player:\nposition: %i\ntile: %i\n movement type: %i\ndirection: %i\n state: %i",
@@ -1024,8 +1024,7 @@ void m1Scene::UpdateDebugScreen()
 			+ std::to_string(App->map->data.tile_width) + "\ntile height: " + std::to_string(App->map->data.tile_height) + "\ntiles drawn: " + std::to_string(App->map->last_tiles_drawn) + 
 			"\nmenu state : " + std::to_string((int)menu_state)).data());
 
-		entities_label->SetTextWrapped(std::string("entities:\nnumber of entities: " + std::to_string(App->entity_manager->GetEntities().size()) +
-			"\ntextures used: " + std::to_string(App->entity_manager->GetTextures().size()) + "\nentities drawn: " + std::to_string(App->entity_manager->entities_drawn)).data());
+		entities_label->SetTextWrapped(std::string("entities:\nnumber of entities: " + std::to_string(App->entity_manager->GetEntities().size()) + "\nentities drawn: " + std::to_string(App->entity_manager->entities_drawn)).data());
 
 		if (player != nullptr) {
 			player_label->SetTextWrapped(std::string("player:\nposition: (" + std::to_string(player->position.x) + ", " + std::to_string(player->position.y) +
@@ -1265,7 +1264,7 @@ bool m1Scene::Interact(u1GUI* interact)
 		}
 		break;
 	case StatesMenu::OPTIONS_MENU:
-		if (interact == button_retun) {
+		if (interact == button_credits_return_menu) {
 			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			CreatePauseMenu();
 			DestroyOptionsMenu();
@@ -1273,7 +1272,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			ShowHUD(true);
 			ret = false;
 		}
-		if (interact != nullptr && interact != button_retun) {
+		if (interact != nullptr && interact != button_credits_return_menu) {
 			App->audio->PlayFx(App->main_menu->fx_push_button);
 		}
 		if (interact == button_controls) {

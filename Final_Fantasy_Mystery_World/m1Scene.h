@@ -234,8 +234,8 @@ private:
 	u1Button* button_controls = nullptr;
 	u1Label* label_controls = nullptr;
 
-	u1Button* button_retun = nullptr;
-	u1Label* label_return = nullptr;
+	u1Button* button_credits_return_menu = nullptr;
+	u1Label* label_credits_return_menu = nullptr;
 
 
 	// Menu Shop
