@@ -1,35 +1,40 @@
 #include "m1MenuManager.h"
+#include "App.h"
+#include "m1GUI.h"
+#include "u1Image.h"
+#include "u1Button.h"
+#include "u1InputText.h"
 
 void m1MenuManager::CreateMainMenu()
 {
-	background = App->gui->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
-	App->audio->PlayMusic(mus_main_menu, 5);
+	main_menu.background = App->gui->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
 	int offsetY = 75;
 
-	new_game_button = App->gui->AddButton(684, 337, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);
-	new_game_label = App->gui->AddLabel(0, 0, "New Game", new_game_button, BLACK, FontType::FF64, nullptr, false);
-	new_game_label->SetPosRespectParent(CENTERED);
+	main_menu.new_game_button = App->gui->AddButton(684, 337, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, main_menu.background, false, false, true, true);
+	main_menu.new_game_label = App->gui->AddLabel(0, 0, "New Game", main_menu.new_game_button, BLACK, FontType::FF64, nullptr, false);
+	main_menu.new_game_label->SetPosRespectParent(CENTERED);
 
-	load_game_button = App->gui->AddButton(684, new_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);
-	load_game_label = App->gui->AddLabel(0, 0, "Load Game", load_game_button, BLACK, FontType::FF64, nullptr, false);
-	load_game_label->SetPosRespectParent(CENTERED);
+	main_menu.load_game_button = App->gui->AddButton(684, main_menu.new_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, main_menu.background, false, false, true, true);
+	main_menu.load_game_label = App->gui->AddLabel(0, 0, "Load Game", main_menu.load_game_button, BLACK, FontType::FF64, nullptr, false);
+	main_menu.load_game_label->SetPosRespectParent(CENTERED);
 
-	options_button = App->gui->AddButton(684, load_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);
-	options_label = App->gui->AddLabel(0, 0, "Options", options_button, BLACK, FontType::FF64, nullptr, false);
-	options_label->SetPosRespectParent(CENTERED);
+	main_menu.options_button = App->gui->AddButton(684, main_menu.load_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, main_menu.background, false, false, true, true);
+	main_menu.options_label = App->gui->AddLabel(0, 0, "Options", main_menu.options_button, BLACK, FontType::FF64, nullptr, false);
+	main_menu.options_label->SetPosRespectParent(CENTERED);
 
-	credits_button = App->gui->AddButton(684, options_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);
-	credits_label = App->gui->AddLabel(0, 0, "Credits", credits_button, BLACK, FontType::FF64, nullptr, false);
-	credits_label->SetPosRespectParent(CENTERED);
+	main_menu.credits_button = App->gui->AddButton(684, main_menu.options_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, main_menu.background, false, false, true, true);
+	main_menu.credits_label = App->gui->AddLabel(0, 0, "Credits", main_menu.credits_button, BLACK, FontType::FF64, nullptr, false);
+	main_menu.credits_label->SetPosRespectParent(CENTERED);
 
-	exit_game_button = App->gui->AddButton(684, credits_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, background, false, false, true, true);
-	exit_game_text = App->gui->AddLabel(0, 0, "Exit", exit_game_button, BLACK, FontType::FF64, nullptr, false);
-	exit_game_text->SetPosRespectParent(CENTERED);
+	main_menu.exit_game_button = App->gui->AddButton(684, main_menu.credits_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, main_menu.background, false, false, true, true);
+	main_menu.exit_game_text = App->gui->AddLabel(0, 0, "Exit", main_menu.exit_game_button, BLACK, FontType::FF64, nullptr, false);
+	main_menu.exit_game_text->SetPosRespectParent(CENTERED);
 }
 
 void m1MenuManager::DestroyMainMenu()
 {
-	App->gui->DeleteUIElement(background);
+	App->gui->DeleteUIElement(main_menu.background);
+	main_menu.Reset();
 }
 
 void m1MenuManager::CreateCredits()
@@ -470,4 +475,322 @@ void m1MenuManager::CreateNameMenu()
 void m1MenuManager::DestroyNameMenu()
 {
 	App->gui->DeleteUIElement(input_text_image);
+}
+
+bool m1MenuManager::Interact(u1GUI * interaction)
+{
+	bool ret = true;
+	if (interaction == controls.button_retun_to_options) {
+		//App->audio->PlayFx(fx_push_button_return);
+		CreateOptions();
+		DestroyControls();
+		ret = false;
+	}
+	/*else if (interaction == button_up) {
+		if (App->scene->control_to_change != nullptr)
+			delete App->scene->control_to_change;
+		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_up, &App->input->keyboard_buttons.buttons_code.UP, &App->input->keyboard_buttons.buttons_char.UP, false);
+	}
+	else if (interaction == button_right) {
+		if (App->scene->control_to_change != nullptr)
+			delete App->scene->control_to_change;
+		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_right, &App->input->keyboard_buttons.buttons_code.RIGHT, &App->input->keyboard_buttons.buttons_char.RIGHT, false);
+	}
+	else if (interaction == button_left) {
+		if (App->scene->control_to_change != nullptr)
+			delete App->scene->control_to_change;
+		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_left, &App->input->keyboard_buttons.buttons_code.LEFT, &App->input->keyboard_buttons.buttons_char.LEFT, false);
+	}
+	else if (interaction == button_down) {
+		if (App->scene->control_to_change != nullptr)
+			delete App->scene->control_to_change;
+		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_down, &App->input->keyboard_buttons.buttons_code.DOWN, &App->input->keyboard_buttons.buttons_char.DOWN, false);
+	}
+	else if (interaction == button_diagonals) {
+		if (App->scene->control_to_change != nullptr)
+			delete App->scene->control_to_change;
+		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_diagonals, &App->input->keyboard_buttons.buttons_code.DIAGONALS, &App->input->keyboard_buttons.buttons_char.DIAGONALS, false);
+	}
+	else if (interaction == button_direction_up) {
+		if (App->scene->control_to_change != nullptr)
+			delete App->scene->control_to_change;
+		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_up, &App->input->keyboard_buttons.buttons_code.DIRECTION_UP, &App->input->keyboard_buttons.buttons_char.DIRECTION_UP, false);
+	}
+	else if (interaction == button_direction_right) {
+		if (App->scene->control_to_change != nullptr)
+			delete App->scene->control_to_change;
+		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_right, &App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT, &App->input->keyboard_buttons.buttons_char.DIRECCTION_RIGHT, false);
+	}
+	else if (interaction == button_direction_left) {
+		if (App->scene->control_to_change != nullptr)
+			delete App->scene->control_to_change;
+		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_left, &App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT, &App->input->keyboard_buttons.buttons_char.DIRECTION_LEFT, false);
+	}
+	else if (interaction == button_direction_down) {
+		if (App->scene->control_to_change != nullptr)
+			delete App->scene->control_to_change;
+		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_down, &App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN, &App->input->keyboard_buttons.buttons_char.DIRECCTION_DOWN, false);
+	}
+	else if (interaction == button_basic_attack) {
+		if (App->scene->control_to_change != nullptr)
+			delete App->scene->control_to_change;
+		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_basic_attack, &App->input->keyboard_buttons.buttons_code.BASIC_ATTACK, &App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, false);
+	}
+	else if (interaction == Cbutton_direction_up) {
+		if (App->scene->control_to_change != nullptr)
+			delete App->scene->control_to_change;
+		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_up, &App->input->controller_Buttons.buttons_code.DIRECTION_UP, &App->input->controller_Buttons.buttons_char.DIRECTION_UP, true);
+	}
+	else if (interaction == Cbutton_direction_right) {
+		if (App->scene->control_to_change != nullptr)
+			delete App->scene->control_to_change;
+		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_right, &App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT, &App->input->controller_Buttons.buttons_char.DIRECCTION_RIGHT, true);
+	}
+	else if (interaction == Cbutton_direction_left) {
+		if (App->scene->control_to_change != nullptr)
+			delete App->scene->control_to_change;
+		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_left, &App->input->controller_Buttons.buttons_code.DIRECTION_LEFT, &App->input->controller_Buttons.buttons_char.DIRECTION_LEFT, true);
+	}
+	else if (interaction == Cbutton_direction_down) {
+		if (App->scene->control_to_change != nullptr)
+			delete App->scene->control_to_change;
+		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_down, &App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN, &App->input->controller_Buttons.buttons_char.DIRECCTION_DOWN, true);
+	}
+	else if (interaction == Cbutton_diagonals) {
+		if (App->scene->control_to_change != nullptr)
+			delete App->scene->control_to_change;
+		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_diagonals, &App->input->controller_Buttons.buttons_code.DIAGONALS, &App->input->controller_Buttons.buttons_char.DIAGONALS, true);
+	}
+	else if (interaction == Cbutton_basic_attack) {
+		if (App->scene->control_to_change != nullptr)
+			delete App->scene->control_to_change;
+		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_basic_attack, &App->input->controller_Buttons.buttons_code.BASIC_ATTACK, &App->input->controller_Buttons.buttons_char.BASIC_ATTACK, true);
+	}*/
+	return ret;
+}
+
+void m1MenuManager::ManageInputText(u1GUI *& interaction)
+{
+	if (interaction == input.button_upper) {
+		input.minus_letters->drawable = false;
+		input.max_letters->drawable = true;
+	}
+	else if (interaction == input.button_lower) {
+		input.minus_letters->drawable = true;
+		input.max_letters->drawable = false;
+	}
+	else if (interaction == input.button_A) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("a");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("A");
+		}
+	}
+	else if (interaction == input.button_B) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("b");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("B");
+		}
+	}
+	else if (interaction == input.button_C) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("c");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("C");
+		}
+	}
+	else if (interaction == input.button_D) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("d");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("D");
+		}
+	}
+	else if (interaction == input.button_E) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("e");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("E");
+		}
+	}
+	else if (interaction == input.button_F) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("f");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("F");
+		}
+	}
+	else if (interaction == input.button_H) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("h");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("H");
+		}
+	}
+	else if (interaction == input.button_G) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("g");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("G");
+		}
+	}
+	else if (interaction == input.button_I) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("i");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("I");
+		}
+	}
+	else if (interaction == input.button_J) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("j");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("J");
+		}
+	}
+	else if (interaction == input.button_K) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("k");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("K");
+		}
+	}
+	else if (interaction == input.button_L) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("l");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("L");
+		}
+	}
+	else if (interaction == input.button_M) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("m");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("M");
+		}
+	}
+	else if (interaction == input.button_N) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("n");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("N");
+		}
+	}
+	else if (interaction == input.button_O) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("o");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("O");
+		}
+	}
+	else if (interaction == input.button_P) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("p");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("P");
+		}
+	}
+	else if (interaction == input.button_Q) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("q");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("Q");
+		}
+	}
+	else if (interaction == input.button_R) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("r");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("R");
+		}
+	}
+	else if (interaction == input.button_S) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("s");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("S");
+		}
+	}
+	else if (interaction == input.button_T) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("t");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("T");
+		}
+	}
+	else if (interaction == input.button_U) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("u");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("U");
+		}
+	}
+	else if (interaction == input.button_V) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("v");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("V");
+		}
+	}
+	else if (interaction == input.button_W) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("w");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("W");
+		}
+	}
+	else if (interaction == input.button_X) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("x");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("X");
+		}
+	}
+	else if (interaction == input.button_Y) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("y");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("Y");
+		}
+	}
+	else if (interaction == input.button_Z) {
+		if (input.minus_letters->drawable) {
+			input.input_text->AddText("z");
+		}
+		else if (input.max_letters->drawable) {
+			input.input_text->AddText("Z");
+		}
+	}
+	else if (interaction == input.button_Delete) {
+		input.input_text->DeleteText();
+	}
+	else if (interaction == input.button_Space) {
+		input.input_text->AddText(" ");
+	}
 }

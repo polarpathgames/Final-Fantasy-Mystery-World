@@ -10,7 +10,7 @@ class u1Label;
 class u1CheckBox;
 class u1ChButton;
 
-struct ui_input {
+struct UI_input {
 	u1InputText* input_text = nullptr;
 	u1Image* input_text_image = nullptr;
 	u1Button* button_okay = nullptr;
@@ -51,7 +51,7 @@ struct ui_input {
 	u1Label* return_label_input_screen = nullptr;
 };
 
-struct ui_main_menu {
+struct UI_main_menu {
 	u1GUI* background = nullptr;
 
 	u1Button* new_game_button = nullptr;
@@ -70,9 +70,24 @@ struct ui_main_menu {
 	u1Button* exit_game_button = nullptr;
 	u1Label* exit_game_text = nullptr;
 
+	void Reset() {
+		background = nullptr;
+		new_game_button = nullptr;
+		new_game_label = nullptr;
+		load_game_button = nullptr;
+		load_game_label = nullptr;
+		options_button = nullptr;
+		options_label = nullptr;
+		credits_button = nullptr;
+		credits_label = nullptr;
+		credits_panel = nullptr;
+		exit_game_button = nullptr;
+		exit_game_text = nullptr;
+	}
+
 };
 
-struct ui_credits {
+struct UI_credits {
 	u1Button* button_christian = nullptr;
 	u1Label* label_christian = nullptr;
 	u1Button* button_lluis = nullptr;
@@ -101,7 +116,7 @@ struct ui_credits {
 	u1Label* label_credits_return_menu = nullptr;
 };
 
-struct ui_options {
+struct UI_options {
 	u1Image* options_panel = nullptr;
 
 	u1Label* label_general_volume = nullptr;
@@ -136,7 +151,7 @@ struct ui_options {
 	u1CheckBox* checkbox_mute_fx = nullptr;
 };
 
-struct ui_controls_keyboard{
+struct UI_controls_keyboard{
 	u1Label* keyboard = nullptr;
 
 	u1Button* button_basic_attack = nullptr;
@@ -205,7 +220,7 @@ struct ui_controls_keyboard{
 
 };
 
-struct ui_controls_controller {
+struct UI_controls_controller {
 	u1Label* controller = nullptr;
 
 	u1Button* Cbutton_direction_up = nullptr;
@@ -257,7 +272,7 @@ struct ui_controls_controller {
 	u1Label* Clabel_to_show_how_ability3 = nullptr;
 };
 
-struct ui_controls {
+struct UI_controls {
 	u1Image* controls_panel = nullptr;
 
 	ui_controls_keyboard keyboard;
@@ -267,7 +282,7 @@ struct ui_controls {
 	u1Label* label_return_to_options = nullptr;
 };
 
-struct ui_select_champ {
+struct UI_select_champ {
 	u1Image* select_champ_panel = nullptr;
 	u1ChButton* button_warrior = nullptr;
 	u1Label* label_warrior = nullptr;
@@ -308,6 +323,18 @@ public:
 
 	void CreateNameMenu();
 	void DestroyNameMenu();
+
+	bool Interact(u1GUI* button);
+
+	void ManageInputText(u1GUI * &interaction);
+
+public:
+	UI_main_menu	main_menu;
+	UI_options		options;
+	UI_credits		credits;
+	UI_input		input;
+	UI_controls		controls;
+	UI_select_champ	select_champ;
 };
 #endif // !__M1MENUMANAGER_H__
 

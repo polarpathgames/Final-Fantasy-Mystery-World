@@ -2,18 +2,7 @@
 #define __MAINMENU_H__
 
 #include "m1Module.h"
-#include <list>
 #include "SDL_mixer/include/SDL_mixer.h"
-
-struct SDL_Rect;
-class u1GUI;
-class u1Button;
-class u1Label;
-class u1CheckBox;
-class u1Image;
-class u1ChButton;
-class u1InputText;
-class e1Player;
 
 enum class MainMenuStates {
 	MAIN_MENU,
@@ -34,15 +23,9 @@ public:
 
 	bool Awake();
 	bool Start();
-	bool PreUpdate();
 	bool Update(float dt);
-	bool PostUpdate();
-
-	bool CleanUp();
 
 	bool Interact(u1GUI* interaction);
-
-	void SetMainMenuState(const MainMenuStates &state);
 
 private:
 
@@ -58,5 +41,4 @@ public:
 	Mix_Music* mus_selection;
 
 };
-
 #endif
