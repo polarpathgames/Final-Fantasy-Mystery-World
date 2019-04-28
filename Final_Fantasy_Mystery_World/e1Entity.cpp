@@ -86,7 +86,11 @@ bool e1Entity::LoadEntityData(const char* file) {
 	data.tileset.margin = _node.attribute("margin").as_uint();
 	data.tileset.tilecount = _node.attribute("tilecount").as_uint();
 	data.tileset.columns = _node.attribute("columns").as_uint();
-	data.tileset.imagePath = std::string("assets/") + _node.child("image").attribute("source").as_string();
+
+	data.tileset.imagePath = _node.child("image").attribute("source").as_string(); //Gets relative image path from .tsx "../sprites"
+	data.tileset.imagePath.erase(0, 3);												//Delete "../"
+	data.tileset.imagePath = "assets/" + data.tileset.imagePath;					//add assets folder
+
 	data.tileset.width = _node.child("image").attribute("width").as_uint();
 	data.tileset.height = _node.child("image").attribute("height").as_uint();
 
