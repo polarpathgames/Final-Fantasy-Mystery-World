@@ -841,7 +841,6 @@ void e1Player::PerformMovementInQuest(float dt)
 void e1Player::ChangeDirection()
 {
 	if (player_input.pressing_shift) {
-		App->scene->ChangeCompass(true);
 		if (player_input.pressing_I) {
 			direction = Direction::UP;
 			current_animation = &IdleUp;
@@ -860,7 +859,6 @@ void e1Player::ChangeDirection()
 		}
 	}
 	else if (!player_input.pressing_shift) {
-		App->scene->ChangeCompass(false);
 		if (player_input.pressing_UP_LEFT) {
 			direction = Direction::UP_LEFT;
 			current_animation = &IdleUpLeft;
@@ -1014,6 +1012,7 @@ void e1Player::QuestControls()
 	}
 
 	if (!player_input.pressing_shift) {
+		App->scene->ChangeCompass(false);
 		if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT)) {
 			player_input.pressing_S = true;
 		}
@@ -1028,6 +1027,7 @@ void e1Player::QuestControls()
 		}
 	}
 	else {
+		App->scene->ChangeCompass(true);
 		if (App->input->CheckAxisStates(Axis::AXIS_DOWN)) {
 			player_input.pressing_S = true;
 		}
