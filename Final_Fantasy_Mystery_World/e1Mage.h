@@ -19,6 +19,8 @@ public:
 
 	void IdAnimToEnum();
 
+	void UpdateLevel();
+
 private:
 
 	void SetFireBalls();
