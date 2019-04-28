@@ -976,6 +976,8 @@ void e1Player::LobbyControls()
 	
 	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
 
+	App->scene->ChangeCompass(false);
+
 	if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT))
 		player_input.pressing_A = player_input.pressing_S = true;
 	else if (App->input->CheckAxisStates(Axis::AXIS_DOWN_RIGHT))
