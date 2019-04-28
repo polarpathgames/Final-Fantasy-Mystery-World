@@ -651,6 +651,7 @@ bool m1Map::ChangeMap(Maps type)
 			App->scene->player->AugmentLives(App->scene->player->stats.max_lives);
 			App->scene->player->AugmentMana(App->scene->player->stats.max_mana);
 		}
+		App->scene->ShowHUD(false);
 		break;
 	case Maps::TUTORIAL:
 		//App->audio->PlayMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg", 5);
@@ -663,11 +664,13 @@ bool m1Map::ChangeMap(Maps type)
 		App->audio->PlayMusic(mus_shop, 5);
 		Load(shop_map.data());
 		actual_map = Maps::SHOP;
+		App->scene->ShowHUD(false);
 		break;
 	case Maps::HOME:
 		App->audio->PlayMusic(mus_home, 5);
 		Load(home_map.data());
 		actual_map = Maps::HOME;
+		App->scene->ShowHUD(false);
 		break;
 	default:
 		LOG("Could not load the map");

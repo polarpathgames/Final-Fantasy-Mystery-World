@@ -124,6 +124,9 @@ public:
 	bool Interact(u1GUI* interaction);
 	StatesMenu GetMenuState();
 	void SetMenuState(const StatesMenu &menu);
+
+	void ChangeCompass(bool shift_pressed);
+
 public:
 
 	u1GUI* background = nullptr;
@@ -150,6 +153,10 @@ private:
 	int price_mana_potion = 75;
 
 	StatesMenu menu_state = StatesMenu::NO_MENU;
+
+	//Compass
+	u1Image* diagonal_compass = nullptr;
+	u1Image* vertical_compass = nullptr;
 
 	//god mode
 	u1Label* god_text = nullptr;
