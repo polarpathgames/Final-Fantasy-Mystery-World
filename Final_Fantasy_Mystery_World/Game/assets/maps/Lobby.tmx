@@ -6906,6 +6906,5 @@
   <object id="162" name="door_home" type="static" x="416" y="176" width="32" height="32"/>
   <object id="163" name="door_shop" type="static" x="112" y="240" width="32" height="32"/>
   <object id="164" name="floor" type="static" x="48" y="384" width="16.625" height="14.875"/>
-  <object id="165" name="floor" type="static" x="128" y="64" width="16.625" height="14.875"/>
  </objectgroup>
 </map>
