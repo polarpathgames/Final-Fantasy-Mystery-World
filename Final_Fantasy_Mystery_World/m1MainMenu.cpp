@@ -66,6 +66,8 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 {
 	bool ret = true;
 
+	// MAIN MENU BUTTONS==================================================================================
+
 	if (interaction == App->menu_manager->main_menu.new_game_button) {
 		App->audio->PlayFx(fx_push_button_return);
 		App->menu_manager->CreateSelectChamp();
@@ -94,6 +96,8 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		ret = false;
 	}
 
+	// SELECT NAME ==============================================================================
+
 	else if (interaction == App->menu_manager->input.button_okay) {
 		if (!App->menu_manager->input.input_text->GetText().empty()) {
 			App->globals.Reset();
@@ -112,142 +116,45 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			ret = false;
 		}
 	}
-	App->menu_manager->ManageInputText(interaction);
-	
-	case MainMenuStates::SELECTION_MENU:
-		if (interaction == button_warrior) {
+	else {
+		App->menu_manager->ManageInputText(interaction);
+	}
+
+	// SELECT PLAYER ==============================================================================================
+
+		if (interaction == App->menu_manager->select_champ.button_warrior) {
 			App->scene->player_type = PlayerType::WARRIOR;
-			CreateNameMenu();
-			DestroySelectChamp();
+			App->menu_manager->CreateNameMenu();
+			App->menu_manager->DestroySelectChamp();
 			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, -100, -100,"warrior");
 			main_states = MainMenuStates::CHOOSE_NAME_MENU;
 			ret = false;
 		}
-		if (interaction == button_archer) {
+		else if (interaction == App->menu_manager->select_champ.button_archer) {
 			App->scene->player_type = PlayerType::ARCHER;
-			CreateNameMenu();
-			DestroySelectChamp();
+			App->menu_manager->CreateNameMenu();
+			App->menu_manager->DestroySelectChamp();
 			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::ARCHER, -100, -100, "archer");
 			main_states = MainMenuStates::CHOOSE_NAME_MENU;
 			ret = false;
 		}
-		if (interaction == button_mage) {
+		else if (interaction == App->menu_manager->select_champ.button_mage) {
 			App->scene->player_type = PlayerType::MAGE;
-			CreateNameMenu();
-			DestroySelectChamp();
+			App->menu_manager->CreateNameMenu();
+			App->menu_manager->DestroySelectChamp();
 			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::MAGE, -100, -100, "mage");
 			main_states = MainMenuStates::CHOOSE_NAME_MENU;
 			ret = false;
 		}
 
-		if (interaction == return_select_champ_button) {
-			CreateMainMenu();
-			DestroySelectChamp();
+		else if (interaction == App->menu_manager->select_champ.return_select_champ_button) {
+			App->menu_manager->CreateMainMenu();
+			App->menu_manager->DestroySelectChamp();
+			App->audio->PlayFx(fx_push_button_return);
 			main_states = MainMenuStates::MAIN_MENU;
 			ret = false;
 		}
-		App->audio->PlayFx(fx_push_button_return);
 
-		break;
-	case MainMenuStates::OPTIONS_MENU:
-		if (interaction == button_retun_options) {
-			App->audio->PlayFx(App->main_menu->fx_push_button_return);
-			CreateMainMenu();
-			DestroyOptions();
-			main_states = MainMenuStates::MAIN_MENU;
-			ret = false;
-		}
-		if (interaction == button_controls) {
-			CreateControls();
-			DestroyOptions();
-			main_states = MainMenuStates::CONTROLS_MENU;
-			ret = false;
-		}
-		if (interaction == checkbox_mute_music)
-		{
-			checkbox_mute_music->Clicked();
-			App->audio->StopMusic(-2);
-		}
-
-		if (interaction == checkbox_mute_fx)
-		{
-			checkbox_mute_fx->Clicked();
-			App->audio->StopMusic(-3);
-		}
-		//if (interaction == checkbox_fps)
-		//{
-		//	checkbox_fps->Clicked();
-		//	if (App->capactivated) {
-		//		App->capactivated = false;
-		//	}
-		//	else {
-		//		App->capactivated = true;
-		//	}
-		//	//App->GetFrameRate();
-		//}
-		
-		if (interaction == checkbox_fullscreen)
-		{
-			checkbox_fullscreen->Clicked();
-
-			if (App->win->fullscreen) {
-				App->win->fullscreen = false;
-				SDL_SetWindowFullscreen(App->win->window, 0);
-			}
-			else {
-				App->win->fullscreen = true;
-				SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
-			}
-		}
-		if (interaction == button_music_volume) {
-			App->audio->StopMusic(-2);
-			label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
-			label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
-			label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
-		}
-		if (interaction ==button_fx_volume) {
-			App->audio->StopMusic(-3);
-			label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
-			label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
-			label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
-		}
-		if (interaction == minus_music_btn) {
-			App->audio->VolumeDown(-2);
-			label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
-			label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
-			label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
-		}
-		if (interaction == plus_music_btn) {
-			App->audio->VolumeUp(-2);
-			label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
-			label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
-			label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
-		}
-		if (interaction == minus_fx_btn) {
-			App->audio->VolumeDown(-3);
-			label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
-			label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
-			label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
-		}
-		if (interaction == plus_fx_btn) {
-			App->audio->VolumeUp(-3); 
-			label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
-			label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
-			label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
-		}
-		if (interaction == minus_general_btn) {
-			App->audio->VolumeDown(-1);
-			label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
-			label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
-			label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
-		}
-		if (interaction == plus_general_btn) {
-			App->audio->VolumeUp(-1);
-			label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
-			label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
-			label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
-		}
-		break;
 	case MainMenuStates::CREDITS_MENU:
 		if (interaction == button_github) {
 			ShellExecuteA(NULL, "open", "https://github.com/polarpathgames", NULL, NULL, SW_SHOWNORMAL);

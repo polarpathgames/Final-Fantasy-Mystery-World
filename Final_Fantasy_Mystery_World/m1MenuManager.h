@@ -65,7 +65,6 @@ struct UI_main_menu {
 
 	u1Button* credits_button = nullptr;
 	u1Label* credits_label = nullptr;
-	u1Image* credits_panel = nullptr;
 
 	u1Button* exit_game_button = nullptr;
 	u1Label* exit_game_text = nullptr;
@@ -88,6 +87,8 @@ struct UI_main_menu {
 };
 
 struct UI_credits {
+	u1Image* credits_panel = nullptr;
+
 	u1Button* button_christian = nullptr;
 	u1Label* label_christian = nullptr;
 	u1Button* button_lluis = nullptr;
@@ -114,6 +115,32 @@ struct UI_credits {
 
 	u1Button* button_credits_return_menu = nullptr;
 	u1Label* label_credits_return_menu = nullptr;
+
+	void Reset() {
+		credits_panel = nullptr;
+		button_christian = nullptr;
+		label_christian = nullptr;
+		button_lluis = nullptr;
+		label_lluis = nullptr;
+		button_marc = nullptr;
+		label_marc = nullptr;
+		button_enric = nullptr;
+		label_enric = nullptr;
+		button_nadine = nullptr;
+		label_nadine = nullptr;
+		button_ivan = nullptr;
+		label_ivan = nullptr;
+		button_oriol = nullptr;
+		label_oriol = nullptr;
+		button_github = nullptr;
+		label_github = nullptr;
+		button_twitter = nullptr;
+		label_twitter = nullptr;
+		button_youtube = nullptr;
+		label_youtube = nullptr;
+		button_credits_return_menu = nullptr;
+		label_credits_return_menu = nullptr;
+	}
 };
 
 struct UI_options {
@@ -301,6 +328,24 @@ struct UI_select_champ {
 
 	u1Button* return_select_champ_button = nullptr;
 	u1Label* return_select_champ_label = nullptr;
+
+	void Reset() {
+		select_champ_panel = nullptr;
+		button_warrior = nullptr;
+		label_warrior = nullptr;
+		button_archer = nullptr;
+		label_archer = nullptr;
+		button_mage = nullptr;
+		label_mage = nullptr;
+		warrior_image = nullptr;
+		archer_image = nullptr;
+		mage_image = nullptr;
+		warrior_info = nullptr;
+		archer_info = nullptr;
+		mage_info = nullptr;
+		return_select_champ_button = nullptr;
+		return_select_champ_label = nullptr;
+	}
 };
 
 class m1MenuManager :public m1Module {

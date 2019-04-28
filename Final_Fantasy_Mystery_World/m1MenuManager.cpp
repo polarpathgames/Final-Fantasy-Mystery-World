@@ -1,9 +1,15 @@
 #include "m1MenuManager.h"
 #include "App.h"
+#include "m1MainMenu.h"
+#include "m1Scene.h"
+#include "m1Audio.h"
+#include "m1Window.h"
 #include "m1GUI.h"
 #include "u1Image.h"
 #include "u1Button.h"
 #include "u1InputText.h"
+#include "u1CheckBox.h"
+#include "u1ChButton.h"
 
 void m1MenuManager::CreateMainMenu()
 {
@@ -39,93 +45,95 @@ void m1MenuManager::DestroyMainMenu()
 
 void m1MenuManager::CreateCredits()
 {
-	App->audio->PlayMusic(mus_credits, 0.5);
-	credits_panel = App->gui->AddImage(0, 0, { 0, 2304, 1024, 768 }, this, App->gui->screen, true, false, false, false);
-	credits_panel->SetPosRespectParent(CENTERED);
+	App->audio->PlayMusic(App->main_menu->mus_credits, 0.5);
+	credits.credits_panel = App->gui->AddImage(0, 0, { 0, 2304, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+	credits.credits_panel->SetPosRespectParent(CENTERED);
 
-	button_christian = App->gui->AddButton(325, 290, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits_panel, false, false, true, true);
-	label_christian = App->gui->AddLabel(0, 0, "Christian Martinez - Lead", button_christian, WHITE, FontType::FF100, nullptr, false);
-	label_christian->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_christian = App->gui->AddButton(325, 290, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits.credits_panel, false, false, true, true);
+	credits.label_christian = App->gui->AddLabel(0, 0, "Christian Martinez - Lead", credits.button_christian, WHITE, FontType::FF100, nullptr, false);
+	credits.label_christian->SetPosRespectParent(LEFT_CENTERED);
 
-	button_lluis = App->gui->AddButton(85, 350, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits_panel, false, false, true, true);
-	label_lluis = App->gui->AddLabel(0, 0, "Lluis Moreu - Manager", button_lluis, WHITE, FontType::FF100, nullptr, false);
-	label_lluis->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_lluis = App->gui->AddButton(85, 350, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits.credits_panel, false, false, true, true);
+	credits.label_lluis = App->gui->AddLabel(0, 0, "Lluis Moreu - Manager", credits.button_lluis, WHITE, FontType::FF100, nullptr, false);
+	credits.label_lluis->SetPosRespectParent(LEFT_CENTERED);
 
-	button_marc = App->gui->AddButton(85, 400, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits_panel, false, false, true, true);
-	label_marc = App->gui->AddLabel(0, 0, "Marc Galvez - Design", button_marc, WHITE, FontType::FF100, nullptr, false);
-	label_marc->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_marc = App->gui->AddButton(85, 400, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits.credits_panel, false, false, true, true);
+	credits.label_marc = App->gui->AddLabel(0, 0, "Marc Galvez - Design", credits.button_marc, WHITE, FontType::FF100, nullptr, false);
+	credits.label_marc->SetPosRespectParent(LEFT_CENTERED);
 
-	button_enric = App->gui->AddButton(85, 450, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits_panel, false, false, true, true);
-	label_enric = App->gui->AddLabel(0, 0, "Enric Perez - UI", button_enric, WHITE, FontType::FF100, nullptr, false);
-	label_enric->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_enric = App->gui->AddButton(85, 450, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits.credits_panel, false, false, true, true);
+	credits.label_enric = App->gui->AddLabel(0, 0, "Enric Perez - UI", credits.button_enric, WHITE, FontType::FF100, nullptr, false);
+	credits.label_enric->SetPosRespectParent(LEFT_CENTERED);
 
-	button_oriol = App->gui->AddButton(555, 350, { 1850,1637,350,50 }, { 1850,1637,1980,50 }, { 1850,1637,198,50 }, this, credits_panel, false, false, true, true);
-	label_oriol = App->gui->AddLabel(0, 0, "Oriol Capdevila - Code", button_oriol, WHITE, FontType::FF100, nullptr, false);
-	label_oriol->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_oriol = App->gui->AddButton(555, 350, { 1850,1637,350,50 }, { 1850,1637,1980,50 }, { 1850,1637,198,50 }, this, credits.credits_panel, false, false, true, true);
+	credits.label_oriol = App->gui->AddLabel(0, 0, "Oriol Capdevila - Code", credits.button_oriol, WHITE, FontType::FF100, nullptr, false);
+	credits.label_oriol->SetPosRespectParent(LEFT_CENTERED);
 
-	button_nadine = App->gui->AddButton(555, 400, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits_panel, false, false, true, true);
-	label_nadine = App->gui->AddLabel(0, 0, "Nadine Gutierrez - Art", button_nadine, WHITE, FontType::FF100, nullptr, false);
-	label_nadine->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_nadine = App->gui->AddButton(555, 400, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits.credits_panel, false, false, true, true);
+	credits.label_nadine = App->gui->AddLabel(0, 0, "Nadine Gutierrez - Art", credits.button_nadine, WHITE, FontType::FF100, nullptr, false);
+	credits.label_nadine->SetPosRespectParent(LEFT_CENTERED);
 
-	button_ivan = App->gui->AddButton(555, 450, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits_panel, false, false, true, true);
-	label_ivan = App->gui->AddLabel(0, 0, "Ivan Ropero - QA", button_ivan, WHITE, FontType::FF100, nullptr, false);
-	label_ivan->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_ivan = App->gui->AddButton(555, 450, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits.credits_panel, false, false, true, true);
+	credits.label_ivan = App->gui->AddLabel(0, 0, "Ivan Ropero - QA", credits.button_ivan, WHITE, FontType::FF100, nullptr, false);
+	credits.label_ivan->SetPosRespectParent(LEFT_CENTERED);
 
-	button_credits_return_menu = App->gui->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits_panel, false, false, true, true);
-	label_credits_return_menu = App->gui->AddLabel(0, 0, "Return", button_credits_return_menu, WHITE, FontType::FF64, nullptr, false);
-	label_credits_return_menu->SetPosRespectParent(CENTERED);
+	credits.button_credits_return_menu = App->gui->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits.credits_panel, false, false, true, true);
+	credits.label_credits_return_menu = App->gui->AddLabel(0, 0, "Return", credits.button_credits_return_menu, WHITE, FontType::FF64, nullptr, false);
+	credits.label_credits_return_menu->SetPosRespectParent(CENTERED);
 
-	button_github = App->gui->AddButton(710, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits_panel, false, false, true, true);
-	label_github = App->gui->AddLabel(0, 0, ".", button_github, WHITE, FontType::FF32, nullptr, false);
-	label_github->SetPosRespectParent(CENTERED);
+	credits.button_github = App->gui->AddButton(710, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits.credits_panel, false, false, true, true);
+	credits.label_github = App->gui->AddLabel(0, 0, ".", credits.button_github, WHITE, FontType::FF32, nullptr, false);
+	credits.label_github->SetPosRespectParent(CENTERED);
 
-	button_twitter = App->gui->AddButton(410, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits_panel, false, false, true, true);
-	label_twitter = App->gui->AddLabel(0, 0, ".", button_twitter, WHITE, FontType::FF32, nullptr, false);
-	label_twitter->SetPosRespectParent(CENTERED);
+	credits.button_twitter = App->gui->AddButton(410, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits.credits_panel, false, false, true, true);
+	credits.label_twitter = App->gui->AddLabel(0, 0, ".", credits.button_twitter, WHITE, FontType::FF32, nullptr, false);
+	credits.label_twitter->SetPosRespectParent(CENTERED);
 
-	button_youtube = App->gui->AddButton(110, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits_panel, false, false, true, true);
-	label_youtube = App->gui->AddLabel(0, 0, ".", button_youtube, WHITE, FontType::FF32, nullptr, false);
-	label_youtube->SetPosRespectParent(CENTERED);
+	credits.button_youtube = App->gui->AddButton(110, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, credits.credits_panel, false, false, true, true);
+	credits.label_youtube = App->gui->AddLabel(0, 0, ".", credits.button_youtube, WHITE, FontType::FF32, nullptr, false);
+	credits.label_youtube->SetPosRespectParent(CENTERED);
 }
 
 void m1MenuManager::DestroyCredits()
 {
-	App->gui->DeleteUIElement(credits_panel);
+	App->gui->DeleteUIElement(credits.credits_panel);
+	credits.Reset();
 }
 
 void m1MenuManager::CreateSelectChamp()
 {
 
-	select_champ_panel = App->gui->AddImage(0, 0, { 1024, 3256, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+	select_champ.select_champ_panel = App->gui->AddImage(0, 0, { 1024, 3256, 1024, 768 }, this, App->gui->screen, true, false, false, false);
+	
+	select_champ.warrior_image = App->gui->AddImage(500, 175, { 1052, 4079, 327, 358 }, App->main_menu, select_champ.select_champ_panel, true, false, false, false);
+	select_champ.archer_image = App->gui->AddImage(580, 180, { 1681, 4050, 244, 400 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
+	select_champ.mage_image = App->gui->AddImage(580, 180, { 1414, 4079, 218, 363 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
 
-	warrior_image = App->gui->AddImage(500, 175, { 1052, 4079, 327, 358 }, App->main_menu, select_champ_panel, true, false, false, false);
-	archer_image = App->gui->AddImage(580, 180, { 1681, 4050, 244, 400 }, App->main_menu, select_champ_panel, false, false, false, false);
-	mage_image = App->gui->AddImage(580, 180, { 1414, 4079, 218, 363 }, App->main_menu, select_champ_panel, false, false, false, false);
+	select_champ.warrior_info = App->gui->AddImage(370, 600, { 99, 4120, 585, 97 }, App->main_menu, select_champ.select_champ_panel, true, false, false, false);
+	select_champ.archer_info = App->gui->AddImage(370, 600, { 99, 4273, 537, 97 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
+	select_champ.mage_info = App->gui->AddImage(370, 600, { 98, 4414, 518, 97 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
 
-	warrior_info = App->gui->AddImage(370, 600, { 99, 4120, 585, 97 }, App->main_menu, select_champ_panel, true, false, false, false);
-	archer_info = App->gui->AddImage(370, 600, { 99, 4273, 537, 97 }, App->main_menu, select_champ_panel, false, false, false, false);
-	mage_info = App->gui->AddImage(370, 600, { 98, 4414, 518, 97 }, App->main_menu, select_champ_panel, false, false, false, false);
+	select_champ.button_warrior = App->gui->AddChButton(100, 250, { 1850,1637,198,50 }, { 1569,1688,198,50 }, { 1569,1756,198,50 }, this, select_champ.select_champ_panel, PlayerType::WARRIOR, true, false, true, true);
+	select_champ.label_warrior = App->gui->AddLabel(65, -13, "Warrior", select_champ.button_warrior, BLACK, FontType::FF64, nullptr, false);
+	select_champ.button_archer = App->gui->AddChButton(100, 350, { 1850,1637,198,50 }, { 1569,1688,198,50 }, { 1569,1756,198,50 }, this, select_champ.select_champ_panel, PlayerType::ARCHER, true, false, true, true);
+	select_champ.label_archer = App->gui->AddLabel(68, -13, "Archer", select_champ.button_archer, BLACK, FontType::FF64, nullptr, false);
+	select_champ.button_mage = App->gui->AddChButton(100, 450, { 1850,1637,198,50 }, { 1569,1688,198,50 }, { 1569,1756,198,50 }, this, select_champ.select_champ_panel, PlayerType::MAGE, true, false, true, true);
+	select_champ.label_mage = App->gui->AddLabel(75, -13, "Mage", select_champ.button_mage, BLACK, FontType::FF64, nullptr, false);
 
-	button_warrior = App->gui->AddChButton(100, 250, { 1850,1637,198,50 }, { 1569,1688,198,50 }, { 1569,1756,198,50 }, this, select_champ_panel, PlayerType::WARRIOR, true, false, true, true);
-	label_warrior = App->gui->AddLabel(65, -13, "Warrior", button_warrior, BLACK, FontType::FF64, nullptr, false);
-	button_archer = App->gui->AddChButton(100, 350, { 1850,1637,198,50 }, { 1569,1688,198,50 }, { 1569,1756,198,50 }, this, select_champ_panel, PlayerType::ARCHER, true, false, true, true);
-	label_archer = App->gui->AddLabel(68, -13, "Archer", button_archer, BLACK, FontType::FF64, nullptr, false);
-	button_mage = App->gui->AddChButton(100, 450, { 1850,1637,198,50 }, { 1569,1688,198,50 }, { 1569,1756,198,50 }, this, select_champ_panel, PlayerType::MAGE, true, false, true, true);
-	label_mage = App->gui->AddLabel(75, -13, "Mage", button_mage, BLACK, FontType::FF64, nullptr, false);
+	App->audio->PlayMusic(App->main_menu->mus_selection, 0.5);
 
-	App->audio->PlayMusic(mus_selection, 0.5);
+	select_champ.return_select_champ_button = App->gui->AddButton(120, 640, { 1000, 1000, 80, 50 }, { 1000, 1000, 80, 50 }, { 1000, 1000, 80, 50 }, this, select_champ.select_champ_panel, false, false, true, true, { -10, 3 });
+	select_champ.return_select_champ_label = App->gui->AddLabel(0, 0, "Return", select_champ.return_select_champ_button, BLACK, FontType::FF64, this, false);
 
-	return_select_champ_button = App->gui->AddButton(120, 640, { 1000, 1000, 80, 50 }, { 1000, 1000, 80, 50 }, { 1000, 1000, 80, 50 }, this, select_champ_panel, false, false, true, true, { -10, 3 });
-	return_select_champ_label = App->gui->AddLabel(0, 0, "Return", return_select_champ_button, BLACK, FontType::FF64, this, false);
-
-	App->gui->FocusButton((u1Button*)button_warrior);
+	App->gui->FocusButton((u1Button*)select_champ.button_warrior);
 
 
 }
 
 void m1MenuManager::DestroySelectChamp()
 {
-	App->gui->DeleteUIElement(select_champ_panel);
+	App->gui->DeleteUIElement(select_champ.select_champ_panel);
+	select_champ.Reset();
 }
 
 void m1MenuManager::CreateOptions()
@@ -566,6 +574,102 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 			delete App->scene->control_to_change;
 		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_basic_attack, &App->input->controller_Buttons.buttons_code.BASIC_ATTACK, &App->input->controller_Buttons.buttons_char.BASIC_ATTACK, true);
 	}*/
+
+	if (interaction == options.button_retun_options) {
+		App->audio->PlayFx(App->main_menu->fx_push_button_return);
+		DestroyOptions();
+
+		_STL_ASSERT(App->main_menu->active != App->scene->active, "main menu and scene are both active or deactive");
+		if(App->main_menu->active){
+			CreateMainMenu();
+		}
+		else if (App->scene->active) {
+			CreatePauseMenu();
+		}
+
+		ret = false;
+	}
+	if (interaction == options.button_controls) {
+		CreateControls();
+		DestroyOptions();
+		ret = false;
+	}
+	if (interaction == options.checkbox_mute_music)
+	{
+		options.checkbox_mute_music->Clicked();
+		App->audio->StopMusic(-2);
+	}
+
+	if (interaction == options.checkbox_mute_fx)
+	{
+		options.checkbox_mute_fx->Clicked();
+		App->audio->StopMusic(-3);
+	}
+	//if (interaction == checkbox_fps)
+	//{
+	//	checkbox_fps->Clicked();
+	//	if (App->capactivated) {
+	//		App->capactivated = false;
+	//	}
+	//	else {
+	//		App->capactivated = true;
+	//	}
+	//	//App->GetFrameRate();
+	//}
+
+	if (interaction == options.checkbox_fullscreen)
+	{
+		options.checkbox_fullscreen->Clicked();
+		App->win->ChangeFullScreen();
+	}
+	if (interaction == options.button_music_volume) {
+		App->audio->StopMusic(-2);
+		options.label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+		options.label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+		options.label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+	}
+	if (interaction == options.button_fx_volume) {
+		App->audio->StopMusic(-3);
+		options.label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+		options.label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+		options.label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+	}
+	if (interaction == options.minus_music_btn) {
+		App->audio->VolumeDown(-2);
+		options.label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+		options.label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+		options.label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+	}
+	if (interaction == options.plus_music_btn) {
+		App->audio->VolumeUp(-2);
+		options.label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+		options.label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+		options.label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+	}
+	if (interaction == options.minus_fx_btn) {
+		App->audio->VolumeDown(-3);
+		options.label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+		options.label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+		options.label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+	}
+	if (interaction == options.plus_fx_btn) {
+		App->audio->VolumeUp(-3);
+		options.label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+		options.label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+		options.label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+	}
+	if (interaction == options.minus_general_btn) {
+		App->audio->VolumeDown(-1);
+		options.label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+		options.label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+		options.label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+	}
+	if (interaction == options.plus_general_btn) {
+		App->audio->VolumeUp(-1);
+		options.label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
+		options.label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
+		options.label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+	}
 	return ret;
 }
 
