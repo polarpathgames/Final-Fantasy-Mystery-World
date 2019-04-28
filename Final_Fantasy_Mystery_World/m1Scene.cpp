@@ -126,12 +126,11 @@ bool m1Scene::Update(float dt)
 	}
 
 	//--------------------- INPUT FROM COMPASS HARDCODED
-	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
-		ChangeCompass(true);
-	}
+	//if (player->player_input.pressing_shift)
+	//	ChangeCompass(true);
 
-	else
-		ChangeCompass(false);
+	//else
+	//	ChangeCompass(false);
 	//---------------------
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
@@ -1508,8 +1507,8 @@ void m1Scene::SetMenuState(const StatesMenu & menu)
 void m1Scene::CreateHUD()
 {
 	bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, nullptr, App->gui->screen, true, false, false, false);
-	vertical_compass = App->gui->AddImage(925, 670, { 1949, 3159, 82, 86 }, this, bg_hud, false, false, false, false);
 	diagonal_compass = App->gui->AddImage(925, 675, { 1876, 3084, 88, 74 }, this, bg_hud, true, false, false, false);
+	vertical_compass = App->gui->AddImage(925, 670, { 1949, 3159, 82, 86 }, this, bg_hud, false, false, false, false);
 
 	switch (player_type) {
 	case PlayerType::WARRIOR:
@@ -1532,6 +1531,8 @@ void m1Scene::ShowHUD(bool show_or_hide)
 	player_hud_image->drawable = show_or_hide;
 	player_hp_bar->drawable = show_or_hide;
 	player_mana_bar->drawable = show_or_hide;
+	diagonal_compass->drawable = show_or_hide;
+	vertical_compass->drawable = show_or_hide;
 }
 
 void m1Scene::CreateFirstAbilityPanel()
