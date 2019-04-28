@@ -891,6 +891,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 	{
 		App->audio->PlayFx(App->main_menu->fx_push_button_return);
 		DestroyPauseMenu();
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
 		if (App->GetPause())
 			App->ChangePause();
 		ret = false;

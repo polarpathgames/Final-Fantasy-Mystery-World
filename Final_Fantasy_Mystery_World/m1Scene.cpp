@@ -211,7 +211,7 @@ bool m1Scene::Update(float dt)
 	switch (menu_state) {
 	case StatesMenu::NO_MENU:
 		if ((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing) {
-			if (App->ChangePause()) {
+			if (App->ChangePause() && !App->cutscene_manager->is_executing) {
 				App->audio->PlayFx(App->gui->fx_pause);
 				App->menu_manager->CreatePauseMenu();
 				player->BlockControls(true);
