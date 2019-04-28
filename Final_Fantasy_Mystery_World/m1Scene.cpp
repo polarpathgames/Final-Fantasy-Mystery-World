@@ -1519,12 +1519,14 @@ void m1Scene::CreateHUD()
 
 void m1Scene::ShowHUD(bool show_or_hide)
 {
-	bg_hud->drawable = show_or_hide;
-	player_hud_image->drawable = show_or_hide;
-	player_hp_bar->drawable = show_or_hide;
-	player_mana_bar->drawable = show_or_hide;
-	diagonal_compass->drawable = show_or_hide;
-	vertical_compass->drawable = show_or_hide;
+	if ((show_or_hide && App->map->actual_map != Maps::LOBBY && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::SHOP) || !show_or_hide) {
+		bg_hud->drawable = show_or_hide;
+		player_hud_image->drawable = show_or_hide;
+		player_hp_bar->drawable = show_or_hide;
+		player_mana_bar->drawable = show_or_hide;
+		diagonal_compass->drawable = show_or_hide;
+		vertical_compass->drawable = show_or_hide;
+	}
 }
 
 void m1Scene::CreateFirstAbilityPanel()

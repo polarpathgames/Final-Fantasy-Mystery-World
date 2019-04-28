@@ -13,6 +13,8 @@ enum class DropsType {
 
 	GOLD_DROP,
 	ABILITY1,
+	MANA_POTION,
+	HEALTH_POTION,
 	NONE
 };
 
