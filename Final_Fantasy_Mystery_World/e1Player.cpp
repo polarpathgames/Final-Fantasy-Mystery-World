@@ -28,6 +28,7 @@
 #include "u1UI_Element.h"
 #include "Brofiler/Brofiler.h"
 #include "m1EasingSplines.h"
+#include "m1MenuManager.h"
 #include "m1MainMenu.h"
 #include "m1ParticleManager.h"
 
@@ -123,7 +124,7 @@ void e1Player::OnCollisionEnter(Collider * c2)
 			App->fade_to_black->FadeToBlack(Maps::LOBBY);
 	}
 	if (c2->type == COLLIDER_MENU_QUEST) {
-		App->scene->CreateGoToQuestMenu();
+		App->menu_manager->CreateGoToQuestMenu();
 		App->scene->SetMenuState(StatesMenu::GO_TO_QUEST_MENU);
 	}
 	if (c2->type == COLLIDER_CUTSCENE_BRIDGE) {
@@ -929,7 +930,7 @@ void e1Player::Death()
 		App->map->CleanUp();
 		App->entity_manager->DeleteEntitiesNoPlayer();
 		App->gui->DeleteUIElement((u1GUI*)App->scene->bg_hud);
-		App->scene->CreateGameOver();
+		App->menu_manager->CreateGameOver();
 		App->scene->SetMenuState(StatesMenu::DIE_MENU);
 		state = State::MENU;
 		stats.live = stats.max_lives;

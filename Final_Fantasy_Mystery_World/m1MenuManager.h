@@ -119,7 +119,6 @@ struct UI_main_menu {
 		options_label = nullptr;
 		credits_button = nullptr;
 		credits_label = nullptr;
-		credits_panel = nullptr;
 		exit_game_button = nullptr;
 		exit_game_text = nullptr;
 	}
@@ -417,6 +416,99 @@ struct UI_select_champ {
 	}
 };
 
+struct UI_inventory {
+	u1Image* inventory_panel = nullptr;
+	u1Image* hp_potion_image = nullptr;
+	u1Button* hp_potion_button = nullptr;
+	u1Image* mana_potion_image = nullptr;
+	u1Button* mana_potion_button = nullptr;
+	u1Image* coin_image = nullptr;
+	u1Label* player_name = nullptr;
+	u1Label* hp_potion_label = nullptr;
+	u1Label* mana_potion_label = nullptr;
+	u1Label* money_label = nullptr;
+	u1Label* level_name_label = nullptr;
+	u1Label* level_number_label = nullptr;
+	u1Label* exp_name_label = nullptr;
+	u1Label* exp_number_label = nullptr;
+};
+
+struct UI_pause_menu {
+	u1Image* pause_panel = nullptr;
+	u1Button* button_resume = nullptr;
+	u1Label* label_resume = nullptr;
+	u1Button* button_main_menu = nullptr;
+	u1Label* label_main_menu = nullptr;
+	u1Button* button_abort_quest = nullptr;
+	u1Label* label_abort_quest = nullptr;
+	u1Button* button_options = nullptr;
+	u1Label* label_options = nullptr;
+};
+
+struct UI_potion {
+	u1Image* potion_panel = nullptr;
+	u1Button* use_hp_button = nullptr;
+	u1Button* use_mana_button = nullptr;
+	u1Button* cancel_button = nullptr;
+	u1Label* use_label = nullptr;
+	u1Label* cancel_label = nullptr;
+};
+
+struct UI_quest {
+	u1Image* go_to_quest_panel = nullptr;
+	u1Button* go_to_quest_button = nullptr;
+	u1Label* go_to_quest_label = nullptr;
+	u1Button* cancel_quest_button = nullptr;
+	u1Label* cancel_quest_label = nullptr;
+};
+
+struct UI_shop {
+	u1Image* shop_panel = nullptr;
+	u1Label* shop_label = nullptr;
+
+	u1Button* button_close_shop = nullptr;
+	u1Label* label_close_shop = nullptr;
+
+	u1Button* shop_button_hp_potion = nullptr;
+	u1Image* shop_hp_potion_image = nullptr;
+	u1Label* shop_hp_potion_label = nullptr;
+	u1Image* shop_coin1 = nullptr;
+
+	u1Button* shop_button_mana_potion = nullptr;
+	u1Image* shop_mana_potion_image = nullptr;
+	u1Label* shop_mana_potion_label = nullptr;
+	u1Image* shop_coin2 = nullptr;
+};
+
+struct UI_debugscreen {
+	u1Image* debug_screen = nullptr;
+
+	u1Label* project_name_label = nullptr;
+	u1Label* version_label = nullptr;
+	u1Label* fps_label = nullptr;
+	u1Label* textures_label = nullptr;
+	u1Label* map_label = nullptr;
+	u1Label* player_label = nullptr;
+	u1Label* mouse_label = nullptr;
+	u1Label* entities_label = nullptr;
+};
+
+struct UI_abilities {
+	u1Image* first_ability_panel = nullptr;
+	u1Button* button_ability1_screen = nullptr;
+	u1Label* label_ability1_screen = nullptr;
+};
+
+struct UI_game_over {
+	u1Image* game_over_panel = nullptr;
+
+	u1Button* button_continue_lobby = nullptr;
+	u1Label* label_continue_lobby = nullptr;
+
+	u1Button* button_return_main = nullptr;
+	u1Label* label_continue_main = nullptr;
+};
+
 class m1MenuManager :public m1Module {
 
 public:
@@ -430,6 +522,7 @@ public:
 	void DestroySelectChamp();
 
 	void CreateOptions();
+	void UpdateOptionsMenu();
 	void DestroyOptions();
 
 	void CreateControls();
@@ -437,6 +530,41 @@ public:
 
 	void CreateNameMenu();
 	void DestroyNameMenu();
+
+	void CreateInventory();
+	void DestroyInventory();
+	void CreatePotionMenu(u1GUI* potion_button); //Creates the menu to choose to use or not a potion
+	void DeletePotionMenu();
+
+	void CreatePauseMenu();
+	void DestroyPauseMenu();
+
+	void CreateGoToQuestMenu();
+	void DestroyGoToQuestMenu();
+
+	void CreateShopMenu();
+	void DestroyShopMenu();
+
+	void CreateDebugScreen();
+	void DestroyDebugScreen();
+	void UpdateDebugScreen();
+
+	void CreateGameOver();
+	void DestroyGameOver();
+
+	void CreateFirstAbilityPanel();
+	void DestroyFirstAbilityPanel();
+
+	void CreateHelpDiagonalMenu();
+	void DestroyHelpDiagonalMenu();
+
+	void CreateHelpAttackMenu();
+	void DestroyHelpAttackMenu();
+
+	void CreateHelpAbilityMenu();
+	void DestroyHelpAbilityMenu();
+
+	void GodModeIndicator(bool is_god_mode);
 
 	bool Interact(u1GUI* button);
 
@@ -449,6 +577,21 @@ public:
 	UI_input		input;
 	UI_controls		controls;
 	UI_select_champ	select_champ;
+	UI_pause_menu	pause;
+	UI_inventory	inventory;
+	UI_potion		potion;
+	UI_quest		quest;
+	UI_shop			shop;
+	UI_debugscreen	debug_screen;
+	UI_abilities	abilities;
+	UI_game_over	game_over;
+	//god mode
+	u1Label* god_text = nullptr;
+	// help diagonal
+	u1Image* help_diagonal = nullptr;
+	// help ATTACK
+	u1Image* help_attack = nullptr;
+	// help ABILITY
+	u1Image* help_ability = nullptr;
 };
 #endif // !__M1MENUMANAGER_H__
-

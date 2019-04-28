@@ -47,7 +47,6 @@ bool m1MainMenu::Start()
 	App->menu_manager->CreateMainMenu();
 	App->audio->PlayMusic(mus_main_menu, 5);
 
-	main_states = MainMenuStates::MAIN_MENU;
 	return true;
 }
 
@@ -72,7 +71,6 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		App->audio->PlayFx(fx_push_button_return);
 		App->menu_manager->CreateSelectChamp();
 		App->menu_manager->DestroyMainMenu();
-		main_states = MainMenuStates::SELECTION_MENU;
 		ret = false;
 	}
 	else if (interaction == App->menu_manager->main_menu.exit_game_button) {
@@ -82,13 +80,11 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 	else if (interaction == App->menu_manager->main_menu.credits_button) {
 		App->menu_manager->CreateCredits();
 		App->menu_manager->DestroyMainMenu();
-		main_states = MainMenuStates::CREDITS_MENU;
 		ret = false;
 	}
 	else if (interaction == App->menu_manager->main_menu.options_button) {
 		App->menu_manager->CreateOptions();
 		App->menu_manager->DestroyMainMenu();
-		main_states = MainMenuStates::OPTIONS_MENU;
 		ret = false;
 	}
 	else if (interaction == App->menu_manager->main_menu.load_game_button) {
