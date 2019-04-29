@@ -7,6 +7,7 @@
 #include "SDL_mixer/include/SDL_mixer.h"
 #include "e1Enemy.h"
 #include <map>
+#include "SDL/include/SDL_rect.h"
 
 class u1Image;
 
@@ -99,7 +100,7 @@ public:
 private:
 
 	u1Image * map_background = nullptr;
-	u1Image * map_zone = nullptr;
+	SDL_Rect map_zone = { 0,0,0,0 };
 
 
 };
