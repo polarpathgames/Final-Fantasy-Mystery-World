@@ -418,10 +418,46 @@ void RoomManager::UpdateMap()
 {
 	if (actual_room->id != 1 && actual_room->map_room_image == nullptr) {
 		if (player_next_pos == LocationChangeScene::NEXT_A) {
-			actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 96, last_room->map_room_image->GetLocalPosition().y - 46, { 1445,2170,128,64 }, nullptr, map_zone, true, false, false, false);
+			if (actual_room->change_scene_points.size() >= 3) { // it has 2 new doors
+				actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 96, last_room->map_room_image->GetLocalPosition().y - 48, { 1573,2170,128,64 }, nullptr, map_zone, true, false, false, false);
+			}
+			else if (actual_room->change_scene_points.size() == 1) { // no new rooms, just an exit door 
+				actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 96, last_room->map_room_image->GetLocalPosition().y - 48, { 1702,2170,128,64 }, nullptr, map_zone, true, false, false, false);
+			}
+			else {
+				std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
+				for (; item != actual_room->change_scene_points.end(); ++item) {
+					if ((*item) != nullptr) {
+						if ((*item)->change_type == LocationChangeScene::NEXT_A) {
+							actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 96, last_room->map_room_image->GetLocalPosition().y - 48, { 1317,2170,128,64 }, nullptr, map_zone, true, false, false, false);
+						}
+						else if ((*item)->change_type == LocationChangeScene::NEXT_B) {
+							actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 96, last_room->map_room_image->GetLocalPosition().y - 48, { 1445,2170,128,64 }, nullptr, map_zone, true, false, false, false);
+						}
+					}
+				}
+			}
 		}
 		else if (player_next_pos == LocationChangeScene::NEXT_B) {
-
+			if (actual_room->change_scene_points.size() >= 3) { // it has 2 new doors
+				actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x - 96, last_room->map_room_image->GetLocalPosition().y - 48, { 1573,2170,128,64 }, nullptr, map_zone, true, false, false, false);
+			}
+			else if (actual_room->change_scene_points.size() == 1) { // no new rooms, just an exit door 
+				actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x - 96, last_room->map_room_image->GetLocalPosition().y - 48, { 1702,2170,128,64 }, nullptr, map_zone, true, false, false, false);
+			}
+			else {
+				std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
+				for (; item != actual_room->change_scene_points.end(); ++item) {
+					if ((*item) != nullptr) {
+						if ((*item)->change_type == LocationChangeScene::NEXT_A) {
+							actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x - 96, last_room->map_room_image->GetLocalPosition().y - 48, { 1317,2170,128,64 }, nullptr, map_zone, true, false, false, false);
+						}
+						else if ((*item)->change_type == LocationChangeScene::NEXT_B) {
+							actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x - 96, last_room->map_room_image->GetLocalPosition().y - 48, { 1445,2170,128,64 }, nullptr, map_zone, true, false, false, false);
+						}
+					}
+				}
+			}
 		}
 		//actual_room->map_room_image = App->gui->AddImage()
 	}
