@@ -3818,55 +3818,15 @@
    <tile gid="3221225642"/>
    <tile gid="3221225642"/>
    <tile gid="3221225642"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="3221225642"/>
    <tile gid="3221225642"/>
    <tile gid="3221225642"/>
    <tile gid="3221225642"/>
-   <tile gid="3221225642"/>
-   <tile gid="3221225642"/>
-   <tile gid="3221225642"/>
-   <tile gid="3221225642"/>
-   <tile gid="3221225642"/>
-   <tile/>
-   <tile/>
-   <tile gid="169"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="169"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="169"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile/>
    <tile gid="169"/>
@@ -4094,7 +4054,47 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="169"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="169"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4134,24 +4134,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="169"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="169"/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4174,7 +4156,25 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="169"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -12855,7 +12855,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="9" name="Collider" width="40" height="40">
+ <layer id="9" name="Collider" width="40" height="40" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
