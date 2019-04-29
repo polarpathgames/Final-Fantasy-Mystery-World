@@ -15,6 +15,14 @@
 
 struct SDL_Rect;
 
+enum j1KeyState
+{
+	KEY_IDLE = 0,
+	KEY_DOWN,
+	KEY_REPEAT,
+	KEY_UP
+};
+
 enum class Axis {
 
 	AXIS_UP,
@@ -35,6 +43,16 @@ enum class Axis {
 	R_AXIS_DOWN_RIGHT,
 	NONE
 
+};
+
+struct axis {
+	int value = 0;
+	j1KeyState state = j1KeyState::KEY_IDLE;
+};
+
+struct Joystick {
+	axis x;
+	axis y;
 };
 
 
@@ -59,20 +77,20 @@ struct ButtonsUsed {
 
 
 struct ButtonChar {
-	char* UP;
-	char* DOWN;
-	char* LEFT;
-	char* RIGHT;
-	char* DIRECTION_UP;
-	char* DIRECCTION_DOWN;
-	char* DIRECTION_LEFT;
-	char* DIRECCTION_RIGHT;
-	char* DIAGONALS;
-	char* SHOW_SKILLS;
-	char* BASIC_ATTACK;
-	char* ABILITY1;
-	char* ABILITY2;
-	char* INVENTORY;
+	char* UP = nullptr;
+	char* DOWN = nullptr;
+	char* LEFT = nullptr;
+	char* RIGHT = nullptr;
+	char* DIRECTION_UP = nullptr;
+	char* DIRECCTION_DOWN = nullptr;
+	char* DIRECTION_LEFT = nullptr;
+	char* DIRECCTION_RIGHT = nullptr;
+	char* DIAGONALS = nullptr;
+	char* SHOW_SKILLS = nullptr;
+	char* BASIC_ATTACK = nullptr;
+	char* ABILITY1 = nullptr;
+	char* ABILITY2 = nullptr;
+	char* INVENTORY = nullptr;
 };
 
 
@@ -91,14 +109,6 @@ enum j1EventWindow
 	WE_HIDE = 1,
 	WE_SHOW = 2,
 	WE_COUNT
-};
-
-enum j1KeyState
-{
-	KEY_IDLE = 0,
-	KEY_DOWN,
-	KEY_REPEAT,
-	KEY_UP
 };
 
 class m1Input : public m1Module
@@ -151,17 +161,17 @@ public:
 	}
 
 	const int GetAxisX() {
-		return axis_x;
+		return left_joy.x.value;
 	}
 
 	const int GetAxisY() {
-		return axis_y;
+		return left_joy.y.value;
 	}
 	const int GetRightAxisX() {
-		return r_axis_x;
+		return right_joy.x.value;
 	}
 	const int GetRightAxisY() {
-		return r_axis_y;
+		return right_joy.y.value;
 	}
 
 	void DefaultControls();
@@ -207,10 +217,8 @@ private:
 	int			mouse_y = 0;
 	int			last_mouse_x = 0;
 	int			last_mouse_y = 0;
-	int			axis_x = 0;
-	int			axis_y = 0;
-	int         r_axis_x = 0;
-	int         r_axis_y = 0;
+	Joystick	left_joy;
+	Joystick	right_joy;
 };
 
 #endif // __j1INPUT_H__
