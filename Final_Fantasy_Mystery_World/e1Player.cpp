@@ -232,9 +232,7 @@ void e1Player::CenterPlayerInTile()
 
 	actual_tile = App->map->WorldToMap(position.x, position.y);
 	movement_count = { 0,0 };
-	position = App->map->MapToWorld(actual_tile.x, actual_tile.y) - pivot;
-	position.x += App->map->data.tile_width*0.5F;
-	position.y += App->map->data.tile_height*0.5F;
+	CenterOnTile();
 
 	target_position = position;
 	initial_position = position;
