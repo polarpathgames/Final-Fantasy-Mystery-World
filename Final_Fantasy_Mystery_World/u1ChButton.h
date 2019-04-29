@@ -10,7 +10,7 @@ public:
 	u1ChButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, u1GUI* parent, bool draw, bool inter, bool drag, bool focus);
 	~u1ChButton();
 
-	void UpdateElement();
+	void PreUpdateElement();
 
 	void AddElementsToShow(u1GUI* element);
 	void AddElementsToShow(std::list<u1GUI*> elements);

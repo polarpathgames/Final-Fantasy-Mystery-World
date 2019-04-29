@@ -17,14 +17,14 @@ u1ChButton::~u1ChButton() {
 	elements_to_show.clear();
 }
 
-void u1ChButton::UpdateElement()
+void u1ChButton::PreUpdateElement()
 {
-	if (current_state == Element_Event::HOVER) {
+	if (current_state == Element_Event::HOVER_ENTER || current_state == Element_Event::HOVER) {
 		for (std::list<u1GUI*>::iterator item = elements_to_show.begin(); item != elements_to_show.end(); ++item) {
 			(*item)->drawable = true;
 		}
 	}
-	else {
+	else if(current_state == Element_Event::HOVER_EXIT) {
 		for (std::list<u1GUI*>::iterator item = elements_to_show.begin(); item != elements_to_show.end(); ++item) {
 			(*item)->drawable = false;
 		}
