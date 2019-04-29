@@ -5,13 +5,17 @@
 #include "App.h"
 #include "m1Render.h"
 #include "m1Scene.h"
+#include "m1Input.h"
+#include "u1Image.h"
 #include "m1DialogSystem.h"
 #include "e1Player.h"
 #include "m1Audio.h"
 #include "e1Rock.h"
+#include "m1Window.h"
 #include "SDL/include/SDL.h"
 #include "m1Cutscene.h"
 #include "m1EntityManager.h"
+#include "m1GUI.h"
 #include "m1Pathfinding.h"
 
 Room::Room(const std::string &tmx_location, const uint &id, const std::string &type, const std::string &cutscene_location, bool door_closed, const uint &update_number)
@@ -68,6 +72,9 @@ RoomManager::RoomManager(const char* name)
 	else {
 		LOG("XML was loaded succesfully!");
 
+		map_background = App->gui->AddImage(100, 100, { 200,1736,(int)App->win->width - 200, (int)App->win->height - 200 }, nullptr, App->gui->screen, true, false, false, false);
+		map_zone = App->gui->AddImage(100, 100, { 200,1736,(int)App->win->width - 200, (int)App->win->height - 200 }, nullptr, App->gui->screen, false, false, false, false);
+
 		for (pugi::xml_node room_node = room_manager_file.child("room_manager").child(name).child("room"); room_node; room_node = room_node.next_sibling("room")) {
 			Room * r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_uint(), room_node.child("type").child_value(),
 				room_node.child("cut_scene").child_value(), room_node.child("door").attribute("active").as_bool(false), room_node.child("update").attribute("num").as_uint(0u));
@@ -75,6 +82,7 @@ RoomManager::RoomManager(const char* name)
 		}
 
 		LoadRoom(1);
+		actual_room->map_room_image = App->gui->AddImage(125, 125, { 1317,2170,128,64 }, nullptr, (u1GUI*)map_zone, true, false, false, false);
 	}
 
 	room_manager_file.reset();
@@ -91,12 +99,12 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 	pos_coll = App->map->WorldToMap(pos_coll.x, pos_coll.y);
 
 	if (App->scene->player->actual_tile == pos_coll)
-		change_room(c1->type, false);
+		ChangeRoom(c1->type, false);
 
 
 }
 
-bool RoomManager::change_room(COLLIDER_TYPE type, bool debug_pass)
+bool RoomManager::ChangeRoom(COLLIDER_TYPE type, bool debug_pass)
 {
 	bool ret = false;
 	if (actual_room != nullptr) {
@@ -227,6 +235,7 @@ void RoomManager::LoadRoom(const int & id)
 	LoadColliders();
 	PlayMusic();
 	PlayCutScene();
+	UpdateMap();
 }
 
 void RoomManager::LoadEntities()
@@ -405,6 +414,19 @@ void RoomManager::PlayCutScene()
 		
 }
 
+void RoomManager::UpdateMap()
+{
+	if (actual_room->id != 1 && actual_room->map_room_image == nullptr) {
+		if (player_next_pos == LocationChangeScene::NEXT_A) {
+			actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 96, last_room->map_room_image->GetLocalPosition().y - 46, { 1445,2170,128,64 }, nullptr, map_zone, true, false, false, false);
+		}
+		else if (player_next_pos == LocationChangeScene::NEXT_B) {
+
+		}
+		//actual_room->map_room_image = App->gui->AddImage()
+	}
+}
+
 void RoomManager::AddEntityToNotRepeat(iPoint pos)
 {
 	actual_room->entities.push_back(pos);
@@ -417,6 +439,15 @@ void RoomManager::UpdateRoomEvents()
 	default:
 		break;
 	}
+	
+	
+	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+		map_background = App->gui->AddImage(100, 100, { 200,1736,(int)App->win->width - 200, (int)App->win->height - 200 }, nullptr, App->gui->screen, true, false, false, false);
+		map_zone = App->gui->AddImage(100, 100, { 200,1736,(int)App->win->width - 200, (int)App->win->height - 200 }, nullptr, App->gui->screen, false, false, false, false);
+	
+	}
+
+
 
 
 	// if no more enemies door opens

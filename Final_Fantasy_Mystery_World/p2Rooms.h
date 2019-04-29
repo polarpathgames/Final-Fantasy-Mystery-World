@@ -8,6 +8,8 @@
 #include "e1Enemy.h"
 #include <map>
 
+class u1Image;
+
 struct Collider;
 
 enum class LocationChangeScene {
@@ -55,6 +57,7 @@ public:
 	std::vector<iPoint> entities;
 	bool door_closed = false;
 	uint update_number = 0u;
+	u1Image * map_room_image = nullptr;
 };
 
 class RoomManager {
@@ -65,7 +68,7 @@ public:
 	~RoomManager();
 
 	void OnCollision(Collider* c1, Collider* C2);
-	bool change_room(COLLIDER_TYPE type, bool debug_change = false);
+	bool ChangeRoom(COLLIDER_TYPE type, bool debug_change = false);
 	void LoadRoom(const int & id);
 	void AddEntityToNotRepeat(iPoint pos);
 	void UpdateRoomEvents();
@@ -77,6 +80,7 @@ private:
 	void LoadColliders();
 	void PlayMusic();
 	void PlayCutScene();
+	void UpdateMap();
 	
 public:
 
@@ -92,6 +96,10 @@ public:
 	Mix_Music* mus_combat;
 	Mix_Music* mus_fountain;
 
+private:
+
+	u1Image * map_background = nullptr;
+	u1Image * map_zone = nullptr;
 
 
 };
