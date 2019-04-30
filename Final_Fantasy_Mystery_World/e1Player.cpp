@@ -963,28 +963,28 @@ void e1Player::LobbyControls()
 	player_input.pressing_S = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DOWN) == KEY_REPEAT || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1;
 	player_input.pressing_W = App->input->GetKey(App->input->keyboard_buttons.buttons_code.UP) == KEY_REPEAT || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1;
 	player_input.pressing_D = App->input->GetKey(App->input->keyboard_buttons.buttons_code.RIGHT) == KEY_REPEAT || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1;
-	player_input.pressing_I = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY) == 1;
-	player_input.pressing_J = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == 1;
-	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1;
-	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == -1;
+	player_input.pressing_I = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY) == 1;
+	player_input.pressing_J = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == 1;
+	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1;
+	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == -1;
 	
-	player_input.pressing_UP_LEFT = App->input->CheckAxisStates(Axis::R_AXIS_UP_LEFT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;
-	player_input.pressing_UP_RIGHT = App->input->CheckAxisStates(Axis::R_AXIS_UP_RIGHT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
-	player_input.pressing_DOWN_LEFT = App->input->CheckAxisStates(Axis::R_AXIS_DOWN_LEFT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN; 
-	player_input.pressing_DOWN_RIGHT = App->input->CheckAxisStates(Axis::R_AXIS_DOWN_RIGHT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
+	player_input.pressing_UP_LEFT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;
+	player_input.pressing_UP_RIGHT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
+	player_input.pressing_DOWN_LEFT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN;
+	player_input.pressing_DOWN_RIGHT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
 
 
 	
-	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
+	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
 
-	if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT))
+	/*if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT))
 		player_input.pressing_A = player_input.pressing_S = true;
 	else if (App->input->CheckAxisStates(Axis::AXIS_DOWN_RIGHT))
 		player_input.pressing_D = player_input.pressing_S = true;
 	else if (App->input->CheckAxisStates(Axis::AXIS_UP_RIGHT))
 		player_input.pressing_D = player_input.pressing_W = true;
 	else if (App->input->CheckAxisStates(Axis::AXIS_UP_LEFT))
-		player_input.pressing_W = player_input.pressing_A = true;
+		player_input.pressing_W = player_input.pressing_A = true;*/
 }
 
 void e1Player::QuestControls()
@@ -993,26 +993,26 @@ void e1Player::QuestControls()
 	player_input.pressing_S = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DOWN) == KEY_REPEAT;
 	player_input.pressing_W = App->input->GetKey(App->input->keyboard_buttons.buttons_code.UP) == KEY_REPEAT;
 	player_input.pressing_D = App->input->GetKey(App->input->keyboard_buttons.buttons_code.RIGHT) == KEY_REPEAT;
-	player_input.pressing_I = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->CheckAxisStates(Axis::R_AXIS_UP);;
-	player_input.pressing_J = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->CheckAxisStates(Axis::R_AXIS_LEFT);
-	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->CheckAxisStates(Axis::R_AXIS_DOWN);
-	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->CheckAxisStates(Axis::R_AXIS_RIGHT);
-	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
-	player_input.pressing_V = App->input->GetKey(App->input->keyboard_buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN;;
+	player_input.pressing_I = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1;
+	player_input.pressing_J = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1;
+	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1;
+	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1;
+	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
+	player_input.pressing_V = App->input->GetKey(App->input->keyboard_buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN;;
 	
-	player_input.pressing_UP_LEFT = App->input->CheckAxisStates(Axis::R_AXIS_UP_LEFT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;;
-	player_input.pressing_UP_RIGHT = App->input->CheckAxisStates(Axis::R_AXIS_UP_RIGHT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
-	player_input.pressing_DOWN_LEFT = App->input->CheckAxisStates(Axis::R_AXIS_DOWN_LEFT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN;
-	player_input.pressing_DOWN_RIGHT = App->input->CheckAxisStates(Axis::R_AXIS_DOWN_RIGHT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
+	player_input.pressing_UP_LEFT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;
+	player_input.pressing_UP_RIGHT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
+	player_input.pressing_DOWN_LEFT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN;
+	player_input.pressing_DOWN_RIGHT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
 
 	
 	if (App->map->quest_rooms != nullptr &&App->map->quest_rooms->actual_room->room_type != RoomType::FOUNTAIN) {
-		player_input.pressing_SPACE = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
-		player_input.pressing_1 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILTY1) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.HABILTY1) == KEY_DOWN;
-		player_input.pressing_2 = App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.HABILITY2) == KEY_DOWN;
+		player_input.pressing_SPACE = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
+		player_input.pressing_1 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILTY1) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILTY1) == KEY_DOWN;
+		player_input.pressing_2 = App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILITY2) == KEY_DOWN;
 	}
 
-	if (!player_input.pressing_shift) {
+	/*if (!player_input.pressing_shift) {
 		if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT)) {
 			player_input.pressing_S = true;
 		}
@@ -1039,7 +1039,7 @@ void e1Player::QuestControls()
 		else if (App->input->CheckAxisStates(Axis::AXIS_LEFT)) {
 			player_input.pressing_A = true;
 		}
-	}
+	}*/
 	
 		
 }

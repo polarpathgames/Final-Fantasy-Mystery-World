@@ -433,7 +433,7 @@ bool e1StaticEntity::Update(float dt)
 					button_interact->SetPos(pos.x, pos.y);
 				}
 
-				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 					App->scene->player->state = State::IDLE;
 					App->easing_splines->CleanUp();
 					App->scene->player->BlockControls(true);

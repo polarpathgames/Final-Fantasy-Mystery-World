@@ -23,21 +23,24 @@ enum j1KeyState
 	KEY_UP
 };
 
+enum Orientation {
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+
+	ANY
+};
+
 struct axis {
 	float value = 0.f;
 	j1KeyState state = j1KeyState::KEY_IDLE;
-
-private:
-	void Update();
 };
 
 struct Joystick {
 	axis x;
 	axis y;
-
-	void UpdateState();
 };
-
 
 struct ButtonsUsed {
 
@@ -151,15 +154,26 @@ public:
 		return mouse_buttons[id - 1];
 	}
 
-	j1KeyState GetControllerButtonDown(int id) const
+	j1KeyState GetControllerButton(int id) const
 	{
 		return controller_buttons[id];
 	}
+	bool GetControllerButtonDown(int id)const {
+		return controller_buttons[id] == KEY_DOWN;
+	}
+	bool GetControllerButtonRepeat(int id)const {
+		return controller_buttons[id] == KEY_REPEAT;
+	}
+	bool GetControllerButtonUp(int id)const {
+		return controller_buttons[id] == KEY_UP;
+	}
+
+	bool GetAnyMovementKey();
 
 	float GetAxis(const SDL_GameControllerAxis &axis);
 	// * Return 0 if joystick is between dead zone, 1 if greater, -1 lower
 	int GetAxisRaw(const SDL_GameControllerAxis &axis);
-	bool GetAxisDown(const SDL_GameControllerAxis &axis);
+	bool GetAxisDown(const SDL_GameControllerAxis &axis, const Orientation &) const;
 	bool GetAxisUp(const SDL_GameControllerAxis &axis);
 
 	void DefaultControls();
