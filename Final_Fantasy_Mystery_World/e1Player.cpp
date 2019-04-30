@@ -93,7 +93,7 @@ bool e1Player::Load(pugi::xml_node &)
 	return true;
 }
 
-bool e1Player::Save(pugi::xml_node &) const
+bool e1Player::Save(pugi::xml_node & node) const
 {
 	return true;
 }

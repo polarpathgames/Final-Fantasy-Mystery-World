@@ -202,7 +202,9 @@ bool m1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_KP_3) == KEY_DOWN) {
 		App->win->scale = 3;
 	}
-		
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
+		App->SaveGame("save_game.xml");
+	}
 	App->map->Draw();
 	
 	switch (menu_state) {
@@ -472,11 +474,11 @@ void m1Scene::DestroyGoToQuestMenu()
 
 void m1Scene::ShitFunctionJAJA()
 {
-	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && !App->globals.CutSceneLobbyExplain && App->map->actual_map == Maps::LOBBY) {
+	/*if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && !App->globals.CutSceneLobbyExplain && App->map->actual_map == Maps::LOBBY) {
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyTutorial.xml");
 		App->globals.CutSceneLobbyExplain = true;
 		App->globals.Tutorial_first_time = false;
-	}
+	}*/
 }
 
 void m1Scene::CreateInventory()

@@ -18,6 +18,7 @@
 
 m1DialogSystem::m1DialogSystem()
 {
+	name.assign("dialogue");
 }
 m1DialogSystem::~m1DialogSystem()
 {
@@ -232,6 +233,56 @@ bool m1DialogSystem::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc
 	return ret;
 }
 
+bool m1DialogSystem::Load(pugi::xml_node& node)
+{
+	bool ret = true;
+
+
+
+
+	return ret;
+}
+
+bool m1DialogSystem::Save(pugi::xml_node& node) const
+{
+	 std::vector<DialogTree*>::const_iterator item = dialogTrees.cbegin();
+	 int trees = 0;
+	for (; item != dialogTrees.cend(); ++item)
+	{
+		pugi::xml_node t = node.append_child("dialogtree");
+		t.append_attribute("treeid") = (int)dialogTrees[trees]->treeid;
+		t.append_attribute("karma") = (int)dialogTrees[trees]->karma;
+		t.append_attribute("tag") = (int)dialogTrees[trees]->tag;
+		t.append_attribute("rect_x") = (int)dialogTrees[trees]->face.x;
+		t.append_attribute("rect_y") = (int)dialogTrees[trees]->face.y;
+		t.append_attribute("rect_w") = (int)dialogTrees[trees]->face.w;
+		t.append_attribute("rect_h") = (int)dialogTrees[trees]->face.h;
+		std::vector<DialogNode*>::const_iterator item2 = dialogTrees[trees]->dialogNodes.cbegin();
+		int nodes = 0;
+		for (; item2 != dialogTrees[trees]->dialogNodes.cend(); ++item2)
+		{
+			pugi::xml_node n = t.append_child("node");
+			n.append_attribute("line") = dialogTrees[trees]->dialogNodes[nodes]->text.data();
+			n.append_attribute("id") = (int)dialogTrees[trees]->dialogNodes[nodes]->id;
+			n.append_attribute("karma") = (int)dialogTrees[trees]->dialogNodes[nodes]->karma;
+			std::vector<DialogOption*>::const_iterator item3 = dialogTrees[trees]->dialogNodes[nodes]->dialogOptions.cbegin();
+			int options = 0;
+			for (; item3 != dialogTrees[trees]->dialogNodes[nodes]->dialogOptions.cend(); ++item3)
+			{
+				pugi::xml_node o = n.append_child("option");
+				o.append_attribute("line") = dialogTrees[trees]->dialogNodes[nodes]->dialogOptions[options]->text.data();
+				o.append_attribute("nextnode") = (int)dialogTrees[trees]->dialogNodes[nodes]->dialogOptions[options]->nextnode;
+				o.append_attribute("karma") = (int)dialogTrees[trees]->dialogNodes[nodes]->dialogOptions[options]->karma;
+				o.append_attribute("tag") = (int)dialogTrees[trees]->dialogNodes[nodes]->dialogOptions[options]->tag;
+				options++;
+			}
+			nodes++;
+		}
+		trees++;
+	}
+	return true;
+}
+
 bool m1DialogSystem::Interact(u1GUI* interaction)
 {
 	bool ret = true;
@@ -302,6 +353,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			   case -3://SAVE FUNCTION
 				   //Save function
 				   App->scene->player->BlockControls(false);
+				   App->SaveGame("save_game.xml");
 				   break;
 			   case 30: //old statue tutorial diagonal
 				   App->scene->CreateHelpDiagonalMenu();

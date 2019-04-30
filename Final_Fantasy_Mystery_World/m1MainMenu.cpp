@@ -24,7 +24,10 @@
 #include "m1Audio.h"
 #include "m1Window.h"
 
-m1MainMenu::m1MainMenu(){}
+m1MainMenu::m1MainMenu()
+{
+	name.assign("main_menu");
+}
 
 m1MainMenu::~m1MainMenu(){}
 
@@ -60,7 +63,6 @@ bool m1MainMenu::Update(float dt)
 		delete App->scene->control_to_change;
 		App->scene->control_to_change = nullptr;
 	}
-
 	return true;
 }
 
