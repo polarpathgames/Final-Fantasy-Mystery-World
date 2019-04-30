@@ -40,6 +40,13 @@ struct ChangeScene {
 	uint id_next_room = 0;
 };
 
+struct MapIndicators {
+	MapIndicators(const int &x, const int &y, const std::string indicator_type,u1Image * image) : location(x,y), indicator_image(image), indicator_type(indicator_type) {}
+	iPoint location{ 0,0 };
+	u1Image * indicator_image = nullptr;
+	std::string indicator_type;
+};
+
 class Room {
 
 public:
@@ -49,17 +56,24 @@ public:
 
 
 public:
+
 	std::string tmx_location;  
-	uint id = 0u; 
-	std::vector<ChangeScene*> change_scene_points; 
-	bool active = false;
-	RoomType room_type = RoomType::NONE;
 	std::string cutscene_location;
-	std::vector<iPoint> entities;
-	bool door_closed = false;
+
+	uint id = 0u; 
 	uint update_number = 0u;
+
+	std::vector<ChangeScene*> change_scene_points; 
+	std::vector<iPoint> entities;
+	std::vector<MapIndicators*> map_indicators;
+
+	bool active = false;
+	bool door_closed = false;
+	
+	RoomType room_type = RoomType::NONE;
+	
 	u1Image * map_room_image = nullptr;
-	iPoint mid_point{ 0,0 };
+
 };
 
 class RoomManager {
@@ -101,7 +115,7 @@ public:
 private:
 
 	u1Image * map_background = nullptr;
-	SDL_Rect map_zone = { 0,0,0,0 };
+
 
 
 };

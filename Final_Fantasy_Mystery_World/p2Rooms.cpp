@@ -52,6 +52,19 @@ Room::~Room()
 		(*item) = nullptr;
 	}
 	change_scene_points.clear();
+
+	std::vector<MapIndicators*>::iterator it = map_indicators.begin();
+	for (; it != map_indicators.end(); ++it) {
+		if ((*it) != nullptr) {
+			if ((*it)->indicator_image != nullptr)
+				(*it)->indicator_image->to_delete = true;
+			delete (*it);
+			(*it) = nullptr;
+		}
+
+	}
+	map_indicators.clear();
+
 	entities.clear();
 }
 
@@ -73,7 +86,6 @@ RoomManager::RoomManager(const char* name)
 		LOG("XML was loaded succesfully!");
 
 		map_background = App->gui->AddImage(100, 100, { 200,1736,(int)App->win->width - 200, (int)App->win->height - 200 }, nullptr, App->gui->screen, false, false, false, false);
-		map_zone = { 100,100,(int)App->win->width - 200, (int)App->win->height - 200 };
 
 		for (pugi::xml_node room_node = room_manager_file.child("room_manager").child(name).child("room"); room_node; room_node = room_node.next_sibling("room")) {
 			Room * r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_uint(), room_node.child("type").child_value(),
@@ -90,7 +102,7 @@ RoomManager::RoomManager(const char* name)
 
 RoomManager::~RoomManager()
 {
-
+	map_background->to_delete = true;
 }
 
 void RoomManager::OnCollision(Collider * c1, Collider * c2)
@@ -230,12 +242,13 @@ void RoomManager::LoadRoom(const int & id)
 	if (App->map->CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
 
+	LoadColliders();
+	UpdateMap();
 	LoadEntities();
 	PlacePlayer();
-	LoadColliders();
 	PlayMusic();
 	PlayCutScene();
-	UpdateMap();
+	
 }
 
 void RoomManager::LoadEntities()
@@ -265,18 +278,60 @@ void RoomManager::LoadEntities()
 				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
 				if (std::find(actual_room->entities.begin(), actual_room->entities.end(), point) == actual_room->entities.end()) {
 					App->entity_manager->CreateEntity(e1Entity::EntityType::CARNIVOROUS_PLANT, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+					std::vector<MapIndicators*>::iterator item = actual_room->map_indicators.begin();
+					bool created = false;
+					for (; item != actual_room->map_indicators.end(); ++item) {
+						if ((*item) != nullptr) {
+							if ((*item)->location == point) {
+								created = true;
+								break;
+							}
+						}
+					}
+					if (!created) {
+						MapIndicators* indicator = new MapIndicators(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, "enemy", App->gui->AddImage(0, 0, { 1392,2123,13,13 }, nullptr, actual_room->map_room_image, false, false, false, false));
+						actual_room->map_indicators.push_back(indicator);
+					}
 				}
 			}
 			else if ((*position)->ent_type == "BlueDog") {
 				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
 				if (std::find(actual_room->entities.begin(), actual_room->entities.end(), point) == actual_room->entities.end()) {
 					App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_DOG, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+					std::vector<MapIndicators*>::iterator item = actual_room->map_indicators.begin();
+					bool created = false;
+					for (; item != actual_room->map_indicators.end(); ++item) {
+						if ((*item) != nullptr) {
+							if ((*item)->location == point) {
+								created = true;
+								break;
+							}
+						}
+					}
+					if (!created) {
+						MapIndicators* indicator = new MapIndicators(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, "enemy", App->gui->AddImage(0, 0, { 1392,2123,13,13 }, nullptr, actual_room->map_room_image, false, false, false, false));
+						actual_room->map_indicators.push_back(indicator);
+					}
 				}
 			}
 			else if ((*position)->ent_type == "StrangeFrog") {
 				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
 				if (std::find(actual_room->entities.begin(),actual_room->entities.end(),point) == actual_room->entities.end()) {
 					App->entity_manager->CreateEntity(e1Entity::EntityType::STRANGE_FROG, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+					std::vector<MapIndicators*>::iterator item = actual_room->map_indicators.begin();
+					bool created = false;
+					for (; item != actual_room->map_indicators.end(); ++item) {
+						if ((*item) != nullptr) {
+							if ((*item)->location == point) {
+								created = true;
+								break;
+							}
+						}
+					}
+					if (!created) {
+						MapIndicators* indicator = new MapIndicators(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, "enemy", App->gui->AddImage(0, 0, { 1392,2123,13,13 }, nullptr, actual_room->map_room_image, false, false, false, false));
+						actual_room->map_indicators.push_back(indicator);
+					}
 				}
 			}
 		}
@@ -469,6 +524,17 @@ void RoomManager::UpdateMap()
 void RoomManager::AddEntityToNotRepeat(iPoint pos)
 {
 	actual_room->entities.push_back(pos);
+
+	std::vector<MapIndicators*>::iterator item = actual_room->map_indicators.begin();
+	for (; item != actual_room->map_indicators.end(); ++item) {
+		if ((*item) != nullptr && (*item)->indicator_image != nullptr && pos == (*item)->location) {
+			(*item)->indicator_image->to_delete = true;
+			delete (*item);
+			(*item) = nullptr;
+			actual_room->map_indicators.erase(item);
+			break;
+		}
+	}
 }
 
 void RoomManager::UpdateRoomEvents()
@@ -487,6 +553,10 @@ void RoomManager::UpdateRoomEvents()
 			for (; item != rooms.end(); ++item) {
 				if ((*item) != nullptr && (*item)->map_room_image != nullptr) {
 					(*item)->map_room_image->drawable = false;
+					std::vector<MapIndicators*>::iterator it = (*item)->map_indicators.begin();
+					for (; it != (*item)->map_indicators.end(); ++it) {
+						(*it)->indicator_image->drawable = false;
+					}
 				}
 			}
 			App->scene->player->BlockControls(false);
@@ -498,11 +568,30 @@ void RoomManager::UpdateRoomEvents()
 			distance_y = actual_room->map_room_image->GetLocalPosition().y - distance_y;
 			map_background->drawable = true;
 			actual_room->map_room_image->drawable = true;
+			std::vector<MapIndicators*>::iterator it = actual_room->map_indicators.begin();
+			int cont = 0;
+			for (; it != actual_room->map_indicators.end(); ++it) {
+				if ((*it) != nullptr && (*it)->indicator_image != nullptr) {
+					(*it)->indicator_image->SetPosRespectParent((Position_Type)cont);
+					(*it)->indicator_image->drawable = true;
+					++cont;
+				}
+			}
 			std::vector<Room*>::iterator item = rooms.begin();
+			
 			for (; item != rooms.end(); ++item) {
 				if ((*item) != nullptr && (*item)->map_room_image != nullptr && (*item) != actual_room) {
 					(*item)->map_room_image->drawable = true;
 					(*item)->map_room_image->SetPos((*item)->map_room_image->GetLocalPosition().x + distance_x, (*item)->map_room_image->GetLocalPosition().y + distance_y);
+					std::vector<MapIndicators*>::iterator ind = (*item)->map_indicators.begin();
+					cont = 0;
+					for (; ind != (*item)->map_indicators.end(); ++ind) {
+						if ((*ind) != nullptr && (*ind)->indicator_image != nullptr) {
+							(*ind)->indicator_image->SetPosRespectParent((Position_Type)cont);
+							(*ind)->indicator_image->drawable = true;
+							++cont;
+						}
+					}
 				}
 			}
 			App->scene->player->BlockControls(true);
