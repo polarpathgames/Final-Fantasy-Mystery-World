@@ -543,6 +543,16 @@ void RoomManager::AddEntityToNotRepeat(iPoint pos)
 	}
 }
 
+void RoomManager::AddDrop(iPoint pos, DropsType type)
+{
+
+}
+
+void RoomManager::DeleteDrop(iPoint pos, DropsType type)
+{
+	
+}
+
 void RoomManager::UpdateRoomEvents()
 {
 

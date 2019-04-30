@@ -6,7 +6,7 @@
 #include <vector>
 #include "SDL_mixer/include/SDL_mixer.h"
 #include "e1Enemy.h"
-#include <map>
+#include "e1Drop.h"
 #include "SDL/include/SDL_rect.h"
 
 class u1Image;
@@ -32,6 +32,7 @@ enum class RoomType {
 };
 
 enum COLLIDER_TYPE;
+
 
 struct ChangeScene {
 	ChangeScene(const int & x, const int &y, LocationChangeScene type, const uint &id);
@@ -87,6 +88,8 @@ public:
 	bool ChangeRoom(COLLIDER_TYPE type, bool debug_change = false);
 	void LoadRoom(const int & id);
 	void AddEntityToNotRepeat(iPoint pos);
+	void AddDrop(iPoint pos, DropsType type);
+	void DeleteDrop(iPoint pos, DropsType type);
 	void UpdateRoomEvents();
 
 private:
