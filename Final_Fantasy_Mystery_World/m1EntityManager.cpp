@@ -382,7 +382,7 @@ bool m1EntityManager::Load(pugi::xml_node& load)
 	std::vector<e1Entity*>::const_iterator item = entities.cbegin();
 	for (; item != entities.cend(); ++item)
 	{
-		if ((*item)->type == e1Entity::EntityType::PLAYER)
+		if ((*item)->type == e1Entity::EntityType::MAGE || (*item)->type == e1Entity::EntityType::ARCHER || (*item)->type == e1Entity::EntityType::WARRIOR || (*item)->type == e1Entity::EntityType::PLAYER)
 		{
 			(*item)->Load(load);
 			break;
@@ -398,7 +398,7 @@ bool m1EntityManager::Save(pugi::xml_node& save) const
 	std::vector<e1Entity*>::const_iterator item = entities.cbegin();
 	for (; item != entities.cend(); ++item)
 	{
-		if ((*item)->type == e1Entity::EntityType::PLAYER)
+		if ((*item)->type == e1Entity::EntityType::MAGE || (*item)->type == e1Entity::EntityType::ARCHER || (*item)->type == e1Entity::EntityType::WARRIOR || (*item)->type == e1Entity::EntityType::PLAYER)
 		{
 			(*item)->Save(save);
 			break;
