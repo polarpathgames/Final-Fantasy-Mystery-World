@@ -122,8 +122,8 @@ int m1Input::GetAxisRaw(const SDL_GameControllerAxis & axis)
 int m1Input::GetAxisDown(const SDL_GameControllerAxis & axis) const
 {
 	if (joy[axis].state == KEY_DOWN) {
-		if (joy[axis].value < 0.0f - DEAD_ZONE) return -1;
-		else if (joy[axis].value > 0.0f + DEAD_ZONE) return 1;
+		if (joy[axis].value < - DEAD_ZONE) return -1;
+		else if (joy[axis].value > + DEAD_ZONE) return 1;
 	}
 	return 0;
 }
@@ -369,7 +369,7 @@ void m1Input::UpdateController()
 	if (Controller != nullptr) {
 
 		for (int i = 0; i < SDL_CONTROLLER_AXIS_MAX; ++i) {
-			joy[i].value = SDL_GameControllerGetAxis(Controller, (SDL_GameControllerAxis)i) / 32767;
+			joy[i].value = SDL_GameControllerGetAxis(Controller, (SDL_GameControllerAxis)i)/* / 32767*/;
 			
 			if (IN_RANGE(joy[i].value,-DEAD_ZONE,DEAD_ZONE)) {
 				if (joy[i].state == KEY_REPEAT) {
@@ -388,6 +388,7 @@ void m1Input::UpdateController()
 				}
 			}
 		}
+		//LOG("left_joy: (%i, %i)", joy[SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX].value, joy[SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY].value);
 	}
 }
 

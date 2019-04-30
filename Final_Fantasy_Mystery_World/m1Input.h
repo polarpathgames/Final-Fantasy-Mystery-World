@@ -10,7 +10,7 @@
 //#define NUM_KEYS 352
 #define NUM_CONTROLLER_BUTTONS SDL_CONTROLLER_BUTTON_MAX //16
 #define NUM_MOUSE_BUTTONS 5
-#define DEAD_ZONE 0.2f
+#define DEAD_ZONE 25000 // 0 - 32767
 //#define LAST_KEYS_PRESSED_BUFFER 50
 
 struct SDL_Rect;
@@ -23,23 +23,9 @@ enum j1KeyState
 	KEY_UP
 };
 
-enum Orientation {
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT,
-
-	ANY
-};
-
 struct axis {
-	float value = 0.f;
+	int value = 0;
 	j1KeyState state = j1KeyState::KEY_IDLE;
-};
-
-struct Joystick {
-	axis x;
-	axis y;
 };
 
 struct ButtonsUsed {
