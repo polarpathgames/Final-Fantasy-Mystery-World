@@ -289,7 +289,7 @@ void RoomManager::LoadEntities()
 						}
 					}
 					if (!created) {
-						MapIndicators* indicator = new MapIndicators(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, "enemy", App->gui->AddImage(0, 0, { 1392,2123,13,13 }, nullptr, actual_room->map_room_image, false, false, false, false));
+						MapIndicators* indicator = DBG_NEW MapIndicators(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, "enemy", App->gui->AddImage(0, 0, { 1392,2123,13,13 }, nullptr, actual_room->map_room_image, false, false, false, false));
 						actual_room->map_indicators.push_back(indicator);
 					}
 				}
@@ -309,7 +309,7 @@ void RoomManager::LoadEntities()
 						}
 					}
 					if (!created) {
-						MapIndicators* indicator = new MapIndicators(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, "enemy", App->gui->AddImage(0, 0, { 1392,2123,13,13 }, nullptr, actual_room->map_room_image, false, false, false, false));
+						MapIndicators* indicator = DBG_NEW MapIndicators(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, "enemy", App->gui->AddImage(0, 0, { 1392,2123,13,13 }, nullptr, actual_room->map_room_image, false, false, false, false));
 						actual_room->map_indicators.push_back(indicator);
 					}
 				}
@@ -329,7 +329,7 @@ void RoomManager::LoadEntities()
 						}
 					}
 					if (!created) {
-						MapIndicators* indicator = new MapIndicators(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, "enemy", App->gui->AddImage(0, 0, { 1392,2123,13,13 }, nullptr, actual_room->map_room_image, false, false, false, false));
+						MapIndicators* indicator = DBG_NEW MapIndicators(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, "enemy", App->gui->AddImage(0, 0, { 1392,2123,13,13 }, nullptr, actual_room->map_room_image, false, false, false, false));
 						actual_room->map_indicators.push_back(indicator);
 					}
 				}
@@ -516,6 +516,12 @@ void RoomManager::UpdateMap()
 						}
 					}
 				}
+			}
+		}
+		if (actual_room->room_type == RoomType::FOUNTAIN) {
+			if (actual_room->map_indicators.size() == 0) {
+				MapIndicators* indicator = DBG_NEW MapIndicators(0, 0, "fountain", App->gui->AddImage(0, 0, { 1405,2123,13,13 }, nullptr, actual_room->map_room_image, false, false, false, false));
+				actual_room->map_indicators.push_back(indicator);
 			}
 		}
 	}
