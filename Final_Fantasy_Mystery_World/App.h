@@ -29,6 +29,7 @@ class m1EasingSplines;
 class m1DialogSystem;
 class m1CutScene;
 class m1ParticleManager;
+class m1MenuManager;
 
 struct GlobalGameAdvances
 {
@@ -154,6 +155,7 @@ public:
 	m1DialogSystem*     dialog = nullptr;
 	m1CutScene*			cutscene_manager = nullptr;
 	m1ParticleManager*	particles = nullptr;
+	m1MenuManager*		menu_manager = nullptr;
 	GlobalGameAdvances  globals;
 	Random random;
 

@@ -14,6 +14,7 @@
 #include "u1Button.h"
 #include "u1Image.h"
 #include "m1EntityManager.h"
+#include "m1MenuManager.h"
 #include "Brofiler/Brofiler.h"
 
 m1DialogSystem::m1DialogSystem()
@@ -258,7 +259,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			   switch (dialogTrees[treeid]->tag)
 			   {
 			   case 1: // SHOP
-				   App->scene->CreateShopMenu();
+				   App->menu_manager->CreateShopMenu();
 				   App->scene->SetMenuState(StatesMenu::SHOP_MENU);
 				   break;
 			   case -2: //FOUNTAIN MANA
@@ -304,15 +305,15 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->scene->player->BlockControls(false);
 				   break;
 			   case 30: //old statue tutorial diagonal
-				   App->scene->CreateHelpDiagonalMenu();
+				   App->menu_manager->CreateHelpDiagonalMenu();
 				   App->scene->SetMenuState(StatesMenu::HELP_DIAGONAL_MENU);
 				   break;
 			   case 60: //old statue tutorial ATTACK
-				   App->scene->CreateHelpAttackMenu();
+				   App->menu_manager->CreateHelpAttackMenu();
 				   App->scene->SetMenuState(StatesMenu::HELP_ATTACK_MENU);
 				   break;
 			   case 90: //old statue tutorial ATTACK
-				   App->scene->CreateHelpAbilityMenu();
+				   App->menu_manager->CreateHelpAbilityMenu();
 				   App->scene->SetMenuState(StatesMenu::HELP_ABILITY_MENU);
 				   break;
 			   default:

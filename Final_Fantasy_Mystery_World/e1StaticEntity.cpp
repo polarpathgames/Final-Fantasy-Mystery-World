@@ -15,6 +15,7 @@
 #include "m1GUI.h"
 #include "m1Window.h"
 #include "u1Image.h"
+#include "m1Textures.h"
 
 e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 {
@@ -370,6 +371,9 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	}
 
 	type = e1Entity::EntityType::STATIC;
+	data.tileset.imagePath.assign("assets/maps/static_objects_tileset.png");
+	data.tileset.texture = App->tex->Load(data.tileset.imagePath.data());
+	
 }
 
 e1StaticEntity::~e1StaticEntity()
@@ -385,15 +389,15 @@ e1StaticEntity::~e1StaticEntity()
 	}
 }
 
-void e1StaticEntity::Draw(SDL_Texture * tex, float dt)
+void e1StaticEntity::Draw(float dt)
 {
 	if (has_animation) {
-		App->render->Blit(tex, position.x, position.y, &current_animation->GetCurrentFrame(dt), true);
+		App->render->Blit(data.tileset.texture, position.x, position.y, &current_animation->GetCurrentFrame(dt), true);
 	
 
 	}
 	else {
-		App->render->Blit(tex, position.x, position.y, &frame, true);
+		App->render->Blit(data.tileset.texture, position.x, position.y, &frame, true);
 		//App->render->Blit(App->scene->player->ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 	}
 }
@@ -429,7 +433,7 @@ bool e1StaticEntity::Update(float dt)
 					button_interact->SetPos(pos.x, pos.y);
 				}
 
-				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 					App->scene->player->state = State::IDLE;
 					App->easing_splines->CleanUp();
 					App->scene->player->BlockControls(true);

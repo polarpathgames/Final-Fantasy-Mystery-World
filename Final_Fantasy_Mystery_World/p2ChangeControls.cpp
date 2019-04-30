@@ -48,98 +48,98 @@ bool ChangeControls::ChangeControl()
 
 bool ChangeControls::ChangingController()
 {
-	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_AXIS_TRIGGERLEFT) == KEY_DOWN) {
+	if (App->input->GetControllerButton(SDL_CONTROLLER_AXIS_TRIGGERLEFT) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("LT")) {
 			SetSaveText("LT");
 			*code_to_change = SDL_CONTROLLER_AXIS_TRIGGERLEFT;
 			return false;
 		}
 	}
-	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN) {
+	if (App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("LB")) {
 			SetSaveText("LB");
 			*code_to_change = SDL_CONTROLLER_BUTTON_LEFTSHOULDER;
 			return false;
 		}
 	}
-	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_AXIS_TRIGGERRIGHT) == KEY_DOWN) {
+	if (App->input->GetControllerButton(SDL_CONTROLLER_AXIS_TRIGGERRIGHT) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("RT")) {
 			SetSaveText("RT");
 			*code_to_change = SDL_CONTROLLER_AXIS_TRIGGERRIGHT;
 			return false;
 		}
 	}
-	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_DOWN) {
+	if (App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("RB")) {
 			SetSaveText("RB");
 			*code_to_change = SDL_CONTROLLER_BUTTON_RIGHTSHOULDER;
 			return false;
 		}
 	}
-	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+	if (App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("A")) {
 			SetSaveText("A");
 			*code_to_change = SDL_CONTROLLER_BUTTON_A;
 			return false;
 		}
 	}
-	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+	if (App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("B")) {
 			SetSaveText("B");
 			*code_to_change = SDL_CONTROLLER_BUTTON_B;
 			return false;
 		}
 	}
-	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
+	if (App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("X")) {
 			SetSaveText("X");
 			*code_to_change = SDL_CONTROLLER_BUTTON_X;
 			return false;
 		}
 	}
-	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_Y) == KEY_DOWN) {
+	if (App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_Y) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("Y")) {
 			SetSaveText("Y");
 			*code_to_change = SDL_CONTROLLER_BUTTON_Y;
 			return false;
 		}
 	}
-	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) {
+	if (App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("D-PAD DOWN")) {
 			SetSaveText("D-PAD DOWN");
 			*code_to_change = SDL_CONTROLLER_BUTTON_DPAD_DOWN;
 			return false;
 		}
 	}
-	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN) {
+	if (App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("D-PAD UP")) {
 			SetSaveText("D-PAD UP");
 			*code_to_change = SDL_CONTROLLER_BUTTON_DPAD_UP;
 			return false;
 		}
 	}
-	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) {
+	if (App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("D-PAD RIGHT")) {
 			SetSaveText("D-PAD RIGHT");
 			*code_to_change = SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
 			return false;
 		}
 	}
-	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) {
+	if (App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("D-PAD LEFT")) {
 			SetSaveText("D-PAD LEFT");
 			*code_to_change = SDL_CONTROLLER_BUTTON_DPAD_LEFT;
 			return false;
 		}
 	}
-	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_LEFTSTICK) == KEY_DOWN) {
+	if (App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_LEFTSTICK) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("L-STICK")) {
 			SetSaveText("L-STICK");
 			*code_to_change = SDL_CONTROLLER_BUTTON_LEFTSTICK;
 			return false;
 		}
 	}
-	if (App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_RIGHTSTICK) == KEY_DOWN) {
+	if (App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_RIGHTSTICK) == KEY_DOWN) {
 		if (LookForOtherControlsBeSame("R-STICK")) {
 			SetSaveText("R-STICK");
 			*code_to_change = SDL_CONTROLLER_BUTTON_RIGHTSTICK;

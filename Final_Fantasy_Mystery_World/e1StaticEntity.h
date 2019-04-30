@@ -80,7 +80,7 @@ public:
 	
 private:
 
-	void Draw(SDL_Texture* tex, float dt);
+	void Draw(float dt);
 	void SetRect(int x, int y, int w, int h);
 
 public:

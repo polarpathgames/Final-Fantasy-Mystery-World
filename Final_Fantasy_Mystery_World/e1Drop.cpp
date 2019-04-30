@@ -9,6 +9,7 @@
 #include "Brofiler/Brofiler.h"
 #include "m1Render.h"
 #include "m1Map.h"
+#include "m1MenuManager.h"
 
 e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity(x,y,name)
 {
@@ -75,7 +76,7 @@ bool e1Drop::Update(float adt)
 		{
 			App->globals.ability1_gained = true;
 			App->scene->player->BlockControls(true);
-			App->scene->CreateHelpAbilityMenu();
+			App->menu_manager->CreateHelpAbilityMenu();
 			App->scene->SetMenuState(StatesMenu::FIRSTABILITY_MENU);
 			to_delete = true;
 			break;
