@@ -173,7 +173,7 @@ public:
 	float GetAxis(const SDL_GameControllerAxis &axis);
 	// * Return 0 if joystick is between dead zone, 1 if greater, -1 lower
 	int GetAxisRaw(const SDL_GameControllerAxis &axis);
-	bool GetAxisDown(const SDL_GameControllerAxis &axis, const Orientation &) const;
+	int GetAxisDown(const SDL_GameControllerAxis &axis) const;
 	bool GetAxisUp(const SDL_GameControllerAxis &axis);
 
 	void DefaultControls();

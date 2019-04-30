@@ -92,10 +92,10 @@ bool m1Input::GetAnyMovementKey()
 		App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_DOWN) ||
 		App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_LEFT) ||
 		App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) ||
-		App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX, ANY) ||
-		App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY, ANY) ||
-		App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX, ANY) ||
-		App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY, ANY);
+		App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) ||
+		App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) ||
+		App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) ||
+		App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY);
 
 }
 
@@ -119,17 +119,13 @@ int m1Input::GetAxisRaw(const SDL_GameControllerAxis & axis)
 	}
 }
 
-bool m1Input::GetAxisDown(const SDL_GameControllerAxis & axis, const Orientation &orien) const
+int m1Input::GetAxisDown(const SDL_GameControllerAxis & axis) const
 {
-	if (orien == UP || orien == LEFT) {
-		return joy[axis].value < 0.0f - DEAD_ZONE && joy[axis].state == KEY_DOWN;
+	if (joy[axis].state == KEY_DOWN) {
+		if (joy[axis].value < 0.0f - DEAD_ZONE) return -1;
+		else if (joy[axis].value > 0.0f + DEAD_ZONE) return 1;
 	}
-	else if (orien == DOWN || orien == RIGHT) {
-		return joy[axis].value > 0.0f + DEAD_ZONE && joy[axis].state == KEY_DOWN;
-	}
-	else {
-		return joy[axis].state == KEY_DOWN;
-	}
+	return 0;
 }
 
 bool m1Input::GetAxisUp(const SDL_GameControllerAxis & axis)
@@ -375,7 +371,7 @@ void m1Input::UpdateController()
 		for (int i = 0; i < SDL_CONTROLLER_AXIS_MAX; ++i) {
 			joy[i].value = SDL_GameControllerGetAxis(Controller, (SDL_GameControllerAxis)i) / 32767;
 			
-			if (!IN_RANGE(joy[i].value,-DEAD_ZONE,DEAD_ZONE)) {
+			if (IN_RANGE(joy[i].value,-DEAD_ZONE,DEAD_ZONE)) {
 				if (joy[i].state == KEY_REPEAT) {
 					joy[i].state = KEY_UP;
 				}
@@ -392,8 +388,6 @@ void m1Input::UpdateController()
 				}
 			}
 		}
-		LOG("l_joy x: %f y: %f\nr_joy x: %f y: %f", GetAxis(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX), GetAxis(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY),
-			GetAxis(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX), GetAxis(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY));
 	}
 }
 
