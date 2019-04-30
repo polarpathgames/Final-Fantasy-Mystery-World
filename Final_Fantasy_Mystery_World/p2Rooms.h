@@ -59,6 +59,7 @@ public:
 	bool door_closed = false;
 	uint update_number = 0u;
 	u1Image * map_room_image = nullptr;
+	iPoint mid_point{ 0,0 };
 };
 
 class RoomManager {

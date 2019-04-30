@@ -493,7 +493,7 @@ void RoomManager::UpdateRoomEvents()
 		}
 		else {
 			int distance_x = actual_room->map_room_image->GetLocalPosition().x, distance_y = actual_room->map_room_image->GetLocalPosition().y;
-			actual_room->map_room_image->SetPos(map_background->section.w / 2 - actual_room->map_room_image->section.w / 2, map_background->section.h / 2 - actual_room->map_room_image->section.h / 2);
+			actual_room->map_room_image->SetPosRespectParent(CENTERED);
 			distance_x = actual_room->map_room_image->GetLocalPosition().x - distance_x;
 			distance_y = actual_room->map_room_image->GetLocalPosition().y - distance_y;
 			map_background->drawable = true;
