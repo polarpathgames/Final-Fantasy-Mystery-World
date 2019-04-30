@@ -4,6 +4,7 @@
 #include "e1Player.h"
 #include "m1Audio.h"
 #include "m1EntityManager.h"
+#include "p2Rooms.h"
 #include "p2Log.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Render.h"
@@ -19,6 +20,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		CenterOnTile();
+
 	}
 	else if (strcmp(name, "ability1") == 0 && App->globals.ability1_gained == false) {
 		drop_type = DropsType::ABILITY1;
@@ -47,6 +49,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		CenterOnTile();
+
 	}
 	original_position = position;
 }
