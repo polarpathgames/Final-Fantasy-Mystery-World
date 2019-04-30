@@ -48,6 +48,12 @@ struct MapIndicators {
 	std::string indicator_type;
 };
 
+struct DropInfo {
+	DropInfo(const int &x, const int &y, const DropsType &type) : location(x,y), type(type) {}
+	iPoint location{ 0,0 };
+	DropsType type = DropsType::NONE;
+};
+
 class Room {
 
 public:
@@ -66,6 +72,7 @@ public:
 
 	std::vector<ChangeScene*> change_scene_points; 
 	std::vector<iPoint> entities;
+	std::vector<DropInfo*> drops;
 	std::vector<MapIndicators*> map_indicators;
 
 	bool active = false;

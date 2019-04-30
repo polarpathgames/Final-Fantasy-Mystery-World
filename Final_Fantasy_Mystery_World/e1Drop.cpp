@@ -41,6 +41,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		CenterOnTile();
+
 	}
 	else if (strcmp(name, "mana_potion") == 0) {
 		actual_tile = { x,y };
@@ -68,6 +69,7 @@ bool e1Drop::Update(float adt)
 		{
 			App->audio->PlayFx(App->scene->fx_drop_pick_up);
 			App->scene->player->AugmentGold(gold);
+			App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
 			to_delete = true;
 			break;
 		}
@@ -83,12 +85,14 @@ bool e1Drop::Update(float adt)
 		case DropsType::HEALTH_POTION:
 		{
 			App->scene->player->stats.num_hp_potions++;
+			App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
 			to_delete = true;
 			break;
 		}
 		case DropsType::MANA_POTION:
 		{
 			App->scene->player->stats.num_mana_potions++;
+			App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
 			to_delete = true;
 			break;
 		}

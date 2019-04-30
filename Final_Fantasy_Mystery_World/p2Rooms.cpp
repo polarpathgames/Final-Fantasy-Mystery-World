@@ -336,6 +336,24 @@ void RoomManager::LoadEntities()
 			}
 		}
 	}
+	std::vector<DropInfo*>::iterator item = actual_room->drops.begin();
+	for (; item != actual_room->drops.end(); ++item) {
+		if ((*item) != nullptr) {
+			switch ((*item)->type) {
+			case DropsType::GOLD_DROP: {
+				int drop_gold = App->random.Generate(20, 50);
+				e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, (*item)->location.x, (*item)->location.y, "gold");
+				drop->SetGold(drop_gold);
+				break; }
+			case DropsType::HEALTH_POTION:
+				App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, (*item)->location.x, (*item)->location.y, "health_potion");
+				break;
+			case DropsType::MANA_POTION:
+				App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, (*item)->location.x, (*item)->location.y, "mana_potion");
+				break;
+			}
+		}
+	}
 }
 
 void RoomManager::PlacePlayer() // place player in front of the door
@@ -545,12 +563,21 @@ void RoomManager::AddEntityToNotRepeat(iPoint pos)
 
 void RoomManager::AddDrop(iPoint pos, DropsType type)
 {
-
+	DropInfo* drop = DBG_NEW DropInfo(pos.x, pos.y, type);
+	actual_room->drops.push_back(drop);
 }
 
 void RoomManager::DeleteDrop(iPoint pos, DropsType type)
 {
-	
+	std::vector<DropInfo*>::iterator item = actual_room->drops.begin();
+	for (; item != actual_room->drops.end(); ++item) {
+		if ((*item) != nullptr && (*item)->location == pos && (*item)->type == type) {
+			delete (*item);
+			(*item) = nullptr;
+			actual_room->drops.erase(item);
+			break;
+		}
+	}
 }
 
 void RoomManager::UpdateRoomEvents()
