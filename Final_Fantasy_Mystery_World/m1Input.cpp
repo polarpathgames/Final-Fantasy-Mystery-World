@@ -78,6 +78,36 @@ bool m1Input::Start()
 	return true;
 }
 
+float m1Input::GetAxis(const SDL_GameControllerAxis & axis)
+{
+	return joy[axis].value;
+}
+
+int m1Input::GetAxisRaw(const SDL_GameControllerAxis & axis)
+{
+	if (IN_RANGE(joy[axis].value, -DEAD_ZONE, DEAD_ZONE)) {
+		return 0;
+	}
+	else {
+		if (joy[axis].value <= -DEAD_ZONE) {
+			return -1;
+		}
+		else if (joy[axis].value >= DEAD_ZONE) {
+			return 1;
+		}
+	}
+}
+
+bool m1Input::GetAxisDown(const SDL_GameControllerAxis & axis)
+{
+	return joy[axis].state == KEY_DOWN;
+}
+
+bool m1Input::GetAxisUp(const SDL_GameControllerAxis & axis)
+{
+	return joy[axis].state == KEY_UP;
+}
+
 void m1Input::DefaultControls()
 {
 	keyboard_buttons.buttons_code.BASIC_ATTACK = SDL_SCANCODE_SPACE;
@@ -289,8 +319,8 @@ void m1Input::UpdateEvents(SDL_Event &event)
 				haptic = nullptr;
 				SDL_GameControllerClose(Controller);
 				Controller = nullptr;
-				break;
 			}
+			break;
 		}
 
 	}
@@ -313,22 +343,26 @@ void m1Input::UpdateController()
 	//axis
 	if (Controller != nullptr) {
 
-		if (left_joy.x.state == KEY_DOWN)
-			left_joy.x.state = KEY_REPEAT;
-
-		if (left_joy.x.state == KEY_UP)
-			left_joy.x.state = KEY_IDLE;
-
-		left_joy.x.value = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTX);
-		left_joy.y.value = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTY);
-		right_joy.x.value = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_RIGHTX);
-		right_joy.y.value = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_RIGHTY);
-
-		left_joy.UpdateState();
-		right_joy.UpdateState();
-
-		if (left_joy.x.value != 0 || left_joy.x.state != KEY_IDLE)
-			LOG("Left Joy: val: %i state: %i", left_joy.x.value, left_joy.x.state);
+		for (int i = 0; i < SDL_CONTROLLER_AXIS_MAX; ++i) {
+			joy[i].value = SDL_GameControllerGetAxis(Controller, (SDL_GameControllerAxis)i) / 32768;
+			
+			if (!IN_RANGE(joy[i].value,-DEAD_ZONE,DEAD_ZONE)) {
+				if (joy[i].state == KEY_REPEAT) {
+					joy[i].state = KEY_UP;
+				}
+				else {
+					joy[i].state = KEY_IDLE;
+				}
+			}
+			else {
+				if (joy[i].state == KEY_IDLE) {
+					joy[i].state = KEY_DOWN;
+				}
+				else {
+					joy[i].state = KEY_REPEAT;
+				}
+			}
+		}
 	}
 }
 
@@ -412,117 +446,10 @@ bool m1Input::MovedMouse()
 	return mouse_x != last_mouse_x || mouse_y != last_mouse_y;
 }
 
-bool m1Input::CheckAxisStates(const Axis &axis) {
-
-	BROFILER_CATEGORY("ChackAxisStates", Profiler::Color::Orange);
-
-	bool ret = false;
-	if (Controller != nullptr) {
-		switch (axis) {
-		case Axis::AXIS_UP_RIGHT:
-			if (left_joy.x.value > DEAD_ZONE && left_joy.y.value < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_DOWN_RIGHT:
-			if (left_joy.x.value > DEAD_ZONE && left_joy.y.value > DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_DOWN_LEFT:
-			if (left_joy.x.value < -DEAD_ZONE && left_joy.y.value > DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_UP_LEFT:
-			if (left_joy.x.value < -DEAD_ZONE && left_joy.y.value < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_RIGHT:
-			if (left_joy.x.value > DEAD_ZONE && left_joy.y.value > -DEAD_ZONE && left_joy.y.value < DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_LEFT:
-			if (left_joy.x.value < -DEAD_ZONE && left_joy.y.value > -DEAD_ZONE && left_joy.y.value < DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_UP:
-			if (left_joy.x.value > -DEAD_ZONE && left_joy.x.value < DEAD_ZONE && left_joy.y.value < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_DOWN:
-			if (left_joy.x.value > -DEAD_ZONE && left_joy.x.value < DEAD_ZONE && left_joy.y.value > DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_UP_RIGHT:
-			if (right_joy.x.value > DEAD_ZONE && right_joy.y.value < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_DOWN_RIGHT:
-			if (right_joy.x.value > DEAD_ZONE && right_joy.y.value > DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_DOWN_LEFT:
-			if (right_joy.x.value < -DEAD_ZONE && right_joy.y.value > DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_UP_LEFT:
-			if (right_joy.x.value < -DEAD_ZONE && right_joy.y.value < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_RIGHT:
-			if (right_joy.x.value > DEAD_ZONE && right_joy.y.value > -DEAD_ZONE && right_joy.y.value < DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_LEFT:
-			if (right_joy.x.value < -DEAD_ZONE && right_joy.y.value > -DEAD_ZONE && right_joy.y.value < DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_UP:
-			if (right_joy.x.value > -DEAD_ZONE && right_joy.x.value < DEAD_ZONE && right_joy.y.value < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_DOWN:
-			if (right_joy.x.value > -DEAD_ZONE && right_joy.x.value < DEAD_ZONE && right_joy.y.value > DEAD_ZONE)
-				ret = true;
-			break;
-		default:
-			LOG("No axis found");
-			break;
-		}
-	}
-	
-
-	return ret;
-}
-
 bool m1Input::ControllerVibration(float strength, uint32 duration)
 {
 	//strength 0.0F(min) - 1.0F(max)
 	//duration in milliseconds
 	SDL_HapticRumblePlay(haptic, strength, duration);
 	return false;
-}
-
-void Joystick::UpdateState()
-{
-	x.Update();
-	y.Update();
-}
-
-void axis::Update()
-{
-	if (value != 0) {
-		if (state == KEY_IDLE || state == KEY_UP) {
-			state = KEY_DOWN;
-		}
-		else {
-			state = KEY_REPEAT;
-		}
-	}
-	else {
-		if (state == KEY_REPEAT || state == KEY_DOWN) {
-			state = KEY_UP;
-		}
-		else {
-			state = KEY_IDLE;
-		}
-	}
 }
