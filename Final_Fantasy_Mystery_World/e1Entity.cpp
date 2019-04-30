@@ -38,6 +38,13 @@ void e1Entity::SetPivot(const int & x, const int & y)
 	pivot.create(x, y);
 }
 
+void e1Entity::CenterOnTile()
+{
+	position = App->map->MapToWorld(actual_tile.x, actual_tile.y) - pivot;
+	position.x += App->map->data.tile_width * 0.5F;
+	position.y += App->map->data.tile_height * 0.5F;
+}
+
 iPoint e1Entity::GetPosition() const
 {
 	return position + pivot;

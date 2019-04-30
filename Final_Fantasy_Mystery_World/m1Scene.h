@@ -83,6 +83,9 @@ public:
 	bool Interact(u1GUI* interaction);
 	StatesMenu GetMenuState();
 	void SetMenuState(const StatesMenu &menu);
+
+	void ChangeCompass(bool shift_pressed);
+
 public:
 
 	std::list<u1Label*> labels_control;
@@ -98,6 +101,10 @@ public:
 	u1Image* player_hud_image = nullptr;
 	u1Bar* player_hp_bar = nullptr;
 	u1Bar* player_mana_bar = nullptr;
+
+		//Compass
+	u1Image* diagonal_compass = nullptr;
+	u1Image* vertical_compass = nullptr;
 
 
 	int price_hp_potion = 75;

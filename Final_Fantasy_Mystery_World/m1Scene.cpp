@@ -621,6 +621,9 @@ void m1Scene::SetMenuState(const StatesMenu & menu)
 void m1Scene::CreateHUD()
 {
 	bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, nullptr, App->gui->screen, true, false, false, false);
+	diagonal_compass = App->gui->AddImage(925, 675, { 1876, 3084, 88, 74 }, this, bg_hud, true, false, false, false);
+	vertical_compass = App->gui->AddImage(925, 670, { 1949, 3159, 82, 86 }, this, bg_hud, false, false, false, false);
+
 	switch (player_type) {
 	case PlayerType::WARRIOR:
 		player_hud_image = App->gui->AddImage(28, 653, { 1163,4079,76,98 }, nullptr, bg_hud, true, false, false, false);
@@ -638,8 +641,36 @@ void m1Scene::CreateHUD()
 
 void m1Scene::ShowHUD(bool show_or_hide)
 {
-	bg_hud->drawable = show_or_hide;
-	player_hud_image->drawable = show_or_hide;
-	player_hp_bar->drawable = show_or_hide;
-	player_mana_bar->drawable = show_or_hide;
+	if ((show_or_hide && App->map->actual_map != Maps::LOBBY && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::SHOP) || !show_or_hide) {
+		bg_hud->drawable = show_or_hide;
+		player_hud_image->drawable = show_or_hide;
+		player_hp_bar->drawable = show_or_hide;
+		player_mana_bar->drawable = show_or_hide;
+		diagonal_compass->drawable = show_or_hide;
+		vertical_compass->drawable = show_or_hide;
+	}
+}
+
+void m1Scene::ChangeCompass(bool shift_pressed)
+{
+	
+	if (shift_pressed)
+	{
+		vertical_compass->drawable = true;
+		diagonal_compass->drawable = false;
+	}
+
+	else
+	{
+		if (App->cutscene_manager->is_executing == true)
+		{
+			diagonal_compass->drawable = false;
+			vertical_compass->drawable = false;
+		}
+		else
+		{
+			diagonal_compass->drawable = true;
+			vertical_compass->drawable = false;
+		}
+	}
 }

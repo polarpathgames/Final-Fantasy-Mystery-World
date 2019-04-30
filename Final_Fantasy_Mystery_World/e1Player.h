@@ -170,7 +170,7 @@ public:
 
 	void UpdateExperience(int experience);
 
-	void UpdateLevel();
+	virtual void UpdateLevel(){}
 
 public:
 	float death_time = 0.0f;

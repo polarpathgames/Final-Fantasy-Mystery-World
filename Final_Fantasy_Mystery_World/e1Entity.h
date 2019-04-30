@@ -106,6 +106,7 @@ public:
 	const Collider * GetCollider() const;
 
 	void SetPivot(const int &x, const int &y);
+	void CenterOnTile();
 
 	virtual bool Load(pugi::xml_node&) { return true; };
 	virtual bool Save(pugi::xml_node&) const { return true; };

@@ -19,6 +19,8 @@ public:
 
 	void IdAnimToEnum();
 
+	void UpdateLevel();
+
 public:
 
 	e1Particles * arrow = nullptr;

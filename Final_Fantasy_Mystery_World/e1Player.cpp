@@ -233,9 +233,7 @@ void e1Player::CenterPlayerInTile()
 
 	actual_tile = App->map->WorldToMap(position.x, position.y);
 	movement_count = { 0,0 };
-	position = App->map->MapToWorld(actual_tile.x, actual_tile.y) - pivot;
-	position.x += App->map->data.tile_width*0.5F;
-	position.y += App->map->data.tile_height*0.5F;
+	CenterOnTile();
 
 	target_position = position;
 	initial_position = position;
@@ -1013,6 +1011,7 @@ void e1Player::QuestControls()
 	}
 
 	if (!player_input.pressing_shift) {
+		App->scene->ChangeCompass(false);
 		if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
 			player_input.pressing_S = true;
 		}
@@ -1027,6 +1026,7 @@ void e1Player::QuestControls()
 		}
 	}
 	else {
+		App->scene->ChangeCompass(true);
 		if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) {
 			player_input.pressing_S = true;
 		}
@@ -1241,26 +1241,4 @@ void e1Player::UpdateExperience(int experience) {
 		UpdateLevel();
 	}
 		
-}
-void e1Player::UpdateLevel()
-{
-	App->audio->PlayFx(App->scene->fx_controller_conection);
-	stats.max_xp *= stats.level;
-	AugmentLives(stats.max_lives*0.3f,true);
-	AugmentMana(stats.max_mana*0.3f,true);
-	App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-15 }, { 8,0,2,2 }, RANDOM, { 20,20 }, { 10,5 }, { 0,0 }, P_UP, 200, 4, { 0,-2 });
-	
-	int mana = (int)stats.max_mana*0.3f;
-	int life = (int)stats.max_lives*0.3f;
-
-	iPoint pos{ 0,0 };
-	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 10) * (int)App->win->GetScale();
-	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
-	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(life).data(), App->gui->screen, GREEN, FontType::PMIX24);
-
-	iPoint pos2{ 0,0 };
-	pos2.x = (int)(App->render->camera.x) + (position.x + pivot.x + 10) * (int)App->win->GetScale();
-	pos2.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
-	App->gui->AddHitPointLabel(pos2.x, pos2.y, std::to_string(mana).data(), App->gui->screen, BLUE, FontType::PMIX24);
-
 }
