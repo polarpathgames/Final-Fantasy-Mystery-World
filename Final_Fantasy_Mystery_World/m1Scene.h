@@ -76,7 +76,11 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool Save(pugi::xml_node&) const;
+	bool Load(pugi::xml_node&);
+
 	void CreateEntities();
+	void CreateEntitiesFromXML(pugi::xml_node& node);
 	void CreateHUD();
 	void ShowHUD(bool show_or_hide);
 

@@ -88,13 +88,62 @@ bool e1Player::Update(float dt)
 	return true;
 }
 
-bool e1Player::Load(pugi::xml_node &)
+bool e1Player::Load(pugi::xml_node & node)
 {
+	pugi::xml_node p_stats = node.child("stats");
+	stats.max_lives = p_stats.attribute("max_lives").as_int();
+	stats.max_mana = p_stats.attribute("max_mana").as_int();
+	stats.gold = p_stats.attribute("gold").as_int();
+	stats.xp = p_stats.attribute("xp").as_int();
+	stats.max_xp = p_stats.attribute("max_xp").as_int();
+	stats.attack_power = p_stats.attribute("attack_power").as_int();
+	stats.num_hp_potions = p_stats.attribute("num_hp_potions").as_int();
+	stats.num_mana_potions = p_stats.attribute("num_mana_potions").as_int();
+	stats.level = p_stats.attribute("level").as_int();
+	stats.attack_power_ability_1 = p_stats.attribute("attack_power_ability_1").as_int();
+	App->main_menu->entity_type = (EntityType)p_stats.attribute("entity_type").as_int();
+	pugi::xml_node p_globals = node.child("globals");
+	App->globals.player_name = p_globals.attribute("player_name").as_string();
+	App->globals.ability1_gained = p_globals.attribute("ability1_gained").as_int();
+	App->globals.ability2_gained = p_globals.attribute("ability2_gained").as_int();
+	App->globals.CutSceneAfterBossTutorialPlayed = p_globals.attribute("CutSceneAfterBossTutorialPlayed").as_int();
+	App->globals.CutSceneFinalRoomTutorialPlayed = p_globals.attribute("CutSceneFinalRoomTutorialPlayed").as_int();
+	App->globals.CutSceneLobbyExplain = p_globals.attribute("CutSceneLobbyExplain").as_int();
+	App->globals.CutSceneMiddleRoomTutorialPlayed = p_globals.attribute("CutSceneMiddleRoomTutorialPlayed").as_int();
+	App->globals.CutSceneTutorialGirlEscapingPlayed = p_globals.attribute("CutSceneTutorialGirlEscapingPlayed").as_int();
+	App->globals.Tutorial_first_time = p_globals.attribute("Tutorial_first_time").as_int();
+	App->scene->player_type = (PlayerType)p_globals.attribute("player_type").as_int();
+	App->scene->player->Init();
+	App->scene->player->CenterPlayerInTile();
+	App->render->CenterCameraOnPlayer(App->scene->player->position);
 	return true;
 }
 
 bool e1Player::Save(pugi::xml_node & node) const
 {
+	pugi::xml_node p_stats = node.append_child("stats");
+	p_stats.append_attribute("max_lives") = (int)stats.max_lives;
+	p_stats.append_attribute("max_mana") = (int)stats.max_mana;
+	p_stats.append_attribute("gold") = (int)stats.gold;
+	p_stats.append_attribute("xp") = (int)stats.xp;
+	p_stats.append_attribute("max_xp") = (int)stats.max_xp;
+	p_stats.append_attribute("attack_power") = (int)stats.attack_power;
+	p_stats.append_attribute("num_hp_potions") = (int)stats.num_hp_potions;
+	p_stats.append_attribute("num_mana_potions") = (int)stats.num_mana_potions;
+	p_stats.append_attribute("level") = (int)stats.level;
+	p_stats.append_attribute("attack_power_ability_1") = (int)stats.attack_power_ability_1;
+	p_stats.append_attribute("entity_type") = (int)App->main_menu->entity_type;
+	pugi::xml_node p_globals = node.append_child("globals");
+	p_globals.append_attribute("player_name") = App->globals.player_name.data();
+	p_globals.append_attribute("ability1_gained") = (bool)App->globals.ability1_gained;
+	p_globals.append_attribute("ability2_gained") = (bool)App->globals.ability2_gained;
+	p_globals.append_attribute("CutSceneAfterBossTutorialPlayed") = (bool)App->globals.CutSceneAfterBossTutorialPlayed;
+	p_globals.append_attribute("CutSceneFinalRoomTutorialPlayed") = (bool)App->globals.CutSceneFinalRoomTutorialPlayed;
+	p_globals.append_attribute("CutSceneLobbyExplain") = (bool)App->globals.CutSceneLobbyExplain;
+	p_globals.append_attribute("CutSceneMiddleRoomTutorialPlayed") = (bool)App->globals.CutSceneMiddleRoomTutorialPlayed;
+	p_globals.append_attribute("CutSceneTutorialGirlEscapingPlayed") = (bool)App->globals.CutSceneTutorialGirlEscapingPlayed;
+	p_globals.append_attribute("Tutorial_first_time") = (bool)App->globals.Tutorial_first_time;
+	p_globals.append_attribute("player_type") = (int)App->scene->player_type;
 	return true;
 }
 

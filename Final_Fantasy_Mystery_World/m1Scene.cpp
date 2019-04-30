@@ -349,6 +349,38 @@ bool m1Scene::CleanUp()
 
 	return true;
 }
+void m1Scene::CreateEntitiesFromXML(pugi::xml_node& node)
+{
+	e1Entity* ent = nullptr;
+	ent = App->entity_manager->CreateEntity((e1Entity::EntityType)node.child("stats").attribute("entity_type").as_int(), -38, 375, "player");
+	player = (e1Player*)ent;
+}
+bool m1Scene::Load(pugi::xml_node& node)
+{
+	pugi::xml_node options = node.child("options");
+	App->win->fullscreen = options.attribute("cb_fullscreen").as_bool();
+	App->audio->mute = options.attribute("mute_general").as_bool();
+	App->audio->mute_volume = options.attribute("mute_music").as_bool();
+	App->audio->mute_fx = options.attribute("mute_fx").as_bool();
+	App->audio->volume_general = options.attribute("general_volume").as_uint();
+	App->audio->volume = options.attribute("music_volume").as_uint();
+	App->audio->volume_fx = options.attribute("fx_volume").as_uint();
+
+	return true;
+}
+bool m1Scene::Save(pugi::xml_node& node) const
+{
+	pugi::xml_node options = node.append_child("options");
+	options.append_attribute("cb_fullscreen") = (bool)App->win->fullscreen;
+	options.append_attribute("mute_general") = (bool)App->audio->mute;
+	options.append_attribute("mute_music") = (bool)App->audio->mute_volume;
+	options.append_attribute("mute_fx") = (bool)App->audio->mute_fx;
+	options.append_attribute("general_volume") = (uint)App->audio->volume_general;
+	options.append_attribute("music_volume") = (uint)App->audio->volume;
+	options.append_attribute("fx_volume") = (uint)App->audio->volume_fx;
+
+	return true;
+}
 
 void m1Scene::CreateEntities()
 {
@@ -1521,7 +1553,7 @@ void m1Scene::CreateHUD()
 
 void m1Scene::ShowHUD(bool show_or_hide)
 {
-	if ((show_or_hide && App->map->actual_map != Maps::LOBBY && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::SHOP) || !show_or_hide) {
+	if ((show_or_hide && App->map->actual_map != Maps::LOBBY && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::SHOP) || !show_or_hide && bg_hud != nullptr) {
 		bg_hud->drawable = show_or_hide;
 		player_hud_image->drawable = show_or_hide;
 		player_hp_bar->drawable = show_or_hide;

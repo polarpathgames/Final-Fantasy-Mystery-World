@@ -237,9 +237,17 @@ bool m1DialogSystem::Load(pugi::xml_node& node)
 {
 	bool ret = true;
 
-
-
-
+	CleanUp();
+	for (pugi::xml_node t = node.child("dialogtree"); t != NULL; t = t.next_sibling("dialogtree"))
+	{
+		DialogTree* tr = DBG_NEW DialogTree;
+		tr->treeid = t.attribute("treeid").as_int();
+		tr->karma = t.attribute("karma").as_int();
+		tr->tag = t.attribute("tag").as_int();
+		tr->face = { t.attribute("rect_x").as_int(),t.attribute("rect_y").as_int(), t.attribute("rect_w").as_int(), t.attribute("rect_h").as_int() };
+		LoadTreeData(t, tr);
+		dialogTrees.push_back(tr);
+	}
 	return ret;
 }
 

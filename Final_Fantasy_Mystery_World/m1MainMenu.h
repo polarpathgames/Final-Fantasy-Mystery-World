@@ -4,7 +4,7 @@
 #include "m1Module.h"
 #include <list>
 #include "SDL_mixer/include/SDL_mixer.h"
-
+#include "e1Entity.h"
 struct SDL_Rect;
 class u1GUI;
 class u1Button;
@@ -317,6 +317,7 @@ private:
 
 public:
 
+	e1Entity::EntityType entity_type;
 	//select character
 
 	u1Image* select_champ_panel = nullptr;

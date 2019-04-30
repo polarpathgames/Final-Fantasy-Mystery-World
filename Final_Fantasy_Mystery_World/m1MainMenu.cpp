@@ -111,7 +111,15 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			ret = false;
 		}
 		if (interaction == load_game_button) {
+			DestroyMainMenu();
+			active = false;
+			App->entity_manager->Enable();
+			App->map->Enable();
+			App->scene->Enable();
+			App->map->ChangeMap(Maps::HOME);
+			App->scene->SetMenuState(StatesMenu::NO_MENU);
 			App->LoadGame("save_game.xml");
+			//App->scene->CreateHUD();
 			ret = false;
 		}
 		break;
@@ -451,7 +459,8 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			App->scene->player_type = PlayerType::WARRIOR;
 			CreateNameMenu();
 			DestroySelectChamp();
-			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, -100, -100,"warrior");
+			entity_type = e1Entity::EntityType::WARRIOR;
+			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(entity_type, -100, -100,"warrior");
 			main_states = MainMenuStates::CHOOSE_NAME_MENU;
 			ret = false;
 		}
@@ -459,7 +468,8 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			App->scene->player_type = PlayerType::ARCHER;
 			CreateNameMenu();
 			DestroySelectChamp();
-			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::ARCHER, -100, -100, "archer");
+			entity_type = e1Entity::EntityType::ARCHER;
+			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(entity_type, -100, -100, "archer");
 			main_states = MainMenuStates::CHOOSE_NAME_MENU;
 			ret = false;
 		}
@@ -467,7 +477,8 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			App->scene->player_type = PlayerType::MAGE;
 			CreateNameMenu();
 			DestroySelectChamp();
-			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::MAGE, -100, -100, "mage");
+			entity_type = e1Entity::EntityType::MAGE;
+			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(entity_type, -100, -100, "mage");
 			main_states = MainMenuStates::CHOOSE_NAME_MENU;
 			ret = false;
 		}
