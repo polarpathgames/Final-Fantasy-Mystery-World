@@ -48,11 +48,15 @@ enum class Axis {
 struct axis {
 	int value = 0;
 	j1KeyState state = j1KeyState::KEY_IDLE;
+
+	void Update();
 };
 
 struct Joystick {
 	axis x;
 	axis y;
+
+	void UpdateState();
 };
 
 

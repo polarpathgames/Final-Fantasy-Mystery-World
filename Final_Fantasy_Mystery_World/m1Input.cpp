@@ -324,7 +324,11 @@ void m1Input::UpdateController()
 		right_joy.x.value = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_RIGHTX);
 		right_joy.y.value = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_RIGHTY);
 
-		if (left_joy.x.value != 0 || left_joy.x.state != KEY_IDLE) left_joy.x.state = KEY_DOWN;
+		left_joy.UpdateState();
+		right_joy.UpdateState();
+
+		if (left_joy.x.value != 0 || left_joy.x.state != KEY_IDLE)
+			LOG("Left Joy: val: %i state: %i", left_joy.x.value, left_joy.x.state);
 	}
 }
 
@@ -495,4 +499,30 @@ bool m1Input::ControllerVibration(float strength, uint32 duration)
 	//duration in milliseconds
 	SDL_HapticRumblePlay(haptic, strength, duration);
 	return false;
+}
+
+void Joystick::UpdateState()
+{
+	x.Update();
+	y.Update();
+}
+
+void axis::Update()
+{
+	if (value != 0) {
+		if (state == KEY_IDLE || state == KEY_UP) {
+			state = KEY_DOWN;
+		}
+		else {
+			state = KEY_REPEAT;
+		}
+	}
+	else {
+		if (state == KEY_REPEAT || state == KEY_DOWN) {
+			state = KEY_UP;
+		}
+		else {
+			state = KEY_IDLE;
+		}
+	}
 }
