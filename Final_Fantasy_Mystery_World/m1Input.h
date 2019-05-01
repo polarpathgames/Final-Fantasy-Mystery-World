@@ -43,6 +43,7 @@ struct ButtonsUsed {
 	int SHOW_SKILLS;
 	int HABILTY1;
 	int HABILITY2;
+	int HABILITY3;
 	int INVENTORY;
 
 };
@@ -62,6 +63,7 @@ struct ButtonChar {
 	char* BASIC_ATTACK = nullptr;
 	char* ABILITY1 = nullptr;
 	char* ABILITY2 = nullptr;
+	char* ABILITY3 = nullptr;
 	char* INVENTORY = nullptr;
 };
 

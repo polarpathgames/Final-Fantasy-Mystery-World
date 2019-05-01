@@ -305,7 +305,7 @@ void e1Player::ReadPlayerInput()
 		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
 			state = State::WALKING;
 		}
-		else if (player_input.pressing_SPACE || player_input.pressing_1 && App->globals.ability1_gained == true) {
+		else if (player_input.pressing_SPACE || (player_input.pressing_1 && App->globals.ability1_gained == true) || (player_input.pressing_3 && App->globals.ability3_gained)) {
 			state = State::BEFORE_ATTACK;
 		}
 		else if (player_input.pressing_2 && App->globals.ability2_gained == true) {
@@ -512,6 +512,10 @@ void e1Player::ReadAttack()
 		PrepareSpecialAttack1();
 		return;
 	}
+	if (player_input.pressing_3 && App->globals.ability3_gained == true) {
+		PrepareSpecialAttack2();
+		return;
+	}
 }
 
 void e1Player::InitStats()
@@ -614,6 +618,9 @@ void e1Player::PerformActions(float dt)
 		case Attacks::SPECIAL_1:
 			SpecialAttack1();
 			break;
+		case Attacks::SPECIAL_2:
+			SpecialAttack2();
+			break;
 		default:
 			LOG("There is no attack type...");
 			break;
@@ -673,6 +680,83 @@ void e1Player::BasicAttack()
 	}
 
 
+}
+
+void e1Player::PrepareSpecialAttack2()
+{
+	type_attack = Attacks::SPECIAL_2;
+	state = State::ATTACKING;
+	switch (direction) {
+	case Direction::DOWN_LEFT:
+		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+		break;
+	case Direction::UP_RIGHT:
+		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+		break;
+	case Direction::DOWN_RIGHT:
+		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+		break;
+	case Direction::UP_LEFT:
+		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+		break;
+	case Direction::UP:
+		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3, 200, EASE);
+		break;
+	case Direction::DOWN:
+		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3, 200, EASE);
+		break;
+	case Direction::RIGHT:
+		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3, 200, EASE);
+		break;
+	case Direction::LEFT:
+		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3, 200, EASE);
+		break;
+	}
+	ChangeAnimation(direction, state, type_attack);
+}
+
+void e1Player::SpecialAttack2()
+{
+	if (current_animation->Finished()) {
+		switch (direction) {
+		case Direction::DOWN_LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
+			break;
+		case Direction::UP_RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
+			break;
+		case Direction::DOWN_RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
+			break;
+		case Direction::UP_LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
+			break;
+		case Direction::UP:
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3 + 1, 200, EASE);
+			break;
+		case Direction::DOWN:
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3 + 1, 200, EASE);
+			break;
+		case Direction::RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3 + 1, 200, EASE);
+			break;
+		case Direction::LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3 + 1, 200, EASE);
+			break;
+		}
+		CheckBasicAttackEffects(e1Entity::EntityType::ENEMY, direction, stats.attack_power);
+		state = State::AFTER_ATTACK;
+		ChangeAnimation(direction, state);
+		time_attack = SDL_GetTicks();
+	}
 }
 
 void e1Player::PerformMovementInLobby(float dt)
@@ -1056,7 +1140,8 @@ void e1Player::QuestControls()
 	if (App->map->quest_rooms != nullptr &&App->map->quest_rooms->actual_room->room_type != RoomType::FOUNTAIN) {
 		player_input.pressing_SPACE = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
 		player_input.pressing_1 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILTY1) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILTY1) == KEY_DOWN;
-		player_input.pressing_2 = App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILITY2) == KEY_DOWN;
+		player_input.pressing_2 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILITY2) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILITY2) == KEY_DOWN;
+		player_input.pressing_3 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILITY3) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILITY3) == KEY_DOWN;
 	}
 
 	if (!player_input.pressing_shift) {

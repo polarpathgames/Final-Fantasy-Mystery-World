@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.2" name="warrior" tilewidth="28" tileheight="31" tilecount="96" columns="12">
+<tileset version="1.2" tiledversion="1.2.2" name="warrior" tilewidth="28" tileheight="31" tilecount="132" columns="12">
  <properties>
   <property name="attack_power" type="int" value="80"/>
   <property name="attack_power_ability" type="int" value="150"/>
@@ -7,7 +7,7 @@
   <property name="max_lives" type="int" value="350"/>
   <property name="max_mana" type="int" value="200"/>
  </properties>
- <image source="../sprites/Warrior.png" width="336" height="248"/>
+ <image source="../sprites/Warrior.png" width="336" height="341"/>
  <tile id="0">
   <properties>
    <property name="speed" type="int" value="7"/>
@@ -542,6 +542,86 @@
    <frame tileid="76" duration="170"/>
    <frame tileid="77" duration="170"/>
    <frame tileid="78" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="96">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="96" duration="170"/>
+   <frame tileid="97" duration="170"/>
+   <frame tileid="98" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="99">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="99" duration="170"/>
+   <frame tileid="100" duration="170"/>
+   <frame tileid="101" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="102">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="102" duration="170"/>
+   <frame tileid="103" duration="170"/>
+   <frame tileid="104" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="105">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="105" duration="170"/>
+   <frame tileid="106" duration="170"/>
+   <frame tileid="107" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="108">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="108" duration="170"/>
+   <frame tileid="109" duration="170"/>
+   <frame tileid="110" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="111">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="111" duration="170"/>
+   <frame tileid="112" duration="170"/>
+   <frame tileid="113" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="114">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="114" duration="170"/>
+   <frame tileid="115" duration="170"/>
+   <frame tileid="116" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="126">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="126" duration="170"/>
+   <frame tileid="127" duration="170"/>
+   <frame tileid="128" duration="170"/>
   </animation>
  </tile>
 </tileset>

@@ -32,6 +32,7 @@ struct Input {
 	bool pressing_V = false; // SHOW SKILLS
 	bool pressing_1 = false; // ability 1
 	bool pressing_2 = false; // falsh
+	bool pressing_3 = false; // ability 2
 
 	void Reset() {
 		pressing_A = false;
@@ -47,6 +48,7 @@ struct Input {
 		pressing_V = false;
 		pressing_J = false;
 		pressing_2 = false;
+		pressing_3 = false;
 	}
 };
 
@@ -127,6 +129,9 @@ public:
 
 	void BasicAttack(); // Basic attack xd 
 	
+	void PrepareSpecialAttack2();
+
+	void SpecialAttack2();
 
 	void PerformMovementInLobby(float dt); // Do the movement in lobby
 	void PerformMovementInQuest(float dt); // Do the movement in quest
