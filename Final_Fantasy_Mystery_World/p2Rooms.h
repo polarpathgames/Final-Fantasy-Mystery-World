@@ -48,6 +48,12 @@ struct MapIndicators {
 	std::string indicator_type;
 };
 
+struct DropInfo {
+	DropInfo(const int &x, const int &y, const DropsType &type) : location(x,y), type(type) {}
+	iPoint location{ 0,0 };
+	DropsType type = DropsType::NONE;
+};
+
 class Room {
 
 public:
@@ -66,6 +72,7 @@ public:
 
 	std::vector<ChangeScene*> change_scene_points; 
 	std::vector<iPoint> entities;
+	std::vector<DropInfo*> drops;
 	std::vector<MapIndicators*> map_indicators;
 
 	bool active = false;
@@ -105,22 +112,24 @@ public:
 
 	Room* actual_room = nullptr;
 	Room* last_room = nullptr;
-	std::vector<Room*> rooms;
-	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
 
-	pugi::xml_document room_manager_file;
+	std::vector<Room*> rooms;
+
+private:
+
+	u1Image * map_background = nullptr;
+	u1Image * map_zone = nullptr;
+	u1Image * player_pos = nullptr;
 
 	Mix_Music* mus_paceful;
 	Mix_Music* mus_boss;
 	Mix_Music* mus_combat;
 	Mix_Music* mus_fountain;
 
-private:
+	pugi::xml_document room_manager_file;
 
-	u1Image * map_background = nullptr;
-
-
-
+	
+	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
 };
 #endif // !_P2ROOMS_H
 
