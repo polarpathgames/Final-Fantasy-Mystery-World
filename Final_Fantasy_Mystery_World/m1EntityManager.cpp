@@ -322,7 +322,21 @@ bool m1EntityManager::SortByYPos(const e1Entity * ent1, const e1Entity * ent2)
 bool m1EntityManager::Load(pugi::xml_node& load)
 {
 	bool ret = true;
-
+	App->scene->CreateEntitiesFromXML(load);
+	std::vector<e1Entity*>::const_iterator item = entities_to_create.cbegin();
+	for (; item != entities.cend(); ++item)
+	{
+		if ((*item)->type == e1Entity::EntityType::MAGE || (*item)->type == e1Entity::EntityType::ARCHER || (*item)->type == e1Entity::EntityType::WARRIOR || (*item)->type == e1Entity::EntityType::PLAYER)
+		{
+			(*item)->Load(load);
+			break;
+		}
+	}
+	App->scene->CreateHUD();
+	App->scene->ShowHUD(false);
+	App->scene->player->actual_tile.x += 1;
+	App->scene->player->actual_tile.y += 1;
+	App->scene->player->CenterOnTile();
 	
 	return ret;
 }
@@ -330,7 +344,16 @@ bool m1EntityManager::Load(pugi::xml_node& load)
 bool m1EntityManager::Save(pugi::xml_node& save) const
 {
 	bool ret = true;
-	
+	std::vector<e1Entity*>::const_iterator item = entities.cbegin();
+	for (; item != entities.cend(); ++item)
+	{
+		if ((*item)->type == e1Entity::EntityType::MAGE || (*item)->type == e1Entity::EntityType::ARCHER || (*item)->type == e1Entity::EntityType::WARRIOR || (*item)->type == e1Entity::EntityType::PLAYER)
+		{
+			(*item)->Save(save);
+			break;
+		}
+	}
+
 	return ret;
 }
 

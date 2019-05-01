@@ -17,7 +17,6 @@ public:
 	bool Interact(u1GUI* interaction);
 
 public:
-
 	Mix_Chunk* fx_push_button;
 	Mix_Chunk* fx_push_button_return;
 

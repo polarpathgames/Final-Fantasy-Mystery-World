@@ -7,6 +7,7 @@
 
 m1Collision::m1Collision()
 {
+	name.assign("collisions");
 
 	matrix[COLLIDER_PLAYER][COLLIDER_SHOP] = true;
 	matrix[COLLIDER_SHOP][COLLIDER_PLAYER] = true;
