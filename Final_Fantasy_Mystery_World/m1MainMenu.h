@@ -3,6 +3,7 @@
 
 #include "m1Module.h"
 #include "SDL_mixer/include/SDL_mixer.h"
+#include "e1Entity.h"
 
 class m1MainMenu : public m1Module
 {
@@ -23,6 +24,6 @@ public:
 	Mix_Music* mus_main_menu;
 	Mix_Music* mus_credits;
 	Mix_Music* mus_selection;
-
+	e1Entity::EntityType entity_type;
 };
 #endif

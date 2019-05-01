@@ -89,7 +89,15 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		ret = false;
 	}
 	else if (interaction == App->menu_manager->main_menu.load_game_button) {
+		App->menu_manager->DestroyMainMenu();
+		active = false;
+		App->entity_manager->Enable();
+		App->map->Enable();
+		App->scene->Enable();
+		App->map->ChangeMap(Maps::HOME);
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
 		App->LoadGame("save_game.xml");
+		//App->scene->CreateHUD();
 		ret = false;
 	}
 
