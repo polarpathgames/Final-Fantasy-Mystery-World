@@ -691,39 +691,51 @@ void e1Player::BasicAttack()
 
 void e1Player::PrepareSpecialAttack2()
 {
-	type_attack = Attacks::SPECIAL_2;
-	state = State::ATTACKING;
-	switch (direction) {
-	case Direction::DOWN_LEFT:
-		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
-		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
-		break;
-	case Direction::UP_RIGHT:
-		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
-		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
-		break;
-	case Direction::DOWN_RIGHT:
-		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
-		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
-		break;
-	case Direction::UP_LEFT:
-		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
-		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
-		break;
-	case Direction::UP:
-		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3, 200, EASE);
-		break;
-	case Direction::DOWN:
-		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3, 200, EASE);
-		break;
-	case Direction::RIGHT:
-		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3, 200, EASE);
-		break;
-	case Direction::LEFT:
-		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3, 200, EASE);
-		break;
+
+	if (stats.mana - stats.cost_mana_special_attack3 >= 0 || god_mode == true) {
+		if (!god_mode)
+			ReduceMana(stats.cost_mana_special_attack3);
+		//App->audio->PlayFx(App->scene->fx_ability_warrior);
+
+		type_attack = Attacks::SPECIAL_2;
+		state = State::ATTACKING;
+		switch (direction) {
+		case Direction::DOWN_LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+			break;
+		case Direction::UP_RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+			break;
+		case Direction::DOWN_RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+			break;
+		case Direction::UP_LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+			break;
+		case Direction::UP:
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3, 200, EASE);
+			break;
+		case Direction::DOWN:
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3, 200, EASE);
+			break;
+		case Direction::RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3, 200, EASE);
+			break;
+		case Direction::LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3, 200, EASE);
+			break;
+		}
+		ChangeAnimation(direction, state, type_attack);
 	}
-	ChangeAnimation(direction, state, type_attack);
+	else { // no enough mana so return to idle
+		App->audio->PlayFx(App->scene->fx_ability_no_mana);
+		state = State::IDLE;
+	}
+
 }
 
 void e1Player::SpecialAttack2()
@@ -759,7 +771,7 @@ void e1Player::SpecialAttack2()
 			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3 + 1, 200, EASE);
 			break;
 		}
-		CheckBasicAttackEffects(e1Entity::EntityType::ENEMY, direction, stats.attack_power);
+		CheckBasicAttackEffects(e1Entity::EntityType::ENEMY, direction, stats.attack_power_ability_3);
 		state = State::AFTER_ATTACK;
 		ChangeAnimation(direction, state);
 		time_attack = SDL_GetTicks();
