@@ -201,6 +201,9 @@
     <ClCompile Include="e1BlueSlime.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="e1State.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -434,9 +437,6 @@
     </ClInclude>
     <ClInclude Include="e1BlueSlime.h">
       <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="p2States.h">
-      <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="e1State.h">
       <Filter>Entities</Filter>

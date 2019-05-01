@@ -99,6 +99,7 @@
     <ClCompile Include="e1Particles.cpp" />
     <ClCompile Include="e1Rock.cpp" />
     <ClCompile Include="e1ShopKeeperDaughter.cpp" />
+    <ClCompile Include="e1State.cpp" />
     <ClCompile Include="e1StrangeFrog.cpp" />
     <ClCompile Include="e1Warrior.cpp" />
     <ClCompile Include="m1Cutscene.cpp" />
@@ -185,7 +186,6 @@
     <ClInclude Include="p2ChangeControls.h" />
     <ClInclude Include="p2Random.h" />
     <ClInclude Include="p2Rooms.h" />
-    <ClInclude Include="p2States.h" />
     <ClInclude Include="u1Bar.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="u1ChButton.h" />

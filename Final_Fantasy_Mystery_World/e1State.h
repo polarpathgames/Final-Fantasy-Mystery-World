@@ -3,9 +3,20 @@
 
 #include "e1DynamicEntity.h"
 
-class e1State :public e1DynamicEntity {
+enum class States {
+	SNOWSTORM,
+
+	NONE
+};
+
+class e1State :public e1Entity {
+public:
 	e1State();
 	~e1State();
+
+private:
+	States state;
+	e1Entity* target = nullptr;
 
 };
 
