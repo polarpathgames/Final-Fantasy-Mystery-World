@@ -1,5 +1,8 @@
 <room_manager>
   <tutorial>
+    <properties>
+      <property name="snowstorm" value="1"/>
+    </properties>
     <room>
       <location>Tutorial_Movement.tmx</location>
       <id num="1"></id>

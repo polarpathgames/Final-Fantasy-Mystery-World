@@ -184,6 +184,7 @@
     <ClInclude Include="p2ChangeControls.h" />
     <ClInclude Include="p2Random.h" />
     <ClInclude Include="p2Rooms.h" />
+    <ClInclude Include="p2States.h" />
     <ClInclude Include="u1Bar.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="u1ChButton.h" />

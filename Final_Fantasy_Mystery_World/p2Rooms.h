@@ -7,6 +7,7 @@
 #include "SDL_mixer/include/SDL_mixer.h"
 #include "e1Enemy.h"
 #include "e1Drop.h"
+#include "p2Properties.h"
 #include "SDL/include/SDL_rect.h"
 
 class u1Image;
@@ -121,6 +122,8 @@ private:
 	u1Image * map_zone = nullptr;
 	u1Image * player_pos = nullptr;
 	bool map_active = false;
+
+	Properties<int> properties;
 
 	Mix_Music* mus_paceful;
 	Mix_Music* mus_boss;
