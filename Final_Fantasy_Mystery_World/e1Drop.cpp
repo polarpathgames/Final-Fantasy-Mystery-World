@@ -79,6 +79,7 @@ bool e1Drop::Update(float adt)
 			App->globals.ability1_gained = true;
 			App->scene->player->BlockControls(true);
 			App->menu_manager->CreateHelpAbilityMenu();
+			App->scene->ShowHUD(false);
 			App->scene->SetMenuState(StatesMenu::FIRSTABILITY_MENU);
 			to_delete = true;
 			break;
