@@ -735,7 +735,6 @@ void e1Player::PrepareSpecialAttack2()
 		App->audio->PlayFx(App->scene->fx_ability_no_mana);
 		state = State::IDLE;
 	}
-
 }
 
 void e1Player::SpecialAttack2()
