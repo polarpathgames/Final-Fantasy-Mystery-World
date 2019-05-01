@@ -185,6 +185,14 @@ void m1CutScene::ExecuteCutscene(float dt)
 			ClearCutscene();
 		}
 	}
+	else
+	{
+		is_executing = false;
+		start = true;
+		ClearCutscene();
+	}
+		
+
 }
 
 void m1CutScene::ClearCutscene()
@@ -202,7 +210,6 @@ void m1CutScene::ClearCutscene()
 		delete (*it).second;
 		(*it).second = nullptr;
 	}
-
 	cutscene_file.reset();
 	elements.clear();
 	App->scene->ShowHUD(true);
