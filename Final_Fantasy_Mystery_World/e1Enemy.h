@@ -26,6 +26,7 @@ public:
 		CARNIVOROUS_PLANT,
 		BLUE_DOG,
 		STRANGE_FROG,
+		BLUE_SLIME,
 
 		NONE
 	};
