@@ -280,7 +280,6 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x + 1,App->map->WorldToMap(position.x,position.y).y + 1 };
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 		max_distance_to_interact = 3;
-		
 	}
 	else if (strcmp(name, "NPC1") == 0) {
 		static_type = e1StaticEntity::Type::NPC1;
@@ -460,8 +459,8 @@ bool e1StaticEntity::Update(float dt)
 	if (interacting_state == InteractingStates::INTERACTING && App->dialog->end_dial)
 	{
 		interacting_state = InteractingStates::WAITING_INTERACTION;
-		App->scene->ShowHUD(true);
 	}
+
 
 	if (interacting_state == InteractingStates::INTERACTING) {
 		switch (static_type) {

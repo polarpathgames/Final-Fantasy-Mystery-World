@@ -1024,7 +1024,13 @@ void e1Player::LobbyControls()
 	
 	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
 
+
+	App->scene->ChangeCompass(false);
+
+	if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT))
+
 	/*if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT))
+
 		player_input.pressing_A = player_input.pressing_S = true;
 	else if (App->input->CheckAxisStates(Axis::AXIS_DOWN_RIGHT))
 		player_input.pressing_D = player_input.pressing_S = true;
@@ -1188,7 +1194,8 @@ void e1Player::AugmentMana(const int & plus_mana, bool level_up)
 	stats.mana += plus_mana;
 	if (stats.mana > stats.max_mana)
 		stats.mana = stats.max_mana;
-	App->scene->player_mana_bar->UpdateBar(plus_mana, MANABAR);
+	App->scene->player_mana_bar->max_capacity += plus_mana;
+	App->scene->player_mana_bar->UpdateBar(App->scene->player_mana_bar->max_capacity, MANABAR);
 }
 
 void e1Player::ReduceLives(const int & cost_lives)
@@ -1215,7 +1222,8 @@ void e1Player::AugmentLives(const int & plus_lives, bool level_up)
 	stats.live += plus_lives;
 	if (stats.live > stats.max_lives)
 		stats.live = stats.max_lives;
-	App->scene->player_hp_bar->UpdateBar(plus_lives, HPBAR);
+	App->scene->player_hp_bar->max_capacity += plus_lives;
+	App->scene->player_hp_bar->UpdateBar(App->scene->player_hp_bar->max_capacity, HPBAR);
 }
 
 bool e1Player::IsEnemyInThatPosition(const iPoint & pos)

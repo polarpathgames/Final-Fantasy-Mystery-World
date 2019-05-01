@@ -17,11 +17,14 @@ public:
 
 	int CalculateBar(int quantity);
 	void InnerDraw();
+	void PrintBarNumbers();
 
 public:
 
 	u1Image* empty_bar = nullptr;
 	u1Image* filled_bar = nullptr;
+
+	u1Label* bar_numbers_label = nullptr;
 
 	e1Entity* entity = nullptr;
 	UIType bar_type;
