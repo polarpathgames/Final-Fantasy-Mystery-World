@@ -207,6 +207,30 @@ void e1Mage::IdAnimToEnum() //Assign every id animation to enum animation
 		case 72:
 			data.animations[i].animType = AnimationState::ABILITY_DOWN_1;
 			break;//
+		case 108:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_LEFT_2;
+			break;//
+		case 114:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_RIGHT_2;
+			break;//
+		case 117:
+			data.animations[i].animType = AnimationState::ABILITY_UP_RIGHT_2;
+			break;//
+		case 111:
+			data.animations[i].animType = AnimationState::ABILITY_UP_LEFT_2;
+			break;//
+		case 126:
+			data.animations[i].animType = AnimationState::ABILITY_LEFT_2;
+			break;//
+		case 123:
+			data.animations[i].animType = AnimationState::ABILITY_UP_2;
+			break;//
+		case 129:
+			data.animations[i].animType = AnimationState::ABILITY_RIGHT_2;
+			break;//
+		case 120:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_2;
+			break;//
 		}
 
 	}
@@ -323,4 +347,5 @@ void e1Mage::UpdateLevel()
 	stats.max_mana += 5;
 	stats.attack_power += 2;
 	stats.attack_power_ability_1 += 5;
+	stats.attack_power_ability_3 += 5;
 }

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.3" name="Mage" tilewidth="18" tileheight="28" tilecount="108" columns="12">
+<tileset version="1.2" tiledversion="1.2.2" name="Mage" tilewidth="18" tileheight="28" tilecount="132" columns="12">
  <properties>
   <property name="attack_power" type="int" value="75"/>
   <property name="attack_power_ability" type="int" value="200"/>
+  <property name="attack_power_ability3" type="int" value="100"/>
   <property name="cost_mana_special_attack" type="int" value="20"/>
+  <property name="cost_mana_special_attack3" type="int" value="25"/>
   <property name="max_lives" type="int" value="300"/>
   <property name="max_mana" type="int" value="250"/>
  </properties>
- <image source="../sprites/MageSpritesheet.png" width="216" height="252"/>
+ <image source="../sprites/MageSpritesheet.png" width="216" height="308"/>
  <tile id="0">
   <properties>
    <property name="speed" type="int" value="7"/>
@@ -558,6 +560,86 @@
   <animation>
    <frame tileid="10" duration="100"/>
    <frame tileid="103" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="108">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="108" duration="170"/>
+   <frame tileid="109" duration="170"/>
+   <frame tileid="110" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="111">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="111" duration="170"/>
+   <frame tileid="112" duration="170"/>
+   <frame tileid="113" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="114">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="114" duration="170"/>
+   <frame tileid="115" duration="170"/>
+   <frame tileid="116" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="117">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="117" duration="170"/>
+   <frame tileid="118" duration="170"/>
+   <frame tileid="119" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="120">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="120" duration="170"/>
+   <frame tileid="121" duration="170"/>
+   <frame tileid="122" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="123">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="123" duration="170"/>
+   <frame tileid="124" duration="170"/>
+   <frame tileid="125" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="126">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="126" duration="170"/>
+   <frame tileid="127" duration="170"/>
+   <frame tileid="128" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="129">
+  <properties>
+   <property name="speed" type="int" value="5"/>
+  </properties>
+  <animation>
+   <frame tileid="129" duration="170"/>
+   <frame tileid="130" duration="170"/>
+   <frame tileid="131" duration="170"/>
   </animation>
  </tile>
 </tileset>

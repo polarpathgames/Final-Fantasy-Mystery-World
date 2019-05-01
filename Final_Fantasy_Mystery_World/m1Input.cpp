@@ -147,6 +147,7 @@ void m1Input::DefaultControls()
 	keyboard_buttons.buttons_code.UP = SDL_SCANCODE_W;
 	keyboard_buttons.buttons_code.HABILTY1 = SDL_SCANCODE_1;
 	keyboard_buttons.buttons_code.HABILITY2 = SDL_SCANCODE_2;
+	keyboard_buttons.buttons_code.HABILITY3 = SDL_SCANCODE_3;
 	keyboard_buttons.buttons_code.SHOW_SKILLS = SDL_SCANCODE_V;
 	keyboard_buttons.buttons_code.INVENTORY = SDL_SCANCODE_E;
 
@@ -160,7 +161,9 @@ void m1Input::DefaultControls()
 	keyboard_buttons.buttons_char.LEFT = "A";
 	keyboard_buttons.buttons_char.RIGHT = "D";
 	keyboard_buttons.buttons_char.UP = "W";
-	keyboard_buttons.buttons_char.ABILITY1 = "F";
+	keyboard_buttons.buttons_char.ABILITY1 = "1";
+	keyboard_buttons.buttons_char.ABILITY2 = "2";
+	keyboard_buttons.buttons_char.ABILITY3 = "3";
 	keyboard_buttons.buttons_char.SHOW_SKILLS = "V";
 	keyboard_buttons.buttons_char.INVENTORY = "E";
 
@@ -172,6 +175,7 @@ void m1Input::DefaultControls()
 	controller_Buttons.buttons_code.DIRECCTION_RIGHT = SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
 	controller_Buttons.buttons_code.HABILTY1 = SDL_CONTROLLER_BUTTON_X;
 	controller_Buttons.buttons_code.HABILITY2 = SDL_CONTROLLER_BUTTON_B;
+	controller_Buttons.buttons_code.HABILITY3 = SDL_CONTROLLER_BUTTON_Y;
 	controller_Buttons.buttons_code.SHOW_SKILLS = SDL_CONTROLLER_BUTTON_LEFTSHOULDER;
 	controller_Buttons.buttons_code.INVENTORY = SDL_CONTROLLER_BUTTON_RIGHTSHOULDER;
 
@@ -185,7 +189,9 @@ void m1Input::DefaultControls()
 	controller_Buttons.buttons_char.LEFT = "L-JOSTICK";
 	controller_Buttons.buttons_char.RIGHT = "L-JOSTICK";
 	controller_Buttons.buttons_char.UP = "L-JOSTICK";
-	controller_Buttons.buttons_char.ABILITY1 = "B";
+	controller_Buttons.buttons_char.ABILITY1 = "X";
+	controller_Buttons.buttons_char.ABILITY3 = "Y";
+	controller_Buttons.buttons_char.ABILITY2 = "B";
 	controller_Buttons.buttons_char.SHOW_SKILLS = "LB";
 	controller_Buttons.buttons_char.INVENTORY = "RB";
 }
