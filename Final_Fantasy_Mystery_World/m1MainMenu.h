@@ -3,6 +3,7 @@
 
 #include "m1Module.h"
 #include "SDL_mixer/include/SDL_mixer.h"
+#include "e1Entity.h"
 
 class m1MainMenu : public m1Module
 {
@@ -17,13 +18,12 @@ public:
 	bool Interact(u1GUI* interaction);
 
 public:
-
 	Mix_Chunk* fx_push_button;
 	Mix_Chunk* fx_push_button_return;
 
 	Mix_Music* mus_main_menu;
 	Mix_Music* mus_credits;
 	Mix_Music* mus_selection;
-
+	e1Entity::EntityType entity_type;
 };
 #endif

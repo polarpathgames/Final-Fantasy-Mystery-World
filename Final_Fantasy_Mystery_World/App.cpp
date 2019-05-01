@@ -5,7 +5,6 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "SDL/include/SDL.h"
-
 #include "m1Window.h"
 #include "m1Input.h"
 #include "m1Cutscene.h"

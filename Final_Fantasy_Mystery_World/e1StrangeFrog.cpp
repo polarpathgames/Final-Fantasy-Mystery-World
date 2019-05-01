@@ -147,8 +147,7 @@ bool e1StrangeFrog::Update(float dt)
 	}
 	if (state == State::DEATH) {
 		if (current_animation->Finished()) {
-			int drop = App->random.Generate(1, 3);
-			if (drop == 1)
+
 				Drop();
 			App->audio->PlayFx(App->scene->fx_kill_enemy);
 			App->scene->player->UpdateExperience(stats.experience);

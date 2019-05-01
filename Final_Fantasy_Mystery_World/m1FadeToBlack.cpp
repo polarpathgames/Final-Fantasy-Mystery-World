@@ -17,6 +17,7 @@
 
 m1FadeToBlack::m1FadeToBlack()
 {
+	name.assign("fadetoblack");
 }
 
 m1FadeToBlack::~m1FadeToBlack()
