@@ -339,7 +339,6 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 						   }
 					   }
 				   }
-				   App->scene->ShowHUD(true);
 				   break;
 			   case 2: //FOUNTAIN LIVES
 				   App->scene->player->AugmentLives(250);
@@ -359,7 +358,6 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 						   }
 					   }
 				   }
-				   App->scene->ShowHUD(true);
 				   break;
 			   case -3://SAVE FUNCTION
 				   //Save function
