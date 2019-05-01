@@ -26,6 +26,7 @@
 #include "p2Rooms.h"
 #include "u1Slider.h"
 #include "u1CheckBox.h"
+#include "u1Bar.h"
 #include "m1Audio.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Input.h"
@@ -1532,6 +1533,9 @@ void m1Scene::ShowHUD(bool show_or_hide)
 	player_mana_bar->drawable = show_or_hide;
 	diagonal_compass->drawable = show_or_hide;
 	vertical_compass->drawable = show_or_hide;
+	//bar_numbers_label->drawable = show_or_hide;
+	player_hp_bar->bar_numbers_label->drawable = show_or_hide;
+	player_mana_bar->bar_numbers_label->drawable = show_or_hide;
 }
 
 void m1Scene::CreateFirstAbilityPanel()

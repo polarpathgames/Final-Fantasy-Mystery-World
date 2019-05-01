@@ -146,7 +146,6 @@ public:
 	u1Bar* player_mana_bar = nullptr;
 
 
-
 private:
 
 	int price_hp_potion = 75;

@@ -1,5 +1,6 @@
 #include "App.h"
 #include "u1Bar.h"
+#include "u1Label.h"
 #include "u1Image.h"
 #include "e1Player.h"
 #include "m1Scene.h"
@@ -25,6 +26,8 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, App->scene->bg_hud, false, false, false, false);
 		filled_bar = App->gui->AddImage(7, 5, { 1405, 3185, 172, 10 }, App->scene, empty_bar, false, false, false, false);
 	}
+
+	PrintBarNumbers();
 }
 
 u1Bar::~u1Bar() {}
@@ -52,6 +55,8 @@ void u1Bar::UpdateBar(int quantity, UIType bar_type)
 		}
 		
 	}
+
+	PrintBarNumbers();
 }
 
 int u1Bar::CalculateBar(int quantity)
@@ -75,6 +80,20 @@ int u1Bar::CalculateBar(int quantity)
 	}
 
 	return new_width;
+
+}
+
+void u1Bar::PrintBarNumbers()
+{
+	App->gui->DeleteUIElement(bar_numbers_label);
+
+	if (current_quantity < 0)
+		current_quantity = 0;
+
+	std::string bar_nums_str = std::to_string(current_quantity) + "/" + std::to_string(max_capacity);
+	const char* bar_nums_char = bar_nums_str.c_str();
+
+	bar_numbers_label = App->gui->AddLabel(100, 5, bar_nums_char, filled_bar, BLACK, FontType::FF32, App->scene, false);
 
 }
 
