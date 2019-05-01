@@ -3,10 +3,15 @@
 
 #include "m1Module.h"
 #include <map>
+#include <list>
 
 struct SDL_Texture;
 struct SDL_Surface;
 
+struct TextureData {
+	std::string path;
+	int dependence = 0;
+};
 class m1Textures : public m1Module
 {
 public:
@@ -32,8 +37,9 @@ public:
 	void				GetSize(const SDL_Texture* texture, uint& width, uint& height) const;
 
 public:
-
-	std::map<SDL_Texture*,std::string> textures;
+	
+	typedef std::map<SDL_Texture*, TextureData> TextureMap;
+	TextureMap textures;
 };
 
 

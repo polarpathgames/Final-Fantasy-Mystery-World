@@ -117,3 +117,15 @@ uint m1Window::GetScale() const
 {
 	return scale;
 }
+
+void m1Window::ChangeFullScreen()
+{
+	if (fullscreen) {
+		fullscreen = false;
+		SDL_SetWindowFullscreen(window, 0);
+	}
+	else {
+		fullscreen = true;
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	}
+}

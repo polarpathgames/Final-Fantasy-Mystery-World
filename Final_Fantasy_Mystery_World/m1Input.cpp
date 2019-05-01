@@ -78,6 +78,61 @@ bool m1Input::Start()
 	return true;
 }
 
+bool m1Input::GetAnyMovementKey()
+{
+	return App->input->GetKeyDown(SDL_SCANCODE_DOWN) ||
+		App->input->GetKeyDown(SDL_SCANCODE_UP) ||
+		App->input->GetKeyDown(SDL_SCANCODE_LEFT) ||
+		App->input->GetKeyDown(SDL_SCANCODE_RIGHT) ||
+		App->input->GetKeyDown(SDL_SCANCODE_A) ||
+		App->input->GetKeyDown(SDL_SCANCODE_W) ||
+		App->input->GetKeyDown(SDL_SCANCODE_S) ||
+		App->input->GetKeyDown(SDL_SCANCODE_D) ||
+		App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_UP) ||
+		App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_DOWN) ||
+		App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_LEFT) ||
+		App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) ||
+		App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) ||
+		App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) ||
+		App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) ||
+		App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY);
+
+}
+
+float m1Input::GetAxis(const SDL_GameControllerAxis & axis)
+{
+	return joy[axis].value;
+}
+
+int m1Input::GetAxisRaw(const SDL_GameControllerAxis & axis)
+{
+	if (IN_RANGE(joy[axis].value, -DEAD_ZONE, DEAD_ZONE)) {
+		return 0;
+	}
+	else {
+		if (joy[axis].value <= -DEAD_ZONE) {
+			return -1;
+		}
+		else if (joy[axis].value >= DEAD_ZONE) {
+			return 1;
+		}
+	}
+}
+
+int m1Input::GetAxisDown(const SDL_GameControllerAxis & axis) const
+{
+	if (joy[axis].state == KEY_DOWN) {
+		if (joy[axis].value < - DEAD_ZONE) return -1;
+		else if (joy[axis].value > + DEAD_ZONE) return 1;
+	}
+	return 0;
+}
+
+bool m1Input::GetAxisUp(const SDL_GameControllerAxis & axis)
+{
+	return joy[axis].state == KEY_UP;
+}
+
 void m1Input::DefaultControls()
 {
 	keyboard_buttons.buttons_code.BASIC_ATTACK = SDL_SCANCODE_SPACE;
@@ -289,8 +344,8 @@ void m1Input::UpdateEvents(SDL_Event &event)
 				haptic = nullptr;
 				SDL_GameControllerClose(Controller);
 				Controller = nullptr;
-				break;
 			}
+			break;
 		}
 
 	}
@@ -312,11 +367,28 @@ void m1Input::UpdateController()
 
 	//axis
 	if (Controller != nullptr) {
-		axis_x = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTX);
-		axis_y = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTY);
-		r_axis_x = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_RIGHTX);
-		r_axis_y = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_RIGHTY);
-		//LOG("X: %i Y: %i", axis_x, axis_y);
+
+		for (int i = 0; i < SDL_CONTROLLER_AXIS_MAX; ++i) {
+			joy[i].value = SDL_GameControllerGetAxis(Controller, (SDL_GameControllerAxis)i)/* / 32767*/;
+			
+			if (IN_RANGE(joy[i].value,-DEAD_ZONE,DEAD_ZONE)) {
+				if (joy[i].state == KEY_REPEAT) {
+					joy[i].state = KEY_UP;
+				}
+				else {
+					joy[i].state = KEY_IDLE;
+				}
+			}
+			else {
+				if (joy[i].state == KEY_IDLE) {
+					joy[i].state = KEY_DOWN;
+				}
+				else {
+					joy[i].state = KEY_REPEAT;
+				}
+			}
+		}
+		//LOG("left_joy: (%i, %i)", joy[SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX].value, joy[SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY].value);
 	}
 }
 
@@ -398,87 +470,6 @@ void m1Input::GetMouseMotion(int& x, int& y)
 bool m1Input::MovedMouse()
 {
 	return mouse_x != last_mouse_x || mouse_y != last_mouse_y;
-}
-
-bool m1Input::CheckAxisStates(const Axis &axis) {
-
-	BROFILER_CATEGORY("ChackAxisStates", Profiler::Color::Orange);
-
-	bool ret = false;
-	if (Controller != nullptr) {
-		switch (axis) {
-		case Axis::AXIS_UP_RIGHT:
-			if (axis_x > DEAD_ZONE && axis_y < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_DOWN_RIGHT:
-			if (axis_x > DEAD_ZONE && axis_y > DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_DOWN_LEFT:
-			if (axis_x < -DEAD_ZONE && axis_y > DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_UP_LEFT:
-			if (axis_x < -DEAD_ZONE && axis_y < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_RIGHT:
-			if (axis_x > DEAD_ZONE && axis_y > -DEAD_ZONE && axis_y < DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_LEFT:
-			if (axis_x < -DEAD_ZONE && axis_y > -DEAD_ZONE && axis_y < DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_UP:
-			if (axis_x > -DEAD_ZONE && axis_x < DEAD_ZONE && axis_y < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_DOWN:
-			if (axis_x > -DEAD_ZONE && axis_x < DEAD_ZONE && axis_y > DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_UP_RIGHT:
-			if (r_axis_x > DEAD_ZONE && r_axis_y < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_DOWN_RIGHT:
-			if (r_axis_x > DEAD_ZONE && r_axis_y > DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_DOWN_LEFT:
-			if (r_axis_x < -DEAD_ZONE && r_axis_y > DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_UP_LEFT:
-			if (r_axis_x < -DEAD_ZONE && r_axis_y < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_RIGHT:
-			if (r_axis_x > DEAD_ZONE && r_axis_y > -DEAD_ZONE && r_axis_y < DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_LEFT:
-			if (r_axis_x < -DEAD_ZONE && r_axis_y > -DEAD_ZONE && r_axis_y < DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_UP:
-			if (r_axis_x > -DEAD_ZONE && r_axis_x < DEAD_ZONE && r_axis_y < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_DOWN:
-			if (r_axis_x > -DEAD_ZONE && r_axis_x < DEAD_ZONE && r_axis_y > DEAD_ZONE)
-				ret = true;
-			break;
-		default:
-			LOG("No axis found");
-			break;
-		}
-	}
-	
-
-	return ret;
 }
 
 bool m1Input::ControllerVibration(float strength, uint32 duration)

@@ -417,16 +417,19 @@ void e1Enemy::Drop()
 		int drop_gold = App->random.Generate(20, 50);
 		e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "gold");
 		drop->SetGold(drop_gold);
+		App->map->quest_rooms->AddDrop(actual_tile, DropsType::GOLD_DROP);
 		break;
 	}		
 	case 2:
 	{
 		e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "health_potion");
+		App->map->quest_rooms->AddDrop(actual_tile, DropsType::HEALTH_POTION);
 		break;
 	}
 	case 3:
 	{
 		e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "mana_potion");
+		App->map->quest_rooms->AddDrop(actual_tile, DropsType::MANA_POTION);
 		break;
 	}
 	}

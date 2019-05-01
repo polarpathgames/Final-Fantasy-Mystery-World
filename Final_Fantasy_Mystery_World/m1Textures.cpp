@@ -51,9 +51,9 @@ bool m1Textures::CleanUp()
 	LOG("Freeing textures and Image library");
 
 
-	for (std::map<SDL_Texture*,std::string>::iterator item = textures.begin(); item != textures.end(); ++item) {
+	for (TextureMap::iterator item = textures.begin(); item != textures.end(); ++item) {
 		SDL_DestroyTexture((*item).first);
-		(*item).second.clear();
+		(*item).second.path.clear();
 	}
 
 	textures.clear();
@@ -78,9 +78,10 @@ bool m1Textures::CleanUp()
 SDL_Texture* const m1Textures::Load(const char* path)
 {
 
-	std::map<SDL_Texture*, std::string>::iterator item = textures.begin();
+	TextureMap::iterator item = textures.begin();
 	for (; item != textures.end(); ++item) {
-		if ((*item).first != nullptr && (*item).second.compare(path) == 0) {
+		if ((*item).first != nullptr && (*item).second.path.compare(path) == 0) {
+			(*item).second.dependence++;
 			return (*item).first;
 		}
 	}
@@ -105,13 +106,20 @@ SDL_Texture* const m1Textures::Load(const char* path)
 bool m1Textures::UnLoad(SDL_Texture* texture)
 {
 
-	std::map<SDL_Texture*, std::string>::iterator item = textures.begin();
+	TextureMap::iterator item = textures.begin();
 	while (item != textures.end()) {
-		if ((*item).first != nullptr && (*item).first == texture)
+		if ((*item).first != nullptr && (*item).first == texture) // if texture finded
 		{
-			SDL_DestroyTexture((*item).first);
-			(*item).second.clear();
-			return true;
+			if ((*item).second.dependence > 0) {	//if other object is using that texture
+				(*item).second.dependence--;
+				++item;
+			}
+			else {
+				SDL_DestroyTexture((*item).first);
+				(*item).second.path.clear();
+				textures.erase(item);
+				return true;
+			}
 		}
 		else ++item;
 	}
@@ -130,7 +138,7 @@ SDL_Texture* const m1Textures::LoadSurface(SDL_Surface* surface, const char* pat
 	}
 	else
 	{
-		textures.insert(std::pair<SDL_Texture*, std::string>(texture, path));
+		textures.insert(std::make_pair(texture, TextureData{ path,0 }));
 	}
 
 	return texture;
