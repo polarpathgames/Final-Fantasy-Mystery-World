@@ -26,7 +26,11 @@ void m1MenuManager::CreateMainMenu()
 	main_menu.new_game_label = App->gui->AddLabel(0, 0, "New Game", main_menu.new_game_button, BLACK, FontType::FF64, nullptr, false);
 	main_menu.new_game_label->SetPosRespectParent(CENTERED);
 
-	main_menu.load_game_button = App->gui->AddButton(684, main_menu.new_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, main_menu.background, false, false, true, true);
+	if (App->LookForFileExistence("save_game.xml"))
+		main_menu.load_game_button = App->gui->AddButton(684, main_menu.new_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, main_menu.background, false, false, true, true);
+	else
+		main_menu.load_game_button = App->gui->AddButton(684, main_menu.new_game_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, main_menu.background, false, false,false, false);
+
 	main_menu.load_game_label = App->gui->AddLabel(0, 0, "Load Game", main_menu.load_game_button, BLACK, FontType::FF64, nullptr, false);
 	main_menu.load_game_label->SetPosRespectParent(CENTERED);
 

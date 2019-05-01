@@ -91,6 +91,11 @@ public:
 	void LoadGame(const char* file);
 	void SaveGame(const char* file) const;
 
+	inline bool LookForFileExistence(const std::string& name) {
+		struct stat buffer;
+		return (stat(name.c_str(), &buffer) == 0);
+	}
+
 	//Exit
 	void QuitGame();
 
