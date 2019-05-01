@@ -23,10 +23,13 @@ void u1Image::InnerDraw()
 {
 	if (img_anim != nullptr) {
 		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &img_anim->GetCurrentFrame(App->GetDeltaTime()), false, SDL_FLIP_NONE, 0);
+		if (img_anim->Finished())
+			to_delete = true;
 	}
 	else {
 		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0);
 	}
+
 }
 
 

@@ -3,6 +3,7 @@
 #include "m1Map.h"
 #include "m1FadeToBlack.h"
 #include "App.h"
+#include "m1EasingSplines.h"
 #include "m1Render.h"
 #include "m1Scene.h"
 #include "m1Input.h"
@@ -94,7 +95,7 @@ RoomManager::RoomManager(const char* name)
 	else {
 		LOG("XML was loaded succesfully!");
 
-		map_background = App->gui->AddImage(100, 100, { 200,1736,(int)App->win->width - 200, (int)App->win->height - 300 }, nullptr, App->gui->screen, false, false, false, false);
+		map_background = App->gui->AddImage(-1600, 100, { 200,1736,(int)App->win->width - 200, (int)App->win->height - 300 }, nullptr, App->gui->screen, false, false, false, false);
 		map_zone = App->gui->AddImage(0, 0, { 200,1736,(int)App->win->width - 200, (int)App->win->height - 300 }, nullptr, map_background, false, false, false, false);
 
 		for (pugi::xml_node room_node = room_manager_file.child("room_manager").child(name).child("room"); room_node; room_node = room_node.next_sibling("room")) {
@@ -633,22 +634,7 @@ void RoomManager::UpdateRoomEvents()
 	
 	
 	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
-		if (map_background->drawable) {
-			map_background->drawable = false;
-			player_pos->drawable = false;
-			std::vector<Room*>::iterator item = rooms.begin();
-			for (; item != rooms.end(); ++item) {
-				if ((*item) != nullptr && (*item)->map_room_image != nullptr) {
-					(*item)->map_room_image->drawable = false;
-					std::vector<MapIndicators*>::iterator it = (*item)->map_indicators.begin();
-					for (; it != (*item)->map_indicators.end(); ++it) {
-						(*it)->indicator_image->drawable = false;
-					}
-				}
-			}
-			App->scene->player->BlockControls(false);
-		}
-		else {
+		if (map_background->GetLocalPosition().x == -1600) {
 			int distance_x = actual_room->map_room_image->GetLocalPosition().x, distance_y = actual_room->map_room_image->GetLocalPosition().y;
 			player_pos->parent = actual_room->map_room_image;
 			player_pos->SetPosRespectParent(CENTERED);
@@ -662,7 +648,7 @@ void RoomManager::UpdateRoomEvents()
 			std::vector<MapIndicators*>::iterator it = actual_room->map_indicators.begin();
 			int cont = 0;
 			for (; it != actual_room->map_indicators.end(); ++it) {
-				if ((*it) != nullptr && (*it)->indicator_image != nullptr) {
+				if ((*it) != nullptr && (*it)->indicator_image != nullptr && (*it)->indicator_image->parent != nullptr) {
 					(*it)->indicator_image->SetPosRespectParent((Position_Type)cont);
 					(*it)->indicator_image->drawable = true;
 					++cont;
@@ -685,7 +671,13 @@ void RoomManager::UpdateRoomEvents()
 					}
 				}
 			}
+			map_background->SetPos(-1600, map_background->GetLocalPosition().y);
+			App->easing_splines->CreateSpline(&map_background->position.x, 100, 1500, TypeSpline::EASE_OUT_QUINT);
 			App->scene->player->BlockControls(true);
+		}
+		else if (map_background->GetLocalPosition().x == 100){
+			App->easing_splines->CreateSpline(&map_background->position.x, -1600, 1500, TypeSpline::EASE_OUT_QUINT);
+			App->scene->player->BlockControls(false);
 		}
 	}
 
