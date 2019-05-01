@@ -910,6 +910,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 	}
 	if (interaction == pause.button_options)
 	{
+		App->scene->SetMenuState(StatesMenu::OPTIONS_MENU);
 		CreateOptions();
 		DestroyPauseMenu();
 		App->scene->ShowHUD(false);
@@ -920,6 +921,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 	if (interaction == controls.button_retun_to_options) {
 		//App->audio->PlayFx(fx_push_button_return);
 		CreateOptions();
+		App->scene->SetMenuState(StatesMenu::OPTIONS_MENU);
 		DestroyControls();
 		ret = false;
 	}
@@ -1010,12 +1012,13 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		App->audio->PlayFx(App->main_menu->fx_push_button_return);
 		DestroyOptions();
 
-		_STL_ASSERT(App->main_menu->active != App->scene->active, "main menu and scene are both active or deactive");
+		//_STL_ASSERT(App->main_menu->active != App->scene->active, "main menu and scene are both active or deactive");
 		if(App->main_menu->active){
 			CreateMainMenu();
 		}
 		else if (App->scene->active) {
 			CreatePauseMenu();
+			App->scene->SetMenuState(StatesMenu::PAUSE_MENU);
 		}
 
 		ret = false;
@@ -1023,6 +1026,8 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 	else if (interaction == options.button_controls) {
 		CreateControls();
 		DestroyOptions();
+		if (App->scene->active)
+			App->scene->SetMenuState(StatesMenu::CONTROLS_MENU);
 		ret = false;
 	}
 	else if (interaction == options.checkbox_mute_music)
