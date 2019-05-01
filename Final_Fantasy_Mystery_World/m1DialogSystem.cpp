@@ -360,6 +360,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   break;
 			   case -3://SAVE FUNCTION
 				   //Save function
+
 				   App->scene->player->BlockControls(false);
 				   App->SaveGame("save_game.xml");
 				   break;
