@@ -6,6 +6,7 @@
 #include "m1Window.h"
 #include "m1GUI.h"
 #include "u1Image.h"
+#include "m1EasingSplines.h"
 #include "u1Button.h"
 #include "u1InputText.h"
 #include "u1CheckBox.h"
@@ -530,8 +531,7 @@ void m1MenuManager::DestroyGoToQuestMenu()
 
 void m1MenuManager::CreateInventory()
 {
-	inventory.inventory_panel = App->gui->AddImage(0, 0, { 1024, 1536, 228, 384 }, App->scene, App->gui->screen, true, false, false, false);
-	inventory.inventory_panel->SetPosRespectParent(RIGHT_CENTERED, 8);
+	inventory.inventory_panel = App->gui->AddImage(App->gui->screen->section.w + 350, (App->gui->screen->section.h -384)*0.5F, { 1024, 1536, 228, 384 }, App->scene, App->gui->screen, true, false, false, false);
 
 	inventory.player_name = App->gui->AddLabel(80, 7, App->globals.player_name.c_str(), inventory.inventory_panel, BLACK, FontType::FF64, nullptr, false);
 
@@ -551,6 +551,8 @@ void m1MenuManager::CreateInventory()
 
 	inventory.exp_name_label = App->gui->AddLabel(55, 307, "Exp:", inventory.inventory_panel, BLACK, FontType::FF64, nullptr, false);
 	inventory.exp_number_label = App->gui->AddLabel(50, 0, std::string(std::to_string(App->scene->player->stats.xp) + "/" + std::to_string(App->scene->player->stats.max_xp)).data(), inventory.exp_name_label, BLACK, FontType::FF64, nullptr, false);
+
+	App->easing_splines->CreateSpline(&inventory.inventory_panel->position.x, App->gui->screen->section.w - inventory.inventory_panel->section.w - 8, 700, TypeSpline::EASE_OUT_BACK);
 }
 
 void m1MenuManager::DestroyInventory()
