@@ -9,7 +9,7 @@
 #include "e1Entity.h"
 
 enum class Attacks {
-	BASIC, SPECIAL_1, NONE
+	BASIC, SPECIAL_1, SPECIAL_2, NONE
 };
 
 enum class Direction {
@@ -59,48 +59,56 @@ public:
 	Animation BasicAttackDownLeft;
 	Animation DeathDownLeft;
 	Animation AbilitiDownLeft1;
+	Animation AbilitiDownLeft2;
 
 	Animation GoDownRight;
 	Animation IdleDownRight;
 	Animation BasicAttackDownRight;
 	Animation DeathDownRight;
 	Animation AbilitiDownRight1;
+	Animation AbilitiDownRight2;
 
 	Animation GoUpRight;
 	Animation IdleUpRight;
 	Animation BasicAttackUpRight;
 	Animation DeathUpRight;
 	Animation AbilitiUpRight1;
+	Animation AbilitiUpRight2;
 
 	Animation GoUpLeft;
 	Animation IdleUpLeft;
 	Animation BasicAttackUpLeft;
 	Animation DeathUpLeft;
 	Animation AbilitiUpLeft1;
+	Animation AbilitiUpLeft2;
 
 	Animation GoLeft;
 	Animation IdleLeft;
 	Animation BasicAttackLeft;
 	Animation DeathLeft;
 	Animation AbilitiLeft1;
+	Animation AbilitiLeft2;
 
 	Animation GoRight;
 	Animation IdleRight;
 	Animation BasicAttackRight;
 	Animation DeathRight;
 	Animation AbilitiRight1;
+	Animation AbilitiRight2;
 
 	Animation GoUp;
 	Animation IdleUp;
 	Animation BasicAttackUp;
 	Animation DeathUp;
 	Animation AbilitiUp1;
+	Animation AbilitiUp2;
 
 	Animation GoDown;
 	Animation IdleDown;
 	Animation BasicAttackDown;
 	Animation DeathDown;
 	Animation AbilitiDown1;
+	Animation AbilitiDown2;
 
 	iPoint target_position;
 	iPoint initial_position; //IMPORTANT: SEMPRE QUE ES CARREGUI UN NOU MAPA AQUESTA VARIABLE SHA DIGUALAR A LA POSICIO INICIAL!!

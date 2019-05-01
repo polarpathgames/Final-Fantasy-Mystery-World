@@ -32,6 +32,7 @@ struct Input {
 	bool pressing_V = false; // SHOW SKILLS
 	bool pressing_1 = false; // ability 1
 	bool pressing_2 = false; // falsh
+	bool pressing_3 = false; // ability 2
 
 	void Reset() {
 		pressing_A = false;
@@ -47,6 +48,7 @@ struct Input {
 		pressing_V = false;
 		pressing_J = false;
 		pressing_2 = false;
+		pressing_3 = false;
 	}
 };
 
@@ -63,8 +65,10 @@ struct PlayerStats {
 	int num_hp_potions = 0;
 	int num_mana_potions = 0;
 	int cost_mana_special_attack1 = 0;
+	int cost_mana_special_attack3 = 0;
 	int level = 0;
 	int attack_power_ability_1 = 0;
+	int attack_power_ability_3 = 0;
 
 };
 
@@ -127,6 +131,11 @@ public:
 
 	void BasicAttack(); // Basic attack xd 
 	
+	void PrepareSpecialAttack2();
+
+	void SpecialAttack2();
+
+	void CheckBasicSpecialAttack2Effects();
 
 	void PerformMovementInLobby(float dt); // Do the movement in lobby
 	void PerformMovementInQuest(float dt); // Do the movement in quest

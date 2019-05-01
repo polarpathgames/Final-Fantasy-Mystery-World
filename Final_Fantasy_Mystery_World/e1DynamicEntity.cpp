@@ -335,6 +335,62 @@ void e1DynamicEntity::PushBack()
 					AbilitiRight1.loop = false;
 				}
 				break;
+			case AnimationState::ABILITY_DOWN_LEFT_2:
+				AbilitiDownLeft2.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiDownLeft2.speed = data.animations[i].speed;
+					AbilitiDownLeft2.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_DOWN_RIGHT_2:
+				AbilitiDownRight2.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiDownRight2.speed = data.animations[i].speed;
+					AbilitiDownRight2.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_UP_RIGHT_2:
+				AbilitiUpRight2.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiUpRight2.speed = data.animations[i].speed;
+					AbilitiUpRight2.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_UP_2:
+				AbilitiUp2.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiUp2.speed = data.animations[i].speed;
+					AbilitiUp2.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_LEFT_2:
+				AbilitiLeft2.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiLeft2.speed = data.animations[i].speed;
+					AbilitiLeft2.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_DOWN_2:
+				AbilitiDown2.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiDown2.speed = data.animations[i].speed;
+					AbilitiDown2.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_UP_LEFT_2:
+				AbilitiUpLeft2.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiUpLeft2.speed = data.animations[i].speed;
+					AbilitiUpLeft2.loop = false;
+				}
+				break;
+			case AnimationState::ABILITY_RIGHT_2:
+				AbilitiRight2.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					AbilitiRight2.speed = data.animations[i].speed;
+					AbilitiRight2.loop = false;
+				}
+				break;
 			default:
 				break;
 			}
@@ -637,6 +693,9 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 			case Attacks::SPECIAL_1:
 				current_animation = &AbilitiDown1;
 				break;
+			case Attacks::SPECIAL_2:
+				current_animation = &AbilitiDown2;
+				break;
 			default:
 				LOG("No attack type found");
 				break;
@@ -649,6 +708,9 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 				break;
 			case Attacks::SPECIAL_1:
 				current_animation = &AbilitiUp1;
+				break;
+			case Attacks::SPECIAL_2:
+				current_animation = &AbilitiUp2;
 				break;
 			default:
 				LOG("No attack type found");
@@ -663,6 +725,9 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 			case Attacks::SPECIAL_1:
 				current_animation = &AbilitiRight1;
 				break;
+			case Attacks::SPECIAL_2:
+				current_animation = &AbilitiRight2;
+				break;
 			default:
 				LOG("No attack type found");
 				break;
@@ -675,6 +740,9 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 				break;
 			case Attacks::SPECIAL_1:
 				current_animation = &AbilitiLeft1;
+				break;
+			case Attacks::SPECIAL_2:
+				current_animation = &AbilitiLeft2;
 				break;
 			default:
 				LOG("No attack type found");
@@ -689,6 +757,9 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 			case Attacks::SPECIAL_1:
 				current_animation = &AbilitiUpRight1;
 				break;
+			case Attacks::SPECIAL_2:
+				current_animation = &AbilitiUpRight2;
+				break;
 			default:
 				LOG("No attack type found");
 				break;
@@ -701,6 +772,9 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 				break;
 			case Attacks::SPECIAL_1:
 				current_animation = &AbilitiDownRight1;
+				break;
+			case Attacks::SPECIAL_2:
+				current_animation = &AbilitiDownRight2;
 				break;
 			default:
 				LOG("No attack type found");
@@ -715,6 +789,9 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 			case Attacks::SPECIAL_1:
 				current_animation = &AbilitiDownLeft1;
 				break;
+			case Attacks::SPECIAL_2:
+				current_animation = &AbilitiDownLeft2;
+				break;
 			default:
 				LOG("No attack type found");
 				break;
@@ -727,6 +804,9 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 				break;
 			case Attacks::SPECIAL_1:
 				current_animation = &AbilitiUpLeft1;
+				break;
+			case Attacks::SPECIAL_2:
+				current_animation = &AbilitiUpLeft2;
 				break;
 			default:
 				LOG("No attack type found");
@@ -797,6 +877,14 @@ void e1DynamicEntity::ResetAnims()
 	AbilitiDown1.Reset();
 	AbilitiUp1.Reset();
 	AbilitiRight1.Reset();
+	AbilitiDownLeft2.Reset();
+	AbilitiDownRight2.Reset();
+	AbilitiUpLeft2.Reset();
+	AbilitiUpRight2.Reset();
+	AbilitiLeft2.Reset();
+	AbilitiDown2.Reset();
+	AbilitiUp2.Reset();
+	AbilitiRight2.Reset();
 	
 }
 

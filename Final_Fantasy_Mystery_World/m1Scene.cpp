@@ -126,6 +126,7 @@ bool m1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
 		App->globals.ability1_gained = true;
 		App->globals.ability2_gained = true;
+		App->globals.ability3_gained = true;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
@@ -688,6 +689,8 @@ void m1Scene::ShowHUD(bool show_or_hide)
 		player_mana_bar->drawable = show_or_hide;
 		diagonal_compass->drawable = show_or_hide;
 		vertical_compass->drawable = show_or_hide;
+		player_hp_bar->bar_numbers_label->drawable = show_or_hide;
+		player_mana_bar->bar_numbers_label->drawable = show_or_hide;
 	}
 }
 

@@ -41,6 +41,7 @@ struct GlobalGameAdvances
 	bool Tutorial_first_time = true;
 	bool ability1_gained = false;
 	bool ability2_gained = false;
+	bool ability3_gained = false;
 	std::string player_name;
 
 	void Reset() {
@@ -52,6 +53,7 @@ struct GlobalGameAdvances
 		Tutorial_first_time = true;
 		ability1_gained = false;
 		ability2_gained = false;
+		ability3_gained = false;
 	}
 
 };

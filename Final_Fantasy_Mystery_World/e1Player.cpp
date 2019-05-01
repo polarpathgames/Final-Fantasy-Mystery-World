@@ -102,6 +102,7 @@ bool e1Player::Load(pugi::xml_node & node)
 	stats.num_mana_potions = p_stats.attribute("num_mana_potions").as_int();
 	stats.level = p_stats.attribute("level").as_int();
 	stats.attack_power_ability_1 = p_stats.attribute("attack_power_ability_1").as_int();
+	stats.attack_power_ability_3 = p_stats.attribute("attack_power_ability_3").as_int();
 	App->main_menu->entity_type = (EntityType)p_stats.attribute("entity_type").as_int();
 	pugi::xml_node p_globals = node.child("globals");
 	App->globals.player_name = p_globals.attribute("player_name").as_string();
@@ -133,6 +134,7 @@ bool e1Player::Save(pugi::xml_node & node) const
 	p_stats.append_attribute("num_mana_potions") = (int)stats.num_mana_potions;
 	p_stats.append_attribute("level") = (int)stats.level;
 	p_stats.append_attribute("attack_power_ability_1") = (int)stats.attack_power_ability_1;
+	p_stats.append_attribute("attack_power_ability_3") = (int)stats.attack_power_ability_3;
 	p_stats.append_attribute("entity_type") = (int)App->main_menu->entity_type;
 	pugi::xml_node p_globals = node.append_child("globals");
 	p_globals.append_attribute("player_name") = App->globals.player_name.data();
@@ -305,7 +307,7 @@ void e1Player::ReadPlayerInput()
 		if (player_input.pressing_A || player_input.pressing_S || player_input.pressing_W || player_input.pressing_D) {
 			state = State::WALKING;
 		}
-		else if (player_input.pressing_SPACE || player_input.pressing_1 && App->globals.ability1_gained == true) {
+		else if (player_input.pressing_SPACE || (player_input.pressing_1 && App->globals.ability1_gained == true) || (player_input.pressing_3 && App->globals.ability3_gained)) {
 			state = State::BEFORE_ATTACK;
 		}
 		else if (player_input.pressing_2 && App->globals.ability2_gained == true) {
@@ -512,6 +514,10 @@ void e1Player::ReadAttack()
 		PrepareSpecialAttack1();
 		return;
 	}
+	if (player_input.pressing_3 && App->globals.ability3_gained == true) {
+		PrepareSpecialAttack2();
+		return;
+	}
 }
 
 void e1Player::InitStats()
@@ -531,8 +537,14 @@ void e1Player::InitStats()
 		else if (strcmp((*item)->GetName(), "attack_power_ability") == 0) {
 			stats.attack_power_ability_1 = (*item)->GetValue();
 		}
+		else if (strcmp((*item)->GetName(), "attack_power_ability3") == 0) {
+			stats.attack_power_ability_3 = (*item)->GetValue();
+		}
 		else if (strcmp((*item)->GetName(), "cost_mana_special_attack") == 0) {
 			stats.cost_mana_special_attack1 = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "cost_mana_special_attack3") == 0) {
+			stats.cost_mana_special_attack3 = (*item)->GetValue();
 		}
 	}
 }
@@ -614,6 +626,9 @@ void e1Player::PerformActions(float dt)
 		case Attacks::SPECIAL_1:
 			SpecialAttack1();
 			break;
+		case Attacks::SPECIAL_2:
+			SpecialAttack2();
+			break;
 		default:
 			LOG("There is no attack type...");
 			break;
@@ -627,7 +642,6 @@ void e1Player::PerformActions(float dt)
 	}
 	if (state == State::AFTER_FLASH) {
 		RestTimeAfterFlash();
-
 	}
 }
 
@@ -671,6 +685,168 @@ void e1Player::BasicAttack()
 		ChangeAnimation(direction, state);
 		time_attack = SDL_GetTicks();
 	}
+
+
+}
+
+void e1Player::PrepareSpecialAttack2()
+{
+
+	if (stats.mana - stats.cost_mana_special_attack3 >= 0 || god_mode == true) {
+		if (!god_mode)
+			ReduceMana(stats.cost_mana_special_attack3);
+		//App->audio->PlayFx(App->scene->fx_ability_warrior);
+
+		type_attack = Attacks::SPECIAL_2;
+		state = State::ATTACKING;
+		switch (direction) {
+		case Direction::DOWN_LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+			break;
+		case Direction::UP_RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+			break;
+		case Direction::DOWN_RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+			break;
+		case Direction::UP_LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+			break;
+		case Direction::UP:
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3, 200, EASE);
+			break;
+		case Direction::DOWN:
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3, 200, EASE);
+			break;
+		case Direction::RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3, 200, EASE);
+			break;
+		case Direction::LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3, 200, EASE);
+			break;
+		}
+		ChangeAnimation(direction, state, type_attack);
+	}
+	else { // no enough mana so return to idle
+		App->audio->PlayFx(App->scene->fx_ability_no_mana);
+		state = State::IDLE;
+	}
+}
+
+void e1Player::SpecialAttack2()
+{
+	if (current_animation->Finished()) {
+		switch (direction) {
+		case Direction::DOWN_LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
+			break;
+		case Direction::UP_RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
+			break;
+		case Direction::DOWN_RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
+			break;
+		case Direction::UP_LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
+			break;
+		case Direction::UP:
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3 + 1, 200, EASE);
+			break;
+		case Direction::DOWN:
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3 + 1, 200, EASE);
+			break;
+		case Direction::RIGHT:
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3 + 1, 200, EASE);
+			break;
+		case Direction::LEFT:
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3 + 1, 200, EASE);
+			break;
+		}
+		CheckBasicSpecialAttack2Effects();
+		state = State::AFTER_ATTACK;
+		ChangeAnimation(direction, state);
+		time_attack = SDL_GetTicks();
+	}
+}
+
+void e1Player::CheckBasicSpecialAttack2Effects()
+{
+	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY) {
+			iPoint origin = actual_tile;
+			iPoint destination = (*item)->actual_tile;
+			bool has_succeeded = false;
+			switch (direction) {
+			case Direction::DOWN_LEFT: {
+				origin += {0, 1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::DOWN_RIGHT: {
+				origin += {1, 0};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::DOWN: {
+				origin += {1, 1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::UP: {
+				origin += {-1, -1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::UP_LEFT: {
+				origin += {-1, 0};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::UP_RIGHT: {
+				origin += {0, -1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::LEFT: {
+				origin += {-1, 1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::RIGHT: {
+				origin += {1, -1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			default:
+				LOG("There is no valid direction to attack");
+				break;
+			}
+			if (has_succeeded) {
+				e1Enemy* enemy_attacked = (e1Enemy*)(*item);
+				enemy_attacked->GetHitted(stats.attack_power_ability_3);
+				AugmentLives(stats.attack_power_ability_3*((float)((float)App->random.Generate(20, 60) / (float)100.0F)));
+			}
+		}
+	}
+
 
 
 }
@@ -1056,7 +1232,8 @@ void e1Player::QuestControls()
 	if (App->map->quest_rooms != nullptr &&App->map->quest_rooms->actual_room->room_type != RoomType::FOUNTAIN) {
 		player_input.pressing_SPACE = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
 		player_input.pressing_1 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILTY1) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILTY1) == KEY_DOWN;
-		player_input.pressing_2 = App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILITY2) == KEY_DOWN;
+		player_input.pressing_2 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILITY2) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILITY2) == KEY_DOWN;
+		player_input.pressing_3 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILITY3) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILITY3) == KEY_DOWN;
 	}
 
 	if (!player_input.pressing_shift) {
@@ -1188,7 +1365,9 @@ void e1Player::AugmentMana(const int & plus_mana, bool level_up)
 	stats.mana += plus_mana;
 	if (stats.mana > stats.max_mana)
 		stats.mana = stats.max_mana;
-	App->scene->player_mana_bar->UpdateBar(plus_mana, MANABAR);
+	App->scene->player_mana_bar->max_capacity += plus_mana;
+	App->scene->player_mana_bar->UpdateBar(App->scene->player_mana_bar->max_capacity, MANABAR);
+
 }
 
 void e1Player::ReduceLives(const int & cost_lives)
@@ -1215,7 +1394,9 @@ void e1Player::AugmentLives(const int & plus_lives, bool level_up)
 	stats.live += plus_lives;
 	if (stats.live > stats.max_lives)
 		stats.live = stats.max_lives;
-	App->scene->player_hp_bar->UpdateBar(plus_lives, HPBAR);
+	App->scene->player_hp_bar->max_capacity += plus_lives;
+	App->scene->player_hp_bar->UpdateBar(App->scene->player_hp_bar->max_capacity, HPBAR);
+
 }
 
 bool e1Player::IsEnemyInThatPosition(const iPoint & pos)

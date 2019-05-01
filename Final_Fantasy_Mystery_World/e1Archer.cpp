@@ -204,6 +204,30 @@ void e1Archer::IdAnimToEnum() //Assign every id animation to enum animation
 		case 69:
 			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
 			break;//
+		case 84:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_LEFT_2;
+			break;//
+		case 90:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_RIGHT_2;
+			break;//
+		case 93:
+			data.animations[i].animType = AnimationState::ABILITY_UP_RIGHT_2;
+			break;//
+		case 87:
+			data.animations[i].animType = AnimationState::ABILITY_UP_LEFT_2;
+			break;//
+		case 102:
+			data.animations[i].animType = AnimationState::ABILITY_LEFT_2;
+			break;//
+		case 99:
+			data.animations[i].animType = AnimationState::ABILITY_UP_2;
+			break;//
+		case 105:
+			data.animations[i].animType = AnimationState::ABILITY_RIGHT_2;
+			break;//
+		case 96:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_2;
+			break;//
 		}
 
 	}
@@ -233,4 +257,5 @@ void e1Archer::UpdateLevel()
 	stats.max_mana += 5;
 	stats.attack_power += 2;
 	stats.attack_power_ability_1 += 5;
+	stats.attack_power_ability_3 += 5;
 }

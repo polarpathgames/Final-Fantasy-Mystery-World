@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="33">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="33">
  <properties>
   <property name="movement" type="int" value="0"/>
  </properties>
@@ -8795,7 +8795,7 @@
    <tile/>
    <tile/>
    <tile gid="233"/>
-   <tile gid="219"/>
+   <tile/>
    <tile/>
    <tile gid="49"/>
    <tile gid="52"/>
@@ -8836,7 +8836,7 @@
    <tile/>
    <tile/>
    <tile gid="161"/>
-   <tile gid="243"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8877,7 +8877,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="267"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8918,7 +8918,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="291"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8959,7 +8959,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="315"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
