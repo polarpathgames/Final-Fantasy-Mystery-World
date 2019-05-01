@@ -233,6 +233,7 @@ void m1MenuManager::DestroyOptions()
 
 void m1MenuManager::CreateControls()
 {
+	App->scene->SetMenuState(StatesMenu::CONTROLS_MENU);
 
 	controls.controls_panel = App->gui->AddImage(0, 0, { 0,3256,1024,768 }, this, App->gui->screen, true, false, false, false);
 	controls.controls_panel->SetPosRespectParent(CENTERED);
@@ -626,6 +627,7 @@ void m1MenuManager::CreatePauseMenu()
 void m1MenuManager::DestroyPauseMenu()
 {
 	App->gui->DeleteUIElement(pause.pause_panel);
+	pause.Reset();
 	App->gui->ShowCursor(false);
 }
 
@@ -635,6 +637,7 @@ void m1MenuManager::UpdateOptionsMenu()
 		options.label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
 		options.label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
 		options.label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+		App->scene->SetMenuState(StatesMenu::OPTIONS_MENU);
 	}
 }
 
@@ -912,6 +915,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 	{
 		CreateOptions();
 		DestroyPauseMenu();
+		App->scene->SetMenuState(StatesMenu::OPTIONS_MENU);
 		App->scene->ShowHUD(false);
 		ret = false;
 	}
@@ -921,6 +925,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		//App->audio->PlayFx(fx_push_button_return);
 		CreateOptions();
 		DestroyControls();
+		App->scene->SetMenuState(StatesMenu::CONTROLS_MENU);
 		ret = false;
 	}
 	/*else if (interaction == button_up) {
@@ -1010,12 +1015,13 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		App->audio->PlayFx(App->main_menu->fx_push_button_return);
 		DestroyOptions();
 
-		_STL_ASSERT(App->main_menu->active != App->scene->active, "main menu and scene are both active or deactive");
+		//_STL_ASSERT(App->main_menu->active != App->scene->active, "main menu and scene are both active or deactive");
 		if(App->main_menu->active){
 			CreateMainMenu();
 		}
 		else if (App->scene->active) {
 			CreatePauseMenu();
+			App->scene->SetMenuState(StatesMenu::PAUSE_MENU);
 		}
 
 		ret = false;

@@ -443,6 +443,18 @@ struct UI_pause_menu {
 	u1Label* label_abort_quest = nullptr;
 	u1Button* button_options = nullptr;
 	u1Label* label_options = nullptr;
+
+	void Reset() {
+		pause_panel = nullptr;
+		button_resume = nullptr;
+		label_resume = nullptr;
+		button_main_menu = nullptr;
+		label_main_menu = nullptr;
+		button_abort_quest = nullptr;
+		label_abort_quest = nullptr;
+		button_options = nullptr;
+		label_options = nullptr;
+	}
 };
 
 struct UI_potion {
