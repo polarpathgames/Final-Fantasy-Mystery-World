@@ -897,6 +897,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		App->scene->SetMenuState(StatesMenu::NO_MENU);
 		if (App->GetPause())
 			App->ChangePause();
+		App->scene->ShowHUD(true);
 		ret = false;
 		App->scene->player->BlockControls(false);
 	}
@@ -913,7 +914,6 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 	}
 	if (interaction == pause.button_options)
 	{
-		App->scene->SetMenuState(StatesMenu::OPTIONS_MENU);
 		CreateOptions();
 		DestroyPauseMenu();
 		App->scene->SetMenuState(StatesMenu::OPTIONS_MENU);
@@ -927,7 +927,6 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		CreateOptions();
 		App->scene->SetMenuState(StatesMenu::OPTIONS_MENU);
 		DestroyControls();
-		App->scene->SetMenuState(StatesMenu::CONTROLS_MENU);
 		ret = false;
 	}
 	/*else if (interaction == button_up) {
@@ -1023,6 +1022,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		}
 		else if (App->scene->active) {
 			CreatePauseMenu();
+			App->scene->ShowHUD(true);
 			App->scene->SetMenuState(StatesMenu::PAUSE_MENU);
 		}
 
