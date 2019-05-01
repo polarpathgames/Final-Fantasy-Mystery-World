@@ -634,7 +634,7 @@ void RoomManager::UpdateRoomEvents()
 	
 	
 	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
-		if (map_background->GetLocalPosition().x == -1600) {
+		if (!map_active) {
 			int distance_x = actual_room->map_room_image->GetLocalPosition().x, distance_y = actual_room->map_room_image->GetLocalPosition().y;
 			player_pos->parent = actual_room->map_room_image;
 			player_pos->SetPosRespectParent(CENTERED);
@@ -674,14 +674,16 @@ void RoomManager::UpdateRoomEvents()
 			map_background->SetPos(-1600, map_background->GetLocalPosition().y);
 			App->easing_splines->CreateSpline(&map_background->position.x, 100, 1500, TypeSpline::EASE_OUT_QUINT);
 			App->scene->player->BlockControls(true);
+			map_active = true;
 		}
-		else if (map_background->GetLocalPosition().x == 100){
+		else if (map_active){
 			App->easing_splines->CreateSpline(&map_background->position.x, -1600, 1500, TypeSpline::EASE_OUT_QUINT);
 			App->scene->player->BlockControls(false);
+			map_active = false;
 		}
 	}
 
-	if (map_background->drawable) {
+	if (map_active) {
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
 			Room* last_down = rooms.front();
 			std::vector<Room*>::iterator item = rooms.begin();
