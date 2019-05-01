@@ -111,9 +111,6 @@ public:
 	u1Image* vertical_compass = nullptr;
 
 
-private:
-
-
 	int price_hp_potion = 75;
 	int price_mana_potion = 75;
 
