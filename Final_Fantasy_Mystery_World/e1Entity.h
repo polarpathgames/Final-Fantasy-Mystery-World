@@ -81,6 +81,7 @@ public:
 		NPC,
 		DAUGHTER,
 		ROCK,
+		BLUE_SLIME,
 
 		NO_TYPE
 	};

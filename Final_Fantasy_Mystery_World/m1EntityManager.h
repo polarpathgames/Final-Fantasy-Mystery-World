@@ -6,21 +6,6 @@
 #include "e1Entity.h"
 #include <vector>
 
-enum class TextureType {
-	WARRIOR,
-	MAGE,
-	ARCHER,
-	CARNIVOROUS_PLANT,
-	BLUE_DOG,
-	STRANGE_FROG,
-	STATIC_ENTITIES,
-	PARTICLE,
-	DAUGHTER,
-
-	NONE // NONE must be the last one
-};
-
-
 
 class m1EntityManager : public m1Module
 {

@@ -19,12 +19,4 @@ public:
 
 };
 
-
-
-
-
-
-
 #endif // !_E1BLUEDOG_H_
-
-
