@@ -460,7 +460,8 @@ bool e1StaticEntity::Update(float dt)
 	if (interacting_state == InteractingStates::INTERACTING && App->dialog->end_dial)
 	{
 		interacting_state = InteractingStates::WAITING_INTERACTION;
-		App->scene->ShowHUD(true);
+		if (static_type != Type::HELP1 && static_type != Type::HELP2 && static_type != Type::HELP3)
+			App->scene->ShowHUD(true);
 	}
 
 	if (interacting_state == InteractingStates::INTERACTING) {
