@@ -233,6 +233,7 @@ void m1MenuManager::DestroyOptions()
 
 void m1MenuManager::CreateControls()
 {
+	App->scene->SetMenuState(StatesMenu::CONTROLS_MENU);
 
 	controls.controls_panel = App->gui->AddImage(0, 0, { 0,3256,1024,768 }, this, App->gui->screen, true, false, false, false);
 	controls.controls_panel->SetPosRespectParent(CENTERED);
@@ -503,15 +504,13 @@ void m1MenuManager::DestroyNameMenu()
 void m1MenuManager::CreateGoToQuestMenu()
 {
 	App->audio->PlayFx(App->gui->fx_inventory);
-	quest.go_to_quest_panel = App->gui->AddImage(100, 70, { 1878, 1536, 170, 101 }, App->scene, App->gui->screen, true, false, false, false);
+	quest.go_to_quest_panel = App->gui->AddImage(100, 70, { 1878, 1536, 170, 101 }, nullptr, App->gui->screen, true, false, false, false);
 
+	quest.go_to_quest_button = App->gui->AddButton(30, 0, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
 	quest.go_to_quest_label = App->gui->AddLabel(50, -5, "Tutorial", quest.go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
-	quest.go_to_quest_button = App->gui->AddButton(30, 0, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, this, quest.go_to_quest_panel, false, false, true, true);
-	quest.go_to_quest_button->AddListener(this);
 
+	quest.cancel_quest_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
 	quest.cancel_quest_label = App->gui->AddLabel(50, 38, "Cancel", quest.go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
-	quest.cancel_quest_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, quest.go_to_quest_panel, false, false, true, true);
-	quest.cancel_quest_button->AddListener(this);
 
 	App->scene->player->BlockControls(true);
 }
@@ -626,6 +625,7 @@ void m1MenuManager::CreatePauseMenu()
 void m1MenuManager::DestroyPauseMenu()
 {
 	App->gui->DeleteUIElement(pause.pause_panel);
+	pause.Reset();
 	App->gui->ShowCursor(false);
 }
 
@@ -635,6 +635,7 @@ void m1MenuManager::UpdateOptionsMenu()
 		options.label_fx_value->SetText(std::string(std::to_string(App->audio->volume_fx)).data());
 		options.label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
 		options.label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
+		App->scene->SetMenuState(StatesMenu::OPTIONS_MENU);
 	}
 }
 
@@ -894,6 +895,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		App->scene->SetMenuState(StatesMenu::NO_MENU);
 		if (App->GetPause())
 			App->ChangePause();
+		App->scene->ShowHUD(true);
 		ret = false;
 		App->scene->player->BlockControls(false);
 	}
@@ -910,9 +912,9 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 	}
 	if (interaction == pause.button_options)
 	{
-		App->scene->SetMenuState(StatesMenu::OPTIONS_MENU);
 		CreateOptions();
 		DestroyPauseMenu();
+		App->scene->SetMenuState(StatesMenu::OPTIONS_MENU);
 		App->scene->ShowHUD(false);
 		ret = false;
 	}
@@ -1018,6 +1020,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		}
 		else if (App->scene->active) {
 			CreatePauseMenu();
+			App->scene->ShowHUD(true);
 			App->scene->SetMenuState(StatesMenu::PAUSE_MENU);
 		}
 
