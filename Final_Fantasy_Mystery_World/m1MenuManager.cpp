@@ -552,7 +552,7 @@ void m1MenuManager::CreateInventory()
 	inventory.exp_name_label = App->gui->AddLabel(55, 307, "Exp:", inventory.inventory_panel, BLACK, FontType::FF64, nullptr, false);
 	inventory.exp_number_label = App->gui->AddLabel(50, 0, std::string(std::to_string(App->scene->player->stats.xp) + "/" + std::to_string(App->scene->player->stats.max_xp)).data(), inventory.exp_name_label, BLACK, FontType::FF64, nullptr, false);
 
-	App->easing_splines->CreateSpline(&inventory.inventory_panel->position.x, App->gui->screen->section.w - inventory.inventory_panel->section.w - 8, 700, TypeSpline::EASE_OUT_BACK);
+	
 }
 
 void m1MenuManager::DestroyInventory()
@@ -653,8 +653,8 @@ void m1MenuManager::CreateShopMenu()
 {
 	App->scene->player->BlockControls(true);
 
-	shop.shop_panel = App->gui->AddImage(100, 150, { 1820,1691,227,383 }, (m1Module*)App->scene, App->gui->screen, true, false, false, false);
-	shop.shop_panel->SetPosRespectParent(LEFT_CENTERED, 200);
+	shop.shop_panel = App->gui->AddImage(-350 - 227, (App->gui->screen->section.h - 383) * 0.5F, { 1820,1691,227,383 }, (m1Module*)App->scene, App->gui->screen, true, false, false, false);
+	//shop.shop_panel->SetPosRespectParent(LEFT_CENTERED, 200);
 	shop.shop_label = App->gui->AddLabel(0, 0, "SHOP", shop.shop_panel, BLACK, FontType::FF64, nullptr, false);
 	shop.shop_label->SetPosRespectParent(CENTERED_UP, 20);
 
@@ -676,9 +676,12 @@ void m1MenuManager::CreateShopMenu()
 	App->gui->FocusButton(shop.shop_button_hp_potion);
 
 	CreateInventory();
-	inventory.inventory_panel->SetPosRespectParent(RIGHT_CENTERED, 200);
+	//inventory.inventory_panel->SetPosRespectParent(RIGHT_CENTERED, 200);
 	inventory.hp_potion_button->interactable = false;
 	inventory.mana_potion_button->interactable = false;
+	App->easing_splines->CreateSpline(&inventory.inventory_panel->position.x, App->gui->screen->section.w - inventory.inventory_panel->section.w - 200, 1500, TypeSpline::EASE_OUT_QUINT);
+	App->easing_splines->CreateSpline(&shop.shop_panel->position.x, 200, 1500, TypeSpline::EASE_OUT_QUINT);
+
 }
 
 void m1MenuManager::DestroyShopMenu()

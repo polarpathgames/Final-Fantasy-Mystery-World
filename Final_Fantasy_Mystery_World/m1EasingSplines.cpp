@@ -100,6 +100,12 @@ bool EaseSplineInfo::Update(float dt)
 		case EASE_OUT_BACK: {
 			*position = ease_function.EaseOutBack(time_passed, initial_position, distance_to_travel, time_to_travel);
 		} break;
+		case EASE_IN_CUBIC: {
+			*position = ease_function.EaseInCubic(time_passed, initial_position, distance_to_travel, time_to_travel);
+		} break;
+		case EASE_OUT_CUBIC: {
+			*position = ease_function.EaseOutCubic(time_passed, initial_position, distance_to_travel, time_to_travel);
+		} break;
 		default:
 			break;
 		}
@@ -143,4 +149,14 @@ int EaseFunctions::EaseOutBack(float time_passed, int initial_position, int dist
 {
 	float s = 1.10158f;
 	return distance_to_travel * ((time_passed = time_passed / time_to_travel - 1)*time_passed*((s + 1)*time_passed + s) + 1) + initial_position;
+}
+
+int EaseFunctions::EaseInCubic(float time_passed, int initial_position, int distance_to_travel, float time_to_travel)
+{
+	return distance_to_travel * (time_passed /= time_to_travel)*time_passed*time_passed + initial_position;
+}
+
+int EaseFunctions::EaseOutCubic(float time_passed, int initial_position, int distance_to_travel, float time_to_travel)
+{
+	return distance_to_travel * ((time_passed = time_passed / time_to_travel - 1)*time_passed*time_passed + 1) + initial_position;
 }
