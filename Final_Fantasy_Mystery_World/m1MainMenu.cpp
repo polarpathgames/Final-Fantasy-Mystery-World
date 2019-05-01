@@ -25,7 +25,10 @@
 #include "m1Window.h"
 #include "m1MenuManager.h"
 
-m1MainMenu::m1MainMenu(){}
+m1MainMenu::m1MainMenu()
+{
+	name.assign("main_menu");
+}
 
 m1MainMenu::~m1MainMenu(){}
 
@@ -57,7 +60,6 @@ bool m1MainMenu::Update(float dt)
 		delete App->scene->control_to_change;
 		App->scene->control_to_change = nullptr;
 	}
-
 	return true;
 }
 
@@ -65,7 +67,6 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 {
 	bool ret = true;
 
-	// MAIN MENU BUTTONS==================================================================================
 
 	if (interaction == App->menu_manager->main_menu.new_game_button) {
 		App->audio->PlayFx(fx_push_button_return);

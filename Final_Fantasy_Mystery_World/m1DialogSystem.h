@@ -54,7 +54,8 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 	bool Interact(u1GUI* element);
-
+	bool Save(pugi::xml_node&) const;
+	bool Load(pugi::xml_node&);
 	void DeleteText();
 	bool PerformDialogue(int tr_id);
 	bool LoadDialogue(const char*);
@@ -63,7 +64,6 @@ public:
 	void BlitDialog();
 	bool CompareKarma();
 	void CheckForKarma(DialogOption* karmaNode);
-  
 public:
 	bool firstupdate = true, waiting_input = false, end_dial = true;
 	std::vector <DialogTree*> dialogTrees;
