@@ -94,6 +94,18 @@ bool EaseSplineInfo::Update(float dt)
 		case EASE_IN_OUT_BACK: {
 			*position = ease_function.EaseInOutBack(time_passed, initial_position, distance_to_travel, time_to_travel);
 		} break;
+		case EASE_IN_BACK: {
+			*position = ease_function.EaseInBack(time_passed, initial_position, distance_to_travel, time_to_travel);
+		} break;
+		case EASE_OUT_BACK: {
+			*position = ease_function.EaseOutBack(time_passed, initial_position, distance_to_travel, time_to_travel);
+		} break;
+		case EASE_IN_CUBIC: {
+			*position = ease_function.EaseInCubic(time_passed, initial_position, distance_to_travel, time_to_travel);
+		} break;
+		case EASE_OUT_CUBIC: {
+			*position = ease_function.EaseOutCubic(time_passed, initial_position, distance_to_travel, time_to_travel);
+		} break;
 		default:
 			break;
 		}
@@ -124,4 +136,27 @@ int EaseFunctions::EaseInOutBack(float time_passed, int initial_position, int di
 		float postFix = time_passed -= 2;
 		return distance_to_travel / 2 * ((postFix)*time_passed*(((s *= (1.525f)) + 1)*time_passed + s) + 2) + initial_position;
 	}
+}
+
+int EaseFunctions::EaseInBack(float time_passed, int initial_position, int distance_to_travel, float time_to_travel)
+{
+	float s = 1.70158f;
+	float postFix = time_passed /= time_to_travel;
+	return distance_to_travel * (postFix)*time_passed*((s + 1)*time_passed - s) + initial_position;
+}
+
+int EaseFunctions::EaseOutBack(float time_passed, int initial_position, int distance_to_travel, float time_to_travel)
+{
+	float s = 1.10158f;
+	return distance_to_travel * ((time_passed = time_passed / time_to_travel - 1)*time_passed*((s + 1)*time_passed + s) + 1) + initial_position;
+}
+
+int EaseFunctions::EaseInCubic(float time_passed, int initial_position, int distance_to_travel, float time_to_travel)
+{
+	return distance_to_travel * (time_passed /= time_to_travel)*time_passed*time_passed + initial_position;
+}
+
+int EaseFunctions::EaseOutCubic(float time_passed, int initial_position, int distance_to_travel, float time_to_travel)
+{
+	return distance_to_travel * ((time_passed = time_passed / time_to_travel - 1)*time_passed*time_passed + 1) + initial_position;
 }
