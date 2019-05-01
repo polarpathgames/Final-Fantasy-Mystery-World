@@ -98,6 +98,9 @@ public:
 	e1Player* player = nullptr;
 	PlayerType player_type = PlayerType::NONE;
 
+	uint turns = 0u;
+	uint room_turns = 0u;
+
 	ChangeControls * control_to_change = nullptr;
 
 	// HUD

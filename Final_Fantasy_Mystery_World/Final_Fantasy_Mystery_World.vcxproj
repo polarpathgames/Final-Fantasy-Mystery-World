@@ -104,6 +104,7 @@
     <ClCompile Include="m1Cutscene.cpp" />
     <ClCompile Include="m1MenuManager.cpp" />
     <ClCompile Include="m1ParticleManager.cpp" />
+    <ClCompile Include="m1StateManager.cpp" />
     <ClCompile Include="p1Explosion.cpp" />
     <ClCompile Include="p1Fire.cpp" />
     <ClCompile Include="p1Firework.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="m1Cutscene.h" />
     <ClInclude Include="m1MenuManager.h" />
     <ClInclude Include="m1ParticleManager.h" />
+    <ClInclude Include="m1StateManager.h" />
     <ClInclude Include="p1Explosion.h" />
     <ClInclude Include="p1Fire.h" />
     <ClInclude Include="p1Firework.h" />

@@ -70,6 +70,8 @@ void e1DynamicEntity::ChangeTurn(EntityType type)
 	default:
 		break;
 	}
+	App->scene->turns++;
+	App->scene->room_turns++;
 
 }
 void e1DynamicEntity::PushBack()
