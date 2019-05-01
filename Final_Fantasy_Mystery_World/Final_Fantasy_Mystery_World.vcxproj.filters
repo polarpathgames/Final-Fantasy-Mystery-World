@@ -438,6 +438,9 @@
     <ClInclude Include="p2States.h">
       <Filter>Tools</Filter>
     </ClInclude>
+    <ClInclude Include="e1State.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml">

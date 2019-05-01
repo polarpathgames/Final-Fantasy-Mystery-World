@@ -32,7 +32,7 @@ e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
-	has_turn = false;
+	//has_turn = false;
 	velocity.x = 160;
 	velocity.y = 80;
 	
@@ -274,7 +274,7 @@ void e1Enemy::MovementLogic()
 			movement_count.x += App->map->data.tile_width;
 			actual_tile += {1, -1};
 		}
-		ChangeTurn(type);
+		turn_done = true;
 	}
 
 

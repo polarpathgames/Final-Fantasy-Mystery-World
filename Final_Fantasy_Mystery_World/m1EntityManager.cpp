@@ -62,6 +62,8 @@ bool m1EntityManager::PreUpdate()
 	std::vector<e1Entity*>::iterator item = entities.begin();
 	while (item != entities.end()) {
 		if ((*item) != nullptr && (*item)->to_delete) {
+			if (entity_turn == *item)
+				entity_turn = nullptr;
 			delete (*item);
 			(*item) = nullptr;
 			item = entities.erase(item);
@@ -70,12 +72,34 @@ bool m1EntityManager::PreUpdate()
 			++item;
 	}
 
-	item = entities.begin();
-	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr && (*item)->has_turn) {
-			(*item)->PreUpdate();
+	if (entity_turn == nullptr || entity_turn->turn_done) {
+		item = std::find(entities.begin(), entities.end(), entity_turn);
+		bool changed = false;
+		for (; item != entities.end(); ++item) {
+			if ((*item) != nullptr && entity_turn != *item && (*item)->allow_turn) {
+				changed = true;
+				entity_turn->turn_done = false;
+				entity_turn = *item;
+				break;
+			}
 		}
+		if (!changed) {
+			item = entities.begin();
+			for (; item != entities.end(); ++item) {
+				if ((*item) != nullptr && entity_turn != *item && (*item)->allow_turn) {
+					changed = true;
+					entity_turn->turn_done = false;
+					entity_turn = *item;
+					break;
+				}
+			}
+		}
+		if (!changed)
+			entity_turn->turn_done = false;
 	}
+	else {
+		entity_turn->PreUpdate();
+	}	
 	
 	item = entities_to_create.begin();
 	for (; item != entities_to_create.end(); ++item) {

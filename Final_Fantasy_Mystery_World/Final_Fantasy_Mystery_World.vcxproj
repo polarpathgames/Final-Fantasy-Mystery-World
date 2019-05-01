@@ -171,6 +171,7 @@
     <ClInclude Include="e1Particles.h" />
     <ClInclude Include="e1Rock.h" />
     <ClInclude Include="e1ShopKeeperDaughter.h" />
+    <ClInclude Include="e1State.h" />
     <ClInclude Include="e1StrangeFrog.h" />
     <ClInclude Include="e1Warrior.h" />
     <ClInclude Include="m1Cutscene.h" />
