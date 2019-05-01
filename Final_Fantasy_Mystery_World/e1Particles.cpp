@@ -12,12 +12,15 @@
 #include "m1ParticleManager.h"
 #include "e1Player.h"
 #include "Brofiler/Brofiler.h"
+#include "m1Textures.h"
 
 
 e1Particles::e1Particles(const int & x, const int & y) : e1DynamicEntity(x, y)
 {
 	type = e1Entity::EntityType::PARTICLE;
 	position = App->map->MapToWorld(position.x, position.y);
+	data.tileset.imagePath.assign("assets/sprites/Particles.png");
+	data.tileset.texture = App->tex->Load(data.tileset.imagePath.data());
 }
 
 e1Particles::~e1Particles()
