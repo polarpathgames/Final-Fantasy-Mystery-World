@@ -605,6 +605,7 @@ void m1MenuManager::CreatePauseMenu()
 {
 	pause.pause_panel = App->gui->AddImage(0, 0, { 1252,1536,313,428 }, nullptr, App->gui->screen, true, false, false, false);
 	pause.pause_panel->SetPosRespectParent(CENTERED);
+	pause.pause_panel->SetPos(pause.pause_panel->GetLocalPosition().x, -1000);
 
 	pause.button_resume = App->gui->AddButton(50, 50, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
 	pause.label_resume = App->gui->AddLabel(0, 0, "Continue", pause.button_resume, BLACK, FontType::FF48, nullptr, false);
@@ -627,6 +628,8 @@ void m1MenuManager::CreatePauseMenu()
 	pause.button_options = App->gui->AddButton(50, 150, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
 	pause.label_options = App->gui->AddLabel(0, 0, "Options", pause.button_options, BLACK, FontType::FF48, nullptr, false);
 	pause.label_options->SetPosRespectParent(CENTERED);
+
+	App->easing_splines->CreateSpline(&pause.pause_panel->position.y, (App->gui->screen->section.h - pause.pause_panel->section.h) * 0.5F, 1500, TypeSpline::EASE_OUT_QUINT);
 }
 
 void m1MenuManager::DestroyPauseMenu()
