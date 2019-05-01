@@ -85,8 +85,8 @@ RoomManager::RoomManager(const char* name)
 	else {
 		LOG("XML was loaded succesfully!");
 
-		map_background = App->gui->AddImage(100, 100, { 200,1736,(int)App->win->width - 200, (int)App->win->height - 200 }, nullptr, App->gui->screen, false, false, false, false);
-		map_zone = App->gui->AddImage(0, 0, { 200,1736,(int)App->win->width - 200, (int)App->win->height - 200 }, nullptr, map_background, false, false, false, false);
+		map_background = App->gui->AddImage(100, 100, { 200,1736,(int)App->win->width - 200, (int)App->win->height - 300 }, nullptr, App->gui->screen, false, false, false, false);
+		map_zone = App->gui->AddImage(0, 0, { 200,1736,(int)App->win->width - 200, (int)App->win->height - 300 }, nullptr, map_background, false, false, false, false);
 
 		for (pugi::xml_node room_node = room_manager_file.child("room_manager").child(name).child("room"); room_node; room_node = room_node.next_sibling("room")) {
 			Room * r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_uint(), room_node.child("type").child_value(),
@@ -96,6 +96,7 @@ RoomManager::RoomManager(const char* name)
 
 		LoadRoom(1);
 		actual_room->map_room_image = App->gui->AddImage(125, 125, { 1317,2170,128,64 }, nullptr, (u1GUI*)map_zone, false, false, false, false);
+		player_pos = App->gui->AddImage(0, 0, { 1830,2170,128,64 }, nullptr, actual_room->map_room_image, false, false, false, false);
 	}
 
 	room_manager_file.reset();
@@ -103,8 +104,10 @@ RoomManager::RoomManager(const char* name)
 
 RoomManager::~RoomManager()
 {
-	map_background->to_delete = true;
-	map_zone->to_delete = true;
+	if (map_background != nullptr)
+		map_background->to_delete = true;
+	if (map_zone != nullptr)
+		map_zone->to_delete = true;
 }
 
 void RoomManager::OnCollision(Collider * c1, Collider * c2)
@@ -605,6 +608,7 @@ void RoomManager::UpdateRoomEvents()
 	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
 		if (map_background->drawable) {
 			map_background->drawable = false;
+			player_pos->drawable = false;
 			std::vector<Room*>::iterator item = rooms.begin();
 			for (; item != rooms.end(); ++item) {
 				if ((*item) != nullptr && (*item)->map_room_image != nullptr) {
@@ -619,6 +623,9 @@ void RoomManager::UpdateRoomEvents()
 		}
 		else {
 			int distance_x = actual_room->map_room_image->GetLocalPosition().x, distance_y = actual_room->map_room_image->GetLocalPosition().y;
+			player_pos->parent = actual_room->map_room_image;
+			player_pos->SetPosRespectParent(CENTERED);
+			player_pos->drawable = true;
 			map_zone->SetPosRespectParent(CENTERED);
 			actual_room->map_room_image->SetPosRespectParent(CENTERED);
 			distance_x = actual_room->map_room_image->GetLocalPosition().x - distance_x;
