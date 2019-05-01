@@ -44,10 +44,28 @@ void u1GUI::InnerDraw()
 	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0);
 }
 
+void u1GUI::PreUpdate()
+{
+	PreUpdateElement();
+
+	switch (current_state)
+	{
+	case Element_Event::HOVER_ENTER:
+		current_state = Element_Event::HOVER;
+		break;
+	case Element_Event::HOVER_EXIT:
+		current_state = Element_Event::NONE;
+		break;
+	case Element_Event::CLICKED_UP:
+		current_state = Element_Event::NONE;
+		break;
+	}
+}
+
 bool u1GUI::Update()
 {
 	UpdateElement();
-	if (current_state == Element_Event::CLICKED_DOWN || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+	if (current_state == Element_Event::CLICKED_DOWN || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 		for (std::list<m1Module*>::iterator module = listeners.begin(); module != listeners.end(); ++module) {
 			if (*module != nullptr)
 				if (!(*module)->Interact(this))

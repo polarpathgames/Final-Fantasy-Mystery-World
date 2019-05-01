@@ -33,6 +33,7 @@
 #include "m1Textures.h"
 #include "e1Drop.h"
 #include "m1Textures.h"
+#include "m1MenuManager.h"
 
 m1Scene::m1Scene() : m1Module()
 {
@@ -63,6 +64,8 @@ bool m1Scene::Start()
 		App->ChangeInventory();
 
 	App->gui->ShowCursor(false);
+
+	menu_state = StatesMenu::NO_MENU;
 
 	fx_writting = App->audio->LoadFx("assets/audio/sfx/LTTP_Text_Done.wav");
 	fx_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_Steps_on_Water1.wav");
@@ -109,11 +112,11 @@ bool m1Scene::Update(float dt)
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Aqua);
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
-		if (debug_screen == nullptr) {
-			CreateDebugScreen();
+		if (App->menu_manager->debug_screen.debug_screen == nullptr) {
+			App->menu_manager->CreateDebugScreen();
 		}
 		else {
-			DestroyDebugScreen();
+			App->menu_manager->DestroyDebugScreen();
 		}
 	}
 
@@ -153,10 +156,10 @@ bool m1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 		if (App->map->actual_map != Maps::SHOP && App->map->actual_map != Maps::NONE && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::LOBBY) {
 			if (App->input->GetKey(SDL_SCANCODE_LSHIFT)) {
-				App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_NEXT_B, true);
+				App->map->quest_rooms->ChangeRoom(COLLIDER_TYPE::COLLIDER_NEXT_B, true);
 			}
 			else {
-				App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_NEXT_A, true);
+				App->map->quest_rooms->ChangeRoom(COLLIDER_TYPE::COLLIDER_NEXT_A, true);
 			}
 		}
 	}
@@ -164,10 +167,10 @@ bool m1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
 		if (App->map->actual_map != Maps::SHOP && App->map->actual_map != Maps::NONE && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::LOBBY) {
 			if (App->input->GetKey(SDL_SCANCODE_LSHIFT)) {
-				App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_LAST_B, true);
+				App->map->quest_rooms->ChangeRoom(COLLIDER_TYPE::COLLIDER_LAST_B, true);
 			}
 			else {
-				App->map->quest_rooms->change_room(COLLIDER_TYPE::COLLIDER_LAST_A, true);
+				App->map->quest_rooms->ChangeRoom(COLLIDER_TYPE::COLLIDER_LAST_A, true);
 			}
 		}
 	}
@@ -183,7 +186,7 @@ bool m1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
 		App->scene->player->god_mode = !App->scene->player->god_mode;
-		GodModeIndicator(App->scene->player->god_mode);
+		App->menu_manager->GodModeIndicator(App->scene->player->god_mode);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {
@@ -203,40 +206,47 @@ bool m1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_KP_3) == KEY_DOWN) {
 		App->win->scale = 3;
 	}
-		
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
+		App->SaveGame("save_game.xml");
+	}
 	App->map->Draw();
 	
 	switch (menu_state) {
 	case StatesMenu::NO_MENU:
-		if ((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing) {
-			if (App->ChangePause()) {
+		if ((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing) {
+			if (App->ChangePause() && !App->cutscene_manager->is_executing) {
 				App->audio->PlayFx(App->gui->fx_pause);
-				CreatePauseMenu();
+				App->menu_manager->CreatePauseMenu();
 				player->BlockControls(true);
 				menu_state = StatesMenu::PAUSE_MENU;
 			}
 		}
-		if ((App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing) {
+		if ((App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing) {
 			if (App->ChangeInventory()) {
 				App->audio->PlayFx(App->gui->fx_inventory);
-				CreateInventory();
+				App->menu_manager->CreateInventory();
 				player->BlockControls(true);
 				menu_state = StatesMenu::INVENTORY_MENU;
 			}
 		}
 		break;
 	case StatesMenu::INVENTORY_MENU:
-		if (App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+		if (App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->ChangeInventory();
-			DestroyInventory();
+			App->menu_manager->DestroyInventory();
 			player->BlockControls(false);
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
 	case StatesMenu::FIRSTABILITY_MENU:
+
 		ShowHUD(false);
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			DestroyHelpAbilityMenu();
+
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			App->menu_manager->DestroyHelpAbilityMenu();
+
 			menu_state = StatesMenu::NO_MENU;
 			ShowHUD(true);
 			player->BlockControls(false);
@@ -244,74 +254,89 @@ bool m1Scene::Update(float dt)
 	
 		break;
 	case StatesMenu::GO_TO_QUEST_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
-			DestroyGoToQuestMenu();
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			App->menu_manager->DestroyGoToQuestMenu();
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
 	case StatesMenu::POTION_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
-			DeletePotionMenu();
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			App->menu_manager->DeletePotionMenu();
 			menu_state = StatesMenu::INVENTORY_MENU;
 		}
 		break;
 	case StatesMenu::PAUSE_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			App->ChangePause();
-			DestroyPauseMenu();
+			App->menu_manager->DestroyPauseMenu();
 			menu_state = StatesMenu::NO_MENU;
 			player->BlockControls(false);
 		}
 		break;
 	case StatesMenu::OPTIONS_MENU:
-		if (options_panel != nullptr) {
-			UpdateOptionsMenu();
+		if (App->menu_manager->options.options_panel != nullptr) {
+			App->menu_manager->UpdateOptionsMenu();
 		}
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
-			CreatePauseMenu();
-			DestroyOptionsMenu();
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			App->menu_manager->CreatePauseMenu();
+			App->menu_manager->DestroyOptions();
 			player->BlockControls(true);
 			menu_state = StatesMenu::PAUSE_MENU;
 		}
 		break;
 	case StatesMenu::SHOP_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
-			DestroyShopMenu();
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			App->menu_manager->DestroyShopMenu();
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
 	case StatesMenu::HELP_DIAGONAL_MENU:
+
 		ShowHUD(false);
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			DestroyHelpDiagonalMenu();
+
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			App->menu_manager->DestroyHelpDiagonalMenu();
+
 			player->BlockControls(false);
 			ShowHUD(true);
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
 	case StatesMenu::HELP_ATTACK_MENU:
+
 		ShowHUD(false);
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			DestroyHelpAttackMenu();
+
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			App->menu_manager->DestroyHelpAttackMenu();
+
 			player->BlockControls(false);
 			ShowHUD(true);
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
 	case StatesMenu::HELP_ABILITY_MENU:
+
 		ShowHUD(false);
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			DestroyHelpAbilityMenu();
+
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			App->menu_manager->DestroyHelpAbilityMenu();
+
 			player->BlockControls(false);
 			ShowHUD(true);
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
 	case StatesMenu::CONTROLS_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
-			CreateOptionsMenu();
-			DestroyControlsMenu();
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			App->menu_manager->CreateOptions();
+			App->menu_manager->DestroyControls();
 			menu_state = StatesMenu::OPTIONS_MENU;
 		}
 		if (control_to_change != nullptr && !control_to_change->Update()) {
@@ -321,8 +346,8 @@ bool m1Scene::Update(float dt)
 		break;
 	}
 
-	if (debug_screen != nullptr) {
-		UpdateDebugScreen();
+	if (App->menu_manager->debug_screen.debug_screen != nullptr) {
+		App->menu_manager->UpdateDebugScreen();
 	}
 	ShitFunctionJAJA();
 
@@ -353,6 +378,38 @@ bool m1Scene::CleanUp()
 
 	//delete control_to_change;
 	//labels_control.clear();
+
+	return true;
+}
+void m1Scene::CreateEntitiesFromXML(pugi::xml_node& node)
+{
+	e1Entity* ent = nullptr;
+	ent = App->entity_manager->CreateEntity((e1Entity::EntityType)node.child("stats").attribute("entity_type").as_int(), -38, 375, "player");
+	player = (e1Player*)ent;
+}
+bool m1Scene::Load(pugi::xml_node& node)
+{
+	pugi::xml_node options = node.child("options");
+	App->win->fullscreen = options.attribute("cb_fullscreen").as_bool();
+	App->audio->mute = options.attribute("mute_general").as_bool();
+	App->audio->mute_volume = options.attribute("mute_music").as_bool();
+	App->audio->mute_fx = options.attribute("mute_fx").as_bool();
+	App->audio->volume_general = options.attribute("general_volume").as_uint();
+	App->audio->volume = options.attribute("music_volume").as_uint();
+	App->audio->volume_fx = options.attribute("fx_volume").as_uint();
+
+	return true;
+}
+bool m1Scene::Save(pugi::xml_node& node) const
+{
+	pugi::xml_node options = node.append_child("options");
+	options.append_attribute("cb_fullscreen") = (bool)App->win->fullscreen;
+	options.append_attribute("mute_general") = (bool)App->audio->mute;
+	options.append_attribute("mute_music") = (bool)App->audio->mute_volume;
+	options.append_attribute("mute_fx") = (bool)App->audio->mute_fx;
+	options.append_attribute("general_volume") = (uint)App->audio->volume_general;
+	options.append_attribute("music_volume") = (uint)App->audio->volume;
+	options.append_attribute("fx_volume") = (uint)App->audio->volume_fx;
 
 	return true;
 }
@@ -451,40 +508,15 @@ void m1Scene::CreateEntities()
 	}
 }
 
-void m1Scene::CreateGoToQuestMenu()
-{
-	App->audio->PlayFx(App->gui->fx_inventory);
-	go_to_quest_panel = App->gui->AddImage(100, 70, { 1878, 1536, 170, 101 }, this, App->gui->screen, true, false, false, false);
 
-	go_to_quest_label = App->gui->AddLabel(50, -5, "Tutorial", go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
-	go_to_quest_button = App->gui->AddButton(30, 0, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, this, go_to_quest_panel, false, false, true, true);
-	go_to_quest_button->AddListener(this);
-
-	cancel_quest_label = App->gui->AddLabel(50, 38, "Cancel", go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
-	cancel_quest_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, go_to_quest_panel, false, false, true, true);
-	cancel_quest_button->AddListener(this);
-
-	player->BlockControls(true);
-
-	//menu_state = StatesMenu::GO_TO_QUEST_MENU;
-
-}
-
-void m1Scene::DestroyGoToQuestMenu()
-{
-
-	App->gui->DeleteUIElement(go_to_quest_panel);
-
-	player->BlockControls(false);
-	//menu_state = StatesMenu::NO_MENU;
-}
 
 void m1Scene::ShitFunctionJAJA()
 {
-	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && !App->globals.CutSceneLobbyExplain && App->map->actual_map == Maps::LOBBY) {
+	/*if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && !App->globals.CutSceneLobbyExplain && App->map->actual_map == Maps::LOBBY) {
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyTutorial.xml");
 		App->globals.CutSceneLobbyExplain = true;
 		App->globals.Tutorial_first_time = false;
+
 	}
 }
 
@@ -1132,76 +1164,44 @@ void m1Scene::DestroyHelpAbilityMenu()
 {
 
 	App->gui->DeleteUIElement(help_ability);
+
+	}*/
+
 }
 
 bool m1Scene::Interact(u1GUI* interact)
 {
 	bool ret = true;
 	switch (menu_state) {
-	case StatesMenu::PAUSE_MENU:
-		if (interact == button_resume)
-		{
-			App->audio->PlayFx(App->main_menu->fx_push_button_return);
-			DestroyPauseMenu();
-			if (App->GetPause())
-				App->ChangePause();
-			ret = false;
-			player->BlockControls(false);
-			menu_state = StatesMenu::NO_MENU;
-		}
-		if (interact == button_main_menu)
-		{
-			DestroyDebugScreen();
-			App->gui->DeleteAllUIElements();
-			App->entity_manager->Disable();
-			App->map->Disable();
-			App->ChangePause();
-			active = false; 
-			App->main_menu->Enable();
-			ret = false;
-			menu_state = StatesMenu::NONE;
-		}
-		if (interact == button_options)
-		{
-			CreateOptionsMenu();
-			DestroyPauseMenu();
-			menu_state = StatesMenu::OPTIONS_MENU;
-			ShowHUD(false);
-			ret = false;
-		}
-		if (interact != nullptr && interact != button_resume) {
-			App->audio->PlayFx(App->main_menu->fx_push_button);
-		}
-		break;
 	case StatesMenu::GO_TO_QUEST_MENU:
-		if (interact == go_to_quest_button) {
+		if (interact == App->menu_manager->quest.go_to_quest_button) {
 			App->audio->PlayFx(fx_ability_warrior);
 
-			DestroyGoToQuestMenu();
+			App->menu_manager->DestroyGoToQuestMenu();
 			App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 			menu_state = StatesMenu::NO_MENU;
 			ret = false;
 		}
-		if (interact == cancel_quest_button) {
+		if (interact == App->menu_manager->quest.cancel_quest_button) {
 			App->audio->PlayFx(App->main_menu->fx_push_button_return);
-			DestroyGoToQuestMenu();
+			App->menu_manager->DestroyGoToQuestMenu();
 			menu_state = StatesMenu::NO_MENU;
 			ret = false;
 		}
-		if (interact != nullptr && interact != cancel_quest_button) {
+		if (interact != nullptr && interact != App->menu_manager->quest.cancel_quest_button) {
 			App->audio->PlayFx(fx_potion_menu);
 		}
 		break;
 	case StatesMenu::INVENTORY_MENU:
-		if (interact == hp_potion_button) {
-			DeletePotionMenu();
-			CreatePotionMenu(hp_potion_button);
+		if (interact == App->menu_manager->inventory.hp_potion_button) {
+			App->menu_manager->DeletePotionMenu();
+			App->menu_manager->CreatePotionMenu(App->menu_manager->inventory.hp_potion_button);
 			menu_state = StatesMenu::POTION_MENU;
 			ret = false;
 		}
-		if (interact == mana_potion_button) {
-			DeletePotionMenu();
-			CreatePotionMenu(mana_potion_button);
+		if (interact == App->menu_manager->inventory.mana_potion_button) {
+			App->menu_manager->DeletePotionMenu();
+			App->menu_manager->CreatePotionMenu(App->menu_manager->inventory.mana_potion_button);
 			menu_state = StatesMenu::POTION_MENU;
 			ret = false;
 		}
@@ -1210,35 +1210,35 @@ bool m1Scene::Interact(u1GUI* interact)
 		}
 		break;
 	case StatesMenu::POTION_MENU:
-		if (interact == use_hp_button) {
+		if (interact == App->menu_manager->potion.use_hp_button) {
 			if (player->stats.num_hp_potions >= 1) {
 				App->audio->PlayFx(fx_potion);
 				--player->stats.num_hp_potions;
 				player->AugmentLives(75);
-				hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
-				DeletePotionMenu();
+				App->menu_manager->inventory.hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
+				App->menu_manager->DeletePotionMenu();
 				menu_state = StatesMenu::INVENTORY_MENU;
 				ret = false;
 			}
 			else
 				App->audio->PlayFx(fx_denegated_potion);
 		}
-		if (interact == use_mana_button) {
+		if (interact == App->menu_manager->potion.use_mana_button) {
 			if (player->stats.num_mana_potions >= 1) {
 				App->audio->PlayFx(fx_potion);
 				--player->stats.num_mana_potions;
 				player->AugmentMana(100);
-				mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
-				DeletePotionMenu();
+				App->menu_manager->inventory.mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
+				App->menu_manager->DeletePotionMenu();
 				menu_state = StatesMenu::INVENTORY_MENU;
 				ret = false;
 			}
 			else
 				App->audio->PlayFx(fx_denegated_potion);
 		}
-		if (interact == cancel_button) {
+		if (interact == App->menu_manager->potion.cancel_button) {
 			App->audio->PlayFx(fx_potion_menu);
-			DeletePotionMenu();
+			App->menu_manager->DeletePotionMenu();
 			menu_state = StatesMenu::INVENTORY_MENU;
 			ret = false;
 		}
@@ -1247,8 +1247,8 @@ bool m1Scene::Interact(u1GUI* interact)
 		}*/
 		break;
 	case StatesMenu::DIE_MENU:
-		if (interact == button_continue_lobby) {
-			DestroyGameOver();
+		if (interact == App->menu_manager->game_over.button_continue_lobby) {
+			App->menu_manager->DestroyGameOver();
 
 			if (App->map->actual_map == Maps::TUTORIAL && !App->globals.CutSceneAfterBossTutorialPlayed)
 				App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
@@ -1260,9 +1260,9 @@ bool m1Scene::Interact(u1GUI* interact)
 			ret = false;
 			
 		}
-		if (interact == button_return_main) {
+		if (interact == App->menu_manager->game_over.button_return_main) {
 			App->audio->PlayFx(App->main_menu->fx_push_button_return);
-			DestroyGameOver();
+			App->menu_manager->DestroyGameOver();
 			App->entity_manager->Disable();
 			App->map->Disable();
 			App->ChangePause();
@@ -1272,116 +1272,36 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->scene->SetMenuState(StatesMenu::NO_MENU);
 		}
 		break;
-	case StatesMenu::OPTIONS_MENU:
-		if (interact == button_retun) {
-			App->audio->PlayFx(App->main_menu->fx_push_button_return);
-			CreatePauseMenu();
-			DestroyOptionsMenu();
-			menu_state = StatesMenu::PAUSE_MENU;
-			ShowHUD(true);
-			ret = false;
-		}
-		if (interact != nullptr && interact != button_retun) {
-			App->audio->PlayFx(App->main_menu->fx_push_button);
-		}
-		if (interact == button_controls) {
-			CreateControlsMenu();
-			DestroyOptionsMenu();
-			menu_state = StatesMenu::CONTROLS_MENU;
-			ret = false;
-		}
-		if (interact == checkbox_mute_music)
-		{
-			checkbox_mute_music->Clicked();
-			App->audio->StopMusic(-2);
-		}
-
-		if (interact == checkbox_mute_fx)
-		{
-			checkbox_mute_fx->Clicked();
-			App->audio->StopMusic(-3);
-		}
-		//if (interact == checkbox_fps)
-		//{
-		//	checkbox_fps->Clicked();
-		//	if (App->capactivated) {
-		//		App->capactivated = false;
-		//	}
-		//	else {
-		//		App->capactivated = true;
-		//	}
-		//	//App->GetFrameRate();
-		//}
-
-		if (interact == checkbox_fullscreen)
-		{
-			checkbox_fullscreen->Clicked();
-
-			if (App->win->fullscreen) {
-				App->win->fullscreen = false;
-				SDL_SetWindowFullscreen(App->win->window, 0);
-			}
-			else {
-				App->win->fullscreen = true;
-				SDL_SetWindowFullscreen(App->win->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
-			}
-		}
-		//Audio------
-		if (interact == button_music_volume) {
-			App->audio->StopMusic(-2);
-		}
-		else if (interact == button_fx_volume) {
-			App->audio->StopMusic(-3);
-		}
-		else if (interact == minus_music_btn) {
-			App->audio->VolumeDown(-2);
-		}
-		else if (interact == plus_music_btn) {
-			App->audio->VolumeUp(-2);
-		}
-		else if (interact == minus_fx_btn) {
-			App->audio->VolumeDown(-3);
-		}
-		else if (interact == plus_fx_btn) {
-			App->audio->VolumeUp(-3);
-		}
-		else if (interact == minus_general_btn) {
-			App->audio->VolumeDown(-1);
-		}
-		else if (interact == plus_general_btn) {
-			App->audio->VolumeUp(-1);
-		}
-		break;
 	case StatesMenu::SHOP_MENU:
-		if (interact == button_close_shop) {
-			DestroyShopMenu();
+		if (interact == App->menu_manager->shop.button_close_shop) {
+			App->menu_manager->DestroyShopMenu();
 			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			menu_state = StatesMenu::NO_MENU;
 			ret = false;
 		}
 
-		if (interact == shop_button_hp_potion) {
+		if (interact == App->menu_manager->shop.shop_button_hp_potion) {
 			if (player->stats.gold >= price_hp_potion || player->god_mode) {
 				// audio comprar
 				App->audio->PlayFx(App->scene->fx_buy);
 				player->ReduceGold(price_hp_potion);
 				++player->stats.num_hp_potions;
-				hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
-				money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
+				App->menu_manager->inventory.hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
+				App->menu_manager->inventory.money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
 			}
 			else {
 				// audio no money
 				App->audio->PlayFx(App->scene->fx_no_money);
 			}
 		}
-		if (interact == shop_button_mana_potion) {
+		if (interact == App->menu_manager->shop.shop_button_mana_potion) {
 			if (player->stats.gold >= price_mana_potion || player->god_mode) {
 				// audio comprar
 				App->audio->PlayFx(App->scene->fx_buy);
 				player->ReduceGold(price_mana_potion);
 				++player->stats.num_mana_potions;
-				mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
-				money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
+				App->menu_manager->inventory.mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
+				App->menu_manager->inventory.money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
 			}
 			else {
 				// audio no money
@@ -1389,102 +1309,9 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 		}
 		break;
-	case StatesMenu::CONTROLS_MENU:
-		if (interact == button_retun_to_options) {
-			App->audio->PlayFx(App->main_menu->fx_push_button_return);
-			CreateOptionsMenu();
-			App->audio->PlayFx(App->main_menu->fx_push_button_return);
-			DestroyControlsMenu();
-			menu_state = StatesMenu::OPTIONS_MENU;
-			ret = false;
-		}
-		if (interact != nullptr && interact != button_retun_to_options) {
-			App->audio->PlayFx(App->main_menu->fx_push_button);
-		}
-		if (interact == button_up) {
-			if (control_to_change != nullptr)
-				delete control_to_change;
-			control_to_change = DBG_NEW ChangeControls(label_to_show_how_up, &App->input->keyboard_buttons.buttons_code.UP, &App->input->keyboard_buttons.buttons_char.UP, false);
-		}
-		if (interact == button_right) {
-			if (control_to_change != nullptr)
-				delete control_to_change;
-			control_to_change = DBG_NEW ChangeControls(label_to_show_how_right, &App->input->keyboard_buttons.buttons_code.RIGHT, &App->input->keyboard_buttons.buttons_char.RIGHT, false);
-		}
-		if (interact == button_left) {
-			if (control_to_change != nullptr)
-				delete control_to_change;
-			control_to_change = DBG_NEW ChangeControls(label_to_show_how_left, &App->input->keyboard_buttons.buttons_code.LEFT, &App->input->keyboard_buttons.buttons_char.LEFT, false);
-		}
-		if (interact == button_down) {
-			if (control_to_change != nullptr)
-				delete control_to_change;
-			control_to_change = DBG_NEW ChangeControls(label_to_show_how_down, &App->input->keyboard_buttons.buttons_code.DOWN, &App->input->keyboard_buttons.buttons_char.DOWN, false);
-		}
-		if (interact == button_diagonals) {
-			if (control_to_change != nullptr)
-				delete control_to_change;
-			control_to_change = DBG_NEW ChangeControls(label_to_show_how_diagonals, &App->input->keyboard_buttons.buttons_code.DIAGONALS, &App->input->keyboard_buttons.buttons_char.DIAGONALS, false);
-		}
-		if (interact == button_direction_up) {
-			if (control_to_change != nullptr)
-				delete control_to_change;
-			control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_up, &App->input->keyboard_buttons.buttons_code.DIRECTION_UP, &App->input->keyboard_buttons.buttons_char.DIRECTION_UP, false);
-		}
-		if (interact == button_direction_right) {
-			if (control_to_change != nullptr)
-				delete control_to_change;
-			control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_right, &App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT, &App->input->keyboard_buttons.buttons_char.DIRECCTION_RIGHT, false);
-		}
-		if (interact == button_direction_left) {
-			if (control_to_change != nullptr)
-				delete control_to_change;
-			control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_left, &App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT, &App->input->keyboard_buttons.buttons_char.DIRECTION_LEFT, false);
-		}
-		if (interact == button_direction_down) {
-			if (control_to_change != nullptr)
-				delete control_to_change;
-			control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_down, &App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN, &App->input->keyboard_buttons.buttons_char.DIRECCTION_DOWN, false);
-		}
-		if (interact == button_basic_attack) {
-			if (control_to_change != nullptr)
-				delete control_to_change;
-			control_to_change = DBG_NEW ChangeControls(label_to_show_how_basic_attack, &App->input->keyboard_buttons.buttons_code.BASIC_ATTACK, &App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, false);
-		}
-		if (interact == Cbutton_direction_up) {
-			if (control_to_change != nullptr)
-				delete control_to_change;
-			control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_up, &App->input->controller_Buttons.buttons_code.DIRECTION_UP, &App->input->controller_Buttons.buttons_char.DIRECTION_UP, true);
-		}
-		if (interact == Cbutton_direction_right) {
-			if (control_to_change != nullptr)
-				delete control_to_change;
-			control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_right, &App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT, &App->input->controller_Buttons.buttons_char.DIRECCTION_RIGHT, true);
-		}
-		if (interact == Cbutton_direction_left) {
-			if (control_to_change != nullptr)
-				delete control_to_change;
-			control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_left, &App->input->controller_Buttons.buttons_code.DIRECTION_LEFT, &App->input->controller_Buttons.buttons_char.DIRECTION_LEFT, true);
-		}
-		if (interact == Cbutton_direction_down) {
-			if (control_to_change != nullptr)
-				delete control_to_change;
-			control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_down, &App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN, &App->input->controller_Buttons.buttons_char.DIRECCTION_DOWN, true);
-		}
-		if (interact == Cbutton_diagonals) {
-			if (control_to_change != nullptr)
-				delete control_to_change;
-			control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_diagonals, &App->input->controller_Buttons.buttons_code.DIAGONALS, &App->input->controller_Buttons.buttons_char.DIAGONALS, true);
-		}
-		if (interact == Cbutton_basic_attack) {
-			if (control_to_change != nullptr)
-				delete control_to_change;
-			control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_basic_attack, &App->input->controller_Buttons.buttons_code.BASIC_ATTACK, &App->input->controller_Buttons.buttons_char.BASIC_ATTACK, true);
-		}
-		break;
 	case StatesMenu::FIRSTABILITY_MENU:
-		if (interact == button_ability1_screen) {
-			DestroyFirstAbilityPanel();
+		if (interact == App->menu_manager->abilities.button_ability1_screen) {
+			App->menu_manager->DestroyFirstAbilityPanel();
 			menu_state = StatesMenu::NO_MENU;
 			player->BlockControls(false);
 			ret = false;
@@ -1527,6 +1354,7 @@ void m1Scene::CreateHUD()
 
 void m1Scene::ShowHUD(bool show_or_hide)
 {
+
 	bg_hud->drawable = show_or_hide;
 	player_hud_image->drawable = show_or_hide;
 	player_hp_bar->drawable = show_or_hide;
@@ -1579,6 +1407,15 @@ void m1Scene::GodModeIndicator(bool is_god_mode)
 	{
 		App->gui->DeleteUIElement(god_text);
 		god_text = nullptr;
+
+	if ((show_or_hide && App->map->actual_map != Maps::LOBBY && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::SHOP) || !show_or_hide && bg_hud != nullptr) {
+		bg_hud->drawable = show_or_hide;
+		player_hud_image->drawable = show_or_hide;
+		player_hp_bar->drawable = show_or_hide;
+		player_mana_bar->drawable = show_or_hide;
+		diagonal_compass->drawable = show_or_hide;
+		vertical_compass->drawable = show_or_hide;
+
 	}
 }
 

@@ -28,6 +28,7 @@
 #include "u1UI_Element.h"
 #include "Brofiler/Brofiler.h"
 #include "m1EasingSplines.h"
+#include "m1MenuManager.h"
 #include "m1MainMenu.h"
 #include "m1ParticleManager.h"
 
@@ -88,13 +89,62 @@ bool e1Player::Update(float dt)
 	return true;
 }
 
-bool e1Player::Load(pugi::xml_node &)
+bool e1Player::Load(pugi::xml_node & node)
 {
+	pugi::xml_node p_stats = node.child("stats");
+	stats.max_lives = p_stats.attribute("max_lives").as_int();
+	stats.max_mana = p_stats.attribute("max_mana").as_int();
+	stats.gold = p_stats.attribute("gold").as_int();
+	stats.xp = p_stats.attribute("xp").as_int();
+	stats.max_xp = p_stats.attribute("max_xp").as_int();
+	stats.attack_power = p_stats.attribute("attack_power").as_int();
+	stats.num_hp_potions = p_stats.attribute("num_hp_potions").as_int();
+	stats.num_mana_potions = p_stats.attribute("num_mana_potions").as_int();
+	stats.level = p_stats.attribute("level").as_int();
+	stats.attack_power_ability_1 = p_stats.attribute("attack_power_ability_1").as_int();
+	App->main_menu->entity_type = (EntityType)p_stats.attribute("entity_type").as_int();
+	pugi::xml_node p_globals = node.child("globals");
+	App->globals.player_name = p_globals.attribute("player_name").as_string();
+	App->globals.ability1_gained = p_globals.attribute("ability1_gained").as_int();
+	App->globals.ability2_gained = p_globals.attribute("ability2_gained").as_int();
+	App->globals.CutSceneAfterBossTutorialPlayed = p_globals.attribute("CutSceneAfterBossTutorialPlayed").as_int();
+	App->globals.CutSceneFinalRoomTutorialPlayed = p_globals.attribute("CutSceneFinalRoomTutorialPlayed").as_int();
+	App->globals.CutSceneLobbyExplain = p_globals.attribute("CutSceneLobbyExplain").as_int();
+	App->globals.CutSceneMiddleRoomTutorialPlayed = p_globals.attribute("CutSceneMiddleRoomTutorialPlayed").as_int();
+	App->globals.CutSceneTutorialGirlEscapingPlayed = p_globals.attribute("CutSceneTutorialGirlEscapingPlayed").as_int();
+	App->globals.Tutorial_first_time = p_globals.attribute("Tutorial_first_time").as_int();
+	App->scene->player_type = (PlayerType)p_globals.attribute("player_type").as_int();
+	App->scene->player->Init();
+	App->scene->player->CenterPlayerInTile();
+	App->render->CenterCameraOnPlayer(App->scene->player->position);
 	return true;
 }
 
-bool e1Player::Save(pugi::xml_node &) const
+bool e1Player::Save(pugi::xml_node & node) const
 {
+	pugi::xml_node p_stats = node.append_child("stats");
+	p_stats.append_attribute("max_lives") = (int)stats.max_lives;
+	p_stats.append_attribute("max_mana") = (int)stats.max_mana;
+	p_stats.append_attribute("gold") = (int)stats.gold;
+	p_stats.append_attribute("xp") = (int)stats.xp;
+	p_stats.append_attribute("max_xp") = (int)stats.max_xp;
+	p_stats.append_attribute("attack_power") = (int)stats.attack_power;
+	p_stats.append_attribute("num_hp_potions") = (int)stats.num_hp_potions;
+	p_stats.append_attribute("num_mana_potions") = (int)stats.num_mana_potions;
+	p_stats.append_attribute("level") = (int)stats.level;
+	p_stats.append_attribute("attack_power_ability_1") = (int)stats.attack_power_ability_1;
+	p_stats.append_attribute("entity_type") = (int)App->main_menu->entity_type;
+	pugi::xml_node p_globals = node.append_child("globals");
+	p_globals.append_attribute("player_name") = App->globals.player_name.data();
+	p_globals.append_attribute("ability1_gained") = (bool)App->globals.ability1_gained;
+	p_globals.append_attribute("ability2_gained") = (bool)App->globals.ability2_gained;
+	p_globals.append_attribute("CutSceneAfterBossTutorialPlayed") = (bool)App->globals.CutSceneAfterBossTutorialPlayed;
+	p_globals.append_attribute("CutSceneFinalRoomTutorialPlayed") = (bool)App->globals.CutSceneFinalRoomTutorialPlayed;
+	p_globals.append_attribute("CutSceneLobbyExplain") = (bool)App->globals.CutSceneLobbyExplain;
+	p_globals.append_attribute("CutSceneMiddleRoomTutorialPlayed") = (bool)App->globals.CutSceneMiddleRoomTutorialPlayed;
+	p_globals.append_attribute("CutSceneTutorialGirlEscapingPlayed") = (bool)App->globals.CutSceneTutorialGirlEscapingPlayed;
+	p_globals.append_attribute("Tutorial_first_time") = (bool)App->globals.Tutorial_first_time;
+	p_globals.append_attribute("player_type") = (int)App->scene->player_type;
 	return true;
 }
 
@@ -123,7 +173,7 @@ void e1Player::OnCollisionEnter(Collider * c2)
 			App->fade_to_black->FadeToBlack(Maps::LOBBY);
 	}
 	if (c2->type == COLLIDER_MENU_QUEST) {
-		App->scene->CreateGoToQuestMenu();
+		App->menu_manager->CreateGoToQuestMenu();
 		App->scene->SetMenuState(StatesMenu::GO_TO_QUEST_MENU);
 	}
 	if (c2->type == COLLIDER_CUTSCENE_BRIDGE) {
@@ -232,9 +282,7 @@ void e1Player::CenterPlayerInTile()
 
 	actual_tile = App->map->WorldToMap(position.x, position.y);
 	movement_count = { 0,0 };
-	position = App->map->MapToWorld(actual_tile.x, actual_tile.y) - pivot;
-	position.x += App->map->data.tile_width*0.5F;
-	position.y += App->map->data.tile_height*0.5F;
+	CenterOnTile();
 
 	target_position = position;
 	initial_position = position;
@@ -298,121 +346,121 @@ void e1Player::ReadPlayerMovementInQuest()
 	if (target_position == position) {
 		bool is_movement_acepted = false;
 		if (MultipleButtons(&player_input)) {
-			if (player_input.pressing_A && player_input.pressing_shift) {
-				direction = Direction::LEFT;
-				if (NextTileFree(direction) && App->map->IsWalkable({actual_tile.x - 1, actual_tile.y + 1},false)) {
-					target_position.create(position.x - App->map->data.tile_width, position.y);
-					movement_count.x -= App->map->data.tile_width;
-					actual_tile += {-1, 1};
-					is_movement_acepted = true;
+			if (player_input.pressing_shift) {
+				if (player_input.pressing_A) {
+					direction = Direction::LEFT;
+					if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y + 1 }, false)) {
+						target_position.create(position.x - App->map->data.tile_width, position.y);
+						movement_count.x -= App->map->data.tile_width;
+						actual_tile += {-1, 1};
+						is_movement_acepted = true;
+					}
+					else {
+						state = State::IDLE;
+					}
 				}
-				else {
-					state = State::IDLE;
+				else if (player_input.pressing_D) {
+					direction = Direction::RIGHT;
+					if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y - 1 }, false)) {
+						target_position.create(position.x + App->map->data.tile_width, position.y);
+						movement_count.x += App->map->data.tile_width;
+						actual_tile += {1, -1};
+						is_movement_acepted = true;
+					}
+					else {
+						state = State::IDLE;
+					}
 				}
-			}
-			else if (player_input.pressing_D && player_input.pressing_shift) {
-				direction = Direction::RIGHT;
-				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y - 1 },false)) {
-					target_position.create(position.x + App->map->data.tile_width, position.y);
-					movement_count.x += App->map->data.tile_width;
-					actual_tile += {1, -1};
-					is_movement_acepted = true;
+				else if (player_input.pressing_W) {
+					direction = Direction::UP;
+					if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y - 1 }, false)) {
+						target_position.create(position.x, position.y - App->map->data.tile_height);
+						movement_count.y -= App->map->data.tile_height;
+						actual_tile += {-1, -1};
+						is_movement_acepted = true;
+					}
+					else {
+						state = State::IDLE;
+					}
 				}
-				else {
-					state = State::IDLE;
-				}
-			}
-			else if (player_input.pressing_W && player_input.pressing_shift) {
-				direction = Direction::UP;
-				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y - 1 },false)) {
-					target_position.create(position.x, position.y - App->map->data.tile_height);
-					movement_count.y -= App->map->data.tile_height;
-					actual_tile += {-1, -1};
-					is_movement_acepted = true;
-				}
-				else {
-					state = State::IDLE;
-				}
-			}
-			else if (player_input.pressing_S && player_input.pressing_shift) {
-				direction = Direction::DOWN;
-				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y + 1 },false)) {
-					target_position.create(position.x, position.y + App->map->data.tile_height);
-					movement_count.y += App->map->data.tile_height;
-					actual_tile += {1, 1};
-					is_movement_acepted = true;
-				}
-				else {
-					state = State::IDLE;
-				}
-			}
-			if (player_input.pressing_S && !player_input.pressing_shift) {
-				direction = Direction::DOWN_LEFT;
-				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x, actual_tile.y + 1 },false)) {
-					target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
-					movement_count.x -= (App->map->data.tile_width / 2);
-					movement_count.y += (App->map->data.tile_height / 2);
-					actual_tile += {0, 1};
-					is_movement_acepted = true;
-				}
-				else {
-					state = State::IDLE;
+				else if (player_input.pressing_S) {
+					direction = Direction::DOWN;
+					if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y + 1 }, false)) {
+						target_position.create(position.x, position.y + App->map->data.tile_height);
+						movement_count.y += App->map->data.tile_height;
+						actual_tile += {1, 1};
+						is_movement_acepted = true;
+					}
+					else {
+						state = State::IDLE;
+					}
 				}
 			}
-			else if (player_input.pressing_D && !player_input.pressing_shift) {
-				direction = Direction::DOWN_RIGHT;
-				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y},false)) {
-					target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
-					movement_count.x += (App->map->data.tile_width / 2);
-					movement_count.y += (App->map->data.tile_height / 2);
-					actual_tile += {1, 0};
-					is_movement_acepted = true;
+			else {
+				if (player_input.pressing_S) {
+					direction = Direction::DOWN_LEFT;
+					if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x, actual_tile.y + 1 }, false)) {
+						target_position.create(position.x - (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
+						movement_count.x -= (App->map->data.tile_width / 2);
+						movement_count.y += (App->map->data.tile_height / 2);
+						actual_tile += {0, 1};
+						is_movement_acepted = true;
+					}
+					else {
+						state = State::IDLE;
+					}
 				}
-				else {
-					state = State::IDLE;
+				else if (player_input.pressing_D) {
+					direction = Direction::DOWN_RIGHT;
+					if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x + 1, actual_tile.y }, false)) {
+						target_position.create(position.x + (App->map->data.tile_width / 2), position.y + (App->map->data.tile_height / 2));
+						movement_count.x += (App->map->data.tile_width / 2);
+						movement_count.y += (App->map->data.tile_height / 2);
+						actual_tile += {1, 0};
+						is_movement_acepted = true;
+					}
+					else {
+						state = State::IDLE;
+					}
+				}
+				else if (player_input.pressing_W) {
+					direction = Direction::UP_RIGHT;
+					if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x, actual_tile.y - 1 }, false)) {
+						target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
+						movement_count.x += (App->map->data.tile_width / 2);
+						movement_count.y -= (App->map->data.tile_height / 2);
+						actual_tile += {0, -1};
+						is_movement_acepted = true;
+					}
+					else {
+						state = State::IDLE;
+					}
+				}
+				else if (player_input.pressing_A) {
+					direction = Direction::UP_LEFT;
+					if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y }, false)) {
+						target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
+						movement_count.x -= (App->map->data.tile_width / 2);
+						movement_count.y -= (App->map->data.tile_height / 2);
+						actual_tile += {-1, 0};
+						is_movement_acepted = true;
+					}
+					else {
+						state = State::IDLE;
+					}
 				}
 			}
-			else if (player_input.pressing_W && !player_input.pressing_shift) {
-				direction = Direction::UP_RIGHT;
-				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x, actual_tile.y - 1 },false)) {
-					target_position.create(position.x + (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
-					movement_count.x += (App->map->data.tile_width / 2);
-					movement_count.y -= (App->map->data.tile_height / 2);
-					actual_tile += {0, -1};
-					is_movement_acepted = true;
-				}
-				else {
-					state = State::IDLE;
-				}
-			}
-			else if (player_input.pressing_A && !player_input.pressing_shift) {
-				direction = Direction::UP_LEFT;
-				if (NextTileFree(direction) && App->map->IsWalkable({ actual_tile.x - 1, actual_tile.y},false)) {
-					target_position.create(position.x - (App->map->data.tile_width / 2), position.y - (App->map->data.tile_height / 2));
-					movement_count.x -= (App->map->data.tile_width / 2);
-					movement_count.y -= (App->map->data.tile_height / 2);
-					actual_tile += {-1, 0};
-					is_movement_acepted = true;
-				}
-				else {
-					state = State::IDLE;
-				}
-			}
-			
-			
-		}
-		if (!MultipleButtons(&player_input)) {
-			state = State::IDLE;
-			target_position = position;
-			ChangeAnimation(direction, state);
-		}
-		else {
 			if (is_movement_acepted) {
 				ChangeTurn(type);
 			}
 			else {
 				ChangeAnimation(direction, state);
 			}
+		}
+		else {
+			state = State::IDLE;
+			target_position = position;
+			ChangeAnimation(direction, state);
 		}
 	}
 }
@@ -929,7 +977,7 @@ void e1Player::Death()
 		App->map->CleanUp();
 		App->entity_manager->DeleteEntitiesNoPlayer();
 		App->gui->DeleteUIElement((u1GUI*)App->scene->bg_hud);
-		App->scene->CreateGameOver();
+		App->menu_manager->CreateGameOver();
 		App->scene->SetMenuState(StatesMenu::DIE_MENU);
 		state = State::MENU;
 		stats.live = stats.max_lives;
@@ -958,34 +1006,38 @@ bool e1Player::BlockControls(bool to_block)
 
 void e1Player::LobbyControls()
 {
-	player_input.pressing_A = App->input->GetKey(App->input->keyboard_buttons.buttons_code.LEFT) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_LEFT);
-	player_input.pressing_S = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DOWN) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_DOWN);
-	player_input.pressing_W = App->input->GetKey(App->input->keyboard_buttons.buttons_code.UP) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_UP);
-	player_input.pressing_D = App->input->GetKey(App->input->keyboard_buttons.buttons_code.RIGHT) == KEY_REPEAT || App->input->CheckAxisStates(Axis::AXIS_RIGHT);
-	player_input.pressing_I = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->CheckAxisStates(Axis::R_AXIS_UP);
-	player_input.pressing_J = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->CheckAxisStates(Axis::R_AXIS_LEFT);
-	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->CheckAxisStates(Axis::R_AXIS_DOWN);
-	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->CheckAxisStates(Axis::R_AXIS_RIGHT);
+	player_input.pressing_A = App->input->GetKey(App->input->keyboard_buttons.buttons_code.LEFT) == KEY_REPEAT || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1;
+	player_input.pressing_S = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DOWN) == KEY_REPEAT || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1;
+	player_input.pressing_W = App->input->GetKey(App->input->keyboard_buttons.buttons_code.UP) == KEY_REPEAT || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1;
+	player_input.pressing_D = App->input->GetKey(App->input->keyboard_buttons.buttons_code.RIGHT) == KEY_REPEAT || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1;
+	player_input.pressing_I = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY) == -1;
+	player_input.pressing_J = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == -1;
+	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1;
+	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == 1;
 	
-	player_input.pressing_UP_LEFT = App->input->CheckAxisStates(Axis::R_AXIS_UP_LEFT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;;
-	player_input.pressing_UP_RIGHT = App->input->CheckAxisStates(Axis::R_AXIS_UP_RIGHT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
-	player_input.pressing_DOWN_LEFT = App->input->CheckAxisStates(Axis::R_AXIS_DOWN_LEFT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN; 
-	player_input.pressing_DOWN_RIGHT = App->input->CheckAxisStates(Axis::R_AXIS_DOWN_RIGHT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
+	player_input.pressing_UP_LEFT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;
+	player_input.pressing_UP_RIGHT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
+	player_input.pressing_DOWN_LEFT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN;
+	player_input.pressing_DOWN_RIGHT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
+
 
 	
-	
-	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
+	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
+
 
 	App->scene->ChangeCompass(false);
 
 	if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT))
+
+	/*if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT))
+
 		player_input.pressing_A = player_input.pressing_S = true;
 	else if (App->input->CheckAxisStates(Axis::AXIS_DOWN_RIGHT))
 		player_input.pressing_D = player_input.pressing_S = true;
 	else if (App->input->CheckAxisStates(Axis::AXIS_UP_RIGHT))
 		player_input.pressing_D = player_input.pressing_W = true;
 	else if (App->input->CheckAxisStates(Axis::AXIS_UP_LEFT))
-		player_input.pressing_W = player_input.pressing_A = true;
+		player_input.pressing_W = player_input.pressing_A = true;*/
 }
 
 void e1Player::QuestControls()
@@ -994,52 +1046,52 @@ void e1Player::QuestControls()
 	player_input.pressing_S = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DOWN) == KEY_REPEAT;
 	player_input.pressing_W = App->input->GetKey(App->input->keyboard_buttons.buttons_code.UP) == KEY_REPEAT;
 	player_input.pressing_D = App->input->GetKey(App->input->keyboard_buttons.buttons_code.RIGHT) == KEY_REPEAT;
-	player_input.pressing_I = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->CheckAxisStates(Axis::R_AXIS_UP);;
-	player_input.pressing_J = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->CheckAxisStates(Axis::R_AXIS_LEFT);
-	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->CheckAxisStates(Axis::R_AXIS_DOWN);
-	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->CheckAxisStates(Axis::R_AXIS_RIGHT);
-	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIAGONALS) == KEY_REPEAT;
-	player_input.pressing_V = App->input->GetKey(App->input->keyboard_buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN;;
+	player_input.pressing_I = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY) == -1;
+	player_input.pressing_J = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == -1;
+	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY) == 1;
+	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == 1;
+	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
+	player_input.pressing_V = App->input->GetKey(App->input->keyboard_buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN;;
 	
-	player_input.pressing_UP_LEFT = App->input->CheckAxisStates(Axis::R_AXIS_UP_LEFT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;;
-	player_input.pressing_UP_RIGHT = App->input->CheckAxisStates(Axis::R_AXIS_UP_RIGHT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
-	player_input.pressing_DOWN_LEFT = App->input->CheckAxisStates(Axis::R_AXIS_DOWN_LEFT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN;
-	player_input.pressing_DOWN_RIGHT = App->input->CheckAxisStates(Axis::R_AXIS_DOWN_RIGHT) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
+	player_input.pressing_UP_LEFT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY) == -1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;
+	player_input.pressing_UP_RIGHT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY) == -1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
+	player_input.pressing_DOWN_LEFT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY) == 1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN;
+	player_input.pressing_DOWN_RIGHT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY) == 1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN;
 
 	
 	if (App->map->quest_rooms != nullptr &&App->map->quest_rooms->actual_room->room_type != RoomType::FOUNTAIN) {
-		player_input.pressing_SPACE = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
-		player_input.pressing_1 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILTY1) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.HABILTY1) == KEY_DOWN;
-		player_input.pressing_2 = App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.HABILITY2) == KEY_DOWN;
+		player_input.pressing_SPACE = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
+		player_input.pressing_1 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILTY1) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILTY1) == KEY_DOWN;
+		player_input.pressing_2 = App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILITY2) == KEY_DOWN;
 	}
 
 	if (!player_input.pressing_shift) {
 		App->scene->ChangeCompass(false);
-		if (App->input->CheckAxisStates(Axis::AXIS_DOWN_LEFT)) {
+		if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
 			player_input.pressing_S = true;
 		}
-		else if (App->input->CheckAxisStates(Axis::AXIS_DOWN_RIGHT)) {
+		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1) {
 			player_input.pressing_D = true;
 		}
-		else if (App->input->CheckAxisStates(Axis::AXIS_UP_RIGHT)) {
+		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1) {
 			player_input.pressing_W = true;
 		}
-		else if (App->input->CheckAxisStates(Axis::AXIS_UP_LEFT)) {
+		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
 			player_input.pressing_A = true;
 		}
 	}
 	else {
 		App->scene->ChangeCompass(true);
-		if (App->input->CheckAxisStates(Axis::AXIS_DOWN)) {
+		if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) {
 			player_input.pressing_S = true;
 		}
-		else if (App->input->CheckAxisStates(Axis::AXIS_RIGHT)) {
+		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1) {
 			player_input.pressing_D = true;
 		}
-		else if (App->input->CheckAxisStates(Axis::AXIS_UP)) {
+		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1) {
 			player_input.pressing_W = true;
 		}
-		else if (App->input->CheckAxisStates(Axis::AXIS_LEFT)) {
+		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
 			player_input.pressing_A = true;
 		}
 	}
@@ -1246,26 +1298,4 @@ void e1Player::UpdateExperience(int experience) {
 		UpdateLevel();
 	}
 		
-}
-void e1Player::UpdateLevel()
-{
-	App->audio->PlayFx(App->scene->fx_controller_conection);
-	stats.max_xp *= stats.level;
-	AugmentLives(stats.max_lives*0.3f,true);
-	AugmentMana(stats.max_mana*0.3f,true);
-	App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-15 }, { 8,0,2,2 }, RANDOM, { 20,20 }, { 10,5 }, { 0,0 }, P_UP, 200, 4, { 0,-2 });
-	
-	int mana = (int)stats.max_mana*0.3f;
-	int life = (int)stats.max_lives*0.3f;
-
-	iPoint pos{ 0,0 };
-	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 10) * (int)App->win->GetScale();
-	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
-	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(life).data(), App->gui->screen, GREEN, FontType::PMIX24);
-
-	iPoint pos2{ 0,0 };
-	pos2.x = (int)(App->render->camera.x) + (position.x + pivot.x + 10) * (int)App->win->GetScale();
-	pos2.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
-	App->gui->AddHitPointLabel(pos2.x, pos2.y, std::to_string(mana).data(), App->gui->screen, BLUE, FontType::PMIX24);
-
 }

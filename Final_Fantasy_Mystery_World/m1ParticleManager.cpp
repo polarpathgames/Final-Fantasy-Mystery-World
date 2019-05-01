@@ -12,6 +12,7 @@
 
 m1ParticleManager::m1ParticleManager()
 {
+	name.assign("particles");
 }
 
 m1ParticleManager::~m1ParticleManager()

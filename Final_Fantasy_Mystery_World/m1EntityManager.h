@@ -46,9 +46,9 @@ public:
 
 	bool PostUpdate();
 
-	bool Load(pugi::xml_node&);
+	bool Load(pugi::xml_node& node);
 
-	bool Save(pugi::xml_node&) const;
+	bool Save(pugi::xml_node& node ) const;
 
 	bool CleanUp();
 
@@ -75,8 +75,6 @@ private:
 	std::vector<e1Entity*> entities;
 	std::vector<e1Entity*> entities_to_create;
 	std::vector<SDL_Texture*> texture;
-	
-	bool textures_loaded = false;
 };
 
 #endif

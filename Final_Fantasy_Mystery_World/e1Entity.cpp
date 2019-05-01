@@ -22,17 +22,27 @@ e1Entity::~e1Entity()
 		App->collision->DeleteCollider(coll);
 	}
 	general_properties.CleanUp();
+	if (data.tileset.texture != nullptr) {
+		App->tex->UnLoad(data.tileset.texture);
+	}
 }
 
-void e1Entity::Draw(SDL_Texture * tex, float dt)
+void e1Entity::Draw(float dt)
 {
 	if (drawable)
-		App->render->Blit(tex, position.x, position.y, &(current_animation->GetCurrentFrame(dt)), true);
+		App->render->Blit(data.tileset.texture, position.x, position.y, &(current_animation->GetCurrentFrame(dt)), true);
 }
 
 void e1Entity::SetPivot(const int & x, const int & y)
 {
 	pivot.create(x, y);
+}
+
+void e1Entity::CenterOnTile()
+{
+	position = App->map->MapToWorld(actual_tile.x, actual_tile.y) - pivot;
+	position.x += App->map->data.tile_width * 0.5F;
+	position.y += App->map->data.tile_height * 0.5F;
 }
 
 iPoint e1Entity::GetPosition() const
@@ -86,15 +96,17 @@ bool e1Entity::LoadEntityData(const char* file) {
 	data.tileset.margin = _node.attribute("margin").as_uint();
 	data.tileset.tilecount = _node.attribute("tilecount").as_uint();
 	data.tileset.columns = _node.attribute("columns").as_uint();
-	data.tileset.imagePath = _node.child("image").attribute("source").as_string();
+
+	data.tileset.imagePath = _node.child("image").attribute("source").as_string(); //Gets relative image path from .tsx "../sprites"
+	data.tileset.imagePath.erase(0, 3);												//Delete "../"
+	data.tileset.imagePath = "assets/" + data.tileset.imagePath;					//add assets folder
+
 	data.tileset.width = _node.child("image").attribute("width").as_uint();
 	data.tileset.height = _node.child("image").attribute("height").as_uint();
 
 	size.create(data.tileset.tilewidth, data.tileset.tileheight);
 
-	//provisional ubication -----------------------------
-	//data.tileset.texture = App->tex->Load(data.tileset.imagePath.data());
-	//----------------------------
+	data.tileset.texture = App->tex->Load(data.tileset.imagePath.data());
 
 	//count how many animations are in file
 	_node = _node.child("tile");

@@ -8,7 +8,9 @@ struct SDL_Texture;
 struct SDL_Rect;
 
 enum class Element_Event {
+	HOVER_ENTER,
 	HOVER,
+	HOVER_EXIT,
 	CLICKED_DOWN,
 	CLICKED_REPEAT,
 	CLICKED_UP,
@@ -53,6 +55,8 @@ public:
 	void Draw();
 	virtual void InnerDraw();
 	virtual void UpdateElement() {};
+	void PreUpdate();
+	virtual void PreUpdateElement() {};
 	virtual bool CleanUp();
 
 	void SetPos(const int &x, const int &y);
