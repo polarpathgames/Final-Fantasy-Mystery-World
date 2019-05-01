@@ -504,15 +504,13 @@ void m1MenuManager::DestroyNameMenu()
 void m1MenuManager::CreateGoToQuestMenu()
 {
 	App->audio->PlayFx(App->gui->fx_inventory);
-	quest.go_to_quest_panel = App->gui->AddImage(100, 70, { 1878, 1536, 170, 101 }, App->scene, App->gui->screen, true, false, false, false);
+	quest.go_to_quest_panel = App->gui->AddImage(100, 70, { 1878, 1536, 170, 101 }, nullptr, App->gui->screen, true, false, false, false);
 
+	quest.go_to_quest_button = App->gui->AddButton(30, 0, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
 	quest.go_to_quest_label = App->gui->AddLabel(50, -5, "Tutorial", quest.go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
-	quest.go_to_quest_button = App->gui->AddButton(30, 0, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, this, quest.go_to_quest_panel, false, false, true, true);
-	quest.go_to_quest_button->AddListener(this);
 
+	quest.cancel_quest_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
 	quest.cancel_quest_label = App->gui->AddLabel(50, 38, "Cancel", quest.go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
-	quest.cancel_quest_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, this, quest.go_to_quest_panel, false, false, true, true);
-	quest.cancel_quest_button->AddListener(this);
 
 	App->scene->player->BlockControls(true);
 }
