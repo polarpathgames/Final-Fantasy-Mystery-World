@@ -102,6 +102,7 @@ bool e1Player::Load(pugi::xml_node & node)
 	stats.num_mana_potions = p_stats.attribute("num_mana_potions").as_int();
 	stats.level = p_stats.attribute("level").as_int();
 	stats.attack_power_ability_1 = p_stats.attribute("attack_power_ability_1").as_int();
+	stats.attack_power_ability_3 = p_stats.attribute("attack_power_ability_3").as_int();
 	App->main_menu->entity_type = (EntityType)p_stats.attribute("entity_type").as_int();
 	pugi::xml_node p_globals = node.child("globals");
 	App->globals.player_name = p_globals.attribute("player_name").as_string();
@@ -133,6 +134,7 @@ bool e1Player::Save(pugi::xml_node & node) const
 	p_stats.append_attribute("num_mana_potions") = (int)stats.num_mana_potions;
 	p_stats.append_attribute("level") = (int)stats.level;
 	p_stats.append_attribute("attack_power_ability_1") = (int)stats.attack_power_ability_1;
+	p_stats.append_attribute("attack_power_ability_3") = (int)stats.attack_power_ability_3;
 	p_stats.append_attribute("entity_type") = (int)App->main_menu->entity_type;
 	pugi::xml_node p_globals = node.append_child("globals");
 	p_globals.append_attribute("player_name") = App->globals.player_name.data();
@@ -535,8 +537,14 @@ void e1Player::InitStats()
 		else if (strcmp((*item)->GetName(), "attack_power_ability") == 0) {
 			stats.attack_power_ability_1 = (*item)->GetValue();
 		}
+		else if (strcmp((*item)->GetName(), "attack_power_ability3") == 0) {
+			stats.attack_power_ability_3 = (*item)->GetValue();
+		}
 		else if (strcmp((*item)->GetName(), "cost_mana_special_attack") == 0) {
 			stats.cost_mana_special_attack1 = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "cost_mana_special_attack3") == 0) {
+			stats.cost_mana_special_attack3 = (*item)->GetValue();
 		}
 	}
 }
@@ -634,7 +642,6 @@ void e1Player::PerformActions(float dt)
 	}
 	if (state == State::AFTER_FLASH) {
 		RestTimeAfterFlash();
-
 	}
 }
 

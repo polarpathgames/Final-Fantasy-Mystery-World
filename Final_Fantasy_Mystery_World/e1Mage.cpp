@@ -323,4 +323,5 @@ void e1Mage::UpdateLevel()
 	stats.max_mana += 5;
 	stats.attack_power += 2;
 	stats.attack_power_ability_1 += 5;
+	stats.attack_power_ability_3 += 5;
 }

@@ -331,4 +331,5 @@ void e1Warrior::UpdateLevel()
 	stats.max_mana += 2;
 	stats.attack_power += 5;
 	stats.attack_power_ability_1 += 2;
+	stats.attack_power_ability_3 += 2;
 }
