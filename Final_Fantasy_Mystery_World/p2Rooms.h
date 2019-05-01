@@ -112,22 +112,23 @@ public:
 
 	Room* actual_room = nullptr;
 	Room* last_room = nullptr;
-	std::vector<Room*> rooms;
-	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
 
-	pugi::xml_document room_manager_file;
+	std::vector<Room*> rooms;
+
+private:
+
+	u1Image * map_background = nullptr;
+	u1Image * map_zone = nullptr;
 
 	Mix_Music* mus_paceful;
 	Mix_Music* mus_boss;
 	Mix_Music* mus_combat;
 	Mix_Music* mus_fountain;
 
-private:
+	pugi::xml_document room_manager_file;
 
-	u1Image * map_background = nullptr;
-
-
-
+	
+	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
 };
 #endif // !_P2ROOMS_H
 
