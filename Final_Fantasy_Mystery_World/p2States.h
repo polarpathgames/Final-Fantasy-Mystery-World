@@ -11,13 +11,11 @@ class State {
 public:
 	State(const States & state) :state(state) {}
 
-	int GetDamage() {
-		return 0;
-	}
-
 private:
 	States state;
 
 };
+
+
 
 #endif // !__P2STATES_H__
