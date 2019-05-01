@@ -615,8 +615,8 @@ void RoomManager::DeleteDrop(iPoint pos, DropsType type)
 	std::vector < MapIndicators*>::iterator it = actual_room->map_indicators.begin();
 	for (; it != actual_room->map_indicators.end(); ++it) {
 		if ((*it) != nullptr && (*it)->location == pos && (*it)->indicator_type == "drop") {
-			delete (*item);
-			(*item) = nullptr;
+			delete (*it);
+			(*it) = nullptr;
 			actual_room->map_indicators.erase(it);
 			break;
 		}
