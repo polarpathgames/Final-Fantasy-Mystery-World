@@ -131,21 +131,24 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		App->scene->player_type = PlayerType::WARRIOR;
 		App->menu_manager->CreateNameMenu();
 		App->menu_manager->DestroySelectChamp();
-		App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, -100, -100, "warrior");
+		entity_type = e1Entity::EntityType::WARRIOR;
+		App->scene->player = (e1Player*)App->entity_manager->CreateEntity(entity_type, -100, -100, "warrior");
 		ret = false;
 	}
 	else if (interaction == App->menu_manager->select_champ.button_archer) {
 		App->scene->player_type = PlayerType::ARCHER;
 		App->menu_manager->CreateNameMenu();
 		App->menu_manager->DestroySelectChamp();
-		App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::ARCHER, -100, -100, "archer");
+		entity_type = e1Entity::EntityType::ARCHER;
+		App->scene->player = (e1Player*)App->entity_manager->CreateEntity(entity_type, -100, -100, "archer");
 		ret = false;
 	}
 	else if (interaction == App->menu_manager->select_champ.button_mage) {
 		App->scene->player_type = PlayerType::MAGE;
 		App->menu_manager->CreateNameMenu();
 		App->menu_manager->DestroySelectChamp();
-		App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::MAGE, -100, -100, "mage");
+		entity_type = e1Entity::EntityType::MAGE;
+		App->scene->player = (e1Player*)App->entity_manager->CreateEntity(entity_type, -100, -100, "mage");
 		ret = false;
 	}
 
