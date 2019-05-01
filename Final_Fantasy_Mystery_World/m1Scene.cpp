@@ -688,6 +688,8 @@ void m1Scene::ShowHUD(bool show_or_hide)
 		player_mana_bar->drawable = show_or_hide;
 		diagonal_compass->drawable = show_or_hide;
 		vertical_compass->drawable = show_or_hide;
+		player_hp_bar->bar_numbers_label->drawable = show_or_hide;
+		player_mana_bar->bar_numbers_label->drawable = show_or_hide;
 	}
 }
 
