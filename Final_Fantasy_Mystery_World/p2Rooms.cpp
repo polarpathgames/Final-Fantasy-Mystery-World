@@ -65,6 +65,15 @@ Room::~Room()
 	}
 	map_indicators.clear();
 
+	std::vector<DropInfo*>::iterator i = drops.begin();
+	for (; i != drops.end(); ++i) {
+		if ((*i) != nullptr) {
+			delete (*i);
+			(*i) = nullptr;
+		}
+	}
+	drops.clear();
+
 	entities.clear();
 }
 
