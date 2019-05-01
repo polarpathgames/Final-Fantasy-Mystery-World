@@ -770,11 +770,85 @@ void e1Player::SpecialAttack2()
 			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3 + 1, 200, EASE);
 			break;
 		}
-		CheckBasicAttackEffects(e1Entity::EntityType::ENEMY, direction, stats.attack_power_ability_3);
+		CheckBasicSpecialAttack2Effects();
 		state = State::AFTER_ATTACK;
 		ChangeAnimation(direction, state);
 		time_attack = SDL_GetTicks();
 	}
+}
+
+void e1Player::CheckBasicSpecialAttack2Effects()
+{
+	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY) {
+			iPoint origin = actual_tile;
+			iPoint destination = (*item)->actual_tile;
+			bool has_succeeded = false;
+			switch (direction) {
+			case Direction::DOWN_LEFT: {
+				origin += {0, 1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::DOWN_RIGHT: {
+				origin += {1, 0};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::DOWN: {
+				origin += {1, 1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::UP: {
+				origin += {-1, -1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::UP_LEFT: {
+				origin += {-1, 0};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::UP_RIGHT: {
+				origin += {0, -1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::LEFT: {
+				origin += {-1, 1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			case Direction::RIGHT: {
+				origin += {1, -1};
+				if (destination == origin) {
+					has_succeeded = true;
+				}
+			} break;
+			default:
+				LOG("There is no valid direction to attack");
+				break;
+			}
+			if (has_succeeded) {
+				e1Enemy* enemy_attacked = (e1Enemy*)(*item);
+				enemy_attacked->GetHitted(stats.attack_power_ability_3);
+				AugmentLives(stats.attack_power_ability_3*((float)((float)App->random.Generate(20, 60) / (float)100.0F)));
+			}
+		}
+	}
+
+
+
 }
 
 void e1Player::PerformMovementInLobby(float dt)

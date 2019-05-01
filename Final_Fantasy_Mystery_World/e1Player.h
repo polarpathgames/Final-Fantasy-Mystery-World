@@ -135,6 +135,8 @@ public:
 
 	void SpecialAttack2();
 
+	void CheckBasicSpecialAttack2Effects();
+
 	void PerformMovementInLobby(float dt); // Do the movement in lobby
 	void PerformMovementInQuest(float dt); // Do the movement in quest
 
