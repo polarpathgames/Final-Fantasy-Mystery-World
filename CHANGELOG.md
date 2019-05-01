@@ -1,7 +1,121 @@
 # Changelog
 
-
 All notable changes to this project will be documented in this file.
+
+## [0.6.0] - 28/04/2019
+
+Added: 
+--------
+- Compass
+- Potions as drops
+- Slime spritesheet
+
+Changed:
+--------
+- Lobby tmx
+- Stats update when level up
+- Tutorial tmx
+- Code revision
+
+Removed: 
+--------
+
+Fixed: 
+--------
+- Pre-Release 0.5.3 branch merge conflicts into develop branch
+
+
+## [0.5.3] - 23/04/2019
+
+Added: 
+--------
+- Death animations enemies
+- 2 more tutorial panels
+
+Changed:
+--------
+- Statue Animation
+
+Removed: 
+--------
+
+Fixed: 
+--------
+
+
+## [0.5.2] - 23/04/2019
+
+Added: 
+--------
+- Debug keys to pass through rooms
+- New fountains sprites
+- Statue tutorial added
+- Idle animations
+
+Changed:
+--------
+- Abilities blocked from the beginning
+- Recover health and mana in the lobby
+- Pivots are now in the debug collision key
+- Controls of the controller and keyboard
+
+Removed: 
+--------
+- Blue and greeen quads for the enemy and player positions
+
+Fixed: 
+--------
+- #305 Shop bugs when you click fast to buy potions
+- #300 HUD disappear when you talk to the NPC in the lobby
+- #304 Arrow keeps doing damage to the enemies
+- #306 If you die in the final battle at the tutorial it goes to the lobby
+
+
+
+## [0.5.1] - 21/04/2019
+
+Added: 
+--------
+- Input text
+- Particles
+- Cutscenes
+- Game loop
+- Audio and fxs
+- All characters and enemies animations
+- Abilities implemented
+- Fully controller controls
+- Doors logic
+- Tutorial screens
+- HUD function
+- God mode
+- Breakeable rocks
+- Debug key change between characters
+- Experience and levels
+- Player selection menu
+- Death menu
+
+Changed:
+--------
+- Enemies fully implented
+- Fountain functionality
+- Credits
+
+
+Removed: 
+--------
+
+Fixed: 
+--------
+- #213 If you are in death menu and you wait the game crashes
+- #229 Bug report from release ver 0.5.0
+- #264 If you use the flash ability the collider of the character gets off center
+- #267 Tearing in fullscreen
+- #282 Some fxs doesn't mute when the volume is supposedly 0
+- #283 The camera in fullscreen follow the player too slow
+- #284 Fullscreen button needs to be updated
+- #286 Game sometimes crash when using too much the abilities
+- #296 When you die if you click in return main menu the game sometimes crashes
+
 
 ## [0.5.0] - 17/04/2019
 
