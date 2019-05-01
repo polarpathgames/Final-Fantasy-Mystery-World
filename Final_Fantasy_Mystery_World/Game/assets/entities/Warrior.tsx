@@ -3,7 +3,9 @@
  <properties>
   <property name="attack_power" type="int" value="80"/>
   <property name="attack_power_ability" type="int" value="150"/>
+  <property name="attack_power_ability3" type="int" value="100"/>
   <property name="cost_mana_special_attack" type="int" value="20"/>
+  <property name="cost_mana_special_attack3" type="int" value="25"/>
   <property name="max_lives" type="int" value="350"/>
   <property name="max_mana" type="int" value="200"/>
  </properties>
