@@ -363,28 +363,23 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			   {
 				   //Save function
 				   Animation * anim = new Animation();
-				   anim->PushBack({ 1362,8,25,25 });
-				   anim->PushBack({ 1401,8,25,25 });
-				   anim->PushBack({ 1439,8,20,25 });
-				   anim->PushBack({ 1477,9,14,25 });
-				   anim->PushBack({ 1512,8,15,25 });
-				   anim->PushBack({ 1548,8,20,25 });
-				   anim->PushBack({ 1578,8,25,25 });
-				   anim->PushBack({ 1366,36,25,25 });
-				   anim->PushBack({ 1402,26,25,25 });
-				   anim->PushBack({ 1438,36,24,25 });
-				   anim->PushBack({ 1478,36,13,25 });
-				   anim->PushBack({ 1512,36,14,25 });
-				   anim->PushBack({ 1542, 36, 25,25 });
-				   anim->PushBack({ 1578, 37, 24,25 });
-				   //anim->PushBack({});
-				   //anim->PushBack({});
-				   //anim->PushBack({});
-				   //anim->PushBack({});
-				   //anim->PushBack({});
-				   /*anim->loop = false;*/
-				   anim->speed = 7;
-				   App->gui->AddImage(100, 100, { 0,0,0,0 }, nullptr, App->gui->screen, true, false, false, false, anim);
+				   anim->PushBack({ 1358,4572,33,25 });
+				   anim->PushBack({ 1397,4572,33,25 });
+				   anim->PushBack({ 1432,4572,33,25 });
+				   anim->PushBack({ 1468,4573,33,25 });
+				   anim->PushBack({ 1503,4572,33,25 });
+				   anim->PushBack({ 1539,4572,33,25 });
+				   anim->PushBack({ 1573,4572,33,25 });
+				   anim->PushBack({ 1363,4600,33,25 });
+				   anim->PushBack({ 1398,4600,33,25 });
+				   anim->PushBack({ 1434,4600,33,25 });
+				   anim->PushBack({ 1468,4600,33,25 });
+				   anim->PushBack({ 1504,4600,33,25 });
+				   anim->PushBack({ 1538, 4600, 33,25 });
+				   anim->PushBack({ 1574, 4600, 33,25 });
+				   anim->loop = false;
+				   anim->speed = 14;
+				   App->gui->AddImage(949, 718, { 0,0,0,0 }, nullptr, App->gui->screen, true, false, false, false, anim);
 				   App->scene->player->BlockControls(false);
 				   App->SaveGame("save_game.xml");
 				   break;
