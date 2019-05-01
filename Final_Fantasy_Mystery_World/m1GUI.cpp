@@ -292,10 +292,10 @@ const SDL_Texture* m1GUI::GetAtlas() const
 	return atlas;
 }
 
-u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, m1Module * listener = nullptr, u1GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false, bool focus = true)
+u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, m1Module * listener = nullptr, u1GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false, bool focus = true, Animation* anim)
 {
 
-	u1Image* image = DBG_NEW u1Image(x, y, rect, parent, draw, interact, drag, focus);
+	u1Image* image = DBG_NEW u1Image(x, y, rect, parent, draw, interact, drag, focus, anim);
 
 	if (listener != nullptr) {
 		image->AddListener(listener);

@@ -45,6 +45,7 @@ void m1MenuManager::CreateMainMenu()
 	main_menu.exit_game_button = App->gui->AddButton(684, main_menu.credits_button->position.y + offsetY, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, main_menu.background, false, false, true, true);
 	main_menu.exit_game_text = App->gui->AddLabel(0, 0, "Exit", main_menu.exit_game_button, BLACK, FontType::FF64, nullptr, false);
 	main_menu.exit_game_text->SetPosRespectParent(CENTERED);
+
 }
 
 void m1MenuManager::DestroyMainMenu()

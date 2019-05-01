@@ -126,8 +126,6 @@ void RoomManager::OnCollision(Collider * c1, Collider * c2)
 
 	if (App->scene->player->actual_tile == pos_coll)
 		ChangeRoom(c1->type, false);
-
-
 }
 
 bool RoomManager::ChangeRoom(COLLIDER_TYPE type, bool debug_pass)
