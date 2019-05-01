@@ -360,11 +360,30 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   }
 				   break;
 			   case -3://SAVE FUNCTION
+			   {
 				   //Save function
-
+				   Animation * anim = new Animation();
+				   anim->PushBack({ 1358,4572,33,25 });
+				   anim->PushBack({ 1397,4572,33,25 });
+				   anim->PushBack({ 1432,4572,33,25 });
+				   anim->PushBack({ 1468,4573,33,25 });
+				   anim->PushBack({ 1503,4572,33,25 });
+				   anim->PushBack({ 1539,4572,33,25 });
+				   anim->PushBack({ 1573,4572,33,25 });
+				   anim->PushBack({ 1363,4600,33,25 });
+				   anim->PushBack({ 1398,4600,33,25 });
+				   anim->PushBack({ 1434,4600,33,25 });
+				   anim->PushBack({ 1468,4600,33,25 });
+				   anim->PushBack({ 1504,4600,33,25 });
+				   anim->PushBack({ 1538, 4600, 33,25 });
+				   anim->PushBack({ 1574, 4600, 33,25 });
+				   anim->loop = false;
+				   anim->speed = 14;
+				   App->gui->AddImage(949, 718, { 0,0,0,0 }, nullptr, App->gui->screen, true, false, false, false, anim);
 				   App->scene->player->BlockControls(false);
 				   App->SaveGame("save_game.xml");
 				   break;
+			   }
 			   case 30: //old statue tutorial diagonal
 				   App->menu_manager->CreateHelpDiagonalMenu();
 				   App->scene->SetMenuState(StatesMenu::HELP_DIAGONAL_MENU);
