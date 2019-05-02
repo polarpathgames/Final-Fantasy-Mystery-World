@@ -605,40 +605,45 @@ void m1MenuManager::DeletePotionMenu()
 
 void m1MenuManager::CreatePauseMenu()
 {
-	pause.pause_panel = App->gui->AddImage(0, 0, { 1252,1536,313,428 }, nullptr, App->gui->screen, true, false, false, false);
-	pause.pause_panel->SetPosRespectParent(CENTERED);
-	pause.pause_panel->SetPos(pause.pause_panel->GetLocalPosition().x, -1000);
+	if (pause.pause_panel == nullptr) {
+		pause.pause_panel = App->gui->AddImage(0, 0, { 1252,1536,313,428 }, nullptr, App->gui->screen, true, false, false, false);
+		pause.pause_panel->SetPosRespectParent(CENTERED);
+		pause.pause_panel->SetPos(pause.pause_panel->GetLocalPosition().x, -1000);
 
-	pause.button_resume = App->gui->AddButton(50, 50, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
-	pause.label_resume = App->gui->AddLabel(0, 0, "Continue", pause.button_resume, BLACK, FontType::FF48, nullptr, false);
-	pause.label_resume->SetPosRespectParent(CENTERED);
+		pause.button_resume = App->gui->AddButton(50, 50, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
+		pause.label_resume = App->gui->AddLabel(0, 0, "Continue", pause.button_resume, BLACK, FontType::FF48, nullptr, false);
+		pause.label_resume->SetPosRespectParent(CENTERED);
 
-	pause.button_main_menu = App->gui->AddButton(50, 350, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
-	pause.label_main_menu = App->gui->AddLabel(0, 0, "Return to main menu", pause.button_main_menu, BLACK, FontType::FF48, nullptr, false);
-	pause.label_main_menu->SetPosRespectParent(CENTERED);
+		pause.button_main_menu = App->gui->AddButton(50, 350, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
+		pause.label_main_menu = App->gui->AddLabel(0, 0, "Return to main menu", pause.button_main_menu, BLACK, FontType::FF48, nullptr, false);
+		pause.label_main_menu->SetPosRespectParent(CENTERED);
 
-	//if (App->map->actual_map == Maps::LOBBY || App->map->actual_map == Maps::SHOP || App->map->actual_map == Maps::HOME)
-	pause.button_abort_quest = App->gui->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, false, false);
-	//else
-	//	pause.button_abort_quest = App->gui->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true, true);
-
-
-	pause.label_abort_quest = App->gui->AddLabel(0, 0, "Abort quest", pause.button_abort_quest, BLACK, FontType::FF48, nullptr, false);
-	pause.label_abort_quest->SetPosRespectParent(CENTERED);
+		//if (App->map->actual_map == Maps::LOBBY || App->map->actual_map == Maps::SHOP || App->map->actual_map == Maps::HOME)
+		pause.button_abort_quest = App->gui->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, false, false);
+		//else
+		//	pause.button_abort_quest = App->gui->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true, true);
 
 
-	pause.button_options = App->gui->AddButton(50, 150, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
-	pause.label_options = App->gui->AddLabel(0, 0, "Options", pause.button_options, BLACK, FontType::FF48, nullptr, false);
-	pause.label_options->SetPosRespectParent(CENTERED);
+		pause.label_abort_quest = App->gui->AddLabel(0, 0, "Abort quest", pause.button_abort_quest, BLACK, FontType::FF48, nullptr, false);
+		pause.label_abort_quest->SetPosRespectParent(CENTERED);
 
-	App->easing_splines->CreateSpline(&pause.pause_panel->position.y, (App->gui->screen->section.h - pause.pause_panel->section.h) * 0.5F, 1500, TypeSpline::EASE_OUT_QUINT);
+
+		pause.button_options = App->gui->AddButton(50, 150, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
+		pause.label_options = App->gui->AddLabel(0, 0, "Options", pause.button_options, BLACK, FontType::FF48, nullptr, false);
+		pause.label_options->SetPosRespectParent(CENTERED);
+
+		App->easing_splines->CreateSpline(&pause.pause_panel->position.y, (App->gui->screen->section.h - pause.pause_panel->section.h) * 0.5F, 1500, TypeSpline::EASE_OUT_QUINT);
+	}
+	
 }
 
 void m1MenuManager::DestroyPauseMenu()
 {
-	App->gui->DeleteUIElement(pause.pause_panel);
-	pause.Reset();
-	App->gui->ShowCursor(false);
+	if (pause.pause_panel != nullptr) {
+		App->gui->DeleteUIElement(pause.pause_panel);
+		pause.Reset();
+		App->gui->ShowCursor(false);
+	}
 }
 
 void m1MenuManager::UpdateOptionsMenu()
@@ -937,6 +942,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		App->entity_manager->Disable();
 		App->map->Disable();
 		App->ChangePause();
+		pause.Reset();
 		active = false;
 		App->main_menu->Enable();
 		ret = false;
