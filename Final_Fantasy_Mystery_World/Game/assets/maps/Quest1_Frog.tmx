@@ -9627,7 +9627,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="7" name="Collider" width="40" height="40" visible="0">
+ <layer id="7" name="Collider" width="40" height="40">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -10495,31 +10495,16 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
@@ -10535,7 +10520,22 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
@@ -11261,7 +11261,7 @@
    </properties>
   </object>
   <object id="52" name="enemy" type="BlueSlime" x="256" y="336" width="15.9688" height="16.0156"/>
-  <object id="53" name="enemy" type="SuperPurpleFrog" x="432" y="336" width="15.9688" height="16.0156"/>
+  <object id="53" name="enemy" type="SuperPurpleFrog" x="434.75" y="337.25" width="9.9688" height="11.0156"/>
   <object id="56" name="player" type="nextA" x="432" y="448" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
