@@ -895,7 +895,7 @@ void m1MenuManager::SkipMenu(bool is_cutscene)
 	{
 		im_skipper = App->gui->AddImage(880, 700, { 1522,2051,33,31 }, nullptr, App->gui->screen, true, false, false, false);
 		lb_skipper = App->gui->AddLabel(924, 698,"Skip", App->gui->screen, WHITE, FontType::PMIX32, nullptr,true);
-		br_skipper = App->gui->AddBar(880, 700, 200, UIType::SKIPBAR, im_skipper, nullptr);
+		br_skipper = App->gui->AddBar(0,0, 200, UIType::SKIPBAR, im_skipper, nullptr);
 	}
 	else
 	{
