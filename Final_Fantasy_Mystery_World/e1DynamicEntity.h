@@ -33,6 +33,8 @@ public:
 
 	void ChangeTurn(EntityType type);
 
+	virtual void GetHitted(const int & damage_taken) {}
+
 	void PushBack();
 
 	bool NextTileFree(const Direction & dir) const;

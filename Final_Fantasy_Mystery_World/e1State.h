@@ -31,7 +31,7 @@ private:
 	p2Timer timer;
 
 	bool doing_effect = false;
-	bool ui = false;
+	bool dynamic = true;
 
 	uint turn_count = 0u;
 	uint turn_effect = 0u;
