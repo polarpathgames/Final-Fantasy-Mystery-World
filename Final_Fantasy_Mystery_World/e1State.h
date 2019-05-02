@@ -3,7 +3,6 @@
 
 #include "e1DynamicEntity.h"
 #include "p2Timer.h"
-#include <list>
 
 enum class EventStates {
 	SNOWSTORM,
