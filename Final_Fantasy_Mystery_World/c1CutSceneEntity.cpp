@@ -26,7 +26,7 @@ c1CutsceneEntity::c1CutsceneEntity(int pos_x, int pos_y, std::string name)
 }
 
 c1CutsceneEntity::~c1CutsceneEntity()
-{
+{	
 	//entity_c->to_delete;
 }
 

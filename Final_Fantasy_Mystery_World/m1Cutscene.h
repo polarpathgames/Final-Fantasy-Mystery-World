@@ -43,7 +43,7 @@ public:
 	pugi::xml_document cutscene_file;
 	std::vector<c1CutsceneAction*> actions;
 	std::map<std::string, c1CutsceneElement*> elements;
-	bool is_executing = false;
+	bool is_executing = false, skip_cutscene = false;
 	std::vector<c1CutsceneAction*>::iterator item;
 	e1Entity* ent;
 

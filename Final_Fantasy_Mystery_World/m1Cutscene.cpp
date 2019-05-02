@@ -6,6 +6,8 @@
 #include "m1EntityManager.h"
 #include "m1Scene.h"
 #include "e1Player.h"
+#include "m1MenuManager.h"
+#include "m1Input.h"
 #include "m1CutScene.h"
 #include "c1CutsceneMoveCamera.h"
 #include "c1CutsceneMoveEntity.h"
@@ -16,6 +18,8 @@
 #include "c1CutsceneImage.h"
 #include "c1CutSceneDeleteEntity.h"
 #include "c1CutSceneAddAudio.h"
+#include "u1Bar.h"
+
 
 m1CutScene::m1CutScene()
 {
@@ -32,7 +36,8 @@ bool m1CutScene::Awake(pugi::xml_node &config)
 
 bool m1CutScene::Update(float dt)
 {
-	ExecuteCutscene(dt);
+	if (is_executing)
+		ExecuteCutscene(dt);
 
 	return true;
 }
@@ -50,7 +55,7 @@ void m1CutScene::PlayCutscene(std::string path)
 	{
 		LoadCutscene(path);
 		SetExecuting(true);
-		
+		App->menu_manager->SkipMenu(true);
 	}
 }
 
@@ -159,6 +164,16 @@ bool m1CutScene::LoadCutscene(std::string path)
 
 void m1CutScene::ExecuteCutscene(float dt)
 {
+	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && !skip_cutscene) || (App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT && !skip_cutscene)) {
+		if (App->menu_manager->br_skipper->current_width >= App->menu_manager->br_skipper->max_width)
+		{
+			skip_cutscene = true;
+		}
+		App->menu_manager->br_skipper->UpdateBar(300*dt, UIType::SKIPBAR);
+	}
+	else {
+		App->menu_manager->br_skipper->UpdateBar(-300*dt, UIType::SKIPBAR);
+	}
 	if (is_executing)
 	{
 		if (start) {
@@ -183,8 +198,28 @@ void m1CutScene::ExecuteCutscene(float dt)
 			is_executing = false;
 			start = true;
 			ClearCutscene();
+			App->menu_manager->SkipMenu(false);
 		}
 	}
+	if (skip_cutscene)
+	{
+		int cont = 0;
+		for (pugi::xml_node cutscene_action_node = cutscene_file.first_child().child("actions").child("cutscene"); cutscene_action_node; cutscene_action_node = cutscene_action_node.next_sibling())
+		{
+			std::string action = cutscene_action_node.attribute("action").as_string();
+			if (action == "delete_entity")
+				actions[cont]->Execute(dt);
+
+			cont++;
+		}
+		is_executing = false;
+		start = true;
+		ClearCutscene();
+		skip_cutscene = false;
+		App->menu_manager->SkipMenu(false);
+	}
+		
+
 }
 
 void m1CutScene::ClearCutscene()
@@ -202,7 +237,6 @@ void m1CutScene::ClearCutscene()
 		delete (*it).second;
 		(*it).second = nullptr;
 	}
-
 	cutscene_file.reset();
 	elements.clear();
 	App->scene->ShowHUD(true);
