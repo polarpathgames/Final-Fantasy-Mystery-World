@@ -37,7 +37,7 @@ public:
 
 	bool NextTileFree(const Direction & dir) const;
 
-	void RestTimeAfterAttack(float time_finish);
+	bool RestTimeAfterAttack(float time_finish);
 
 	void CheckBasicAttackEffects(const e1Entity::EntityType &type, const Direction & direction, const int &attack_damage);
 

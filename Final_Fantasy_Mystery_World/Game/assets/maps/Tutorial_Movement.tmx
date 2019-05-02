@@ -9664,7 +9664,7 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="48" name="enemy" type="SuperPurpleFrog" x="432" y="352" width="15.9688" height="16.0156">
+  <object id="48" name="enemy" type="SuperPurpleFrog" x="448" y="336" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
