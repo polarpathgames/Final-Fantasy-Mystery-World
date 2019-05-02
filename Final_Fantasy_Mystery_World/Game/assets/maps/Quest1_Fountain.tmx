@@ -4,7 +4,7 @@
   <image source="Fountain.png" width="385" height="368"/>
  </tileset>
  <tileset firstgid="277" name="Fountain2" tilewidth="400" tileheight="357" tilecount="1" columns="1">
-  <image source="Fountain2.png" width="404" height="357"/>
+  <image source="Fountain2.png" width="491" height="357"/>
  </tileset>
  <layer id="1" name="Floor" width="40" height="40">
   <data>
@@ -4823,7 +4823,7 @@
   </data>
  </layer>
  <objectgroup id="4" name="Static objects">
-  <object id="20" name="quest_fountain" type="static" x="272" y="304" width="64" height="49.4688"/>
+  <object id="20" name="quest_fountain" type="static" x="272" y="304" width="47.8333" height="47.4688"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="5" name="entities">
   <properties>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="57">
+<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="58">
  <tileset firstgid="1" name="ques1_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques1_tileset.png" width="688" height="290"/>
  </tileset>
@@ -9631,13 +9631,10 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="8" name="Static animation objects" visible="0">
-  <object id="11" name="rock_quest1" type="static" x="416" y="304" width="32" height="32"/>
-  <object id="12" name="plant2_quest1" type="static" x="480" y="288" width="32" height="32"/>
-  <object id="48" name="plant2_quest1" type="static" x="368" y="368" width="32" height="32"/>
-  <object id="49" name="barrel" type="static" x="336" y="256" width="32" height="32"/>
-  <object id="50" name="barrel" type="static" x="352" y="256" width="32" height="32"/>
-  <object id="51" name="barrel" type="static" x="352" y="240" width="32" height="32"/>
+ <objectgroup id="8" name="Static animation objects">
+  <object id="12" name="treasure" type="static" x="368" y="320" width="32" height="32"/>
+  <object id="48" name="fire_floor" type="static" x="368" y="352" width="32" height="32"/>
+  <object id="57" name="fire_floor" type="static" x="368" y="288" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="9" name="entities">
   <object id="9" name="player" type="lastA" x="544" y="336" width="15.9688" height="16.0156">
