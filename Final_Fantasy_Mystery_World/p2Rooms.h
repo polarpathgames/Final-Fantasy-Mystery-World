@@ -120,6 +120,7 @@ private:
 	u1Image * map_background = nullptr;
 	u1Image * map_zone = nullptr;
 	u1Image * player_pos = nullptr;
+	bool map_active = false;
 
 	Mix_Music* mus_paceful;
 	Mix_Music* mus_boss;

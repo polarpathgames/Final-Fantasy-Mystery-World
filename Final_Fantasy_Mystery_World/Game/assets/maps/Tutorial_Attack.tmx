@@ -1627,7 +1627,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="2" name="Wall" width="40" height="40" visible="0">
+ <layer id="2" name="Wall" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -3231,7 +3231,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="Shadow" width="40" height="40" visible="0">
+ <layer id="3" name="Shadow" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -3814,47 +3814,7 @@
    <tile/>
    <tile/>
    <tile gid="199"/>
-   <tile gid="3221225642"/>
-   <tile gid="3221225642"/>
-   <tile gid="3221225642"/>
-   <tile gid="3221225642"/>
-   <tile gid="3221225642"/>
-   <tile gid="3221225642"/>
-   <tile gid="3221225642"/>
    <tile/>
-   <tile/>
-   <tile gid="3221225642"/>
-   <tile gid="3221225642"/>
-   <tile gid="3221225642"/>
-   <tile gid="3221225642"/>
-   <tile/>
-   <tile/>
-   <tile gid="169"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="169"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="169"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3894,47 +3854,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="169"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="169"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="169"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="169"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3974,47 +3894,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="169"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="169"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="169"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="169"/>
    <tile/>
    <tile/>
    <tile/>
@@ -4054,7 +3934,127 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="169"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="169"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="169"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="169"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="169"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="169"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4094,24 +4094,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="169"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="169"/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4134,7 +4116,25 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="169"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4174,7 +4174,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="169"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4214,7 +4214,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="169"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4254,7 +4254,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="169"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4294,7 +4294,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="169"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4334,7 +4334,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="169"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4835,7 +4835,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="5" name="Door Open" width="40" height="40" visible="0">
+ <layer id="5" name="Door Open" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -6439,7 +6439,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="6" name="Enviorment" width="40" height="40" visible="0">
+ <layer id="6" name="Enviorment" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -8043,7 +8043,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="11" name="DoorClosed" width="40" height="40" visible="0">
+ <layer id="11" name="DoorClosed" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -11264,7 +11264,7 @@
   <object id="21" name="half_tree" type="static" x="336" y="240" width="46.8333" height="47.8333"/>
   <object id="22" name="red_plant" type="static" x="324.167" y="340.5" width="32" height="32"/>
  </objectgroup>
- <objectgroup color="#ffff7f" id="9" name="entities" visible="0">
+ <objectgroup color="#ffff7f" id="9" name="entities">
   <object id="9" name="enemy" type="StrangeFrog" x="368" y="320" width="15.9688" height="16.0156"/>
   <object id="10" name="player" type="nextB" x="544" y="320" width="15.9688" height="16.0156">
    <properties>

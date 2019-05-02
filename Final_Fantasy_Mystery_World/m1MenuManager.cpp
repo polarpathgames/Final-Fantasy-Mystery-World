@@ -6,6 +6,7 @@
 #include "m1Window.h"
 #include "m1GUI.h"
 #include "u1Image.h"
+#include "m1EasingSplines.h"
 #include "u1Button.h"
 #include "u1InputText.h"
 #include "u1CheckBox.h"
@@ -532,8 +533,7 @@ void m1MenuManager::DestroyGoToQuestMenu()
 
 void m1MenuManager::CreateInventory()
 {
-	inventory.inventory_panel = App->gui->AddImage(0, 0, { 1024, 1536, 228, 384 }, App->scene, App->gui->screen, true, false, false, false);
-	inventory.inventory_panel->SetPosRespectParent(RIGHT_CENTERED, 8);
+	inventory.inventory_panel = App->gui->AddImage(App->gui->screen->section.w + 350, (App->gui->screen->section.h -384)*0.5F, { 1024, 1536, 228, 384 }, App->scene, App->gui->screen, true, false, false, false);
 
 	inventory.player_name = App->gui->AddLabel(80, 7, App->globals.player_name.c_str(), inventory.inventory_panel, BLACK, FontType::FF64, nullptr, false);
 
@@ -553,6 +553,8 @@ void m1MenuManager::CreateInventory()
 
 	inventory.exp_name_label = App->gui->AddLabel(55, 307, "Exp:", inventory.inventory_panel, BLACK, FontType::FF64, nullptr, false);
 	inventory.exp_number_label = App->gui->AddLabel(50, 0, std::string(std::to_string(App->scene->player->stats.xp) + "/" + std::to_string(App->scene->player->stats.max_xp)).data(), inventory.exp_name_label, BLACK, FontType::FF64, nullptr, false);
+
+	
 }
 
 void m1MenuManager::DestroyInventory()
@@ -605,6 +607,7 @@ void m1MenuManager::CreatePauseMenu()
 {
 	pause.pause_panel = App->gui->AddImage(0, 0, { 1252,1536,313,428 }, nullptr, App->gui->screen, true, false, false, false);
 	pause.pause_panel->SetPosRespectParent(CENTERED);
+	pause.pause_panel->SetPos(pause.pause_panel->GetLocalPosition().x, -1000);
 
 	pause.button_resume = App->gui->AddButton(50, 50, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
 	pause.label_resume = App->gui->AddLabel(0, 0, "Continue", pause.button_resume, BLACK, FontType::FF48, nullptr, false);
@@ -627,6 +630,8 @@ void m1MenuManager::CreatePauseMenu()
 	pause.button_options = App->gui->AddButton(50, 150, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
 	pause.label_options = App->gui->AddLabel(0, 0, "Options", pause.button_options, BLACK, FontType::FF48, nullptr, false);
 	pause.label_options->SetPosRespectParent(CENTERED);
+
+	App->easing_splines->CreateSpline(&pause.pause_panel->position.y, (App->gui->screen->section.h - pause.pause_panel->section.h) * 0.5F, 1500, TypeSpline::EASE_OUT_QUINT);
 }
 
 void m1MenuManager::DestroyPauseMenu()
@@ -650,8 +655,8 @@ void m1MenuManager::CreateShopMenu()
 {
 	App->scene->player->BlockControls(true);
 
-	shop.shop_panel = App->gui->AddImage(100, 150, { 1820,1691,227,383 }, (m1Module*)App->scene, App->gui->screen, true, false, false, false);
-	shop.shop_panel->SetPosRespectParent(LEFT_CENTERED, 200);
+	shop.shop_panel = App->gui->AddImage(-350 - 227, (App->gui->screen->section.h - 383) * 0.5F, { 1820,1691,227,383 }, (m1Module*)App->scene, App->gui->screen, true, false, false, false);
+	//shop.shop_panel->SetPosRespectParent(LEFT_CENTERED, 200);
 	shop.shop_label = App->gui->AddLabel(0, 0, "SHOP", shop.shop_panel, BLACK, FontType::FF64, nullptr, false);
 	shop.shop_label->SetPosRespectParent(CENTERED_UP, 20);
 
@@ -673,9 +678,12 @@ void m1MenuManager::CreateShopMenu()
 	App->gui->FocusButton(shop.shop_button_hp_potion);
 
 	CreateInventory();
-	inventory.inventory_panel->SetPosRespectParent(RIGHT_CENTERED, 200);
+	//inventory.inventory_panel->SetPosRespectParent(RIGHT_CENTERED, 200);
 	inventory.hp_potion_button->interactable = false;
 	inventory.mana_potion_button->interactable = false;
+	App->easing_splines->CreateSpline(&inventory.inventory_panel->position.x, App->gui->screen->section.w - inventory.inventory_panel->section.w - 200, 1500, TypeSpline::EASE_OUT_QUINT);
+	App->easing_splines->CreateSpline(&shop.shop_panel->position.x, 200, 1500, TypeSpline::EASE_OUT_QUINT);
+
 }
 
 void m1MenuManager::DestroyShopMenu()

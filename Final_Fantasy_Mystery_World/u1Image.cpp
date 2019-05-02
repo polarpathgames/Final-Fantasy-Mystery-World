@@ -29,6 +29,7 @@ void u1Image::InnerDraw()
 	else {
 		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0);
 	}
+
 }
 
 

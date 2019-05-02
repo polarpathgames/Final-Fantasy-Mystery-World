@@ -4,6 +4,7 @@
 #include "m1GUI.h"
 #include "m1Collisions.h"
 #include "m1DialogSystem.h"
+#include "m1EasingSplines.h"
 #include "m1Audio.h"
 #include "p2ChangeControls.h"
 #include "m1Render.h"
@@ -201,6 +202,10 @@ bool m1Scene::Update(float dt)
 		App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
+		App->fade_to_black->FadeToBlack(Maps::QUEST2);
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_KP_1) == KEY_DOWN) {
 		App->win->scale = 1;
 	}
@@ -227,6 +232,7 @@ bool m1Scene::Update(float dt)
 				App->audio->PlayFx(App->gui->fx_inventory);
 				App->menu_manager->CreateInventory();
 				player->BlockControls(true);
+				App->easing_splines->CreateSpline(&App->menu_manager->inventory.inventory_panel->position.x, App->gui->screen->section.w - App->menu_manager->inventory.inventory_panel->section.w - 8, 700, TypeSpline::EASE_OUT_BACK);
 				menu_state = StatesMenu::INVENTORY_MENU;
 			}
 		}
