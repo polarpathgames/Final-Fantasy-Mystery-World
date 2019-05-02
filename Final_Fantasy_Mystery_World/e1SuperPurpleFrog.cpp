@@ -345,7 +345,7 @@ bool e1SuperPurpleFrog::CanAttack()
 	bool ret = false;
 
 	iPoint player_pos = App->scene->player->actual_tile;
-
+	last_tile = actual_tile;
 	if (player_pos == actual_tile + iPoint{ 0,3 }) {
 		distance_to_travel = 5;
 		direction = Direction::DOWN_LEFT;
@@ -482,6 +482,12 @@ bool e1SuperPurpleFrog::CanAttack()
 		direction = Direction::RIGHT;
 		ret = true;
 	}
+
+	if (!App->map->IsWalkable(actual_tile, false)) {
+		actual_tile = last_tile;
+		ret = false;
+	}
+
 
 	return ret;
 }
