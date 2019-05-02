@@ -185,11 +185,21 @@ void m1CutScene::ExecuteCutscene(float dt)
 			ClearCutscene();
 		}
 	}
-	else
+	if (skip_cutscene)
 	{
+		int cont = 0;
+		for (pugi::xml_node cutscene_action_node = cutscene_file.first_child().child("actions").child("cutscene"); cutscene_action_node; cutscene_action_node = cutscene_action_node.next_sibling())
+		{
+			std::string action = cutscene_action_node.attribute("action").as_string();
+			if (action == "delete_entity")
+				actions[cont]->Execute(dt);
+
+			cont++;
+		}
 		is_executing = false;
 		start = true;
 		ClearCutscene();
+		skip_cutscene = false;
 	}
 		
 
