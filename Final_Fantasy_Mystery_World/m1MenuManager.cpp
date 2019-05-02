@@ -927,7 +927,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 	if (interaction == pause.button_resume)
 	{
 		App->audio->PlayFx(App->main_menu->fx_push_button_return);
-		DestroyPauseMenu();
+		App->easing_splines->CreateSpline(&App->menu_manager->pause.pause_panel->position.y, -830, 500, TypeSpline::EASE, std::bind(&m1MenuManager::DestroyPauseMenu, App->menu_manager));
 		App->scene->SetMenuState(StatesMenu::NO_MENU);
 		if (App->GetPause())
 			App->ChangePause();
