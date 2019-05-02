@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="isometric" renderorder="right-down" width="68" height="67" tilewidth="32" tileheight="16" infinite="0" nextlayerid="78" nextobjectid="60">
+<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="68" height="67" tilewidth="32" tileheight="16" infinite="0" nextlayerid="78" nextobjectid="65">
  <tileset firstgid="1" name="ques1_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques1_tileset.png" width="688" height="290"/>
  </tileset>
@@ -21481,7 +21481,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="293"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -27370,9 +27370,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="8" name="Static animation objects">
-  <object id="51" name="barrel" type="static" x="534.5" y="452.167" width="32" height="32"/>
- </objectgroup>
+ <objectgroup id="8" name="Static animation objects"/>
  <objectgroup color="#ffff7f" id="9" name="entities">
   <object id="52" name="enemy" type="EyeBat" x="720" y="768" width="15.9688" height="16.0156"/>
   <object id="55" name="enemy" type="EyeBat" x="720" y="704" width="15.9688" height="16.0156"/>
@@ -27384,11 +27382,21 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
+  <object id="62" name="player" type="nextA" x="448" y="272" width="15.9688" height="16.0156">
+   <properties>
+    <property name="free_movement" type="bool" value="false"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="10" name="colliders">
   <object id="54" name="room_collider" type="lastB" x="608" y="800" width="16.1904" height="15.0341">
    <properties>
     <property name="next_id" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="64" name="room_collider" type="lastB" x="432" y="272" width="16.1904" height="15.0341">
+   <properties>
+    <property name="next_id" type="int" value="7"/>
    </properties>
   </object>
  </objectgroup>
