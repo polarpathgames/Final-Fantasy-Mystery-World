@@ -30,10 +30,10 @@ e1SuperPurpleFrog::~e1SuperPurpleFrog()
 
 bool e1SuperPurpleFrog::PreUpdate()
 {
-	BROFILER_CATEGORY("StrangeFrog PreUpdate", Profiler::Color::Yellow);
+	BROFILER_CATEGORY("SuperPurpleFrog PreUpdate", Profiler::Color::Yellow);
 
 	if (state == State::IDLE) {
-		if (IsPlayerNextTile()) {
+		if (CanAttack()) {
 			state = State::BEFORE_ATTACK;
 			time_to_wait_before_attack = SDL_GetTicks();
 		}
@@ -44,9 +44,7 @@ bool e1SuperPurpleFrog::PreUpdate()
 
 	}
 	if (state == State::WALKING) {
-		//if (!IsPlayerNextTile()) {
 		MovementLogic();
-		//}
 	}
 	if (state == State::BEFORE_ATTACK) {
 		if (time_to_wait_before_attack < SDL_GetTicks() - 250) {
@@ -54,32 +52,32 @@ bool e1SuperPurpleFrog::PreUpdate()
 			state = State::ATTACKING;
 			switch (direction) {
 			case Direction::DOWN_LEFT:
-				App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
-				App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+				App->easing_splines->CreateSpline(&position.x, position.x - ((App->map->data.tile_width / 4) * distance_to_travel), 200, EASE);
+				App->easing_splines->CreateSpline(&position.y, position.y + ((App->map->data.tile_height / 4) * distance_to_travel), 200, EASE);
 				break;
 			case Direction::UP_RIGHT:
-				App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
-				App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+				App->easing_splines->CreateSpline(&position.x, position.x + ((App->map->data.tile_width / 4) * distance_to_travel), 200, EASE);
+				App->easing_splines->CreateSpline(&position.y, position.y - ((App->map->data.tile_height / 4) * distance_to_travel), 200, EASE);
 				break;
 			case Direction::DOWN_RIGHT:
-				App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
-				App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+				App->easing_splines->CreateSpline(&position.x, position.x + ((App->map->data.tile_width / 4) * distance_to_travel), 200, EASE);
+				App->easing_splines->CreateSpline(&position.y, position.y + ((App->map->data.tile_height / 4) * distance_to_travel), 200, EASE);
 				break;
 			case Direction::UP_LEFT:
-				App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
-				App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+				App->easing_splines->CreateSpline(&position.x, position.x - ((App->map->data.tile_width / 4) * distance_to_travel), 200, EASE);
+				App->easing_splines->CreateSpline(&position.y, position.y - ((App->map->data.tile_height / 4) * distance_to_travel), 200, EASE);
 				break;
 			case Direction::UP:
-				App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3, 200, EASE);
+				App->easing_splines->CreateSpline(&position.y, position.y - ((App->map->data.tile_height / 3) * distance_to_travel), 200, EASE);
 				break;
 			case Direction::DOWN:
-				App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3, 200, EASE);
+				App->easing_splines->CreateSpline(&position.y, position.y + ((App->map->data.tile_height / 3) * distance_to_travel), 200, EASE);
 				break;
 			case Direction::RIGHT:
-				App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3, 200, EASE);
+				App->easing_splines->CreateSpline(&position.x, position.x + ((App->map->data.tile_width / 3) * distance_to_travel), 200, EASE);
 				break;
 			case Direction::LEFT:
-				App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3, 200, EASE);
+				App->easing_splines->CreateSpline(&position.x, position.x - ((App->map->data.tile_width / 3) * distance_to_travel), 200, EASE);
 				break;
 			}
 			ChangeAnimation(direction, state, type_attack);
@@ -265,4 +263,18 @@ void e1SuperPurpleFrog::IdAnimToEnum()
 			break;
 		}
 	}
+}
+
+bool e1SuperPurpleFrog::CanAttack()
+{
+	bool ret = false;
+
+	iPoint player_pos = App->scene->player->actual_tile;
+
+	if (player_pos == actual_tile + iPoint{ 0,3 }) {
+		distance_to_travel = 5;
+		ret = true;
+	}
+
+	return ret;
 }
