@@ -181,12 +181,12 @@ bool m1EntityManager::PostUpdate()
 {
 	BROFILER_CATEGORY("PostUpdateEntity", Profiler::Color::Purple);
 
-	/*std::vector<e1Entity*>::iterator item = entities.begin();
+	std::vector<e1Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr)
 				(*item)->PostUpdate();
 
-	}*/
+	}
 	return true;
 }
 

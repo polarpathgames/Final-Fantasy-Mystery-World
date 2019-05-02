@@ -2,6 +2,7 @@
 #define __E1STATE_H__
 
 #include "e1DynamicEntity.h"
+#include "p2Timer.h"
 #include <list>
 
 enum class EventStates {
@@ -18,14 +19,19 @@ public:
 
 	bool PreUpdate();
 	bool Update(float dt);
+	bool PostUpdate();
 
 private:
 	EventStates state = EventStates::NONE;
 	e1Entity* target = nullptr;
 
 	Animation* animation = nullptr;
+	SDL_Rect frame = { 0, 0, 0, 0 };
 
-	bool doing_animation = false;
+	p2Timer timer;
+
+	bool doing_effect = false;
+	bool ui = false;
 
 	uint turn_count = 0u;
 	uint turn_effect = 0u;
