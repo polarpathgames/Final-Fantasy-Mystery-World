@@ -35,7 +35,7 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 		current_width = 0;
 		max_width = 33;
 		empty_bar = App->gui->AddImage(x, y, { 1486,2111,33,31 }, nullptr, App->menu_manager->im_skipper, true, false, false, false);
-		filled_bar = App->gui->AddImage(x, y, { 1418,2111,0,31 }, nullptr, empty_bar, true, false, false, false);
+		filled_bar = App->gui->AddImage(x, y, { 1418,2111,0,34 }, nullptr, empty_bar, true, false, false, false);
 	}
 
 	
