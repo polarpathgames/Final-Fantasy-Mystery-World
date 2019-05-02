@@ -27374,11 +27374,6 @@
   <object id="51" name="barrel" type="static" x="534.5" y="452.167" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="9" name="entities">
-  <object id="9" name="player" type="lastA" x="448" y="272" width="15.9688" height="16.0156">
-   <properties>
-    <property name="free_movement" type="bool" value="false"/>
-   </properties>
-  </object>
   <object id="52" name="enemy" type="EyeBat" x="720" y="768" width="15.9688" height="16.0156"/>
   <object id="55" name="enemy" type="EyeBat" x="720" y="704" width="15.9688" height="16.0156"/>
   <object id="56" name="enemy" type="EyeBat" x="848" y="576" width="15.9688" height="16.0156"/>
@@ -27391,11 +27386,6 @@
   </object>
  </objectgroup>
  <objectgroup id="10" name="colliders">
-  <object id="53" name="room_collider" type="nextB" x="432" y="272" width="16.1904" height="15.0341">
-   <properties>
-    <property name="next_id" type="int" value="8"/>
-   </properties>
-  </object>
   <object id="54" name="room_collider" type="lastB" x="608" y="800" width="16.1904" height="15.0341">
    <properties>
     <property name="next_id" type="int" value="1"/>

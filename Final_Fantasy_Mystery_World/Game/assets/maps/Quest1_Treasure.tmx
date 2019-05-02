@@ -4091,47 +4091,47 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="8"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -9640,7 +9640,7 @@
   <object id="57" name="fire_floor" type="static" x="368" y="288" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="9" name="entities">
-  <object id="9" name="player" type="nextB" x="544" y="336" width="15.9688" height="16.0156">
+  <object id="9" name="player" type="nextB" x="544" y="352" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
@@ -9652,9 +9652,9 @@
   <object id="56" name="enemy" type="BlueSlime" x="512" y="432" width="15.9688" height="16.0156"/>
  </objectgroup>
  <objectgroup id="10" name="colliders">
-  <object id="10" name="room_collider" type="lastB" x="560" y="336" width="16.1904" height="15.0341">
+  <object id="10" name="room_collider" type="lastB" x="560" y="352" width="16.1904" height="15.0341">
    <properties>
-    <property name="next_id" type="int" value="2"/>
+    <property name="next_id" type="int" value="3"/>
    </properties>
   </object>
  </objectgroup>

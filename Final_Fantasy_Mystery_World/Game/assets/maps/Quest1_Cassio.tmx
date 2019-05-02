@@ -10870,7 +10870,7 @@
   </object>
   <object id="53" name="room_collider" type="nextB" x="192" y="336" width="16.1904" height="15.0341">
    <properties>
-    <property name="next_id" type="int" value="2"/>
+    <property name="next_id" type="int" value="6"/>
    </properties>
   </object>
  </objectgroup>
