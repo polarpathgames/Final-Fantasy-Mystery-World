@@ -9650,7 +9650,7 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="52" name="player" type="lastA" x="336" y="336" width="15.9688" height="16.0156">
+  <object id="52" name="player" type="lastB" x="336" y="336" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
@@ -9662,9 +9662,9 @@
     <property name="next_id" type="int" value="2"/>
    </properties>
   </object>
-  <object id="53" name="room_collider" type="nextA" x="320" y="336" width="16.1904" height="15.0341">
+  <object id="53" name="room_collider" type="nextB" x="320" y="336" width="16.1904" height="15.0341">
    <properties>
-    <property name="next_id" type="int" value="2"/>
+    <property name="next_id" type="int" value="9"/>
    </properties>
   </object>
  </objectgroup>

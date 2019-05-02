@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="26">
+ <properties>
+  <property name="next_id" type="int" value="6"/>
+ </properties>
  <tileset firstgid="1" name="Teleport" tilewidth="32" tileheight="16" tilecount="299" columns="13">
   <image source="Teleport.png" width="430" height="368"/>
  </tileset>
@@ -4833,7 +4836,7 @@
    </properties>
   </object>
   <object id="21" name="ability1" type="static" x="283.5" y="293.833" width="16.125" height="16.0313"/>
-  <object id="25" name="player" type="nextB" x="192" y="288" width="15.9688" height="16.0156">
+  <object id="25" name="player" type="lastB" x="192" y="288" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
@@ -4842,10 +4845,10 @@
  <objectgroup id="6" name="colliders">
   <object id="19" name="room_collider" type="lastB" x="416" y="320" width="16.1904" height="16.5606">
    <properties>
-    <property name="next_id" type="int" value="7"/>
+    <property name="next_id" type="int" value="5"/>
    </properties>
   </object>
-  <object id="22" name="room_collider" type="lastB" x="176" y="288" width="16.1904" height="16.5606">
+  <object id="22" name="room_collider" type="nextB" x="176" y="288" width="16.1904" height="16.5606">
    <properties>
     <property name="next_id" type="int" value="7"/>
    </properties>

@@ -9647,7 +9647,7 @@
    </properties>
   </object>
   <object id="52" name="enemy" type="SuperPurpleFrog" x="448" y="288" width="15.9688" height="16.0156"/>
-  <object id="60" name="player" type="lastA" x="448" y="464" width="15.9688" height="16.0156">
+  <object id="60" name="player" type="nextA" x="448" y="464" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
@@ -9656,10 +9656,10 @@
  <objectgroup id="10" name="colliders">
   <object id="10" name="room_collider" type="nextA" x="448" y="240" width="16.1904" height="15.0341">
    <properties>
-    <property name="next_id" type="int" value="2"/>
+    <property name="next_id" type="int" value="11"/>
    </properties>
   </object>
-  <object id="59" name="room_collider" type="nextA" x="448" y="480" width="16.1904" height="15.0341">
+  <object id="59" name="room_collider" type="lastA" x="448" y="480" width="16.1904" height="15.0341">
    <properties>
     <property name="next_id" type="int" value="2"/>
    </properties>
