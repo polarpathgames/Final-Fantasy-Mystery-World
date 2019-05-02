@@ -27,6 +27,7 @@ public:
 		BLUE_DOG,
 		STRANGE_FROG,
 		BLUE_SLIME,
+		SUPER_PURPLE_FROG,
 
 		NONE
 	};
