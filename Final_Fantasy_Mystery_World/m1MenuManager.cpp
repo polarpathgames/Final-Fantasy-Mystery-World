@@ -849,7 +849,6 @@ void m1MenuManager::CreateHelpAbilityMenu()
 
 void m1MenuManager::DestroyHelpAbilityMenu()
 {
-
 	App->gui->DeleteUIElement(help_ability);
 }
 

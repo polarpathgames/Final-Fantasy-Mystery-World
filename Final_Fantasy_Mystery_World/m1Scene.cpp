@@ -249,7 +249,7 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->menu_manager->DestroyHelpAbilityMenu();
 			menu_state = StatesMenu::NO_MENU;
-			ShowHUD(false);
+			ShowHUD(true);
 			player->BlockControls(false);
 		}
 	
@@ -511,10 +511,11 @@ bool m1Scene::Interact(u1GUI* interact)
 	case StatesMenu::GO_TO_QUEST_MENU:
 		if (interact == App->menu_manager->quest.go_to_quest_button) {
 			App->audio->PlayFx(fx_ability_warrior);
-
+		
 			App->menu_manager->DestroyGoToQuestMenu();
 			App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 			menu_state = StatesMenu::NO_MENU;
+			//App->scene->ShowHUD(true);
 			ret = false;
 		}
 		if (interact == App->menu_manager->quest.cancel_quest_button) {
