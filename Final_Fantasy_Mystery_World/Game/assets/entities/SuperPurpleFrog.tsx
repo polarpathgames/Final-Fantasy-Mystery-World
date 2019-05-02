@@ -5,7 +5,7 @@
   <property name="experience" type="int" value="30"/>
   <property name="live" type="int" value="125"/>
  </properties>
- <image source="../sprites/Frog.png" width="512" height="525"/>
+ <image source="../sprites/PurpleFrog.png" width="512" height="525"/>
  <tile id="0">
   <properties>
    <property name="speed" type="int" value="5"/>
