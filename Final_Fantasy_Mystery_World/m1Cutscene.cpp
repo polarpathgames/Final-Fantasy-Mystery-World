@@ -36,7 +36,8 @@ bool m1CutScene::Awake(pugi::xml_node &config)
 
 bool m1CutScene::Update(float dt)
 {
-	ExecuteCutscene(dt);
+	if (is_executing)
+		ExecuteCutscene(dt);
 
 	return true;
 }
@@ -163,14 +164,15 @@ bool m1CutScene::LoadCutscene(std::string path)
 
 void m1CutScene::ExecuteCutscene(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && is_executing && !skip_cutscene || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT && is_executing && !skip_cutscene) {
-		skipping++;
-		if (skipping >= 100)
+	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && !skip_cutscene) || (App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT && !skip_cutscene)) {
+		if (App->menu_manager->br_skipper->current_width >= App->menu_manager->br_skipper->max_width)
 		{
 			skip_cutscene = true;
-			skipping = 0;
 		}
-		App->menu_manager->br_skipper->UpdateBar(skipping, UIType::SKIPBAR);
+		App->menu_manager->br_skipper->UpdateBar(100*dt, UIType::SKIPBAR);
+	}
+	else {
+		App->menu_manager->br_skipper->UpdateBar(-100*dt, UIType::SKIPBAR);
 	}
 	if (is_executing)
 	{
