@@ -198,6 +198,10 @@ bool m1Scene::Update(float dt)
 		App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
+		App->fade_to_black->FadeToBlack(Maps::QUEST2);
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_KP_1) == KEY_DOWN) {
 		App->win->scale = 1;
 	}
