@@ -20,6 +20,7 @@ enum class Maps {
 	TUTORIAL,
 	SHOP,
 	HOME,
+	QUEST2,
 
 	NONE
 };
@@ -171,7 +172,6 @@ private:
 	bool				map_loaded = false;
 	SDL_Texture*		quad = nullptr;
 
-	std::string tutorial_map;
 	std::string lobby_map;
 	std::string shop_map;
 	std::string home_map;

@@ -44,7 +44,6 @@ bool m1Map::Awake(pugi::xml_node& config)
 	bool ret = true;
 	folder.assign(config.child("folder").child_value());
 
-	tutorial_map.assign(config.child("maps").child("tutorial_map").text().as_string());
 	shop_map.assign(config.child("maps").child("shop_map").text().as_string());
 	lobby_map.assign(config.child("maps").child("lobby_map").text().as_string());
 	home_map.assign(config.child("maps").child("home_map").text().as_string());
@@ -654,10 +653,13 @@ bool m1Map::ChangeMap(Maps type)
 		App->scene->ShowHUD(false);
 		break;
 	case Maps::TUTORIAL:
-		//App->audio->PlayMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg", 5);
 		quest_rooms = DBG_NEW RoomManager("tutorial");
-		Load(tutorial_map.data());
 		actual_map = Maps::TUTORIAL;
+		return true;
+		break;
+	case Maps::QUEST2:
+		quest_rooms = DBG_NEW RoomManager("quest2");
+		actual_map = Maps::QUEST2;
 		return true;
 		break;
 	case Maps::SHOP:
