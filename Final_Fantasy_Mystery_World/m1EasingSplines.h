@@ -9,7 +9,7 @@
 struct SDL_Texture;
 struct SDL_Rect;
 
-using PointerToFunction = std::function<void(void)>;
+typedef void(__thiscall m1MenuManager::*func_t)(void);
 
 enum TypeSpline {
 
@@ -45,15 +45,15 @@ struct EaseSplineInfo {
 	bool Update(float dt);
 	//m1MenuManager void(*funct)() = nullptr;
 	//m1MenuManager::void(*funct)();
-	void (m1MenuManager::*funct)();
+	func_t funct = nullptr;
 
-	EaseSplineInfo(int * position, const int target_position, const float time_to_travel, TypeSpline type, void (m1MenuManager::*funct)()) {
+	EaseSplineInfo(int * position, const int target_position, const float time_to_travel, TypeSpline type, func_t funct) {
 		this->position = position;
 		this->initial_position = *position;
 		this->distance_to_travel = target_position - *position;
 		this->type = type;
 		this->time_to_travel = time_to_travel;
-		//this->funct = funct;
+		this->funct = funct;
 		time_started = SDL_GetTicks();
 	}
 
@@ -74,7 +74,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	EaseSplineInfo * CreateSpline(int * position, int target_position, const float time_to_travel, TypeSpline type, void(m1MenuManager::*funct)() = nullptr);
+	EaseSplineInfo * CreateSpline(int * position, int target_position, const float time_to_travel, TypeSpline type, func_t funct = nullptr);
 
 private:
 

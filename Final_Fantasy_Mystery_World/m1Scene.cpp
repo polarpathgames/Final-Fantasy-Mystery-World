@@ -273,7 +273,7 @@ bool m1Scene::Update(float dt)
 			App->ChangePause();
 			ShowHUD(true);
 			//std::function<void(void)> funct = App->menu_manager->DestroyPauseMenu();
-			EaseSplineInfo* info = App->easing_splines->CreateSpline(&App->menu_manager->pause.pause_panel->position.y, -1000, 1500, TypeSpline::EASE_OUT_QUINT, &m1MenuManager::DestroyPauseMenu);
+			EaseSplineInfo* info = App->easing_splines->CreateSpline(&App->menu_manager->pause.pause_panel->position.y, -1000, 1500, TypeSpline::EASE_OUT_QUINT,&m1MenuManager::DestroyPauseMenu);
 			//info->funct = &m1MenuManager::DestroyPauseMenu;
 
 			//App->menu_manager->DestroyPauseMenu();

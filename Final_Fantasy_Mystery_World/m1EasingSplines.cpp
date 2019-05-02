@@ -65,7 +65,7 @@ bool m1EasingSplines::CleanUp()
 	return true;
 }
 
-EaseSplineInfo * m1EasingSplines::CreateSpline(int * position, const int target_position, const float time_to_travel, TypeSpline type, void(m1MenuManager::*funct)())
+EaseSplineInfo * m1EasingSplines::CreateSpline(int * position, const int target_position, const float time_to_travel, TypeSpline type, func_t funct)
 {
 	EaseSplineInfo* info = DBG_NEW EaseSplineInfo(position, target_position, time_to_travel, type, funct);
 
@@ -114,7 +114,7 @@ bool EaseSplineInfo::Update(float dt)
 		}
 	}
 	else {
-		if (funct != nullptr)
+		//if (funct != nullptr)
 			//funct();
 		ret = false;
 	}
