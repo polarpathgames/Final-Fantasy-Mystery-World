@@ -515,7 +515,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->menu_manager->DestroyGoToQuestMenu();
 			App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 			menu_state = StatesMenu::NO_MENU;
-			App->scene->ShowHUD(true);
+			//App->scene->ShowHUD(true);
 			ret = false;
 		}
 		if (interact == App->menu_manager->quest.cancel_quest_button) {

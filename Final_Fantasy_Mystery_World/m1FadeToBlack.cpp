@@ -61,6 +61,9 @@ bool m1FadeToBlack::PostUpdate()
 			if (is_quest && App->map->quest_rooms != nullptr) {
 				App->map->quest_rooms->LoadRoom(App->map->quest_rooms->actual_room->id);
 			}
+			if (map_to_change == Maps::TUTORIAL) //Maybe this will break something, if it does, i'm sorry Att: Ivan
+				App->scene->ShowHUD(true);
+
 			total_time += total_time;
 			start_time = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;
