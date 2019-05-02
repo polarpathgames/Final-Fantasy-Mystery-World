@@ -60,12 +60,12 @@
     </room>
     <room>
       <location>Quest1_Frog.tmx</location>
-      <id num="3"></id>
+      <id num="2"></id>
       <type>paceful</type>
     </room>
     <room>
       <location>Quest1_Barrels.tmx</location>
-      <id num="2"></id>
+      <id num="3"></id>
       <type>paceful</type>
     </room>
     <room>
@@ -100,7 +100,7 @@
     </room>
     <room>
       <location>Quest1_NewWorld.tmx</location>
-      <id num="1010"></id>
+      <id num="10"></id>
       <type>paceful</type>
     </room>
     <room>

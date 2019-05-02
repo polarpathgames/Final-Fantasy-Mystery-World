@@ -22952,7 +22952,7 @@
   <object id="51" name="barrel" type="static" x="358.5" y="452.167" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="9" name="entities">
-  <object id="9" name="player" type="lastA" x="272" y="272" width="15.9688" height="16.0156">
+  <object id="9" name="player" type="lastA" x="448" y="768" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
@@ -22969,9 +22969,9 @@
   </object>
  </objectgroup>
  <objectgroup id="10" name="colliders">
-  <object id="53" name="room_collider" type="nextB" x="256" y="272" width="16.1904" height="15.0341">
+  <object id="53" name="room_collider" type="lastA" x="432" y="768" width="16.1904" height="15.0341">
    <properties>
-    <property name="next_id" type="int" value="8"/>
+    <property name="next_id" type="int" value="7"/>
    </properties>
   </object>
   <object id="54" name="room_collider" type="lastB" x="432" y="800" width="16.1904" height="15.0341">
