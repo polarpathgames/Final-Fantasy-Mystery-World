@@ -4,6 +4,7 @@
 #include "m1Input.h"
 #include "m1Textures.h"
 #include "m1Render.h"
+#include "m1MenuManager.h"
 #include "m1Window.h"
 #include "m1Map.h"
 #include "m1EasingSplines.h"
@@ -64,14 +65,16 @@ bool m1EasingSplines::CleanUp()
 	return true;
 }
 
-void m1EasingSplines::CreateSpline(int * position, const int target_position, const float time_to_travel, TypeSpline type)
+EaseSplineInfo * m1EasingSplines::CreateSpline(int * position, const int target_position, const float time_to_travel, TypeSpline type, void(m1MenuManager::*funct)())
 {
-	EaseSplineInfo* info = DBG_NEW EaseSplineInfo(position, target_position, time_to_travel, type);
+	EaseSplineInfo* info = DBG_NEW EaseSplineInfo(position, target_position, time_to_travel, type, funct);
 
 	if (info != nullptr)
 		easing_splines.push_back(info);
 	else
 		LOG("Could not create the Spline...");
+
+	return info;
 }
 
 
@@ -110,11 +113,16 @@ bool EaseSplineInfo::Update(float dt)
 			break;
 		}
 	}
-	else 
+	else {
+		if (funct != nullptr)
+			//funct();
 		ret = false;
+	}
+		
 	
 	return ret;
 }
+
 
 int EaseFunctions::EaseOutQuint(float time_passed, int initial_position, int distance_to_travel, float time_to_travel)
 {

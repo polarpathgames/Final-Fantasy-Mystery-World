@@ -4,10 +4,12 @@
 #include "m1Module.h"
 #include <list>
 #include "SDL/include/SDL_timer.h"
+#include <functional>
 
 struct SDL_Texture;
 struct SDL_Rect;
 
+using PointerToFunction = std::function<void(void)>;
 
 enum TypeSpline {
 
@@ -41,13 +43,17 @@ struct EaseSplineInfo {
 	float time_started;
 	EaseFunctions ease_function;
 	bool Update(float dt);
+	//m1MenuManager void(*funct)() = nullptr;
+	//m1MenuManager::void(*funct)();
+	void (m1MenuManager::*funct)();
 
-	EaseSplineInfo(int * position, const int target_position, const float time_to_travel, TypeSpline type) {
+	EaseSplineInfo(int * position, const int target_position, const float time_to_travel, TypeSpline type, void (m1MenuManager::*funct)()) {
 		this->position = position;
 		this->initial_position = *position;
 		this->distance_to_travel = target_position - *position;
 		this->type = type;
 		this->time_to_travel = time_to_travel;
+		//this->funct = funct;
 		time_started = SDL_GetTicks();
 	}
 
@@ -68,7 +74,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	void CreateSpline(int * position, int target_position, const float time_to_travel, TypeSpline type);
+	EaseSplineInfo * CreateSpline(int * position, int target_position, const float time_to_travel, TypeSpline type, void(m1MenuManager::*funct)() = nullptr);
 
 private:
 

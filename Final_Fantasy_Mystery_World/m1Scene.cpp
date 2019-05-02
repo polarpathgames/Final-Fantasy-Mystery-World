@@ -6,9 +6,11 @@
 #include "m1DialogSystem.h"
 #include "m1EasingSplines.h"
 #include "m1Audio.h"
+#include <iostream>
 #include "p2ChangeControls.h"
 #include "m1Render.h"
 #include "u1InputText.h"
+#include <functional>
 #include "m1FadeToBlack.h"
 #include "m1Window.h"
 #include "m1Map.h"
@@ -270,7 +272,11 @@ bool m1Scene::Update(float dt)
 			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			App->ChangePause();
 			ShowHUD(true);
-			App->menu_manager->DestroyPauseMenu();
+			//std::function<void(void)> funct = App->menu_manager->DestroyPauseMenu();
+			EaseSplineInfo* info = App->easing_splines->CreateSpline(&App->menu_manager->pause.pause_panel->position.y, -1000, 1500, TypeSpline::EASE_OUT_QUINT, &m1MenuManager::DestroyPauseMenu);
+			//info->funct = &m1MenuManager::DestroyPauseMenu;
+
+			//App->menu_manager->DestroyPauseMenu();
 			menu_state = StatesMenu::NO_MENU;
 			player->BlockControls(false);
 		}
