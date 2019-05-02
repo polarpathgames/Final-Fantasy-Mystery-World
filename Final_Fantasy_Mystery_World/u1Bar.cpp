@@ -3,6 +3,7 @@
 #include "u1Image.h"
 #include "e1Player.h"
 #include "u1Label.h"
+#include "m1MenuManager.h"
 #include "m1Scene.h"
 #include "m1Render.h"
 
@@ -18,6 +19,7 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 		current_width = max_width;
 		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, App->scene->bg_hud, false, false, false, false);
 		filled_bar = App->gui->AddImage(7, 5, { 1405, 3149, 172, 10 }, App->scene, empty_bar, false, false, false, false);
+		PrintBarNumbers();
 	}
 
 	if (type == MANABAR)
@@ -25,9 +27,17 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 		current_width = max_width;
 		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, App->scene->bg_hud, false, false, false, false);
 		filled_bar = App->gui->AddImage(7, 5, { 1405, 3185, 172, 10 }, App->scene, empty_bar, false, false, false, false);
+		PrintBarNumbers();
+	}
+	if (type == SKIPBAR)
+	{
+		current_quantity = 0;
+		current_width = 0;
+		empty_bar = App->gui->AddImage(x, y, { 1486,2111,33,31 }, nullptr, App->gui->screen, true, false, false, false);
+		filled_bar = App->gui->AddImage(x, y, { 1418,2111,33,31 }, nullptr, App->gui->screen, true, false, false, false);
 	}
 
-	PrintBarNumbers();
+	
 }
 
 u1Bar::~u1Bar() {}

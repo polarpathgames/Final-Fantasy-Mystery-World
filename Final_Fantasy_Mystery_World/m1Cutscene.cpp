@@ -18,6 +18,8 @@
 #include "c1CutsceneImage.h"
 #include "c1CutSceneDeleteEntity.h"
 #include "c1CutSceneAddAudio.h"
+#include "u1Bar.h"
+
 
 m1CutScene::m1CutScene()
 {
@@ -161,8 +163,14 @@ bool m1CutScene::LoadCutscene(std::string path)
 
 void m1CutScene::ExecuteCutscene(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && is_executing || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN && is_executing) {
-				skip_cutscene = true;
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && is_executing && !skip_cutscene || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT && is_executing && !skip_cutscene) {
+		skipping++;
+		if (skipping >= 100)
+		{
+			skip_cutscene = true;
+			skipping = 0;
+		}
+		App->menu_manager->br_skipper->UpdateBar(skipping, UIType::SKIPBAR);
 	}
 	if (is_executing)
 	{

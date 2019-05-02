@@ -46,7 +46,7 @@ public:
 	bool is_executing = false, skip_cutscene = false;
 	std::vector<c1CutsceneAction*>::iterator item;
 	e1Entity* ent;
-
+	int skipping = 0;
 };
 
 

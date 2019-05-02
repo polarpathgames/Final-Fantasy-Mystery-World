@@ -9,6 +9,7 @@ class u1Button;
 class u1Label;
 class u1CheckBox;
 class u1ChButton;
+class u1Bar;
 
 struct UI_input {
 	u1InputText* input_text = nullptr;
@@ -610,5 +611,6 @@ public:
 	//cutscenes skipper
 	u1Image* im_skipper = nullptr;
 	u1Label* lb_skipper = nullptr;
+	u1Bar* br_skipper = nullptr;
 };
 #endif // !__M1MENUMANAGER_H__

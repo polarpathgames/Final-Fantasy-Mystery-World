@@ -22,6 +22,7 @@ enum UIType
 	ENEMYBAR,
 	INPUT_BOX,
 	HIT_POINT_LABEL,
+	SKIPBAR,
 
 	NON,
 };
