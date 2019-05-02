@@ -169,10 +169,10 @@ void m1CutScene::ExecuteCutscene(float dt)
 		{
 			skip_cutscene = true;
 		}
-		App->menu_manager->br_skipper->UpdateBar(100*dt, UIType::SKIPBAR);
+		App->menu_manager->br_skipper->UpdateBar(300*dt, UIType::SKIPBAR);
 	}
 	else {
-		App->menu_manager->br_skipper->UpdateBar(-100*dt, UIType::SKIPBAR);
+		App->menu_manager->br_skipper->UpdateBar(-300*dt, UIType::SKIPBAR);
 	}
 	if (is_executing)
 	{
