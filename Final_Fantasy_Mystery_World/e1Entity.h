@@ -83,6 +83,7 @@ public:
 		DAUGHTER,
 		ROCK,
 		BLUE_SLIME,
+		EVENT,
 
 		NO_TYPE
 	};

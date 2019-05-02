@@ -23,6 +23,7 @@
 #include "e1Player.h"
 #include "e1Warrior.h"
 #include "e1Enemy.h"
+#include "e1State.h"
 #include <algorithm>
 #include "Brofiler/Brofiler.h"
 
@@ -59,6 +60,7 @@ bool m1EntityManager::PreUpdate()
 {
 	BROFILER_CATEGORY("PreUpdateEntityM", Profiler::Color::Orange);
 	
+	// Delete entities to_delete = true
 	std::vector<e1Entity*>::iterator item = entities.begin();
 	while (item != entities.end()) {
 		if ((*item) != nullptr && (*item)->to_delete) {
@@ -72,6 +74,7 @@ bool m1EntityManager::PreUpdate()
 			++item;
 	}
 
+	// Turn system ============================================================
 	if (entity_turn == nullptr || entity_turn->turn_done) {
 		item = std::find(entities.begin(), entities.end(), entity_turn);
 		bool changed = false;
@@ -99,7 +102,11 @@ bool m1EntityManager::PreUpdate()
 	}
 	else {
 		entity_turn->PreUpdate();
-	}	
+	}
+
+	//====================================================================
+
+	// Create entities
 	
 	item = entities_to_create.begin();
 	for (; item != entities_to_create.end(); ++item) {
@@ -110,7 +117,6 @@ bool m1EntityManager::PreUpdate()
 	return true;
 }
 
-// Called before render is available
 bool m1EntityManager::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateEntityM", Profiler::Color::Aqua);
@@ -244,7 +250,7 @@ void m1EntityManager::OnCollisionExit(Collider * c1, Collider * c2)
 e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
 
-	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)15, "code needs update");
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)16, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
 
@@ -264,6 +270,7 @@ e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX
 	//case e1Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
 	case e1Entity::EntityType::NPC: ret = DBG_NEW e1NPC(PositionX, PositionY); break;
 	case e1Entity::EntityType::DAUGHTER: ret = DBG_NEW e1ShopKeeperDaughter(PositionX, PositionY); break;
+	case e1Entity::EntityType::EVENT: ret = DBG_NEW e1State(PositionX, PositionY, name.data()); break;
 	default:
 		LOG("Cannot find any entity with that type");
 		break;
