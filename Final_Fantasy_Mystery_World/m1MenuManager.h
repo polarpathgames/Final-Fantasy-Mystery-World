@@ -576,6 +576,8 @@ public:
 	void CreateHelpAbilityMenu();
 	void DestroyHelpAbilityMenu();
 
+	void SkipMenu(bool is_cutscene);
+
 	void GodModeIndicator(bool is_god_mode);
 
 	bool Interact(u1GUI* button);
@@ -605,5 +607,8 @@ public:
 	u1Image* help_attack = nullptr;
 	// help ABILITY
 	u1Image* help_ability = nullptr;
+	//cutscenes skipper
+	u1Image* im_skipper = nullptr;
+	u1Label* lb_skipper = nullptr;
 };
 #endif // !__M1MENUMANAGER_H__

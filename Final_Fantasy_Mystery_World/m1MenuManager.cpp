@@ -13,6 +13,7 @@
 #include "m1Input.h"
 #include "m1Scene.h"
 #include "m1Textures.h"
+#include "m1Cutscene.h"
 #include "m1EntityManager.h"
 #include "m1Map.h"
 #include "e1Player.h"
@@ -884,6 +885,22 @@ void m1MenuManager::GodModeIndicator(bool is_god_mode)
 	{
 		App->gui->DeleteUIElement(god_text);
 		god_text = nullptr;
+	}
+}
+
+void m1MenuManager::SkipMenu(bool is_cutscene)
+{
+	if (is_cutscene)
+	{
+		im_skipper = App->gui->AddImage(880, 700, { 1522,2051,33,31 }, nullptr, App->gui->screen, true, false, false, false);
+		lb_skipper = App->gui->AddLabel(924, 698,"Skip", App->gui->screen, WHITE, FontType::PMIX32, nullptr,true);
+	}
+	else
+	{
+		App->gui->DeleteUIElement(lb_skipper);
+		lb_skipper = nullptr;
+		App->gui->DeleteUIElement(im_skipper);
+		im_skipper = nullptr;
 	}
 }
 

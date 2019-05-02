@@ -6,6 +6,8 @@
 #include "m1EntityManager.h"
 #include "m1Scene.h"
 #include "e1Player.h"
+#include "m1MenuManager.h"
+#include "m1Input.h"
 #include "m1CutScene.h"
 #include "c1CutsceneMoveCamera.h"
 #include "c1CutsceneMoveEntity.h"
@@ -50,7 +52,7 @@ void m1CutScene::PlayCutscene(std::string path)
 	{
 		LoadCutscene(path);
 		SetExecuting(true);
-		
+		App->menu_manager->SkipMenu(true);
 	}
 }
 
@@ -159,6 +161,9 @@ bool m1CutScene::LoadCutscene(std::string path)
 
 void m1CutScene::ExecuteCutscene(float dt)
 {
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && is_executing || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN && is_executing) {
+				skip_cutscene = true;
+	}
 	if (is_executing)
 	{
 		if (start) {
@@ -183,6 +188,7 @@ void m1CutScene::ExecuteCutscene(float dt)
 			is_executing = false;
 			start = true;
 			ClearCutscene();
+			App->menu_manager->SkipMenu(false);
 		}
 	}
 	if (skip_cutscene)
@@ -200,6 +206,7 @@ void m1CutScene::ExecuteCutscene(float dt)
 		start = true;
 		ClearCutscene();
 		skip_cutscene = false;
+		App->menu_manager->SkipMenu(false);
 	}
 		
 
