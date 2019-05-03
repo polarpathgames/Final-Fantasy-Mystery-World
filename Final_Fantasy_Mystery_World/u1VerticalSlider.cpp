@@ -3,14 +3,18 @@
 #include "m1GUI.h"
 #include "m1Render.h"
 #include "App.h"
+#include "p2Log.h"
 
-u1VerticalSlider::u1VerticalSlider(const int & x, const int & y, const SDL_Rect & rect, const SDL_Rect & idle, const SDL_Rect & hover, const SDL_Rect & push, u1GUI * parent)
+u1VerticalSlider::u1VerticalSlider(const int & x, const int & y, const SDL_Rect & rect, const SDL_Rect & idle, const SDL_Rect & hover, const SDL_Rect & push, u1GUI * parent, int * pos_to_move)
 	: u1GUI(VERTICAL_SLIDER, x, y, parent, idle, true, true, true, true)
 {
 	background_rect = rect;
 	idle_rect = idle;
 	hover_rect = hover;
 	push_rect = push;
+
+	this->pos_to_move = pos_to_move;
+	initial_pos = *pos_to_move;
 
 	offset_x = (rect.w - idle.w) / 2;
 	section.w += offset_x;
@@ -29,6 +33,13 @@ u1VerticalSlider::~u1VerticalSlider()
 
 void u1VerticalSlider::InnerDraw()
 {
+
+	int Y = 100;
+	int value = GetValue();
+	*pos_to_move = -((initial_pos + Y) * value) / 100;
+
+
+
 	if (draw_offset.y < min_y) {
 		position.y += 1;
 		draw_offset.y = min_y;
@@ -69,4 +80,17 @@ void u1VerticalSlider::UpdateElement()
 
 
 
+}
+
+uint u1VerticalSlider::GetValue() const
+{
+	int ret = 0;
+
+	ret = (position.y - background_pos.y) * 100 / (background_rect.h - GetRect().h);
+	ret = ret / 10;
+	ret = ret * 10;
+
+	if (ret > 90)
+		ret = 90; // XDDDDD :D
+	return ret;
 }

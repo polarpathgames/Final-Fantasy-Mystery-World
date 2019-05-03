@@ -494,6 +494,7 @@ struct UI_shop {
 	u1Image* shop_coin2 = nullptr;
 
 	u1VerticalSlider* shop_vertical_slider = nullptr;
+	u1Image* shop_zone = nullptr;
 };
 
 struct UI_debugscreen {

@@ -407,9 +407,9 @@ u1HitPointLabel * m1GUI::AddHitPointLabel(const int & x, const int & y, const ch
 	return hit_point;
 }
 
-u1VerticalSlider * m1GUI::AddVerticalSlider(const int & x, const int & y, const SDL_Rect & rect, const SDL_Rect & idle, const SDL_Rect & hover, const SDL_Rect & push, u1GUI * parent, m1Module * callback)
+u1VerticalSlider * m1GUI::AddVerticalSlider(const int & x, const int & y, const SDL_Rect & rect, const SDL_Rect & idle, const SDL_Rect & hover, const SDL_Rect & push, u1GUI * parent, int * position, m1Module * callback)
 {
-	u1VerticalSlider* vertical_slider = DBG_NEW u1VerticalSlider(x, y, rect, idle, hover, push, parent);
+	u1VerticalSlider* vertical_slider = DBG_NEW u1VerticalSlider(x, y, rect, idle, hover, push, parent, position);
 
 	if (callback != nullptr) {
 		vertical_slider->AddListener(callback);

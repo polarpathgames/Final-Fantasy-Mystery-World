@@ -663,24 +663,26 @@ void m1MenuManager::CreateShopMenu()
 
 	shop.shop_panel = App->gui->AddImage(-350 - 227, (App->gui->screen->section.h - 383) * 0.5F, { 1795,1691,252,383 }, (m1Module*)App->scene, App->gui->screen, true, false, false, false);
 	//shop.shop_panel->SetPosRespectParent(LEFT_CENTERED, 200);
+	shop.shop_zone = App->gui->AddImage(0,0, { 1795,1691,252,383 }, nullptr, shop.shop_panel, false, false, false, false);
 	shop.shop_label = App->gui->AddLabel(0, 0, "SHOP", shop.shop_panel, BLACK, FontType::FF64, nullptr, false);
 	shop.shop_label->SetPosRespectParent(CENTERED_UP, 20);
 
 	shop.button_close_shop = App->gui->AddButton(130, 330, { 1850,1637,75,35 }, { 1850,1637,55,35 }, { 1850,1637,55,35 }, App->scene, shop.shop_panel, false, false, true, true);
 	shop.label_close_shop = App->gui->AddLabel(140, 321, "Return", shop.shop_panel, BLACK, FontType::FF48, nullptr, false);
 
+	
 
-	shop.shop_hp_potion_image = App->gui->AddImage(58, 101, { 1058, 1952, 33, 47 }, nullptr, shop.shop_panel, true, false, false, false);
-	shop.shop_hp_potion_label = App->gui->AddLabel(102, 93, std::string("x " + std::to_string(App->scene->price_hp_potion)).data(), shop.shop_panel, BLACK, FontType::FF64, nullptr, false);
-	shop.shop_coin1 = App->gui->AddImage(160, 112, { 1024, 1952, 34, 34 }, nullptr, shop.shop_panel, true, false, false, false);
-	shop.shop_button_hp_potion = App->gui->AddButton(32, 100, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_panel, false, false, true, true);
+	shop.shop_hp_potion_image = App->gui->AddImage(58, 101, { 1058, 1952, 33, 47 }, nullptr, shop.shop_zone, true, false, false, false);
+	shop.shop_hp_potion_label = App->gui->AddLabel(102, 93, std::string("x " + std::to_string(App->scene->price_hp_potion)).data(), shop.shop_zone, BLACK, FontType::FF64, nullptr, false);
+	shop.shop_coin1 = App->gui->AddImage(160, 112, { 1024, 1952, 34, 34 }, nullptr, shop.shop_zone, true, false, false, false);
+	shop.shop_button_hp_potion = App->gui->AddButton(32, 100, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_zone, false, false, true, true);
 
-	shop.shop_mana_potion_image = App->gui->AddImage(58, 186, { 1091, 1952, 33, 51 }, nullptr, shop.shop_panel, true, false, false, false);
-	shop.shop_mana_potion_label = App->gui->AddLabel(102, 178, std::string("x " + std::to_string(App->scene->price_mana_potion)).data(), shop.shop_panel, BLACK, FontType::FF64, nullptr, false);
-	shop.shop_coin2 = App->gui->AddImage(160, 197, { 1024, 1952, 34, 34 }, nullptr, shop.shop_panel, true, false, false, false);
-	shop.shop_button_mana_potion = App->gui->AddButton(32, 185, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_panel, false, false, true, true);
+	shop.shop_mana_potion_image = App->gui->AddImage(58, 186, { 1091, 1952, 33, 51 }, nullptr, shop.shop_zone, true, false, false, false);
+	shop.shop_mana_potion_label = App->gui->AddLabel(102, 178, std::string("x " + std::to_string(App->scene->price_mana_potion)).data(), shop.shop_zone, BLACK, FontType::FF64, nullptr, false);
+	shop.shop_coin2 = App->gui->AddImage(160, 197, { 1024, 1952, 34, 34 }, nullptr, shop.shop_zone, true, false, false, false);
+	shop.shop_button_mana_potion = App->gui->AddButton(32, 185, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_zone, false, false, true, true);
 
-	shop.shop_vertical_slider = App->gui->AddVerticalSlider(207, 86, { 1664,1837,29,250 }, { 1710,1837,19,48 }, { 1710,1837,19,48 }, { 1710,1837,19,48 }, shop.shop_panel, nullptr);
+	shop.shop_vertical_slider = App->gui->AddVerticalSlider(207, 86, { 1664,1837,29,250 }, { 1710,1837,19,48 }, { 1710,1837,19,48 }, { 1710,1837,19,48 }, shop.shop_panel, &shop.shop_zone->position.y);
 
 	App->gui->FocusButton(shop.shop_button_hp_potion);
 
