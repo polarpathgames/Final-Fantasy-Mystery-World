@@ -23,6 +23,7 @@ enum UIType
 	INPUT_BOX,
 	HIT_POINT_LABEL,
 	SKIPBAR,
+	VERTICAL_SLIDER,
 
 	NON,
 };
@@ -43,6 +44,7 @@ class u1Slider;
 class u1CheckBox;
 class u1Bar;
 class u1InputText;
+class u1VerticalSlider;
 class u1HitPointLabel;
 
 class m1GUI: public m1Module
@@ -72,6 +74,7 @@ public:
 	u1InputText * AddInputText(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, const SDL_Rect &rect,m1Module* callback);
 	u1Bar* AddBar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* parent, m1Module* callback);
 	u1HitPointLabel* AddHitPointLabel(const int &x, const int &y, const char* text, u1GUI* parent,const Color &color, const FontType & type);
+	u1VerticalSlider* AddVerticalSlider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, u1GUI* parent, m1Module* callback = nullptr);
 
 	void CreateScreen();
 

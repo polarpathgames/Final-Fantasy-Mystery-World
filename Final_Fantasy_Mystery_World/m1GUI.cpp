@@ -16,6 +16,7 @@
 #include "u1CheckBox.h"
 #include "u1Bar.h"
 #include "m1GUI.h"
+#include "u1VerticalSlider.h"
 #include "m1Audio.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Audio.h"
@@ -404,6 +405,19 @@ u1HitPointLabel * m1GUI::AddHitPointLabel(const int & x, const int & y, const ch
 	ui_list.push_back(hit_point);
 
 	return hit_point;
+}
+
+u1VerticalSlider * m1GUI::AddVerticalSlider(const int & x, const int & y, const SDL_Rect & rect, const SDL_Rect & idle, const SDL_Rect & hover, const SDL_Rect & push, u1GUI * parent, m1Module * callback)
+{
+	u1VerticalSlider* vertical_slider = DBG_NEW u1VerticalSlider(x, y, rect, idle, hover, push, parent);
+
+	if (callback != nullptr) {
+		vertical_slider->AddListener(callback);
+	}
+
+	ui_list.push_back(vertical_slider);
+
+	return vertical_slider;
 }
 
 
