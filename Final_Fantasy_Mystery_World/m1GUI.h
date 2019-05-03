@@ -70,7 +70,7 @@ public:
 	u1Image* AddImage(const int &x, const int &y, const SDL_Rect & rect, m1Module * callback, u1GUI * parent, bool draw, bool drag, bool interact, bool focus, Animation * anim = nullptr, SDL_Rect* clip_zone = NULL);
 	u1Button* AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* callback, u1GUI* parent, bool draw, bool drag, bool inter, bool focus, const iPoint &focus_offset = { 0,0 });
 	u1ChButton* AddChButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* callback, u1GUI* parent, PlayerType player_type, bool draw, bool drag, bool inter, bool focus);
-	u1Label* AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* callback, bool focus, const uint32 & wrap = 0u, bool has_bg = false, const SDL_Color& bg_color = { 255,255,255,255 });
+	u1Label* AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* callback, bool focus, const uint32 & wrap = 0u, bool has_bg = false, const SDL_Color& bg_color = { 255,255,255,255 }, SDL_Rect*clip_zone = nullptr);
 	u1InputText * AddInputText(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, const SDL_Rect &rect,m1Module* callback);
 	u1Bar* AddBar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* parent, m1Module* callback);
 	u1HitPointLabel* AddHitPointLabel(const int &x, const int &y, const char* text, u1GUI* parent,const Color &color, const FontType & type);

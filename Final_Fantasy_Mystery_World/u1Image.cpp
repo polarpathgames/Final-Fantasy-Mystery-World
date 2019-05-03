@@ -29,13 +29,7 @@ void u1Image::InnerDraw()
 			to_delete = true;
 	}
 	else {
-		if (clip_zone != NULL) {
-			App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0, clip_zone);
-			//App->render->DrawQuad(*clip_zone, 255, 255, 255, 255, true, false);
-		}
-			
-		else 
-			App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0, clip_zone);
+		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0, clip_zone);
 	}
 
 }

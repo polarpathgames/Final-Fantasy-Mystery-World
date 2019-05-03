@@ -7,13 +7,14 @@
 
 u1Label::u1Label(const int & pos_x, const int & pos_y, const char * txt, const Color & c, FontType font, u1GUI * parent,
 	bool interactable, bool draggable, uint32 wrap_length, bool focus,
-	bool has_background, const SDL_Color& bg_color)
+	bool has_background, const SDL_Color& bg_color, SDL_Rect * clip_zone)
 	:u1GUI(LABEL, pos_x, pos_y, parent, { 0,0,0,0 }, true, false, false, focus),
 
 	id_font(font), has_background(has_background), background_color(bg_color), wrap(wrap_length)
 {
 	text.assign(txt);
-
+	if (clip_zone != nullptr)
+		this->clip_zone = clip_zone;
 	SetColor(c);
 	if (wrap_length == 0U) {
 		texture = App->fonts->Print(text.data(), color, id_font);
@@ -38,7 +39,7 @@ void u1Label::InnerDraw()
 		App->render->DrawQuad({ draw_offset.x,draw_offset.y,section.w,section.h }, background_color.r, background_color.g, background_color.b, background_color.a, true, false);
 	}
 
-	App->render->Blit(texture, draw_offset.x, draw_offset.y, NULL, false, SDL_FLIP_NONE, 0.0F);
+	App->render->Blit(texture, draw_offset.x, draw_offset.y, NULL, false, SDL_FLIP_NONE, 0.0F,clip_zone);
 }
 
 void u1Label::SetText(const char * txt)

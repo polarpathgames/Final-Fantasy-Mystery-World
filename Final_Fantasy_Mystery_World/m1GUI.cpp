@@ -333,9 +333,9 @@ u1ChButton* m1GUI::AddChButton(const int &x, const int &y, const SDL_Rect &idle,
 	return character_button;
 }
 
-u1Label* m1GUI::AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* listener = nullptr, bool focus = false, const uint32 & wrap, bool has_bg, const SDL_Color& bg_color)
+u1Label* m1GUI::AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* listener = nullptr, bool focus = false, const uint32 & wrap, bool has_bg, const SDL_Color& bg_color, SDL_Rect*clip_zone)
 {
-	u1Label* label = DBG_NEW u1Label(x, y, text, color, font, parent, false, false, wrap, false, has_bg, bg_color);
+	u1Label* label = DBG_NEW u1Label(x, y, text, color, font, parent, false, false, wrap, false, has_bg, bg_color, clip_zone);
 
 	if (listener != nullptr) {
 		label->AddListener(listener);
