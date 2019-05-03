@@ -495,6 +495,12 @@ struct UI_shop {
 
 	u1VerticalSlider* shop_vertical_slider = nullptr;
 	u1Image* shop_zone = nullptr;
+	u1Image* shop_item_zone = nullptr;
+	u1Image* shop_background_item1 = nullptr;
+	u1Image* shop_background_item2 = nullptr;
+	u1Image* shop_background_item3 = nullptr;
+	u1Image* shop_background_item4 = nullptr;
+	u1Image* shop_background_item5 = nullptr;
 };
 
 struct UI_debugscreen {
