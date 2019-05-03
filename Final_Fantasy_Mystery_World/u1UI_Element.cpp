@@ -16,9 +16,17 @@ u1GUI::u1GUI(UIType type, const int &x, const int &y, u1GUI* parent, const SDL_R
 	if (parent != nullptr) {
 		parent->childs.push_back(this);
 	}
+	global_rect = new SDL_Rect();
+	global_rect->x = 0;
+	global_rect->y = 0;
+	global_rect->w = 0;
+	global_rect->h = 0;
 }
 
-u1GUI::~u1GUI() {}
+u1GUI::~u1GUI() {
+
+	delete global_rect;
+}
 
 void u1GUI::Draw()
 {
@@ -30,7 +38,7 @@ void u1GUI::Draw()
 			draw_offset += p->position;
 		}
 	}
-
+	*global_rect = { draw_offset.x,draw_offset.y,section.w,section.h };
 	if (drawable)
 		InnerDraw();
 
@@ -197,4 +205,18 @@ void u1GUI::AddListener(m1Module * module)
 void u1GUI::DeleteListener(m1Module * module)
 {
 	listeners.remove(module);
+}
+
+SDL_Rect* u1GUI::GetGlobalRect()
+{
+	if (parent != nullptr) {
+		draw_offset.x = position.x;
+		draw_offset.y = position.y;
+		for (u1GUI* p = parent; p != nullptr; p = p->parent) {
+			draw_offset += p->position;
+		}
+		*global_rect = { draw_offset.x,draw_offset.y,section.w,section.h };
+		return global_rect;
+	}
+
 }

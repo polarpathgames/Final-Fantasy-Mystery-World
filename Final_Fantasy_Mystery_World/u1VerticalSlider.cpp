@@ -49,6 +49,7 @@ void u1VerticalSlider::InnerDraw()
 	}
 	
 	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), background_pos.x + parent->position.x, background_pos.y + parent->position.y, &background_rect, false, SDL_FLIP_NONE, 0.0F);
+
 	switch (current_state)
 	{
 	case Element_Event::HOVER:

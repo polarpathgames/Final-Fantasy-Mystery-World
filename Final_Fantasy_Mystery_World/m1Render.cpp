@@ -164,10 +164,14 @@ void m1Render::ResetViewPort()
 }
 
 // Blit to screen
-bool m1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool apply_scale, SDL_RendererFlip flip, float speed, double angle, int pivot_x, int pivot_y) const
+bool m1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool apply_scale, SDL_RendererFlip flip, float speed, const SDL_Rect* clip_zone,double angle, int pivot_x, int pivot_y) const
 {
 	bool ret = true;
 	uint scale = App->win->GetScale();
+
+	if (clip_zone != NULL) {
+		SDL_RenderSetClipRect(renderer, clip_zone);
+	}
 
 	SDL_Rect rect;
 	if (apply_scale) {
@@ -209,6 +213,10 @@ bool m1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		ret = false;
+	}
+
+	if (clip_zone != NULL) {
+		SDL_RenderSetClipRect(renderer, NULL);
 	}
 
 	return ret;
