@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="33">
+<map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextobjectid="33">
  <properties>
   <property name="movement" type="int" value="0"/>
  </properties>
@@ -23,7 +23,7 @@
   <tile id="194" terrain=",,2,"/>
   <tile id="195" terrain="2,,,"/>
  </tileset>
- <layer id="1" name="Floor" width="40" height="40">
+ <layer name="Floor" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -1627,7 +1627,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="2" name="Wall" width="40" height="40">
+ <layer name="Wall" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -3231,7 +3231,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="Shadow" width="40" height="40">
+ <layer name="Shadow" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -4835,7 +4835,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="4" name="Door Close" width="40" height="40">
+ <layer name="Door Close" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -6439,7 +6439,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="5" name="Door Open" width="40" height="40">
+ <layer name="Door Open" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -8043,7 +8043,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="6" name="Enviorment" width="40" height="40">
+ <layer name="Enviorment" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -9647,7 +9647,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="7" name="Collider" width="40" height="40" visible="0">
+ <layer name="Collider" width="40" height="40">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -10479,7 +10479,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5"/>
+   <tile/>
    <tile gid="5"/>
    <tile/>
    <tile/>
@@ -11255,8 +11255,8 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="8" name="Static animation objects"/>
- <objectgroup color="#ffff7f" id="9" name="entities">
+ <objectgroup name="Static animation objects"/>
+ <objectgroup color="#ffff7f" name="entities">
   <object id="11" name="player" type="lastB" x="336" y="320" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
@@ -11270,7 +11270,7 @@
   <object id="27" x="452" y="386"/>
   <object id="28" x="424.833" y="358.5"/>
  </objectgroup>
- <objectgroup id="10" name="colliders">
+ <objectgroup name="colliders">
   <object id="10" name="room_collider" type="lastA" x="432" y="464" width="15.6071" height="15.7898">
    <properties>
     <property name="next_id" type="int" value="1"/>
