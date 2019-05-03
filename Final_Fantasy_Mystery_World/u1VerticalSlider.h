@@ -12,6 +12,7 @@ public:
 	~u1VerticalSlider();
 
 	void InnerDraw();
+	void UpdateElement();
 
 public:
 
@@ -21,5 +22,12 @@ public:
 	SDL_Rect push_rect{ 0,0,0,0 };
 
 	int offset_x = 0;
+	iPoint background_pos{ 0,0 };
+
+	int min_y = 0;
+	int max_y = 0;
+
+	int * position = nullptr;
+
 };
 #endif //__!__u1VerticalSlider_H__ 
