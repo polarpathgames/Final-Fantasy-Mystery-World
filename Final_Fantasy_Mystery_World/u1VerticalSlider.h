@@ -8,7 +8,7 @@
 class u1VerticalSlider : public u1GUI
 {
 public:
-	u1VerticalSlider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, u1GUI* parent, int * position);
+	u1VerticalSlider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, u1GUI* parent, int * position, const int &moving_distance);
 	~u1VerticalSlider();
 
 	void InnerDraw();
@@ -31,6 +31,7 @@ public:
 
 	int * pos_to_move = nullptr;
 	int initial_pos = 0;
+	int moving_distance = 0;
 
 };
 #endif //__!__u1VerticalSlider_H__ 

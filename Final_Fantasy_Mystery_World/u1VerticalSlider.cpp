@@ -5,7 +5,7 @@
 #include "App.h"
 #include "p2Log.h"
 
-u1VerticalSlider::u1VerticalSlider(const int & x, const int & y, const SDL_Rect & rect, const SDL_Rect & idle, const SDL_Rect & hover, const SDL_Rect & push, u1GUI * parent, int * pos_to_move)
+u1VerticalSlider::u1VerticalSlider(const int & x, const int & y, const SDL_Rect & rect, const SDL_Rect & idle, const SDL_Rect & hover, const SDL_Rect & push, u1GUI * parent, int * pos_to_move, const int &moving_distance)
 	: u1GUI(VERTICAL_SLIDER, x, y, parent, idle, true, true, true, true)
 {
 	background_rect = rect;
@@ -15,6 +15,7 @@ u1VerticalSlider::u1VerticalSlider(const int & x, const int & y, const SDL_Rect 
 
 	this->pos_to_move = pos_to_move;
 	initial_pos = *pos_to_move;
+	this->moving_distance = moving_distance;
 
 	offset_x = (rect.w - idle.w) / 2;
 	section.w += offset_x;
@@ -34,11 +35,8 @@ u1VerticalSlider::~u1VerticalSlider()
 void u1VerticalSlider::InnerDraw()
 {
 
-	int Y = 100;
 	int value = GetValue();
-	*pos_to_move = -((initial_pos + Y) * value) / 100;
-
-
+	*pos_to_move = -((initial_pos + moving_distance) * value) / 100;
 
 	if (draw_offset.y < min_y) {
 		position.y += 1;
