@@ -12,8 +12,10 @@ u1Button::u1Button(const int &x, const int &y, const SDL_Rect &idle, const SDL_R
 	hovered_rect = hover;
 	clicked_rect = push;
 
-	if (clip_zone != nullptr)
+	if (clip_zone != nullptr) {
 		this->clip_zone = clip_zone;
+		clipable = true;
+	}
 
 	this->focus_offset = focus_offset;
 }

@@ -153,7 +153,6 @@ void m1GUI::FocusInput()
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN|| App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1) {
 		if (focus != nullptr && focus->parent != nullptr) {
-			int cont = 0;
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
 				if ((*item)->allow_focus && (*item)->position.y < focus->position.y) {
 					if (focus == new_focus) {
@@ -166,13 +165,14 @@ void m1GUI::FocusInput()
 				else if (!(*item)->allow_focus && (*item)->position.y < focus->position.y && (*item)->clipable) {
 					if (focus == new_focus) {
 						new_focus = (*item);
+						(*item)->parent->position.y += (*item)->section.h * 2;
 					}
 					else if ((*item)->position.y >= new_focus->position.y && abs(focus->position.x - new_focus->position.x) >= abs(focus->position.x - (*item)->position.x)) {
-						++cont;
+						new_focus = *item;
+						(*item)->parent->position.y += (*item)->section.h * 2;
 					}
+				}
 			}
-			if (cont > 1)
-				new_focus->parent->position.y += new_focus->section.h * 2;
 		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN || App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) {
