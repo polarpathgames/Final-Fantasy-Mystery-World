@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "App.h"
 #include "m1GUI.h"
+#include "u1VerticalSlider.h"
 #include "m1Collisions.h"
 #include "m1DialogSystem.h"
 #include "m1EasingSplines.h"
@@ -298,8 +299,36 @@ bool m1Scene::Update(float dt)
 		break;
 	case StatesMenu::SHOP_MENU:
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			close_shop = false;
 			App->menu_manager->DestroyShopMenu();
 			menu_state = StatesMenu::NO_MENU;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN || App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) {
+			if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_item3 && App->menu_manager->shop.shop_item_zone->GetGlobalPosition().y > 240) {
+				App->menu_manager->shop.shop_vertical_slider->SetValue(45);
+			}
+			else if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_item4 && App->menu_manager->shop.shop_vertical_slider->value != 90) {
+				App->menu_manager->shop.shop_vertical_slider->SetValue(90);
+			}
+			else if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_item5) {
+				if (close_shop)
+					App->gui->FocusButton(App->menu_manager->shop.button_close_shop);
+				else
+					close_shop = true;
+			}
+		}
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN || App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1) {
+			if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_item3) {
+				App->menu_manager->shop.shop_vertical_slider->SetValue(45);
+			}
+			else if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_mana_potion) {
+				App->menu_manager->shop.shop_vertical_slider->SetValue(0);
+			}
+			else if (App->gui->GetFocus() == App->menu_manager->shop.button_close_shop) {
+				App->gui->FocusButton(App->menu_manager->shop.shop_button_item5);
+			}
+			else
+				close_shop = false;
 		}
 		break;
 	case StatesMenu::HELP_DIAGONAL_MENU:
@@ -621,6 +650,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->menu_manager->DestroyShopMenu();
 			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			menu_state = StatesMenu::NO_MENU;
+			close_shop = false;
 			ret = false;
 		}
 

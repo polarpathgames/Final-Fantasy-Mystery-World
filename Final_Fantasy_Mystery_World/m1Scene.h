@@ -171,6 +171,7 @@ public:
 
 	Mix_Music* mus_game_over;
 
+	bool close_shop = false;
 };
 
 #endif // __j1SCENE_H__
