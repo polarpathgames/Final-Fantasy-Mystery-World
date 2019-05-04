@@ -458,13 +458,15 @@ bool e1DynamicEntity::NextTileFree(const Direction & dir) const
 	return ret;
 }
 
-void e1DynamicEntity::RestTimeAfterAttack(float time_finish)
+bool e1DynamicEntity::RestTimeAfterAttack(float time_finish)
 {
+	bool ret = false;
 	if (time_attack <= SDL_GetTicks() - time_after_attack) {
 		turn_done = true;
 		state = State::IDLE;
 		ChangeAnimation(direction, state);
 		ResetAnims();
+		ret = true;
 	}
 	else {
 		if (target_position == position)
@@ -502,6 +504,7 @@ void e1DynamicEntity::RestTimeAfterAttack(float time_finish)
 		}
 			
 	}
+	return ret;
 }
 
 void e1DynamicEntity::CheckBasicAttackEffects(const e1Entity::EntityType & type, const Direction & direction, const int & attack_damage)

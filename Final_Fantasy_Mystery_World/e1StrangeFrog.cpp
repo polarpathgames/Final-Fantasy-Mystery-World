@@ -147,8 +147,7 @@ bool e1StrangeFrog::Update(float dt)
 	}
 	if (state == State::DEATH) {
 		if (current_animation->Finished()) {
-
-				Drop();
+			Drop();
 			App->audio->PlayFx(App->scene->fx_kill_enemy);
 			App->scene->player->UpdateExperience(stats.experience);
 			App->map->quest_rooms->AddEntityToNotRepeat(original_position);

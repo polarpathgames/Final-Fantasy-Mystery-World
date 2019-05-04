@@ -4,6 +4,7 @@
 #include "m1Input.h"
 #include "m1Textures.h"
 #include "m1Render.h"
+#include "m1MenuManager.h"
 #include "m1Window.h"
 #include "m1Map.h"
 #include "m1EasingSplines.h"
@@ -64,14 +65,24 @@ bool m1EasingSplines::CleanUp()
 	return true;
 }
 
-void m1EasingSplines::CreateSpline(int * position, const int target_position, const float time_to_travel, TypeSpline type)
+EaseSplineInfo * m1EasingSplines::CreateSpline(int * position, const int target_position, const float time_to_travel, TypeSpline type, std::function<void()> fn)
 {
-	EaseSplineInfo* info = DBG_NEW EaseSplineInfo(position, target_position, time_to_travel, type);
+	std::list <EaseSplineInfo*>::iterator item = easing_splines.begin();
+	for (; item != easing_splines.end(); ++item) {
+		if ((*item) != nullptr && (*item)->position == position) {
+			(*item)->to_delete = true;
+			break;
+		}
+	}
+
+	EaseSplineInfo* info = DBG_NEW EaseSplineInfo(position, target_position, time_to_travel, type, fn);
 
 	if (info != nullptr)
 		easing_splines.push_back(info);
 	else
 		LOG("Could not create the Spline...");
+
+	return info;
 }
 
 
@@ -83,7 +94,7 @@ bool EaseSplineInfo::Update(float dt)
 
 	float time_passed = SDL_GetTicks() - time_started;
 
-	if (time_passed < time_to_travel) {
+	if (time_passed < time_to_travel && !to_delete) {
 		switch (type) {
 		case EASE: {
 			*position = ease_function.Ease(time_passed, initial_position, distance_to_travel, time_to_travel);
@@ -110,11 +121,16 @@ bool EaseSplineInfo::Update(float dt)
 			break;
 		}
 	}
-	else 
+	else {
+		if (fn != nullptr)
+			this->fn();
 		ret = false;
+	}
+		
 	
 	return ret;
 }
+
 
 int EaseFunctions::EaseOutQuint(float time_passed, int initial_position, int distance_to_travel, float time_to_travel)
 {

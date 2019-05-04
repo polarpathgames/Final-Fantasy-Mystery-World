@@ -1,4 +1,5 @@
 <room_manager>
+  
   <tutorial>
     <room>
       <properties>
@@ -56,4 +57,13 @@
       <cut_scene>assets/xml/CutsceneFinalRoom.xml</cut_scene>
     </room>
   </tutorial>
+
+  <quest2>
+    <room>
+      <location>Quest1_Enter.tmx</location>
+      <id num="1"></id>
+      <type>paceful</type>
+    </room>
+  </quest2>
+  
 </room_manager>

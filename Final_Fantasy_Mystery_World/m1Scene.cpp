@@ -6,9 +6,12 @@
 #include "m1DialogSystem.h"
 #include "m1EasingSplines.h"
 #include "m1Audio.h"
+#include <iostream>
+#include <memory>
 #include "p2ChangeControls.h"
 #include "m1Render.h"
 #include "u1InputText.h"
+#include <functional>
 #include "m1FadeToBlack.h"
 #include "m1Window.h"
 #include "m1Map.h"
@@ -154,6 +157,10 @@ bool m1Scene::Update(float dt)
 		}
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	{
+		App->cutscene_manager->skip_cutscene = true;
+	}
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 		if (App->map->actual_map != Maps::SHOP && App->map->actual_map != Maps::NONE && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::LOBBY) {
 			if (App->input->GetKey(SDL_SCANCODE_LSHIFT)) {
@@ -199,6 +206,10 @@ bool m1Scene::Update(float dt)
 		App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
+		App->fade_to_black->FadeToBlack(Maps::QUEST2);
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_KP_1) == KEY_DOWN) {
 		App->win->scale = 1;
 	}
@@ -208,15 +219,12 @@ bool m1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_KP_3) == KEY_DOWN) {
 		App->win->scale = 3;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
-		App->SaveGame("save_game.xml");
-	}
 	App->map->Draw();
 	
 	switch (menu_state) {
 	case StatesMenu::NO_MENU:
 		if ((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing) {
-			if (App->ChangePause() && !App->cutscene_manager->is_executing) {
+			if (App->menu_manager->pause.pause_panel == nullptr && App->ChangePause() && !App->cutscene_manager->is_executing) {
 				App->audio->PlayFx(App->gui->fx_pause);
 				App->menu_manager->CreatePauseMenu();
 				player->BlockControls(true);
@@ -245,7 +253,7 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->menu_manager->DestroyHelpAbilityMenu();
 			menu_state = StatesMenu::NO_MENU;
-			ShowHUD(false);
+			ShowHUD(true);
 			player->BlockControls(false);
 		}
 	
@@ -267,7 +275,11 @@ bool m1Scene::Update(float dt)
 			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			App->ChangePause();
 			ShowHUD(true);
-			App->menu_manager->DestroyPauseMenu();
+			//std::function<void(void)> funct = App->menu_manager->DestroyPauseMenu();
+			App->easing_splines->CreateSpline(&App->menu_manager->pause.pause_panel->position.y, -830, 500, TypeSpline::EASE, std::bind(&m1MenuManager::DestroyPauseMenu,App->menu_manager));
+			//info->funct = &m1MenuManager::DestroyPauseMenu;
+
+			//App->menu_manager->DestroyPauseMenu();
 			menu_state = StatesMenu::NO_MENU;
 			player->BlockControls(false);
 		}
@@ -493,11 +505,11 @@ void m1Scene::CreateEntities()
 
 void m1Scene::ShitFunctionJAJA()
 {
-	/*if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && !App->globals.CutSceneLobbyExplain && App->map->actual_map == Maps::LOBBY) {
+	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && !App->globals.CutSceneLobbyExplain && App->map->actual_map == Maps::LOBBY) {
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyTutorial.xml");
 		App->globals.CutSceneLobbyExplain = true;
 		App->globals.Tutorial_first_time = false;
-	}*/
+	}
 }
 
 bool m1Scene::Interact(u1GUI* interact)
@@ -507,10 +519,11 @@ bool m1Scene::Interact(u1GUI* interact)
 	case StatesMenu::GO_TO_QUEST_MENU:
 		if (interact == App->menu_manager->quest.go_to_quest_button) {
 			App->audio->PlayFx(fx_ability_warrior);
-
+		
 			App->menu_manager->DestroyGoToQuestMenu();
 			App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 			menu_state = StatesMenu::NO_MENU;
+			//App->scene->ShowHUD(true);
 			ret = false;
 		}
 		if (interact == App->menu_manager->quest.cancel_quest_button) {
