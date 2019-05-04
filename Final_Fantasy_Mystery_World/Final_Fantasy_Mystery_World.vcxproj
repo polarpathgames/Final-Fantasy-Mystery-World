@@ -99,6 +99,7 @@
     <ClCompile Include="e1Particles.cpp" />
     <ClCompile Include="e1Rock.cpp" />
     <ClCompile Include="e1ShopKeeperDaughter.cpp" />
+    <ClCompile Include="e1State.cpp" />
     <ClCompile Include="e1StrangeFrog.cpp" />
     <ClCompile Include="e1Warrior.cpp" />
     <ClCompile Include="m1Cutscene.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="e1Particles.h" />
     <ClInclude Include="e1Rock.h" />
     <ClInclude Include="e1ShopKeeperDaughter.h" />
+    <ClInclude Include="e1State.h" />
     <ClInclude Include="e1StrangeFrog.h" />
     <ClInclude Include="e1Warrior.h" />
     <ClInclude Include="m1Cutscene.h" />
@@ -242,7 +244,9 @@
     <Xml Include="Game\assets\xml\CutsceneTutorial.xml" />
     <Xml Include="Game\assets\xml\Dialog.xml" />
     <Xml Include="Game\assets\xml\CutsceneBlockPass.xml" />
-    <Xml Include="Game\assets\xml\Rooms.xml" />
+    <Xml Include="Game\assets\xml\Rooms.xml">
+      <SubType>Designer</SubType>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

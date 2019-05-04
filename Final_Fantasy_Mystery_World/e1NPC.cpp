@@ -12,6 +12,7 @@ e1NPC::e1NPC(const int &x, const int &y) : e1DynamicEntity(x, y)
 	type = e1Entity::EntityType::NPC;
 	current_animation = &IdleDownLeft;
 	SetPivot(10, 30);
+	allow_turn = false;
 	direction = Direction::DOWN_LEFT;
 }
 

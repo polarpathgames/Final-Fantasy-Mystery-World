@@ -7,6 +7,7 @@
 #include "SDL_mixer/include/SDL_mixer.h"
 #include "e1Enemy.h"
 #include "e1Drop.h"
+#include "p2Properties.h"
 #include "SDL/include/SDL_rect.h"
 
 class u1Image;
@@ -69,6 +70,8 @@ public:
 
 	uint id = 0u; 
 	uint update_number = 0u;
+
+	Properties<int> properties;
 
 	std::vector<ChangeScene*> change_scene_points; 
 	std::vector<iPoint> entities;

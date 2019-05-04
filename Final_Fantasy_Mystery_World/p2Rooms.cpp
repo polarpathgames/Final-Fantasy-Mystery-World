@@ -20,12 +20,8 @@
 #include "m1Pathfinding.h"
 
 Room::Room(const std::string &tmx_location, const uint &id, const std::string &type, const std::string &cutscene_location, bool door_closed, const uint &update_number)
+	: tmx_location(tmx_location), id(id),door_closed(door_closed),update_number(update_number)
 {
-	this->tmx_location = tmx_location;
-	this->id = id;
-	this->door_closed = door_closed;
-	this->update_number = update_number;
-
 	if (!cutscene_location.empty()) {
 		this->cutscene_location = cutscene_location;
 	}
@@ -76,6 +72,8 @@ Room::~Room()
 	drops.clear();
 
 	entities.clear();
+
+	properties.CleanUp();
 }
 
 RoomManager::RoomManager(const char* name)
@@ -101,6 +99,9 @@ RoomManager::RoomManager(const char* name)
 		for (pugi::xml_node room_node = room_manager_file.child("room_manager").child(name).child("room"); room_node; room_node = room_node.next_sibling("room")) {
 			Room * r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_uint(), room_node.child("type").child_value(),
 				room_node.child("cut_scene").child_value(), room_node.child("door").attribute("active").as_bool(false), room_node.child("update").attribute("num").as_uint(0u));
+			for (pugi::xml_node property_room = room_node.child("properties").child("property"); property_room; property_room = property_room.next_sibling()) {
+				r->properties.AddProperty(property_room.attribute("name").as_string("no_property"), property_room.attribute("value").as_int());
+			}
 			rooms.push_back(r);
 		}
 
@@ -261,6 +262,11 @@ void RoomManager::LoadRoom(const int & id)
 	PlacePlayer();
 	PlayMusic();
 	PlayCutScene();
+
+	// Properties
+	if (actual_room->properties.GetValue("snowstorm") == 1) {
+		App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "snowstorm");
+	}
 	
 }
 

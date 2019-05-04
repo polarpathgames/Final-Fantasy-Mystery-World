@@ -47,7 +47,9 @@ void e1Player::Init()
 
 	velocity.x = 160;
 	velocity.y = 80;
-	has_turn = true;
+	//has_turn = true;
+
+	App->entity_manager->AssignEntityTurn(this);
 
 	if (App->map->data.properties.GetValue("movement") == 1)
 		movement_type = Movement_Type::InLobby;
@@ -453,7 +455,7 @@ void e1Player::ReadPlayerMovementInQuest()
 				}
 			}
 			if (is_movement_acepted) {
-				ChangeTurn(type);
+				turn_done = true;
 			}
 			else {
 				ChangeAnimation(direction, state);
@@ -1336,7 +1338,7 @@ void e1Player::Flashing()
 void e1Player::RestTimeAfterFlash()
 {
 	if (flash_time <= SDL_GetTicks() - 400) {
-		ChangeTurn(type);
+		turn_done = true;
 		state = State::IDLE;
 	}
 }

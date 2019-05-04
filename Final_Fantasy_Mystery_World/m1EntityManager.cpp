@@ -24,6 +24,7 @@
 #include "e1Player.h"
 #include "e1Warrior.h"
 #include "e1Enemy.h"
+#include "e1State.h"
 #include <algorithm>
 #include "Brofiler/Brofiler.h"
 
@@ -60,9 +61,12 @@ bool m1EntityManager::PreUpdate()
 {
 	BROFILER_CATEGORY("PreUpdateEntityM", Profiler::Color::Orange);
 	
+	// Delete entities to_delete = true
 	std::vector<e1Entity*>::iterator item = entities.begin();
 	while (item != entities.end()) {
 		if ((*item) != nullptr && (*item)->to_delete) {
+			if (entity_turn == *item)
+				entity_turn = nullptr;
 			delete (*item);
 			(*item) = nullptr;
 			item = entities.erase(item);
@@ -71,12 +75,39 @@ bool m1EntityManager::PreUpdate()
 			++item;
 	}
 
-	item = entities.begin();
-	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr && (*item)->has_turn) {
-			(*item)->PreUpdate();
+	// Turn system ============================================================
+	if (entity_turn == nullptr || entity_turn->turn_done) {
+		item = std::find(entities.begin(), entities.end(), entity_turn);
+		bool changed = false;
+		for (; item != entities.end(); ++item) {
+			if ((*item) != nullptr && entity_turn != *item && (*item)->allow_turn) {
+				changed = true;
+				entity_turn->turn_done = false;
+				entity_turn = *item;
+				break;
+			}
 		}
+		if (!changed) {
+			item = entities.begin();
+			for (; item != entities.end(); ++item) {
+				if ((*item) != nullptr && entity_turn != *item && (*item)->allow_turn) {
+					changed = true;
+					entity_turn->turn_done = false;
+					entity_turn = *item;
+					break;
+				}
+			}
+		}
+		if (!changed)
+			entity_turn->turn_done = false;
 	}
+	else {
+		entity_turn->PreUpdate();
+	}
+
+	//====================================================================
+
+	// Create entities
 	
 	item = entities_to_create.begin();
 	for (; item != entities_to_create.end(); ++item) {
@@ -87,7 +118,6 @@ bool m1EntityManager::PreUpdate()
 	return true;
 }
 
-// Called before render is available
 bool m1EntityManager::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateEntityM", Profiler::Color::Aqua);
@@ -152,12 +182,12 @@ bool m1EntityManager::PostUpdate()
 {
 	BROFILER_CATEGORY("PostUpdateEntity", Profiler::Color::Purple);
 
-	/*std::vector<e1Entity*>::iterator item = entities.begin();
+	std::vector<e1Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item) {
 		if ((*item) != nullptr)
 				(*item)->PostUpdate();
 
-	}*/
+	}
 	return true;
 }
 
@@ -242,6 +272,7 @@ e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX
 	//case e1Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
 	case e1Entity::EntityType::NPC: ret = DBG_NEW e1NPC(PositionX, PositionY); break;
 	case e1Entity::EntityType::DAUGHTER: ret = DBG_NEW e1ShopKeeperDaughter(PositionX, PositionY); break;
+	case e1Entity::EntityType::EVENT: ret = DBG_NEW e1State(PositionX, PositionY, name.data()); break;
 	default:
 		LOG("Cannot find any entity with that type");
 		break;

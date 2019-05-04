@@ -70,7 +70,7 @@ bool e1CarnivorousPlant::PreUpdate()
 		if (IsPlayerNextTile()) {
 			state = State::IDLE;
 		}
-		ChangeTurn(type);
+		turn_done = true;
 	}
 	return true;
 }
@@ -108,7 +108,7 @@ bool e1CarnivorousPlant::Update(float dt)
 			App->scene->player->UpdateExperience(stats.experience);
 			App->map->quest_rooms->AddEntityToNotRepeat(original_position);
 			to_delete = true;
-			ChangeTurn(type);
+			turn_done = true;
 		}
 	}
 

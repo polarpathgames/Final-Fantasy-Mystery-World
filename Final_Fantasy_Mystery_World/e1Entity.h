@@ -84,6 +84,7 @@ public:
 		DAUGHTER,
 		ROCK,
 		BLUE_SLIME,
+		EVENT,
 
 		NO_TYPE
 	};
@@ -134,7 +135,7 @@ public:
 	pugi::xml_node		node;
 
 	bool drawable = true;
-	bool has_turn = true;
+	bool allow_turn = false;
 	bool turn_done = false;
 	iPoint actual_tile;
 	Collider* coll = nullptr;

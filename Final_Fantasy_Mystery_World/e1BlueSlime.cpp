@@ -41,7 +41,7 @@ bool e1BlueSlime::PreUpdate()
 		else if (actual_tile.DistanceTo(App->scene->player->actual_tile) <= 7) {
 			state = State::WALKING; //Aixo sha de canviar I know :D
 		}
-		else ChangeTurn(type);
+		else turn_done = true;
 
 	}
 	if (state == State::WALKING) {
@@ -93,7 +93,7 @@ bool e1BlueSlime::Update(float dt)
 			App->scene->player->UpdateExperience(stats.experience);
 			App->map->quest_rooms->AddEntityToNotRepeat(original_position);
 			to_delete = true;
-			ChangeTurn(type);
+			turn_done = true;
 		}
 	}
 

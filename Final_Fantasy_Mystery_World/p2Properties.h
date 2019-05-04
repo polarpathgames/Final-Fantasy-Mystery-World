@@ -49,6 +49,15 @@ struct Properties {
 		properties.clear();
 	}
 
+	bool AddProperty(const char* name, TYPE value) {
+		if (!FindNameValue(name)) {
+			properties.push_back(DBG_NEW Property<TYPE>(name, value));
+			return true;
+		}
+		SDL_Log("There is a property with name %s", name);
+		return false;
+	}
+
 	TYPE GetValue(const char* identificator, TYPE default_value = 0) {
 		TYPE ret = default_value;
 		for (std::list<Property<TYPE>*>::iterator item = properties.begin(); item != properties.end(); ++item) {
@@ -59,15 +68,14 @@ struct Properties {
 		return ret;
 	}
 	
+	// * Return true if there is a property with that name
 	bool FindNameValue(const char* prop_name) {
-		bool ret = false;
 		for (std::list<Property<TYPE>*>::iterator item = properties.begin(); item != properties.end(); ++item) {
 			if (strcmp((*item)->GetName(), prop_name) == 0) {
-				ret = true;
-				break;
+				return true;
 			}
 		}
-		return ret;
+		return false;
 	}
 
 };
