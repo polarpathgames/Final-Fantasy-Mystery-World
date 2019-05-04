@@ -9,6 +9,7 @@ class u1Button;
 class u1Label;
 class u1CheckBox;
 class u1ChButton;
+class u1VerticalSlider;
 class u1Bar;
 
 struct UI_input {
@@ -482,15 +483,30 @@ struct UI_shop {
 	u1Button* button_close_shop = nullptr;
 	u1Label* label_close_shop = nullptr;
 
+	u1Image* shop_background_item1 = nullptr;
 	u1Button* shop_button_hp_potion = nullptr;
 	u1Image* shop_hp_potion_image = nullptr;
 	u1Label* shop_hp_potion_label = nullptr;
 	u1Image* shop_coin1 = nullptr;
 
+	u1Image* shop_background_item2 = nullptr;
 	u1Button* shop_button_mana_potion = nullptr;
 	u1Image* shop_mana_potion_image = nullptr;
 	u1Label* shop_mana_potion_label = nullptr;
 	u1Image* shop_coin2 = nullptr;
+
+	u1Image* shop_background_item3 = nullptr;
+	u1Button* shop_button_item3 = nullptr;
+
+	u1Image* shop_background_item4 = nullptr;
+	u1Button* shop_button_item4 = nullptr;
+
+	u1Image* shop_background_item5 = nullptr;
+	u1Button* shop_button_item5 = nullptr;
+
+	u1VerticalSlider* shop_vertical_slider = nullptr;
+	u1Image* shop_zone = nullptr;
+	u1Image* shop_item_zone = nullptr;
 };
 
 struct UI_debugscreen {

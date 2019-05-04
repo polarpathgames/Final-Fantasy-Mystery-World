@@ -157,9 +157,9 @@ bool m1Scene::Update(float dt)
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_DOWN)
 	{
-		App->cutscene_manager->skip_cutscene = true;
+		App->fade_to_black->FadeToBlack(Maps::SHOP);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 		if (App->map->actual_map != Maps::SHOP && App->map->actual_map != Maps::NONE && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::LOBBY) {

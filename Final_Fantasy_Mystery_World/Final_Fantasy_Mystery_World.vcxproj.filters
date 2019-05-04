@@ -207,6 +207,9 @@
     <ClCompile Include="e1SuperPurpleFrog.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="u1VerticalSlider.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -446,6 +449,9 @@
     </ClInclude>
     <ClInclude Include="e1SuperPurpleFrog.h">
       <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="u1VerticalSlider.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

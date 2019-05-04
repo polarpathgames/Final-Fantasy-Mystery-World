@@ -16,6 +16,7 @@
 #include "u1CheckBox.h"
 #include "u1Bar.h"
 #include "m1GUI.h"
+#include "u1VerticalSlider.h"
 #include "m1Audio.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Audio.h"
@@ -161,6 +162,16 @@ void m1GUI::FocusInput()
 						new_focus = *item;
 					}
 				}
+				else if (!(*item)->allow_focus && (*item)->position.y < focus->position.y && (*item)->clipable) {
+					if (focus == new_focus) {
+						new_focus = (*item);
+						(*item)->parent->position.y += (*item)->section.h * 2;
+					}
+					else if ((*item)->position.y >= new_focus->position.y && abs(focus->position.x - new_focus->position.x) >= abs(focus->position.x - (*item)->position.x)) {
+						new_focus = *item;
+						(*item)->parent->position.y += (*item)->section.h * 2;
+					}
+				}
 			}
 		}
 	}
@@ -173,6 +184,16 @@ void m1GUI::FocusInput()
 					}
 					else if ((*item)->position.y <= new_focus->position.y && abs(focus->position.x - new_focus->position.x) >= abs(focus->position.x - (*item)->position.x)) {
 						new_focus = *item;
+					}
+				}
+				else if (!(*item)->allow_focus && (*item)->position.y > focus->position.y && (*item)->clipable) {
+					if (focus == new_focus) {
+						new_focus = (*item);
+						(*item)->parent->position.y -= (*item)->section.h*2;
+					}
+					else if ((*item)->position.y <= new_focus->position.y && abs(focus->position.x - new_focus->position.x) >= abs(focus->position.x - (*item)->position.x)) {
+						new_focus = *item;
+						(*item)->parent->position.y -= (*item)->section.h*2;
 					}
 				}
 			}
@@ -292,10 +313,10 @@ const SDL_Texture* m1GUI::GetAtlas() const
 	return atlas;
 }
 
-u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, m1Module * listener = nullptr, u1GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false, bool focus = true, Animation* anim)
+u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, m1Module * listener = nullptr, u1GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false, bool focus = true, Animation* anim, SDL_Rect*clip_zone)
 {
 
-	u1Image* image = DBG_NEW u1Image(x, y, rect, parent, draw, interact, drag, focus, anim);
+	u1Image* image = DBG_NEW u1Image(x, y, rect, parent, draw, interact, drag, focus, anim, clip_zone);
 
 	if (listener != nullptr) {
 		image->AddListener(listener);
@@ -306,9 +327,9 @@ u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0
 	return image;
 }
 
-u1Button* m1GUI::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* listener, u1GUI* parent, bool draw, bool drag, bool inter, bool focus = true, const iPoint &focus_offset)
+u1Button* m1GUI::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* listener, u1GUI* parent, bool draw, bool drag, bool inter, bool focus = true, const iPoint &focus_offset, SDL_Rect*clip_zone)
 {
-	u1Button* button = DBG_NEW u1Button(x, y, idle, mouse_in, clicked, parent, draw, inter, drag, focus, focus_offset);
+	u1Button* button = DBG_NEW u1Button(x, y, idle, mouse_in, clicked, parent, draw, inter, drag, focus, focus_offset, clip_zone);
 
 	if (listener != nullptr) {
 		button->AddListener(listener);
@@ -332,9 +353,9 @@ u1ChButton* m1GUI::AddChButton(const int &x, const int &y, const SDL_Rect &idle,
 	return character_button;
 }
 
-u1Label* m1GUI::AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* listener = nullptr, bool focus = false, const uint32 & wrap, bool has_bg, const SDL_Color& bg_color)
+u1Label* m1GUI::AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* listener = nullptr, bool focus = false, const uint32 & wrap, bool has_bg, const SDL_Color& bg_color, SDL_Rect*clip_zone)
 {
-	u1Label* label = DBG_NEW u1Label(x, y, text, color, font, parent, false, false, wrap, false, has_bg, bg_color);
+	u1Label* label = DBG_NEW u1Label(x, y, text, color, font, parent, false, false, wrap, false, has_bg, bg_color, clip_zone);
 
 	if (listener != nullptr) {
 		label->AddListener(listener);
@@ -406,12 +427,26 @@ u1HitPointLabel * m1GUI::AddHitPointLabel(const int & x, const int & y, const ch
 	return hit_point;
 }
 
+u1VerticalSlider * m1GUI::AddVerticalSlider(const int & x, const int & y, const SDL_Rect & rect, const SDL_Rect & idle, const SDL_Rect & hover, const SDL_Rect & push, u1GUI * parent, int * position, const int&moving_distance,m1Module * callback)
+{
+	u1VerticalSlider* vertical_slider = DBG_NEW u1VerticalSlider(x, y, rect, idle, hover, push, parent, position, moving_distance);
+
+	if (callback != nullptr) {
+		vertical_slider->AddListener(callback);
+	}
+
+	ui_list.push_back(vertical_slider);
+
+	return vertical_slider;
+}
+
 
 
 void m1GUI::CreateScreen()
 {
 	if (std::find(ui_list.begin(), ui_list.end(), screen) == ui_list.end()) {
 		screen = AddImage(0, 0, { 0,0,(int)App->win->width,(int)App->win->height }, nullptr, nullptr, false, false, false, false);
+		LOG("SCREEN CREATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED");
 	}
 }
 
@@ -482,6 +517,7 @@ bool m1GUI::DeleteAllUIElements()
 	bool ret = true;
 
 	ret = DeleteUIElement(screen);
+	screen = nullptr;
 	SDL_assert(ui_list.size() == 0);
 	CreateScreen();
 	focus = nullptr;
