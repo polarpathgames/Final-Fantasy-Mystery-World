@@ -17,7 +17,7 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 	if (type == HPBAR)
 	{
 		current_width = max_width;
-		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, App->scene->bg_hud, false, false, false, false);
+		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, parent, false, false, false, false);
 		filled_bar = App->gui->AddImage(7, 5, { 1405, 3149, 172, 10 }, App->scene, empty_bar, false, false, false, false);
 		PrintBarNumbers();
 	}
@@ -25,7 +25,7 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 	if (type == MANABAR)
 	{
 		current_width = max_width;
-		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, App->scene->bg_hud, false, false, false, false);
+		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, parent, false, false, false, false);
 		filled_bar = App->gui->AddImage(7, 5, { 1405, 3185, 172, 10 }, App->scene, empty_bar, false, false, false, false);
 		PrintBarNumbers();
 	}
@@ -34,7 +34,7 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 		current_quantity = 0;
 		current_width = 0;
 		max_width = 33;
-		empty_bar = App->gui->AddImage(x, y, { 1486,2111,33,31 }, nullptr, App->menu_manager->im_skipper, true, false, false, false);
+		empty_bar = App->gui->AddImage(x, y, { 1486,2111,33,31 }, nullptr, parent, true, false, false, false);
 		filled_bar = App->gui->AddImage(x, y, { 1418,2111,0,34 }, nullptr, empty_bar, true, false, false, false);
 	}
 

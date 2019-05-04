@@ -94,10 +94,9 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		App->entity_manager->Enable();
 		App->map->Enable();
 		App->scene->Enable();
-		App->map->ChangeMap(Maps::HOME);
-		App->scene->SetMenuState(StatesMenu::NO_MENU);
 		App->LoadGame("save_game.xml");
-		//App->scene->CreateHUD();
+		App->map->ChangeMap(Maps::HOME);
+		App->scene->SetMenuState(StatesMenu::NO_MENU);	
 		ret = false;
 	}
 
@@ -116,7 +115,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			App->scene->player->Init();
 			App->scene->player->CenterPlayerInTile();
 			App->render->CenterCameraOnPlayer(App->scene->player->position);
-			App->scene->CreateHUD();
+			App->menu_manager->CreateHUD();
 			App->scene->SetMenuState(StatesMenu::NO_MENU);
 			ret = false;
 		}
