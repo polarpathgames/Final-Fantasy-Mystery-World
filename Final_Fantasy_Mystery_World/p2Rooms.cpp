@@ -72,6 +72,8 @@ Room::~Room()
 	drops.clear();
 
 	entities.clear();
+
+	properties.CleanUp();
 }
 
 RoomManager::RoomManager(const char* name)
@@ -94,13 +96,12 @@ RoomManager::RoomManager(const char* name)
 		map_background = App->gui->AddImage(-1600, 100, { 200,1736,(int)App->win->width - 200, (int)App->win->height - 300 }, nullptr, App->gui->screen, false, false, false, false);
 		map_zone = App->gui->AddImage(0, 0, { 200,1736,(int)App->win->width - 200, (int)App->win->height - 300 }, nullptr, map_background, false, false, false, false);
 
-		for (pugi::xml_node property_node = room_manager_file.child("room_manager").child(name).child("properties").child("property"); property_node; property_node = property_node.next_sibling()) {
-			properties.AddProperty(property_node.attribute("name").as_string(), property_node.attribute("value").as_int());
-		}
-
 		for (pugi::xml_node room_node = room_manager_file.child("room_manager").child(name).child("room"); room_node; room_node = room_node.next_sibling("room")) {
 			Room * r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_uint(), room_node.child("type").child_value(),
 				room_node.child("cut_scene").child_value(), room_node.child("door").attribute("active").as_bool(false), room_node.child("update").attribute("num").as_uint(0u));
+			for (pugi::xml_node property_room = room_node.child("properties").child("property"); property_room; property_room = property_room.next_sibling()) {
+				r->properties.AddProperty(property_room.attribute("name").as_string("no_property"), property_room.attribute("value").as_int());
+			}
 			rooms.push_back(r);
 		}
 
@@ -118,8 +119,6 @@ RoomManager::~RoomManager()
 		map_background->to_delete = true;
 	if (map_zone != nullptr)
 		map_zone->to_delete = true;
-
-	properties.CleanUp();
 }
 
 void RoomManager::OnCollision(Collider * c1, Collider * c2)
@@ -263,6 +262,11 @@ void RoomManager::LoadRoom(const int & id)
 	PlacePlayer();
 	PlayMusic();
 	PlayCutScene();
+
+	// Properties
+	if (actual_room->properties.GetValue("snowstorm") == 1) {
+		App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "snowstorm");
+	}
 	
 }
 

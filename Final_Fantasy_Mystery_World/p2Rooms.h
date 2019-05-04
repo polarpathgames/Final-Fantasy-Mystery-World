@@ -71,6 +71,8 @@ public:
 	uint id = 0u; 
 	uint update_number = 0u;
 
+	Properties<int> properties;
+
 	std::vector<ChangeScene*> change_scene_points; 
 	std::vector<iPoint> entities;
 	std::vector<DropInfo*> drops;
@@ -122,8 +124,6 @@ private:
 	u1Image * map_zone = nullptr;
 	u1Image * player_pos = nullptr;
 	bool map_active = false;
-
-	Properties<int> properties;
 
 	Mix_Music* mus_paceful;
 	Mix_Music* mus_boss;

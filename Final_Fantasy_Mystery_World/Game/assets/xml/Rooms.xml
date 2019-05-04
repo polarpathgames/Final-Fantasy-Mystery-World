@@ -1,9 +1,9 @@
 <room_manager>
   <tutorial>
-    <properties>
-      <property name="snowstorm" value="1"/>
-    </properties>
     <room>
+      <properties>
+        <property name="snowstorm" value="1"/>
+      </properties>
       <location>Tutorial_Movement.tmx</location>
       <id num="1"></id>
       <type>paceful</type>
@@ -15,6 +15,9 @@
       <cut_scene>assets/xml/CutsceneTutorial.xml</cut_scene>
     </room>
     <room>
+      <properties>
+        <property name="snowstorm" value="1"/>
+      </properties>
       <location>Tutorial_Attack.tmx</location>
       <id num="3"></id>
       <type>combat</type>
