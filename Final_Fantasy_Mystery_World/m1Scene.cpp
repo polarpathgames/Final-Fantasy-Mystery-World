@@ -253,7 +253,7 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->menu_manager->DestroyHelpAbilityMenu();
 			menu_state = StatesMenu::NO_MENU;
-			ShowHUD(true);
+			App->menu_manager->ShowHUD(true);
 			player->BlockControls(false);
 		}
 	
@@ -274,7 +274,7 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			App->ChangePause();
-			ShowHUD(true);
+			App->menu_manager->ShowHUD(true);
 			//std::function<void(void)> funct = App->menu_manager->DestroyPauseMenu();
 			App->easing_splines->CreateSpline(&App->menu_manager->pause.pause_panel->position.y, -830, 500, TypeSpline::EASE, std::bind(&m1MenuManager::DestroyPauseMenu,App->menu_manager));
 			//info->funct = &m1MenuManager::DestroyPauseMenu;
@@ -291,7 +291,7 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->menu_manager->CreatePauseMenu();
 			App->menu_manager->DestroyOptions();
-			ShowHUD(true);
+			App->menu_manager->ShowHUD(true);
 			player->BlockControls(true);
 			menu_state = StatesMenu::PAUSE_MENU;
 		}
@@ -306,7 +306,7 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->menu_manager->DestroyHelpDiagonalMenu();
 			player->BlockControls(false);
-			ShowHUD(true);
+			App->menu_manager->ShowHUD(true);
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
@@ -314,7 +314,7 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->menu_manager->DestroyHelpAttackMenu();
 			player->BlockControls(false);
-			ShowHUD(true);
+			App->menu_manager->ShowHUD(true);
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
@@ -322,7 +322,7 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->menu_manager->DestroyHelpAbilityMenu();
 			player->BlockControls(false);
-			ShowHUD(true);
+			App->menu_manager->ShowHUD(true);
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
@@ -427,7 +427,7 @@ void m1Scene::CreateEntities()
 						break;
 					}
 					App->render->CenterCameraOnPlayer(player->position);
-					CreateHUD();
+					//CreateHUD(); POSSIBLE BUG
 				}
 			}
 			else {
@@ -523,7 +523,6 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->menu_manager->DestroyGoToQuestMenu();
 			App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 			menu_state = StatesMenu::NO_MENU;
-			//App->scene->ShowHUD(true);
 			ret = false;
 		}
 		if (interact == App->menu_manager->quest.cancel_quest_button) {
@@ -600,20 +599,21 @@ bool m1Scene::Interact(u1GUI* interact)
 				App->fade_to_black->FadeToBlack(Maps::HOME);
 			
 			menu_state = StatesMenu::NO_MENU;
-			CreateHUD();
+			App->menu_manager->CreateHUD();
 			ret = false;
 			
 		}
 		if (interact == App->menu_manager->game_over.button_return_main) {
+			active = false;
 			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			App->menu_manager->DestroyGameOver();
 			App->entity_manager->Disable();
 			App->map->Disable();
-			App->ChangePause();
-			active = false;
+			App->ChangePause();		
 			App->main_menu->Enable();
-			ret = false;
+			App->menu_manager->DestroyHUD();
 			App->scene->SetMenuState(StatesMenu::NO_MENU);
+			ret = false;
 		}
 		break;
 	case StatesMenu::SHOP_MENU:
@@ -673,65 +673,4 @@ StatesMenu m1Scene::GetMenuState()
 void m1Scene::SetMenuState(const StatesMenu & menu)
 {
 	menu_state = menu;
-}
-
-void m1Scene::CreateHUD()
-{
-	bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, nullptr, App->gui->screen, true, false, false, false);
-	diagonal_compass = App->gui->AddImage(925, 675, { 1876, 3084, 88, 74 }, this, bg_hud, true, false, false, false);
-	vertical_compass = App->gui->AddImage(925, 670, { 1949, 3159, 82, 86 }, this, bg_hud, false, false, false, false);
-
-	switch (player_type) {
-	case PlayerType::WARRIOR:
-		player_hud_image = App->gui->AddImage(28, 653, { 1163,4079,76,98 }, nullptr, bg_hud, true, false, false, false);
-		break;
-	case PlayerType::ARCHER:
-		player_hud_image = App->gui->AddImage(28, 653, { 1740,4088,76,98 }, nullptr, bg_hud, true, false, false, false);
-		break;
-	case PlayerType::MAGE:
-		player_hud_image = App->gui->AddImage(28, 653, { 1458,4084,76,98 }, nullptr, bg_hud, true, false, false, false);
-		break;
-	}
-	player_hp_bar = App->gui->AddBar(215, 662, player->stats.max_lives, HPBAR, bg_hud, nullptr);
-	player_mana_bar = App->gui->AddBar(215, 700, player->stats.max_mana, MANABAR, bg_hud, nullptr);
-}
-
-void m1Scene::ShowHUD(bool show_or_hide)
-{
-	if ((show_or_hide && App->map->actual_map != Maps::LOBBY && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::SHOP) || !show_or_hide && bg_hud != nullptr) {
-		bg_hud->drawable = show_or_hide;
-		player_hud_image->drawable = show_or_hide;
-		player_hp_bar->drawable = show_or_hide;
-		player_mana_bar->drawable = show_or_hide;
-		diagonal_compass->drawable = show_or_hide;
-		vertical_compass->drawable = show_or_hide;
-		if (player_hp_bar != nullptr && player_hp_bar->bar_numbers_label != nullptr)
-			player_hp_bar->bar_numbers_label->drawable = show_or_hide;
-		if (player_mana_bar != nullptr && player_mana_bar->bar_numbers_label != nullptr)
-			player_mana_bar->bar_numbers_label->drawable = show_or_hide;
-	}
-}
-
-void m1Scene::ChangeCompass(bool shift_pressed)
-{
-	
-	if (shift_pressed)
-	{
-		vertical_compass->drawable = true;
-		diagonal_compass->drawable = false;
-	}
-
-	else
-	{
-		if (App->cutscene_manager->is_executing == true)
-		{
-			diagonal_compass->drawable = false;
-			vertical_compass->drawable = false;
-		}
-		else
-		{
-			diagonal_compass->drawable = true;
-			vertical_compass->drawable = false;
-		}
-	}
 }
