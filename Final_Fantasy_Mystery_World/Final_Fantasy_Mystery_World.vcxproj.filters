@@ -204,6 +204,9 @@
     <ClCompile Include="e1State.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="e1SuperPurpleFrog.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -439,6 +442,9 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="e1State.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1SuperPurpleFrog.h">
       <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
