@@ -43,8 +43,6 @@ Room::Room(const std::string &tmx_location, const uint &id, const std::string &t
 
 Room::~Room()
 {
-	if (map_room_image != nullptr)
-		map_room_image->to_delete = true;
 
 	std::vector<ChangeScene*>::iterator item = change_scene_points.begin();
 	for (; item != change_scene_points.end(); ++item) {
@@ -56,8 +54,6 @@ Room::~Room()
 	std::vector<MapIndicators*>::iterator it = map_indicators.begin();
 	for (; it != map_indicators.end(); ++it) {
 		if ((*it) != nullptr) {
-			if ((*it)->indicator_image != nullptr)
-				(*it)->indicator_image->to_delete = true;
 			delete (*it);
 			(*it) = nullptr;
 		}
@@ -120,8 +116,6 @@ RoomManager::~RoomManager()
 {
 	if (map_background != nullptr)
 		map_background->to_delete = true;
-	if (map_zone != nullptr)
-		map_zone->to_delete = true;
 }
 
 void RoomManager::OnCollision(Collider * c1, Collider * c2)
@@ -645,6 +639,7 @@ void RoomManager::DeleteDrop(iPoint pos, DropsType type)
 	std::vector < MapIndicators*>::iterator it = actual_room->map_indicators.begin();
 	for (; it != actual_room->map_indicators.end(); ++it) {
 		if ((*it) != nullptr && (*it)->location == pos && (*it)->indicator_type == "drop") {
+			(*it)->indicator_image->to_delete = true;
 			delete (*it);
 			(*it) = nullptr;
 			actual_room->map_indicators.erase(it);

@@ -332,4 +332,11 @@ void e1Warrior::UpdateLevel()
 	stats.attack_power += 5;
 	stats.attack_power_ability_1 += 2;
 	stats.attack_power_ability_3 += 2;
+
+	App->scene->player_hp_bar->max_capacity = stats.max_lives;
+	App->scene->player_mana_bar->max_capacity = stats.max_mana;
+
+	App->scene->player_hp_bar->PrintBarNumbers();
+	App->scene->player_mana_bar->PrintBarNumbers();
+
 }
