@@ -185,6 +185,7 @@ bool m1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
 		App->input->ControllerVibration(0.3F, 1000);
+		App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, player->position.x, player->position.y, "poison");
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {

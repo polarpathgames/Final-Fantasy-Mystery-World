@@ -82,7 +82,8 @@ bool m1EntityManager::PreUpdate()
 		for (; item != entities.end(); ++item) {
 			if ((*item) != nullptr && entity_turn != *item && (*item)->allow_turn) {
 				changed = true;
-				entity_turn->turn_done = false;
+				if (entity_turn != nullptr)
+					entity_turn->turn_done = false;
 				entity_turn = *item;
 				break;
 			}
@@ -92,7 +93,8 @@ bool m1EntityManager::PreUpdate()
 			for (; item != entities.end(); ++item) {
 				if ((*item) != nullptr && entity_turn != *item && (*item)->allow_turn) {
 					changed = true;
-					entity_turn->turn_done = false;
+					if (entity_turn != nullptr)
+						entity_turn->turn_done = false;
 					entity_turn = *item;
 					break;
 				}
@@ -251,7 +253,7 @@ void m1EntityManager::OnCollisionExit(Collider * c1, Collider * c2)
 e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
 
-	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)16, "code needs update");
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)17, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
 
