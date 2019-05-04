@@ -52,7 +52,7 @@ void u1Button::PreUpdateElement()
 		if (clip_zone->x < GetGlobalRect()->x + GetGlobalRect()->w &&
 			clip_zone->x + clip_zone->w > GetGlobalRect()->x &&
 			clip_zone->y < GetGlobalRect()->y + GetGlobalRect()->h - 10 &&
-			clip_zone->h + clip_zone->y > GetGlobalRect()->y) {
+			clip_zone->h + clip_zone->y - 20> GetGlobalRect()->y) {
 			interactable = true;
 			allow_focus = true;
 		}
@@ -61,7 +61,6 @@ void u1Button::PreUpdateElement()
 			allow_focus = false;
 		}
 	}
-
 }
 
 void u1Button::SetRects(const SDL_Rect &std_rect, const SDL_Rect &hl_rect, const SDL_Rect &click_rect)
