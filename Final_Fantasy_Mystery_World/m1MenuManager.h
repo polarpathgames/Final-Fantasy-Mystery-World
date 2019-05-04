@@ -538,6 +538,14 @@ struct UI_game_over {
 	u1Label* label_continue_main = nullptr;
 };
 
+struct UI_HUD {
+	u1Image* bg_hud = nullptr;
+	u1Image* player_hud_image = nullptr;
+	u1Bar* player_hp_bar = nullptr;
+	u1Bar* player_mana_bar = nullptr;
+	u1Image* diagonal_compass = nullptr; 	//Compass
+	u1Image* vertical_compass = nullptr;	//Compass
+};
 class m1MenuManager :public m1Module {
 
 public:
@@ -593,6 +601,11 @@ public:
 	void CreateHelpAbilityMenu();
 	void DestroyHelpAbilityMenu();
 
+	void CreateHUD();
+	void DestroyHUD();
+	void ShowHUD(bool show_or_hide);
+	void ChangeCompass(bool shift_pressed);
+
 	void SkipMenu(bool is_cutscene);
 
 	void GodModeIndicator(bool is_god_mode);
@@ -616,6 +629,7 @@ public:
 	UI_debugscreen	debug_screen;
 	UI_abilities	abilities;
 	UI_game_over	game_over;
+	UI_HUD			hud;
 	//god mode
 	u1Label* god_text = nullptr;
 	// help diagonal
