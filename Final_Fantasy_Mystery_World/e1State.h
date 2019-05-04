@@ -34,6 +34,11 @@ private:
 
 	uint turn_count = 0u;
 	uint turn_effect = 0u;
+	uint number_hit = 0u;
+	uint max_number_hit = 0u;
+
+	uint time_effect = 1u;
+	int damage = 0;
 };
 
 #endif // !__E1STATE_H__
