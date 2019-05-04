@@ -13,8 +13,11 @@ u1VerticalSlider::u1VerticalSlider(const int & x, const int & y, const SDL_Rect 
 	hover_rect = hover;
 	push_rect = push;
 
+	value = 0;
+
 	this->pos_to_move = pos_to_move;
 	initial_pos = *pos_to_move;
+	last_position = initial_pos;
 	this->moving_distance = moving_distance;
 
 	offset_x = (rect.w - idle.w) / 2;
@@ -35,8 +38,17 @@ u1VerticalSlider::~u1VerticalSlider()
 void u1VerticalSlider::InnerDraw()
 {
 
-	int value = GetValue();
-	*pos_to_move = -((initial_pos + moving_distance) * value) / 100;
+
+	if (*pos_to_move == last_position) {
+		int value_ = GetValue();
+		*pos_to_move = -((initial_pos + moving_distance) * value_) / 100;
+	}
+	else {
+		value = (-(*pos_to_move * 100)) / (initial_pos + moving_distance);
+		SetValue(value);
+	}
+
+	last_position = *pos_to_move;
 
 	if (draw_offset.y < min_y) {
 		position.y += 1;
@@ -92,4 +104,12 @@ uint u1VerticalSlider::GetValue() const
 	if (ret > 90)
 		ret = 90; // XDDDDD :D
 	return ret;
+}
+
+void u1VerticalSlider::SetValue(const int &value)
+{
+	this->value = value; 
+	if (this->value > 90)
+		this->value = 90;
+	SetPos(background_pos.x + (background_rect.w / 2) - ((GetRect().w + offset_x) / 2), ((background_rect.h - GetRect().h) * this->value / 100) + background_pos.y);
 }

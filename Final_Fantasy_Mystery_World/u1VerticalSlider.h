@@ -16,6 +16,8 @@ public:
 
 	uint GetValue() const;
 
+	void SetValue(const int & value);
+
 public:
 
 	SDL_Rect background_rect{ 0,0,0,0 };
@@ -32,6 +34,10 @@ public:
 	int * pos_to_move = nullptr;
 	int initial_pos = 0;
 	int moving_distance = 0;
+	int last_position = 0;
+
+	int value = 0;
+
 
 };
 #endif //__!__u1VerticalSlider_H__ 
