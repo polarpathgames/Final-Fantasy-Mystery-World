@@ -1367,7 +1367,7 @@ void e1Player::AugmentMana(const int & plus_mana, bool level_up)
 	if (stats.mana > stats.max_mana)
 		stats.mana = stats.max_mana;
 
-	App->scene->player_mana_bar->UpdateBar(plus_mana, MANABAR);
+	App->menu_manager->hud.player_mana_bar->UpdateBar(plus_mana, MANABAR);
 
 }
 
@@ -1397,7 +1397,7 @@ void e1Player::AugmentLives(const int & plus_lives, bool level_up)
 		stats.live = stats.max_lives;
 
 	//App->scene->player_hp_bar->max_capacity += plus_lives;
-	App->scene->player_hp_bar->UpdateBar(plus_lives, HPBAR);
+	App->menu_manager->hud.player_hp_bar->UpdateBar(plus_lives, HPBAR);
 
 
 }

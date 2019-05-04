@@ -13,6 +13,7 @@
 #include "m1Audio.h"
 #include "m1Map.h"
 #include "m1EntityManager.h"
+#include "m1MenuManager.h"
 #include "m1Map.h"
 #include "m1GUI.h"
 #include "m1Pathfinding.h"
@@ -333,10 +334,10 @@ void e1Warrior::UpdateLevel()
 	stats.attack_power_ability_1 += 2;
 	stats.attack_power_ability_3 += 2;
 
-	App->scene->player_hp_bar->max_capacity = stats.max_lives;
-	App->scene->player_mana_bar->max_capacity = stats.max_mana;
+	App->menu_manager->hud.player_hp_bar->max_capacity = stats.max_lives;
+	App->menu_manager->hud.player_mana_bar->max_capacity = stats.max_mana;
 
-	App->scene->player_hp_bar->PrintBarNumbers();
-	App->scene->player_mana_bar->PrintBarNumbers();
+	App->menu_manager->hud.player_hp_bar->PrintBarNumbers();
+	App->menu_manager->hud.player_mana_bar->PrintBarNumbers();
 
 }
