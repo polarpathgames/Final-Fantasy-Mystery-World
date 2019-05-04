@@ -18,7 +18,9 @@ u1GUI::u1GUI(UIType type, const int &x, const int &y, u1GUI* parent, const SDL_R
 	}
 }
 
-u1GUI::~u1GUI() {}
+u1GUI::~u1GUI() {
+
+}
 
 void u1GUI::Draw()
 {
@@ -30,7 +32,7 @@ void u1GUI::Draw()
 			draw_offset += p->position;
 		}
 	}
-
+	global_rect = { draw_offset.x,draw_offset.y,section.w,section.h };
 	if (drawable)
 		InnerDraw();
 
@@ -65,6 +67,27 @@ void u1GUI::PreUpdate()
 bool u1GUI::Update()
 {
 	UpdateElement();
+
+	iPoint mouse;
+	App->input->GetMousePosition(mouse.x, mouse.y);
+	if (current_state == Element_Event::CLICKED_REPEAT && draggable) {
+
+		if (mouse.x != last_mouse.x || mouse.y != last_mouse.y) {
+
+			int x_motion = mouse.x - last_mouse.x, y_motion = mouse.y - last_mouse.y;
+			switch (type) {
+			case UIType::VERTICAL_SLIDER:
+				SetPos(GetLocalPosition().x, GetLocalPosition().y + y_motion * App->win->GetScale());
+				break;
+			default:
+				SetPos(GetLocalPosition().x + x_motion * App->win->GetScale(), GetLocalPosition().y + y_motion * App->win->GetScale());
+				break;
+			}
+		}
+		
+	}
+	last_mouse = mouse;
+
 	if (current_state == Element_Event::CLICKED_DOWN || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 		for (std::list<m1Module*>::iterator module = listeners.begin(); module != listeners.end(); ++module) {
 			if (*module != nullptr)
@@ -176,4 +199,18 @@ void u1GUI::AddListener(m1Module * module)
 void u1GUI::DeleteListener(m1Module * module)
 {
 	listeners.remove(module);
+}
+
+SDL_Rect* u1GUI::GetGlobalRect()
+{
+	if (parent != nullptr) {
+		draw_offset.x = position.x;
+		draw_offset.y = position.y;
+		for (u1GUI* p = parent; p != nullptr; p = p->parent) {
+			draw_offset += p->position;
+		}
+		global_rect = { draw_offset.x,draw_offset.y,section.w,section.h };
+		return &global_rect;
+	}
+
 }

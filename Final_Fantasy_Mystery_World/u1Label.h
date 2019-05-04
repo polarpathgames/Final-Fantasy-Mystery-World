@@ -14,7 +14,7 @@ public:
 	u1Label() : u1GUI(LABEL, 0, 0, nullptr, { 0,0,0,0 }) {	}
 	u1Label(const int & pos_x, const int & pos_y, const char* txt, const Color &c, FontType font, u1GUI* parent = nullptr,
 		bool interactable = false, bool draggable = false, uint32 wrap_length = 0, bool focus = false,
-		bool has_background = false, const SDL_Color& bg_color = { 255,255,255,255 });
+		bool has_background = false, const SDL_Color& bg_color = { 255,255,255,255 }, SDL_Rect * clip_zone = NULL);
 	~u1Label();
 
 	void InnerDraw();
@@ -39,5 +39,6 @@ protected:
 	uint32			wrap = 0U;
 	bool			has_background = false;
 	SDL_Color		background_color = { 255,255,255,255 };
+	SDL_Rect *		clip_zone = nullptr;
 };
 #endif //_u1Label_H_

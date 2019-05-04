@@ -150,6 +150,7 @@
     <ClCompile Include="e1Player.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="e1StaticEntity.cpp" />
+    <ClCompile Include="u1VerticalSlider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="c1CutSceneAction.h" />
@@ -232,6 +233,7 @@
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
     <ClInclude Include="e1StaticEntity.h" />
+    <ClInclude Include="u1VerticalSlider.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\assets\xml\config.xml" />

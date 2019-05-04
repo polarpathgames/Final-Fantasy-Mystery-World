@@ -74,10 +74,13 @@ public:
 	void AddListener(m1Module* module);
 	void DeleteListener(m1Module* module);
 
+	SDL_Rect* GetGlobalRect();
+
 public:
 	iPoint position = { 0,0 };
 
 	SDL_Rect section = { 0,0 };
+	SDL_Rect global_rect = { 0,0,0,0 };
 
 	bool interactable = true;
 	bool draggable = true;
