@@ -43,6 +43,9 @@ Room::Room(const std::string &tmx_location, const uint &id, const std::string &t
 
 Room::~Room()
 {
+	if (map_room_image != nullptr)
+		map_room_image->to_delete = true;
+
 	std::vector<ChangeScene*>::iterator item = change_scene_points.begin();
 	for (; item != change_scene_points.end(); ++item) {
 		delete (*item);
@@ -104,10 +107,10 @@ RoomManager::RoomManager(const char* name)
 			}
 			rooms.push_back(r);
 		}
-
+		rooms.front()->map_room_image = App->gui->AddImage(125, 125, { 1317,2170,128,64 }, nullptr, (u1GUI*)map_zone, false, false, false, false);
+		player_pos = App->gui->AddImage(0, 0, { 1830,2170,128,64 }, nullptr, rooms.front()->map_room_image, false, false, false, false);
 		LoadRoom(1);
-		actual_room->map_room_image = App->gui->AddImage(125, 125, { 1317,2170,128,64 }, nullptr, (u1GUI*)map_zone, false, false, false, false);
-		player_pos = App->gui->AddImage(0, 0, { 1830,2170,128,64 }, nullptr, actual_room->map_room_image, false, false, false, false);
+		
 	}
 
 	room_manager_file.reset();
