@@ -108,15 +108,15 @@ bool e1Player::Load(pugi::xml_node & node)
 	App->main_menu->entity_type = (EntityType)p_stats.attribute("entity_type").as_int();
 	pugi::xml_node p_globals = node.child("globals");
 	App->globals.player_name = p_globals.attribute("player_name").as_string();
-	App->globals.ability1_gained = p_globals.attribute("ability1_gained").as_int();
-	App->globals.ability2_gained = p_globals.attribute("ability2_gained").as_int();
-	App->globals.CutSceneAfterBossTutorialPlayed = p_globals.attribute("CutSceneAfterBossTutorialPlayed").as_int();
-	App->globals.CutSceneFinalRoomTutorialPlayed = p_globals.attribute("CutSceneFinalRoomTutorialPlayed").as_int();
-	App->globals.CutSceneLobbyExplain = p_globals.attribute("CutSceneLobbyExplain").as_int();
-	App->globals.CutSceneMiddleRoomTutorialPlayed = p_globals.attribute("CutSceneMiddleRoomTutorialPlayed").as_int();
-	App->globals.CutSceneTutorialGirlEscapingPlayed = p_globals.attribute("CutSceneTutorialGirlEscapingPlayed").as_int();
-	App->globals.Tutorial_first_time = p_globals.attribute("Tutorial_first_time").as_int();
-	App->scene->player_type = (PlayerType)p_globals.attribute("player_type").as_int();
+	App->globals.ability1_gained = p_globals.attribute("ability1_gained").as_bool();
+	App->globals.ability2_gained = p_globals.attribute("ability2_gained").as_bool();
+	App->globals.CutSceneAfterBossTutorialPlayed = p_globals.attribute("CutSceneAfterBossTutorialPlayed").as_bool();
+	App->globals.CutSceneFinalRoomTutorialPlayed = p_globals.attribute("CutSceneFinalRoomTutorialPlayed").as_bool();
+	App->globals.CutSceneLobbyExplain = p_globals.attribute("CutSceneLobbyExplain").as_bool();
+	App->globals.CutSceneMiddleRoomTutorialPlayed = p_globals.attribute("CutSceneMiddleRoomTutorialPlayed").as_bool();
+	App->globals.CutSceneTutorialGirlEscapingPlayed = p_globals.attribute("CutSceneTutorialGirlEscapingPlayed").as_bool();
+	App->globals.Tutorial_first_time = p_globals.attribute("Tutorial_first_time").as_bool();
+	App->scene->player_type = (PlayerType)p_globals.attribute("player_type").as_bool();
 	App->scene->player->Init();
 	App->scene->player->CenterPlayerInTile();
 	App->render->CenterCameraOnPlayer(App->scene->player->position);
@@ -182,14 +182,14 @@ void e1Player::OnCollisionEnter(Collider * c2)
 	}
 	if (c2->type == COLLIDER_CUTSCENE_BRIDGE) {
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneBlockPass.xml");
-		App->scene->ShowHUD(false);
+		App->menu_manager->ShowHUD(false);
 	}
 }
 
 void e1Player::OnCollisionExit(Collider * c2)
 {
 	if (c2->type == COLLIDER_CUTSCENE_BRIDGE) {
-		App->scene->ShowHUD(true);
+		App->menu_manager->ShowHUD(true);
 	}
 }
 
@@ -1154,7 +1154,7 @@ void e1Player::Death()
 		App->audio->PlayFx(App->scene->fx_die);
 		App->map->CleanUp();
 		App->entity_manager->DeleteEntitiesNoPlayer();
-		App->gui->DeleteUIElement((u1GUI*)App->scene->bg_hud);
+		App->menu_manager->ShowHUD(false);
 		App->menu_manager->CreateGameOver();
 		App->scene->SetMenuState(StatesMenu::DIE_MENU);
 		state = State::MENU;
@@ -1239,7 +1239,7 @@ void e1Player::QuestControls()
 	}
 
 	if (!player_input.pressing_shift) {
-		App->scene->ChangeCompass(false);
+		App->menu_manager->ChangeCompass(false);
 		if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
 			player_input.pressing_S = true;
 		}
@@ -1254,7 +1254,7 @@ void e1Player::QuestControls()
 		}
 	}
 	else {
-		App->scene->ChangeCompass(true);
+		App->menu_manager->ChangeCompass(true);
 		if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) {
 			player_input.pressing_S = true;
 		}
@@ -1326,7 +1326,6 @@ void e1Player::Flashing()
 		position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
 		movement_count = { 0,0 };
 		CenterPlayerInTile();
-
 		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
 		target_position = position;
 		initial_position = position;
@@ -1352,7 +1351,7 @@ void e1Player::ReduceMana(const int & cost_mana)
 	stats.mana -= cost_mana;
 	if (stats.mana < 0)
 		stats.mana = 0;
-	App->scene->player_mana_bar->UpdateBar(-cost_mana, MANABAR);
+	App->menu_manager->hud.player_mana_bar->UpdateBar(-cost_mana, MANABAR);
 }
 
 void e1Player::AugmentMana(const int & plus_mana, bool level_up)
@@ -1381,7 +1380,7 @@ void e1Player::ReduceLives(const int & cost_lives)
 	stats.live -= cost_lives;
 	if (stats.live < 0)
 		stats.live = 0;
-	App->scene->player_hp_bar->UpdateBar(-cost_lives, HPBAR);
+	App->menu_manager->hud.player_hp_bar->UpdateBar(-cost_lives, HPBAR);
 }
 
 void e1Player::AugmentLives(const int & plus_lives, bool level_up)
@@ -1396,8 +1395,10 @@ void e1Player::AugmentLives(const int & plus_lives, bool level_up)
 	stats.live += plus_lives;
 	if (stats.live > stats.max_lives)
 		stats.live = stats.max_lives;
+
 	//App->scene->player_hp_bar->max_capacity += plus_lives;
 	App->scene->player_hp_bar->UpdateBar(plus_lives, HPBAR);
+
 
 }
 

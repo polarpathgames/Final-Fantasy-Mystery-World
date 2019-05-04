@@ -4,6 +4,7 @@
 #include "m1Textures.h"
 #include "e1Entity.h"
 #include "m1Audio.h"
+#include "m1MenuManager.h"
 #include "e1StrangeFrog.h"
 #include "e1Drop.h"
 #include "m1Window.h"
@@ -369,8 +370,8 @@ bool m1EntityManager::Load(pugi::xml_node& load)
 			break;
 		}
 	}
-	App->scene->CreateHUD();
-	App->scene->ShowHUD(false);
+	App->menu_manager->CreateHUD();
+	App->menu_manager->ShowHUD(false);
 	App->scene->player->actual_tile.x += 1;
 	App->scene->player->actual_tile.y += 1;
 	App->scene->player->CenterOnTile();

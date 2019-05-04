@@ -899,6 +899,70 @@ void m1MenuManager::CreateFirstAbilityPanel()
 
 }
 
+void m1MenuManager::CreateHUD()
+{
+	hud.bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, nullptr, App->gui->screen, true, false, false, false);
+	hud.diagonal_compass = App->gui->AddImage(925, 675, { 1876, 3084, 88, 74 }, this, hud.bg_hud, true, false, false, false);
+	hud.vertical_compass = App->gui->AddImage(925, 670, { 1949, 3159, 82, 86 }, this, hud.bg_hud, false, false, false, false);
+
+	switch (App->scene->player_type) {
+	case PlayerType::WARRIOR:
+		hud.player_hud_image = App->gui->AddImage(28, 653, { 1163,4079,76,98 }, nullptr, hud.bg_hud, true, false, false, false);
+		break;
+	case PlayerType::ARCHER:
+		hud.player_hud_image = App->gui->AddImage(28, 653, { 1740,4088,76,98 }, nullptr, hud.bg_hud, true, false, false, false);
+		break;
+	case PlayerType::MAGE:
+		hud.player_hud_image = App->gui->AddImage(28, 653, { 1458,4084,76,98 }, nullptr, hud.bg_hud, true, false, false, false);
+		break;
+	}
+	hud.player_hp_bar = App->gui->AddBar(215, 662,App->scene->player->stats.max_lives, HPBAR, hud.bg_hud, nullptr);
+	hud.player_mana_bar = App->gui->AddBar(215, 700, App->scene->player->stats.max_mana, MANABAR, hud.bg_hud, nullptr);
+}
+
+void m1MenuManager::DestroyHUD()
+{
+	App->gui->DeleteUIElement(hud.bg_hud);
+	hud.bg_hud = nullptr;
+}
+
+void m1MenuManager::ShowHUD(bool show_or_hide)
+{
+       	if ((show_or_hide && App->map->actual_map != Maps::LOBBY && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::SHOP) || !show_or_hide && hud.bg_hud != nullptr) {
+		hud.bg_hud->drawable = show_or_hide;
+		hud.player_hud_image->drawable = show_or_hide;
+		hud.player_hp_bar->drawable = show_or_hide;
+		hud.player_mana_bar->drawable = show_or_hide;
+		hud.diagonal_compass->drawable = show_or_hide;
+		hud.vertical_compass->drawable = show_or_hide;
+		hud.player_hp_bar->bar_numbers_label->drawable = show_or_hide;
+		hud.player_mana_bar->bar_numbers_label->drawable = show_or_hide;
+	}
+}
+
+void m1MenuManager::ChangeCompass(bool shift_pressed)
+{
+
+	if (shift_pressed)
+	{
+		hud.vertical_compass->drawable = true;
+		hud.diagonal_compass->drawable = false;
+	}
+
+	else
+	{
+		if (App->cutscene_manager->is_executing == true)
+		{
+			hud.diagonal_compass->drawable = false;
+			hud.vertical_compass->drawable = false;
+		}
+		else
+		{
+			hud.diagonal_compass->drawable = true;
+			hud.vertical_compass->drawable = false;
+		}
+	}
+}
 void m1MenuManager::DestroyFirstAbilityPanel()
 {
 	App->gui->DeleteUIElement(abilities.first_ability_panel);
@@ -947,19 +1011,19 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		App->scene->SetMenuState(StatesMenu::NO_MENU);
 		if (App->GetPause())
 			App->ChangePause();
-		App->scene->ShowHUD(true);
+		ShowHUD(true);
 		ret = false;
 		App->scene->player->BlockControls(false);
 	}
 	if (interaction == pause.button_main_menu)
 	{
 		DestroyDebugScreen();
+		DestroyHUD();
 		App->gui->DeleteAllUIElements();
 		App->entity_manager->Disable();
 		App->map->Disable();
 		App->ChangePause();
 		pause.Reset();
-		active = false;
 		App->main_menu->Enable();
 		ret = false;
 	}
@@ -968,7 +1032,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		CreateOptions();
 		DestroyPauseMenu();
 		App->scene->SetMenuState(StatesMenu::OPTIONS_MENU);
-		App->scene->ShowHUD(false);
+		ShowHUD(false);
 		ret = false;
 	}
 
@@ -1073,7 +1137,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		}
 		else if (App->scene->active) {
 			CreatePauseMenu();
-			App->scene->ShowHUD(true);
+			ShowHUD(true);
 			App->scene->SetMenuState(StatesMenu::PAUSE_MENU);
 		}
 

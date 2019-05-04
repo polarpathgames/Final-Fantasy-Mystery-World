@@ -10,6 +10,7 @@
 #include "m1Scene.h"
 #include "m1Audio.h"
 #include "m1Input.h"
+#include "m1MenuManager.h"
 #include "m1EasingSplines.h"
 #include "Brofiler/Brofiler.h"
 #include "m1GUI.h"
@@ -442,7 +443,7 @@ bool e1StaticEntity::Update(float dt)
 					App->audio->PlayFx(App->scene->fx_writting);
 					App->dialog->end_dial = false;
 					App->audio->PlayFx(App->scene->fx_writting);
-					App->scene->ShowHUD(false);
+					App->menu_manager->ShowHUD(false);
 					App->gui->DeleteUIElement((u1GUI*)button_interact);
 					button_interact = nullptr;
 				}
@@ -461,7 +462,7 @@ bool e1StaticEntity::Update(float dt)
 	{
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 		if (static_type != Type::HELP1 && static_type != Type::HELP2 && static_type != Type::HELP3)
-			App->scene->ShowHUD(true);
+			App->menu_manager->ShowHUD(true);
 	}
 
 	if (interacting_state == InteractingStates::INTERACTING) {
