@@ -24,6 +24,9 @@ public:
 
 	void Update_position(iPoint* pos);
 
+	void SetEntityToFollow(e1Entity* ent);
+	void SetObjectToFollow(iPoint* obj);
+
 
 public:
 
