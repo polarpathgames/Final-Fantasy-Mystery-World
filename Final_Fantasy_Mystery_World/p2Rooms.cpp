@@ -308,6 +308,9 @@ void RoomManager::LoadEntities()
 				else if ((*position)->ent_type == "StrangeFrog") {
 					ent_type = e1Entity::EntityType::STRANGE_FROG;
 				}
+				else if ((*position)->ent_type == "Cassio") {
+					ent_type = e1Entity::EntityType::CASSIO;
+				}
 				App->entity_manager->CreateEntity(ent_type, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 				std::vector<MapIndicators*>::iterator item = actual_room->map_indicators.begin();
 				bool created = false;

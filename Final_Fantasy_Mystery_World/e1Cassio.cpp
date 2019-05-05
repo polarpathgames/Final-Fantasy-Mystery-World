@@ -15,7 +15,7 @@ e1Cassio::e1Cassio(const int & x, const int & y) : e1Enemy(x, y)
 
 	enemy_type = EnemyType::CASSIO;
 
-	SetPivot(21, 33);
+	SetPivot(14, 33);
 
 	CenterOnTile();
 
@@ -111,70 +111,70 @@ void e1Cassio::IdAnimToEnum()
 		case 2:
 			data.animations[i].animType = AnimationState::IDLE_DOWN_LEFT;
 			break;
-		case 3:
+		case 6:
 			data.animations[i].animType = AnimationState::WALKING_DOWN_RIGHT;
 			break;
-		case 5:
+		case 8:
 			data.animations[i].animType = AnimationState::IDLE_DOWN_RIGHT;
 			break;
-		case 8:
+		case 3:
 			data.animations[i].animType = AnimationState::WALKING_UP_LEFT;
 			break;
-		case 10:
+		case 5:
 			data.animations[i].animType = AnimationState::IDLE_UP_LEFT;
 			break;
-		case 11:
+		case 9:
 			data.animations[i].animType = AnimationState::WALKING_UP_RIGHT;
 			break;
-		case 13:
+		case 11:
 			data.animations[i].animType = AnimationState::IDLE_UP_RIGHT;
 			break;
-		case 32:
+		case 24:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_LEFT;
 			break;
-		case 43:
+		case 30:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_RIGHT;
 			break;
-		case 40:
+		case 26:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_LEFT;
 			break;
-		case 35:
+		case 28:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_RIGHT;
 			break;
-		case 18:
+		case 14:
 			data.animations[i].animType = AnimationState::IDLE_DOWN;
 			break;
-		case 26:
+		case 17:
 			data.animations[i].animType = AnimationState::IDLE_UP;
 			break;
-		case 21:
+		case 20:
 			data.animations[i].animType = AnimationState::IDLE_LEFT;
 			break;
-		case 29:
+		case 23:
 			data.animations[i].animType = AnimationState::IDLE_RIGHT;
 			break;
-		case 16:
+		case 12:
 			data.animations[i].animType = AnimationState::WALKING_DOWN;
 			break;
-		case 24:
+		case 15:
 			data.animations[i].animType = AnimationState::WALKING_UP;
 			break;
-		case 19:
+		case 18:
 			data.animations[i].animType = AnimationState::WALKING_LEFT;
 			break;
-		case 27:
+		case 21:
 			data.animations[i].animType = AnimationState::WALKING_RIGHT;
 			break;
-		case 48:
+		case 36:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN;
 			break;
-		case 56:
+		case 38:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP;
 			break;
-		case 51:
+		case 40:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_LEFT;
 			break;
-		case 59:
+		case 42:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
 		case 64:

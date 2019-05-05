@@ -9654,7 +9654,7 @@
   <object id="13" name="plant1" type="static" x="352" y="256" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="9" name="entities">
-  <object id="5" name="player" type="default" x="432" y="336" width="15.9688" height="16.0156">
+  <object id="5" name="player" type="default" x="432" y="400" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
@@ -9664,7 +9664,7 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="48" name="enemy" type="SuperPurpleFrog" x="432" y="272" width="15.9688" height="16.0156">
+  <object id="48" name="enemy" type="Cassio" x="400" y="352" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
