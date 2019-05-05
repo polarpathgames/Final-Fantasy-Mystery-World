@@ -63,11 +63,10 @@
 
   <quest2>
     <room>
-      <location>Quest1_Enter.tmx</location>
+      <location>Quest1_Fountain.tmx</location>
       <id num="1"></id>
       <type>paceful</type>
       <properties>
-        <property name="blizzard" value="1"/>
       </properties>
     </room>
     <room>
