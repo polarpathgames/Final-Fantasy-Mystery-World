@@ -38,7 +38,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 	else if (strcmp(name, "health_potion") == 0) {
 		actual_tile = { x,y };
 		drop_type = DropsType::HEALTH_POTION;
-		frame = { 1059,2,12,15 };
+		frame = { 995,112,13,15 };
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		CenterOnTile();
@@ -47,7 +47,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 	else if (strcmp(name, "mana_potion") == 0) {
 		actual_tile = { x,y };
 		drop_type = DropsType::MANA_POTION;
-		frame = { 1074,0,12,16 };
+		frame = { 1009,111,13,17 };
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		CenterOnTile();
