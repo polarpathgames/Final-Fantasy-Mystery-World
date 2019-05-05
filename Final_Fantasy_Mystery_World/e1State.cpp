@@ -6,8 +6,8 @@
 #include "m1EntityManager.h"
 
 e1State::e1State(int x, int y, const char * name) :e1Entity(x, y) {
-	if (strcmp(name,"snowstorm") == 0) {
-		state = EventStates::SNOWSTORM;
+	if (strcmp(name,"blizzard") == 0) {
+		state = EventStates::BLIZZARD;
 		turn_effect = 3U;
 		animation = new Animation();
 		animation->PushBack({ 0,0,1024,768 });
@@ -51,7 +51,7 @@ bool e1State::PreUpdate()
 			timer.Start();
 			switch (state)
 			{
-			case EventStates::SNOWSTORM: {
+			case EventStates::BLIZZARD: {
 				std::vector<e1Entity*> list = App->entity_manager->GetEntities();
 				for (std::vector<e1Entity*>::iterator item = list.begin(); item != list.end(); ++item) {
 					if ((*item)->type == e1Entity::EntityType::PLAYER || (*item)->type == e1Entity::EntityType::ENEMY)

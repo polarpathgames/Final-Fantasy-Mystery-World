@@ -58,7 +58,7 @@
       <id num="1"></id>
       <type>paceful</type>
       <properties>
-        <property name="snowstorm" value="1"/>
+        <property name="blizzard" value="1"/>
       </properties>
     </room>
   </quest2>
