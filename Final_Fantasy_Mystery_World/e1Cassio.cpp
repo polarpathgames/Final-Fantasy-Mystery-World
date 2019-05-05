@@ -8,6 +8,7 @@
 #include "m1Render.h"
 #include "m1Audio.h"
 #include "m1ParticleManager.h"
+#include "m1EntityManager.h"
 #include "p1Follow.h"
 #include "p2Math.h"
 #include "Brofiler/Brofiler.h"
@@ -110,6 +111,7 @@ bool e1Cassio::Update(float dt)
 			lerp_translation = 0.f;
 			App->particles->DeleteFollow_p(poison_particle);
 			poison_particle = nullptr;
+			App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, App->scene->player->position.x, App->scene->player->position.y, "poison");
 		}
 		if (attack) {
 			state = State::AFTER_ATTACK;
