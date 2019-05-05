@@ -15,6 +15,7 @@
 #include "m1GUI.h"
 #include "m1Pathfinding.h"
 #include "m1Collisions.h"
+#include "m1MenuManager.h"
 #include "m1Scene.h"
 #include "m1FadeToBlack.h"
 #include "u1Label.h"
@@ -258,4 +259,11 @@ void e1Archer::UpdateLevel()
 	stats.attack_power += 2;
 	stats.attack_power_ability_1 += 5;
 	stats.attack_power_ability_3 += 5;
+
+
+	App->menu_manager->hud.player_hp_bar->max_capacity = stats.max_lives;
+	App->menu_manager->hud.player_mana_bar->max_capacity = stats.max_mana;
+
+	App->menu_manager->hud.player_hp_bar->PrintBarNumbers();
+	App->menu_manager->hud.player_mana_bar->PrintBarNumbers();
 }

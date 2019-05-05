@@ -15,6 +15,7 @@
 #include "m1Input.h"
 #include "m1Scene.h"
 #include "m1Textures.h"
+#include "u1VerticalSlider.h"
 #include "m1Cutscene.h"
 #include "m1EntityManager.h"
 #include "m1Map.h"
@@ -660,25 +661,38 @@ void m1MenuManager::CreateShopMenu()
 {
 	App->scene->player->BlockControls(true);
 
-	shop.shop_panel = App->gui->AddImage(-350 - 227, (App->gui->screen->section.h - 383) * 0.5F, { 1820,1691,227,383 }, (m1Module*)App->scene, App->gui->screen, true, false, false, false);
+	shop.shop_panel = App->gui->AddImage(-350 - 227, (App->gui->screen->section.h - 383) * 0.5F, { 1795,1691,252,383 }, (m1Module*)App->scene, App->gui->screen, true, false, false, false);
 	//shop.shop_panel->SetPosRespectParent(LEFT_CENTERED, 200);
+	shop.shop_zone = App->gui->AddImage(0,90, { 1795,1691,252,240 }, nullptr, shop.shop_panel, false, false, false, false);
+	shop.shop_item_zone = App->gui->AddImage(0, 0, { 1795,1691,252,383 }, nullptr, shop.shop_zone, false, false, false, false);
 	shop.shop_label = App->gui->AddLabel(0, 0, "SHOP", shop.shop_panel, BLACK, FontType::FF64, nullptr, false);
 	shop.shop_label->SetPosRespectParent(CENTERED_UP, 20);
 
 	shop.button_close_shop = App->gui->AddButton(130, 330, { 1850,1637,75,35 }, { 1850,1637,55,35 }, { 1850,1637,55,35 }, App->scene, shop.shop_panel, false, false, true, true);
 	shop.label_close_shop = App->gui->AddLabel(140, 321, "Return", shop.shop_panel, BLACK, FontType::FF48, nullptr, false);
 
+	shop.shop_background_item1 = App->gui->AddImage(38, 1, { 1050,2116,161,61 }, nullptr, shop.shop_item_zone, true, false, false, false,nullptr,shop.shop_zone->GetGlobalRect());
+	shop.shop_hp_potion_image = App->gui->AddImage(58, 8, { 1058, 1952, 33, 47 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
+	shop.shop_hp_potion_label = App->gui->AddLabel(102, 0, std::string("x " + std::to_string(App->scene->price_hp_potion)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false,{ 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
+	shop.shop_coin1 = App->gui->AddImage(160, 19, { 1024, 1952, 34, 34 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
+	shop.shop_button_hp_potion = App->gui->AddButton(32, 7, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item1->clip_zone);
 
-	shop.shop_hp_potion_image = App->gui->AddImage(58, 101, { 1058, 1952, 33, 47 }, nullptr, shop.shop_panel, true, false, false, false);
-	shop.shop_hp_potion_label = App->gui->AddLabel(102, 93, std::string("x " + std::to_string(App->scene->price_hp_potion)).data(), shop.shop_panel, BLACK, FontType::FF64, nullptr, false);
-	shop.shop_coin1 = App->gui->AddImage(160, 112, { 1024, 1952, 34, 34 }, nullptr, shop.shop_panel, true, false, false, false);
-	shop.shop_button_hp_potion = App->gui->AddButton(32, 100, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_panel, false, false, true, true);
+	shop.shop_background_item2 = App->gui->AddImage(38, 81, { 1050,2116,161,61 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
+	shop.shop_mana_potion_image = App->gui->AddImage(58, 86, { 1091, 1952, 33, 51 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
+	shop.shop_mana_potion_label = App->gui->AddLabel(102, 78, std::string("x " + std::to_string(App->scene->price_mana_potion)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
+	shop.shop_coin2 = App->gui->AddImage(160, 97, { 1024, 1952, 34, 34 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
+	shop.shop_button_mana_potion = App->gui->AddButton(32, 85, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item2->clip_zone);
 
-	shop.shop_mana_potion_image = App->gui->AddImage(58, 186, { 1091, 1952, 33, 51 }, nullptr, shop.shop_panel, true, false, false, false);
-	shop.shop_mana_potion_label = App->gui->AddLabel(102, 178, std::string("x " + std::to_string(App->scene->price_mana_potion)).data(), shop.shop_panel, BLACK, FontType::FF64, nullptr, false);
-	shop.shop_coin2 = App->gui->AddImage(160, 197, { 1024, 1952, 34, 34 }, nullptr, shop.shop_panel, true, false, false, false);
-	shop.shop_button_mana_potion = App->gui->AddButton(32, 185, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_panel, false, false, true, true);
+	shop.shop_background_item3 = App->gui->AddImage(38, 161, { 1050,2116,161,61 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
+	shop.shop_button_item3 = App->gui->AddButton(32, 165, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item3->clip_zone);
 
+	shop.shop_background_item4 = App->gui->AddImage(38, 241, { 1050,2116,161,61 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
+	shop.shop_button_item4 = App->gui->AddButton(32, 245, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item4->clip_zone);
+
+	shop.shop_background_item5 = App->gui->AddImage(38, 321, { 1050,2116,161,61 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
+	shop.shop_button_item5 = App->gui->AddButton(32, 325, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item5->clip_zone);
+
+	shop.shop_vertical_slider = App->gui->AddVerticalSlider(207, 86, { 1664,1837,29,250 }, { 1710,1837,19,48 }, { 1710,1837,19,48 }, { 1710,1837,19,48 }, shop.shop_panel, &shop.shop_item_zone->position.y, shop.shop_item_zone->section.h/2);
 
 	App->gui->FocusButton(shop.shop_button_hp_potion);
 
@@ -883,6 +897,70 @@ void m1MenuManager::CreateFirstAbilityPanel()
 
 }
 
+void m1MenuManager::CreateHUD()
+{
+	hud.bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, nullptr, App->gui->screen, true, false, false, false);
+	hud.diagonal_compass = App->gui->AddImage(925, 675, { 1876, 3084, 88, 74 }, this, hud.bg_hud, true, false, false, false);
+	hud.vertical_compass = App->gui->AddImage(925, 670, { 1949, 3159, 82, 86 }, this, hud.bg_hud, false, false, false, false);
+
+	switch (App->scene->player_type) {
+	case PlayerType::WARRIOR:
+		hud.player_hud_image = App->gui->AddImage(28, 653, { 1163,4079,76,98 }, nullptr, hud.bg_hud, true, false, false, false);
+		break;
+	case PlayerType::ARCHER:
+		hud.player_hud_image = App->gui->AddImage(28, 653, { 1740,4088,76,98 }, nullptr, hud.bg_hud, true, false, false, false);
+		break;
+	case PlayerType::MAGE:
+		hud.player_hud_image = App->gui->AddImage(28, 653, { 1458,4084,76,98 }, nullptr, hud.bg_hud, true, false, false, false);
+		break;
+	}
+	hud.player_hp_bar = App->gui->AddBar(215, 662,App->scene->player->stats.max_lives, HPBAR, hud.bg_hud, nullptr);
+	hud.player_mana_bar = App->gui->AddBar(215, 700, App->scene->player->stats.max_mana, MANABAR, hud.bg_hud, nullptr);
+}
+
+void m1MenuManager::DestroyHUD()
+{
+	App->gui->DeleteUIElement(hud.bg_hud);
+	hud.bg_hud = nullptr;
+}
+
+void m1MenuManager::ShowHUD(bool show_or_hide)
+{
+       	if ((show_or_hide && App->map->actual_map != Maps::LOBBY && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::SHOP) || !show_or_hide && hud.bg_hud != nullptr) {
+		hud.bg_hud->drawable = show_or_hide;
+		hud.player_hud_image->drawable = show_or_hide;
+		hud.player_hp_bar->drawable = show_or_hide;
+		hud.player_mana_bar->drawable = show_or_hide;
+		hud.diagonal_compass->drawable = show_or_hide;
+		hud.vertical_compass->drawable = show_or_hide;
+		hud.player_hp_bar->bar_numbers_label->drawable = show_or_hide;
+		hud.player_mana_bar->bar_numbers_label->drawable = show_or_hide;
+	}
+}
+
+void m1MenuManager::ChangeCompass(bool shift_pressed)
+{
+
+	if (shift_pressed)
+	{
+		hud.vertical_compass->drawable = true;
+		hud.diagonal_compass->drawable = false;
+	}
+
+	else
+	{
+		if (App->cutscene_manager->is_executing == true)
+		{
+			hud.diagonal_compass->drawable = false;
+			hud.vertical_compass->drawable = false;
+		}
+		else
+		{
+			hud.diagonal_compass->drawable = true;
+			hud.vertical_compass->drawable = false;
+		}
+	}
+}
 void m1MenuManager::DestroyFirstAbilityPanel()
 {
 	App->gui->DeleteUIElement(abilities.first_ability_panel);
@@ -931,19 +1009,20 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		App->scene->SetMenuState(StatesMenu::NO_MENU);
 		if (App->GetPause())
 			App->ChangePause();
-		App->scene->ShowHUD(true);
+		ShowHUD(true);
 		ret = false;
 		App->scene->player->BlockControls(false);
 	}
 	if (interaction == pause.button_main_menu)
 	{
+		App->easing_splines->CleanUp();
 		DestroyDebugScreen();
+		DestroyHUD();
 		App->gui->DeleteAllUIElements();
 		App->entity_manager->Disable();
 		App->map->Disable();
 		App->ChangePause();
 		pause.Reset();
-		active = false;
 		App->main_menu->Enable();
 		ret = false;
 	}
@@ -952,7 +1031,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		CreateOptions();
 		DestroyPauseMenu();
 		App->scene->SetMenuState(StatesMenu::OPTIONS_MENU);
-		App->scene->ShowHUD(false);
+		ShowHUD(false);
 		ret = false;
 	}
 
@@ -1057,7 +1136,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		}
 		else if (App->scene->active) {
 			CreatePauseMenu();
-			App->scene->ShowHUD(true);
+			ShowHUD(true);
 			App->scene->SetMenuState(StatesMenu::PAUSE_MENU);
 		}
 

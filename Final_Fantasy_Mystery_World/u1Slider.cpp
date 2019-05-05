@@ -69,7 +69,7 @@ bool u1Slider::PostUpdate()
 {
 	bool ret = true;
 
-	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &slider_rect, false, SDL_FLIP_NONE, 0.0F, true);
+	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &slider_rect, false, SDL_FLIP_NONE, 0.0F, NULL, true);
 	slider_btn->InnerDraw();
 
 	return ret;

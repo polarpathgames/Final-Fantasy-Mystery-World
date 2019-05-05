@@ -81,14 +81,10 @@ public:
 
 	void CreateEntities();
 	void CreateEntitiesFromXML(pugi::xml_node& node);
-	void CreateHUD();
-	void ShowHUD(bool show_or_hide);
 
 	bool Interact(u1GUI* interaction);
 	StatesMenu GetMenuState();
 	void SetMenuState(const StatesMenu &menu);
-
-	void ChangeCompass(bool shift_pressed);
 
 public:
 
@@ -99,17 +95,6 @@ public:
 	PlayerType player_type = PlayerType::NONE;
 
 	ChangeControls * control_to_change = nullptr;
-
-	// HUD
-	u1Image* bg_hud = nullptr;
-	u1Image* player_hud_image = nullptr;
-	u1Bar* player_hp_bar = nullptr;
-	u1Bar* player_mana_bar = nullptr;
-
-		//Compass
-	u1Image* diagonal_compass = nullptr;
-	u1Image* vertical_compass = nullptr;
-
 
 	int price_hp_potion = 75;
 	int price_mana_potion = 75;
@@ -171,6 +156,7 @@ public:
 
 	Mix_Music* mus_game_over;
 
+	bool close_shop = false;
 };
 
 #endif // __j1SCENE_H__

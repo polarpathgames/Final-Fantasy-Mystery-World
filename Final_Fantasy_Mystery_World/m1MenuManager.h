@@ -9,6 +9,7 @@ class u1Button;
 class u1Label;
 class u1CheckBox;
 class u1ChButton;
+class u1VerticalSlider;
 class u1Bar;
 
 struct UI_input {
@@ -482,15 +483,30 @@ struct UI_shop {
 	u1Button* button_close_shop = nullptr;
 	u1Label* label_close_shop = nullptr;
 
+	u1Image* shop_background_item1 = nullptr;
 	u1Button* shop_button_hp_potion = nullptr;
 	u1Image* shop_hp_potion_image = nullptr;
 	u1Label* shop_hp_potion_label = nullptr;
 	u1Image* shop_coin1 = nullptr;
 
+	u1Image* shop_background_item2 = nullptr;
 	u1Button* shop_button_mana_potion = nullptr;
 	u1Image* shop_mana_potion_image = nullptr;
 	u1Label* shop_mana_potion_label = nullptr;
 	u1Image* shop_coin2 = nullptr;
+
+	u1Image* shop_background_item3 = nullptr;
+	u1Button* shop_button_item3 = nullptr;
+
+	u1Image* shop_background_item4 = nullptr;
+	u1Button* shop_button_item4 = nullptr;
+
+	u1Image* shop_background_item5 = nullptr;
+	u1Button* shop_button_item5 = nullptr;
+
+	u1VerticalSlider* shop_vertical_slider = nullptr;
+	u1Image* shop_zone = nullptr;
+	u1Image* shop_item_zone = nullptr;
 };
 
 struct UI_debugscreen {
@@ -522,6 +538,14 @@ struct UI_game_over {
 	u1Label* label_continue_main = nullptr;
 };
 
+struct UI_HUD {
+	u1Image* bg_hud = nullptr;
+	u1Image* player_hud_image = nullptr;
+	u1Bar* player_hp_bar = nullptr;
+	u1Bar* player_mana_bar = nullptr;
+	u1Image* diagonal_compass = nullptr; 	//Compass
+	u1Image* vertical_compass = nullptr;	//Compass
+};
 class m1MenuManager :public m1Module {
 
 public:
@@ -577,6 +601,11 @@ public:
 	void CreateHelpAbilityMenu();
 	void DestroyHelpAbilityMenu();
 
+	void CreateHUD();
+	void DestroyHUD();
+	void ShowHUD(bool show_or_hide);
+	void ChangeCompass(bool shift_pressed);
+
 	void SkipMenu(bool is_cutscene);
 
 	void GodModeIndicator(bool is_god_mode);
@@ -600,6 +629,7 @@ public:
 	UI_debugscreen	debug_screen;
 	UI_abilities	abilities;
 	UI_game_over	game_over;
+	UI_HUD			hud;
 	//god mode
 	u1Label* god_text = nullptr;
 	// help diagonal

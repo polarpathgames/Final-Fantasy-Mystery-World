@@ -11,6 +11,7 @@
 #include "m1Cutscene.h"
 #include "m1DialogSystem.h"
 #include "App.h"
+#include "m1MenuManager.h"
 #include "m1Map.h"
 
 #include "Brofiler/Brofiler.h"
@@ -61,8 +62,8 @@ bool m1FadeToBlack::PostUpdate()
 			if (is_quest && App->map->quest_rooms != nullptr) {
 				App->map->quest_rooms->LoadRoom(App->map->quest_rooms->actual_room->id);
 			}
-			if (map_to_change == Maps::TUTORIAL) //Maybe this will break something, if it does, i'm sorry Att: Ivan
-				App->scene->ShowHUD(true);
+			if (map_to_change == Maps::TUTORIAL && !App->cutscene_manager->is_executing) //Maybe this will break something, if it does, i'm sorry Att: Ivan
+				App->menu_manager->ShowHUD(true);
 
 			total_time += total_time;
 			start_time = SDL_GetTicks();

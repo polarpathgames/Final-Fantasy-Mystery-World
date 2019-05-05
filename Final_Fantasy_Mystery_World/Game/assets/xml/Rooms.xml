@@ -61,6 +61,66 @@
         <property name="blizzard" value="1"/>
       </properties>
     </room>
+    <room>
+      <location>Quest1_Frog.tmx</location>
+      <id num="2"></id>
+      <type>paceful</type>
+    </room>
+    <room>
+      <location>Quest1_Barrels.tmx</location>
+      <id num="3"></id>
+      <type>paceful</type>
+    </room>
+    <room>
+      <location>Quest1_Treasure.tmx</location>
+      <id num="4"></id>
+      <type>paceful</type>
+    </room>
+    <room>
+      <location>Quest1_Cassio.tmx</location>
+      <id num="5"></id>
+      <type>paceful</type>
+    </room>
+    <room>
+      <location>Quest1_Ability.tmx</location>
+      <id num="6"></id>
+      <type>paceful</type>
+    </room>
+    <room>
+      <location>Quest1_UseTeleport.tmx</location>
+      <id num="7"></id>
+      <type>paceful</type>
+    </room>
+    <room>
+      <location>Quest1_Fountain.tmx</location>
+      <id num="8"></id>
+      <type>paceful</type>
+    </room>
+    <room>
+      <location>Quest1_Cave.tmx</location>
+      <id num="9"></id>
+      <type>paceful</type>
+    </room>
+    <room>
+      <location>Quest1_NewWorld.tmx</location>
+      <id num="10"></id>
+      <type>paceful</type>
+    </room>
+    <room>
+      <location>Quest1_PreFinal.tmx</location>
+      <id num="11"></id>
+      <type>paceful</type>
+    </room>
+    <room>
+      <location>Quest1_Fountain2.tmx</location>
+      <id num="12"></id>
+      <type>paceful</type>
+    </room>
+    <room>
+      <location>Quest1_Boss.tmx</location>
+      <id num="13"></id>
+      <type>paceful</type>
+    </room>
   </quest2>
   
 </room_manager>
