@@ -41,7 +41,9 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 	
 }
 
-u1Bar::~u1Bar() {}
+u1Bar::~u1Bar() {
+	bar_numbers_label = nullptr;
+}
 
 void u1Bar::UpdateBar(int quantity, UIType bar_type)
 {
@@ -117,15 +119,15 @@ void u1Bar::InnerDraw()
 
 void u1Bar::PrintBarNumbers()
 {
-	App->gui->DeleteUIElement(bar_numbers_label);
+	if (bar_numbers_label != nullptr)
+		App->gui->DeleteUIElement(bar_numbers_label);
 
 	if (current_quantity < 0)
 		current_quantity = 0;
 
 	std::string bar_nums_str = std::to_string(current_quantity) + "/" + std::to_string(max_capacity);
-	const char* bar_nums_char = bar_nums_str.c_str();
 
-	bar_numbers_label = App->gui->AddLabel(100, 5, bar_nums_char, filled_bar, BLACK, FontType::FF32, App->scene, false);
+	bar_numbers_label = App->gui->AddLabel(100, 5, bar_nums_str.c_str(), filled_bar, BLACK, FontType::FF32, App->scene, false);
 
 }
 
