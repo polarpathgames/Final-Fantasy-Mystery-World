@@ -10,12 +10,14 @@
 p2Timer::p2Timer()
 {
 	Start();
+	running = true;
 }
 
 // ---------------------------------------------
 void p2Timer::Start()
 {
 	started_at = SDL_GetTicks();
+	running = true;
 }
 
 // ---------------------------------------------
@@ -28,4 +30,9 @@ uint32 p2Timer::Read() const
 float p2Timer::ReadSec() const
 {
 	return float(SDL_GetTicks() - started_at) / 1000.0f;
+}
+
+bool p2Timer::IsRunning() const
+{
+	return running;
 }

@@ -5,7 +5,7 @@
 #include "p2Timer.h"
 
 enum class EventStates {
-	SNOWSTORM,
+	BLIZZARD,
 	POISON,
 
 	NONE
@@ -28,6 +28,7 @@ private:
 	SDL_Rect frame = { 0, 0, 0, 0 };
 
 	p2Timer timer;
+	p2Timer timer_before_effect;
 
 	bool doing_effect = false;
 	bool dynamic = true;
