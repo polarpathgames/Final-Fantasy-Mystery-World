@@ -311,8 +311,10 @@ bool m1Scene::Update(float dt)
 				App->menu_manager->shop.shop_vertical_slider->SetValue(90);
 			}
 			else if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_item5) {
-				if (close_shop)
+				if (close_shop) {
+					App->audio->PlayFx(App->gui->fx_focus);
 					App->gui->FocusButton(App->menu_manager->shop.button_close_shop);
+				}
 				else
 					close_shop = true;
 			}
@@ -325,6 +327,7 @@ bool m1Scene::Update(float dt)
 				App->menu_manager->shop.shop_vertical_slider->SetValue(0);
 			}
 			else if (App->gui->GetFocus() == App->menu_manager->shop.button_close_shop) {
+				App->audio->PlayFx(App->gui->fx_focus);
 				App->gui->FocusButton(App->menu_manager->shop.shop_button_item5);
 			}
 			else
