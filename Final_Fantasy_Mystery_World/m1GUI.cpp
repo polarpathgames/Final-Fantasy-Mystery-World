@@ -53,6 +53,7 @@ bool m1GUI::Start()
 	fx_inventory = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Potion_Glup.wav");
 
 	SDL_ShowCursor(SDL_DISABLE);
+	using_mouse = false;
 	
 	return true;
 }
@@ -262,9 +263,10 @@ bool m1GUI::PostUpdate()
 		}
 		tree.clear();
 
-		App->input->GetMousePosition(cursor_position.x, cursor_position.y);
-		if (show_cursor)
+		if (show_cursor) {
+			App->input->GetMousePosition(cursor_position.x, cursor_position.y);
 			App->render->Blit((SDL_Texture*)GetAtlas(), cursor_position.x * App->win->GetScale() + cursor_offset.x, cursor_position.y * App->win->GetScale() + cursor_offset.y, &cursor_rect);
+		}
 
 	}
 	return ret;
@@ -555,7 +557,7 @@ bool m1GUI::CheckCollision(int x, int y, u1GUI *item)
 
 bool m1GUI::ShowCursor(bool enable)
 {
-	return show_cursor = enable;
+	return show_cursor = using_mouse = enable;
 }
 
 const u1GUI * m1GUI::GetFocus()
