@@ -85,6 +85,7 @@ public:
 		ROCK,
 		BLUE_SLIME,
 		EVENT,
+		CASSIO,
 
 		NO_TYPE
 	};
