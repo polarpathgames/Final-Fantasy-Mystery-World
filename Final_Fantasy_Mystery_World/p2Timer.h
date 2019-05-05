@@ -13,9 +13,12 @@ public:
 	void Start();
 	uint32 Read() const;
 	float ReadSec() const;
+	void Stop();
+	bool IsRunning() const;
 
 private:
-	uint32	started_at;
+	uint32	started_at = 0u;
+	bool running = false;
 };
 
 #endif //__p2Timer_H__

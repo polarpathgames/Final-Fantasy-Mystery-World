@@ -261,8 +261,8 @@ void RoomManager::LoadRoom(const int & id)
 	PlayCutScene();
 
 	// Properties
-	if (actual_room->properties.GetValue("snowstorm") == 1) {
-		App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "snowstorm");
+	if (actual_room->properties.GetValue("blizzard") == 1) {
+		App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "blizzard");
 	}
 	
 }

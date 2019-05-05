@@ -6,14 +6,20 @@
 #include "m1EntityManager.h"
 
 e1State::e1State(int x, int y, const char * name) :e1Entity(x, y) {
-	if (strcmp(name,"snowstorm") == 0) {
-		state = EventStates::SNOWSTORM;
+	if (strcmp(name,"blizzard") == 0) {
+		state = EventStates::BLIZZARD;
 		turn_effect = 3U;
 		animation = new Animation();
 		animation->PushBack({ 0,0,1024,768 });
+		animation->PushBack({ 0,768,1024,768 });
+		animation->PushBack({ 0,1536,1024,768 });
+		animation->PushBack({ 0,2304,1024,768 });
+		animation->loop = true;
+		animation->speed = 5.f;
 		time_effect = 2U;
 		damage = 5;
 		dynamic = false;
+		drawable = true;
 	}
 
 	if (strcmp(name, "poison") == 0) {
@@ -27,7 +33,8 @@ e1State::e1State(int x, int y, const char * name) :e1Entity(x, y) {
 	}
 
 	allow_turn = true;
-	drawable = false;
+	timer_before_effect.Stop();
+	//drawable = false;
 
 	data.tileset.imagePath.assign("assets/sprites/event_states.png");
 	data.tileset.texture = App->tex->Load(data.tileset.imagePath.data());
@@ -46,46 +53,54 @@ bool e1State::PreUpdate()
 	if (!doing_effect) {
 		turn_count++;
 		if (turn_count >= turn_effect) {
-			// Do effect
-			doing_effect = true;
-			timer.Start();
-			switch (state)
-			{
-			case EventStates::SNOWSTORM: {
-				std::vector<e1Entity*> list = App->entity_manager->GetEntities();
-				for (std::vector<e1Entity*>::iterator item = list.begin(); item != list.end(); ++item) {
-					if ((*item)->type == e1Entity::EntityType::PLAYER || (*item)->type == e1Entity::EntityType::ENEMY)
-						static_cast<e1DynamicEntity*>(*item)->GetHitted(damage);
+			if (timer_before_effect.IsRunning() == false)
+				timer_before_effect.Start();
+
+			if (timer_before_effect.ReadSec() >= time_before_effect) {
+
+				timer_before_effect.Stop();
+
+				// Do effect
+				doing_effect = true;
+				timer.Start();
+				switch (state)
+				{
+				case EventStates::BLIZZARD: {
+					std::vector<e1Entity*> list = App->entity_manager->GetEntities();
+					for (std::vector<e1Entity*>::iterator item = list.begin(); item != list.end(); ++item) {
+						if ((*item)->type == e1Entity::EntityType::PLAYER || (*item)->type == e1Entity::EntityType::ENEMY)
+							static_cast<e1DynamicEntity*>(*item)->GetHitted(damage);
+					}
+					number_hit++;
+
+					break;
 				}
-				number_hit++;
-			}
-				break;
-			case EventStates::POISON:
-				if (target != nullptr) {
-					static_cast<e1DynamicEntity*>(target)->GetHitted(damage);
+				case EventStates::POISON:
+					if (target != nullptr) {
+						static_cast<e1DynamicEntity*>(target)->GetHitted(damage);
+					}
+					number_hit++;
+					break;
+				case EventStates::NONE:
+					doing_effect = false;
+					turn_done = true;
+					break;
+				default:
+					break;
 				}
-				number_hit++;
-				break;
-			case EventStates::NONE:
-				doing_effect = false;
-				turn_done = true;
-				break;
-			default:
-				break;
 			}
 		}
 		else {
 			turn_done = true;
 		}
 	}
-
 	return true;
 }
 
 bool e1State::Update(float dt)
 {
 	if (doing_effect) {
-		drawable = true;
+		//drawable = true;
 		if (target != nullptr) {
 			position = target->position;
 		}
@@ -94,7 +109,7 @@ bool e1State::Update(float dt)
 			turn_done = true;
 			turn_count = 0U;
 			doing_effect = false;
-			drawable = false;
+			//drawable = false;
 			if (max_number_hit != 0u) {
 				if (number_hit >= max_number_hit) {
 					to_delete = true;
