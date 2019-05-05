@@ -1021,6 +1021,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		App->gui->DeleteAllUIElements();
 		App->entity_manager->Disable();
 		App->map->Disable();
+		App->scene->Disable();
 		App->ChangePause();
 		pause.Reset();
 		App->main_menu->Enable();
