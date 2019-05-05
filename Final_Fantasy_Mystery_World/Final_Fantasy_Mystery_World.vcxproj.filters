@@ -210,6 +210,9 @@
     <ClCompile Include="u1VerticalSlider.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="e1Cassio.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -452,6 +455,9 @@
     </ClInclude>
     <ClInclude Include="u1VerticalSlider.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Cassio.h">
+      <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

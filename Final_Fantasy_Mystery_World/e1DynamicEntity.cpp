@@ -391,6 +391,54 @@ void e1DynamicEntity::PushBack()
 					AbilitiRight2.loop = false;
 				}
 				break;
+			case AnimationState::DISTANCE_ATTACK_DOWN_LEFT:
+				DistanceAttackDownLeft.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					DistanceAttackDownLeft.speed = data.animations[i].speed;;
+				}
+				break;
+			case AnimationState::DISTANCE_ATTACK_UP_RIGHT:
+				DistanceAttackUpRight.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					DistanceAttackUpRight.speed = data.animations[i].speed;;
+				}
+				break;
+			case AnimationState::DISTANCE_ATTACK_DOWN:
+				DistanceAttackDown.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					DistanceAttackDown.speed = data.animations[i].speed;;
+				}
+				break;
+			case AnimationState::DISTANCE_ATTACK_DOWN_RIGHT:
+				DistanceAttackDownRight.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					DistanceAttackDownRight.speed = data.animations[i].speed;;
+				}
+				break;
+			case AnimationState::DISTANCE_ATTACK_LEFT:
+				DistanceAttackLeft.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					DistanceAttackLeft.speed = data.animations[i].speed;;
+				}
+				break;
+			case AnimationState::DISTANCE_ATTACK_RIGHT:
+				DistanceAttackRight.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					DistanceAttackRight.speed = data.animations[i].speed;;
+				}
+				break;
+			case AnimationState::DISTANCE_ATTACK_UP:
+				DistanceAttackUp.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					DistanceAttackUp.speed = data.animations[i].speed;;
+				}
+				break;
+			case AnimationState::DISTANCE_ATTACK_UP_LEFT:
+				DistanceAttackUpLeft.PushBack(data.animations[i].frames[j]);
+				if (j == 0) {
+					DistanceAttackUpLeft.speed = data.animations[i].speed;
+				}
+				break;
 			default:
 				break;
 			}

@@ -28,6 +28,7 @@ public:
 		STRANGE_FROG,
 		BLUE_SLIME,
 		SUPER_PURPLE_FROG,
+		CASSIO,
 
 		NONE
 	};
