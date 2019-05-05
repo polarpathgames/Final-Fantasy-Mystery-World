@@ -177,7 +177,31 @@ void e1Cassio::IdAnimToEnum()
 		case 42:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
+		case 60:
+			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_DOWN;
+			break;
+		case 62:
+			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_UP;
+			break;
 		case 64:
+			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_LEFT;
+			break;
+		case 66:
+			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_RIGHT;
+			break;
+		case 48:
+			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_DOWN_LEFT;
+			break;
+		case 54:
+			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_UP_RIGHT;
+			break;
+		case 50:
+			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_UP_LEFT;
+			break;
+		case 52:
+			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_DOWN_RIGHT;
+			break;
+		case 644:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;
 		case 72:
@@ -192,7 +216,7 @@ void e1Cassio::IdAnimToEnum()
 		case 65:
 			data.animations[i].animType = AnimationState::DEATH_DOWN;
 			break;
-		case 66:
+		case 646:
 			data.animations[i].animType = AnimationState::DEATH_LEFT;
 			break;
 		case 81:

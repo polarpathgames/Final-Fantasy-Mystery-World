@@ -114,7 +114,7 @@ RoomManager::RoomManager(const char* name)
 
 RoomManager::~RoomManager()
 {
-	if (map_background != nullptr)
+	if (map_background != nullptr) // must look if exists in UI list TODO
 		map_background->to_delete = true;
 }
 

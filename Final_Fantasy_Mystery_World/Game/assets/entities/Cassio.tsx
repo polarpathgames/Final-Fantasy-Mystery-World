@@ -211,4 +211,84 @@
    <frame tileid="43" duration="170"/>
   </animation>
  </tile>
+ <tile id="48">
+  <properties>
+   <property name="speed" type="int" value="4"/>
+  </properties>
+  <animation>
+   <frame tileid="48" duration="170"/>
+   <frame tileid="49" duration="170"/>
+   <frame tileid="49" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="50">
+  <properties>
+   <property name="speed" type="int" value="4"/>
+  </properties>
+  <animation>
+   <frame tileid="50" duration="170"/>
+   <frame tileid="51" duration="170"/>
+   <frame tileid="51" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="52">
+  <properties>
+   <property name="speed" type="int" value="4"/>
+  </properties>
+  <animation>
+   <frame tileid="53" duration="170"/>
+   <frame tileid="52" duration="170"/>
+   <frame tileid="52" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="54">
+  <properties>
+   <property name="speed" type="int" value="4"/>
+  </properties>
+  <animation>
+   <frame tileid="55" duration="170"/>
+   <frame tileid="54" duration="170"/>
+   <frame tileid="54" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="60">
+  <properties>
+   <property name="speed" type="int" value="4"/>
+  </properties>
+  <animation>
+   <frame tileid="61" duration="170"/>
+   <frame tileid="60" duration="170"/>
+   <frame tileid="61" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="62">
+  <properties>
+   <property name="speed" type="int" value="4"/>
+  </properties>
+  <animation>
+   <frame tileid="63" duration="170"/>
+   <frame tileid="62" duration="170"/>
+   <frame tileid="63" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="64">
+  <properties>
+   <property name="speed" type="int" value="4"/>
+  </properties>
+  <animation>
+   <frame tileid="65" duration="170"/>
+   <frame tileid="64" duration="170"/>
+   <frame tileid="65" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="66">
+  <properties>
+   <property name="speed" type="int" value="4"/>
+  </properties>
+  <animation>
+   <frame tileid="67" duration="170"/>
+   <frame tileid="66" duration="170"/>
+   <frame tileid="67" duration="170"/>
+  </animation>
+ </tile>
 </tileset>
