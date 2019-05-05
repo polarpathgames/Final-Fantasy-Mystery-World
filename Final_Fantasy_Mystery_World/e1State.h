@@ -39,6 +39,7 @@ private:
 	uint max_number_hit = 0u;
 
 	uint time_effect = 1u;
+	float time_before_effect = 0.5f;
 	int damage = 0;
 };
 

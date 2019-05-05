@@ -33,6 +33,7 @@ e1State::e1State(int x, int y, const char * name) :e1Entity(x, y) {
 	}
 
 	allow_turn = true;
+	timer_before_effect.Stop();
 	//drawable = false;
 
 	data.tileset.imagePath.assign("assets/sprites/event_states.png");
@@ -49,46 +50,50 @@ e1State::~e1State()
 
 bool e1State::PreUpdate()
 {
-	if (timer_before_effect.IsRunning() == false)
-		timer_before_effect.Start();
-
-	if (!doing_effect && timer_before_effect.ReadSec() >= 0.5F) {
+	if (!doing_effect) {
 		turn_count++;
 		if (turn_count >= turn_effect) {
-			// Do effect
-			doing_effect = true;
-			timer.Start();
-			switch (state)
-			{
-			case EventStates::BLIZZARD: {
-				std::vector<e1Entity*> list = App->entity_manager->GetEntities();
-				for (std::vector<e1Entity*>::iterator item = list.begin(); item != list.end(); ++item) {
-					if ((*item)->type == e1Entity::EntityType::PLAYER || (*item)->type == e1Entity::EntityType::ENEMY)
-						static_cast<e1DynamicEntity*>(*item)->GetHitted(damage);
-				}
-				number_hit++;
+			if (timer_before_effect.IsRunning() == false)
+				timer_before_effect.Start();
 
-				break;
-			}
-			case EventStates::POISON:
-				if (target != nullptr) {
-					static_cast<e1DynamicEntity*>(target)->GetHitted(damage);
+			if (timer_before_effect.ReadSec() >= time_before_effect) {
+
+				timer_before_effect.Stop();
+
+				// Do effect
+				doing_effect = true;
+				timer.Start();
+				switch (state)
+				{
+				case EventStates::BLIZZARD: {
+					std::vector<e1Entity*> list = App->entity_manager->GetEntities();
+					for (std::vector<e1Entity*>::iterator item = list.begin(); item != list.end(); ++item) {
+						if ((*item)->type == e1Entity::EntityType::PLAYER || (*item)->type == e1Entity::EntityType::ENEMY)
+							static_cast<e1DynamicEntity*>(*item)->GetHitted(damage);
+					}
+					number_hit++;
+
+					break;
 				}
-				number_hit++;
-				break;
-			case EventStates::NONE:
-				doing_effect = false;
-				turn_done = true;
-				break;
-			default:
-				break;
+				case EventStates::POISON:
+					if (target != nullptr) {
+						static_cast<e1DynamicEntity*>(target)->GetHitted(damage);
+					}
+					number_hit++;
+					break;
+				case EventStates::NONE:
+					doing_effect = false;
+					turn_done = true;
+					break;
+				default:
+					break;
+				}
 			}
 		}
 		else {
 			turn_done = true;
 		}
 	}
-
 	return true;
 }
 
