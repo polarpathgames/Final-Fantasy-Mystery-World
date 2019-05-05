@@ -34,7 +34,7 @@ bool e1Cassio::PreUpdate()
 	BROFILER_CATEGORY("BlueDog PreUpdate", Profiler::Color::Yellow);
 
 	if (state == State::IDLE) {
-		if (IsPlayerNextTile()) {
+		if (IsPlayerNextTile() || CanAttackDistance()) {
 			state = State::BEFORE_ATTACK;
 			time_to_wait_before_attack = SDL_GetTicks();
 		}
@@ -49,9 +49,13 @@ bool e1Cassio::PreUpdate()
 	}
 	if (state == State::BEFORE_ATTACK) {
 		if (time_to_wait_before_attack < SDL_GetTicks() - 250) {
-			type_attack = Attacks::BASIC;
-			state = State::ATTACKING;
-			ChangeAnimation(direction, state, type_attack);
+			if (IsPlayerNextTile()) {
+				type_attack = Attacks::BASIC;
+				state = State::ATTACKING;
+				ChangeAnimation(direction, state, type_attack);
+			}
+			else
+				PrepareDistanceAttack();
 		}
 	}
 	return true;
@@ -73,7 +77,18 @@ bool e1Cassio::Update(float dt)
 	if (state == State::ATTACKING) {
 		if (current_animation->Finished()) {
 			App->audio->PlayFx(App->scene->fx_dog_attack);
-			CheckBasicAttackEffects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
+			if (type_attack== Attacks::BASIC)
+				CheckBasicAttackEffects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
+			else if (type_attack == Attacks::SPECIAL_1) {
+				DistanceAttackDown.Reset();
+				DistanceAttackDownLeft.Reset();
+				DistanceAttackDownRight.Reset();
+				DistanceAttackLeft.Reset();
+				DistanceAttackRight.Reset();
+				DistanceAttackUp.Reset();
+				DistanceAttackUpLeft.Reset();
+				DistanceAttackUpRight.Reset();
+			}
 			state = State::AFTER_ATTACK;
 			ChangeAnimation(direction, state);
 			time_attack = SDL_GetTicks();
@@ -227,4 +242,118 @@ void e1Cassio::IdAnimToEnum()
 			break;
 		}
 	}
+}
+
+
+bool e1Cassio::CanAttackDistance()
+{
+	bool ret = false;
+
+	iPoint player_pos = App->scene->player->actual_tile;
+
+	if (player_pos == actual_tile + iPoint{ 0,3 }) {
+		direction = Direction::DOWN_LEFT;
+		current_animation = &IdleDownLeft;
+		ret = true;
+	}
+	else if (player_pos == actual_tile + iPoint{ 0,-3 }) {
+		direction = Direction::UP_RIGHT;
+		current_animation = &IdleUpRight;
+		ret = true;
+	}
+	else if (player_pos == actual_tile + iPoint{ -3,0 }) {
+		direction = Direction::UP_LEFT;
+		current_animation = &IdleUpLeft;
+		ret = true;
+	}
+	else if (player_pos == actual_tile + iPoint{ 3,0 }) {
+		direction = Direction::DOWN_RIGHT;
+		current_animation = &IdleDownRight;
+		ret = true;
+	}
+	else if (player_pos == actual_tile + iPoint{ 3,3 }) {
+		direction = Direction::DOWN;
+		current_animation = &IdleDown;
+		ret = true;
+	}
+	else if (player_pos == actual_tile + iPoint{ -3,-3 }) {
+		direction = Direction::UP;
+		current_animation = &IdleUp;
+		ret = true;
+	}
+	else if (player_pos == actual_tile + iPoint{ -3,3 }) {
+		direction = Direction::LEFT;
+		current_animation = &IdleLeft;
+		ret = true;
+	}
+	else if (player_pos == actual_tile + iPoint{ 3,-3 }) {
+		direction = Direction::RIGHT;
+		current_animation = &IdleRight;
+		ret = true;
+	}
+	else if (player_pos == actual_tile + iPoint{ 0,2 }) {
+		direction = Direction::DOWN_LEFT;
+		current_animation = &IdleDownLeft;
+		ret = true;
+	}
+	else if (player_pos == actual_tile + iPoint{ 0,-2 }) {
+		direction = Direction::UP_RIGHT;
+		current_animation = &IdleUpRight;
+		ret = true;
+	}
+	else if (player_pos == actual_tile + iPoint{ -2,0 }) {
+		direction = Direction::UP_LEFT;
+		current_animation = &IdleUpLeft;
+		ret = true;
+	}
+	else if (player_pos == actual_tile + iPoint{ 2,0 }) {
+		direction = Direction::DOWN_RIGHT;
+		current_animation = &IdleDownRight;
+		ret = true;
+	}
+	else if (player_pos == actual_tile + iPoint{ 2,2 }) {
+		direction = Direction::DOWN;
+		current_animation = &IdleDown;
+		ret = true;
+	}
+	else if (player_pos == actual_tile + iPoint{ -2,-2 }) {
+		direction = Direction::UP;
+		current_animation = &IdleUp;
+		ret = true;
+	}
+	else if (player_pos == actual_tile + iPoint{ -2,2 }) {
+		direction = Direction::LEFT;
+		current_animation = &IdleLeft;
+		ret = true;
+	}
+	else if (player_pos == actual_tile + iPoint{ 2,-2 }) {
+		direction = Direction::RIGHT;
+		current_animation = &IdleRight;
+		ret = true;
+	}
+
+	return ret;
+}
+
+void e1Cassio::PrepareDistanceAttack()
+{
+	type_attack = Attacks::SPECIAL_1;
+	state = State::ATTACKING;
+	if (current_animation == &IdleDown)
+		current_animation = &DistanceAttackDown;
+	else if (current_animation == &IdleLeft)
+		current_animation = &DistanceAttackLeft;
+	else if (current_animation == &IdleUp)
+		current_animation = &DistanceAttackUp;
+	else if (current_animation == &IdleRight)
+		current_animation = &DistanceAttackRight;
+	else if (current_animation == &IdleUpLeft)
+		current_animation = &DistanceAttackUpLeft;
+	else if (current_animation == &IdleDownLeft)
+		current_animation = &DistanceAttackDownLeft;
+	else if (current_animation == &IdleDownRight)
+		current_animation = &DistanceAttackDownRight;
+	else if (current_animation == &IdleUpRight)
+		current_animation = &DistanceAttackUpRight;
+
 }

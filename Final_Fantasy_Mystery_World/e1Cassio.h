@@ -17,6 +17,10 @@ public:
 
 	void IdAnimToEnum();
 
+	bool CanAttackDistance();
+
+	void PrepareDistanceAttack();
+
 };
 
 #endif // !_E1CASSIO_H_
