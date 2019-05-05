@@ -4,7 +4,8 @@
 // ----------------------------------------------------
 
 #include "p2Timer.h"
-#include "SDL\include\SDL_timer.h"
+#include "p2Log.h"
+#include "SDL/include/SDL_timer.h"
 
 // ---------------------------------------------
 p2Timer::p2Timer()
@@ -23,13 +24,28 @@ void p2Timer::Start()
 // ---------------------------------------------
 uint32 p2Timer::Read() const
 {
-	return SDL_GetTicks() - started_at;
+	if (running)
+		return SDL_GetTicks() - started_at;
+	else {
+		LOG("timer not running");
+		return 0u;
+	}
 }
 
 // ---------------------------------------------
 float p2Timer::ReadSec() const
 {
-	return float(SDL_GetTicks() - started_at) / 1000.0f;
+	if (running)
+		return float(SDL_GetTicks() - started_at) / 1000.0f;
+	else {
+		LOG("timer not running");
+		return 0u;
+	}
+}
+
+void p2Timer::Stop()
+{
+	running = false;
 }
 
 bool p2Timer::IsRunning() const
