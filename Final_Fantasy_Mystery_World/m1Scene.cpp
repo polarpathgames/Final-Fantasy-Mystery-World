@@ -707,5 +707,3 @@ void m1Scene::SetMenuState(const StatesMenu & menu)
 {
 	menu_state = menu;
 }
-
-
