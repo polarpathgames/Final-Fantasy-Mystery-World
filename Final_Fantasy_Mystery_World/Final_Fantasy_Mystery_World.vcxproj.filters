@@ -213,6 +213,12 @@
     <ClCompile Include="e1Cassio.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="p2Math.h">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="p2Math.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
