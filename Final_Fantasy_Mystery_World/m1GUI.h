@@ -59,6 +59,8 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
+	bool IsInUIList(u1GUI * element);
+
 	bool UpdateFocusMouse();
 	void FocusInput();
 	bool FocusFirstUIFocusable();

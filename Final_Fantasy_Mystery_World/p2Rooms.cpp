@@ -113,9 +113,9 @@ RoomManager::RoomManager(const char* name)
 
 RoomManager::~RoomManager()
 {
-	if (map_background != nullptr) // must look if exists in UI list TODO
+	if (App->gui->IsInUIList(map_background))
 		map_background->to_delete = true;
-}
+}	
 
 void RoomManager::OnCollision(Collider * c1, Collider * c2)
 {

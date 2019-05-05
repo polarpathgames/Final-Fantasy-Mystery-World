@@ -290,6 +290,11 @@ bool m1GUI::CleanUp()
 	return true;
 }
 
+bool m1GUI::IsInUIList(u1GUI * element)
+{
+	return (std::find(ui_list.begin(), ui_list.end(), element) != ui_list.end());
+}
+
 const SDL_Texture* m1GUI::GetAtlas() const
 {
 	return atlas;
