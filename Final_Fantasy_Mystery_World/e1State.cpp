@@ -6,6 +6,7 @@
 #include "m1EntityManager.h"
 
 e1State::e1State(int x, int y, const char * name) :e1Entity(x, y) {
+	type = e1Entity::EntityType::EVENT;
 	if (strcmp(name,"blizzard") == 0) {
 		state = EventStates::BLIZZARD;
 		turn_effect = 3U;

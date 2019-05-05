@@ -45,6 +45,7 @@ public:
 	void AssignEntityTurn(e1Entity* ent) { entity_turn = ent; }
 	bool ThereAreEnemies();
 	bool ThereIsEntity(e1Entity::EntityType type);
+	bool IsPlayerPoisoned();
 	void DeleteEntities();
 	void DeleteEntitiesNoPlayer();
 	void DeleteEntity(e1Entity* entity_to_delete);
