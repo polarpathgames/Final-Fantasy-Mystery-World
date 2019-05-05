@@ -20,9 +20,11 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 
-private:
+public:
 	EventStates state = EventStates::NONE;
 	e1Entity* target = nullptr;
+
+private:
 
 	Animation* animation = nullptr;
 	SDL_Rect frame = { 0, 0, 0, 0 };

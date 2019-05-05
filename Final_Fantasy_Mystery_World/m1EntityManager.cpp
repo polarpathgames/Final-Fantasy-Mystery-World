@@ -426,3 +426,17 @@ bool m1EntityManager::ThereIsEntity(e1Entity::EntityType type)
 	}
 	return ret;
 }
+
+bool m1EntityManager::IsPlayerPoisoned()
+{
+	for (std::vector<e1Entity*>::iterator item = entities.begin(); item != entities.end(); ++item)
+	{
+		if ((*item)->type == e1Entity::EntityType::EVENT) {
+			e1State* event = static_cast<e1State*>(*item);
+			if (event->state == EventStates::POISON && event->target == App->scene->player) {
+					return true;
+			}
+		}
+	}
+	return false;
+}
