@@ -62,6 +62,9 @@ private:
 	
 	std::map<Mix_Music*, std::string> music;
 	std::map<Mix_Chunk*, std::string>	fx;
+
+	Mix_Music* actual_mus = nullptr;
+
 };
 
 #endif // __j1AUDIO_H__

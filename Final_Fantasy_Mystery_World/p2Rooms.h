@@ -59,7 +59,7 @@ class Room {
 
 public:
 
-	Room(const std::string &tmx_location, const uint &id, const std::string &type, const std::string &cutscene_location, bool door_closed, const uint & update_number);
+	Room(const std::string &tmx_location, const uint &id, const std::string &type, const std::string &cutscene_location, bool door_closed, const uint & update_number, const std::string &music_location);
 	~Room();
 
 
@@ -67,6 +67,8 @@ public:
 
 	std::string tmx_location;  
 	std::string cutscene_location;
+	
+	Mix_Music* music = nullptr;
 
 	uint id = 0u; 
 	uint update_number = 0u;
@@ -125,14 +127,8 @@ private:
 	u1Image * player_pos = nullptr;
 	bool map_active = false;
 
-	Mix_Music* mus_paceful;
-	Mix_Music* mus_boss;
-	Mix_Music* mus_combat;
-	Mix_Music* mus_fountain;
-
 	pugi::xml_document room_manager_file;
 
-	
 	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
 };
 #endif // !_P2ROOMS_H

@@ -19,11 +19,15 @@
 #include "m1GUI.h"
 #include "m1Pathfinding.h"
 
-Room::Room(const std::string &tmx_location, const uint &id, const std::string &type, const std::string &cutscene_location, bool door_closed, const uint &update_number)
+Room::Room(const std::string &tmx_location, const uint &id, const std::string &type, const std::string &cutscene_location, bool door_closed, const uint &update_number, const std::string &music_location)
 	: tmx_location(tmx_location), id(id),door_closed(door_closed),update_number(update_number)
 {
 	if (!cutscene_location.empty()) {
 		this->cutscene_location = cutscene_location;
+	}
+
+	if (!music_location.empty()) {
+		music = App->audio->LoadMusic(music_location.data());
 	}
 
 	if (strcmp(type.data(), "paceful") == 0) {
@@ -77,12 +81,6 @@ Room::~Room()
 
 RoomManager::RoomManager(const char* name)
 {
-
-	mus_paceful = App->audio->LoadMusic("assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg");
-	mus_combat = App->audio->LoadMusic("assets/audio/music/20.Final Fantasy TA - Painful Battle.ogg");
-	mus_boss = App->audio->LoadMusic("assets/audio/music/39.Final Fantasy TA - Incarnation.ogg");
-	mus_fountain = App->audio->LoadMusic("assets/audio/music/5.Final Fantasy TA - Crystal.ogg");
-
 	pugi::xml_parse_result result = room_manager_file.load_file("assets/xml/Rooms.xml");
 
 	if (result == NULL)
@@ -97,7 +95,8 @@ RoomManager::RoomManager(const char* name)
 
 		for (pugi::xml_node room_node = room_manager_file.child("room_manager").child(name).child("room"); room_node; room_node = room_node.next_sibling("room")) {
 			Room * r = DBG_NEW Room(room_node.child("location").child_value(), room_node.child("id").attribute("num").as_uint(), room_node.child("type").child_value(),
-				room_node.child("cut_scene").child_value(), room_node.child("door").attribute("active").as_bool(false), room_node.child("update").attribute("num").as_uint(0u));
+				room_node.child("cut_scene").child_value(), room_node.child("door").attribute("active").as_bool(false), room_node.child("update").attribute("num").as_uint(0u),
+				room_node.child("music").child_value());
 			for (pugi::xml_node property_room = room_node.child("properties").child("property"); property_room; property_room = property_room.next_sibling()) {
 				r->properties.AddProperty(property_room.attribute("name").as_string("no_property"), property_room.attribute("value").as_int());
 			}
@@ -439,26 +438,7 @@ void RoomManager::LoadColliders() // colliders in the doors
 void RoomManager::PlayMusic()
 {
 	// ROOM TYPE
-	if (last_room == nullptr || (last_room->room_type != actual_room->room_type)) {
-		switch (actual_room->room_type)
-		{
-		case RoomType::PACEFUL:
-			App->audio->PlayMusic(mus_paceful, 5);
-			break;
-		case RoomType::FOUNTAIN:
-			App->audio->PlayMusic(mus_fountain, 0.5);
-			break;
-		case RoomType::COMBAT:
-			App->audio->PlayMusic(mus_combat, 0.5);
-			break;
-		case RoomType::BOSS:
-			App->audio->PlayMusic(mus_boss, 0.5);
-			break;
-		default:
-			App->audio->PlayMusic(mus_paceful, 5);
-			break;
-		}
-	}
+	App->audio->PlayMusic(actual_room->music, 1);
 }
 
 void RoomManager::PlayCutScene()
