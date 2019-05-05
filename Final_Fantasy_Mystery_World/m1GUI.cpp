@@ -134,9 +134,9 @@ bool m1GUI::UpdateFocusMouse()
 			if (show_cursor) {
 				show_cursor = false;
 			}
-
 			FocusInput();
-			ret = focus->Update();
+			if (focus != nullptr)
+				ret = focus->Update();
 		}
 	}
 
