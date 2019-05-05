@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="76">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="76">
  <tileset firstgid="1" name="ques1_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques1_tileset.png" width="688" height="290"/>
  </tileset>
@@ -2597,12 +2597,12 @@
    <tile gid="2"/>
    <tile gid="22"/>
    <tile gid="22"/>
-   <tile gid="22"/>
-   <tile gid="22"/>
-   <tile gid="2"/>
-   <tile gid="22"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
    <tile gid="1"/>
-   <tile gid="5"/>
+   <tile gid="66"/>
    <tile gid="66"/>
    <tile gid="47"/>
    <tile/>
@@ -2636,13 +2636,13 @@
    <tile gid="26"/>
    <tile gid="26"/>
    <tile gid="29"/>
-   <tile gid="29"/>
+   <tile gid="1"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
    <tile gid="22"/>
    <tile gid="22"/>
-   <tile gid="22"/>
-   <tile gid="22"/>
-   <tile gid="22"/>
-   <tile gid="22"/>
+   <tile gid="66"/>
    <tile gid="66"/>
    <tile gid="47"/>
    <tile/>
@@ -5769,7 +5769,7 @@
    <tile/>
    <tile/>
    <tile gid="299"/>
-   <tile/>
+   <tile gid="192"/>
    <tile gid="213"/>
    <tile/>
    <tile/>
@@ -5810,7 +5810,7 @@
    <tile/>
    <tile/>
    <tile gid="320"/>
-   <tile/>
+   <tile gid="213"/>
    <tile/>
    <tile/>
    <tile/>
@@ -10621,26 +10621,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="7"/>
-   <tile/>
-   <tile/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
@@ -10648,10 +10628,12 @@
    <tile gid="7"/>
    <tile gid="7"/>
    <tile/>
-   <tile/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
    <tile gid="7"/>
    <tile/>
-   <tile gid="7"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -10661,9 +10643,27 @@
    <tile/>
    <tile gid="7"/>
    <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile/>
+   <tile/>
+   <tile gid="7"/>
+   <tile/>
+   <tile gid="7"/>
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="7"/>
+   <tile/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
    <tile/>
    <tile/>
    <tile/>

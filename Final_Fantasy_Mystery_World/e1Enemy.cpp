@@ -219,8 +219,15 @@ void e1Enemy::MovementLogic()
 		App->pathfinding->RecalculatePath(origin, destination, next_enemy_pos);
 		next_enemy_pos.clear();
 	}
-		
+	
+
 	iPoint target = App->pathfinding->GetLastPath();
+	if ((App->pathfinding->last_path.empty())) {
+		turn_done = true;
+		state = State::IDLE;
+		return;
+	}
+
 	if (target_position == position && !IsPlayerNextTile()) {
 		if (target.x == origin.x && target.y > origin.y) {
 			direction = Direction::DOWN_LEFT;

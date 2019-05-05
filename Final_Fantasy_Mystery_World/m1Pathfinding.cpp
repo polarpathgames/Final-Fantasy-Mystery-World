@@ -68,7 +68,10 @@ uchar m1PathFinding::GetTileAt(const iPoint& pos) const
 // To request all tiles involved in the last generated path
 iPoint m1PathFinding::GetLastPath() const
 {
-	return last_path[1];
+	if (!last_path.empty())
+		return last_path[1];
+	else
+		return { 0,0 };
 }
 
 // PathList ------------------------------------------------------------------------
@@ -266,7 +269,7 @@ int m1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			last_path.push_back(close.list.front().pos);
 
 			std::reverse(last_path.begin(), last_path.end());
-			break;
+			return 1;
 		}
 		else if (close.list.back().pos != destination) {
 
@@ -296,7 +299,8 @@ int m1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 		}
 	}
 
-	return 1;
+	last_path.clear();
+	return -1;
 }
 
 int m1PathFinding::RecalculatePath(const iPoint & origin, const iPoint & destination, const std::vector<iPoint>& no_walkables)
@@ -336,7 +340,7 @@ int m1PathFinding::RecalculatePath(const iPoint & origin, const iPoint & destina
 			last_path.push_back(close.list.front().pos);
 
 			std::reverse(last_path.begin(), last_path.end());
-			break;
+			return 1;
 		}
 		else if (close.list.back().pos != destination) {
 
@@ -365,8 +369,6 @@ int m1PathFinding::RecalculatePath(const iPoint & origin, const iPoint & destina
 			}
 		}
 	}
-
-
-
-	return 1;
+	last_path.clear();
+	return -1;
 }
