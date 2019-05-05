@@ -6,7 +6,7 @@
 #include "p2Log.h"
 
 u1VerticalSlider::u1VerticalSlider(const int & x, const int & y, const SDL_Rect & rect, const SDL_Rect & idle, const SDL_Rect & hover, const SDL_Rect & push, u1GUI * parent, int * pos_to_move, const int &moving_distance)
-	: u1GUI(VERTICAL_SLIDER, x, y, parent, idle, true, true, true, true)
+	: u1GUI(VERTICAL_SLIDER, x, y, parent, idle,true, true, true, false)
 {
 	background_rect = rect;
 	idle_rect = idle;
@@ -39,16 +39,10 @@ void u1VerticalSlider::InnerDraw()
 {
 
 
-	if (*pos_to_move == last_position) {
-		int value_ = GetValue();
-		*pos_to_move = -((initial_pos + moving_distance) * value_) / 100;
-	}
-	else {
-		value = (-(*pos_to_move * 100)) / (initial_pos + moving_distance);
-		SetValue(value);
-	}
+	int value_ = GetValue();
+	*pos_to_move = -((initial_pos + moving_distance) * value_) / 100;
 
-	last_position = *pos_to_move;
+	LOG("VALUE: %i", value);
 
 	if (draw_offset.y < min_y) {
 		position.y += 1;

@@ -162,16 +162,6 @@ void m1GUI::FocusInput()
 						new_focus = *item;
 					}
 				}
-				else if (!(*item)->allow_focus && (*item)->position.y < focus->position.y && (*item)->clipable) {
-					if (focus == new_focus) {
-						new_focus = (*item);
-						(*item)->parent->position.y += (*item)->section.h * 2;
-					}
-					else if ((*item)->position.y >= new_focus->position.y && abs(focus->position.x - new_focus->position.x) >= abs(focus->position.x - (*item)->position.x)) {
-						new_focus = *item;
-						(*item)->parent->position.y += (*item)->section.h * 2;
-					}
-				}
 			}
 		}
 	}
@@ -184,16 +174,6 @@ void m1GUI::FocusInput()
 					}
 					else if ((*item)->position.y <= new_focus->position.y && abs(focus->position.x - new_focus->position.x) >= abs(focus->position.x - (*item)->position.x)) {
 						new_focus = *item;
-					}
-				}
-				else if (!(*item)->allow_focus && (*item)->position.y > focus->position.y && (*item)->clipable) {
-					if (focus == new_focus) {
-						new_focus = (*item);
-						(*item)->parent->position.y -= (*item)->section.h*2;
-					}
-					else if ((*item)->position.y <= new_focus->position.y && abs(focus->position.x - new_focus->position.x) >= abs(focus->position.x - (*item)->position.x)) {
-						new_focus = *item;
-						(*item)->parent->position.y -= (*item)->section.h*2;
 					}
 				}
 			}

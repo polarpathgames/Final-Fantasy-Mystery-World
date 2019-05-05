@@ -671,8 +671,6 @@ void m1MenuManager::CreateShopMenu()
 	shop.button_close_shop = App->gui->AddButton(130, 330, { 1850,1637,75,35 }, { 1850,1637,55,35 }, { 1850,1637,55,35 }, App->scene, shop.shop_panel, false, false, true, true);
 	shop.label_close_shop = App->gui->AddLabel(140, 321, "Return", shop.shop_panel, BLACK, FontType::FF48, nullptr, false);
 
-	SDL_Rect clip_zone = { 200,(App->gui->screen->section.h - 383) * 0.5F + 90,shop.shop_item_zone->section.w,shop.shop_item_zone->section.h };
-
 	shop.shop_background_item1 = App->gui->AddImage(38, 1, { 1050,2116,161,61 }, nullptr, shop.shop_item_zone, true, false, false, false,nullptr,shop.shop_zone->GetGlobalRect());
 	shop.shop_hp_potion_image = App->gui->AddImage(58, 8, { 1058, 1952, 33, 47 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 	shop.shop_hp_potion_label = App->gui->AddLabel(102, 0, std::string("x " + std::to_string(App->scene->price_hp_potion)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false,{ 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
@@ -1017,6 +1015,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 	}
 	if (interaction == pause.button_main_menu)
 	{
+		App->easing_splines->CleanUp();
 		DestroyDebugScreen();
 		DestroyHUD();
 		App->gui->DeleteAllUIElements();
