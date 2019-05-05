@@ -7,6 +7,9 @@
 #include "m1Map.h"
 #include "m1Render.h"
 #include "m1Audio.h"
+#include "m1ParticleManager.h"
+#include "p1Follow.h"
+#include "p2Math.h"
 #include "Brofiler/Brofiler.h"
 
 e1Cassio::e1Cassio(const int & x, const int & y) : e1Enemy(x, y)
@@ -27,6 +30,8 @@ e1Cassio::e1Cassio(const int & x, const int & y) : e1Enemy(x, y)
 
 e1Cassio::~e1Cassio()
 {
+	if (poison_particle != nullptr)
+		App->particles->DeleteFollow_p(poison_particle);
 }
 
 bool e1Cassio::PreUpdate()
@@ -54,8 +59,12 @@ bool e1Cassio::PreUpdate()
 				state = State::ATTACKING;
 				ChangeAnimation(direction, state, type_attack);
 			}
-			else
+			else {
 				PrepareDistanceAttack();
+				particle_position = position;
+				lerp_translation = 0.f;
+				poison_particle = App->particles->CreateFollow(nullptr, &particle_position, { 2,6,2,2 }, { 10,10 }, { 15,5 }, 4, 60, true, false, { 0,5 });
+			}
 		}
 	}
 	return true;
@@ -75,11 +84,19 @@ bool e1Cassio::Update(float dt)
 		PerformMovement(dt);
 	}
 	if (state == State::ATTACKING) {
-		if (current_animation->Finished()) {
+		bool attack = false;
+		
+		particle_position = lerp(position, App->scene->player->GetPosition() + iPoint{0, -10}, lerp_translation).AproximateToIntFloor();
+		lerp_translation += lerp_by;
+
+		if (current_animation->Finished() && type_attack == Attacks::BASIC) {
 			App->audio->PlayFx(App->scene->fx_dog_attack);
-			if (type_attack== Attacks::BASIC)
-				CheckBasicAttackEffects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
-			else if (type_attack == Attacks::SPECIAL_1) {
+			CheckBasicAttackEffects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
+			attack = true;
+		}
+		else if (particle_position == App->scene->player->position || lerp_translation > 1.f) {
+			App->audio->PlayFx(App->scene->fx_dog_attack);
+			if (type_attack == Attacks::SPECIAL_1) {
 				DistanceAttackDown.Reset();
 				DistanceAttackDownLeft.Reset();
 				DistanceAttackDownRight.Reset();
@@ -89,6 +106,12 @@ bool e1Cassio::Update(float dt)
 				DistanceAttackUpLeft.Reset();
 				DistanceAttackUpRight.Reset();
 			}
+			attack = true;
+			lerp_translation = 0.f;
+			App->particles->DeleteFollow_p(poison_particle);
+			poison_particle = nullptr;
+		}
+		if (attack) {
 			state = State::AFTER_ATTACK;
 			ChangeAnimation(direction, state);
 			time_attack = SDL_GetTicks();
@@ -356,4 +379,5 @@ void e1Cassio::PrepareDistanceAttack()
 	else if (current_animation == &IdleUpRight)
 		current_animation = &DistanceAttackUpRight;
 
+	current_animation->loop = false;
 }

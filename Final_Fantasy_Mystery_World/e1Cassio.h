@@ -3,6 +3,8 @@
 
 #include "e1Enemy.h"
 
+class p1Follow;
+
 class e1Cassio : public e1Enemy {
 
 public:
@@ -20,6 +22,12 @@ public:
 	bool CanAttackDistance();
 
 	void PrepareDistanceAttack();
+
+private:
+	iPoint particle_position = { 0,0 };
+	float lerp_translation = 0.f;
+	float lerp_by = 0.02f;
+	p1Follow* poison_particle = nullptr;
 
 };
 
