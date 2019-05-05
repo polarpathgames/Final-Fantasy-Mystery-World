@@ -75,6 +75,40 @@ public:
 		return(*this);
 	}
 
+	p2Point operator *(const int &mult) {
+		p2Point r;
+
+		r.x = x * mult;
+		r.y = y * mult;
+
+		return(r);
+	}
+
+	const p2Point& operator *=(const int &mult)
+	{
+		x *= mult;
+		y *= mult;
+
+		return(*this);
+	}
+
+	p2Point operator *(const float &mult) {
+		p2Point r;
+
+		r.x = x * mult;
+		r.y = y * mult;
+
+		return(r);
+	}
+
+	const p2Point& operator *=(const float &mult)
+	{
+		x *= mult;
+		y *= mult;
+
+		return(*this);
+	}
+
 	bool operator ==(const p2Point& v) const
 	{
 		return (x == v.x && y == v.y);
@@ -85,21 +119,10 @@ public:
 		return (x != v.x || y != v.y);
 	}
 
-	// Utils ------------------------------------------------
-	bool IsZero() const
-	{
-		return (x == 0 && y == 0);
-	}
-
+	// Utils -----------------------------------------------
 
 	int Cross(p2Point& v) {
 		return x * v.y - y * v.x;
-	}
-
-	p2Point& SetToZero()
-	{
-		x = y = 0;
-		return(*this);
 	}
 
 	p2Point& Negate()
@@ -109,6 +132,22 @@ public:
 
 		return(*this);
 	}
+
+	void normalize() {
+		float module = sqrtf(x * x + y * y);
+		x /= module;
+		y /= module;
+	}
+
+	p2Point& zero() {
+		x = y = (TYPE)0;
+		return(*this);
+	}
+
+	bool is_zero() const {
+		return(x == (TYPE)0 && y == (TYPE)0);
+	}
+
 
 	// Distances ---------------------------------------------
 	TYPE DistanceTo(const p2Point& v) const
@@ -130,6 +169,18 @@ public:
 	TYPE DistanceManhattan(const p2Point& v) const
 	{
 		return abs(v.x - x) + abs(v.y - y);
+	}
+
+	p2Point<int> AproximateToIntFloor() const {
+		return p2Point<int>(floor(x), floor(y));
+	}
+
+	p2Point<int> AproximateToIntCast() const {
+		return p2Point<int>((int)x, (int)y);
+	}
+
+	p2Point<float> AproximateToFloat() const {
+		return p2Point<float>((float)x, (float)y);
 	}
 };
 
