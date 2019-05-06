@@ -63,7 +63,7 @@
 
   <quest2>
     <room>
-      <location>Quest1_Fountain.tmx</location>
+      <location>Quest1_Enter.tmx</location>
       <id num="1"></id>
       <type>paceful</type>
       <properties>
