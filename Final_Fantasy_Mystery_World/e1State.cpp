@@ -16,7 +16,7 @@ e1State::e1State(int x, int y, const char * name) :e1Entity(x, y) {
 		animation->PushBack({ 0,2304,1024,768 });
 		animation->loop = true;
 		animation->speed = 5.f;
-		time_effect = 2U;
+		time_effect = 0U;
 		damage = 5;
 		dynamic = false;
 		drawable = true;
