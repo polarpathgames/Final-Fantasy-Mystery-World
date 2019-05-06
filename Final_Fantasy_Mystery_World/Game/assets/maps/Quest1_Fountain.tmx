@@ -10829,7 +10829,7 @@
   <properties>
    <property name="next_id" type="int" value="7"/>
   </properties>
-  <object id="21" name="player" type="default" x="736" y="640" width="15.9688" height="16.0156">
+  <object id="21" name="player" type="nextB" x="736" y="640" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
