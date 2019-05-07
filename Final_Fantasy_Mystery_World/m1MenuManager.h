@@ -496,13 +496,22 @@ struct UI_shop {
 	u1Image* shop_coin2 = nullptr;
 
 	u1Image* shop_background_item3 = nullptr;
-	u1Button* shop_button_item3 = nullptr;
+	u1Button* shop_button_sword = nullptr;
+	u1Image* shop_sword_image = nullptr;
+	u1Label* shop_sword_label = nullptr;
+	u1Image* shop_coin3 = nullptr;
 
 	u1Image* shop_background_item4 = nullptr;
-	u1Button* shop_button_item4 = nullptr;
+	u1Button* shop_button_helmet = nullptr;
+	u1Image* shop_helmet_image = nullptr;
+	u1Label* shop_helmet_label = nullptr;
+	u1Image* shop_coin4 = nullptr;
 
 	u1Image* shop_background_item5 = nullptr;
-	u1Button* shop_button_item5 = nullptr;
+	u1Button* shop_button_ring = nullptr;
+	u1Image* shop_ring_image = nullptr;
+	u1Label* shop_ring_label = nullptr;
+	u1Image* shop_coin5 = nullptr;
 
 	u1VerticalSlider* shop_vertical_slider = nullptr;
 	u1Image* shop_zone = nullptr;

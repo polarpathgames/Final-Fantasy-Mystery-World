@@ -367,6 +367,145 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		position.x += 2;
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 	}
+	//QUEST2
+	else if (strcmp(name, "plant1_quest1") == 0) {
+		static_type = e1StaticEntity::Type::PLANT1;
+		frame = { 80,202,32,34 };
+		SetPivot(frame.w*0.5F, frame.h*0.7F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "plant2_quest1") == 0) {
+		static_type = e1StaticEntity::Type::PLANT2_Q1;
+		frame = { 79,136,27,27 };
+		SetPivot(frame.w*0.5F, frame.h*0.7F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "rock_quest1") == 0) {
+		static_type = e1StaticEntity::Type::ROCK_Q1;
+		frame = { 116,136,32,32 };
+		SetPivot(frame.w*0.5F, frame.h*0.5F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "snow_elevation") == 0) {
+		static_type = e1StaticEntity::Type::SNOW_ELEVATION;
+		frame = { 7,209,32,32 };
+		SetPivot(frame.w*0.5F, frame.h*0.5F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "rock_elevation") == 0) {
+		static_type = e1StaticEntity::Type::ROCK_ELEVATION;
+		frame = { 39,209,32,32 };
+		SetPivot(frame.w*0.5F, frame.h*0.5F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "tree_quest1") == 0) {
+		static_type = e1StaticEntity::Type::TREE_Q1;
+		frame = { 189,176,29,57 };
+		SetPivot(frame.w*0.5F, frame.h*0.9F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "tree2_quest1") == 0) {
+		static_type = e1StaticEntity::Type::TREE2_Q1;
+		frame = { 3,166,30,42 };
+		SetPivot(frame.w*0.5F, frame.h*0.7F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "snow_man") == 0) {
+		static_type = e1StaticEntity::Type::SNOW_MAN;
+		frame = { 6,135,30,29 };
+		SetPivot(frame.w*0.5F, frame.h*0.5F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "fire_wall_left") == 0) {
+		static_type = e1StaticEntity::Type::FIREWALL_LEFT;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 293, 171,16,30 });
+		idle->PushBack({ 313,171,16,30 });
+		idle->PushBack({ 333,171,16,30 });
+		idle->PushBack({ 353,171,16,30 });
+		idle->speed = 3;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "fire_wall_right") == 0) {
+		static_type = e1StaticEntity::Type::FIREWALL_RIGHT;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 386, 171,16,30 });
+		idle->PushBack({ 406,171,16,30 });
+		idle->PushBack({ 426,171,16,30 });
+		idle->PushBack({ 446,171,16,30 });
+		idle->speed = 3;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "fire_floor") == 0) {
+		static_type = e1StaticEntity::Type::FIREFLOOR;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1330,160,37,57 });
+		idle->PushBack({ 1380,160,37,57 });
+		idle->PushBack({ 1430,160,37,57 });
+		idle->PushBack({ 1480,160,37,57 });
+		idle->speed = 7;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "fire_wall_special1") == 0) {
+		static_type = e1StaticEntity::Type::SPECIAL_FIREWALL1;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1389,103,22,48 });
+		idle->PushBack({ 1411,103,22,48 });
+		idle->PushBack({ 1433,103,22,48 });
+		idle->PushBack({ 1455,103,22,48 });
+		idle->speed = 6;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "fire_wall_special2") == 0) {
+		static_type = e1StaticEntity::Type::SPECIAL_FIREWALL2;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1480,119,35,40 });
+		idle->PushBack({ 1515,119,35,40 });
+		idle->PushBack({ 1550,119,35,40 });
+		idle->PushBack({ 1585,119,35,40 });
+		idle->speed = 7;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "treasure") == 0) {
+		static_type = e1StaticEntity::Type::TREASURE;
+		frame = { 156,137 ,35,32 };
+		SetPivot(frame.w*0.5F, frame.h*0.5F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "blue_fire") == 0) {
+		static_type = e1StaticEntity::Type::BLUE_FIRE;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 54,180,16,20 });
+		idle->PushBack({ 89,180,16,20 });
+		idle->PushBack({ 124,180,16,20 });
+		idle->PushBack({ 159,180,16,20 });
+		idle->speed = 3;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
 	}
