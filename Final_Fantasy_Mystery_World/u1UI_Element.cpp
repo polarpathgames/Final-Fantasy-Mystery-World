@@ -33,8 +33,8 @@ void u1GUI::Draw()
 		}
 	}
 	global_rect = { draw_offset.x,draw_offset.y,section.w,section.h };
-	if (drawable)
-		InnerDraw();
+
+	InnerDraw();
 
 	if (App->gui->debug_ui) {
 		DebugDraw();

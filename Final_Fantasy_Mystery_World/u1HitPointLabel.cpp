@@ -63,6 +63,10 @@ void u1HitPointLabel::UpdateElement()
 
 void u1HitPointLabel::InnerDraw()
 {
+
+	if (!drawable)
+		return;
+
 	if (time < SDL_GetTicks() - 500) {
 		if (alpha > 0) {
 			switch (color_type) {

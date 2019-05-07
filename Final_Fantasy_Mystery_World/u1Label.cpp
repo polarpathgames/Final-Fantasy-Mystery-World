@@ -35,6 +35,10 @@ u1Label::~u1Label()
 
 void u1Label::InnerDraw()
 {
+
+	if (!drawable)
+		return;
+
 	if (has_background) {
 		App->render->DrawQuad({ draw_offset.x,draw_offset.y,section.w,section.h }, background_color.r, background_color.g, background_color.b, background_color.a, true, false);
 	}

@@ -314,9 +314,9 @@ u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0
 	return image;
 }
 
-u1Button* m1GUI::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* listener, u1GUI* parent, bool draw, bool drag, bool inter, bool focus = true, const iPoint &focus_offset, SDL_Rect*clip_zone)
+u1Button* m1GUI::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* listener, u1GUI* parent, bool draw, bool drag, bool inter, bool focus = true, const iPoint &focus_offset, SDL_Rect*clip_zone, const SDL_Rect & extra_image, const iPoint & offset_extra_image)
 {
-	u1Button* button = DBG_NEW u1Button(x, y, idle, mouse_in, clicked, parent, draw, inter, drag, focus, focus_offset, clip_zone);
+	u1Button* button = DBG_NEW u1Button(x, y, idle, mouse_in, clicked, parent, draw, inter, drag, focus, focus_offset, clip_zone, extra_image, offset_extra_image);
 
 	if (listener != nullptr) {
 		button->AddListener(listener);

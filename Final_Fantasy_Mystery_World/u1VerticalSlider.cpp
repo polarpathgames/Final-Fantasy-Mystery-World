@@ -37,7 +37,8 @@ u1VerticalSlider::~u1VerticalSlider()
 
 void u1VerticalSlider::InnerDraw()
 {
-
+	if (!drawable)
+		return;
 
 	int value_ = GetValue();
 	*pos_to_move = -((initial_pos + moving_distance) * value_) / 100;
