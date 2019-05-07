@@ -685,6 +685,63 @@ bool m1Scene::Interact(u1GUI* interact)
 				App->audio->PlayFx(App->scene->fx_no_money);
 			}
 		}
+		if (interact == App->menu_manager->shop.shop_button_sword) {
+			if (player->stats.gold >= price_ability3 || player->god_mode) {
+				// audio comprar
+				App->audio->PlayFx(App->scene->fx_buy);
+				player->ReduceGold(price_ability3);
+				App->globals.ability3_gained = true;
+				App->menu_manager->inventory.money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
+			}
+			else {
+				// audio no money
+				App->audio->PlayFx(App->scene->fx_no_money);
+			}
+		}
+		if (interact == App->menu_manager->shop.shop_button_helmet) {
+			if (player->stats.gold >= price_helmet || player->god_mode) {
+				// audio comprar
+				App->audio->PlayFx(App->scene->fx_buy);
+				player->ReduceGold(price_helmet);
+				App->globals.helmet_bought = true;
+				App->menu_manager->inventory.money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
+
+				player->stats.max_lives += helmet_hp;
+				player->AugmentLives(helmet_hp);
+				App->menu_manager->hud.player_hp_bar->max_capacity = player->stats.max_lives;
+				App->menu_manager->hud.player_hp_bar->UpdateBar(helmet_hp, UIType::HPBAR);
+
+				App->menu_manager->hud.player_hp_bar->PrintBarNumbers();
+
+
+			}
+			else {
+				// audio no money
+				App->audio->PlayFx(App->scene->fx_no_money);
+			}
+		}
+		if (interact == App->menu_manager->shop.shop_button_ring) {
+			if (player->stats.gold >= price_ring || player->god_mode) {
+				// audio comprar
+				App->audio->PlayFx(App->scene->fx_buy);
+				player->ReduceGold(price_ring);
+				App->globals.ring_bought = true;
+				App->menu_manager->inventory.money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
+
+				player->stats.max_mana += ring_mana;
+				player->AugmentMana(ring_mana);
+				App->menu_manager->hud.player_mana_bar->max_capacity = player->stats.max_mana;
+				App->menu_manager->hud.player_mana_bar->UpdateBar(ring_mana, UIType::MANABAR);
+
+				App->menu_manager->hud.player_mana_bar->PrintBarNumbers();
+
+
+			}
+			else {
+				// audio no money
+				App->audio->PlayFx(App->scene->fx_no_money);
+			}
+		}
 		break;
 	case StatesMenu::FIRSTABILITY_MENU:
 		if (interact == App->menu_manager->abilities.button_ability1_screen) {

@@ -101,6 +101,8 @@ public:
 	int price_ability3 = 75;
 	int price_helmet = 75;
 	int price_ring = 75;
+	int helmet_hp = 150;
+	int ring_mana = 100;
 
 
 	StatesMenu menu_state = StatesMenu::NO_MENU;
