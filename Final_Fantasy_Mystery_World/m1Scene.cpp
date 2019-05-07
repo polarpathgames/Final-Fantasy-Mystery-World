@@ -304,13 +304,13 @@ bool m1Scene::Update(float dt)
 			menu_state = StatesMenu::NO_MENU;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN || App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) {
-			if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_item3 && App->menu_manager->shop.shop_item_zone->GetGlobalPosition().y > 240) {
+			if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_sword && App->menu_manager->shop.shop_item_zone->GetGlobalPosition().y > 240) {
 				App->menu_manager->shop.shop_vertical_slider->SetValue(45);
 			}
-			else if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_item4 && App->menu_manager->shop.shop_vertical_slider->value != 90) {
+			else if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_helmet && App->menu_manager->shop.shop_vertical_slider->value != 90) {
 				App->menu_manager->shop.shop_vertical_slider->SetValue(90);
 			}
-			else if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_item5) {
+			else if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_ring) {
 				if (close_shop) {
 					App->audio->PlayFx(App->gui->fx_focus);
 					App->gui->FocusButton(App->menu_manager->shop.button_close_shop);
@@ -320,7 +320,7 @@ bool m1Scene::Update(float dt)
 			}
 		}
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN || App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1) {
-			if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_item3) {
+			if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_sword) {
 				App->menu_manager->shop.shop_vertical_slider->SetValue(45);
 			}
 			else if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_mana_potion) {
@@ -328,7 +328,7 @@ bool m1Scene::Update(float dt)
 			}
 			else if (App->gui->GetFocus() == App->menu_manager->shop.button_close_shop) {
 				App->audio->PlayFx(App->gui->fx_focus);
-				App->gui->FocusButton(App->menu_manager->shop.shop_button_item5);
+				App->gui->FocusButton(App->menu_manager->shop.shop_button_ring);
 			}
 			else
 				close_shop = false;
