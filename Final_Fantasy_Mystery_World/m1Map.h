@@ -137,6 +137,7 @@ public:
 	bool Load(const char* path);
 
 	iPoint MapToWorld(int x, int y) const;
+	iPoint MapToWorldCentered(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 	iPoint TiledToWorld(int x, int y) const;
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer);
