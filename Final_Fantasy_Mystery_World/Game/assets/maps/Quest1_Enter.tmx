@@ -8023,7 +8023,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="6" name="Collider" width="40" height="40">
+ <layer id="6" name="Collider" width="40" height="40" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>

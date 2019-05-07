@@ -95,18 +95,17 @@ bool e1Cassio::Update(float dt)
 			CheckBasicAttackEffects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
 			attack = true;
 		}
-		else if (particle_position == App->scene->player->position || lerp_translation > 1.f) {
+		else if ((particle_position == App->scene->player->position || lerp_translation > 1.f) && type_attack == Attacks::SPECIAL_1) {
 			App->audio->PlayFx(App->scene->fx_dog_attack);
-			if (type_attack == Attacks::SPECIAL_1) {
-				DistanceAttackDown.Reset();
-				DistanceAttackDownLeft.Reset();
-				DistanceAttackDownRight.Reset();
-				DistanceAttackLeft.Reset();
-				DistanceAttackRight.Reset();
-				DistanceAttackUp.Reset();
-				DistanceAttackUpLeft.Reset();
-				DistanceAttackUpRight.Reset();
-			}
+			DistanceAttackDown.Reset();
+			DistanceAttackDownLeft.Reset();
+			DistanceAttackDownRight.Reset();
+			DistanceAttackLeft.Reset();
+			DistanceAttackRight.Reset();
+			DistanceAttackUp.Reset();
+			DistanceAttackUpLeft.Reset();
+			DistanceAttackUpRight.Reset();
+			App->scene->player->ReduceLives(50);
 			attack = true;
 			lerp_translation = 0.f;
 			App->particles->DeleteFollow_p(poison_particle);
