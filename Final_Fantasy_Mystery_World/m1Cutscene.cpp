@@ -85,7 +85,10 @@ bool m1CutScene::LoadCutscene(std::string path)
 
 			if (action == "move_camera")
 			{
-				cutscene_action = DBG_NEW c1CutsceneMoveCamera(start, duration, cutscene_action_node.child("time").attribute("speed_x").as_int(), cutscene_action_node.child("time").attribute("speed_y").as_int());
+				cutscene_action = DBG_NEW c1CutsceneMoveCamera(start, duration, 
+					cutscene_action_node.child("time").attribute("origin_x").as_int(App->render->camera.x), cutscene_action_node.child("time").attribute("origin_y").as_int(App->render->camera.y),
+					cutscene_action_node.child("time").attribute("destination_x").as_int(), cutscene_action_node.child("time").attribute("destination_y").as_int(), 
+					cutscene_action_node.child("time").attribute("speed").as_float(), cutscene_action_node.child("time").attribute("stop_goal").as_bool(false));
 			}
 			else if (action == "move_entity")
 			{

@@ -1,13 +1,14 @@
 #include "App.h"
 #include "m1Render.h"
 #include "c1CutsceneMoveCamera.h"
-#include "m1CutScene.h"
+#include "m1Cutscene.h"
+#include "p2Math.h"
 
-c1CutsceneMoveCamera::c1CutsceneMoveCamera(uint start, uint duration, int speed_x, int speed_y) :c1CutsceneAction(start, duration)
+c1CutsceneMoveCamera::c1CutsceneMoveCamera(uint start, uint duration, int origin_x, int origin_y, int destination_x, int destination_y, float speed, bool stop_when_goal) :c1CutsceneAction(start, duration), 
+	speed(speed), stop_when_goal(stop_when_goal)
 {
-	camera_speed.x = speed_x;
-	camera_speed.y = speed_y;
-
+	camera_origin.create(origin_x, origin_y);
+	camera_destination.create(destination_x, destination_y);
 }
 
 void c1CutsceneMoveCamera::Execute(float dt)
@@ -16,7 +17,14 @@ void c1CutsceneMoveCamera::Execute(float dt)
 
 	if (start < duration_time)
 	{
-		App->render->camera.x -= camera_speed.x * dt;
-		App->render->camera.y -= camera_speed.y * dt;
+		lerp_by += speed;
+		App->render->camera.x = lerp(camera_origin, camera_destination, lerp_by).x;
+		App->render->camera.y = lerp(camera_origin, camera_destination, lerp_by).y;
+
+		if (stop_when_goal) {
+			if (lerp_by >= 1.0f) {
+				duration_time = 0u;
+			}
+		}
 	}
 }
