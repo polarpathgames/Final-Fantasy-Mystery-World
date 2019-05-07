@@ -26,12 +26,15 @@
       <id num="4"></id>
       <music>assets/audio/music/20.Final Fantasy TA - Painful Battle.ogg</music>
       <type>combat</type>
+      <door active="true"></door>
     </room>
     <room>
       <location>Tutorial_Ability.tmx</location>
       <id num="7"></id>
       <music>assets/audio/music/20.Final Fantasy TA - Painful Battle.ogg</music>
       <type>combat</type>
+      <door active="true"></door>
+
     </room>
     <room>
       <location>Tutorial_Attack3.tmx</location>
@@ -66,9 +69,7 @@
       <location>Quest1_Enter.tmx</location>
       <id num="1"></id>
       <type>paceful</type>
-      <properties>
-        <property name="blizzard" value="1"/>
-      </properties>
+     
     </room>
     <room>
       <location>Quest1_Frog.tmx</location>
@@ -79,6 +80,9 @@
       <location>Quest1_Barrels.tmx</location>
       <id num="3"></id>
       <type>paceful</type>
+      <properties>
+        <property name="blizzard" value="1"/>
+      </properties>
     </room>
     <room>
       <location>Quest1_Treasure.tmx</location>
@@ -99,6 +103,9 @@
       <location>Quest1_UseTeleport.tmx</location>
       <id num="7"></id>
       <type>paceful</type>
+      <properties>
+        <property name="blizzard" value="1"/>
+      </properties>
     </room>
     <room>
       <location>Quest1_Fountain.tmx</location>
@@ -119,6 +126,9 @@
       <location>Quest1_PreFinal.tmx</location>
       <id num="11"></id>
       <type>paceful</type>
+      <properties>
+        <property name="blizzard" value="1"/>
+      </properties>
     </room>
     <room>
       <location>Quest1_Fountain2.tmx</location>

@@ -98,6 +98,10 @@ int u1Bar::CalculateBar(int quantity)
 
 void u1Bar::InnerDraw()
 {
+
+	if (!drawable)
+		return;
+
 	if (has_change) {
 		if (current_width > targe_width) {
 			current_width -= 100 * App->GetDeltaTime();

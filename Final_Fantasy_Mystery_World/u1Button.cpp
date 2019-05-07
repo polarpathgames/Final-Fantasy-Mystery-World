@@ -6,9 +6,10 @@
 #include "m1Render.h"
 #include "m1Scene.h"
 
-u1Button::u1Button(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, u1GUI* parent, bool draw, bool inter, bool drag, bool focus = true, const iPoint& focus_offset, SDL_Rect* clip_zone)
+u1Button::u1Button(const int & x, const int & y, const SDL_Rect & idle, const SDL_Rect & hover, const SDL_Rect & push, u1GUI * parent, bool draw, bool inter, bool drag, bool focus, const iPoint & focus_offset, SDL_Rect * clip_zone, const SDL_Rect & on_hover_extra_image, const iPoint & extra_image_offset)
 	:u1GUI(BUTTON, x, y, parent, idle, draw, inter, drag, focus)
 {
+
 	hovered_rect = hover;
 	clicked_rect = push;
 
@@ -18,12 +19,24 @@ u1Button::u1Button(const int &x, const int &y, const SDL_Rect &idle, const SDL_R
 	}
 
 	this->focus_offset = focus_offset;
+
+	extra_image = on_hover_extra_image;
+ 	this->offset_extra_image = extra_image_offset;
+	this->offset_extra_image.y += GetGlobalRect()->y;
 }
 
 u1Button::~u1Button() {}
 
 void u1Button::InnerDraw()
 {
+
+	if (extra_image.w != 0 && extra_image.h != 0) {
+		if (App->gui->GetFocus() == (u1GUI*)this)
+			App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x + offset_extra_image.x, offset_extra_image.y, &extra_image, false, SDL_FLIP_NONE, 0.0F);
+	}
+
+	if (!drawable)
+		return;
 
 	switch (current_state)
 	{
@@ -46,6 +59,9 @@ void u1Button::InnerDraw()
 		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0.0F);
 		break;
 	}
+
+
+
 }
 
 void u1Button::PreUpdateElement()

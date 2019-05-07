@@ -21,57 +21,6 @@ e1DynamicEntity::~e1DynamicEntity()
 
 }
 
-void e1DynamicEntity::ChangeTurn(EntityType type)
-{
-	BROFILER_CATEGORY("ChangeTurn", Profiler::Color::Yellow);
-
-	//std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
-	//switch (type) {
-	//case EntityType::PLAYER: {
-	//	
-	//	std::vector<e1Entity*>::iterator item = entities.begin();
-	//	for (; item != entities.end(); ++item) {
-	//		if ((*item) != nullptr && (*item)->type == EntityType::ENEMY && !(*item)->turn_done) {
-	//			(*item)->has_turn = true;
-	//			has_turn = false;
-	//			(*item)->turn_done = true;
-	//			break;
-	//		}
-	//			
-	//	}
-	//	break; }
-	//case EntityType::ENEMY: {
-	//	has_turn = false;
-	//	std::vector<e1Entity*>::iterator item = entities.begin();
-	//	bool more_enemies = false;
-	//	while (item != entities.end()) {
-	//		if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY && !(*item)->turn_done) {
-	//			(*item)->has_turn = true;
-	//			(*item)->turn_done = true;
-	//			more_enemies = true;
-	//			break;
-	//		}
-	//		++item;
-	//	}
-	//	if (!more_enemies) {
-	//		item = entities.begin();
-	//		for (; item != entities.end(); ++item) {
-	//			if ((*item) != nullptr && (*item)->type == EntityType::ENEMY) {
-	//				(*item)->has_turn = false;
-	//				(*item)->turn_done = false;
-	//			}	
-	//			if ((*item) != nullptr && (*item)->type == EntityType::PLAYER) {
-	//				(*item)->has_turn = true;
-	//			}
-	//				
-	//		}
-	//	}
-	//	break;  }
-	//default:
-	//	break;
-	//}
-
-}
 void e1DynamicEntity::PushBack()
 {
 	BROFILER_CATEGORY("DynamicEntity Pushback", Profiler::Color::Yellow);

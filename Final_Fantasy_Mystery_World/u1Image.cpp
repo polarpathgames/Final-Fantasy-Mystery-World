@@ -23,6 +23,10 @@ u1Image::~u1Image()
 
 void u1Image::InnerDraw()
 {
+
+	if (!drawable)
+		return;
+
 	if (img_anim != nullptr) {
 		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &img_anim->GetCurrentFrame(App->GetDeltaTime()), false, SDL_FLIP_NONE, 0);
 		if (img_anim->Finished())

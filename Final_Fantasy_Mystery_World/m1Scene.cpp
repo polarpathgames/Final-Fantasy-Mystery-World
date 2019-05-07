@@ -304,13 +304,13 @@ bool m1Scene::Update(float dt)
 			menu_state = StatesMenu::NO_MENU;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN || App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) {
-			if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_item3 && App->menu_manager->shop.shop_item_zone->GetGlobalPosition().y > 240) {
+			if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_sword && App->menu_manager->shop.shop_item_zone->GetGlobalPosition().y > 240) {
 				App->menu_manager->shop.shop_vertical_slider->SetValue(45);
 			}
-			else if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_item4 && App->menu_manager->shop.shop_vertical_slider->value != 90) {
+			else if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_helmet && App->menu_manager->shop.shop_vertical_slider->value != 90) {
 				App->menu_manager->shop.shop_vertical_slider->SetValue(90);
 			}
-			else if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_item5) {
+			else if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_ring) {
 				if (close_shop) {
 					App->audio->PlayFx(App->gui->fx_focus);
 					App->gui->FocusButton(App->menu_manager->shop.button_close_shop);
@@ -320,7 +320,7 @@ bool m1Scene::Update(float dt)
 			}
 		}
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN || App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1) {
-			if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_item3) {
+			if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_sword) {
 				App->menu_manager->shop.shop_vertical_slider->SetValue(45);
 			}
 			else if (App->gui->GetFocus() == App->menu_manager->shop.shop_button_mana_potion) {
@@ -328,7 +328,7 @@ bool m1Scene::Update(float dt)
 			}
 			else if (App->gui->GetFocus() == App->menu_manager->shop.button_close_shop) {
 				App->audio->PlayFx(App->gui->fx_focus);
-				App->gui->FocusButton(App->menu_manager->shop.shop_button_item5);
+				App->gui->FocusButton(App->menu_manager->shop.shop_button_ring);
 			}
 			else
 				close_shop = false;
@@ -679,6 +679,63 @@ bool m1Scene::Interact(u1GUI* interact)
 				++player->stats.num_mana_potions;
 				App->menu_manager->inventory.mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
 				App->menu_manager->inventory.money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
+			}
+			else {
+				// audio no money
+				App->audio->PlayFx(App->scene->fx_no_money);
+			}
+		}
+		if (interact == App->menu_manager->shop.shop_button_sword) {
+			if (player->stats.gold >= price_ability3 || player->god_mode) {
+				// audio comprar
+				App->audio->PlayFx(App->scene->fx_buy);
+				player->ReduceGold(price_ability3);
+				App->globals.ability3_gained = true;
+				App->menu_manager->inventory.money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
+			}
+			else {
+				// audio no money
+				App->audio->PlayFx(App->scene->fx_no_money);
+			}
+		}
+		if (interact == App->menu_manager->shop.shop_button_helmet) {
+			if (player->stats.gold >= price_helmet || player->god_mode) {
+				// audio comprar
+				App->audio->PlayFx(App->scene->fx_buy);
+				player->ReduceGold(price_helmet);
+				App->globals.helmet_bought = true;
+				App->menu_manager->inventory.money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
+
+				player->stats.max_lives += helmet_hp;
+				player->AugmentLives(helmet_hp);
+				App->menu_manager->hud.player_hp_bar->max_capacity = player->stats.max_lives;
+				App->menu_manager->hud.player_hp_bar->UpdateBar(helmet_hp, UIType::HPBAR);
+
+				App->menu_manager->hud.player_hp_bar->PrintBarNumbers();
+
+
+			}
+			else {
+				// audio no money
+				App->audio->PlayFx(App->scene->fx_no_money);
+			}
+		}
+		if (interact == App->menu_manager->shop.shop_button_ring) {
+			if (player->stats.gold >= price_ring || player->god_mode) {
+				// audio comprar
+				App->audio->PlayFx(App->scene->fx_buy);
+				player->ReduceGold(price_ring);
+				App->globals.ring_bought = true;
+				App->menu_manager->inventory.money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
+
+				player->stats.max_mana += ring_mana;
+				player->AugmentMana(ring_mana);
+				App->menu_manager->hud.player_mana_bar->max_capacity = player->stats.max_mana;
+				App->menu_manager->hud.player_mana_bar->UpdateBar(ring_mana, UIType::MANABAR);
+
+				App->menu_manager->hud.player_mana_bar->PrintBarNumbers();
+
+
 			}
 			else {
 				// audio no money
