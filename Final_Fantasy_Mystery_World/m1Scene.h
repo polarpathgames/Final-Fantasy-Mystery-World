@@ -98,6 +98,10 @@ public:
 
 	int price_hp_potion = 75;
 	int price_mana_potion = 75;
+	int price_ability3 = 75;
+	int price_helmet = 75;
+	int price_ring = 75;
+
 
 	StatesMenu menu_state = StatesMenu::NO_MENU;
 	
