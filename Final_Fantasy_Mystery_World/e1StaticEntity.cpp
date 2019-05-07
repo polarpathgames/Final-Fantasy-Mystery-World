@@ -388,13 +388,13 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	}
 	else if (strcmp(name, "snow_elevation") == 0) {
 		static_type = e1StaticEntity::Type::SNOW_ELEVATION;
-		frame = { 7,209,32,24 };
+		frame = { 7,209,32,32 };
 		SetPivot(frame.w*0.5F, frame.h*0.5F);
 		size.create(frame.w, frame.h);
 	}
 	else if (strcmp(name, "rock_elevation") == 0) {
 		static_type = e1StaticEntity::Type::ROCK_ELEVATION;
-		frame = { 39,209,32,23 };
+		frame = { 39,209,32,32 };
 		SetPivot(frame.w*0.5F, frame.h*0.5F);
 		size.create(frame.w, frame.h);
 	}
@@ -449,10 +449,10 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		has_animation = true;
 		idle = DBG_NEW Animation();
 		current_animation = idle;
-		idle->PushBack({ 476,128,24,48 });
-		idle->PushBack({ 513,128,24,48 });
-		idle->PushBack({ 551,128,24,48 });
-		idle->PushBack({ 587,128,24,48 });
+		idle->PushBack({ 1330,160,37,57 });
+		idle->PushBack({ 1380,160,37,57 });
+		idle->PushBack({ 1430,160,37,57 });
+		idle->PushBack({ 1480,160,37,57 });
 		idle->speed = 7;
 		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
@@ -463,11 +463,11 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		has_animation = true;
 		idle = DBG_NEW Animation();
 		current_animation = idle;
-		idle->PushBack({ 386,131,16,40 });
-		idle->PushBack({ 406,131,16,40 });
-		idle->PushBack({ 426,131,16,40 });
-		idle->PushBack({ 346,131,16,40 });
-		idle->speed = 3;
+		idle->PushBack({ 1389,103,22,48 });
+		idle->PushBack({ 1411,103,22,48 });
+		idle->PushBack({ 1433,103,22,48 });
+		idle->PushBack({ 1455,103,22,48 });
+		idle->speed = 6;
 		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
@@ -477,10 +477,10 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		has_animation = true;
 		idle = DBG_NEW Animation();
 		current_animation = idle;
-		idle->PushBack({ 236,131,31,40 });
-		idle->PushBack({ 272,131,31,40 });
-		idle->PushBack({ 308,131,31,40 });
-		idle->PushBack({ 344,131,31,40 });
+		idle->PushBack({ 1480,119,35,40 });
+		idle->PushBack({ 1515,119,35,40 });
+		idle->PushBack({ 1550,119,35,40 });
+		idle->PushBack({ 1585,119,35,40 });
 		idle->speed = 7;
 		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
