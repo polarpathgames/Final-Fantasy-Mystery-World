@@ -7,6 +7,8 @@
 #include "PugiXml\src\pugixml.hpp"
 #include "p2PerfTimer.h"
 #include "p2Properties.h"
+#include "p1Fire.h"
+#include "p1Explosion.h"
 
 
 struct SDL_Texture;
@@ -113,6 +115,10 @@ public:
 
 	void SetPivot(const int &x, const int &y);
 	void CenterOnTile();
+	
+	void CreateParticleFollow(e1Entity* element_to_follow, iPoint* object_follow, SDL_Rect initial_rect, iPoint area = { 12, 2 }, iPoint timelife = { 15,5 }, int num_textures = 4, int num_particles = 20, bool active_ = false, bool isMouse = false, const iPoint & offset = { 0,0 });
+	void CreateParticleFire(e1Entity* element_to_follow, iPoint* object_follow, iPoint position_static, SDL_Rect initial_rect, iPoint area = { 12, 2 }, iPoint timelife = { 15,5 }, fPoint speed = { 0,0 }, P_Direction p_direction = P_NON, int num_particles = 20, int num_textures = 4, bool active_ = false, Wind dir = W_NON, const iPoint &offset = { 0,0 });
+	void CreateParticleExplosion(e1Entity* element_to_follow, iPoint* object_follow, iPoint position_static, SDL_Rect initial_rect, Explosion_Type type, iPoint perimeter = { 20, 20 }, iPoint timelife = { 20,10 }, fPoint speed = { 0,0 }, P_Direction p_direction = P_NON, int num_particles = 20, int num_textures = 4, const fPoint& gravity = { 0.0f,5.0f });
 
 	virtual bool Load(pugi::xml_node&) { return true; };
 	virtual bool Save(pugi::xml_node&) const { return true; };
@@ -146,6 +152,9 @@ public:
 
 	Properties<int> general_properties;
 
+	std::list<p1Follow*> particle_follow;
+	std::list<p1Fire*> particle_fire;
+	std::list<p1Explosion*> particle_explosion;
 };
 
 #endif

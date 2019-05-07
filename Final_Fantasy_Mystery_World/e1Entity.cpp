@@ -7,6 +7,7 @@
 #include "p2Log.h"
 #include "m1Textures.h"
 #include "m1Collisions.h"
+#include "m1ParticleManager.h"
 #include "Brofiler/Brofiler.h"
 
 
@@ -25,6 +26,19 @@ e1Entity::~e1Entity()
 	if (data.tileset.texture != nullptr) {
 		App->tex->UnLoad(data.tileset.texture);
 	}
+
+	for (std::list<p1Fire*>::iterator fire = particle_fire.begin(); fire != particle_fire.end(); fire++) {
+		App->particles->DeleteFire_p(*fire);
+	}
+	for (std::list<p1Explosion*>::iterator explo = particle_explosion.begin(); explo != particle_explosion.end(); explo++) {
+		App->particles->DeleteExplosion_p(*explo);
+	}
+	for (std::list<p1Follow*>::iterator follow = particle_follow.begin(); follow != particle_follow.end(); follow++) {
+		App->particles->DeleteFollow_p(*follow);
+	}
+	particle_fire.clear();
+	particle_explosion.clear();
+	particle_follow.clear();
 }
 
 void e1Entity::Draw(float dt)
@@ -43,6 +57,21 @@ void e1Entity::CenterOnTile()
 	position = App->map->MapToWorld(actual_tile.x, actual_tile.y) - pivot;
 	position.x += App->map->data.tile_width * 0.5F;
 	position.y += App->map->data.tile_height * 0.5F;
+}
+
+void e1Entity::CreateParticleFollow(e1Entity * element_to_follow, iPoint * object_follow, SDL_Rect initial_rect, iPoint area, iPoint timelife, int num_textures, int num_particles, bool active, bool isMouse, const iPoint & offset)
+{
+	particle_follow.push_back(App->particles->CreateFollow(element_to_follow, object_follow, initial_rect, area, timelife, num_textures, num_particles, active, isMouse, offset));
+}
+
+void e1Entity::CreateParticleFire(e1Entity * element_to_follow, iPoint * object_follow, iPoint position_static, SDL_Rect initial_rect, iPoint area, iPoint timelife, fPoint speed, P_Direction p_direction, int num_particles, int num_textures, bool active, Wind w_dir, const iPoint & offset)
+{
+	particle_fire.push_back(App->particles->CreateFire(element_to_follow, object_follow, position_static, initial_rect, area, timelife, speed, p_direction, num_particles, num_textures, active, w_dir, offset));
+}
+
+void e1Entity::CreateParticleExplosion(e1Entity * element_to_follow, iPoint * object_follow, iPoint position_static, SDL_Rect initial_rect, Explosion_Type type, iPoint perimeter, iPoint timelife, fPoint speed, P_Direction p_direction, int num_particles, int num_textures, const fPoint & gravity)
+{
+	particle_explosion.push_back(App->particles->CreateExplosion(element_to_follow, object_follow, position_static, initial_rect, type, perimeter, timelife, speed, p_direction, num_particles, num_textures, gravity));
 }
 
 iPoint e1Entity::GetPosition() const
