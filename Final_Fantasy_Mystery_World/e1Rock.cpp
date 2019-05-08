@@ -27,7 +27,7 @@ e1Rock::~e1Rock()
 void e1Rock::GetHitted()
 {
 	if (!hitted) {
-		App->render->CameraTremble();
+		App->render->CameraTremble(0.59F, 1.3F);
 		App->audio->PlayFx(App->scene->fx_rock);
 		has_animation = true;
 		idle = DBG_NEW Animation();

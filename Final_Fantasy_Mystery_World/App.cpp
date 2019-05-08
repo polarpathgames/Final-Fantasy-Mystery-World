@@ -523,3 +523,8 @@ bool Application::ChangeInventory()
 {
 	return is_inventory = !is_inventory;
 }
+
+float Application::GetDt()
+{
+	return dt;
+}

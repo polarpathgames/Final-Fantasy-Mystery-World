@@ -144,6 +144,12 @@ private:
 	bool LoadGameNow();
 	bool SavegameNow() const;
 
+public:
+
+	//GetDt
+	float GetDt();
+
+
 
 public:
 

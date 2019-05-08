@@ -4,6 +4,7 @@
 #include "SDL/include/SDL.h"
 #include "p2Point.h"
 #include "m1Module.h"
+#include <random>
 
 
 class m1Render : public m1Module
@@ -48,8 +49,20 @@ public:
 
 	void SmoothCamera(iPoint playerpos);
 	void CenterCameraOnPlayer(iPoint playerpos);
-	bool CameraTremble();
 
+
+	//Joss Tremble Camera Logic
+	float CameraTremble(float value, float traumaDecay);
+	float GetShakeAmount() const;
+	float GetFloatNegOneToOne();
+
+	std::random_device rd;  //Will be used to obtain a seed for the random number engine
+	std::mt19937 gen; //Standard mersenne_twister_engine seeded with rd()
+	float trauma = 0;
+	float traumaDecay = 2.2f;
+	float maxOffset = 16.f;
+	iPoint preShakePos;
+	bool debug = false;
 
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
