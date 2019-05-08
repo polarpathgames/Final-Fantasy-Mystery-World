@@ -506,6 +506,11 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 	}
+	else if (strcmp(name, "p_fire") == 0) {
+		static_type = e1StaticEntity::Type::PARTICLE;
+		position += {4, 6};
+		CreateParticleFire(this, nullptr, { 0,0 }, { 0,2,2,0 }, { 5, 2 }, { 12, 4 }, { 0, -15 }, P_NON, 30, 4, true, W_NON);
+	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
 	}
