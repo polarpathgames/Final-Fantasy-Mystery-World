@@ -52,6 +52,9 @@ public:
 	iPoint fireball_tile_objective = { 0,0 };
 
 	float arrow_time = 0;
+
+	Animation* shadow_fire_ball;
+
 };
 
 #endif // !_E1PARTICLES_H_
