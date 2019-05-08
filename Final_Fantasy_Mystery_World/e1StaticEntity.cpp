@@ -281,6 +281,8 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x + 1,App->map->WorldToMap(position.x,position.y).y + 1 };
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 		max_distance_to_interact = 3;
+		CreateParticleFire(nullptr, nullptr, position + iPoint{int(frame.w*0.5f),0}, SDL_Rect{ 8,4,2,2 }, size, iPoint(12, 4), fPoint(0, -15), P_NON, 70, 2, true, W_NON);
+		CreateParticleFire(nullptr, nullptr, position + iPoint{ int(frame.w*0.5f),0 }, SDL_Rect{ 8,2,2,2 }, size, iPoint(12, 4), fPoint(0, -15), P_NON, 30, 2, true, W_NON);
 		
 	}
 	else if (strcmp(name, "NPC1") == 0) {
