@@ -371,13 +371,13 @@ void e1Particles::SetFireBall()
 	size.create(20, 20);
 
 	shadow_fire_ball = new Animation();
-	shadow_fire_ball->PushBack({ 1114,4756,14,10 });
-	shadow_fire_ball->PushBack({ 1140,4756,14,10 });
-	shadow_fire_ball->PushBack({ 1182,4756,14,10 });
+	shadow_fire_ball->PushBack({ 1102,4719,96,48 });
+	shadow_fire_ball->PushBack({ 1200,4719,96,48 });
+	shadow_fire_ball->PushBack({ 1298,4719,96,48 });
 	shadow_fire_ball->speed = 2;
 
 	iPoint pos_shadow = App->map->MapToWorld(actual_tile.x, actual_tile.y);
-	pos_shadow.x = (int)(App->render->camera.x) + (pos_shadow.x + 20) * (int)App->win->GetScale();
+	pos_shadow.x = (int)(App->render->camera.x) + (pos_shadow.x) * (int)App->win->GetScale();
 	pos_shadow.y = (int)(App->render->camera.y) + pos_shadow.y * (int)App->win->GetScale();
 	App->gui->AddImage(pos_shadow.x, pos_shadow.y, { 0,0,0,0 }, nullptr, App->gui->screen, true, false, false, false, shadow_fire_ball);
 }
