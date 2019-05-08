@@ -1,7 +1,7 @@
 <cutscenes>
   <actions>
     <cutscene action="move_camera">
-      <time start="100" duration="3000" speed_x="80" speed_y="-40"/>
+      <time start="100" duration="3000" origin_x="-70" origin_y="-663"  speed="0.007" stop_goal="true"/>
     </cutscene>
     <cutscene action="move_entity" entity="daughter">
       <time start="4500" duration="650" speed_x="-160" speed_y="80"/>
