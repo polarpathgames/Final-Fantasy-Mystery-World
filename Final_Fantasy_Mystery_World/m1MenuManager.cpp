@@ -1478,28 +1478,29 @@ void m1MenuManager::ManageInputText(u1GUI *& interaction)
 void m1MenuManager::CreateBigInventory()
 {
 
-	inventory.inventory_panel = App->gui->AddImage(0, 0, { 2160,910,384,359 }, nullptr, App->gui->screen, true, false, false, false);
-	inventory.inventory_panel->SetPosRespectParent(CENTERED,700);
+	inventory.inventory_background = App->gui->AddImage(0, 0, { 2061,782,384,359 }, nullptr, App->gui->screen, true, false, false, false);
+	inventory.inventory_background->SetPosRespectParent(CENTERED, 700);
 
-	inventory.inventory_panel2 = App->gui->AddImage(384, 0, { 2568,910,384,359 }, nullptr, inventory.inventory_panel, false, false, false, false);
+	inventory.inventory_panel = App->gui->AddImage(14, 12, { 2070,1179,356,335 }, nullptr, inventory.inventory_background, true, false, false, false);
+
+	inventory.inventory_panel2 = App->gui->AddImage(356, 0, { 2448,1179,356,335 }, nullptr, inventory.inventory_panel, false, false, false, false);
 
 
 }
 
 void m1MenuManager::DestroyBigInventory()
 {
-	App->gui->DeleteUIElement(inventory.inventory_panel);
+	App->gui->DeleteUIElement(inventory.inventory_background);
 }
 
 void m1MenuManager::ChangeInventory(bool item)
 {
 
 	if (item && inventory.inventory_panel->position.x > 0) {
-		inventory.inventory_panel2->drawable = true;
-		inventory.spline_move_inventory = App->easing_splines->CreateSpline(&inventory.inventory_panel->position.x, inventory.inventory_panel->position.x - 384, 700, TypeSpline::EASE, std::bind(&m1MenuManager::ResetSplineInventory, App->menu_manager));
+		inventory.spline_move_inventory = App->easing_splines->CreateSpline(&inventory.inventory_panel->position.x, inventory.inventory_panel->position.x - 356, 700, TypeSpline::EASE, std::bind(&m1MenuManager::ResetSplineInventory, App->menu_manager));
 	}
 	else if (inventory.inventory_panel->position.x < 0 && !item) {
-		inventory.spline_move_inventory = App->easing_splines->CreateSpline(&inventory.inventory_panel->position.x, inventory.inventory_panel->position.x + 384, 700, TypeSpline::EASE, std::bind(&m1MenuManager::ResetSplineInventory, App->menu_manager));
+		inventory.spline_move_inventory = App->easing_splines->CreateSpline(&inventory.inventory_panel->position.x, inventory.inventory_panel->position.x + 356, 700, TypeSpline::EASE, std::bind(&m1MenuManager::ResetSplineInventory, App->menu_manager));
 	}
 
 }
@@ -1509,17 +1510,18 @@ void m1MenuManager::ResetSplineInventory()
 	inventory.spline_move_inventory = nullptr;
 
 	if (inventory.inventory_panel->position.x > 0) {
-		inventory.inventory_panel->SetPos(319, inventory.inventory_panel->GetLocalPosition().y);
+		inventory.inventory_panel->SetPos(14, inventory.inventory_panel->GetLocalPosition().y);
 	}
 	else {
-		inventory.inventory_panel->SetPos(319 - 384, inventory.inventory_panel->GetLocalPosition().y);
+		inventory.inventory_panel->SetPos(14 - 356, inventory.inventory_panel->GetLocalPosition().y);
 	}
 }
 
 void m1MenuManager::SetClipInInventory()
 {
-
-	inventory.inventory_panel->SetClipZone({ 319,204,384,359 });
-	inventory.inventory_panel2->SetClipZone({ 319,204,384,359 });
-
+	SDL_Rect rect = { inventory.inventory_panel->GetGlobalRect()->x,inventory.inventory_panel->GetGlobalRect()->y,inventory.inventory_panel->GetGlobalRect()->w,inventory.inventory_panel->GetGlobalRect()->h };
+	inventory.inventory_panel->SetClipZone(rect);
+	inventory.inventory_panel2->SetClipZone(rect);
+	inventory.inventory_panel2->drawable = true;
+	inventory.spline_move_inventory = nullptr;
 }

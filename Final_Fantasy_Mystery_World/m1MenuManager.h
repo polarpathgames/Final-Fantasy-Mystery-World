@@ -423,6 +423,7 @@ struct UI_select_champ {
 struct UI_inventory {
 	u1Image* inventory_panel = nullptr;
 	u1Image* inventory_panel2 = nullptr;
+	u1Image* inventory_background = nullptr;
 	u1Image* hp_potion_image = nullptr;
 	u1Button* hp_potion_button = nullptr;
 	u1Image* mana_potion_image = nullptr;
