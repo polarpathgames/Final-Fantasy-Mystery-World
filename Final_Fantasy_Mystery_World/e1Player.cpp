@@ -703,32 +703,32 @@ void e1Player::PrepareSpecialAttack2()
 		state = State::ATTACKING;
 		switch (direction) {
 		case Direction::DOWN_LEFT:
-			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
-			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 400, EASE_IN_BACK);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 400, EASE_IN_BACK);
 			break;
 		case Direction::UP_RIGHT:
-			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
-			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 400, EASE_IN_BACK);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 400, EASE_IN_BACK);
 			break;
 		case Direction::DOWN_RIGHT:
-			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
-			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 400, EASE_IN_BACK);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 400, EASE_IN_BACK);
 			break;
 		case Direction::UP_LEFT:
-			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
-			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 400, EASE_IN_BACK);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 400, EASE_IN_BACK);
 			break;
 		case Direction::UP:
-			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3, 400, EASE_IN_BACK);
 			break;
 		case Direction::DOWN:
-			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3, 200, EASE);
+			App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3, 400, EASE_IN_BACK);
 			break;
 		case Direction::RIGHT:
-			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3, 200, EASE);
+			App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3, 400, EASE_IN_BACK);
 			break;
 		case Direction::LEFT:
-			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3, 200, EASE);
+			App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3, 400, EASE_IN_BACK);
 			break;
 		}
 		ChangeAnimation(direction, state, type_attack);
