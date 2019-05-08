@@ -1,10 +1,10 @@
 <cutscenes>
   <actions>
     <cutscene action="move_camera">
-      <time start="100" duration="3000" origin_x="-70" origin_y="-663" destination_x="-70" destination_y="-663" speed="0.007" stop_goal="true"/>
+      <time start="100" duration="3000" origin_x="-70" origin_y="-663"  speed="0.007" stop_goal="true"/>
     </cutscene>
     <cutscene action="move_entity" entity="daughter">
-      <time start="4500" duration="30000" origin_x="29" origin_y="17" destination_x="29" destination_y="23" stop_goal="true"/>
+      <time start="4500" duration="650" speed_x="-160" speed_y="80"/>
     </cutscene>
     <cutscene action="add_audio" entity="daughter" path="assets/audio/sfx/MC_Shield.wav">
     </cutscene>
