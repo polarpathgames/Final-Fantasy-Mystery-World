@@ -65,7 +65,7 @@ bool m1EasingSplines::CleanUp()
 	return true;
 }
 
-EaseSplineInfo * m1EasingSplines::CreateSpline(int * position, const int target_position, const float time_to_travel, TypeSpline type, std::function<void()> fn)
+EaseSplineInfo* m1EasingSplines::CreateSpline(int * position, const int target_position, const float time_to_travel, TypeSpline type, std::function<void()> fn)
 {
 	std::list <EaseSplineInfo*>::iterator item = easing_splines.begin();
 	for (; item != easing_splines.end(); ++item) {
@@ -124,6 +124,7 @@ bool EaseSplineInfo::Update(float dt)
 	else {
 		if (fn != nullptr)
 			this->fn();
+		to_delete = true;
 		ret = false;
 	}
 		
