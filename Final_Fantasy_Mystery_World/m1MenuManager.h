@@ -552,6 +552,7 @@ struct UI_HUD {
 	u1Image* player_hud_image = nullptr;
 	u1Bar* player_hp_bar = nullptr;
 	u1Bar* player_mana_bar = nullptr;
+	u1Bar* player_exp_bar = nullptr;
 	u1Image* diagonal_compass = nullptr; 	//Compass
 	u1Image* vertical_compass = nullptr;	//Compass
 };

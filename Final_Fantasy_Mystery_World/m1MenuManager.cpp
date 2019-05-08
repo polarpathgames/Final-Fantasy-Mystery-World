@@ -936,6 +936,7 @@ void m1MenuManager::CreateHUD()
 	}
 	hud.player_hp_bar = App->gui->AddBar(215, 662,App->scene->player->stats.max_lives, HPBAR, hud.bg_hud, nullptr);
 	hud.player_mana_bar = App->gui->AddBar(215, 700, App->scene->player->stats.max_mana, MANABAR, hud.bg_hud, nullptr);
+	hud.player_exp_bar = App->gui->AddBar(8, 626, App->scene->player->stats.max_xp, EXPBAR, hud.bg_hud, nullptr);
 }
 
 void m1MenuManager::DestroyHUD()

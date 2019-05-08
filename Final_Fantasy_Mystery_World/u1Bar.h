@@ -13,9 +13,9 @@ public:
 
 	~u1Bar();
 	void UpdateBar(int quantity, UIType bar_type);
-	//void RecoverBar(int quantity);
 
 	int CalculateBar(int quantity);
+	int CalculateExpBar(int xp);
 	void InnerDraw();
 
 	void PrintBarNumbers();
