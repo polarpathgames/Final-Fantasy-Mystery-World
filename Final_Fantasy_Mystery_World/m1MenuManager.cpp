@@ -1479,7 +1479,7 @@ void m1MenuManager::CreateBigInventory()
 {
 
 	inventory.inventory_panel = App->gui->AddImage(0, 0, { 2160,910,384,359 }, nullptr, App->gui->screen, true, false, false, false);
-	inventory.inventory_panel->SetPosRespectParent(CENTERED);
+	inventory.inventory_panel->SetPosRespectParent(CENTERED,700);
 
 	inventory.inventory_panel2 = App->gui->AddImage(384, 0, { 2568,910,384,359 }, nullptr, inventory.inventory_panel, true, false, false, false);
 
