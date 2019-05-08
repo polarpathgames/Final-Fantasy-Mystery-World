@@ -7,6 +7,7 @@
 #include "e1Player.h"
 #include "m1Scene.h"
 #include "m1Render.h"
+#include "m1EntityManager.h"
 #include "m1EasingSplines.h"
 #include "Brofiler/Brofiler.h"
 
@@ -345,7 +346,8 @@ bool e1SuperPurpleFrog::CanAttack()
 	bool ret = false;
 
 	iPoint player_pos = App->scene->player->actual_tile;
-	last_tile = actual_tile;
+	iPoint last_tile{ actual_tile.x,actual_tile.y };
+
 	if (player_pos == actual_tile + iPoint{ 0,3 }) {
 		distance_to_travel = 5;
 		direction = Direction::DOWN_LEFT;
@@ -488,6 +490,15 @@ bool e1SuperPurpleFrog::CanAttack()
 		ret = false;
 	}
 
+	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+	std::vector<e1Entity*>::iterator item = entities.begin();
+
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr && (*item) != this && (*item)->actual_tile == actual_tile) {
+			actual_tile = last_tile;
+			ret = false;
+		}
+	}
 
 	return ret;
 }
