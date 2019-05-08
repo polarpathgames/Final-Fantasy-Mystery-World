@@ -2,6 +2,8 @@
 #include "App.h"
 #include "m1Map.h"
 #include "m1EntityManager.h"
+#include "m1Window.h"
+#include "m1GUI.h"
 #include "e1DynamicEntity.h"
 #include "m1Render.h"
 #include "e1Rock.h"
@@ -367,6 +369,17 @@ void e1Particles::SetFireBall()
 	particle_fire.push_back(App->particles->CreateFire(this, nullptr, { 0,0 }, { 0,2,2,0 }, { 20,10 }, { 20,4 }, { 60,-60 }, P_RANDOM, 65, 4, true, W_NON, { 11, 20 }));
 	SetPivot(11, 2800);
 	size.create(20, 20);
+
+	shadow_fire_ball = new Animation();
+	shadow_fire_ball->PushBack({ 194,0,32,16 });
+	shadow_fire_ball->PushBack({ 226,0,32,16 });
+	shadow_fire_ball->PushBack({ 258,0,32,16 });
+	shadow_fire_ball->speed = 3;
+
+	iPoint pos_shadow = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+	pos_shadow.x = (int)(App->render->camera.x) + (pos_shadow.x + 20) * (int)App->win->GetScale();
+	pos_shadow.y = (int)(App->render->camera.y) + pos_shadow.y * (int)App->win->GetScale();
+	App->gui->AddImage(pos_shadow.x, pos_shadow.y, { 0,0,0,0 }, nullptr, App->gui->screen, true, false, false, false, shadow_fire_ball);
 }
 
 void e1Particles::MoveFireBall(float dt)
