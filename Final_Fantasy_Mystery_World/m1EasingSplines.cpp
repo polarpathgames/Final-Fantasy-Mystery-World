@@ -65,7 +65,7 @@ bool m1EasingSplines::CleanUp()
 	return true;
 }
 
-EaseSplineInfo * m1EasingSplines::CreateSpline(int * position, const int target_position, const float time_to_travel, TypeSpline type, std::function<void()> fn)
+EaseSplineInfo* m1EasingSplines::CreateSpline(int * position, const int target_position, const float time_to_travel, TypeSpline type, std::function<void()> fn)
 {
 	std::list <EaseSplineInfo*>::iterator item = easing_splines.begin();
 	for (; item != easing_splines.end(); ++item) {
@@ -124,6 +124,7 @@ bool EaseSplineInfo::Update(float dt)
 	else {
 		if (fn != nullptr)
 			this->fn();
+		to_delete = true;
 		ret = false;
 	}
 		
@@ -156,7 +157,7 @@ int EaseFunctions::EaseInOutBack(float time_passed, int initial_position, int di
 
 int EaseFunctions::EaseInBack(float time_passed, int initial_position, int distance_to_travel, float time_to_travel)
 {
-	float s = 1.70158f;
+	float s = 2.70158f;
 	float postFix = time_passed /= time_to_travel;
 	return distance_to_travel * (postFix)*time_passed*((s + 1)*time_passed - s) + initial_position;
 }

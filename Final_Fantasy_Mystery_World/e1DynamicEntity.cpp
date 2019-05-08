@@ -466,8 +466,10 @@ bool e1DynamicEntity::RestTimeAfterAttack(float time_finish)
 		ret = true;
 	}
 	else {
-		if (target_position == position)
+		if (return_spline == nullptr || return_spline->to_delete) {
 			ChangeAnimation(direction, state);
+			return_spline = nullptr;
+		}
 		else {
 			switch (direction)
 			{

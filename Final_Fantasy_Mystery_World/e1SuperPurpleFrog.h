@@ -22,7 +22,7 @@ public:
 public:
 
 	int distance_to_travel = 0;
-	iPoint last_tile{ 0,0 };
+	
 
 };
 

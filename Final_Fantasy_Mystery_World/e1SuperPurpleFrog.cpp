@@ -7,6 +7,7 @@
 #include "e1Player.h"
 #include "m1Scene.h"
 #include "m1Render.h"
+#include "m1EntityManager.h"
 #include "m1EasingSplines.h"
 #include "Brofiler/Brofiler.h"
 
@@ -142,64 +143,64 @@ bool e1SuperPurpleFrog::Update(float dt)
 			if (distance_to_travel == 1) {
 				switch (direction) {
 				case Direction::DOWN_LEFT:
-					App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
-					App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
 					break;
 				case Direction::UP_RIGHT:
-					App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
-					App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
 					break;
 				case Direction::DOWN_RIGHT:
-					App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
-					App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
 					break;
 				case Direction::UP_LEFT:
-					App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
-					App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
 					break;
 				case Direction::UP:
-					App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3 + 1, 200, EASE);
 					break;
 				case Direction::DOWN:
-					App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3 + 1, 200, EASE);
 					break;
 				case Direction::RIGHT:
-					App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3 + 1, 200, EASE);
 					break;
 				case Direction::LEFT:
-					App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3 + 1, 200, EASE);
 					break;
 				}
 			}
 			else {
 				switch (direction) {
 				case Direction::DOWN_LEFT:
-					App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
-					App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
 					break;
 				case Direction::UP_RIGHT:
-					App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
-					App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
 					break;
 				case Direction::DOWN_RIGHT:
-					App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
-					App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
 					break;
 				case Direction::UP_LEFT:
-					App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
-					App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
 					break;
 				case Direction::UP:
-					App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 2 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 2 + 1, 200, EASE);
 					break;
 				case Direction::DOWN:
-					App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 2 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 2 + 1, 200, EASE);
 					break;
 				case Direction::RIGHT:
-					App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 2 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 2 + 1, 200, EASE);
 					break;
 				case Direction::LEFT:
-					App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 2 + 1, 200, EASE);
+					return_spline = App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 2 + 1, 200, EASE);
 					break;
 				}
 			}
@@ -345,7 +346,8 @@ bool e1SuperPurpleFrog::CanAttack()
 	bool ret = false;
 
 	iPoint player_pos = App->scene->player->actual_tile;
-	last_tile = actual_tile;
+	iPoint last_tile{ actual_tile.x,actual_tile.y };
+
 	if (player_pos == actual_tile + iPoint{ 0,3 }) {
 		distance_to_travel = 5;
 		direction = Direction::DOWN_LEFT;
@@ -488,6 +490,15 @@ bool e1SuperPurpleFrog::CanAttack()
 		ret = false;
 	}
 
+	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+	std::vector<e1Entity*>::iterator item = entities.begin();
+
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr && (*item) != this && (*item)->actual_tile == actual_tile) {
+			actual_tile = last_tile;
+			ret = false;
+		}
+	}
 
 	return ret;
 }

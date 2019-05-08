@@ -7,6 +7,7 @@
 #include "PugiXml\src\pugixml.hpp"
 #include "p2PerfTimer.h"
 #include "e1Entity.h"
+#include "m1EasingSplines.h"
 
 enum class Attacks {
 	BASIC, SPECIAL_1, SPECIAL_2, NONE
@@ -50,6 +51,8 @@ public:
 
 
 public:
+
+	EaseSplineInfo* return_spline = nullptr;
 
 	Direction direction = Direction::NONE;
 	State state = State::NONE;
