@@ -12,6 +12,8 @@ class u1ChButton;
 class u1VerticalSlider;
 class u1Bar;
 
+struct EaseSplineInfo;
+
 struct UI_input {
 	u1InputText* input_text = nullptr;
 	u1Image* input_text_image = nullptr;
@@ -420,6 +422,7 @@ struct UI_select_champ {
 
 struct UI_inventory {
 	u1Image* inventory_panel = nullptr;
+	u1Image* inventory_panel2 = nullptr;
 	u1Image* hp_potion_image = nullptr;
 	u1Button* hp_potion_button = nullptr;
 	u1Image* mana_potion_image = nullptr;
@@ -433,6 +436,8 @@ struct UI_inventory {
 	u1Label* level_number_label = nullptr;
 	u1Label* exp_name_label = nullptr;
 	u1Label* exp_number_label = nullptr;
+
+	EaseSplineInfo* spline_move_inventory = nullptr;
 };
 
 struct UI_pause_menu {
@@ -622,6 +627,12 @@ public:
 	bool Interact(u1GUI* button);
 
 	void ManageInputText(u1GUI * &interaction);
+
+	void CreateBigInventory();
+	void DestroyBigInventory();
+
+	void ChangeInventory(bool item);
+	void ResetSplineInventory();
 
 public:
 	UI_main_menu	main_menu;

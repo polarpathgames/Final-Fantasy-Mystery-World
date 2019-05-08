@@ -1474,3 +1474,36 @@ void m1MenuManager::ManageInputText(u1GUI *& interaction)
 		input.input_text->AddText(" ");
 	}
 }
+
+void m1MenuManager::CreateBigInventory()
+{
+
+	inventory.inventory_panel = App->gui->AddImage(0, 0, { 2160,910,384,359 }, nullptr, App->gui->screen, true, false, false, false);
+	inventory.inventory_panel->SetPosRespectParent(CENTERED);
+
+	inventory.inventory_panel2 = App->gui->AddImage(384, 0, { 2568,910,384,359 }, nullptr, inventory.inventory_panel, true, false, false, false);
+
+
+}
+
+void m1MenuManager::DestroyBigInventory()
+{
+	App->gui->DeleteUIElement(inventory.inventory_panel);
+}
+
+void m1MenuManager::ChangeInventory(bool item)
+{
+
+	if (item && inventory.inventory_panel->position.x > 0) {
+		inventory.spline_move_inventory = App->easing_splines->CreateSpline(&inventory.inventory_panel->position.x, inventory.inventory_panel->position.x - 384, 700, TypeSpline::EASE, std::bind(&m1MenuManager::ResetSplineInventory, App->menu_manager));
+	}
+	else if (inventory.inventory_panel->position.x < 0 && !item) {
+		inventory.spline_move_inventory = App->easing_splines->CreateSpline(&inventory.inventory_panel->position.x, inventory.inventory_panel->position.x + 384, 700, TypeSpline::EASE, std::bind(&m1MenuManager::ResetSplineInventory, App->menu_manager));
+	}
+
+}
+
+void m1MenuManager::ResetSplineInventory()
+{
+	inventory.spline_move_inventory = nullptr;
+}
