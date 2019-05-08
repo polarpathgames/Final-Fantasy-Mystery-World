@@ -439,6 +439,10 @@ struct UI_inventory {
 	u1Label* exp_number_label = nullptr;
 
 	EaseSplineInfo* spline_move_inventory = nullptr;
+
+	void ChangeInventory(bool item);
+	void ResetSplineInventory();
+	void SetClipInInventory();
 };
 
 struct UI_pause_menu {
@@ -632,9 +636,7 @@ public:
 	void CreateBigInventory();
 	void DestroyBigInventory();
 
-	void ChangeInventory(bool item);
-	void ResetSplineInventory();
-	void SetClipInInventory();
+
 
 public:
 	UI_main_menu	main_menu;

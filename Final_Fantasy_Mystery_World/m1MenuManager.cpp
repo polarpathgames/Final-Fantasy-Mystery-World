@@ -1493,35 +1493,34 @@ void m1MenuManager::DestroyBigInventory()
 	App->gui->DeleteUIElement(inventory.inventory_background);
 }
 
-void m1MenuManager::ChangeInventory(bool item)
+
+void UI_inventory::ChangeInventory(bool item)
 {
-
-	if (item && inventory.inventory_panel->position.x > 0) {
-		inventory.spline_move_inventory = App->easing_splines->CreateSpline(&inventory.inventory_panel->position.x, inventory.inventory_panel->position.x - 356, 700, TypeSpline::EASE, std::bind(&m1MenuManager::ResetSplineInventory, App->menu_manager));
+	if (item && inventory_panel->position.x > 0) {
+		spline_move_inventory = App->easing_splines->CreateSpline(&inventory_panel->position.x, inventory_panel->position.x - 356, 700, TypeSpline::EASE, std::bind(&UI_inventory::ResetSplineInventory, App->menu_manager->inventory));
 	}
-	else if (inventory.inventory_panel->position.x < 0 && !item) {
-		inventory.spline_move_inventory = App->easing_splines->CreateSpline(&inventory.inventory_panel->position.x, inventory.inventory_panel->position.x + 356, 700, TypeSpline::EASE, std::bind(&m1MenuManager::ResetSplineInventory, App->menu_manager));
+	else if (inventory_panel->position.x < 0 && !item) {
+		spline_move_inventory = App->easing_splines->CreateSpline(&inventory_panel->position.x, inventory_panel->position.x + 356, 700, TypeSpline::EASE, std::bind(&UI_inventory::ResetSplineInventory, App->menu_manager->inventory));
 	}
-
 }
 
-void m1MenuManager::ResetSplineInventory()
+void UI_inventory::ResetSplineInventory()
 {
-	inventory.spline_move_inventory = nullptr;
+	App->menu_manager->inventory.spline_move_inventory = nullptr;
 
-	if (inventory.inventory_panel->position.x > 0) {
-		inventory.inventory_panel->SetPos(14, inventory.inventory_panel->GetLocalPosition().y);
+	if (inventory_panel->position.x > 0) {
+		inventory_panel->SetPos(14,inventory_panel->GetLocalPosition().y);
 	}
 	else {
-		inventory.inventory_panel->SetPos(14 - 356, inventory.inventory_panel->GetLocalPosition().y);
+		inventory_panel->SetPos(14 - 356, inventory_panel->GetLocalPosition().y);
 	}
 }
 
-void m1MenuManager::SetClipInInventory()
+void UI_inventory::SetClipInInventory()
 {
-	SDL_Rect rect = { inventory.inventory_panel->GetGlobalRect()->x,inventory.inventory_panel->GetGlobalRect()->y,inventory.inventory_panel->GetGlobalRect()->w,inventory.inventory_panel->GetGlobalRect()->h };
-	inventory.inventory_panel->SetClipZone(rect);
-	inventory.inventory_panel2->SetClipZone(rect);
-	inventory.inventory_panel2->drawable = true;
-	inventory.spline_move_inventory = nullptr;
+	SDL_Rect rect = { inventory_panel->GetGlobalRect()->x, inventory_panel->GetGlobalRect()->y, inventory_panel->GetGlobalRect()->w, inventory_panel->GetGlobalRect()->h };
+	inventory_panel->SetClipZone(rect);
+	inventory_panel2->SetClipZone(rect);
+	inventory_panel2->drawable = true;
+	App->menu_manager->inventory.spline_move_inventory = nullptr;
 }

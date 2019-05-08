@@ -237,7 +237,7 @@ bool m1Scene::Update(float dt)
 				App->audio->PlayFx(App->gui->fx_inventory);
 				App->menu_manager->CreateBigInventory();
 				player->BlockControls(true);
-				App->menu_manager->inventory.spline_move_inventory = App->easing_splines->CreateSpline(&App->menu_manager->inventory.inventory_background->position.x, 320, 1200, TypeSpline::EASE_OUT_BACK, std::bind(&m1MenuManager::SetClipInInventory, App->menu_manager));
+				App->menu_manager->inventory.spline_move_inventory = App->easing_splines->CreateSpline(&App->menu_manager->inventory.inventory_background->position.x, 320, 1200, TypeSpline::EASE_OUT_BACK, std::bind(&UI_inventory::SetClipInInventory, App->menu_manager->inventory));
 				menu_state = StatesMenu::INVENTORY_MENU;
 			}
 		}
@@ -251,10 +251,10 @@ bool m1Scene::Update(float dt)
 		}
 		if (App->menu_manager->inventory.spline_move_inventory == nullptr) {
 			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
-				App->menu_manager->ChangeInventory(true);
+				App->menu_manager->inventory.ChangeInventory(true);
 			}
 			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
-				App->menu_manager->ChangeInventory(false);
+				App->menu_manager->inventory.ChangeInventory(false);
 			}
 		}
 		break;
