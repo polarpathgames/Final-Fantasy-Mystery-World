@@ -633,6 +633,7 @@ public:
 
 	void ChangeInventory(bool item);
 	void ResetSplineInventory();
+	void SetClipInInventory();
 
 public:
 	UI_main_menu	main_menu;
