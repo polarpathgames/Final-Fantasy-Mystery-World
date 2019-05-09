@@ -29,6 +29,7 @@ public:
 		BLUE_SLIME,
 		SUPER_PURPLE_FROG,
 		CASSIO,
+		FROZEN,
 
 		NONE
 	};

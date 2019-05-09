@@ -89,6 +89,7 @@ public:
 		BLUE_SLIME,
 		EVENT,
 		CASSIO,
+		FROZEN,
 
 		NO_TYPE
 	};

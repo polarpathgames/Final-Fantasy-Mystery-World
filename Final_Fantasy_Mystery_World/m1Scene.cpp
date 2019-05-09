@@ -98,6 +98,15 @@ bool m1Scene::Start()
   
 	mus_game_over = App->audio->LoadMusic("assets/audio/music/35.Final Fantasy TA - Judge.ogg");
 
+	if (App->fast_start) {
+		if (player == nullptr) {
+			player_type = PlayerType::WARRIOR;
+			App->globals.player_name.assign("Steve");
+			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, -100, -100, "warrior");
+			App->map->Enable();
+			App->menu_manager->CreateHUD();
+		}
+	}
 
 	return true;
 }

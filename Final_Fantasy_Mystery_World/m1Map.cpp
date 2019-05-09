@@ -35,6 +35,10 @@ bool m1Map::Start()
 	mus_shop = App->audio->LoadMusic("assets/audio/music/4.Final Fantasy TA - Magic Beast Farm.ogg");
 	mus_lobby = App->audio->LoadMusic("assets/audio/music/10.Final Fantasy TA - Different World Ivalice.ogg");
 
+	if (App->fast_start) {
+		ChangeMap(Maps::DEBUG);
+	}
+
 	return true;
 }
 
@@ -48,6 +52,8 @@ bool m1Map::Awake(pugi::xml_node& config)
 	shop_map.assign(config.child("maps").child("shop_map").text().as_string());
 	lobby_map.assign(config.child("maps").child("lobby_map").text().as_string());
 	home_map.assign(config.child("maps").child("home_map").text().as_string());
+
+	debug_map.assign(config.child("start_map").attribute("map").as_string());
 	
 	return ret;
 }
@@ -661,6 +667,11 @@ bool m1Map::ChangeMap(Maps type)
 	case Maps::QUEST2:
 		quest_rooms = DBG_NEW RoomManager("quest2");
 		actual_map = Maps::QUEST2;
+		return true;
+		break;
+	case Maps::DEBUG:
+		quest_rooms = DBG_NEW RoomManager("debug");
+		actual_map = Maps::DEBUG;
 		return true;
 		break;
 	case Maps::SHOP:

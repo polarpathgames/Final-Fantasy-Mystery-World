@@ -37,6 +37,8 @@ e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 	velocity.y = 80;
 	
 	original_position = position;
+	target_position = position;
+	initial_position = position;
 	movement_count = { 0,0 };
 	actual_tile = App->map->WorldToMap(position.x, position.y);
 
