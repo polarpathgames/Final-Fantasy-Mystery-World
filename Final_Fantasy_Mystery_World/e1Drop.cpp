@@ -36,6 +36,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		idle->PushBack({ 1024,172,8,14 });
 		idle->PushBack({ 1024,187,8,14 });
 		idle->speed = 2;
+		frame = idle->frames[0];
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		CenterOnTile();

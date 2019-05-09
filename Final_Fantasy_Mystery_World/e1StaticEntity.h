@@ -99,7 +99,7 @@ private:
 	void SetRect(int x, int y, int w, int h);
 
 public:
-	SDL_Rect frame;
+	SDL_Rect frame = { 0,0 };
 	Animation* idle = nullptr;
 	bool has_animation = false;
 	Type static_type = Type::UNKNOWN;
