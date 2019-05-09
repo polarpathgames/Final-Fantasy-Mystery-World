@@ -209,6 +209,12 @@ bool e1Enemy::IsPlayerNextTile()
 	return ret;
 }
 
+bool e1Enemy::IsPlayerInRange(const int& range) {
+	iPoint distance = App->scene->player->actual_tile - actual_tile;
+
+	return abs(distance.x) <= range && abs(distance.y) <= range;
+}
+
 void e1Enemy::MovementLogic()
 {
 	BROFILER_CATEGORY("MovementLogic Enemy", Profiler::Color::SeaGreen);
