@@ -437,6 +437,51 @@ bool m1EntityManager::ThereIsEntity(e1Entity::EntityType type)
 	return ret;
 }
 
+bool m1EntityManager::ThereIsEntity(const char * name)
+{
+	bool ret = false;
+
+	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item)
+	{
+		if ((*item) != nullptr && (*item)->name.compare(name) == 0) {
+			ret = true;
+			break;
+		}
+	}
+	return ret;
+}
+
+e1Entity * m1EntityManager::FindEntity(e1Entity::EntityType type)
+{
+	e1Entity* ret = nullptr;
+
+	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item)
+	{
+		if ((*item) != nullptr && (*item)->type == type) {
+			ret = *item;
+			break;
+		}
+	}
+	return ret;
+}
+
+e1Entity * m1EntityManager::FindEntity(const char * name)
+{
+	e1Entity* ret = nullptr;
+
+	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item)
+	{
+		if ((*item) != nullptr && (*item)->name.compare(name) == 0) {
+			ret = *item;
+			break;
+		}
+	}
+	return ret;
+}
+
 bool m1EntityManager::IsPlayerPoisoned()
 {
 	for (std::vector<e1Entity*>::iterator item = entities.begin(); item != entities.end(); ++item)

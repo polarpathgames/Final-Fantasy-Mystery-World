@@ -41,7 +41,12 @@ void e1Frozen::PrepareDistanceAttack()
 		needle->SetParticle(e1Particles::ParticleType::ARROW, direction);
 	}
 	else {
-		if(App->entity_manager->ThereIsEntity())
+		if (!App->entity_manager->ThereIsEntity("blizzard")) {
+			App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "blizzard");
+		}
+		else {
+
+		}
 	}
 }
 
