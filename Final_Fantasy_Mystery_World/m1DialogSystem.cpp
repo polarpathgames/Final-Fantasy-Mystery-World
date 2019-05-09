@@ -320,6 +320,8 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			   case 1: // SHOP
 				   App->menu_manager->CreateShopMenu();
 				   App->scene->SetMenuState(StatesMenu::SHOP_MENU);
+				   App->globals.shop_gone = true;
+				   dialogTrees[7]->karma = 0;
 				   break;
 			   case -2: //FOUNTAIN MANA
 				   App->scene->player->AugmentMana(100);
@@ -384,6 +386,9 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->SaveGame("save_game.xml");
 				   break;
 			   }
+			   case 4: //Checking if player has gone to the shop
+				   App->scene->player->BlockControls(false);
+				   break;
 			   case 30: //old statue tutorial diagonal
 				   App->menu_manager->CreateHelpDiagonalMenu();
 				   App->scene->SetMenuState(StatesMenu::HELP_DIAGONAL_MENU);

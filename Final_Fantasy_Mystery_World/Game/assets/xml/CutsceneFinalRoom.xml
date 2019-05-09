@@ -1,10 +1,7 @@
 <cutscenes>
   <actions>
     <cutscene action="move_camera">
-      <time start="100" duration="2000" speed_x="-320" speed_y="-160"/>
-    </cutscene>
-    <cutscene action="move_camera">
-      <time start="2100" duration="1000" speed_x="0" speed_y="0"/>
+      <time start="100" duration="2500" origin_x="-472" origin_y="-1053"  speed="0.007" destination_x ="152"  destination_y="-741" stop_goal="true"/>
     </cutscene>
       <cutscene action="move_entity" entity="daughter">
       <time start="3000" duration="200" speed_x="160" speed_y="80"/>
@@ -17,16 +14,13 @@
     </cutscene>
     <cutscene action="add_audio" entity="daughter" path="assets/audio/sfx/FFMW_SFX_Emotion_Laugh2.wav">
     </cutscene>
-    <cutscene action="move_camera">
-      <time start="3100" duration="3000" speed_x="0" speed_y="0"/>
-    </cutscene>
     <cutscene action="add_audio" entity="daughter" path="assets/audio/sfx/MC_Shield.wav"> 
     </cutscene>
     <cutscene action="modify_text" name="dialog">
       <time start="4200" type="change" text="HEEEEELP ME!!!"/>
     </cutscene>
     <cutscene action="move_camera">
-      <time start="6800" duration="5000" speed_x="160" speed_y="80"/>
+      <time start="6800" duration="2500" origin_x="152" origin_y="-741"  speed="0.007" destination_x ="-472"  destination_y="-1053" stop_goal="true"/>
     </cutscene>
   </actions>
   <elements>

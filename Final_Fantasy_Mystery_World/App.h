@@ -44,6 +44,8 @@ struct GlobalGameAdvances
 	bool ability3_gained = false;
 	bool helmet_bought = false;
 	bool ring_bought = false;
+	bool shop_gone = false;
+
 	std::string player_name;
 
 	void Reset() {
@@ -58,6 +60,7 @@ struct GlobalGameAdvances
 		ability3_gained = false;
 		helmet_bought = false;
 		ring_bought = false;
+		shop_gone = false;
 	}
 
 };
