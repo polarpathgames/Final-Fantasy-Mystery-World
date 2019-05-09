@@ -673,6 +673,9 @@ bool m1Map::ChangeMap(Maps type)
 		App->audio->PlayMusic(mus_home, 5);
 		Load(home_map.data());
 		actual_map = Maps::HOME;
+		//if (App->globals.CutSceneLobbyExplain == true)
+		//	App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, 0, 0, "daughter");
+
 		App->menu_manager->ShowHUD(false);
 		break;
 	default:

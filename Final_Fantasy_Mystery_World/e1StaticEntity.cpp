@@ -367,6 +367,17 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		position.x += 2;
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 	}
+	else if (strcmp(name, "NPC_DAUGHTER") == 0) {
+		static_type = e1StaticEntity::Type::NPC_DAUGHTER;
+		frame = { 1266,0,16,27 };
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		position.x += 8;
+		position.y -= 16;
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+		max_distance_to_interact = 1;
+	}
 	//QUEST2
 	else if (strcmp(name, "plant1_quest1") == 0) {
 		static_type = e1StaticEntity::Type::PLANT1;
@@ -631,6 +642,9 @@ bool e1StaticEntity::Update(float dt)
 			break;
 		case e1StaticEntity::Type::HELP3:
 			App->dialog->PerformDialogue(6);
+			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			App->dialog->PerformDialogue(7);
 			break;
 		default:
 			break;
