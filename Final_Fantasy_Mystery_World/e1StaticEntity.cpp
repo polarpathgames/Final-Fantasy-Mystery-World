@@ -663,12 +663,19 @@ void e1StaticEntity::ChangeAnimation(const iPoint &player_pos)
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1232, 0, 16, 28);
 			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			SetRect(1283, 0, 16, 27);
+			break;
 		}
+		
 	}
 	else if (player_pos.x == actual_tile.x && player_pos.y + 1 == actual_tile.y) { // up right
 		switch (static_type) {
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1248, 0, 16, 28);
+			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			SetRect(1317, 0, 16, 27);
 			break;
 		}
 	}
@@ -677,12 +684,18 @@ void e1StaticEntity::ChangeAnimation(const iPoint &player_pos)
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1216, 0, 16, 28);
 			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			SetRect(1301, 0, 16, 27);
+			break;
 		}
 	}
 	else if (player_pos.x == actual_tile.x && player_pos.y - 1== actual_tile.y) { // down left
 		switch (static_type) {
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1200, 0, 16, 28);
+			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			SetRect(1266, 0, 16, 27);
 			break;
 		}
 	}
@@ -691,12 +704,18 @@ void e1StaticEntity::ChangeAnimation(const iPoint &player_pos)
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1248, 0, 16, 28);
 			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			SetRect(1283, 0, 16, 27);
+			break;
 		}
 	}
 	else if (player_pos.x - 1 == actual_tile.x && player_pos.y + 1 == actual_tile.y) { // right
 		switch (static_type) {
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1216, 0, 16, 28);
+			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			SetRect(1301, 0, 16, 27);
 			break;
 		}
 	}
@@ -705,12 +724,18 @@ void e1StaticEntity::ChangeAnimation(const iPoint &player_pos)
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1200, 0, 16, 28);
 			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			SetRect(1266, 0, 16, 27);
+			break;
 		}
 	}
 	else if (player_pos.x - 1 == actual_tile.x && player_pos.y - 1 == actual_tile.y) { // down
 		switch (static_type) {
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1216, 0, 16, 28);
+			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			SetRect(1266, 0, 16, 27);
 			break;
 		}
 	}
