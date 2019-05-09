@@ -11,4 +11,12 @@
    <object id="1" name="pivot" x="9.25" y="28.5625" width="1" height="1"/>
   </objectgroup>
  </tile>
+ <tile id="319">
+  <animation>
+   <frame tileid="319" duration="200"/>
+   <frame tileid="321" duration="200"/>
+   <frame tileid="323" duration="200"/>
+   <frame tileid="325" duration="200"/>
+  </animation>
+ </tile>
 </tileset>

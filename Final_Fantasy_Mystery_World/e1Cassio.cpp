@@ -37,7 +37,7 @@ e1Cassio::~e1Cassio()
 
 bool e1Cassio::PreUpdate()
 {
-	BROFILER_CATEGORY("BlueDog PreUpdate", Profiler::Color::Yellow);
+	BROFILER_CATEGORY("Cassio PreUpdate", Profiler::Color::Yellow);
 
 	if (state == State::IDLE) {
 		if (IsPlayerNextTile() || CanAttackDistance()) {
