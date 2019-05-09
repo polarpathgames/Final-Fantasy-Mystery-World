@@ -245,6 +245,7 @@ bool m1Scene::Update(float dt)
 	case StatesMenu::INVENTORY_MENU:
 		if (App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->ChangeInventory();
+			App->easing_splines->CleanUp();
 			App->menu_manager->DestroyBigInventory();
 			player->BlockControls(false);
 			menu_state = StatesMenu::NO_MENU;
