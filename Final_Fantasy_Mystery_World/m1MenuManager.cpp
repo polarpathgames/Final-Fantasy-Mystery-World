@@ -1543,6 +1543,7 @@ void UI_inventory::SetClipInInventory()
 	mana_potion_label->SetClipZone(rect);
 	coin_image->SetClipZone(rect);
 	money_label->SetClipZone(rect);
+	player_name->SetClipZone(rect);
 
 	App->menu_manager->inventory.spline_move_inventory = nullptr;
 }
