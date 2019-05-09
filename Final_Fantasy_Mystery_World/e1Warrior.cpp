@@ -34,7 +34,7 @@
 e1Warrior::e1Warrior(const int & x, const int & y) : e1Player(x, y)
 {
 	LoadEntityData("assets/entities/Warrior.tsx");
-
+	name.assign("Warrior");
 	SetPivot(14, 27);
 	CenterPlayerInTile();
 	InitStats();

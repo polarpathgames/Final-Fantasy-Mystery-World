@@ -12,7 +12,7 @@
 e1BlueSlime::e1BlueSlime(const int & x, const int & y) : e1Enemy(x, y)
 {
 	LoadEntityData("assets/entities/BlueSlime.tsx");
-
+	name.assign("BlueSlime");
 	enemy_type = EnemyType::BLUE_SLIME;
 
 	SetPivot(21, 33);

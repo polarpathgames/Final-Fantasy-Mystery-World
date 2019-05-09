@@ -33,7 +33,7 @@
 e1Mage::e1Mage(const int & x, const int & y) : e1Player(x, y)
 {
 	LoadEntityData("assets/entities/Mage.tsx");
-
+	name.assign("Mage");
 	SetPivot(8, 24);
 	CenterPlayerInTile();
 	InitStats();

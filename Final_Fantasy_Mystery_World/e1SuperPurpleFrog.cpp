@@ -14,7 +14,7 @@
 e1SuperPurpleFrog::e1SuperPurpleFrog(const int & x, const int & y) : e1Enemy(x, y)
 {
 	LoadEntityData("assets/entities/SuperPurpleFrog.tsx");
-
+	name.assign("SuperPurpleFrog");
 	enemy_type = EnemyType::SUPER_PURPLE_FROG;
 
 	

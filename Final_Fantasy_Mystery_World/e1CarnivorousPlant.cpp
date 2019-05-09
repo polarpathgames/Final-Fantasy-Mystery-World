@@ -14,7 +14,7 @@
 e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x, y)
 {
 	LoadEntityData("assets/entities/CarnivorousPlant.tsx");
-
+	name.assign("CarnivorousPlant");
 	enemy_type = EnemyType::CARNIVOROUS_PLANT;
 
 	state = State::SLEEPING;

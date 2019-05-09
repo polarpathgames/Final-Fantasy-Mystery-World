@@ -1,11 +1,8 @@
 #include "e1Cassio.h"
 #include "e1Enemy.h"
-#include "SDL/include/SDL.h"
 #include "m1Scene.h"
 #include "e1Player.h"
 #include "App.h"
-#include "m1Map.h"
-#include "m1Render.h"
 #include "m1Audio.h"
 #include "m1ParticleManager.h"
 #include "m1EntityManager.h"
@@ -16,7 +13,7 @@
 e1Cassio::e1Cassio(const int & x, const int & y) : e1Enemy(x, y)
 {
 	LoadEntityData("assets/entities/Cassio.tsx");
-
+	name.assign("Cassio");
 	enemy_type = EnemyType::CASSIO;
 
 	SetPivot(14, 33);

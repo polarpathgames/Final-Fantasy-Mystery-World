@@ -13,7 +13,7 @@
 e1StrangeFrog::e1StrangeFrog(const int & x, const int & y) : e1Enemy(x, y)
 {
 	LoadEntityData("assets/entities/StrangeFrog.tsx");
-
+	name.assign("StrangeFrog");
 	enemy_type = EnemyType::STRANGE_FROG;
 
 	position.y -= 25;

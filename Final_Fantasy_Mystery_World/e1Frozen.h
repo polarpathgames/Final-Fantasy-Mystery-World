@@ -13,11 +13,15 @@ public:
 	~e1Frozen();
 public:
 
+	void UpdateEnemy();
+
 	void IdAnimToEnum();
 
 	void PrepareDistanceAttack();
+	bool IsSpecialAttack1Finished();
+	void AfetSpecialAttack1();
 
-public:
+private:
 	Phase phase = Phase::NORMAL;
 };
 

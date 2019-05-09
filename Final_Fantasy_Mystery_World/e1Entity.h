@@ -151,7 +151,10 @@ public:
 	bool to_delete = false;
 	iPoint velocity;
 
+	uint turn_count = 0u;
+
 	Properties<int> general_properties;
+	std::string name;
 
 	std::list<p1Follow*> particle_follow;
 	std::list<p1Fire*> particle_fire;
