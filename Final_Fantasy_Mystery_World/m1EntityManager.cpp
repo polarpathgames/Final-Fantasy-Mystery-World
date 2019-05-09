@@ -85,8 +85,10 @@ bool m1EntityManager::PreUpdate()
 		for (; item != entities.end(); ++item) {
 			if ((*item) != nullptr && entity_turn != *item && (*item)->allow_turn) {
 				changed = true;
-				if (entity_turn != nullptr)
+				if (entity_turn != nullptr) {
 					entity_turn->turn_done = false;
+					entity_turn->turn_count++;
+				}
 				entity_turn = *item;
 				break;
 			}
@@ -96,16 +98,21 @@ bool m1EntityManager::PreUpdate()
 			for (; item != entities.end(); ++item) {
 				if ((*item) != nullptr && entity_turn != *item && (*item)->allow_turn) {
 					changed = true;
-					if (entity_turn != nullptr)
+					if (entity_turn != nullptr) {
 						entity_turn->turn_done = false;
+						entity_turn->turn_count++;
+					}
 					entity_turn = *item;
 					break;
 				}
 			}
 		}
-		if (!changed)
-			if (entity_turn != nullptr)
+		if (!changed) {
+			if (entity_turn != nullptr) {
 				entity_turn->turn_done = false;
+				entity_turn->turn_count++;
+			}
+		}
 	}
 	else {
 		entity_turn->PreUpdate();

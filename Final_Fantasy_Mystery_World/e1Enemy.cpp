@@ -61,7 +61,7 @@ void e1Enemy::InitStats()
 			stats.basic_attack_damage = (*item)->GetValue();
 		}
 		else if (strcmp((*item)->GetName(), "live") == 0) {
-			stats.live = (*item)->GetValue();
+			stats.max_live = stats.live = (*item)->GetValue();
 		}
 	}
 }
@@ -72,8 +72,13 @@ bool e1Enemy::PreUpdate()
 	{
 	case State::IDLE:
 		if (CanAttack() || IsPlayerInRange(range_to_distance_attack)) {
-			state = State::BEFORE_ATTACK;
-			time_to_wait_before_attack.Start();
+			if (want_to_attack) {
+				state = State::BEFORE_ATTACK;
+				time_to_wait_before_attack.Start();
+			}
+			else {
+				Escape();
+			}
 		}
 		else if (IsPlayerInRange(range_to_walk)) {
 			state = State::WALKING;
@@ -151,8 +156,6 @@ bool e1Enemy::Update(float dt)
 			break;
 		case Attacks::SPECIAL_2:
 			break;
-		default:
-			break;
 		}
 
 		if (attack) {
@@ -177,12 +180,13 @@ bool e1Enemy::Update(float dt)
 		}
 		break;
 	default:
-		turn_done = true;
 		break;
 	}
 
 	if (App->debug)
 		App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+
+	UpdateEnemy();
 
 	return true;
 }
@@ -351,7 +355,7 @@ void e1Enemy::MovementLogic()
 	
 
 	iPoint target = App->pathfinding->GetLastPath();
-	if ((App->pathfinding->last_path.empty())) {
+	if (App->pathfinding->last_path.empty()) {
 		turn_done = true;
 		state = State::IDLE;
 		return;
@@ -531,6 +535,7 @@ void e1Enemy::PerformMovement(float dt)
 void e1Enemy::GetHitted(const int & damage_taken)
 {
 	stats.live -= damage_taken;
+	times_hitted++;
 	//(int)(camera.x * speed) + x * scale;
 	iPoint pos{ 0,0 };
 	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 5) * (int)App->win->GetScale();

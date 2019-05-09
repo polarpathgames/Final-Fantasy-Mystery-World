@@ -1,21 +1,56 @@
 #include "e1Frozen.h"
 #include "App.h"
-#include "m1Scene.h"
-#include "e1Player.h"
 #include "m1Map.h"
-#include "m1Render.h"
+#include "m1EntityManager.h"
 #include "m1Audio.h"
 #include "Brofiler/Brofiler.h"
 
 e1Frozen::e1Frozen(const int& x, const int& y) :e1Enemy(x, y)
 {
 	LoadEntityData("assets/entities/Frozen.tsx");
+	name.assign("Frozen");
 	enemy_type = EnemyType::FROZEN;
 	range_to_distance_attack = 3;
 	InitStats();
 }
 
 e1Frozen::~e1Frozen()
+{
+}
+
+void e1Frozen::UpdateEnemy()
+{
+	if (stats.live <= stats.max_live * 0.5F) {
+		phase = Phase::HARD;
+	}
+
+	if (times_hitted >= 1) {
+		if (phase == Phase::NORMAL) {
+			//tp
+		}
+		else {
+			// summon slimes
+		}
+	}
+}
+
+void e1Frozen::PrepareDistanceAttack()
+{
+	if (phase == Phase::NORMAL) {
+		e1Particles* needle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, position.x, position.y, "");
+		needle->SetParticle(e1Particles::ParticleType::ARROW, direction);
+	}
+	else {
+		if(App->entity_manager->ThereIsEntity())
+	}
+}
+
+bool e1Frozen::IsSpecialAttack1Finished()
+{
+	return true;
+}
+
+void e1Frozen::AfetSpecialAttack1()
 {
 }
 
@@ -145,9 +180,4 @@ void e1Frozen::IdAnimToEnum()
 			break;
 		}
 	}
-}
-
-void e1Frozen::PrepareDistanceAttack()
-{
-	
 }

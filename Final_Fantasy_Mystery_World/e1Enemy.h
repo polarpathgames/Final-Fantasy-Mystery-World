@@ -14,6 +14,7 @@ class e1Enemy : public e1DynamicEntity
 public:
 
 	struct EnemyStats {
+		int max_live = 100;
 		int live = 100;
 		int basic_attack_damage = 25;
 		int special_attack_damage = 50;
@@ -44,6 +45,7 @@ public:
 	bool PreUpdate();
 
 	bool Update(float dt);
+	virtual void UpdateEnemy() {}
 
 	virtual bool PostUpdate() { return true; };
 
@@ -68,6 +70,8 @@ public:
 	virtual bool IsSpecialAttack1Finished() { return current_animation->Finished(); }
 	virtual void AfetSpecialAttack1() {}
 
+	virtual void Escape() {}
+
 	void GetHitted(const int &damage_taken);
 
 	void Drop();
@@ -81,6 +85,9 @@ public:
 	iPoint original_position{ 0,0 };
 	int range_to_walk = 15;
 	int range_to_distance_attack = 1;
+	bool want_to_attack = true;
+
+	uint times_hitted = 0u;
 
 };
 
