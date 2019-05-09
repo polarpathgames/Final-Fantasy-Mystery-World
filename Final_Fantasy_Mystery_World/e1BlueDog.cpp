@@ -12,7 +12,7 @@
 e1BlueDog::e1BlueDog(const int & x, const int & y) : e1Enemy(x, y)
 {
 	LoadEntityData("assets/entities/BlueDog.tsx");
-
+	name.assign("BlueDog");
 	enemy_type = EnemyType::BLUE_DOG;
 
 	position.x -= 5;

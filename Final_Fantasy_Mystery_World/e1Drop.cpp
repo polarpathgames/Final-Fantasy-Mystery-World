@@ -13,7 +13,7 @@
 
 e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity(x,y,name)
 {
-
+	
 	if (strcmp(name, "gold") == 0) {
 		actual_tile = { x,y };
 		drop_type = DropsType::GOLD_DROP;
