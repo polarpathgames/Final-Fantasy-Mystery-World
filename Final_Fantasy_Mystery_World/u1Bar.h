@@ -35,5 +35,13 @@ public:
 	int targe_width = 0;
 	bool has_change = false;
 
+	int currentXP; // current_quantity
+	int lastLevelXP;
+	int nextLevelXP;
+	int xpBetweenLevels;
+	int xpSinceLevelUp;
+	float percentageOfXP;
+	int barWidth;
+
 };
 #endif

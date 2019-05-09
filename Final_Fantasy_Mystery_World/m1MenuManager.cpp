@@ -956,6 +956,7 @@ void m1MenuManager::ShowHUD(bool show_or_hide)
 		hud.vertical_compass->drawable = show_or_hide;
 		hud.player_hp_bar->bar_numbers_label->drawable = show_or_hide;
 		hud.player_mana_bar->bar_numbers_label->drawable = show_or_hide;
+		hud.player_exp_bar->drawable = show_or_hide;
 	}
 }
 

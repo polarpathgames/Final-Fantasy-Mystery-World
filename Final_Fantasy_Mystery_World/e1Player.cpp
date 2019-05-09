@@ -1466,14 +1466,16 @@ void e1Player::AugmentGold(const int & plus_gold)
 }
 
 void e1Player::UpdateExperience(int experience) {
-	App->menu_manager->hud.player_exp_bar->UpdateBar(experience, UIType::EXPBAR);
+
 	if (stats.xp < stats.max_xp) {
 		stats.xp += experience;
 	}
+
+	App->menu_manager->hud.player_exp_bar->UpdateBar(experience, UIType::EXPBAR);
+
 	if(stats.xp >= stats.max_xp) {
 		stats.level += 1;
 		stats.xp = 0;
 		UpdateLevel();
 	}
-		
 }

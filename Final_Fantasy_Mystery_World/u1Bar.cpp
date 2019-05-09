@@ -7,6 +7,8 @@
 #include "m1Scene.h"
 #include "m1Render.h"
 #include "e1Player.h"
+#include "m1EntityManager.h"
+#include "p2Log.h"
 
 u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* parent, m1Module* callback) :u1GUI(BAR, x, y, parent, {0, 0, 0, 0}, true, false, false, false)
 {
@@ -35,6 +37,7 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 	{
 		current_width = 0;
 		current_quantity = 0;
+		max_width = 369;
 		empty_bar = App->gui->AddImage(x, y, { 1348, 3215, 372, 11 }, App->scene, parent, false, false, false, false); // this is empty
 		filled_bar = App->gui->AddImage(2, 1, { 1353, 3233, 369, 8 }, App->scene, empty_bar, false, false, false, false); // this is filled
 	}
@@ -58,18 +61,18 @@ void u1Bar::UpdateBar(int quantity, UIType bar_type)
 {
 	if (empty_bar != nullptr)
 	{
-		if(bar_type == UIType::HPBAR || bar_type == UIType::MANABAR)
+		if(bar_type == UIType::HPBAR || bar_type == UIType::MANABAR || bar_type == UIType::SKIPBAR)
 			targe_width = CalculateBar(quantity);
 		
 		else
-			targe_width = CalculateBar(quantity);
+			targe_width = CalculateExpBar(quantity);
 
 		if (targe_width != current_width) {
 			has_change = true;
 		}
 		
 	}
-	if (bar_type != SKIPBAR && bar_type != EXPBAR)
+	if (bar_type != SKIPBAR && bar_type != UIType::EXPBAR)
 		PrintBarNumbers();
 }
 
@@ -103,23 +106,20 @@ int u1Bar::CalculateExpBar(int xp)
 	int new_quantity = (current_quantity + xp);
 	current_quantity += xp;
 
-	if (max_capacity != 0)
-		new_width = (new_quantity * max_width) / max_capacity;
+	if (current_quantity >= max_capacity) {
+		current_quantity = 0;
+		new_width = 0;
+	}
 
-	//if (xp == 0)
-	//{
-	//	new_width = 0;
-	//}
+	if (current_quantity < max_capacity)
+		new_width = (new_quantity * max_width) / max_capacity;
 
 	if (current_quantity <= 0) {
 		current_quantity = 0;
-		return 0;
+		return new_width = 0;
 	}
 
-	if (current_quantity >= max_capacity) {
-		current_quantity = max_capacity;
-		return max_width;
-	}
+	LOG("CURRENT QUANTITY: %i", current_quantity);
 
 	return new_width;
 }
