@@ -13,17 +13,9 @@ public:
 
 	void InnerDraw();
 
-	void SetClipZone(const SDL_Rect& clip_zone);
-	void ResetClipZone();
-
 public:
 
 	Animation * img_anim = nullptr;
-	SDL_Rect* clip_zone = NULL;
-
-private:
-
-	bool new_clip = false;
 
 };
 #endif //_u1Image_H__

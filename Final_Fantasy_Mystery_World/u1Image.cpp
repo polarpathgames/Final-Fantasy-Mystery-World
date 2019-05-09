@@ -19,11 +19,6 @@ u1Image::~u1Image()
 		delete img_anim;
 		img_anim = nullptr;
 	}
-
-	if (new_clip) {
-		delete clip_zone;
-		clip_zone = nullptr;
-	}
 }
 
 void u1Image::InnerDraw()
@@ -43,33 +38,6 @@ void u1Image::InnerDraw()
 
 }
 
-void u1Image::SetClipZone(const SDL_Rect & clip_zone)
-{
 
-	if (this->clip_zone == nullptr) {
-		new_clip = true;
-		this->clip_zone = new SDL_Rect();
-		this->clip_zone->x = clip_zone.x;
-		this->clip_zone->y = clip_zone.y;
-		this->clip_zone->h = clip_zone.h;
-		this->clip_zone->w = clip_zone.w;
-	}
-	else {
-		this->clip_zone->x = clip_zone.x;
-		this->clip_zone->y = clip_zone.y;
-		this->clip_zone->h = clip_zone.h;
-		this->clip_zone->w = clip_zone.w;
-	}
-
-}
-
-void u1Image::ResetClipZone()
-{
-	if (new_clip) {
-		new_clip = false;
-		delete clip_zone;
-		clip_zone = nullptr;
-	}
-}
 
 

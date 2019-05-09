@@ -233,6 +233,7 @@ bool m1GUI::FocusFirstUIFocusable()
 		}
 	}
 	//LOG("There is any button focusable");
+	focus = nullptr;
 	return false;
 }
 
@@ -260,10 +261,10 @@ bool m1GUI::PostUpdate()
 			(*item)->Draw();
 			if (focus == *item) {
 			//	App->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - focus_tx.w + focus->focus_offset.x, (focus->section.h - focus_tx.h) * 0.5F + focus->GetGlobalPosition().y + 5 + focus->focus_offset.y, &focus_tx);
-				App->render->Blit(atlas, focus->GetGlobalPosition().x - 10, focus->GetGlobalPosition().y - 10, &focus_tx[0]);
-				App->render->Blit(atlas, focus->GetGlobalPosition().x - 16 + focus->section.w, focus->GetGlobalPosition().y - 10, &focus_tx[1]);
-				App->render->Blit(atlas, focus->GetGlobalPosition().x - 10, focus->GetGlobalPosition().y - 14 + focus->section.h, &focus_tx[2]);
-				App->render->Blit(atlas, focus->GetGlobalPosition().x - 16 + focus->section.w, focus->GetGlobalPosition().y - 14 + focus->section.h, &focus_tx[3]);
+				App->render->Blit(atlas, focus->GetGlobalPosition().x - 10, focus->GetGlobalPosition().y - 10, &focus_tx[0],false,SDL_FLIP_NONE,1.0F,focus->clip_zone);
+				App->render->Blit(atlas, focus->GetGlobalPosition().x - 16 + focus->section.w, focus->GetGlobalPosition().y - 10, &focus_tx[1], false, SDL_FLIP_NONE, 1.0F, focus->clip_zone);
+				App->render->Blit(atlas, focus->GetGlobalPosition().x - 10, focus->GetGlobalPosition().y - 14 + focus->section.h, &focus_tx[2], false, SDL_FLIP_NONE, 1.0F, focus->clip_zone);
+				App->render->Blit(atlas, focus->GetGlobalPosition().x - 16 + focus->section.w, focus->GetGlobalPosition().y - 14 + focus->section.h, &focus_tx[3], false, SDL_FLIP_NONE, 1.0F, focus->clip_zone);
 			}
 			if (debug_ui) {
 				(*item)->DebugDraw();
