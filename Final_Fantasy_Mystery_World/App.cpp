@@ -78,11 +78,6 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	// render last to swap buffer
 	AddModule(render);
 
-	scene->active = false;
-	map->active = false;
-	entity_manager->active = false;
-
-
 	PERF_PEEK(ptimer);
 }
 
@@ -129,6 +124,17 @@ bool Application::Awake()
 		if (cap > 0)
 		{
 			framerate_cap = 1000 / cap;
+		}
+
+		fast_start = app_config.child("fast_start").attribute("value").as_bool();
+		if (fast_start == true) {
+			main_menu->active = false;
+			map->active = false;
+		}
+		else {
+			scene->active = false;
+			map->active = false;
+			entity_manager->active = false;
 		}
 	}
 

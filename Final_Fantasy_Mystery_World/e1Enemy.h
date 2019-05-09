@@ -4,7 +4,7 @@
 #include "p2Animation.h"
 #include "p2Point.h"
 #include "e1DynamicEntity.h"
-#include "p2PerfTimer.h"
+#include "p2Timer.h"
 #include "e1Particles.h"
 #include <vector>
 
@@ -14,8 +14,10 @@ class e1Enemy : public e1DynamicEntity
 public:
 
 	struct EnemyStats {
+		int max_live = 100;
 		int live = 100;
-		int attack_power = 25;
+		int basic_attack_damage = 25;
+		int special_attack_damage = 50;
 		int experience = 20;
 	};
 
@@ -29,6 +31,7 @@ public:
 		BLUE_SLIME,
 		SUPER_PURPLE_FROG,
 		CASSIO,
+		FROZEN,
 
 		NONE
 	};
@@ -39,9 +42,10 @@ public:
 
 	void InitStats();
 
-	virtual bool PreUpdate() { return true; };
+	bool PreUpdate();
 
-	virtual bool Update(float dt) { return true; };
+	bool Update(float dt);
+	virtual void UpdateEnemy() {}
 
 	virtual bool PostUpdate() { return true; };
 
@@ -51,11 +55,24 @@ public:
 
 	virtual bool CleanUp();
 
+	virtual bool CanAttack() { return false; } // Super Purple Frog has that function and I'm not going to spend time reworking it
 	bool IsAnotherEnemyNextTile();
 	bool IsPlayerNextTile();
+	bool IsPlayerInRange(const int& rg);
 
 	void MovementLogic();
 	void PerformMovement(float dt);
+
+	virtual void PrepareBasicAttack() {}
+	virtual void FinishBasicAttack() {}
+
+	virtual void PrepareDistanceAttack() {}
+	virtual bool IsSpecialAttack1Finished() { return current_animation->Finished(); }
+	virtual void AfetSpecialAttack1() {}
+
+	virtual void AfterAttack() {}
+
+	virtual void Escape() {}
 
 	void GetHitted(const int &damage_taken);
 
@@ -65,9 +82,14 @@ public:
 	std::vector<iPoint> next_enemy_pos;
 	EnemyStats stats;
 	float arrow_time = 0;
-	float time_to_wait_before_attack = 0.0f;
+	p2Timer time_to_wait_before_attack;
 	EnemyType enemy_type = EnemyType::NONE;
 	iPoint original_position{ 0,0 };
+	int range_to_walk = 15;
+	int range_to_distance_attack = 1;
+	bool want_to_attack = true;
+
+	uint times_hitted = 0u;
 
 };
 

@@ -23,6 +23,8 @@ e1Particles::e1Particles(const int & x, const int & y) : e1DynamicEntity(x, y)
 	position = App->map->MapToWorld(position.x, position.y);
 	data.tileset.imagePath.assign("assets/sprites/Particles.png");
 	data.tileset.texture = App->tex->Load(data.tileset.imagePath.data());
+
+	allow_turn = false;
 }
 
 e1Particles::~e1Particles()
@@ -76,9 +78,11 @@ void e1Particles::SetParticle(const ParticleType & particle_type, const Directio
 	actual_tile = App->map->WorldToMap(position.x, position.y);
 	switch (particle_type) {
 	case ParticleType::ARROW:
+		name.assign("arrow");
 		SetArrow();
 		break;
 	case ParticleType::FIREBALL:
+		name.assign("fireball");
 		SetFireBall();
 		break;
 	default:

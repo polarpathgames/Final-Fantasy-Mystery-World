@@ -558,6 +558,12 @@ struct UI_HUD {
 class m1MenuManager :public m1Module {
 
 public:
+
+	m1MenuManager();
+	~m1MenuManager();
+
+
+public:
 	void CreateMainMenu();
 	void DestroyMainMenu();
 

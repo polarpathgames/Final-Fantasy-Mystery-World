@@ -120,7 +120,7 @@ public:
 	pugi::xml_node LoadConfig(pugi::xml_document&, std::string name) const;
 
 	bool capactivated = true;
-
+	bool fast_start = false;
 	bool debug = false;
 
 private:

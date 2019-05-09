@@ -22,6 +22,15 @@
 #include "e1Player.h"
 #include "m1Render.h"
 
+m1MenuManager::m1MenuManager()
+{
+	name.assign("menu manager");
+}
+
+m1MenuManager::~m1MenuManager()
+{
+}
+
 void m1MenuManager::CreateMainMenu()
 {
 	main_menu.background = App->gui->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);

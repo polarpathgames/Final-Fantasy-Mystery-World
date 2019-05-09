@@ -63,7 +63,6 @@ public:
 	Animation DeathDownLeft;
 	Animation AbilitiDownLeft1;
 	Animation AbilitiDownLeft2;
-	Animation DistanceAttackDownLeft;
 
 	Animation GoDownRight;
 	Animation IdleDownRight;
@@ -71,7 +70,6 @@ public:
 	Animation DeathDownRight;
 	Animation AbilitiDownRight1;
 	Animation AbilitiDownRight2;
-	Animation DistanceAttackDownRight;
 
 	Animation GoUpRight;
 	Animation IdleUpRight;
@@ -79,7 +77,6 @@ public:
 	Animation DeathUpRight;
 	Animation AbilitiUpRight1;
 	Animation AbilitiUpRight2;
-	Animation DistanceAttackUpRight;
 
 	Animation GoUpLeft;
 	Animation IdleUpLeft;
@@ -87,7 +84,6 @@ public:
 	Animation DeathUpLeft;
 	Animation AbilitiUpLeft1;
 	Animation AbilitiUpLeft2;
-	Animation DistanceAttackUpLeft;
 
 	Animation GoLeft;
 	Animation IdleLeft;
@@ -95,7 +91,6 @@ public:
 	Animation DeathLeft;
 	Animation AbilitiLeft1;
 	Animation AbilitiLeft2;
-	Animation DistanceAttackLeft;
 
 	Animation GoRight;
 	Animation IdleRight;
@@ -103,7 +98,6 @@ public:
 	Animation DeathRight;
 	Animation AbilitiRight1;
 	Animation AbilitiRight2;
-	Animation DistanceAttackRight;
 
 	Animation GoUp;
 	Animation IdleUp;
@@ -111,7 +105,6 @@ public:
 	Animation DeathUp;
 	Animation AbilitiUp1;
 	Animation AbilitiUp2;
-	Animation DistanceAttackUp;
 
 	Animation GoDown;
 	Animation IdleDown;

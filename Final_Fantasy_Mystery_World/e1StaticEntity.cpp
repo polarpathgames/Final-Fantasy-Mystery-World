@@ -22,6 +22,8 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 {
 	BROFILER_CATEGORY("StaticEntity Constructor", Profiler::Color::Yellow);
 
+	this->name.assign(name);
+
 	if (strcmp(name,"flower") == 0) {
 		static_type = e1StaticEntity::Type::FLOWER;
 		has_animation = true;
