@@ -155,6 +155,30 @@ bool e1Drop::Update(float adt)
 			to_delete = true;
 			break;
 		}
+		case DropsType::BLUE_RUPEE:
+		{
+			App->audio->PlayFx(App->scene->fx_drop_pick_up);
+			App->scene->player->AugmentGold(gold);
+			App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
+			to_delete = true;
+			break;
+		}
+		case DropsType::GOLD_RUPEE:
+		{
+			App->audio->PlayFx(App->scene->fx_drop_pick_up);
+			App->scene->player->AugmentGold(gold);
+			App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
+			to_delete = true;
+			break;
+		}
+		case DropsType::RED_RUPEE:
+		{
+			App->audio->PlayFx(App->scene->fx_drop_pick_up);
+			App->scene->player->AugmentGold(gold);
+			App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
+			to_delete = true;
+			break;
+		}
 		case DropsType::ABILITY1:
 		{
 			App->globals.ability1_gained = true;
