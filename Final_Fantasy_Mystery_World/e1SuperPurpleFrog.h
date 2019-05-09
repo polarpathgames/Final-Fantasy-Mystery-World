@@ -11,9 +11,9 @@ public:
 
 	virtual ~e1SuperPurpleFrog();
 
-	bool PreUpdate();
+	void PrepareBasicAttack();
 
-	bool Update(float dt);
+	void FinishBasicAttack();
 
 	void IdAnimToEnum();
 
@@ -22,13 +22,7 @@ public:
 public:
 
 	int distance_to_travel = 0;
-	
 
 };
 
-
 #endif // !_E1SUPERPURPLEFROG_H_
-
-
-
-

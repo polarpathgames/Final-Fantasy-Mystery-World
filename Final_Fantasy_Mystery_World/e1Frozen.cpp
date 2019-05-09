@@ -11,7 +11,7 @@ e1Frozen::e1Frozen(const int& x, const int& y) :e1Enemy(x, y)
 {
 	LoadEntityData("assets/entities/Frozen.tsx");
 	enemy_type = EnemyType::FROZEN;
-
+	range_to_distance_attack = 3;
 	InitStats();
 }
 
@@ -19,105 +19,8 @@ e1Frozen::~e1Frozen()
 {
 }
 
-bool e1Frozen::PreUpdate() {
-	BROFILER_CATEGORY("Cassio PreUpdate", Profiler::Color::Yellow);
-
-	if (state == State::IDLE) {
-		if (IsPlayerNextTile() || IsPlayerInRange(3)) {
-			state = State::BEFORE_ATTACK;
-			time_to_wait_before_attack = SDL_GetTicks();
-		}
-		else if (actual_tile.DistanceTo(App->scene->player->actual_tile) <= 7) {
-			state = State::WALKING; //Aixo sha de canviar I know :D
-		}
-		else turn_done = true;
-
-	}
-	if (state == State::WALKING) {
-		MovementLogic();
-	}
-	if (state == State::BEFORE_ATTACK) {
-		if (time_to_wait_before_attack < SDL_GetTicks() - 250) {
-			if (IsPlayerNextTile()) {
-				type_attack = Attacks::BASIC;
-				state = State::ATTACKING;
-				//ChangeAnimation(direction, state, type_attack);
-			}
-			else {
-				PrepareDistanceAttack();
-				/*particle_position = position;
-				lerp_translation = 0.f;
-				poison_particle = App->particles->CreateFollow(nullptr, &particle_position, { 2,6,2,2 }, { 10,10 }, { 15,5 }, 4, 60, true, false, { 0,5 });*/
-			}
-		}
-	}
-	return true;
-}
-
-bool e1Frozen::Update(float dt)
-{
-	BROFILER_CATEGORY("BlueDog Update", Profiler::Color::Yellow);
-
-	if (state == State::IDLE) {
-		position.x = initial_position.x + movement_count.x;
-		position.y = initial_position.y + movement_count.y;
-		target_position = position;
-	}
-
-	if (state == State::WALKING) {
-		PerformMovement(dt);
-	}
-	if (state == State::ATTACKING) {
-		bool attack = false;
-
-		if (current_animation->Finished() && type_attack == Attacks::BASIC) {
-			App->audio->PlayFx(App->scene->fx_dog_attack);
-			CheckBasicAttackEffects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
-			attack = true;
-		}
-		else if (type_attack == Attacks::SPECIAL_1) {
-			App->audio->PlayFx(App->scene->fx_dog_attack);
-			DistanceAttackDown.Reset();
-			DistanceAttackDownLeft.Reset();
-			DistanceAttackDownRight.Reset();
-			DistanceAttackLeft.Reset();
-			DistanceAttackRight.Reset();
-			DistanceAttackUp.Reset();
-			DistanceAttackUpLeft.Reset();
-			DistanceAttackUpRight.Reset();
-			App->scene->player->ReduceLives(50);
-			attack = true;
-		}
-		if (attack) {
-			state = State::AFTER_ATTACK;
-			//ChangeAnimation(direction, state);
-			time_attack = SDL_GetTicks();
-		}
-	}
-	if (state == State::AFTER_ATTACK) {
-		RestTimeAfterAttack(time_attack);
-	}
-	if (state == State::DEATH) {
-		if (current_animation->Finished()) {
-
-			Drop();
-			App->audio->PlayFx(App->scene->fx_kill_enemy);
-			App->scene->player->UpdateExperience(stats.experience);
-			App->map->quest_rooms->AddEntityToNotRepeat(original_position);
-			to_delete = true;
-			turn_done = true;
-		}
-	}
-
-	if (App->debug)
-		App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
-
-	return true;
-}
-
 void e1Frozen::IdAnimToEnum()
 {
-
 	for (uint i = 0; i < data.num_animations; ++i) {
 		switch (2) {
 		case 0:
@@ -246,24 +149,5 @@ void e1Frozen::IdAnimToEnum()
 
 void e1Frozen::PrepareDistanceAttack()
 {
-	type_attack = Attacks::SPECIAL_1;
-	state = State::ATTACKING;
-	if (current_animation == &IdleDown)
-		current_animation = &DistanceAttackDown;
-	else if (current_animation == &IdleLeft)
-		current_animation = &DistanceAttackLeft;
-	else if (current_animation == &IdleUp)
-		current_animation = &DistanceAttackUp;
-	else if (current_animation == &IdleRight)
-		current_animation = &DistanceAttackRight;
-	else if (current_animation == &IdleUpLeft)
-		current_animation = &DistanceAttackUpLeft;
-	else if (current_animation == &IdleDownLeft)
-		current_animation = &DistanceAttackDownLeft;
-	else if (current_animation == &IdleDownRight)
-		current_animation = &DistanceAttackDownRight;
-	else if (current_animation == &IdleUpRight)
-		current_animation = &DistanceAttackUpRight;
-
-	current_animation->loop = false;
+	
 }

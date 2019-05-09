@@ -58,12 +58,133 @@ void e1Enemy::InitStats()
 			stats.experience = (*item)->GetValue();
 		}
 		else if (strcmp((*item)->GetName(), "attack_power") == 0) {
-			stats.attack_power = (*item)->GetValue();
+			stats.basic_attack_damage = (*item)->GetValue();
 		}
 		else if (strcmp((*item)->GetName(), "live") == 0) {
 			stats.live = (*item)->GetValue();
 		}
 	}
+}
+
+bool e1Enemy::PreUpdate()
+{
+	switch (state)
+	{
+	case State::IDLE:
+		if (CanAttack() || IsPlayerInRange(range_to_distance_attack)) {
+			state = State::BEFORE_ATTACK;
+			time_to_wait_before_attack.Start();
+		}
+		else if (IsPlayerInRange(range_to_walk)) {
+			state = State::WALKING;
+			MovementLogic();
+		}
+		else {
+			turn_done = true;
+		}
+		break;
+	case State::BEFORE_ATTACK:
+		if (time_to_wait_before_attack.ReadSec() >= 0.25f) {
+			time_to_wait_before_attack.Stop();
+			state = State::ATTACKING;
+
+			if (IsPlayerNextTile()) {
+				type_attack = Attacks::BASIC;
+				PrepareBasicAttack();
+			}
+			else {
+				type_attack = Attacks::SPECIAL_1;
+				PrepareDistanceAttack();
+			}
+			
+			ChangeAnimation(direction, state, type_attack);
+		}
+		break;
+	case State::SLEEPING:
+		if (IsPlayerNextTile()) {
+			state = State::IDLE;
+		}
+		turn_done = true;
+		break;
+	default:
+		//turn_done = true;
+		break;
+	}
+
+	return true;
+}
+
+bool e1Enemy::Update(float dt)
+{
+	switch (state)
+	{
+	case State::IDLE:
+		position.x = initial_position.x + movement_count.x;
+		position.y = initial_position.y + movement_count.y;
+		target_position = position;
+		break;
+	case State::WALKING:
+		PerformMovement(dt);
+		break;
+	case State::BEFORE_ATTACK:
+		break;
+	case State::ATTACKING: {
+		bool attack = false;
+
+		switch (type_attack)
+		{
+		case Attacks::BASIC:
+			if (current_animation->Finished()) {
+				App->audio->PlayFx(App->scene->fx_plant_attack);
+				CheckBasicAttackEffects(e1Entity::EntityType::PLAYER, direction, stats.basic_attack_damage);
+				FinishBasicAttack();
+				attack = true;
+			}
+			break;
+		case Attacks::SPECIAL_1:
+			if (IsSpecialAttack1Finished()) {
+				App->audio->PlayFx(App->scene->fx_dog_attack);
+				App->scene->player->ReduceLives(stats.special_attack_damage);
+				AfetSpecialAttack1();
+				attack = true;
+			}
+			break;
+		case Attacks::SPECIAL_2:
+			break;
+		default:
+			break;
+		}
+
+		if (attack) {
+			state = State::AFTER_ATTACK;
+			ChangeAnimation(direction, state);
+			time_attack = SDL_GetTicks();
+		}
+
+	}
+		break;
+	case State::AFTER_ATTACK:
+		RestTimeAfterAttack(time_attack);
+		break;
+	case State::DEATH:
+		if (current_animation->Finished()) {
+			Drop();
+			App->audio->PlayFx(App->scene->fx_kill_enemy);
+			App->scene->player->UpdateExperience(stats.experience);
+			App->map->quest_rooms->AddEntityToNotRepeat(original_position);
+			to_delete = true;
+			turn_done = true;
+		}
+		break;
+	default:
+		turn_done = true;
+		break;
+	}
+
+	if (App->debug)
+		App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+
+	return true;
 }
 
 bool e1Enemy::Load(pugi::xml_node &)

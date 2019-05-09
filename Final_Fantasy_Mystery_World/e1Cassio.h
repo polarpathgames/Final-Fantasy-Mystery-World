@@ -13,15 +13,11 @@ public:
 
 	virtual ~e1Cassio();
 
-	bool PreUpdate();
-
-	bool Update(float dt);
-
 	void IdAnimToEnum();
 
-	bool CanAttackDistance();
-
 	void PrepareDistanceAttack();
+	bool IsSpecialAttack1Finished();
+	void AfetSpecialAttack1();
 
 private:
 	iPoint particle_position = { 0,0 };

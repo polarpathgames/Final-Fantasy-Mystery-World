@@ -4,19 +4,21 @@
 #include "e1Enemy.h"
 
 class e1Frozen :public e1Enemy {
+
+	enum class Phase {
+		NORMAL, HARD
+	};
 public:
 	e1Frozen(const int& x, const int& y);
 	~e1Frozen();
 public:
-	bool PreUpdate();
-
-	bool Update(float dt);
 
 	void IdAnimToEnum();
 
-	bool CanAttackDistance();
-
 	void PrepareDistanceAttack();
+
+public:
+	Phase phase = Phase::NORMAL;
 };
 
 #endif // !__E1FROZEN_H__

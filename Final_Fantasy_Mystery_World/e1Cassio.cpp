@@ -35,111 +35,6 @@ e1Cassio::~e1Cassio()
 		App->particles->DeleteFollow_p(poison_particle);
 }
 
-bool e1Cassio::PreUpdate()
-{
-	BROFILER_CATEGORY("Cassio PreUpdate", Profiler::Color::Yellow);
-
-	if (state == State::IDLE) {
-		if (IsPlayerNextTile() || CanAttackDistance()) {
-			state = State::BEFORE_ATTACK;
-			time_to_wait_before_attack = SDL_GetTicks();
-		}
-		else if (actual_tile.DistanceTo(App->scene->player->actual_tile) <= 7) {
-			state = State::WALKING; //Aixo sha de canviar I know :D
-		}
-		else turn_done = true;
-
-	}
-	if (state == State::WALKING) {
-		MovementLogic();
-	}
-	if (state == State::BEFORE_ATTACK) {
-		if (time_to_wait_before_attack < SDL_GetTicks() - 250) {
-			if (IsPlayerNextTile()) {
-				type_attack = Attacks::BASIC;
-				state = State::ATTACKING;
-				ChangeAnimation(direction, state, type_attack);
-			}
-			else {
-				PrepareDistanceAttack();
-				particle_position = position;
-				lerp_translation = 0.f;
-				poison_particle = App->particles->CreateFollow(nullptr, &particle_position, { 2,6,2,2 }, { 10,10 }, { 15,5 }, 4, 60, true, false, { 0,5 });
-			}
-		}
-	}
-	return true;
-}
-
-bool e1Cassio::Update(float dt)
-{
-	BROFILER_CATEGORY("BlueDog Update", Profiler::Color::Yellow);
-
-	if (state == State::IDLE) {
-		position.x = initial_position.x + movement_count.x;
-		position.y = initial_position.y + movement_count.y;
-		target_position = position;
-	}
-
-	if (state == State::WALKING) {
-		PerformMovement(dt);
-	}
-	if (state == State::ATTACKING) {
-		bool attack = false;
-		
-		particle_position = lerp(position, App->scene->player->GetPosition() + iPoint{0, -10}, lerp_translation).AproximateToIntFloor();
-		lerp_translation += lerp_by;
-
-		if (current_animation->Finished() && type_attack == Attacks::BASIC) {
-			App->audio->PlayFx(App->scene->fx_dog_attack);
-			CheckBasicAttackEffects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
-			attack = true;
-		}
-		else if ((particle_position == App->scene->player->position || lerp_translation > 1.f) && type_attack == Attacks::SPECIAL_1) {
-			App->audio->PlayFx(App->scene->fx_dog_attack);
-			DistanceAttackDown.Reset();
-			DistanceAttackDownLeft.Reset();
-			DistanceAttackDownRight.Reset();
-			DistanceAttackLeft.Reset();
-			DistanceAttackRight.Reset();
-			DistanceAttackUp.Reset();
-			DistanceAttackUpLeft.Reset();
-			DistanceAttackUpRight.Reset();
-			App->scene->player->ReduceLives(50);
-			attack = true;
-			lerp_translation = 0.f;
-			App->particles->DeleteFollow_p(poison_particle);
-			poison_particle = nullptr;
-			if (App->entity_manager->IsPlayerPoisoned() == false)
-				App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, App->scene->player->position.x, App->scene->player->position.y, "poison");
-		}
-		if (attack) {
-			state = State::AFTER_ATTACK;
-			ChangeAnimation(direction, state);
-			time_attack = SDL_GetTicks();
-		}
-	}
-	if (state == State::AFTER_ATTACK) {
-		RestTimeAfterAttack(time_attack);
-	}
-	if (state == State::DEATH) {
-		if (current_animation->Finished()) {
-
-			Drop();
-			App->audio->PlayFx(App->scene->fx_kill_enemy);
-			App->scene->player->UpdateExperience(stats.experience);
-			App->map->quest_rooms->AddEntityToNotRepeat(original_position);
-			to_delete = true;
-			turn_done = true;
-		}
-	}
-
-	if (App->debug)
-		App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
-
-	return true;
-}
-
 void e1Cassio::IdAnimToEnum()
 {
 
@@ -269,117 +164,23 @@ void e1Cassio::IdAnimToEnum()
 	}
 }
 
-
-bool e1Cassio::CanAttackDistance()
-{
-	bool ret = false;
-
-	iPoint player_pos = App->scene->player->actual_tile;
-
-	if (player_pos == actual_tile + iPoint{ 0,3 }) {
-		direction = Direction::DOWN_LEFT;
-		current_animation = &IdleDownLeft;
-		ret = true;
-	}
-	else if (player_pos == actual_tile + iPoint{ 0,-3 }) {
-		direction = Direction::UP_RIGHT;
-		current_animation = &IdleUpRight;
-		ret = true;
-	}
-	else if (player_pos == actual_tile + iPoint{ -3,0 }) {
-		direction = Direction::UP_LEFT;
-		current_animation = &IdleUpLeft;
-		ret = true;
-	}
-	else if (player_pos == actual_tile + iPoint{ 3,0 }) {
-		direction = Direction::DOWN_RIGHT;
-		current_animation = &IdleDownRight;
-		ret = true;
-	}
-	else if (player_pos == actual_tile + iPoint{ 3,3 }) {
-		direction = Direction::DOWN;
-		current_animation = &IdleDown;
-		ret = true;
-	}
-	else if (player_pos == actual_tile + iPoint{ -3,-3 }) {
-		direction = Direction::UP;
-		current_animation = &IdleUp;
-		ret = true;
-	}
-	else if (player_pos == actual_tile + iPoint{ -3,3 }) {
-		direction = Direction::LEFT;
-		current_animation = &IdleLeft;
-		ret = true;
-	}
-	else if (player_pos == actual_tile + iPoint{ 3,-3 }) {
-		direction = Direction::RIGHT;
-		current_animation = &IdleRight;
-		ret = true;
-	}
-	else if (player_pos == actual_tile + iPoint{ 0,2 }) {
-		direction = Direction::DOWN_LEFT;
-		current_animation = &IdleDownLeft;
-		ret = true;
-	}
-	else if (player_pos == actual_tile + iPoint{ 0,-2 }) {
-		direction = Direction::UP_RIGHT;
-		current_animation = &IdleUpRight;
-		ret = true;
-	}
-	else if (player_pos == actual_tile + iPoint{ -2,0 }) {
-		direction = Direction::UP_LEFT;
-		current_animation = &IdleUpLeft;
-		ret = true;
-	}
-	else if (player_pos == actual_tile + iPoint{ 2,0 }) {
-		direction = Direction::DOWN_RIGHT;
-		current_animation = &IdleDownRight;
-		ret = true;
-	}
-	else if (player_pos == actual_tile + iPoint{ 2,2 }) {
-		direction = Direction::DOWN;
-		current_animation = &IdleDown;
-		ret = true;
-	}
-	else if (player_pos == actual_tile + iPoint{ -2,-2 }) {
-		direction = Direction::UP;
-		current_animation = &IdleUp;
-		ret = true;
-	}
-	else if (player_pos == actual_tile + iPoint{ -2,2 }) {
-		direction = Direction::LEFT;
-		current_animation = &IdleLeft;
-		ret = true;
-	}
-	else if (player_pos == actual_tile + iPoint{ 2,-2 }) {
-		direction = Direction::RIGHT;
-		current_animation = &IdleRight;
-		ret = true;
-	}
-
-	return ret;
-}
-
 void e1Cassio::PrepareDistanceAttack()
 {
-	type_attack = Attacks::SPECIAL_1;
-	state = State::ATTACKING;
-	if (current_animation == &IdleDown)
-		current_animation = &DistanceAttackDown;
-	else if (current_animation == &IdleLeft)
-		current_animation = &DistanceAttackLeft;
-	else if (current_animation == &IdleUp)
-		current_animation = &DistanceAttackUp;
-	else if (current_animation == &IdleRight)
-		current_animation = &DistanceAttackRight;
-	else if (current_animation == &IdleUpLeft)
-		current_animation = &DistanceAttackUpLeft;
-	else if (current_animation == &IdleDownLeft)
-		current_animation = &DistanceAttackDownLeft;
-	else if (current_animation == &IdleDownRight)
-		current_animation = &DistanceAttackDownRight;
-	else if (current_animation == &IdleUpRight)
-		current_animation = &DistanceAttackUpRight;
+	particle_position = position;
+	lerp_translation = 0.f;
+	poison_particle = App->particles->CreateFollow(nullptr, &particle_position, { 2,6,2,2 }, { 10,10 }, { 15,5 }, 4, 60, true, false, { 0,5 });
+}
 
-	current_animation->loop = false;
+bool e1Cassio::IsSpecialAttack1Finished()
+{
+	return particle_position == App->scene->player->position || lerp_translation > 1.f;
+}
+
+void e1Cassio::AfetSpecialAttack1()
+{
+	lerp_translation = 0.f;
+	App->particles->DeleteFollow_p(poison_particle);
+	poison_particle = nullptr;
+	if (App->entity_manager->IsPlayerPoisoned() == false)
+		App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, App->scene->player->position.x, App->scene->player->position.y, "poison");
 }
