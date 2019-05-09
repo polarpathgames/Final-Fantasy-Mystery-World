@@ -71,14 +71,8 @@ public:
 	float arrow_time = 0;
 	float time_to_wait_before_attack = 0.0f;
 	EnemyType enemy_type = EnemyType::NONE;
-	DropsType drop_type = DropsType::NONE;
 	iPoint original_position{ 0,0 };
 
-	//Rupees percentage
-	int drop_green_rupee = 0;
-	int drop_blue_rupee = 0;
-	int drop_red_rupee = 0;
-	int drop_gold_rupee = 0;
 
 };
 

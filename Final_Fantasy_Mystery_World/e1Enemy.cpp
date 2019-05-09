@@ -425,9 +425,7 @@ void e1Enemy::Drop()
 	{
 		for (int i= 0; i < size_drop; i++)
 		{
-			e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "green_rupee");
-			drop->SetGold(CalculateDrop());
-			App->map->quest_rooms->AddDrop(actual_tile, drop_type);
+			CalculateDrop();
 		}
 		
 		break;
@@ -446,10 +444,6 @@ void e1Enemy::Drop()
 	}*/
 	default:
 	{
-		int drop_gold = App->random.Generate(20, 50);
-		e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "green_rupee");
-		drop->SetGold(CalculateDrop());
-		App->map->quest_rooms->AddDrop(actual_tile, drop_type);
 		break;
 	}
 	}
@@ -459,40 +453,34 @@ void e1Enemy::Drop()
 int e1Enemy::CalculateDrop()
 {
 	int rupee_percentage = App->random.Generate(1, 100); //Calculate the percentage
-
+	e1Drop* drop = nullptr;
 	if (rupee_percentage >= 1 && rupee_percentage <= 49) //49% 
 	{
-		drop_green_rupee = App->random.Generate(15, 25);
-		drop_type = DropsType::GREEN_RUPEE;
+		drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "green_rupee");
+		drop->SetGold(App->random.Generate(15, 25));
+		App->map->quest_rooms->AddDrop(actual_tile, drop->drop_type);
 	}
 	else if (rupee_percentage >= 50 && rupee_percentage <= 79) //30%
 	{
-		drop_blue_rupee = App->random.Generate(45, 65);
-		drop_type = DropsType::BLUE_RUPEE;
+		drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "blue_rupee");
+		drop->SetGold(App->random.Generate(45, 65));
+		App->map->quest_rooms->AddDrop(actual_tile, drop->drop_type);
 	}
 	else if (rupee_percentage >= 80 && rupee_percentage <= 89) //10%
 	{
-		drop_red_rupee = App->random.Generate(90, 110);
-		drop_type = DropsType::RED_RUPEE;
+		drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "red_rupee");
+		drop->SetGold(App->random.Generate(90, 110));
+		App->map->quest_rooms->AddDrop(actual_tile, drop->drop_type);
 	}
-	else if (rupee_percentage >= 90 && rupee_percentage <= 99) //10%
-	{
-		drop_type = DropsType::NONE;
-		return 0;
-	}
-
 	else if (rupee_percentage == 100) //1%
 	{
-		drop_gold_rupee = App->random.Generate(300, 400);
-		drop_type = DropsType::GOLD_RUPEE;
+		drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "gold_rupee");
+		drop->SetGold(App->random.Generate(300, 400));
+		App->map->quest_rooms->AddDrop(actual_tile, drop->drop_type);
 	}
 
 	else
 		LOG("Error inexistent rupee percentage %i", SDL_GetError());
 
-	//Get the reward and reset all vars
-	int drop_gold = drop_green_rupee + drop_blue_rupee + drop_red_rupee + drop_gold_rupee;
-	this->drop_green_rupee = this->drop_blue_rupee = this->drop_red_rupee = this->drop_gold_rupee = 0;
-
-	return drop_gold;
+	return 0;
 }
