@@ -1498,7 +1498,26 @@ void m1MenuManager::CreateBigInventory()
 
 	inventory.inventory_panel2 = App->gui->AddImage(356, 0, { 2448,1179,356,335 }, nullptr, inventory.inventory_panel, false, false, false, false);
 
-
+	if (App->globals.ability1_gained) {
+		inventory.first_ability = App->gui->AddImage(114, 94, { 1936,2094,40,58 }, nullptr, inventory.inventory_panel2, false, false, false, false);
+	}
+	if (App->globals.ability2_gained) {
+		inventory.flash = App->gui->AddImage(201, 94, { 1981,2099,44,51 }, nullptr, inventory.inventory_panel2, false, false, false, false);
+	}
+	if (App->globals.ability3_gained) {
+		if (App->scene->player_type == PlayerType::WARRIOR)
+			inventory.shop_ability = App->gui->AddImage(72, 234, { 1025,2056,49,50 }, nullptr, inventory.inventory_panel2, false, false, false, false);
+		else if (App->scene->player_type == PlayerType::MAGE)
+			inventory.shop_ability = App->gui->AddImage(76, 234, { 1076,2056,37,49 }, nullptr, inventory.inventory_panel2, false, false, false, false);
+		else if (App->scene->player_type == PlayerType::ARCHER)
+			inventory.shop_ability = App->gui->AddImage(72, 234, { 1116,2056,49,50 }, nullptr, inventory.inventory_panel2, false, false, false, false);
+	}
+	if (App->globals.helmet_bought) {
+		inventory.item_helmet = App->gui->AddImage(166, 234, { 1129,1952,47,48 }, nullptr, inventory.inventory_panel2, false, false, false, false);
+	}
+	if (App->globals.ring_bought) {
+		inventory.item_ring = App->gui->AddImage(259, 236, { 1181,1952,43,43 }, nullptr, inventory.inventory_panel2, false, false, false, false);
+	}
 }
 
 void m1MenuManager::DestroyBigInventory()
@@ -1544,6 +1563,26 @@ void UI_inventory::SetClipInInventory()
 	coin_image->SetClipZone(rect);
 	money_label->SetClipZone(rect);
 	player_name->SetClipZone(rect);
+	if (App->globals.ability1_gained) {
+		first_ability->drawable = true;
+		first_ability->SetClipZone(rect);
+	}
+	if (App->globals.ability2_gained) {
+		flash->drawable = true;
+		flash->SetClipZone(rect);
+	}
+	if (App->globals.ability3_gained) {
+		shop_ability->drawable = true;
+		shop_ability->SetClipZone(rect);
+	}
+	if (App->globals.helmet_bought) {
+		item_helmet->drawable = true;
+		item_helmet->SetClipZone(rect);
+	}
+	if (App->globals.ring_bought) {
+		item_ring->drawable = true;
+		item_ring->SetClipZone(rect);
+	}
 
 	App->menu_manager->inventory.spline_move_inventory = nullptr;
 }
