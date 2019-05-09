@@ -430,7 +430,7 @@ void e1Enemy::Drop()
 		
 		break;
 	}		
-	/*case 2: //HP POTION
+	case 2: //HP POTION
 	{
 		e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "health_potion");
 		App->map->quest_rooms->AddDrop(actual_tile, DropsType::HEALTH_POTION);
@@ -441,7 +441,7 @@ void e1Enemy::Drop()
 		e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "mana_potion");
 		App->map->quest_rooms->AddDrop(actual_tile, DropsType::MANA_POTION);
 		break;
-	}*/
+	}
 	default:
 	{
 		break;
