@@ -19,6 +19,8 @@ public:
 	bool IsSpecialAttack1Finished();
 	void AfetSpecialAttack1();
 
+	void UpdateEnemy();
+
 private:
 	iPoint particle_position = { 0,0 };
 	float lerp_translation = 0.f;

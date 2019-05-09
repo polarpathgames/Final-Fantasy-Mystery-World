@@ -15,6 +15,7 @@ e1Cassio::e1Cassio(const int & x, const int & y) : e1Enemy(x, y)
 	LoadEntityData("assets/entities/Cassio.tsx");
 	name.assign("Cassio");
 	enemy_type = EnemyType::CASSIO;
+	range_to_distance_attack = 3U;
 
 	SetPivot(14, 33);
 
@@ -32,9 +33,37 @@ e1Cassio::~e1Cassio()
 		App->particles->DeleteFollow_p(poison_particle);
 }
 
+void e1Cassio::PrepareDistanceAttack()
+{
+	particle_position = position;
+	lerp_translation = 0.f;
+	poison_particle = App->particles->CreateFollow(nullptr, &particle_position, { 2,6,2,2 }, { 10,10 }, { 15,5 }, 4, 60, true, false, { 0,5 });
+}
+
+bool e1Cassio::IsSpecialAttack1Finished()
+{
+	return particle_position == App->scene->player->position || lerp_translation > 1.f;
+}
+
+void e1Cassio::AfetSpecialAttack1()
+{
+	lerp_translation = 0.f;
+	App->particles->DeleteFollow_p(poison_particle);
+	poison_particle = nullptr;
+	if (App->entity_manager->IsPlayerPoisoned() == false)
+		App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, App->scene->player->position.x, App->scene->player->position.y, "poison");
+}
+
+void e1Cassio::UpdateEnemy()
+{
+	if (state == State::ATTACKING && poison_particle != nullptr) {
+		particle_position = lerp(position, App->scene->player->GetPosition() + iPoint{ 0, -10 }, lerp_translation).AproximateToIntFloor();
+		lerp_translation += lerp_by;
+	}
+}
+
 void e1Cassio::IdAnimToEnum()
 {
-
 	for (uint i = 0; i < data.num_animations; ++i) {
 		switch (data.animations[i].id) {
 		case 0:
@@ -110,28 +139,28 @@ void e1Cassio::IdAnimToEnum()
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
 		case 60:
-			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_DOWN;
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_1;
 			break;
 		case 62:
-			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_UP;
+			data.animations[i].animType = AnimationState::ABILITY_UP_1;
 			break;
 		case 64:
-			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_LEFT;
+			data.animations[i].animType = AnimationState::ABILITY_LEFT_1;
 			break;
 		case 66:
-			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_RIGHT;
+			data.animations[i].animType = AnimationState::ABILITY_RIGHT_1;
 			break;
 		case 48:
-			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_DOWN_LEFT;
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_LEFT_1;
 			break;
 		case 54:
-			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_UP_RIGHT;
+			data.animations[i].animType = AnimationState::ABILITY_UP_RIGHT_1;
 			break;
 		case 50:
-			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_UP_LEFT;
+			data.animations[i].animType = AnimationState::ABILITY_UP_LEFT_1;
 			break;
 		case 52:
-			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_DOWN_RIGHT;
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_RIGHT_1;
 			break;
 		case 644:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
@@ -159,25 +188,4 @@ void e1Cassio::IdAnimToEnum()
 			break;
 		}
 	}
-}
-
-void e1Cassio::PrepareDistanceAttack()
-{
-	particle_position = position;
-	lerp_translation = 0.f;
-	poison_particle = App->particles->CreateFollow(nullptr, &particle_position, { 2,6,2,2 }, { 10,10 }, { 15,5 }, 4, 60, true, false, { 0,5 });
-}
-
-bool e1Cassio::IsSpecialAttack1Finished()
-{
-	return particle_position == App->scene->player->position || lerp_translation > 1.f;
-}
-
-void e1Cassio::AfetSpecialAttack1()
-{
-	lerp_translation = 0.f;
-	App->particles->DeleteFollow_p(poison_particle);
-	poison_particle = nullptr;
-	if (App->entity_manager->IsPlayerPoisoned() == false)
-		App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, App->scene->player->position.x, App->scene->player->position.y, "poison");
 }

@@ -24,8 +24,6 @@
 
 e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
-	
-
 	type = e1Entity::EntityType::ENEMY;
 	ground = App->tex->Load("assets/sprites/enemy_pos.png");
 	current_animation = &IdleDownLeft;

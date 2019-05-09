@@ -3,6 +3,7 @@
 #include "m1Map.h"
 #include "m1EntityManager.h"
 #include "m1Audio.h"
+#include "e1State.h"
 #include "Brofiler/Brofiler.h"
 
 e1Frozen::e1Frozen(const int& x, const int& y) :e1Enemy(x, y)
@@ -42,7 +43,8 @@ void e1Frozen::PrepareDistanceAttack()
 	}
 	else {
 		if (!App->entity_manager->ThereIsEntity("blizzard")) {
-			App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "blizzard");
+			e1State* blizz = (e1State*)App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "blizzard");
+			blizz->SetMaxNumberHit(3U);
 		}
 		else {
 
@@ -136,28 +138,28 @@ void e1Frozen::IdAnimToEnum()
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
 		case 60:
-			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_DOWN;
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_1;
 			break;
 		case 62:
-			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_UP;
+			data.animations[i].animType = AnimationState::ABILITY_UP_1;
 			break;
 		case 64:
-			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_LEFT;
+			data.animations[i].animType = AnimationState::ABILITY_LEFT_1;
 			break;
 		case 66:
-			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_RIGHT;
+			data.animations[i].animType = AnimationState::ABILITY_RIGHT_1;
 			break;
 		case 48:
-			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_DOWN_LEFT;
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_LEFT_1;
 			break;
 		case 54:
-			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_UP_RIGHT;
+			data.animations[i].animType = AnimationState::ABILITY_UP_RIGHT_1;
 			break;
 		case 50:
-			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_UP_LEFT;
+			data.animations[i].animType = AnimationState::ABILITY_UP_LEFT_1;
 			break;
 		case 52:
-			data.animations[i].animType = AnimationState::DISTANCE_ATTACK_DOWN_RIGHT;
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_RIGHT_1;
 			break;
 		case 644:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
