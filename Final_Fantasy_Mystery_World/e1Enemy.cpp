@@ -165,7 +165,9 @@ bool e1Enemy::Update(float dt)
 	}
 		break;
 	case State::AFTER_ATTACK:
-		RestTimeAfterAttack(time_attack);
+		if (RestTimeAfterAttack(time_attack)) {
+			AfterAttack();
+		}
 		break;
 	case State::DEATH:
 		if (current_animation->Finished()) {

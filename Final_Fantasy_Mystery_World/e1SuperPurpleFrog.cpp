@@ -512,3 +512,11 @@ bool e1SuperPurpleFrog::CanAttack()
 
 	return ret;
 }
+
+void e1SuperPurpleFrog::AfterAttack()
+{
+	CenterOnTile();
+	target_position = position;
+	initial_position = position;
+	movement_count = { 0,0 };
+}

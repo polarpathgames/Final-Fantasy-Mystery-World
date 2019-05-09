@@ -70,6 +70,8 @@ public:
 	virtual bool IsSpecialAttack1Finished() { return current_animation->Finished(); }
 	virtual void AfetSpecialAttack1() {}
 
+	virtual void AfterAttack() {}
+
 	virtual void Escape() {}
 
 	void GetHitted(const int &damage_taken);

@@ -19,6 +19,8 @@ public:
 
 	bool CanAttack();
 
+	void AfterAttack();
+
 public:
 
 	int distance_to_travel = 0;
