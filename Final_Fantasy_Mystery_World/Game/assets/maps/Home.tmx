@@ -4826,7 +4826,7 @@
   <object id="36" name="feather" type="static" x="336" y="352" width="64" height="49.4688"/>
   <object id="37" name="candle" type="static" x="336" y="320" width="64" height="49.4688"/>
   <object id="38" name="furniture" type="static" x="368" y="352" width="31.8182" height="31.9233"/>
-  <object id="41" name="NPC_DAUGHTER" type="static" x="384.455" y="384" width="15.1818" height="15.9091"/>
+  <object id="41" name="NPC_DAUGHTER" type="static" x="406.182" y="385.545" width="15.1818" height="15.9091"/>
  </objectgroup>
  <objectgroup id="5" name="collider">
   <object id="32" name="collider" x="369.5" y="439" width="10.75" height="7.25">

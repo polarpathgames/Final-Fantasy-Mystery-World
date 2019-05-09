@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dialogue>
   <dialogtree treeid="0" karma="0" tag="0" rect_x="842" rect_y="3091" rect_w="134" rect_h="131">
-    <node line="Hello PLAYERNAME, I am the shopkeeper of this small town" id="0">
+    <node line="Hello PLAYERNAME, I am the shopkeeper of this small town." id="0">
       <option  line="" nextnode="1" karma="-1" tag="0"/>
     </node>
     <node line="Do you want to buy some of my precious goods?" id="1" karma="-1">
@@ -13,7 +13,7 @@
     </node>
   </dialogtree>
   <dialogtree treeid="1" karma="0" tag="0" rect_x="0" rect_y="0" rect_w="0" rect_h="0">
-    <node line="In front of you a strange source emerges splendidly in the room" id="0">
+    <node line="In front of you a strange source emerges splendidly in the room." id="0">
       <option line="" nextnode="1" karma="0" tag="0"/>
     </node>
   <node line="A strange energy from the fountain emanates. What do you want to do?" id="1" karma="0">
@@ -25,10 +25,10 @@
     </node>
   </dialogtree>
   <dialogtree treeid="2" karma="0" tag="0" rect_x="975" rect_y="3091" rect_w="112" rect_h="131">
-    <node line="It is said that the water of this region contains mysterious powers" id="0" karma="0" tag="0">
+    <node line="It is said that the water of this region contains mysterious powers." id="0" karma="0" tag="0">
       <option line="" nextnode="1" karma="0" tag="0"/>  
     </node>
-    <node line="that revitalize the soul of those who drink it" id="1" karma="0" tag="0">
+    <node line="that revitalize the soul of those who drink it." id="1" karma="0" tag="0">
       <option line="" nextnode="2" karma="0" tag="0"/>
     </node>
   </dialogtree>
@@ -39,23 +39,27 @@
     </node>
   </dialogtree>
   <dialogtree treeid="4" karma="0" tag="0" rect_x="1751" rect_y="3090" rect_w="122" rect_h="131">
-    <node line="It seems that the statue has a message engraved on it" id="0" karma="0" tag="0">
+    <node line="It seems that the statue has a message engraved on it." id="0" karma="0" tag="0">
       <option line="Examine" nextnode="1" karma="0" tag="30"/>
     </node>
   </dialogtree>
   <dialogtree treeid="5" karma="0" tag="0" rect_x="1751" rect_y="3090" rect_w="122" rect_h="131">
-    <node line="It seems that the statue has a message engraved on it" id="0" karma="0" tag="0">
+    <node line="It seems that the statue has a message engraved on it." id="0" karma="0" tag="0">
       <option line="Examine" nextnode="1" karma="0" tag="60"/>
     </node>
   </dialogtree>
   <dialogtree treeid="6" karma="0" tag="0" rect_x="1751" rect_y="3090" rect_w="122" rect_h="131">
-    <node line="It seems that the statue has a message engraved on it" id="0" karma="0" tag="0">
+    <node line="It seems that the statue has a message engraved on it." id="0" karma="0" tag="0">
       <option line="Examine" nextnode="1" karma="0" tag="90"/>
     </node>
   </dialogtree>
   <dialogtree treeid="7" karma="0" tag="0" rect_x="746" rect_y="3090" rect_w="97" rect_h="130">
-    <node line="HOLA MI NIÑO" id="0" karma="0" tag="0">
-      <option line="QUEPASA MI NIÑA" nextnode="1" karma="0" tag="0"/>
+    <node line="You seem tired." id="0" karma="0" tag="0">
+      <option line="" nextnode="1" karma="0" tag="0"/>
+    </node>
+    <node line="Do you want to sleep?" id="1" karma="0" tag="0">
+      <option line="Yes" nextnode="3" karma="0" tag="4"/>
+      <option line="No" nextnode="3" karma="0" tag="0"/>
     </node>
   </dialogtree>
 </dialogue>

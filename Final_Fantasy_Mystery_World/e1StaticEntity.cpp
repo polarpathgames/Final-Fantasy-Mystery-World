@@ -635,7 +635,7 @@ bool e1StaticEntity::Update(float dt)
 			App->dialog->PerformDialogue(3);
 			break;
 		case e1StaticEntity::Type::HELP1:
-			App->dialog->PerformDialogue(4);
+			App->dialog->PerformDialogue(7);
 			break;
 		case e1StaticEntity::Type::HELP2:
 			App->dialog->PerformDialogue(5);
