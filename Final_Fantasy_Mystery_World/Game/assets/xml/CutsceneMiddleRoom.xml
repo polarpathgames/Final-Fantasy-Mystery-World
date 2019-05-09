@@ -1,16 +1,13 @@
 <cutscenes>
   <actions>
     <cutscene action="move_camera">
-      <time start="100" duration="2000" speed_x="-160" speed_y="-80"/>
+      <time start="100" duration="2500" origin_x="-118" origin_y="-879"  speed="0.007" destination_x ="266"  destination_y="-687" stop_goal="true"/>
     </cutscene>
       <cutscene action="move_entity" entity="daughter">
       <time start="500" duration="100" speed_x="-160" speed_y="-80"/>
     </cutscene>
      <cutscene action="move_entity" entity="daughter">
       <time start="600" duration="2500" speed_x="0" speed_y="0"/>
-    </cutscene>
-     <cutscene action="move_camera">
-      <time start="2100" duration="1000" speed_x="0" speed_y="0"/>
     </cutscene>
       <cutscene action="move_entity" entity="daughter">
       <time start="3150" duration="200" speed_x="160" speed_y="80"/>
@@ -32,11 +29,8 @@
     </cutscene>
      <cutscene action="delete_entity" entity="daughter">
     </cutscene>
-     <cutscene action="move_camera">
-      <time start="5920" duration="1000" speed_x="0" speed_y="0"/>
-    </cutscene>
-  <cutscene action="move_camera">
-      <time start="6920" duration="2500" speed_x="160" speed_y="70"/>
+    <cutscene action="move_camera">
+      <time start="6920" duration="2500" origin_x="266" origin_y="-687"  speed="0.007" destination_x ="-118"  destination_y="-879" stop_goal="true"/>
     </cutscene>
   </actions>
   <elements>
