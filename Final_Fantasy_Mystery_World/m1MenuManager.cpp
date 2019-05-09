@@ -1483,19 +1483,18 @@ void m1MenuManager::CreateBigInventory()
 
 	inventory.inventory_panel = App->gui->AddImage(14, 12, { 2070,1179,356,335 }, nullptr, inventory.inventory_background, true, false, false, false);
 
-
-
 	inventory.hp_potion_button = App->gui->AddButton(203, 152, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, App->scene, inventory.inventory_panel, true, false, true, true);
 	inventory.hp_potion_image = App->gui->AddImage(215, 160, { 1058, 1952, 33, 47 }, nullptr, inventory.inventory_panel, true, false, false, false);
 	inventory.hp_potion_label = App->gui->AddLabel(50, -10, std::string("x " + std::to_string(App->scene->player->stats.num_hp_potions)).data(), inventory.hp_potion_image, BLACK, FontType::FF64, nullptr, false);
-
 
 	inventory.mana_potion_button = App->gui->AddButton(203, 230, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, App->scene, inventory.inventory_panel, true, false, true, true);
 	inventory.mana_potion_image = App->gui->AddImage(215, 235, { 1091, 1952, 33, 51 }, nullptr, inventory.inventory_panel, true, false, false, false);
 	inventory.mana_potion_label = App->gui->AddLabel(50, -10, std::string("x " + std::to_string(App->scene->player->stats.num_mana_potions)).data(), inventory.mana_potion_image, BLACK, FontType::FF64, nullptr, false);
 
+	inventory.coin_image = App->gui->AddImage(215, 95, { 1024, 1952, 34, 34 }, App->scene, inventory.inventory_panel, true, false, false, false);
+	inventory.money_label = App->gui->AddLabel(50, -20, std::string("x " + std::to_string(App->scene->player->stats.gold)).data(), inventory.coin_image, BLACK, FontType::FF64, nullptr, false);
 
-
+	inventory.player_name = App->gui->AddLabel(75, 17, App->globals.player_name.c_str(), inventory.inventory_panel, BLACK, FontType::FF64, nullptr, false);
 
 	inventory.inventory_panel2 = App->gui->AddImage(356, 0, { 2448,1179,356,335 }, nullptr, inventory.inventory_panel, false, false, false, false);
 
@@ -1542,6 +1541,8 @@ void UI_inventory::SetClipInInventory()
 	mana_potion_button->SetClipZone(rect);
 	mana_potion_image->SetClipZone(rect);
 	mana_potion_label->SetClipZone(rect);
+	coin_image->SetClipZone(rect);
+	money_label->SetClipZone(rect);
 
 	App->menu_manager->inventory.spline_move_inventory = nullptr;
 }
