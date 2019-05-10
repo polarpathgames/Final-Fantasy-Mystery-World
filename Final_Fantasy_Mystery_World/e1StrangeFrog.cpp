@@ -22,6 +22,7 @@ e1StrangeFrog::e1StrangeFrog(const int & x, const int & y) : e1Enemy(x, y)
 	initial_position = position;
 
 	InitStats();
+
 }
 
 e1StrangeFrog::~e1StrangeFrog()

@@ -73,6 +73,15 @@ public:
 	EnemyType enemy_type = EnemyType::NONE;
 	iPoint original_position{ 0,0 };
 
+	// % of drop
+
+	int ratio_poti_hp = 0;
+	int ratio_poti_mana = 0;
+	int ratio_rupee = 0;
+	int ratio_green_rupee = 0;
+	int ratio_red_rupee = 0;
+	int ratio_blue_rupee = 0;
+	int ratio_gold_rupee = 0;
 
 };
 
