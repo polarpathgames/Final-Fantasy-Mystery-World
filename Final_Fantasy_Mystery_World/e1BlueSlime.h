@@ -11,10 +11,6 @@ public:
 
 	virtual ~e1BlueSlime();
 
-	bool PreUpdate();
-
-	bool Update(float dt);
-
 	void IdAnimToEnum();
 
 };

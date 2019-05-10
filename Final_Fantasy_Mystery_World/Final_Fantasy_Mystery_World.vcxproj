@@ -95,6 +95,7 @@
     <ClCompile Include="e1CarnivorousPlant.cpp" />
     <ClCompile Include="e1Cassio.cpp" />
     <ClCompile Include="e1Drop.cpp" />
+    <ClCompile Include="e1Frozen.cpp" />
     <ClCompile Include="e1Mage.cpp" />
     <ClCompile Include="e1NPC.cpp" />
     <ClCompile Include="e1Particles.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="e1CarnivorousPlant.h" />
     <ClInclude Include="e1Cassio.h" />
     <ClInclude Include="e1Drop.h" />
+    <ClInclude Include="e1Frozen.h" />
     <ClInclude Include="e1Mage.h" />
     <ClInclude Include="e1NPC.h" />
     <ClInclude Include="e1Particles.h" />

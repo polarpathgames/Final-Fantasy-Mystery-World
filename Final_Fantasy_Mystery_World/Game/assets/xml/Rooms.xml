@@ -154,5 +154,12 @@
       <type>paceful</type>
     </room>
   </quest2>
-  
+
+  <debug>
+    <room>
+      <location>debug.tmx</location>
+      <id num="1"></id>
+      <type>boss</type>
+    </room>
+  </debug>
 </room_manager>

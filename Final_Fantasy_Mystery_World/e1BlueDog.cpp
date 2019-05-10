@@ -12,7 +12,7 @@
 e1BlueDog::e1BlueDog(const int & x, const int & y) : e1Enemy(x, y)
 {
 	LoadEntityData("assets/entities/BlueDog.tsx");
-
+	name.assign("BlueDog");
 	enemy_type = EnemyType::BLUE_DOG;
 
 	position.x -= 5;
@@ -26,80 +26,6 @@ e1BlueDog::e1BlueDog(const int & x, const int & y) : e1Enemy(x, y)
 
 e1BlueDog::~e1BlueDog()
 {
-}
-
-bool e1BlueDog::PreUpdate()
-{
-	BROFILER_CATEGORY("BlueDog PreUpdate", Profiler::Color::Yellow);
-
-	if (state == State::IDLE) {
-		if (IsPlayerNextTile()) {
-			state = State::BEFORE_ATTACK;
-			time_to_wait_before_attack = SDL_GetTicks();
-		}
-		else if (actual_tile.DistanceTo(App->scene->player->actual_tile) <= 7) {
-			state = State::WALKING; //Aixo sha de canviar I know :D
-		}
-		else turn_done = true;
-
-	}
-	if (state == State::WALKING) {
-		//if (!IsPlayerNextTile()) {
-			MovementLogic();
-		//}
-	}
-	if (state == State::BEFORE_ATTACK) {
-		if (time_to_wait_before_attack < SDL_GetTicks() - 250) {
-			type_attack = Attacks::BASIC;
-			state = State::ATTACKING;
-			ChangeAnimation(direction, state, type_attack);
-		}
-
-	}
-	return true;
-}
-
-bool e1BlueDog::Update(float dt)
-{
-	BROFILER_CATEGORY("BlueDog Update", Profiler::Color::Yellow);
-
-	if (state == State::IDLE) {
-		position.x = initial_position.x + movement_count.x;
-		position.y = initial_position.y + movement_count.y;
-		target_position = position;
-	}
-
-	if (state == State::WALKING) {
-		PerformMovement(dt);
-	}
-	if (state == State::ATTACKING) {
-		if (current_animation->Finished()) {
-			App->audio->PlayFx(App->scene->fx_dog_attack);
-			CheckBasicAttackEffects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
-			state = State::AFTER_ATTACK;
-			ChangeAnimation(direction, state);
-			time_attack = SDL_GetTicks();
-		}
-	}
-	if (state == State::AFTER_ATTACK) {
-		RestTimeAfterAttack(time_attack);
-	}
-	if (state == State::DEATH) {
-		if (current_animation->Finished()) {
-
-				Drop();
-			App->audio->PlayFx(App->scene->fx_kill_enemy);
-			App->scene->player->UpdateExperience(stats.experience);
-			App->map->quest_rooms->AddEntityToNotRepeat(original_position);
-			to_delete = true;
-			turn_done = true;
-		}
-	}
-
-	if (App->debug)
-		App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
-
-	return true;
 }
 
 void e1BlueDog::IdAnimToEnum()

@@ -182,6 +182,11 @@ bool e1Entity::LoadEntityData(const char* file) {
 	//Load data
 	LoadProperties(entity_file.child("tileset").child("properties").child("property")); //Load properties
 
+	pugi::xml_node pivot_node = entity_file.child("tileset").child("tile").child("objectgroup").child("object"); //Load pivot
+	if (strcmp(pivot_node.attribute("name").as_string(), "pivot") == 0) {
+		pivot.create(pivot_node.attribute("x").as_int(), pivot_node.attribute("y").as_int());
+		CenterOnTile();
+	}
 	//LoadCollider(entity_file.child("tileset").child("tile").child("objectgroup").child("object")); //Load collider
 
 	//Convert id animations to enum
@@ -209,8 +214,7 @@ bool e1Entity::LoadEntityData(const char* file) {
 void e1Entity::LoadProperties(pugi::xml_node &property)
 {
 	for (; property != NULL; property = property.next_sibling()) {
-		Property<int>* prop = DBG_NEW Property<int>(property.attribute("name").as_string(), property.attribute("value").as_int());
-		general_properties.properties.push_back(prop);
+		general_properties.AddProperty(property.attribute("name").as_string(), property.attribute("value").as_int());
 	}
 }
 

@@ -21,6 +21,7 @@ enum class Maps {
 	SHOP,
 	HOME,
 	QUEST2,
+	DEBUG,
 
 	NONE
 };
@@ -175,6 +176,8 @@ private:
 	std::string lobby_map;
 	std::string shop_map;
 	std::string home_map;
+
+	std::string debug_map;
 
 	Mix_Music* mus_shop = nullptr;
 	Mix_Music* mus_lobby = nullptr;

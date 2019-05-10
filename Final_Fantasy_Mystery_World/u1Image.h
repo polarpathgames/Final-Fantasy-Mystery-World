@@ -16,7 +16,6 @@ public:
 public:
 
 	Animation * img_anim = nullptr;
-	SDL_Rect* clip_zone = NULL;
 
 };
 #endif //_u1Image_H__
