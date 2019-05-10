@@ -437,7 +437,7 @@ struct UI_inventory {
 	u1Label* level_number_label = nullptr;
 	u1Label* exp_name_label = nullptr;
 	u1Label* exp_number_label = nullptr;
-
+	u1Image* player_image = nullptr;
 	u1Image* first_ability = nullptr;
 	u1Image* flash = nullptr;
 	u1Image* shop_ability = nullptr;

@@ -1496,6 +1496,17 @@ void m1MenuManager::CreateBigInventory()
 
 	inventory.player_name = App->gui->AddLabel(75, 17, App->globals.player_name.c_str(), inventory.inventory_panel, BLACK, FontType::FF64, nullptr, false);
 
+	if (App->scene->player_type == PlayerType::WARRIOR) {
+		inventory.player_image = App->gui->AddImage(64, 101, {2271,561,69,135}, nullptr, inventory.inventory_panel, true, false, false, false);
+	}
+	else if (App->scene->player_type == PlayerType::MAGE) {
+		inventory.player_image = App->gui->AddImage(64, 101, { 2197,561,69,135 }, nullptr, inventory.inventory_panel, true, false, false, false);
+	}
+	else if (App->scene->player_type == PlayerType::ARCHER) {
+		inventory.player_image = App->gui->AddImage(64, 101, { 2122,561,69,135 }, nullptr, inventory.inventory_panel, true, false, false, false);
+	}
+
+
 	inventory.inventory_panel2 = App->gui->AddImage(356, 0, { 2448,1179,356,335 }, nullptr, inventory.inventory_panel, false, false, false, false);
 
 	if (App->globals.ability1_gained) {
