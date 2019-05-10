@@ -219,6 +219,9 @@
     <ClCompile Include="p2Math.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
+    <ClCompile Include="e1Frozen.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -463,6 +466,9 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="e1Cassio.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Frozen.h">
       <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>

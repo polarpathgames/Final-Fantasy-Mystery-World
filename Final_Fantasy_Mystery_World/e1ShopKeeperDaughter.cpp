@@ -14,6 +14,7 @@
 e1ShopKeeperDaughter::e1ShopKeeperDaughter(const int &x, const int &y) : e1NPC(x, y)
 {
 	LoadEntityData("assets/entities/Little_Girl.tsx");
+	name.assign("ShopKeeperDaughter");
 	npc_type = NPCType::DAUGHTER;
 	current_animation = &IdleUpRight;
 	actual_tile = App->map->WorldToMap(position.x + 16, position.y + 38);

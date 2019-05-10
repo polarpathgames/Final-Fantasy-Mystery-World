@@ -13,7 +13,7 @@
 e1StrangeFrog::e1StrangeFrog(const int & x, const int & y) : e1Enemy(x, y)
 {
 	LoadEntityData("assets/entities/StrangeFrog.tsx");
-
+	name.assign("StrangeFrog");
 	enemy_type = EnemyType::STRANGE_FROG;
 
 	position.y -= 25;
@@ -28,138 +28,72 @@ e1StrangeFrog::~e1StrangeFrog()
 {
 }
 
-bool e1StrangeFrog::PreUpdate()
+void e1StrangeFrog::PrepareBasicAttack()
 {
-	BROFILER_CATEGORY("StrangeFrog PreUpdate", Profiler::Color::Yellow);
-
-	if (state == State::IDLE) {
-		if (IsPlayerNextTile()) {
-			state = State::BEFORE_ATTACK;
-			time_to_wait_before_attack = SDL_GetTicks();
-		}
-		else if (actual_tile.DistanceTo(App->scene->player->actual_tile) <= 7){
-			state = State::WALKING; //Aixo sha de canviar I know :D
-		}
-		else turn_done = true;
-
+	switch (direction) {
+	case Direction::DOWN_LEFT:
+		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+		break;
+	case Direction::UP_RIGHT:
+		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+		break;
+	case Direction::DOWN_RIGHT:
+		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
+		break;
+	case Direction::UP_LEFT:
+		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
+		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
+		break;
+	case Direction::UP:
+		App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3, 200, EASE);
+		break;
+	case Direction::DOWN:
+		App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3, 200, EASE);
+		break;
+	case Direction::RIGHT:
+		App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3, 200, EASE);
+		break;
+	case Direction::LEFT:
+		App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3, 200, EASE);
+		break;
 	}
-	if (state == State::WALKING) {
-		//if (!IsPlayerNextTile()) {
-			MovementLogic();
-		//}
-	}
-	if (state == State::BEFORE_ATTACK) {
-		if (time_to_wait_before_attack < SDL_GetTicks() - 250) {
-			type_attack = Attacks::BASIC;
-			state = State::ATTACKING;
-			switch (direction) {
-			case Direction::DOWN_LEFT:
-				App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
-				App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
-				break;
-			case Direction::UP_RIGHT:
-				App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
-				App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
-				break;
-			case Direction::DOWN_RIGHT:
-				App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4, 200, EASE);
-				App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4, 200, EASE);
-				break;
-			case Direction::UP_LEFT:
-				App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4, 200, EASE);
-				App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4, 200, EASE);
-				break;
-			case Direction::UP:
-				App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3, 200, EASE);
-				break;
-			case Direction::DOWN:
-				App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3, 200, EASE);
-				break;
-			case Direction::RIGHT:
-				App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3, 200, EASE);
-				break;
-			case Direction::LEFT:
-				App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3, 200, EASE);
-				break;
-			}
-			ChangeAnimation(direction, state, type_attack);
-		}
-
-	}
-	return true;
 }
 
-bool e1StrangeFrog::Update(float dt)
+void e1StrangeFrog::FinishBasicAttack()
 {
-	BROFILER_CATEGORY("StrangeFrog Update", Profiler::Color::Yellow);
-
-	if (state == State::IDLE) {
-		position.x = initial_position.x + movement_count.x;
-		position.y = initial_position.y + movement_count.y;
-		target_position = position;
+	switch (direction) {
+	case Direction::DOWN_LEFT:
+		return_spline = App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+		return_spline = App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
+		break;
+	case Direction::UP_RIGHT:
+		return_spline = App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+		return_spline = App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
+		break;
+	case Direction::DOWN_RIGHT:
+		return_spline = App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
+		return_spline = App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
+		break;
+	case Direction::UP_LEFT:
+		return_spline = App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
+		return_spline = App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
+		break;
+	case Direction::UP:
+		return_spline = App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3 + 1, 200, EASE);
+		break;
+	case Direction::DOWN:
+		return_spline = App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3 + 1, 200, EASE);
+		break;
+	case Direction::RIGHT:
+		return_spline = App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3 + 1, 200, EASE);
+		break;
+	case Direction::LEFT:
+		return_spline = App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3 + 1, 200, EASE);
+		break;
 	}
-
-	if (state == State::WALKING) {
-		PerformMovement(dt);
-	}
-
-	if (state == State::ATTACKING) {
-		if (current_animation->Finished()) {
-			switch (direction) {
-			case Direction::DOWN_LEFT:
-				App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
-				App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
-				break;
-			case Direction::UP_RIGHT:
-				App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
-				App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
-				break;
-			case Direction::DOWN_RIGHT:
-				App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 4 + 1, 200, EASE);
-				App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 4 + 1, 200, EASE);
-				break;
-			case Direction::UP_LEFT:
-				App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 4 + 1, 200, EASE);
-				App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 4 + 1, 200, EASE);
-				break;
-			case Direction::UP:
-				App->easing_splines->CreateSpline(&position.y, position.y + App->map->data.tile_height / 3 + 1, 200, EASE);
-				break;
-			case Direction::DOWN:
-				App->easing_splines->CreateSpline(&position.y, position.y - App->map->data.tile_height / 3 + 1, 200, EASE);
-				break;
-			case Direction::RIGHT:
-				App->easing_splines->CreateSpline(&position.x, position.x - App->map->data.tile_width / 3 + 1, 200, EASE);
-				break;
-			case Direction::LEFT:
-				App->easing_splines->CreateSpline(&position.x, position.x + App->map->data.tile_width / 3 + 1, 200, EASE);
-				break;
-			}
-			App->audio->PlayFx(App->scene->fx_frog_attack);
-			CheckBasicAttackEffects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
-			state = State::AFTER_ATTACK;
-			ChangeAnimation(direction, state);
-			time_attack = SDL_GetTicks();
-		}
-	}
-	if (state == State::AFTER_ATTACK) {
-		RestTimeAfterAttack(time_attack);
-	}
-	if (state == State::DEATH) {
-		if (current_animation->Finished()) {
-			Drop();
-			App->audio->PlayFx(App->scene->fx_kill_enemy);
-			App->scene->player->UpdateExperience(stats.experience);
-			App->map->quest_rooms->AddEntityToNotRepeat(original_position);
-			to_delete = true;
-			turn_done = true;
-		}
-	}
-
-	if (App->debug)
-		App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
-
-	return true;
 }
 
 void e1StrangeFrog::IdAnimToEnum()
@@ -239,7 +173,6 @@ void e1StrangeFrog::IdAnimToEnum()
 		case 150:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
-
 		case 165:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;

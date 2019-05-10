@@ -5,6 +5,7 @@
     <title>Final Fantasy: Mystery World</title>
     <organization>UPC</organization>
     <version>0.5.3</version>
+    <fast_start value="false"/>
   </app>
 
   <renderer>
@@ -39,8 +40,9 @@
     <maps>
       <lobby_map>Lobby.tmx</lobby_map>
       <shop_map>Shop.tmx</shop_map>
-      <home_map>Home.tmx</home_map>      
+      <home_map>Home.tmx</home_map>
     </maps>
+    <start_map map="debug.tmx"/>
   </map>
 
 </config>

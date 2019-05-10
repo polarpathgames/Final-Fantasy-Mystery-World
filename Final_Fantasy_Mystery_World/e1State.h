@@ -20,6 +20,8 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 
+	void SetMaxNumberHit(const uint& number) { max_number_hit = number; }
+
 public:
 	EventStates state = EventStates::NONE;
 	e1Entity* target = nullptr;

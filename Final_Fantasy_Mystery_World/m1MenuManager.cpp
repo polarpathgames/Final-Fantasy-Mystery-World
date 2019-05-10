@@ -20,6 +20,16 @@
 #include "m1EntityManager.h"
 #include "m1Map.h"
 #include "e1Player.h"
+#include "m1Render.h"
+
+m1MenuManager::m1MenuManager()
+{
+	name.assign("menu manager");
+}
+
+m1MenuManager::~m1MenuManager()
+{
+}
 
 void m1MenuManager::CreateMainMenu()
 {
@@ -331,10 +341,10 @@ void m1MenuManager::CreateControls()
 	controls.keyboard.label_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
 	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_basic_attack);
 
-	controls.keyboard.button_abilities = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
+	/*controls.keyboard.button_abilities = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
 	controls.keyboard.label_to_show_how_abilities = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.SHOW_SKILLS, controls.keyboard.button_abilities, BLACK, FontType::FF32, nullptr, false);
 	controls.keyboard.label_to_show_how_abilities->SetPosRespectParent(CENTERED);
-	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_abilities);
+	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_abilities);*/
 
 	controls.keyboard.button_ability1 = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_abilities->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
 	controls.keyboard.label_to_show_how_ability1 = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.ABILITY1, controls.keyboard.button_ability1, BLACK, FontType::FF32, nullptr, false);
@@ -412,10 +422,10 @@ void m1MenuManager::CreateControls()
 	controls.controller.Clabel_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
 	App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_basic_attack);
 
-	controls.controller.Cbutton_abilities = App->gui->AddButton(controller_offset_x, controls.controller.Cbutton_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
-	controls.controller.Clabel_to_show_how_abilities = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.SHOW_SKILLS, controls.controller.Cbutton_abilities, BLACK, FontType::FF32, nullptr, false);
-	controls.controller.Clabel_to_show_how_abilities->SetPosRespectParent(CENTERED);
-	App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_abilities);
+	//controls.controller.Cbutton_abilities = App->gui->AddButton(controller_offset_x, controls.controller.Cbutton_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
+	//controls.controller.Clabel_to_show_how_abilities = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.SHOW_SKILLS, controls.controller.Cbutton_abilities, BLACK, FontType::FF32, nullptr, false);
+	//controls.controller.Clabel_to_show_how_abilities->SetPosRespectParent(CENTERED);
+	//App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_abilities);
 
 	controls.controller.Cbutton_ability1 = App->gui->AddButton(controller_offset_x, controls.controller.Cbutton_abilities->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
 	controls.controller.Clabel_to_show_how_ability1 = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.ABILITY1, controls.controller.Cbutton_ability1, BLACK, FontType::FF32, nullptr, false);
@@ -741,22 +751,22 @@ void m1MenuManager::CreateDebugScreen()
 	int debug_wrap_section = App->gui->screen->section.w * 0.3;
 
 	debug_screen.project_name_label = App->gui->AddLabel(0, 0, App->GetTitle(), debug_screen.debug_screen, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
-	debug_screen.version_label = App->gui->AddLabel(0, debug_screen.project_name_label->section.h, std::string(std::string("Version: ") + App->GetVersion()).data(), debug_screen.debug_screen, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
-	debug_screen.fps_label = App->gui->AddLabel(0, debug_screen.version_label->position.y + debug_screen.version_label->section.h, "fps: 000 | dt: 000", debug_screen.project_name_label, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
+	debug_screen.version_label = App->gui->AddLabel(0, debug_screen.project_name_label->section.h, std::string(std::string("Version: 00.000.000") + App->GetVersion()).data(), debug_screen.debug_screen, WHITE, FontType::PMIX16, nullptr, false, 0U, true, debug_background);
+	debug_screen.fps_label = App->gui->AddLabel(0, debug_screen.version_label->position.y + debug_screen.version_label->section.h, "fps: 000 | dt: 000\ncamera pos: (000, 000)", debug_screen.project_name_label, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
-	debug_screen.textures_label = App->gui->AddLabel(0, debug_screen.fps_label->position.y + debug_screen.fps_label->section.h * 2, "textures:\nnumber of textures: %i",
+	debug_screen.textures_label = App->gui->AddLabel(0, debug_screen.fps_label->position.y + debug_screen.fps_label->section.h * 2, "textures:\nnumber of textures: 000",
 		debug_screen.debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
-	debug_screen.map_label = App->gui->AddLabel(0, debug_screen.textures_label->position.y + debug_screen.textures_label->section.h + debug_screen.fps_label->section.h, "map:\nnumber of layers: %i\nnumber of tilesets: %i\nmap id: %i\nwidth: %i | height: %i\ntile width: %i | tile height: %i\ntiles drawn: %i\n menu state: %i",
+	debug_screen.map_label = App->gui->AddLabel(0, debug_screen.textures_label->position.y + debug_screen.textures_label->section.h + debug_screen.fps_label->section.h, "map:\nnumber of layers: 00\nnumber of tilesets: 00\nmap id: 0\nwidth: 000 | height: 000\ntile width: 00 | tile height: 00\ntiles drawn: 0000\n menu state: 0",
 		debug_screen.debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
-	debug_screen.entities_label = App->gui->AddLabel(0, debug_screen.map_label->position.y + debug_screen.map_label->section.h + debug_screen.fps_label->section.h * 2, "entities:\nnumber of entities: %i\nentities drawn: %i",
+	debug_screen.entities_label = App->gui->AddLabel(0, debug_screen.map_label->position.y + debug_screen.map_label->section.h + debug_screen.fps_label->section.h * 2, "entities:\nnumber of entities: 000\nentities drawn: 000",
 		debug_screen.debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
-	debug_screen.player_label = App->gui->AddLabel(0, debug_screen.entities_label->position.y + debug_screen.entities_label->section.h + debug_screen.fps_label->section.h, "player:\nposition: %i\ntile: %i\n movement type: %i\ndirection: %i\n state: %i",
+	debug_screen.player_label = App->gui->AddLabel(0, debug_screen.entities_label->position.y + debug_screen.entities_label->section.h + debug_screen.fps_label->section.h, "player:\nposition: (000, 000)\ntile: (000, 000)\n movement type: 0\ndirection: 0\n state: 0",
 		debug_screen.debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 
-	debug_screen.mouse_label = App->gui->AddLabel(0, 0, "mouse:\nposition: (%i, %i)\nmotion: (%i, %i)\ntile: (%i, %i)\nUI Element selected:\nposition: (%i, %i)\nsection: (%i, %i)\nnumber of childs: %i\ntype: %i",
+	debug_screen.mouse_label = App->gui->AddLabel(0, 0, "mouse:\nposition: (000, 000)\nmotion: (00, 00)\ntile: (00, 00)\nUI Element selected:\nposition: (000, 000)\nsection: (000, 000)\nnumber of childs: 00\ntype: 0",
 		debug_screen.debug_screen, WHITE, FontType::PMIX16, nullptr, false, debug_wrap_section, true, debug_background);
 	debug_screen.mouse_label->SetPosRespectParent(Position_Type::RIGHT_UP);
 
@@ -782,7 +792,8 @@ void m1MenuManager::UpdateDebugScreen()
 {
 	//BROFILER_CATEGORY("UpdateDebugScreen", Profiler::Color::Orange);
 
-	debug_screen.fps_label->SetText(std::string("fps: " + std::to_string(App->GetFps()) + " | dt: " + std::to_string(App->GetDeltaTime())).data());
+	debug_screen.fps_label->SetTextWrapped(std::string("fps: " + std::to_string(App->GetFps()) + " | dt: " + std::to_string(App->GetDeltaTime()) + 
+		"\ncamera pos: (" + std::to_string(App->render->camera.x) + ", " + std::to_string(App->render->camera.y)).data());
 
 	debug_screen.textures_label->SetTextWrapped(std::string("textures:\nnumber of textures: " + std::to_string(App->tex->textures.size())).data());
 

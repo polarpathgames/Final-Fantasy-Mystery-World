@@ -73,7 +73,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	EaseSplineInfo * CreateSpline(int * position, int target_position, const float time_to_travel, TypeSpline type, std::function<void()> fn = nullptr);
+	EaseSplineInfo* CreateSpline(int * position, int target_position, const float time_to_travel, TypeSpline type, std::function<void()> fn = nullptr);
 
 private:
 

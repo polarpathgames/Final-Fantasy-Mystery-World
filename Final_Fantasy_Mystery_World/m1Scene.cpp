@@ -98,6 +98,15 @@ bool m1Scene::Start()
   
 	mus_game_over = App->audio->LoadMusic("assets/audio/music/35.Final Fantasy TA - Judge.ogg");
 
+	if (App->fast_start) {
+		if (player == nullptr) {
+			player_type = PlayerType::WARRIOR;
+			App->globals.player_name.assign("Steve");
+			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, -100, -100, "warrior");
+			App->map->Enable();
+			App->menu_manager->CreateHUD();
+		}
+	}
 
 	return true;
 }
@@ -158,10 +167,6 @@ bool m1Scene::Update(float dt)
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_DOWN)
-	{
-		App->fade_to_black->FadeToBlack(Maps::SHOP);
-	}
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 		if (App->map->actual_map != Maps::SHOP && App->map->actual_map != Maps::NONE && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::LOBBY) {
 			if (App->input->GetKey(SDL_SCANCODE_LSHIFT)) {
