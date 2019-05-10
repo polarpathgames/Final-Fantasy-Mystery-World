@@ -39,6 +39,6 @@ protected:
 	uint32			wrap = 0U;
 	bool			has_background = false;
 	SDL_Color		background_color = { 255,255,255,255 };
-	SDL_Rect *		clip_zone = nullptr;
+
 };
 #endif //_u1Label_H_

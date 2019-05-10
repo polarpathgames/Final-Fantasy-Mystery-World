@@ -240,9 +240,9 @@ bool m1Scene::Update(float dt)
 		if ((App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing) {
 			if (App->ChangeInventory()) {
 				App->audio->PlayFx(App->gui->fx_inventory);
-				App->menu_manager->CreateInventory();
+				App->menu_manager->CreateBigInventory();
 				player->BlockControls(true);
-				App->easing_splines->CreateSpline(&App->menu_manager->inventory.inventory_panel->position.x, App->gui->screen->section.w - App->menu_manager->inventory.inventory_panel->section.w - 8, 700, TypeSpline::EASE_OUT_BACK);
+				App->menu_manager->inventory.spline_move_inventory = App->easing_splines->CreateSpline(&App->menu_manager->inventory.inventory_background->position.x, 320, 1200, TypeSpline::EASE_OUT_BACK, std::bind(&UI_inventory::SetClipInInventory, App->menu_manager->inventory));
 				menu_state = StatesMenu::INVENTORY_MENU;
 			}
 		}
@@ -250,9 +250,18 @@ bool m1Scene::Update(float dt)
 	case StatesMenu::INVENTORY_MENU:
 		if (App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->ChangeInventory();
-			App->menu_manager->DestroyInventory();
+			App->easing_splines->CleanUp();
+			App->menu_manager->DestroyBigInventory();
 			player->BlockControls(false);
 			menu_state = StatesMenu::NO_MENU;
+		}
+		if (App->menu_manager->inventory.spline_move_inventory == nullptr) {
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) {
+				App->menu_manager->inventory.ChangeInventory(true);
+			}
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) {
+				App->menu_manager->inventory.ChangeInventory(false);
+			}
 		}
 		break;
 	case StatesMenu::FIRSTABILITY_MENU:

@@ -36,7 +36,11 @@ bool m1GUI::Awake(pugi::xml_node &node)
 	CreateScreen();
 
 	//Load all ui elements info with xml...
-	focus_tx = { 1024,1986,16,27 };
+	focus_tx[0] = { 1045,2205,27,24 };
+	focus_tx[1] = { 1080,2205,27,24 };
+	focus_tx[2] = { 1045,2233,27,24 };
+	focus_tx[3] = { 1080,2233,27,24 };
+
 	cursor_rect = { 1024, 2013, 35, 40 };
 
 	//----------------------
@@ -229,6 +233,7 @@ bool m1GUI::FocusFirstUIFocusable()
 		}
 	}
 	//LOG("There is any button focusable");
+	focus = nullptr;
 	return false;
 }
 
@@ -255,7 +260,11 @@ bool m1GUI::PostUpdate()
 		for (std::list<u1GUI*>::iterator item = tree.begin(); item != tree.end(); item++) {
 			(*item)->Draw();
 			if (focus == *item) {
-				App->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - focus_tx.w + focus->focus_offset.x, (focus->section.h - focus_tx.h) * 0.5F + focus->GetGlobalPosition().y + 5 + focus->focus_offset.y, &focus_tx);
+			//	App->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - focus_tx.w + focus->focus_offset.x, (focus->section.h - focus_tx.h) * 0.5F + focus->GetGlobalPosition().y + 5 + focus->focus_offset.y, &focus_tx);
+				App->render->Blit(atlas, focus->GetGlobalPosition().x - 10, focus->GetGlobalPosition().y - 10, &focus_tx[0],false,SDL_FLIP_NONE,1.0F,focus->clip_zone);
+				App->render->Blit(atlas, focus->GetGlobalPosition().x - 16 + focus->section.w, focus->GetGlobalPosition().y - 10, &focus_tx[1], false, SDL_FLIP_NONE, 1.0F, focus->clip_zone);
+				App->render->Blit(atlas, focus->GetGlobalPosition().x - 10, focus->GetGlobalPosition().y - 14 + focus->section.h, &focus_tx[2], false, SDL_FLIP_NONE, 1.0F, focus->clip_zone);
+				App->render->Blit(atlas, focus->GetGlobalPosition().x - 16 + focus->section.w, focus->GetGlobalPosition().y - 14 + focus->section.h, &focus_tx[3], false, SDL_FLIP_NONE, 1.0F, focus->clip_zone);
 			}
 			if (debug_ui) {
 				(*item)->DebugDraw();

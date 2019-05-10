@@ -579,7 +579,7 @@ void m1MenuManager::CreatePotionMenu(u1GUI* potion_button)
 {
 	if (potion_button == inventory.hp_potion_button)
 	{
-		potion.potion_panel = App->gui->AddImage(-170, 50, { 1878, 1536, 170, 101 }, nullptr, inventory.inventory_panel, true, false, false, false);
+		potion.potion_panel = App->gui->AddImage(inventory.inventory_panel->section.w + 14, inventory.inventory_panel->section.h/2 - 20, { 1878, 1536, 170, 101 }, nullptr, inventory.inventory_panel, true, false, false, false);
 
 		potion.use_hp_button = App->gui->AddButton(30, 0, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, App->scene, potion.potion_panel, false, false, true, true);
 		potion.use_label = App->gui->AddLabel(50, -5, "Use", potion.potion_panel, BLACK, FontType::FF64, nullptr, false);
@@ -592,7 +592,7 @@ void m1MenuManager::CreatePotionMenu(u1GUI* potion_button)
 
 	else if (potion_button == inventory.mana_potion_button)
 	{
-		potion.potion_panel = App->gui->AddImage(-170, 100, { 1878, 1536, 170, 101 }, nullptr, inventory.inventory_panel, true, false, false, false);
+		potion.potion_panel = App->gui->AddImage(inventory.inventory_panel->section.w + 14, inventory.inventory_panel->section.h / 2 + 56, { 1878, 1536, 170, 101 }, nullptr, inventory.inventory_panel, true, false, false, false);
 
 		potion.use_mana_button = App->gui->AddButton(30, 0, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, App->scene, potion.potion_panel, false, false, true, true);
 		potion.use_mana_button->AddListener(this);
@@ -1484,4 +1484,168 @@ void m1MenuManager::ManageInputText(u1GUI *& interaction)
 	else if (interaction == input.button_Space) {
 		input.input_text->AddText(" ");
 	}
+}
+
+void m1MenuManager::CreateBigInventory()
+{
+
+	inventory.inventory_background = App->gui->AddImage(0, 0, { 2061,782,384,359 }, nullptr, App->gui->screen, true, false, false, false);
+	inventory.inventory_background->SetPosRespectParent(CENTERED, 700);
+
+	inventory.inventory_panel = App->gui->AddImage(14, 12, { 2070,1179,356,335 }, nullptr, inventory.inventory_background, true, false, false, false);
+
+	inventory.hp_potion_button = App->gui->AddButton(203, 152, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, App->scene, inventory.inventory_panel, true, false, true, true);
+	inventory.hp_potion_image = App->gui->AddImage(215, 160, { 1058, 1952, 33, 47 }, nullptr, inventory.inventory_panel, true, false, false, false);
+	inventory.hp_potion_label = App->gui->AddLabel(50, -10, std::string("x " + std::to_string(App->scene->player->stats.num_hp_potions)).data(), inventory.hp_potion_image, BLACK, FontType::FF64, nullptr, false);
+
+	inventory.mana_potion_button = App->gui->AddButton(203, 230, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, App->scene, inventory.inventory_panel, true, false, true, true);
+	inventory.mana_potion_image = App->gui->AddImage(215, 235, { 1091, 1952, 33, 51 }, nullptr, inventory.inventory_panel, true, false, false, false);
+	inventory.mana_potion_label = App->gui->AddLabel(50, -10, std::string("x " + std::to_string(App->scene->player->stats.num_mana_potions)).data(), inventory.mana_potion_image, BLACK, FontType::FF64, nullptr, false);
+
+	inventory.coin_image = App->gui->AddImage(215, 95, { 1024, 1952, 34, 34 }, App->scene, inventory.inventory_panel, true, false, false, false);
+	inventory.money_label = App->gui->AddLabel(50, -20, std::string("x " + std::to_string(App->scene->player->stats.gold)).data(), inventory.coin_image, BLACK, FontType::FF64, nullptr, false);
+
+	inventory.player_name = App->gui->AddLabel(75, 17, App->globals.player_name.c_str(), inventory.inventory_panel, BLACK, FontType::FF64, nullptr, false);
+
+	if (App->scene->player_type == PlayerType::WARRIOR) {
+		inventory.player_image = App->gui->AddImage(64, 101, {2271,561,69,135}, nullptr, inventory.inventory_panel, true, false, false, false);
+	}
+	else if (App->scene->player_type == PlayerType::MAGE) {
+		inventory.player_image = App->gui->AddImage(64, 101, { 2197,561,69,135 }, nullptr, inventory.inventory_panel, true, false, false, false);
+	}
+	else if (App->scene->player_type == PlayerType::ARCHER) {
+		inventory.player_image = App->gui->AddImage(64, 101, { 2122,561,69,135 }, nullptr, inventory.inventory_panel, true, false, false, false);
+	}
+
+
+	inventory.inventory_panel2 = App->gui->AddImage(356, 0, { 2448,1179,356,335 }, nullptr, inventory.inventory_panel, false, false, false, false);
+
+	if (App->globals.ability1_gained) {
+		inventory.first_ability = App->gui->AddImage(114, 94, { 1936,2094,40,58 }, nullptr, inventory.inventory_panel2, false, false, false, false);
+		SDL_Rect * rect = new SDL_Rect();
+		rect->x = 333;
+		rect->y = 216;
+		rect->w = 356;
+		rect->h = 335;
+		inventory.button_first_ability = App->gui->AddButton(90, 84, { 0,0,76,78 }, { 0,0,76,78 }, { 0,0,76,78 }, nullptr, inventory.inventory_panel2, false, false, true, true, { 0,0 }, rect, { 2061,2619,681,149 }, { -263,-270 });
+	}
+	if (App->globals.ring_bought) {
+		inventory.item_ring = App->gui->AddImage(259, 236, { 1181,1952,43,43 }, nullptr, inventory.inventory_panel2, false, false, false, false);
+		SDL_Rect * rect = new SDL_Rect();
+		rect->x = 333;
+		rect->y = 216;
+		rect->w = 356;
+		rect->h = 335;
+		inventory.button_item_ring = App->gui->AddButton(242, 222, { 0,0,77,78 }, { 0,0,77,78 }, { 0,0,77,78 }, nullptr, inventory.inventory_panel2, false, false, true, true, { 0,0 }, rect, { 2061,2155,681,149 }, { -415,-408 });
+
+	}
+	if (App->globals.ability2_gained) {
+		inventory.flash = App->gui->AddImage(201, 94, { 1981,2099,44,51 }, nullptr, inventory.inventory_panel2, false, false, false, false);
+		SDL_Rect * rect = new SDL_Rect();
+		rect->x = 333;
+		rect->y = 216;
+		rect->w = 356;
+		rect->h = 335;
+		inventory.button_flash = App->gui->AddButton(184, 84, { 0,0,77,78 }, { 0,0,77,78 }, { 0,0,77,78 }, nullptr, inventory.inventory_panel2, false, false, true, true, { 0,0 }, rect, { 2061,2775,681,149 }, { -357,-270 });
+
+	}
+	if (App->globals.ability3_gained) {
+		SDL_Rect * rect = new SDL_Rect();
+		rect->x = 333;
+		rect->y = 216;
+		rect->w = 356;
+		rect->h = 335;
+		if (App->scene->player_type == PlayerType::WARRIOR) {
+			inventory.shop_ability = App->gui->AddImage(72, 234, { 1025,2056,49,50 }, nullptr, inventory.inventory_panel2, false, false, false, false);
+			inventory.button_shop_ability = App->gui->AddButton(55, 220, { 0,0,77,78 }, { 0,0,77,78 }, { 0,0,77,78 }, nullptr, inventory.inventory_panel2, false, false, true, true, { 0,0 }, rect, { 2061,1849,681,149 }, { -228,-406 });
+		}
+		else if (App->scene->player_type == PlayerType::MAGE) {
+			inventory.shop_ability = App->gui->AddImage(76, 234, { 1076,2056,37,49 }, nullptr, inventory.inventory_panel2, false, false, false, false);
+			inventory.button_shop_ability = App->gui->AddButton(55, 220, { 0,0,77,78 }, { 0,0,77,78 }, { 0,0,77,78 }, nullptr, inventory.inventory_panel2, false, false, true, true, { 0,0 }, rect, { 2061,2465,681,149 }, { -228,-406 });
+		}
+		else if (App->scene->player_type == PlayerType::ARCHER) {
+			inventory.shop_ability = App->gui->AddImage(72, 234, { 1116,2056,49,50 }, nullptr, inventory.inventory_panel2, false, false, false, false);
+			inventory.button_shop_ability = App->gui->AddButton(55, 220, { 0,0,77,78 }, { 0,0,77,78 }, { 0,0,77,78 }, nullptr, inventory.inventory_panel2, false, false, true, true, { 0,0 }, rect, { 2061,2312,681,149 }, { -228,-406 });
+		}
+	}
+
+	if (App->globals.helmet_bought) {
+		inventory.item_helmet = App->gui->AddImage(166, 234, { 1129,1952,47,48 }, nullptr, inventory.inventory_panel2, false, false, false, false);
+		SDL_Rect * rect = new SDL_Rect();
+		rect->x = 333;
+		rect->y = 216;
+		rect->w = 356;
+		rect->h = 335;
+		inventory.button_item_helmet = App->gui->AddButton(149, 220, { 0,0,77,78 }, { 0,0,77,78 }, { 0,0,77,78 }, nullptr, inventory.inventory_panel2, false, false, true, true, { 0,0 }, rect, { 2061,2001,681,149 }, { -322,-406 });
+
+	}
+
+}
+
+void m1MenuManager::DestroyBigInventory()
+{
+	App->gui->DeleteUIElement(inventory.inventory_background);
+}
+
+
+void UI_inventory::ChangeInventory(bool item)
+{
+	if (item && inventory_panel->position.x > 0) {
+		spline_move_inventory = App->easing_splines->CreateSpline(&inventory_panel->position.x, inventory_panel->position.x - 356, 700, TypeSpline::EASE, std::bind(&UI_inventory::ResetSplineInventory, App->menu_manager->inventory));
+	}
+	else if (inventory_panel->position.x < 0 && !item) {
+		spline_move_inventory = App->easing_splines->CreateSpline(&inventory_panel->position.x, inventory_panel->position.x + 356, 700, TypeSpline::EASE, std::bind(&UI_inventory::ResetSplineInventory, App->menu_manager->inventory));
+	}
+}
+
+void UI_inventory::ResetSplineInventory()
+{
+	App->menu_manager->inventory.spline_move_inventory = nullptr;
+
+	if (inventory_panel->position.x > 0) {
+		inventory_panel->SetPos(14,inventory_panel->GetLocalPosition().y);
+	}
+	else {
+		inventory_panel->SetPos(14 - 356, inventory_panel->GetLocalPosition().y);
+	}
+}
+
+void UI_inventory::SetClipInInventory()
+{
+	SDL_Rect rect = { inventory_panel->GetGlobalRect()->x, inventory_panel->GetGlobalRect()->y, inventory_panel->GetGlobalRect()->w, inventory_panel->GetGlobalRect()->h };
+	inventory_panel->SetClipZone(rect);
+	inventory_panel2->SetClipZone(rect);
+	inventory_panel2->drawable = true;
+	hp_potion_button->SetClipZone(rect);
+	hp_potion_image->SetClipZone(rect);
+	player_image->SetClipZone(rect);
+	hp_potion_label->SetClipZone(rect);
+	mana_potion_button->SetClipZone(rect);
+	mana_potion_image->SetClipZone(rect);
+	mana_potion_label->SetClipZone(rect);
+	coin_image->SetClipZone(rect);
+	money_label->SetClipZone(rect);
+	player_name->SetClipZone(rect);
+	if (App->globals.ability1_gained) {
+		first_ability->drawable = true;
+		first_ability->SetClipZone(rect);
+	}
+	if (App->globals.ability2_gained) {
+		flash->drawable = true;
+		flash->SetClipZone(rect);
+	}
+	if (App->globals.ability3_gained) {
+		shop_ability->drawable = true;
+		shop_ability->SetClipZone(rect);
+	}
+	if (App->globals.helmet_bought) {
+		item_helmet->drawable = true;
+		item_helmet->SetClipZone(rect);
+	}
+	if (App->globals.ring_bought) {
+		item_ring->drawable = true;
+		item_ring->SetClipZone(rect);
+	}
+
+	App->menu_manager->inventory.spline_move_inventory = nullptr;
 }
