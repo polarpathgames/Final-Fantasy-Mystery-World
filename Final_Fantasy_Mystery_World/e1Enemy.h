@@ -89,7 +89,7 @@ public:
 	p2Timer time_to_wait_before_attack;
 	EnemyType enemy_type = EnemyType::NONE;
 	iPoint original_position{ 0,0 };
-	int range_to_walk = 15;
+	int range_to_walk = 7;
 	int range_to_distance_attack = 1;
 	bool want_to_attack = true;
 
