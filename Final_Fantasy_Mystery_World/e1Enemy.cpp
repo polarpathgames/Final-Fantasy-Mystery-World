@@ -417,37 +417,19 @@ void e1Enemy::GetHitted(const int & damage_taken)
 
 void e1Enemy::Drop()
 {
-	int size_drop = App->random.Generate(1, 2);
-	int drop_item = App->random.Generate(1, 3);
-	switch (drop_item)
-	{
-	case 1: //RUPEE
-	{
-		for (int i= 0; i < size_drop; i++)
-		{
-			CalculateDrop();
-		}
-		
-		break;
-	}		
-	case 2: //HP POTION
-	{
+
+	int drop_item = App->random.Generate(1, 100);
+
+	if (drop_item <= 60)
+		CalculateDrop();
+	else if (drop_item >= 60 && drop_item <= 80) {
 		e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "health_potion");
 		App->map->quest_rooms->AddDrop(actual_tile, DropsType::HEALTH_POTION);
-		break;
 	}
-	case 3: //MP  POTION
-	{
+	else if (drop_item >= 80 && drop_item <= 100) {
 		e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "mana_potion");
 		App->map->quest_rooms->AddDrop(actual_tile, DropsType::MANA_POTION);
-		break;
 	}
-	default:
-	{
-		break;
-	}
-	}
-	
 }
 
 int e1Enemy::CalculateDrop()
