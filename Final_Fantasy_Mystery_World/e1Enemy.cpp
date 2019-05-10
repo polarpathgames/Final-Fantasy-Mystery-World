@@ -441,15 +441,32 @@ void e1Enemy::Drop()
 
 	int drop_item = App->random.Generate(1, 100);
 
-	if (drop_item <= ratio_rupee)
-		CalculateDrop();
-	else if (drop_item >= ratio_rupee && drop_item <= ratio_rupee + ratio_poti_hp) {
-		e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "health_potion");
-		App->map->quest_rooms->AddDrop(actual_tile, DropsType::HEALTH_POTION);
-	}
-	else if (drop_item >= ratio_rupee + ratio_poti_mana && drop_item <= ratio_rupee + ratio_poti_mana + ratio_poti_hp) {
-		e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "mana_potion");
-		App->map->quest_rooms->AddDrop(actual_tile, DropsType::MANA_POTION);
+
+	std::vector<int> drop_ratio;
+	drop_ratio.push_back(ratio_poti_hp);
+	drop_ratio.push_back(ratio_poti_mana);
+	drop_ratio.push_back(ratio_rupee);
+	std::sort(drop_ratio.begin(), drop_ratio.end(), std::less<int>());
+
+	std::vector<int>::iterator item = drop_ratio.begin();
+	int i_dont_really_know_how_to_name_this_variable_love_me_guys = 0; // :D
+	for (; item != drop_ratio.end(); ++item) {
+		if ((*item) + i_dont_really_know_how_to_name_this_variable_love_me_guys >= drop_item) {
+			if ((*item) == ratio_rupee) {
+				CalculateDrop();
+			}
+			else if ((*item) == ratio_poti_hp) {
+				e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "health_potion");
+				App->map->quest_rooms->AddDrop(actual_tile, DropsType::HEALTH_POTION);
+			}
+			else if ((*item) == ratio_poti_mana) {
+				e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "mana_potion");
+				App->map->quest_rooms->AddDrop(actual_tile, DropsType::MANA_POTION);
+			}
+			break;
+		}
+		else
+			i_dont_really_know_how_to_name_this_variable_love_me_guys += (*item);
 	}
 }
 
