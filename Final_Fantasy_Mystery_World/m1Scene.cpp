@@ -251,10 +251,10 @@ bool m1Scene::Update(float dt)
 			menu_state = StatesMenu::NO_MENU;
 		}
 		if (App->menu_manager->inventory.spline_move_inventory == nullptr) {
-			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) {
 				App->menu_manager->inventory.ChangeInventory(true);
 			}
-			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) {
 				App->menu_manager->inventory.ChangeInventory(false);
 			}
 		}

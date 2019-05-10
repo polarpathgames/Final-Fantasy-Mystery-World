@@ -1607,6 +1607,7 @@ void UI_inventory::SetClipInInventory()
 	inventory_panel2->drawable = true;
 	hp_potion_button->SetClipZone(rect);
 	hp_potion_image->SetClipZone(rect);
+	player_image->SetClipZone(rect);
 	hp_potion_label->SetClipZone(rect);
 	mana_potion_button->SetClipZone(rect);
 	mana_potion_image->SetClipZone(rect);
