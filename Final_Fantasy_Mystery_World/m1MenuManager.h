@@ -443,7 +443,11 @@ struct UI_inventory {
 	u1Image* shop_ability = nullptr;
 	u1Image* item_helmet = nullptr;
 	u1Image* item_ring = nullptr;
-
+	u1Button* button_first_ability = nullptr;
+	u1Button* button_flash = nullptr;
+	u1Button* button_shop_ability = nullptr;
+	u1Button* button_item_helmet = nullptr;
+	u1Button* button_item_ring = nullptr;
 	EaseSplineInfo* spline_move_inventory = nullptr;
 
 	void ChangeInventory(bool item);

@@ -1500,9 +1500,22 @@ void m1MenuManager::CreateBigInventory()
 
 	if (App->globals.ability1_gained) {
 		inventory.first_ability = App->gui->AddImage(114, 94, { 1936,2094,40,58 }, nullptr, inventory.inventory_panel2, false, false, false, false);
+		SDL_Rect * rect = new SDL_Rect();
+		rect->x = 333;
+		rect->y = 216;
+		rect->w = 356;
+		rect->h = 335;
+		inventory.button_first_ability = App->gui->AddButton(-24, -10, { 0,0,76,78 }, { 0,0,76,78 }, { 0,0,76,78 }, nullptr, inventory.first_ability, false, false, true, true, { 0,0 }, rect, { 2061,2619,681,149 }, { -263,-270 });
 	}
 	if (App->globals.ability2_gained) {
 		inventory.flash = App->gui->AddImage(201, 94, { 1981,2099,44,51 }, nullptr, inventory.inventory_panel2, false, false, false, false);
+		SDL_Rect * rect = new SDL_Rect();
+		rect->x = 333;
+		rect->y = 216;
+		rect->w = 356;
+		rect->h = 335;
+		inventory.button_flash = App->gui->AddButton(70, -10, { 0,0,77,78 }, { 0,0,77,78 }, { 0,0,77,78 }, nullptr, inventory.first_ability, false, false, true, true, { 0,0 }, rect, { 2061,2775,681,149 }, { -357,-270 });
+
 	}
 	if (App->globals.ability3_gained) {
 		if (App->scene->player_type == PlayerType::WARRIOR)
