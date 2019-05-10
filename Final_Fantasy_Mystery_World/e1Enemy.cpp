@@ -19,6 +19,7 @@
 #include "m1Window.h"
 #include "Brofiler/Brofiler.h"
 #include <map>
+#include "p2Log.h"
 
 
 
@@ -60,6 +61,27 @@ void e1Enemy::InitStats()
 		}
 		else if (strcmp((*item)->GetName(), "live") == 0) {
 			stats.max_live = stats.live = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "ratio_blue_rupee") == 0) {
+			ratio_blue_rupee = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "ratio_green_rupee") == 0) {
+			ratio_green_rupee = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "ratio_red_rupee") == 0) {
+			ratio_red_rupee = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "ratio_gold_rupee") == 0) {
+			ratio_gold_rupee = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "ratio_rupee") == 0) {
+			ratio_rupee = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "ratio_poti_hp") == 0) {
+			ratio_poti_hp = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "ratio_poti_mana") == 0) {
+			ratio_poti_mana = (*item)->GetValue();
 		}
 	}
 }
@@ -550,29 +572,78 @@ void e1Enemy::GetHitted(const int & damage_taken)
 
 void e1Enemy::Drop()
 {
-	int drop_item = App->random.Generate(1, 3);
-	switch (drop_item)
-	{
-	case 1:
-	{
-		int drop_gold = App->random.Generate(20, 50);
-		e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "gold");
-		drop->SetGold(drop_gold);
-		App->map->quest_rooms->AddDrop(actual_tile, DropsType::GOLD_DROP);
-		break;
-	}		
-	case 2:
-	{
-		e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "health_potion");
-		App->map->quest_rooms->AddDrop(actual_tile, DropsType::HEALTH_POTION);
-		break;
+
+	int drop_item = App->random.Generate(1, 100);
+
+
+	std::vector<int> drop_ratio;
+	drop_ratio.push_back(ratio_poti_hp);
+	drop_ratio.push_back(ratio_poti_mana);
+	drop_ratio.push_back(ratio_rupee);
+	std::sort(drop_ratio.begin(), drop_ratio.end(), std::less<int>());
+
+	std::vector<int>::iterator item = drop_ratio.begin();
+	int i_dont_really_know_how_to_name_this_variable_love_me_guys = 0; // :D
+	for (; item != drop_ratio.end(); ++item) {
+		if ((*item) + i_dont_really_know_how_to_name_this_variable_love_me_guys >= drop_item) {
+			if ((*item) == ratio_rupee) {
+				CalculateDrop();
+			}
+			else if ((*item) == ratio_poti_hp) {
+				e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "health_potion");
+				App->map->quest_rooms->AddDrop(actual_tile, DropsType::HEALTH_POTION);
+			}
+			else if ((*item) == ratio_poti_mana) {
+				e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "mana_potion");
+				App->map->quest_rooms->AddDrop(actual_tile, DropsType::MANA_POTION);
+			}
+			break;
+		}
+		else
+			i_dont_really_know_how_to_name_this_variable_love_me_guys += (*item);
 	}
-	case 3:
-	{
-		e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "mana_potion");
-		App->map->quest_rooms->AddDrop(actual_tile, DropsType::MANA_POTION);
-		break;
+}
+
+int e1Enemy::CalculateDrop()
+{
+	int rupee_percentage = App->random.Generate(1, 100); //Calculate the percentage
+
+	std::vector<int> drop_ratio;
+	drop_ratio.push_back(ratio_green_rupee);
+	drop_ratio.push_back(ratio_gold_rupee);
+	drop_ratio.push_back(ratio_blue_rupee);
+	drop_ratio.push_back(ratio_red_rupee);
+	std::sort(drop_ratio.begin(), drop_ratio.end(), std::less<int>());
+
+	e1Drop* drop = nullptr;
+	std::vector<int>::iterator item = drop_ratio.begin();
+	int i_dont_really_know_how_to_name_this_variable_love_me_guys = 0; // :D
+	for (; item != drop_ratio.end(); ++item) {
+		if ((*item) + i_dont_really_know_how_to_name_this_variable_love_me_guys >= rupee_percentage) {
+			if ((*item) == ratio_green_rupee) {
+				drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "green_rupee");
+				drop->SetGold(App->random.Generate(15, 25));
+				App->map->quest_rooms->AddDrop(actual_tile, drop->drop_type);
+			}
+			else if ((*item) == ratio_blue_rupee) {
+				drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "blue_rupee");
+				drop->SetGold(App->random.Generate(45, 65));
+				App->map->quest_rooms->AddDrop(actual_tile, drop->drop_type);
+			}
+			else if ((*item) == ratio_red_rupee) {
+				drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "red_rupee");
+				drop->SetGold(App->random.Generate(90, 110));
+				App->map->quest_rooms->AddDrop(actual_tile, drop->drop_type);
+			}
+			else if ((*item) == ratio_gold_rupee) {
+				drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "gold_rupee");
+				drop->SetGold(App->random.Generate(300, 400));
+				App->map->quest_rooms->AddDrop(actual_tile, drop->drop_type);
+			}
+			break;
+		}
+		else
+			i_dont_really_know_how_to_name_this_variable_love_me_guys += (*item);
 	}
-	}
-	
+	return 0;
 }

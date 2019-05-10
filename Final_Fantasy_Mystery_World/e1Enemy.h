@@ -7,10 +7,12 @@
 #include "p2Timer.h"
 #include "e1Particles.h"
 #include <vector>
+#include "e1Drop.h"
 
 
 class e1Enemy : public e1DynamicEntity
 {
+
 public:
 
 	struct EnemyStats {
@@ -78,6 +80,8 @@ public:
 
 	void Drop();
 
+	int CalculateDrop();
+
 public:
 	std::vector<iPoint> next_enemy_pos;
 	EnemyStats stats;
@@ -90,6 +94,16 @@ public:
 	bool want_to_attack = true;
 
 	uint times_hitted = 0u;
+
+	// % of drop
+
+	int ratio_poti_hp = 0;
+	int ratio_poti_mana = 0;
+	int ratio_rupee = 0;
+	int ratio_green_rupee = 0;
+	int ratio_red_rupee = 0;
+	int ratio_blue_rupee = 0;
+	int ratio_gold_rupee = 0;
 
 };
 
