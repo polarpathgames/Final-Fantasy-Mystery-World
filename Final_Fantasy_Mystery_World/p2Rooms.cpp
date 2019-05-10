@@ -335,10 +335,21 @@ void RoomManager::LoadEntities()
 	for (; item != actual_room->drops.end(); ++item) {
 		if ((*item) != nullptr) {
 			switch ((*item)->type) {
-			case DropsType::GOLD_DROP: {
-				int drop_gold = App->random.Generate(20, 50);
-				e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, (*item)->location.x, (*item)->location.y, "gold");
-				drop->SetGold(drop_gold);
+			case DropsType::GREEN_RUPEE: {
+				e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, (*item)->location.x, (*item)->location.y, "green_rupee");
+				drop->SetGold(App->random.Generate(15, 25));
+				break; }
+			case DropsType::RED_RUPEE: {
+				e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, (*item)->location.x, (*item)->location.y, "red_rupee");
+				drop->SetGold(App->random.Generate(90, 110));
+				break; }
+			case DropsType::GOLD_RUPEE: {
+				e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, (*item)->location.x, (*item)->location.y, "gold_rupee");
+				drop->SetGold(App->random.Generate(300, 400));
+				break; }
+			case DropsType::BLUE_RUPEE: {
+				e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, (*item)->location.x, (*item)->location.y, "blue_rupee");
+				drop->SetGold(App->random.Generate(45, 65));
 				break; }
 			case DropsType::HEALTH_POTION:
 				App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, (*item)->location.x, (*item)->location.y, "health_potion");
