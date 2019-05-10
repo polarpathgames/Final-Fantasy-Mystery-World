@@ -1514,11 +1514,11 @@ void m1MenuManager::CreateBigInventory()
 		rect->y = 216;
 		rect->w = 356;
 		rect->h = 335;
-		inventory.button_flash = App->gui->AddButton(70, -10, { 0,0,77,78 }, { 0,0,77,78 }, { 0,0,77,78 }, nullptr, inventory.first_ability, false, false, true, true, { 0,0 }, rect, { 2061,2775,681,149 }, { -357,-270 });
+		inventory.button_flash = App->gui->AddButton(-17, -10, { 0,0,77,78 }, { 0,0,77,78 }, { 0,0,77,78 }, nullptr, inventory.flash, false, false, true, true, { 0,0 }, rect, { 2061,2775,681,149 }, { -357,-270 });
 
 	}
 	if (App->globals.ability3_gained) {
-		if (App->scene->player_type == PlayerType::WARRIOR)
+		if (App->scene->player_type == PlayerType::WARRIOR) 
 			inventory.shop_ability = App->gui->AddImage(72, 234, { 1025,2056,49,50 }, nullptr, inventory.inventory_panel2, false, false, false, false);
 		else if (App->scene->player_type == PlayerType::MAGE)
 			inventory.shop_ability = App->gui->AddImage(76, 234, { 1076,2056,37,49 }, nullptr, inventory.inventory_panel2, false, false, false, false);
@@ -1527,6 +1527,13 @@ void m1MenuManager::CreateBigInventory()
 	}
 	if (App->globals.helmet_bought) {
 		inventory.item_helmet = App->gui->AddImage(166, 234, { 1129,1952,47,48 }, nullptr, inventory.inventory_panel2, false, false, false, false);
+		SDL_Rect * rect = new SDL_Rect();
+		rect->x = 333;
+		rect->y = 216;
+		rect->w = 356;
+		rect->h = 335;
+		inventory.button_item_helmet = App->gui->AddButton(-17, -14, { 0,0,77,78 }, { 0,0,77,78 }, { 0,0,77,78 }, nullptr, inventory.item_helmet, false, false, true, true, { 0,0 }, rect, { 2061,2001,681,149 }, { -322,-406 });
+
 	}
 	if (App->globals.ring_bought) {
 		inventory.item_ring = App->gui->AddImage(259, 236, { 1181,1952,43,43 }, nullptr, inventory.inventory_panel2, false, false, false, false);
