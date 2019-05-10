@@ -569,7 +569,7 @@ void m1MenuManager::CreatePotionMenu(u1GUI* potion_button)
 {
 	if (potion_button == inventory.hp_potion_button)
 	{
-		potion.potion_panel = App->gui->AddImage(-170, 50, { 1878, 1536, 170, 101 }, nullptr, inventory.inventory_panel, true, false, false, false);
+		potion.potion_panel = App->gui->AddImage(inventory.inventory_panel->section.w + 14, inventory.inventory_panel->section.h/2 - 20, { 1878, 1536, 170, 101 }, nullptr, inventory.inventory_panel, true, false, false, false);
 
 		potion.use_hp_button = App->gui->AddButton(30, 0, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, App->scene, potion.potion_panel, false, false, true, true);
 		potion.use_label = App->gui->AddLabel(50, -5, "Use", potion.potion_panel, BLACK, FontType::FF64, nullptr, false);
@@ -582,7 +582,7 @@ void m1MenuManager::CreatePotionMenu(u1GUI* potion_button)
 
 	else if (potion_button == inventory.mana_potion_button)
 	{
-		potion.potion_panel = App->gui->AddImage(-170, 100, { 1878, 1536, 170, 101 }, nullptr, inventory.inventory_panel, true, false, false, false);
+		potion.potion_panel = App->gui->AddImage(inventory.inventory_panel->section.w + 14, inventory.inventory_panel->section.h / 2 + 56, { 1878, 1536, 170, 101 }, nullptr, inventory.inventory_panel, true, false, false, false);
 
 		potion.use_mana_button = App->gui->AddButton(30, 0, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, App->scene, potion.potion_panel, false, false, true, true);
 		potion.use_mana_button->AddListener(this);
