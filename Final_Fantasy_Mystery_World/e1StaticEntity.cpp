@@ -505,6 +505,14 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.5F);
 		size.create(frame.w, frame.h);
 	}
+	else if (strcmp(name, "rocks_door") == 0) {
+		static_type = e1StaticEntity::Type::CAVE_ROCKS;
+		frame = { 682,174 ,26,49 };
+		SetPivot(frame.w*0.5F, frame.h*0.5F);
+		size.create(frame.w, frame.h);
+		position.x -= 3;
+		position.y += 1;
+	}
 	else if (strcmp(name, "blue_fire") == 0) {
 		static_type = e1StaticEntity::Type::BLUE_FIRE;
 		has_animation = true;
