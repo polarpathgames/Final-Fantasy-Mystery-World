@@ -70,6 +70,7 @@ public:
 		SPECIAL_FIREFLOOR,
 		TREASURE,
 		BLUE_FIRE,
+		FLASH_INFO,
 		UNKNOWN
 	};
 

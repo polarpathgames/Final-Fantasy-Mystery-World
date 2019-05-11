@@ -115,20 +115,6 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		moving_pos.x = position.x;
 		moving_pos.y = position.y;
 	}
-	else if (strcmp(name, "ability_flash") == 0 && App->globals.ability2_gained == false) {
-		drop_type = DropsType::ABILITY_FLASH;
-		frame = { 1062,23,12,14 };
-		SetPivot(frame.w*0.35F, frame.h*0.8F);
-		size.create(frame.w, frame.h);
-		actual_tile = { App->map->WorldToMap(position.x, position.y) };
-		//position.x += 8;
-		//position.y -= 13;
-		CenterOnTile();
-		position.y -= 6;
-		position.x += 3;
-		moving_pos.x = position.x;
-		moving_pos.y = position.y;
-	}
 	else if (strcmp(name, "health_potion") == 0) {
 		actual_tile = { x,y };
 		drop_type = DropsType::HEALTH_POTION;
@@ -195,16 +181,6 @@ bool e1Drop::Update(float adt)
 		case DropsType::ABILITY1:
 		{
 			App->globals.ability1_gained = true;
-			App->scene->player->BlockControls(true);
-			App->menu_manager->CreateHelpAbilityMenu();
-			App->menu_manager->ShowHUD(false);
-			App->scene->SetMenuState(StatesMenu::FIRSTABILITY_MENU);
-			to_delete = true;
-			break;
-		}
-		case DropsType::ABILITY_FLASH:
-		{
-			App->globals.ability2_gained = true;
 			App->scene->player->BlockControls(true);
 			App->menu_manager->CreateHelpAbilityMenu();
 			App->menu_manager->ShowHUD(false);
