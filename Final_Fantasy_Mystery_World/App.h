@@ -45,6 +45,7 @@ struct GlobalGameAdvances
 	bool helmet_bought = false;
 	bool ring_bought = false;
 	bool shop_gone = false;
+	bool quest2_rocks_cave_destroyed = false;
 
 	std::string player_name;
 
@@ -61,6 +62,7 @@ struct GlobalGameAdvances
 		helmet_bought = false;
 		ring_bought = false;
 		shop_gone = false;
+		quest2_rocks_cave_destroyed = false;
 	}
 
 };

@@ -24,7 +24,7 @@
 
 m1MenuManager::m1MenuManager()
 {
-	name.assign("menu manager");
+	name.assign("menu_manager");
 }
 
 m1MenuManager::~m1MenuManager()
@@ -341,10 +341,10 @@ void m1MenuManager::CreateControls()
 	controls.keyboard.label_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
 	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_basic_attack);
 
-	/*controls.keyboard.button_abilities = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
-	controls.keyboard.label_to_show_how_abilities = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.SHOW_SKILLS, controls.keyboard.button_abilities, BLACK, FontType::FF32, nullptr, false);
-	controls.keyboard.label_to_show_how_abilities->SetPosRespectParent(CENTERED);
-	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_abilities);*/
+	//controls.keyboard.button_abilities = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
+	//controls.keyboard.label_to_show_how_abilities = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.SHOW_SKILLS, controls.keyboard.button_abilities, BLACK, FontType::FF32, nullptr, false);
+	//controls.keyboard.label_to_show_how_abilities->SetPosRespectParent(CENTERED);
+	//App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_abilities);
 
 	controls.keyboard.button_ability1 = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_abilities->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
 	controls.keyboard.label_to_show_how_ability1 = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.ABILITY1, controls.keyboard.button_ability1, BLACK, FontType::FF32, nullptr, false);
@@ -881,55 +881,32 @@ void m1MenuManager::DestroyHelpAttackMenu()
 void m1MenuManager::CreateHelpAbilityMenu(bool flash)
 {
 	App->audio->PlayFx(App->scene->fx_ability_screen);
-	//switch (player_type) {
-	//case PlayerType::WARRIOR:
+	switch (App->scene->player_type) {
+	case PlayerType::WARRIOR:
 	if (!flash)
 		help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
 	else if (flash)
-		help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
-	/*	break;
-	case PlayerType::MAGE:
 		help_ability = App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
 		break;
+	case PlayerType::MAGE:
+		if (!flash)
+			help_ability = App->gui->AddImage(0, 0, { 2048,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+		else if (flash)
+			help_ability = App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+		break;
 	case PlayerType::ARCHER:
-		help_ability = App->gui->AddImage(0, 0, { 0,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+		if (!flash)
+			help_ability = App->gui->AddImage(0, 0, { 0,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+		else if (flash)
+			help_ability = App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
 		break;
-	default:
-		help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
-		break;
-	}*/
+	}
 }
 
 void m1MenuManager::DestroyHelpAbilityMenu()
 {
 	App->gui->DeleteUIElement(help_ability);
 	ShowHUD(true);
-}
-
-void m1MenuManager::CreateFirstAbilityPanel()
-{
-	App->audio->PlayFx(App->scene->fx_ability_screen);
-
-	App->gui->ShowCursor(false);
-
-	//switch (player_type) {
-	//case PlayerType::WARRIOR:
-	abilities.first_ability_panel = App->gui->AddImage(0, 0, { 0, 4792, 1025, 768 }, nullptr, App->gui->screen, true, false, false, false);
-	abilities.first_ability_panel->SetPosRespectParent(RIGHT_CENTERED);
-	//	break;
-	//case PlayerType::ARCHER:
-	//	first_ability_panel = App->gui->AddImage(0, 0, { 0, 4792, 1025, 768 }, this, App->gui->screen, true, false, false, false);
-	//	first_ability_panel->SetPosRespectParent(RIGHT_CENTERED);
-	//	break;
-	//case PlayerType::MAGE:
-	//	first_ability_panel = App->gui->AddImage(0, 0, { 0, 4792, 1025, 768 }, this, App->gui->screen, true, false, false, false);
-	//	first_ability_panel->SetPosRespectParent(RIGHT_CENTERED);
-	//	break;
-	//}
-
-	abilities.button_ability1_screen = App->gui->AddButton(800, 600, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, App->scene, abilities.first_ability_panel, false, false, true, true);
-	abilities.label_ability1_screen = App->gui->AddLabel(0, 0, "Continue", abilities.button_ability1_screen, WHITE, FontType::FF100, nullptr, true);
-
 }
 
 void m1MenuManager::CreateHUD()
@@ -951,6 +928,7 @@ void m1MenuManager::CreateHUD()
 	}
 	hud.player_hp_bar = App->gui->AddBar(215, 662,App->scene->player->stats.max_lives, HPBAR, hud.bg_hud, nullptr);
 	hud.player_mana_bar = App->gui->AddBar(215, 700, App->scene->player->stats.max_mana, MANABAR, hud.bg_hud, nullptr);
+	hud.player_exp_bar = App->gui->AddBar(8, 626, App->scene->player->stats.max_xp, EXPBAR, hud.bg_hud, nullptr);
 }
 
 void m1MenuManager::DestroyHUD()
@@ -970,6 +948,27 @@ void m1MenuManager::ShowHUD(bool show_or_hide)
 		hud.vertical_compass->drawable = show_or_hide;
 		hud.player_hp_bar->bar_numbers_label->drawable = show_or_hide;
 		hud.player_mana_bar->bar_numbers_label->drawable = show_or_hide;
+		hud.player_exp_bar->drawable = show_or_hide;
+
+		// It is ugly but for now works
+		if (show_or_hide == true)
+		{
+			hud.player_exp_bar->empty_bar->drawable = true;
+
+			if(hud.player_exp_bar->got_xp)
+				hud.player_exp_bar->filled_bar->drawable = true;
+
+			else
+				hud.player_exp_bar->filled_bar->drawable = false;
+		}
+			
+
+		else
+		{
+			hud.player_exp_bar->empty_bar->drawable = false;
+			hud.player_exp_bar->filled_bar->drawable = false;
+		}
+			
 	}
 }
 
@@ -996,11 +995,6 @@ void m1MenuManager::ChangeCompass(bool shift_pressed)
 		}
 	}
 }
-void m1MenuManager::DestroyFirstAbilityPanel()
-{
-	App->gui->DeleteUIElement(abilities.first_ability_panel);
-}
-
 void m1MenuManager::GodModeIndicator(bool is_god_mode)
 {
 	if (is_god_mode)

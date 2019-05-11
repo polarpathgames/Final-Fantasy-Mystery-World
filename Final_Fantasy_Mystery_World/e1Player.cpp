@@ -32,6 +32,7 @@
 #include "m1MainMenu.h"
 #include "m1ParticleManager.h"
 
+
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
 	type = EntityType::PLAYER;
@@ -1377,7 +1378,9 @@ void e1Player::ReduceLives(const int & cost_lives)
 	iPoint pos{ 0,0 };
 	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 5) * (int)App->win->GetScale();
 	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
+	if (stats.live > 0)
 	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(cost_lives).data(), App->gui->screen, RED, FontType::PMIX24);
+
 	stats.live -= cost_lives;
 	if (stats.live < 0)
 		stats.live = 0;
@@ -1466,13 +1469,16 @@ void e1Player::AugmentGold(const int & plus_gold)
 }
 
 void e1Player::UpdateExperience(int experience) {
+
 	if (stats.xp < stats.max_xp) {
 		stats.xp += experience;
 	}
+
+	App->menu_manager->hud.player_exp_bar->UpdateBar(experience, UIType::EXPBAR);
+
 	if(stats.xp >= stats.max_xp) {
 		stats.level += 1;
 		stats.xp = 0;
 		UpdateLevel();
 	}
-		
 }

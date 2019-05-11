@@ -757,13 +757,6 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 		}
 		break;
-	case StatesMenu::FIRSTABILITY_MENU:
-		if (interact == App->menu_manager->abilities.button_ability1_screen) {
-			App->menu_manager->DestroyFirstAbilityPanel();
-			menu_state = StatesMenu::NO_MENU;
-			player->BlockControls(false);
-			ret = false;
-		}
 	}
 
 	return ret;
