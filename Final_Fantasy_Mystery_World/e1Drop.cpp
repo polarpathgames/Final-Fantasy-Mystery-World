@@ -103,7 +103,6 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		CenterOnTile();
 
 	}
-
 	else if (strcmp(name, "ability1") == 0 && App->globals.ability1_gained == false) {
 		drop_type = DropsType::ABILITY1;
 		frame = { 1044,21,11,16 };

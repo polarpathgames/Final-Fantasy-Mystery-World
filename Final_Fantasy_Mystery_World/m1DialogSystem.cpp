@@ -361,6 +361,21 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 					   }
 				   }
 				   break;
+			   case 33: { // take flash
+				   App->globals.ability2_gained = true;
+				   App->scene->player->BlockControls(true);
+				   App->menu_manager->CreateHelpAbilityMenu(true);
+				   App->menu_manager->ShowHUD(false);
+				   App->scene->SetMenuState(StatesMenu::FIRSTABILITY_MENU);
+				   std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+				   std::vector<e1Entity*>::iterator item = entities.begin();
+				   for (; item != entities.end(); ++item) {
+					   if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::STATIC && static_cast<e1StaticEntity*>(*item)->static_type == e1StaticEntity::Type::FLASH_INFO) {
+						   (*item)->to_delete = true;
+						   break;
+					   }
+				   }
+				   break; }
 			   case -3://SAVE FUNCTION
 			   {
 				   //Save function

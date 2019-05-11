@@ -62,6 +62,15 @@
       <option line="No" nextnode="3" karma="0" tag="0"/>
     </node>
   </dialogtree>
+  <dialogtree treeid="8" karma="0" tag="0" rect_x="746" rect_y="3090" rect_w="97" rect_h="130">
+    <node line="ESCRIVIU ALGO NO SE QUE POSAR :D" id="0" karma="0" tag="0">
+      <option line="" nextnode="1" karma="0" tag="0"/>
+    </node>
+    <node line="Do you want to take it?" id="1" karma="0" tag="0">
+      <option line="Yes" nextnode="3" karma="0" tag="33"/>
+      <option line="No" nextnode="3" karma="0" tag="0"/>
+    </node>
+  </dialogtree>
 </dialogue>
 <!-- Dialogue Tree example -->
 

@@ -519,6 +519,17 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 	}
+	else if (strcmp(name, "ability_flash") == 0) {
+		frame = { 1062,23,12,14 };
+		SetPivot(frame.w*0.5F, frame.h*0.5F);
+		size.create(frame.w, frame.h);
+		static_type = e1StaticEntity::Type::FLASH_INFO;
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		position.x += 14;
+		position.y -= 9;
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+		max_distance_to_interact = 1;
+	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
 	}
@@ -608,12 +619,11 @@ bool e1StaticEntity::Update(float dt)
 					button_interact = nullptr;
 				}
 			}
-			
 	}
 	if (interacting_state == InteractingStates::INTERACTING && App->dialog->end_dial)
 	{
 		interacting_state = InteractingStates::WAITING_INTERACTION;
-		if (static_type != Type::HELP1 && static_type != Type::HELP2 && static_type != Type::HELP3)
+		if (static_type != Type::HELP1 && static_type != Type::HELP2 && static_type != Type::HELP3 && static_type != Type::FLASH_INFO)
 			App->menu_manager->ShowHUD(true);
 	}
 
@@ -647,6 +657,9 @@ bool e1StaticEntity::Update(float dt)
 			break;
 		case e1StaticEntity::Type::NPC_DAUGHTER:
 			App->dialog->PerformDialogue(7);
+			break;
+		case e1StaticEntity::Type::FLASH_INFO:
+			App->dialog->PerformDialogue(8);
 			break;
 		default:
 			break;
