@@ -628,7 +628,7 @@ void RoomManager::UpdateRoomEvents()
 	
 	
 	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
-		if (!map_active) {
+		if (!map_active && App->scene->menu_state == StatesMenu::NO_MENU && App->scene->player->state == State::IDLE && !App->scene->player->turn_done) {
 			int distance_x = actual_room->map_room_image->GetLocalPosition().x, distance_y = actual_room->map_room_image->GetLocalPosition().y;
 			player_pos->parent = actual_room->map_room_image;
 			player_pos->SetPosRespectParent(CENTERED);
@@ -668,11 +668,13 @@ void RoomManager::UpdateRoomEvents()
 			map_background->SetPos(-1600, map_background->GetLocalPosition().y);
 			App->easing_splines->CreateSpline(&map_background->position.x, 100, 1500, TypeSpline::EASE_OUT_QUINT);
 			App->scene->player->BlockControls(true);
+			App->scene->SetMenuState(StatesMenu::MAP);
 			map_active = true;
 		}
 		else if (map_active){
 			App->easing_splines->CreateSpline(&map_background->position.x, -1600, 1500, TypeSpline::EASE_OUT_QUINT);
 			App->scene->player->BlockControls(false);
+			App->scene->SetMenuState(StatesMenu::NO_MENU);
 			map_active = false;
 		}
 	}

@@ -21,6 +21,7 @@ enum class StatesMenu {
 	HELP_DIAGONAL_MENU,
 	HELP_ATTACK_MENU,
 	HELP_ABILITY_MENU,
+	MAP,
 
 	NONE
 };
