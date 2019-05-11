@@ -525,8 +525,8 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		size.create(frame.w, frame.h);
 		static_type = e1StaticEntity::Type::FLASH_INFO;
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
-		//position.x += 8;
-		//position.y -= 16;
+		position.x += 14;
+		position.y -= 9;
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 		max_distance_to_interact = 1;
 	}

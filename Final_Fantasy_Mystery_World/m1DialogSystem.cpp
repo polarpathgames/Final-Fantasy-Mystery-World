@@ -364,7 +364,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			   case 33: { // take flash
 				   App->globals.ability2_gained = true;
 				   App->scene->player->BlockControls(true);
-				   App->menu_manager->CreateHelpAbilityMenu();
+				   App->menu_manager->CreateHelpAbilityMenu(true);
 				   App->menu_manager->ShowHUD(false);
 				   App->scene->SetMenuState(StatesMenu::FIRSTABILITY_MENU);
 				   std::vector<e1Entity*> entities = App->entity_manager->GetEntities();

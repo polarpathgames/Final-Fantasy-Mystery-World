@@ -878,11 +878,14 @@ void m1MenuManager::DestroyHelpAttackMenu()
 	App->gui->DeleteUIElement(help_attack);
 }
 
-void m1MenuManager::CreateHelpAbilityMenu()
+void m1MenuManager::CreateHelpAbilityMenu(bool flash)
 {
 	App->audio->PlayFx(App->scene->fx_ability_screen);
 	//switch (player_type) {
 	//case PlayerType::WARRIOR:
+	if (!flash)
+		help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+	else if (flash)
 		help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
 	/*	break;
 	case PlayerType::MAGE:

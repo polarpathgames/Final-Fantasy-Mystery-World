@@ -633,7 +633,7 @@ public:
 	void CreateHelpAttackMenu();
 	void DestroyHelpAttackMenu();
 
-	void CreateHelpAbilityMenu();
+	void CreateHelpAbilityMenu(bool flash = false);
 	void DestroyHelpAbilityMenu();
 
 	void CreateHUD();
