@@ -706,6 +706,17 @@ bool m1Scene::Interact(u1GUI* interact)
 				player->ReduceGold(price_ability3);
 				App->globals.ability3_gained = true;
 				App->menu_manager->inventory.money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
+
+				
+				if (player_type == PlayerType::WARRIOR)
+					App->menu_manager->shop.shop_background_item3->SetImage({ 2751,1614,161,61 });
+				else if (player_type == PlayerType::ARCHER)
+					App->menu_manager->shop.shop_background_item3->SetImage({ 2751,1752,161,61 });
+				else if (player_type == PlayerType::MAGE)
+					App->menu_manager->shop.shop_background_item3->SetImage({ 2751,1683,161,61 });
+
+				App->menu_manager->shop.shop_coin3->drawable = false;
+				App->menu_manager->shop.shop_sword_image->drawable = false;
 			}
 			else {
 				// audio no money
