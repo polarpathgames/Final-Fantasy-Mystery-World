@@ -40,6 +40,7 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 		max_width = 369;
 		empty_bar = App->gui->AddImage(x, y, { 1348, 3215, 372, 11 }, App->scene, parent, false, false, false, false); // this is empty
 		filled_bar = App->gui->AddImage(2, 1, { 1353, 3233, 369, 8 }, App->scene, empty_bar, false, false, false, false); // this is filled
+		empty_bar->drawable = true;
 	}
 	if (type == SKIPBAR)
 	{
@@ -64,8 +65,11 @@ void u1Bar::UpdateBar(int quantity, UIType bar_type)
 		if(bar_type == UIType::HPBAR || bar_type == UIType::MANABAR || bar_type == UIType::SKIPBAR)
 			targe_width = CalculateBar(quantity);
 		
-		else
+		else {
+			empty_bar->drawable = false;
 			targe_width = CalculateExpBar(quantity);
+		}
+			
 
 		if (targe_width != current_width) {
 			has_change = true;
@@ -78,7 +82,6 @@ void u1Bar::UpdateBar(int quantity, UIType bar_type)
 
 int u1Bar::CalculateBar(int quantity)
 {
-
 	int new_width = current_width;
 	int new_quantity = (current_quantity + quantity);
 	current_quantity += quantity;
@@ -129,6 +132,23 @@ void u1Bar::InnerDraw()
 
 	if (!drawable)
 		return;
+
+	if (has_change && UIType::EXPBAR) {
+		if (current_width > targe_width) {
+			current_width -= 100 * App->GetDeltaTime();
+		}
+
+		else if (current_width == max_width)
+			current_width = 0;
+
+		else if (current_width < targe_width) {
+			current_width += 100 * App->GetDeltaTime();
+		}
+		else {
+			has_change = false;
+		}
+		filled_bar->section.w = current_width;
+	}
 
 	if (has_change) {
 		if (current_width > targe_width) {
