@@ -505,6 +505,12 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.5F);
 		size.create(frame.w, frame.h);
 	}
+	else if (strcmp(name, "ability_base") == 0) {
+		static_type = e1StaticEntity::Type::ABILITY_BASE;
+		frame = { 1065,113 ,40,48 };
+		SetPivot(frame.w*0.5F, frame.h*0.5F);
+		size.create(frame.w, frame.h);
+	}
 	else if (strcmp(name, "rocks_door") == 0) {
 		static_type = e1StaticEntity::Type::CAVE_ROCKS;
 		frame = { 682,174 ,26,49 };
