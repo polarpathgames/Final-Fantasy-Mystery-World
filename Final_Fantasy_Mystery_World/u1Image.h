@@ -12,7 +12,7 @@ public:
 	~u1Image();
 
 	void InnerDraw();
-
+	void SetImage(const SDL_Rect&rect);
 public:
 
 	Animation * img_anim = nullptr;

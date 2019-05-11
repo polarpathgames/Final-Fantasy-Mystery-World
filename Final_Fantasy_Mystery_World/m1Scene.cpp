@@ -727,6 +727,11 @@ bool m1Scene::Interact(u1GUI* interact)
 
 				App->menu_manager->hud.player_hp_bar->PrintBarNumbers();
 
+				App->menu_manager->shop.shop_background_item4->SetImage({ 2751,1821,161,61 });
+				App->menu_manager->shop.shop_helmet_image->drawable = false;
+				App->menu_manager->shop.shop_coin4->drawable = false;
+				
+
 
 			}
 			else {
@@ -749,6 +754,9 @@ bool m1Scene::Interact(u1GUI* interact)
 
 				App->menu_manager->hud.player_mana_bar->PrintBarNumbers();
 
+				App->menu_manager->shop.shop_background_item5->SetImage({ 2751,1890,161,61 });
+				App->menu_manager->shop.shop_ring_image->drawable = false;
+				App->menu_manager->shop.shop_coin5->drawable = false;
 
 			}
 			else {
