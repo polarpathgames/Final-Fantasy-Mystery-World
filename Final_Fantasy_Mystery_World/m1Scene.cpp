@@ -700,7 +700,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 		}
 		if (interact == App->menu_manager->shop.shop_button_sword) {
-			if (player->stats.gold >= price_ability3 || player->god_mode) {
+			if ((player->stats.gold >= price_ability3 || player->god_mode) && !App->globals.ability3_gained) {
 				// audio comprar
 				App->audio->PlayFx(App->scene->fx_buy);
 				player->ReduceGold(price_ability3);
@@ -713,7 +713,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 		}
 		if (interact == App->menu_manager->shop.shop_button_helmet) {
-			if (player->stats.gold >= price_helmet || player->god_mode) {
+			if ((player->stats.gold >= price_helmet || player->god_mode) && !App->globals.helmet_bought) {
 				// audio comprar
 				App->audio->PlayFx(App->scene->fx_buy);
 				player->ReduceGold(price_helmet);
@@ -735,7 +735,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 		}
 		if (interact == App->menu_manager->shop.shop_button_ring) {
-			if (player->stats.gold >= price_ring || player->god_mode) {
+			if ((player->stats.gold >= price_ring || player->god_mode) && !App->globals.ring_bought) {
 				// audio comprar
 				App->audio->PlayFx(App->scene->fx_buy);
 				player->ReduceGold(price_ring);
