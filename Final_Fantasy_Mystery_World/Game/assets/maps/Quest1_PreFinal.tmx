@@ -9632,9 +9632,9 @@
   </data>
  </layer>
  <objectgroup id="8" name="Static animation objects">
-  <object id="51" name="barrel" type="static" x="368" y="336" width="32" height="32"/>
-  <object id="55" name="barrel" type="static" x="352" y="352" width="32" height="32"/>
-  <object id="63" name="barrel" type="static" x="512" y="208" width="32" height="32"/>
+  <object id="51" name="breakable_barrel" type="static" x="368" y="336" width="32" height="32"/>
+  <object id="55" name="breakable_barrel" type="static" x="352" y="352" width="32" height="32"/>
+  <object id="63" name="breakable_barrel" type="static" x="512" y="208" width="32" height="32"/>
   <object id="64" name="tree2_quest1" type="static" x="432" y="224" width="32" height="32"/>
   <object id="65" name="tree2_quest1" type="static" x="528" y="176" width="32" height="32"/>
   <object id="66" name="tree2_quest1" type="static" x="368" y="256" width="32" height="32"/>

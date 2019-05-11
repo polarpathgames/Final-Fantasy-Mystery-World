@@ -10836,9 +10836,9 @@
   <object id="51" name="fire_wall_right" type="static" x="336" y="224" width="32" height="32"/>
   <object id="57" name="plant2_quest1" type="static" x="464" y="336" width="32" height="32"/>
   <object id="58" name="plant2_quest1" type="static" x="496" y="400" width="32" height="32"/>
-  <object id="59" name="barrel" type="static" x="192" y="384" width="32" height="32"/>
-  <object id="60" name="barrel" type="static" x="192" y="400" width="32" height="32"/>
-  <object id="61" name="barrel" type="static" x="192" y="416" width="32" height="32"/>
+  <object id="59" name="breakable_barrel" type="static" x="192" y="384" width="32" height="32"/>
+  <object id="60" name="breakable_barrel" type="static" x="192" y="400" width="32" height="32"/>
+  <object id="61" name="breakable_barrel" type="static" x="192" y="416" width="32" height="32"/>
   <object id="62" name="tree_quest1" type="static" x="176" y="224" width="32" height="32"/>
   <object id="63" name="snow_elevation" type="static" x="208" y="224" width="32" height="32"/>
   <object id="64" name="snow_elevation" type="static" x="240" y="240" width="32" height="32"/>
