@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="77">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="80">
  <tileset firstgid="1" name="ques1_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques1_tileset.png" width="688" height="290"/>
  </tileset>
@@ -5792,9 +5792,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="191"/>
    <tile/>
-   <tile gid="191"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5833,9 +5831,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="212"/>
    <tile/>
-   <tile gid="212"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5874,7 +5870,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="191"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5915,7 +5910,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="212"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -9627,7 +9627,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="7" name="Collider" width="40" height="40" visible="0">
+ <layer id="7" name="Collider" width="40" height="40">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -10586,33 +10586,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -10624,9 +10603,30 @@
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile gid="7"/>
    <tile gid="7"/>
+   <tile gid="7"/>
+   <tile/>
+   <tile gid="7"/>
+   <tile/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
@@ -11236,9 +11236,6 @@
   </data>
  </layer>
  <objectgroup id="8" name="Static animation objects">
-  <object id="59" name="rock_quest1" type="static" x="272" y="384" width="32" height="32"/>
-  <object id="60" name="rock_quest1" type="static" x="240" y="384" width="32" height="32"/>
-  <object id="61" name="rock_quest1" type="static" x="272" y="416" width="32" height="32"/>
   <object id="62" name="plant2_quest1" type="static" x="304" y="352" width="32" height="32"/>
   <object id="63" name="plant1_quest1" type="static" x="208" y="352" width="32" height="32"/>
   <object id="64" name="tree_quest1" type="static" x="256" y="256" width="32" height="32"/>
@@ -11254,6 +11251,9 @@
   <object id="74" name="blue_fire" type="static" x="368" y="192" width="32" height="32"/>
   <object id="75" name="blue_fire" type="static" x="448" y="192" width="32" height="32"/>
   <object id="76" name="snow_elevation" type="static" x="528" y="368" width="32" height="32"/>
+  <object id="77" name="white_rock" type="static" x="272" y="416" width="32" height="32"/>
+  <object id="78" name="white_rock" type="static" x="272" y="384" width="32" height="32"/>
+  <object id="79" name="white_rock" type="static" x="240" y="384" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="9" name="entities" visible="0">
   <object id="9" name="player" type="lastA" x="432" y="240" width="15.9688" height="16.0156">

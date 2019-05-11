@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="68">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="69">
  <properties>
   <property name="next_id" type="int" value="8"/>
  </properties>
@@ -7247,7 +7247,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="191"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -7288,7 +7288,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="212"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -9636,7 +9636,6 @@
  </layer>
  <objectgroup id="8" name="Static animation objects">
   <object id="51" name="barrel" type="static" x="384" y="224" width="32" height="32"/>
-  <object id="52" name="rock_quest1" type="static" x="368" y="320" width="32" height="32"/>
   <object id="53" name="fire_wall_right" type="static" x="432" y="192" width="32" height="32"/>
   <object id="54" name="fire_wall_left" type="static" x="368" y="192" width="32" height="32"/>
   <object id="55" name="tree2_quest1" type="static" x="304" y="256" width="32" height="32"/>
@@ -9646,6 +9645,7 @@
   <object id="59" name="snow_elevation" type="static" x="384" y="400" width="32" height="32"/>
   <object id="60" name="snow_elevation" type="static" x="400" y="384" width="32" height="32"/>
   <object id="61" name="snow_man" type="static" x="448" y="384" width="32" height="32"/>
+  <object id="68" name="white_rock" type="static" x="368" y="320" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="9" name="entities" visible="0">
   <object id="9" name="player" type="lastA" x="432" y="240" width="15.9688" height="16.0156">

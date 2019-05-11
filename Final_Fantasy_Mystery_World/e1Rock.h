@@ -7,6 +7,15 @@
 #include "PugiXml\src\pugixml.hpp"
 #include "e1StaticEntity.h"
 
+
+enum class RockType {
+
+	NORMAL_ROCK,
+	WHITE_ROCK,
+
+	NONE
+};
+
 class e1Rock : public e1StaticEntity
 {
 public:
@@ -16,6 +25,8 @@ public:
 
 	bool hitted = false;
 	iPoint original_pos{ 0,0 };
+
+	RockType rock_type = RockType::NONE;
 };
 
 
