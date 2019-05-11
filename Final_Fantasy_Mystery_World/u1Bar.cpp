@@ -37,9 +37,9 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 	{
 		current_width = 0;
 		current_quantity = 0;
-		max_width = 369;
-		empty_bar = App->gui->AddImage(x, y, { 1348, 3215, 372, 11 }, App->scene, parent, false, false, false, false); // this is empty
-		filled_bar = App->gui->AddImage(2, 1, { 1353, 3233, 369, 8 }, App->scene, empty_bar, false, false, false, false); // this is filled
+		max_width = 372;
+		empty_bar = App->gui->AddImage(x, y, { 1374, 3237, 372, 11 }, App->scene, parent, false, false, false, false); // this is empty
+		filled_bar = App->gui->AddImage(2, 1, { 1371, 3217, 369, 8 }, App->scene, empty_bar, false, false, false, false); // this is filled
 		empty_bar->drawable = true;
 	}
 	if (type == SKIPBAR)
