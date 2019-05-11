@@ -70,7 +70,7 @@
       <id num="1"></id>
       <type>paceful</type>
       <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
-
+      <update num="2"/>
     </room>
     <room>
       <location>Quest1_Frog.tmx</location>
@@ -125,6 +125,7 @@
       <id num="9"></id>
       <music>assets/audio/music/15.Final Fantasy TA - Teach Me Mont Blanc.ogg</music>
       <type>paceful</type>
+      <update num="1"/>
     </room>
     <room>
       <location>Quest1_NewWorld.tmx</location>

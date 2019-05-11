@@ -184,21 +184,23 @@ bool RoomManager::ChangeRoom(COLLIDER_TYPE type, bool debug_pass)
 				for (; item != actual_room->change_scene_points.end(); ++item) {
 					if ((*item) != nullptr) {
 						if ((*item)->change_type == LocationChangeScene::NEXT_B) {
-							App->scene->player->BlockControls(true);
-							actual_room->active = false;
-							last_room = actual_room;
-							player_next_pos = LocationChangeScene::NEXT_B;
-							std::vector<Room*>::iterator item2 = rooms.begin();
-							for (; item2 != rooms.end(); ++item2) {
-								if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
-									actual_room = (*item2);
-									break;
+							if ((App->globals.quest2_rocks_cave_destroyed && actual_room->update_number == 2) || actual_room->update_number != 2) {
+								App->scene->player->BlockControls(true);
+								actual_room->active = false;
+								last_room = actual_room;
+								player_next_pos = LocationChangeScene::NEXT_B;
+								std::vector<Room*>::iterator item2 = rooms.begin();
+								for (; item2 != rooms.end(); ++item2) {
+									if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
+										actual_room = (*item2);
+										break;
+									}
 								}
+								App->fade_to_black->FadeToBlack(true, 0.5f);
+								App->audio->PlayFx(App->scene->fx_door_enter);
+								ret = true;
+								break;
 							}
-							App->fade_to_black->FadeToBlack(true, 0.5f);
-							App->audio->PlayFx(App->scene->fx_door_enter);
-							ret = true;
-							break;
 						}
 					}
 				}
@@ -251,6 +253,10 @@ void RoomManager::LoadRoom(const int & id)
 	uchar* data = nullptr;
 	if (App->map->CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
+
+	if (last_room != nullptr && last_room->update_number == 1 && actual_room->id == 1)
+		App->globals.quest2_rocks_cave_destroyed = true;
+
 
 	LoadColliders();
 	UpdateMap();
@@ -312,6 +318,10 @@ void RoomManager::LoadEntities()
 			}
 			else if ((*position)->name == "ability_flash") {
 				if (!App->globals.ability2_gained)
+					App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
+			else if ((*position)->name == "rocks_door") {
+				if (!App->globals.quest2_rocks_cave_destroyed)
 					App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 			}
 			else 

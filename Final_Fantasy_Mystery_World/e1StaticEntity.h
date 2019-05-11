@@ -71,6 +71,8 @@ public:
 		TREASURE,
 		BLUE_FIRE,
 		FLASH_INFO,
+		CAVE_ROCKS,
+
 		UNKNOWN
 	};
 
