@@ -144,9 +144,6 @@ void u1Bar::InnerDraw()
 			}
 		}
 
-		/*else if (current_width == max_width)
-			current_width = 0;*/
-
 		else if (current_width < targe_width) {
 			current_width += 100 * App->GetDeltaTime();
 		}
