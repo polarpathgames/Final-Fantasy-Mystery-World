@@ -1,4 +1,5 @@
 #include "p2Math.h"
+#include "p2Point.h"
 #include <math.h>
 
 float lerp(const float & origin, const float & end, float by)

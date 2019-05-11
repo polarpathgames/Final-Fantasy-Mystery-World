@@ -1377,7 +1377,9 @@ void e1Player::ReduceLives(const int & cost_lives)
 	iPoint pos{ 0,0 };
 	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 5) * (int)App->win->GetScale();
 	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
+	if (stats.live > 0)
 	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(cost_lives).data(), App->gui->screen, RED, FontType::PMIX24);
+
 	stats.live -= cost_lives;
 	if (stats.live < 0)
 		stats.live = 0;
