@@ -574,7 +574,10 @@ void e1StaticEntity::SetRect(int x, int y, int w, int h)
 bool e1StaticEntity::Update(float dt)
 {
 	BROFILER_CATEGORY("StaticEntity Update", Profiler::Color::Yellow);
+	//if (App->scene->player != nullptr)
+	//{
 
+	//}
 	if (interacting_state == InteractingStates::NONE)
 		return true;
 	iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
@@ -647,7 +650,7 @@ bool e1StaticEntity::Update(float dt)
 			App->dialog->PerformDialogue(3);
 			break;
 		case e1StaticEntity::Type::HELP1:
-			App->dialog->PerformDialogue(7);
+			App->dialog->PerformDialogue(4);
 			break;
 		case e1StaticEntity::Type::HELP2:
 			App->dialog->PerformDialogue(5);
