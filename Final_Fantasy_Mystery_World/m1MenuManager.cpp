@@ -24,7 +24,7 @@
 
 m1MenuManager::m1MenuManager()
 {
-	name.assign("menu manager");
+	name.assign("menu_manager");
 }
 
 m1MenuManager::~m1MenuManager()
@@ -341,10 +341,10 @@ void m1MenuManager::CreateControls()
 	controls.keyboard.label_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
 	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_basic_attack);
 
-	/*controls.keyboard.button_abilities = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
-	controls.keyboard.label_to_show_how_abilities = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.SHOW_SKILLS, controls.keyboard.button_abilities, BLACK, FontType::FF32, nullptr, false);
-	controls.keyboard.label_to_show_how_abilities->SetPosRespectParent(CENTERED);
-	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_abilities);*/
+	//controls.keyboard.button_abilities = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
+	//controls.keyboard.label_to_show_how_abilities = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.SHOW_SKILLS, controls.keyboard.button_abilities, BLACK, FontType::FF32, nullptr, false);
+	//controls.keyboard.label_to_show_how_abilities->SetPosRespectParent(CENTERED);
+	//App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_abilities);
 
 	controls.keyboard.button_ability1 = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_abilities->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
 	controls.keyboard.label_to_show_how_ability1 = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.ABILITY1, controls.keyboard.button_ability1, BLACK, FontType::FF32, nullptr, false);
@@ -928,6 +928,7 @@ void m1MenuManager::CreateHUD()
 	}
 	hud.player_hp_bar = App->gui->AddBar(215, 662,App->scene->player->stats.max_lives, HPBAR, hud.bg_hud, nullptr);
 	hud.player_mana_bar = App->gui->AddBar(215, 700, App->scene->player->stats.max_mana, MANABAR, hud.bg_hud, nullptr);
+	hud.player_exp_bar = App->gui->AddBar(8, 626, App->scene->player->stats.max_xp, EXPBAR, hud.bg_hud, nullptr);
 }
 
 void m1MenuManager::DestroyHUD()
@@ -947,6 +948,27 @@ void m1MenuManager::ShowHUD(bool show_or_hide)
 		hud.vertical_compass->drawable = show_or_hide;
 		hud.player_hp_bar->bar_numbers_label->drawable = show_or_hide;
 		hud.player_mana_bar->bar_numbers_label->drawable = show_or_hide;
+		hud.player_exp_bar->drawable = show_or_hide;
+
+		// It is ugly but for now works
+		if (show_or_hide == true)
+		{
+			hud.player_exp_bar->empty_bar->drawable = true;
+
+			if(hud.player_exp_bar->got_xp)
+				hud.player_exp_bar->filled_bar->drawable = true;
+
+			else
+				hud.player_exp_bar->filled_bar->drawable = false;
+		}
+			
+
+		else
+		{
+			hud.player_exp_bar->empty_bar->drawable = false;
+			hud.player_exp_bar->filled_bar->drawable = false;
+		}
+			
 	}
 }
 
