@@ -903,6 +903,7 @@ void m1MenuManager::CreateHelpAbilityMenu(bool flash)
 void m1MenuManager::DestroyHelpAbilityMenu()
 {
 	App->gui->DeleteUIElement(help_ability);
+	ShowHUD(true);
 }
 
 void m1MenuManager::CreateFirstAbilityPanel()
