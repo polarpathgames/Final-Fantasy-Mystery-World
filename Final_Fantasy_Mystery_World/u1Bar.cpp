@@ -67,6 +67,7 @@ void u1Bar::UpdateBar(int quantity, UIType bar_type)
 		
 		else {
 			empty_bar->drawable = false;
+			got_xp = true;
 			targe_width = CalculateExpBar(quantity);
 		}
 			

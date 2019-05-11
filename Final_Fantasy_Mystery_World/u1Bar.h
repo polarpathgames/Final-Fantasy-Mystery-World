@@ -24,6 +24,7 @@ public:
 
 	u1Image* empty_bar = nullptr;
 	u1Image* filled_bar = nullptr;
+	u1Image* aux_bar = nullptr;
 	u1Label* bar_numbers_label = nullptr;
 	e1Entity* entity = nullptr;
 	UIType bar_type;
@@ -34,6 +35,7 @@ public:
 	int current_width = 0;
 	int targe_width = 0;
 	bool has_change = false;
+	bool got_xp = false;
 
 	int currentXP; // current_quantity
 	int lastLevelXP;
