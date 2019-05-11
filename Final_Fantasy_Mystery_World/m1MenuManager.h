@@ -551,11 +551,6 @@ struct UI_debugscreen {
 	u1Label* entities_label = nullptr;
 };
 
-struct UI_abilities {
-	u1Image* first_ability_panel = nullptr;
-	u1Button* button_ability1_screen = nullptr;
-	u1Label* label_ability1_screen = nullptr;
-};
 
 struct UI_game_over {
 	u1Image* game_over_panel = nullptr;
@@ -624,9 +619,6 @@ public:
 	void CreateGameOver();
 	void DestroyGameOver();
 
-	void CreateFirstAbilityPanel();
-	void DestroyFirstAbilityPanel();
-
 	void CreateHelpDiagonalMenu();
 	void DestroyHelpDiagonalMenu();
 
@@ -667,7 +659,6 @@ public:
 	UI_quest		quest;
 	UI_shop			shop;
 	UI_debugscreen	debug_screen;
-	UI_abilities	abilities;
 	UI_game_over	game_over;
 	UI_HUD			hud;
 	//god mode

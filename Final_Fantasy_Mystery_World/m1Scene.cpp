@@ -507,7 +507,7 @@ void m1Scene::CreateEntities()
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
-				else if ((*position)->ent_type == "default" && App->map->last_map == Maps::TUTORIAL || (*position)->ent_type == "default" && App->map->last_map == Maps::QUEST2) {
+				else if ((*position)->ent_type == "default" && (App->map->last_map == Maps::TUTORIAL || App->map->last_map == Maps::QUEST2)) {
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->Init();
 					player->CenterPlayerInTile();
@@ -757,13 +757,6 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 		}
 		break;
-	case StatesMenu::FIRSTABILITY_MENU:
-		if (interact == App->menu_manager->abilities.button_ability1_screen) {
-			App->menu_manager->DestroyFirstAbilityPanel();
-			menu_state = StatesMenu::NO_MENU;
-			player->BlockControls(false);
-			ret = false;
-		}
 	}
 
 	return ret;

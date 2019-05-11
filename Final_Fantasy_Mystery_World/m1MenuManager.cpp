@@ -881,55 +881,32 @@ void m1MenuManager::DestroyHelpAttackMenu()
 void m1MenuManager::CreateHelpAbilityMenu(bool flash)
 {
 	App->audio->PlayFx(App->scene->fx_ability_screen);
-	//switch (player_type) {
-	//case PlayerType::WARRIOR:
+	switch (App->scene->player_type) {
+	case PlayerType::WARRIOR:
 	if (!flash)
 		help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
 	else if (flash)
-		help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
-	/*	break;
-	case PlayerType::MAGE:
 		help_ability = App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
 		break;
+	case PlayerType::MAGE:
+		if (!flash)
+			help_ability = App->gui->AddImage(0, 0, { 2048,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+		else if (flash)
+			help_ability = App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+		break;
 	case PlayerType::ARCHER:
-		help_ability = App->gui->AddImage(0, 0, { 0,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+		if (!flash)
+			help_ability = App->gui->AddImage(0, 0, { 0,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+		else if (flash)
+			help_ability = App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
 		break;
-	default:
-		help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
-		break;
-	}*/
+	}
 }
 
 void m1MenuManager::DestroyHelpAbilityMenu()
 {
 	App->gui->DeleteUIElement(help_ability);
 	ShowHUD(true);
-}
-
-void m1MenuManager::CreateFirstAbilityPanel()
-{
-	App->audio->PlayFx(App->scene->fx_ability_screen);
-
-	App->gui->ShowCursor(false);
-
-	//switch (player_type) {
-	//case PlayerType::WARRIOR:
-	abilities.first_ability_panel = App->gui->AddImage(0, 0, { 0, 4792, 1025, 768 }, nullptr, App->gui->screen, true, false, false, false);
-	abilities.first_ability_panel->SetPosRespectParent(RIGHT_CENTERED);
-	//	break;
-	//case PlayerType::ARCHER:
-	//	first_ability_panel = App->gui->AddImage(0, 0, { 0, 4792, 1025, 768 }, this, App->gui->screen, true, false, false, false);
-	//	first_ability_panel->SetPosRespectParent(RIGHT_CENTERED);
-	//	break;
-	//case PlayerType::MAGE:
-	//	first_ability_panel = App->gui->AddImage(0, 0, { 0, 4792, 1025, 768 }, this, App->gui->screen, true, false, false, false);
-	//	first_ability_panel->SetPosRespectParent(RIGHT_CENTERED);
-	//	break;
-	//}
-
-	abilities.button_ability1_screen = App->gui->AddButton(800, 600, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, App->scene, abilities.first_ability_panel, false, false, true, true);
-	abilities.label_ability1_screen = App->gui->AddLabel(0, 0, "Continue", abilities.button_ability1_screen, WHITE, FontType::FF100, nullptr, true);
-
 }
 
 void m1MenuManager::CreateHUD()
@@ -996,11 +973,6 @@ void m1MenuManager::ChangeCompass(bool shift_pressed)
 		}
 	}
 }
-void m1MenuManager::DestroyFirstAbilityPanel()
-{
-	App->gui->DeleteUIElement(abilities.first_ability_panel);
-}
-
 void m1MenuManager::GodModeIndicator(bool is_god_mode)
 {
 	if (is_god_mode)

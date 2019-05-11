@@ -1153,6 +1153,7 @@ void e1Player::Death()
 	if (current_animation->Finished() && death_time <= SDL_GetTicks() - 1000) {
 		App->audio->PlayFx(App->scene->fx_die);
 		App->map->CleanUp();
+		App->easing_splines->CleanUp();
 		App->entity_manager->DeleteEntitiesNoPlayer();
 		App->menu_manager->ShowHUD(false);
 		App->menu_manager->CreateGameOver();
