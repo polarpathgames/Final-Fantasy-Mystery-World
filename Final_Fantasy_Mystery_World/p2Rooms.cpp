@@ -591,7 +591,7 @@ void RoomManager::AddDrop(iPoint pos, DropsType type)
 {
 	DropInfo* drop = DBG_NEW DropInfo(pos.x, pos.y, type);
 	actual_room->drops.push_back(drop);
-	MapIndicators* indicator = DBG_NEW MapIndicators(pos.x, pos.y, "drop", App->gui->AddImage(0, 0, { 1380,2123,13,13 }, nullptr, actual_room->map_room_image, false, false, false, false));
+	MapIndicators* indicator = DBG_NEW MapIndicators(pos.x, pos.y, "drop", App->gui->AddImage(0, 0, { 1380,2123,12,13 }, nullptr, actual_room->map_room_image, false, false, false, false));
 	actual_room->map_indicators.push_back(indicator);
 }
 
