@@ -33,6 +33,9 @@ m1MenuManager::~m1MenuManager()
 
 void m1MenuManager::CreateMainMenu()
 {
+
+	App->audio->PlayMusic(App->main_menu->mus_main_menu, 0.5);
+
 	main_menu.background = App->gui->AddImage(0, 0, { 0, 0, 1024, 768 }, this, App->gui->screen, true, false, false, false);
 	int offsetY = 75;
 
