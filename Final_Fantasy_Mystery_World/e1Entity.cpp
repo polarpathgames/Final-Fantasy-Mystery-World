@@ -185,7 +185,6 @@ bool e1Entity::LoadEntityData(const char* file) {
 	pugi::xml_node pivot_node = entity_file.child("tileset").child("tile").child("objectgroup").child("object"); //Load pivot
 	if (strcmp(pivot_node.attribute("name").as_string(), "pivot") == 0) {
 		pivot.create(pivot_node.attribute("x").as_int(), pivot_node.attribute("y").as_int());
-		CenterOnTile();
 	}
 	//LoadCollider(entity_file.child("tileset").child("tile").child("objectgroup").child("object")); //Load collider
 
