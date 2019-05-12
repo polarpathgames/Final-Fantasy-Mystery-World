@@ -7,6 +7,7 @@
 #include "e1Cassio.h"
 #include "m1MenuManager.h"
 #include "e1StrangeFrog.h"
+#include "e1MegaEye.h"
 #include "e1Drop.h"
 #include "m1Window.h"
 #include "e1StaticEntity.h"
@@ -264,7 +265,7 @@ void m1EntityManager::OnCollisionExit(Collider * c1, Collider * c2)
 e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
 
-	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)19, "code needs update");
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)20, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
 
@@ -277,6 +278,7 @@ e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX
 	case e1Entity::EntityType::BLUE_DOG: ret = DBG_NEW e1BlueDog(PositionX, PositionY); break;
 	case e1Entity::EntityType::BLUE_SLIME: ret = DBG_NEW e1BlueSlime(PositionX, PositionY); break;
 	case e1Entity::EntityType::FROZEN: ret = DBG_NEW e1Frozen(PositionX, PositionY); break;
+	case e1Entity::EntityType::MEGA_EYE: ret = DBG_NEW e1MegaEye(PositionX, PositionY); break;
 	case e1Entity::EntityType::WARRIOR: ret = DBG_NEW e1Warrior(PositionX, PositionY); break;
 	case e1Entity::EntityType::ARCHER: ret = DBG_NEW e1Archer(PositionX, PositionY); break;
 	case e1Entity::EntityType::MAGE: ret = DBG_NEW e1Mage(PositionX, PositionY); break;
