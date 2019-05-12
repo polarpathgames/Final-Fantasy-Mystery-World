@@ -61,6 +61,7 @@ public:
 	bool IsAnotherEnemyNextTile();
 	bool IsPlayerNextTile();
 	bool IsPlayerInRange(const int& rg);
+	void LookToPlayer();
 
 	void MovementLogic();
 	void PerformMovement(float dt);

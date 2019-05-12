@@ -43,7 +43,7 @@ void e1Frozen::UpdateEnemy()
 void e1Frozen::PrepareDistanceAttack()
 {
 	if (phase == Phase::NORMAL) {
-		e1Particles* needle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, position.x, position.y, "");
+		e1Particles* needle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, actual_tile.x, actual_tile.y, "");
 		needle->SetParticle(e1Particles::ParticleType::ARROW, direction);
 	}
 	else {

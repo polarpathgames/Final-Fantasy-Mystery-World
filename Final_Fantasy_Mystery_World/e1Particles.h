@@ -53,7 +53,7 @@ public:
 
 	float arrow_time = 0;
 
-	Animation* shadow_fire_ball;
+	Animation* shadow_fire_ball = nullptr;
 
 };
 
