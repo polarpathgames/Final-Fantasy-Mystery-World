@@ -184,21 +184,23 @@ bool RoomManager::ChangeRoom(COLLIDER_TYPE type, bool debug_pass)
 				for (; item != actual_room->change_scene_points.end(); ++item) {
 					if ((*item) != nullptr) {
 						if ((*item)->change_type == LocationChangeScene::NEXT_B) {
-							App->scene->player->BlockControls(true);
-							actual_room->active = false;
-							last_room = actual_room;
-							player_next_pos = LocationChangeScene::NEXT_B;
-							std::vector<Room*>::iterator item2 = rooms.begin();
-							for (; item2 != rooms.end(); ++item2) {
-								if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
-									actual_room = (*item2);
-									break;
+							if ((App->globals.quest2_rocks_cave_destroyed && actual_room->update_number == 2) || actual_room->update_number != 2) {
+								App->scene->player->BlockControls(true);
+								actual_room->active = false;
+								last_room = actual_room;
+								player_next_pos = LocationChangeScene::NEXT_B;
+								std::vector<Room*>::iterator item2 = rooms.begin();
+								for (; item2 != rooms.end(); ++item2) {
+									if ((*item) != nullptr && (*item2)->id == (*item)->id_next_room) {
+										actual_room = (*item2);
+										break;
+									}
 								}
+								App->fade_to_black->FadeToBlack(true, 0.5f);
+								App->audio->PlayFx(App->scene->fx_door_enter);
+								ret = true;
+								break;
 							}
-							App->fade_to_black->FadeToBlack(true, 0.5f);
-							App->audio->PlayFx(App->scene->fx_door_enter);
-							ret = true;
-							break;
 						}
 					}
 				}
@@ -252,6 +254,10 @@ void RoomManager::LoadRoom(const int & id)
 	if (App->map->CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
 
+	if (last_room != nullptr && last_room->update_number == 1 && actual_room->id == 1)
+		App->globals.quest2_rocks_cave_destroyed = true;
+
+
 	LoadColliders();
 	UpdateMap();
 	LoadEntities();
@@ -282,10 +288,43 @@ void RoomManager::LoadEntities()
 					App->map->data.no_walkables.remove(rock->actual_tile + iPoint{ 0,-1 });
 				}
 			}
-			else if ((*position)->name == "ability1") {
-				App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			else if ((*position)->name == "white_rock") {
+				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
+				if (std::find(actual_room->entities.begin(), actual_room->entities.end(), point) == actual_room->entities.end()) {
+					App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+				}
+				else {
+					e1Rock* rock = (e1Rock*)App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+					rock->hitted = true;
+					rock->frame = { 955,187,32,37 };
+					App->map->data.no_walkables.remove(rock->actual_tile + iPoint{ 0,-1 });
+				}
 			}
-			else
+			else if ((*position)->name == "breakable_barrel") {
+				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
+				if (std::find(actual_room->entities.begin(), actual_room->entities.end(), point) == actual_room->entities.end()) {
+					App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+				}
+				else {
+					e1Rock* rock = (e1Rock*)App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+					rock->hitted = true;
+					rock->frame = { 955,187,32,37 };
+					App->map->data.no_walkables.remove(rock->actual_tile + iPoint{ 0,-1 });
+				}
+			}
+			else if ((*position)->name == "ability1") {
+				if (!App->globals.ability1_gained)
+					App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
+			else if ((*position)->name == "ability_flash") {
+				if (!App->globals.ability2_gained)
+					App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
+			else if ((*position)->name == "rocks_door") {
+				if (!App->globals.quest2_rocks_cave_destroyed)
+					App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
+			else 
 				App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 		}
 		else if ((*position)->name == "enemy") {
@@ -335,10 +374,21 @@ void RoomManager::LoadEntities()
 	for (; item != actual_room->drops.end(); ++item) {
 		if ((*item) != nullptr) {
 			switch ((*item)->type) {
-			case DropsType::GOLD_DROP: {
-				int drop_gold = App->random.Generate(20, 50);
-				e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, (*item)->location.x, (*item)->location.y, "gold");
-				drop->SetGold(drop_gold);
+			case DropsType::GREEN_RUPEE: {
+				e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, (*item)->location.x, (*item)->location.y, "green_rupee");
+				drop->SetGold(App->random.Generate(15, 25));
+				break; }
+			case DropsType::RED_RUPEE: {
+				e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, (*item)->location.x, (*item)->location.y, "red_rupee");
+				drop->SetGold(App->random.Generate(90, 110));
+				break; }
+			case DropsType::GOLD_RUPEE: {
+				e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, (*item)->location.x, (*item)->location.y, "gold_rupee");
+				drop->SetGold(App->random.Generate(300, 400));
+				break; }
+			case DropsType::BLUE_RUPEE: {
+				e1Drop* drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, (*item)->location.x, (*item)->location.y, "blue_rupee");
+				drop->SetGold(App->random.Generate(45, 65));
 				break; }
 			case DropsType::HEALTH_POTION:
 				App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, (*item)->location.x, (*item)->location.y, "health_potion");
@@ -578,7 +628,7 @@ void RoomManager::UpdateRoomEvents()
 	
 	
 	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
-		if (!map_active) {
+		if (!map_active && App->scene->menu_state == StatesMenu::NO_MENU && App->scene->player->state == State::IDLE && !App->scene->player->turn_done) {
 			int distance_x = actual_room->map_room_image->GetLocalPosition().x, distance_y = actual_room->map_room_image->GetLocalPosition().y;
 			player_pos->parent = actual_room->map_room_image;
 			player_pos->SetPosRespectParent(CENTERED);
@@ -618,11 +668,13 @@ void RoomManager::UpdateRoomEvents()
 			map_background->SetPos(-1600, map_background->GetLocalPosition().y);
 			App->easing_splines->CreateSpline(&map_background->position.x, 100, 1500, TypeSpline::EASE_OUT_QUINT);
 			App->scene->player->BlockControls(true);
+			App->scene->SetMenuState(StatesMenu::MAP);
 			map_active = true;
 		}
 		else if (map_active){
 			App->easing_splines->CreateSpline(&map_background->position.x, -1600, 1500, TypeSpline::EASE_OUT_QUINT);
 			App->scene->player->BlockControls(false);
+			App->scene->SetMenuState(StatesMenu::NO_MENU);
 			map_active = false;
 		}
 	}

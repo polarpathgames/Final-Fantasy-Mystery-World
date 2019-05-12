@@ -22,7 +22,7 @@ private:
 	SDL_Rect clicked_rect = { 0,0,0,0 };
 	SDL_Rect extra_image = { 0,0,0,0 };
 	iPoint offset_extra_image = { 0,0 };
-	SDL_Rect* clip_zone = nullptr;
+
 };
 
 #endif

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="68" height="67" tilewidth="32" tileheight="16" infinite="0" nextlayerid="78" nextobjectid="69">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="68" height="67" tilewidth="32" tileheight="16" infinite="0" nextlayerid="78" nextobjectid="73">
  <tileset firstgid="1" name="ques1_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques1_tileset.png" width="688" height="290"/>
  </tileset>
@@ -21621,8 +21621,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="339"/>
-   <tile gid="339"/>
    <tile/>
    <tile/>
    <tile/>
@@ -21689,9 +21687,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="339"/>
-   <tile gid="339"/>
-   <tile gid="360"/>
    <tile/>
    <tile/>
    <tile/>
@@ -21758,8 +21753,13 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="360"/>
-   <tile gid="360"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -26185,77 +26185,9 @@
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="380"/>
+   <tile gid="380"/>
+   <tile gid="380"/>
    <tile/>
    <tile/>
    <tile/>
@@ -26322,8 +26254,76 @@
    <tile gid="7"/>
    <tile gid="7"/>
    <tile/>
+   <tile gid="380"/>
+   <tile gid="380"/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="380"/>
+   <tile gid="380"/>
+   <tile gid="380"/>
    <tile/>
    <tile/>
    <tile/>
@@ -27402,5 +27402,9 @@
     <property name="next_id" type="int" value="7"/>
    </properties>
   </object>
+  <object id="69" name="rock" type="static" x="608" y="800" width="32" height="32"/>
+  <object id="70" name="rock" type="static" x="608" y="784" width="32" height="32"/>
+  <object id="71" name="rock" type="static" x="624" y="800" width="32" height="32"/>
+  <object id="72" name="rock" type="static" x="624" y="784" width="32" height="32"/>
  </objectgroup>
 </map>

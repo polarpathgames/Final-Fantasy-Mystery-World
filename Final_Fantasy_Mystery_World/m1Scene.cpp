@@ -240,9 +240,9 @@ bool m1Scene::Update(float dt)
 		if ((App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing) {
 			if (App->ChangeInventory()) {
 				App->audio->PlayFx(App->gui->fx_inventory);
-				App->menu_manager->CreateInventory();
+				App->menu_manager->CreateBigInventory();
 				player->BlockControls(true);
-				App->easing_splines->CreateSpline(&App->menu_manager->inventory.inventory_panel->position.x, App->gui->screen->section.w - App->menu_manager->inventory.inventory_panel->section.w - 8, 700, TypeSpline::EASE_OUT_BACK);
+				App->menu_manager->inventory.spline_move_inventory = App->easing_splines->CreateSpline(&App->menu_manager->inventory.inventory_background->position.x, 320, 1200, TypeSpline::EASE_OUT_BACK, std::bind(&UI_inventory::SetClipInInventory, App->menu_manager->inventory));
 				menu_state = StatesMenu::INVENTORY_MENU;
 			}
 		}
@@ -250,9 +250,18 @@ bool m1Scene::Update(float dt)
 	case StatesMenu::INVENTORY_MENU:
 		if (App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->ChangeInventory();
-			App->menu_manager->DestroyInventory();
+			App->easing_splines->CleanUp();
+			App->menu_manager->DestroyBigInventory();
 			player->BlockControls(false);
 			menu_state = StatesMenu::NO_MENU;
+		}
+		if (App->menu_manager->inventory.spline_move_inventory == nullptr) {
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_AXIS_TRIGGERRIGHT) == KEY_DOWN) {
+				App->menu_manager->inventory.ChangeInventory(true);
+			}
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_AXIS_TRIGGERLEFT) == KEY_DOWN) {
+				App->menu_manager->inventory.ChangeInventory(false);
+			}
 		}
 		break;
 	case StatesMenu::FIRSTABILITY_MENU:
@@ -498,7 +507,7 @@ void m1Scene::CreateEntities()
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
-				else if ((*position)->ent_type == "default" && App->map->last_map == Maps::TUTORIAL) {
+				else if ((*position)->ent_type == "default" && (App->map->last_map == Maps::TUTORIAL || App->map->last_map == Maps::QUEST2)) {
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->Init();
 					player->CenterPlayerInTile();
@@ -691,12 +700,23 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 		}
 		if (interact == App->menu_manager->shop.shop_button_sword) {
-			if (player->stats.gold >= price_ability3 || player->god_mode) {
+			if ((player->stats.gold >= price_ability3 || player->god_mode) && !App->globals.ability3_gained) {
 				// audio comprar
 				App->audio->PlayFx(App->scene->fx_buy);
 				player->ReduceGold(price_ability3);
 				App->globals.ability3_gained = true;
 				App->menu_manager->inventory.money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
+
+				
+				if (player_type == PlayerType::WARRIOR)
+					App->menu_manager->shop.shop_background_item3->SetImage({ 2751,1614,161,61 });
+				else if (player_type == PlayerType::ARCHER)
+					App->menu_manager->shop.shop_background_item3->SetImage({ 2751,1752,161,61 });
+				else if (player_type == PlayerType::MAGE)
+					App->menu_manager->shop.shop_background_item3->SetImage({ 2751,1683,161,61 });
+
+				App->menu_manager->shop.shop_coin3->drawable = false;
+				App->menu_manager->shop.shop_sword_image->drawable = false;
 			}
 			else {
 				// audio no money
@@ -704,7 +724,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 		}
 		if (interact == App->menu_manager->shop.shop_button_helmet) {
-			if (player->stats.gold >= price_helmet || player->god_mode) {
+			if ((player->stats.gold >= price_helmet || player->god_mode) && !App->globals.helmet_bought) {
 				// audio comprar
 				App->audio->PlayFx(App->scene->fx_buy);
 				player->ReduceGold(price_helmet);
@@ -718,6 +738,11 @@ bool m1Scene::Interact(u1GUI* interact)
 
 				App->menu_manager->hud.player_hp_bar->PrintBarNumbers();
 
+				App->menu_manager->shop.shop_background_item4->SetImage({ 2751,1821,161,61 });
+				App->menu_manager->shop.shop_helmet_image->drawable = false;
+				App->menu_manager->shop.shop_coin4->drawable = false;
+				
+
 
 			}
 			else {
@@ -726,7 +751,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 		}
 		if (interact == App->menu_manager->shop.shop_button_ring) {
-			if (player->stats.gold >= price_ring || player->god_mode) {
+			if ((player->stats.gold >= price_ring || player->god_mode) && !App->globals.ring_bought) {
 				// audio comprar
 				App->audio->PlayFx(App->scene->fx_buy);
 				player->ReduceGold(price_ring);
@@ -740,6 +765,9 @@ bool m1Scene::Interact(u1GUI* interact)
 
 				App->menu_manager->hud.player_mana_bar->PrintBarNumbers();
 
+				App->menu_manager->shop.shop_background_item5->SetImage({ 2751,1890,161,61 });
+				App->menu_manager->shop.shop_ring_image->drawable = false;
+				App->menu_manager->shop.shop_coin5->drawable = false;
 
 			}
 			else {
@@ -748,13 +776,6 @@ bool m1Scene::Interact(u1GUI* interact)
 			}
 		}
 		break;
-	case StatesMenu::FIRSTABILITY_MENU:
-		if (interact == App->menu_manager->abilities.button_ability1_screen) {
-			App->menu_manager->DestroyFirstAbilityPanel();
-			menu_state = StatesMenu::NO_MENU;
-			player->BlockControls(false);
-			ret = false;
-		}
 	}
 
 	return ret;

@@ -12,6 +12,8 @@ class u1ChButton;
 class u1VerticalSlider;
 class u1Bar;
 
+struct EaseSplineInfo;
+
 struct UI_input {
 	u1InputText* input_text = nullptr;
 	u1Image* input_text_image = nullptr;
@@ -420,6 +422,8 @@ struct UI_select_champ {
 
 struct UI_inventory {
 	u1Image* inventory_panel = nullptr;
+	u1Image* inventory_panel2 = nullptr;
+	u1Image* inventory_background = nullptr;
 	u1Image* hp_potion_image = nullptr;
 	u1Button* hp_potion_button = nullptr;
 	u1Image* mana_potion_image = nullptr;
@@ -433,6 +437,22 @@ struct UI_inventory {
 	u1Label* level_number_label = nullptr;
 	u1Label* exp_name_label = nullptr;
 	u1Label* exp_number_label = nullptr;
+	u1Image* player_image = nullptr;
+	u1Image* first_ability = nullptr;
+	u1Image* flash = nullptr;
+	u1Image* shop_ability = nullptr;
+	u1Image* item_helmet = nullptr;
+	u1Image* item_ring = nullptr;
+	u1Button* button_first_ability = nullptr;
+	u1Button* button_flash = nullptr;
+	u1Button* button_shop_ability = nullptr;
+	u1Button* button_item_helmet = nullptr;
+	u1Button* button_item_ring = nullptr;
+	EaseSplineInfo* spline_move_inventory = nullptr;
+
+	void ChangeInventory(bool item);
+	void ResetSplineInventory();
+	void SetClipInInventory();
 };
 
 struct UI_pause_menu {
@@ -531,11 +551,6 @@ struct UI_debugscreen {
 	u1Label* entities_label = nullptr;
 };
 
-struct UI_abilities {
-	u1Image* first_ability_panel = nullptr;
-	u1Button* button_ability1_screen = nullptr;
-	u1Label* label_ability1_screen = nullptr;
-};
 
 struct UI_game_over {
 	u1Image* game_over_panel = nullptr;
@@ -552,6 +567,7 @@ struct UI_HUD {
 	u1Image* player_hud_image = nullptr;
 	u1Bar* player_hp_bar = nullptr;
 	u1Bar* player_mana_bar = nullptr;
+	u1Bar* player_exp_bar = nullptr;
 	u1Image* diagonal_compass = nullptr; 	//Compass
 	u1Image* vertical_compass = nullptr;	//Compass
 };
@@ -604,16 +620,13 @@ public:
 	void CreateGameOver();
 	void DestroyGameOver();
 
-	void CreateFirstAbilityPanel();
-	void DestroyFirstAbilityPanel();
-
 	void CreateHelpDiagonalMenu();
 	void DestroyHelpDiagonalMenu();
 
 	void CreateHelpAttackMenu();
 	void DestroyHelpAttackMenu();
 
-	void CreateHelpAbilityMenu();
+	void CreateHelpAbilityMenu(bool flash = false);
 	void DestroyHelpAbilityMenu();
 
 	void CreateHUD();
@@ -629,6 +642,11 @@ public:
 
 	void ManageInputText(u1GUI * &interaction);
 
+	void CreateBigInventory();
+	void DestroyBigInventory();
+
+
+
 public:
 	UI_main_menu	main_menu;
 	UI_options		options;
@@ -642,7 +660,6 @@ public:
 	UI_quest		quest;
 	UI_shop			shop;
 	UI_debugscreen	debug_screen;
-	UI_abilities	abilities;
 	UI_game_over	game_over;
 	UI_HUD			hud;
 	//god mode

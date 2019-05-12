@@ -2,6 +2,7 @@
 #include "m1Render.h"
 #include "c1CutsceneMoveCamera.h"
 #include "m1Cutscene.h"
+#include "p2Point.h"
 #include "p2Math.h"
 
 c1CutsceneMoveCamera::c1CutsceneMoveCamera(uint start, uint duration, int origin_x, int origin_y, int destination_x, int destination_y, float speed, bool stop_when_goal) :c1CutsceneAction(start, duration), 
@@ -18,7 +19,7 @@ void c1CutsceneMoveCamera::Execute(float dt)
 	if (start < duration_time)
 	{
 		lerp_by += speed;
-		fPoint position = lerp(camera_origin, camera_destination, lerp_by);
+		iPoint position = lerp(camera_origin, camera_destination, lerp_by).AproximateToIntCast();
 		App->render->camera.x = position.x;
 		App->render->camera.y = position.y;
 

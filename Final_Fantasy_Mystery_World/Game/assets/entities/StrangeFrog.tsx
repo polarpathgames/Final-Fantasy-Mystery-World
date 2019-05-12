@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.3" name="Frog" tilewidth="34" tileheight="40" tilecount="195" columns="15">
+<tileset version="1.2" tiledversion="1.2.2" name="Frog" tilewidth="34" tileheight="40" tilecount="195" columns="15">
  <properties>
   <property name="attack_power" type="int" value="20"/>
   <property name="experience" type="int" value="30"/>
   <property name="live" type="int" value="125"/>
+  <property name="ratio_blue_rupee" type="int" value="30"/>
+  <property name="ratio_gold_rupee" type="int" value="1"/>
+  <property name="ratio_green_rupee" type="int" value="50"/>
+  <property name="ratio_poti_hp" type="int" value="20"/>
+  <property name="ratio_poti_mana" type="int" value="20"/>
+  <property name="ratio_red_rupee" type="int" value="10"/>
+  <property name="ratio_rupee" type="int" value="60"/>
  </properties>
  <image source="../sprites/Frog.png" width="512" height="525"/>
  <tile id="0">

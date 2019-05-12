@@ -505,6 +505,20 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.5F);
 		size.create(frame.w, frame.h);
 	}
+	else if (strcmp(name, "ability_base") == 0) {
+		static_type = e1StaticEntity::Type::ABILITY_BASE;
+		frame = { 1065,113 ,40,48 };
+		SetPivot(frame.w*0.5F, frame.h*0.5F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "rocks_door") == 0) {
+		static_type = e1StaticEntity::Type::CAVE_ROCKS;
+		frame = { 682,174 ,26,49 };
+		SetPivot(frame.w*0.5F, frame.h*0.5F);
+		size.create(frame.w, frame.h);
+		position.x -= 3;
+		position.y += 1;
+	}
 	else if (strcmp(name, "blue_fire") == 0) {
 		static_type = e1StaticEntity::Type::BLUE_FIRE;
 		has_animation = true;
@@ -518,6 +532,17 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "ability_flash") == 0) {
+		frame = { 1062,23,12,14 };
+		SetPivot(frame.w*0.5F, frame.h*2.5F);
+		size.create(frame.w, frame.h);
+		static_type = e1StaticEntity::Type::FLASH_INFO;
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		position.x += 14;
+		position.y -= 9;
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+		max_distance_to_interact = 1;
 	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
@@ -563,7 +588,10 @@ void e1StaticEntity::SetRect(int x, int y, int w, int h)
 bool e1StaticEntity::Update(float dt)
 {
 	BROFILER_CATEGORY("StaticEntity Update", Profiler::Color::Yellow);
+	//if (App->scene->player != nullptr)
+	//{
 
+	//}
 	if (interacting_state == InteractingStates::NONE)
 		return true;
 	iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
@@ -608,12 +636,11 @@ bool e1StaticEntity::Update(float dt)
 					button_interact = nullptr;
 				}
 			}
-			
 	}
 	if (interacting_state == InteractingStates::INTERACTING && App->dialog->end_dial)
 	{
 		interacting_state = InteractingStates::WAITING_INTERACTION;
-		if (static_type != Type::HELP1 && static_type != Type::HELP2 && static_type != Type::HELP3)
+		if (static_type != Type::HELP1 && static_type != Type::HELP2 && static_type != Type::HELP3 && static_type != Type::FLASH_INFO)
 			App->menu_manager->ShowHUD(true);
 	}
 
@@ -637,7 +664,7 @@ bool e1StaticEntity::Update(float dt)
 			App->dialog->PerformDialogue(3);
 			break;
 		case e1StaticEntity::Type::HELP1:
-			App->dialog->PerformDialogue(7);
+			App->dialog->PerformDialogue(4);
 			break;
 		case e1StaticEntity::Type::HELP2:
 			App->dialog->PerformDialogue(5);
@@ -647,6 +674,9 @@ bool e1StaticEntity::Update(float dt)
 			break;
 		case e1StaticEntity::Type::NPC_DAUGHTER:
 			App->dialog->PerformDialogue(7);
+			break;
+		case e1StaticEntity::Type::FLASH_INFO:
+			App->dialog->PerformDialogue(8);
 			break;
 		default:
 			break;

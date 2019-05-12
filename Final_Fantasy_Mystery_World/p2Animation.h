@@ -47,6 +47,10 @@ public:
 		return frames[(int)current_frame];
 	}
 	
+	SDL_Rect GetFrame(const int & frame_num) {
+		return frames[frame_num];
+	}
+
 	bool Finished() const
 	{
 		return loops > 0;

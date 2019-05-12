@@ -19,6 +19,7 @@ enum UIType
 	BAR,
 	HPBAR,
 	MANABAR,
+	EXPBAR,
 	ENEMYBAR,
 	INPUT_BOX,
 	HIT_POINT_LABEL,
@@ -95,7 +96,7 @@ private:
 
 	SDL_Texture*		atlas = nullptr;
 	u1GUI*				focus = nullptr;
-	SDL_Rect			focus_tx = { 0,0,0,0 };
+	SDL_Rect			focus_tx[4] = { 0,0,0,0 };
 	bool				using_mouse = true;
 	std::list<u1GUI*>	ui_list;
 
