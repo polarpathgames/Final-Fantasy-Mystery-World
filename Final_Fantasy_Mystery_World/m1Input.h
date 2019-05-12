@@ -179,7 +179,7 @@ public:
 
 	KeyboardButtons keyboard_buttons;
 	ControllerButtons controller_Buttons;
-	SDL_GameController* Controller = nullptr;
+	SDL_GameController* controller = nullptr;
 
 	//Controler Haptic
 
