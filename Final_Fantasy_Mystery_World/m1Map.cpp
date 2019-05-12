@@ -669,6 +669,11 @@ bool m1Map::ChangeMap(Maps type)
 		actual_map = Maps::QUEST2;
 		return true;
 		break;
+	case Maps::FINAL_QUEST:
+		quest_rooms = DBG_NEW RoomManager("final_quest");
+		actual_map = Maps::FINAL_QUEST;
+		return true;
+		break;
 	case Maps::DEBUG:
 		quest_rooms = DBG_NEW RoomManager("debug");
 		actual_map = Maps::DEBUG;
