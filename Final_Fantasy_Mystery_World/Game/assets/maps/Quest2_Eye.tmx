@@ -8535,7 +8535,7 @@
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
-   <tile gid="7"/>
+   <tile/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
@@ -9631,18 +9631,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="7" name="Static animation objects" visible="0">
-  <object id="11" name="white_rock" type="static" x="416" y="304" width="32" height="32"/>
-  <object id="12" name="plant1_quest1" type="static" x="480" y="288" width="32" height="32"/>
-  <object id="48" name="plant2_quest1" type="static" x="368" y="368" width="32" height="32"/>
-  <object id="49" name="breakable_barrel" type="static" x="336" y="256" width="32" height="32"/>
-  <object id="50" name="breakable_barrel" type="static" x="352" y="256" width="32" height="32"/>
-  <object id="51" name="breakable_barrel" type="static" x="352" y="240" width="32" height="32"/>
-  <object id="55" name="rock_elevation" type="static" x="512" y="256" width="32" height="32"/>
-  <object id="56" name="rock_elevation" type="static" x="480" y="224" width="32" height="32"/>
-  <object id="57" name="rock_elevation" type="static" x="512" y="224" width="32" height="32"/>
-  <object id="58" name="rocks_door" type="static" x="289" y="305.125" width="47" height="46.875"/>
- </objectgroup>
+ <objectgroup id="7" name="Static animation objects"/>
  <objectgroup color="#ffff7f" id="8" name="entities">
   <object id="5" name="player" type="nextA" x="432" y="544" width="15.9688" height="16.0156">
    <properties>
@@ -9659,12 +9648,12 @@
  <objectgroup id="9" name="colliders">
   <object id="10" name="room_collider" type="nextA" x="416" y="192" width="16.1904" height="15.0341">
    <properties>
-    <property name="next_id" type="int" value="2"/>
+    <property name="next_id" type="int" value="3"/>
    </properties>
   </object>
   <object id="53" name="room_collider" type="lastA" x="432" y="560" width="16.1904" height="15.0341">
    <properties>
-    <property name="next_id" type="int" value="9"/>
+    <property name="next_id" type="int" value="1"/>
    </properties>
   </object>
  </objectgroup>
