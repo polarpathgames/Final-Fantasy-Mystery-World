@@ -97,6 +97,7 @@
     <ClCompile Include="e1Drop.cpp" />
     <ClCompile Include="e1Frozen.cpp" />
     <ClCompile Include="e1Mage.cpp" />
+    <ClCompile Include="e1MegaEye.cpp" />
     <ClCompile Include="e1NPC.cpp" />
     <ClCompile Include="e1Particles.cpp" />
     <ClCompile Include="e1Rock.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="e1Drop.h" />
     <ClInclude Include="e1Frozen.h" />
     <ClInclude Include="e1Mage.h" />
+    <ClInclude Include="e1MegaEye.h" />
     <ClInclude Include="e1NPC.h" />
     <ClInclude Include="e1Particles.h" />
     <ClInclude Include="e1Rock.h" />

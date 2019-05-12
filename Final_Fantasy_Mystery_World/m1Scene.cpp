@@ -101,7 +101,7 @@ bool m1Scene::Start()
 	if (App->fast_start) {
 		if (player == nullptr) {
 			player_type = PlayerType::WARRIOR;
-			App->globals.player_name.assign("Steve");
+			App->globals.player_name.assign("Oriol :D");
 			App->scene->player = (e1Player*)App->entity_manager->CreateEntity(e1Entity::EntityType::WARRIOR, -100, -100, "warrior");
 			App->map->Enable();
 			App->menu_manager->CreateHUD();
@@ -214,6 +214,9 @@ bool m1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
 		App->fade_to_black->FadeToBlack(Maps::QUEST2);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
+		App->fade_to_black->FadeToBlack(Maps::FINAL_QUEST);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_KP_1) == KEY_DOWN) {
@@ -639,13 +642,15 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == App->menu_manager->game_over.button_continue_lobby) {
 			App->menu_manager->DestroyGameOver();
 
-			if (App->map->actual_map == Maps::TUTORIAL && !App->globals.CutSceneAfterBossTutorialPlayed)
+			if (App->map->actual_map == Maps::TUTORIAL && !App->globals.CutSceneAfterBossTutorialPlayed) {
 				App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
+				App->menu_manager->EnableHUD(true);
+			}
 			else 
 				App->fade_to_black->FadeToBlack(Maps::HOME);
 			
 			menu_state = StatesMenu::NO_MENU;
-			App->menu_manager->CreateHUD();
+
 			ret = false;
 			
 		}

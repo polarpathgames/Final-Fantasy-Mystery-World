@@ -1156,7 +1156,7 @@ void e1Player::Death()
 		App->map->CleanUp();
 		App->easing_splines->CleanUp();
 		App->entity_manager->DeleteEntitiesNoPlayer();
-		//App->menu_manager->ShowHUD(false);
+		App->menu_manager->EnableHUD(false);
 		App->menu_manager->CreateGameOver();
 		App->scene->SetMenuState(StatesMenu::DIE_MENU);
 		state = State::MENU;

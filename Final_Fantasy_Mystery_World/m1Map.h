@@ -21,6 +21,7 @@ enum class Maps {
 	SHOP,
 	HOME,
 	QUEST2,
+	FINAL_QUEST,
 	DEBUG,
 
 	NONE

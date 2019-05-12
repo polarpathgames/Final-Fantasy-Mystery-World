@@ -156,6 +156,17 @@
     </room>
   </quest2>
 
+  <final_quest>
+    <room>
+      <location>Quest1_Boss.tmx</location>
+      <id num="1"></id>
+      <type>paceful</type>
+      <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+      <update num="2"/>
+    </room>
+  </final_quest>
+
+
   <debug>
     <room>
       <location>debug.tmx</location>
