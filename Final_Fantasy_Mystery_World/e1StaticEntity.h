@@ -54,6 +54,7 @@ public:
 		HELP1,
 		HELP2,
 		HELP3,
+		HELP4,
 		PLANT1_Q1,
 		PLANT2_Q1,
 		ROCK_Q1,
