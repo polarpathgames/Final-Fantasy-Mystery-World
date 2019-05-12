@@ -13,11 +13,11 @@
 e1MegaEye::e1MegaEye(const int & x, const int & y) : e1Enemy(x, y)
 {
 	LoadEntityData("assets/entities/MegaEye.tsx");
-	name.assign("Cassio");
+	name.assign("MegaEye");
 	enemy_type = EnemyType::MEGA_EYE;
 	range_to_distance_attack = 2U;
 
-	SetPivot(14, 33);
+	SetPivot(13, 27);
 
 	CenterOnTile();
 
