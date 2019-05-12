@@ -644,7 +644,7 @@ bool e1StaticEntity::Update(float dt)
 					App->audio->PlayFx(App->scene->fx_writting);
 					App->dialog->end_dial = false;
 					App->audio->PlayFx(App->scene->fx_writting);
-					App->menu_manager->ShowHUD(false);
+					//App->menu_manager->ShowHUD(false);
 					App->gui->DeleteUIElement((u1GUI*)button_interact);
 					button_interact = nullptr;
 				}
@@ -661,8 +661,8 @@ bool e1StaticEntity::Update(float dt)
 	if (interacting_state == InteractingStates::INTERACTING && App->dialog->end_dial)
 	{
 		interacting_state = InteractingStates::WAITING_INTERACTION;
-		if (static_type != Type::HELP1 && static_type != Type::HELP2 && static_type != Type::HELP3 && static_type != Type::FLASH_INFO)
-			App->menu_manager->ShowHUD(true);
+		//if (static_type != Type::HELP1 && static_type != Type::HELP2 && static_type != Type::HELP3 && static_type != Type::FLASH_INFO)
+			//App->menu_manager->ShowHUD(true);
 	}
 
 	if (interacting_state == InteractingStates::INTERACTING) {

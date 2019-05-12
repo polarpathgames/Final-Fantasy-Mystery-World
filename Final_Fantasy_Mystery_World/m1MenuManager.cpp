@@ -172,6 +172,7 @@ void m1MenuManager::DestroySelectChamp()
 
 void m1MenuManager::CreateOptions()
 {
+	EnableHUD(false);
 	options.options_panel = App->gui->AddImage(0, 0, { 1024,768,1024,768 }, this, App->gui->screen, true, false, false, false);
 	options.options_panel->SetPosRespectParent(CENTERED);
 
@@ -772,6 +773,40 @@ void m1MenuManager::CreateShopMenu()
 
 }
 
+void m1MenuManager::EnableHUD(bool show_or_hide) {
+	if ((show_or_hide && App->map->actual_map != Maps::LOBBY && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::SHOP) || !show_or_hide && hud.bg_hud != nullptr) {
+		hud.bg_hud->drawable = show_or_hide;
+		hud.player_hud_image->drawable = show_or_hide;
+		hud.player_hp_bar->drawable = show_or_hide;
+		hud.player_mana_bar->drawable = show_or_hide;
+		hud.diagonal_compass->drawable = show_or_hide;
+		hud.vertical_compass->drawable = show_or_hide;
+		hud.player_hp_bar->bar_numbers_label->drawable = show_or_hide;
+		hud.player_mana_bar->bar_numbers_label->drawable = show_or_hide;
+		hud.player_exp_bar->drawable = show_or_hide;
+
+		// It is ugly but for now works
+		if (show_or_hide == true)
+		{
+			hud.player_exp_bar->empty_bar->drawable = true;
+
+			if (hud.player_exp_bar->got_xp)
+				hud.player_exp_bar->filled_bar->drawable = true;
+
+			else
+				hud.player_exp_bar->filled_bar->drawable = false;
+		}
+
+
+		else
+		{
+			hud.player_exp_bar->empty_bar->drawable = false;
+			hud.player_exp_bar->filled_bar->drawable = false;
+		}
+
+	}
+}
+
 void m1MenuManager::DestroyShopMenu()
 {
 	App->scene->player->BlockControls(false);
@@ -902,6 +937,7 @@ void m1MenuManager::CreateHelpDiagonalMenu()
 void m1MenuManager::DestroyHelpDiagonalMenu()
 {
 	App->gui->DeleteUIElement(help_diagonal);
+	EnableHUD(true);
 }
 
 void m1MenuManager::CreateHelpAttackMenu()
@@ -913,6 +949,7 @@ void m1MenuManager::CreateHelpAttackMenu()
 void m1MenuManager::DestroyHelpAttackMenu()
 {
 	App->gui->DeleteUIElement(help_attack);
+	EnableHUD(true);
 }
 
 void m1MenuManager::CreateHelpAbilityMenu(bool flash)
@@ -943,7 +980,7 @@ void m1MenuManager::CreateHelpAbilityMenu(bool flash)
 void m1MenuManager::DestroyHelpAbilityMenu()
 {
 	App->gui->DeleteUIElement(help_ability);
-	ShowHUD(true);
+	EnableHUD(true);
 }
 
 void m1MenuManager::CreateHUD()
@@ -974,40 +1011,6 @@ void m1MenuManager::DestroyHUD()
 	hud.bg_hud = nullptr;
 }
 
-void m1MenuManager::ShowHUD(bool show_or_hide)
-{
-       	if ((show_or_hide && App->map->actual_map != Maps::LOBBY && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::SHOP) || !show_or_hide && hud.bg_hud != nullptr) {
-		hud.bg_hud->drawable = show_or_hide;
-		hud.player_hud_image->drawable = show_or_hide;
-		hud.player_hp_bar->drawable = show_or_hide;
-		hud.player_mana_bar->drawable = show_or_hide;
-		hud.diagonal_compass->drawable = show_or_hide;
-		hud.vertical_compass->drawable = show_or_hide;
-		hud.player_hp_bar->bar_numbers_label->drawable = show_or_hide;
-		hud.player_mana_bar->bar_numbers_label->drawable = show_or_hide;
-		hud.player_exp_bar->drawable = show_or_hide;
-
-		// It is ugly but for now works
-		if (show_or_hide == true)
-		{
-			hud.player_exp_bar->empty_bar->drawable = true;
-
-			if(hud.player_exp_bar->got_xp)
-				hud.player_exp_bar->filled_bar->drawable = true;
-
-			else
-				hud.player_exp_bar->filled_bar->drawable = false;
-		}
-			
-
-		else
-		{
-			hud.player_exp_bar->empty_bar->drawable = false;
-			hud.player_exp_bar->filled_bar->drawable = false;
-		}
-			
-	}
-}
 
 void m1MenuManager::ChangeCompass(bool shift_pressed)
 {
@@ -1075,7 +1078,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		App->scene->SetMenuState(StatesMenu::NO_MENU);
 		if (App->GetPause())
 			App->ChangePause();
-		ShowHUD(true);
+		//ShowHUD(true);
 		ret = false;
 		App->scene->player->BlockControls(false);
 	}
@@ -1098,7 +1101,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		CreateOptions();
 		DestroyPauseMenu();
 		App->scene->SetMenuState(StatesMenu::OPTIONS_MENU);
-		ShowHUD(false);
+		//ShowHUD(false);
 		ret = false;
 	}
 
@@ -1203,7 +1206,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		}
 		else if (App->scene->active) {
 			CreatePauseMenu();
-			ShowHUD(true);
+			EnableHUD(true);
 			App->scene->SetMenuState(StatesMenu::PAUSE_MENU);
 		}
 

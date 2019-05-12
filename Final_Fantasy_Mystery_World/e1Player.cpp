@@ -183,14 +183,14 @@ void e1Player::OnCollisionEnter(Collider * c2)
 	}
 	if (c2->type == COLLIDER_CUTSCENE_BRIDGE) {
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneBlockPass.xml");
-		App->menu_manager->ShowHUD(false);
+		//App->menu_manager->ShowHUD(false);
 	}
 }
 
 void e1Player::OnCollisionExit(Collider * c2)
 {
 	if (c2->type == COLLIDER_CUTSCENE_BRIDGE) {
-		App->menu_manager->ShowHUD(true);
+		//App->menu_manager->ShowHUD(true);
 	}
 }
 
@@ -1156,7 +1156,7 @@ void e1Player::Death()
 		App->map->CleanUp();
 		App->easing_splines->CleanUp();
 		App->entity_manager->DeleteEntitiesNoPlayer();
-		App->menu_manager->ShowHUD(false);
+		//App->menu_manager->ShowHUD(false);
 		App->menu_manager->CreateGameOver();
 		App->scene->SetMenuState(StatesMenu::DIE_MENU);
 		state = State::MENU;

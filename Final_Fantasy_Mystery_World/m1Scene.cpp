@@ -268,7 +268,7 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->menu_manager->DestroyHelpAbilityMenu();
 			menu_state = StatesMenu::NO_MENU;
-			App->menu_manager->ShowHUD(true);
+			//App->menu_manager->ShowHUD(true);
 			player->BlockControls(false);
 		}
 	
@@ -289,7 +289,7 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			App->ChangePause();
-			App->menu_manager->ShowHUD(true);
+			//App->menu_manager->ShowHUD(true);
 			//std::function<void(void)> funct = App->menu_manager->DestroyPauseMenu();
 			App->easing_splines->CreateSpline(&App->menu_manager->pause.pause_panel->position.y, -830, 500, TypeSpline::EASE, std::bind(&m1MenuManager::DestroyPauseMenu,App->menu_manager));
 			//info->funct = &m1MenuManager::DestroyPauseMenu;
@@ -306,7 +306,7 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->menu_manager->CreatePauseMenu();
 			App->menu_manager->DestroyOptions();
-			App->menu_manager->ShowHUD(true);
+			//App->menu_manager->ShowHUD(true);
 			player->BlockControls(true);
 			menu_state = StatesMenu::PAUSE_MENU;
 		}
@@ -352,7 +352,7 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->menu_manager->DestroyHelpDiagonalMenu();
 			player->BlockControls(false);
-			App->menu_manager->ShowHUD(true);
+			//App->menu_manager->ShowHUD(true);
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
@@ -360,7 +360,7 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->menu_manager->DestroyHelpAttackMenu();
 			player->BlockControls(false);
-			App->menu_manager->ShowHUD(true);
+			//App->menu_manager->ShowHUD(true);
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;
@@ -368,7 +368,7 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->menu_manager->DestroyHelpAbilityMenu();
 			player->BlockControls(false);
-			App->menu_manager->ShowHUD(true);
+			//App->menu_manager->ShowHUD(true);
 			menu_state = StatesMenu::NO_MENU;
 		}
 		break;

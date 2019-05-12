@@ -631,7 +631,8 @@ public:
 
 	void CreateHUD();
 	void DestroyHUD();
-	void ShowHUD(bool show_or_hide);
+	void EnableHUD(bool enable);
+
 	void ChangeCompass(bool shift_pressed);
 
 	void SkipMenu(bool is_cutscene);

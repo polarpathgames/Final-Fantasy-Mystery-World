@@ -383,7 +383,7 @@ bool m1EntityManager::Load(pugi::xml_node& load)
 		}
 	}
 	App->menu_manager->CreateHUD();
-	App->menu_manager->ShowHUD(false);
+	//App->menu_manager->ShowHUD(false);
 	App->scene->player->actual_tile.x += 1;
 	App->scene->player->actual_tile.y += 1;
 	App->scene->player->CenterOnTile();
