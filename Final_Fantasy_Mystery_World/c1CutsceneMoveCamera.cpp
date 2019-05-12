@@ -19,8 +19,9 @@ void c1CutsceneMoveCamera::Execute(float dt)
 	if (start < duration_time)
 	{
 		lerp_by += speed;
-		App->render->camera.x = lerp(camera_origin, camera_destination, lerp_by).AproximateToIntCast().x;
-		App->render->camera.y = lerp(camera_origin, camera_destination, lerp_by).AproximateToIntCast().y;
+		iPoint position = lerp(camera_origin, camera_destination, lerp_by).AproximateToIntCast();
+		App->render->camera.x = position.x;
+		App->render->camera.y = position.y;
 
 		if (stop_when_goal) {
 			if (lerp_by >= 1.0f) {
