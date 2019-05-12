@@ -639,13 +639,15 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == App->menu_manager->game_over.button_continue_lobby) {
 			App->menu_manager->DestroyGameOver();
 
-			if (App->map->actual_map == Maps::TUTORIAL && !App->globals.CutSceneAfterBossTutorialPlayed)
+			if (App->map->actual_map == Maps::TUTORIAL && !App->globals.CutSceneAfterBossTutorialPlayed) {
 				App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
+				App->menu_manager->EnableHUD(true);
+			}
 			else 
 				App->fade_to_black->FadeToBlack(Maps::HOME);
 			
 			menu_state = StatesMenu::NO_MENU;
-			App->menu_manager->CreateHUD();
+
 			ret = false;
 			
 		}

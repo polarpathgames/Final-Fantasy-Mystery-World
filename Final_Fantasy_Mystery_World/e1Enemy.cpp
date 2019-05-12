@@ -169,7 +169,7 @@ bool e1Enemy::Update(float dt)
 		case Attacks::SPECIAL_1:
 			if (IsSpecialAttack1Finished()) {
 				App->audio->PlayFx(App->scene->fx_dog_attack);
-				App->scene->player->ReduceLives(stats.special_attack_damage);
+				App->scene->player->GetHitted(stats.special_attack_damage);
 				AfetSpecialAttack1();
 				attack = true;
 			}
