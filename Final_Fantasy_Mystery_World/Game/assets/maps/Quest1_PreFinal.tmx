@@ -9643,7 +9643,7 @@
   <object id="69" name="snow_elevation" type="static" x="336" y="240" width="32" height="32"/>
   <object id="70" name="snow_elevation" type="static" x="336" y="176" width="32" height="32"/>
   <object id="71" name="snow_elevation" type="static" x="496" y="128" width="32" height="32"/>
-  <object id="75" name="snow_man" type="static" x="352" y="160" width="32" height="32"/>
+  <object id="75" name="breakable_snowman" type="static" x="352" y="160" width="32" height="32"/>
   <object id="88" name="white_rock" type="static" x="464" y="336" width="32" height="32"/>
   <object id="90" name="white_rock" type="static" x="528" y="272" width="32" height="32"/>
   <object id="91" name="white_rock" type="static" x="528" y="256" width="32" height="32"/>

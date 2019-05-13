@@ -56,6 +56,18 @@ e1Rock::e1Rock(const int &x, const int &y, const char* name) : e1StaticEntity(x,
 		static_type = e1StaticEntity::Type::BREAKABLE_ROCK;
 		rock_type = RockType::BREAKABLE_BARREL;
 	}
+	else if (strcmp(name, "breakable_snowman") == 0) {
+		original_pos = { x,y };
+		frame = { 438,205,35,37 };
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		actual_tile = App->map->WorldToMap(x, y);
+		actual_tile += {1, 1}; 
+		position.y -= 5;
+		position.x -= 2;
+		static_type = e1StaticEntity::Type::BREAKABLE_ROCK;
+		rock_type = RockType::BREAKABLE_SNOWMAN;
+	}
 }
 e1Rock::~e1Rock()
 {
@@ -96,6 +108,14 @@ void e1Rock::GetHitted()
 			idle->PushBack({ 543,122,35,31 });
 			idle->PushBack({ 578,122,35,31 });
 			idle->PushBack({ 613,122,35,31 });
+		}
+		else if (rock_type == RockType::BREAKABLE_SNOWMAN) {
+			idle->PushBack({ 473,205,35,37 });
+			idle->PushBack({ 508,205,35,37 });
+			idle->PushBack({ 543,205,35,37 });
+			idle->PushBack({ 578,205,35,37 });
+			idle->PushBack({ 613,205,35,37 });
+		
 		}
 		idle->loop = false;
 		idle->speed = 10;

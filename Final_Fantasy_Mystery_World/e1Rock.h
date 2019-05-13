@@ -14,6 +14,7 @@ enum class RockType {
 	WHITE_ROCK,
 	GREY_ROCK,
 	BREAKABLE_BARREL,
+	BREAKABLE_SNOWMAN,
 
 	NONE
 };
