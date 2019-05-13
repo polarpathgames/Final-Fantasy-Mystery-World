@@ -85,6 +85,10 @@ void e1Particles::SetParticle(const ParticleType & particle_type, const Directio
 		name.assign("fireball");
 		SetFireBall();
 		break;
+	case ParticleType::ICE_STAKE:
+		name.assign("ice stake");
+		SetIceStake();
+		break;
 	default:
 		break;
 	}
@@ -429,4 +433,17 @@ void e1Particles::FireBallExplosionCollision()
 	}
 
 
+}
+
+void e1Particles::SetIceStake()
+{
+	
+}
+
+void e1Particles::MoveIceStake(float dt)
+{
+}
+
+void e1Particles::LookForPlayer()
+{
 }

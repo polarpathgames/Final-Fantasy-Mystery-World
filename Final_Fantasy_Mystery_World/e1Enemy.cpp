@@ -384,6 +384,7 @@ void e1Enemy::LookToPlayer() {
 			}
 		}
 	}
+	
 	else if (distance.x == 0) {
 		if (distance.y < 0) {
 			direction = Direction::UP_RIGHT;
@@ -392,12 +393,52 @@ void e1Enemy::LookToPlayer() {
 			direction = Direction::DOWN_LEFT;
 		}
 	}
+
 	else if (distance.y == 0) {
 		if (distance.x < 0) {
 			direction = Direction::DOWN_RIGHT;
 		}
 		else if (distance.x > 0) {
 			direction = Direction::UP_LEFT;
+		}
+	}
+
+	else {
+		if (distance.x > 0) {
+			if (distance.y > 0) {
+				if (distance.y > distance.x) {
+					direction = Direction::DOWN_LEFT;
+				}
+				else {
+					direction = Direction::DOWN_RIGHT;
+				}
+			}
+			else {
+				if (abs(distance.y) > distance.x) {
+					direction = Direction::UP_LEFT;
+				}
+				else {
+					direction = Direction::DOWN_RIGHT;
+				}
+			}
+		}
+		else if (distance.x < 0) {
+			if (distance.y > 0) {
+				if (distance.y > abs(distance.x)) {
+					direction = Direction::DOWN_LEFT;
+				}
+				else {
+					direction = Direction::UP_LEFT;
+				}
+			}
+			else {
+				if (distance.y > distance.x) {
+					direction = Direction::UP_LEFT;
+				}
+				else {
+					direction = Direction::UP_RIGHT;
+				}
+			}
 		}
 	}
 

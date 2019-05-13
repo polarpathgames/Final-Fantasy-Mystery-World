@@ -15,6 +15,7 @@ public:
 	enum class ParticleType {
 		ARROW,
 		FIREBALL,
+		ICE_STAKE,
 
 		NONE
 	};
@@ -42,6 +43,10 @@ private:
 	void SetFireBall();
 	void MoveFireBall(float dt);
 	void FireBallExplosionCollision();
+
+	void SetIceStake();
+	void MoveIceStake(float dt);
+	void LookForPlayer();
 
 public:
 
