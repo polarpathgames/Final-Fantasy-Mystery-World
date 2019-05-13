@@ -452,21 +452,22 @@ void e1Particles::FireBallExplosionCollision()
 void e1Particles::SetIceStake()
 {
 	initial_position = GetPosition() - iPoint(0, 15);
-	iPoint vector = App->scene->player->GetPosition() + iPoint(0, -5) - initial_position;
+	final_position = App->scene->player->GetPosition() + iPoint(0, -5);
+	iPoint vector = final_position - initial_position;
 	angle = RadToDeg(atan2(vector.y, vector.x));
+	lerp_speed = 0.2f;
 
 	IdleDown.PushBack({ 179,28,35,12 });
 	current_animation = &IdleDown;
 	size.create(current_animation->GetCurrentFrame(0.f).w, current_animation->GetCurrentFrame(0.f).h);
 
-	CreateParticleFollow(this, nullptr, { 0,0,10,10 });
-	
+	pivot.create(0, 50);
 }
 
 void e1Particles::MoveIceStake(float dt)
 {
 	lerp_by += lerp_speed;
-	position = lerp(initial_position, App->scene->player->GetPosition() + iPoint(0, -5), lerp_by).AproximateToIntFloor();
+	position = lerp(initial_position, final_position, lerp_by).AproximateToIntFloor();
 
 	if (lerp_by > 1.0F) {
 		to_delete = true;

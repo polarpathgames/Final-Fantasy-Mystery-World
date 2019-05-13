@@ -4,6 +4,7 @@
 #include "m1EntityManager.h"
 #include "m1Audio.h"
 #include "e1State.h"
+#include "p2Log.h"
 #include "Brofiler/Brofiler.h"
 
 e1Frozen::e1Frozen(const int& x, const int& y) :e1Enemy(x, y)
@@ -38,29 +39,35 @@ void e1Frozen::UpdateEnemy()
 			// summon slimes
 		}
 	}
+
+	if (type_attack == Attacks::SPECIAL_1) {
+		if (phase == Phase::NORMAL) {
+			if ((int)current_animation->current_frame == 7) {
+				e1Particles* needle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, actual_tile.x, actual_tile.y, "");
+				needle->position.x = GetPosition().x;
+				needle->SetParticle(e1Particles::ParticleType::ICE_STAKE, direction);
+			}
+		}
+		else {
+			if (!App->entity_manager->ThereIsEntity("blizzard")) {
+				e1State* blizz = (e1State*)App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "blizzard");
+				blizz->SetMaxNumberHit(3U);
+			}
+			else {
+
+			}
+		}
+	}
 }
 
 void e1Frozen::PrepareDistanceAttack()
 {
-	if (phase == Phase::NORMAL) {
-		e1Particles* needle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, actual_tile.x, actual_tile.y, "");
-		needle->position.x = GetPosition().x;
-		needle->SetParticle(e1Particles::ParticleType::ICE_STAKE, direction);
-	}
-	else {
-		if (!App->entity_manager->ThereIsEntity("blizzard")) {
-			e1State* blizz = (e1State*)App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "blizzard");
-			blizz->SetMaxNumberHit(3U);
-		}
-		else {
-
-		}
-	}
+	
 }
 
 bool e1Frozen::IsSpecialAttack1Finished()
 {
-	return true;
+	return (current_animation->Finished() && !App->entity_manager->ThereIsEntity("ice stake"));
 }
 
 void e1Frozen::AfetSpecialAttack1()

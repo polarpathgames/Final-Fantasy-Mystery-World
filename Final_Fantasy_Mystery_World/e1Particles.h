@@ -58,7 +58,8 @@ public:
 	iPoint fireball_tile_objective = { 0,0 };
 
 	float lerp_by = 0.f;
-	float lerp_speed = 0.02f;
+	float lerp_speed = 0.f;
+	iPoint final_position = { 0,0 };
 
 	double angle = 0.f;
 
