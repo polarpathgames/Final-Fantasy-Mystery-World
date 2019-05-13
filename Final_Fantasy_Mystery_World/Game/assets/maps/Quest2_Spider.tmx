@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="65">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="65">
  <tileset firstgid="1" name="ques2_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques2_tileset.png" width="688" height="290"/>
  </tileset>
@@ -9648,7 +9648,7 @@
    </properties>
   </object>
   <object id="59" name="enemy" type="StrangeFrog" x="528" y="352" width="15.9688" height="16.0156"/>
-  <object id="60" name="enemy" type="Slime" x="368" y="288" width="15.9688" height="16.0156"/>
+  <object id="60" name="enemy" type="BlueSlime" x="368" y="288" width="15.9688" height="16.0156"/>
   <object id="61" name="enemy" type="StrangeFrog" x="512" y="256" width="15.9688" height="16.0156"/>
  </objectgroup>
  <objectgroup id="9" name="colliders">
