@@ -59,6 +59,7 @@ bool e1Spider::PreUpdate()
 			iPoint player_tile = App->scene->player->actual_tile;
 			App->scene->player->state = State::SLEEPING;
 			is_awake = true;
+			App->scene->player->GetHitted(stats.basic_attack_damage);
 			if (player_tile == actual_tile + iPoint{ 0,1 }) {
 				App->easing_splines->CreateSpline(&App->scene->player->position.x, App->scene->player->position.x - App->map->data.tile_width, 500, EASE_OUT_QUINT, std::bind(&e1Player::SetPlayerIdle, App->scene->player));
 				App->easing_splines->CreateSpline(&App->scene->player->position.y, App->scene->player->position.y + App->map->data.tile_height, 500, EASE_OUT_QUINT);
