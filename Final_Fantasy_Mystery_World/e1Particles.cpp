@@ -13,6 +13,7 @@
 #include "e1Enemy.h"
 #include "m1ParticleManager.h"
 #include "e1Player.h"
+#include "p2Math.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Textures.h"
 
@@ -54,6 +55,9 @@ bool e1Particles::Update(float dt)
 	case e1Particles::ParticleType::FIREBALL: {
 		MoveFireBall(dt);
 		break; }
+	case e1Particles::ParticleType::ICE_STAKE: {
+		MoveIceStake(dt);
+		break; }
 	default:
 		break;
 	}
@@ -67,6 +71,16 @@ bool e1Particles::Update(float dt)
 bool e1Particles::CleanUp()
 {
 	return true;
+}
+
+void e1Particles::Draw(float dt)
+{
+	if (particle_type == ParticleType::ICE_STAKE) {
+		App->render->Blit(data.tileset.texture, position.x, position.y, &current_animation->GetCurrentFrame(dt), true, SDL_FLIP_NONE, 1.0f, nullptr, angle, size.x*0.5f, size.y*0.5f);
+	}
+	else {
+		e1Entity::Draw(dt);
+	}
 }
 
 void e1Particles::SetParticle(const ParticleType & particle_type, const Direction & dir)
@@ -437,13 +451,24 @@ void e1Particles::FireBallExplosionCollision()
 
 void e1Particles::SetIceStake()
 {
+	initial_position = GetPosition() - iPoint(0, 15);
+	iPoint vector = App->scene->player->GetPosition() + iPoint(0, -5) - initial_position;
+	angle = RadToDeg(atan2(vector.y, vector.x));
+
+	IdleDown.PushBack({ 179,28,35,12 });
+	current_animation = &IdleDown;
+	size.create(current_animation->GetCurrentFrame(0.f).w, current_animation->GetCurrentFrame(0.f).h);
+
+	CreateParticleFollow(this, nullptr, { 0,0,10,10 });
 	
 }
 
 void e1Particles::MoveIceStake(float dt)
 {
-}
+	lerp_by += lerp_speed;
+	position = lerp(initial_position, App->scene->player->GetPosition() + iPoint(0, -5), lerp_by).AproximateToIntFloor();
 
-void e1Particles::LookForPlayer()
-{
+	if (lerp_by > 1.0F) {
+		to_delete = true;
+	}
 }

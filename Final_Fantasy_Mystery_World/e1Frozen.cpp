@@ -44,7 +44,8 @@ void e1Frozen::PrepareDistanceAttack()
 {
 	if (phase == Phase::NORMAL) {
 		e1Particles* needle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, actual_tile.x, actual_tile.y, "");
-		needle->SetParticle(e1Particles::ParticleType::ARROW, direction);
+		needle->position.x = GetPosition().x;
+		needle->SetParticle(e1Particles::ParticleType::ICE_STAKE, direction);
 	}
 	else {
 		if (!App->entity_manager->ThereIsEntity("blizzard")) {

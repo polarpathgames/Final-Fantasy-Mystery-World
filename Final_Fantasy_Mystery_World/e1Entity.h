@@ -145,10 +145,10 @@ public:
 	bool drawable = true;
 	bool allow_turn = false;
 	bool turn_done = false;
-	iPoint actual_tile;
+	iPoint actual_tile = { 0,0 };
 	Collider* coll = nullptr;
 	bool to_delete = false;
-	iPoint velocity;
+	iPoint velocity = { 0,0 };
 
 	uint turn_count = 0u;
 

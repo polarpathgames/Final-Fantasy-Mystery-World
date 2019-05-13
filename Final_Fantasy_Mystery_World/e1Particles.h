@@ -28,6 +28,8 @@ public:
 
 	bool CleanUp();
 
+	void Draw(float dt);
+
 	bool Load(pugi::xml_node&) { return true; };
 	bool Save(pugi::xml_node&) const { return true; };
 
@@ -46,7 +48,6 @@ private:
 
 	void SetIceStake();
 	void MoveIceStake(float dt);
-	void LookForPlayer();
 
 public:
 
@@ -55,6 +56,11 @@ public:
 	iPoint arrow_tile = { 0,0 };
 	iPoint max_arrow_distance = { 0,0 };
 	iPoint fireball_tile_objective = { 0,0 };
+
+	float lerp_by = 0.f;
+	float lerp_speed = 0.02f;
+
+	double angle = 0.f;
 
 	float arrow_time = 0;
 
