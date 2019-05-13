@@ -35,6 +35,7 @@ public:
 		SUPER_PURPLE_FROG,
 		CASSIO,
 		FROZEN,
+		SPIDER,
 
 		NONE
 	};

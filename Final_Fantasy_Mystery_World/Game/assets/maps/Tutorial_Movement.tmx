@@ -9664,7 +9664,7 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="56" name="enemy" type="MegaEye" x="400" y="352" width="15.9688" height="16.0156">
+  <object id="56" name="enemy" type="Spider" x="400" y="352" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>

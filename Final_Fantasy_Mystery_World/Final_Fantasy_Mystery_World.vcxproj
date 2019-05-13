@@ -14,7 +14,7 @@
     <ProjectGuid>{CA36A83C-2BCF-4BEB-9B41-CD0B834374B8}</ProjectGuid>
     <RootNamespace>programacio_2</RootNamespace>
     <ProjectName>Final Fantasy Mystery World</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -102,6 +102,7 @@
     <ClCompile Include="e1Particles.cpp" />
     <ClCompile Include="e1Rock.cpp" />
     <ClCompile Include="e1ShopKeeperDaughter.cpp" />
+    <ClCompile Include="e1Spider.cpp" />
     <ClCompile Include="e1State.cpp" />
     <ClCompile Include="e1StrangeFrog.cpp" />
     <ClCompile Include="e1Warrior.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="e1Particles.h" />
     <ClInclude Include="e1Rock.h" />
     <ClInclude Include="e1ShopKeeperDaughter.h" />
+    <ClInclude Include="e1Spider.h" />
     <ClInclude Include="e1State.h" />
     <ClInclude Include="e1StrangeFrog.h" />
     <ClInclude Include="e1Warrior.h" />

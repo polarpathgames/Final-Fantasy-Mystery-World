@@ -225,6 +225,9 @@
     <ClCompile Include="p2Math.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
+    <ClCompile Include="e1Spider.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -475,6 +478,9 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="e1MegaEye.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Spider.h">
       <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
