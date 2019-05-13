@@ -92,6 +92,8 @@ public:
 
 	const SDL_Texture* GetAtlas() const;
 
+	std::list<u1GUI*> GetUIList() const;
+
 private:
 
 	SDL_Texture*		atlas = nullptr;

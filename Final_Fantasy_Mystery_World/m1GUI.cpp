@@ -309,6 +309,11 @@ const SDL_Texture* m1GUI::GetAtlas() const
 	return atlas;
 }
 
+std::list<u1GUI*> m1GUI::GetUIList() const
+{
+	return ui_list;
+}
+
 u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, m1Module * listener = nullptr, u1GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false, bool focus = true, Animation* anim, SDL_Rect*clip_zone)
 {
 
