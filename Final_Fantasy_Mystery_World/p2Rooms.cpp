@@ -338,6 +338,9 @@ void RoomManager::LoadEntities()
 				if (!App->globals.quest2_rocks_cave_destroyed)
 					App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 			}
+			else if ((*position)->name == "InstaGoldRuppe" || (*position)->name == "InstaRedRuppe" || (*position)->name == "InstaBlueRuppe" || (*position)->name == "InstaGreenRuppe") {
+				App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
 			else 
 				App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 		}

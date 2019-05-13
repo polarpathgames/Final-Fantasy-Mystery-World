@@ -41,7 +41,26 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		CenterOnTile();
-
+	}
+	else if (strcmp(name, "InstaGreenRuppe") == 0) {
+		actual_tile = { App->map->WorldToMap(position.x, position.y) };
+		drop_type = DropsType::GREEN_RUPEE;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1024,112,8,14 });
+		idle->PushBack({ 1024,112,8,14 });
+		idle->PushBack({ 1024,127,8,14 });
+		idle->PushBack({ 1024,142,8,14 });
+		idle->PushBack({ 1024,157,8,14 });
+		idle->PushBack({ 1024,172,8,14 });
+		idle->PushBack({ 1024,187,8,14 });
+		idle->speed = 9;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.35F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		CenterOnTile();
+		gold = App->random.Generate(15, 25);
 	}
 	else if (strcmp(name, "blue_rupee") == 0) {
 		actual_tile = { x,y };
@@ -61,7 +80,26 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		CenterOnTile();
-
+	}
+	else if (strcmp(name, "InstaBlueRuppe") == 0) {
+		actual_tile = { App->map->WorldToMap(position.x, position.y) };
+		drop_type = DropsType::BLUE_RUPEE;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1033,112,8,14 });
+		idle->PushBack({ 1033,112,8,14 });
+		idle->PushBack({ 1033,127,8,14 });
+		idle->PushBack({ 1033,142,8,14 });
+		idle->PushBack({ 1033,157,8,14 });
+		idle->PushBack({ 1033,172,8,14 });
+		idle->PushBack({ 1033,187,8,14 });
+		idle->speed = 9;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.35F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		CenterOnTile();
+		gold = App->random.Generate(45, 65);
 	}
 	else if (strcmp(name, "red_rupee") == 0) {
 		actual_tile = { x,y };
@@ -81,7 +119,26 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		CenterOnTile();
-
+	}
+	else if (strcmp(name, "InstaRedRuppe") == 0) {
+		actual_tile = { App->map->WorldToMap(position.x, position.y) };
+		drop_type = DropsType::RED_RUPEE;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1042,112,10,18 });
+		idle->PushBack({ 1042,112,10,18 });
+		idle->PushBack({ 1042,131,10,18 });
+		idle->PushBack({ 1042,151,10,18 });
+		idle->PushBack({ 1042,169,10,18 });
+		idle->PushBack({ 1042,188,10,18 });
+		idle->PushBack({ 1042,207,10,18 });
+		idle->speed = 9;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.35F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		CenterOnTile();
+		gold = App->random.Generate(90, 110);
 	}
 	else if (strcmp(name, "gold_rupee") == 0) {
 		actual_tile = { x,y };
@@ -101,7 +158,26 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		CenterOnTile();
-
+	}
+	else if (strcmp(name, "InstaGoldRuppe") == 0) {
+		actual_tile = { App->map->WorldToMap(position.x, position.y) };
+		drop_type = DropsType::GOLD_RUPEE;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1053,112,10,18 });
+		idle->PushBack({ 1053,112,10,18 });
+		idle->PushBack({ 1053,131,10,18 });
+		idle->PushBack({ 1053,151,10,18 });
+		idle->PushBack({ 1053,169,10,18 });
+		idle->PushBack({ 1053,188,10,18 });
+		idle->PushBack({ 1053,207,10,18 });
+		idle->speed = 9;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.35F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		CenterOnTile();
+		gold = App->random.Generate(300, 400);
 	}
 	else if (strcmp(name, "ability1") == 0 && App->globals.ability1_gained == false) {
 		drop_type = DropsType::ABILITY1;
