@@ -154,7 +154,7 @@ bool e1Entity::LoadEntityData(const char* file) {
 		data.animations[i].FrameCount(_node.child("animation").child("frame"));
 		data.animations[i].frames = DBG_NEW SDL_Rect[data.animations[i].num_frames];
 		data.animations[i].id = _node.attribute("id").as_uint();
-		data.animations[i].speed = _node.child("properties").child("property").attribute("value").as_int(1);
+		data.animations[i].speed = _node.child("properties").child("property").attribute("value").as_int(6);
 		_node = _node.next_sibling("tile");
 	}
 
@@ -185,7 +185,6 @@ bool e1Entity::LoadEntityData(const char* file) {
 	pugi::xml_node pivot_node = entity_file.child("tileset").child("tile").child("objectgroup").child("object"); //Load pivot
 	if (strcmp(pivot_node.attribute("name").as_string(), "pivot") == 0) {
 		pivot.create(pivot_node.attribute("x").as_int(), pivot_node.attribute("y").as_int());
-		CenterOnTile();
 	}
 	//LoadCollider(entity_file.child("tileset").child("tile").child("objectgroup").child("object")); //Load collider
 

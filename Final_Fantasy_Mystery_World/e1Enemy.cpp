@@ -112,6 +112,7 @@ bool e1Enemy::PreUpdate()
 		if (time_to_wait_before_attack.ReadSec() >= 0.25f) {
 			time_to_wait_before_attack.Stop();
 			state = State::ATTACKING;
+			LookToPlayer();
 
 			if (IsPlayerNextTile()) {
 				type_attack = Attacks::BASIC;
@@ -360,6 +361,114 @@ bool e1Enemy::IsPlayerInRange(const int& range) {
 	iPoint distance = App->scene->player->actual_tile - actual_tile;
 
 	return abs(distance.x) <= range && abs(distance.y) <= range;
+}
+
+void e1Enemy::LookToPlayer() {
+	iPoint distance = App->scene->player->actual_tile - actual_tile;
+
+	if (abs(distance.x) == abs(distance.y)) {
+		if (distance.x > 0) {
+			if (distance.y > 0) {
+				direction = Direction::DOWN;
+			}
+			else if (distance.y < 0) {
+				direction = Direction::RIGHT;
+			}
+		}
+		if (distance.x < 0) {
+			if (distance.y > 0) {
+				direction = Direction::LEFT;
+			}
+			else if (distance.y < 0) {
+				direction = Direction::UP;
+			}
+		}
+	}
+	
+	else if (distance.x == 0) {
+		if (distance.y < 0) {
+			direction = Direction::UP_RIGHT;
+		}
+		else if (distance.y > 0) {
+			direction = Direction::DOWN_LEFT;
+		}
+	}
+
+	else if (distance.y == 0) {
+		if (distance.x < 0) {
+			direction = Direction::DOWN_RIGHT;
+		}
+		else if (distance.x > 0) {
+			direction = Direction::UP_LEFT;
+		}
+	}
+
+	else {
+		if (distance.x > 0) {
+			if (distance.y > 0) {
+				if (distance.y > distance.x) {
+					direction = Direction::DOWN_LEFT;
+				}
+				else {
+					direction = Direction::DOWN_RIGHT;
+				}
+			}
+			else {
+				if (abs(distance.y) > distance.x) {
+					direction = Direction::UP_LEFT;
+				}
+				else {
+					direction = Direction::DOWN_RIGHT;
+				}
+			}
+		}
+		else if (distance.x < 0) {
+			if (distance.y > 0) {
+				if (distance.y > abs(distance.x)) {
+					direction = Direction::DOWN_LEFT;
+				}
+				else {
+					direction = Direction::UP_LEFT;
+				}
+			}
+			else {
+				if (distance.y > distance.x) {
+					direction = Direction::UP_LEFT;
+				}
+				else {
+					direction = Direction::UP_RIGHT;
+				}
+			}
+		}
+	}
+
+	/*float degree = atan2f(distance.y, distance.x);
+
+	if (degree == 90.0f) {
+		direction = Direction::DOWN_LEFT;
+	}
+	else if (degree == -90.0f) {
+		direction = Direction::UP_RIGHT;
+	}
+	else if (degree == 0.0f) {
+		direction = Direction::DOWN_RIGHT;
+	}
+	else if (degree == -180.0f) {
+		direction = Direction::UP_LEFT;
+	}
+	else if (IN_RANGE(degree, 90, 0)) {
+		direction = Direction::DOWN;
+	}
+	else if (IN_RANGE(degree, 0, -90)) {
+		direction = Direction::DOWN;
+	}
+	else if (IN_RANGE(degree, 90, 0)) {
+		direction = Direction::DOWN;
+	else if (IN_RANGE(degree, 90, 0)) {
+		direction = Direction::DOWN;
+	}
+	}*/
+	
 }
 
 void e1Enemy::MovementLogic()

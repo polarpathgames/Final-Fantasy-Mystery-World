@@ -15,6 +15,7 @@ public:
 	enum class ParticleType {
 		ARROW,
 		FIREBALL,
+		ICE_STAKE,
 
 		NONE
 	};
@@ -43,6 +44,10 @@ private:
 	void MoveFireBall(float dt);
 	void FireBallExplosionCollision();
 
+	void SetIceStake();
+	void MoveIceStake(float dt);
+	void LookForPlayer();
+
 public:
 
 	ParticleType particle_type = ParticleType::NONE;
@@ -53,7 +58,7 @@ public:
 
 	float arrow_time = 0;
 
-	Animation* shadow_fire_ball;
+	Animation* shadow_fire_ball = nullptr;
 
 };
 
