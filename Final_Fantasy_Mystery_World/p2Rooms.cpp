@@ -261,6 +261,16 @@ void RoomManager::LoadRoom(const int & id)
 	if (last_room != nullptr && last_room->update_number == 1 && actual_room->id == 1)
 		App->globals.quest2_rocks_cave_destroyed = true;
 
+	if (actual_room->room_type == RoomType::FOUNTAIN) {
+		if (actual_room->fountain_drunk) {
+			App->dialog->dialogTrees[1]->karma = -1;
+		}
+		else {
+			App->dialog->dialogTrees[1]->karma = 0;
+		}
+	}
+
+
 
 	LoadColliders();
 	UpdateMap();

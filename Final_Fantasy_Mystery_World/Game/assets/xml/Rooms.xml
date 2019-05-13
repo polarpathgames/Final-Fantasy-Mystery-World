@@ -118,7 +118,7 @@
     <room>
       <location>Quest1_Fountain.tmx</location>
       <id num="8"></id>
-      <type>paceful</type>
+      <type>fountain</type>
       <music>assets/audio/music/5.Final Fantasy TA - Crystal.ogg</music>
     </room>
     <room>
@@ -146,7 +146,7 @@
     <room>
       <location>Quest1_Fountain2.tmx</location>
       <id num="12"></id>
-      <type>paceful</type>
+      <type>fountain</type>
       <music>assets/audio/music/5.Final Fantasy TA - Crystal.ogg</music>
     </room>
     <room>
@@ -198,7 +198,7 @@
     <room>
       <location>Quest2_Fountain.tmx</location>
       <id num="7"></id>
-      <type>paceful</type>
+      <type>fountain</type>
       <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
     </room>
     <room>

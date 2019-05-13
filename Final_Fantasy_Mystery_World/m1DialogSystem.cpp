@@ -343,6 +343,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 					   }
 				   }
 				   App->menu_manager->EnableHUD(true);
+				   App->map->quest_rooms->actual_room->fountain_drunk = true;
 				   break;
 			   case 2: //FOUNTAIN LIVES
 				   App->scene->player->AugmentLives(250);
@@ -362,6 +363,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 						   }
 					   }
 				   }
+				   App->map->quest_rooms->actual_room->fountain_drunk = true;
 				   App->menu_manager->EnableHUD(true);
 				   break;
 			   case 33: { // take flash
