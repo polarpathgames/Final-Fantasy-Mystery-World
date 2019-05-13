@@ -41,8 +41,32 @@ e1Spider::~e1Spider()
 
 bool e1Spider::PreUpdate()
 {
+	State aux_state = state;
 	e1Enemy::PreUpdate();
 
+	if (!is_awake) {
+
+		if (aux_state == State::SLEEPING && state == State::IDLE && !do_attack) {
+			time_awake = SDL_GetTicks();
+			state = State::BEFORE_ATTACK;
+			do_attack = true;
+		}
+		if (do_attack) {
+			turn_done = false;
+		}
+
+		if (do_attack && time_awake <= SDL_GetTicks() - 700) {
+			iPoint player_tile = App->scene->player->actual_tile;
+			App->scene->player->state = State::SLEEPING;
+			is_awake = true;
+			if (player_tile == actual_tile + iPoint{ 0,1 }) {
+				App->easing_splines->CreateSpline(&App->scene->player->position.x, App->scene->player->position.x - App->map->data.tile_width, 500, EASE_OUT_QUINT, std::bind(&e1Player::SetPlayerIdle, App->scene->player));
+				App->easing_splines->CreateSpline(&App->scene->player->position.y, App->scene->player->position.y + App->map->data.tile_height, 500, EASE_OUT_QUINT);
+				App->scene->player->actual_tile += {0, 2};
+			}
+		}
+	}
+	
 
 
 	return true;

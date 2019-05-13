@@ -19,6 +19,9 @@ public:
 
 	Animation Sleep;
 
+	bool do_attack = false;
+	bool is_awake = false;
+	float time_awake = 0.0F;
 };
 
 
