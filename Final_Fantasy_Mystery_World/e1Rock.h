@@ -12,6 +12,7 @@ enum class RockType {
 
 	NORMAL_ROCK,
 	WHITE_ROCK,
+	GREY_ROCK,
 	BREAKABLE_BARREL,
 
 	NONE
