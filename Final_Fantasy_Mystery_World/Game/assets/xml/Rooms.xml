@@ -97,6 +97,7 @@
       <location>Quest1_Cassio.tmx</location>
       <id num="5"></id>
       <type>paceful</type>
+      <door active="true"></door>
       <music>assets/audio/music/2.Final Fantasy TA - Snow Dancing In The Schoolyard.ogg</music>
     </room>
     <room>
