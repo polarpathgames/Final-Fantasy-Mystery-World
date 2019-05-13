@@ -62,7 +62,7 @@ void e1MegaEye::AfetSpecialAttack1()
 void e1MegaEye::UpdateEnemy()
 {
 	if (state == State::ATTACKING && poison_particle != nullptr) {
-		particle_position = lerp(position, App->scene->player->GetPosition() + iPoint{ 0, -10 }, lerp_translation).AproximateToIntFloor();
+		particle_position = l.lerp(position, App->scene->player->GetPosition() + iPoint{ 0, -10 }, lerp_translation).AproximateToIntFloor();
 		lerp_translation += lerp_by;
 	}
 }

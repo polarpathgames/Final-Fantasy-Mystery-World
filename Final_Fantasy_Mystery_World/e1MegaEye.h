@@ -2,7 +2,7 @@
 #define _E1MEGAEYE_H_
 
 #include "e1Enemy.h"
-
+#include "p2Math.h"
 class p1Follow;
 
 class e1MegaEye : public e1Enemy {
@@ -29,7 +29,7 @@ private:
 	float lerp_translation = 0.f;
 	float lerp_by = 0.02f;
 	p1Follow* poison_particle = nullptr;
-
+	Lerp l;
 };
 
 #endif // !_E1MEGAEYE_H_
