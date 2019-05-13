@@ -342,6 +342,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 						   }
 					   }
 				   }
+				   App->menu_manager->EnableHUD(true);
 				   break;
 			   case 2: //FOUNTAIN LIVES
 				   App->scene->player->AugmentLives(250);
@@ -361,6 +362,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 						   }
 					   }
 				   }
+				   App->menu_manager->EnableHUD(true);
 				   break;
 			   case 33: { // take flash
 				   App->globals.ability2_gained = true;
