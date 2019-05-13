@@ -169,49 +169,42 @@
       <id num="2"></id>
       <type>paceful</type>
       <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
-      <update num="2"/>
     </room>
     <room>
       <location>Quest2_Spider.tmx</location>
       <id num="3"></id>
       <type>paceful</type>
       <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
-      <update num="2"/>
     </room>
     <room>
       <location>Quest2_Dog.tmx</location>
       <id num="4"></id>
       <type>paceful</type>
       <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
-      <update num="2"/>
     </room>
     <room>
       <location>Quest2_Treasure.tmx</location>
       <id num="5"></id>
       <type>paceful</type>
       <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
-      <update num="2"/>
     </room>
     <room>
       <location>Quest2_PreFinal.tmx</location>
       <id num="6"></id>
       <type>paceful</type>
       <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
-      <update num="2"/>
     </room>
     <room>
       <location>Quest2_Fountain.tmx</location>
       <id num="7"></id>
       <type>paceful</type>
       <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
-      <update num="2"/>
     </room>
     <room>
       <location>Quest2_Boss.tmx</location>
       <id num="8"></id>
       <type>paceful</type>
       <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
-      <update num="2"/>
     </room>
   </final_quest>
 

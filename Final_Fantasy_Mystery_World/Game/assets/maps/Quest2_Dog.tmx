@@ -5318,7 +5318,6 @@
    <tile/>
    <tile/>
    <tile gid="100"/>
-   <tile gid="7"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5358,7 +5357,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="7"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -6841,7 +6841,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="149"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6881,8 +6880,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="149"/>
-   <tile gid="170"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6921,9 +6918,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="149"/>
-   <tile gid="170"/>
-   <tile gid="191"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6962,8 +6956,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="170"/>
-   <tile gid="191"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7003,7 +6995,15 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="191"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -9632,8 +9632,6 @@
   </data>
  </layer>
  <objectgroup id="7" name="Static animation objects">
-  <object id="48" name="plant2_quest1" type="static" x="368" y="368" width="32" height="32"/>
-  <object id="58" name="rocks_door" type="static" x="289" y="305.125" width="47" height="46.875"/>
   <object id="66" name="rock" type="static" x="320" y="160" width="32" height="32"/>
   <object id="67" name="rock" type="static" x="320" y="192" width="32" height="32"/>
   <object id="68" name="rock" type="static" x="320" y="176" width="32" height="32"/>
@@ -9649,15 +9647,15 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="59" name="enemy" type="BlueDog" x="352" y="304" width="15.9688" height="16.0156"/>
-  <object id="60" name="enemy" type="Slime" x="400" y="432" width="15.9688" height="16.0156"/>
-  <object id="61" name="enemy" type="BlueDog" x="528" y="224" width="15.9688" height="16.0156"/>
+  <object id="59" name="enemy" type="Plant" x="352" y="304" width="15.9688" height="16.0156"/>
+  <object id="60" name="enemy" type="BlueDog" x="400" y="432" width="15.9688" height="16.0156"/>
+  <object id="61" name="enemy" type="Plant" x="528" y="224" width="15.9688" height="16.0156"/>
   <object id="62" name="player" type="lastA" x="416" y="112" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="63" name="enemy" type="BlueDog" x="368" y="192" width="15.9688" height="16.0156"/>
+  <object id="63" name="enemy" type="Plant" x="368" y="192" width="15.9688" height="16.0156"/>
  </objectgroup>
  <objectgroup id="9" name="colliders">
   <object id="10" name="room_collider" type="lastB" x="560" y="352" width="16.1904" height="15.0341">
