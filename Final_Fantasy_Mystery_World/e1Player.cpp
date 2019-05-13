@@ -1136,6 +1136,7 @@ void e1Player::GetHitted(const int & damage_taken)
 		ReduceLives(damage_taken);
 
 	if (stats.live <= 0) {
+		App->entity_manager->entity_turn = this;
 		state = State::DEATH;
 		ChangeAnimation(direction, state);
 		death_time = SDL_GetTicks();
@@ -1152,14 +1153,12 @@ void e1Player::Death()
 	BROFILER_CATEGORY("Player Death", Profiler::Color::Yellow);
 
 	if (current_animation->Finished() && death_time <= SDL_GetTicks() - 1000) {
-		
 		std::list<u1GUI*> list = App->gui->GetUIList();
 		std::list<u1GUI*>::iterator item = list.begin();
 		for (; item != list.end(); ++item) {
 			if ((*item) != nullptr && (*item)->GetType() == HIT_POINT_LABEL)
 				(*item)->to_delete = true;
 		}
-
 		App->audio->PlayFx(App->scene->fx_die);
 		App->map->CleanUp();
 		App->easing_splines->CleanUp();
