@@ -121,7 +121,7 @@ bool m1Render::PostUpdate()
 		CameraTremble(0.83f, 1.5F);
 		debug = true;
 	}
-
+	// Joss Camera Shake 
 	// shake
 	// if we have current trauma
 	if (trauma > 0)
