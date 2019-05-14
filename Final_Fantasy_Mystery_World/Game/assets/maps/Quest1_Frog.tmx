@@ -871,11 +871,11 @@
    <tile/>
    <tile/>
    <tile gid="29"/>
+   <tile gid="28"/>
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile gid="29"/>
+   <tile gid="28"/>
    <tile gid="28"/>
    <tile gid="28"/>
    <tile gid="28"/>
@@ -2475,7 +2475,7 @@
    <tile gid="64"/>
    <tile gid="64"/>
    <tile gid="29"/>
-   <tile gid="28"/>
+   <tile gid="305"/>
    <tile gid="285"/>
    <tile gid="328"/>
    <tile gid="306"/>
