@@ -234,7 +234,7 @@ void m1CutScene::ClearCutscene()
 	}
 
 	actions.clear();
-
+	
 	for (std::map<std::string, c1CutsceneElement*>::iterator it = elements.begin(); it != elements.end(); ++it)
 	{
 		delete (*it).second;

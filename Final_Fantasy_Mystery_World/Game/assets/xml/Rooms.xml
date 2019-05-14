@@ -77,6 +77,7 @@
       <id num="2"></id>
       <type>paceful</type>
       <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+      <cut_scene>assets/xml/CutsceneQueenQuest2.xml</cut_scene>
     </room>
     <room>
       <location>Quest1_Barrels.tmx</location>
@@ -105,6 +106,7 @@
       <id num="6"></id>
       <type>paceful</type>
       <music>assets/audio/music/38.Final Fantasy TA - Unavoidable Destiny.ogg</music>
+      <cut_scene>assets/xml/CutsceneAbility2Quest2.xml</cut_scene>
     </room>
     <room>
       <location>Quest1_UseTeleport.tmx</location>
@@ -154,6 +156,7 @@
       <id num="13"></id>
       <music>assets/audio/music/23.Final Fantasy TA - Prison.ogg</music>
       <type>paceful</type>
+      <cut_scene>assets/xml/CutsceneFinalRoomQuest2.xml</cut_scene>
     </room>
   </quest2>
 

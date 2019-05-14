@@ -1,6 +1,8 @@
 #include "App.h"
 #include "c1CutsceneEntity.h"
 #include "m1EntityManager.h"
+#include "e1DynamicEntity.h"
+#include "e1StaticEntity.h"
 #include "m1Cutscene.h"
 #include "m1Scene.h"
 
@@ -21,6 +23,15 @@ c1CutsceneEntity::c1CutsceneEntity(int pos_x, int pos_y, std::string name)
 				break;
 			}
 		}
+	}
+	else if (strcmp(name.data(), "icequeen") == 0) {
+		entity_c = App->entity_manager->CreateEntity(e1Entity::EntityType::FROZEN, pos_x, pos_y, name);
+		entity_c->allow_turn = false;
+		static_cast<e1DynamicEntity*>(entity_c)->state = State::SLEEPING;
+	}
+	else if (strcmp(name.data(), "ability_flash") == 0) {
+		entity_c = App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, pos_x, pos_y, name);
+		
 	}
 	App->cutscene_manager->ent = entity_c;
 }
