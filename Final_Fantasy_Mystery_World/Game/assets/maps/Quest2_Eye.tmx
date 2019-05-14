@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="168">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="170">
  <tileset firstgid="1" name="ques2_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques2_tileset.png" width="688" height="290"/>
  </tileset>
@@ -8821,7 +8821,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="7"/>
    <tile/>
    <tile/>
    <tile gid="7"/>
@@ -8861,7 +8861,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="7"/>
    <tile/>
    <tile/>
    <tile gid="7"/>
@@ -9634,8 +9634,6 @@
  <objectgroup id="7" name="Static animation objects">
   <object id="60" name="grey_rock" type="static" x="368" y="432" width="32" height="32"/>
   <object id="61" name="grey_rock" type="static" x="496" y="448" width="32" height="32"/>
-  <object id="62" name="barrel" type="static" x="512" y="304" width="32" height="32"/>
-  <object id="63" name="barrel" type="static" x="512" y="288" width="32" height="32"/>
   <object id="65" name="lava" type="static" x="480" y="528" width="16" height="16"/>
   <object id="66" name="lava" type="static" x="496" y="528" width="16" height="16"/>
   <object id="67" name="lava" type="static" x="480" y="544" width="16" height="16"/>
@@ -9730,6 +9728,8 @@
   <object id="163" name="lava" type="static" x="416" y="112" width="16" height="16"/>
   <object id="164" name="lava" type="static" x="240" y="144" width="16" height="16"/>
   <object id="165" name="lava" type="static" x="240" y="160" width="16" height="16"/>
+  <object id="168" name="breakable_barrel" type="static" x="496" y="288" width="32" height="32"/>
+  <object id="169" name="breakable_barrel" type="static" x="496" y="304" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="8" name="entities">
   <object id="5" name="player" type="nextA" x="432" y="544" width="15.9688" height="16.0156">

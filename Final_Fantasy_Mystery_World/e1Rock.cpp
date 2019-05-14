@@ -96,7 +96,7 @@ void e1Rock::GetHitted()
 			idle->PushBack({ 955,187,32,37 });
 		}
 		else if (rock_type == RockType::GREY_ROCK) {
-			idle->PushBack({ 438,122,35,31 });
+			idle->PushBack({ 755,140,40,37 });
 			idle->PushBack({ 835,140,32,37 });
 			idle->PushBack({ 875,140,32,37 });
 			idle->PushBack({ 915,140,32,37 });
