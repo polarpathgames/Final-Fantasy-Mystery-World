@@ -99,9 +99,9 @@ public:
 
 	int price_hp_potion = 75;
 	int price_mana_potion = 75;
-	int price_ability3 = 75;
-	int price_helmet = 75;
-	int price_ring = 75;
+	int price_ability3 = 250;
+	int price_helmet = 250;
+	int price_ring = 250;
 	int helmet_hp = 150;
 	int ring_mana = 100;
 
