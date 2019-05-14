@@ -323,7 +323,7 @@ void RoomManager::LoadEntities()
 				else {
 					e1Rock* rock = (e1Rock*)App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 					rock->hitted = true;
-					rock->frame = { 955,187,32,37 };
+					rock->frame = { 955,140,32,37 };
 					App->map->data.no_walkables.remove(rock->actual_tile + iPoint{ 0,-1 });
 				}
 			}
@@ -335,7 +335,7 @@ void RoomManager::LoadEntities()
 				else {
 					e1Rock* rock = (e1Rock*)App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 					rock->hitted = true;
-					rock->frame = { 955,187,32,37 };
+					rock->frame = { 613,122,35,31 };
 					App->map->data.no_walkables.remove(rock->actual_tile + iPoint{ 0,-1 });
 				}
 			}
@@ -347,7 +347,7 @@ void RoomManager::LoadEntities()
 				else {
 					e1Rock* rock = (e1Rock*)App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 					rock->hitted = true;
-					rock->frame = { 955,187,32,37 };
+					rock->frame = { 613,205,35,37 };
 					App->map->data.no_walkables.remove(rock->actual_tile + iPoint{ 0,-1 });
 				}
 			}
