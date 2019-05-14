@@ -554,6 +554,62 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 	}
+	else if (strcmp(name, "water") == 0) {
+		static_type = e1StaticEntity::Type::WATER;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1632,0,32,16 });
+		idle->PushBack({ 1664,0,32,16 });
+		idle->PushBack({ 1696,0,32,16 });
+		idle->PushBack({ 1728,0,32,16 });
+		idle->speed = 2;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.F, frame.h*0.F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "water2") == 0) {
+		static_type = e1StaticEntity::Type::WATER2;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1632,16,32,16 });
+		idle->PushBack({ 1664,16,32,16 });
+		idle->PushBack({ 1696,16,32,16 });
+		idle->PushBack({ 1728,16,32,16 });
+		idle->speed = 2;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.F, frame.h*0.F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "water3") == 0) {
+		static_type = e1StaticEntity::Type::WATER3;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1632,32,32,16 });
+		idle->PushBack({ 1664,32,32,16 });
+		idle->PushBack({ 1696,32,32,16 });
+		idle->PushBack({ 1728,32,32,16 });
+		idle->speed = 2;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.F, frame.h*0.F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "lava") == 0) {
+		static_type = e1StaticEntity::Type::LAVA;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1632,48,32,16 });
+		idle->PushBack({ 1664,48,32,16 });
+		idle->PushBack({ 1696,48,32,16 });
+		idle->PushBack({ 1728,48,32,16 });
+		idle->speed = 2;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.F, frame.h*0.F);
+		size.create(frame.w, frame.h);
+	}
 	else if (strcmp(name, "ability_flash") == 0) {
 		frame = { 1027,23,12,14 };
 		SetPivot(frame.w*0.5F, frame.h*2.5F);

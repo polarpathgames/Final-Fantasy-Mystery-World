@@ -74,6 +74,11 @@ public:
 		FLASH_INFO,
 		CAVE_ROCKS,
 		ABILITY_BASE,
+		WATER,
+		WATER2,
+		WATER3,
+		LAVA,
+
 
 		UNKNOWN
 	};
