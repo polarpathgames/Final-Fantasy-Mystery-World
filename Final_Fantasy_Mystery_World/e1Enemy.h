@@ -19,7 +19,7 @@ public:
 		int max_live = 100;
 		int live = 100;
 		int basic_attack_damage = 25;
-		int special_attack_damage = 50;
+		int special_attack_damage = 20;
 		int experience = 20;
 	};
 
