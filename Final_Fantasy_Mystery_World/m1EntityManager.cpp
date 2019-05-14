@@ -117,6 +117,12 @@ bool m1EntityManager::PreUpdate()
 	}
 	else {
 		entity_turn->PreUpdate();
+		item = entities.begin();
+		for (; item != entities.end(); ++item) {
+			if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY && static_cast<e1DynamicEntity*>(*item)->state != State::WALKING && App->scene->player->turn_done && !(*item)->turn_done && (*item)->allow_turn && !static_cast<e1Enemy*>(*item)->IsPlayerNextTile()) {
+				(*item)->PreUpdate();
+			}
+		}
 	}
 
 	//====================================================================
