@@ -777,37 +777,40 @@ void m1MenuManager::CreateShopMenu()
 }
 
 void m1MenuManager::EnableHUD(bool show_or_hide) {
-	if ((show_or_hide && App->map->actual_map != Maps::LOBBY && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::SHOP) || !show_or_hide && hud.bg_hud != nullptr) {
-		hud.bg_hud->drawable = show_or_hide;
-		hud.player_hud_image->drawable = show_or_hide;
-		hud.player_hp_bar->drawable = show_or_hide;
-		hud.player_mana_bar->drawable = show_or_hide;
-		hud.diagonal_compass->drawable = show_or_hide;
-		hud.vertical_compass->drawable = show_or_hide;
-		hud.player_hp_bar->bar_numbers_label->drawable = show_or_hide;
-		hud.player_mana_bar->bar_numbers_label->drawable = show_or_hide;
-		hud.player_exp_bar->drawable = show_or_hide;
+	if (hud.bg_hud != nullptr) {
+		if ((show_or_hide && App->map->actual_map != Maps::LOBBY && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::SHOP) || !show_or_hide && hud.bg_hud != nullptr) {
+			hud.bg_hud->drawable = show_or_hide;
+			hud.player_hud_image->drawable = show_or_hide;
+			hud.player_hp_bar->drawable = show_or_hide;
+			hud.player_mana_bar->drawable = show_or_hide;
+			hud.diagonal_compass->drawable = show_or_hide;
+			hud.vertical_compass->drawable = show_or_hide;
+			hud.player_hp_bar->bar_numbers_label->drawable = show_or_hide;
+			hud.player_mana_bar->bar_numbers_label->drawable = show_or_hide;
+			hud.player_exp_bar->drawable = show_or_hide;
 
-		// It is ugly but for now works
-		if (show_or_hide == true)
-		{
-			hud.player_exp_bar->empty_bar->drawable = true;
+			// It is ugly but for now works
+			if (show_or_hide == true)
+			{
+				hud.player_exp_bar->empty_bar->drawable = true;
 
-			if (hud.player_exp_bar->got_xp)
-				hud.player_exp_bar->filled_bar->drawable = true;
+				if (hud.player_exp_bar->got_xp)
+					hud.player_exp_bar->filled_bar->drawable = true;
+
+				else
+					hud.player_exp_bar->filled_bar->drawable = false;
+			}
+
 
 			else
+			{
+				hud.player_exp_bar->empty_bar->drawable = false;
 				hud.player_exp_bar->filled_bar->drawable = false;
+			}
+
 		}
-
-
-		else
-		{
-			hud.player_exp_bar->empty_bar->drawable = false;
-			hud.player_exp_bar->filled_bar->drawable = false;
-		}
-
 	}
+	
 }
 
 void m1MenuManager::DestroyShopMenu()

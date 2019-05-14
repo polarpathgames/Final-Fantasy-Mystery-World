@@ -662,16 +662,19 @@ bool m1Map::ChangeMap(Maps type)
 	case Maps::TUTORIAL:
 		quest_rooms = DBG_NEW RoomManager("tutorial");
 		actual_map = Maps::TUTORIAL;
+		App->menu_manager->EnableHUD(true);
 		return true;
 		break;
 	case Maps::QUEST2:
 		quest_rooms = DBG_NEW RoomManager("quest2");
 		actual_map = Maps::QUEST2;
+		App->menu_manager->EnableHUD(true);
 		return true;
 		break;
 	case Maps::FINAL_QUEST:
 		quest_rooms = DBG_NEW RoomManager("final_quest");
 		actual_map = Maps::FINAL_QUEST;
+		App->menu_manager->EnableHUD(true);
 		return true;
 		break;
 	case Maps::DEBUG:

@@ -206,6 +206,7 @@ bool m1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {
 		App->fade_to_black->FadeToBlack(Maps::LOBBY);
+		App->menu_manager->EnableHUD(false);
 	}
 		
 	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
