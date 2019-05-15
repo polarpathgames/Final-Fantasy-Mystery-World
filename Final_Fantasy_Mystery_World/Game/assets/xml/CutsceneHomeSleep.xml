@@ -7,7 +7,13 @@
       <time start="2300" duration="350" speed_x="-160" speed_y="-80"/>
     </cutscene>
     <cutscene action="vibration">
-      <time start="4900" duration="1500"/>
+      <time start="4900" duration="300"/>
+    </cutscene>
+    <cutscene action="vibration">
+      <time start="5200" duration="300"/>
+    </cutscene>
+    <cutscene action="vibration">
+      <time start="5500" duration="1800"/>
     </cutscene>
   </actions>
   <elements>

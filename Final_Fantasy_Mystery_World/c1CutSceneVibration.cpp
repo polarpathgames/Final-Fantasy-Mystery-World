@@ -17,7 +17,7 @@ void c1CutsceneVibration::Execute(float dt)
 	if (vibrate == true)
 	{
 		App->input->ControllerVibration(1.0F, durations);
-		App->render->CameraTremble(0.9F, 3.3F);
+		App->render->CameraTremble(0.83f, 1.5F);
 		vibrate = false;
 	}	
 }
