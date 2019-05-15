@@ -46,7 +46,8 @@ struct GlobalGameAdvances
 	bool ring_bought = false;
 	bool shop_gone = false;
 	bool quest2_rocks_cave_destroyed = false;
-
+	bool CutSceneQueenQuest2 = false;
+	bool CutSceneFinalRoomQuest2 = false;
 	std::string player_name;
 
 	void Reset() {
@@ -63,6 +64,8 @@ struct GlobalGameAdvances
 		ring_bought = false;
 		shop_gone = false;
 		quest2_rocks_cave_destroyed = false;
+		CutSceneQueenQuest2 = false;
+		CutSceneFinalRoomQuest2 = false;
 	}
 
 };

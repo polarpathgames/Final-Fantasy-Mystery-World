@@ -8,8 +8,14 @@
     </cutscene>
     <cutscene action="move_camera">
       <time start="600" duration="3500" origin_x="488" origin_y="-769"  speed="0.010" destination_x ="488"  destination_y="-100" stop_goal="true"/>
-    </cutscene>  
+    </cutscene>
     <cutscene action="delete_entity" entity="NPC_DAUGHTER"></cutscene>
+    <cutscene action="move_camera">
+      <time start="4200" duration="3500" origin_x="488" origin_y="-100"  speed="0.010" destination_x ="488"  destination_y="-769" stop_goal="true"/>
+    </cutscene>
+    <cutscene action="vibration">
+      <time start="7550" duration="3000"/>
+    </cutscene>
   </actions>
   <elements>
     <element type="entity" name="player" pos_x="-206" pos_y="567"/>

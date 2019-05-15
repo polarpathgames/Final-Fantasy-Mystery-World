@@ -526,13 +526,15 @@ void RoomManager::PlayCutScene()
 			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
 			App->globals.CutSceneMiddleRoomTutorialPlayed = true;
 		}
-		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneQueenQuest2.xml") == 0)
+		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneQueenQuest2.xml") == 0 && !App->globals.CutSceneQueenQuest2)
 		{
 			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
+			App->globals.CutSceneQueenQuest2 = true;
 		}
-		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneFinalRoomQuest2.xml") == 0)
+		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneFinalRoomQuest2.xml") == 0 && !App->globals.CutSceneFinalRoomQuest2)
 		{
 			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
+			App->globals.CutSceneFinalRoomQuest2 = true;
 		}
 		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneAbility2Quest2.xml") == 0 && !App->globals.ability2_gained)
 		{
