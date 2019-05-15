@@ -437,6 +437,11 @@ bool m1EntityManager::ThereIsEntity(e1Entity::EntityType type)
 	return ret;
 }
 
+bool m1EntityManager::IsInEntitiesVector(e1Entity * entity)
+{
+	return (std::find(entities.begin(), entities.end(), entity) != entities.end());
+}
+
 bool m1EntityManager::ThereIsEntity(const char * name)
 {
 	bool ret = false;

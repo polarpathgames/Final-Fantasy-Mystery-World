@@ -45,6 +45,7 @@ public:
 	void AssignEntityTurn(e1Entity* ent) { entity_turn = ent; }
 	bool ThereAreEnemies();
 	bool ThereIsEntity(e1Entity::EntityType type);
+	bool IsInEntitiesVector(e1Entity * entity);
 	bool ThereIsEntity(const char*);
 	e1Entity* FindEntity(e1Entity::EntityType type);
 	e1Entity* FindEntity(const char*);
