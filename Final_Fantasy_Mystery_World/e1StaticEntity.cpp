@@ -556,7 +556,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 	}
 	else if (strcmp(name, "ability_flash") == 0) {
 		frame = { 1027,23,12,14 };
-		SetPivot(frame.w*0.5F, frame.h*2.5F);
+		SetPivot(frame.w*0.5F, frame.h*1.5F);
 		size.create(frame.w, frame.h);
 		static_type = e1StaticEntity::Type::FLASH_INFO;
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };

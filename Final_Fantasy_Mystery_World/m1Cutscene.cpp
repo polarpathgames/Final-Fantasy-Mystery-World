@@ -7,6 +7,7 @@
 #include "m1Scene.h"
 #include "e1Player.h"
 #include "m1MenuManager.h"
+#include "m1Map.h"
 #include "m1Input.h"
 #include "m1CutScene.h"
 #include "c1CutsceneMoveCamera.h"
@@ -250,6 +251,18 @@ void m1CutScene::ClearCutscene()
 		delete (*it).second;
 		(*it).second = nullptr;
 	}
+
+	if (App->map->quest_rooms != nullptr && App->map->quest_rooms->actual_room != nullptr && App->map->quest_rooms->actual_room->update_number == 4) {
+		std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+		std::vector<e1Entity*>::iterator item = entities.begin();
+		for (; item != entities.end(); ++item) {
+			if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::STATIC && static_cast<e1StaticEntity*>(*item)->static_type == e1StaticEntity::Type::FLASH_INFO) {
+				(*item)->actual_tile = { 19,20 };
+				(*item)->position = { -1,290 };
+			}
+		}
+	}
+
 	cutscene_file.reset();
 	elements.clear();
 	App->menu_manager->EnableHUD(true);

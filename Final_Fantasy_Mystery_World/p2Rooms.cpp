@@ -534,7 +534,7 @@ void RoomManager::PlayCutScene()
 		{
 			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
 		}
-		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneAbility2Quest2.xml") == 0)
+		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneAbility2Quest2.xml") == 0 && !App->globals.ability2_gained)
 		{
 			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
 		}
