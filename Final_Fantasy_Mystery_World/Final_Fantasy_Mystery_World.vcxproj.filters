@@ -216,14 +216,14 @@
     <ClCompile Include="p2Math.h">
       <Filter>Tools</Filter>
     </ClCompile>
+    <ClCompile Include="p2Math.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
     <ClCompile Include="e1Frozen.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="e1MegaEye.cpp">
       <Filter>Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="p2Math.cpp">
-      <Filter>Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

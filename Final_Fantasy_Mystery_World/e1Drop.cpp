@@ -305,7 +305,7 @@ bool e1Drop::Update(float adt)
 	case DropsType::ABILITY1:
 		if (position.y > moving_pos.y - 13.0F && moving)
 		{
-			position = Lerp::lerp(iPoint{ moving_pos.x,moving_pos.y + 13 }, iPoint{ moving_pos.x,moving_pos.y - 13 }, lerp_translation).AproximateToIntCast();
+			position = lerp(iPoint{ moving_pos.x,moving_pos.y + 13 }, iPoint{ moving_pos.x,moving_pos.y - 13 }, lerp_translation).AproximateToIntCast();
 			lerp_translation += lerp_by;
 			if (position.y <= moving_pos.y - 13.0F) {
 				moving = false;
@@ -314,7 +314,7 @@ bool e1Drop::Update(float adt)
 		}
 		else if (position.y < moving_pos.y + 13.0F && !moving)
 		{
-			position = Lerp::lerp(iPoint{ moving_pos.x,moving_pos.y - 13 }, iPoint{ moving_pos.x,moving_pos.y + 13 }, lerp_translation).AproximateToIntCast();
+			position = lerp(iPoint{ moving_pos.x,moving_pos.y - 13 }, iPoint{ moving_pos.x,moving_pos.y + 13 }, lerp_translation).AproximateToIntCast();
 			lerp_translation += lerp_by;
 			if (position.y >= moving_pos.y + 13.0F) {
 				moving = true;
