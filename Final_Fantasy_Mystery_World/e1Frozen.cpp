@@ -29,17 +29,19 @@ e1Frozen::~e1Frozen()
 {
 }
 
+#include "m1Input.h" //test
+
 bool e1Frozen::PreUpdate()
 {
 	e1Enemy::PreUpdate();
 
-	if (stats.live <= stats.max_live * 0.5F) {
+	if (stats.live <= stats.max_live * 0.5F || App->input->GetKeyRepeat(SDL_SCANCODE_1)) {
 		phase = Phase::HARD;
 	}
 	
 	if (times_hitted >= 1) {
 		if (phase == Phase::NORMAL) {
-			// tp
+			DoTeleport();
 		}
 		else if (phase == Phase::HARD) {
 			SummomBlueSlimes();
@@ -55,7 +57,7 @@ bool e1Frozen::PreUpdate()
 			}
 		}
 		else {
-			if (!App->entity_manager->ThereIsEntity("blizzard")) {
+			if (current_animation->Finished() && !App->entity_manager->ThereIsEntity("blizzard")) {
 				e1State* blizz = (e1State*)App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "blizzard");
 				blizz->SetMaxNumberHit(3U);
 			}
@@ -111,6 +113,11 @@ void e1Frozen::SummomBlueSlimes()
 			slime_2 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x, actual_tile.y - 1).x, App->map->MapToWorld(actual_tile.x, actual_tile.y - 1).y, "BlueSlime");
 		}
 	}
+}
+
+void e1Frozen::DoTeleport()
+{
+	App->entity_manager->FindFirstFreeTileAround(App->scene->player->actual_tile);
 }
 
 

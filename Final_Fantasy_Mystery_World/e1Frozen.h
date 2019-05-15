@@ -24,6 +24,8 @@ public:
 	void AfetSpecialAttack1();
 	void SummomBlueSlimes();
 
+	void DoTeleport();
+
 private:
 	Phase phase = Phase::NORMAL;
 

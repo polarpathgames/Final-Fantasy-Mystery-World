@@ -354,6 +354,52 @@ void m1EntityManager::DeleteEntity(e1Entity* entity_to_delete)
 
 }
 
+iPoint m1EntityManager::FindFirstFreeTileAround(const iPoint & tile, const uint & range)
+{
+	iPoint destination_tile = tile;
+
+	destination_tile = tile;
+	destination_tile.x -= range;
+	for (uint i = 0; i < 2 * range; i++) { //horizontal tiles
+		destination_tile.x++;
+		if (destination_tile != tile)
+			if (IsWalkable(destination_tile))
+				return destination_tile;
+	}
+	
+	destination_tile.y -= range;
+	for (uint i = 0; i < 2 * range; i++) { //vertical tiles
+		destination_tile.y++;
+		if (destination_tile != tile)
+			if (IsWalkable(destination_tile))
+				return destination_tile;
+	}
+
+	destination_tile = tile;
+	destination_tile.x -= range;
+	destination_tile.y -= range;
+	for (uint i = 0; i < 2 * range; i++) { //cross tiles
+		destination_tile.x++;
+		destination_tile.y++;
+		if (destination_tile != tile)
+			if (IsWalkable(destination_tile))
+				return destination_tile;
+	}
+
+	
+	return tile;
+}
+bool m1EntityManager::IsWalkable(const iPoint & destination_tile) {
+
+	for (std::vector<e1Entity*>::iterator item = entities.begin(); item != entities.end(); ++item) {
+		if ((*item)->actual_tile == destination_tile) {
+			return false;
+		}
+	}
+
+	return App->map->IsWalkable(destination_tile, false);
+}
+
 const std::vector<e1Entity*> m1EntityManager::GetEntities()
 {
 	return entities;

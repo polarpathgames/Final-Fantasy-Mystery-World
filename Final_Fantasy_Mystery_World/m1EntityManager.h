@@ -54,6 +54,9 @@ public:
 	void DeleteEntitiesNoPlayer();
 	void DeleteEntity(e1Entity* entity_to_delete);
 
+	iPoint FindFirstFreeTileAround(const iPoint &tile, const uint & range);
+	bool IsWalkable(const iPoint & start_tile);
+
 	const std::vector<e1Entity*> GetEntities();
 	const std::vector<SDL_Texture*> GetTextures();
 

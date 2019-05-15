@@ -10,7 +10,7 @@ float lerp(const float & origin, const float & end, float by)
 
 p2Point<float> lerp(const p2Point<int> & origin, const p2Point<int> & end, const float & by)
 {
-	return p2Point<float>(lerp((float)origin.x, (float)end.x, by), lerp((float)origin.y, (float)end.y, by));
+	return p2Point<float>(lerp(origin.x, end.x, by), lerp(origin.y, end.y, by));
 }
 
 double DegToRad(const double & value)
