@@ -24,10 +24,15 @@ public:
 	void AfetSpecialAttack1();
 	void SummomBlueSlimes();
 
+	void Escape();
+
 	void DoTeleport();
 
 private:
 	Phase phase = Phase::NORMAL;
+
+	iPoint tp_location = { 0,0 };
+	p2Timer tp_timer;
 
 	e1BlueSlime* slime_1 = nullptr;
 	e1BlueSlime* slime_2 = nullptr;

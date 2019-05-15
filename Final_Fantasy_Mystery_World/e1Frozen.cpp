@@ -33,19 +33,25 @@ e1Frozen::~e1Frozen()
 
 bool e1Frozen::PreUpdate()
 {
-	e1Enemy::PreUpdate();
-
-	if (stats.live <= stats.max_live * 0.5F || App->input->GetKeyRepeat(SDL_SCANCODE_1)) {
-		phase = Phase::HARD;
-	}
-	
-	if (times_hitted >= 1) {
+	if (times_hitted % 1 == 0 && want_to_attack) {
+		want_to_attack = false;
 		if (phase == Phase::NORMAL) {
 			DoTeleport();
 		}
 		else if (phase == Phase::HARD) {
 			SummomBlueSlimes();
 		}
+	}
+
+	if (!tp_timer.IsRunning()) {
+		e1Enemy::PreUpdate();
+	}
+	else {
+		Escape();
+	}
+
+	if (stats.live <= stats.max_live * 0.5F || App->input->GetKeyRepeat(SDL_SCANCODE_1)) {
+		phase = Phase::HARD;
 	}
 
 	if (type_attack == Attacks::SPECIAL_1) {
@@ -115,9 +121,37 @@ void e1Frozen::SummomBlueSlimes()
 	}
 }
 
+void e1Frozen::Escape()
+{
+	if (phase == Phase::NORMAL) {
+		if (tp_timer.ReadSec() >= 0.5f) {
+			actual_tile = tp_location;
+			state = State::IDLE;
+			drawable = true;
+			CenterOnTile();
+			movement_count = { 0,0 };
+			target_position = position;
+			initial_position = position;
+			want_to_attack = true;
+			tp_timer.Stop();
+			turn_done = true;
+		}
+	}
+}
+
 void e1Frozen::DoTeleport()
 {
-	App->entity_manager->FindFirstFreeTileAround(App->scene->player->actual_tile);
+	iPoint destination = App->entity_manager->FindFirstFreeTileOnRange(App->scene->player->actual_tile, 3);
+
+	if (destination != App->scene->player->actual_tile) {
+		tp_location = destination;
+		tp_timer.Start();
+		drawable = false;
+		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,0,2,2 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
+	}
+	else {
+		turn_done = true;
+	}
 }
 
 
