@@ -2,7 +2,6 @@
 #define _E1CASSIO_H_
 
 #include "e1Enemy.h"
-#include "p2Math.h"
 
 class p1Follow;
 
@@ -27,7 +26,7 @@ private:
 	float lerp_translation = 0.f;
 	float lerp_by = 0.02f;
 	p1Follow* poison_particle = nullptr;
-	Lerp l;
+
 };
 
 #endif // !_E1CASSIO_H_
