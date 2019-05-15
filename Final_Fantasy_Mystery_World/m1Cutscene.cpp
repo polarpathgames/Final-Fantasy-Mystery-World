@@ -123,7 +123,7 @@ bool m1CutScene::LoadCutscene(std::string path)
 			}
 			else if (action == "fade")
 			{
-				cutscene_action = DBG_NEW c1CutsceneFadeToBlack(start, duration);
+				cutscene_action = DBG_NEW c1CutsceneFadeToBlack(start, duration, cutscene_action_node.child("time").attribute("fade").as_float());
 			}
 			else if (action == "add_audio")
 			{
