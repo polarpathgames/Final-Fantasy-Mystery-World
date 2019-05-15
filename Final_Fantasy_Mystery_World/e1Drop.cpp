@@ -6,6 +6,7 @@
 #include "m1EntityManager.h"
 #include "p2Rooms.h"
 #include "p2Log.h"
+#include "p2Math.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Render.h"
 #include "m1Map.h"
@@ -282,18 +283,24 @@ bool e1Drop::Update(float adt)
 	}
 	switch (drop_type) {
 	case DropsType::ABILITY1:
-		/*if (position.y > moving_pos.y - 13.0F && moving)
+		if (position.y > moving_pos.y - 13.0F && moving)
 		{
-			position.y -= 100 * App->GetDeltaTime();
-			if (position.y <= moving_pos.y - 13.0F)
+			position = Lerp::lerp(iPoint{ moving_pos.x,moving_pos.y + 13 }, iPoint{ moving_pos.x,moving_pos.y - 13 }, lerp_translation).AproximateToIntCast();
+			lerp_translation += lerp_by;
+			if (position.y <= moving_pos.y - 13.0F) {
 				moving = false;
+				lerp_translation = 0.0F;
+			}
 		}
 		else if (position.y < moving_pos.y + 13.0F && !moving)
 		{
-			position.y += 100 * App->GetDeltaTime();
-			if (position.y >= moving_pos.y + 13.0F)
+			position = Lerp::lerp(iPoint{ moving_pos.x,moving_pos.y - 13 }, iPoint{ moving_pos.x,moving_pos.y + 13 }, lerp_translation).AproximateToIntCast();
+			lerp_translation += lerp_by;
+			if (position.y >= moving_pos.y + 13.0F) {
 				moving = true;
-		}*/
+				lerp_translation = 0.0F;
+			}
+		}
 		break;
 	}
 	
