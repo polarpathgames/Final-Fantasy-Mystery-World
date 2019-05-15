@@ -102,7 +102,11 @@ RoomManager::RoomManager(const char* name)
 			}
 			rooms.push_back(r);
 		}
-		rooms.front()->map_room_image = App->gui->AddImage(125, 125, { 1317,2170,128,64 }, nullptr, (u1GUI*)map_zone, false, false, false, false);
+		if (strcmp(name,"quest2") == 0)
+			rooms.front()->map_room_image = App->gui->AddImage(125, 125, { 1573,2170,128,64 }, nullptr, (u1GUI*)map_zone, false, false, false, false);
+
+		else
+			rooms.front()->map_room_image = App->gui->AddImage(125, 125, { 1317,2170,128,64 }, nullptr, (u1GUI*)map_zone, false, false, false, false);
 		player_pos = App->gui->AddImage(0, 0, { 1830,2170,128,64 }, nullptr, rooms.front()->map_room_image, false, false, false, false);
 		LoadRoom(1);
 		
@@ -257,6 +261,16 @@ void RoomManager::LoadRoom(const int & id)
 	if (last_room != nullptr && last_room->update_number == 1 && actual_room->id == 1)
 		App->globals.quest2_rocks_cave_destroyed = true;
 
+	if (actual_room->room_type == RoomType::FOUNTAIN) {
+		if (actual_room->fountain_drunk) {
+			App->dialog->dialogTrees[1]->karma = -1;
+		}
+		else {
+			App->dialog->dialogTrees[1]->karma = 0;
+		}
+	}
+
+
 
 	LoadColliders();
 	UpdateMap();
@@ -300,6 +314,19 @@ void RoomManager::LoadEntities()
 					App->map->data.no_walkables.remove(rock->actual_tile + iPoint{ 0,-1 });
 				}
 			}
+
+			else if ((*position)->name == "grey_rock") {
+				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
+				if (std::find(actual_room->entities.begin(), actual_room->entities.end(), point) == actual_room->entities.end()) {
+					App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+				}
+				else {
+					e1Rock* rock = (e1Rock*)App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+					rock->hitted = true;
+					rock->frame = { 955,140,32,37 };
+					App->map->data.no_walkables.remove(rock->actual_tile + iPoint{ 0,-1 });
+				}
+			}
 			else if ((*position)->name == "breakable_barrel") {
 				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
 				if (std::find(actual_room->entities.begin(), actual_room->entities.end(), point) == actual_room->entities.end()) {
@@ -308,7 +335,19 @@ void RoomManager::LoadEntities()
 				else {
 					e1Rock* rock = (e1Rock*)App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 					rock->hitted = true;
-					rock->frame = { 955,187,32,37 };
+					rock->frame = { 613,122,35,31 };
+					App->map->data.no_walkables.remove(rock->actual_tile + iPoint{ 0,-1 });
+				}
+			}
+			else if ((*position)->name == "breakable_snowman") {
+				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
+				if (std::find(actual_room->entities.begin(), actual_room->entities.end(), point) == actual_room->entities.end()) {
+					App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+				}
+				else {
+					e1Rock* rock = (e1Rock*)App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+					rock->hitted = true;
+					rock->frame = { 613,205,35,37 };
 					App->map->data.no_walkables.remove(rock->actual_tile + iPoint{ 0,-1 });
 				}
 			}
@@ -323,6 +362,26 @@ void RoomManager::LoadEntities()
 			else if ((*position)->name == "rocks_door") {
 				if (!App->globals.quest2_rocks_cave_destroyed)
 					App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
+			else if ((*position)->name == "InstaGoldRuppe" || (*position)->name == "InstaRedRuppe" || (*position)->name == "InstaBlueRuppe" || (*position)->name == "InstaGreenRuppe") {
+				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
+				if (std::find(actual_room->entities.begin(), actual_room->entities.end(), point) == actual_room->entities.end()) {
+					App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+					std::vector<MapIndicators*>::iterator item = actual_room->map_indicators.begin();
+					bool created = false;
+					for (; item != actual_room->map_indicators.end(); ++item) {
+						if ((*item) != nullptr) {
+							if ((*item)->location == point) {
+								created = true;
+								break;
+							}
+						}
+					}
+					if (!created) {
+						MapIndicators* indicator = DBG_NEW MapIndicators(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, "drop", App->gui->AddImage(0, 0, { 1380,2123,12,13 }, nullptr, actual_room->map_room_image, false, false, false, false));
+						actual_room->map_indicators.push_back(indicator);
+					}
+				}
 			}
 			else 
 				App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
@@ -345,6 +404,9 @@ void RoomManager::LoadEntities()
 				}
 				else if ((*position)->ent_type == "StrangeFrog") {
 					ent_type = e1Entity::EntityType::STRANGE_FROG;
+				}
+				else if ((*position)->ent_type == "MegaEye") {
+					ent_type = e1Entity::EntityType::MEGA_EYE;
 				}
 				else if ((*position)->ent_type == "Cassio") {
 					ent_type = e1Entity::EntityType::CASSIO;
@@ -515,7 +577,7 @@ void RoomManager::PlayCutScene()
 
 void RoomManager::UpdateMap()
 {
-	if (actual_room->id != 1 && actual_room->map_room_image == nullptr) {
+	if (actual_room->id != 1 && actual_room->map_room_image == nullptr && actual_room->update_number != 1) {
 		if (player_next_pos == LocationChangeScene::NEXT_A) {
 			if (actual_room->change_scene_points.size() >= 3) { // it has 2 new doors
 				actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 96, last_room->map_room_image->GetLocalPosition().y - 48, { 1573,2170,128,64 }, nullptr, map_zone, false, false, false, false);
@@ -569,6 +631,11 @@ void RoomManager::UpdateMap()
 			}
 		}
 	}
+	else if (actual_room->map_room_image == nullptr && actual_room->update_number == 1){
+		actual_room->map_room_image = App->gui->AddImage(rooms.front()->map_room_image->GetLocalPosition().x - 96, rooms.front()->map_room_image->GetLocalPosition().y - 48, { 1702,2170,128,64 }, nullptr, map_zone, false, false, false, false);
+		App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 50, last_room->map_room_image->GetLocalPosition().y - 125, { 1702,2170,128,64 }, nullptr, actual_room->map_room_image, true, false, false, false);
+		
+	}
 }
 
 void RoomManager::AddEntityToNotRepeat(iPoint pos)
@@ -591,7 +658,7 @@ void RoomManager::AddDrop(iPoint pos, DropsType type)
 {
 	DropInfo* drop = DBG_NEW DropInfo(pos.x, pos.y, type);
 	actual_room->drops.push_back(drop);
-	MapIndicators* indicator = DBG_NEW MapIndicators(pos.x, pos.y, "drop", App->gui->AddImage(0, 0, { 1380,2123,13,13 }, nullptr, actual_room->map_room_image, false, false, false, false));
+	MapIndicators* indicator = DBG_NEW MapIndicators(pos.x, pos.y, "drop", App->gui->AddImage(0, 0, { 1380,2123,12,13 }, nullptr, actual_room->map_room_image, false, false, false, false));
 	actual_room->map_indicators.push_back(indicator);
 }
 

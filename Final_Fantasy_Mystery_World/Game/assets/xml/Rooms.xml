@@ -97,6 +97,7 @@
       <location>Quest1_Cassio.tmx</location>
       <id num="5"></id>
       <type>paceful</type>
+      <door active="true"></door>
       <music>assets/audio/music/2.Final Fantasy TA - Snow Dancing In The Schoolyard.ogg</music>
     </room>
     <room>
@@ -117,7 +118,7 @@
     <room>
       <location>Quest1_Fountain.tmx</location>
       <id num="8"></id>
-      <type>paceful</type>
+      <type>fountain</type>
       <music>assets/audio/music/5.Final Fantasy TA - Crystal.ogg</music>
     </room>
     <room>
@@ -138,14 +139,11 @@
       <id num="11"></id>
       <type>paceful</type>
       <music>assets/audio/music/9.Final Fantasy TA - At The Bar.ogg</music>
-      <properties>
-        <property name="blizzard" value="1"/>
-      </properties>
     </room>
     <room>
       <location>Quest1_Fountain2.tmx</location>
       <id num="12"></id>
-      <type>paceful</type>
+      <type>fountain</type>
       <music>assets/audio/music/5.Final Fantasy TA - Crystal.ogg</music>
     </room>
     <room>
@@ -156,9 +154,62 @@
     </room>
   </quest2>
 
+  <final_quest>
+    <room>
+      <location>Quest2_Enter.tmx</location>
+      <id num="1"></id>
+      <type>paceful</type>
+      <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+      <update num="2"/>
+    </room>
+    <room>
+      <location>Quest2_Eye.tmx</location>
+      <id num="2"></id>
+      <type>paceful</type>
+      <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+    </room>
+    <room>
+      <location>Quest2_Spider.tmx</location>
+      <id num="3"></id>
+      <type>paceful</type>
+      <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+    </room>
+    <room>
+      <location>Quest2_Dog.tmx</location>
+      <id num="4"></id>
+      <type>paceful</type>
+      <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+    </room>
+    <room>
+      <location>Quest2_Treasure.tmx</location>
+      <id num="5"></id>
+      <type>paceful</type>
+      <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+    </room>
+    <room>
+      <location>Quest2_PreFinal.tmx</location>
+      <id num="6"></id>
+      <type>paceful</type>
+      <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+    </room>
+    <room>
+      <location>Quest2_Fountain.tmx</location>
+      <id num="7"></id>
+      <type>fountain</type>
+      <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+    </room>
+    <room>
+      <location>Quest2_Boss.tmx</location>
+      <id num="8"></id>
+      <type>paceful</type>
+      <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+    </room>
+  </final_quest>
+
+
   <debug>
     <room>
-      <location>debug.tmx</location>
+      <location>Quest1_Fountain.tmx</location>
       <id num="1"></id>
       <type>boss</type>
     </room>

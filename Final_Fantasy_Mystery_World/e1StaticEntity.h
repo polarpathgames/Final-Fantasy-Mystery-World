@@ -54,6 +54,7 @@ public:
 		HELP1,
 		HELP2,
 		HELP3,
+		HELP4,
 		PLANT1_Q1,
 		PLANT2_Q1,
 		ROCK_Q1,
@@ -73,6 +74,11 @@ public:
 		FLASH_INFO,
 		CAVE_ROCKS,
 		ABILITY_BASE,
+		WATER,
+		WATER2,
+		WATER3,
+		LAVA,
+
 
 		UNKNOWN
 	};

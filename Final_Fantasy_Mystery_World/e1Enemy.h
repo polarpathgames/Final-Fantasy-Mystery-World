@@ -19,7 +19,7 @@ public:
 		int max_live = 100;
 		int live = 100;
 		int basic_attack_damage = 25;
-		int special_attack_damage = 50;
+		int special_attack_damage = 20;
 		int experience = 20;
 	};
 
@@ -31,6 +31,7 @@ public:
 		BLUE_DOG,
 		STRANGE_FROG,
 		BLUE_SLIME,
+		MEGA_EYE,
 		SUPER_PURPLE_FROG,
 		CASSIO,
 		FROZEN,

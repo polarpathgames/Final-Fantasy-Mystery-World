@@ -68,10 +68,10 @@ public:
 	static bool SortByYPos(const e1Entity * ent1, const e1Entity * ent2);
 
 	uint entities_drawn = 0u;
-
+	e1Entity* entity_turn = nullptr;
 private:
 
-	e1Entity* entity_turn = nullptr;
+	
 
 	std::vector<e1Entity*> entities;
 	std::vector<e1Entity*> entities_to_create;

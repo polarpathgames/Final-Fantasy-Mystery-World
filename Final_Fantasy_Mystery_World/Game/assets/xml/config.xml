@@ -42,7 +42,7 @@
       <shop_map>Shop.tmx</shop_map>
       <home_map>Home.tmx</home_map>
     </maps>
-    <start_map map="debug.tmx"/>
+    <start_map map="Quest1_Fountain.tmx"/>
   </map>
 
 </config>

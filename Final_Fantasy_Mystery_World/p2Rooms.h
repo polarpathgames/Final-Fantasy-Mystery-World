@@ -87,6 +87,7 @@ public:
 	
 	u1Image * map_room_image = nullptr;
 
+	bool fountain_drunk = false;
 };
 
 class RoomManager {

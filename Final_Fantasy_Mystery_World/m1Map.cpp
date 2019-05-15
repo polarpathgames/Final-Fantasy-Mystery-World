@@ -657,16 +657,24 @@ bool m1Map::ChangeMap(Maps type)
 			App->scene->player->AugmentLives(App->scene->player->stats.max_lives);
 			App->scene->player->AugmentMana(App->scene->player->stats.max_mana);
 		}
-		App->menu_manager->ShowHUD(false);
+		App->menu_manager->EnableHUD(false);
 		break;
 	case Maps::TUTORIAL:
 		quest_rooms = DBG_NEW RoomManager("tutorial");
 		actual_map = Maps::TUTORIAL;
+		App->menu_manager->EnableHUD(true);
 		return true;
 		break;
 	case Maps::QUEST2:
 		quest_rooms = DBG_NEW RoomManager("quest2");
 		actual_map = Maps::QUEST2;
+		App->menu_manager->EnableHUD(true);
+		return true;
+		break;
+	case Maps::FINAL_QUEST:
+		quest_rooms = DBG_NEW RoomManager("final_quest");
+		actual_map = Maps::FINAL_QUEST;
+		App->menu_manager->EnableHUD(true);
 		return true;
 		break;
 	case Maps::DEBUG:
@@ -678,7 +686,7 @@ bool m1Map::ChangeMap(Maps type)
 		App->audio->PlayMusic(mus_shop, 5);
 		Load(shop_map.data());
 		actual_map = Maps::SHOP;
-		App->menu_manager->ShowHUD(false);
+		//App->menu_manager->ShowHUD(false);
 		break;
 	case Maps::HOME:
 		App->audio->PlayMusic(mus_home, 5);
@@ -687,7 +695,7 @@ bool m1Map::ChangeMap(Maps type)
 		//if (App->globals.CutSceneLobbyExplain == true)
 		//	App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, 0, 0, "daughter");
 
-		App->menu_manager->ShowHUD(false);
+		//App->menu_manager->ShowHUD(false);
 		break;
 	default:
 		LOG("Could not load the map");

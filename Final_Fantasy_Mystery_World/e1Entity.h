@@ -89,6 +89,7 @@ public:
 		EVENT,
 		CASSIO,
 		FROZEN,
+		MEGA_EYE,
 
 		NO_TYPE
 	};

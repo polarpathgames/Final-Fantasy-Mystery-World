@@ -109,6 +109,7 @@ bool m1DialogSystem::PerformDialogue(int tr_id)
 	}	
 
 	App->scene->player->BlockControls(true);
+	App->menu_manager->EnableHUD(false);
 
 	return ret;
 }
@@ -124,7 +125,9 @@ void m1DialogSystem::BlitDialog()
 	int space = 0;
 	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
 	{
-		text_button.push_back(App->gui->AddButton(0, space += 30, { 0,0,30,50 }, { 0,0,30,50 }, { 0,0,30,50 }, this, npc_text, false, false, true, true));
+		u1Button* but = App->gui->AddButton(0, space += 30, { 0,0,30,50 }, { 0,0,30,50 }, { 0,0,30,50 }, this, npc_text, false, false, true, true);
+		but->SetFocus(FocusType::CLASSIC_FOCUS);
+		text_button.push_back(but);
 		player_text.push_back(App->gui->AddLabel(0, 0, currentNode->dialogOptions[i]->text.c_str(), text_button[i], BLACK, FontType::FF48, this, false));
 	}
 }
@@ -341,6 +344,8 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 						   }
 					   }
 				   }
+				   App->menu_manager->EnableHUD(true);
+				   App->map->quest_rooms->actual_room->fountain_drunk = true;
 				   break;
 			   case 2: //FOUNTAIN LIVES
 				   App->scene->player->AugmentLives(250);
@@ -360,12 +365,14 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 						   }
 					   }
 				   }
+				   App->map->quest_rooms->actual_room->fountain_drunk = true;
+				   App->menu_manager->EnableHUD(true);
 				   break;
 			   case 33: { // take flash
 				   App->globals.ability2_gained = true;
 				   App->scene->player->BlockControls(true);
 				   App->menu_manager->CreateHelpAbilityMenu(true);
-				   App->menu_manager->ShowHUD(false);
+				  // App->menu_manager->ShowHUD(false);
 				   App->scene->SetMenuState(StatesMenu::FIRSTABILITY_MENU);
 				   std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
 				   std::vector<e1Entity*>::iterator item = entities.begin();
@@ -414,6 +421,10 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   break;
 			   case 90: //old statue tutorial ATTACK
 				   App->menu_manager->CreateHelpAbilityMenu();
+				   App->scene->SetMenuState(StatesMenu::HELP_ABILITY_MENU);
+				   break;
+			   case 190: //old statue tutorial ATTACK
+				   App->menu_manager->CreateHelpAbilityMenu(true);
 				   App->scene->SetMenuState(StatesMenu::HELP_ABILITY_MENU);
 				   break;
 			   default:

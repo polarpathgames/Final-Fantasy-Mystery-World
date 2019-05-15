@@ -12,7 +12,7 @@ e1State::e1State(int x, int y, const char * name) :e1Entity(x, y) {
 
 	if (strcmp(name,"blizzard") == 0) {
 		state = EventStates::BLIZZARD;
-		turn_effect = 3U;
+		turn_effect = 6U;
 		animation = new Animation();
 		animation->PushBack({ 0,0,1024,768 });
 		animation->PushBack({ 0,768,1024,768 });

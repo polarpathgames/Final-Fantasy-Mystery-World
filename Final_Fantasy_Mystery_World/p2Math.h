@@ -1,5 +1,5 @@
-#ifndef P2Math
-#define P2Math
+#ifndef _P2Math_H
+#define _P2Math_H
 
 #include "p2Point.h"
 

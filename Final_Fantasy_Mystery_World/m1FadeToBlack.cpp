@@ -63,7 +63,7 @@ bool m1FadeToBlack::PostUpdate()
 				App->map->quest_rooms->LoadRoom(App->map->quest_rooms->actual_room->id);
 			}
 			if (map_to_change == Maps::TUTORIAL && !App->cutscene_manager->is_executing) //Maybe this will break something, if it does, i'm sorry Att: Ivan
-				App->menu_manager->ShowHUD(true);
+				//App->menu_manager->ShowHUD(true);
 
 			total_time += total_time;
 			start_time = SDL_GetTicks();
