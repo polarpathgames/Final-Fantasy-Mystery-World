@@ -22,7 +22,7 @@ public:
 	void PrepareDistanceAttack();
 	bool IsSpecialAttack1Finished();
 	void AfetSpecialAttack1();
-
+	void SummomBlueSlimes();
 
 private:
 	Phase phase = Phase::NORMAL;

@@ -42,34 +42,7 @@ bool e1Frozen::PreUpdate()
 			// tp
 		}
 		else if (phase == Phase::HARD) {
-			if (!App->entity_manager->IsInEntitiesVector(slime_1)) {
-				if (App->map->IsWalkable(actual_tile + iPoint{ 0,1 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ 0,1 } && (slime_2 == nullptr || (slime_2 != nullptr &&slime_2->actual_tile != actual_tile + iPoint{ 0,1 }))) {
-					slime_1 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x, actual_tile.y + 1).x, App->map->MapToWorld(actual_tile.x, actual_tile.y + 1).y, "BlueSlime");
-				}
-				else if (App->map->IsWalkable(actual_tile + iPoint{ 1,0 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ 1,0 } && (slime_2 == nullptr || (slime_2 != nullptr &&slime_2->actual_tile != actual_tile + iPoint{ 1,0 }))) {
-					slime_1 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x + 1, actual_tile.y).x, App->map->MapToWorld(actual_tile.x + 1, actual_tile.y).y, "BlueSlime");
-				}
-				else if (App->map->IsWalkable(actual_tile + iPoint{ -1,0 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ -1,0 } && (slime_2 == nullptr || (slime_2 != nullptr &&slime_2->actual_tile != actual_tile + iPoint{ -1,0 }))) {
-					slime_1 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x - 1, actual_tile.y).x, App->map->MapToWorld(actual_tile.x - 1, actual_tile.y).y, "BlueSlime");
-				}
-				else if (App->map->IsWalkable(actual_tile + iPoint{ 0,-1 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ 0,-1 } && (slime_2 == nullptr || (slime_2 != nullptr &&slime_2->actual_tile != actual_tile + iPoint{ 0,-1 }))) {
-					slime_1 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x, actual_tile.y - 1).x, App->map->MapToWorld(actual_tile.x, actual_tile.y - 1).y, "BlueSlime");
-				}
-			}
-			if (!App->entity_manager->IsInEntitiesVector(slime_2)) {
-				if (App->map->IsWalkable(actual_tile + iPoint{ 0,1 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ 0,1 } && (slime_1 == nullptr || (slime_1 != nullptr &&slime_1->actual_tile != actual_tile + iPoint{ 0,1 }))) {
-					slime_2 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x, actual_tile.y + 1).x, App->map->MapToWorld(actual_tile.x, actual_tile.y + 1).y, "BlueSlime");
-				}
-				else if (App->map->IsWalkable(actual_tile + iPoint{ 1,0 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ 1,0 } && (slime_1 == nullptr || (slime_1 != nullptr &&slime_1->actual_tile != actual_tile + iPoint{ 1,0 }))) {
-					slime_2 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x + 1, actual_tile.y).x, App->map->MapToWorld(actual_tile.x + 1, actual_tile.y).y, "BlueSlime");
-				}
-				else if (App->map->IsWalkable(actual_tile + iPoint{ -1,0 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ -1,0 } && (slime_1 == nullptr || (slime_1 != nullptr &&slime_1->actual_tile != actual_tile + iPoint{ -1,0 }))) {
-					slime_2 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x - 1, actual_tile.y).x, App->map->MapToWorld(actual_tile.x - 1, actual_tile.y).y, "BlueSlime");
-				}
-				else if (App->map->IsWalkable(actual_tile + iPoint{ 0,-1 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ 0,-1 } && (slime_1 == nullptr || (slime_1 != nullptr &&slime_1->actual_tile != actual_tile + iPoint{ 0,-1 }))) {
-					slime_2 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x, actual_tile.y - 1).x, App->map->MapToWorld(actual_tile.x, actual_tile.y - 1).y, "BlueSlime");
-				}
-			}
+			SummomBlueSlimes();
 		}
 	}
 
@@ -106,6 +79,38 @@ bool e1Frozen::IsSpecialAttack1Finished()
 
 void e1Frozen::AfetSpecialAttack1()
 {
+}
+
+void e1Frozen::SummomBlueSlimes()
+{
+	if (!App->entity_manager->IsInEntitiesVector(slime_1)) {
+		if (App->map->IsWalkable(actual_tile + iPoint{ 0,1 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ 0,1 } && (slime_2 == nullptr || (slime_2 != nullptr &&slime_2->actual_tile != actual_tile + iPoint{ 0,1 }))) {
+			slime_1 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x, actual_tile.y + 1).x, App->map->MapToWorld(actual_tile.x, actual_tile.y + 1).y, "BlueSlime");
+		}
+		else if (App->map->IsWalkable(actual_tile + iPoint{ 1,0 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ 1,0 } && (slime_2 == nullptr || (slime_2 != nullptr &&slime_2->actual_tile != actual_tile + iPoint{ 1,0 }))) {
+			slime_1 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x + 1, actual_tile.y).x, App->map->MapToWorld(actual_tile.x + 1, actual_tile.y).y, "BlueSlime");
+		}
+		else if (App->map->IsWalkable(actual_tile + iPoint{ -1,0 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ -1,0 } && (slime_2 == nullptr || (slime_2 != nullptr &&slime_2->actual_tile != actual_tile + iPoint{ -1,0 }))) {
+			slime_1 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x - 1, actual_tile.y).x, App->map->MapToWorld(actual_tile.x - 1, actual_tile.y).y, "BlueSlime");
+		}
+		else if (App->map->IsWalkable(actual_tile + iPoint{ 0,-1 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ 0,-1 } && (slime_2 == nullptr || (slime_2 != nullptr &&slime_2->actual_tile != actual_tile + iPoint{ 0,-1 }))) {
+			slime_1 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x, actual_tile.y - 1).x, App->map->MapToWorld(actual_tile.x, actual_tile.y - 1).y, "BlueSlime");
+		}
+	}
+	if (!App->entity_manager->IsInEntitiesVector(slime_2)) {
+		if (App->map->IsWalkable(actual_tile + iPoint{ 0,1 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ 0,1 } && (slime_1 == nullptr || (slime_1 != nullptr &&slime_1->actual_tile != actual_tile + iPoint{ 0,1 }))) {
+			slime_2 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x, actual_tile.y + 1).x, App->map->MapToWorld(actual_tile.x, actual_tile.y + 1).y, "BlueSlime");
+		}
+		else if (App->map->IsWalkable(actual_tile + iPoint{ 1,0 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ 1,0 } && (slime_1 == nullptr || (slime_1 != nullptr &&slime_1->actual_tile != actual_tile + iPoint{ 1,0 }))) {
+			slime_2 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x + 1, actual_tile.y).x, App->map->MapToWorld(actual_tile.x + 1, actual_tile.y).y, "BlueSlime");
+		}
+		else if (App->map->IsWalkable(actual_tile + iPoint{ -1,0 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ -1,0 } && (slime_1 == nullptr || (slime_1 != nullptr &&slime_1->actual_tile != actual_tile + iPoint{ -1,0 }))) {
+			slime_2 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x - 1, actual_tile.y).x, App->map->MapToWorld(actual_tile.x - 1, actual_tile.y).y, "BlueSlime");
+		}
+		else if (App->map->IsWalkable(actual_tile + iPoint{ 0,-1 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ 0,-1 } && (slime_1 == nullptr || (slime_1 != nullptr &&slime_1->actual_tile != actual_tile + iPoint{ 0,-1 }))) {
+			slime_2 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x, actual_tile.y - 1).x, App->map->MapToWorld(actual_tile.x, actual_tile.y - 1).y, "BlueSlime");
+		}
+	}
 }
 
 
