@@ -3,7 +3,6 @@
 
 #include "c1CutsceneAction.h"
 #include "p2Point.h"
-#include "p2Math.h"
 
 class c1CutsceneMoveCamera :public c1CutsceneAction
 {
@@ -17,7 +16,7 @@ private:
 	iPoint camera_origin;
 	iPoint camera_destination;
 	float speed = 0.f;
-	Lerp l;
+
 	float lerp_by = 0.f;
 	bool stop_when_goal = false;
 };
