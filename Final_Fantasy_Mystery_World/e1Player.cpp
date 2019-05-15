@@ -174,8 +174,14 @@ void e1Player::OnCollisionEnter(Collider * c2)
 	if (c2->type == COLLIDER_HOME) {
 		if (App->map->actual_map == Maps::LOBBY)
 			App->fade_to_black->FadeToBlack(Maps::HOME);
-		else
+		else {
+			if (App->globals.CutSceneHomeToSleepQuest2 && !App->globals.ice_queen_killed)
+				App->map->lobby_state = LobbyState::ICE_LOBBY;
+			else
+				App->map->lobby_state = LobbyState::NORMAL_LOBBY;
+
 			App->fade_to_black->FadeToBlack(Maps::LOBBY);
+		}
 	}
 	if (c2->type == COLLIDER_MENU_QUEST) {
 		App->menu_manager->CreateGoToQuestMenu();

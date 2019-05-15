@@ -34,6 +34,12 @@ enum class PlayerType {
 	NONE,
 };
 
+enum class LobbyState {
+	NORMAL_LOBBY,
+	ICE_LOBBY,
+	NIGHT_LOBBY
+};
+
 struct SDL_Texture;
 struct SDL_Rect;
 
@@ -107,7 +113,8 @@ public:
 
 
 	StatesMenu menu_state = StatesMenu::NO_MENU;
-	
+
+
 public:
 
 	// SFX
