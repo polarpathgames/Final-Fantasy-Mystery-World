@@ -364,7 +364,24 @@ void RoomManager::LoadEntities()
 					App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 			}
 			else if ((*position)->name == "InstaGoldRuppe" || (*position)->name == "InstaRedRuppe" || (*position)->name == "InstaBlueRuppe" || (*position)->name == "InstaGreenRuppe") {
-				App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
+				if (std::find(actual_room->entities.begin(), actual_room->entities.end(), point) == actual_room->entities.end()) {
+					App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+					std::vector<MapIndicators*>::iterator item = actual_room->map_indicators.begin();
+					bool created = false;
+					for (; item != actual_room->map_indicators.end(); ++item) {
+						if ((*item) != nullptr) {
+							if ((*item)->location == point) {
+								created = true;
+								break;
+							}
+						}
+					}
+					if (!created) {
+						MapIndicators* indicator = DBG_NEW MapIndicators(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, "drop", App->gui->AddImage(0, 0, { 1380,2123,12,13 }, nullptr, actual_room->map_room_image, false, false, false, false));
+						actual_room->map_indicators.push_back(indicator);
+					}
+				}
 			}
 			else 
 				App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);

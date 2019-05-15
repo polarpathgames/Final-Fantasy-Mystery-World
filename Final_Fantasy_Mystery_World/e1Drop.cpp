@@ -44,6 +44,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		CenterOnTile();
 	}
 	else if (strcmp(name, "InstaGreenRuppe") == 0) {
+		insta_gem_pos = position;
 		actual_tile = { App->map->WorldToMap(position.x, position.y) };
 		drop_type = DropsType::GREEN_RUPEE;
 		has_animation = true;
@@ -62,6 +63,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		size.create(frame.w, frame.h);
 		CenterOnTile();
 		gold = App->random.Generate(15, 25);
+		is_insta_ruppe = true;
 	}
 	else if (strcmp(name, "blue_rupee") == 0) {
 		actual_tile = { x,y };
@@ -83,6 +85,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		CenterOnTile();
 	}
 	else if (strcmp(name, "InstaBlueRuppe") == 0) {
+		insta_gem_pos = position;
 		actual_tile = { App->map->WorldToMap(position.x, position.y) };
 		drop_type = DropsType::BLUE_RUPEE;
 		has_animation = true;
@@ -101,6 +104,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		size.create(frame.w, frame.h);
 		CenterOnTile();
 		gold = App->random.Generate(45, 65);
+		is_insta_ruppe = true;
 	}
 	else if (strcmp(name, "red_rupee") == 0) {
 		actual_tile = { x,y };
@@ -122,6 +126,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		CenterOnTile();
 	}
 	else if (strcmp(name, "InstaRedRuppe") == 0) {
+		insta_gem_pos = position;
 		actual_tile = { App->map->WorldToMap(position.x, position.y) };
 		drop_type = DropsType::RED_RUPEE;
 		has_animation = true;
@@ -140,6 +145,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		size.create(frame.w, frame.h);
 		CenterOnTile();
 		gold = App->random.Generate(90, 110);
+		is_insta_ruppe = true;
 	}
 	else if (strcmp(name, "gold_rupee") == 0) {
 		actual_tile = { x,y };
@@ -161,6 +167,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		CenterOnTile();
 	}
 	else if (strcmp(name, "InstaGoldRuppe") == 0) {
+		insta_gem_pos = position;
 		actual_tile = { App->map->WorldToMap(position.x, position.y) };
 		drop_type = DropsType::GOLD_RUPEE;
 		has_animation = true;
@@ -179,6 +186,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		size.create(frame.w, frame.h);
 		CenterOnTile();
 		gold = App->random.Generate(300, 400);
+		is_insta_ruppe = true;
 	}
 	else if (strcmp(name, "ability1") == 0 && App->globals.ability1_gained == false) {
 		drop_type = DropsType::ABILITY1;
@@ -227,7 +235,10 @@ bool e1Drop::Update(float adt)
 		{
 			App->audio->PlayFx(App->scene->fx_drop_pick_up);
 			App->scene->player->AugmentGold(gold);
-			App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
+			if (!is_insta_ruppe)
+				App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
+			else if (is_insta_ruppe)
+				App->map->quest_rooms->AddEntityToNotRepeat(insta_gem_pos);
 			to_delete = true;
 			break;
 		}
@@ -235,7 +246,10 @@ bool e1Drop::Update(float adt)
 		{
 			App->audio->PlayFx(App->scene->fx_drop_pick_up);
 			App->scene->player->AugmentGold(gold);
-			App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
+			if (!is_insta_ruppe)
+				App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
+			else if (is_insta_ruppe)
+				App->map->quest_rooms->AddEntityToNotRepeat(insta_gem_pos);
 			to_delete = true;
 			break;
 		}
@@ -243,7 +257,10 @@ bool e1Drop::Update(float adt)
 		{
 			App->audio->PlayFx(App->scene->fx_drop_pick_up);
 			App->scene->player->AugmentGold(gold);
-			App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
+			if (!is_insta_ruppe)
+				App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
+			else if (is_insta_ruppe)
+				App->map->quest_rooms->AddEntityToNotRepeat(insta_gem_pos);
 			to_delete = true;
 			break;
 		}
@@ -251,7 +268,10 @@ bool e1Drop::Update(float adt)
 		{
 			App->audio->PlayFx(App->scene->fx_drop_pick_up);
 			App->scene->player->AugmentGold(gold);
-			App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
+			if (!is_insta_ruppe)
+				App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
+			else if (is_insta_ruppe)
+				App->map->quest_rooms->AddEntityToNotRepeat(insta_gem_pos);
 			to_delete = true;
 			break;
 		}
