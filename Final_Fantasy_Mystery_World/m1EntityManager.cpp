@@ -417,6 +417,54 @@ iPoint m1EntityManager::FindFirstFreeTileOnRange(const iPoint & tile, const uint
 	return tile;
 }
 
+iPoint m1EntityManager::FindRandomFreeTileOnRange(const iPoint & tile, const uint & range)
+{
+	iPoint destination_tile = tile;
+	std::vector<iPoint> positions;
+
+	destination_tile.y -= range;
+	destination_tile.x -= range;
+	for (uint i = 0; i < 2 * range; i++) { //first row
+		if (IsWalkable(destination_tile))
+			positions.push_back(destination_tile);
+
+		destination_tile.x++;
+	}
+
+	destination_tile.y = tile.y + range;
+	destination_tile.x = tile.x - range;
+	for (uint i = 0; i < 2 * range; i++) { //second row
+		if (IsWalkable(destination_tile))
+			positions.push_back(destination_tile);
+
+		destination_tile.x++;
+	}
+
+	destination_tile.y = tile.y - range;
+	destination_tile.x = tile.x - range;
+	for (uint i = 0; i < 2 * range; i++) { //first column
+		if (IsWalkable(destination_tile))
+			positions.push_back(destination_tile);
+
+		destination_tile.y++;
+	}
+
+	destination_tile.y = tile.y - range;
+	destination_tile.x = tile.x + range;
+	for (uint i = 0; i < 2 * range; i++) { //second column
+		if (IsWalkable(destination_tile))
+			positions.push_back(destination_tile);
+
+		destination_tile.y++;
+	}
+
+	if (positions.size() > 0) {
+		return positions[App->random.Generate(0, positions.size())];
+	}
+
+	return tile;
+}
+
 bool m1EntityManager::IsWalkable(const iPoint & destination_tile) {
 
 	for (std::vector<e1Entity*>::iterator item = entities.begin(); item != entities.end(); ++item) {

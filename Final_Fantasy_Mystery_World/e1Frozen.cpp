@@ -135,13 +135,16 @@ void e1Frozen::Escape()
 			want_to_attack = true;
 			tp_timer.Stop();
 			turn_done = true;
+			App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,0,2,2 }, RANDOM, { 20,20 }, { 40,10 }, { 15,-5 }, P_NON, 200, 5);
+			LookToPlayer();
+			ChangeAnimation(direction, state);
 		}
 	}
 }
 
 void e1Frozen::DoTeleport()
 {
-	iPoint destination = App->entity_manager->FindFirstFreeTileOnRange(App->scene->player->actual_tile, 3);
+	iPoint destination = App->entity_manager->FindRandomFreeTileOnRange(App->scene->player->actual_tile, 3);
 
 	if (destination != App->scene->player->actual_tile) {
 		tp_location = destination;

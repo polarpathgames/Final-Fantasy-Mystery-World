@@ -58,6 +58,8 @@ public:
 	iPoint FindFirstFreeTileAround(const iPoint &tile, const uint & range);
 	// Finds a tile in border range
 	iPoint FindFirstFreeTileOnRange(const iPoint & tile, const uint & range);
+	// Finds a random tile in border range
+	iPoint FindRandomFreeTileOnRange(const iPoint & tile, const uint & range);
 	bool IsWalkable(const iPoint & start_tile);
 
 	const std::vector<e1Entity*> GetEntities();
