@@ -225,6 +225,12 @@
     <ClCompile Include="p2Math.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
+    <ClCompile Include="c1CutSceneFadeToBlack.cpp">
+      <Filter>Cutscenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneVibration.cpp">
+      <Filter>Cutscenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -476,6 +482,12 @@
     </ClInclude>
     <ClInclude Include="e1MegaEye.h">
       <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneFadeToBlack.h">
+      <Filter>Cutscenes</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneVibration.h">
+      <Filter>Cutscenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

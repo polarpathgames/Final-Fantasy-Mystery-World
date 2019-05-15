@@ -2,11 +2,11 @@
   <actions>
 
     <cutscene action="move_entity" entity="ability_flash">
-      <time start="100" duration="3400" speed_x="40" speed_y="80"/>
+      <time start="100" duration="3600" speed_x="40" speed_y="80"/>
     </cutscene>
 
   </actions>
   <elements>
-    <element type="entity" name="ability_flash" pos_x="-24" pos_y="79"/>
+    <element type="entity" name="ability_flash" pos_x="-15" pos_y="79"/>
   </elements>
 </cutscenes>

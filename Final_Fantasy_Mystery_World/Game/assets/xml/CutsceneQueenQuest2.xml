@@ -8,9 +8,10 @@
     </cutscene>
     <cutscene action="delete_entity" entity="icequeen">
     </cutscene>
-    <cutscene action="move_camera">
-      <time start="2700" duration="2500" origin_x="152" origin_y="-693"  speed="0.007" destination_x ="536"  destination_y="-885" stop_goal="true"/>
+    <cutscene action="fade">
+      <time start="2650" duration="1000"/>
     </cutscene>
+   
   </actions>
   <elements>
     <element type="entity" name="icequeen" pos_x="56" pos_y="407"/>
