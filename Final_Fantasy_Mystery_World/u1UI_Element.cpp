@@ -16,6 +16,7 @@ u1GUI::u1GUI(UIType type, const int &x, const int &y, u1GUI* parent, const SDL_R
 	if (parent != nullptr) {
 		parent->childs.push_back(this);
 	}
+	focus_type = FocusType::SQUARE_FOCUS;
 }
 
 u1GUI::~u1GUI() {
@@ -66,6 +67,10 @@ void u1GUI::PreUpdate()
 		current_state = Element_Event::NONE;
 		break;
 	}
+}
+
+void u1GUI::SetFocus(const FocusType & focus) {
+	focus_type = focus;
 }
 
 bool u1GUI::Update()

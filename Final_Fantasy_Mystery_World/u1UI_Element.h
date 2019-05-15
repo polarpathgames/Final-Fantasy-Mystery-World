@@ -56,6 +56,7 @@ public:
 	virtual void InnerDraw();
 	virtual void UpdateElement() {};
 	void PreUpdate();
+	void SetFocus(const FocusType & focus);
 	virtual void PreUpdateElement() {};
 	virtual bool CleanUp();
 
@@ -104,6 +105,8 @@ public:
 	iPoint last_mouse;
 
 	SDL_Rect* clip_zone = nullptr;
+
+	FocusType focus_type = FocusType::NONE;
 
 private:
 	UIType type = NON;

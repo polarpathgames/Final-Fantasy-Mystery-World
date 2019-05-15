@@ -29,6 +29,15 @@ enum UIType
 	NON,
 };
 
+enum class FocusType {
+
+	CLASSIC_FOCUS,
+	SQUARE_FOCUS,
+
+	NONE
+
+};
+
 struct SDL_Texture;
 struct SDL_Rect;
 
@@ -98,7 +107,8 @@ private:
 
 	SDL_Texture*		atlas = nullptr;
 	u1GUI*				focus = nullptr;
-	SDL_Rect			focus_tx[4] = { 0,0,0,0 };
+	SDL_Rect			square_focus_img[4] = { 0,0,0,0 };
+	SDL_Rect			classic_focus_img = { 0,0,0,0 };
 	bool				using_mouse = true;
 	std::list<u1GUI*>	ui_list;
 
