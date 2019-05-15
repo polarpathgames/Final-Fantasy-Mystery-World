@@ -33,6 +33,7 @@ private:
 
 	iPoint tp_location = { 0,0 };
 	p2Timer tp_timer;
+	uint tp_number_hit = 0u;
 
 	e1BlueSlime* slime_1 = nullptr;
 	e1BlueSlime* slime_2 = nullptr;
