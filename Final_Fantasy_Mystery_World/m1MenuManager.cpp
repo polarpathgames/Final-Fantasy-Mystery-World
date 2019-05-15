@@ -683,6 +683,7 @@ void m1MenuManager::CreateShopMenu()
 	shop.shop_label->SetPosRespectParent(CENTERED_UP, 20);
 
 	shop.button_close_shop = App->gui->AddButton(130, 330, { 1850,1637,75,35 }, { 1850,1637,55,35 }, { 1850,1637,55,35 }, App->scene, shop.shop_panel, false, false, true, true);
+	shop.button_close_shop->SetFocus(FocusType::CLASSIC_FOCUS);
 	shop.label_close_shop = App->gui->AddLabel(140, 321, "Return", shop.shop_panel, BLACK, FontType::FF48, nullptr, false);
 
 	shop.shop_background_item1 = App->gui->AddImage(38, 1, { 1050,2116,161,61 }, nullptr, shop.shop_item_zone, true, false, false, false,nullptr,shop.shop_zone->GetGlobalRect());
@@ -690,12 +691,14 @@ void m1MenuManager::CreateShopMenu()
 	shop.shop_hp_potion_label = App->gui->AddLabel(102, 0, std::string("x " + std::to_string(App->scene->price_hp_potion)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false,{ 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
 	shop.shop_coin1 = App->gui->AddImage(160, 19, { 1024, 1952, 34, 34 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 	shop.shop_button_hp_potion = App->gui->AddButton(32, 7, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item1->clip_zone, { 2061,1544,681,149 }, { -57,300 });
+	shop.shop_button_hp_potion->SetFocus(FocusType::CLASSIC_FOCUS);
 
 	shop.shop_background_item2 = App->gui->AddImage(38, 81, { 1050,2116,161,61 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 	shop.shop_mana_potion_image = App->gui->AddImage(58, 86, { 1091, 1952, 33, 51 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 	shop.shop_mana_potion_label = App->gui->AddLabel(102, 78, std::string("x " + std::to_string(App->scene->price_mana_potion)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
 	shop.shop_coin2 = App->gui->AddImage(160, 97, { 1024, 1952, 34, 34 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 	shop.shop_button_mana_potion = App->gui->AddButton(32, 85, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item2->clip_zone, { 2061,1696,681,149 }, { -57,222 });
+	shop.shop_button_mana_potion->SetFocus(FocusType::CLASSIC_FOCUS);
 
 	shop.shop_background_item3 = App->gui->AddImage(38, 161, { 1050,2116,161,61 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 	shop.shop_coin3 = App->gui->AddImage(160, 175, { 1024, 1952, 34, 34 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
@@ -708,7 +711,7 @@ void m1MenuManager::CreateShopMenu()
 			shop.shop_coin3->drawable = false;
 		}
 		shop.shop_button_sword = App->gui->AddButton(32, 165, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item3->clip_zone, { 2061,1848,681,149 }, { -57,142 });
-
+		shop.shop_button_sword->SetFocus(FocusType::CLASSIC_FOCUS);
 	}
 	else if (App->scene->player_type == PlayerType::ARCHER) {
 		if (!App->globals.ability3_gained) {
@@ -719,6 +722,7 @@ void m1MenuManager::CreateShopMenu()
 			shop.shop_coin3->drawable = false;
 		}
 		shop.shop_button_sword = App->gui->AddButton(32, 165, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item3->clip_zone, { 2061,2311,681,149 }, { -57,142 });
+		shop.shop_button_sword->SetFocus(FocusType::CLASSIC_FOCUS);
 	}
 	else if (App->scene->player_type == PlayerType::MAGE) {
 		if (!App->globals.ability3_gained) {
@@ -729,6 +733,7 @@ void m1MenuManager::CreateShopMenu()
 			shop.shop_coin3->drawable = false;
 		}
 		shop.shop_button_sword = App->gui->AddButton(32, 165, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item3->clip_zone, { 2061,2464,681,149 }, { -57,142 });
+		shop.shop_button_sword->SetFocus(FocusType::CLASSIC_FOCUS);
 	}
 	shop.shop_sword_label = App->gui->AddLabel(102, 156, std::string("x " + std::to_string(App->scene->price_ability3)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
 	
@@ -739,6 +744,7 @@ void m1MenuManager::CreateShopMenu()
 		shop.shop_helmet_label = App->gui->AddLabel(102, 234, std::string("x " + std::to_string(App->scene->price_helmet)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
 		shop.shop_coin4 = App->gui->AddImage(160, 253, { 1024, 1952, 34, 34 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 		shop.shop_button_helmet = App->gui->AddButton(32, 245, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item4->clip_zone, { 2061,2000,681,149 }, { -57,62 });
+		shop.shop_button_helmet->SetFocus(FocusType::CLASSIC_FOCUS);
 	}
 	else {
 		shop.shop_background_item4 = App->gui->AddImage(38, 241, { 2751,1821,161,61 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
@@ -746,6 +752,7 @@ void m1MenuManager::CreateShopMenu()
 		shop.shop_helmet_label = App->gui->AddLabel(102, 234, std::string("x " + std::to_string(App->scene->price_helmet)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
 	//	shop.shop_coin4 = App->gui->AddImage(160, 253, { 1024, 1952, 34, 34 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 		shop.shop_button_helmet = App->gui->AddButton(32, 245, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item4->clip_zone, { 2061,2000,681,149 }, { -57,62 });
+		shop.shop_button_helmet->SetFocus(FocusType::CLASSIC_FOCUS);
 	}
 	if (!App->globals.ring_bought) {
 		shop.shop_background_item5 = App->gui->AddImage(38, 321, { 1050,2116,161,61 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
@@ -753,6 +760,7 @@ void m1MenuManager::CreateShopMenu()
 		shop.shop_ring_label = App->gui->AddLabel(102, 312, std::string("x " + std::to_string(App->scene->price_ring)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
 		shop.shop_coin5 = App->gui->AddImage(160, 331, { 1024, 1952, 34, 34 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 		shop.shop_button_ring = App->gui->AddButton(32, 325, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item5->clip_zone, { 2061,2154,681,149 }, { -57,-18 });
+		shop.shop_button_ring->SetFocus(FocusType::CLASSIC_FOCUS);
 	}
 	else {
 		shop.shop_background_item5 = App->gui->AddImage(38, 321, { 2751,1890,161,61 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
@@ -760,10 +768,11 @@ void m1MenuManager::CreateShopMenu()
 		shop.shop_ring_label = App->gui->AddLabel(102, 312, std::string("x " + std::to_string(App->scene->price_ring)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
 		//shop.shop_coin5 = App->gui->AddImage(160, 331, { 1024, 1952, 34, 34 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 		shop.shop_button_ring = App->gui->AddButton(32, 325, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item5->clip_zone, { 2061,2154,681,149 }, { -57,-18 });
-
+		shop.shop_button_ring->SetFocus(FocusType::CLASSIC_FOCUS);
 	}
 
 	shop.shop_vertical_slider = App->gui->AddVerticalSlider(207, 86, { 1664,1837,29,250 }, { 1710,1837,19,48 }, { 1710,1837,19,48 }, { 1710,1837,19,48 }, shop.shop_panel, &shop.shop_item_zone->position.y, shop.shop_item_zone->section.h/2);
+	shop.shop_vertical_slider->SetFocus(FocusType::NONE);
 
 	App->gui->FocusButton(shop.shop_button_hp_potion);
 
