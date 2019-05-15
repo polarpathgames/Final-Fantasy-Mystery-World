@@ -209,7 +209,7 @@
 
   <debug>
     <room>
-      <location>debug.tmx</location>
+      <location>Quest1_Fountain.tmx</location>
       <id num="1"></id>
       <type>boss</type>
     </room>
