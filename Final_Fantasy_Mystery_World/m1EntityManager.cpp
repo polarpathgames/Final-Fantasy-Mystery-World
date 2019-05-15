@@ -467,7 +467,7 @@ iPoint m1EntityManager::FindRandomFreeTileOnRange(const iPoint & tile, const uin
 	}
 
 	if (positions.size() > 0) {
-		return positions[App->random.Generate(0, positions.size())];
+		return positions[App->random.Generate(0, positions.size()-1)];
 	}
 
 	return tile;

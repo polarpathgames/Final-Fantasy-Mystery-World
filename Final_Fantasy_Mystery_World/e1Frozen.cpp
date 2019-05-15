@@ -153,8 +153,7 @@ void e1Frozen::Escape()
 			turn_done = true;
 			App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,0,2,2 }, RANDOM, { 20,20 }, { 40,10 }, { 15,-5 }, P_NON, 200, 5);
 			LookToPlayer();
-			SummomBlueSlimes();
-			ChangeAnimation(direction, state);
+			//SummomBlueSlimes();
 		}
 	}
 }
