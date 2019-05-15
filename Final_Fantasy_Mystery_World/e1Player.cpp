@@ -175,11 +175,6 @@ void e1Player::OnCollisionEnter(Collider * c2)
 		if (App->map->actual_map == Maps::LOBBY)
 			App->fade_to_black->FadeToBlack(Maps::HOME);
 		else {
-			if (App->globals.CutSceneHomeToSleepQuest2 && !App->globals.ice_queen_killed)
-				App->map->lobby_state = LobbyState::ICE_LOBBY;
-			else
-				App->map->lobby_state = LobbyState::NORMAL_LOBBY;
-
 			App->fade_to_black->FadeToBlack(Maps::LOBBY);
 		}
 	}

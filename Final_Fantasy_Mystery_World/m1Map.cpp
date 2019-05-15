@@ -51,7 +51,7 @@ bool m1Map::Awake(pugi::xml_node& config)
 
 	shop_map.assign(config.child("maps").child("shop_map").text().as_string());
 	lobby_map.assign(config.child("maps").child("lobby_map").text().as_string());
-	lobby_ice.assign(config.child("maps").child("lobby_map").text().as_string());
+	lobby_ice.assign(config.child("maps").child("lobby_ice").text().as_string());
 	home_map.assign(config.child("maps").child("home_map").text().as_string());
 
 	debug_map.assign(config.child("start_map").attribute("map").as_string());

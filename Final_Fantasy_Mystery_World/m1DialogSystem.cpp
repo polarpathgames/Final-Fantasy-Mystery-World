@@ -409,6 +409,8 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			   }
 			   case 4: //Checking if player has gone to the shop
 				   App->cutscene_manager->PlayCutscene("assets/xml/CutsceneHomeSleep.xml");
+				   App->map->lobby_state = LobbyState::ICE_LOBBY;
+				   App->globals.CutSceneHomeToSleepQuest2 = true;
 				   //App->scene->player->BlockControls(false);
 				   break;
 			   case 30: //old statue tutorial diagonal
