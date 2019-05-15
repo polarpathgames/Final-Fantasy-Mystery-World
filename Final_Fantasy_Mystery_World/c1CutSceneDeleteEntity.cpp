@@ -24,5 +24,9 @@ void c1CutSceneDeleteEntity::Execute(float dt)
 	{
 		App->cutscene_manager->ent->to_delete = true;
 	}
+	else if (strcmp(names.data(), "NPC_DAUGHTER") == 0)
+	{
+		App->cutscene_manager->ent->to_delete = true;
+	}
 		
 }

@@ -3,6 +3,7 @@
 #include "m1Fonts.h"
 #include "e1StaticEntity.h"
 #include "m1DialogSystem.h"
+#include "m1Cutscene.h"
 #include "m1Scene.h"
 #include "e1Player.h"
 #include "m1Window.h"
@@ -407,7 +408,8 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   break;
 			   }
 			   case 4: //Checking if player has gone to the shop
-				   App->scene->player->BlockControls(false);
+				   App->cutscene_manager->PlayCutscene("assets/xml/CutsceneHomeSleep.xml");
+				   //App->scene->player->BlockControls(false);
 				   break;
 			   case 30: //old statue tutorial diagonal
 				   App->menu_manager->CreateHelpDiagonalMenu();

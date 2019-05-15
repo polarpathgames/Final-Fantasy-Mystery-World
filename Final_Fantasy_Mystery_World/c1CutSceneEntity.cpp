@@ -33,6 +33,16 @@ c1CutsceneEntity::c1CutsceneEntity(int pos_x, int pos_y, std::string name)
 		entity_c = App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, pos_x, pos_y, name);
 		
 	}
+	else if (strcmp(name.data(), "NPC_DAUGHTER") == 0) {
+		std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+		std::vector<e1Entity*>::iterator item = entities.begin();
+		for (; item != entities.end(); ++item) {
+			if ((*item) != nullptr && static_cast<e1StaticEntity*>(*item)->static_type == e1StaticEntity::Type::NPC_DAUGHTER) {
+				entity_c = (*item);
+				break;
+			}
+		}
+	}
 	App->cutscene_manager->ent = entity_c;
 }
 

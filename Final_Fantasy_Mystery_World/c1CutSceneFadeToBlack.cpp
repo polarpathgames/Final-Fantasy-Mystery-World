@@ -16,7 +16,7 @@ void c1CutsceneFadeToBlack::Execute(float dt)
 {
 	if (fade == true)
 	{
-		App->fade_to_black->FadeToBlack(true,durations);
+		App->fade_to_black->FadeToBlack(durations);
 		fade = false;
 	}
 }
