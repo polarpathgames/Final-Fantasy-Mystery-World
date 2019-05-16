@@ -165,14 +165,14 @@ void m1MenuManager::CreateOptions()
 	options.options_panel = App->gui->AddImage(0, 0, { 1024,768,1024,768 }, this, App->gui->screen, true, false, false, false);
 	options.options_panel->SetPosRespectParent(CENTERED);
 
-	options.button_general_volume = App->gui->AddButton(491, 168, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options.options_panel, false, false, true, true);
+	options.button_general_volume = App->gui->AddButton(491, 168, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options.options_panel, false, false, false, false);
 	options.label_general_volume = App->gui->AddLabel(0, 0, "General Volume", options.button_general_volume, BLACK, FontType::FF48, nullptr, false);
 	options.label_general_volume->SetPosRespectParent(LEFT_CENTERED);
 	options.minus_general_btn = App->gui->AddButton(715, 185, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options.options_panel, true, false, true, true);
 	options.plus_general_btn = App->gui->AddButton(805, 185, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options.options_panel, true, false, true, true);
 	options.label_general_value = App->gui->AddLabel(760, 172, "", options.options_panel, BLACK, FontType::FF48, nullptr, false);
 
-	options.button_music_volume = App->gui->AddButton(491, 246, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options.options_panel, false, false, true, true);
+	options.button_music_volume = App->gui->AddButton(491, 246, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options.options_panel, false, false, false, false);
 	options.label_music_volume = App->gui->AddLabel(0, 0, "Music Volume", options.button_music_volume, BLACK, FontType::FF48, nullptr, false);
 	options.label_music_volume->SetPosRespectParent(LEFT_CENTERED);
 	options.minus_music_btn = App->gui->AddButton(715, 263, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options.options_panel, true, false, true, true);
@@ -187,7 +187,7 @@ void m1MenuManager::CreateOptions()
 	options.checkbox_mute_music->interactable = true;
 	options.checkbox_mute_music->AddListener(this);
 
-	options.button_fx_volume = App->gui->AddButton(491, 326, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options.options_panel, false, false, true, true);
+	options.button_fx_volume = App->gui->AddButton(491, 326, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options.options_panel, false, false, false, false);
 	options.label_fx_volume = App->gui->AddLabel(0, 0, "FX Volume", options.button_fx_volume, BLACK, FontType::FF48, nullptr, false);
 	options.label_fx_volume->SetPosRespectParent(LEFT_CENTERED);
 	options.minus_fx_btn = App->gui->AddButton(715, 343, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options.options_panel, true, false, true, true);
@@ -515,10 +515,10 @@ void m1MenuManager::CreateGoToQuestMenu()
 	App->audio->PlayFx(App->gui->fx_inventory);
 	quest.go_to_quest_panel = App->gui->AddImage(100, 70, { 1878, 1536, 170, 101 }, nullptr, App->gui->screen, true, false, false, false);
 
-	quest.go_to_quest_button = App->gui->AddButton(30, 0, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
+	quest.go_to_quest_button = App->gui->AddButton(30, 18, { 0, 0, 120, 20 }, { 0, 0, 120, 20 }, { 0, 0, 120, 20 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
 	quest.go_to_quest_label = App->gui->AddLabel(50, -5, "Tutorial", quest.go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
 
-	quest.cancel_quest_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
+	quest.cancel_quest_button = App->gui->AddButton(40, 65, { 0, 0, 80, 20 }, { 0, 0, 80, 20 }, { 0, 0, 80, 20 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
 	quest.cancel_quest_label = App->gui->AddLabel(50, 38, "Cancel", quest.go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
 
 	App->scene->player->BlockControls(true);
