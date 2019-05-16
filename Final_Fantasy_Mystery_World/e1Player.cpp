@@ -39,7 +39,7 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
 	type = EntityType::PLAYER;
 	ground = App->tex->Load("assets/sprites/player_pos.png");
-	current_animation = &IdleDownLeft;
+	current_animation = &anim.IdleDownLeft;
 	direction = Direction::DOWN_LEFT;
 	Init();
 }
@@ -206,12 +206,12 @@ void e1Player::CheckLobbyCollision(const float & dt, const Direction & dir)
 	switch (direction) {
 	case Direction::RIGHT:
 		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt))})) {
-			current_animation = &GoDownRight;
+			current_animation = &anim.GoDownRight;
 			position.x += floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
 		}
 		else if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
-			current_animation = &GoUpRight;
+			current_animation = &anim.GoUpRight;
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 		}
@@ -222,12 +222,12 @@ void e1Player::CheckLobbyCollision(const float & dt, const Direction & dir)
 		break;
 	case Direction::DOWN:
 		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
-			current_animation = &GoDownLeft;
+			current_animation = &anim.GoDownLeft;
 			position.x -= floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
 		}
 		else if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
-			current_animation = &GoDownRight;
+			current_animation = &anim.GoDownRight;
 			position.x += floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
 		}
@@ -238,12 +238,12 @@ void e1Player::CheckLobbyCollision(const float & dt, const Direction & dir)
 		break;
 	case Direction::LEFT:
 		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
-			current_animation = &GoUpLeft;
+			current_animation = &anim.GoUpLeft;
 			position.x -= floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 		}
 		else if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })){
-			current_animation = &GoDownLeft;
+			current_animation = &anim.GoDownLeft;
 			position.x -= floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
 		}
@@ -254,12 +254,12 @@ void e1Player::CheckLobbyCollision(const float & dt, const Direction & dir)
 		break;
 	case Direction::UP:
 		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
-			current_animation = &GoUpLeft;
+			current_animation = &anim.GoUpLeft;
 			position.x -= floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 		}
 		else if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })){
-			current_animation = &GoUpRight;
+			current_animation = &anim.GoUpRight;
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
 		}
@@ -279,15 +279,15 @@ void e1Player::CenterPlayerInTile()
 	if (state == State::MENU) {
 		direction = Direction::DOWN_LEFT;
 		state = State::IDLE;
-		current_animation = &IdleDownLeft;
-		DeathDownLeft.Reset();
-		DeathDownRight.Reset();
-		DeathUpRight.Reset();
-		DeathUpLeft.Reset();
-		DeathDown.Reset();
-		DeathRight.Reset();
-		DeathUp.Reset();
-		DeathLeft.Reset();
+		current_animation = &anim.IdleDownLeft;
+		anim.DeathDownLeft.Reset();
+		anim.DeathDownRight.Reset();
+		anim.DeathUpRight.Reset();
+		anim.DeathUpLeft.Reset();
+		anim.DeathDown.Reset();
+		anim.DeathRight.Reset();
+		anim.DeathUp.Reset();
+		anim.DeathLeft.Reset();
 	}
 
 	actual_tile = App->map->WorldToMap(position.x, position.y);
@@ -869,7 +869,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
 			position.x -= floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
-			current_animation = &GoDownLeft;
+			current_animation = &anim.GoDownLeft;
 		}
 		else {
 			state = State::IDLE;
@@ -880,7 +880,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
-			current_animation = &GoUpRight;
+			current_animation = &anim.GoUpRight;
 		}
 		else {
 			state = State::IDLE;
@@ -891,7 +891,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		if (App->map->IsWalkable({ (int)(position.x - floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y - floor(velocity.y * dt)) })) {
 			position.x -= floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
-			current_animation = &GoUpLeft;
+			current_animation = &anim.GoUpLeft;
 		}
 		else {
 			state = State::IDLE;
@@ -902,7 +902,7 @@ void e1Player::PerformMovementInLobby(float dt)
 		if (App->map->IsWalkable({ (int)(position.x + floor(velocity.x * dt) + pivot.x), (int)(position.y + pivot.y + floor(velocity.y * dt)) })) {
 			position.x += floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
-			current_animation = &GoDownRight;
+			current_animation = &anim.GoDownRight;
 		}
 		else {
 			state = State::IDLE;
@@ -912,7 +912,7 @@ void e1Player::PerformMovementInLobby(float dt)
 	case Direction::RIGHT:
 		if (App->map->IsWalkable({ (int)(position.x + floor(180 * dt) + pivot.x), position.y + pivot.y })) {
 			position.x += floor(velocity.x * dt);
-			current_animation = &GoRight;
+			current_animation = &anim.GoRight;
 		}
 		else {
 			CheckLobbyCollision(dt, direction);
@@ -921,7 +921,7 @@ void e1Player::PerformMovementInLobby(float dt)
 	case Direction::LEFT:
 		if (App->map->IsWalkable({(int)(position.x - floor(180 * dt) + pivot.x), position.y + pivot.y })) {
 			position.x -= floor(velocity.x * dt);
-			current_animation = &GoLeft;
+			current_animation = &anim.GoLeft;
 		}
 		else {
 			CheckLobbyCollision(dt, direction);
@@ -930,7 +930,7 @@ void e1Player::PerformMovementInLobby(float dt)
 	case Direction::UP:
 		if (App->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y - floor(180 * dt)) })) {
 			position.y -= floor(velocity.y * 2 * dt);
-			current_animation = &GoUp;
+			current_animation = &anim.GoUp;
 		}
 		else {
 			CheckLobbyCollision(dt, direction);
@@ -940,7 +940,7 @@ void e1Player::PerformMovementInLobby(float dt)
 	case Direction::DOWN:
 		if (App->map->IsWalkable({ (position.x + pivot.x), (int)(position.y + pivot.y + floor(180 * dt)) })) {
 			position.y += floor(velocity.y * 2 * dt);
-			current_animation = &GoDown;
+			current_animation = &anim.GoDown;
 		}
 		else {
 			CheckLobbyCollision(dt, direction);
@@ -961,108 +961,108 @@ void e1Player::PerformMovementInQuest(float dt)
 		if (position.x >= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.x -= floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
-			current_animation = &GoDownLeft;
+			current_animation = &anim.GoDownLeft;
 		}
 		else {
 			position.x = initial_position.x + movement_count.x;
 			position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
-			current_animation = &IdleDownLeft;
+			current_animation = &anim.IdleDownLeft;
 		}
 		break;
 	case Direction::UP_RIGHT:
 		if (position.x <= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
-			current_animation = &GoUpRight;
+			current_animation = &anim.GoUpRight;
 		}
 		else {
 			position.x = initial_position.x + movement_count.x;
 			position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
-			current_animation = &IdleUpRight;
+			current_animation = &anim.IdleUpRight;
 		}
 		break;
 	case Direction::UP_LEFT:
 		if (position.x >= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 			position.x -= floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
-			current_animation = &GoUpLeft;
+			current_animation = &anim.GoUpLeft;
 		}
 		else {
 			position.x = initial_position.x + movement_count.x;
 			position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
-			current_animation = &IdleUpLeft;
+			current_animation = &anim.IdleUpLeft;
 		}
 		break;
 	case Direction::DOWN_RIGHT:
 		if (position.x <= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.x += floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
-			current_animation = &GoDownRight;
+			current_animation = &anim.GoDownRight;
 		}
 		else {
 			position.x = initial_position.x + movement_count.x;
 			position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
-			current_animation = &IdleDownRight;
+			current_animation = &anim.IdleDownRight;
 		}
 		break;
 	case Direction::LEFT:
 		if (position.x >= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
 			position.x -= floor(velocity.x * dt);
-			current_animation = &GoLeft;
+			current_animation = &anim.GoLeft;
 		}
 		else {
 			position.x = initial_position.x + movement_count.x;
 			position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
-			current_animation = &IdleLeft;
+			current_animation = &anim.IdleLeft;
 		}
 		break;
 	case Direction::RIGHT:
 		if (position.x <= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
 			position.x += floor(velocity.x * dt);
-			current_animation = &GoRight;
+			current_animation = &anim.GoRight;
 		}
 		else {
 			position.x = initial_position.x + movement_count.x;
 			position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
-			current_animation = &IdleRight;
+			current_animation = &anim.IdleRight;
 		}
 		break;
 	case Direction::UP:
 		if (position.x == initial_position.x + movement_count.x && position.y >= initial_position.y + movement_count.y) {
 			position.y -= floor(velocity.y * dt);
-			current_animation = &GoUp;
+			current_animation = &anim.GoUp;
 		}
 		else {
 			position.x = initial_position.x + movement_count.x;
 			position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
-			current_animation = &IdleUp;
+			current_animation = &anim.IdleUp;
 		}
 		break;
 	case Direction::DOWN:
 		if (position.x == initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.y += floor(velocity.y * dt);
-			current_animation = &GoDown;
+			current_animation = &anim.GoDown;
 		}
 		else {
 			position.x = initial_position.x + movement_count.x;
 			position.y = initial_position.y + movement_count.y;
 			target_position = position;
 			state = State::IDLE;
-			current_animation = &IdleDown;
+			current_animation = &anim.IdleDown;
 		}
 		break;
 	default:
@@ -1075,37 +1075,37 @@ void e1Player::ChangeDirection()
 	if (player_input.pressing_shift) {
 		if (player_input.pressing_I) {
 			direction = Direction::UP;
-			current_animation = &IdleUp;
+			current_animation = &anim.IdleUp;
 		}
 		if (player_input.pressing_J) {
 			direction = Direction::LEFT;
-			current_animation = &IdleLeft;
+			current_animation = &anim.IdleLeft;
 		}
 		if (player_input.pressing_K) {
 			direction = Direction::DOWN;
-			current_animation = &IdleDown;
+			current_animation = &anim.IdleDown;
 		}
 		if (player_input.pressing_L) {
 			direction = Direction::RIGHT;
-			current_animation = &IdleRight;
+			current_animation = &anim.IdleRight;
 		}
 	}
 	else if (!player_input.pressing_shift) {
 		if (player_input.pressing_UP_LEFT) {
 			direction = Direction::UP_LEFT;
-			current_animation = &IdleUpLeft;
+			current_animation = &anim.IdleUpLeft;
 		}
 		if (player_input.pressing_DOWN_LEFT) {
 			direction = Direction::DOWN_LEFT;
-			current_animation = &IdleDownLeft;
+			current_animation = &anim.IdleDownLeft;
 		}
 		if (player_input.pressing_DOWN_RIGHT) {
 			direction = Direction::DOWN_RIGHT;
-			current_animation = &IdleDownRight;
+			current_animation = &anim.IdleDownRight;
 		}
 		if (player_input.pressing_UP_RIGHT) {
 			direction = Direction::UP_RIGHT;
-			current_animation = &IdleUpRight;
+			current_animation = &anim.IdleUpRight;
 		}
 	}
 

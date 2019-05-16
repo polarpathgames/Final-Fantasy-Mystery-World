@@ -7,7 +7,7 @@
 template<class TYPE>
 class Property {
 public:
-	Property() {}
+	Property() { value = 0; }
 	Property(const char * _name, const TYPE val) {
 		name.assign(_name);
 		value = val;
