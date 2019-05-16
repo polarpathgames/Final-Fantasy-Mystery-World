@@ -30,10 +30,14 @@ e1State::e1State(int x, int y, const char * name) :e1Entity(x, y) {
 		state = EventStates::POISON;
 		turn_effect = 3U;
 		target = (e1Entity*)App->scene->player;
+		if (target->data.tileset.texture != nullptr) {
+			SDL_GetTextureColorMod(target->data.tileset.texture, &color_mod_r, &color_mod_g, &color_mod_b);
+			SDL_SetTextureColorMod(target->data.tileset.texture, 0, 64, 0);
+		}
 		max_number_hit = 5U;
 		time_effect = 1U;
 		damage = 5;
-		frame = { 1032,0,18,32 };
+		drawable = false;
 	}
 
 	allow_turn = true;
@@ -104,22 +108,45 @@ bool e1State::PreUpdate()
 bool e1State::Update(float dt)
 {
 	if (doing_effect) {
-		//drawable = true;
-		if (target != nullptr) {
-			position = target->position;
-		}
-
-		if (timer.ReadSec() >= time_effect) { // or animation finish
-			turn_done = true;
-			turn_count = 0U;
-			doing_effect = false;
-			//drawable = false;
-			if (max_number_hit != 0u) {
-				if (number_hit >= max_number_hit) {
-					to_delete = true;
+		
+		switch (state)
+		{
+		case EventStates::BLIZZARD:
+			if (timer.ReadSec() >= time_effect) { // or animation finish
+				turn_done = true;
+				turn_count = 0U;
+				doing_effect = false;
+				if (max_number_hit != 0u) {
+					if (number_hit >= max_number_hit) {
+						to_delete = true;
+					}
 				}
 			}
+			break;
+		case EventStates::POISON:
+			if (target != nullptr) {
+				position = target->position;
+			}
+
+			if (timer.ReadSec() >= time_effect) { // or animation finish
+				turn_done = true;
+				turn_count = 0U;
+				doing_effect = false;
+				if (max_number_hit != 0u) {
+					if (number_hit >= max_number_hit) {
+						if (target->data.tileset.texture != nullptr)
+							SDL_SetTextureColorMod(target->data.tileset.texture, color_mod_r, color_mod_g, color_mod_b);
+						to_delete = true;
+					}
+				}
+			}
+			break;
+		case EventStates::NONE:
+			break;
+		default:
+			break;
 		}
+		
 	}
 
 	return true;

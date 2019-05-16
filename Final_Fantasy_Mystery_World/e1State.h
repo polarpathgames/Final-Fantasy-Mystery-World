@@ -45,6 +45,10 @@ private:
 	uint time_effect = 1u;
 	float time_before_effect = 0.5f;
 	int damage = 0;
+
+	Uint8 color_mod_r = 0u;
+	Uint8 color_mod_g = 0u;
+	Uint8 color_mod_b = 0u;
 };
 
 #endif // !__E1STATE_H__

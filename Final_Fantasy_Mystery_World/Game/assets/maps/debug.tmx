@@ -9650,7 +9650,7 @@
   <object id="80" name="blue_fire" type="static" x="352" y="192" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="9" name="entities">
-  <object id="53" name="enemy" type="MegaEye" x="352" y="256" width="15.9688" height="16.0156"/>
+  <object id="53" name="enemy" type="Cassio" x="352" y="256" width="15.9688" height="16.0156"/>
   <object id="60" name="player" type="default" x="352" y="400" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
