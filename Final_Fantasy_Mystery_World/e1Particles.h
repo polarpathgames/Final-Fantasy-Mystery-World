@@ -16,6 +16,7 @@ public:
 		ARROW,
 		FIREBALL,
 		ICE_STAKE,
+		THUNDERBOLT,
 
 		NONE
 	};
@@ -49,6 +50,8 @@ private:
 	void SetIceStake();
 	void MoveIceStake(float dt);
 
+	void SetThunderbolt();
+
 public:
 
 	ParticleType particle_type = ParticleType::NONE;
@@ -60,6 +63,8 @@ public:
 	float lerp_by = 0.f;
 	float lerp_speed = 0.f;
 	iPoint final_position = { 0,0 };
+
+	bool rotate_angle = false;
 
 	double angle = 0.f;
 
