@@ -53,8 +53,8 @@ bool m1FadeToBlack::PostUpdate()
 	case fade_step::fade_to_black:
 	{
 		if (vibration) {
-			App->input->ControllerVibration(1.0F, 3000);
-			App->render->CameraTremble(1.0F, 3000);
+			App->input->ControllerVibration(0.7F, 150);
+			App->render->CameraTremble(1.0F, 9000);
 		}
 		if (now >= total_time)
 		{	
@@ -83,6 +83,7 @@ bool m1FadeToBlack::PostUpdate()
 		if (now >= total_time) {
 			current_step = fade_step::none;
 			App->dialog->end_dial = true;
+
 			vibration = false;
 			if (App->scene->player != nullptr && App->cutscene_manager->is_executing == false)
 				App->scene->player->BlockControls(false);
