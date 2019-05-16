@@ -32,12 +32,14 @@ e1State::e1State(int x, int y, const char * name) :e1Entity(x, y) {
 		target = (e1Entity*)App->scene->player;
 		if (target->data.tileset.texture != nullptr) {
 			SDL_GetTextureColorMod(target->data.tileset.texture, &color_mod_r, &color_mod_g, &color_mod_b);
-			SDL_SetTextureColorMod(target->data.tileset.texture, 0, 64, 0);
+			SDL_SetTextureColorMod(target->data.tileset.texture, 0, 225, 200);
 		}
 		max_number_hit = 5U;
 		time_effect = 1U;
 		damage = 5;
 		drawable = false;
+		CreateParticleFire(target, nullptr, { 0,0 }, SDL_Rect{ 2,6,2,2 }, iPoint(5, 2), iPoint(12, 4), fPoint(0, -30), P_NON, 65, 4, true, W_NON,target->pivot);
+		(*particle_fire.begin())->active = false;
 	}
 
 	allow_turn = true;
@@ -86,6 +88,7 @@ bool e1State::PreUpdate()
 				case EventStates::POISON:
 					if (target != nullptr) {
 						static_cast<e1DynamicEntity*>(target)->GetHitted(damage);
+						(*particle_fire.begin())->active = true;
 					}
 					number_hit++;
 					break;
@@ -132,6 +135,7 @@ bool e1State::Update(float dt)
 				turn_done = true;
 				turn_count = 0U;
 				doing_effect = false;
+				(*particle_fire.begin())->active = false;
 				if (max_number_hit != 0u) {
 					if (number_hit >= max_number_hit) {
 						if (target->data.tileset.texture != nullptr)
