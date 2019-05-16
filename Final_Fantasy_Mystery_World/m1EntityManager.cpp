@@ -508,7 +508,7 @@ bool m1EntityManager::Load(pugi::xml_node& load)
 	bool ret = true;
 	App->scene->CreateEntitiesFromXML(load);
 	std::vector<e1Entity*>::const_iterator item = entities_to_create.cbegin();
-	for (; item != entities.cend(); ++item)
+	for (; item != entities_to_create.cend(); ++item)
 	{
 		if ((*item)->type == e1Entity::EntityType::MAGE || (*item)->type == e1Entity::EntityType::ARCHER || (*item)->type == e1Entity::EntityType::WARRIOR || (*item)->type == e1Entity::EntityType::PLAYER)
 		{
@@ -517,7 +517,7 @@ bool m1EntityManager::Load(pugi::xml_node& load)
 		}
 	}
 	App->menu_manager->CreateHUD();
-	//App->menu_manager->ShowHUD(false);
+	App->menu_manager->EnableHUD(false);
 	App->scene->player->actual_tile.x += 1;
 	App->scene->player->actual_tile.y += 1;
 	App->scene->player->CenterOnTile();
