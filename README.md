@@ -1,28 +1,35 @@
 ﻿# Final Fantasy: Mystery World
 
-Final Fantasy Mystery World v.0.6.0
+Final Fantasy Mystery World v.0.8.0
 
 ## Description
 
 Added: 
 --------
-- Compass
-- Potions as drops
-- Slime spritesheet
+- Quest 3 rooms with colliders
+- Exp bar
+- Loop quest 3
+- Bat enemy
 
 Changed:
 --------
-- Lobby tmx
-- Stats update when level up
-- Tutorial tmx
-- Code revision
+- Inventory
+- Experience
 
 Removed: 
 --------
+- Old inventory
 
 Fixed: 
 --------
-- Pre-Release 0.5.3 branch merge conflicts into develop branch
+- #333 The rectangle of the worktop is too large
+- #335 The game doesn't return the player to the lobby once you go to the map for a second time
+- #341 Game crash when return to main menu and use the B button in controller
+- #381 The fx are a little bit behind than they should
+- #382 The game crashes when you try to make the load
+- #386 The spawn of the player when return to the lobby from quest is wrong
+- #388 The statues dialogs are wrong picked
+- #390 The arrow ability disappear too soon
 
 ## Links
 
@@ -91,6 +98,8 @@ Oriol Capdevila [OriolCS2](https://github.com/OriolCS2)
 - 1/2/3: Change zoom
 - 6: go to the lobby
 - 7: go to tutorial map
+- 8: go to quest 1
+- 9: go to quest 2
 - F9: colliders
 - F1: UI
 - F2: Debug Screen
