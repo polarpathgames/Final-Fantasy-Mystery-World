@@ -16,7 +16,8 @@ public:
 	void IdAnimToEnum();
 
 	void PrepareDistanceAttack();
-	void AfetSpecialAttack1();
+	void AfterSpecialAttack1();
+	bool IsSpecialAttack1Finished();
 	void PrepareBasicAttack();
 	void FinishBasicAttack();
 	void UpdateEnemy();

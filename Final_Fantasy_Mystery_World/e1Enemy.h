@@ -76,7 +76,7 @@ public:
 
 	virtual void PrepareDistanceAttack() {}
 	virtual bool IsSpecialAttack1Finished() { return current_animation->Finished(); }
-	virtual void AfetSpecialAttack1() {}
+	virtual void AfterSpecialAttack1() {}
 
 	virtual void AfterAttack() {}
 
