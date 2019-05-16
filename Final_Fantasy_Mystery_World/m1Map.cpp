@@ -51,6 +51,7 @@ bool m1Map::Awake(pugi::xml_node& config)
 
 	shop_map.assign(config.child("maps").child("shop_map").text().as_string());
 	lobby_map.assign(config.child("maps").child("lobby_map").text().as_string());
+	lobby_ice.assign(config.child("maps").child("lobby_ice").text().as_string());
 	home_map.assign(config.child("maps").child("home_map").text().as_string());
 
 	debug_map.assign(config.child("start_map").attribute("map").as_string());
@@ -651,7 +652,14 @@ bool m1Map::ChangeMap(Maps type)
 	switch (type) {
 	case Maps::LOBBY:
 		App->audio->PlayMusic(mus_lobby, 5);
-		Load(lobby_map.data());
+		switch (lobby_state) {
+		case LobbyState::NORMAL_LOBBY:
+			Load(lobby_map.data());
+			break;
+		case LobbyState::ICE_LOBBY:
+			Load(lobby_ice.data());
+			break;
+		}
 		actual_map = Maps::LOBBY;
 		if (last_map != Maps::HOME && last_map != Maps::SHOP) {
 			App->scene->player->AugmentLives(App->scene->player->stats.max_lives);
