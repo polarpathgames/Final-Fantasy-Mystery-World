@@ -56,6 +56,12 @@ e1State::~e1State()
 		delete animation;
 		animation = nullptr;
 	}
+
+	if (state == EventStates::POISON) {
+		if (target != nullptr && target->data.tileset.texture != nullptr) {
+			SDL_SetTextureColorMod(target->data.tileset.texture, color_mod_r, color_mod_g, color_mod_b);
+		}
+	}
 }
 
 bool e1State::PreUpdate()
@@ -138,8 +144,6 @@ bool e1State::Update(float dt)
 				(*particle_fire.begin())->active = false;
 				if (max_number_hit != 0u) {
 					if (number_hit >= max_number_hit) {
-						if (target->data.tileset.texture != nullptr)
-							SDL_SetTextureColorMod(target->data.tileset.texture, color_mod_r, color_mod_g, color_mod_b);
 						to_delete = true;
 					}
 				}
