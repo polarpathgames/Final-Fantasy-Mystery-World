@@ -45,12 +45,12 @@ bool e1Cassio::IsSpecialAttack1Finished()
 	return particle_position == App->scene->player->position || lerp_translation > 1.f;
 }
 
-void e1Cassio::AfetSpecialAttack1()
+void e1Cassio::AfterSpecialAttack1()
 {
 	lerp_translation = 0.f;
 	App->particles->DeleteFollow_p(poison_particle);
 	poison_particle = nullptr;
-	if (App->entity_manager->IsPlayerPoisoned() == false)
+	if (App->entity_manager->IsPlayerPoisonedOrBurned() == false)
 		App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, App->scene->player->position.x, App->scene->player->position.y, "poison");
 }
 

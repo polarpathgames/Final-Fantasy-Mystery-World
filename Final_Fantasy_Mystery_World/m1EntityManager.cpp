@@ -621,7 +621,7 @@ e1Entity * m1EntityManager::FindEntity(const char * name)
 	return ret;
 }
 
-bool m1EntityManager::IsPlayerPoisoned()
+bool m1EntityManager::IsPlayerPoisonedOrBurned()
 {
 	for (std::vector<e1Entity*>::iterator item = entities.begin(); item != entities.end(); ++item)
 	{

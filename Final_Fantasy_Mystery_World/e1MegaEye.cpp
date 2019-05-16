@@ -45,7 +45,7 @@ bool e1MegaEye::IsSpecialAttack1Finished()
 	return current_animation->Finished();
 }
 
-void e1MegaEye::AfetSpecialAttack1()
+void e1MegaEye::AfterSpecialAttack1()
 {
 
 

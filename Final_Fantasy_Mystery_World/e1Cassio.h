@@ -17,7 +17,7 @@ public:
 
 	void PrepareDistanceAttack();
 	bool IsSpecialAttack1Finished();
-	void AfetSpecialAttack1();
+	void AfterSpecialAttack1();
 
 	void UpdateEnemy();
 

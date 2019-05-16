@@ -176,7 +176,7 @@ bool e1Enemy::Update(float dt)
 			if (IsSpecialAttack1Finished()) {
 				App->audio->PlayFx(App->scene->fx_dog_attack);
 				App->scene->player->GetHitted(stats.special_attack_damage);
-				AfetSpecialAttack1();
+				AfterSpecialAttack1();
 				attack = true;
 			}
 			else Attacking();

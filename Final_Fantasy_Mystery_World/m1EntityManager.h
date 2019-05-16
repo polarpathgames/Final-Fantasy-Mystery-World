@@ -49,7 +49,7 @@ public:
 	bool ThereIsEntity(const char*);
 	e1Entity* FindEntity(e1Entity::EntityType type);
 	e1Entity* FindEntity(const char*);
-	bool IsPlayerPoisoned();
+	bool IsPlayerPoisonedOrBurned();
 	void DeleteEntities();
 	void DeleteEntitiesNoPlayer();
 	void DeleteEntity(e1Entity* entity_to_delete);

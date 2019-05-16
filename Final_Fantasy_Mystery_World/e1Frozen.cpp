@@ -106,7 +106,7 @@ bool e1Frozen::IsSpecialAttack1Finished()
 	return (current_animation->Finished() && !App->entity_manager->ThereIsEntity("ice stake"));
 }
 
-void e1Frozen::AfetSpecialAttack1()
+void e1Frozen::AfterSpecialAttack1()
 {
 }
 
