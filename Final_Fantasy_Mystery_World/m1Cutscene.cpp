@@ -7,6 +7,7 @@
 #include "m1Scene.h"
 #include "e1Player.h"
 #include "m1MenuManager.h"
+#include "m1Map.h"
 #include "m1Input.h"
 #include "m1CutScene.h"
 #include "c1CutsceneMoveCamera.h"
@@ -14,7 +15,9 @@
 #include "c1CutsceneModifyText.h"
 #include "c1CutsceneModifyImage.h"
 #include "c1CutsceneEntity.h"
+#include "c1CutSceneVibration.h"
 #include "c1CutsceneText.h"
+#include "c1CutSceneFadeToBlack.h"
 #include "c1CutsceneImage.h"
 #include "c1CutSceneDeleteEntity.h"
 #include "c1CutSceneAddAudio.h"
@@ -113,6 +116,14 @@ bool m1CutScene::LoadCutscene(std::string path)
 			{
 				cutscene_action = DBG_NEW c1CutSceneDeleteEntity(start, duration, cutscene_action_node.attribute("entity").as_string());
 
+			}
+			else if (action == "vibration")
+			{
+				cutscene_action = DBG_NEW c1CutsceneVibration(start, duration);
+			}
+			else if (action == "fade")
+			{
+				cutscene_action = DBG_NEW c1CutsceneFadeToBlack(start, duration, cutscene_action_node.child("time").attribute("fade").as_float());
 			}
 			else if (action == "add_audio")
 			{
@@ -234,12 +245,24 @@ void m1CutScene::ClearCutscene()
 	}
 
 	actions.clear();
-
+	
 	for (std::map<std::string, c1CutsceneElement*>::iterator it = elements.begin(); it != elements.end(); ++it)
 	{
 		delete (*it).second;
 		(*it).second = nullptr;
 	}
+
+	if (App->map->quest_rooms != nullptr && App->map->quest_rooms->actual_room != nullptr && App->map->quest_rooms->actual_room->update_number == 4) {
+		std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+		std::vector<e1Entity*>::iterator item = entities.begin();
+		for (; item != entities.end(); ++item) {
+			if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::STATIC && static_cast<e1StaticEntity*>(*item)->static_type == e1StaticEntity::Type::FLASH_INFO) {
+				(*item)->actual_tile = { 19,20 };
+				(*item)->position = { -1,290 };
+			}
+		}
+	}
+
 	cutscene_file.reset();
 	elements.clear();
 	App->menu_manager->EnableHUD(true);

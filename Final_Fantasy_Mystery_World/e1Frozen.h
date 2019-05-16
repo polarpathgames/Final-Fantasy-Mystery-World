@@ -13,11 +13,12 @@ class e1Frozen :public e1Enemy {
 public:
 	e1Frozen(const int& x, const int& y);
 	~e1Frozen();
-	bool PreUpdate();
+	
 public:
 
-
+	bool PreUpdate();
 	void IdAnimToEnum();
+	void InitStats();
 
 	void PrepareDistanceAttack();
 	bool IsSpecialAttack1Finished();
@@ -33,7 +34,11 @@ private:
 
 	iPoint tp_location = { 0,0 };
 	p2Timer tp_timer;
-	uint tp_number_hit = 1u;
+	uint tp_number_hit = 0u;
+	uint tp_number_hit_phase1 = 2u;
+	uint tp_number_hit_phase2 = 1u;
+	uint tp_last_number_hit = 0u;
+	bool tp_done = false;
 
 	e1BlueSlime* slime_1 = nullptr;
 	e1BlueSlime* slime_2 = nullptr;

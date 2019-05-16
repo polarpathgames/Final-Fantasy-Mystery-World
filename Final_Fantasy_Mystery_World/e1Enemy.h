@@ -45,7 +45,7 @@ public:
 
 	virtual ~e1Enemy();
 
-	void InitStats();
+	virtual void InitStats();
 
 	bool PreUpdate();
 
@@ -71,6 +71,8 @@ public:
 
 	virtual void PrepareBasicAttack() {}
 	virtual void FinishBasicAttack() {}
+
+	virtual void Attacking() {}
 
 	virtual void PrepareDistanceAttack() {}
 	virtual bool IsSpecialAttack1Finished() { return current_animation->Finished(); }

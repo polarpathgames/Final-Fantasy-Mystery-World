@@ -2,6 +2,118 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.0] - 12/05/2019
+
+Added: 
+--------
+- Quest 3 rooms with colliders
+- Exp bar
+- Loop quest 3
+- Bat enemy
+
+Changed:
+--------
+- Inventory
+- Experience
+
+Removed: 
+--------
+- Old inventory
+
+Fixed: 
+--------
+- #333 The rectangle of the worktop is too large
+- #335 The game doesn't return the player to the lobby once you go to the map for a second time
+- #341 Game crash when return to main menu and use the B button in controller
+- #381 The fx are a little bit behind than they should
+- #382 The game crashes when you try to make the load
+- #386 The spawn of the player when return to the lobby from quest is wrong
+- #388 The statues dialogs are wrong picked
+- #390 The arrow ability disappear too soon
+
+## [0.7.1] - 09/05/2019
+
+Added: 
+--------
+- New objects descriptions in shop
+- Full quest 2 static objects
+- Daughter added in lobby as static entity
+
+
+Changed:
+--------
+- Shop menu
+- Camera Shake
+- Cutscenes code
+- Cutscenes Adapted to new code
+
+Removed: 
+--------
+
+Fixed: 
+--------
+- Shop scroll fully functional
+
+## [0.7.0] - 05/05/2019
+
+Added: 
+--------
+- Cassio enemy added
+- Blizzard added
+- Special cassio venom attack added
+- Full event system added
+- Statick objects quest 2 added
+- Shop scroll added
+- More than one object in shop added
+
+
+Changed:
+--------
+- Health and mana bars
+- Super Frog special attack (pathfinding change)
+- Menu's exit splines
+- Lobby map (more credible)
+- Cursor code
+- HUD rework
+- Clear code create entities in room
+
+Removed: 
+--------
+
+Fixed: 
+--------
+- #334 If you go to the tutorial map from the lobby the HUD disappear
+- #335 The game doesn't return the player to the lobby once you go to the map for a second time
+- #341 Game crash when return to main menu and use the B button in controller
+
+## [0.6.1] - 03/05/2019
+
+Added: 
+--------
+- Save and Load
+- 3rd ability
+- Minimap (almost done)
+- Button to skip cutscene
+- Loop Quest 2
+- Rooms quest 2
+- Purple frog enemy added
+- Slime enemy added
+
+Changed:
+--------
+- Splines in almost all menus
+- Menus code
+
+Removed: 
+--------
+
+Fixed: 
+--------
+- #287 General volume of all audios should be way less loud
+- #305 Shop bugs when you click fast to buy potions
+- #332 The ability panel disable the HUD when you go back to the game
+- #334 If you go to the tutorial map from the lobby the HUD disappear
+
 ## [0.6.0] - 28/04/2019
 
 Added: 

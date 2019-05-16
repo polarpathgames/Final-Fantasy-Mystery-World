@@ -29,48 +29,44 @@ e1MegaEye::e1MegaEye(const int & x, const int & y) : e1Enemy(x, y)
 
 e1MegaEye::~e1MegaEye()
 {
-	if (poison_particle != nullptr)
-		App->particles->DeleteFollow_p(poison_particle);
 }
 
 void e1MegaEye::PrepareDistanceAttack()
 {
-	particle_position = position;
-	lerp_translation = 0.f;
-	poison_particle = App->particles->CreateFollow(nullptr, &particle_position, { 2,6,2,2 }, { 10,10 }, { 15,5 }, 4, 60, true, false, { 0,5 });
+
 }
 
 void e1MegaEye::PrepareBasicAttack() {
-	particle_position = position;
-	lerp_translation = 0.f;
-	poison_particle = App->particles->CreateFollow(nullptr, &particle_position, { 2,6,2,2 }, { 10,10 }, { 15,5 }, 4, 60, true, false, { 0,5 });
+
 }
 
 bool e1MegaEye::IsSpecialAttack1Finished()
 {
-	return particle_position == App->scene->player->position || lerp_translation > 1.f;
+	return current_animation->Finished();
 }
 
 void e1MegaEye::AfetSpecialAttack1()
 {
-	lerp_translation = 0.f;
-	App->particles->DeleteFollow_p(poison_particle);
-	poison_particle = nullptr;
 
+
+}
+
+void e1MegaEye::Attacking()
+{
+	if ((int)current_animation->current_frame == 0) {
+		e1Particles* needle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, actual_tile.x, actual_tile.y, "");
+		needle->position.x = GetPosition().x;
+		needle->SetParticle(e1Particles::ParticleType::THUNDERBOLT, direction);
+	}
 }
 
 void e1MegaEye::UpdateEnemy()
 {
-	if (state == State::ATTACKING && poison_particle != nullptr) {
-		particle_position = lerp(position, App->scene->player->GetPosition() + iPoint{ 0, -10 }, lerp_translation).AproximateToIntFloor();
-		lerp_translation += lerp_by;
-	}
+
 }
 
 void e1MegaEye::FinishBasicAttack() {
-	lerp_translation = 0.f;
-	App->particles->DeleteFollow_p(poison_particle);
-	poison_particle = nullptr;
+
 }
 
 void e1MegaEye::IdAnimToEnum()

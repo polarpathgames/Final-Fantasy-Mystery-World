@@ -45,11 +45,16 @@ struct GlobalGameAdvances
 	bool helmet_bought = false;
 	bool ring_bought = false;
 	bool shop_gone = false;
+	bool CutSceneHomeToSleepQuest2 = false;
 	bool quest2_rocks_cave_destroyed = false;
-
+	bool CutSceneQueenQuest2 = false;
+	bool CutSceneFinalRoomQuest2 = false;
+	bool ice_queen_killed = false;
 	std::string player_name;
 
 	void Reset() {
+		ice_queen_killed = false;
+		CutSceneHomeToSleepQuest2 = false;
 		CutSceneTutorialGirlEscapingPlayed = false;
 		CutSceneFinalRoomTutorialPlayed = false;
 		CutSceneMiddleRoomTutorialPlayed = false;
@@ -63,6 +68,8 @@ struct GlobalGameAdvances
 		ring_bought = false;
 		shop_gone = false;
 		quest2_rocks_cave_destroyed = false;
+		CutSceneQueenQuest2 = false;
+		CutSceneFinalRoomQuest2 = false;
 	}
 
 };

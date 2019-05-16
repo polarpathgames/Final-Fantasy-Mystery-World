@@ -133,13 +133,13 @@ void m1MenuManager::CreateSelectChamp()
 
 	select_champ.select_champ_panel = App->gui->AddImage(0, 0, { 1024, 3256, 1024, 768 }, App->main_menu, App->gui->screen, true, false, false, false);
 	
-	select_champ.warrior_image = App->gui->AddImage(500, 175, { 1052, 4079, 327, 358 }, App->main_menu, select_champ.select_champ_panel, true, false, false, false);
-	select_champ.archer_image = App->gui->AddImage(580, 180, { 1681, 4050, 244, 400 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
-	select_champ.mage_image = App->gui->AddImage(580, 180, { 1414, 4079, 218, 363 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
+	select_champ.warrior_image = App->gui->AddImage(500, 153, { 1052, 4079, 327, 358 }, App->main_menu, select_champ.select_champ_panel, true, false, false, false);
+	select_champ.archer_image = App->gui->AddImage(580, 135, { 1681, 4050, 244, 400 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
+	select_champ.mage_image = App->gui->AddImage(580, 160, { 1414, 4079, 218, 363 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
 
-	select_champ.warrior_info = App->gui->AddImage(370, 600, { 99, 4120, 585, 97 }, App->main_menu, select_champ.select_champ_panel, true, false, false, false);
-	select_champ.archer_info = App->gui->AddImage(370, 600, { 99, 4273, 537, 97 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
-	select_champ.mage_info = App->gui->AddImage(370, 600, { 98, 4414, 518, 97 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
+	select_champ.warrior_info = App->gui->AddImage(490, 550, { 2118, 3306, 318, 141 }, App->main_menu, select_champ.select_champ_panel, true, false, false, false);
+	select_champ.archer_info = App->gui->AddImage(490, 550, { 2118, 3570, 318, 141 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
+	select_champ.mage_info = App->gui->AddImage(490, 550, { 2118, 3822, 318, 141 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
 
 	select_champ.button_warrior = App->gui->AddChButton(100, 250, { 1850,1637,198,50 }, { 1569,1688,198,50 }, { 1569,1756,198,50 }, App->main_menu, select_champ.select_champ_panel, PlayerType::WARRIOR, true, false, true, true);
 	select_champ.label_warrior = App->gui->AddLabel(65, -13, "Warrior", select_champ.button_warrior, BLACK, FontType::FF64, nullptr, false);

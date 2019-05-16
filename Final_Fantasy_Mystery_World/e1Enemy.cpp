@@ -166,6 +166,7 @@ bool e1Enemy::Update(float dt)
 				FinishBasicAttack();
 				attack = true;
 			}
+			else Attacking();
 			break;
 		case Attacks::SPECIAL_1:
 			if (IsSpecialAttack1Finished()) {
@@ -174,6 +175,7 @@ bool e1Enemy::Update(float dt)
 				AfetSpecialAttack1();
 				attack = true;
 			}
+			else Attacking();
 			break;
 		case Attacks::SPECIAL_2:
 			break;
