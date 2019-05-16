@@ -20,6 +20,7 @@ public:
 	void PrepareBasicAttack();
 	void FinishBasicAttack();
 	void UpdateEnemy();
+	void SuperHit();
 
 	void PrepareParticle();
 	void DeleteParticle();
@@ -30,6 +31,9 @@ private:
 	float lerp_by = 0.02f;
 	p1Follow* fire_particle = nullptr;
 
+	bool first_hit = false;
+	bool second_hit = false;
+	bool third_hit = false;
 };
 
 #endif // !_E1BABYDRAKE_H_

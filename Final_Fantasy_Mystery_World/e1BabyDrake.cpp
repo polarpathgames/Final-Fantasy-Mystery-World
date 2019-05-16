@@ -46,6 +46,10 @@ void e1BabyDrake::AfetSpecialAttack1()
 void e1BabyDrake::PrepareBasicAttack()
 {
 	PrepareParticle();
+	if (!first_hit) {
+		first_hit = true;
+		SuperHit();
+	}
 }
 
 void e1BabyDrake::FinishBasicAttack()
@@ -61,11 +65,18 @@ void e1BabyDrake::UpdateEnemy()
 	}
 }
 
+void e1BabyDrake::SuperHit()
+{
+
+
+}
+
 void e1BabyDrake::PrepareParticle()
 {
 	particle_position = position;
 	lerp_translation = 0.f;
 	fire_particle = App->particles->CreateFollow(nullptr, &particle_position, { 2,6,2,2 }, { 10,10 }, { 15,5 }, 4, 60, true, false, { 0,5 });
+
 }
 
 void e1BabyDrake::DeleteParticle()
