@@ -18,6 +18,7 @@ enum TypeSpline {
 	EASE_OUT_BACK,
 	EASE_IN_CUBIC,
 	EASE_OUT_CUBIC,
+	EASE_OUT_BOUNCE,
 
 	NONE_
 };
@@ -30,6 +31,7 @@ struct EaseFunctions {
 	int EaseOutBack(float time_passed, int initial_position, int distance_to_travel, float time_to_travel);
 	int EaseInCubic(float time_passed, int initial_position, int distance_to_travel, float time_to_travel);
 	int EaseOutCubic(float time_passed, int initial_position, int distance_to_travel, float time_to_travel);
+	int EaseOutBounce(float time_passed, int initial_position, int distance_to_travel, float time_to_travel);
 };
 
 struct EaseSplineInfo {
