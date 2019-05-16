@@ -114,13 +114,14 @@ public:
 	Animation* idle = nullptr;
 	bool has_animation = false;
 	Type static_type = Type::UNKNOWN;
+	InteractingStates interacting_state = InteractingStates::NONE;
 	bool drunk = false;
 private:
 	
 	
 	bool has_dialog = false;
 	
-	InteractingStates interacting_state = InteractingStates::NONE;
+	
 	int max_distance_to_interact = 0; // distance in tiles
 
 	u1Image* button_interact = nullptr;

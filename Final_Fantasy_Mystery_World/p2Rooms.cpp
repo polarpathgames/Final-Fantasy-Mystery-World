@@ -382,6 +382,13 @@ void RoomManager::LoadEntities()
 				if (!App->globals.quest2_rocks_cave_destroyed)
 					App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 			}
+			else if ((*position)->name == "treasure") {
+				e1StaticEntity* treasure = (e1StaticEntity*)App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+				if ((App->globals.treasure_quest2_opened)) {
+					treasure->frame = { 0,0,0,0 };
+					treasure->interacting_state = e1StaticEntity::InteractingStates::NONE;
+				}
+			}
 			else if ((*position)->name == "InstaGoldRuppe" || (*position)->name == "InstaRedRuppe" || (*position)->name == "InstaBlueRuppe" || (*position)->name == "InstaGreenRuppe") {
 				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
 				if (std::find(actual_room->entities.begin(), actual_room->entities.end(), point) == actual_room->entities.end()) {
