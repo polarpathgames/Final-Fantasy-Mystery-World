@@ -162,28 +162,28 @@ void e1BabyDrake::IdAnimToEnum()
 		case 36:
 			data.animations[i].animType = AnimationState::ABILITY_DOWN_RIGHT_1;
 			break;
-		case 644:
+		case 72:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;
-		case 72:
+		case 78:
 			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
 			break;
-		case 840:
+		case 84:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
 			break;
-		case 88:
+		case 90:
 			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
 			break;
-		case 645:
+		case 73:
 			data.animations[i].animType = AnimationState::DEATH_DOWN;
 			break;
-		case 646:
+		case 74:
 			data.animations[i].animType = AnimationState::DEATH_LEFT;
 			break;
-		case 81:
+		case 85:
 			data.animations[i].animType = AnimationState::DEATH_RIGHT;
 			break;
-		case 89:
+		case 79:
 			data.animations[i].animType = AnimationState::DEATH_UP;
 			break;
 		}
