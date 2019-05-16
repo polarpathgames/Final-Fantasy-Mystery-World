@@ -2,19 +2,17 @@
 #define __P2ANIMATION_H__
 
 #include "SDL/include/SDL_rect.h"
-
-#define MAX_FRAMES 50
+#include <vector>
 
 class Animation
 {
 public:
 	bool loop = true;
 	float speed = 1.0f;
-	SDL_Rect frames[MAX_FRAMES];
+	std::vector<SDL_Rect> frames;
 
 public:
 	float current_frame = 0.0f;
-	int last_frame = 0;
 	int loops = 0;
 
 public:
@@ -22,26 +20,20 @@ public:
 	Animation()
 	{}
 
-	Animation(const Animation& anim) : loop(anim.loop), speed(anim.speed), last_frame(anim.last_frame)
-	{
-		SDL_memcpy(&frames, anim.frames, sizeof(frames));
-	}
+	Animation(const Animation& anim) : loop(anim.loop), speed(anim.speed)
+	{}
 
 	void PushBack(const SDL_Rect& rect)
 	{
-		frames[last_frame++] = rect;
-	}
-
-	void Sprite(const SDL_Rect& rect) {
-		frames[last_frame] = rect;
+		frames.push_back(rect);
 	}
 
 	SDL_Rect& GetCurrentFrame(float dt)
 	{
 		current_frame += speed * dt;
-		if (current_frame >= last_frame)
+		if (current_frame >= frames.size())
 		{
-			current_frame = (loop) ? 0.0f : last_frame - 1;
+			current_frame = (loop) ? 0.0f : frames.size() - 1;
 			loops++;
 		}
 		return frames[(int)current_frame];
@@ -61,6 +53,7 @@ public:
 		loops = 0;
 		current_frame = 0.0f;
 	}
+
 	int SeeCurrentFrame() {
 		return (int)current_frame;
 	}
