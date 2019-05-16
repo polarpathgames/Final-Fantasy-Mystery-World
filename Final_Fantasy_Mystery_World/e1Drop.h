@@ -37,9 +37,15 @@ public:
 
 	DropsType drop_type = DropsType::NONE;
 	int gold = 0;
-	fPoint			  moving_pos = { NULL, NULL };
+	iPoint			  moving_pos = { NULL, NULL };
 	bool			  moving = true;
 	iPoint original_position{ 0,0 };
+
+	float lerp_translation = 0.f;
+	float lerp_by = 0.03f;
+
+	bool is_insta_ruppe = false;
+	iPoint insta_gem_pos = { 0,0 };
 };
 
 #endif

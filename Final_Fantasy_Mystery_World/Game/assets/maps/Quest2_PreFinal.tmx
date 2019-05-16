@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="68">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="168">
  <tileset firstgid="1" name="ques2_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques2_tileset.png" width="688" height="290"/>
  </tileset>
  <tileset firstgid="379" name="Fountain" tilewidth="32" tileheight="16" tilecount="276" columns="12">
   <image source="Fountain.png" width="385" height="368"/>
+ </tileset>
+ <tileset firstgid="655" name="static_objects_tileset" tilewidth="32" tileheight="16" tilecount="825" columns="55">
+  <image source="static_objects_tileset.png" width="1789" height="242"/>
  </tileset>
  <layer id="1" name="Floor" width="40" height="40">
   <data>
@@ -8905,8 +8908,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="379"/>
+   <tile gid="379"/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
@@ -8946,7 +8949,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="379"/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
@@ -9183,7 +9186,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="379"/>
    <tile/>
    <tile/>
    <tile/>
@@ -9636,6 +9639,105 @@
  </layer>
  <objectgroup id="7" name="Static animation objects">
   <object id="67" name="help3" type="static" x="288" y="240" width="76.7869" height="61.2841"/>
+  <object id="69" name="barrel" type="static" x="368" y="224" width="32" height="32"/>
+  <object id="70" name="lava" type="static" x="368" y="400" width="16" height="16"/>
+  <object id="71" name="lava" type="static" x="368" y="416" width="16" height="16"/>
+  <object id="72" name="lava" type="static" x="368" y="432" width="16" height="16"/>
+  <object id="73" name="lava" type="static" x="384" y="416" width="16" height="16"/>
+  <object id="74" name="lava" type="static" x="384" y="384" width="16" height="16"/>
+  <object id="75" name="lava" type="static" x="384" y="400" width="16" height="16"/>
+  <object id="76" name="lava" type="static" x="336" y="384" width="16" height="16"/>
+  <object id="77" name="lava" type="static" x="336" y="368" width="16" height="16"/>
+  <object id="78" name="lava" type="static" x="352" y="368" width="16" height="16"/>
+  <object id="79" name="lava" type="static" x="336" y="416" width="16" height="16"/>
+  <object id="80" name="lava" type="static" x="336" y="432" width="16" height="16"/>
+  <object id="81" name="lava" type="static" x="224" y="352" width="16" height="16"/>
+  <object id="82" name="lava" type="static" x="224" y="368" width="16" height="16"/>
+  <object id="83" name="lava" type="static" x="240" y="336" width="16" height="16"/>
+  <object id="84" name="lava" type="static" x="240" y="352" width="16" height="16"/>
+  <object id="85" name="lava" type="static" x="240" y="288" width="16" height="16"/>
+  <object id="86" name="lava" type="static" x="240" y="304" width="16" height="16"/>
+  <object id="87" name="lava" type="static" x="240" y="208" width="16" height="16"/>
+  <object id="88" name="lava" type="static" x="240" y="224" width="16" height="16"/>
+  <object id="89" name="lava" type="static" x="240" y="176" width="16" height="16"/>
+  <object id="90" name="lava" type="static" x="240" y="192" width="16" height="16"/>
+  <object id="91" name="lava" type="static" x="224" y="320" width="16" height="16"/>
+  <object id="92" name="lava" type="static" x="224" y="336" width="16" height="16"/>
+  <object id="93" name="lava" type="static" x="224" y="288" width="16" height="16"/>
+  <object id="94" name="lava" type="static" x="224" y="304" width="16" height="16"/>
+  <object id="95" name="lava" type="static" x="224" y="256" width="16" height="16"/>
+  <object id="96" name="lava" type="static" x="224" y="272" width="16" height="16"/>
+  <object id="97" name="lava" type="static" x="224" y="224" width="16" height="16"/>
+  <object id="98" name="lava" type="static" x="224" y="240" width="16" height="16"/>
+  <object id="99" name="lava" type="static" x="224" y="192" width="16" height="16"/>
+  <object id="100" name="lava" type="static" x="224" y="208" width="16" height="16"/>
+  <object id="101" name="lava" type="static" x="224" y="160" width="16" height="16"/>
+  <object id="102" name="lava" type="static" x="224" y="176" width="16" height="16"/>
+  <object id="103" name="lava" type="static" x="224" y="128" width="16" height="16"/>
+  <object id="104" name="lava" type="static" x="224" y="144" width="16" height="16"/>
+  <object id="105" name="lava" type="static" x="272" y="128" width="16" height="16"/>
+  <object id="106" name="lava" type="static" x="272" y="144" width="16" height="16"/>
+  <object id="107" name="lava" type="static" x="288" y="128" width="16" height="16"/>
+  <object id="108" name="lava" type="static" x="288" y="144" width="16" height="16"/>
+  <object id="109" name="lava" type="static" x="304" y="128" width="16" height="16"/>
+  <object id="110" name="lava" type="static" x="304" y="144" width="16" height="16"/>
+  <object id="111" name="lava" type="static" x="240" y="128" width="16" height="16"/>
+  <object id="112" name="lava" type="static" x="256" y="128" width="16" height="16"/>
+  <object id="113" name="lava" type="static" x="320" y="128" width="16" height="16"/>
+  <object id="114" name="lava" type="static" x="336" y="128" width="16" height="16"/>
+  <object id="115" name="lava" type="static" x="352" y="128" width="16" height="16"/>
+  <object id="116" name="lava" type="static" x="368" y="128" width="16" height="16"/>
+  <object id="117" name="lava" type="static" x="384" y="128" width="16" height="16"/>
+  <object id="118" name="lava" type="static" x="400" y="128" width="16" height="16"/>
+  <object id="119" name="lava" type="static" x="400" y="144" width="16" height="16"/>
+  <object id="120" name="lava" type="static" x="416" y="144" width="16" height="16"/>
+  <object id="121" name="lava" type="static" x="416" y="128" width="16" height="16"/>
+  <object id="122" name="lava" type="static" x="432" y="128" width="16" height="16"/>
+  <object id="123" name="lava" type="static" x="432" y="144" width="16" height="16"/>
+  <object id="124" name="lava" type="static" x="448" y="144" width="16" height="16"/>
+  <object id="125" name="lava" type="static" x="448" y="128" width="16" height="16"/>
+  <object id="126" name="lava" type="static" x="464" y="128" width="16" height="16"/>
+  <object id="127" name="lava" type="static" x="512" y="304" width="16" height="16"/>
+  <object id="128" name="lava" type="static" x="528" y="304" width="16" height="16"/>
+  <object id="129" name="lava" type="static" x="512" y="288" width="16" height="16"/>
+  <object id="130" name="lava" type="static" x="528" y="288" width="16" height="16"/>
+  <object id="131" name="lava" type="static" x="512" y="272" width="16" height="16"/>
+  <object id="132" name="lava" type="static" x="528" y="272" width="16" height="16"/>
+  <object id="133" name="lava" type="static" x="480" y="240" width="16" height="16"/>
+  <object id="134" name="lava" type="static" x="496" y="240" width="16" height="16"/>
+  <object id="135" name="lava" type="static" x="512" y="240" width="16" height="16"/>
+  <object id="136" name="lava" type="static" x="528" y="240" width="16" height="16"/>
+  <object id="137" name="lava" type="static" x="480" y="256" width="16" height="16"/>
+  <object id="138" name="lava" type="static" x="496" y="288" width="16" height="16"/>
+  <object id="139" name="lava" type="static" x="496" y="304" width="16" height="16"/>
+  <object id="140" name="lava" type="static" x="528" y="336" width="16" height="16"/>
+  <object id="141" name="lava" type="static" x="544" y="336" width="16" height="16"/>
+  <object id="142" name="lava" type="static" x="544" y="352" width="16" height="16"/>
+  <object id="143" name="lava" type="static" x="528" y="384" width="16" height="16"/>
+  <object id="144" name="lava" type="static" x="512" y="400" width="16" height="16"/>
+  <object id="145" name="lava" type="static" x="528" y="400" width="16" height="16"/>
+  <object id="146" name="lava" type="static" x="512" y="416" width="16" height="16"/>
+  <object id="147" name="lava" type="static" x="528" y="416" width="16" height="16"/>
+  <object id="148" name="lava" type="static" x="528" y="432" width="16" height="16"/>
+  <object id="149" name="lava" type="static" x="368" y="272" width="16" height="16"/>
+  <object id="150" name="lava" type="static" x="384" y="288" width="16" height="16"/>
+  <object id="151" name="lava" type="static" x="400" y="320" width="16" height="16"/>
+  <object id="152" name="lava" type="static" x="416" y="320" width="16" height="16"/>
+  <object id="153" name="lava" type="static" x="432" y="304" width="16" height="16"/>
+  <object id="154" name="lava" type="static" x="432" y="320" width="16" height="16"/>
+  <object id="155" name="lava" type="static" x="448" y="320" width="16" height="16"/>
+  <object id="156" name="lava" type="static" x="448" y="336" width="16" height="16"/>
+  <object id="157" name="lava" type="static" x="464" y="336" width="16" height="16"/>
+  <object id="158" name="lava" type="static" x="432" y="336" width="16" height="16"/>
+  <object id="159" name="lava" type="static" x="416" y="336" width="16" height="16"/>
+  <object id="160" name="lava" type="static" x="432" y="352" width="16" height="16"/>
+  <object id="161" name="lava" type="static" x="448" y="352" width="16" height="16"/>
+  <object id="162" name="lava" type="static" x="448" y="368" width="16" height="16"/>
+  <object id="163" name="lava" type="static" x="336" y="288" width="16" height="16"/>
+  <object id="164" name="lava" type="static" x="336" y="272" width="16" height="16"/>
+  <object id="165" name="lava" type="static" x="336" y="256" width="16" height="16"/>
+  <object id="166" name="lava" type="static" x="352" y="240" width="16" height="16"/>
+  <object id="167" name="breakable_barrel" type="static" x="480" y="432" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="8" name="entities">
   <object id="9" name="player" type="nextA" x="432" y="448" width="15.9688" height="16.0156">

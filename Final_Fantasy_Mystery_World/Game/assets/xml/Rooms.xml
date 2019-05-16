@@ -142,9 +142,6 @@
       <id num="11"></id>
       <type>paceful</type>
       <music>assets/audio/music/9.Final Fantasy TA - At The Bar.ogg</music>
-      <properties>
-        <property name="blizzard" value="1"/>
-      </properties>
     </room>
     <room>
       <location>Quest1_Fountain2.tmx</location>

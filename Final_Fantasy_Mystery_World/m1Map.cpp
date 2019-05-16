@@ -665,21 +665,24 @@ bool m1Map::ChangeMap(Maps type)
 			App->scene->player->AugmentLives(App->scene->player->stats.max_lives);
 			App->scene->player->AugmentMana(App->scene->player->stats.max_mana);
 		}
-		//App->menu_manager->ShowHUD(false);
+		App->menu_manager->EnableHUD(false);
 		break;
 	case Maps::TUTORIAL:
 		quest_rooms = DBG_NEW RoomManager("tutorial");
 		actual_map = Maps::TUTORIAL;
+		App->menu_manager->EnableHUD(true);
 		return true;
 		break;
 	case Maps::QUEST2:
 		quest_rooms = DBG_NEW RoomManager("quest2");
 		actual_map = Maps::QUEST2;
+		App->menu_manager->EnableHUD(true);
 		return true;
 		break;
 	case Maps::FINAL_QUEST:
 		quest_rooms = DBG_NEW RoomManager("final_quest");
 		actual_map = Maps::FINAL_QUEST;
+		App->menu_manager->EnableHUD(true);
 		return true;
 		break;
 	case Maps::DEBUG:
