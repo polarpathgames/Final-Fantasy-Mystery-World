@@ -228,6 +228,9 @@
     <ClCompile Include="e1BabyDrake.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="e1Spider.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -480,7 +483,11 @@
     <ClInclude Include="e1MegaEye.h">
       <Filter>Entities</Filter>
     </ClInclude>
+
     <ClInclude Include="e1BabyDrake.h">
+ 	<Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Spider.h">
       <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>

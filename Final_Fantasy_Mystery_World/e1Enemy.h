@@ -36,6 +36,7 @@ public:
 		CASSIO,
 		FROZEN,
 		BABY_DRAKE,
+		SPIDER,
 
 		NONE
 	};

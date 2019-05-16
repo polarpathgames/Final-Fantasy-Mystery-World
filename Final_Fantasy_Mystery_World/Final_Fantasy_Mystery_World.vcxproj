@@ -103,6 +103,7 @@
     <ClCompile Include="e1Particles.cpp" />
     <ClCompile Include="e1Rock.cpp" />
     <ClCompile Include="e1ShopKeeperDaughter.cpp" />
+    <ClCompile Include="e1Spider.cpp" />
     <ClCompile Include="e1State.cpp" />
     <ClCompile Include="e1StrangeFrog.cpp" />
     <ClCompile Include="e1Warrior.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="e1Particles.h" />
     <ClInclude Include="e1Rock.h" />
     <ClInclude Include="e1ShopKeeperDaughter.h" />
+    <ClInclude Include="e1Spider.h" />
     <ClInclude Include="e1State.h" />
     <ClInclude Include="e1StrangeFrog.h" />
     <ClInclude Include="e1Warrior.h" />
