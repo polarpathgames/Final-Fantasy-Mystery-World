@@ -27,7 +27,7 @@ e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
 	type = e1Entity::EntityType::ENEMY;
 	ground = App->tex->Load("assets/sprites/enemy_pos.png");
-	current_animation = &IdleDownLeft;
+	current_animation = &anim.IdleDownLeft;
 
 	direction = Direction::DOWN_LEFT;
 	state = State::IDLE;
@@ -176,7 +176,7 @@ bool e1Enemy::Update(float dt)
 			if (IsSpecialAttack1Finished()) {
 				App->audio->PlayFx(App->scene->fx_dog_attack);
 				App->scene->player->GetHitted(stats.special_attack_damage);
-				AfetSpecialAttack1();
+				AfterSpecialAttack1();
 				attack = true;
 			}
 			else Attacking();
@@ -244,49 +244,49 @@ bool e1Enemy::IsAnotherEnemyNextTile()
 
 			if (origin.x + 1 == destination.x && origin.y == destination.y) {
 				direction = Direction::DOWN_RIGHT;
-				current_animation = &IdleDownRight;
+				current_animation = &anim.IdleDownRight;
 				next_enemy_pos.push_back(destination);
 				ret = true;
 			}
 			if (origin.x == destination.x && origin.y + 1 == destination.y) {
 				direction = Direction::DOWN_LEFT;
-				current_animation = &IdleDownLeft;
+				current_animation = &anim.IdleDownLeft;
 				next_enemy_pos.push_back(destination);
 				ret = true;
 			}
 			if (origin.x == destination.x && origin.y - 1 == destination.y) {
 				direction = Direction::UP_RIGHT;
-				current_animation = &IdleUpRight;
+				current_animation = &anim.IdleUpRight;
 				next_enemy_pos.push_back(destination);
 				ret = true;
 			}
 			if (origin.x - 1 == destination.x && origin.y == destination.y) {
 				direction = Direction::UP_LEFT;
-				current_animation = &IdleUpLeft;
+				current_animation = &anim.IdleUpLeft;
 				next_enemy_pos.push_back(destination);
 				ret = true;
 			}
 			if (origin.x + 1 == destination.x && origin.y + 1 == destination.y) {
 				direction = Direction::DOWN;
-				current_animation = &IdleDown;
+				current_animation = &anim.IdleDown;
 				next_enemy_pos.push_back(destination);
 				ret = true;
 			}
 			if (origin.x - 1 == destination.x && origin.y + 1 == destination.y) {
 				direction = Direction::LEFT;
-				current_animation = &IdleLeft;
+				current_animation = &anim.IdleLeft;
 				next_enemy_pos.push_back(destination);
 				ret = true;
 			}
 			if (origin.x - 1 == destination.x && origin.y - 1 == destination.y) {
 				direction = Direction::UP;
-				current_animation = &IdleUp;
+				current_animation = &anim.IdleUp;
 				next_enemy_pos.push_back(destination);
 				ret = true;
 			}
 			if (origin.x + 1 == destination.x && origin.y - 1 == destination.y) {
 				direction = Direction::RIGHT;
-				current_animation = &IdleRight;
+				current_animation = &anim.IdleRight;
 				next_enemy_pos.push_back(destination);
 				ret = true;
 			}
@@ -506,11 +506,11 @@ void e1Enemy::PerformMovement(float dt)
 		if (position.x >= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.x -= floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
-			current_animation = &GoDownLeft;
+			current_animation = &anim.GoDownLeft;
 		}
 		else {
 			target_position = position;
-			current_animation = &IdleDownLeft;
+			current_animation = &anim.IdleDownLeft;
 			IsPlayerNextTile();
 			state = State::IDLE;
 		}
@@ -519,11 +519,11 @@ void e1Enemy::PerformMovement(float dt)
 		if (position.x <= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 			position.x += floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
-			current_animation = &GoUpRight;
+			current_animation = &anim.GoUpRight;
 		}
 		else {
 			target_position = position;
-			current_animation = &IdleUpRight;
+			current_animation = &anim.IdleUpRight;
 			IsPlayerNextTile();
 			state = State::IDLE;
 		}
@@ -532,11 +532,11 @@ void e1Enemy::PerformMovement(float dt)
 		if (position.x >= initial_position.x + movement_count.x  && position.y >= initial_position.y + movement_count.y) {
 			position.x -= floor(velocity.x * dt);
 			position.y -= floor(velocity.y * dt);
-			current_animation = &GoUpLeft;
+			current_animation = &anim.GoUpLeft;
 		}
 		else {
 			target_position = position;
-			current_animation = &IdleUpLeft;
+			current_animation = &anim.IdleUpLeft;
 			IsPlayerNextTile();
 			state = State::IDLE;
 		}
@@ -545,11 +545,11 @@ void e1Enemy::PerformMovement(float dt)
 		if (position.x <= initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.x += floor(velocity.x * dt);
 			position.y += floor(velocity.y * dt);
-			current_animation = &GoDownRight;
+			current_animation = &anim.GoDownRight;
 		}
 		else {
 			target_position = position;
-			current_animation = &IdleDownRight;
+			current_animation = &anim.IdleDownRight;
 			IsPlayerNextTile();
 			state = State::IDLE;
 		}
@@ -557,11 +557,11 @@ void e1Enemy::PerformMovement(float dt)
 	case Direction::LEFT:
 		if (position.x >= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
 			position.x -= floor(velocity.x * dt);
-			current_animation = &GoLeft;
+			current_animation = &anim.GoLeft;
 		}
 		else {
 			target_position = position;
-			current_animation = &IdleLeft;
+			current_animation = &anim.IdleLeft;
 			IsPlayerNextTile();
 			state = State::IDLE;
 		}
@@ -569,11 +569,11 @@ void e1Enemy::PerformMovement(float dt)
 	case Direction::RIGHT:
 		if (position.x <= initial_position.x + movement_count.x && position.y == initial_position.y + movement_count.y) {
 			position.x += floor(velocity.x * dt);
-			current_animation = &GoRight;
+			current_animation = &anim.GoRight;
 		}
 		else {
 			target_position = position;
-			current_animation = &IdleRight;
+			current_animation = &anim.IdleRight;
 			IsPlayerNextTile();
 			state = State::IDLE;
 		}
@@ -581,11 +581,11 @@ void e1Enemy::PerformMovement(float dt)
 	case Direction::UP:
 		if (position.x == initial_position.x + movement_count.x && position.y >= initial_position.y + movement_count.y) {
 			position.y -= floor(velocity.y * dt);
-			current_animation = &GoUp;
+			current_animation = &anim.GoUp;
 		}
 		else {
 			target_position = position;
-			current_animation = &IdleUp;
+			current_animation = &anim.IdleUp;
 			IsPlayerNextTile();
 			state = State::IDLE;
 		}
@@ -593,11 +593,11 @@ void e1Enemy::PerformMovement(float dt)
 	case Direction::DOWN:
 		if (position.x == initial_position.x + movement_count.x && position.y <= initial_position.y + movement_count.y) {
 			position.y += floor(velocity.y * dt);
-			current_animation = &GoDown;
+			current_animation = &anim.GoDown;
 		}
 		else {
 			target_position = position;
-			current_animation = &IdleDown;
+			current_animation = &anim.IdleDown;
 			IsPlayerNextTile();
 			state = State::IDLE;
 		}

@@ -508,7 +508,7 @@ bool m1EntityManager::Load(pugi::xml_node& load)
 	bool ret = true;
 	App->scene->CreateEntitiesFromXML(load);
 	std::vector<e1Entity*>::const_iterator item = entities_to_create.cbegin();
-	for (; item != entities.cend(); ++item)
+	for (; item != entities_to_create.cend(); ++item)
 	{
 		if ((*item)->type == e1Entity::EntityType::MAGE || (*item)->type == e1Entity::EntityType::ARCHER || (*item)->type == e1Entity::EntityType::WARRIOR || (*item)->type == e1Entity::EntityType::PLAYER)
 		{
@@ -517,7 +517,8 @@ bool m1EntityManager::Load(pugi::xml_node& load)
 		}
 	}
 	App->menu_manager->CreateHUD();
-	//App->menu_manager->ShowHUD(false);
+	App->menu_manager->EnableHUD(false);
+	App->audio->StopMusic(-4);
 	App->scene->player->actual_tile.x += 1;
 	App->scene->player->actual_tile.y += 1;
 	App->scene->player->CenterOnTile();
@@ -621,13 +622,13 @@ e1Entity * m1EntityManager::FindEntity(const char * name)
 	return ret;
 }
 
-bool m1EntityManager::IsPlayerPoisoned()
+bool m1EntityManager::IsPlayerPoisonedOrBurned()
 {
 	for (std::vector<e1Entity*>::iterator item = entities.begin(); item != entities.end(); ++item)
 	{
 		if ((*item)->type == e1Entity::EntityType::EVENT) {
 			e1State* event = static_cast<e1State*>(*item);
-			if (event->state == EventStates::POISON && event->target == App->scene->player) {
+			if ((event->state == EventStates::POISON || event->state == EventStates::FIRE) && event->target == App->scene->player) {
 					return true;
 			}
 		}

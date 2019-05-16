@@ -96,7 +96,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		App->scene->Enable();
 		App->LoadGame("save_game.xml");
 		App->map->ChangeMap(Maps::HOME);
-		App->scene->SetMenuState(StatesMenu::NO_MENU);	
+		App->scene->SetMenuState(StatesMenu::NO_MENU);
 		ret = false;
 	}
 

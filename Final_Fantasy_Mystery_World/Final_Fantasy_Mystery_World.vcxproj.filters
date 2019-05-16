@@ -231,6 +231,8 @@
     <ClCompile Include="e1Spider.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="c1CutSceneFadeToBlack.cpp" />
+    <ClCompile Include="c1CutSceneVibration.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -483,13 +485,14 @@
     <ClInclude Include="e1MegaEye.h">
       <Filter>Entities</Filter>
     </ClInclude>
-
     <ClInclude Include="e1BabyDrake.h">
- 	<Filter>Entities</Filter>
+      <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="e1Spider.h">
       <Filter>Entities</Filter>
     </ClInclude>
+    <ClInclude Include="c1CutSceneFadeToBlack.h" />
+    <ClInclude Include="c1CutSceneVibration.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml">
@@ -518,6 +521,18 @@
     </Xml>
     <Xml Include="Game\assets\xml\Rooms.xml">
       <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneAbility2Quest2.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneFinalRoomQuest2.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneHomeSleep.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneQueenQuest2.xml">
+      <Filter>Cutscenes\XML</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

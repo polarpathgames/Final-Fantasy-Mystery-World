@@ -73,7 +73,7 @@ bool m1Scene::Start()
 
 	fx_writting = App->audio->LoadFx("assets/audio/sfx/LTTP_Text_Done.wav");
 	fx_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_Steps_on_Water1.wav");
-	fx_frog_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_BasicAttack.wav");
+	fx_frog_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_anim.BasicAttack.wav");
 	fx_dog_attack = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Door_Hit.wav");
 	fx_plant_attack = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Punch1.wav");
 	fx_ability_warrior = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Critical_Hit.wav");
@@ -523,6 +523,16 @@ void m1Scene::CreateEntities()
 		else if ((*position)->ent_type == "static") {
 			if ((*position)->name == "rock") {
 				App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
+			else if ((*position)->name == "NPC_DAUGHTER") {
+				if (App->map->actual_map == Maps::HOME) {
+					if (!App->globals.CutSceneHomeToSleepQuest2) {
+						App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+					}
+				}
+				else if (App->map->actual_map == Maps::LOBBY) {
+					App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+				}
 			}
 			else
 				App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);

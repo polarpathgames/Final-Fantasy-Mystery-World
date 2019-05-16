@@ -248,8 +248,10 @@ void m1CutScene::ClearCutscene()
 	
 	for (std::map<std::string, c1CutsceneElement*>::iterator it = elements.begin(); it != elements.end(); ++it)
 	{
-		delete (*it).second;
-		(*it).second = nullptr;
+		if ((*it).second != nullptr) {
+			delete (*it).second;
+			(*it).second = nullptr;
+		}
 	}
 
 	if (App->map->quest_rooms != nullptr && App->map->quest_rooms->actual_room != nullptr && App->map->quest_rooms->actual_room->update_number == 4) {

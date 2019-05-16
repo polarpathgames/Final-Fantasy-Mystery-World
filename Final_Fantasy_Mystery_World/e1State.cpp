@@ -26,21 +26,32 @@ e1State::e1State(int x, int y, const char * name) :e1Entity(x, y) {
 		drawable = true;
 	}
 
-	if (strcmp(name, "poison") == 0) {
-		state = EventStates::POISON;
-		turn_effect = 3U;
+	if (strcmp(name, "poison") == 0 || strcmp(name, "fire") == 0) {
 		target = (e1Entity*)App->scene->player;
-		if (target->data.tileset.texture != nullptr) {
-			SDL_GetTextureColorMod(target->data.tileset.texture, &color_mod_r, &color_mod_g, &color_mod_b);
-			SDL_SetTextureColorMod(target->data.tileset.texture, 0, 225, 200);
+		if (strcmp(name, "poison") == 0) {
+			state = EventStates::POISON;
+			if (target->data.tileset.texture != nullptr) {
+				SDL_SetTextureColorMod(target->data.tileset.texture, 0, 225, 200);
+			}
+			CreateParticleFire(target, nullptr, { 0,0 }, SDL_Rect{ 2,6,2,2 }, iPoint(5, 2), iPoint(12, 4), fPoint(0, -30), P_NON, 65, 4, true, W_NON, target->pivot);
 		}
+		else {
+			state = EventStates::FIRE;
+			if (target->data.tileset.texture != nullptr) {
+				SDL_SetTextureColorMod(target->data.tileset.texture, 255, 180, 150);
+			}
+			CreateParticleFire(target, nullptr, { 0,0 }, SDL_Rect{ 4,4,2,2 }, iPoint(5, 2), iPoint(12, 4), fPoint(0, -60), P_NON, 65, 4, true, W_NON, target->pivot);
+		}
+		turn_effect = 3U;
+		
+		SDL_GetTextureColorMod(target->data.tileset.texture, &color_mod_r, &color_mod_g, &color_mod_b);
 		max_number_hit = 5U;
 		time_effect = 1U;
 		damage = 5;
 		drawable = false;
-		CreateParticleFire(target, nullptr, { 0,0 }, SDL_Rect{ 2,6,2,2 }, iPoint(5, 2), iPoint(12, 4), fPoint(0, -30), P_NON, 65, 4, true, W_NON,target->pivot);
 		(*particle_fire.begin())->active = false;
 	}
+
 
 	allow_turn = true;
 	timer_before_effect.Stop();
@@ -55,6 +66,14 @@ e1State::~e1State()
 	if (animation != nullptr) {
 		delete animation;
 		animation = nullptr;
+	}
+
+	if (state == EventStates::POISON || state == EventStates::FIRE) {
+		if (App->entity_manager->IsInEntitiesVector(target)) {
+			if (target != nullptr && target->data.tileset.texture != nullptr) {
+				SDL_SetTextureColorMod(target->data.tileset.texture, color_mod_r, color_mod_g, color_mod_b);
+			}
+		}
 	}
 }
 
@@ -85,7 +104,7 @@ bool e1State::PreUpdate()
 
 					break;
 				}
-				case EventStates::POISON:
+				case EventStates::POISON: case EventStates::FIRE:
 					if (target != nullptr) {
 						static_cast<e1DynamicEntity*>(target)->GetHitted(damage);
 						(*particle_fire.begin())->active = true;
@@ -126,7 +145,7 @@ bool e1State::Update(float dt)
 				}
 			}
 			break;
-		case EventStates::POISON:
+		case EventStates::POISON: case EventStates::FIRE:
 			if (target != nullptr) {
 				position = target->position;
 			}
@@ -138,8 +157,6 @@ bool e1State::Update(float dt)
 				(*particle_fire.begin())->active = false;
 				if (max_number_hit != 0u) {
 					if (number_hit >= max_number_hit) {
-						if (target->data.tileset.texture != nullptr)
-							SDL_SetTextureColorMod(target->data.tileset.texture, color_mod_r, color_mod_g, color_mod_b);
 						to_delete = true;
 					}
 				}

@@ -77,49 +77,35 @@ void m1MenuManager::CreateCredits()
 	credits.credits_panel = App->gui->AddImage(0, 0, { 0, 2304, 1024, 768 }, App->main_menu, App->gui->screen, true, false, false, false);
 	credits.credits_panel->SetPosRespectParent(CENTERED);
 
-	credits.button_christian = App->gui->AddButton(325, 290, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_christian = App->gui->AddLabel(0, 0, "Christian Martinez - Lead", credits.button_christian, WHITE, FontType::FF100, nullptr, false);
-	credits.label_christian->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_christian = App->gui->AddButton(325, 260, { 1850,1637,390,50 }, { 1850,1637,390,50 }, { 1850,1637,390,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
+	credits.label_christian = App->gui->AddLabel(0, -33, "Christian Martinez - Lead", credits.button_christian, WHITE, FontType::FF100, nullptr, false);
 
-	credits.button_lluis = App->gui->AddButton(85, 350, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_lluis = App->gui->AddLabel(0, 0, "Lluis Moreu - Manager", credits.button_lluis, WHITE, FontType::FF100, nullptr, false);
-	credits.label_lluis->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_lluis = App->gui->AddButton(85, 330, { 1850,1637,335,50 }, { 1850,1637,335,50 }, { 1850,1637,335,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
+	credits.label_lluis = App->gui->AddLabel(0, -33, "Lluis Moreu - Manager", credits.button_lluis, WHITE, FontType::FF100, nullptr, false);
 
-	credits.button_marc = App->gui->AddButton(85, 400, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_marc = App->gui->AddLabel(0, 0, "Marc Galvez - Design", credits.button_marc, WHITE, FontType::FF100, nullptr, false);
-	credits.label_marc->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_marc = App->gui->AddButton(85, 400, { 1850,1637,320,50 }, { 1850,1637,320,50 }, { 1850,1637,320,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
+	credits.label_marc = App->gui->AddLabel(0, -33, "Marc Galvez - Design", credits.button_marc, WHITE, FontType::FF100, nullptr, false);
 
-	credits.button_enric = App->gui->AddButton(85, 450, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_enric = App->gui->AddLabel(0, 0, "Enric Perez - UI", credits.button_enric, WHITE, FontType::FF100, nullptr, false);
-	credits.label_enric->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_enric = App->gui->AddButton(85, 470, { 1850,1637,265,50 }, { 1850,1637,265,50 }, { 1850,1637,265,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
+	credits.label_enric = App->gui->AddLabel(0, -33, "Enric Perez - UI", credits.button_enric, WHITE, FontType::FF100, nullptr, false);
 
-	credits.button_oriol = App->gui->AddButton(555, 350, { 1850,1637,350,50 }, { 1850,1637,1980,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_oriol = App->gui->AddLabel(0, 0, "Oriol Capdevila - Code", credits.button_oriol, WHITE, FontType::FF100, nullptr, false);
-	credits.label_oriol->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_oriol = App->gui->AddButton(555, 330, { 1850,1637,340,50 }, { 1850,1637,340,50 }, { 1850,1637,340,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
+	credits.label_oriol = App->gui->AddLabel(0, -33, "Oriol Capdevila - Code", credits.button_oriol, WHITE, FontType::FF100, nullptr, false);
 
 	credits.button_nadine = App->gui->AddButton(555, 400, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_nadine = App->gui->AddLabel(0, 0, "Nadine Gutierrez - Art", credits.button_nadine, WHITE, FontType::FF100, nullptr, false);
-	credits.label_nadine->SetPosRespectParent(LEFT_CENTERED);
+	credits.label_nadine = App->gui->AddLabel(0, -33, "Nadine Gutierrez - Art", credits.button_nadine, WHITE, FontType::FF100, nullptr, false);
 
-	credits.button_ivan = App->gui->AddButton(555, 450, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_ivan = App->gui->AddLabel(0, 0, "Ivan Ropero - QA", credits.button_ivan, WHITE, FontType::FF100, nullptr, false);
-	credits.label_ivan->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_ivan = App->gui->AddButton(555, 470, { 1850,1637,275,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
+	credits.label_ivan = App->gui->AddLabel(0, -33, "Ivan Ropero - QA", credits.button_ivan, WHITE, FontType::FF100, nullptr, false);
 
-	credits.button_credits_return_menu = App->gui->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_credits_return_menu = App->gui->AddLabel(0, 0, "Return", credits.button_credits_return_menu, WHITE, FontType::FF64, nullptr, false);
-	credits.label_credits_return_menu->SetPosRespectParent(CENTERED);
+	credits.button_credits_return_menu = App->gui->AddButton(920, 727, { 1850,1637,70,25 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
+	credits.label_credits_return_menu = App->gui->AddLabel(0, -27, "Return", credits.button_credits_return_menu, WHITE, FontType::FF64, nullptr, false);
 
-	credits.button_github = App->gui->AddButton(710, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_github = App->gui->AddLabel(0, 0, ".", credits.button_github, WHITE, FontType::FF32, nullptr, false);
-	credits.label_github->SetPosRespectParent(CENTERED);
+	credits.button_github = App->gui->AddButton(725, 580, { 1850,1637,168,90 }, { 1850,1637,168,90 }, { 1850,1637,168,90 }, App->main_menu, credits.credits_panel, false, false, true, true);
 
-	credits.button_twitter = App->gui->AddButton(410, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_twitter = App->gui->AddLabel(0, 0, ".", credits.button_twitter, WHITE, FontType::FF32, nullptr, false);
-	credits.label_twitter->SetPosRespectParent(CENTERED);
+	credits.button_twitter = App->gui->AddButton(430, 580, { 1850,1637,168,90 }, { 1850,1637,168,90 }, { 1850,1637,168,90 }, App->main_menu, credits.credits_panel, false, false, true, true);
 
-	credits.button_youtube = App->gui->AddButton(110, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_youtube = App->gui->AddLabel(0, 0, ".", credits.button_youtube, WHITE, FontType::FF32, nullptr, false);
-	credits.label_youtube->SetPosRespectParent(CENTERED);
+	credits.button_youtube = App->gui->AddButton(130, 580, { 1850,1637,168,90 }, { 1850,1637,168,90 }, { 1850,1637,168,90 }, App->main_menu, credits.credits_panel, false, false, true, true);
 }
 
 void m1MenuManager::DestroyCredits()
@@ -179,14 +165,14 @@ void m1MenuManager::CreateOptions()
 	options.options_panel = App->gui->AddImage(0, 0, { 1024,768,1024,768 }, this, App->gui->screen, true, false, false, false);
 	options.options_panel->SetPosRespectParent(CENTERED);
 
-	options.button_general_volume = App->gui->AddButton(491, 168, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options.options_panel, false, false, true, true);
+	options.button_general_volume = App->gui->AddButton(491, 168, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options.options_panel, false, false, false, false);
 	options.label_general_volume = App->gui->AddLabel(0, 0, "General Volume", options.button_general_volume, BLACK, FontType::FF48, nullptr, false);
 	options.label_general_volume->SetPosRespectParent(LEFT_CENTERED);
 	options.minus_general_btn = App->gui->AddButton(715, 185, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options.options_panel, true, false, true, true);
 	options.plus_general_btn = App->gui->AddButton(805, 185, { 1735,1575,33,33 }, { 1735,1575,33,33 }, { 1735,1575,33,33 }, this, options.options_panel, true, false, true, true);
 	options.label_general_value = App->gui->AddLabel(760, 172, "", options.options_panel, BLACK, FontType::FF48, nullptr, false);
 
-	options.button_music_volume = App->gui->AddButton(491, 246, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options.options_panel, false, false, true, true);
+	options.button_music_volume = App->gui->AddButton(491, 246, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options.options_panel, false, false, false, false);
 	options.label_music_volume = App->gui->AddLabel(0, 0, "Music Volume", options.button_music_volume, BLACK, FontType::FF48, nullptr, false);
 	options.label_music_volume->SetPosRespectParent(LEFT_CENTERED);
 	options.minus_music_btn = App->gui->AddButton(715, 263, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options.options_panel, true, false, true, true);
@@ -201,7 +187,7 @@ void m1MenuManager::CreateOptions()
 	options.checkbox_mute_music->interactable = true;
 	options.checkbox_mute_music->AddListener(this);
 
-	options.button_fx_volume = App->gui->AddButton(491, 326, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options.options_panel, false, false, true, true);
+	options.button_fx_volume = App->gui->AddButton(491, 326, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, options.options_panel, false, false, false, false);
 	options.label_fx_volume = App->gui->AddLabel(0, 0, "FX Volume", options.button_fx_volume, BLACK, FontType::FF48, nullptr, false);
 	options.label_fx_volume->SetPosRespectParent(LEFT_CENTERED);
 	options.minus_fx_btn = App->gui->AddButton(715, 343, { 1699,1575,33,33 }, { 1699,1575,33,33 }, { 1699,1575,33,33 }, this, options.options_panel, true, false, true, true);
@@ -529,10 +515,10 @@ void m1MenuManager::CreateGoToQuestMenu()
 	App->audio->PlayFx(App->gui->fx_inventory);
 	quest.go_to_quest_panel = App->gui->AddImage(100, 70, { 1878, 1536, 170, 101 }, nullptr, App->gui->screen, true, false, false, false);
 
-	quest.go_to_quest_button = App->gui->AddButton(30, 0, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, { 10, 10, 70, 50 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
+	quest.go_to_quest_button = App->gui->AddButton(30, 18, { 0, 0, 120, 20 }, { 0, 0, 120, 20 }, { 0, 0, 120, 20 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
 	quest.go_to_quest_label = App->gui->AddLabel(50, -5, "Tutorial", quest.go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
 
-	quest.cancel_quest_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
+	quest.cancel_quest_button = App->gui->AddButton(40, 65, { 0, 0, 80, 20 }, { 0, 0, 80, 20 }, { 0, 0, 80, 20 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
 	quest.cancel_quest_label = App->gui->AddLabel(50, 38, "Cancel", quest.go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
 
 	App->scene->player->BlockControls(true);

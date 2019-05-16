@@ -131,6 +131,9 @@ private:
 	pugi::xml_document room_manager_file;
 
 	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
+
+	SDL_Rect mini_rect_map[4] = { 0,0,0,0 };
+
 };
 #endif // !_P2ROOMS_H
 
