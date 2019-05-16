@@ -111,6 +111,11 @@ public:
 	int ratio_blue_rupee = 0;
 	int ratio_gold_rupee = 0;
 
+	//SFX
+
+	Mix_Chunk* fx_laser;
+	bool laser_play_fx = true;
+
 };
 
 

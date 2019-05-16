@@ -64,6 +64,13 @@ bool e1Frozen::PreUpdate()
 	if (type_attack == Attacks::SPECIAL_1) {
 		if (phase == Phase::NORMAL) {
 			if ((int)current_animation->current_frame == 7) {
+				if (laser_play_fx)
+				{
+					App->audio->PlayFx(fx_laser);
+					laser_play_fx = false;
+				}
+					
+
 				e1Particles* needle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, actual_tile.x, actual_tile.y, "");
 				needle->position.x = GetPosition().x;
 				needle->SetParticle(e1Particles::ParticleType::ICE_STAKE, direction);
@@ -90,7 +97,8 @@ bool e1Frozen::PreUpdate()
 
 void e1Frozen::PrepareDistanceAttack()
 {
-	
+	laser_play_fx = true;
+
 }
 
 bool e1Frozen::IsSpecialAttack1Finished()
