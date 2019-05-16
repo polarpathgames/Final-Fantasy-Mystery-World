@@ -518,6 +518,7 @@ bool m1EntityManager::Load(pugi::xml_node& load)
 	}
 	App->menu_manager->CreateHUD();
 	App->menu_manager->EnableHUD(false);
+	App->audio->StopMusic(-4);
 	App->scene->player->actual_tile.x += 1;
 	App->scene->player->actual_tile.y += 1;
 	App->scene->player->CenterOnTile();
