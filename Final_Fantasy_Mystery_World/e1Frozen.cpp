@@ -23,6 +23,8 @@ e1Frozen::e1Frozen(const int& x, const int& y) :e1Enemy(x, y)
 	stats.live = 500; ///////////////remember to delete this/////////////////////////////////////////////////////////////////////////////
 	target_position = position;
 	initial_position = position;
+
+	tp_timer.Stop();
 }
 
 e1Frozen::~e1Frozen()
@@ -33,13 +35,25 @@ e1Frozen::~e1Frozen()
 
 bool e1Frozen::PreUpdate()
 {
-	if (times_hitted % tp_number_hit == 0 && want_to_attack) {
-		want_to_attack = false;
-		if (phase == Phase::NORMAL) {
-			DoTeleport();
-		}
-		else if (phase == Phase::HARD) {
-			SummomBlueSlimes();
+
+	if (stats.live <= stats.max_live * 0.5F || App->input->GetKeyRepeat(SDL_SCANCODE_1)) {
+		phase = Phase::HARD;
+	}
+
+	if (tp_last_number_hit != times_hitted) {
+		tp_done = false;
+	}
+
+	if (times_hitted != 0 && !tp_done) {
+		if (times_hitted % tp_number_hit == 0 && want_to_attack) {
+			tp_last_number_hit = times_hitted;
+			if (phase == Phase::NORMAL) {
+				DoTeleport();
+				want_to_attack = false;
+			}
+			else if (phase == Phase::HARD) {
+				SummomBlueSlimes();
+			}
 		}
 	}
 
@@ -48,10 +62,6 @@ bool e1Frozen::PreUpdate()
 	}
 	else {
 		Escape();
-	}
-
-	if (stats.live <= stats.max_live * 0.5F || App->input->GetKeyRepeat(SDL_SCANCODE_1)) {
-		phase = Phase::HARD;
 	}
 
 	if (type_attack == Attacks::SPECIAL_1) {
@@ -166,6 +176,7 @@ void e1Frozen::DoTeleport()
 		tp_location = destination;
 		tp_timer.Start();
 		drawable = false;
+		tp_done = true;
 		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,0,2,2 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
 	}
 	else {
