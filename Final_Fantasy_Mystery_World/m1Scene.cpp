@@ -95,6 +95,7 @@ bool m1Scene::Start()
 	fx_controller_conection = App->audio->LoadFx("assets/audio/sfx/ST_Passenger_Pleased.wav");
 	fx_surprise = App->audio->LoadFx("assets/audio/sfx/MC_Shield.wav");
 	fx_buy = App->audio->LoadFx("assets/audio/sfx/MainMenu_Cancel_Selection.wav");
+	fx_buy_special = App->audio->LoadFx("assets/audio/sfx/song203.wav");
   
 	mus_game_over = App->audio->LoadMusic("assets/audio/music/35.Final Fantasy TA - Judge.ogg");
 
@@ -712,7 +713,7 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == App->menu_manager->shop.shop_button_sword) {
 			if ((player->stats.gold >= price_ability3 || player->god_mode) && !App->globals.ability3_gained) {
 				// audio comprar
-				App->audio->PlayFx(App->scene->fx_buy);
+				App->audio->PlayFx(App->scene->fx_buy_special);
 				player->ReduceGold(price_ability3);
 				App->globals.ability3_gained = true;
 				App->menu_manager->inventory.money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
@@ -736,7 +737,7 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == App->menu_manager->shop.shop_button_helmet) {
 			if ((player->stats.gold >= price_helmet || player->god_mode) && !App->globals.helmet_bought) {
 				// audio comprar
-				App->audio->PlayFx(App->scene->fx_buy);
+				App->audio->PlayFx(App->scene->fx_buy_special);
 				player->ReduceGold(price_helmet);
 				App->globals.helmet_bought = true;
 				App->menu_manager->inventory.money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
@@ -763,7 +764,7 @@ bool m1Scene::Interact(u1GUI* interact)
 		if (interact == App->menu_manager->shop.shop_button_ring) {
 			if ((player->stats.gold >= price_ring || player->god_mode) && !App->globals.ring_bought) {
 				// audio comprar
-				App->audio->PlayFx(App->scene->fx_buy);
+				App->audio->PlayFx(App->scene->fx_buy_special);
 				player->ReduceGold(price_ring);
 				App->globals.ring_bought = true;
 				App->menu_manager->inventory.money_label->SetText(std::string("x " + std::to_string(player->stats.gold)).data());
