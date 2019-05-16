@@ -8,6 +8,7 @@
 #include "m1DialogSystem.h"
 #include "m1Textures.h"
 #include "e1Enemy.h"
+#include "e1State.h"
 #include "m1Audio.h"
 #include "m1Map.h"
 #include "e1Warrior.h"
@@ -1140,6 +1141,16 @@ void e1Player::GetHitted(const int & damage_taken)
 		ReduceLives(damage_taken);
 
 	if (stats.live <= 0) {
+		if (App->entity_manager->IsPlayerPoisoned()) {
+			std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+			std::vector<e1Entity*>::iterator item = entities.begin();
+			for (; item != entities.end(); ++item) {
+				if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::EVENT && static_cast<e1State*>(*item)->target == this) {
+					SDL_SetTextureColorMod(data.tileset.texture, static_cast<e1State*>(*item)->color_mod_r, static_cast<e1State*>(*item)->color_mod_g, static_cast<e1State*>(*item)->color_mod_b);
+					break;
+				}
+			}
+		}
 		App->entity_manager->entity_turn = this;
 		state = State::DEATH;
 		ChangeAnimation(direction, state);
