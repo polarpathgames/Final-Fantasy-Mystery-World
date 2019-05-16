@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.2" name="nagas" tilewidth="33" tileheight="40" tilecount="72" columns="12">
+<tileset version="1.2" tiledversion="1.2.2" name="nagas" tilewidth="33" tileheight="40" tilecount="96" columns="12">
  <properties>
-  <property name="attack_power" type="int" value="50"/>
+  <property name="attack_power" type="int" value="35"/>
   <property name="experience" type="int" value="300"/>
   <property name="live" type="int" value="450"/>
   <property name="ratio_blue_rupee" type="int" value="30"/>
@@ -12,7 +12,7 @@
   <property name="ratio_red_rupee" type="int" value="10"/>
   <property name="ratio_rupee" type="int" value="60"/>
  </properties>
- <image source="../sprites/nagas.png" width="396" height="240"/>
+ <image source="../sprites/nagas.png" width="396" height="320"/>
  <tile id="0">
   <properties>
    <property name="speed" type="int" value="6"/>

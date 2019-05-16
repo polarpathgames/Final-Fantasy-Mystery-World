@@ -206,6 +206,7 @@ bool m1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {
 		App->fade_to_black->FadeToBlack(Maps::LOBBY);
+		App->menu_manager->EnableHUD(false);
 	}
 		
 	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
@@ -575,6 +576,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->menu_manager->DestroyGoToQuestMenu();
 			App->fade_to_black->FadeToBlack(Maps::TUTORIAL);
 			menu_state = StatesMenu::NO_MENU;
+			App->menu_manager->EnableHUD(true);
 			ret = false;
 		}
 		if (interact == App->menu_manager->quest.cancel_quest_button) {
