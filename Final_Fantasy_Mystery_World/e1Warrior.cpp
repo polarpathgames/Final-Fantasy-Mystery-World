@@ -34,7 +34,7 @@
 e1Warrior::e1Warrior(const int & x, const int & y) : e1Player(x, y)
 {
 	LoadEntityData("assets/entities/Warrior.tsx");
-
+	name.assign("Warrior");
 	SetPivot(14, 27);
 	CenterPlayerInTile();
 	InitStats();
@@ -336,6 +336,7 @@ void e1Warrior::UpdateLevel()
 
 	App->menu_manager->hud.player_hp_bar->max_capacity = stats.max_lives;
 	App->menu_manager->hud.player_mana_bar->max_capacity = stats.max_mana;
+	App->menu_manager->hud.player_exp_bar->max_capacity = stats.max_xp;
 
 	App->menu_manager->hud.player_hp_bar->PrintBarNumbers();
 	App->menu_manager->hud.player_mana_bar->PrintBarNumbers();

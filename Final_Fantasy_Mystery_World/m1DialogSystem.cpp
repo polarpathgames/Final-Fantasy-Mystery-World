@@ -3,6 +3,7 @@
 #include "m1Fonts.h"
 #include "e1StaticEntity.h"
 #include "m1DialogSystem.h"
+#include "m1Cutscene.h"
 #include "m1Scene.h"
 #include "e1Player.h"
 #include "m1Window.h"
@@ -16,6 +17,7 @@
 #include "m1EntityManager.h"
 #include "m1MenuManager.h"
 #include "Brofiler/Brofiler.h"
+#include "m1FadeToBlack.h"
 
 m1DialogSystem::m1DialogSystem()
 {
@@ -109,6 +111,7 @@ bool m1DialogSystem::PerformDialogue(int tr_id)
 	}	
 
 	App->scene->player->BlockControls(true);
+	App->menu_manager->EnableHUD(false);
 
 	return ret;
 }
@@ -124,7 +127,9 @@ void m1DialogSystem::BlitDialog()
 	int space = 0;
 	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
 	{
-		text_button.push_back(App->gui->AddButton(0, space += 30, { 0,0,30,50 }, { 0,0,30,50 }, { 0,0,30,50 }, this, npc_text, false, false, true, true));
+		u1Button* but = App->gui->AddButton(0, space += 30, { 0,0,30,50 }, { 0,0,30,50 }, { 0,0,30,50 }, this, npc_text, false, false, true, true);
+		but->SetFocus(FocusType::CLASSIC_FOCUS);
+		text_button.push_back(but);
 		player_text.push_back(App->gui->AddLabel(0, 0, currentNode->dialogOptions[i]->text.c_str(), text_button[i], BLACK, FontType::FF48, this, false));
 	}
 }
@@ -320,6 +325,8 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			   case 1: // SHOP
 				   App->menu_manager->CreateShopMenu();
 				   App->scene->SetMenuState(StatesMenu::SHOP_MENU);
+				   App->globals.shop_gone = true;
+				   dialogTrees[7]->karma = 0;
 				   break;
 			   case -2: //FOUNTAIN MANA
 				   App->scene->player->AugmentMana(100);
@@ -339,6 +346,8 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 						   }
 					   }
 				   }
+				   App->menu_manager->EnableHUD(true);
+				   App->map->quest_rooms->actual_room->fountain_drunk = true;
 				   break;
 			   case 2: //FOUNTAIN LIVES
 				   App->scene->player->AugmentLives(250);
@@ -358,7 +367,24 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 						   }
 					   }
 				   }
+				   App->map->quest_rooms->actual_room->fountain_drunk = true;
+				   App->menu_manager->EnableHUD(true);
 				   break;
+			   case 33: { // take flash
+				   App->globals.ability2_gained = true;
+				   App->scene->player->BlockControls(true);
+				   App->menu_manager->CreateHelpAbilityMenu(true);
+				  // App->menu_manager->ShowHUD(false);
+				   App->scene->SetMenuState(StatesMenu::FIRSTABILITY_MENU);
+				   std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+				   std::vector<e1Entity*>::iterator item = entities.begin();
+				   for (; item != entities.end(); ++item) {
+					   if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::STATIC && static_cast<e1StaticEntity*>(*item)->static_type == e1StaticEntity::Type::FLASH_INFO) {
+						   (*item)->to_delete = true;
+						   break;
+					   }
+				   }
+				   break; }
 			   case -3://SAVE FUNCTION
 			   {
 				   //Save function
@@ -384,6 +410,12 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->SaveGame("save_game.xml");
 				   break;
 			   }
+			   case 4: //Checking if player has gone to the shop
+				   App->cutscene_manager->PlayCutscene("assets/xml/CutsceneHomeSleep.xml");
+				   App->map->lobby_state = LobbyState::ICE_LOBBY;
+				   App->globals.CutSceneHomeToSleepQuest2 = true;
+				   //App->scene->player->BlockControls(false);
+				   break;
 			   case 30: //old statue tutorial diagonal
 				   App->menu_manager->CreateHelpDiagonalMenu();
 				   App->scene->SetMenuState(StatesMenu::HELP_DIAGONAL_MENU);
@@ -394,6 +426,13 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   break;
 			   case 90: //old statue tutorial ATTACK
 				   App->menu_manager->CreateHelpAbilityMenu();
+				   App->scene->SetMenuState(StatesMenu::HELP_ABILITY_MENU);
+				   break;
+			   case 43: // go to quest 2 in lobby ice
+				   App->fade_to_black->FadeToBlack(Maps::QUEST2, 2.0F);
+				   break;
+			   case 190: //old statue tutorial ATTACK
+				   App->menu_manager->CreateHelpAbilityMenu(true);
 				   App->scene->SetMenuState(StatesMenu::HELP_ABILITY_MENU);
 				   break;
 			   default:

@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.3" name="CarnivorousPlant" tilewidth="45" tileheight="42" tilecount="140" columns="7">
+<tileset version="1.2" tiledversion="1.2.2" name="CarnivorousPlant" tilewidth="45" tileheight="42" tilecount="140" columns="7">
  <properties>
   <property name="attack_power" type="int" value="15"/>
   <property name="experience" type="int" value="50"/>
   <property name="live" type="int" value="170"/>
+  <property name="ratio_blue_rupee" type="int" value="30"/>
+  <property name="ratio_gold_rupee" type="int" value="1"/>
+  <property name="ratio_green_rupee" type="int" value="50"/>
+  <property name="ratio_poti_hp" type="int" value="20"/>
+  <property name="ratio_poti_mana" type="int" value="20"/>
+  <property name="ratio_red_rupee" type="int" value="10"/>
+  <property name="ratio_rupee" type="int" value="60"/>
  </properties>
  <image source="../sprites/Carnivorous Plant.png" width="317" height="865"/>
  <tile id="0">

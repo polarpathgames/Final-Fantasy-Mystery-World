@@ -29,363 +29,315 @@ void e1DynamicEntity::PushBack()
 		for (uint j = 0; j < data.animations[i].num_frames; ++j) {
 			switch (data.animations[i].animType) {
 			case AnimationState::IDLE_LEFT:
-				IdleLeft.PushBack(data.animations[i].frames[j]);
+				anim.IdleLeft.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					IdleLeft.speed = data.animations[i].speed;
+					anim.IdleLeft.speed = data.animations[i].speed;
 				}
 				break;
 			case AnimationState::IDLE_RIGHT:
-				IdleRight.PushBack(data.animations[i].frames[j]);
+				anim.IdleRight.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					IdleRight.speed = data.animations[i].speed;
+					anim.IdleRight.speed = data.animations[i].speed;
 				}
 				break;
 			case AnimationState::IDLE_UP:
-				IdleUp.PushBack(data.animations[i].frames[j]);
+				anim.IdleUp.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					IdleUp.speed = data.animations[i].speed;
+					anim.IdleUp.speed = data.animations[i].speed;
 				}
 				break;
 			case AnimationState::IDLE_DOWN:
-				IdleDown.PushBack(data.animations[i].frames[j]);
+				anim.IdleDown.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					IdleDown.speed = data.animations[i].speed;
+					anim.IdleDown.speed = data.animations[i].speed;
 				}
 				break;
 			case AnimationState::IDLE_UP_LEFT:
-				IdleUpLeft.PushBack(data.animations[i].frames[j]);
+				anim.IdleUpLeft.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					IdleUpLeft.speed = data.animations[i].speed;
+					anim.IdleUpLeft.speed = data.animations[i].speed;
 				}
 				break;
 			case AnimationState::IDLE_DOWN_LEFT:
-				IdleDownLeft.PushBack(data.animations[i].frames[j]);
+				anim.IdleDownLeft.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					IdleDownLeft.speed = data.animations[i].speed;
+					anim.IdleDownLeft.speed = data.animations[i].speed;
 				}
 				break;
 			case AnimationState::IDLE_UP_RIGHT:
-				IdleUpRight.PushBack(data.animations[i].frames[j]);
+				anim.IdleUpRight.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					IdleUpRight.speed = data.animations[i].speed;
+					anim.IdleUpRight.speed = data.animations[i].speed;
 				}
 				break;
 			case AnimationState::IDLE_DOWN_RIGHT:
-				IdleDownRight.PushBack(data.animations[i].frames[j]);
+				anim.IdleDownRight.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					IdleDownRight.speed = data.animations[i].speed;
+					anim.IdleDownRight.speed = data.animations[i].speed;
 				}
 				break;
 			case AnimationState::WALKING_LEFT:
-				GoLeft.PushBack(data.animations[i].frames[j]);
+				anim.GoLeft.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					GoLeft.speed = data.animations[i].speed;
+					anim.GoLeft.speed = data.animations[i].speed;
 				}
 				break;
 			case AnimationState::WALKING_RIGHT:
-				GoRight.PushBack(data.animations[i].frames[j]);
+				anim.GoRight.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					GoRight.speed = data.animations[i].speed;
+					anim.GoRight.speed = data.animations[i].speed;
 				}
 				break;
 			case AnimationState::WALKING_UP:
-				GoUp.PushBack(data.animations[i].frames[j]);
+				anim.GoUp.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					GoUp.speed = data.animations[i].speed;
+					anim.GoUp.speed = data.animations[i].speed;
 				}
 				break;
 			case AnimationState::WALKING_DOWN:
-				GoDown.PushBack(data.animations[i].frames[j]);
+				anim.GoDown.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					GoDown.speed = data.animations[i].speed;
+					anim.GoDown.speed = data.animations[i].speed;
 				}
 				break;
 			case AnimationState::WALKING_UP_RIGHT:
-				GoUpRight.PushBack(data.animations[i].frames[j]);
+				anim.GoUpRight.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					GoUpRight.speed = data.animations[i].speed;
+					anim.GoUpRight.speed = data.animations[i].speed;
 				}
 				break;
 			case AnimationState::WALKING_DOWN_RIGHT:
-				GoDownRight.PushBack(data.animations[i].frames[j]);
+				anim.GoDownRight.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					GoDownRight.speed = data.animations[i].speed;
+					anim.GoDownRight.speed = data.animations[i].speed;
 				}
 				break;
 			case AnimationState::WALKING_UP_LEFT:
-				GoUpLeft.PushBack(data.animations[i].frames[j]);
+				anim.GoUpLeft.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					GoUpLeft.speed = data.animations[i].speed;
+					anim.GoUpLeft.speed = data.animations[i].speed;
 				}
 				break;
 			case AnimationState::WALKING_DOWN_LEFT:
-				GoDownLeft.PushBack(data.animations[i].frames[j]);
+				anim.GoDownLeft.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					GoDownLeft.speed = data.animations[i].speed;
+					anim.GoDownLeft.speed = data.animations[i].speed;
 				}
 				break;
 			case AnimationState::BASIC_ATTACK_DOWN_LEFT:
-				BasicAttackDownLeft.PushBack(data.animations[i].frames[j]);
+				anim.BasicAttackDownLeft.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					BasicAttackDownLeft.speed = data.animations[i].speed;;
+					anim.BasicAttackDownLeft.speed = data.animations[i].speed;;
 				}
 				break;
 			case AnimationState::BASIC_ATTACK_UP_RIGHT:
-				BasicAttackUpRight.PushBack(data.animations[i].frames[j]);
+				anim.BasicAttackUpRight.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					BasicAttackUpRight.speed = data.animations[i].speed;;
+					anim.BasicAttackUpRight.speed = data.animations[i].speed;;
 				}
 				break;
 			case AnimationState::BASIC_ATTACK_DOWN:
-				BasicAttackDown.PushBack(data.animations[i].frames[j]);
+				anim.BasicAttackDown.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					BasicAttackDown.speed = data.animations[i].speed;;
+					anim.BasicAttackDown.speed = data.animations[i].speed;;
 				}
 				break;
 			case AnimationState::BASIC_ATTACK_DOWN_RIGHT:
-				BasicAttackDownRight.PushBack(data.animations[i].frames[j]);
+				anim.BasicAttackDownRight.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					BasicAttackDownRight.speed = data.animations[i].speed;;
+					anim.BasicAttackDownRight.speed = data.animations[i].speed;;
 				}
 				break;
 			case AnimationState::BASIC_ATTACK_LEFT:
-				BasicAttackLeft.PushBack(data.animations[i].frames[j]);
+				anim.BasicAttackLeft.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					BasicAttackLeft.speed = data.animations[i].speed;;
+					anim.BasicAttackLeft.speed = data.animations[i].speed;;
 				}
 				break;
 			case AnimationState::BASIC_ATTACK_RIGHT:
-				BasicAttackRight.PushBack(data.animations[i].frames[j]);
+				anim.BasicAttackRight.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					BasicAttackRight.speed = data.animations[i].speed;;
+					anim.BasicAttackRight.speed = data.animations[i].speed;;
 				}
 				break;
 			case AnimationState::BASIC_ATTACK_UP:
-				BasicAttackUp.PushBack(data.animations[i].frames[j]);
+				anim.BasicAttackUp.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					BasicAttackUp.speed = data.animations[i].speed;;
+					anim.BasicAttackUp.speed = data.animations[i].speed;;
 				}
 				break;
 			case AnimationState::BASIC_ATTACK_UP_LEFT:
-				BasicAttackUpLeft.PushBack(data.animations[i].frames[j]);
+				anim.BasicAttackUpLeft.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					BasicAttackUpLeft.speed = data.animations[i].speed;
+					anim.BasicAttackUpLeft.speed = data.animations[i].speed;
 				}
 				break;
 			case AnimationState::DEATH_UP_LEFT:
-				DeathUpLeft.PushBack(data.animations[i].frames[j]);
+				anim.DeathUpLeft.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					DeathUpLeft.speed = data.animations[i].speed;
-					DeathUpLeft.loop = false;
+					anim.DeathUpLeft.speed = data.animations[i].speed;
+					anim.DeathUpLeft.loop = false;
 				}
 				break;
 			case AnimationState::DEATH_UP:
-				DeathUp.PushBack(data.animations[i].frames[j]);
+				anim.DeathUp.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					DeathUp.speed = data.animations[i].speed;
-					DeathUp.loop = false;
+					anim.DeathUp.speed = data.animations[i].speed;
+					anim.DeathUp.loop = false;
 				}
 				break;
 			case AnimationState::DEATH_LEFT:
-				DeathLeft.PushBack(data.animations[i].frames[j]);
+				anim.DeathLeft.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					DeathLeft.speed = data.animations[i].speed;
-					DeathLeft.loop = false;
+					anim.DeathLeft.speed = data.animations[i].speed;
+					anim.DeathLeft.loop = false;
 				}
 				break;
 			case AnimationState::DEATH_UP_RIGHT:
-				DeathUpRight.PushBack(data.animations[i].frames[j]);
+				anim.DeathUpRight.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					DeathUpRight.speed = data.animations[i].speed;
-					DeathUpRight.loop = false;
+					anim.DeathUpRight.speed = data.animations[i].speed;
+					anim.DeathUpRight.loop = false;
 				}
 				break;
 			case AnimationState::DEATH_DOWN_RIGHT:
-				DeathDownRight.PushBack(data.animations[i].frames[j]);
+				anim.DeathDownRight.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					DeathDownRight.speed = data.animations[i].speed;
-					DeathDownRight.loop = false;
+					anim.DeathDownRight.speed = data.animations[i].speed;
+					anim.DeathDownRight.loop = false;
 				}
 				break;
 			case AnimationState::DEATH_RIGHT:
-				DeathRight.PushBack(data.animations[i].frames[j]);
+				anim.DeathRight.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					DeathRight.speed = data.animations[i].speed;
-					DeathRight.loop = false;
+					anim.DeathRight.speed = data.animations[i].speed;
+					anim.DeathRight.loop = false;
 				}
 				break;
 			case AnimationState::DEATH_DOWN:
-				DeathDown.PushBack(data.animations[i].frames[j]);
+				anim.DeathDown.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					DeathDown.speed = data.animations[i].speed;
-					DeathDown.loop = false;
+					anim.DeathDown.speed = data.animations[i].speed;
+					anim.DeathDown.loop = false;
 				}
 				break;
 			case AnimationState::DEATH_DOWN_LEFT:
-				DeathDownLeft.PushBack(data.animations[i].frames[j]);
+				anim.DeathDownLeft.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					DeathDownLeft.speed = data.animations[i].speed;
-					DeathDownLeft.loop = false;
+					anim.DeathDownLeft.speed = data.animations[i].speed;
+					anim.DeathDownLeft.loop = false;
 				}
 				break;
 			case AnimationState::ABILITY_DOWN_LEFT_1:
-				AbilitiDownLeft1.PushBack(data.animations[i].frames[j]);
+				anim.AbilityDownLeft1.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					AbilitiDownLeft1.speed = data.animations[i].speed;
-					AbilitiDownLeft1.loop = false;
+					anim.AbilityDownLeft1.speed = data.animations[i].speed;
+					anim.AbilityDownLeft1.loop = false;
 				}
 				break;
 			case AnimationState::ABILITY_DOWN_RIGHT_1:
-				AbilitiDownRight1.PushBack(data.animations[i].frames[j]);
+				anim.AbilityDownRight1.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					AbilitiDownRight1.speed = data.animations[i].speed;
-					AbilitiDownRight1.loop = false;
+					anim.AbilityDownRight1.speed = data.animations[i].speed;
+					anim.AbilityDownRight1.loop = false;
 				}
 				break;
 			case AnimationState::ABILITY_UP_RIGHT_1:
-				AbilitiUpRight1.PushBack(data.animations[i].frames[j]);
+				anim.AbilityUpRight1.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					AbilitiUpRight1.speed = data.animations[i].speed;
-					AbilitiUpRight1.loop = false;
+					anim.AbilityUpRight1.speed = data.animations[i].speed;
+					anim.AbilityUpRight1.loop = false;
 				}
 				break;
 			case AnimationState::ABILITY_UP_1:
-				AbilitiUp1.PushBack(data.animations[i].frames[j]);
+				anim.AbilityUp1.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					AbilitiUp1.speed = data.animations[i].speed;
-					AbilitiUp1.loop = false;
+					anim.AbilityUp1.speed = data.animations[i].speed;
+					anim.AbilityUp1.loop = false;
 				}
 				break;
 			case AnimationState::ABILITY_LEFT_1:
-				AbilitiLeft1.PushBack(data.animations[i].frames[j]);
+				anim.AbilityLeft1.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					AbilitiLeft1.speed = data.animations[i].speed;
-					AbilitiLeft1.loop = false;
+					anim.AbilityLeft1.speed = data.animations[i].speed;
+					anim.AbilityLeft1.loop = false;
 				}
 				break;
 			case AnimationState::ABILITY_DOWN_1:
-				AbilitiDown1.PushBack(data.animations[i].frames[j]);
+				anim.AbilityDown1.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					AbilitiDown1.speed = data.animations[i].speed;
-					AbilitiDown1.loop = false;
+					anim.AbilityDown1.speed = data.animations[i].speed;
+					anim.AbilityDown1.loop = false;
 				}
 				break;
 			case AnimationState::ABILITY_UP_LEFT_1:
-				AbilitiUpLeft1.PushBack(data.animations[i].frames[j]);
+				anim.AbilityUpLeft1.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					AbilitiUpLeft1.speed = data.animations[i].speed;
-					AbilitiUpLeft1.loop = false;
+					anim.AbilityUpLeft1.speed = data.animations[i].speed;
+					anim.AbilityUpLeft1.loop = false;
 				}
 				break;
 			case AnimationState::ABILITY_RIGHT_1:
-				AbilitiRight1.PushBack(data.animations[i].frames[j]);
+				anim.AbilityRight1.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					AbilitiRight1.speed = data.animations[i].speed;
-					AbilitiRight1.loop = false;
+					anim.AbilityRight1.speed = data.animations[i].speed;
+					anim.AbilityRight1.loop = false;
 				}
 				break;
 			case AnimationState::ABILITY_DOWN_LEFT_2:
-				AbilitiDownLeft2.PushBack(data.animations[i].frames[j]);
+				anim.AbilityDownLeft2.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					AbilitiDownLeft2.speed = data.animations[i].speed;
-					AbilitiDownLeft2.loop = false;
+					anim.AbilityDownLeft2.speed = data.animations[i].speed;
+					anim.AbilityDownLeft2.loop = false;
 				}
 				break;
 			case AnimationState::ABILITY_DOWN_RIGHT_2:
-				AbilitiDownRight2.PushBack(data.animations[i].frames[j]);
+				anim.AbilityDownRight2.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					AbilitiDownRight2.speed = data.animations[i].speed;
-					AbilitiDownRight2.loop = false;
+					anim.AbilityDownRight2.speed = data.animations[i].speed;
+					anim.AbilityDownRight2.loop = false;
 				}
 				break;
 			case AnimationState::ABILITY_UP_RIGHT_2:
-				AbilitiUpRight2.PushBack(data.animations[i].frames[j]);
+				anim.AbilityUpRight2.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					AbilitiUpRight2.speed = data.animations[i].speed;
-					AbilitiUpRight2.loop = false;
+					anim.AbilityUpRight2.speed = data.animations[i].speed;
+					anim.AbilityUpRight2.loop = false;
 				}
 				break;
 			case AnimationState::ABILITY_UP_2:
-				AbilitiUp2.PushBack(data.animations[i].frames[j]);
+				anim.AbilityUp2.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					AbilitiUp2.speed = data.animations[i].speed;
-					AbilitiUp2.loop = false;
+					anim.AbilityUp2.speed = data.animations[i].speed;
+					anim.AbilityUp2.loop = false;
 				}
 				break;
 			case AnimationState::ABILITY_LEFT_2:
-				AbilitiLeft2.PushBack(data.animations[i].frames[j]);
+				anim.AbilityLeft2.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					AbilitiLeft2.speed = data.animations[i].speed;
-					AbilitiLeft2.loop = false;
+					anim.AbilityLeft2.speed = data.animations[i].speed;
+					anim.AbilityLeft2.loop = false;
 				}
 				break;
 			case AnimationState::ABILITY_DOWN_2:
-				AbilitiDown2.PushBack(data.animations[i].frames[j]);
+				anim.AbilityDown2.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					AbilitiDown2.speed = data.animations[i].speed;
-					AbilitiDown2.loop = false;
+					anim.AbilityDown2.speed = data.animations[i].speed;
+					anim.AbilityDown2.loop = false;
 				}
 				break;
 			case AnimationState::ABILITY_UP_LEFT_2:
-				AbilitiUpLeft2.PushBack(data.animations[i].frames[j]);
+				anim.AbilityUpLeft2.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					AbilitiUpLeft2.speed = data.animations[i].speed;
-					AbilitiUpLeft2.loop = false;
+					anim.AbilityUpLeft2.speed = data.animations[i].speed;
+					anim.AbilityUpLeft2.loop = false;
 				}
 				break;
 			case AnimationState::ABILITY_RIGHT_2:
-				AbilitiRight2.PushBack(data.animations[i].frames[j]);
+				anim.AbilityRight2.PushBack(data.animations[i].frames[j]);
 				if (j == 0) {
-					AbilitiRight2.speed = data.animations[i].speed;
-					AbilitiRight2.loop = false;
-				}
-				break;
-			case AnimationState::DISTANCE_ATTACK_DOWN_LEFT:
-				DistanceAttackDownLeft.PushBack(data.animations[i].frames[j]);
-				if (j == 0) {
-					DistanceAttackDownLeft.speed = data.animations[i].speed;;
-				}
-				break;
-			case AnimationState::DISTANCE_ATTACK_UP_RIGHT:
-				DistanceAttackUpRight.PushBack(data.animations[i].frames[j]);
-				if (j == 0) {
-					DistanceAttackUpRight.speed = data.animations[i].speed;;
-				}
-				break;
-			case AnimationState::DISTANCE_ATTACK_DOWN:
-				DistanceAttackDown.PushBack(data.animations[i].frames[j]);
-				if (j == 0) {
-					DistanceAttackDown.speed = data.animations[i].speed;;
-				}
-				break;
-			case AnimationState::DISTANCE_ATTACK_DOWN_RIGHT:
-				DistanceAttackDownRight.PushBack(data.animations[i].frames[j]);
-				if (j == 0) {
-					DistanceAttackDownRight.speed = data.animations[i].speed;;
-				}
-				break;
-			case AnimationState::DISTANCE_ATTACK_LEFT:
-				DistanceAttackLeft.PushBack(data.animations[i].frames[j]);
-				if (j == 0) {
-					DistanceAttackLeft.speed = data.animations[i].speed;;
-				}
-				break;
-			case AnimationState::DISTANCE_ATTACK_RIGHT:
-				DistanceAttackRight.PushBack(data.animations[i].frames[j]);
-				if (j == 0) {
-					DistanceAttackRight.speed = data.animations[i].speed;;
-				}
-				break;
-			case AnimationState::DISTANCE_ATTACK_UP:
-				DistanceAttackUp.PushBack(data.animations[i].frames[j]);
-				if (j == 0) {
-					DistanceAttackUp.speed = data.animations[i].speed;;
-				}
-				break;
-			case AnimationState::DISTANCE_ATTACK_UP_LEFT:
-				DistanceAttackUpLeft.PushBack(data.animations[i].frames[j]);
-				if (j == 0) {
-					DistanceAttackUpLeft.speed = data.animations[i].speed;
+					anim.AbilityRight2.speed = data.animations[i].speed;
+					anim.AbilityRight2.loop = false;
 				}
 				break;
 			default:
@@ -466,34 +418,36 @@ bool e1DynamicEntity::RestTimeAfterAttack(float time_finish)
 		ret = true;
 	}
 	else {
-		if (target_position == position)
+		if (return_spline == nullptr || return_spline->to_delete) {
 			ChangeAnimation(direction, state);
+			return_spline = nullptr;
+		}
 		else {
 			switch (direction)
 			{
 			case Direction::DOWN:
-				current_animation = &GoDown;
+				current_animation = &anim.GoDown;
 				break;
 			case Direction::DOWN_LEFT:
-				current_animation = &GoDownLeft;
+				current_animation = &anim.GoDownLeft;
 				break;
 			case Direction::DOWN_RIGHT:
-				current_animation = &GoDownRight;
+				current_animation = &anim.GoDownRight;
 				break;
 			case Direction::LEFT:
-				current_animation = &GoLeft;
+				current_animation = &anim.GoLeft;
 				break;
 			case Direction::RIGHT:
-				current_animation = &GoRight;
+				current_animation = &anim.GoRight;
 				break;
 			case Direction::UP:
-				current_animation = &GoUp;
+				current_animation = &anim.GoUp;
 				break;
 			case Direction::UP_LEFT:
-				current_animation = &GoUpLeft;
+				current_animation = &anim.GoUpLeft;
 				break;
 			case Direction::UP_RIGHT:
-				current_animation = &GoUpRight;
+				current_animation = &anim.GoUpRight;
 				break;
 			default:
 				break;
@@ -579,35 +533,35 @@ void e1DynamicEntity::CheckBasicAttackEffects(const e1Entity::EntityType & type,
 					if (player_attacked->state != State::DEATH) {
 						switch (this->direction) {
 						case Direction::DOWN:
-							player_attacked->current_animation = &player_attacked->IdleUp;
+							player_attacked->current_animation = &player_attacked->anim.IdleUp;
 							player_attacked->direction = Direction::UP;
 							break;
 						case Direction::UP:
-							player_attacked->current_animation = &player_attacked->IdleDown;
+							player_attacked->current_animation = &player_attacked->anim.IdleDown;
 							player_attacked->direction = Direction::DOWN;
 							break;
 						case Direction::LEFT:
-							player_attacked->current_animation = &player_attacked->IdleRight;
+							player_attacked->current_animation = &player_attacked->anim.IdleRight;
 							player_attacked->direction = Direction::RIGHT;
 							break;
 						case Direction::RIGHT:
-							player_attacked->current_animation = &player_attacked->IdleLeft;
+							player_attacked->current_animation = &player_attacked->anim.IdleLeft;
 							player_attacked->direction = Direction::LEFT;
 							break;
 						case Direction::UP_RIGHT:
-							player_attacked->current_animation = &player_attacked->IdleDownLeft;
+							player_attacked->current_animation = &player_attacked->anim.IdleDownLeft;
 							player_attacked->direction = Direction::DOWN_LEFT;
 							break;
 						case Direction::DOWN_LEFT:
-							player_attacked->current_animation = &player_attacked->IdleUpRight;
+							player_attacked->current_animation = &player_attacked->anim.IdleUpRight;
 							player_attacked->direction = Direction::UP_RIGHT;
 							break;
 						case Direction::DOWN_RIGHT:
-							player_attacked->current_animation = &player_attacked->IdleUpLeft;
+							player_attacked->current_animation = &player_attacked->anim.IdleUpLeft;
 							player_attacked->direction = Direction::UP_LEFT;
 							break;
 						case Direction::UP_LEFT:
-							player_attacked->current_animation = &player_attacked->IdleDownRight;
+							player_attacked->current_animation = &player_attacked->anim.IdleDownRight;
 							player_attacked->direction = Direction::DOWN_RIGHT;
 							break;
 						default:
@@ -626,28 +580,28 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 	case State::AFTER_ATTACK: {
 		switch (dir) {
 		case Direction::DOWN:
-			current_animation = &IdleDown;
+			current_animation = &anim.IdleDown;
 			break;
 		case Direction::UP:
-			current_animation = &IdleUp;
+			current_animation = &anim.IdleUp;
 			break;
 		case Direction::RIGHT:
-			current_animation = &IdleRight;
+			current_animation = &anim.IdleRight;
 			break;
 		case Direction::LEFT:
-			current_animation = &IdleLeft;
+			current_animation = &anim.IdleLeft;
 			break;
 		case Direction::UP_RIGHT:
-			current_animation = &IdleUpRight;
+			current_animation = &anim.IdleUpRight;
 			break;
 		case Direction::DOWN_RIGHT:
-			current_animation = &IdleDownRight;
+			current_animation = &anim.IdleDownRight;
 			break;
 		case Direction::DOWN_LEFT:
-			current_animation = &IdleDownLeft;
+			current_animation = &anim.IdleDownLeft;
 			break;
 		case Direction::UP_LEFT:
-			current_animation = &IdleUpLeft;
+			current_animation = &anim.IdleUpLeft;
 			break;
 		default:
 			LOG("No direction type found");
@@ -657,28 +611,28 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 	case State::IDLE: {
 		switch (dir) {
 		case Direction::DOWN:
-			current_animation = &IdleDown;
+			current_animation = &anim.IdleDown;
 			break;
 		case Direction::UP:
-			current_animation = &IdleUp;
+			current_animation = &anim.IdleUp;
 			break;
 		case Direction::RIGHT:
-			current_animation = &IdleRight;
+			current_animation = &anim.IdleRight;
 			break;
 		case Direction::LEFT:
-			current_animation = &IdleLeft;
+			current_animation = &anim.IdleLeft;
 			break;
 		case Direction::UP_RIGHT:
-			current_animation = &IdleUpRight;
+			current_animation = &anim.IdleUpRight;
 			break;
 		case Direction::DOWN_RIGHT:
-			current_animation = &IdleDownRight;
+			current_animation = &anim.IdleDownRight;
 			break;
 		case Direction::DOWN_LEFT:
-			current_animation = &IdleDownLeft;
+			current_animation = &anim.IdleDownLeft;
 			break;
 		case Direction::UP_LEFT:
-			current_animation = &IdleUpLeft;
+			current_animation = &anim.IdleUpLeft;
 			break;
 		default:
 			LOG("No direction type found");
@@ -690,13 +644,13 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 		case Direction::DOWN: {
 			switch (attacks) {
 			case Attacks::BASIC:
-				current_animation = &BasicAttackDown;
+				current_animation = &anim.BasicAttackDown;
 				break;
 			case Attacks::SPECIAL_1:
-				current_animation = &AbilitiDown1;
+				current_animation = &anim.AbilityDown1;
 				break;
 			case Attacks::SPECIAL_2:
-				current_animation = &AbilitiDown2;
+				current_animation = &anim.AbilityDown2;
 				break;
 			default:
 				LOG("No attack type found");
@@ -706,13 +660,13 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 		case Direction::UP: {
 			switch (attacks) {
 			case Attacks::BASIC:
-				current_animation = &BasicAttackUp;
+				current_animation = &anim.BasicAttackUp;
 				break;
 			case Attacks::SPECIAL_1:
-				current_animation = &AbilitiUp1;
+				current_animation = &anim.AbilityUp1;
 				break;
 			case Attacks::SPECIAL_2:
-				current_animation = &AbilitiUp2;
+				current_animation = &anim.AbilityUp2;
 				break;
 			default:
 				LOG("No attack type found");
@@ -722,13 +676,13 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 		case Direction::RIGHT: {
 			switch (attacks) {
 			case Attacks::BASIC:
-				current_animation = &BasicAttackRight;
+				current_animation = &anim.BasicAttackRight;
 				break;
 			case Attacks::SPECIAL_1:
-				current_animation = &AbilitiRight1;
+				current_animation = &anim.AbilityRight1;
 				break;
 			case Attacks::SPECIAL_2:
-				current_animation = &AbilitiRight2;
+				current_animation = &anim.AbilityRight2;
 				break;
 			default:
 				LOG("No attack type found");
@@ -738,13 +692,13 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 		case Direction::LEFT: {
 			switch (attacks) {
 			case Attacks::BASIC:
-				current_animation = &BasicAttackLeft;
+				current_animation = &anim.BasicAttackLeft;
 				break;
 			case Attacks::SPECIAL_1:
-				current_animation = &AbilitiLeft1;
+				current_animation = &anim.AbilityLeft1;
 				break;
 			case Attacks::SPECIAL_2:
-				current_animation = &AbilitiLeft2;
+				current_animation = &anim.AbilityLeft2;
 				break;
 			default:
 				LOG("No attack type found");
@@ -754,13 +708,13 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 		case Direction::UP_RIGHT: {
 			switch (attacks) {
 			case Attacks::BASIC:
-				current_animation = &BasicAttackUpRight;
+				current_animation = &anim.BasicAttackUpRight;
 				break;
 			case Attacks::SPECIAL_1:
-				current_animation = &AbilitiUpRight1;
+				current_animation = &anim.AbilityUpRight1;
 				break;
 			case Attacks::SPECIAL_2:
-				current_animation = &AbilitiUpRight2;
+				current_animation = &anim.AbilityUpRight2;
 				break;
 			default:
 				LOG("No attack type found");
@@ -770,13 +724,13 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 		case Direction::DOWN_RIGHT: {
 			switch (attacks) {
 			case Attacks::BASIC:
-				current_animation = &BasicAttackDownRight;
+				current_animation = &anim.BasicAttackDownRight;
 				break;
 			case Attacks::SPECIAL_1:
-				current_animation = &AbilitiDownRight1;
+				current_animation = &anim.AbilityDownRight1;
 				break;
 			case Attacks::SPECIAL_2:
-				current_animation = &AbilitiDownRight2;
+				current_animation = &anim.AbilityDownRight2;
 				break;
 			default:
 				LOG("No attack type found");
@@ -786,13 +740,13 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 		case Direction::DOWN_LEFT: {
 			switch (attacks) {
 			case Attacks::BASIC:
-				current_animation = &BasicAttackDownLeft;
+				current_animation = &anim.BasicAttackDownLeft;
 				break;
 			case Attacks::SPECIAL_1:
-				current_animation = &AbilitiDownLeft1;
+				current_animation = &anim.AbilityDownLeft1;
 				break;
 			case Attacks::SPECIAL_2:
-				current_animation = &AbilitiDownLeft2;
+				current_animation = &anim.AbilityDownLeft2;
 				break;
 			default:
 				LOG("No attack type found");
@@ -802,13 +756,13 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 		case Direction::UP_LEFT: {
 			switch (attacks) {
 			case Attacks::BASIC:
-				current_animation = &BasicAttackUpLeft;
+				current_animation = &anim.BasicAttackUpLeft;
 				break;
 			case Attacks::SPECIAL_1:
-				current_animation = &AbilitiUpLeft1;
+				current_animation = &anim.AbilityUpLeft1;
 				break;
 			case Attacks::SPECIAL_2:
-				current_animation = &AbilitiUpLeft2;
+				current_animation = &anim.AbilityUpLeft2;
 				break;
 			default:
 				LOG("No attack type found");
@@ -823,28 +777,28 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 	case State::DEATH: {
 		switch (dir) {
 		case Direction::DOWN:
-			current_animation = &DeathDown;
+			current_animation = &anim.DeathDown;
 			break;
 		case Direction::UP:
-			current_animation = &DeathUp;
+			current_animation = &anim.DeathUp;
 			break;
 		case Direction::RIGHT:
-			current_animation = &DeathRight;
+			current_animation = &anim.DeathRight;
 			break;
 		case Direction::LEFT:
-			current_animation = &DeathLeft;
+			current_animation = &anim.DeathLeft;
 			break;
 		case Direction::UP_RIGHT:
-			current_animation = &DeathUpRight;
+			current_animation = &anim.DeathUpRight;
 			break;
 		case Direction::DOWN_RIGHT:
-			current_animation = &DeathDownRight;
+			current_animation = &anim.DeathDownRight;
 			break;
 		case Direction::DOWN_LEFT:
-			current_animation = &DeathDownLeft;
+			current_animation = &anim.DeathDownLeft;
 			break;
 		case Direction::UP_LEFT:
-			current_animation = &DeathUpLeft;
+			current_animation = &anim.DeathUpLeft;
 			break;
 		default:
 			LOG("No direction type found");
@@ -863,30 +817,30 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 
 void e1DynamicEntity::ResetAnims()
 {
-	BasicAttackDownLeft.Reset();
-	BasicAttackDown.Reset();
-	BasicAttackDownRight.Reset();
-	BasicAttackLeft.Reset();
-	BasicAttackRight.Reset();
-	BasicAttackUp.Reset();
-	BasicAttackUpLeft.Reset();
-	BasicAttackUpRight.Reset();
-	AbilitiDownLeft1.Reset();
-	AbilitiDownRight1.Reset();
-	AbilitiUpLeft1.Reset();
-	AbilitiUpRight1.Reset();
-	AbilitiLeft1.Reset();
-	AbilitiDown1.Reset();
-	AbilitiUp1.Reset();
-	AbilitiRight1.Reset();
-	AbilitiDownLeft2.Reset();
-	AbilitiDownRight2.Reset();
-	AbilitiUpLeft2.Reset();
-	AbilitiUpRight2.Reset();
-	AbilitiLeft2.Reset();
-	AbilitiDown2.Reset();
-	AbilitiUp2.Reset();
-	AbilitiRight2.Reset();
+	anim.BasicAttackDownLeft.Reset();
+	anim.BasicAttackDown.Reset();
+	anim.BasicAttackDownRight.Reset();
+	anim.BasicAttackLeft.Reset();
+	anim.BasicAttackRight.Reset();
+	anim.BasicAttackUp.Reset();
+	anim.BasicAttackUpLeft.Reset();
+	anim.BasicAttackUpRight.Reset();
+	anim.AbilityDownLeft1.Reset();
+	anim.AbilityDownRight1.Reset();
+	anim.AbilityUpLeft1.Reset();
+	anim.AbilityUpRight1.Reset();
+	anim.AbilityLeft1.Reset();
+	anim.AbilityDown1.Reset();
+	anim.AbilityUp1.Reset();
+	anim.AbilityRight1.Reset();
+	anim.AbilityDownLeft2.Reset();
+	anim.AbilityDownRight2.Reset();
+	anim.AbilityUpLeft2.Reset();
+	anim.AbilityUpRight2.Reset();
+	anim.AbilityLeft2.Reset();
+	anim.AbilityDown2.Reset();
+	anim.AbilityUp2.Reset();
+	anim.AbilityRight2.Reset();
 	
 }
 
@@ -898,49 +852,49 @@ void e1DynamicEntity::ChangeAnimsInCutscene(const int & x, const int & y, const 
 	if (anim_num == 1) {
 		if (x != 0 && y != 0) {
 			if (x > 0 && y > 0) {
-				current_animation = &GoDownRight;
+				current_animation = &anim.GoDownRight;
 			}
 			else if (x == -40 && y == -80) {
-				current_animation = &GoUp;
+				current_animation = &anim.GoUp;
 			}
 			else if (x < 0 && y < 0) {
-				current_animation = &GoUpLeft;
+				current_animation = &anim.GoUpLeft;
 			}
 			else if (x > 0 && y < 0) {
-				current_animation = &GoUpRight;
+				current_animation = &anim.GoUpRight;
 			}
 			else if (x < 0 && y > 0) {
-				current_animation = &GoDownLeft;
+				current_animation = &anim.GoDownLeft;
 			}
 		}
 		if (x == 0 && y == 0) {
-			if (last_anim == &GoDownRight) {
-				current_animation = &IdleDownRight;
+			if (last_anim == &anim.GoDownRight) {
+				current_animation = &anim.IdleDownRight;
 			}
-			else if (last_anim == &GoUpLeft) {
-				current_animation = &IdleUpLeft;
+			else if (last_anim == &anim.GoUpLeft) {
+				current_animation = &anim.IdleUpLeft;
 			}
-			else if (last_anim == &GoUpRight) {
-				current_animation = &IdleUpRight;
+			else if (last_anim == &anim.GoUpRight) {
+				current_animation = &anim.IdleUpRight;
 			}
-			else if (last_anim == &GoDownLeft) {
-				current_animation = &IdleDownLeft;
+			else if (last_anim == &anim.GoDownLeft) {
+				current_animation = &anim.IdleDownLeft;
 			}
 		}
 		
 	}
 	if (anim_num == 2) {
 		if (x > 0 && y > 0) {
-			current_animation = &IdleDownRight;
+			current_animation = &anim.IdleDownRight;
 		}
 		else if (x < 0 && y < 0) {
-			current_animation = &IdleUpLeft;
+			current_animation = &anim.IdleUpLeft;
 		}
 		else if (x > 0 && y < 0) {
-			current_animation = &IdleUpRight;
+			current_animation = &anim.IdleUpRight;
 		}
 		else if (x < 0 && y > 0) {
-			current_animation = &IdleDownLeft;
+			current_animation = &anim.IdleDownLeft;
 		}
 	}
 }

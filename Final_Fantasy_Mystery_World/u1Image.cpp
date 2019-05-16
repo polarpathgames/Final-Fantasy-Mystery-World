@@ -38,4 +38,11 @@ void u1Image::InnerDraw()
 
 }
 
+void u1Image::SetImage(const SDL_Rect & rect)
+{
+	section = rect;
+}
+
+
+
 

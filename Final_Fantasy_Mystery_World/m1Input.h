@@ -40,7 +40,7 @@ struct ButtonsUsed {
 	int DIRECCTION_RIGHT;
 	int DIAGONALS;
 	int BASIC_ATTACK;
-	int SHOW_SKILLS;
+	//int SHOW_SKILLS;
 	int HABILTY1;
 	int HABILITY2;
 	int HABILITY3;
@@ -59,7 +59,7 @@ struct ButtonChar {
 	char* DIRECTION_LEFT = nullptr;
 	char* DIRECCTION_RIGHT = nullptr;
 	char* DIAGONALS = nullptr;
-	char* SHOW_SKILLS = nullptr;
+	//char* SHOW_SKILLS = nullptr;
 	char* BASIC_ATTACK = nullptr;
 	char* ABILITY1 = nullptr;
 	char* ABILITY2 = nullptr;
@@ -179,7 +179,7 @@ public:
 
 	KeyboardButtons keyboard_buttons;
 	ControllerButtons controller_Buttons;
-	SDL_GameController* Controller = nullptr;
+	SDL_GameController* controller = nullptr;
 
 	//Controler Haptic
 

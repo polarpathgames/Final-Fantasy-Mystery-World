@@ -56,6 +56,7 @@ public:
 	virtual void InnerDraw();
 	virtual void UpdateElement() {};
 	void PreUpdate();
+	void SetFocus(const FocusType & focus);
 	virtual void PreUpdateElement() {};
 	virtual bool CleanUp();
 
@@ -75,6 +76,9 @@ public:
 	void DeleteListener(m1Module* module);
 
 	SDL_Rect* GetGlobalRect();
+
+	void SetClipZone(const SDL_Rect& clip_zone);
+	void ResetClipZone();
 
 public:
 	iPoint position = { 0,0 };
@@ -100,12 +104,18 @@ public:
 	Element_Event current_state = Element_Event::NONE;
 	iPoint last_mouse;
 
+	SDL_Rect* clip_zone = nullptr;
+
+	FocusType focus_type = FocusType::NONE;
+
 private:
 	UIType type = NON;
 
 	int priority = 0;
 
 	std::list<m1Module*> listeners;
+
+	bool new_clip = false;
 };
 
 

@@ -11,9 +11,9 @@ public:
 
 	virtual ~e1StrangeFrog();
 
-	bool PreUpdate();
+	void PrepareBasicAttack();
 
-	bool Update(float dt);
+	void FinishBasicAttack();
 
 	void IdAnimToEnum();
 

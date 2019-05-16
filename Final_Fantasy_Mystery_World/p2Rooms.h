@@ -87,6 +87,7 @@ public:
 	
 	u1Image * map_room_image = nullptr;
 
+	bool fountain_drunk = false;
 };
 
 class RoomManager {
@@ -130,6 +131,9 @@ private:
 	pugi::xml_document room_manager_file;
 
 	LocationChangeScene player_next_pos = LocationChangeScene::NONE;
+
+	SDL_Rect mini_rect_map[4] = { 0,0,0,0 };
+
 };
 #endif // !_P2ROOMS_H
 

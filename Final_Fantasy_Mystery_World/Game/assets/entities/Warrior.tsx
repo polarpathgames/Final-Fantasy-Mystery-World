@@ -6,7 +6,7 @@
   <property name="attack_power_ability3" type="int" value="100"/>
   <property name="cost_mana_special_attack" type="int" value="20"/>
   <property name="cost_mana_special_attack3" type="int" value="25"/>
-  <property name="max_lives" type="int" value="350"/>
+  <property name="max_lives" type="int" value="400"/>
   <property name="max_mana" type="int" value="200"/>
  </properties>
  <image source="../sprites/Warrior.png" width="336" height="341"/>

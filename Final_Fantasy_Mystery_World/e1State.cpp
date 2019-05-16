@@ -7,9 +7,12 @@
 
 e1State::e1State(int x, int y, const char * name) :e1Entity(x, y) {
 	type = e1Entity::EntityType::EVENT;
+
+	this->name.assign(name);
+
 	if (strcmp(name,"blizzard") == 0) {
 		state = EventStates::BLIZZARD;
-		turn_effect = 3U;
+		turn_effect = 6U;
 		animation = new Animation();
 		animation->PushBack({ 0,0,1024,768 });
 		animation->PushBack({ 0,768,1024,768 });
@@ -23,15 +26,32 @@ e1State::e1State(int x, int y, const char * name) :e1Entity(x, y) {
 		drawable = true;
 	}
 
-	if (strcmp(name, "poison") == 0) {
-		state = EventStates::POISON;
-		turn_effect = 3U;
+	if (strcmp(name, "poison") == 0 || strcmp(name, "fire") == 0) {
 		target = (e1Entity*)App->scene->player;
+		if (strcmp(name, "poison") == 0) {
+			state = EventStates::POISON;
+			if (target->data.tileset.texture != nullptr) {
+				SDL_SetTextureColorMod(target->data.tileset.texture, 0, 225, 200);
+			}
+			CreateParticleFire(target, nullptr, { 0,0 }, SDL_Rect{ 2,6,2,2 }, iPoint(5, 2), iPoint(12, 4), fPoint(0, -30), P_NON, 65, 4, true, W_NON, target->pivot);
+		}
+		else {
+			state = EventStates::FIRE;
+			if (target->data.tileset.texture != nullptr) {
+				SDL_SetTextureColorMod(target->data.tileset.texture, 255, 180, 150);
+			}
+			CreateParticleFire(target, nullptr, { 0,0 }, SDL_Rect{ 4,4,2,2 }, iPoint(5, 2), iPoint(12, 4), fPoint(0, -60), P_NON, 65, 4, true, W_NON, target->pivot);
+		}
+		turn_effect = 3U;
+		
+		SDL_GetTextureColorMod(target->data.tileset.texture, &color_mod_r, &color_mod_g, &color_mod_b);
 		max_number_hit = 5U;
 		time_effect = 1U;
 		damage = 5;
-		frame = { 1032,0,18,32 };
+		drawable = false;
+		(*particle_fire.begin())->active = false;
 	}
+
 
 	allow_turn = true;
 	timer_before_effect.Stop();
@@ -46,6 +66,14 @@ e1State::~e1State()
 	if (animation != nullptr) {
 		delete animation;
 		animation = nullptr;
+	}
+
+	if (state == EventStates::POISON || state == EventStates::FIRE) {
+		if (App->entity_manager->IsInEntitiesVector(target)) {
+			if (target != nullptr && target->data.tileset.texture != nullptr) {
+				SDL_SetTextureColorMod(target->data.tileset.texture, color_mod_r, color_mod_g, color_mod_b);
+			}
+		}
 	}
 }
 
@@ -69,16 +97,17 @@ bool e1State::PreUpdate()
 				case EventStates::BLIZZARD: {
 					std::vector<e1Entity*> list = App->entity_manager->GetEntities();
 					for (std::vector<e1Entity*>::iterator item = list.begin(); item != list.end(); ++item) {
-						if ((*item)->type == e1Entity::EntityType::PLAYER || (*item)->type == e1Entity::EntityType::ENEMY)
+						if ((*item)->type == e1Entity::EntityType::PLAYER/* || (*item)->type == e1Entity::EntityType::ENEMY*/)
 							static_cast<e1DynamicEntity*>(*item)->GetHitted(damage);
 					}
 					number_hit++;
 
 					break;
 				}
-				case EventStates::POISON:
+				case EventStates::POISON: case EventStates::FIRE:
 					if (target != nullptr) {
 						static_cast<e1DynamicEntity*>(target)->GetHitted(damage);
+						(*particle_fire.begin())->active = true;
 					}
 					number_hit++;
 					break;
@@ -101,22 +130,44 @@ bool e1State::PreUpdate()
 bool e1State::Update(float dt)
 {
 	if (doing_effect) {
-		//drawable = true;
-		if (target != nullptr) {
-			position = target->position;
-		}
-
-		if (timer.ReadSec() >= time_effect) { // or animation finish
-			turn_done = true;
-			turn_count = 0U;
-			doing_effect = false;
-			//drawable = false;
-			if (max_number_hit != 0u) {
-				if (number_hit >= max_number_hit) {
-					to_delete = true;
+		
+		switch (state)
+		{
+		case EventStates::BLIZZARD:
+			if (timer.ReadSec() >= time_effect) { // or animation finish
+				turn_done = true;
+				turn_count = 0U;
+				doing_effect = false;
+				if (max_number_hit != 0u) {
+					if (number_hit >= max_number_hit) {
+						to_delete = true;
+					}
 				}
 			}
+			break;
+		case EventStates::POISON: case EventStates::FIRE:
+			if (target != nullptr) {
+				position = target->position;
+			}
+
+			if (timer.ReadSec() >= time_effect) { // or animation finish
+				turn_done = true;
+				turn_count = 0U;
+				doing_effect = false;
+				(*particle_fire.begin())->active = false;
+				if (max_number_hit != 0u) {
+					if (number_hit >= max_number_hit) {
+						to_delete = true;
+					}
+				}
+			}
+			break;
+		case EventStates::NONE:
+			break;
+		default:
+			break;
 		}
+		
 	}
 
 	return true;

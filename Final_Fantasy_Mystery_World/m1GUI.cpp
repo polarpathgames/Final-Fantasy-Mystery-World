@@ -36,7 +36,13 @@ bool m1GUI::Awake(pugi::xml_node &node)
 	CreateScreen();
 
 	//Load all ui elements info with xml...
-	focus_tx = { 1024,1986,16,27 };
+	square_focus_img[0] = { 1045,2205,27,24 };
+	square_focus_img[1] = { 1080,2205,27,24 };
+	square_focus_img[2] = { 1045,2233,27,24 };
+	square_focus_img[3] = { 1080,2233,27,24 };
+
+	classic_focus_img = { 1024,1986,16,27 };
+
 	cursor_rect = { 1024, 2013, 35, 40 };
 
 	//----------------------
@@ -229,6 +235,7 @@ bool m1GUI::FocusFirstUIFocusable()
 		}
 	}
 	//LOG("There is any button focusable");
+	focus = nullptr;
 	return false;
 }
 
@@ -255,7 +262,17 @@ bool m1GUI::PostUpdate()
 		for (std::list<u1GUI*>::iterator item = tree.begin(); item != tree.end(); item++) {
 			(*item)->Draw();
 			if (focus == *item) {
-				App->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - focus_tx.w + focus->focus_offset.x, (focus->section.h - focus_tx.h) * 0.5F + focus->GetGlobalPosition().y + 5 + focus->focus_offset.y, &focus_tx);
+				switch (focus->focus_type) {
+				case FocusType::CLASSIC_FOCUS:
+					App->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - classic_focus_img.w + focus->focus_offset.x, (focus->section.h - classic_focus_img.h) * 0.5F + focus->GetGlobalPosition().y + 5 + focus->focus_offset.y, &classic_focus_img);
+					break;
+				case FocusType::SQUARE_FOCUS:
+					App->render->Blit(atlas, focus->GetGlobalPosition().x - 10, focus->GetGlobalPosition().y - 10, &square_focus_img[0], false, SDL_FLIP_NONE, 1.0F, focus->clip_zone);
+					App->render->Blit(atlas, focus->GetGlobalPosition().x - 16 + focus->section.w, focus->GetGlobalPosition().y - 10, &square_focus_img[1], false, SDL_FLIP_NONE, 1.0F, focus->clip_zone);
+					App->render->Blit(atlas, focus->GetGlobalPosition().x - 10, focus->GetGlobalPosition().y - 14 + focus->section.h, &square_focus_img[2], false, SDL_FLIP_NONE, 1.0F, focus->clip_zone);
+					App->render->Blit(atlas, focus->GetGlobalPosition().x - 16 + focus->section.w, focus->GetGlobalPosition().y - 14 + focus->section.h, &square_focus_img[3], false, SDL_FLIP_NONE, 1.0F, focus->clip_zone);
+					break;
+				}
 			}
 			if (debug_ui) {
 				(*item)->DebugDraw();
@@ -298,6 +315,11 @@ bool m1GUI::IsInUIList(u1GUI * element)
 const SDL_Texture* m1GUI::GetAtlas() const
 {
 	return atlas;
+}
+
+std::list<u1GUI*> m1GUI::GetUIList() const
+{
+	return ui_list;
 }
 
 u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, m1Module * listener = nullptr, u1GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false, bool focus = true, Animation* anim, SDL_Rect*clip_zone)

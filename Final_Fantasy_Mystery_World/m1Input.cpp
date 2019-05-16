@@ -53,7 +53,7 @@ bool m1Input::Awake(pugi::xml_node& config)
 		ret = false;
 	}
 
-	Controller = SDL_GameControllerOpen(0);
+	/*controller = SDL_GameControllerOpen(0);*/
 
 
 	return ret;
@@ -148,7 +148,7 @@ void m1Input::DefaultControls()
 	keyboard_buttons.buttons_code.HABILTY1 = SDL_SCANCODE_1;
 	keyboard_buttons.buttons_code.HABILITY2 = SDL_SCANCODE_2;
 	keyboard_buttons.buttons_code.HABILITY3 = SDL_SCANCODE_3;
-	keyboard_buttons.buttons_code.SHOW_SKILLS = SDL_SCANCODE_V;
+	//keyboard_buttons.buttons_code.SHOW_SKILLS = SDL_SCANCODE_V;
 	keyboard_buttons.buttons_code.INVENTORY = SDL_SCANCODE_E;
 
 	keyboard_buttons.buttons_char.BASIC_ATTACK = "G";
@@ -164,7 +164,7 @@ void m1Input::DefaultControls()
 	keyboard_buttons.buttons_char.ABILITY1 = "1";
 	keyboard_buttons.buttons_char.ABILITY2 = "2";
 	keyboard_buttons.buttons_char.ABILITY3 = "3";
-	keyboard_buttons.buttons_char.SHOW_SKILLS = "V";
+	//keyboard_buttons.buttons_char.SHOW_SKILLS = "V";
 	keyboard_buttons.buttons_char.INVENTORY = "E";
 
 	controller_Buttons.buttons_code.BASIC_ATTACK = SDL_CONTROLLER_BUTTON_A;
@@ -176,7 +176,7 @@ void m1Input::DefaultControls()
 	controller_Buttons.buttons_code.HABILTY1 = SDL_CONTROLLER_BUTTON_X;
 	controller_Buttons.buttons_code.HABILITY2 = SDL_CONTROLLER_BUTTON_B;
 	controller_Buttons.buttons_code.HABILITY3 = SDL_CONTROLLER_BUTTON_Y;
-	controller_Buttons.buttons_code.SHOW_SKILLS = SDL_CONTROLLER_BUTTON_LEFTSHOULDER;
+	//controller_Buttons.buttons_code.SHOW_SKILLS = SDL_CONTROLLER_BUTTON_LEFTSHOULDER;
 	controller_Buttons.buttons_code.INVENTORY = SDL_CONTROLLER_BUTTON_RIGHTSHOULDER;
 
 	controller_Buttons.buttons_char.BASIC_ATTACK = "A";
@@ -192,7 +192,7 @@ void m1Input::DefaultControls()
 	controller_Buttons.buttons_char.ABILITY1 = "X";
 	controller_Buttons.buttons_char.ABILITY3 = "Y";
 	controller_Buttons.buttons_char.ABILITY2 = "B";
-	controller_Buttons.buttons_char.SHOW_SKILLS = "LB";
+	//controller_Buttons.buttons_char.SHOW_SKILLS = "LB";
 	controller_Buttons.buttons_char.INVENTORY = "RB";
 }
 
@@ -248,9 +248,7 @@ void m1Input::UpdateEvents(SDL_Event &event)
 			}
 			break;
 		case SDL_CONTROLLERBUTTONDOWN:
-			if (event.cbutton.which == 0) {
 				controller_buttons[event.cbutton.button] = KEY_DOWN;
-			}
 			break;
 		case SDL_JOYDEVICEADDED:
 			if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) < 0)
@@ -261,11 +259,9 @@ void m1Input::UpdateEvents(SDL_Event &event)
 			{
 				LOG("rumble play error");
 			}
-			Controller = SDL_GameControllerOpen(0);
 
 			break;
 		case SDL_CONTROLLERBUTTONUP:
-			if (event.cbutton.which == 0)
 				controller_buttons[event.cbutton.button] = KEY_UP;
 			break;
 		case SDL_MOUSEBUTTONDOWN:
@@ -306,12 +302,12 @@ void m1Input::UpdateEvents(SDL_Event &event)
 			//Open the first available controller
 			for (int i = 0; i < SDL_NumJoysticks(); ++i) {
 				if (SDL_IsGameController(i)) {
-					Controller = SDL_GameControllerOpen(i);
-					if (Controller) {
+					controller = SDL_GameControllerOpen(i);
+					if (controller) {
 
-						if (SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(Controller)) > 0)
+						if (SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(controller)) > 0)
 						{
-							haptic = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(Controller));
+							haptic = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(controller));
 
 							if (haptic != nullptr)
 							{
@@ -331,7 +327,7 @@ void m1Input::UpdateEvents(SDL_Event &event)
 						else
 						{
 							LOG("haptic error! SDL_Error: %s\n", SDL_GetError());
-							LOG("haptic error! SDL_Error: %i\n", SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(Controller)));
+							LOG("haptic error! SDL_Error: %i\n", SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(controller)));
 						}
 					}
 					else {
@@ -344,12 +340,12 @@ void m1Input::UpdateEvents(SDL_Event &event)
 
 		case SDL_CONTROLLERDEVICEREMOVED:
 			LOG("disconnected gamepad");
-			if (Controller != nullptr)
+			if (controller != nullptr)
 			{
 				SDL_HapticClose(haptic);
 				haptic = nullptr;
-				SDL_GameControllerClose(Controller);
-				Controller = nullptr;
+				SDL_GameControllerClose(controller);
+				controller = nullptr;
 			}
 			break;
 		}
@@ -372,10 +368,10 @@ void m1Input::UpdateController()
 	}
 
 	//axis
-	if (Controller != nullptr) {
+	if (controller != nullptr) {
 
 		for (int i = 0; i < SDL_CONTROLLER_AXIS_MAX; ++i) {
-			joy[i].value = SDL_GameControllerGetAxis(Controller, (SDL_GameControllerAxis)i)/* / 32767*/;
+			joy[i].value = SDL_GameControllerGetAxis(controller, (SDL_GameControllerAxis)i)/* / 32767*/;
 			
 			if (IN_RANGE(joy[i].value,-DEAD_ZONE,DEAD_ZONE)) {
 				if (joy[i].state == KEY_REPEAT) {

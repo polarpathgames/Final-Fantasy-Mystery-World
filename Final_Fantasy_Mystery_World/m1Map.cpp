@@ -35,6 +35,10 @@ bool m1Map::Start()
 	mus_shop = App->audio->LoadMusic("assets/audio/music/4.Final Fantasy TA - Magic Beast Farm.ogg");
 	mus_lobby = App->audio->LoadMusic("assets/audio/music/10.Final Fantasy TA - Different World Ivalice.ogg");
 
+	if (App->fast_start) {
+		ChangeMap(Maps::DEBUG);
+	}
+
 	return true;
 }
 
@@ -47,7 +51,10 @@ bool m1Map::Awake(pugi::xml_node& config)
 
 	shop_map.assign(config.child("maps").child("shop_map").text().as_string());
 	lobby_map.assign(config.child("maps").child("lobby_map").text().as_string());
+	lobby_ice.assign(config.child("maps").child("lobby_ice").text().as_string());
 	home_map.assign(config.child("maps").child("home_map").text().as_string());
+
+	debug_map.assign(config.child("start_map").attribute("map").as_string());
 	
 	return ret;
 }
@@ -645,35 +652,58 @@ bool m1Map::ChangeMap(Maps type)
 	switch (type) {
 	case Maps::LOBBY:
 		App->audio->PlayMusic(mus_lobby, 5);
-		Load(lobby_map.data());
+		switch (lobby_state) {
+		case LobbyState::NORMAL_LOBBY:
+			Load(lobby_map.data());
+			break;
+		case LobbyState::ICE_LOBBY:
+			Load(lobby_ice.data());
+			break;
+		}
 		actual_map = Maps::LOBBY;
 		if (last_map != Maps::HOME && last_map != Maps::SHOP) {
 			App->scene->player->AugmentLives(App->scene->player->stats.max_lives);
 			App->scene->player->AugmentMana(App->scene->player->stats.max_mana);
 		}
-		App->menu_manager->ShowHUD(false);
+		App->menu_manager->EnableHUD(false);
 		break;
 	case Maps::TUTORIAL:
 		quest_rooms = DBG_NEW RoomManager("tutorial");
 		actual_map = Maps::TUTORIAL;
+		App->menu_manager->EnableHUD(true);
 		return true;
 		break;
 	case Maps::QUEST2:
 		quest_rooms = DBG_NEW RoomManager("quest2");
 		actual_map = Maps::QUEST2;
+		App->menu_manager->EnableHUD(true);
+		return true;
+		break;
+	case Maps::FINAL_QUEST:
+		quest_rooms = DBG_NEW RoomManager("final_quest");
+		actual_map = Maps::FINAL_QUEST;
+		App->menu_manager->EnableHUD(true);
+		return true;
+		break;
+	case Maps::DEBUG:
+		quest_rooms = DBG_NEW RoomManager("debug");
+		actual_map = Maps::DEBUG;
 		return true;
 		break;
 	case Maps::SHOP:
 		App->audio->PlayMusic(mus_shop, 5);
 		Load(shop_map.data());
 		actual_map = Maps::SHOP;
-		App->menu_manager->ShowHUD(false);
+		//App->menu_manager->ShowHUD(false);
 		break;
 	case Maps::HOME:
 		App->audio->PlayMusic(mus_home, 5);
 		Load(home_map.data());
 		actual_map = Maps::HOME;
-		App->menu_manager->ShowHUD(false);
+		//if (App->globals.CutSceneLobbyExplain == true)
+		//	App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, 0, 0, "daughter");
+
+		//App->menu_manager->ShowHUD(false);
 		break;
 	default:
 		LOG("Could not load the map");

@@ -175,7 +175,7 @@ public:
 
 	void AugmentGold(const int &plus_gold);
 		
-
+	void SetPlayerIdle();
 
 	void UpdateExperience(int experience);
 

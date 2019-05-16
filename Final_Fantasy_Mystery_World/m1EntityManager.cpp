@@ -3,10 +3,12 @@
 #include "m1EntityManager.h"
 #include "m1Textures.h"
 #include "e1Entity.h"
+#include "e1Spider.h"
 #include "m1Audio.h"
 #include "e1Cassio.h"
 #include "m1MenuManager.h"
 #include "e1StrangeFrog.h"
+#include "e1MegaEye.h"
 #include "e1Drop.h"
 #include "m1Window.h"
 #include "e1StaticEntity.h"
@@ -15,6 +17,7 @@
 #include "e1Archer.h"
 #include "p2Log.h"
 #include "e1BlueSlime.h"
+#include "e1BabyDrake.h"
 #include "e1BlueDog.h"
 #include "m1Map.h"
 #include "e1CarnivorousPlant.h"
@@ -27,6 +30,7 @@
 #include "e1Warrior.h"
 #include "e1Enemy.h"
 #include "e1State.h"
+#include "e1Frozen.h"
 #include <algorithm>
 #include "Brofiler/Brofiler.h"
 
@@ -84,8 +88,10 @@ bool m1EntityManager::PreUpdate()
 		for (; item != entities.end(); ++item) {
 			if ((*item) != nullptr && entity_turn != *item && (*item)->allow_turn) {
 				changed = true;
-				if (entity_turn != nullptr)
+				if (entity_turn != nullptr) {
 					entity_turn->turn_done = false;
+					entity_turn->turn_count++;
+				}
 				entity_turn = *item;
 				break;
 			}
@@ -95,18 +101,30 @@ bool m1EntityManager::PreUpdate()
 			for (; item != entities.end(); ++item) {
 				if ((*item) != nullptr && entity_turn != *item && (*item)->allow_turn) {
 					changed = true;
-					if (entity_turn != nullptr)
+					if (entity_turn != nullptr) {
 						entity_turn->turn_done = false;
+						entity_turn->turn_count++;
+					}
 					entity_turn = *item;
 					break;
 				}
 			}
 		}
-		if (!changed)
-			entity_turn->turn_done = false;
+		if (!changed) {
+			if (entity_turn != nullptr) {
+				entity_turn->turn_done = false;
+				entity_turn->turn_count++;
+			}
+		}
 	}
 	else {
 		entity_turn->PreUpdate();
+		item = entities.begin();
+		for (; item != entities.end(); ++item) {
+			if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY && static_cast<e1DynamicEntity*>(*item)->state != State::WALKING && App->scene->player->turn_done && !(*item)->turn_done && (*item)->allow_turn && !static_cast<e1Enemy*>(*item)->IsPlayerNextTile()) {
+				(*item)->PreUpdate();
+			}
+		}
 	}
 
 	//====================================================================
@@ -255,7 +273,7 @@ void m1EntityManager::OnCollisionExit(Collider * c1, Collider * c2)
 e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
 
-	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)18, "code needs update");
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)22, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
 
@@ -267,11 +285,15 @@ e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX
 	case e1Entity::EntityType::CARNIVOROUS_PLANT: ret = DBG_NEW e1CarnivorousPlant(PositionX, PositionY); break;
 	case e1Entity::EntityType::BLUE_DOG: ret = DBG_NEW e1BlueDog(PositionX, PositionY); break;
 	case e1Entity::EntityType::BLUE_SLIME: ret = DBG_NEW e1BlueSlime(PositionX, PositionY); break;
+	case e1Entity::EntityType::FROZEN: ret = DBG_NEW e1Frozen(PositionX, PositionY); break;
+	case e1Entity::EntityType::MEGA_EYE: ret = DBG_NEW e1MegaEye(PositionX, PositionY); break;
+	case e1Entity::EntityType::SPIDER: ret = DBG_NEW e1Spider(PositionX, PositionY); break;
 	case e1Entity::EntityType::WARRIOR: ret = DBG_NEW e1Warrior(PositionX, PositionY); break;
 	case e1Entity::EntityType::ARCHER: ret = DBG_NEW e1Archer(PositionX, PositionY); break;
 	case e1Entity::EntityType::MAGE: ret = DBG_NEW e1Mage(PositionX, PositionY); break;
 	case e1Entity::EntityType::STRANGE_FROG: ret = DBG_NEW e1StrangeFrog(PositionX, PositionY); break;
 	case e1Entity::EntityType::CASSIO: ret = DBG_NEW e1Cassio(PositionX, PositionY); break;
+	case e1Entity::EntityType::BABY_DRAKE: ret = DBG_NEW e1BabyDrake(PositionX, PositionY); break;
 	case e1Entity::EntityType::SUPER_PURPLE_FROG: ret = DBG_NEW e1SuperPurpleFrog(PositionX, PositionY); break;
 	case e1Entity::EntityType::PARTICLE: ret = DBG_NEW e1Particles(PositionX, PositionY); break;
 	//case e1Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
@@ -344,6 +366,128 @@ void m1EntityManager::DeleteEntity(e1Entity* entity_to_delete)
 
 }
 
+iPoint m1EntityManager::FindFirstFreeTileAround(const iPoint & tile, const uint & range)
+{
+	iPoint destination_tile = tile - iPoint{(int)range, (int)range};
+
+	for (uint i = 0; i < 2 * range; i++) {
+		for (uint j = 0; j < 2 * range; j++) {
+			destination_tile.x++;
+			if (destination_tile != tile)
+				if (IsWalkable(destination_tile))
+					return destination_tile;
+		}
+		destination_tile.x = tile.x - range;
+		destination_tile.y++;
+	}
+	
+	return tile;
+}
+
+iPoint m1EntityManager::FindFirstFreeTileOnRange(const iPoint & tile, const uint & range)
+{
+	iPoint destination_tile = tile;
+
+	destination_tile.y -= range;
+	destination_tile.x -= range;
+	for (uint i = 0; i < 2 * range; i++) { //first row
+		if (IsWalkable(destination_tile))
+			return destination_tile;
+
+		destination_tile.x++;
+	}
+
+	destination_tile.y = tile.y + range;
+	destination_tile.x = tile.x - range;
+	for (uint i = 0; i < 2 * range; i++) { //second row
+		if (IsWalkable(destination_tile))
+			return destination_tile;
+
+		destination_tile.x++;
+	}
+
+	destination_tile.y = tile.y - range;
+	destination_tile.x = tile.x - range;
+	for (uint i = 0; i < 2 * range; i++) { //first column
+		if (IsWalkable(destination_tile))
+			return destination_tile;
+
+		destination_tile.y++;
+	}
+
+	destination_tile.y = tile.y - range;
+	destination_tile.x = tile.x + range;
+	for (uint i = 0; i < 2 * range; i++) { //second column
+		if (IsWalkable(destination_tile))
+			return destination_tile;
+
+		destination_tile.y++;
+	}
+
+	//FindFirstFreeTileOnRange(tile,range-1) ===================== recursive
+
+	return tile;
+}
+
+iPoint m1EntityManager::FindRandomFreeTileOnRange(const iPoint & tile, const uint & range)
+{
+	iPoint destination_tile = tile;
+	std::vector<iPoint> positions;
+
+	destination_tile.y -= range;
+	destination_tile.x -= range;
+	for (uint i = 0; i < 2 * range; i++) { //first row
+		if (IsWalkable(destination_tile))
+			positions.push_back(destination_tile);
+
+		destination_tile.x++;
+	}
+
+	destination_tile.y = tile.y + range;
+	destination_tile.x = tile.x - range;
+	for (uint i = 0; i < 2 * range; i++) { //second row
+		if (IsWalkable(destination_tile))
+			positions.push_back(destination_tile);
+
+		destination_tile.x++;
+	}
+
+	destination_tile.y = tile.y - range;
+	destination_tile.x = tile.x - range;
+	for (uint i = 0; i < 2 * range; i++) { //first column
+		if (IsWalkable(destination_tile))
+			positions.push_back(destination_tile);
+
+		destination_tile.y++;
+	}
+
+	destination_tile.y = tile.y - range;
+	destination_tile.x = tile.x + range;
+	for (uint i = 0; i < 2 * range; i++) { //second column
+		if (IsWalkable(destination_tile))
+			positions.push_back(destination_tile);
+
+		destination_tile.y++;
+	}
+
+	if (positions.size() > 0) {
+		return positions[App->random.Generate(0, positions.size()-1)];
+	}
+
+	return tile;
+}
+
+bool m1EntityManager::IsWalkable(const iPoint & destination_tile) {
+
+	for (std::vector<e1Entity*>::iterator item = entities.begin(); item != entities.end(); ++item) {
+		if ((*item)->actual_tile == destination_tile) {
+			return false;
+		}
+	}
+
+	return App->map->IsWalkable(destination_tile, false);
+}
+
 const std::vector<e1Entity*> m1EntityManager::GetEntities()
 {
 	return entities;
@@ -373,7 +517,7 @@ bool m1EntityManager::Load(pugi::xml_node& load)
 		}
 	}
 	App->menu_manager->CreateHUD();
-	App->menu_manager->ShowHUD(false);
+	//App->menu_manager->ShowHUD(false);
 	App->scene->player->actual_tile.x += 1;
 	App->scene->player->actual_tile.y += 1;
 	App->scene->player->CenterOnTile();
@@ -427,13 +571,63 @@ bool m1EntityManager::ThereIsEntity(e1Entity::EntityType type)
 	return ret;
 }
 
-bool m1EntityManager::IsPlayerPoisoned()
+bool m1EntityManager::IsInEntitiesVector(e1Entity * entity)
+{
+	return (std::find(entities.begin(), entities.end(), entity) != entities.end());
+}
+
+bool m1EntityManager::ThereIsEntity(const char * name)
+{
+	bool ret = false;
+
+	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item)
+	{
+		if ((*item) != nullptr && (*item)->name.compare(name) == 0) {
+			ret = true;
+			break;
+		}
+	}
+	return ret;
+}
+
+e1Entity * m1EntityManager::FindEntity(e1Entity::EntityType type)
+{
+	e1Entity* ret = nullptr;
+
+	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item)
+	{
+		if ((*item) != nullptr && (*item)->type == type) {
+			ret = *item;
+			break;
+		}
+	}
+	return ret;
+}
+
+e1Entity * m1EntityManager::FindEntity(const char * name)
+{
+	e1Entity* ret = nullptr;
+
+	std::vector<e1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item)
+	{
+		if ((*item) != nullptr && (*item)->name.compare(name) == 0) {
+			ret = *item;
+			break;
+		}
+	}
+	return ret;
+}
+
+bool m1EntityManager::IsPlayerPoisonedOrBurned()
 {
 	for (std::vector<e1Entity*>::iterator item = entities.begin(); item != entities.end(); ++item)
 	{
 		if ((*item)->type == e1Entity::EntityType::EVENT) {
 			e1State* event = static_cast<e1State*>(*item);
-			if (event->state == EventStates::POISON && event->target == App->scene->player) {
+			if ((event->state == EventStates::POISON || event->state == EventStates::FIRE) && event->target == App->scene->player) {
 					return true;
 			}
 		}

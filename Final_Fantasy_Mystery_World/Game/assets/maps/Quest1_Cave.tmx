@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="right-down" width="68" height="67" tilewidth="32" tileheight="16" infinite="0" nextobjectid="70">
+<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="68" height="67" tilewidth="32" tileheight="16" infinite="0" nextlayerid="78" nextobjectid="76">
  <tileset firstgid="1" name="ques1_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques1_tileset.png" width="688" height="290"/>
  </tileset>
@@ -9,7 +9,7 @@
  <tileset firstgid="380" name="Fountain" tilewidth="32" tileheight="16" tilecount="276" columns="12">
   <image source="Fountain.png" width="385" height="368"/>
  </tileset>
- <layer name="Floor" width="68" height="67">
+ <layer id="72" name="Floor" width="68" height="67">
   <data>
    <tile/>
    <tile/>
@@ -4569,7 +4569,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Wall" width="68" height="67">
+ <layer id="73" name="Wall" width="68" height="67">
   <data>
    <tile/>
    <tile/>
@@ -9129,7 +9129,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Shadow" width="68" height="67">
+ <layer id="74" name="Shadow" width="68" height="67">
   <data>
    <tile/>
    <tile/>
@@ -13689,7 +13689,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Door Open" width="68" height="67">
+ <layer id="75" name="Door Open" width="68" height="67">
   <data>
    <tile/>
    <tile/>
@@ -18249,7 +18249,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Enviorment" width="68" height="67">
+ <layer id="76" name="Enviorment" width="68" height="67">
   <data>
    <tile/>
    <tile/>
@@ -21621,8 +21621,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="339"/>
-   <tile gid="339"/>
    <tile/>
    <tile/>
    <tile/>
@@ -21689,9 +21687,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="339"/>
-   <tile gid="339"/>
-   <tile gid="360"/>
    <tile/>
    <tile/>
    <tile/>
@@ -21758,8 +21753,13 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="360"/>
-   <tile gid="360"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -22809,7 +22809,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Collider" width="68" height="67">
+ <layer id="77" name="Collider" width="68" height="67">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -26185,77 +26185,9 @@
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile gid="7"/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="380"/>
+   <tile gid="380"/>
+   <tile gid="380"/>
    <tile/>
    <tile/>
    <tile/>
@@ -26322,8 +26254,76 @@
    <tile gid="7"/>
    <tile gid="7"/>
    <tile/>
+   <tile gid="380"/>
+   <tile gid="380"/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile/>
+   <tile gid="380"/>
+   <tile gid="380"/>
    <tile/>
    <tile/>
    <tile/>
@@ -27373,10 +27373,8 @@
    <tile/>
   </data>
  </layer>
- <objectgroup name="Static animation objects">
-  <object id="69" name="p_fire" type="static" x="563.345" y="174.132" width="0.815341" height="1.11648"/>
- </objectgroup>
- <objectgroup color="#ffff7f" name="entities">
+ <objectgroup id="8" name="Static animation objects"/>
+ <objectgroup color="#ffff7f" id="9" name="entities">
   <object id="52" name="enemy" type="BlueSlime" x="720" y="768" width="15.9688" height="16.0156"/>
   <object id="59" name="player" type="nextB" x="624" y="800" width="15.9688" height="16.0156">
    <properties>
@@ -27393,7 +27391,7 @@
   <object id="67" name="enemy" type="BlueSlime" x="875.766" y="413.242" width="15.9688" height="16.0156"/>
   <object id="68" name="enemy" type="BlueSlime" x="706.516" y="301.492" width="15.9688" height="16.0156"/>
  </objectgroup>
- <objectgroup name="colliders">
+ <objectgroup id="10" name="colliders">
   <object id="54" name="room_collider" type="lastB" x="608" y="800" width="16.1904" height="15.0341">
    <properties>
     <property name="next_id" type="int" value="1"/>
@@ -27404,5 +27402,9 @@
     <property name="next_id" type="int" value="7"/>
    </properties>
   </object>
+  <object id="70" name="grey_rock" type="static" x="608" y="784" width="32" height="32"/>
+  <object id="73" name="grey_rock" type="static" x="608" y="800" width="32" height="32"/>
+  <object id="74" name="grey_rock" type="static" x="624" y="800" width="32" height="32"/>
+  <object id="75" name="grey_rock" type="static" x="624" y="784" width="32" height="32"/>
  </objectgroup>
 </map>

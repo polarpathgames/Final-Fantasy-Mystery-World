@@ -26,7 +26,6 @@ enum class AnimationState {
 	DEATH_UP, DEATH_UP_LEFT, DEATH_UP_RIGHT, DEATH_LEFT, DEATH_DOWN_LEFT, DEATH_DOWN, DEATH_DOWN_RIGHT, DEATH_RIGHT,
 	ABILITY_UP_1, ABILITY_UP_LEFT_1, ABILITY_UP_RIGHT_1, ABILITY_LEFT_1, ABILITY_DOWN_LEFT_1, ABILITY_DOWN_1, ABILITY_DOWN_RIGHT_1, ABILITY_RIGHT_1,
 	ABILITY_UP_2, ABILITY_UP_LEFT_2, ABILITY_UP_RIGHT_2, ABILITY_LEFT_2, ABILITY_DOWN_LEFT_2, ABILITY_DOWN_2, ABILITY_DOWN_RIGHT_2, ABILITY_RIGHT_2,
-	DISTANCE_ATTACK_UP, DISTANCE_ATTACK_UP_LEFT, DISTANCE_ATTACK_UP_RIGHT, DISTANCE_ATTACK_LEFT, DISTANCE_ATTACK_DOWN_LEFT, DISTANCE_ATTACK_DOWN, DISTANCE_ATTACK_DOWN_RIGHT, DISTANCE_ATTACK_RIGHT,
 
 	NONE
 };
@@ -78,6 +77,7 @@ public:
 		CARNIVOROUS_PLANT,
 		BLUE_DOG,
 		STRANGE_FROG,
+		SPIDER,
 		WARRIOR,
 		ARCHER,
 		SUPER_PURPLE_FROG,
@@ -89,6 +89,9 @@ public:
 		BLUE_SLIME,
 		EVENT,
 		CASSIO,
+		FROZEN,
+		MEGA_EYE,
+		BABY_DRAKE,
 
 		NO_TYPE
 	};
@@ -145,12 +148,15 @@ public:
 	bool drawable = true;
 	bool allow_turn = false;
 	bool turn_done = false;
-	iPoint actual_tile;
+	iPoint actual_tile = { 0,0 };
 	Collider* coll = nullptr;
 	bool to_delete = false;
-	iPoint velocity;
+	iPoint velocity = { 0,0 };
+
+	uint turn_count = 0u;
 
 	Properties<int> general_properties;
+	std::string name;
 
 	std::list<p1Follow*> particle_follow;
 	std::list<p1Fire*> particle_fire;

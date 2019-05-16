@@ -83,23 +83,29 @@
     <ClCompile Include="c1CutSceneAddAudio.cpp" />
     <ClCompile Include="c1CutSceneDeleteEntity.cpp" />
     <ClCompile Include="c1CutSceneEntity.cpp" />
+    <ClCompile Include="c1CutSceneFadeToBlack.cpp" />
     <ClCompile Include="c1CutSceneImage.cpp" />
     <ClCompile Include="c1CutSceneModifyimage.cpp" />
     <ClCompile Include="c1CutSceneModifyText.cpp" />
     <ClCompile Include="c1CutsceneMoveCamera.cpp" />
     <ClCompile Include="c1CutSceneMoveEntity.cpp" />
     <ClCompile Include="c1CutsceneText.cpp" />
+    <ClCompile Include="c1CutSceneVibration.cpp" />
     <ClCompile Include="e1Archer.cpp" />
+    <ClCompile Include="e1BabyDrake.cpp" />
     <ClCompile Include="e1BlueDog.cpp" />
     <ClCompile Include="e1BlueSlime.cpp" />
     <ClCompile Include="e1CarnivorousPlant.cpp" />
     <ClCompile Include="e1Cassio.cpp" />
     <ClCompile Include="e1Drop.cpp" />
+    <ClCompile Include="e1Frozen.cpp" />
     <ClCompile Include="e1Mage.cpp" />
+    <ClCompile Include="e1MegaEye.cpp" />
     <ClCompile Include="e1NPC.cpp" />
     <ClCompile Include="e1Particles.cpp" />
     <ClCompile Include="e1Rock.cpp" />
     <ClCompile Include="e1ShopKeeperDaughter.cpp" />
+    <ClCompile Include="e1Spider.cpp" />
     <ClCompile Include="e1State.cpp" />
     <ClCompile Include="e1StrangeFrog.cpp" />
     <ClCompile Include="e1Warrior.cpp" />
@@ -161,23 +167,29 @@
     <ClInclude Include="c1CutSceneDeleteEntity.h" />
     <ClInclude Include="c1CutSceneElement.h" />
     <ClInclude Include="c1CutSceneEntity.h" />
+    <ClInclude Include="c1CutSceneFadeToBlack.h" />
     <ClInclude Include="c1CutSceneImage.h" />
     <ClInclude Include="c1CutSceneModifyimage.h" />
     <ClInclude Include="c1CutSceneModifyText.h" />
     <ClInclude Include="c1CutsceneMoveCamera.h" />
     <ClInclude Include="c1CutSceneMoveEntity.h" />
     <ClInclude Include="c1CutSceneText.h" />
+    <ClInclude Include="c1CutSceneVibration.h" />
     <ClInclude Include="e1Archer.h" />
+    <ClInclude Include="e1BabyDrake.h" />
     <ClInclude Include="e1BlueDog.h" />
     <ClInclude Include="e1BlueSlime.h" />
     <ClInclude Include="e1CarnivorousPlant.h" />
     <ClInclude Include="e1Cassio.h" />
     <ClInclude Include="e1Drop.h" />
+    <ClInclude Include="e1Frozen.h" />
     <ClInclude Include="e1Mage.h" />
+    <ClInclude Include="e1MegaEye.h" />
     <ClInclude Include="e1NPC.h" />
     <ClInclude Include="e1Particles.h" />
     <ClInclude Include="e1Rock.h" />
     <ClInclude Include="e1ShopKeeperDaughter.h" />
+    <ClInclude Include="e1Spider.h" />
     <ClInclude Include="e1State.h" />
     <ClInclude Include="e1StrangeFrog.h" />
     <ClInclude Include="e1Warrior.h" />
@@ -243,14 +255,18 @@
     <Xml Include="Game\assets\xml\config.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="Game\assets\xml\CutsceneAbility2Quest2.xml" />
     <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml">
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="Game\assets\xml\CutsceneFinalRoom.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="Game\assets\xml\CutsceneFinalRoomQuest2.xml" />
+    <Xml Include="Game\assets\xml\CutsceneHomeSleep.xml" />
     <Xml Include="Game\assets\xml\CutsceneLobbyTutorial.xml" />
     <Xml Include="Game\assets\xml\CutsceneMiddleRoom.xml" />
+    <Xml Include="Game\assets\xml\CutsceneQueenQuest2.xml" />
     <Xml Include="Game\assets\xml\CutsceneTutorial.xml" />
     <Xml Include="Game\assets\xml\Dialog.xml" />
     <Xml Include="Game\assets\xml\CutsceneBlockPass.xml" />

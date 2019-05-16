@@ -16,10 +16,15 @@ u1GUI::u1GUI(UIType type, const int &x, const int &y, u1GUI* parent, const SDL_R
 	if (parent != nullptr) {
 		parent->childs.push_back(this);
 	}
+	focus_type = FocusType::SQUARE_FOCUS;
 }
 
 u1GUI::~u1GUI() {
 
+	if (new_clip) {
+		delete clip_zone;
+		clip_zone = nullptr;
+	}
 }
 
 void u1GUI::Draw()
@@ -62,6 +67,10 @@ void u1GUI::PreUpdate()
 		current_state = Element_Event::NONE;
 		break;
 	}
+}
+
+void u1GUI::SetFocus(const FocusType & focus) {
+	focus_type = focus;
 }
 
 bool u1GUI::Update()
@@ -213,4 +222,31 @@ SDL_Rect* u1GUI::GetGlobalRect()
 		return &global_rect;
 	}
 
+}
+
+void u1GUI::SetClipZone(const SDL_Rect & clip_zone)
+{
+	if (this->clip_zone == nullptr) {
+		new_clip = true;
+		this->clip_zone = new SDL_Rect();
+		this->clip_zone->x = clip_zone.x;
+		this->clip_zone->y = clip_zone.y;
+		this->clip_zone->h = clip_zone.h;
+		this->clip_zone->w = clip_zone.w;
+	}
+	else {
+		this->clip_zone->x = clip_zone.x;
+		this->clip_zone->y = clip_zone.y;
+		this->clip_zone->h = clip_zone.h;
+		this->clip_zone->w = clip_zone.w;
+	}
+}
+
+void u1GUI::ResetClipZone()
+{
+	if (new_clip) {
+		new_clip = false;
+		delete clip_zone;
+		clip_zone = nullptr;
+	}
 }

@@ -4,19 +4,13 @@
       <time start="150" duration="3000" type="change" text="Welcome to Forks! Our lovely town"/>
     </cutscene>
     <cutscene action="move_camera">
-      <time start="3150" duration="3500" speed_x="160" speed_y="-80"/>
-    </cutscene>
-    <cutscene action="move_camera">
-      <time start="6650" duration="1000" speed_x="0" speed_y="0"/>
-    </cutscene>
-    <cutscene action="move_camera">
-      <time start="7700" duration="1000" speed_x="-160" speed_y="-80"/>
+      <time start="3150" duration="5600" origin_x="1064" origin_y="-1341"  speed="0.003" destination_x ="830"  destination_y="-741" stop_goal="true"/>
     </cutscene>
     <cutscene action="modify_text" name="dialog">
       <time start="8750" duration="3000" type="change" text="Here is my father's shop, you will find the best objects in the world!"/>
     </cutscene>
     <cutscene action="move_camera">
-      <time start="11800" duration="4000" speed_x="160" speed_y="80"/>
+      <time start="11800" duration="4500" origin_x="830" origin_y="-741"  speed="0.004" destination_x ="-262"  destination_y="-1065" stop_goal="true"/>
     </cutscene>
     <cutscene action="modify_text" name="dialog">
       <time start="15850" duration="3000" type="change" text="You can sleep in our house for the moment"/>
@@ -25,10 +19,7 @@
       <time start="18900" duration="1000" type="change" text="I'll be around town if you need me"/>
     </cutscene>
   <cutscene action="move_camera">
-    <time start="19950" duration="1700" speed_x="-160" speed_y="-80"/> 
-  </cutscene>
-  <cutscene action="move_camera">
-    <time start="21800" duration="7800" speed_x="-160" speed_y="80"/>
+    <time start="19950" duration="9500" origin_x="-262" origin_y="-1065"  speed="0.002" destination_x ="1064"  destination_y="-1341" stop_goal="true"/> 
   </cutscene>
   <cutscene action="move_entity" entity="daughter">
     <time  start="29650" duration="2000" speed_x="160" speed_y="-80"/>

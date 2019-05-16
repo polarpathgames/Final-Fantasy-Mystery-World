@@ -15,6 +15,8 @@ public:
 	enum class ParticleType {
 		ARROW,
 		FIREBALL,
+		ICE_STAKE,
+		THUNDERBOLT,
 
 		NONE
 	};
@@ -26,6 +28,8 @@ public:
 	bool Update(float dt);
 
 	bool CleanUp();
+
+	void Draw(float dt);
 
 	bool Load(pugi::xml_node&) { return true; };
 	bool Save(pugi::xml_node&) const { return true; };
@@ -43,6 +47,11 @@ private:
 	void MoveFireBall(float dt);
 	void FireBallExplosionCollision();
 
+	void SetIceStake();
+	void MoveIceStake(float dt);
+
+	void SetThunderbolt();
+
 public:
 
 	ParticleType particle_type = ParticleType::NONE;
@@ -51,7 +60,18 @@ public:
 	iPoint max_arrow_distance = { 0,0 };
 	iPoint fireball_tile_objective = { 0,0 };
 
+	float lerp_by = 0.f;
+	float lerp_speed = 0.f;
+	iPoint final_position = { 0,0 };
+
+	bool rotate_angle = false;
+
+	double angle = 0.f;
+
 	float arrow_time = 0;
+
+	Animation* shadow_fire_ball = nullptr;
+
 };
 
 #endif // !_E1PARTICLES_H_

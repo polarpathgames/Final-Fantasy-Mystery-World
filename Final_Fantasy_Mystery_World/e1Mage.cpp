@@ -33,7 +33,7 @@
 e1Mage::e1Mage(const int & x, const int & y) : e1Player(x, y)
 {
 	LoadEntityData("assets/entities/Mage.tsx");
-
+	name.assign("Mage");
 	SetPivot(8, 24);
 	CenterPlayerInTile();
 	InitStats();
@@ -352,6 +352,7 @@ void e1Mage::UpdateLevel()
 
 	App->menu_manager->hud.player_hp_bar->max_capacity = stats.max_lives;
 	App->menu_manager->hud.player_mana_bar->max_capacity = stats.max_mana;
+	App->menu_manager->hud.player_exp_bar->max_capacity = stats.max_xp;
 
 	App->menu_manager->hud.player_hp_bar->PrintBarNumbers();
 	App->menu_manager->hud.player_mana_bar->PrintBarNumbers();
