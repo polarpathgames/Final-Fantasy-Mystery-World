@@ -4,6 +4,7 @@
 #include "e1Player.h"
 #include "App.h"
 #include "m1Audio.h"
+#include "m1Map.h"
 #include "m1ParticleManager.h"
 #include "m1EntityManager.h"
 #include "p1Follow.h"
@@ -46,15 +47,26 @@ void e1BabyDrake::AfetSpecialAttack1()
 void e1BabyDrake::PrepareBasicAttack()
 {
 	PrepareParticle();
-	if (!first_hit) {
-		first_hit = true;
-		SuperHit();
-	}
+	
 }
 
 void e1BabyDrake::FinishBasicAttack()
 {
 	DeleteParticle();
+	if (App->scene->player->state != State::SLEEPING) {
+		if (!first_hit) {
+			first_hit = true;
+			SuperHit();
+		}
+		else if (stats.max_live * 0.66F >= stats.live && !second_hit) {
+			second_hit = true;
+			SuperHit();
+		}
+		else if (stats.max_live * 0.33F >= stats.live && !third_hit) {
+			third_hit = true;
+			SuperHit();
+		}
+	}
 }
 
 void e1BabyDrake::UpdateEnemy()
@@ -67,8 +79,63 @@ void e1BabyDrake::UpdateEnemy()
 
 void e1BabyDrake::SuperHit()
 {
+	iPoint player_tile = App->scene->player->actual_tile;
+	App->scene->player->state = State::SLEEPING;
 
-
+	if (player_tile == actual_tile + iPoint{ 0,1 } && App->map->IsWalkable(player_tile + iPoint{ 0,3 }, false)) {
+		App->easing_splines->CreateSpline(&App->scene->player->position.x, App->scene->player->position.x - (App->map->data.tile_width)*1.5F, 500, EASE_OUT_QUINT, std::bind(&e1Player::SetPlayerIdle, App->scene->player));
+		App->easing_splines->CreateSpline(&App->scene->player->position.y, App->scene->player->position.y + (App->map->data.tile_height)*1.5F, 500, EASE_OUT_QUINT);
+		App->scene->player->actual_tile += {0, 3};
+		App->scene->player->direction = Direction::UP_RIGHT;
+		App->scene->player->current_animation = &App->scene->player->IdleUpRight;
+	}
+	else if (player_tile == actual_tile + iPoint{ 0,-1 } && App->map->IsWalkable(player_tile + iPoint{ 0,-3 }, false)) {
+		App->easing_splines->CreateSpline(&App->scene->player->position.x, App->scene->player->position.x + (App->map->data.tile_width)*1.5F, 500, EASE_OUT_QUINT, std::bind(&e1Player::SetPlayerIdle, App->scene->player));
+		App->easing_splines->CreateSpline(&App->scene->player->position.y, App->scene->player->position.y - (App->map->data.tile_height)*1.5F, 500, EASE_OUT_QUINT);
+		App->scene->player->actual_tile += {0, -3};
+		App->scene->player->direction = Direction::DOWN_LEFT;
+		App->scene->player->current_animation = &App->scene->player->IdleDownLeft;
+	}
+	else if (player_tile == actual_tile + iPoint{ 1,0 } && App->map->IsWalkable(player_tile + iPoint{ 3,0 }, false)) {
+		App->easing_splines->CreateSpline(&App->scene->player->position.x, App->scene->player->position.x + (App->map->data.tile_width)*1.5F, 500, EASE_OUT_QUINT, std::bind(&e1Player::SetPlayerIdle, App->scene->player));
+		App->easing_splines->CreateSpline(&App->scene->player->position.y, App->scene->player->position.y + (App->map->data.tile_height)*1.5F, 500, EASE_OUT_QUINT);
+		App->scene->player->actual_tile += {3, 0};
+		App->scene->player->direction = Direction::UP_LEFT;
+		App->scene->player->current_animation = &App->scene->player->IdleUpLeft;
+	}
+	else if (player_tile == actual_tile + iPoint{ -1,0 } && App->map->IsWalkable(player_tile + iPoint{ -3,0 }, false)) {
+		App->easing_splines->CreateSpline(&App->scene->player->position.x, App->scene->player->position.x - (App->map->data.tile_width)*1.5F, 500, EASE_OUT_QUINT, std::bind(&e1Player::SetPlayerIdle, App->scene->player));
+		App->easing_splines->CreateSpline(&App->scene->player->position.y, App->scene->player->position.y - (App->map->data.tile_height)*1.5F, 500, EASE_OUT_QUINT);
+		App->scene->player->actual_tile += {-3, 0};
+		App->scene->player->direction = Direction::DOWN_RIGHT;
+		App->scene->player->current_animation = &App->scene->player->IdleDownRight;
+	}
+	else if (player_tile == actual_tile + iPoint{ -1,-1 } && App->map->IsWalkable(player_tile + iPoint{ -3,-3 }, false)) {
+		App->easing_splines->CreateSpline(&App->scene->player->position.y, App->scene->player->position.y - (App->map->data.tile_height * 2)*1.5F, 500, EASE_OUT_QUINT, std::bind(&e1Player::SetPlayerIdle, App->scene->player));
+		App->scene->player->actual_tile += {-3, -3};
+		App->scene->player->direction = Direction::DOWN;
+		App->scene->player->current_animation = &App->scene->player->IdleDown;
+	}
+	else if (player_tile == actual_tile + iPoint{ 1,1 } && App->map->IsWalkable(player_tile + iPoint{ 3,3 }, false)) {
+		App->easing_splines->CreateSpline(&App->scene->player->position.y, App->scene->player->position.y + (App->map->data.tile_height * 2)*1.5F, 500, EASE_OUT_QUINT, std::bind(&e1Player::SetPlayerIdle, App->scene->player));
+		App->scene->player->actual_tile += {3, 3};
+		App->scene->player->direction = Direction::UP;
+		App->scene->player->current_animation = &App->scene->player->IdleUp;
+	}
+	else if (player_tile == actual_tile + iPoint{ -1,1 } && App->map->IsWalkable(player_tile + iPoint{ -3,3 }, false)) {
+		App->easing_splines->CreateSpline(&App->scene->player->position.x, App->scene->player->position.x - (App->map->data.tile_width * 2)*1.5F, 500, EASE_OUT_QUINT, std::bind(&e1Player::SetPlayerIdle, App->scene->player));
+		App->scene->player->actual_tile += {-3, 3};
+		App->scene->player->direction = Direction::RIGHT;
+		App->scene->player->current_animation = &App->scene->player->IdleRight;
+	}
+	else if (player_tile == actual_tile + iPoint{ 1,-1 } && App->map->IsWalkable(player_tile + iPoint{ 3,-3 }, false)) {
+		App->easing_splines->CreateSpline(&App->scene->player->position.x, App->scene->player->position.x + (App->map->data.tile_width * 2)*1.5F, 500, EASE_OUT_QUINT, std::bind(&e1Player::SetPlayerIdle, App->scene->player));
+		App->scene->player->actual_tile += {3, -3};
+		App->scene->player->direction = Direction::LEFT;
+		App->scene->player->current_animation = &App->scene->player->IdleLeft;
+	}
+	else 
+		App->scene->player->state = State::IDLE;
 }
 
 void e1BabyDrake::PrepareParticle()
