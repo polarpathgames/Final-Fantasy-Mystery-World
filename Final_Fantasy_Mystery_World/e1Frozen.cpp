@@ -16,13 +16,13 @@ e1Frozen::e1Frozen(const int& x, const int& y) :e1Enemy(x, y)
 	name.assign("Frozen");
 	enemy_type = EnemyType::FROZEN;
 	range_to_distance_attack = 3;
-	InitStats();
+	e1Frozen::InitStats();
 
 	CenterOnTile();
-	stats.max_live = 500;
-	stats.live = 500; ///////////////remember to delete this/////////////////////////////////////////////////////////////////////////////
 	target_position = position;
 	initial_position = position;
+
+	tp_number_hit = tp_number_hit_phase1;
 
 	tp_timer.Stop();
 }
@@ -31,17 +31,15 @@ e1Frozen::~e1Frozen()
 {
 }
 
-#include "m1Input.h" //test
-
 bool e1Frozen::PreUpdate()
 {
 
-	if (phase == Phase::NORMAL && stats.live <= stats.max_live * 0.5F || App->input->GetKeyRepeat(SDL_SCANCODE_1)) {
+	if (phase == Phase::NORMAL && stats.live <= stats.max_live * 0.5F) {
 		phase = Phase::HARD;
 		tp_last_number_hit = times_hitted;
 		DoTeleport();
 		want_to_attack = false;
-		tp_number_hit = 1u;
+		tp_number_hit = tp_number_hit_phase2;
 	}
 
 	if (tp_last_number_hit != times_hitted) {
@@ -154,7 +152,6 @@ void e1Frozen::SummomBlueSlimes()
 
 void e1Frozen::Escape()
 {
-	
 	if (tp_timer.ReadSec() >= 0.5f) {
 		actual_tile = tp_location;
 		state = State::IDLE;
@@ -231,52 +228,52 @@ void e1Frozen::IdAnimToEnum()
 		case 50:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_RIGHT;
 			break;
-		case 19:
+		case 20:
 			data.animations[i].animType = AnimationState::IDLE_DOWN;
 			break;
-		case 17:
+		case 24:
 			data.animations[i].animType = AnimationState::IDLE_UP;
 			break;
-		case 20:
+		case 30:
 			data.animations[i].animType = AnimationState::IDLE_LEFT;
 			break;
-		case 23:
+		case 34:
 			data.animations[i].animType = AnimationState::IDLE_RIGHT;
 			break;
-		case 12:
+		case 21:
 			data.animations[i].animType = AnimationState::WALKING_DOWN;
 			break;
-		case 16:
+		case 25:
 			data.animations[i].animType = AnimationState::WALKING_UP;
 			break;
-		case 18:
+		case 31:
 			data.animations[i].animType = AnimationState::WALKING_LEFT;
 			break;
-		case 21:
+		case 35:
 			data.animations[i].animType = AnimationState::WALKING_RIGHT;
 			break;
-		case 36:
+		case 120:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN;
 			break;
-		case 38:
+		case 130:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP;
 			break;
-		case 41:
+		case 140:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_LEFT;
 			break;
-		case 42:
+		case 150:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
-		case 61:
+		case 160:
 			data.animations[i].animType = AnimationState::ABILITY_DOWN_1;
 			break;
-		case 62:
+		case 170:
 			data.animations[i].animType = AnimationState::ABILITY_UP_1;
 			break;
-		case 64:
+		case 180:
 			data.animations[i].animType = AnimationState::ABILITY_LEFT_1;
 			break;
-		case 66:
+		case 190:
 			data.animations[i].animType = AnimationState::ABILITY_RIGHT_1;
 			break;
 		case 80:
@@ -291,30 +288,47 @@ void e1Frozen::IdAnimToEnum()
 		case 90:
 			data.animations[i].animType = AnimationState::ABILITY_DOWN_RIGHT_1;
 			break;
-		case 644:
+		case 200:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;
-		case 72:
+		case 220:
 			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
 			break;
-		case 81:
+		case 210:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
 			break;
-		case 88:
+		case 230:
 			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
 			break;
-		case 65:
+		case 201:
 			data.animations[i].animType = AnimationState::DEATH_DOWN;
 			break;
-		case 646:
+		case 221:
 			data.animations[i].animType = AnimationState::DEATH_LEFT;
 			break;
-		case 82:
+		case 211:
 			data.animations[i].animType = AnimationState::DEATH_RIGHT;
 			break;
-		case 89:
+		case 231:
 			data.animations[i].animType = AnimationState::DEATH_UP;
 			break;
+		}
+	}
+}
+
+void e1Frozen::InitStats()
+{
+	e1Enemy::InitStats();
+
+	for (std::list<Property<int>*>::iterator item = general_properties.properties.begin(); item != general_properties.properties.end(); item++) {
+		if (strcmp((*item)->GetName(), "special_attack_power") == 0) {
+			stats.special_attack_damage = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "hits_to_tp_phase1") == 0) {
+			tp_number_hit_phase1 = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "hits_to_tp_phase2") == 0) {
+			tp_number_hit_phase2 = (*item)->GetValue();
 		}
 	}
 }
