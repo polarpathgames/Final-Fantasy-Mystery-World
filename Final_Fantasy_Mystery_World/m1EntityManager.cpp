@@ -627,7 +627,7 @@ bool m1EntityManager::IsPlayerPoisoned()
 	{
 		if ((*item)->type == e1Entity::EntityType::EVENT) {
 			e1State* event = static_cast<e1State*>(*item);
-			if (event->state == EventStates::POISON && event->target == App->scene->player) {
+			if ((event->state == EventStates::POISON || event->state == EventStates::FIRE) && event->target == App->scene->player) {
 					return true;
 			}
 		}
