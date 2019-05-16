@@ -1,5 +1,5 @@
-#ifndef _E1CASSIO_H_
-#define _E1CASSIO_H_
+#ifndef _E1BABYDRAKE_H_
+#define _E1BABYDRAKE_H_
 
 #include "e1Enemy.h"
 
@@ -29,5 +29,5 @@ private:
 
 };
 
-#endif // !_E1CASSIO_H_
+#endif // !_E1BABYDRAKE_H_
 
