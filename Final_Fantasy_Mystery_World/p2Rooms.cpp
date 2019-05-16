@@ -733,7 +733,7 @@ void RoomManager::UpdateRoomEvents()
 	}
 	
 	
-	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_BACK)) {
 		if (!map_active && App->scene->menu_state == StatesMenu::NO_MENU && App->scene->player->state == State::IDLE && !App->scene->player->turn_done) {
 			int distance_x = actual_room->map_room_image->GetLocalPosition().x, distance_y = actual_room->map_room_image->GetLocalPosition().y;
 			player_pos->parent = actual_room->map_room_image;
