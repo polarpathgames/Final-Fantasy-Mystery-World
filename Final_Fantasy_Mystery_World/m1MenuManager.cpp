@@ -77,49 +77,35 @@ void m1MenuManager::CreateCredits()
 	credits.credits_panel = App->gui->AddImage(0, 0, { 0, 2304, 1024, 768 }, App->main_menu, App->gui->screen, true, false, false, false);
 	credits.credits_panel->SetPosRespectParent(CENTERED);
 
-	credits.button_christian = App->gui->AddButton(325, 290, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_christian = App->gui->AddLabel(0, 0, "Christian Martinez - Lead", credits.button_christian, WHITE, FontType::FF100, nullptr, false);
-	credits.label_christian->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_christian = App->gui->AddButton(325, 260, { 1850,1637,390,50 }, { 1850,1637,390,50 }, { 1850,1637,390,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
+	credits.label_christian = App->gui->AddLabel(0, -33, "Christian Martinez - Lead", credits.button_christian, WHITE, FontType::FF100, nullptr, false);
 
-	credits.button_lluis = App->gui->AddButton(85, 350, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_lluis = App->gui->AddLabel(0, 0, "Lluis Moreu - Manager", credits.button_lluis, WHITE, FontType::FF100, nullptr, false);
-	credits.label_lluis->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_lluis = App->gui->AddButton(85, 330, { 1850,1637,335,50 }, { 1850,1637,335,50 }, { 1850,1637,335,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
+	credits.label_lluis = App->gui->AddLabel(0, -33, "Lluis Moreu - Manager", credits.button_lluis, WHITE, FontType::FF100, nullptr, false);
 
-	credits.button_marc = App->gui->AddButton(85, 400, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_marc = App->gui->AddLabel(0, 0, "Marc Galvez - Design", credits.button_marc, WHITE, FontType::FF100, nullptr, false);
-	credits.label_marc->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_marc = App->gui->AddButton(85, 400, { 1850,1637,320,50 }, { 1850,1637,320,50 }, { 1850,1637,320,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
+	credits.label_marc = App->gui->AddLabel(0, -33, "Marc Galvez - Design", credits.button_marc, WHITE, FontType::FF100, nullptr, false);
 
-	credits.button_enric = App->gui->AddButton(85, 450, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_enric = App->gui->AddLabel(0, 0, "Enric Perez - UI", credits.button_enric, WHITE, FontType::FF100, nullptr, false);
-	credits.label_enric->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_enric = App->gui->AddButton(85, 470, { 1850,1637,265,50 }, { 1850,1637,265,50 }, { 1850,1637,265,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
+	credits.label_enric = App->gui->AddLabel(0, -33, "Enric Perez - UI", credits.button_enric, WHITE, FontType::FF100, nullptr, false);
 
-	credits.button_oriol = App->gui->AddButton(555, 350, { 1850,1637,350,50 }, { 1850,1637,1980,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_oriol = App->gui->AddLabel(0, 0, "Oriol Capdevila - Code", credits.button_oriol, WHITE, FontType::FF100, nullptr, false);
-	credits.label_oriol->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_oriol = App->gui->AddButton(555, 330, { 1850,1637,340,50 }, { 1850,1637,340,50 }, { 1850,1637,340,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
+	credits.label_oriol = App->gui->AddLabel(0, -33, "Oriol Capdevila - Code", credits.button_oriol, WHITE, FontType::FF100, nullptr, false);
 
 	credits.button_nadine = App->gui->AddButton(555, 400, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_nadine = App->gui->AddLabel(0, 0, "Nadine Gutierrez - Art", credits.button_nadine, WHITE, FontType::FF100, nullptr, false);
-	credits.label_nadine->SetPosRespectParent(LEFT_CENTERED);
+	credits.label_nadine = App->gui->AddLabel(0, -33, "Nadine Gutierrez - Art", credits.button_nadine, WHITE, FontType::FF100, nullptr, false);
 
-	credits.button_ivan = App->gui->AddButton(555, 450, { 1850,1637,350,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_ivan = App->gui->AddLabel(0, 0, "Ivan Ropero - QA", credits.button_ivan, WHITE, FontType::FF100, nullptr, false);
-	credits.label_ivan->SetPosRespectParent(LEFT_CENTERED);
+	credits.button_ivan = App->gui->AddButton(555, 470, { 1850,1637,275,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
+	credits.label_ivan = App->gui->AddLabel(0, -33, "Ivan Ropero - QA", credits.button_ivan, WHITE, FontType::FF100, nullptr, false);
 
-	credits.button_credits_return_menu = App->gui->AddButton(810, 700, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_credits_return_menu = App->gui->AddLabel(0, 0, "Return", credits.button_credits_return_menu, WHITE, FontType::FF64, nullptr, false);
-	credits.label_credits_return_menu->SetPosRespectParent(CENTERED);
+	credits.button_credits_return_menu = App->gui->AddButton(920, 727, { 1850,1637,70,25 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
+	credits.label_credits_return_menu = App->gui->AddLabel(0, -27, "Return", credits.button_credits_return_menu, WHITE, FontType::FF64, nullptr, false);
 
-	credits.button_github = App->gui->AddButton(710, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_github = App->gui->AddLabel(0, 0, ".", credits.button_github, WHITE, FontType::FF32, nullptr, false);
-	credits.label_github->SetPosRespectParent(CENTERED);
+	credits.button_github = App->gui->AddButton(725, 580, { 1850,1637,168,90 }, { 1850,1637,168,90 }, { 1850,1637,168,90 }, App->main_menu, credits.credits_panel, false, false, true, true);
 
-	credits.button_twitter = App->gui->AddButton(410, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_twitter = App->gui->AddLabel(0, 0, ".", credits.button_twitter, WHITE, FontType::FF32, nullptr, false);
-	credits.label_twitter->SetPosRespectParent(CENTERED);
+	credits.button_twitter = App->gui->AddButton(430, 580, { 1850,1637,168,90 }, { 1850,1637,168,90 }, { 1850,1637,168,90 }, App->main_menu, credits.credits_panel, false, false, true, true);
 
-	credits.button_youtube = App->gui->AddButton(110, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, credits.credits_panel, false, false, true, true);
-	credits.label_youtube = App->gui->AddLabel(0, 0, ".", credits.button_youtube, WHITE, FontType::FF32, nullptr, false);
-	credits.label_youtube->SetPosRespectParent(CENTERED);
+	credits.button_youtube = App->gui->AddButton(130, 580, { 1850,1637,168,90 }, { 1850,1637,168,90 }, { 1850,1637,168,90 }, App->main_menu, credits.credits_panel, false, false, true, true);
 }
 
 void m1MenuManager::DestroyCredits()
