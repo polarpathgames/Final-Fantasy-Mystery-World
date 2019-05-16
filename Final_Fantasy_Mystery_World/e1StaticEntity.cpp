@@ -655,8 +655,6 @@ void e1StaticEntity::Draw(float dt)
 {
 	if (has_animation) {
 		App->render->Blit(data.tileset.texture, position.x, position.y, &current_animation->GetCurrentFrame(dt), true);
-	
-
 	}
 	else {
 		App->render->Blit(data.tileset.texture, position.x, position.y, &frame, true);

@@ -366,6 +366,24 @@ void m1EntityManager::DeleteEntity(e1Entity* entity_to_delete)
 
 }
 
+void m1EntityManager::SpawnRupees(const int & x, const int & y, const int & number, const int & range)
+{
+	std::list<e1Entity*> rupees;
+	e1Drop* drop = nullptr;
+	iPoint destination = { 0,0 };
+	for (int i = 0; i < number; ++i) {
+		drop = (e1Drop*)CreateEntity(e1Entity::EntityType::DROP, x, y, "green_rupee");
+		destination = FindRandomFreeTileAround({ x,y }, range);
+		drop->moving_pos = drop->actual_tile = destination + iPoint(-1,0);
+		destination = App->map->MapToWorldCentered(destination.x, destination.y) - drop->pivot;
+		App->easing_splines->CreateSpline(&drop->position.x, destination.x, 2000, TypeSpline::EASE, std::bind(&e1Drop::FinishSpline, drop));
+		App->easing_splines->CreateSpline(&drop->position.y, destination.y - destination.DistanceTo(drop->position)*0.7f, 
+			1000, TypeSpline::EASE_OUT_CUBIC, std::bind(&e1Drop::SetSplineToFall, drop));
+		drop->moving = true;
+		rupees.push_back(drop);
+	}
+}
+
 iPoint m1EntityManager::FindFirstFreeTileAround(const iPoint & tile, const uint & range)
 {
 	iPoint destination_tile = tile - iPoint{(int)range, (int)range};
@@ -381,6 +399,31 @@ iPoint m1EntityManager::FindFirstFreeTileAround(const iPoint & tile, const uint 
 		destination_tile.y++;
 	}
 	
+	return tile;
+}
+
+iPoint m1EntityManager::FindRandomFreeTileAround(const iPoint & tile, const uint & range)
+{
+	iPoint destination_tile = tile - iPoint{ (int)range, (int)range };
+	std::vector<iPoint> positions;
+
+	for (uint i = 0; i < 2 * range; i++) {
+		for (uint j = 0; j < 2 * range; j++) {
+			destination_tile.x++;
+			if (destination_tile != tile)
+				if (IsWalkable(destination_tile)) {
+					positions.push_back(destination_tile);
+					LOG("%i %i", destination_tile.x, destination_tile.y);
+				}
+		}
+		destination_tile.x = tile.x - range;
+		destination_tile.y++;
+	}
+
+	if (positions.size() > 0) {
+		return positions[App->random.Generate(0, positions.size() - 1)];
+	}
+
 	return tile;
 }
 

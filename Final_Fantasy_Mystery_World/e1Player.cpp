@@ -75,6 +75,12 @@ bool e1Player::PreUpdate()
 	if (!block_controls)
 		ReadPlayerInput();
 
+	//debug
+
+	if (App->input->GetKeyDown(SDL_SCANCODE_R)) {
+		App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 15, 5);
+	}
+
 	return true;
 }
 

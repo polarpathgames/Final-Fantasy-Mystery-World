@@ -156,6 +156,29 @@ iPoint m1Map::MapToWorld(int x, int y) const
 	return ret;
 }
 
+iPoint m1Map::MapToWorldCentered(int x, int y) const
+{
+	iPoint ret;
+
+	if (data.type == MAPTYPE_ORTHOGONAL)
+	{
+		ret.x = x * data.tile_width;
+		ret.y = y * data.tile_height;
+	}
+	else if (data.type == MAPTYPE_ISOMETRIC)
+	{
+		ret.x = (x - y) * (data.tile_width * 0.5f);
+		ret.y = (x + y) * (data.tile_height * 0.5f);
+	}
+	else
+	{
+		LOG("Unknown map type");
+		ret.x = x; ret.y = y;
+	}
+
+	return ret;
+}
+
 iPoint m1Map::WorldToMap(int x, int y) const
 {
 	iPoint ret(0,0);

@@ -54,8 +54,11 @@ public:
 	void DeleteEntitiesNoPlayer();
 	void DeleteEntity(e1Entity* entity_to_delete);
 
+	void SpawnRupees(const int & x, const int & y, const int& number, const int & range);
+
 	// Finds a tile in all zone around origin tile
 	iPoint FindFirstFreeTileAround(const iPoint &tile, const uint & range);
+	iPoint FindRandomFreeTileAround(const iPoint & tile, const uint & range);
 	// Finds a tile in border range
 	iPoint FindFirstFreeTileOnRange(const iPoint & tile, const uint & range);
 	// Finds a random tile in border range
