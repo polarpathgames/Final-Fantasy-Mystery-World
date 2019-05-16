@@ -491,8 +491,10 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		idle->PushBack({ 1480,160,37,57 });
 		idle->speed = 7;
 		frame = idle->frames[0];
-		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		SetPivot(frame.w*0.6F, frame.h*0.9F);
 		size.create(frame.w, frame.h);
+		position.x += 10;
+		position.y -= 2;
 	}
 	else if (strcmp(name, "fire_wall_special1") == 0) {
 		static_type = e1StaticEntity::Type::SPECIAL_FIREWALL1;
