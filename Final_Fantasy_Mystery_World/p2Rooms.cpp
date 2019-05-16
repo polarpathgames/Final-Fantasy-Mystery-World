@@ -408,8 +408,14 @@ void RoomManager::LoadEntities()
 				else if ((*position)->ent_type == "MegaEye") {
 					ent_type = e1Entity::EntityType::MEGA_EYE;
 				}
+				else if ((*position)->ent_type == "Spider") {
+					ent_type = e1Entity::EntityType::SPIDER;
+				}
 				else if ((*position)->ent_type == "Cassio") {
 					ent_type = e1Entity::EntityType::CASSIO;
+				}
+				else if ((*position)->ent_type == "BabyDrake") {
+					ent_type = e1Entity::EntityType::BABY_DRAKE;
 				}
 				else if ((*position)->ent_type == "Frozen") {
 					ent_type = e1Entity::EntityType::FROZEN;

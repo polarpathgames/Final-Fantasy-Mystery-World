@@ -1479,6 +1479,20 @@ void e1Player::AugmentGold(const int & plus_gold)
 	stats.gold += plus_gold;
 }
 
+void e1Player::SetPlayerIdle()
+{
+	state = State::IDLE;
+
+	position = App->map->MapToWorld(actual_tile.x, actual_tile.y) - pivot;
+	position.x += App->map->data.tile_width * 0.5F;
+	position.y += App->map->data.tile_height * 0.5F;
+
+	movement_count = { 0,0 };
+
+	target_position = position;
+	initial_position = position;
+}
+
 void e1Player::UpdateExperience(int experience) {
 
 	if (stats.xp < stats.max_xp) {

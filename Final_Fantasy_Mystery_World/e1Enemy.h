@@ -35,6 +35,8 @@ public:
 		SUPER_PURPLE_FROG,
 		CASSIO,
 		FROZEN,
+		BABY_DRAKE,
+		SPIDER,
 
 		NONE
 	};
@@ -79,7 +81,7 @@ public:
 	virtual void AfterAttack() {}
 
 	virtual void Escape() {}
-
+	virtual void Death();
 	void GetHitted(const int &damage_taken);
 
 	void Drop();

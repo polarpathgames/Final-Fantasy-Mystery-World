@@ -216,20 +216,20 @@
     <ClCompile Include="p2Math.h">
       <Filter>Tools</Filter>
     </ClCompile>
+    <ClCompile Include="p2Math.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
     <ClCompile Include="e1Frozen.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="e1MegaEye.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="p2Math.cpp">
-      <Filter>Tools</Filter>
+    <ClCompile Include="e1BabyDrake.cpp">
+      <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="c1CutSceneFadeToBlack.cpp">
-      <Filter>Cutscenes</Filter>
-    </ClCompile>
-    <ClCompile Include="c1CutSceneVibration.cpp">
-      <Filter>Cutscenes</Filter>
+    <ClCompile Include="e1Spider.cpp">
+      <Filter>Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -483,11 +483,12 @@
     <ClInclude Include="e1MegaEye.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="c1CutSceneFadeToBlack.h">
-      <Filter>Cutscenes</Filter>
+
+    <ClInclude Include="e1BabyDrake.h">
+ 	<Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="c1CutSceneVibration.h">
-      <Filter>Cutscenes</Filter>
+    <ClInclude Include="e1Spider.h">
+      <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -517,18 +518,6 @@
     </Xml>
     <Xml Include="Game\assets\xml\Rooms.xml">
       <Filter>XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneQueenQuest2.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneFinalRoomQuest2.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneAbility2Quest2.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneHomeSleep.xml">
-      <Filter>Cutscenes\XML</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>
