@@ -20,15 +20,14 @@ public:
 	bool IsSpecialAttack1Finished();
 	void AfetSpecialAttack1();
 
+	void Attacking();
+
 	void UpdateEnemy();
 
 	void FinishBasicAttack();
 
 private:
-	iPoint particle_position = { 0,0 };
-	float lerp_translation = 0.f;
-	float lerp_by = 0.02f;
-	p1Follow* poison_particle = nullptr;
+
 
 };
 

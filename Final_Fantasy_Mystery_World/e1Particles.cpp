@@ -30,12 +30,6 @@ e1Particles::e1Particles(const int & x, const int & y) : e1DynamicEntity(x, y)
 
 e1Particles::~e1Particles()
 {
-	for (std::list<p1Follow*>::iterator item = particle_follow.begin(); item != particle_follow.end(); ++item) {
-		App->particles->DeleteFollow_p(*item);
-	}
-	for (std::list<p1Fire*>::iterator item = particle_fire.begin(); item != particle_fire.end(); ++item) {
-		App->particles->DeleteFire_p(*item);
-	}
 }
 
 bool e1Particles::PreUpdate()
@@ -58,6 +52,9 @@ bool e1Particles::Update(float dt)
 	case e1Particles::ParticleType::ICE_STAKE: {
 		MoveIceStake(dt);
 		break; }
+	case e1Particles::ParticleType::THUNDERBOLT: {
+		MoveIceStake(dt);
+		break; }
 	default:
 		break;
 	}
@@ -75,7 +72,7 @@ bool e1Particles::CleanUp()
 
 void e1Particles::Draw(float dt)
 {
-	if (particle_type == ParticleType::ICE_STAKE) {
+	if (rotate_angle) {
 		App->render->Blit(data.tileset.texture, position.x, position.y, &current_animation->GetCurrentFrame(dt), true, SDL_FLIP_NONE, 1.0f, nullptr, angle, size.x*0.5f, size.y*0.5f);
 	}
 	else {
@@ -102,6 +99,10 @@ void e1Particles::SetParticle(const ParticleType & particle_type, const Directio
 	case ParticleType::ICE_STAKE:
 		name.assign("ice stake");
 		SetIceStake();
+		break;
+	case ParticleType::THUNDERBOLT:
+		name.assign("thunderbolt");
+		SetThunderbolt();
 		break;
 	default:
 		break;
@@ -457,7 +458,30 @@ void e1Particles::SetIceStake()
 	angle = RadToDeg(atan2(vector.y, vector.x));
 	lerp_speed = 0.2f;
 
+	rotate_angle = true;
+
 	IdleDown.PushBack({ 179,28,35,12 });
+	current_animation = &IdleDown;
+	size.create(current_animation->GetCurrentFrame(0.f).w, current_animation->GetCurrentFrame(0.f).h);
+
+	pivot.create(0, 50);
+}
+
+void e1Particles::SetThunderbolt()
+{
+	initial_position = GetPosition() - iPoint(0, 5);
+	final_position = App->scene->player->GetPosition() + iPoint(0, -10);
+	iPoint vector = final_position - initial_position;
+	angle = RadToDeg(atan2(vector.y, vector.x));
+	lerp_speed = 0.2f;
+
+	fPoint v2 = vector.AproximateToFloat() * 0.7f;
+	final_position = final_position - v2.AproximateToIntCast();
+
+
+	rotate_angle = true;
+
+	IdleDown.PushBack({ 214,27,36,13 });
 	current_animation = &IdleDown;
 	size.create(current_animation->GetCurrentFrame(0.f).w, current_animation->GetCurrentFrame(0.f).h);
 
