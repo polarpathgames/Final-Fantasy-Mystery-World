@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.2.3" name="Frozen" tilewidth="37" tileheight="45" spacing="2" margin="2" tilecount="240" columns="10">
+ <properties>
+  <property name="attack_power" type="int" value="35"/>
+  <property name="experience" type="int" value="300"/>
+  <property name="hits_to_tp_phase1" type="int" value="2"/>
+  <property name="hits_to_tp_phase2" type="int" value="1"/>
+  <property name="live" type="int" value="450"/>
+  <property name="ratio_blue_rupee" type="int" value="30"/>
+  <property name="ratio_gold_rupee" type="int" value="1"/>
+  <property name="ratio_green_rupee" type="int" value="50"/>
+  <property name="ratio_poti_hp" type="int" value="20"/>
+  <property name="ratio_poti_mana" type="int" value="20"/>
+  <property name="ratio_red_rupee" type="int" value="10"/>
+  <property name="ratio_rupee" type="int" value="60"/>
+  <property name="special_attack_power" type="int" value="40"/>
+ </properties>
  <image source="../sprites/Frozen.png" width="392" height="1130"/>
  <tile id="0">
   <objectgroup draworder="index">
@@ -233,7 +248,6 @@
    <frame tileid="116" duration="200"/>
    <frame tileid="117" duration="200"/>
    <frame tileid="118" duration="200"/>
-   <frame tileid="119" duration="200"/>
   </animation>
  </tile>
  <tile id="120">

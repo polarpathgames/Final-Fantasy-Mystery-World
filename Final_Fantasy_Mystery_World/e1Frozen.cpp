@@ -16,13 +16,13 @@ e1Frozen::e1Frozen(const int& x, const int& y) :e1Enemy(x, y)
 	name.assign("Frozen");
 	enemy_type = EnemyType::FROZEN;
 	range_to_distance_attack = 3;
-	InitStats();
+	e1Frozen::InitStats();
 
 	CenterOnTile();
-	stats.max_live = 500;
-	stats.live = 500; ///////////////remember to delete this/////////////////////////////////////////////////////////////////////////////
 	target_position = position;
 	initial_position = position;
+
+	tp_number_hit = tp_number_hit_phase1;
 
 	tp_timer.Stop();
 }
@@ -39,7 +39,7 @@ bool e1Frozen::PreUpdate()
 		tp_last_number_hit = times_hitted;
 		DoTeleport();
 		want_to_attack = false;
-		tp_number_hit = 1u;
+		tp_number_hit = tp_number_hit_phase2;
 	}
 
 	if (tp_last_number_hit != times_hitted) {
@@ -152,7 +152,6 @@ void e1Frozen::SummomBlueSlimes()
 
 void e1Frozen::Escape()
 {
-	
 	if (tp_timer.ReadSec() >= 0.5f) {
 		actual_tile = tp_location;
 		state = State::IDLE;
@@ -313,6 +312,23 @@ void e1Frozen::IdAnimToEnum()
 		case 231:
 			data.animations[i].animType = AnimationState::DEATH_UP;
 			break;
+		}
+	}
+}
+
+void e1Frozen::InitStats()
+{
+	e1Enemy::InitStats();
+
+	for (std::list<Property<int>*>::iterator item = general_properties.properties.begin(); item != general_properties.properties.end(); item++) {
+		if (strcmp((*item)->GetName(), "special_attack_power") == 0) {
+			stats.special_attack_damage = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "hits_to_tp_phase1") == 0) {
+			tp_number_hit_phase1 = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "hits_to_tp_phase2") == 0) {
+			tp_number_hit_phase2 = (*item)->GetValue();
 		}
 	}
 }
