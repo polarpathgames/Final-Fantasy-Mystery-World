@@ -661,8 +661,6 @@ void e1StaticEntity::Draw(float dt)
 {
 	if (has_animation) {
 		App->render->Blit(data.tileset.texture, position.x, position.y, &current_animation->GetCurrentFrame(dt), true);
-	
-
 	}
 	else {
 		App->render->Blit(data.tileset.texture, position.x, position.y, &frame, true);
@@ -760,7 +758,7 @@ bool e1StaticEntity::Update(float dt)
 			break;
 		case e1StaticEntity::Type::TREASURE:
 			if (frame == SDL_Rect{ 156, 137, 35, 32 }) {
-				// super christian function
+				App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 20, 5);
 				App->scene->player->BlockControls(false);
 				App->globals.treasure_quest2_opened = true;
 				frame = { 0, 0, 0, 0 }; // need to put open treasure sprite
