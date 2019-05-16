@@ -72,7 +72,7 @@ bool e1State::PreUpdate()
 				case EventStates::BLIZZARD: {
 					std::vector<e1Entity*> list = App->entity_manager->GetEntities();
 					for (std::vector<e1Entity*>::iterator item = list.begin(); item != list.end(); ++item) {
-						if ((*item)->type == e1Entity::EntityType::PLAYER || (*item)->type == e1Entity::EntityType::ENEMY)
+						if ((*item)->type == e1Entity::EntityType::PLAYER/* || (*item)->type == e1Entity::EntityType::ENEMY*/)
 							static_cast<e1DynamicEntity*>(*item)->GetHitted(damage);
 					}
 					number_hit++;
