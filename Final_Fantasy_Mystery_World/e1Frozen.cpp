@@ -229,52 +229,52 @@ void e1Frozen::IdAnimToEnum()
 		case 50:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_RIGHT;
 			break;
-		case 19:
+		case 20:
 			data.animations[i].animType = AnimationState::IDLE_DOWN;
 			break;
-		case 17:
+		case 24:
 			data.animations[i].animType = AnimationState::IDLE_UP;
 			break;
-		case 20:
+		case 30:
 			data.animations[i].animType = AnimationState::IDLE_LEFT;
 			break;
-		case 23:
+		case 34:
 			data.animations[i].animType = AnimationState::IDLE_RIGHT;
 			break;
-		case 12:
+		case 21:
 			data.animations[i].animType = AnimationState::WALKING_DOWN;
 			break;
-		case 16:
+		case 25:
 			data.animations[i].animType = AnimationState::WALKING_UP;
 			break;
-		case 18:
+		case 31:
 			data.animations[i].animType = AnimationState::WALKING_LEFT;
 			break;
-		case 21:
+		case 35:
 			data.animations[i].animType = AnimationState::WALKING_RIGHT;
 			break;
-		case 36:
+		case 120:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN;
 			break;
-		case 38:
+		case 130:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP;
 			break;
-		case 41:
+		case 140:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_LEFT;
 			break;
-		case 42:
+		case 150:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
-		case 61:
+		case 160:
 			data.animations[i].animType = AnimationState::ABILITY_DOWN_1;
 			break;
-		case 62:
+		case 170:
 			data.animations[i].animType = AnimationState::ABILITY_UP_1;
 			break;
-		case 64:
+		case 180:
 			data.animations[i].animType = AnimationState::ABILITY_LEFT_1;
 			break;
-		case 66:
+		case 190:
 			data.animations[i].animType = AnimationState::ABILITY_RIGHT_1;
 			break;
 		case 80:
@@ -289,28 +289,28 @@ void e1Frozen::IdAnimToEnum()
 		case 90:
 			data.animations[i].animType = AnimationState::ABILITY_DOWN_RIGHT_1;
 			break;
-		case 644:
+		case 200:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;
-		case 72:
+		case 220:
 			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
 			break;
-		case 81:
+		case 210:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
 			break;
-		case 88:
+		case 230:
 			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
 			break;
-		case 65:
+		case 201:
 			data.animations[i].animType = AnimationState::DEATH_DOWN;
 			break;
-		case 646:
+		case 221:
 			data.animations[i].animType = AnimationState::DEATH_LEFT;
 			break;
-		case 82:
+		case 211:
 			data.animations[i].animType = AnimationState::DEATH_RIGHT;
 			break;
-		case 89:
+		case 231:
 			data.animations[i].animType = AnimationState::DEATH_UP;
 			break;
 		}
