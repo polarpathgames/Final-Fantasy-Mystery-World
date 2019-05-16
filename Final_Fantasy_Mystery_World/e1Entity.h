@@ -90,6 +90,7 @@ public:
 		CASSIO,
 		FROZEN,
 		MEGA_EYE,
+		BABY_DRAKE,
 
 		NO_TYPE
 	};
