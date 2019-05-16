@@ -59,6 +59,7 @@
       <location>Tutorial_Final.tmx</location>
       <id num="9"></id>
       <type>boss</type>
+      <door active="true"></door>
       <music>assets/audio/music/39.Final Fantasy TA - Incarnation.ogg</music>
       <cut_scene>assets/xml/CutsceneFinalRoom.xml</cut_scene>
     </room>
@@ -152,6 +153,7 @@
     <room>
       <location>Quest1_Boss.tmx</location>
       <id num="13"></id>
+      <door active="true"></door>
       <music>assets/audio/music/23.Final Fantasy TA - Prison.ogg</music>
       <type>paceful</type>
       <cut_scene>assets/xml/CutsceneFinalRoomQuest2.xml</cut_scene>
@@ -204,6 +206,7 @@
     </room>
     <room>
       <location>Quest2_Boss.tmx</location>
+      <door active="true"></door>
       <id num="8"></id>
       <type>paceful</type>
       <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>

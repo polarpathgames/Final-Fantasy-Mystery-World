@@ -77,6 +77,7 @@ public:
 		CARNIVOROUS_PLANT,
 		BLUE_DOG,
 		STRANGE_FROG,
+		SPIDER,
 		WARRIOR,
 		ARCHER,
 		SUPER_PURPLE_FROG,
@@ -90,6 +91,7 @@ public:
 		CASSIO,
 		FROZEN,
 		MEGA_EYE,
+		BABY_DRAKE,
 
 		NO_TYPE
 	};

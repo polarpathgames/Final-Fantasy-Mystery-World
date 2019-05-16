@@ -170,6 +170,7 @@ bool e1Enemy::Update(float dt)
 				FinishBasicAttack();
 				attack = true;
 			}
+			else Attacking();
 			break;
 		case Attacks::SPECIAL_1:
 			if (IsSpecialAttack1Finished()) {
@@ -178,6 +179,7 @@ bool e1Enemy::Update(float dt)
 				AfetSpecialAttack1();
 				attack = true;
 			}
+			else Attacking();
 			break;
 		case Attacks::SPECIAL_2:
 			break;
@@ -197,14 +199,7 @@ bool e1Enemy::Update(float dt)
 		}
 		break;
 	case State::DEATH:
-		if (current_animation->Finished()) {
-			Drop();
-			App->audio->PlayFx(App->scene->fx_kill_enemy);
-			App->scene->player->UpdateExperience(stats.experience);
-			App->map->quest_rooms->AddEntityToNotRepeat(original_position);
-			to_delete = true;
-			turn_done = true;
-		}
+		Death();
 		break;
 	default:
 		break;
@@ -611,6 +606,18 @@ void e1Enemy::PerformMovement(float dt)
 		break;
 	}
 
+}
+
+void e1Enemy::Death()
+{
+	if (current_animation->Finished()) {
+		Drop();
+		App->audio->PlayFx(App->scene->fx_kill_enemy);
+		App->scene->player->UpdateExperience(stats.experience);
+		App->map->quest_rooms->AddEntityToNotRepeat(original_position);
+		to_delete = true;
+		turn_done = true;
+	}
 }
 
 void e1Enemy::GetHitted(const int & damage_taken)
