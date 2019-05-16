@@ -90,7 +90,26 @@ RoomManager::RoomManager(const char* name)
 	else {
 		LOG("XML was loaded succesfully!");
 
-		map_background = App->gui->AddImage(-1600, 100, { 200,1736,(int)App->win->width - 200, (int)App->win->height - 300 }, nullptr, App->gui->screen, false, false, false, false);
+		if (strcmp(name, "tutorial") == 0) {
+			mini_rect_map[0] = { 2132,2972,128,64 }; 
+			mini_rect_map[1] = { 2260,2972,128,64 };
+			mini_rect_map[2] = { 2388,2972,128,64 };
+			mini_rect_map[3] = { 2516,2972,128,64 };
+		}
+		else if (strcmp(name, "quest2") == 0) {
+			mini_rect_map[0] = { 2132,3067,128,64 };
+			mini_rect_map[1] = { 2260,3067,128,64 };
+			mini_rect_map[2] = { 2388,3067,128,64 };
+			mini_rect_map[3] = { 2516,3067,128,64 };
+		}
+		else if (strcmp(name, "final_quest") == 0) {
+			mini_rect_map[0] = { 2132,3156,128,64 };
+			mini_rect_map[1] = { 2260,3156,128,64 };
+			mini_rect_map[2] = { 2388,3156,128,64 };
+			mini_rect_map[3] = { 2516,3156,128,64 };
+		}
+
+		map_background = App->gui->AddImage(-1600, 100, { 2078,4117,(int)App->win->width - 200, (int)App->win->height - 300 }, nullptr, App->gui->screen, false, false, false, false);
 		map_zone = App->gui->AddImage(0, 0, { 200,1736,(int)App->win->width - 200, (int)App->win->height - 300 }, nullptr, map_background, false, false, false, false);
 
 		for (pugi::xml_node room_node = room_manager_file.child("room_manager").child(name).child("room"); room_node; room_node = room_node.next_sibling("room")) {
@@ -103,10 +122,10 @@ RoomManager::RoomManager(const char* name)
 			rooms.push_back(r);
 		}
 		if (strcmp(name,"quest2") == 0)
-			rooms.front()->map_room_image = App->gui->AddImage(125, 125, { 1573,2170,128,64 }, nullptr, (u1GUI*)map_zone, false, false, false, false);
+			rooms.front()->map_room_image = App->gui->AddImage(125, 125, mini_rect_map[2], nullptr, (u1GUI*)map_zone, false, false, false, false);
 
 		else
-			rooms.front()->map_room_image = App->gui->AddImage(125, 125, { 1317,2170,128,64 }, nullptr, (u1GUI*)map_zone, false, false, false, false);
+			rooms.front()->map_room_image = App->gui->AddImage(125, 125, mini_rect_map[0], nullptr, (u1GUI*)map_zone, false, false, false, false);
 		player_pos = App->gui->AddImage(0, 0, { 1830,2170,128,64 }, nullptr, rooms.front()->map_room_image, false, false, false, false);
 		LoadRoom(1);
 		
@@ -600,21 +619,21 @@ void RoomManager::UpdateMap()
 	if (actual_room->id != 1 && actual_room->map_room_image == nullptr && actual_room->update_number != 1) {
 		if (player_next_pos == LocationChangeScene::NEXT_A) {
 			if (actual_room->change_scene_points.size() >= 3) { // it has 2 new doors
-				actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 96, last_room->map_room_image->GetLocalPosition().y - 48, { 1573,2170,128,64 }, nullptr, map_zone, false, false, false, false);
+				actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 96, last_room->map_room_image->GetLocalPosition().y - 48, mini_rect_map[2], nullptr, map_zone, false, false, false, false);
 			}
 			else if (actual_room->change_scene_points.size() == 1) { // no new doors, just an exit door 
-				actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 96, last_room->map_room_image->GetLocalPosition().y - 48, { 1702,2170,128,64 }, nullptr, map_zone, false, false, false, false);
+				actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 96, last_room->map_room_image->GetLocalPosition().y - 48, mini_rect_map[3], nullptr, map_zone, false, false, false, false);
 			}
 			else { // it has one new door 
 				std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
 				for (; item != actual_room->change_scene_points.end(); ++item) {
 					if ((*item) != nullptr) {
 						if ((*item)->change_type == LocationChangeScene::NEXT_A) {
-							actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 96, last_room->map_room_image->GetLocalPosition().y - 48, { 1317,2170,128,64 }, nullptr, map_zone, false, false, false, false);
+							actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 96, last_room->map_room_image->GetLocalPosition().y - 48, mini_rect_map[0], nullptr, map_zone, false, false, false, false);
 							break;
 						}
 						else if ((*item)->change_type == LocationChangeScene::NEXT_B) {
-							actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 96, last_room->map_room_image->GetLocalPosition().y - 48, { 1445,2170,128,64 }, nullptr, map_zone, false, false, false, false);
+							actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 96, last_room->map_room_image->GetLocalPosition().y - 48, mini_rect_map[1], nullptr, map_zone, false, false, false, false);
 							break;
 						}
 					}
@@ -623,21 +642,21 @@ void RoomManager::UpdateMap()
 		}
 		else if (player_next_pos == LocationChangeScene::NEXT_B) {
 			if (actual_room->change_scene_points.size() >= 3) { // it has 2 new doors
-				actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x - 96, last_room->map_room_image->GetLocalPosition().y - 48, { 1573,2170,128,64 }, nullptr, map_zone, false, false, false, false);
+				actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x - 96, last_room->map_room_image->GetLocalPosition().y - 48, mini_rect_map[2], nullptr, map_zone, false, false, false, false);
 			}
 			else if (actual_room->change_scene_points.size() == 1) { // no new doors, just an exit door 
-				actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x - 96, last_room->map_room_image->GetLocalPosition().y - 48, { 1702,2170,128,64 }, nullptr, map_zone, false, false, false, false);
+				actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x - 96, last_room->map_room_image->GetLocalPosition().y - 48, mini_rect_map[3], nullptr, map_zone, false, false, false, false);
 			}
 			else { // it has one new door 
 				std::vector<ChangeScene*>::iterator item = actual_room->change_scene_points.begin();
 				for (; item != actual_room->change_scene_points.end(); ++item) {
 					if ((*item) != nullptr) {
 						if ((*item)->change_type == LocationChangeScene::NEXT_A) {
-							actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x - 96, last_room->map_room_image->GetLocalPosition().y - 48, { 1317,2170,128,64 }, nullptr, map_zone, false, false, false, false);
+							actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x - 96, last_room->map_room_image->GetLocalPosition().y - 48, mini_rect_map[0], nullptr, map_zone, false, false, false, false);
 							break;
 						}
 						else if ((*item)->change_type == LocationChangeScene::NEXT_B) {
-							actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x - 96, last_room->map_room_image->GetLocalPosition().y - 48, { 1445,2170,128,64 }, nullptr, map_zone, false, false, false, false);
+							actual_room->map_room_image = App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x - 96, last_room->map_room_image->GetLocalPosition().y - 48, mini_rect_map[1], nullptr, map_zone, false, false, false, false);
 							break;
 						}
 					}
@@ -652,8 +671,8 @@ void RoomManager::UpdateMap()
 		}
 	}
 	else if (actual_room->map_room_image == nullptr && actual_room->update_number == 1){
-		actual_room->map_room_image = App->gui->AddImage(rooms.front()->map_room_image->GetLocalPosition().x - 96, rooms.front()->map_room_image->GetLocalPosition().y - 48, { 1702,2170,128,64 }, nullptr, map_zone, false, false, false, false);
-		App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 50, last_room->map_room_image->GetLocalPosition().y - 125, { 1702,2170,128,64 }, nullptr, actual_room->map_room_image, true, false, false, false);
+		actual_room->map_room_image = App->gui->AddImage(rooms.front()->map_room_image->GetLocalPosition().x - 96, rooms.front()->map_room_image->GetLocalPosition().y - 48, mini_rect_map[3], nullptr, map_zone, false, false, false, false);
+		App->gui->AddImage(last_room->map_room_image->GetLocalPosition().x + 50, last_room->map_room_image->GetLocalPosition().y - 125, mini_rect_map[3], nullptr, actual_room->map_room_image, true, false, false, false);
 		
 	}
 }

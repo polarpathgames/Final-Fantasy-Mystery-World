@@ -43,6 +43,10 @@ e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 
 	// THIS ALWAYS LAST
 	
+	//SFX
+
+	fx_laser = App->audio->LoadFx("assets/audio/sfx/IceQueen_laser.wav");
+
 	
 }
 
