@@ -7,6 +7,7 @@
 #include "m1Window.h"
 #include "m1Scene.h"
 #include "e1Player.h"
+#include "m1Input.h"
 #include "p2Log.h"
 #include "m1Cutscene.h"
 #include "m1DialogSystem.h"
@@ -51,8 +52,12 @@ bool m1FadeToBlack::PostUpdate()
 	{
 	case fade_step::fade_to_black:
 	{
+		if (vibration) {
+			App->input->ControllerVibration(1.0F, 3000);
+			App->render->CameraTremble(1.0F, 3000);
+		}
 		if (now >= total_time)
-		{
+		{	
 			if (to_disable != nullptr)
 				to_disable->Disable();
 			if (to_enable != nullptr)
@@ -78,6 +83,7 @@ bool m1FadeToBlack::PostUpdate()
 		if (now >= total_time) {
 			current_step = fade_step::none;
 			App->dialog->end_dial = true;
+			vibration = false;
 			if (App->scene->player != nullptr && App->cutscene_manager->is_executing == false)
 				App->scene->player->BlockControls(false);
 		}
@@ -145,12 +151,13 @@ bool m1FadeToBlack::FadeToBlack(float time, m1Module * module_on)
 
 	return ret;
 }
-bool m1FadeToBlack::FadeToBlack(float time)
+bool m1FadeToBlack::FadeToBlack(float time, bool vibration)
 {
 	bool ret = false;
 
 	if (current_step == fade_step::none)
 	{
+		this->vibration = vibration;
 		App->scene->player->BlockControls(true);
 		current_step = fade_step::fade_to_black;
 		start_time = SDL_GetTicks();

@@ -79,7 +79,7 @@ public:
 	virtual void AfterAttack() {}
 
 	virtual void Escape() {}
-
+	virtual void Death();
 	void GetHitted(const int &damage_taken);
 
 	void Drop();

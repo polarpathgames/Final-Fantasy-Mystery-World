@@ -9,6 +9,7 @@
 #include "m1EntityManager.h"
 #include "p1Follow.h"
 #include "p2Math.h"
+#include "m1FadeToBlack.h"
 #include "Brofiler/Brofiler.h"
 
 e1BabyDrake::e1BabyDrake(const int & x, const int & y) : e1Enemy(x, y)
@@ -32,6 +33,7 @@ e1BabyDrake::~e1BabyDrake()
 {
 	if (fire_particle != nullptr)
 		App->particles->DeleteFollow_p(fire_particle);
+
 }
 
 void e1BabyDrake::PrepareDistanceAttack()
@@ -136,6 +138,22 @@ void e1BabyDrake::SuperHit()
 	}
 	else 
 		App->scene->player->state = State::IDLE;
+}
+
+void e1BabyDrake::Death()
+{
+	if (current_animation->Finished() && drawable) {
+		Drop();
+		App->audio->PlayFx(App->scene->fx_kill_enemy);
+		drawable = false;
+		App->scene->player->UpdateExperience(stats.experience);
+		App->map->quest_rooms->AddEntityToNotRepeat(original_position);
+	}
+	else if (!drawable) {
+		App->fade_to_black->FadeToBlack(4.0F, true);
+		to_delete = true;
+		turn_done = true;
+	}
 }
 
 void e1BabyDrake::PrepareParticle()
