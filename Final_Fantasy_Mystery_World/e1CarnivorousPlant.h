@@ -11,10 +11,6 @@ public:
 
 	virtual ~e1CarnivorousPlant();
 
-	bool PreUpdate();
-
-	bool Update(float dt);
-
 	void IdAnimToEnum();
 
 public:

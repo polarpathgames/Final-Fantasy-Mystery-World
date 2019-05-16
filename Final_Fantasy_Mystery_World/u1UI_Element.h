@@ -8,7 +8,9 @@ struct SDL_Texture;
 struct SDL_Rect;
 
 enum class Element_Event {
+	HOVER_ENTER,
 	HOVER,
+	HOVER_EXIT,
 	CLICKED_DOWN,
 	CLICKED_REPEAT,
 	CLICKED_UP,
@@ -53,6 +55,9 @@ public:
 	void Draw();
 	virtual void InnerDraw();
 	virtual void UpdateElement() {};
+	void PreUpdate();
+	void SetFocus(const FocusType & focus);
+	virtual void PreUpdateElement() {};
 	virtual bool CleanUp();
 
 	void SetPos(const int &x, const int &y);
@@ -70,10 +75,16 @@ public:
 	void AddListener(m1Module* module);
 	void DeleteListener(m1Module* module);
 
+	SDL_Rect* GetGlobalRect();
+
+	void SetClipZone(const SDL_Rect& clip_zone);
+	void ResetClipZone();
+
 public:
 	iPoint position = { 0,0 };
 
 	SDL_Rect section = { 0,0 };
+	SDL_Rect global_rect = { 0,0,0,0 };
 
 	bool interactable = true;
 	bool draggable = true;
@@ -93,12 +104,18 @@ public:
 	Element_Event current_state = Element_Event::NONE;
 	iPoint last_mouse;
 
+	SDL_Rect* clip_zone = nullptr;
+
+	FocusType focus_type = FocusType::NONE;
+
 private:
 	UIType type = NON;
 
 	int priority = 0;
 
 	std::list<m1Module*> listeners;
+
+	bool new_clip = false;
 };
 
 

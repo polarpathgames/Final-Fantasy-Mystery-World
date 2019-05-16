@@ -53,6 +53,7 @@ private:
 	// all map walkability values [0..255]
 	uchar* map;
 	// we store the created path here
+public:
 	std::vector<iPoint> last_path;
 };
 

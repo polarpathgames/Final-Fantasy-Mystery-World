@@ -10,15 +10,19 @@
 #include "m1Scene.h"
 #include "m1Audio.h"
 #include "m1Input.h"
+#include "m1MenuManager.h"
 #include "m1EasingSplines.h"
 #include "Brofiler/Brofiler.h"
 #include "m1GUI.h"
 #include "m1Window.h"
 #include "u1Image.h"
+#include "m1Textures.h"
 
 e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 {
 	BROFILER_CATEGORY("StaticEntity Constructor", Profiler::Color::Yellow);
+
+	this->name.assign(name);
 
 	if (strcmp(name,"flower") == 0) {
 		static_type = e1StaticEntity::Type::FLOWER;
@@ -279,6 +283,8 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x + 1,App->map->WorldToMap(position.x,position.y).y + 1 };
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 		max_distance_to_interact = 3;
+		CreateParticleFire(nullptr, nullptr, position + iPoint{int(frame.w*0.5f),0}, SDL_Rect{ 8,4,2,2 }, size, iPoint(12, 4), fPoint(0, -15), P_NON, 70, 2, true, W_NON);
+		CreateParticleFire(nullptr, nullptr, position + iPoint{ int(frame.w*0.5f),0 }, SDL_Rect{ 8,2,2,2 }, size, iPoint(12, 4), fPoint(0, -15), P_NON, 30, 2, true, W_NON);
 		
 	}
 	else if (strcmp(name, "NPC1") == 0) {
@@ -365,11 +371,271 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		position.x += 2;
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 	}
+	else if (strcmp(name, "help4") == 0) {
+		static_type = e1StaticEntity::Type::HELP4;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1219,80,45,48 });
+		idle->PushBack({ 1264,80,45,48 });
+		idle->PushBack({ 1309,80,45,48 });
+		idle->PushBack({ 1264,80,45,48 });
+
+		idle->speed = 1;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.7F);
+		size.create(frame.w, frame.h);
+		max_distance_to_interact = 1;
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		actual_tile += {3, 3};
+		position.y += 28;
+		position.x += 2;
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+	}
+	else if (strcmp(name, "NPC_DAUGHTER") == 0) {
+		static_type = e1StaticEntity::Type::NPC_DAUGHTER;
+		frame = { 1266,0,16,27 };
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		position.x += 8;
+		position.y -= 16;
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+		max_distance_to_interact = 1;
+	}
+	//QUEST2
+	else if (strcmp(name, "plant1_quest1") == 0) {
+		static_type = e1StaticEntity::Type::PLANT1;
+		frame = { 80,202,32,34 };
+		SetPivot(frame.w*0.5F, frame.h*0.7F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "plant2_quest1") == 0) {
+		static_type = e1StaticEntity::Type::PLANT2_Q1;
+		frame = { 79,136,27,27 };
+		SetPivot(frame.w*0.5F, frame.h*0.7F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "rock_quest1") == 0) {
+		static_type = e1StaticEntity::Type::ROCK_Q1;
+		frame = { 116,136,32,32 };
+		SetPivot(frame.w*0.5F, frame.h*0.5F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "snow_elevation") == 0) {
+		static_type = e1StaticEntity::Type::SNOW_ELEVATION;
+		frame = { 7,209,32,32 };
+		SetPivot(frame.w*0.5F, frame.h*0.5F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "rock_elevation") == 0) {
+		static_type = e1StaticEntity::Type::ROCK_ELEVATION;
+		frame = { 39,209,32,32 };
+		SetPivot(frame.w*0.5F, frame.h*0.5F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "tree_quest1") == 0) {
+		static_type = e1StaticEntity::Type::TREE_Q1;
+		frame = { 189,176,29,57 };
+		SetPivot(frame.w*0.5F, frame.h*0.9F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "tree2_quest1") == 0) {
+		static_type = e1StaticEntity::Type::TREE2_Q1;
+		frame = { 3,166,30,42 };
+		SetPivot(frame.w*0.5F, frame.h*0.7F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "snow_man") == 0) {
+		static_type = e1StaticEntity::Type::SNOW_MAN;
+		frame = { 6,135,30,29 };
+		SetPivot(frame.w*0.5F, frame.h*0.5F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "fire_wall_left") == 0) {
+		static_type = e1StaticEntity::Type::FIREWALL_LEFT;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 293, 171,16,30 });
+		idle->PushBack({ 313,171,16,30 });
+		idle->PushBack({ 333,171,16,30 });
+		idle->PushBack({ 353,171,16,30 });
+		idle->speed = 3;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "fire_wall_right") == 0) {
+		static_type = e1StaticEntity::Type::FIREWALL_RIGHT;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 386, 171,16,30 });
+		idle->PushBack({ 406,171,16,30 });
+		idle->PushBack({ 426,171,16,30 });
+		idle->PushBack({ 446,171,16,30 });
+		idle->speed = 3;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "fire_floor") == 0) {
+		static_type = e1StaticEntity::Type::FIREFLOOR;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1330,160,37,57 });
+		idle->PushBack({ 1380,160,37,57 });
+		idle->PushBack({ 1430,160,37,57 });
+		idle->PushBack({ 1480,160,37,57 });
+		idle->speed = 7;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "fire_wall_special1") == 0) {
+		static_type = e1StaticEntity::Type::SPECIAL_FIREWALL1;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1389,103,22,48 });
+		idle->PushBack({ 1411,103,22,48 });
+		idle->PushBack({ 1433,103,22,48 });
+		idle->PushBack({ 1455,103,22,48 });
+		idle->speed = 6;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "fire_wall_special2") == 0) {
+		static_type = e1StaticEntity::Type::SPECIAL_FIREWALL2;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1480,119,35,40 });
+		idle->PushBack({ 1515,119,35,40 });
+		idle->PushBack({ 1550,119,35,40 });
+		idle->PushBack({ 1585,119,35,40 });
+		idle->speed = 7;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "treasure") == 0) {
+		static_type = e1StaticEntity::Type::TREASURE;
+		frame = { 156,137 ,35,32 };
+		SetPivot(frame.w*0.5F, frame.h*0.5F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "ability_base") == 0) {
+		static_type = e1StaticEntity::Type::ABILITY_BASE;
+		frame = { 1065,113 ,40,48 };
+		SetPivot(frame.w*0.5F, frame.h*0.5F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "rocks_door") == 0) {
+		static_type = e1StaticEntity::Type::CAVE_ROCKS;
+		frame = { 682,174 ,26,49 };
+		SetPivot(frame.w*0.5F, frame.h*0.5F);
+		size.create(frame.w, frame.h);
+		position.x -= 3;
+		position.y += 1;
+	}
+	else if (strcmp(name, "blue_fire") == 0) {
+		static_type = e1StaticEntity::Type::BLUE_FIRE;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 54,180,16,20 });
+		idle->PushBack({ 89,180,16,20 });
+		idle->PushBack({ 124,180,16,20 });
+		idle->PushBack({ 159,180,16,20 });
+		idle->speed = 3;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "p_fire") == 0) {
+		static_type = e1StaticEntity::Type::PARTICLE;
+		position += {4, 6};
+		CreateParticleFire(this, nullptr, { 0,0 }, { 0,2,2,0 }, { 5, 2 }, { 12, 4 }, { 0, -15 }, P_NON, 30, 4, true, W_NON);
+	}
+	else if (strcmp(name, "water") == 0) {
+		static_type = e1StaticEntity::Type::WATER;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1632,0,32,16 });
+		idle->PushBack({ 1664,0,32,16 });
+		idle->PushBack({ 1696,0,32,16 });
+		idle->PushBack({ 1728,0,32,16 });
+		idle->speed = 2;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.F, frame.h*0.F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "water2") == 0) {
+		static_type = e1StaticEntity::Type::WATER2;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1632,16,32,16 });
+		idle->PushBack({ 1664,16,32,16 });
+		idle->PushBack({ 1696,16,32,16 });
+		idle->PushBack({ 1728,16,32,16 });
+		idle->speed = 2;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.F, frame.h*0.F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "water3") == 0) {
+		static_type = e1StaticEntity::Type::WATER3;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1632,32,32,16 });
+		idle->PushBack({ 1664,32,32,16 });
+		idle->PushBack({ 1696,32,32,16 });
+		idle->PushBack({ 1728,32,32,16 });
+		idle->speed = 2;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.F, frame.h*0.F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "lava") == 0) {
+		static_type = e1StaticEntity::Type::LAVA;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1632,48,32,16 });
+		idle->PushBack({ 1664,48,32,16 });
+		idle->PushBack({ 1696,48,32,16 });
+		idle->PushBack({ 1728,48,32,16 });
+		idle->speed = 2;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.F, frame.h*0.F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "ability_flash") == 0) {
+		frame = { 1027,23,12,14 };
+		SetPivot(frame.w*0.5F, frame.h*1.5F);
+		size.create(frame.w, frame.h);
+		static_type = e1StaticEntity::Type::FLASH_INFO;
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		position.x += 14;
+		position.y -= 9;
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+		max_distance_to_interact = 1;
+	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
 	}
 
 	type = e1Entity::EntityType::STATIC;
+	data.tileset.imagePath.assign("assets/maps/static_objects_tileset.png");
+	data.tileset.texture = App->tex->Load(data.tileset.imagePath.data());
+	
 }
 
 e1StaticEntity::~e1StaticEntity()
@@ -385,15 +651,15 @@ e1StaticEntity::~e1StaticEntity()
 	}
 }
 
-void e1StaticEntity::Draw(SDL_Texture * tex, float dt)
+void e1StaticEntity::Draw(float dt)
 {
 	if (has_animation) {
-		App->render->Blit(tex, position.x, position.y, &current_animation->GetCurrentFrame(dt), true);
+		App->render->Blit(data.tileset.texture, position.x, position.y, &current_animation->GetCurrentFrame(dt), true);
 	
 
 	}
 	else {
-		App->render->Blit(tex, position.x, position.y, &frame, true);
+		App->render->Blit(data.tileset.texture, position.x, position.y, &frame, true);
 		//App->render->Blit(App->scene->player->ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 	}
 }
@@ -406,7 +672,10 @@ void e1StaticEntity::SetRect(int x, int y, int w, int h)
 bool e1StaticEntity::Update(float dt)
 {
 	BROFILER_CATEGORY("StaticEntity Update", Profiler::Color::Yellow);
+	//if (App->scene->player != nullptr)
+	//{
 
+	//}
 	if (interacting_state == InteractingStates::NONE)
 		return true;
 	iPoint player_pos = App->map->WorldToMap(App->scene->player->position.x, App->scene->player->position.y + App->scene->player->pivot.y);
@@ -429,7 +698,7 @@ bool e1StaticEntity::Update(float dt)
 					button_interact->SetPos(pos.x, pos.y);
 				}
 
-				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 					App->scene->player->state = State::IDLE;
 					App->easing_splines->CleanUp();
 					App->scene->player->BlockControls(true);
@@ -438,7 +707,7 @@ bool e1StaticEntity::Update(float dt)
 					App->audio->PlayFx(App->scene->fx_writting);
 					App->dialog->end_dial = false;
 					App->audio->PlayFx(App->scene->fx_writting);
-					App->scene->ShowHUD(false);
+					//App->menu_manager->ShowHUD(false);
 					App->gui->DeleteUIElement((u1GUI*)button_interact);
 					button_interact = nullptr;
 				}
@@ -451,12 +720,12 @@ bool e1StaticEntity::Update(float dt)
 					button_interact = nullptr;
 				}
 			}
-			
 	}
 	if (interacting_state == InteractingStates::INTERACTING && App->dialog->end_dial)
 	{
 		interacting_state = InteractingStates::WAITING_INTERACTION;
-		App->scene->ShowHUD(true);
+		//if (static_type != Type::HELP1 && static_type != Type::HELP2 && static_type != Type::HELP3 && static_type != Type::FLASH_INFO)
+			//App->menu_manager->ShowHUD(true);
 	}
 
 	if (interacting_state == InteractingStates::INTERACTING) {
@@ -481,11 +750,20 @@ bool e1StaticEntity::Update(float dt)
 		case e1StaticEntity::Type::HELP1:
 			App->dialog->PerformDialogue(4);
 			break;
+		case e1StaticEntity::Type::HELP4:
+			App->dialog->PerformDialogue(9);
+			break;
 		case e1StaticEntity::Type::HELP2:
 			App->dialog->PerformDialogue(5);
 			break;
 		case e1StaticEntity::Type::HELP3:
 			App->dialog->PerformDialogue(6);
+			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			App->dialog->PerformDialogue(7);
+			break;
+		case e1StaticEntity::Type::FLASH_INFO:
+			App->dialog->PerformDialogue(8);
 			break;
 		default:
 			break;
@@ -504,12 +782,19 @@ void e1StaticEntity::ChangeAnimation(const iPoint &player_pos)
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1232, 0, 16, 28);
 			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			SetRect(1283, 0, 16, 27);
+			break;
 		}
+		
 	}
 	else if (player_pos.x == actual_tile.x && player_pos.y + 1 == actual_tile.y) { // up right
 		switch (static_type) {
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1248, 0, 16, 28);
+			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			SetRect(1317, 0, 16, 27);
 			break;
 		}
 	}
@@ -518,12 +803,18 @@ void e1StaticEntity::ChangeAnimation(const iPoint &player_pos)
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1216, 0, 16, 28);
 			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			SetRect(1301, 0, 16, 27);
+			break;
 		}
 	}
 	else if (player_pos.x == actual_tile.x && player_pos.y - 1== actual_tile.y) { // down left
 		switch (static_type) {
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1200, 0, 16, 28);
+			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			SetRect(1266, 0, 16, 27);
 			break;
 		}
 	}
@@ -532,12 +823,18 @@ void e1StaticEntity::ChangeAnimation(const iPoint &player_pos)
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1248, 0, 16, 28);
 			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			SetRect(1283, 0, 16, 27);
+			break;
 		}
 	}
 	else if (player_pos.x - 1 == actual_tile.x && player_pos.y + 1 == actual_tile.y) { // right
 		switch (static_type) {
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1216, 0, 16, 28);
+			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			SetRect(1301, 0, 16, 27);
 			break;
 		}
 	}
@@ -546,12 +843,18 @@ void e1StaticEntity::ChangeAnimation(const iPoint &player_pos)
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1200, 0, 16, 28);
 			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			SetRect(1266, 0, 16, 27);
+			break;
 		}
 	}
 	else if (player_pos.x - 1 == actual_tile.x && player_pos.y - 1 == actual_tile.y) { // down
 		switch (static_type) {
 		case e1StaticEntity::Type::NPC1:
 			SetRect(1216, 0, 16, 28);
+			break;
+		case e1StaticEntity::Type::NPC_DAUGHTER:
+			SetRect(1266, 0, 16, 27);
 			break;
 		}
 	}

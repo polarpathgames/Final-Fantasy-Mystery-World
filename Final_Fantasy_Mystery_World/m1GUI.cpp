@@ -16,6 +16,7 @@
 #include "u1CheckBox.h"
 #include "u1Bar.h"
 #include "m1GUI.h"
+#include "u1VerticalSlider.h"
 #include "m1Audio.h"
 #include "Brofiler/Brofiler.h"
 #include "m1Audio.h"
@@ -35,7 +36,13 @@ bool m1GUI::Awake(pugi::xml_node &node)
 	CreateScreen();
 
 	//Load all ui elements info with xml...
-	focus_tx = { 1024,1986,16,27 };
+	square_focus_img[0] = { 1045,2205,27,24 };
+	square_focus_img[1] = { 1080,2205,27,24 };
+	square_focus_img[2] = { 1045,2233,27,24 };
+	square_focus_img[3] = { 1080,2233,27,24 };
+
+	classic_focus_img = { 1024,1986,16,27 };
+
 	cursor_rect = { 1024, 2013, 35, 40 };
 
 	//----------------------
@@ -52,6 +59,7 @@ bool m1GUI::Start()
 	fx_inventory = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Potion_Glup.wav");
 
 	SDL_ShowCursor(SDL_DISABLE);
+	using_mouse = false;
 	
 	return true;
 }
@@ -63,18 +71,26 @@ bool m1GUI::PreUpdate()
 	bool ret = true;
 
 	std::list<u1GUI*>::iterator item = ui_list.begin();
+	std::vector<u1GUI*> to_update;
 	while (item != ui_list.end()) {
 		if ((*item) != nullptr && (*item)->to_delete) {
 			DeleteUIElement(*item);
 			item = ui_list.begin();
-			//item = ui_list.erase(item);
 		}
-		else ++item;
+		else {
+			to_update.push_back(*item);
+			++item;
+		}
 		
 	}
 	ui_list.remove(nullptr);
+
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 		debug_ui = !debug_ui;
+	}
+
+	for (std::vector<u1GUI*>::iterator i = to_update.begin(); i != to_update.end(); ++i) {
+		(*i)->PreUpdate();
 	}
 
 	ret = UpdateFocusMouse();
@@ -94,16 +110,7 @@ bool m1GUI::UpdateFocusMouse()
 
 	if (focus != nullptr) {
 		if (using_mouse) {
-			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN
-				|| App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN
-				|| App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN
-				|| App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN
-				|| App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_DOWN)==KEY_DOWN
-				|| App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN
-				|| App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN
-				|| App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN
-				|| App->input->CheckAxisStates(Axis::AXIS_UP)
-				|| App->input->CheckAxisStates(Axis::AXIS_DOWN)) {
+			if (App->input->GetAnyMovementKey()) {
 				using_mouse = false;
 				show_cursor = false;
 			}
@@ -133,9 +140,9 @@ bool m1GUI::UpdateFocusMouse()
 			if (show_cursor) {
 				show_cursor = false;
 			}
-
 			FocusInput();
-			ret = focus->Update();
+			if (focus != nullptr)
+				ret = focus->Update();
 		}
 	}
 
@@ -151,9 +158,7 @@ void m1GUI::FocusInput()
 
 	u1GUI* new_focus = focus;
 
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN|| App->input->CheckAxisStates(Axis::AXIS_UP)) {
-
-		u1GUI* new_focus = focus;
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN|| App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1) {
 		if (focus != nullptr && focus->parent != nullptr) {
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
 				if ((*item)->allow_focus && (*item)->position.y < focus->position.y) {
@@ -165,16 +170,9 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-			if (new_focus != focus) {
-				focus->current_state = Element_Event::NONE;
-				focus = new_focus;
-				focus->current_state = Element_Event::HOVER;
-				App->audio->PlayFx(fx_focus);
-			}
 		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN || App->input->CheckAxisStates(Axis::AXIS_DOWN)) {
-		u1GUI* new_focus = focus;
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN || App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) {
 		if (focus != nullptr && focus->parent != nullptr) {
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
 				if ((*item)->allow_focus && (*item)->position.y > focus->position.y) {
@@ -186,16 +184,9 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-			if (new_focus != focus) {
-				focus->current_state = Element_Event::NONE;
-				focus = new_focus;
-				focus->current_state = Element_Event::HOVER;
-				App->audio->PlayFx(fx_focus);
-			}
 		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) {
-		u1GUI* new_focus = focus;
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN || App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
 		if (focus != nullptr && focus->parent != nullptr) {
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
 				if ((*item)->allow_focus && (*item)->position.x < focus->position.x) {
@@ -207,16 +198,9 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-			if (new_focus != focus) {
-				focus->current_state = Element_Event::NONE;
-				focus = new_focus;
-				focus->current_state = Element_Event::HOVER;
-				App->audio->PlayFx(fx_focus);
-			}
 		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) {
-		u1GUI* new_focus = focus;
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN || App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1) {
 		if (focus != nullptr && focus->parent != nullptr) {
 			for (std::list<u1GUI*>::iterator item = focus->parent->childs.begin(); item != focus->parent->childs.end(); ++item) {
 				if ((*item)->allow_focus && (*item)->position.x > focus->position.x) {
@@ -228,13 +212,14 @@ void m1GUI::FocusInput()
 					}
 				}
 			}
-			if (new_focus != focus) {
-				focus->current_state = Element_Event::NONE;
-				focus = new_focus;
-				focus->current_state = Element_Event::HOVER;
-				App->audio->PlayFx(fx_focus);
-			}
 		}
+	}
+
+	if (new_focus != focus) {
+		focus->current_state = Element_Event::HOVER_EXIT;
+		focus = new_focus;
+		focus->current_state = Element_Event::HOVER_ENTER;
+		App->audio->PlayFx(fx_focus);
 	}
 
 }
@@ -250,6 +235,7 @@ bool m1GUI::FocusFirstUIFocusable()
 		}
 	}
 	//LOG("There is any button focusable");
+	focus = nullptr;
 	return false;
 }
 
@@ -257,6 +243,7 @@ bool m1GUI::FocusButton(u1Button * button)
 {
 	if (button != nullptr) {
 		focus = button;
+		focus->current_state = Element_Event::HOVER_ENTER;
 		return true;
 	}
 	return false;
@@ -275,7 +262,17 @@ bool m1GUI::PostUpdate()
 		for (std::list<u1GUI*>::iterator item = tree.begin(); item != tree.end(); item++) {
 			(*item)->Draw();
 			if (focus == *item) {
-				App->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - focus_tx.w + focus->focus_offset.x, (focus->section.h - focus_tx.h) * 0.5F + focus->GetGlobalPosition().y + 5 + focus->focus_offset.y, &focus_tx);
+				switch (focus->focus_type) {
+				case FocusType::CLASSIC_FOCUS:
+					App->render->Blit((SDL_Texture*)GetAtlas(), focus->GetGlobalPosition().x - classic_focus_img.w + focus->focus_offset.x, (focus->section.h - classic_focus_img.h) * 0.5F + focus->GetGlobalPosition().y + 5 + focus->focus_offset.y, &classic_focus_img);
+					break;
+				case FocusType::SQUARE_FOCUS:
+					App->render->Blit(atlas, focus->GetGlobalPosition().x - 10, focus->GetGlobalPosition().y - 10, &square_focus_img[0], false, SDL_FLIP_NONE, 1.0F, focus->clip_zone);
+					App->render->Blit(atlas, focus->GetGlobalPosition().x - 16 + focus->section.w, focus->GetGlobalPosition().y - 10, &square_focus_img[1], false, SDL_FLIP_NONE, 1.0F, focus->clip_zone);
+					App->render->Blit(atlas, focus->GetGlobalPosition().x - 10, focus->GetGlobalPosition().y - 14 + focus->section.h, &square_focus_img[2], false, SDL_FLIP_NONE, 1.0F, focus->clip_zone);
+					App->render->Blit(atlas, focus->GetGlobalPosition().x - 16 + focus->section.w, focus->GetGlobalPosition().y - 14 + focus->section.h, &square_focus_img[3], false, SDL_FLIP_NONE, 1.0F, focus->clip_zone);
+					break;
+				}
 			}
 			if (debug_ui) {
 				(*item)->DebugDraw();
@@ -283,9 +280,10 @@ bool m1GUI::PostUpdate()
 		}
 		tree.clear();
 
-		App->input->GetMousePosition(cursor_position.x, cursor_position.y);
-		if (show_cursor)
+		if (show_cursor) {
+			App->input->GetMousePosition(cursor_position.x, cursor_position.y);
 			App->render->Blit((SDL_Texture*)GetAtlas(), cursor_position.x * App->win->GetScale() + cursor_offset.x, cursor_position.y * App->win->GetScale() + cursor_offset.y, &cursor_rect);
+		}
 
 	}
 	return ret;
@@ -309,15 +307,25 @@ bool m1GUI::CleanUp()
 	return true;
 }
 
+bool m1GUI::IsInUIList(u1GUI * element)
+{
+	return (std::find(ui_list.begin(), ui_list.end(), element) != ui_list.end());
+}
+
 const SDL_Texture* m1GUI::GetAtlas() const
 {
 	return atlas;
 }
 
-u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, m1Module * listener = nullptr, u1GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false, bool focus = true)
+std::list<u1GUI*> m1GUI::GetUIList() const
+{
+	return ui_list;
+}
+
+u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0,0,0}, m1Module * listener = nullptr, u1GUI * parent = nullptr, bool draw = true, bool drag = false, bool interact = false, bool focus = true, Animation* anim, SDL_Rect*clip_zone)
 {
 
-	u1Image* image = DBG_NEW u1Image(x, y, rect, parent, draw, interact, drag, focus);
+	u1Image* image = DBG_NEW u1Image(x, y, rect, parent, draw, interact, drag, focus, anim, clip_zone);
 
 	if (listener != nullptr) {
 		image->AddListener(listener);
@@ -328,9 +336,9 @@ u1Image* m1GUI::AddImage(const int &x,const int &y, const SDL_Rect & rect = {0,0
 	return image;
 }
 
-u1Button* m1GUI::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* listener, u1GUI* parent, bool draw, bool drag, bool inter, bool focus = true, const iPoint &focus_offset)
+u1Button* m1GUI::AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* listener, u1GUI* parent, bool draw, bool drag, bool inter, bool focus = true, const iPoint &focus_offset, SDL_Rect*clip_zone, const SDL_Rect & extra_image, const iPoint & offset_extra_image)
 {
-	u1Button* button = DBG_NEW u1Button(x, y, idle, mouse_in, clicked, parent, draw, inter, drag, focus, focus_offset);
+	u1Button* button = DBG_NEW u1Button(x, y, idle, mouse_in, clicked, parent, draw, inter, drag, focus, focus_offset, clip_zone, extra_image, offset_extra_image);
 
 	if (listener != nullptr) {
 		button->AddListener(listener);
@@ -343,7 +351,7 @@ u1Button* m1GUI::AddButton(const int &x, const int &y, const SDL_Rect &idle, con
 
 u1ChButton* m1GUI::AddChButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* listener, u1GUI* parent, PlayerType player_type, bool draw, bool drag, bool inter, bool focus)
 {
-	u1ChButton* character_button = DBG_NEW u1ChButton(x, y, idle, mouse_in, clicked, parent, player_type, draw, inter, drag, focus);
+	u1ChButton* character_button = DBG_NEW u1ChButton(x, y, idle, mouse_in, clicked, parent, draw, inter, drag, focus);
 
 	if (listener != nullptr) {
 		character_button->AddListener(listener);
@@ -354,9 +362,9 @@ u1ChButton* m1GUI::AddChButton(const int &x, const int &y, const SDL_Rect &idle,
 	return character_button;
 }
 
-u1Label* m1GUI::AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* listener = nullptr, bool focus = false, const uint32 & wrap, bool has_bg, const SDL_Color& bg_color)
+u1Label* m1GUI::AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* listener = nullptr, bool focus = false, const uint32 & wrap, bool has_bg, const SDL_Color& bg_color, SDL_Rect*clip_zone)
 {
-	u1Label* label = DBG_NEW u1Label(x, y, text, color, font, parent, false, false, wrap, false, has_bg, bg_color);
+	u1Label* label = DBG_NEW u1Label(x, y, text, color, font, parent, false, false, wrap, false, has_bg, bg_color, clip_zone);
 
 	if (listener != nullptr) {
 		label->AddListener(listener);
@@ -428,12 +436,26 @@ u1HitPointLabel * m1GUI::AddHitPointLabel(const int & x, const int & y, const ch
 	return hit_point;
 }
 
+u1VerticalSlider * m1GUI::AddVerticalSlider(const int & x, const int & y, const SDL_Rect & rect, const SDL_Rect & idle, const SDL_Rect & hover, const SDL_Rect & push, u1GUI * parent, int * position, const int&moving_distance,m1Module * callback)
+{
+	u1VerticalSlider* vertical_slider = DBG_NEW u1VerticalSlider(x, y, rect, idle, hover, push, parent, position, moving_distance);
+
+	if (callback != nullptr) {
+		vertical_slider->AddListener(callback);
+	}
+
+	ui_list.push_back(vertical_slider);
+
+	return vertical_slider;
+}
+
 
 
 void m1GUI::CreateScreen()
 {
 	if (std::find(ui_list.begin(), ui_list.end(), screen) == ui_list.end()) {
 		screen = AddImage(0, 0, { 0,0,(int)App->win->width,(int)App->win->height }, nullptr, nullptr, false, false, false, false);
+		LOG("SCREEN CREATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED");
 	}
 }
 
@@ -504,6 +526,7 @@ bool m1GUI::DeleteAllUIElements()
 	bool ret = true;
 
 	ret = DeleteUIElement(screen);
+	screen = nullptr;
 	SDL_assert(ui_list.size() == 0);
 	CreateScreen();
 	focus = nullptr;
@@ -521,7 +544,10 @@ bool m1GUI::GetElemOnMouse(int x, int y, u1GUI *& element)
 		{
 			if (CheckCollision(x, y, *item))
 			{
-				if ((*item)->current_state != Element_Event::CLICKED_DOWN && (*item)->current_state != Element_Event::CLICKED_REPEAT)
+				if ((*item)->current_state == Element_Event::NONE) {
+					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN ? (*item)->current_state = Element_Event::CLICKED_DOWN : (*item)->current_state = Element_Event::HOVER_ENTER;
+				}
+				else if ((*item)->current_state != Element_Event::CLICKED_DOWN && (*item)->current_state != Element_Event::CLICKED_REPEAT)
 					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN ? (*item)->current_state = Element_Event::CLICKED_DOWN : (*item)->current_state = Element_Event::HOVER;
 				else {
 					App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) ? (*item)->current_state = Element_Event::CLICKED_REPEAT : (*item)->current_state = Element_Event::CLICKED_UP;
@@ -529,9 +555,12 @@ bool m1GUI::GetElemOnMouse(int x, int y, u1GUI *& element)
 				element = *item;
 				return true;
 			}
-			
 			else {
-				(*item)->current_state = Element_Event::NONE;
+				if((*item)->current_state == Element_Event::HOVER)
+					(*item)->current_state = Element_Event::HOVER_EXIT;
+				else {
+					(*item)->current_state = Element_Event::NONE;
+				}
 			}
 		}
 	}
@@ -555,7 +584,7 @@ bool m1GUI::CheckCollision(int x, int y, u1GUI *item)
 
 bool m1GUI::ShowCursor(bool enable)
 {
-	return show_cursor = enable;
+	return show_cursor = using_mouse = enable;
 }
 
 const u1GUI * m1GUI::GetFocus()

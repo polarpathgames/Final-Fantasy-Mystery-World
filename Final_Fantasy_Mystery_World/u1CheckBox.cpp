@@ -15,11 +15,11 @@ void u1CheckBox::InnerDraw()
 {
 	if (drawable) 
 	{
-		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0.0F, true);
+		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0.0F, NULL,true);
 
 		if (box_clicked) 
 		{
-			App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &clicked_rect,  false, SDL_FLIP_NONE, 0.0F, true);
+			App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &clicked_rect,  false, SDL_FLIP_NONE, 0.0F, NULL, true);
 		}
 	}
 }

@@ -14,7 +14,7 @@
 e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x, y)
 {
 	LoadEntityData("assets/entities/CarnivorousPlant.tsx");
-
+	name.assign("CarnivorousPlant");
 	enemy_type = EnemyType::CARNIVOROUS_PLANT;
 
 	state = State::SLEEPING;
@@ -37,86 +37,6 @@ e1CarnivorousPlant::e1CarnivorousPlant(const int & x, const int & y) : e1Enemy(x
 
 e1CarnivorousPlant::~e1CarnivorousPlant()
 {
-}
-
-bool e1CarnivorousPlant::PreUpdate()
-{
-	BROFILER_CATEGORY("CarnivorousPlant PreUpdate", Profiler::Color::Yellow);
-
-	if (state == State::IDLE) {
-		if (IsPlayerNextTile()) {
-			state = State::BEFORE_ATTACK;
-			time_to_wait_before_attack = SDL_GetTicks();
-		}
-		else {
-			state = State::WALKING; //Aixo sha de canviar I know :D
-		}
-
-	}
-	if (state == State::WALKING) {
-		//if (!IsPlayerNextTile()) {
-			MovementLogic();
-		//}
-	}
-	if (state == State::BEFORE_ATTACK) {
-		if (time_to_wait_before_attack < SDL_GetTicks() - 250) {
-			type_attack = Attacks::BASIC;
-			state = State::ATTACKING;
-			ChangeAnimation(direction, state, type_attack);
-		}
-
-	}
-	if (state == State::SLEEPING) {
-		if (IsPlayerNextTile()) {
-			state = State::IDLE;
-		}
-		ChangeTurn(type);
-	}
-	return true;
-}
-
-bool e1CarnivorousPlant::Update(float dt)
-{
-	BROFILER_CATEGORY("CarnivorousPlant Update", Profiler::Color::Yellow);
-
-	if (state == State::IDLE) {
-		position.x = initial_position.x + movement_count.x;
-		position.y = initial_position.y + movement_count.y;
-		target_position = position;
-	}
-
-	if (state == State::WALKING) {
-		PerformMovement(dt);
-	}
-	if (state == State::ATTACKING) {
-		if (current_animation->Finished()) {
-			App->audio->PlayFx(App->scene->fx_plant_attack);
-			CheckBasicAttackEffects(e1Entity::EntityType::PLAYER, direction, stats.attack_power);
-			state = State::AFTER_ATTACK;
-			ChangeAnimation(direction, state);
-			time_attack = SDL_GetTicks();
-		}
-	}
-	if (state == State::AFTER_ATTACK) {
-		RestTimeAfterAttack(time_attack);
-	}
-	if (state == State::DEATH) {
-		if (current_animation->Finished()) {
-			int drop = App->random.Generate(1, 3);
-			if (drop == 1)
-				Drop();
-			App->audio->PlayFx(App->scene->fx_kill_enemy);
-			App->scene->player->UpdateExperience(stats.experience);
-			App->map->quest_rooms->AddEntityToNotRepeat(original_position);
-			to_delete = true;
-			ChangeTurn(type);
-		}
-	}
-
-	if (App->debug)
-		App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
-
-	return true;
 }
 
 void e1CarnivorousPlant::IdAnimToEnum()

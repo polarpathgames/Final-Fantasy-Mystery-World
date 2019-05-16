@@ -19,7 +19,6 @@ public:
 public:
 	uint start_time;
 	uint duration_time;
-
 };
 
 #endif // !

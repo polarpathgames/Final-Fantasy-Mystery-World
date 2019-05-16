@@ -13,6 +13,7 @@
 #include "m1Audio.h"
 #include "m1Map.h"
 #include "m1EntityManager.h"
+#include "m1MenuManager.h"
 #include "m1Map.h"
 #include "m1GUI.h"
 #include "m1Pathfinding.h"
@@ -27,11 +28,13 @@
 #include "Brofiler/Brofiler.h"
 #include "m1EasingSplines.h"
 #include "m1MainMenu.h"
+#include "m1Window.h"
+#include "m1ParticleManager.h"
 
 e1Warrior::e1Warrior(const int & x, const int & y) : e1Player(x, y)
 {
 	LoadEntityData("assets/entities/Warrior.tsx");
-
+	name.assign("Warrior");
 	SetPivot(14, 27);
 	CenterPlayerInTile();
 	InitStats();
@@ -276,7 +279,66 @@ void e1Warrior::IdAnimToEnum() //Assign every id animation to enum animation
 		case 65:
 			data.animations[i].animType = AnimationState::DEATH_UP;
 			break;//
+		case 96:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_LEFT_2;
+			break;//
+		case 102:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_RIGHT_2;
+			break;//
+		case 105:
+			data.animations[i].animType = AnimationState::ABILITY_UP_RIGHT_2;
+			break;//
+		case 99:
+			data.animations[i].animType = AnimationState::ABILITY_UP_LEFT_2;
+			break;//
+		case 114:
+			data.animations[i].animType = AnimationState::ABILITY_LEFT_2;
+			break;//
+		case 111:
+			data.animations[i].animType = AnimationState::ABILITY_UP_2;
+			break;//
+		case 126:
+			data.animations[i].animType = AnimationState::ABILITY_RIGHT_2;
+			break;//
+		case 108:
+			data.animations[i].animType = AnimationState::ABILITY_DOWN_2;
+			break;//
 		}
 
 	}
+}
+
+void e1Warrior::UpdateLevel()
+{
+	App->audio->PlayFx(App->scene->fx_controller_conection);
+	stats.max_xp *= stats.level;
+	AugmentLives(stats.max_lives*0.3f, true);
+	AugmentMana(stats.max_mana*0.3f, true);
+	App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-15 }, { 8,0,2,2 }, RANDOM, { 20,20 }, { 10,5 }, { 0,0 }, P_UP, 200, 4, { 0,-2 });
+
+	int mana = (int)stats.max_mana*0.3f;
+	int life = (int)stats.max_lives*0.3f;
+
+	iPoint pos{ 0,0 };
+	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 10) * (int)App->win->GetScale();
+	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
+	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(life).data(), App->gui->screen, GREEN, FontType::PMIX24);
+
+	iPoint pos2{ 0,0 };
+	pos2.x = (int)(App->render->camera.x) + (position.x + pivot.x + 10) * (int)App->win->GetScale();
+	pos2.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
+	App->gui->AddHitPointLabel(pos2.x, pos2.y, std::to_string(mana).data(), App->gui->screen, BLUE, FontType::PMIX24);
+	stats.max_lives += 8;
+	stats.max_mana += 2;
+	stats.attack_power += 5;
+	stats.attack_power_ability_1 += 2;
+	stats.attack_power_ability_3 += 2;
+
+	App->menu_manager->hud.player_hp_bar->max_capacity = stats.max_lives;
+	App->menu_manager->hud.player_mana_bar->max_capacity = stats.max_mana;
+	App->menu_manager->hud.player_exp_bar->max_capacity = stats.max_xp;
+
+	App->menu_manager->hud.player_hp_bar->PrintBarNumbers();
+	App->menu_manager->hud.player_mana_bar->PrintBarNumbers();
+
 }

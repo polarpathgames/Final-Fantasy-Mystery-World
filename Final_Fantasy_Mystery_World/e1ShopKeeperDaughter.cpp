@@ -14,8 +14,9 @@
 e1ShopKeeperDaughter::e1ShopKeeperDaughter(const int &x, const int &y) : e1NPC(x, y)
 {
 	LoadEntityData("assets/entities/Little_Girl.tsx");
+	name.assign("ShopKeeperDaughter");
 	npc_type = NPCType::DAUGHTER;
-	current_animation = &IdleUpRight;
+	current_animation = &anim.IdleUpRight;
 	actual_tile = App->map->WorldToMap(position.x + 16, position.y + 38);
 	App->map->data.no_walkables.push_back(actual_tile + iPoint{ 0,-1 });
 }
@@ -34,7 +35,7 @@ bool e1ShopKeeperDaughter::Update(float dt)
 {
 	if (App->map->quest_rooms != nullptr && App->map->quest_rooms->actual_room != nullptr && !App->entity_manager->ThereAreEnemies() && !App->cutscene_manager->is_executing) {
 		if (actual_tile.DistanceTo(App->scene->player->actual_tile) <= 1) {
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 				App->cutscene_manager->PlayCutscene("assets/xml/CutsceneAfterBossTutorial.xml");
 				App->globals.CutSceneAfterBossTutorialPlayed = true;
 				App->globals.CutSceneFinalRoomTutorialPlayed = true;

@@ -7,6 +7,8 @@
 #include "PugiXml\src\pugixml.hpp"
 #include "p2PerfTimer.h"
 #include "p2Properties.h"
+#include "p1Fire.h"
+#include "p1Explosion.h"
 
 
 struct SDL_Texture;
@@ -23,6 +25,7 @@ enum class AnimationState {
 	BASIC_ATTACK_UP, BASIC_ATTACK_UP_LEFT, BASIC_ATTACK_UP_RIGHT, BASIC_ATTACK_LEFT, BASIC_ATTACK_DOWN_LEFT, BASIC_ATTACK_DOWN, BASIC_ATTACK_DOWN_RIGHT, BASIC_ATTACK_RIGHT,
 	DEATH_UP, DEATH_UP_LEFT, DEATH_UP_RIGHT, DEATH_LEFT, DEATH_DOWN_LEFT, DEATH_DOWN, DEATH_DOWN_RIGHT, DEATH_RIGHT,
 	ABILITY_UP_1, ABILITY_UP_LEFT_1, ABILITY_UP_RIGHT_1, ABILITY_LEFT_1, ABILITY_DOWN_LEFT_1, ABILITY_DOWN_1, ABILITY_DOWN_RIGHT_1, ABILITY_RIGHT_1,
+	ABILITY_UP_2, ABILITY_UP_LEFT_2, ABILITY_UP_RIGHT_2, ABILITY_LEFT_2, ABILITY_DOWN_LEFT_2, ABILITY_DOWN_2, ABILITY_DOWN_RIGHT_2, ABILITY_RIGHT_2,
 
 	NONE
 };
@@ -41,7 +44,7 @@ struct TileSetEntity {
 	uint tilecount = 0;
 	uint columns = 0;
 	std::string imagePath;
-	//SDL_Texture* texture = nullptr;
+	SDL_Texture* texture = nullptr;
 	uint width = 0;
 	uint height = 0;
 };
@@ -74,13 +77,21 @@ public:
 		CARNIVOROUS_PLANT,
 		BLUE_DOG,
 		STRANGE_FROG,
+		SPIDER,
 		WARRIOR,
 		ARCHER,
+		SUPER_PURPLE_FROG,
 		MAGE,
 		PARTICLE,
 		NPC,
 		DAUGHTER,
 		ROCK,
+		BLUE_SLIME,
+		EVENT,
+		CASSIO,
+		FROZEN,
+		MEGA_EYE,
+		BABY_DRAKE,
 
 		NO_TYPE
 	};
@@ -99,13 +110,18 @@ public:
 	virtual bool Update(float dt) { return true; };
 	virtual bool PostUpdate() { return true; };
 	virtual bool CleanUp() { return true; };
-	virtual void Draw(SDL_Texture* tex, float dt);
+	virtual void Draw(float dt);
 	virtual void OnCollision(Collider* c2) {};
 	virtual void OnCollisionEnter(Collider* c2) {};
 	virtual void OnCollisionExit(Collider* c2) {};
 	const Collider * GetCollider() const;
 
 	void SetPivot(const int &x, const int &y);
+	void CenterOnTile();
+	
+	void CreateParticleFollow(e1Entity* element_to_follow, iPoint* object_follow, SDL_Rect initial_rect, iPoint area = { 12, 2 }, iPoint timelife = { 15,5 }, int num_textures = 4, int num_particles = 20, bool active_ = false, bool isMouse = false, const iPoint & offset = { 0,0 });
+	void CreateParticleFire(e1Entity* element_to_follow, iPoint* object_follow, iPoint position_static, SDL_Rect initial_rect, iPoint area = { 12, 2 }, iPoint timelife = { 15,5 }, fPoint speed = { 0,0 }, P_Direction p_direction = P_NON, int num_particles = 20, int num_textures = 4, bool active_ = false, Wind dir = W_NON, const iPoint &offset = { 0,0 });
+	void CreateParticleExplosion(e1Entity* element_to_follow, iPoint* object_follow, iPoint position_static, SDL_Rect initial_rect, Explosion_Type type, iPoint perimeter = { 20, 20 }, iPoint timelife = { 20,10 }, fPoint speed = { 0,0 }, P_Direction p_direction = P_NON, int num_particles = 20, int num_textures = 4, const fPoint& gravity = { 0.0f,5.0f });
 
 	virtual bool Load(pugi::xml_node&) { return true; };
 	virtual bool Save(pugi::xml_node&) const { return true; };
@@ -130,15 +146,21 @@ public:
 	pugi::xml_node		node;
 
 	bool drawable = true;
-	bool has_turn = true;
+	bool allow_turn = false;
 	bool turn_done = false;
-	iPoint actual_tile;
+	iPoint actual_tile = { 0,0 };
 	Collider* coll = nullptr;
 	bool to_delete = false;
-	iPoint velocity;
+	iPoint velocity = { 0,0 };
+
+	uint turn_count = 0u;
 
 	Properties<int> general_properties;
+	std::string name;
 
+	std::list<p1Follow*> particle_follow;
+	std::list<p1Fire*> particle_fire;
+	std::list<p1Explosion*> particle_explosion;
 };
 
 #endif

@@ -11,20 +11,8 @@ public:
 
 	virtual ~e1BlueDog();
 
-	bool PreUpdate();
-
-	bool Update(float dt);
-
 	void IdAnimToEnum();
 
 };
 
-
-
-
-
-
-
 #endif // !_E1BLUEDOG_H_
-
-

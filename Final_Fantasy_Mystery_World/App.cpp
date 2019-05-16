@@ -5,7 +5,6 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "SDL/include/SDL.h"
-
 #include "m1Window.h"
 #include "m1Input.h"
 #include "m1Cutscene.h"
@@ -26,6 +25,7 @@
 #include "m1Pathfinding.h"
 #include "m1DialogSystem.h"
 #include "m1ParticleManager.h"
+#include "m1MenuManager.h"
 #include "Brofiler/Brofiler.h"
 
 // Constructor
@@ -51,6 +51,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	easing_splines = DBG_NEW m1EasingSplines();
 	cutscene_manager = DBG_NEW m1CutScene();
 	particles = DBG_NEW m1ParticleManager();
+	menu_manager = DBG_NEW m1MenuManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -72,14 +73,10 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fade_to_black);
 	AddModule(easing_splines);
 	AddModule(cutscene_manager);
+	AddModule(menu_manager);
 
 	// render last to swap buffer
 	AddModule(render);
-
-	scene->active = false;
-	map->active = false;
-	entity_manager->active = false;
-
 
 	PERF_PEEK(ptimer);
 }
@@ -127,6 +124,17 @@ bool Application::Awake()
 		if (cap > 0)
 		{
 			framerate_cap = 1000 / cap;
+		}
+
+		fast_start = app_config.child("fast_start").attribute("value").as_bool();
+		if (fast_start == true) {
+			main_menu->active = false;
+			map->active = false;
+		}
+		else {
+			scene->active = false;
+			map->active = false;
+			entity_manager->active = false;
 		}
 	}
 
@@ -520,4 +528,9 @@ bool Application::GetInventory()
 bool Application::ChangeInventory()
 {
 	return is_inventory = !is_inventory;
+}
+
+float Application::GetDt()
+{
+	return dt;
 }

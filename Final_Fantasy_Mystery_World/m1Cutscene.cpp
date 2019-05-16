@@ -6,16 +6,23 @@
 #include "m1EntityManager.h"
 #include "m1Scene.h"
 #include "e1Player.h"
+#include "m1MenuManager.h"
+#include "m1Map.h"
+#include "m1Input.h"
 #include "m1CutScene.h"
 #include "c1CutsceneMoveCamera.h"
 #include "c1CutsceneMoveEntity.h"
 #include "c1CutsceneModifyText.h"
 #include "c1CutsceneModifyImage.h"
 #include "c1CutsceneEntity.h"
+#include "c1CutSceneVibration.h"
 #include "c1CutsceneText.h"
+#include "c1CutSceneFadeToBlack.h"
 #include "c1CutsceneImage.h"
 #include "c1CutSceneDeleteEntity.h"
 #include "c1CutSceneAddAudio.h"
+#include "u1Bar.h"
+
 
 m1CutScene::m1CutScene()
 {
@@ -32,7 +39,8 @@ bool m1CutScene::Awake(pugi::xml_node &config)
 
 bool m1CutScene::Update(float dt)
 {
-	ExecuteCutscene(dt);
+	if (is_executing)
+		ExecuteCutscene(dt);
 
 	return true;
 }
@@ -50,7 +58,7 @@ void m1CutScene::PlayCutscene(std::string path)
 	{
 		LoadCutscene(path);
 		SetExecuting(true);
-		
+		App->menu_manager->SkipMenu(true);
 	}
 }
 
@@ -59,7 +67,7 @@ bool m1CutScene::LoadCutscene(std::string path)
 	//TODO 1: Iterate the differents cutscene. Save the cutscene in the cutscenes vector.
 
 	bool ret = false;
-	App->scene->ShowHUD(false);
+	App->menu_manager->EnableHUD(false);
 	App->scene->player->BlockControls(true);
 	pugi::xml_parse_result result = cutscene_file.load_file(path.c_str());
 
@@ -80,7 +88,10 @@ bool m1CutScene::LoadCutscene(std::string path)
 
 			if (action == "move_camera")
 			{
-				cutscene_action = DBG_NEW c1CutsceneMoveCamera(start, duration, cutscene_action_node.child("time").attribute("speed_x").as_int(), cutscene_action_node.child("time").attribute("speed_y").as_int());
+				cutscene_action = DBG_NEW c1CutsceneMoveCamera(start, duration, 
+					cutscene_action_node.child("time").attribute("origin_x").as_int(App->render->camera.x), cutscene_action_node.child("time").attribute("origin_y").as_int(App->render->camera.y),
+					cutscene_action_node.child("time").attribute("destination_x").as_int(-1 * (App->scene->player->position.x - App->render->camera.w * 0.5F)), cutscene_action_node.child("time").attribute("destination_y").as_int(-1*(App->scene->player->position.y + App->render->camera.h * 0.5F)),
+					cutscene_action_node.child("time").attribute("speed").as_float(), cutscene_action_node.child("time").attribute("stop_goal").as_bool(false));
 			}
 			else if (action == "move_entity")
 			{
@@ -105,6 +116,14 @@ bool m1CutScene::LoadCutscene(std::string path)
 			{
 				cutscene_action = DBG_NEW c1CutSceneDeleteEntity(start, duration, cutscene_action_node.attribute("entity").as_string());
 
+			}
+			else if (action == "vibration")
+			{
+				cutscene_action = DBG_NEW c1CutsceneVibration(start, duration);
+			}
+			else if (action == "fade")
+			{
+				cutscene_action = DBG_NEW c1CutsceneFadeToBlack(start, duration, cutscene_action_node.child("time").attribute("fade").as_float());
 			}
 			else if (action == "add_audio")
 			{
@@ -159,6 +178,16 @@ bool m1CutScene::LoadCutscene(std::string path)
 
 void m1CutScene::ExecuteCutscene(float dt)
 {
+	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && !skip_cutscene) || (App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT && !skip_cutscene)) {
+		if (App->menu_manager->br_skipper->current_width >= App->menu_manager->br_skipper->max_width)
+		{
+			skip_cutscene = true;
+		}
+		App->menu_manager->br_skipper->UpdateBar(300*dt, UIType::SKIPBAR);
+	}
+	else {
+		App->menu_manager->br_skipper->UpdateBar(-300*dt, UIType::SKIPBAR);
+	}
 	if (is_executing)
 	{
 		if (start) {
@@ -183,8 +212,28 @@ void m1CutScene::ExecuteCutscene(float dt)
 			is_executing = false;
 			start = true;
 			ClearCutscene();
+			App->menu_manager->SkipMenu(false);
 		}
 	}
+	if (skip_cutscene)
+	{
+		int cont = 0;
+		for (pugi::xml_node cutscene_action_node = cutscene_file.first_child().child("actions").child("cutscene"); cutscene_action_node; cutscene_action_node = cutscene_action_node.next_sibling())
+		{
+			std::string action = cutscene_action_node.attribute("action").as_string();
+			if (action == "delete_entity")
+				actions[cont]->Execute(dt);
+
+			cont++;
+		}
+		is_executing = false;
+		start = true;
+		ClearCutscene();
+		skip_cutscene = false;
+		App->menu_manager->SkipMenu(false);
+	}
+		
+
 }
 
 void m1CutScene::ClearCutscene()
@@ -196,16 +245,29 @@ void m1CutScene::ClearCutscene()
 	}
 
 	actions.clear();
-
+	
 	for (std::map<std::string, c1CutsceneElement*>::iterator it = elements.begin(); it != elements.end(); ++it)
 	{
-		delete (*it).second;
-		(*it).second = nullptr;
+		if ((*it).second != nullptr) {
+			delete (*it).second;
+			(*it).second = nullptr;
+		}
+	}
+
+	if (App->map->quest_rooms != nullptr && App->map->quest_rooms->actual_room != nullptr && App->map->quest_rooms->actual_room->update_number == 4) {
+		std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+		std::vector<e1Entity*>::iterator item = entities.begin();
+		for (; item != entities.end(); ++item) {
+			if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::STATIC && static_cast<e1StaticEntity*>(*item)->static_type == e1StaticEntity::Type::FLASH_INFO) {
+				(*item)->actual_tile = { 19,20 };
+				(*item)->position = { -1,290 };
+			}
+		}
 	}
 
 	cutscene_file.reset();
 	elements.clear();
-	App->scene->ShowHUD(true);
+	App->menu_manager->EnableHUD(true);
 	App->scene->player->BlockControls(false);
 }
 

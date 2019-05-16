@@ -53,7 +53,7 @@ bool m1Input::Awake(pugi::xml_node& config)
 		ret = false;
 	}
 
-	Controller = SDL_GameControllerOpen(0);
+	/*controller = SDL_GameControllerOpen(0);*/
 
 
 	return ret;
@@ -78,6 +78,61 @@ bool m1Input::Start()
 	return true;
 }
 
+bool m1Input::GetAnyMovementKey()
+{
+	return App->input->GetKeyDown(SDL_SCANCODE_DOWN) ||
+		App->input->GetKeyDown(SDL_SCANCODE_UP) ||
+		App->input->GetKeyDown(SDL_SCANCODE_LEFT) ||
+		App->input->GetKeyDown(SDL_SCANCODE_RIGHT) ||
+		App->input->GetKeyDown(SDL_SCANCODE_A) ||
+		App->input->GetKeyDown(SDL_SCANCODE_W) ||
+		App->input->GetKeyDown(SDL_SCANCODE_S) ||
+		App->input->GetKeyDown(SDL_SCANCODE_D) ||
+		App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_UP) ||
+		App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_DOWN) ||
+		App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_LEFT) ||
+		App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) ||
+		App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) ||
+		App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) ||
+		App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) ||
+		App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY);
+
+}
+
+float m1Input::GetAxis(const SDL_GameControllerAxis & axis)
+{
+	return joy[axis].value;
+}
+
+int m1Input::GetAxisRaw(const SDL_GameControllerAxis & axis)
+{
+	if (IN_RANGE(joy[axis].value, -DEAD_ZONE, DEAD_ZONE)) {
+		return 0;
+	}
+	else {
+		if (joy[axis].value <= -DEAD_ZONE) {
+			return -1;
+		}
+		else if (joy[axis].value >= DEAD_ZONE) {
+			return 1;
+		}
+	}
+}
+
+int m1Input::GetAxisDown(const SDL_GameControllerAxis & axis) const
+{
+	if (joy[axis].state == KEY_DOWN) {
+		if (joy[axis].value < - DEAD_ZONE) return -1;
+		else if (joy[axis].value > + DEAD_ZONE) return 1;
+	}
+	return 0;
+}
+
+bool m1Input::GetAxisUp(const SDL_GameControllerAxis & axis)
+{
+	return joy[axis].state == KEY_UP;
+}
+
 void m1Input::DefaultControls()
 {
 	keyboard_buttons.buttons_code.BASIC_ATTACK = SDL_SCANCODE_SPACE;
@@ -92,7 +147,8 @@ void m1Input::DefaultControls()
 	keyboard_buttons.buttons_code.UP = SDL_SCANCODE_W;
 	keyboard_buttons.buttons_code.HABILTY1 = SDL_SCANCODE_1;
 	keyboard_buttons.buttons_code.HABILITY2 = SDL_SCANCODE_2;
-	keyboard_buttons.buttons_code.SHOW_SKILLS = SDL_SCANCODE_V;
+	keyboard_buttons.buttons_code.HABILITY3 = SDL_SCANCODE_3;
+	//keyboard_buttons.buttons_code.SHOW_SKILLS = SDL_SCANCODE_V;
 	keyboard_buttons.buttons_code.INVENTORY = SDL_SCANCODE_E;
 
 	keyboard_buttons.buttons_char.BASIC_ATTACK = "G";
@@ -105,8 +161,10 @@ void m1Input::DefaultControls()
 	keyboard_buttons.buttons_char.LEFT = "A";
 	keyboard_buttons.buttons_char.RIGHT = "D";
 	keyboard_buttons.buttons_char.UP = "W";
-	keyboard_buttons.buttons_char.ABILITY1 = "F";
-	keyboard_buttons.buttons_char.SHOW_SKILLS = "V";
+	keyboard_buttons.buttons_char.ABILITY1 = "1";
+	keyboard_buttons.buttons_char.ABILITY2 = "2";
+	keyboard_buttons.buttons_char.ABILITY3 = "3";
+	//keyboard_buttons.buttons_char.SHOW_SKILLS = "V";
 	keyboard_buttons.buttons_char.INVENTORY = "E";
 
 	controller_Buttons.buttons_code.BASIC_ATTACK = SDL_CONTROLLER_BUTTON_A;
@@ -117,7 +175,8 @@ void m1Input::DefaultControls()
 	controller_Buttons.buttons_code.DIRECCTION_RIGHT = SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
 	controller_Buttons.buttons_code.HABILTY1 = SDL_CONTROLLER_BUTTON_X;
 	controller_Buttons.buttons_code.HABILITY2 = SDL_CONTROLLER_BUTTON_B;
-	controller_Buttons.buttons_code.SHOW_SKILLS = SDL_CONTROLLER_BUTTON_LEFTSHOULDER;
+	controller_Buttons.buttons_code.HABILITY3 = SDL_CONTROLLER_BUTTON_Y;
+	//controller_Buttons.buttons_code.SHOW_SKILLS = SDL_CONTROLLER_BUTTON_LEFTSHOULDER;
 	controller_Buttons.buttons_code.INVENTORY = SDL_CONTROLLER_BUTTON_RIGHTSHOULDER;
 
 	controller_Buttons.buttons_char.BASIC_ATTACK = "A";
@@ -130,8 +189,10 @@ void m1Input::DefaultControls()
 	controller_Buttons.buttons_char.LEFT = "L-JOSTICK";
 	controller_Buttons.buttons_char.RIGHT = "L-JOSTICK";
 	controller_Buttons.buttons_char.UP = "L-JOSTICK";
-	controller_Buttons.buttons_char.ABILITY1 = "B";
-	controller_Buttons.buttons_char.SHOW_SKILLS = "LB";
+	controller_Buttons.buttons_char.ABILITY1 = "X";
+	controller_Buttons.buttons_char.ABILITY3 = "Y";
+	controller_Buttons.buttons_char.ABILITY2 = "B";
+	//controller_Buttons.buttons_char.SHOW_SKILLS = "LB";
 	controller_Buttons.buttons_char.INVENTORY = "RB";
 }
 
@@ -187,9 +248,7 @@ void m1Input::UpdateEvents(SDL_Event &event)
 			}
 			break;
 		case SDL_CONTROLLERBUTTONDOWN:
-			if (event.cbutton.which == 0) {
 				controller_buttons[event.cbutton.button] = KEY_DOWN;
-			}
 			break;
 		case SDL_JOYDEVICEADDED:
 			if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) < 0)
@@ -200,11 +259,9 @@ void m1Input::UpdateEvents(SDL_Event &event)
 			{
 				LOG("rumble play error");
 			}
-			Controller = SDL_GameControllerOpen(0);
 
 			break;
 		case SDL_CONTROLLERBUTTONUP:
-			if (event.cbutton.which == 0)
 				controller_buttons[event.cbutton.button] = KEY_UP;
 			break;
 		case SDL_MOUSEBUTTONDOWN:
@@ -245,12 +302,12 @@ void m1Input::UpdateEvents(SDL_Event &event)
 			//Open the first available controller
 			for (int i = 0; i < SDL_NumJoysticks(); ++i) {
 				if (SDL_IsGameController(i)) {
-					Controller = SDL_GameControllerOpen(i);
-					if (Controller) {
+					controller = SDL_GameControllerOpen(i);
+					if (controller) {
 
-						if (SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(Controller)) > 0)
+						if (SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(controller)) > 0)
 						{
-							haptic = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(Controller));
+							haptic = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(controller));
 
 							if (haptic != nullptr)
 							{
@@ -270,7 +327,7 @@ void m1Input::UpdateEvents(SDL_Event &event)
 						else
 						{
 							LOG("haptic error! SDL_Error: %s\n", SDL_GetError());
-							LOG("haptic error! SDL_Error: %i\n", SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(Controller)));
+							LOG("haptic error! SDL_Error: %i\n", SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(controller)));
 						}
 					}
 					else {
@@ -283,14 +340,14 @@ void m1Input::UpdateEvents(SDL_Event &event)
 
 		case SDL_CONTROLLERDEVICEREMOVED:
 			LOG("disconnected gamepad");
-			if (Controller != nullptr)
+			if (controller != nullptr)
 			{
 				SDL_HapticClose(haptic);
 				haptic = nullptr;
-				SDL_GameControllerClose(Controller);
-				Controller = nullptr;
-				break;
+				SDL_GameControllerClose(controller);
+				controller = nullptr;
 			}
+			break;
 		}
 
 	}
@@ -311,12 +368,29 @@ void m1Input::UpdateController()
 	}
 
 	//axis
-	if (Controller != nullptr) {
-		axis_x = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTX);
-		axis_y = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_LEFTY);
-		r_axis_x = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_RIGHTX);
-		r_axis_y = SDL_GameControllerGetAxis(Controller, SDL_CONTROLLER_AXIS_RIGHTY);
-		//LOG("X: %i Y: %i", axis_x, axis_y);
+	if (controller != nullptr) {
+
+		for (int i = 0; i < SDL_CONTROLLER_AXIS_MAX; ++i) {
+			joy[i].value = SDL_GameControllerGetAxis(controller, (SDL_GameControllerAxis)i)/* / 32767*/;
+			
+			if (IN_RANGE(joy[i].value,-DEAD_ZONE,DEAD_ZONE)) {
+				if (joy[i].state == KEY_REPEAT) {
+					joy[i].state = KEY_UP;
+				}
+				else {
+					joy[i].state = KEY_IDLE;
+				}
+			}
+			else {
+				if (joy[i].state == KEY_IDLE) {
+					joy[i].state = KEY_DOWN;
+				}
+				else {
+					joy[i].state = KEY_REPEAT;
+				}
+			}
+		}
+		//LOG("left_joy: (%i, %i)", joy[SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX].value, joy[SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY].value);
 	}
 }
 
@@ -398,87 +472,6 @@ void m1Input::GetMouseMotion(int& x, int& y)
 bool m1Input::MovedMouse()
 {
 	return mouse_x != last_mouse_x || mouse_y != last_mouse_y;
-}
-
-bool m1Input::CheckAxisStates(const Axis &axis) {
-
-	BROFILER_CATEGORY("ChackAxisStates", Profiler::Color::Orange);
-
-	bool ret = false;
-	if (Controller != nullptr) {
-		switch (axis) {
-		case Axis::AXIS_UP_RIGHT:
-			if (axis_x > DEAD_ZONE && axis_y < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_DOWN_RIGHT:
-			if (axis_x > DEAD_ZONE && axis_y > DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_DOWN_LEFT:
-			if (axis_x < -DEAD_ZONE && axis_y > DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_UP_LEFT:
-			if (axis_x < -DEAD_ZONE && axis_y < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_RIGHT:
-			if (axis_x > DEAD_ZONE && axis_y > -DEAD_ZONE && axis_y < DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_LEFT:
-			if (axis_x < -DEAD_ZONE && axis_y > -DEAD_ZONE && axis_y < DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_UP:
-			if (axis_x > -DEAD_ZONE && axis_x < DEAD_ZONE && axis_y < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::AXIS_DOWN:
-			if (axis_x > -DEAD_ZONE && axis_x < DEAD_ZONE && axis_y > DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_UP_RIGHT:
-			if (r_axis_x > DEAD_ZONE && r_axis_y < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_DOWN_RIGHT:
-			if (r_axis_x > DEAD_ZONE && r_axis_y > DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_DOWN_LEFT:
-			if (r_axis_x < -DEAD_ZONE && r_axis_y > DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_UP_LEFT:
-			if (r_axis_x < -DEAD_ZONE && r_axis_y < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_RIGHT:
-			if (r_axis_x > DEAD_ZONE && r_axis_y > -DEAD_ZONE && r_axis_y < DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_LEFT:
-			if (r_axis_x < -DEAD_ZONE && r_axis_y > -DEAD_ZONE && r_axis_y < DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_UP:
-			if (r_axis_x > -DEAD_ZONE && r_axis_x < DEAD_ZONE && r_axis_y < -DEAD_ZONE)
-				ret = true;
-			break;
-		case Axis::R_AXIS_DOWN:
-			if (r_axis_x > -DEAD_ZONE && r_axis_x < DEAD_ZONE && r_axis_y > DEAD_ZONE)
-				ret = true;
-			break;
-		default:
-			LOG("No axis found");
-			break;
-		}
-	}
-	
-
-	return ret;
 }
 
 bool m1Input::ControllerVibration(float strength, uint32 duration)

@@ -86,5 +86,16 @@ void p1Follow::Update_position(iPoint* element)
 		pos.y = element->y + offset.y - App->render->camera.y * 0.5F;
 	}
 
-	LOG("%i - %i", element->x, element->y);
+}
+
+void p1Follow::SetEntityToFollow(e1Entity * ent)
+{
+	object_follow = nullptr;
+	element_to_follow = ent;
+}
+
+void p1Follow::SetObjectToFollow(iPoint * obj)
+{
+	object_follow = obj;
+	element_to_follow = nullptr;
 }

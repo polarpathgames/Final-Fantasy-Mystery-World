@@ -119,6 +119,9 @@ bool m1Audio::PlayMusic(Mix_Music* mus, float fade_time)
 		LOG("Cannot load music. Mix_GetError():\n", Mix_GetError());
 		ret = false;
 	}
+	else if (mus == actual_mus) {
+		ret = false;
+	}
 	else
 	{
 		if (fade_time  > 0.0f)
@@ -139,6 +142,7 @@ bool m1Audio::PlayMusic(Mix_Music* mus, float fade_time)
 		}
 	}
 
+	actual_mus = mus;
 	LOG("Successfully playing");
 	return ret;
 }

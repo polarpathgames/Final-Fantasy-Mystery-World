@@ -47,12 +47,38 @@ public:
 		QUEST_FOUNTAIN,
 		NPC1,
 		NPC2,
+		NPC_DAUGHTER,
 		FURNITURE,
 		DOORHOME,
 		DOORSHOP,
 		HELP1,
 		HELP2,
 		HELP3,
+		HELP4,
+		PLANT1_Q1,
+		PLANT2_Q1,
+		ROCK_Q1,
+		ROCK_ELEVATION,
+		SNOW_ELEVATION,
+		TREE_Q1,
+		TREE2_Q1,
+		SNOW_MAN,
+		FIREWALL_LEFT,
+		FIREWALL_RIGHT,
+		FIREFLOOR,
+		SPECIAL_FIREWALL1,
+		SPECIAL_FIREWALL2,
+		SPECIAL_FIREFLOOR,
+		TREASURE,
+		BLUE_FIRE,
+		PARTICLE,
+		FLASH_INFO,
+		CAVE_ROCKS,
+		ABILITY_BASE,
+		WATER,
+		WATER2,
+		WATER3,
+		LAVA,
 
 		UNKNOWN
 	};
@@ -80,11 +106,11 @@ public:
 	
 private:
 
-	void Draw(SDL_Texture* tex, float dt);
+	void Draw(float dt);
 	void SetRect(int x, int y, int w, int h);
 
 public:
-	SDL_Rect frame;
+	SDL_Rect frame = { 0,0,0,0 };
 	Animation* idle = nullptr;
 	bool has_animation = false;
 	Type static_type = Type::UNKNOWN;

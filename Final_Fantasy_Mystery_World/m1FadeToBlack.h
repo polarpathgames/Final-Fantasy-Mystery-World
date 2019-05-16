@@ -18,7 +18,7 @@ public:
 	bool FadeToBlack(m1Module* module_off, m1Module* module_on , float time = 1.0f);
 	bool FadeToBlack(m1Module* module_off,  float time = 1.0f);
 	bool FadeToBlack(float time, m1Module* module_on);
-	bool FadeToBlack(float time);
+	bool FadeToBlack(float time, bool vibration = false);
 	bool FadeToBlack(Maps type, float time = 1.0f);
 	bool FadeToBlack(m1Module* module_off, Maps type, float time = 1.0f);
 	bool FadeToBlack(bool IsQuest, float time = 1.0f);
@@ -39,6 +39,7 @@ private:
 	m1Module* to_enable = nullptr;
 	m1Module* to_disable = nullptr;
 	
+	bool vibration = false;
 	Maps map_to_change;
 	bool want_to_change_map = false;
 	bool is_quest = false;

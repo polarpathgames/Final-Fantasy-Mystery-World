@@ -7,6 +7,7 @@
 #include "p2Log.h"
 #include "m1Textures.h"
 #include "m1Collisions.h"
+#include "m1ParticleManager.h"
 #include "Brofiler/Brofiler.h"
 
 
@@ -22,17 +23,55 @@ e1Entity::~e1Entity()
 		App->collision->DeleteCollider(coll);
 	}
 	general_properties.CleanUp();
+	if (data.tileset.texture != nullptr) {
+		App->tex->UnLoad(data.tileset.texture);
+	}
+
+	for (std::list<p1Fire*>::iterator fire = particle_fire.begin(); fire != particle_fire.end(); fire++) {
+		App->particles->DeleteFire_p(*fire);
+	}
+	for (std::list<p1Explosion*>::iterator explo = particle_explosion.begin(); explo != particle_explosion.end(); explo++) {
+		App->particles->DeleteExplosion_p(*explo);
+	}
+	for (std::list<p1Follow*>::iterator follow = particle_follow.begin(); follow != particle_follow.end(); follow++) {
+		App->particles->DeleteFollow_p(*follow);
+	}
+	particle_fire.clear();
+	particle_explosion.clear();
+	particle_follow.clear();
 }
 
-void e1Entity::Draw(SDL_Texture * tex, float dt)
+void e1Entity::Draw(float dt)
 {
 	if (drawable)
-		App->render->Blit(tex, position.x, position.y, &(current_animation->GetCurrentFrame(dt)), true);
+		App->render->Blit(data.tileset.texture, position.x, position.y, &(current_animation->GetCurrentFrame(dt)), true);
 }
 
 void e1Entity::SetPivot(const int & x, const int & y)
 {
 	pivot.create(x, y);
+}
+
+void e1Entity::CenterOnTile()
+{
+	position = App->map->MapToWorld(actual_tile.x, actual_tile.y) - pivot;
+	position.x += App->map->data.tile_width * 0.5F;
+	position.y += App->map->data.tile_height * 0.5F;
+}
+
+void e1Entity::CreateParticleFollow(e1Entity * element_to_follow, iPoint * object_follow, SDL_Rect initial_rect, iPoint area, iPoint timelife, int num_textures, int num_particles, bool active, bool isMouse, const iPoint & offset)
+{
+	particle_follow.push_back(App->particles->CreateFollow(element_to_follow, object_follow, initial_rect, area, timelife, num_textures, num_particles, active, isMouse, offset));
+}
+
+void e1Entity::CreateParticleFire(e1Entity * element_to_follow, iPoint * object_follow, iPoint position_static, SDL_Rect initial_rect, iPoint area, iPoint timelife, fPoint speed, P_Direction p_direction, int num_particles, int num_textures, bool active, Wind w_dir, const iPoint & offset)
+{
+	particle_fire.push_back(App->particles->CreateFire(element_to_follow, object_follow, position_static, initial_rect, area, timelife, speed, p_direction, num_particles, num_textures, active, w_dir, offset));
+}
+
+void e1Entity::CreateParticleExplosion(e1Entity * element_to_follow, iPoint * object_follow, iPoint position_static, SDL_Rect initial_rect, Explosion_Type type, iPoint perimeter, iPoint timelife, fPoint speed, P_Direction p_direction, int num_particles, int num_textures, const fPoint & gravity)
+{
+	particle_explosion.push_back(App->particles->CreateExplosion(element_to_follow, object_follow, position_static, initial_rect, type, perimeter, timelife, speed, p_direction, num_particles, num_textures, gravity));
 }
 
 iPoint e1Entity::GetPosition() const
@@ -86,15 +125,17 @@ bool e1Entity::LoadEntityData(const char* file) {
 	data.tileset.margin = _node.attribute("margin").as_uint();
 	data.tileset.tilecount = _node.attribute("tilecount").as_uint();
 	data.tileset.columns = _node.attribute("columns").as_uint();
-	data.tileset.imagePath = _node.child("image").attribute("source").as_string();
+
+	data.tileset.imagePath = _node.child("image").attribute("source").as_string(); //Gets relative image path from .tsx "../sprites"
+	data.tileset.imagePath.erase(0, 3);												//Delete "../"
+	data.tileset.imagePath = "assets/" + data.tileset.imagePath;					//add assets folder
+
 	data.tileset.width = _node.child("image").attribute("width").as_uint();
 	data.tileset.height = _node.child("image").attribute("height").as_uint();
 
 	size.create(data.tileset.tilewidth, data.tileset.tileheight);
 
-	//provisional ubication -----------------------------
-	//data.tileset.texture = App->tex->Load(data.tileset.imagePath.data());
-	//----------------------------
+	data.tileset.texture = App->tex->Load(data.tileset.imagePath.data());
 
 	//count how many animations are in file
 	_node = _node.child("tile");
@@ -113,7 +154,7 @@ bool e1Entity::LoadEntityData(const char* file) {
 		data.animations[i].FrameCount(_node.child("animation").child("frame"));
 		data.animations[i].frames = DBG_NEW SDL_Rect[data.animations[i].num_frames];
 		data.animations[i].id = _node.attribute("id").as_uint();
-		data.animations[i].speed = _node.child("properties").child("property").attribute("value").as_int(1);
+		data.animations[i].speed = _node.child("properties").child("property").attribute("value").as_int(6);
 		_node = _node.next_sibling("tile");
 	}
 
@@ -141,6 +182,10 @@ bool e1Entity::LoadEntityData(const char* file) {
 	//Load data
 	LoadProperties(entity_file.child("tileset").child("properties").child("property")); //Load properties
 
+	pugi::xml_node pivot_node = entity_file.child("tileset").child("tile").child("objectgroup").child("object"); //Load pivot
+	if (strcmp(pivot_node.attribute("name").as_string(), "pivot") == 0) {
+		pivot.create(pivot_node.attribute("x").as_int(), pivot_node.attribute("y").as_int());
+	}
 	//LoadCollider(entity_file.child("tileset").child("tile").child("objectgroup").child("object")); //Load collider
 
 	//Convert id animations to enum
@@ -168,8 +213,7 @@ bool e1Entity::LoadEntityData(const char* file) {
 void e1Entity::LoadProperties(pugi::xml_node &property)
 {
 	for (; property != NULL; property = property.next_sibling()) {
-		Property<int>* prop = DBG_NEW Property<int>(property.attribute("name").as_string(), property.attribute("value").as_int());
-		general_properties.properties.push_back(prop);
+		general_properties.AddProperty(property.attribute("name").as_string(), property.attribute("value").as_int());
 	}
 }
 

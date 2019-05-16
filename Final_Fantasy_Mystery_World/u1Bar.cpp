@@ -2,8 +2,13 @@
 #include "u1Bar.h"
 #include "u1Image.h"
 #include "e1Player.h"
+#include "u1Label.h"
+#include "m1MenuManager.h"
 #include "m1Scene.h"
 #include "m1Render.h"
+#include "e1Player.h"
+#include "m1EntityManager.h"
+#include "p2Log.h"
 
 u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* parent, m1Module* callback) :u1GUI(BAR, x, y, parent, {0, 0, 0, 0}, true, false, false, false)
 {
@@ -15,48 +20,69 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 	if (type == HPBAR)
 	{
 		current_width = max_width;
-		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, App->scene->bg_hud, false, false, false, false);
+		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, parent, false, false, false, false);
 		filled_bar = App->gui->AddImage(7, 5, { 1405, 3149, 172, 10 }, App->scene, empty_bar, false, false, false, false);
+		PrintBarNumbers();
 	}
 
 	if (type == MANABAR)
 	{
 		current_width = max_width;
-		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, App->scene->bg_hud, false, false, false, false);
+		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, parent, false, false, false, false);
 		filled_bar = App->gui->AddImage(7, 5, { 1405, 3185, 172, 10 }, App->scene, empty_bar, false, false, false, false);
+		PrintBarNumbers();
 	}
+
+	if (type == EXPBAR)
+	{
+		current_width = 0;
+		current_quantity = 0;
+		max_width = 372;
+		empty_bar = App->gui->AddImage(x, y, { 1374, 3237, 372, 11 }, App->scene, parent, false, false, false, false); // this is empty
+		filled_bar = App->gui->AddImage(2, 1, { 1371, 3217, 369, 8 }, App->scene, empty_bar, false, false, false, false); // this is filled
+		empty_bar->drawable = true;
+	}
+	if (type == SKIPBAR)
+	{
+		current_quantity = 0;
+		current_width = 0;
+		max_width = 33;
+		empty_bar = App->gui->AddImage(x, y, { 1486,2111,33,31 }, nullptr, parent, true, false, false, false);
+		filled_bar = App->gui->AddImage(x, y, { 1418,2111,0,34 }, nullptr, empty_bar, true, false, false, false);
+	}
+
+	
 }
 
-u1Bar::~u1Bar() {}
+u1Bar::~u1Bar() {
+	bar_numbers_label = nullptr;
+}
 
 void u1Bar::UpdateBar(int quantity, UIType bar_type)
 {
 	if (empty_bar != nullptr)
 	{
-		targe_width = CalculateBar(quantity);
+		if(bar_type == UIType::HPBAR || bar_type == UIType::MANABAR || bar_type == UIType::SKIPBAR)
+			targe_width = CalculateBar(quantity);
+		
+		else {
+			empty_bar->drawable = false;
+			got_xp = true;
+			targe_width = CalculateExpBar(quantity);
+		}
+			
 
 		if (targe_width != current_width) {
 			has_change = true;
-			/*
-			current_width = new_width;
-			App->gui->DeleteUIElement(filled_bar);
-			if (bar_type == UIType::HPBAR)
-			{
-				filled_bar = App->gui->AddImage(7, 5, { 1405, 3149, current_width, 10 }, App->scene, empty_bar, false, false, false, false);
-			}
-
-			else if (bar_type == UIType::MANABAR)
-			{
-				filled_bar = App->gui->AddImage(7, 5, { 1405, 3185, current_width, 10 }, App->scene, empty_bar, false, false, false, false);
-			}*/
 		}
 		
 	}
+	if (bar_type != SKIPBAR && bar_type != UIType::EXPBAR)
+		PrintBarNumbers();
 }
 
 int u1Bar::CalculateBar(int quantity)
 {
-
 	int new_width = current_width;
 	int new_quantity = (current_quantity + quantity);
 	current_quantity += quantity;
@@ -78,9 +104,56 @@ int u1Bar::CalculateBar(int quantity)
 
 }
 
+int u1Bar::CalculateExpBar(int xp)
+{
+	int new_width = current_width;
+	int new_quantity = (current_quantity + xp);
+	current_quantity += xp;
+
+	if (current_quantity >= max_capacity) {
+		current_quantity = 0;
+		new_width = 0;
+	}
+
+	if (current_quantity < max_capacity)
+		new_width = (new_quantity * max_width) / max_capacity;
+
+	if (current_quantity <= 0) {
+		current_quantity = 0;
+		return new_width = 0;
+	}
+
+	LOG("CURRENT QUANTITY: %i", current_quantity);
+
+	return new_width;
+}
+
 void u1Bar::InnerDraw()
 {
-	if (has_change) {
+
+	if (!drawable)
+		return;
+
+	if (has_change && bar_type == UIType::EXPBAR) {
+		if (current_width > targe_width) {
+
+			current_width += 100 * App->GetDeltaTime();
+
+			if (current_width == max_width) {
+				current_width = 0;
+			}
+		}
+
+		else if (current_width < targe_width) {
+			current_width += 100 * App->GetDeltaTime();
+		}
+		else {
+			has_change = false;
+		}
+		filled_bar->section.w = current_width;
+	}
+
+	if (has_change && bar_type != UIType::EXPBAR) {
 		if (current_width > targe_width) {
 			current_width -= 100 * App->GetDeltaTime();
 		}
@@ -98,3 +171,18 @@ void u1Bar::InnerDraw()
 		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), filled_bar->draw_offset.x, filled_bar->draw_offset.y, &filled_bar->section, false, SDL_FLIP_NONE, 0);
 	}
 }
+
+void u1Bar::PrintBarNumbers()
+{
+	if (bar_numbers_label != nullptr)
+		App->gui->DeleteUIElement(bar_numbers_label);
+
+	if (current_quantity < 0)
+		current_quantity = 0;
+
+	std::string bar_nums_str = std::to_string(current_quantity) + "/" + std::to_string(max_capacity);
+
+	bar_numbers_label = App->gui->AddLabel(100, 5, bar_nums_str.c_str(), filled_bar, BLACK, FontType::FF32, App->scene, false);
+
+}
+

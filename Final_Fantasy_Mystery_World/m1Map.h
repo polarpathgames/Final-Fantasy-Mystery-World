@@ -20,6 +20,9 @@ enum class Maps {
 	TUTORIAL,
 	SHOP,
 	HOME,
+	QUEST2,
+	FINAL_QUEST,
+	DEBUG,
 
 	NONE
 };
@@ -163,7 +166,7 @@ public:
 	Maps		last_map = Maps::NONE;
 
 	uint		last_tiles_drawn = 0u;
-
+	LobbyState lobby_state = LobbyState::NORMAL_LOBBY;
 private:
 
 	pugi::xml_document	map_file;
@@ -171,10 +174,13 @@ private:
 	bool				map_loaded = false;
 	SDL_Texture*		quad = nullptr;
 
-	std::string tutorial_map;
 	std::string lobby_map;
+	std::string lobby_ice;
+	std::string lobby_night;
 	std::string shop_map;
 	std::string home_map;
+
+	std::string debug_map;
 
 	Mix_Music* mus_shop = nullptr;
 	Mix_Music* mus_lobby = nullptr;

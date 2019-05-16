@@ -16,9 +16,16 @@ u1GUI::u1GUI(UIType type, const int &x, const int &y, u1GUI* parent, const SDL_R
 	if (parent != nullptr) {
 		parent->childs.push_back(this);
 	}
+	focus_type = FocusType::SQUARE_FOCUS;
 }
 
-u1GUI::~u1GUI() {}
+u1GUI::~u1GUI() {
+
+	if (new_clip) {
+		delete clip_zone;
+		clip_zone = nullptr;
+	}
+}
 
 void u1GUI::Draw()
 {
@@ -30,9 +37,9 @@ void u1GUI::Draw()
 			draw_offset += p->position;
 		}
 	}
+	global_rect = { draw_offset.x,draw_offset.y,section.w,section.h };
 
-	if (drawable)
-		InnerDraw();
+	InnerDraw();
 
 	if (App->gui->debug_ui) {
 		DebugDraw();
@@ -44,10 +51,53 @@ void u1GUI::InnerDraw()
 	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), draw_offset.x, draw_offset.y, &section, false, SDL_FLIP_NONE, 0);
 }
 
+void u1GUI::PreUpdate()
+{
+	PreUpdateElement();
+
+	switch (current_state)
+	{
+	case Element_Event::HOVER_ENTER:
+		current_state = Element_Event::HOVER;
+		break;
+	case Element_Event::HOVER_EXIT:
+		current_state = Element_Event::NONE;
+		break;
+	case Element_Event::CLICKED_UP:
+		current_state = Element_Event::NONE;
+		break;
+	}
+}
+
+void u1GUI::SetFocus(const FocusType & focus) {
+	focus_type = focus;
+}
+
 bool u1GUI::Update()
 {
 	UpdateElement();
-	if (current_state == Element_Event::CLICKED_DOWN || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+
+	iPoint mouse;
+	App->input->GetMousePosition(mouse.x, mouse.y);
+	if (current_state == Element_Event::CLICKED_REPEAT && draggable) {
+
+		if (mouse.x != last_mouse.x || mouse.y != last_mouse.y) {
+
+			int x_motion = mouse.x - last_mouse.x, y_motion = mouse.y - last_mouse.y;
+			switch (type) {
+			case UIType::VERTICAL_SLIDER:
+				SetPos(GetLocalPosition().x, GetLocalPosition().y + y_motion * App->win->GetScale());
+				break;
+			default:
+				SetPos(GetLocalPosition().x + x_motion * App->win->GetScale(), GetLocalPosition().y + y_motion * App->win->GetScale());
+				break;
+			}
+		}
+		
+	}
+	last_mouse = mouse;
+
+	if (current_state == Element_Event::CLICKED_DOWN || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 		for (std::list<m1Module*>::iterator module = listeners.begin(); module != listeners.end(); ++module) {
 			if (*module != nullptr)
 				if (!(*module)->Interact(this))
@@ -158,4 +208,45 @@ void u1GUI::AddListener(m1Module * module)
 void u1GUI::DeleteListener(m1Module * module)
 {
 	listeners.remove(module);
+}
+
+SDL_Rect* u1GUI::GetGlobalRect()
+{
+	if (parent != nullptr) {
+		draw_offset.x = position.x;
+		draw_offset.y = position.y;
+		for (u1GUI* p = parent; p != nullptr; p = p->parent) {
+			draw_offset += p->position;
+		}
+		global_rect = { draw_offset.x,draw_offset.y,section.w,section.h };
+		return &global_rect;
+	}
+
+}
+
+void u1GUI::SetClipZone(const SDL_Rect & clip_zone)
+{
+	if (this->clip_zone == nullptr) {
+		new_clip = true;
+		this->clip_zone = new SDL_Rect();
+		this->clip_zone->x = clip_zone.x;
+		this->clip_zone->y = clip_zone.y;
+		this->clip_zone->h = clip_zone.h;
+		this->clip_zone->w = clip_zone.w;
+	}
+	else {
+		this->clip_zone->x = clip_zone.x;
+		this->clip_zone->y = clip_zone.y;
+		this->clip_zone->h = clip_zone.h;
+		this->clip_zone->w = clip_zone.w;
+	}
+}
+
+void u1GUI::ResetClipZone()
+{
+	if (new_clip) {
+		new_clip = false;
+		delete clip_zone;
+		clip_zone = nullptr;
+	}
 }

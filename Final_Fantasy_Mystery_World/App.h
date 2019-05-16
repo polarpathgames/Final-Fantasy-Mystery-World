@@ -29,6 +29,7 @@ class m1EasingSplines;
 class m1DialogSystem;
 class m1CutScene;
 class m1ParticleManager;
+class m1MenuManager;
 
 struct GlobalGameAdvances
 {
@@ -40,9 +41,20 @@ struct GlobalGameAdvances
 	bool Tutorial_first_time = true;
 	bool ability1_gained = false;
 	bool ability2_gained = false;
+	bool ability3_gained = false;
+	bool helmet_bought = false;
+	bool ring_bought = false;
+	bool shop_gone = false;
+	bool CutSceneHomeToSleepQuest2 = false;
+	bool quest2_rocks_cave_destroyed = false;
+	bool CutSceneQueenQuest2 = false;
+	bool CutSceneFinalRoomQuest2 = false;
+	bool ice_queen_killed = false;
 	std::string player_name;
 
 	void Reset() {
+		ice_queen_killed = false;
+		CutSceneHomeToSleepQuest2 = false;
 		CutSceneTutorialGirlEscapingPlayed = false;
 		CutSceneFinalRoomTutorialPlayed = false;
 		CutSceneMiddleRoomTutorialPlayed = false;
@@ -51,6 +63,13 @@ struct GlobalGameAdvances
 		Tutorial_first_time = true;
 		ability1_gained = false;
 		ability2_gained = false;
+		ability3_gained = false;
+		helmet_bought = false;
+		ring_bought = false;
+		shop_gone = false;
+		quest2_rocks_cave_destroyed = false;
+		CutSceneQueenQuest2 = false;
+		CutSceneFinalRoomQuest2 = false;
 	}
 
 };
@@ -90,6 +109,11 @@ public:
 	void LoadGame(const char* file);
 	void SaveGame(const char* file) const;
 
+	inline bool LookForFileExistence(const std::string& name) {
+		struct stat buffer;
+		return (stat(name.c_str(), &buffer) == 0);
+	}
+
 	//Exit
 	void QuitGame();
 
@@ -105,7 +129,7 @@ public:
 	pugi::xml_node LoadConfig(pugi::xml_document&, std::string name) const;
 
 	bool capactivated = true;
-
+	bool fast_start = false;
 	bool debug = false;
 
 private:
@@ -132,6 +156,12 @@ private:
 	bool LoadGameNow();
 	bool SavegameNow() const;
 
+public:
+
+	//GetDt
+	float GetDt();
+
+
 
 public:
 
@@ -154,6 +184,7 @@ public:
 	m1DialogSystem*     dialog = nullptr;
 	m1CutScene*			cutscene_manager = nullptr;
 	m1ParticleManager*	particles = nullptr;
+	m1MenuManager*		menu_manager = nullptr;
 	GlobalGameAdvances  globals;
 	Random random;
 

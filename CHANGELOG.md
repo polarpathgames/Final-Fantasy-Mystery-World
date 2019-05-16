@@ -1,7 +1,233 @@
 # Changelog
 
-
 All notable changes to this project will be documented in this file.
+
+## [0.8.0] - 12/05/2019
+
+Added: 
+--------
+- Quest 3 rooms with colliders
+- Exp bar
+- Loop quest 3
+- Bat enemy
+
+Changed:
+--------
+- Inventory
+- Experience
+
+Removed: 
+--------
+- Old inventory
+
+Fixed: 
+--------
+- #333 The rectangle of the worktop is too large
+- #335 The game doesn't return the player to the lobby once you go to the map for a second time
+- #341 Game crash when return to main menu and use the B button in controller
+- #381 The fx are a little bit behind than they should
+- #382 The game crashes when you try to make the load
+- #386 The spawn of the player when return to the lobby from quest is wrong
+- #388 The statues dialogs are wrong picked
+- #390 The arrow ability disappear too soon
+
+## [0.7.1] - 09/05/2019
+
+Added: 
+--------
+- New objects descriptions in shop
+- Full quest 2 static objects
+- Daughter added in lobby as static entity
+
+
+Changed:
+--------
+- Shop menu
+- Camera Shake
+- Cutscenes code
+- Cutscenes Adapted to new code
+
+Removed: 
+--------
+
+Fixed: 
+--------
+- Shop scroll fully functional
+
+## [0.7.0] - 05/05/2019
+
+Added: 
+--------
+- Cassio enemy added
+- Blizzard added
+- Special cassio venom attack added
+- Full event system added
+- Statick objects quest 2 added
+- Shop scroll added
+- More than one object in shop added
+
+
+Changed:
+--------
+- Health and mana bars
+- Super Frog special attack (pathfinding change)
+- Menu's exit splines
+- Lobby map (more credible)
+- Cursor code
+- HUD rework
+- Clear code create entities in room
+
+Removed: 
+--------
+
+Fixed: 
+--------
+- #334 If you go to the tutorial map from the lobby the HUD disappear
+- #335 The game doesn't return the player to the lobby once you go to the map for a second time
+- #341 Game crash when return to main menu and use the B button in controller
+
+## [0.6.1] - 03/05/2019
+
+Added: 
+--------
+- Save and Load
+- 3rd ability
+- Minimap (almost done)
+- Button to skip cutscene
+- Loop Quest 2
+- Rooms quest 2
+- Purple frog enemy added
+- Slime enemy added
+
+Changed:
+--------
+- Splines in almost all menus
+- Menus code
+
+Removed: 
+--------
+
+Fixed: 
+--------
+- #287 General volume of all audios should be way less loud
+- #305 Shop bugs when you click fast to buy potions
+- #332 The ability panel disable the HUD when you go back to the game
+- #334 If you go to the tutorial map from the lobby the HUD disappear
+
+## [0.6.0] - 28/04/2019
+
+Added: 
+--------
+- Compass
+- Potions as drops
+- Slime spritesheet
+
+Changed:
+--------
+- Lobby tmx
+- Stats update when level up
+- Tutorial tmx
+- Code revision
+
+Removed: 
+--------
+
+Fixed: 
+--------
+- Pre-Release 0.5.3 branch merge conflicts into develop branch
+
+
+## [0.5.3] - 23/04/2019
+
+Added: 
+--------
+- Death animations enemies
+- 2 more tutorial panels
+
+Changed:
+--------
+- Statue Animation
+
+Removed: 
+--------
+
+Fixed: 
+--------
+
+
+## [0.5.2] - 23/04/2019
+
+Added: 
+--------
+- Debug keys to pass through rooms
+- New fountains sprites
+- Statue tutorial added
+- Idle animations
+
+Changed:
+--------
+- Abilities blocked from the beginning
+- Recover health and mana in the lobby
+- Pivots are now in the debug collision key
+- Controls of the controller and keyboard
+
+Removed: 
+--------
+- Blue and greeen quads for the enemy and player positions
+
+Fixed: 
+--------
+- #305 Shop bugs when you click fast to buy potions
+- #300 HUD disappear when you talk to the NPC in the lobby
+- #304 Arrow keeps doing damage to the enemies
+- #306 If you die in the final battle at the tutorial it goes to the lobby
+
+
+
+## [0.5.1] - 21/04/2019
+
+Added: 
+--------
+- Input text
+- Particles
+- Cutscenes
+- Game loop
+- Audio and fxs
+- All characters and enemies animations
+- Abilities implemented
+- Fully controller controls
+- Doors logic
+- Tutorial screens
+- HUD function
+- God mode
+- Breakeable rocks
+- Debug key change between characters
+- Experience and levels
+- Player selection menu
+- Death menu
+
+Changed:
+--------
+- Enemies fully implented
+- Fountain functionality
+- Credits
+
+
+Removed: 
+--------
+
+Fixed: 
+--------
+- #213 If you are in death menu and you wait the game crashes
+- #229 Bug report from release ver 0.5.0
+- #264 If you use the flash ability the collider of the character gets off center
+- #267 Tearing in fullscreen
+- #282 Some fxs doesn't mute when the volume is supposedly 0
+- #283 The camera in fullscreen follow the player too slow
+- #284 Fullscreen button needs to be updated
+- #286 Game sometimes crash when using too much the abilities
+- #296 When you die if you click in return main menu the game sometimes crashes
+
 
 ## [0.5.0] - 17/04/2019
 

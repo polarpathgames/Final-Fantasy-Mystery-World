@@ -106,14 +106,55 @@ bool m1Render::PreUpdate()
 bool m1Render::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateRender", Profiler::Color::Aqua);
-	//LOG("Camera.y = %i", camera.y);
-
+	
 	return true;
 }
 
 bool m1Render::PostUpdate()
 {
 	BROFILER_CATEGORY("PostUpdateRender", Profiler::Color::Purple);
+
+	
+
+	if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
+	{
+		CameraTremble(0.83f, 1.5F);
+		debug = true;
+	}
+	// Joss Camera Shake 
+	// shake
+	// if we have current trauma
+	if (trauma > 0)
+	{
+		preShakePos.x = camera.x;
+		preShakePos.y = camera.y;
+
+		camera.x += maxOffset * GetShakeAmount() * GetFloatNegOneToOne();
+		camera.y += maxOffset * GetShakeAmount() * GetFloatNegOneToOne();
+
+		if (debug)
+		{
+			uint w, h;
+			App->win->GetWindowSize(w, h);
+			SDL_Rect traumaRect = { 10,h - 10, 20, -(trauma * (h - 20)) };
+			SDL_Rect shakeRect = { 30, h - 10, 20, -(GetShakeAmount() * (h - 20)) };
+
+			SDL_SetRenderDrawColor(App->render->renderer, 255, 132, 64, 200);
+			SDL_RenderFillRect(App->render->renderer, &traumaRect);
+			SDL_SetRenderDrawColor(App->render->renderer, 107, 186, 255, 200);
+			SDL_RenderFillRect(App->render->renderer, &shakeRect);
+		}
+
+		// decay trauma
+		trauma -= App->GetDt() * traumaDecay * (trauma + 0.3f);
+	}
+	else // update preshake pos
+	{
+		preShakePos.x = camera.x;
+		preShakePos.y = camera.y;
+		debug = false;
+	}
+
 
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
@@ -164,10 +205,14 @@ void m1Render::ResetViewPort()
 }
 
 // Blit to screen
-bool m1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool apply_scale, SDL_RendererFlip flip, float speed, double angle, int pivot_x, int pivot_y) const
+bool m1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool apply_scale, SDL_RendererFlip flip, float speed, const SDL_Rect* clip_zone,double angle, int pivot_x, int pivot_y) const
 {
 	bool ret = true;
 	uint scale = App->win->GetScale();
+
+	if (clip_zone != NULL) {
+		SDL_RenderSetClipRect(renderer, clip_zone);
+	}
 
 	SDL_Rect rect;
 	if (apply_scale) {
@@ -209,6 +254,10 @@ bool m1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		ret = false;
+	}
+
+	if (clip_zone != NULL) {
+		SDL_RenderSetClipRect(renderer, NULL);
 	}
 
 	return ret;
@@ -328,7 +377,7 @@ void m1Render::ResetCamera()
 void m1Render::SmoothCamera(iPoint playerpos)
 {
 	BROFILER_CATEGORY("SmoothCamera", Profiler::Color::Aquamarine);
-	if (App->fade_to_black->current_step != App->fade_to_black->fade_to_black && App->cutscene_manager->is_executing == false) {
+	if (App->fade_to_black->current_step != App->fade_to_black->fade_to_black && App->cutscene_manager->is_executing == false /*&& trauma < 0*/) {
 		playerpos.x = (playerpos.x * (int)App->win->scale - camera.w * 0.5F);
 		smoth_position.x -= (playerpos.x + camera.x) / smooth_speed * App->GetDeltaTime();
 		camera.x = smoth_position.x;
@@ -349,28 +398,27 @@ void m1Render::CenterCameraOnPlayer(iPoint playerpos)
 	camera.y = smoth_position.y;
 }
 
-bool m1Render::CameraTremble()
+float m1Render::GetFloatNegOneToOne()
 {
-	static int index_tremble = 0;
-	static int tremble = 7;
+	std::uniform_real_distribution<float> dis(-1.0f, std::nextafter(1, DBL_MAX));
 
-	App->input->ControllerVibration(0.3F, 500);
+	return dis(gen);
+}
 
-	if (index_tremble == 0)
-		camera.x += tremble;
-	else if (index_tremble == 1)
-		camera.x -= tremble;
-	else if (index_tremble == 2)
-		camera.x += tremble;
-	else if (index_tremble == 3)
-		camera.x += tremble;
-	else if (index_tremble > 3)
+float m1Render::CameraTremble(float value, float traumaDecay)
+{
+	// values must be between 0 and 1 (percentages)
+	if (value <= 1.0F)
 	{
-		index_tremble = 0;
+		this->traumaDecay = traumaDecay;
+		trauma += value;
+		return trauma = MAX(0.0f, MIN(trauma, 1.0f));
 	}
-	index_tremble++;
 
+	return 0.0F;
+}
 
-
-	return false;
+float m1Render::GetShakeAmount() const
+{
+	return trauma * trauma;
 }

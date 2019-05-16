@@ -1,44 +1,35 @@
 ﻿# Final Fantasy: Mystery World
 
-Final Fantasy Mystery World v.0.5.0
+Final Fantasy Mystery World v.0.8.0
 
 ## Description
 
 Added: 
 --------
-- Use of potions
-- NPCs implemented
-- Cutscene research implemented
-- 2 Cutscenes added
-- 3 enemies implemented (not fully)
-- HUD added
-- 3 characters implemented(not fully)
-- Dynamic NPCs added
-- Game icon added to exe
+- Quest 3 rooms with colliders
+- Exp bar
+- Loop quest 3
+- Bat enemy
 
 Changed:
 --------
-- Controller fully implemented
-- Fountain fully implemented
-- Debug screen fully implemented
-- Shop logic fully implemented
-- Drop sprite added
-- Movement Quest
-- Controls menu changed and fixed
-- Warrior ability animation added
+- Inventory
+- Experience
 
 Removed: 
 --------
+- Old inventory
 
 Fixed: 
 --------
-- #195 Game crash at new game button (Bug photo inside)
-- #180 Game crash if you click cancel button and then tutorial button
-- #178 The game crash when you click in return main menu when dead
-- #177 The game crash when you click Tutorial or cancel button to go to the tutorial map
-- #145 Elements from inventory disappear (even the iventory, blocking the players game)
-- #138 If you click in return when in control menu it returns to pause or main menu
-- #137 If you click the options in the main menu it will click the fullscreen checkbox too
+- #333 The rectangle of the worktop is too large
+- #335 The game doesn't return the player to the lobby once you go to the map for a second time
+- #341 Game crash when return to main menu and use the B button in controller
+- #381 The fx are a little bit behind than they should
+- #382 The game crashes when you try to make the load
+- #386 The spawn of the player when return to the lobby from quest is wrong
+- #388 The statues dialogs are wrong picked
+- #390 The arrow ability disappear too soon
 
 ## Links
 
@@ -83,32 +74,43 @@ Oriol Capdevila [OriolCS2](https://github.com/OriolCS2)
   
   - WASD: move the player
   - LSHIFT: change to a diagonally movement
-  - ILKJ: change direction
+  - ARROWS: change direction
   - V: show abilities menu
-  - G: attack/interact
+  - SPACEBAR: attack/interact
   - F: ability
+  - H: flash
   - E: inventory
 
 - Controller:
   
   - LEFT JOYSTICK: move the player
   - RT: change to a diagonally movement
-  - DPAD: change direction
+  - DPAD / RIGHT JOYSTICK: change direction
   - LB: show abilities menu
   - RB: Inventory
   - A: attack/interact
-  - B: ability
+  - B: flash
+  - X: ability 1
  
 
 ### Debug keys:
 
+- 1/2/3: Change zoom
 - 6: go to the lobby
 - 7: go to tutorial map
-- ARROWS: move the camera
+- 8: go to quest 1
+- 9: go to quest 2
 - F9: colliders
 - F1: UI
 - F2: Debug Screen
-- F3/F4: scale
+- F4: Unlock abilities
+- F5: Change hero
+- F3: Map grid
+- F8: Controller vibration
+- F10: God Mode
+- F6: Change rooms
+- F7: Go to last rooms
+
 
 ## Instructions to execute
 

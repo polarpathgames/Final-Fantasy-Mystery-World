@@ -19,11 +19,23 @@ enum UIType
 	BAR,
 	HPBAR,
 	MANABAR,
+	EXPBAR,
 	ENEMYBAR,
 	INPUT_BOX,
 	HIT_POINT_LABEL,
+	SKIPBAR,
+	VERTICAL_SLIDER,
 
 	NON,
+};
+
+enum class FocusType {
+
+	CLASSIC_FOCUS,
+	SQUARE_FOCUS,
+
+	NONE
+
 };
 
 struct SDL_Texture;
@@ -42,6 +54,7 @@ class u1Slider;
 class u1CheckBox;
 class u1Bar;
 class u1InputText;
+class u1VerticalSlider;
 class u1HitPointLabel;
 
 class m1GUI: public m1Module
@@ -56,6 +69,8 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
+	bool IsInUIList(u1GUI * element);
+
 	bool UpdateFocusMouse();
 	void FocusInput();
 	bool FocusFirstUIFocusable();
@@ -64,13 +79,14 @@ public:
 	u1Slider* AddSlider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, bool horizontal, u1GUI* parent, m1Module* callback = nullptr);
 	u1CheckBox* AddCheckBox(const int &pos_x, const int &pos_y, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, u1GUI* parent, m1Module* callback = nullptr);
 
-	u1Image* AddImage(const int &x, const int &y, const SDL_Rect & rect, m1Module * callback, u1GUI * parent, bool draw, bool drag, bool interact, bool focus);
-	u1Button* AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* callback, u1GUI* parent, bool draw, bool drag, bool inter, bool focus, const iPoint &focus_offset = { 0,0 });
+	u1Image* AddImage(const int &x, const int &y, const SDL_Rect & rect, m1Module * callback, u1GUI * parent, bool draw, bool drag, bool interact, bool focus, Animation * anim = nullptr, SDL_Rect* clip_zone = NULL);
+	u1Button* AddButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* callback, u1GUI* parent, bool draw, bool drag, bool inter, bool focus, const iPoint &focus_offset = { 0,0 }, SDL_Rect*clip_zone = nullptr, const SDL_Rect & extra_image = { 0,0,0,0 }, const iPoint & offset_extra_image = { 0,0 });
 	u1ChButton* AddChButton(const int &x, const int &y, const SDL_Rect &idle, const SDL_Rect &mouse_in, const SDL_Rect &clicked, m1Module* callback, u1GUI* parent, PlayerType player_type, bool draw, bool drag, bool inter, bool focus);
-	u1Label* AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* callback, bool focus, const uint32 & wrap = 0u, bool has_bg = false, const SDL_Color& bg_color = { 255,255,255,255 });
+	u1Label* AddLabel(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, m1Module* callback, bool focus, const uint32 & wrap = 0u, bool has_bg = false, const SDL_Color& bg_color = { 255,255,255,255 }, SDL_Rect*clip_zone = nullptr);
 	u1InputText * AddInputText(const int &x, const int &y, const char* text, u1GUI* parent, Color color, const FontType &font, const SDL_Rect &rect,m1Module* callback);
 	u1Bar* AddBar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* parent, m1Module* callback);
 	u1HitPointLabel* AddHitPointLabel(const int &x, const int &y, const char* text, u1GUI* parent,const Color &color, const FontType & type);
+	u1VerticalSlider* AddVerticalSlider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, u1GUI* parent, int * position, const int &moving_distance, m1Module* callback = nullptr);
 
 	void CreateScreen();
 
@@ -85,11 +101,14 @@ public:
 
 	const SDL_Texture* GetAtlas() const;
 
+	std::list<u1GUI*> GetUIList() const;
+
 private:
 
 	SDL_Texture*		atlas = nullptr;
 	u1GUI*				focus = nullptr;
-	SDL_Rect			focus_tx = { 0,0,0,0 };
+	SDL_Rect			square_focus_img[4] = { 0,0,0,0 };
+	SDL_Rect			classic_focus_img = { 0,0,0,0 };
 	bool				using_mouse = true;
 	std::list<u1GUI*>	ui_list;
 
