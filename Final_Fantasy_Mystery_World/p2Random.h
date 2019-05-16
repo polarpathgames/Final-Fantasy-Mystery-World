@@ -15,7 +15,9 @@ public:
 	int Generate(int min, int max) {
 		max += 1;
 		int size = max - min;
-		return (rand() % size + min);
+		if (size > 0)
+			return (rand() % size + min);
+		else return 0;
 	}
 
 };
