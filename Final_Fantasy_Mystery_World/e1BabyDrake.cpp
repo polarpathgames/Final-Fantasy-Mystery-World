@@ -108,10 +108,10 @@ void e1BabyDrake::IdAnimToEnum()
 		case 17:
 			data.animations[i].animType = AnimationState::IDLE_UP;
 			break;
-		case 20:
+		case 23:
 			data.animations[i].animType = AnimationState::IDLE_LEFT;
 			break;
-		case 23:
+		case 20:
 			data.animations[i].animType = AnimationState::IDLE_RIGHT;
 			break;
 		case 12:
@@ -120,10 +120,10 @@ void e1BabyDrake::IdAnimToEnum()
 		case 15:
 			data.animations[i].animType = AnimationState::WALKING_UP;
 			break;
-		case 18:
+		case 21:
 			data.animations[i].animType = AnimationState::WALKING_LEFT;
 			break;
-		case 21:
+		case 18:
 			data.animations[i].animType = AnimationState::WALKING_RIGHT;
 			break;
 		case 36:
