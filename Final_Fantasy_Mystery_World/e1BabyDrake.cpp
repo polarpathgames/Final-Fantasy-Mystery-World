@@ -54,6 +54,20 @@ void e1BabyDrake::AfetSpecialAttack1()
 		App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, App->scene->player->position.x, App->scene->player->position.y, "poison");
 }
 
+void e1BabyDrake::PrepareBasicAttack()
+{
+	particle_position = position;
+	lerp_translation = 0.f;
+	fire_particle = App->particles->CreateFollow(nullptr, &particle_position, { 2,6,2,2 }, { 10,10 }, { 15,5 }, 4, 60, true, false, { 0,5 });
+}
+
+void e1BabyDrake::FinishBasicAttack()
+{
+	lerp_translation = 0.f;
+	App->particles->DeleteFollow_p(fire_particle);
+	fire_particle = nullptr;
+}
+
 void e1BabyDrake::UpdateEnemy()
 {
 	if (state == State::ATTACKING && fire_particle != nullptr) {
