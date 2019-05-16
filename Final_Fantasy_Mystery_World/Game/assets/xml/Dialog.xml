@@ -79,6 +79,12 @@
       <option line="Examine" nextnode="1" karma="0" tag="190"/>
     </node>
   </dialogtree>
+  <dialogtree treeid="10" karma="0" tag="0" rect_x="1751" rect_y="3090" rect_w="122" rect_h="131">
+    <node line="Are you sure you want to go to the Ice Mountains?" id="0" karma="0" tag="0">
+      <option line="Yes" nextnode="1" karma="0" tag="43"/>
+      <option line="No" nextnode="1" karma="0" tag="0"/>
+    </node>
+  </dialogtree>
 </dialogue>
 <!-- Dialogue Tree example -->
 

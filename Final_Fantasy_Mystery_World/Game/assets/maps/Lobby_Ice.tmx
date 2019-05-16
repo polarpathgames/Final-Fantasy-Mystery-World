@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="66" height="60" tilewidth="32" tileheight="16" infinite="0" nextlayerid="38" nextobjectid="976">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="66" height="60" tilewidth="32" tileheight="16" infinite="0" nextlayerid="38" nextobjectid="979">
  <properties>
   <property name="movement" type="int" value="1"/>
  </properties>
@@ -23856,6 +23856,21 @@
   <object id="125" name="collider" x="528" y="144" width="14.5795" height="13.2955">
    <properties>
     <property name="menu_quest" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="976" name="collider" x="240" y="304" width="14.5795" height="13.2955">
+   <properties>
+    <property name="quest2" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="977" name="collider" x="240" y="288" width="14.5795" height="13.2955">
+   <properties>
+    <property name="quest2" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="978" name="collider" x="240" y="272" width="14.5795" height="13.2955">
+   <properties>
+    <property name="quest2" type="int" value="0"/>
    </properties>
   </object>
  </objectgroup>
