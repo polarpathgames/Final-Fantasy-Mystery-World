@@ -7,6 +7,7 @@
 enum class EventStates {
 	BLIZZARD,
 	POISON,
+	FIRE,
 
 	NONE
 };

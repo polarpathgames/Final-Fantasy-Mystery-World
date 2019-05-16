@@ -170,7 +170,7 @@ void e1BabyDrake::DeleteParticle()
 	App->particles->DeleteFollow_p(fire_particle);
 	fire_particle = nullptr;
 	if (App->entity_manager->IsPlayerPoisoned() == false)
-		App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, App->scene->player->position.x, App->scene->player->position.y, "poison");
+		App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, App->scene->player->position.x, App->scene->player->position.y, "fire");
 }
 
 void e1BabyDrake::IdAnimToEnum()
