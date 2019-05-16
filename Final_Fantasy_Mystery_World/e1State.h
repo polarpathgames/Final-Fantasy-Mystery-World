@@ -12,6 +12,7 @@ enum class EventStates {
 };
 
 class e1State :public e1Entity {
+
 public:
 	e1State(int x, int y, const char* name);
 	~e1State();
@@ -23,6 +24,8 @@ public:
 	void SetMaxNumberHit(const uint& number) { max_number_hit = number; }
 
 public:
+
+
 	EventStates state = EventStates::NONE;
 	e1Entity* target = nullptr;
 
@@ -45,6 +48,7 @@ private:
 	uint time_effect = 1u;
 	float time_before_effect = 0.5f;
 	int damage = 0;
+public:
 
 	Uint8 color_mod_r = 0u;
 	Uint8 color_mod_g = 0u;
