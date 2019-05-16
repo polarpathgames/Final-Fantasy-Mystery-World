@@ -16,11 +16,13 @@ public:
 	void IdAnimToEnum();
 
 	void PrepareDistanceAttack();
-	bool IsSpecialAttack1Finished();
 	void AfetSpecialAttack1();
 	void PrepareBasicAttack();
 	void FinishBasicAttack();
 	void UpdateEnemy();
+
+	void PrepareParticle();
+	void DeleteParticle();
 
 private:
 	iPoint particle_position = { 0,0 };

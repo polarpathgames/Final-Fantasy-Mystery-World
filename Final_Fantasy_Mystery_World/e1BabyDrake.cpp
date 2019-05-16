@@ -35,37 +35,22 @@ e1BabyDrake::~e1BabyDrake()
 
 void e1BabyDrake::PrepareDistanceAttack()
 {
-	particle_position = position;
-	lerp_translation = 0.f;
-	fire_particle = App->particles->CreateFollow(nullptr, &particle_position, { 2,6,2,2 }, { 10,10 }, { 15,5 }, 4, 60, true, false, { 0,5 });
-}
-
-bool e1BabyDrake::IsSpecialAttack1Finished()
-{
-	return particle_position == App->scene->player->position || lerp_translation > 1.f;
+	PrepareParticle();
 }
 
 void e1BabyDrake::AfetSpecialAttack1()
 {
-	lerp_translation = 0.f;
-	App->particles->DeleteFollow_p(fire_particle);
-	fire_particle = nullptr;
-	if (App->entity_manager->IsPlayerPoisoned() == false)
-		App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, App->scene->player->position.x, App->scene->player->position.y, "poison");
+	DeleteParticle();
 }
 
 void e1BabyDrake::PrepareBasicAttack()
 {
-	particle_position = position;
-	lerp_translation = 0.f;
-	fire_particle = App->particles->CreateFollow(nullptr, &particle_position, { 2,6,2,2 }, { 10,10 }, { 15,5 }, 4, 60, true, false, { 0,5 });
+	PrepareParticle();
 }
 
 void e1BabyDrake::FinishBasicAttack()
 {
-	lerp_translation = 0.f;
-	App->particles->DeleteFollow_p(fire_particle);
-	fire_particle = nullptr;
+	DeleteParticle();
 }
 
 void e1BabyDrake::UpdateEnemy()
@@ -74,6 +59,22 @@ void e1BabyDrake::UpdateEnemy()
 		particle_position = lerp(position, App->scene->player->GetPosition() + iPoint{ 0, -10 }, lerp_translation).AproximateToIntFloor();
 		lerp_translation += lerp_by;
 	}
+}
+
+void e1BabyDrake::PrepareParticle()
+{
+	particle_position = position;
+	lerp_translation = 0.f;
+	fire_particle = App->particles->CreateFollow(nullptr, &particle_position, { 2,6,2,2 }, { 10,10 }, { 15,5 }, 4, 60, true, false, { 0,5 });
+}
+
+void e1BabyDrake::DeleteParticle()
+{
+	lerp_translation = 0.f;
+	App->particles->DeleteFollow_p(fire_particle);
+	fire_particle = nullptr;
+	if (App->entity_manager->IsPlayerPoisoned() == false)
+		App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, App->scene->player->position.x, App->scene->player->position.y, "poison");
 }
 
 void e1BabyDrake::IdAnimToEnum()
