@@ -17,7 +17,7 @@ e1BabyDrake::e1BabyDrake(const int & x, const int & y) : e1Enemy(x, y)
 	enemy_type = EnemyType::BABY_DRAKE;
 	range_to_distance_attack = 2U;
 
-	SetPivot(14, 33);
+	SetPivot(17, 31);
 
 	CenterOnTile();
 
@@ -93,13 +93,13 @@ void e1BabyDrake::IdAnimToEnum()
 		case 24:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_LEFT;
 			break;
-		case 30:
+		case 40:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_RIGHT;
 			break;
-		case 26:
+		case 28:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP_LEFT;
 			break;
-		case 28:
+		case 37:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN_RIGHT;
 			break;
 		case 14:
@@ -126,40 +126,40 @@ void e1BabyDrake::IdAnimToEnum()
 		case 18:
 			data.animations[i].animType = AnimationState::WALKING_RIGHT;
 			break;
-		case 36:
+		case 49:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN;
 			break;
-		case 38:
+		case 53:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP;
 			break;
-		case 40:
+		case 65:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_LEFT;
 			break;
-		case 42:
+		case 60:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
-		case 60:
+		case 48:
 			data.animations[i].animType = AnimationState::ABILITY_DOWN_1;
 			break;
-		case 62:
+		case 52:
 			data.animations[i].animType = AnimationState::ABILITY_UP_1;
 			break;
 		case 64:
 			data.animations[i].animType = AnimationState::ABILITY_LEFT_1;
 			break;
-		case 66:
+		case 61:
 			data.animations[i].animType = AnimationState::ABILITY_RIGHT_1;
 			break;
-		case 48:
+		case 25:
 			data.animations[i].animType = AnimationState::ABILITY_DOWN_LEFT_1;
 			break;
-		case 54:
+		case 41:
 			data.animations[i].animType = AnimationState::ABILITY_UP_RIGHT_1;
 			break;
-		case 50:
+		case 29:
 			data.animations[i].animType = AnimationState::ABILITY_UP_LEFT_1;
 			break;
-		case 52:
+		case 36:
 			data.animations[i].animType = AnimationState::ABILITY_DOWN_RIGHT_1;
 			break;
 		case 644:
@@ -168,13 +168,13 @@ void e1BabyDrake::IdAnimToEnum()
 		case 72:
 			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
 			break;
-		case 80:
+		case 840:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
 			break;
 		case 88:
 			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
 			break;
-		case 65:
+		case 645:
 			data.animations[i].animType = AnimationState::DEATH_DOWN;
 			break;
 		case 646:
