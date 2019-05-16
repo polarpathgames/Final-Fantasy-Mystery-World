@@ -86,6 +86,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 	else if (interaction == App->menu_manager->main_menu.options_button) {
 		App->menu_manager->CreateOptions();
 		App->menu_manager->DestroyMainMenu();
+		App->audio->PlayFx(fx_push_button_return);
 		ret = false;
 	}
 	else if (interaction == App->menu_manager->main_menu.load_game_button) {

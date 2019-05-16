@@ -523,6 +523,7 @@ void e1Player::ReadAttack()
 		return;
 	}
 	if (player_input.pressing_3 && App->globals.ability3_gained == true) {
+		App->audio->PlayFx(App->scene->fx_ability3);
 		PrepareSpecialAttack2();
 		return;
 	}
@@ -782,6 +783,7 @@ void e1Player::SpecialAttack2()
 		state = State::AFTER_ATTACK;
 		ChangeAnimation(direction, state);
 		time_attack = SDL_GetTicks();
+		App->audio->PlayFx(App->scene->fx_ability3_hit);
 	}
 }
 

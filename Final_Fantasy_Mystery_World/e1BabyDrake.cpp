@@ -38,6 +38,7 @@ e1BabyDrake::~e1BabyDrake()
 
 void e1BabyDrake::PrepareDistanceAttack()
 {
+	App->audio->PlayFx(fx_dragon_attack);
 	PrepareParticle();
 }
 
@@ -142,6 +143,8 @@ void e1BabyDrake::SuperHit()
 	}
 	else 
 		App->scene->player->state = State::IDLE;
+
+	App->audio->PlayFx(fx_dragon_knockback);
 }
 
 void e1BabyDrake::Death()

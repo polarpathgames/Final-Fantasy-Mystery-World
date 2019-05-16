@@ -96,6 +96,9 @@ bool m1Scene::Start()
 	fx_surprise = App->audio->LoadFx("assets/audio/sfx/MC_Shield.wav");
 	fx_buy = App->audio->LoadFx("assets/audio/sfx/MainMenu_Cancel_Selection.wav");
 	fx_buy_special = App->audio->LoadFx("assets/audio/sfx/song203.wav");
+	fx_ability3 = App->audio->LoadFx("assets/audio/sfx/Ability3.wav");
+	fx_ability3_hit = App->audio->LoadFx("assets/audio/sfx/Ability3_hit.wav");
+	fx_burn = App->audio->LoadFx("assets/audio/sfx/burn.wav");
   
 	mus_game_over = App->audio->LoadMusic("assets/audio/music/35.Final Fantasy TA - Judge.ogg");
 

@@ -3,6 +3,7 @@
 #include "m1Textures.h"
 #include "m1Render.h"
 #include "m1Scene.h"
+#include "m1Audio.h"
 #include "m1EntityManager.h"
 
 e1State::e1State(int x, int y, const char * name) :e1Entity(x, y) {
@@ -104,10 +105,18 @@ bool e1State::PreUpdate()
 
 					break;
 				}
-				case EventStates::POISON: case EventStates::FIRE:
+				case EventStates::POISON: 
 					if (target != nullptr) {
 						static_cast<e1DynamicEntity*>(target)->GetHitted(damage);
 						(*particle_fire.begin())->active = true;
+					}
+					number_hit++;
+					break;
+				case EventStates::FIRE:
+					if (target != nullptr) {
+						static_cast<e1DynamicEntity*>(target)->GetHitted(damage);
+						(*particle_fire.begin())->active = true;
+						App->audio->PlayFx(App->scene->fx_burn);
 					}
 					number_hit++;
 					break;

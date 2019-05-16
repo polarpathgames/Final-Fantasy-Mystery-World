@@ -115,6 +115,9 @@ public:
 
 	Mix_Chunk* fx_laser;
 	bool laser_play_fx = true;
+	Mix_Chunk* fx_enemy_hit;
+	Mix_Chunk* fx_dragon_attack;
+	Mix_Chunk* fx_dragon_knockback;
 
 };
 

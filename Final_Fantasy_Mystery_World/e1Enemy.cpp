@@ -46,6 +46,9 @@ e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 	//SFX
 
 	fx_laser = App->audio->LoadFx("assets/audio/sfx/IceQueen_laser.wav");
+	fx_enemy_hit = App->audio->LoadFx("assets/audio/sfx/Enemy_hit.wav");
+	fx_dragon_attack = App->audio->LoadFx("assets/audio/sfx/Dragon_attack.wav");
+	fx_dragon_knockback = App->audio->LoadFx("assets/audio/sfx/Dragon_knockback.wav");
 
 	
 }
@@ -630,6 +633,7 @@ void e1Enemy::GetHitted(const int & damage_taken)
 	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
 	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(damage_taken).data(), App->gui->screen,RED, FontType::PMIX24);
 	state = State::IDLE;
+	App->audio->PlayFx(fx_enemy_hit);
 	if (stats.live <= 0 || App->scene->player->god_mode) {
 		state = State::DEATH;
 		ChangeAnimation(direction, state);

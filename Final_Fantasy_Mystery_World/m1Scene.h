@@ -142,6 +142,9 @@ public:
 	Mix_Chunk* fx_surprise;
 	Mix_Chunk* fx_buy;
 	Mix_Chunk* fx_buy_special;
+	Mix_Chunk* fx_ability3;
+	Mix_Chunk* fx_ability3_hit;
+	Mix_Chunk* fx_burn;
 
 	Mix_Music* mus_game_over;
 
