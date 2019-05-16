@@ -166,7 +166,7 @@ public:
 	Maps		last_map = Maps::NONE;
 
 	uint		last_tiles_drawn = 0u;
-
+	LobbyState lobby_state = LobbyState::NORMAL_LOBBY;
 private:
 
 	pugi::xml_document	map_file;
@@ -175,6 +175,8 @@ private:
 	SDL_Texture*		quad = nullptr;
 
 	std::string lobby_map;
+	std::string lobby_ice;
+	std::string lobby_night;
 	std::string shop_map;
 	std::string home_map;
 

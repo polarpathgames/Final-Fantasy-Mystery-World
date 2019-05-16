@@ -5,6 +5,7 @@
 #include "p2Log.h"
 #include "m1Cutscene.h"
 #include "App.h"
+#include "m1DialogSystem.h"
 #include "m1Textures.h"
 #include "e1Enemy.h"
 #include "m1Audio.h"
@@ -174,8 +175,9 @@ void e1Player::OnCollisionEnter(Collider * c2)
 	if (c2->type == COLLIDER_HOME) {
 		if (App->map->actual_map == Maps::LOBBY)
 			App->fade_to_black->FadeToBlack(Maps::HOME);
-		else
+		else {
 			App->fade_to_black->FadeToBlack(Maps::LOBBY);
+		}
 	}
 	if (c2->type == COLLIDER_MENU_QUEST) {
 		App->menu_manager->CreateGoToQuestMenu();
@@ -183,7 +185,9 @@ void e1Player::OnCollisionEnter(Collider * c2)
 	}
 	if (c2->type == COLLIDER_CUTSCENE_BRIDGE) {
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneBlockPass.xml");
-		//App->menu_manager->ShowHUD(false);
+	}
+	if (c2->type == COLLIDER_QUEST_ICE) {
+		App->dialog->PerformDialogue(10);
 	}
 }
 

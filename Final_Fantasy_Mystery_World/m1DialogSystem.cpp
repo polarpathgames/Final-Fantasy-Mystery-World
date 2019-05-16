@@ -3,6 +3,7 @@
 #include "m1Fonts.h"
 #include "e1StaticEntity.h"
 #include "m1DialogSystem.h"
+#include "m1Cutscene.h"
 #include "m1Scene.h"
 #include "e1Player.h"
 #include "m1Window.h"
@@ -16,6 +17,7 @@
 #include "m1EntityManager.h"
 #include "m1MenuManager.h"
 #include "Brofiler/Brofiler.h"
+#include "m1FadeToBlack.h"
 
 m1DialogSystem::m1DialogSystem()
 {
@@ -409,7 +411,10 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   break;
 			   }
 			   case 4: //Checking if player has gone to the shop
-				   App->scene->player->BlockControls(false);
+				   App->cutscene_manager->PlayCutscene("assets/xml/CutsceneHomeSleep.xml");
+				   App->map->lobby_state = LobbyState::ICE_LOBBY;
+				   App->globals.CutSceneHomeToSleepQuest2 = true;
+				   //App->scene->player->BlockControls(false);
 				   break;
 			   case 30: //old statue tutorial diagonal
 				   App->menu_manager->CreateHelpDiagonalMenu();
@@ -422,6 +427,9 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			   case 90: //old statue tutorial ATTACK
 				   App->menu_manager->CreateHelpAbilityMenu();
 				   App->scene->SetMenuState(StatesMenu::HELP_ABILITY_MENU);
+				   break;
+			   case 43: // go to quest 2 in lobby ice
+				   App->fade_to_black->FadeToBlack(Maps::QUEST2, 2.0F);
 				   break;
 			   case 190: //old statue tutorial ATTACK
 				   App->menu_manager->CreateHelpAbilityMenu(true);

@@ -83,12 +83,14 @@
     <ClCompile Include="c1CutSceneAddAudio.cpp" />
     <ClCompile Include="c1CutSceneDeleteEntity.cpp" />
     <ClCompile Include="c1CutSceneEntity.cpp" />
+    <ClCompile Include="c1CutSceneFadeToBlack.cpp" />
     <ClCompile Include="c1CutSceneImage.cpp" />
     <ClCompile Include="c1CutSceneModifyimage.cpp" />
     <ClCompile Include="c1CutSceneModifyText.cpp" />
     <ClCompile Include="c1CutsceneMoveCamera.cpp" />
     <ClCompile Include="c1CutSceneMoveEntity.cpp" />
     <ClCompile Include="c1CutsceneText.cpp" />
+    <ClCompile Include="c1CutSceneVibration.cpp" />
     <ClCompile Include="e1Archer.cpp" />
     <ClCompile Include="e1BlueDog.cpp" />
     <ClCompile Include="e1BlueSlime.cpp" />
@@ -163,12 +165,14 @@
     <ClInclude Include="c1CutSceneDeleteEntity.h" />
     <ClInclude Include="c1CutSceneElement.h" />
     <ClInclude Include="c1CutSceneEntity.h" />
+    <ClInclude Include="c1CutSceneFadeToBlack.h" />
     <ClInclude Include="c1CutSceneImage.h" />
     <ClInclude Include="c1CutSceneModifyimage.h" />
     <ClInclude Include="c1CutSceneModifyText.h" />
     <ClInclude Include="c1CutsceneMoveCamera.h" />
     <ClInclude Include="c1CutSceneMoveEntity.h" />
     <ClInclude Include="c1CutSceneText.h" />
+    <ClInclude Include="c1CutSceneVibration.h" />
     <ClInclude Include="e1Archer.h" />
     <ClInclude Include="e1BlueDog.h" />
     <ClInclude Include="e1BlueSlime.h" />
@@ -247,14 +251,18 @@
     <Xml Include="Game\assets\xml\config.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="Game\assets\xml\CutsceneAbility2Quest2.xml" />
     <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml">
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="Game\assets\xml\CutsceneFinalRoom.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="Game\assets\xml\CutsceneFinalRoomQuest2.xml" />
+    <Xml Include="Game\assets\xml\CutsceneHomeSleep.xml" />
     <Xml Include="Game\assets\xml\CutsceneLobbyTutorial.xml" />
     <Xml Include="Game\assets\xml\CutsceneMiddleRoom.xml" />
+    <Xml Include="Game\assets\xml\CutsceneQueenQuest2.xml" />
     <Xml Include="Game\assets\xml\CutsceneTutorial.xml" />
     <Xml Include="Game\assets\xml\Dialog.xml" />
     <Xml Include="Game\assets\xml\CutsceneBlockPass.xml" />
