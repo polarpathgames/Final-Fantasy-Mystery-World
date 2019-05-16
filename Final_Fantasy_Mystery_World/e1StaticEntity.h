@@ -71,6 +71,7 @@ public:
 		SPECIAL_FIREFLOOR,
 		TREASURE,
 		BLUE_FIRE,
+		PARTICLE,
 		FLASH_INFO,
 		CAVE_ROCKS,
 		ABILITY_BASE,
@@ -78,7 +79,6 @@ public:
 		WATER2,
 		WATER3,
 		LAVA,
-
 
 		UNKNOWN
 	};
@@ -110,7 +110,7 @@ private:
 	void SetRect(int x, int y, int w, int h);
 
 public:
-	SDL_Rect frame = { 0,0 };
+	SDL_Rect frame = { 0,0,0,0 };
 	Animation* idle = nullptr;
 	bool has_animation = false;
 	Type static_type = Type::UNKNOWN;
