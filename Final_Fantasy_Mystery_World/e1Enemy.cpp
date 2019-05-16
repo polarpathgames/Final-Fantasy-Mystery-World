@@ -300,61 +300,7 @@ bool e1Enemy::IsAnotherEnemyNextTile()
 
 bool e1Enemy::IsPlayerNextTile()
 {
-	BROFILER_CATEGORY("IsAnotherPlayerNextTile", Profiler::Color::SeaGreen);
-	bool ret = false;
-	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
-	std::vector<e1Entity*>::iterator item = entities.begin();
-
-	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::PLAYER) {
-			iPoint origin = actual_tile;
-			iPoint destination = (*item)->actual_tile;
-
-			if (origin.x + 1 == destination.x && origin.y == destination.y) {
-				direction = Direction::DOWN_RIGHT;
-				current_animation = &IdleDownRight;
-				ret = true;
-			}
-			if (origin.x == destination.x && origin.y + 1 == destination.y) {
-				direction = Direction::DOWN_LEFT;
-				current_animation = &IdleDownLeft;
-				ret = true;
-			}
-			if (origin.x == destination.x && origin.y - 1 == destination.y) {
-				direction = Direction::UP_RIGHT;
-				current_animation = &IdleUpRight;
-				ret = true;
-			}
-			if (origin.x - 1 == destination.x && origin.y == destination.y) {
-				direction = Direction::UP_LEFT;
-				current_animation = &IdleUpLeft;
-				ret = true;
-			}
-			if (origin.x + 1 == destination.x && origin.y + 1 == destination.y) {
-				direction = Direction::DOWN;
-				current_animation = &IdleDown;
-				ret = true;
-			}
-			if (origin.x - 1 == destination.x && origin.y + 1 == destination.y) {
-				direction = Direction::LEFT;
-				current_animation = &IdleLeft;
-				ret = true;
-			}
-			if (origin.x - 1 == destination.x && origin.y - 1 == destination.y) {
-				direction = Direction::UP;
-				current_animation = &IdleUp;
-				ret = true;
-			}
-			if (origin.x + 1 == destination.x && origin.y - 1 == destination.y) {
-				direction = Direction::RIGHT;
-				current_animation = &IdleRight;
-				ret = true;
-			}
-				
-		}
-	}
-
-	return ret;
+	return IsPlayerInRange(1);
 }
 
 bool e1Enemy::IsPlayerInRange(const int& range) {
@@ -396,10 +342,10 @@ void e1Enemy::LookToPlayer() {
 
 	else if (distance.y == 0) {
 		if (distance.x < 0) {
-			direction = Direction::DOWN_RIGHT;
+			direction = Direction::UP_LEFT;
 		}
 		else if (distance.x > 0) {
-			direction = Direction::UP_LEFT;
+			direction = Direction::DOWN_RIGHT;
 		}
 	}
 
@@ -415,7 +361,7 @@ void e1Enemy::LookToPlayer() {
 			}
 			else {
 				if (abs(distance.y) > distance.x) {
-					direction = Direction::UP_LEFT;
+					direction = Direction::UP_RIGHT;
 				}
 				else {
 					direction = Direction::DOWN_RIGHT;

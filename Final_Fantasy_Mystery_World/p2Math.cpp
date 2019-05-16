@@ -1,6 +1,5 @@
 #include "p2Math.h"
-#include "p2Math.h"
-
+#include <math.h>
 
 float lerp(const float & origin, const float & end, float by)
 {
@@ -11,4 +10,14 @@ float lerp(const float & origin, const float & end, float by)
 p2Point<float> lerp(const p2Point<int> & origin, const p2Point<int> & end, const float & by)
 {
 	return p2Point<float>(lerp(origin.x, end.x, by), lerp(origin.y, end.y, by));
+}
+
+double DegToRad(const double & value)
+{
+	return (value * M_PI) / 180;
+}
+
+double RadToDeg(const double & value)
+{
+	return (value * 180) / M_PI;
 }
