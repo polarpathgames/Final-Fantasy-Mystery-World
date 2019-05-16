@@ -378,7 +378,7 @@ void m1EntityManager::SpawnRupees(const int & x, const int & y, const int & numb
 		destination = *positions.erase(positions.begin() + App->random.Generate(0,positions.size()-1));
 		drop->moving_pos = drop->actual_tile = destination;
 		destination = App->map->MapToWorldCentered(destination.x, destination.y) - drop->pivot;
-		App->easing_splines->CreateSpline(&drop->position.x, destination.x, 2000, TypeSpline::EASE, std::bind(&e1Drop::FinishSpline, drop));
+		App->easing_splines->CreateSpline(&drop->position.x, destination.x + App->map->data.tile_width/2, 2000, TypeSpline::EASE, std::bind(&e1Drop::FinishSpline, drop));
 		App->easing_splines->CreateSpline(&drop->position.y, destination.y - destination.DistanceTo(drop->position)*0.7f, 
 			1000, TypeSpline::EASE_OUT_CUBIC, std::bind(&e1Drop::SetSplineToFall, drop));
 		drop->moving = true;
