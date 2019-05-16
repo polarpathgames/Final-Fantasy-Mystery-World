@@ -40,7 +40,7 @@ e1State::e1State(int x, int y, const char * name) :e1Entity(x, y) {
 			if (target->data.tileset.texture != nullptr) {
 				SDL_SetTextureColorMod(target->data.tileset.texture, 255, 180, 150);
 			}
-			CreateParticleFire(target, nullptr, { 0,0 }, SDL_Rect{ 2,5,2,2 }, iPoint(5, 2), iPoint(12, 4), fPoint(0, -30), P_NON, 65, 4, true, W_NON, target->pivot);
+			CreateParticleFire(target, nullptr, { 0,0 }, SDL_Rect{ 4,4,2,2 }, iPoint(5, 2), iPoint(12, 4), fPoint(0, -60), P_NON, 65, 4, true, W_NON, target->pivot);
 		}
 		turn_effect = 3U;
 		
@@ -68,9 +68,11 @@ e1State::~e1State()
 		animation = nullptr;
 	}
 
-	if (state == EventStates::POISON) {
-		if (target != nullptr && target->data.tileset.texture != nullptr) {
-			SDL_SetTextureColorMod(target->data.tileset.texture, color_mod_r, color_mod_g, color_mod_b);
+	if (state == EventStates::POISON || state == EventStates::FIRE) {
+		if (App->entity_manager->IsInEntitiesVector(target)) {
+			if (target != nullptr && target->data.tileset.texture != nullptr) {
+				SDL_SetTextureColorMod(target->data.tileset.texture, color_mod_r, color_mod_g, color_mod_b);
+			}
 		}
 	}
 }
