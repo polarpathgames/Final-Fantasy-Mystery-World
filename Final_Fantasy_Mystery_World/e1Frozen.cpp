@@ -31,12 +31,10 @@ e1Frozen::~e1Frozen()
 {
 }
 
-#include "m1Input.h" //test
-
 bool e1Frozen::PreUpdate()
 {
 
-	if (phase == Phase::NORMAL && stats.live <= stats.max_live * 0.5F || App->input->GetKeyRepeat(SDL_SCANCODE_1)) {
+	if (phase == Phase::NORMAL && stats.live <= stats.max_live * 0.5F) {
 		phase = Phase::HARD;
 		tp_last_number_hit = times_hitted;
 		DoTeleport();
