@@ -9671,7 +9671,7 @@
   <object id="81" name="water" type="static" x="336" y="432" width="16.125" height="16.0313"/>
   <object id="82" name="water" type="static" x="336" y="416" width="16.125" height="16.0313"/>
   <object id="83" name="water" type="static" x="352" y="432" width="16.125" height="16.0313"/>
-  <object id="84" name="enemy" type="BabyDrake" x="464" y="336" width="15.9688" height="16.0156">
+  <object id="84" name="enemy" type="Spider" x="464" y="336" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>

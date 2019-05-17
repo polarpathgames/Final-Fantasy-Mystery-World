@@ -229,7 +229,7 @@ bool e1Drop::Update(float adt)
 {
 	BROFILER_CATEGORY("Drop Update", Profiler::Color::Yellow);
 
-	if (actual_tile == App->scene->player->actual_tile && moving == false) {
+	if (actual_tile == App->scene->player->actual_tile) {
 		switch (drop_type) {
 		case DropsType::GREEN_RUPEE:
 		case DropsType::BLUE_RUPEE:
@@ -267,6 +267,7 @@ bool e1Drop::Update(float adt)
 		{
 			App->scene->player->stats.num_mana_potions++;
 			App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
+			App->audio->PlayFx(App->scene->fx_pick_up_poti);
 			to_delete = true;
 			break;
 		}
