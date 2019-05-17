@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.2" name="Slime" tilewidth="320" tileheight="184" tilecount="96" columns="4">
+<tileset version="1.2" tiledversion="1.2.2" name="Slime" tilewidth="107" tileheight="62" tilecount="96" columns="4">
  <grid orientation="orthogonal" width="45" height="42"/>
  <properties>
   <property name="attack_power" type="int" value="30"/>
@@ -13,7 +13,7 @@
   <property name="ratio_red_rupee" type="int" value="5"/>
   <property name="ratio_rupee" type="int" value="60"/>
  </properties>
- <image source="../sprites/drake2.png" width="1280" height="920"/>
+ <image source="../sprites/drake2.png" width="428" height="308"/>
  <tile id="0">
   <properties>
    <property name="speed" type="int" value="6"/>
