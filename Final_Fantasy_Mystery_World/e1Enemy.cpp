@@ -140,6 +140,8 @@ bool e1Enemy::PreUpdate()
 	case State::SLEEPING:
 		if (IsPlayerNextTile()) {
 			state = State::IDLE;
+			LookToPlayer();
+			ChangeAnimation(direction, state);
 		}
 		turn_done = true;
 		break;
