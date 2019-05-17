@@ -158,6 +158,7 @@ void e1BabyDrake::Death()
 	}
 	else if (!drawable) {
 		App->fade_to_black->FadeToBlack(4.0F, true);
+		App->entity_manager->CreateEntity(e1Entity::EntityType::AMAZING_DRAGON, position.x, position.y,"");
 		to_delete = true;
 		turn_done = true;
 	}

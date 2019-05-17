@@ -291,17 +291,17 @@ void RoomManager::LoadRoom(const int & id)
 
 
 
-LoadColliders();
-UpdateMap();
-LoadEntities();
-PlacePlayer();
-PlayMusic();
-PlayCutScene();
+	LoadColliders();
+	UpdateMap();
+	LoadEntities();
+	PlacePlayer();
+	PlayMusic();
+	PlayCutScene();
 
-// Properties
-if (actual_room->properties.GetValue("blizzard") == 1) {
-	App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "blizzard");
-}
+	// Properties
+	if (actual_room->properties.GetValue("blizzard") == 1) {
+		App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "blizzard");
+	}
 
 }
 

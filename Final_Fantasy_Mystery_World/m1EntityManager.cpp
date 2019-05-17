@@ -17,6 +17,7 @@
 #include "e1Archer.h"
 #include "p2Log.h"
 #include "e1BlueSlime.h"
+#include "e1AmazingDragon.h"
 #include "e1BabyDrake.h"
 #include "e1BlueDog.h"
 #include "m1Map.h"
@@ -273,7 +274,7 @@ void m1EntityManager::OnCollisionExit(Collider * c1, Collider * c2)
 e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
 	BROFILER_CATEGORY("CreateEntity", Profiler::Color::Blue);
-	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)22, "code needs update");
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)23, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
 
@@ -284,6 +285,7 @@ e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX
 	case e1Entity::EntityType::DROP: ret = DBG_NEW e1Drop(PositionX, PositionY, name.data()); break;
 	case e1Entity::EntityType::CARNIVOROUS_PLANT: ret = DBG_NEW e1CarnivorousPlant(PositionX, PositionY); break;
 	case e1Entity::EntityType::BLUE_DOG: ret = DBG_NEW e1BlueDog(PositionX, PositionY); break;
+	case e1Entity::EntityType::AMAZING_DRAGON: ret = DBG_NEW e1AmazingDragon(PositionX, PositionY); break;
 	case e1Entity::EntityType::BLUE_SLIME: ret = DBG_NEW e1BlueSlime(PositionX, PositionY); break;
 	case e1Entity::EntityType::FROZEN: ret = DBG_NEW e1Frozen(PositionX, PositionY); break;
 	case e1Entity::EntityType::MEGA_EYE: ret = DBG_NEW e1MegaEye(PositionX, PositionY); break;

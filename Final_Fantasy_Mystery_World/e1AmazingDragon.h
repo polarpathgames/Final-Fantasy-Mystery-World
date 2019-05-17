@@ -13,7 +13,7 @@ public:
 
 	bool PreUpdate();
 	bool Update(float dt);
-
+	void GetHitted(const int&dmg);
 	void IdAnimToEnum();
 
 };

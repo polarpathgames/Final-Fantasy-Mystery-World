@@ -37,6 +37,7 @@ public:
 		FROZEN,
 		BABY_DRAKE,
 		SPIDER,
+		AMAZING_DRAGON,
 
 		NONE
 	};
