@@ -382,7 +382,7 @@ void RoomManager::LoadEntities()
 				if (!App->globals.quest2_rocks_cave_destroyed)
 					App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 			}
-			else if ((*position)->name == "treasure_1" || (*position)->name == "treasure_boss") {
+			else if ((*position)->name == "treasure_1" || (*position)->name == "treasure_boss" || (*position)->name == "treasure_quest3") {
 				e1StaticEntity* treasure = (e1StaticEntity*)App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 				if ((*position)->name == "treasure_1") {
 					if ((App->globals.treasure_quest2_opened)) {
@@ -392,6 +392,12 @@ void RoomManager::LoadEntities()
 				}
 				else if ((*position)->name == "treasure_boss") {
 					if ((App->globals.treasure_boss_opened)) {
+						treasure->frame = { 0,0,0,0 };
+						treasure->interacting_state = e1StaticEntity::InteractingStates::NONE;
+					}
+				}
+				else if ((*position)->name == "treasure_quest3") {
+					if ((App->globals.treasure_quest3_opened)) {
 						treasure->frame = { 0,0,0,0 };
 						treasure->interacting_state = e1StaticEntity::InteractingStates::NONE;
 					}

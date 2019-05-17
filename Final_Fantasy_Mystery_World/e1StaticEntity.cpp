@@ -524,12 +524,14 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 	}
-	else if ((strcmp(name, "treasure_1")) == 0 || (strcmp(name, "treasure_boss")) == 0) {
+	else if ((strcmp(name, "treasure_1")) == 0 || (strcmp(name, "treasure_boss")) == 0 || (strcmp(name,"treasure_quest3")) == 0) {
 		static_type = e1StaticEntity::Type::TREASURE;
 		if (strcmp(name, "treasure_1") == 0)
 			frame = { 156,137 ,35,32 };
 		else if (strcmp(name, "treasure_boss") == 0)
 			frame = { 166,137 ,35,32 };
+		else if (strcmp(name, "treasure_quest3") == 0)
+			frame = { 176,137 ,35,32 };
 		SetPivot(frame.w*0.5F, frame.h*0.5F);
 		size.create(frame.w, frame.h);
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
@@ -667,8 +669,10 @@ void e1StaticEntity::Draw(float dt)
 	}
 	else {
 		App->render->Blit(data.tileset.texture, position.x, position.y, &frame, true);
-		App->render->Blit(App->scene->player->ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 	}
+	if (App->debug)
+		App->render->Blit(App->scene->player->ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+
 }
 
 void e1StaticEntity::SetRect(int x, int y, int w, int h)
@@ -771,6 +775,13 @@ bool e1StaticEntity::Update(float dt)
 				App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 20, 5);
 				App->scene->player->BlockControls(false);
 				App->globals.treasure_boss_opened = true;
+				frame = { 0, 0, 0, 0 }; // need to put open treasure sprite
+				interacting_state = InteractingStates::NONE;
+			}
+			else if (frame == SDL_Rect{ 176, 137, 35, 32 }) {
+				App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 20, 5);
+				App->scene->player->BlockControls(false);
+				App->globals.treasure_quest3_opened = true;
 				frame = { 0, 0, 0, 0 }; // need to put open treasure sprite
 				interacting_state = InteractingStates::NONE;
 			}

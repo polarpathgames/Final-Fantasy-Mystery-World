@@ -372,29 +372,42 @@ void m1EntityManager::SpawnRupees(const int & x, const int & y, const int & numb
 	e1Drop* drop = nullptr;
 	iPoint destination = { 0,0 };
 	std::vector<iPoint> positions;
-	FindFreeTileAround({ x,y }, range, &positions);
-	for (int i = 0; i < number; ++i) {
-		drop = (e1Drop*)CreateEntity(e1Entity::EntityType::DROP, x, y, "green_rupee");
-		destination = *positions.erase(positions.begin() + App->random.Generate(0,positions.size()-1));
-		drop->moving_pos = drop->actual_tile = destination;
-		destination = App->map->MapToWorldCentered(destination.x, destination.y) - drop->pivot;
-		App->easing_splines->CreateSpline(&drop->position.x, destination.x + App->map->data.tile_width/2, 2000, TypeSpline::EASE, std::bind(&e1Drop::FinishSpline, drop));
-		App->easing_splines->CreateSpline(&drop->position.y, destination.y - destination.DistanceTo(drop->position)*0.7f, 
-			1000, TypeSpline::EASE_OUT_CUBIC, std::bind(&e1Drop::SetSplineToFall, drop));
-		drop->moving = true;
-	}
+	if (FindFreeTileAround({ x,y }, range, &positions))
+		for (int i = 0; i < number; ++i) {
+			drop = (e1Drop*)CreateEntity(e1Entity::EntityType::DROP, x, y, "green_rupee");
+			int gold = App->random.Generate(25, 100);
+			drop->SetGold(gold);
+			destination = positions[App->random.Generate(0, positions.size() - 1)];
+			std::vector<iPoint>::iterator item = positions.begin();
+			for (; item != positions.end(); ++item) {
+				if ((*item) == destination) {
+					positions.erase(item);
+					break;
+				}
+			}
+			LOG("%i",positions.size());
+			LOG("%i %i", destination.x,destination.y);
+			drop->moving_pos = drop->actual_tile = destination;
+			destination = App->map->MapToWorldCentered(destination.x, destination.y) - drop->pivot;
+			App->easing_splines->CreateSpline(&drop->position.x, destination.x + App->map->data.tile_width / 2, 2000, TypeSpline::EASE, std::bind(&e1Drop::FinishSpline, drop));
+			App->easing_splines->CreateSpline(&drop->position.y, destination.y - destination.DistanceTo(drop->position)*0.7f,
+				1000, TypeSpline::EASE_OUT_CUBIC, std::bind(&e1Drop::SetSplineToFall, drop));
+			drop->moving = true;
+			if (positions.empty()) break;
+		}
 }
 
 bool m1EntityManager::FindFreeTileAround(const iPoint & tile, const uint & range, std::vector<iPoint> * list_to_fill)
 {
 	iPoint destination_tile = tile - iPoint{(int)range, (int)range};
 	bool ret = false;
-	for (uint i = 0; i < 2 * range; i++) {
-		for (uint j = 0; j < 2 * range; j++) {
-			destination_tile.x++;
+	for (uint i = 0; i <= 2 * range; i++) {
+		for (uint j = 0; j <= 2 * range; j++) {
+			LOG("%i %i", destination_tile.x, destination_tile.y);
 			if (destination_tile != tile)
 				if (IsWalkable(destination_tile))
 					list_to_fill->push_back(destination_tile);
+			destination_tile.x++;
 		}
 		destination_tile.x = tile.x - range;
 		destination_tile.y++;
