@@ -25,6 +25,7 @@ e1AmazingDragon::e1AmazingDragon(const int & x, const int & y) : e1Enemy(x, y)
 	turns_to_wait_after_fire_ball = 2U;
 	waves_before_recover_energy = 3U;
 	turns_recovering_energy = 5U;
+	number_of_fire_balls = 5U;
 	anim.BasicAttackDownLeft.loop = false;
 }
 
@@ -67,8 +68,11 @@ bool e1AmazingDragon::PreUpdate()
 			current_animation = &anim.BasicAttackDownLeft;
 			if (current_animation->Finished()) {
 				++auxiliar_attack_count;
-				e1Particles* fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, App->scene->player->actual_tile.x, App->scene->player->actual_tile.y, "");
-				fire_ball->SetParticle(e1Particles::ParticleType::AMAZING_DRAGON_FIRE_BALL, direction, turns_to_wait_after_fire_ball);
+				for (uint i = 0; i < number_of_fire_balls; ++i) {
+					iPoint pos = App->entity_manager->FindRandomFreeTileAround(App->scene->player->actual_tile, 6);
+					e1Particles* fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, pos.x, pos.y, "");
+					fire_ball->SetParticle(e1Particles::ParticleType::AMAZING_DRAGON_FIRE_BALL, direction, turns_to_wait_after_fire_ball);
+				}
 				turn_done = true;
 				dragon_states = AmazingDragonStates::WAIT_FIRE_BALLS;
 				current_animation = &anim.IdleDownLeft;
