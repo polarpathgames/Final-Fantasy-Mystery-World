@@ -43,6 +43,13 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 	current_animation = &anim.IdleDownLeft;
 	direction = Direction::DOWN_LEFT;
 	Init();
+
+	timer_ability1.Stop();
+	tile_anim.PushBack({ 261,0,32,32 });
+	tile_anim.PushBack({ 261,32,32,32 });
+	tile_anim.PushBack({ 261,64,32,32 });
+	tile_anim.speed = 0.7f;
+	tile_anim.loop = false;
 }
 
 void e1Player::Init()
@@ -62,7 +69,6 @@ void e1Player::Init()
 
 	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (m1Module*)App->entity_manager);
 
-	timer_ability1.Stop();
 }
 
 e1Player::~e1Player()
@@ -164,8 +170,8 @@ void e1Player::Draw(float dt)
 {
 	if (!ability1_tiles.empty()) {
 		for (std::vector<iPoint>::iterator item = ability1_tiles.begin(); item != ability1_tiles.end(); ++item) {
-			SDL_Rect rec = { 261,0,32,32 };
-			App->render->Blit(ability1_tile_tx, (*item).x+1, (*item).y-8, &rec, true);
+			tile_anim.GetCurrentFrame(dt);
+			App->render->Blit(ability1_tile_tx, (*item).x+1, (*item).y-8, &tile_anim.GetFrame(tile_anim.current_frame), true);
 		}
 	}
 
@@ -546,12 +552,16 @@ void e1Player::ReadAttack()
 		}
 		else {
 			timer_ability1.Start();
+			tile_anim.Reset();
 			SetAbility1TilesPos();
 		}
 
 		return;
 	}
-	else if (timer_ability1.IsRunning()) timer_ability1.Stop();
+	else if (timer_ability1.IsRunning()) {
+		timer_ability1.Stop();
+		ability1_tiles.clear();
+	}
 
 	if (player_input.pressing_3 && App->globals.ability3_gained == true) {
 		App->audio->PlayFx(App->scene->fx_ability3);

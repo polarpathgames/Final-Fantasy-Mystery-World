@@ -193,6 +193,7 @@ public:
 	float time_to_wait_ability1 = 1.f;
 	SDL_Texture* ability1_tile_tx = nullptr;
 	std::vector<iPoint> ability1_tiles;
+	Animation tile_anim;
 
 	float flash_time = 0.0F;
 	iPoint flash_position{ 0,0 };
