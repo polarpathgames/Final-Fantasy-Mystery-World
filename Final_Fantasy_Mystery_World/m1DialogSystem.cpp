@@ -417,7 +417,6 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   //App->scene->player->BlockControls(false);
 				   break;
 			   case 5: //Portal Dialog Quest 2
-
 				   App->map->lobby_state = LobbyState::NORMAL_LOBBY;
 				   App->fade_to_black->FadeToBlack(Maps::LOBBY);
 				   break;

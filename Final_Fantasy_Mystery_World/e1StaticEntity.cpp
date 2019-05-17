@@ -718,7 +718,7 @@ bool e1StaticEntity::Update(float dt)
 					pos.y = (int)(App->render->camera.y) + (App->scene->player->position.y) * (int)App->win->GetScale() - button_interact->section.h;
 					button_interact->SetPos(pos.x, pos.y);
 				}
-				if (static_type == Type::TREASURE && App->entity_manager->ThereAreEnemies()) {
+				if ((static_type == Type::TREASURE || static_type == Type::PORTAL) && App->entity_manager->ThereAreEnemies()) {
 					if (button_interact != nullptr) {
 						App->gui->DeleteUIElement((u1GUI*)button_interact);
 						button_interact = nullptr;
@@ -769,6 +769,9 @@ bool e1StaticEntity::Update(float dt)
 			break;
 		case e1StaticEntity::Type::NPC1:
 			App->dialog->PerformDialogue(2);
+			break; 
+		case e1StaticEntity::Type::PORTAL:
+			App->dialog->PerformDialogue(11);
 			break;
 		case e1StaticEntity::Type::FEATHER:
 			App->dialog->PerformDialogue(3);
