@@ -51,12 +51,14 @@ struct GlobalGameAdvances
 	bool CutSceneFinalRoomQuest2 = false;
 	bool treasure_quest2_opened = false;
 	bool ice_queen_killed = false;
+	bool treasure_boss_opened = false;
 	std::string player_name;
 
 	void Reset() {
 		ice_queen_killed = false;
 		CutSceneHomeToSleepQuest2 = false;
 		treasure_quest2_opened = false;
+		treasure_boss_opened = false;
 		CutSceneTutorialGirlEscapingPlayed = false;
 		CutSceneFinalRoomTutorialPlayed = false;
 		CutSceneMiddleRoomTutorialPlayed = false;
