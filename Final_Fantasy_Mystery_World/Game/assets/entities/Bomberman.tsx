@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.2.3" name="bombs" tilewidth="32" tileheight="38" tilecount="84" columns="12">
+ <properties>
+  <property name="attack_power" type="int" value="35"/>
+  <property name="experience" type="int" value="300"/>
+  <property name="live" type="int" value="450"/>
+  <property name="ratio_blue_rupee" type="int" value="30"/>
+  <property name="ratio_gold_rupee" type="int" value="1"/>
+  <property name="ratio_green_rupee" type="int" value="50"/>
+  <property name="ratio_poti_hp" type="int" value="20"/>
+  <property name="ratio_poti_mana" type="int" value="21"/>
+  <property name="ratio_red_rupee" type="int" value="10"/>
+  <property name="ratio_rupee" type="int" value="60"/>
+ </properties>
  <image source="../sprites/bombs.png" width="384" height="266"/>
  <tile id="0">
-  <properties>
-   <property name="attack_power" type="int" value="35"/>
-   <property name="experience" type="int" value="300"/>
-   <property name="live" type="int" value="450"/>
-   <property name="ratio_blue_rupee" type="int" value="30"/>
-   <property name="ratio_gold_rupee" type="int" value="1"/>
-   <property name="ratio_green_rupee" type="int" value="50"/>
-   <property name="ratio_poti_hp" type="int" value="20"/>
-   <property name="ratio_poti_mana" type="int" value="21"/>
-   <property name="ratio_red_rupee" type="int" value="10"/>
-   <property name="ratio_rupee" type="int" value="60"/>
-  </properties>
+  <objectgroup draworder="index">
+   <object id="1" name="pivot" x="16" y="33" width="1" height="1"/>
+  </objectgroup>
+  <animation>
+   <frame tileid="0" duration="200"/>
+   <frame tileid="1" duration="200"/>
+   <frame tileid="0" duration="200"/>
+   <frame tileid="2" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="1">
   <animation>
    <frame tileid="0" duration="200"/>
    <frame tileid="1" duration="200"/>
@@ -29,7 +40,23 @@
    <frame tileid="5" duration="200"/>
   </animation>
  </tile>
+ <tile id="4">
+  <animation>
+   <frame tileid="3" duration="200"/>
+   <frame tileid="4" duration="200"/>
+   <frame tileid="3" duration="200"/>
+   <frame tileid="5" duration="200"/>
+  </animation>
+ </tile>
  <tile id="6">
+  <animation>
+   <frame tileid="6" duration="200"/>
+   <frame tileid="7" duration="200"/>
+   <frame tileid="6" duration="200"/>
+   <frame tileid="8" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="7">
   <animation>
    <frame tileid="6" duration="200"/>
    <frame tileid="7" duration="200"/>
@@ -45,7 +72,23 @@
    <frame tileid="11" duration="200"/>
   </animation>
  </tile>
+  <tile id="10">
+  <animation>
+   <frame tileid="9" duration="200"/>
+   <frame tileid="10" duration="200"/>
+   <frame tileid="9" duration="200"/>
+   <frame tileid="11" duration="200"/>
+  </animation>
+ </tile>
  <tile id="12">
+  <animation>
+   <frame tileid="12" duration="200"/>
+   <frame tileid="13" duration="200"/>
+   <frame tileid="12" duration="200"/>
+   <frame tileid="14" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="13">
   <animation>
    <frame tileid="12" duration="200"/>
    <frame tileid="13" duration="200"/>
@@ -61,6 +104,14 @@
    <frame tileid="17" duration="200"/>
   </animation>
  </tile>
+ <tile id="16">
+  <animation>
+   <frame tileid="15" duration="200"/>
+   <frame tileid="16" duration="200"/>
+   <frame tileid="15" duration="200"/>
+   <frame tileid="17" duration="200"/>
+  </animation>
+ </tile>
  <tile id="18">
   <animation>
    <frame tileid="18" duration="200"/>
@@ -69,7 +120,23 @@
    <frame tileid="20" duration="200"/>
   </animation>
  </tile>
+ <tile id="19">
+  <animation>
+   <frame tileid="18" duration="200"/>
+   <frame tileid="19" duration="200"/>
+   <frame tileid="18" duration="200"/>
+   <frame tileid="20" duration="200"/>
+  </animation>
+ </tile>
  <tile id="21">
+  <animation>
+   <frame tileid="21" duration="200"/>
+   <frame tileid="22" duration="200"/>
+   <frame tileid="21" duration="200"/>
+   <frame tileid="23" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="22">
   <animation>
    <frame tileid="21" duration="200"/>
    <frame tileid="22" duration="200"/>
