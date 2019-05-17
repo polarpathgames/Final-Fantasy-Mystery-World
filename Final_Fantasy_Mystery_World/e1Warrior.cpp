@@ -342,3 +342,19 @@ void e1Warrior::UpdateLevel()
 	App->menu_manager->hud.player_mana_bar->PrintBarNumbers();
 
 }
+
+void e1Warrior::SetAbility1TilesPos()
+{
+	ability1_tiles.push_back({ actual_tile.x + 1,actual_tile.y + 1 });
+	ability1_tiles.push_back({ actual_tile.x + 1,actual_tile.y });
+	ability1_tiles.push_back({ actual_tile.x - 1,actual_tile.y });
+	ability1_tiles.push_back({ actual_tile.x ,actual_tile.y + 1 });
+	ability1_tiles.push_back({ actual_tile.x ,actual_tile.y - 1 });
+	ability1_tiles.push_back({ actual_tile.x - 1,actual_tile.y - 1 });
+	ability1_tiles.push_back({ actual_tile.x - 1,actual_tile.y + 1 });
+	ability1_tiles.push_back({ actual_tile.x + 1,actual_tile.y - 1 });
+
+	for (std::vector<iPoint>::iterator item = ability1_tiles.begin(); item != ability1_tiles.end(); ++item) {
+		(*item) = App->map->MapToWorld((*item).x, (*item).y);
+	}
+}

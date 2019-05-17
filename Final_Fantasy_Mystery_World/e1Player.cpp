@@ -39,9 +39,17 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
 	type = EntityType::PLAYER;
 	ground = App->tex->Load("assets/sprites/player_pos.png");
+	ability1_tile_tx = App->tex->Load("assets/sprites/Particles.png");
 	current_animation = &anim.IdleDownLeft;
 	direction = Direction::DOWN_LEFT;
 	Init();
+
+	timer_ability1.Stop();
+	tile_anim.PushBack({ 261,0,32,32 });
+	tile_anim.PushBack({ 261,32,32,32 });
+	tile_anim.PushBack({ 261,64,32,32 });
+	tile_anim.speed = 0.7f;
+	tile_anim.loop = false;
 }
 
 void e1Player::Init()
@@ -60,12 +68,15 @@ void e1Player::Init()
 		movement_type = Movement_Type::InQuest;
 
 	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (m1Module*)App->entity_manager);
+
 }
 
 e1Player::~e1Player()
 {
 	App->tex->UnLoad(ground);
+	App->tex->UnLoad(ability1_tile_tx);
 	ground = nullptr;
+	ability1_tile_tx = nullptr;
 }
 
 bool e1Player::PreUpdate()
@@ -155,6 +166,18 @@ bool e1Player::Save(pugi::xml_node & node) const
 	p_globals.append_attribute("Tutorial_first_time") = (bool)App->globals.Tutorial_first_time;
 	p_globals.append_attribute("player_type") = (int)App->scene->player_type;
 	return true;
+}
+
+void e1Player::Draw(float dt)
+{
+	if (!ability1_tiles.empty()) {
+		for (std::vector<iPoint>::iterator item = ability1_tiles.begin(); item != ability1_tiles.end(); ++item) {
+			tile_anim.GetCurrentFrame(dt);
+			App->render->Blit(ability1_tile_tx, (*item).x+1, (*item).y-8, &tile_anim.GetFrame(tile_anim.current_frame), true);
+		}
+	}
+
+	e1Entity::Draw(dt);
 }
 
 bool e1Player::CleanUp()
@@ -520,10 +543,29 @@ void e1Player::ReadAttack()
 		App->audio->PlayFx(App->scene->fx_attack);
 		return;
 	}
-	if (player_input.pressing_1 && App->globals.ability1_gained == true) {
-		PrepareSpecialAttack1();
+	if ((App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.HABILTY1) || App->input->GetControllerButtonDownOrRepeat(App->input->controller_Buttons.buttons_code.HABILTY1)) 
+		&& App->globals.ability1_gained == true) {
+		if (timer_ability1.IsRunning()) {
+			if (timer_ability1.ReadSec() >= time_to_wait_ability1) {
+				PrepareSpecialAttack1();
+				timer_ability1.Stop();
+				ability1_tiles.clear();
+			}
+		}
+		else {
+			timer_ability1.Start();
+			tile_anim.Reset();
+			SetAbility1TilesPos();
+		}
+
 		return;
 	}
+	else if (timer_ability1.IsRunning()) {
+		timer_ability1.Stop();
+		ability1_tiles.clear();
+		state = State::IDLE;
+	}
+
 	if (player_input.pressing_3 && App->globals.ability3_gained == true) {
 		App->audio->PlayFx(App->scene->fx_ability3);
 		PrepareSpecialAttack2();

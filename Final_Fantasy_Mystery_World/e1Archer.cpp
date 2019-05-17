@@ -268,3 +268,54 @@ void e1Archer::UpdateLevel()
 	App->menu_manager->hud.player_hp_bar->PrintBarNumbers();
 	App->menu_manager->hud.player_mana_bar->PrintBarNumbers();
 }
+
+void e1Archer::SetAbility1TilesPos()
+{
+	switch (direction)
+	{
+	case Direction::UP:
+		ability1_tiles.push_back({ actual_tile.x - 1,actual_tile.y - 1 });
+		ability1_tiles.push_back({ actual_tile.x - 2,actual_tile.y - 2 });
+		ability1_tiles.push_back({ actual_tile.x - 3,actual_tile.y - 3 });
+		break;
+	case Direction::DOWN:
+		ability1_tiles.push_back({ actual_tile.x + 1,actual_tile.y + 1 });
+		ability1_tiles.push_back({ actual_tile.x + 2,actual_tile.y + 2 });
+		ability1_tiles.push_back({ actual_tile.x + 3,actual_tile.y + 3 });
+		break;
+	case Direction::RIGHT:
+		ability1_tiles.push_back({ actual_tile.x + 1,actual_tile.y - 1 });
+		ability1_tiles.push_back({ actual_tile.x + 2,actual_tile.y - 2 });
+		ability1_tiles.push_back({ actual_tile.x + 3,actual_tile.y - 3 });
+		break;
+	case Direction::LEFT:
+		ability1_tiles.push_back({ actual_tile.x - 1,actual_tile.y + 1 });
+		ability1_tiles.push_back({ actual_tile.x - 2,actual_tile.y + 2 });
+		ability1_tiles.push_back({ actual_tile.x - 3,actual_tile.y + 3 });
+		break;
+	case Direction::UP_LEFT:
+		ability1_tiles.push_back({ actual_tile.x - 1,actual_tile.y });
+		ability1_tiles.push_back({ actual_tile.x - 2,actual_tile.y });
+		ability1_tiles.push_back({ actual_tile.x - 3,actual_tile.y });
+		break;
+	case Direction::DOWN_LEFT:
+		ability1_tiles.push_back({ actual_tile.x, actual_tile.y + 1 });
+		ability1_tiles.push_back({ actual_tile.x, actual_tile.y + 2 });
+		ability1_tiles.push_back({ actual_tile.x, actual_tile.y + 3 });
+		break;
+	case Direction::UP_RIGHT:
+		ability1_tiles.push_back({ actual_tile.x,actual_tile.y - 1 });
+		ability1_tiles.push_back({ actual_tile.x,actual_tile.y - 2 });
+		ability1_tiles.push_back({ actual_tile.x,actual_tile.y - 3 });
+		break;
+	case Direction::DOWN_RIGHT:
+		ability1_tiles.push_back({ actual_tile.x + 1,actual_tile.y });
+		ability1_tiles.push_back({ actual_tile.x + 2,actual_tile.y });
+		ability1_tiles.push_back({ actual_tile.x + 3,actual_tile.y });
+		break;
+	}
+
+	for (std::vector<iPoint>::iterator item = ability1_tiles.begin(); item != ability1_tiles.end(); ++item) {
+		(*item) = App->map->MapToWorld((*item).x, (*item).y);
+	}
+}
