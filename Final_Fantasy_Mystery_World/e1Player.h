@@ -4,7 +4,7 @@
 #include "p2Animation.h"
 #include "p2Point.h"
 #include "e1DynamicEntity.h"
-#include "p2PerfTimer.h"
+#include "p2Timer.h"
 #include <vector>
 
 class u1GUI;
@@ -186,6 +186,9 @@ public:
 	bool has_skills = false;
 	bool block_controls = false;
 	bool god_mode = false;
+
+	p2Timer timer_ability1;
+	float time_to_wait_ability1 = 1.f;
 
 	float flash_time = 0.0F;
 	iPoint flash_position{ 0,0 };

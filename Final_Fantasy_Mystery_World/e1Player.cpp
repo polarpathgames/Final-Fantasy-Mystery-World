@@ -60,6 +60,8 @@ void e1Player::Init()
 		movement_type = Movement_Type::InQuest;
 
 	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (m1Module*)App->entity_manager);
+
+	timer_ability1.Stop();
 }
 
 e1Player::~e1Player()
@@ -518,10 +520,21 @@ void e1Player::ReadAttack()
 		App->audio->PlayFx(App->scene->fx_attack);
 		return;
 	}
-	if (player_input.pressing_1 && App->globals.ability1_gained == true) {
-		PrepareSpecialAttack1();
+	if ((App->input->GetKeyDown(SDL_SCANCODE_1) || App->input->GetKeyRepeat(SDL_SCANCODE_1)) && App->globals.ability1_gained == true) {
+		if (timer_ability1.IsRunning()) {
+			if (timer_ability1.ReadSec() >= time_to_wait_ability1) {
+				PrepareSpecialAttack1();
+				timer_ability1.Stop();
+			}
+		}
+		else {
+			timer_ability1.Start();
+		}
+
 		return;
 	}
+	else if (timer_ability1.IsRunning()) timer_ability1.Stop();
+
 	if (player_input.pressing_3 && App->globals.ability3_gained == true) {
 		App->audio->PlayFx(App->scene->fx_ability3);
 		PrepareSpecialAttack2();
