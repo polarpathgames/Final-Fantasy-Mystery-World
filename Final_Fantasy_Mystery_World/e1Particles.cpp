@@ -34,6 +34,10 @@ e1Particles::~e1Particles()
 
 bool e1Particles::PreUpdate()
 {
+	if (particle_type == ParticleType::AMAZING_DRAGON_FIRE_BALL) {
+		MoveAmazingFireBall(App->GetDeltaTime());
+	}
+
 	return true;
 }
 
@@ -80,7 +84,7 @@ void e1Particles::Draw(float dt)
 	}
 }
 
-void e1Particles::SetParticle(const ParticleType & particle_type, const Direction & dir)
+void e1Particles::SetParticle(const ParticleType & particle_type, const Direction & dir, const uint&turns)
 {
 	BROFILER_CATEGORY("SetParticle Entity", Profiler::Color::Yellow);
 
@@ -103,6 +107,10 @@ void e1Particles::SetParticle(const ParticleType & particle_type, const Directio
 	case ParticleType::THUNDERBOLT:
 		name.assign("thunderbolt");
 		SetThunderbolt();
+		break;
+	case ParticleType::AMAZING_DRAGON_FIRE_BALL:
+		name.assign("amazing dragon fire ball");
+		SetAmazingDragonFireBall(turns);
 		break;
 	default:
 		break;
@@ -486,6 +494,53 @@ void e1Particles::SetThunderbolt()
 	size.create(current_animation->GetCurrentFrame(0.f).w, current_animation->GetCurrentFrame(0.f).h);
 
 	pivot.create(0, 50);
+}
+
+void e1Particles::SetAmazingDragonFireBall(const uint & turns)
+{
+	allow_turn = true;
+
+	this->turns = turns;
+	velocity.y = 160;
+	position.y -= FIREBALL_ELEVATED_POS;
+	position.x += 5;
+
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ -1,-1 });
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ -1,0 });
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ -1,1 });
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ 1,-1 });
+	amazing_fire_ball_attack_range.push_back(actual_tile);
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ 0,1 });
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ 1,-1 });
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ 1,0 });
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ 1,1 });
+
+	anim.GoDown.PushBack({ 47,55,52,64 });
+	anim.GoDown.PushBack({ 99,119,52,64 });
+	anim.GoDown.PushBack({ 151,183,52,64 });
+	anim.GoDown.PushBack({ 203,247,52,64 });
+	anim.GoDown.speed = 3.0f;
+	current_animation = &anim.GoDown;
+
+	SetPivot(11, 2800);
+	size.create(20, 20);
+}
+
+void e1Particles::MoveAmazingFireBall(float dt)
+{
+	if (turns == 0) {
+		position.y += floor(velocity.y * dt);
+		if (position.y >= App->scene->player->position.y) {
+			to_delete = true;
+			turn_done = true;
+		}
+	}
+	else {
+		--turns;
+		turn_done = true;
+	}
+
+
 }
 
 void e1Particles::MoveIceStake(float dt)

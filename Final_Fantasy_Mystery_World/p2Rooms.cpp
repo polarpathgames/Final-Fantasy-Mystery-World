@@ -458,6 +458,9 @@ void RoomManager::LoadEntities()
 				else if ((*position)->ent_type == "BabyDrake") {
 					ent_type = e1Entity::EntityType::BABY_DRAKE;
 				}
+				else if ((*position)->ent_type == "AmazingDragon") {
+					ent_type = e1Entity::EntityType::AMAZING_DRAGON;
+				}
 				else if ((*position)->ent_type == "Frozen") {
 					ent_type = e1Entity::EntityType::FROZEN;
 				}

@@ -162,7 +162,7 @@
 
   <final_quest>
     <room>
-      <location>Quest2_Enter.tmx</location>
+      <location>Quest2_Boss.tmx</location>
       <id num="1"></id>
       <type>paceful</type>
       <music>assets/audio/music/12.Final Fantasy TA - Gathering Allies.ogg</music>

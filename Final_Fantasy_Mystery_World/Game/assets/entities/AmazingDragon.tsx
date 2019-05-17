@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.2" name="Slime" tilewidth="107" tileheight="62" tilecount="96" columns="4">
+<tileset version="1.2" tiledversion="1.2.2" name="Slime" tilewidth="107" tileheight="62" tilecount="32" columns="4">
  <grid orientation="orthogonal" width="45" height="42"/>
  <properties>
   <property name="attack_power" type="int" value="30"/>
@@ -45,6 +45,12 @@
   <properties>
    <property name="speed" type="int" value="6"/>
   </properties>
+  <animation>
+   <frame tileid="8" duration="170"/>
+   <frame tileid="9" duration="170"/>
+   <frame tileid="10" duration="170"/>
+   <frame tileid="10" duration="170"/>
+  </animation>
  </tile>
  <tile id="11">
   <properties>
@@ -55,6 +61,10 @@
   <properties>
    <property name="speed" type="int" value="6"/>
   </properties>
+  <animation>
+   <frame tileid="12" duration="170"/>
+   <frame tileid="13" duration="170"/>
+  </animation>
  </tile>
  <tile id="15">
   <properties>
