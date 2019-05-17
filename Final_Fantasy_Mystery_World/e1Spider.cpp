@@ -13,23 +13,21 @@
 
 e1Spider::e1Spider(const int & x, const int & y) : e1Enemy(x, y)
 {
-	LoadEntityData("assets/entities/CarnivorousPlant.tsx");
+	LoadEntityData("assets/entities/Spider.tsx");
 	name.assign("Spider");
 	enemy_type = EnemyType::SPIDER;
 
 	state = State::SLEEPING;
 
-	position.x -= 6;
-	position.y -= 22;
-	SetPivot(21, 33);
-	Sleep.PushBack({ 272, 2, 43, 40 });
-	Sleep.PushBack({ 272, 253, 43, 40 });
-	Sleep.PushBack({ 272, 44, 43, 40 });
-	Sleep.PushBack({ 272, 295, 43, 40 });
+	SetPivot(16, 29);
+	Sleep.PushBack({ 0, 203, 32, 34 });
+	Sleep.PushBack({ 32, 203, 32, 34 });
+	Sleep.PushBack({ 64, 203, 32, 34 });
+	Sleep.PushBack({ 96, 203, 32, 34 });
 	Sleep.speed = 2;
 
 	current_animation = &Sleep;
-
+	CenterOnTile();
 	target_position = position;
 	initial_position = position;
 	InitStats();
@@ -55,7 +53,7 @@ bool e1Spider::PreUpdate()
 			turn_done = false;
 		}
 
-		if (do_attack && time_awake <= SDL_GetTicks() - 700) {
+		if (do_attack && time_awake <= SDL_GetTicks() - 400) {
 			++d;
 			iPoint player_tile = App->scene->player->actual_tile;
 			App->scene->player->state = State::SLEEPING;
@@ -185,41 +183,40 @@ void e1Spider::IdAnimToEnum()
 		case 52:
 			data.animations[i].animType = AnimationState::WALKING_RIGHT;
 			break;
-		case 56:
+		case 31:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_DOWN;
 			break;
-		case 63:
+		case 32:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_UP;
 			break;
-		case 70:
+		case 33:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_LEFT;
 			break;
-		case 77:
+		case 34:
 			data.animations[i].animType = AnimationState::BASIC_ATTACK_RIGHT;
 			break;
-		case 84:
+		case 50:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;
-		case 85:
+		case 53:
 			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
 			break;
-		case 86:
+		case 55:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
-
 			break;
-		case 87:
+		case 56:
 			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
 			break;
-		case 88:
+		case 66:
 			data.animations[i].animType = AnimationState::DEATH_LEFT;
 			break;
-		case 89:
+		case 61:
 			data.animations[i].animType = AnimationState::DEATH_DOWN;
 			break;
-		case 93:
+		case 62:
 			data.animations[i].animType = AnimationState::DEATH_RIGHT;
 			break;
-		case 100:
+		case 63:
 			data.animations[i].animType = AnimationState::DEATH_UP;
 			break;
 		}
