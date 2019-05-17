@@ -27,7 +27,7 @@ public:
 	void IdAnimToEnum();
 public:
 	bool active = false;
-	AmazingDragonStates dragon_states = AmazingDragonStates::ATTACK;
+	AmazingDragonStates dragon_states = AmazingDragonStates::IDLE;
 
 	uint turns_to_wait_after_fire_ball = 0U;
 	uint waves_before_recover_energy = 0U;

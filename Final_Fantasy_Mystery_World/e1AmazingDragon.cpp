@@ -60,18 +60,26 @@ bool e1AmazingDragon::PreUpdate()
 				turn_done = true;
 			}
 			else {
+				current_animation = &anim.BasicAttackDownLeft;
 				dragon_states = AmazingDragonStates::ATTACK;
-				turn_done = true;
 			}
 		break; }
 		case e1AmazingDragon::AmazingDragonStates::ATTACK: {
-			current_animation = &anim.BasicAttackDownLeft;
 			if (current_animation->Finished()) {
 				++auxiliar_attack_count;
+				std::vector<iPoint> random_pos;
+				App->entity_manager->FindFreeTileAround(App->scene->player->actual_tile, 8, &random_pos);
 				for (uint i = 0; i < number_of_fire_balls; ++i) {
-					iPoint pos = App->entity_manager->FindRandomFreeTileAround(App->scene->player->actual_tile, 6);
+					iPoint pos = random_pos[App->random.Generate(0, random_pos.size() - 1)];
 					e1Particles* fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, pos.x, pos.y, "");
 					fire_ball->SetParticle(e1Particles::ParticleType::AMAZING_DRAGON_FIRE_BALL, direction, turns_to_wait_after_fire_ball);
+					std::vector<iPoint>::iterator item = random_pos.begin();
+					for (; item != random_pos.end(); ++item) {
+						if ((*item) == pos) {
+							random_pos.erase(item);
+							break;
+						}
+					}
 				}
 				turn_done = true;
 				dragon_states = AmazingDragonStates::WAIT_FIRE_BALLS;
