@@ -5,11 +5,15 @@
 #include "App.h"
 #include "m1Audio.h"
 #include "m1Map.h"
+#include "u1Bar.h"
+#include "u1Image.h"
 #include "m1ParticleManager.h"
 #include "m1EntityManager.h"
 #include "p1Follow.h"
 #include "p2Math.h"
+#include "m1MenuManager.h"
 #include "m1FadeToBlack.h"
+#include "u1Label.h"
 #include "Brofiler/Brofiler.h"
 
 e1BabyDrake::e1BabyDrake(const int & x, const int & y) : e1Enemy(x, y)
@@ -25,6 +29,8 @@ e1BabyDrake::e1BabyDrake(const int & x, const int & y) : e1Enemy(x, y)
 
 	target_position = position;
 	initial_position = position;
+	boss_hp_bar = App->gui->AddBar(100, 80, 100, ENEMYBAR, App->menu_manager->hud.bg_hud, nullptr);
+	boss_name_label = App->gui->AddLabel(355, 20, "Dragon Desire", boss_hp_bar, BLACK, FontType::FF64, nullptr, false);
 
 	InitStats();
 }
