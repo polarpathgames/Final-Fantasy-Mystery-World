@@ -16,6 +16,7 @@ u1Button::u1Button(const int & x, const int & y, const SDL_Rect & idle, const SD
 	if (clip_zone != nullptr) {
 		this->clip_zone = clip_zone;
 		clipable = true;
+		new_clip = true;
 	}
 
 	this->focus_offset = focus_offset;

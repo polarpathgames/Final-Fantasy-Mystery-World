@@ -486,6 +486,15 @@ struct UI_potion {
 	u1Button* cancel_button = nullptr;
 	u1Label* use_label = nullptr;
 	u1Label* cancel_label = nullptr;
+
+	void Reset() {
+		potion_panel = nullptr;
+		use_hp_button = nullptr;
+		use_mana_button = nullptr;
+		cancel_button = nullptr;
+		use_label = nullptr;
+		cancel_label = nullptr;
+	}
 };
 
 struct UI_quest {

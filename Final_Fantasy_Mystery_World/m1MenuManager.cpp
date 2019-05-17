@@ -601,6 +601,7 @@ void m1MenuManager::CreatePotionMenu(u1GUI* potion_button)
 void m1MenuManager::DeletePotionMenu()
 {
 	App->gui->DeleteUIElement(potion.potion_panel);
+	potion.Reset();
 	//menu_state = StatesMenu::INVENTORY_MENU;
 }
 
@@ -1533,11 +1534,11 @@ void m1MenuManager::CreateBigInventory()
 
 	inventory.inventory_panel = App->gui->AddImage(14, 12, { 2070,1179,356,335 }, nullptr, inventory.inventory_background, true, false, false, false);
 
-	inventory.hp_potion_button = App->gui->AddButton(203, 152, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, App->scene, inventory.inventory_panel, true, false, true, true);
+	inventory.hp_potion_button = App->gui->AddButton(203, 152, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, App->scene, inventory.inventory_panel, true, false, false, false);
 	inventory.hp_potion_image = App->gui->AddImage(215, 160, { 1058, 1952, 33, 47 }, nullptr, inventory.inventory_panel, true, false, false, false);
 	inventory.hp_potion_label = App->gui->AddLabel(50, -10, std::string("x " + std::to_string(App->scene->player->stats.num_hp_potions)).data(), inventory.hp_potion_image, BLACK, FontType::FF64, nullptr, false);
 
-	inventory.mana_potion_button = App->gui->AddButton(203, 230, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, App->scene, inventory.inventory_panel, true, false, true, true);
+	inventory.mana_potion_button = App->gui->AddButton(203, 230, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, { 1097, 1608, 125, 61 }, App->scene, inventory.inventory_panel, true, false, false, false);
 	inventory.mana_potion_image = App->gui->AddImage(215, 235, { 1091, 1952, 33, 51 }, nullptr, inventory.inventory_panel, true, false, false, false);
 	inventory.mana_potion_label = App->gui->AddLabel(50, -10, std::string("x " + std::to_string(App->scene->player->stats.num_mana_potions)).data(), inventory.mana_potion_image, BLACK, FontType::FF64, nullptr, false);
 
@@ -1687,4 +1688,9 @@ void UI_inventory::SetClipInInventory()
 	}
 
 	App->menu_manager->inventory.spline_move_inventory = nullptr;
+	hp_potion_button->interactable = true;
+	hp_potion_button->allow_focus = true;
+	mana_potion_button->interactable = true;
+	mana_potion_button->allow_focus = true;
+	App->gui->FocusButton(hp_potion_button);
 }
