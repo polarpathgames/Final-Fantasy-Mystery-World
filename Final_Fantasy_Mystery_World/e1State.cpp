@@ -29,6 +29,7 @@ e1State::e1State(int x, int y, const char * name) :e1Entity(x, y) {
 
 	if (strcmp(name, "poison") == 0 || strcmp(name, "fire") == 0) {
 		target = (e1Entity*)App->scene->player;
+		SDL_GetTextureColorMod(target->data.tileset.texture, &color_mod_r, &color_mod_g, &color_mod_b);
 		if (strcmp(name, "poison") == 0) {
 			state = EventStates::POISON;
 			if (target->data.tileset.texture != nullptr) {
@@ -44,8 +45,7 @@ e1State::e1State(int x, int y, const char * name) :e1Entity(x, y) {
 			CreateParticleFire(target, nullptr, { 0,0 }, SDL_Rect{ 4,4,2,2 }, iPoint(5, 2), iPoint(12, 4), fPoint(0, -60), P_NON, 65, 4, true, W_NON, target->pivot);
 		}
 		turn_effect = 3U;
-		
-		SDL_GetTextureColorMod(target->data.tileset.texture, &color_mod_r, &color_mod_g, &color_mod_b);
+
 		max_number_hit = 5U;
 		time_effect = 1U;
 		damage = 5;

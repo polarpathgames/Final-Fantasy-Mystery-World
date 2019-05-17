@@ -267,6 +267,7 @@ bool e1Drop::Update(float adt)
 		{
 			App->scene->player->stats.num_mana_potions++;
 			App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
+			App->audio->PlayFx(App->scene->fx_pick_up_poti);
 			to_delete = true;
 			break;
 		}
