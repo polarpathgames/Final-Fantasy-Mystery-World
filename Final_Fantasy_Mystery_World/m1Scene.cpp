@@ -238,7 +238,7 @@ bool m1Scene::Update(float dt)
 	
 	switch (menu_state) {
 	case StatesMenu::NO_MENU:
-		if ((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing) {
+		if ((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing && !player->turn_done && App->entity_manager->entity_turn == player) {
 			if (App->menu_manager->pause.pause_panel == nullptr && App->ChangePause() && !App->cutscene_manager->is_executing) {
 				App->audio->PlayFx(App->gui->fx_pause);
 				App->menu_manager->CreatePauseMenu();
@@ -246,7 +246,7 @@ bool m1Scene::Update(float dt)
 				menu_state = StatesMenu::PAUSE_MENU;
 			}
 		}
-		if ((App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing) {
+		if ((App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing && !player->turn_done && App->entity_manager->entity_turn == player) {
 			if (App->ChangeInventory()) {
 				App->audio->PlayFx(App->gui->fx_inventory);
 				App->menu_manager->CreateBigInventory();
