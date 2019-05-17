@@ -54,7 +54,7 @@ public:
 	void DeleteEntitiesNoPlayer();
 	void DeleteEntity(e1Entity* entity_to_delete);
 
-	void SpawnRupees(const int & x, const int & y, const int& number, const int & range);
+	void SpawnRupees(const int & x, const int & y, const int& number, const int & range, const int & gold_per, const int & red_per, const int& blue_per, const int & green_per);
 
 	// Finds a tile in all zone around origin tile
 	bool FindFreeTileAround(const iPoint &tile, const uint & range, std::vector<iPoint> * list_to_fill);
