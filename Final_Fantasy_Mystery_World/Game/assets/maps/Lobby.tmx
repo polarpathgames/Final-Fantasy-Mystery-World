@@ -15885,7 +15885,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="35" name="Colliders" width="66" height="60">
+ <layer id="35" name="Colliders" width="66" height="60" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -19853,7 +19853,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="26" name="collider">
+ <objectgroup id="26" name="collider" visible="0">
   <object id="88" name="collider" x="624.818" y="373.91" width="11.6818" height="4.5">
    <properties>
     <property name="home" type="int" value="0"/>
@@ -19895,7 +19895,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ffff7f" id="6" name="player">
+ <objectgroup color="#ffff7f" id="6" name="player" visible="0">
   <object id="5" name="player" type="default" x="496" y="688" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
@@ -19912,7 +19912,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="27" name="Static objects">
+ <objectgroup id="27" name="Static objects" visible="0">
   <object id="30" name="flower" type="static" x="368.227" y="352.136" width="32" height="32"/>
   <object id="31" name="flower" type="static" x="432" y="368" width="32" height="32"/>
   <object id="32" name="flower" type="static" x="416" y="304" width="32" height="32"/>

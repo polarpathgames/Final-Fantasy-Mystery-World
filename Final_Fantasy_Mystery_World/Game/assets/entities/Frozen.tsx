@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.3" name="Frozen" tilewidth="37" tileheight="45" spacing="2" margin="2" tilecount="240" columns="10">
+<tileset version="1.2" tiledversion="1.2.2" name="Frozen" tilewidth="37" tileheight="45" spacing="2" margin="2" tilecount="240" columns="10">
  <properties>
   <property name="attack_power" type="int" value="35"/>
   <property name="experience" type="int" value="300"/>
@@ -355,6 +355,9 @@
   </animation>
  </tile>
  <tile id="200">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
   <animation>
    <frame tileid="200" duration="200"/>
    <frame tileid="201" duration="200"/>
@@ -367,6 +370,9 @@
   </animation>
  </tile>
  <tile id="201">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
   <animation>
    <frame tileid="200" duration="200"/>
    <frame tileid="201" duration="200"/>
@@ -379,6 +385,9 @@
   </animation>
  </tile>
  <tile id="210">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
   <animation>
    <frame tileid="210" duration="200"/>
    <frame tileid="211" duration="200"/>
@@ -391,6 +400,9 @@
   </animation>
  </tile>
  <tile id="211">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
   <animation>
    <frame tileid="210" duration="200"/>
    <frame tileid="211" duration="200"/>
@@ -403,6 +415,9 @@
   </animation>
  </tile>
  <tile id="220">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
   <animation>
    <frame tileid="220" duration="200"/>
    <frame tileid="221" duration="200"/>
@@ -415,6 +430,9 @@
   </animation>
  </tile>
  <tile id="221">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
   <animation>
    <frame tileid="220" duration="200"/>
    <frame tileid="221" duration="200"/>
@@ -427,6 +445,9 @@
   </animation>
  </tile>
  <tile id="230">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
   <animation>
    <frame tileid="230" duration="200"/>
    <frame tileid="231" duration="200"/>
@@ -439,6 +460,9 @@
   </animation>
  </tile>
  <tile id="231">
+  <properties>
+   <property name="speed" type="int" value="10"/>
+  </properties>
   <animation>
    <frame tileid="230" duration="200"/>
    <frame tileid="231" duration="200"/>

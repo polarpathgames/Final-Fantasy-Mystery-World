@@ -291,18 +291,18 @@ void RoomManager::LoadRoom(const int & id)
 
 
 
-	LoadColliders();
-	UpdateMap();
-	LoadEntities();
-	PlacePlayer();
-	PlayMusic();
-	PlayCutScene();
+LoadColliders();
+UpdateMap();
+LoadEntities();
+PlacePlayer();
+PlayMusic();
+PlayCutScene();
 
-	// Properties
-	if (actual_room->properties.GetValue("blizzard") == 1) {
-		App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "blizzard");
-	}
-	
+// Properties
+if (actual_room->properties.GetValue("blizzard") == 1) {
+	App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "blizzard");
+}
+
 }
 
 void RoomManager::LoadEntities()
@@ -381,6 +381,28 @@ void RoomManager::LoadEntities()
 			else if ((*position)->name == "rocks_door") {
 				if (!App->globals.quest2_rocks_cave_destroyed)
 					App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+			}
+			else if ((*position)->name == "treasure_1" || (*position)->name == "treasure_boss" || (*position)->name == "treasure_quest3") {
+				e1StaticEntity* treasure = (e1StaticEntity*)App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+				if ((*position)->name == "treasure_1") {
+					if ((App->globals.treasure_quest2_opened)) {
+						treasure->frame = { 0,0,0,0 };
+						treasure->interacting_state = e1StaticEntity::InteractingStates::NONE;
+					}
+				}
+				else if ((*position)->name == "treasure_boss") {
+					if ((App->globals.treasure_boss_opened)) {
+						treasure->frame = { 0,0,0,0 };
+						treasure->interacting_state = e1StaticEntity::InteractingStates::NONE;
+					}
+				}
+				else if ((*position)->name == "treasure_quest3") {
+					if ((App->globals.treasure_quest3_opened)) {
+						treasure->frame = { 0,0,0,0 };
+						treasure->interacting_state = e1StaticEntity::InteractingStates::NONE;
+					}
+				}
+
 			}
 			else if ((*position)->name == "InstaGoldRuppe" || (*position)->name == "InstaRedRuppe" || (*position)->name == "InstaBlueRuppe" || (*position)->name == "InstaGreenRuppe") {
 				iPoint point = { App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y };
@@ -733,7 +755,7 @@ void RoomManager::UpdateRoomEvents()
 	}
 	
 	
-	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_BACK)) {
 		if (!map_active && App->scene->menu_state == StatesMenu::NO_MENU && App->scene->player->state == State::IDLE && !App->scene->player->turn_done) {
 			int distance_x = actual_room->map_room_image->GetLocalPosition().x, distance_y = actual_room->map_room_image->GetLocalPosition().y;
 			player_pos->parent = actual_room->map_room_image;

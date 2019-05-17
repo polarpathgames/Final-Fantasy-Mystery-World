@@ -17,6 +17,64 @@ enum class Direction {
 	UP, DOWN, RIGHT, LEFT, UP_LEFT, DOWN_LEFT, UP_RIGHT, DOWN_RIGHT, NONE
 };
 
+struct animation {
+	Animation GoDownLeft;
+	Animation IdleDownLeft;
+	Animation BasicAttackDownLeft;
+	Animation DeathDownLeft;
+	Animation AbilityDownLeft1;
+	Animation AbilityDownLeft2;
+
+	Animation GoDownRight;
+	Animation IdleDownRight;
+	Animation BasicAttackDownRight;
+	Animation DeathDownRight;
+	Animation AbilityDownRight1;
+	Animation AbilityDownRight2;
+
+	Animation GoUpRight;
+	Animation IdleUpRight;
+	Animation BasicAttackUpRight;
+	Animation DeathUpRight;
+	Animation AbilityUpRight1;
+	Animation AbilityUpRight2;
+
+	Animation GoUpLeft;
+	Animation IdleUpLeft;
+	Animation BasicAttackUpLeft;
+	Animation DeathUpLeft;
+	Animation AbilityUpLeft1;
+	Animation AbilityUpLeft2;
+
+	Animation GoLeft;
+	Animation IdleLeft;
+	Animation BasicAttackLeft;
+	Animation DeathLeft;
+	Animation AbilityLeft1;
+	Animation AbilityLeft2;
+
+	Animation GoRight;
+	Animation IdleRight;
+	Animation BasicAttackRight;
+	Animation DeathRight;
+	Animation AbilityRight1;
+	Animation AbilityRight2;
+
+	Animation GoUp;
+	Animation IdleUp;
+	Animation BasicAttackUp;
+	Animation DeathUp;
+	Animation AbilityUp1;
+	Animation AbilityUp2;
+
+	Animation GoDown;
+	Animation IdleDown;
+	Animation BasicAttackDown;
+	Animation DeathDown;
+	Animation AbilityDown1;
+	Animation AbilityDown2;
+};
+
 class e1DynamicEntity  : public e1Entity
 {
 public:
@@ -57,74 +115,18 @@ public:
 	Direction direction = Direction::NONE;
 	State state = State::NONE;
 
-	Animation GoDownLeft;
-	Animation IdleDownLeft;
-	Animation BasicAttackDownLeft;
-	Animation DeathDownLeft;
-	Animation AbilitiDownLeft1;
-	Animation AbilitiDownLeft2;
+	iPoint target_position = { 0,0 };
+	iPoint initial_position = { 0,0 };
+	iPoint movement_count = { 0,0 };
 
-	Animation GoDownRight;
-	Animation IdleDownRight;
-	Animation BasicAttackDownRight;
-	Animation DeathDownRight;
-	Animation AbilitiDownRight1;
-	Animation AbilitiDownRight2;
-
-	Animation GoUpRight;
-	Animation IdleUpRight;
-	Animation BasicAttackUpRight;
-	Animation DeathUpRight;
-	Animation AbilitiUpRight1;
-	Animation AbilitiUpRight2;
-
-	Animation GoUpLeft;
-	Animation IdleUpLeft;
-	Animation BasicAttackUpLeft;
-	Animation DeathUpLeft;
-	Animation AbilitiUpLeft1;
-	Animation AbilitiUpLeft2;
-
-	Animation GoLeft;
-	Animation IdleLeft;
-	Animation BasicAttackLeft;
-	Animation DeathLeft;
-	Animation AbilitiLeft1;
-	Animation AbilitiLeft2;
-
-	Animation GoRight;
-	Animation IdleRight;
-	Animation BasicAttackRight;
-	Animation DeathRight;
-	Animation AbilitiRight1;
-	Animation AbilitiRight2;
-
-	Animation GoUp;
-	Animation IdleUp;
-	Animation BasicAttackUp;
-	Animation DeathUp;
-	Animation AbilitiUp1;
-	Animation AbilitiUp2;
-
-	Animation GoDown;
-	Animation IdleDown;
-	Animation BasicAttackDown;
-	Animation DeathDown;
-	Animation AbilitiDown1;
-	Animation AbilitiDown2;
-	Animation DistanceAttackDown;
-
-	iPoint target_position;
-	iPoint initial_position; //IMPORTANT: SEMPRE QUE ES CARREGUI UN NOU MAPA AQUESTA VARIABLE SHA DIGUALAR A LA POSICIO INICIAL!!
-	iPoint movement_count; //IMPORTANT: SEMPRE QUE ES CARREGUI UN NOU MAPA AQUESTA VARIABLE SHA DE POSAR A 0!! 
-
+	animation anim;
 
 	SDL_Texture * ground = nullptr;
 
 	Attacks type_attack = Attacks::NONE;
 
-	float time_attack;
-	float time_after_attack = 500;
+	float time_attack = 0.f;
+	float time_after_attack = 500.f;
 
 };
 

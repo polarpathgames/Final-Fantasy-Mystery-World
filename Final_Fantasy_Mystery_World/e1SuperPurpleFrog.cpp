@@ -64,6 +64,7 @@ e1SuperPurpleFrog::~e1SuperPurpleFrog()
 void e1SuperPurpleFrog::PrepareBasicAttack()
 {
 	if (distance_to_travel != 1) {
+		App->audio->PlayFx(fx_frog_jump);
 		switch (direction) {
 		case Direction::DOWN_LEFT:
 			App->easing_splines->CreateSpline(&position.x, position.x - ((App->map->data.tile_width / 4) * distance_to_travel), 1000, EASE_OUT_QUINT);

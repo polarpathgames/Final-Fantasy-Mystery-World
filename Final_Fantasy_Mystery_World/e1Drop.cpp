@@ -196,7 +196,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		actual_tile = { App->map->WorldToMap(position.x, position.y) };
 		position.x += 8;
 		position.y -= 13;
-		
+		moving = true;
 		moving_pos.x = position.x;
 		moving_pos.y = position.y;
 	}
@@ -232,39 +232,9 @@ bool e1Drop::Update(float adt)
 	if (actual_tile == App->scene->player->actual_tile) {
 		switch (drop_type) {
 		case DropsType::GREEN_RUPEE:
-		{
-			App->audio->PlayFx(App->scene->fx_drop_pick_up);
-			App->scene->player->AugmentGold(gold);
-			if (!is_insta_ruppe)
-				App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
-			else if (is_insta_ruppe)
-				App->map->quest_rooms->AddEntityToNotRepeat(insta_gem_pos);
-			to_delete = true;
-			break;
-		}
 		case DropsType::BLUE_RUPEE:
-		{
-			App->audio->PlayFx(App->scene->fx_drop_pick_up);
-			App->scene->player->AugmentGold(gold);
-			if (!is_insta_ruppe)
-				App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
-			else if (is_insta_ruppe)
-				App->map->quest_rooms->AddEntityToNotRepeat(insta_gem_pos);
-			to_delete = true;
-			break;
-		}
-		case DropsType::GOLD_RUPEE:
-		{
-			App->audio->PlayFx(App->scene->fx_drop_pick_up);
-			App->scene->player->AugmentGold(gold);
-			if (!is_insta_ruppe)
-				App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
-			else if (is_insta_ruppe)
-				App->map->quest_rooms->AddEntityToNotRepeat(insta_gem_pos);
-			to_delete = true;
-			break;
-		}
 		case DropsType::RED_RUPEE:
+		case DropsType::GOLD_RUPEE:
 		{
 			App->audio->PlayFx(App->scene->fx_drop_pick_up);
 			App->scene->player->AugmentGold(gold);
@@ -289,6 +259,7 @@ bool e1Drop::Update(float adt)
 		{
 			App->scene->player->stats.num_hp_potions++;
 			App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
+			App->audio->PlayFx(App->scene->fx_pick_up_poti);
 			to_delete = true;
 			break;
 		}
@@ -296,6 +267,7 @@ bool e1Drop::Update(float adt)
 		{
 			App->scene->player->stats.num_mana_potions++;
 			App->map->quest_rooms->DeleteDrop(actual_tile, drop_type);
+			App->audio->PlayFx(App->scene->fx_pick_up_poti);
 			to_delete = true;
 			break;
 		}
@@ -330,4 +302,14 @@ bool e1Drop::Update(float adt)
 void e1Drop::SetGold(const int & gold)
 {
 	this->gold = gold;
+}
+
+void e1Drop::FinishSpline()
+{
+	moving = false;
+	actual_tile = moving_pos;
+}
+
+void e1Drop::SetSplineToFall() {
+	App->easing_splines->CreateSpline(&position.y, (App->map->MapToWorldCentered(moving_pos.x+1, moving_pos.y) - pivot).y, 1000, TypeSpline::EASE_OUT_BOUNCE);
 }

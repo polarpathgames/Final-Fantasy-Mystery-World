@@ -92,7 +92,7 @@
     <room>
       <location>Quest1_Treasure.tmx</location>
       <id num="4"></id>
-      <music>assets/audio/music/12.Final Fantasy TA - Gathering Allies.ogg</music>
+      <music>assets/audio/music/29.Final Fantasy TA - Law Card.ogg</music>
       <type>paceful</type>
     </room>
     <room>
@@ -135,14 +135,14 @@
     <room>
       <location>Quest1_NewWorld.tmx</location>
       <id num="10"></id>
-      <music>assets/audio/music/9.Final Fantasy TA - At The Bar.ogg</music>
+      <music>assets/audio/music/26.Final Fantasy TA - Mewt.ogg.ogg</music>
       <type>paceful</type>
     </room>
     <room>
       <location>Quest1_PreFinal.tmx</location>
       <id num="11"></id>
       <type>paceful</type>
-      <music>assets/audio/music/9.Final Fantasy TA - At The Bar.ogg</music>
+      <music>assets/audio/music/26.Final Fantasy TA - Mewt.ogg</music>
     </room>
     <room>
       <location>Quest1_Fountain2.tmx</location>
@@ -165,51 +165,51 @@
       <location>Quest2_Enter.tmx</location>
       <id num="1"></id>
       <type>paceful</type>
-      <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+      <music>assets/audio/music/12.Final Fantasy TA - Gathering Allies.ogg</music>
       <update num="2"/>
     </room>
     <room>
       <location>Quest2_Eye.tmx</location>
       <id num="2"></id>
       <type>paceful</type>
-      <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+      <music>assets/audio/music/12.Final Fantasy TA - Gathering Allies.ogg</music>
     </room>
     <room>
       <location>Quest2_Spider.tmx</location>
       <id num="3"></id>
       <type>paceful</type>
-      <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+      <music>assets/audio/music/12.Final Fantasy TA - Gathering Allies.ogg</music>
     </room>
     <room>
       <location>Quest2_Dog.tmx</location>
       <id num="4"></id>
       <type>paceful</type>
-      <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+      <music>assets/audio/music/32.Final Fantasy TA - The Road We Both Aim For.ogg</music>
     </room>
     <room>
       <location>Quest2_Treasure.tmx</location>
       <id num="5"></id>
       <type>paceful</type>
-      <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+      <music>assets/audio/music/32.Final Fantasy TA - The Road We Both Aim For.ogg</music>
     </room>
     <room>
       <location>Quest2_PreFinal.tmx</location>
       <id num="6"></id>
       <type>paceful</type>
-      <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+      <music>assets/audio/music/32.Final Fantasy TA - The Road We Both Aim For.ogg</music>
     </room>
     <room>
       <location>Quest2_Fountain.tmx</location>
       <id num="7"></id>
       <type>fountain</type>
-      <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+      <music>assets/audio/music/5.Final Fantasy TA - Crystal.ogg</music>
     </room>
     <room>
       <location>Quest2_Boss.tmx</location>
       <door active="true"></door>
       <id num="8"></id>
       <type>paceful</type>
-      <music>assets/audio/music/24.Final Fantasy TA - Surpassing The Wall.ogg</music>
+      <music>assets/audio/music/23.Final Fantasy TA - Prison.ogg.ogg</music>
     </room>
   </final_quest>
 

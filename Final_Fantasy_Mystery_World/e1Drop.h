@@ -33,12 +33,15 @@ public:
 	
 	void SetGold(const int &gold);
 
+	void FinishSpline();
+	void SetSplineToFall();
+
 public:
 
 	DropsType drop_type = DropsType::NONE;
 	int gold = 0;
 	iPoint			  moving_pos = { NULL, NULL };
-	bool			  moving = true;
+	bool			  moving = false;
 	iPoint original_position{ 0,0 };
 
 	float lerp_translation = 0.f;

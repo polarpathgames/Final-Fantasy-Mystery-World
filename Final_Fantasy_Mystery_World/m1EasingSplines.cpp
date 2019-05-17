@@ -117,6 +117,9 @@ bool EaseSplineInfo::Update(float dt)
 		case EASE_OUT_CUBIC: {
 			*position = ease_function.EaseOutCubic(time_passed, initial_position, distance_to_travel, time_to_travel);
 		} break;
+		case EASE_OUT_BOUNCE: {
+			*position = ease_function.EaseOutBounce(time_passed, initial_position, distance_to_travel, time_to_travel);
+		} break;
 		default:
 			break;
 		}
@@ -176,4 +179,23 @@ int EaseFunctions::EaseInCubic(float time_passed, int initial_position, int dist
 int EaseFunctions::EaseOutCubic(float time_passed, int initial_position, int distance_to_travel, float time_to_travel)
 {
 	return distance_to_travel * ((time_passed = time_passed / time_to_travel - 1)*time_passed*time_passed + 1) + initial_position;
+}
+
+int EaseFunctions::EaseOutBounce(float time_passed, int initial_position, int distance_to_travel, float time_to_travel)
+{
+	if ((time_passed /= time_to_travel) < (1 / 2.75f)) {
+		return distance_to_travel * (7.5625f*time_passed*time_passed) + initial_position;
+	}
+	else if (time_passed < (2 / 2.75f)) {
+		float postFix = time_passed -= (1.5f / 2.75f);
+		return distance_to_travel * (7.5625f*(postFix)*time_passed + .75f) + initial_position;
+	}
+	else if (time_passed < (2.5 / 2.75)) {
+		float postFix = time_passed -= (2.25f / 2.75f);
+		return distance_to_travel * (7.5625f*(postFix)*time_passed + .9375f) + initial_position;
+	}
+	else {
+		float postFix = time_passed -= (2.625f / 2.75f);
+		return distance_to_travel * (7.5625f*(postFix)*time_passed + .984375f) + initial_position;
+	}
 }

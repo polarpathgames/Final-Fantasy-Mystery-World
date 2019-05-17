@@ -272,7 +272,7 @@ void m1EntityManager::OnCollisionExit(Collider * c1, Collider * c2)
 //e1Entity Factory
 e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
-
+	BROFILER_CATEGORY("CreateEntity", Profiler::Color::Blue);
 	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)22, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
@@ -366,21 +366,81 @@ void m1EntityManager::DeleteEntity(e1Entity* entity_to_delete)
 
 }
 
-iPoint m1EntityManager::FindFirstFreeTileAround(const iPoint & tile, const uint & range)
+void m1EntityManager::SpawnRupees(const int & x, const int & y, const int & number, const int & range)
+{
+	BROFILER_CATEGORY("SpawnRupees", Profiler::Color::BlueViolet);
+	e1Drop* drop = nullptr;
+	iPoint destination = { 0,0 };
+	std::vector<iPoint> positions;
+	if (FindFreeTileAround({ x,y }, range, &positions))
+		for (int i = 0; i < number; ++i) {
+			drop = (e1Drop*)CreateEntity(e1Entity::EntityType::DROP, x, y, "green_rupee");
+			int gold = App->random.Generate(25, 100);
+			drop->SetGold(gold);
+			destination = positions[App->random.Generate(0, positions.size() - 1)];
+			std::vector<iPoint>::iterator item = positions.begin();
+			for (; item != positions.end(); ++item) {
+				if ((*item) == destination) {
+					positions.erase(item);
+					break;
+				}
+			}
+			LOG("%i",positions.size());
+			LOG("%i %i", destination.x,destination.y);
+			drop->moving_pos = drop->actual_tile = destination;
+			destination = App->map->MapToWorldCentered(destination.x, destination.y) - drop->pivot;
+			App->easing_splines->CreateSpline(&drop->position.x, destination.x + App->map->data.tile_width / 2, 2000, TypeSpline::EASE, std::bind(&e1Drop::FinishSpline, drop));
+			App->easing_splines->CreateSpline(&drop->position.y, destination.y - destination.DistanceTo(drop->position)*0.7f,
+				1000, TypeSpline::EASE_OUT_CUBIC, std::bind(&e1Drop::SetSplineToFall, drop));
+			drop->moving = true;
+			if (positions.empty()) break;
+		}
+}
+
+bool m1EntityManager::FindFreeTileAround(const iPoint & tile, const uint & range, std::vector<iPoint> * list_to_fill)
 {
 	iPoint destination_tile = tile - iPoint{(int)range, (int)range};
-
-	for (uint i = 0; i < 2 * range; i++) {
-		for (uint j = 0; j < 2 * range; j++) {
-			destination_tile.x++;
+	bool ret = false;
+	for (uint i = 0; i <= 2 * range; i++) {
+		for (uint j = 0; j <= 2 * range; j++) {
+			LOG("%i %i", destination_tile.x, destination_tile.y);
 			if (destination_tile != tile)
 				if (IsWalkable(destination_tile))
-					return destination_tile;
+					list_to_fill->push_back(destination_tile);
+			destination_tile.x++;
 		}
 		destination_tile.x = tile.x - range;
 		destination_tile.y++;
 	}
 	
+	if (!list_to_fill->empty())
+		return true;
+
+	return false;
+}
+
+iPoint m1EntityManager::FindRandomFreeTileAround(const iPoint & tile, const uint & range)
+{
+	BROFILER_CATEGORY("FindRandomFreeTileAround", Profiler::Color::Violet);
+	iPoint destination_tile = tile - iPoint{ (int)range, (int)range };
+	std::vector<iPoint> positions;
+
+	for (uint i = 0; i < 2 * range; i++) {
+		for (uint j = 0; j < 2 * range; j++) {
+			destination_tile.x++;
+			if (destination_tile != tile)
+				if (IsWalkable(destination_tile)) {
+					positions.push_back(destination_tile);
+				}
+		}
+		destination_tile.x = tile.x - range;
+		destination_tile.y++;
+	}
+
+	if (positions.size() > 0) {
+		return positions[App->random.Generate(0, positions.size() - 1)];
+	}
+
 	return tile;
 }
 
@@ -518,6 +578,7 @@ bool m1EntityManager::Load(pugi::xml_node& load)
 	}
 	App->menu_manager->CreateHUD();
 	App->menu_manager->EnableHUD(false);
+	App->audio->StopMusic(-4);
 	App->scene->player->actual_tile.x += 1;
 	App->scene->player->actual_tile.y += 1;
 	App->scene->player->CenterOnTile();
@@ -621,13 +682,13 @@ e1Entity * m1EntityManager::FindEntity(const char * name)
 	return ret;
 }
 
-bool m1EntityManager::IsPlayerPoisoned()
+bool m1EntityManager::IsPlayerPoisonedOrBurned()
 {
 	for (std::vector<e1Entity*>::iterator item = entities.begin(); item != entities.end(); ++item)
 	{
 		if ((*item)->type == e1Entity::EntityType::EVENT) {
 			e1State* event = static_cast<e1State*>(*item);
-			if (event->state == EventStates::POISON && event->target == App->scene->player) {
+			if ((event->state == EventStates::POISON || event->state == EventStates::FIRE) && event->target == App->scene->player) {
 					return true;
 			}
 		}

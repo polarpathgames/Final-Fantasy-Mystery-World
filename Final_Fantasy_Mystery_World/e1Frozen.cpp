@@ -33,65 +33,69 @@ e1Frozen::~e1Frozen()
 
 bool e1Frozen::PreUpdate()
 {
-
-	if (phase == Phase::NORMAL && stats.live <= stats.max_live * 0.5F) {
-		phase = Phase::HARD;
-		tp_last_number_hit = times_hitted;
-		DoTeleport();
-		want_to_attack = false;
-		tp_number_hit = tp_number_hit_phase2;
-	}
-
-	if (tp_last_number_hit != times_hitted) {
-		tp_done = false;
-	}
-
-	if (times_hitted != 0 && !tp_done) {
-		if (times_hitted % tp_number_hit == 0 && want_to_attack) {
+	if (state != State::DEATH) {
+		if (phase == Phase::NORMAL && stats.live <= stats.max_live * 0.5F) {
+			App->audio->PlayFx(fx_ice_queen_hit);
+			phase = Phase::HARD;
 			tp_last_number_hit = times_hitted;
 			DoTeleport();
 			want_to_attack = false;
+			tp_number_hit = tp_number_hit_phase2;
 		}
-	}
 
-	if (!tp_timer.IsRunning()) {
-		e1Enemy::PreUpdate();
-	}
-	else {
-		Escape();
-	}
+		if (tp_last_number_hit != times_hitted) {
+			tp_done = false;
+		}
 
-	if (type_attack == Attacks::SPECIAL_1) {
-		if (phase == Phase::NORMAL) {
-			if ((int)current_animation->current_frame == 7) {
-				if (laser_play_fx)
-				{
-					App->audio->PlayFx(fx_laser);
-					laser_play_fx = false;
-				}
-					
-
-				e1Particles* needle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, actual_tile.x, actual_tile.y, "");
-				needle->position.x = GetPosition().x;
-				needle->SetParticle(e1Particles::ParticleType::ICE_STAKE, direction);
+		if (times_hitted != 0 && !tp_done) {
+			if (times_hitted % tp_number_hit == 0 && want_to_attack) {
+				tp_last_number_hit = times_hitted;
+				DoTeleport();
+				want_to_attack = false;
 			}
 		}
+
+		if (!tp_timer.IsRunning()) {
+			e1Enemy::PreUpdate();
+		}
 		else {
-			if (App->entity_manager->ThereIsEntity("blizzard")) {
+			Escape();
+		}
+		if (type_attack == Attacks::SPECIAL_1) {
+			if (phase == Phase::NORMAL) {
 				if ((int)current_animation->current_frame == 7) {
+					if (laser_play_fx)
+					{
+						App->audio->PlayFx(fx_laser);
+						laser_play_fx = false;
+					}
+
+
 					e1Particles* needle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, actual_tile.x, actual_tile.y, "");
 					needle->position.x = GetPosition().x;
 					needle->SetParticle(e1Particles::ParticleType::ICE_STAKE, direction);
 				}
 			}
 			else {
-				if (current_animation->Finished()) {
-					e1State* blizz = (e1State*)App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "blizzard");
-					blizz->SetMaxNumberHit(3U);
+				if (App->entity_manager->ThereIsEntity("blizzard")) {
+					if ((int)current_animation->current_frame == 7) {
+						e1Particles* needle = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, actual_tile.x, actual_tile.y, "");
+						needle->position.x = GetPosition().x;
+						needle->SetParticle(e1Particles::ParticleType::ICE_STAKE, direction);
+					}
+				}
+				else {
+					if (current_animation->Finished()) {
+						e1State* blizz = (e1State*)App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "blizzard");
+						blizz->SetMaxNumberHit(3U);
+					}
 				}
 			}
+
 		}
 	}
+	else
+		Death();
 	return true;
 }
 
@@ -106,13 +110,14 @@ bool e1Frozen::IsSpecialAttack1Finished()
 	return (current_animation->Finished() && !App->entity_manager->ThereIsEntity("ice stake"));
 }
 
-void e1Frozen::AfetSpecialAttack1()
+void e1Frozen::AfterSpecialAttack1()
 {
 }
 
 void e1Frozen::SummomBlueSlimes()
 {
 	if (!App->entity_manager->IsInEntitiesVector(slime_1)) {
+		App->audio->PlayFx(fx_ice_queen_summon);
 		if (App->map->IsWalkable(actual_tile + iPoint{ 0,1 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ 0,1 } && (slime_2 == nullptr || (slime_2 != nullptr &&slime_2->actual_tile != actual_tile + iPoint{ 0,1 }))) {
 			slime_1 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x, actual_tile.y + 1).x, App->map->MapToWorld(actual_tile.x, actual_tile.y + 1).y, "BlueSlime");
 			slime_1->turn_done = true;
@@ -173,6 +178,7 @@ void e1Frozen::Escape()
 		turn_done = true;
 		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,0,2,2 }, RANDOM, { 20,20 }, { 40,10 }, { 15,-5 }, P_NON, 200, 5);
 		LookToPlayer();
+		ChangeAnimation(direction, state);
 		if (phase == Phase::HARD) {
 			SummomBlueSlimes();
 		}
@@ -188,6 +194,7 @@ void e1Frozen::DoTeleport()
 		tp_timer.Start();
 		drawable = false;
 		tp_done = true;
+		App->audio->PlayFx(fx_ice_queen_tp);
 		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,0,2,2 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
 	}
 	else {

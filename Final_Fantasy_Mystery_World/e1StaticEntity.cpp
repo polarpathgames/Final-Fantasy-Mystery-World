@@ -283,6 +283,8 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x + 1,App->map->WorldToMap(position.x,position.y).y + 1 };
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 		max_distance_to_interact = 3;
+		CreateParticleFire(nullptr, nullptr, position + iPoint{int(frame.w*0.5f),0}, SDL_Rect{ 8,4,2,2 }, size, iPoint(12, 4), fPoint(0, -15), P_NON, 70, 2, true, W_NON);
+		CreateParticleFire(nullptr, nullptr, position + iPoint{ int(frame.w*0.5f),0 }, SDL_Rect{ 8,2,2,2 }, size, iPoint(12, 4), fPoint(0, -15), P_NON, 30, 2, true, W_NON);
 		
 	}
 	else if (strcmp(name, "NPC1") == 0) {
@@ -489,8 +491,10 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		idle->PushBack({ 1480,160,37,57 });
 		idle->speed = 7;
 		frame = idle->frames[0];
-		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		SetPivot(frame.w*0.6F, frame.h*0.9F);
 		size.create(frame.w, frame.h);
+		position.x += 10;
+		position.y -= 2;
 	}
 	else if (strcmp(name, "fire_wall_special1") == 0) {
 		static_type = e1StaticEntity::Type::SPECIAL_FIREWALL1;
@@ -520,11 +524,20 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 	}
-	else if (strcmp(name, "treasure") == 0) {
+	else if ((strcmp(name, "treasure_1")) == 0 || (strcmp(name, "treasure_boss")) == 0 || (strcmp(name,"treasure_quest3")) == 0) {
 		static_type = e1StaticEntity::Type::TREASURE;
-		frame = { 156,137 ,35,32 };
+		if (strcmp(name, "treasure_1") == 0)
+			frame = { 156,137 ,35,32 };
+		else if (strcmp(name, "treasure_boss") == 0)
+			frame = { 166,137 ,35,32 };
+		else if (strcmp(name, "treasure_quest3") == 0)
+			frame = { 176,137 ,35,32 };
 		SetPivot(frame.w*0.5F, frame.h*0.5F);
 		size.create(frame.w, frame.h);
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		actual_tile += {2, 1};
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+		max_distance_to_interact = 1;
 	}
 	else if (strcmp(name, "ability_base") == 0) {
 		static_type = e1StaticEntity::Type::ABILITY_BASE;
@@ -553,6 +566,11 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "p_fire") == 0) {
+		static_type = e1StaticEntity::Type::PARTICLE;
+		position += {4, 6};
+		CreateParticleFire(this, nullptr, { 0,0 }, { 0,2,2,0 }, { 5, 2 }, { 12, 4 }, { 0, -15 }, P_NON, 30, 4, true, W_NON);
 	}
 	else if (strcmp(name, "water") == 0) {
 		static_type = e1StaticEntity::Type::WATER;
@@ -658,13 +676,13 @@ void e1StaticEntity::Draw(float dt)
 {
 	if (has_animation) {
 		App->render->Blit(data.tileset.texture, position.x, position.y, &current_animation->GetCurrentFrame(dt), true);
-	
-
 	}
 	else {
 		App->render->Blit(data.tileset.texture, position.x, position.y, &frame, true);
-		//App->render->Blit(App->scene->player->ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 	}
+	if (App->debug)
+		App->render->Blit(App->scene->player->ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
+
 }
 
 void e1StaticEntity::SetRect(int x, int y, int w, int h)
@@ -700,8 +718,13 @@ bool e1StaticEntity::Update(float dt)
 					pos.y = (int)(App->render->camera.y) + (App->scene->player->position.y) * (int)App->win->GetScale() - button_interact->section.h;
 					button_interact->SetPos(pos.x, pos.y);
 				}
-
-				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+				if (static_type == Type::TREASURE && App->entity_manager->ThereAreEnemies()) {
+					if (button_interact != nullptr) {
+						App->gui->DeleteUIElement((u1GUI*)button_interact);
+						button_interact = nullptr;
+					}
+				}
+				else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 					App->scene->player->state = State::IDLE;
 					App->easing_splines->CleanUp();
 					App->scene->player->BlockControls(true);
@@ -749,6 +772,29 @@ bool e1StaticEntity::Update(float dt)
 			break;
 		case e1StaticEntity::Type::FEATHER:
 			App->dialog->PerformDialogue(3);
+			break;
+		case e1StaticEntity::Type::TREASURE:
+			if (frame == SDL_Rect{ 156, 137, 35, 32 }) {
+				App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 20, 5);
+				App->scene->player->BlockControls(false);
+				App->globals.treasure_quest2_opened = true;
+				frame = { 0, 0, 0, 0 }; // need to put open treasure sprite
+				interacting_state = InteractingStates::NONE;
+			}
+			else if (frame == SDL_Rect{ 166, 137, 35, 32 }) {
+				App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 20, 5);
+				App->scene->player->BlockControls(false);
+				App->globals.treasure_boss_opened = true;
+				frame = { 0, 0, 0, 0 }; // need to put open treasure sprite
+				interacting_state = InteractingStates::NONE;
+			}
+			else if (frame == SDL_Rect{ 176, 137, 35, 32 }) {
+				App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 20, 5);
+				App->scene->player->BlockControls(false);
+				App->globals.treasure_quest3_opened = true;
+				frame = { 0, 0, 0, 0 }; // need to put open treasure sprite
+				interacting_state = InteractingStates::NONE;
+			}
 			break;
 		case e1StaticEntity::Type::HELP1:
 			App->dialog->PerformDialogue(4);

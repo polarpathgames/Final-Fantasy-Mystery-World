@@ -86,6 +86,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 	else if (interaction == App->menu_manager->main_menu.options_button) {
 		App->menu_manager->CreateOptions();
 		App->menu_manager->DestroyMainMenu();
+		App->audio->PlayFx(fx_push_button_return);
 		ret = false;
 	}
 	else if (interaction == App->menu_manager->main_menu.load_game_button) {
@@ -108,6 +109,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			App->globals.player_name = App->menu_manager->input.input_text->GetText();
 			App->menu_manager->DestroyNameMenu();
 			active = false;
+			App->audio->PlayFx(fx_push_button_return);
 			App->entity_manager->Enable();
 			App->map->Enable();
 			App->scene->Enable();
@@ -132,6 +134,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		App->menu_manager->DestroySelectChamp();
 		entity_type = e1Entity::EntityType::WARRIOR;
 		App->scene->player = (e1Player*)App->entity_manager->CreateEntity(entity_type, -100, -100, "warrior");
+		App->audio->PlayFx(fx_push_button_return);
 		ret = false;
 	}
 	else if (interaction == App->menu_manager->select_champ.button_archer) {
@@ -140,6 +143,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		App->menu_manager->DestroySelectChamp();
 		entity_type = e1Entity::EntityType::ARCHER;
 		App->scene->player = (e1Player*)App->entity_manager->CreateEntity(entity_type, -100, -100, "archer");
+		App->audio->PlayFx(fx_push_button_return);
 		ret = false;
 	}
 	else if (interaction == App->menu_manager->select_champ.button_mage) {
@@ -148,6 +152,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 		App->menu_manager->DestroySelectChamp();
 		entity_type = e1Entity::EntityType::MAGE;
 		App->scene->player = (e1Player*)App->entity_manager->CreateEntity(entity_type, -100, -100, "mage");
+		App->audio->PlayFx(fx_push_button_return);
 		ret = false;
 	}
 

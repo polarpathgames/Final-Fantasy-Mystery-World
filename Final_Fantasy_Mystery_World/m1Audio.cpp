@@ -35,7 +35,6 @@ bool m1Audio::Awake(pugi::xml_node& config)
 	volume_change_ratio = 10;
 	mute = false;
 	volume_general = 100;
-
 	if (mute)
 	{
 		Mix_VolumeMusic(0);
@@ -76,7 +75,6 @@ bool m1Audio::Awake(pugi::xml_node& config)
 
 
 	Mix_VolumeMusic(volume);
-
 	return ret;
 }
 
@@ -220,51 +218,37 @@ void m1Audio::StopMusic(int mut)
 		mute = !mute;
 		mute_volume = mute;
 		mute_fx = mute;
-		if (mute == true)
-		{
-			Mix_Volume(-1, 0);
-		}
-		else
-		{
-			Mix_VolumeMusic(volume);
-			for (int id = 1; id <= fx.size(); id++)
-			{
-				std::map<Mix_Chunk*,std::string>::iterator item = fx.begin();
-				for (; item != fx.end(); ++item) {
-					if ((*item).first != nullptr) {
-						Mix_VolumeChunk((*item).first, volume_fx);
-					}
-				}
-			}
-		}
 		break;
 	case -2:
 		mute_volume = !mute_volume;
-		if (mute_volume == true)
-		{
-			Mix_VolumeMusic(0);
-		}
-		else
-		{
-			Mix_VolumeMusic(volume);
-		}
 		break;
+		
 	case -3:
 		mute_fx = !mute_fx;
-		if (mute_fx == true)
-		{
-			Mix_Volume(-1, 0);
-		}
-		else
-		{
-			std::map<Mix_Chunk*,std::string>::iterator item = fx.begin();
-			for (; item != fx.end(); ++item) {
-				if ((*item).first != nullptr) {
-					Mix_VolumeChunk((*item).first, volume_fx);
-				}
+		
+		break;
+	}
+
+	if (mute_volume == true)
+	{
+		Mix_VolumeMusic(0);
+	}
+	else
+	{
+		Mix_VolumeMusic(volume);
+	}
+	if (mute_fx == true)
+	{
+		Mix_Volume(-1, 0);
+	}
+	else
+	{
+		std::map<Mix_Chunk*, std::string>::iterator item = fx.begin();
+		for (; item != fx.end(); ++item) {
+			if ((*item).first != nullptr) {
+				Mix_VolumeChunk((*item).first, volume_fx);
 			}
 		}
-		break;
 	}
 
 }
@@ -347,7 +331,6 @@ void m1Audio::VolumeDown(int vol)
 
 bool m1Audio::Load(pugi::xml_node & node)
 {
-
 
 	return true;
 }

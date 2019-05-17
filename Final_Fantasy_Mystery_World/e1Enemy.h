@@ -76,7 +76,7 @@ public:
 
 	virtual void PrepareDistanceAttack() {}
 	virtual bool IsSpecialAttack1Finished() { return current_animation->Finished(); }
-	virtual void AfetSpecialAttack1() {}
+	virtual void AfterSpecialAttack1() {}
 
 	virtual void AfterAttack() {}
 
@@ -115,6 +115,13 @@ public:
 
 	Mix_Chunk* fx_laser;
 	bool laser_play_fx = true;
+	Mix_Chunk* fx_enemy_hit;
+	Mix_Chunk* fx_dragon_attack;
+	Mix_Chunk* fx_dragon_knockback;
+	Mix_Chunk* fx_ice_queen_hit;
+	Mix_Chunk* fx_ice_queen_tp;
+	Mix_Chunk* fx_ice_queen_summon;
+	Mix_Chunk* fx_frog_jump;
 
 };
 

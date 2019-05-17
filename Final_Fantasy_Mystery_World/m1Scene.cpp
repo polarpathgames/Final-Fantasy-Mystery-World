@@ -73,7 +73,7 @@ bool m1Scene::Start()
 
 	fx_writting = App->audio->LoadFx("assets/audio/sfx/LTTP_Text_Done.wav");
 	fx_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_Steps_on_Water1.wav");
-	fx_frog_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_BasicAttack.wav");
+	fx_frog_attack = App->audio->LoadFx("assets/audio/sfx/InBattle_anim.BasicAttack.wav");
 	fx_dog_attack = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Door_Hit.wav");
 	fx_plant_attack = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Punch1.wav");
 	fx_ability_warrior = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Critical_Hit.wav");
@@ -96,6 +96,10 @@ bool m1Scene::Start()
 	fx_surprise = App->audio->LoadFx("assets/audio/sfx/MC_Shield.wav");
 	fx_buy = App->audio->LoadFx("assets/audio/sfx/MainMenu_Cancel_Selection.wav");
 	fx_buy_special = App->audio->LoadFx("assets/audio/sfx/song203.wav");
+	fx_ability3 = App->audio->LoadFx("assets/audio/sfx/Ability3.wav");
+	fx_ability3_hit = App->audio->LoadFx("assets/audio/sfx/Ability3_hit.wav");
+	fx_burn = App->audio->LoadFx("assets/audio/sfx/burn.wav");
+	fx_pick_up_poti = App->audio->LoadFx("assets/audio/sfx/pick_up_poti.wav");
   
 	mus_game_over = App->audio->LoadMusic("assets/audio/music/35.Final Fantasy TA - Judge.ogg");
 
@@ -234,7 +238,7 @@ bool m1Scene::Update(float dt)
 	
 	switch (menu_state) {
 	case StatesMenu::NO_MENU:
-		if ((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing) {
+		if ((App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing && !player->turn_done && App->entity_manager->entity_turn == player) {
 			if (App->menu_manager->pause.pause_panel == nullptr && App->ChangePause() && !App->cutscene_manager->is_executing) {
 				App->audio->PlayFx(App->gui->fx_pause);
 				App->menu_manager->CreatePauseMenu();
@@ -242,7 +246,7 @@ bool m1Scene::Update(float dt)
 				menu_state = StatesMenu::PAUSE_MENU;
 			}
 		}
-		if ((App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing) {
+		if ((App->input->GetKey(App->input->keyboard_buttons.buttons_code.INVENTORY) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.INVENTORY) == KEY_DOWN) && player->state == State::IDLE && App->dialog->end_dial && !App->cutscene_manager->is_executing && !player->turn_done && App->entity_manager->entity_turn == player) {
 			if (App->ChangeInventory()) {
 				App->audio->PlayFx(App->gui->fx_inventory);
 				App->menu_manager->CreateBigInventory();
@@ -270,7 +274,7 @@ bool m1Scene::Update(float dt)
 		}
 		break;
 	case StatesMenu::FIRSTABILITY_MENU:
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->menu_manager->DestroyHelpAbilityMenu();
 			menu_state = StatesMenu::NO_MENU;
 			//App->menu_manager->ShowHUD(true);
@@ -525,7 +529,12 @@ void m1Scene::CreateEntities()
 				App->entity_manager->CreateEntity(e1Entity::EntityType::ROCK, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 			}
 			else if ((*position)->name == "NPC_DAUGHTER") {
-				if (!App->globals.CutSceneHomeToSleepQuest2) {
+				if (App->map->actual_map == Maps::HOME) {
+					if (!App->globals.CutSceneHomeToSleepQuest2) {
+						App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
+					}
+				}
+				else if (App->map->actual_map == Maps::LOBBY) {
 					App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 				}
 			}
