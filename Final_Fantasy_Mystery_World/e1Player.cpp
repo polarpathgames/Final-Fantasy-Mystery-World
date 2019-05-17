@@ -561,6 +561,7 @@ void e1Player::ReadAttack()
 	else if (timer_ability1.IsRunning()) {
 		timer_ability1.Stop();
 		ability1_tiles.clear();
+		state = State::IDLE;
 	}
 
 	if (player_input.pressing_3 && App->globals.ability3_gained == true) {
