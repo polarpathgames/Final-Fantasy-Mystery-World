@@ -578,6 +578,10 @@ void m1Scene::ShitFunctionJAJA()
 		App->globals.CutSceneLobbyExplain = true;
 		App->globals.Tutorial_first_time = false;
 	}
+	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && !App->globals.CutSceneLobbyQuest2Finish && App->map->actual_map == Maps::LOBBY && !App->globals.Tutorial_first_time && App->globals.ice_queen_killed) {
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyQuest2.xml");
+		App->globals.CutSceneLobbyQuest2Finish = true;
+	}
 }
 
 bool m1Scene::Interact(u1GUI* interact)

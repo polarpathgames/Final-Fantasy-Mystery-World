@@ -264,6 +264,7 @@
     </Xml>
     <Xml Include="Game\assets\xml\CutsceneFinalRoomQuest2.xml" />
     <Xml Include="Game\assets\xml\CutsceneHomeSleep.xml" />
+    <Xml Include="Game\assets\xml\CutsceneLobbyQuest2.xml" />
     <Xml Include="Game\assets\xml\CutsceneLobbyTutorial.xml" />
     <Xml Include="Game\assets\xml\CutsceneMiddleRoom.xml" />
     <Xml Include="Game\assets\xml\CutsceneQueenQuest2.xml" />
