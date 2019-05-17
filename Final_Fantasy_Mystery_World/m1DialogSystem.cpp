@@ -419,6 +419,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			   case 5: //Portal Dialog Quest 2
 				   App->map->lobby_state = LobbyState::NORMAL_LOBBY;
 				   App->fade_to_black->FadeToBlack(Maps::LOBBY);
+				   App->globals.ice_queen_killed = true;
 				   break;
 			   case 30: //old statue tutorial diagonal
 				   App->menu_manager->CreateHelpDiagonalMenu();

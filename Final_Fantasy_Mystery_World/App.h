@@ -38,6 +38,7 @@ struct GlobalGameAdvances
 	bool CutSceneMiddleRoomTutorialPlayed = false;
 	bool CutSceneAfterBossTutorialPlayed = false;
 	bool CutSceneLobbyExplain = false;
+	bool CutSceneLobbyQuest2Finish = false;
 	bool Tutorial_first_time = true;
 	bool ability1_gained = false;
 	bool ability2_gained = false;
@@ -58,6 +59,7 @@ struct GlobalGameAdvances
 	void Reset() {
 		ice_queen_killed = false;
 		CutSceneHomeToSleepQuest2 = false;
+		CutSceneLobbyQuest2Finish = false;
 		treasure_quest2_opened = false;
 		treasure_boss_opened = false;
 		treasure_quest3_opened = false;
