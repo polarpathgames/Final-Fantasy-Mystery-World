@@ -81,6 +81,13 @@ void e1Particles::Draw(float dt)
 	}
 	else {
 		e1Entity::Draw(dt);
+		if (App->debug && particle_type == ParticleType::AMAZING_DRAGON_FIRE_BALL) {
+			std::vector<iPoint>::iterator item = amazing_fire_ball_attack_range.begin();
+			for (; item != amazing_fire_ball_attack_range.end(); ++item) {
+				iPoint pos = App->map->MapToWorld((*item).x, (*item).y);
+				App->render->Blit(App->scene->player->ground, pos.x + 1, pos.y - 8, NULL, true);
+			}
+		}
 	}
 }
 
@@ -503,22 +510,22 @@ void e1Particles::SetAmazingDragonFireBall(const uint & turns)
 	this->turns = turns;
 	velocity.y = 160;
 	position.y -= FIREBALL_ELEVATED_POS;
-	position.x += 5;
+	position.x -= 7;
 
 	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ -1,-1 });
-	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ -1,0 });
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ 1,1 });
 	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ -1,1 });
 	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ 1,-1 });
 	amazing_fire_ball_attack_range.push_back(actual_tile);
 	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ 0,1 });
-	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ 1,-1 });
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ 0,-1 });
 	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ 1,0 });
-	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ 1,1 });
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ -1,0 });
 
 	anim.GoDown.PushBack({ 47,55,52,64 });
-	anim.GoDown.PushBack({ 99,119,52,64 });
-	anim.GoDown.PushBack({ 151,183,52,64 });
-	anim.GoDown.PushBack({ 203,247,52,64 });
+	anim.GoDown.PushBack({ 99,55,52,64 });
+	anim.GoDown.PushBack({ 151,55,52,64 });
+	anim.GoDown.PushBack({ 203,55,52,64 });
 	anim.GoDown.speed = 3.0f;
 	current_animation = &anim.GoDown;
 
@@ -530,7 +537,8 @@ void e1Particles::MoveAmazingFireBall(float dt)
 {
 	if (turns == 0) {
 		position.y += floor(velocity.y * dt);
-		if (position.y >= App->scene->player->position.y) {
+		iPoint pos = App->map->WorldToMap(position.x, position.y + 50);
+		if (pos == actual_tile + iPoint{ 1,1 }) {
 			to_delete = true;
 			turn_done = true;
 		}

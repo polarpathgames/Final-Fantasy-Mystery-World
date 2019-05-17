@@ -25,6 +25,7 @@ e1AmazingDragon::e1AmazingDragon(const int & x, const int & y) : e1Enemy(x, y)
 	turns_to_wait_after_fire_ball = 2U;
 	waves_before_recover_energy = 3U;
 	turns_recovering_energy = 5U;
+	anim.BasicAttackDownLeft.loop = false;
 }
 
 e1AmazingDragon::~e1AmazingDragon()
