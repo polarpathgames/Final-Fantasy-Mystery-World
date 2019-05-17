@@ -155,7 +155,7 @@
       <id num="13"></id>
       <door active="true"></door>
       <music>assets/audio/music/23.Final Fantasy TA - Prison.ogg</music>
-      <type>paceful</type>
+      <type>boss</type>
       <cut_scene>assets/xml/CutsceneFinalRoomQuest2.xml</cut_scene>
     </room>
   </quest2>
