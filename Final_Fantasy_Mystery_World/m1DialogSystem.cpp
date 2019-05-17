@@ -416,6 +416,11 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->globals.CutSceneHomeToSleepQuest2 = true;
 				   //App->scene->player->BlockControls(false);
 				   break;
+			   case 5: //Portal Dialog Quest 2
+
+				   App->map->lobby_state = LobbyState::NORMAL_LOBBY;
+				   App->fade_to_black->FadeToBlack(Maps::LOBBY);
+				   break;
 			   case 30: //old statue tutorial diagonal
 				   App->menu_manager->CreateHelpDiagonalMenu();
 				   App->scene->SetMenuState(StatesMenu::HELP_DIAGONAL_MENU);
