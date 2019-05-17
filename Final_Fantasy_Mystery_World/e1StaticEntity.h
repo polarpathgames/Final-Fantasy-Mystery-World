@@ -78,7 +78,7 @@ public:
 		WATER2,
 		WATER3,
 		LAVA,
-
+		PORTAL,
 
 		UNKNOWN
 	};

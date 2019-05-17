@@ -621,6 +621,16 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 		max_distance_to_interact = 1;
 	}
+	else if (strcmp(name, "portal") == 0) {
+		frame = { 1086,170,42,64 };
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		static_type = e1StaticEntity::Type::PORTAL;
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		actual_tile += {3, 3};
+		interacting_state = InteractingStates::WAITING_INTERACTION;
+		max_distance_to_interact = 1;
+	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
 	}
@@ -757,6 +767,10 @@ bool e1StaticEntity::Update(float dt)
 			break;
 		case e1StaticEntity::Type::FLASH_INFO:
 			App->dialog->PerformDialogue(8);
+			break;
+		case e1StaticEntity::Type::PORTAL:
+			if(App->globals.ice_queen_killed)
+				App->dialog->PerformDialogue(11);
 			break;
 		default:
 			break;
