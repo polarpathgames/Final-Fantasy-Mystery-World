@@ -9723,15 +9723,15 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="59" name="enemy" type="CarnivorousPlant" x="352" y="304" width="15.9688" height="16.0156"/>
+  <object id="59" name="enemy" type="Spider" x="352" y="304" width="15.9688" height="16.0156"/>
   <object id="60" name="enemy" type="BlueDog" x="400" y="432" width="15.9688" height="16.0156"/>
-  <object id="61" name="enemy" type="CarnivorousPlant" x="528" y="224" width="15.9688" height="16.0156"/>
+  <object id="61" name="enemy" type="Spider" x="528" y="224" width="15.9688" height="16.0156"/>
   <object id="62" name="player" type="lastA" x="416" y="112" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="63" name="enemy" type="CarnivorousPlant" x="368" y="192" width="15.9688" height="16.0156"/>
+  <object id="63" name="enemy" type="MegaEye" x="368" y="192" width="15.9688" height="16.0156"/>
   <object id="145" name="InstaRedRuppe" type="static" x="368" y="432" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="9" name="colliders">
