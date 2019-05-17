@@ -571,10 +571,10 @@ void m1MenuManager::CreatePotionMenu(u1GUI* potion_button)
 	{
 		potion.potion_panel = App->gui->AddImage(inventory.inventory_panel->section.w + 14, inventory.inventory_panel->section.h/2 - 20, { 1878, 1536, 170, 101 }, nullptr, inventory.inventory_panel, true, false, false, false);
 
-		potion.use_hp_button = App->gui->AddButton(30, 0, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, App->scene, potion.potion_panel, false, false, true, true);
+		potion.use_hp_button = App->gui->AddButton(45, 20, { 0, 0, 40, 25 }, { 0, 0,40, 25 }, { 0, 0, 40, 25 }, App->scene, potion.potion_panel, false, false, true, true);
 		potion.use_label = App->gui->AddLabel(50, -5, "Use", potion.potion_panel, BLACK, FontType::FF64, nullptr, false);
 
-		potion.cancel_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, App->scene, potion.potion_panel, false, false, true, true);
+		potion.cancel_button = App->gui->AddButton(48, 60, { 10, 10, 60, 25 }, { 10, 10, 60, 25 }, { 10, 10, 60, 25 }, App->scene, potion.potion_panel, false, false, true, true);
 		potion.cancel_label = App->gui->AddLabel(50, 38, "Cancel", potion.potion_panel, BLACK, FontType::FF64, nullptr, false);
 
 		App->gui->FocusButton(potion.use_hp_button);
@@ -914,14 +914,14 @@ void m1MenuManager::CreateGameOver()
 	game_over.game_over_panel = App->gui->AddImage(0, 0, { 1024, 0, 1024, 768 }, nullptr, App->gui->screen, true, false, false, false);
 	game_over.game_over_panel->SetPosRespectParent(CENTERED);
 
-	game_over.button_continue_lobby = App->gui->AddButton(150, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->scene, game_over.game_over_panel, false, false, true, true);
+	game_over.button_continue_lobby = App->gui->AddButton(150, 500, { 0,0,150,50 }, { 0,0,150,50 }, { 0,0,150,50 }, App->scene, game_over.game_over_panel, false, false, true, true);
 	game_over.label_continue_lobby = App->gui->AddLabel(0, 0, "Continue", game_over.button_continue_lobby, WHITE, FontType::FF100, nullptr, false);
-	game_over.label_continue_lobby->SetPosRespectParent(LEFT_CENTERED);
+	game_over.label_continue_lobby->SetPosRespectParent(CENTERED);
 
 
-	game_over.button_return_main = App->gui->AddButton(610, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->scene, game_over.game_over_panel, false, false, true, true);
+	game_over.button_return_main = App->gui->AddButton(610, 500, { 1850,1637,260,60 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->scene, game_over.game_over_panel, false, false, true, true);
 	game_over.label_continue_main = App->gui->AddLabel(0, 0, "Return Main Menu", game_over.button_return_main, WHITE, FontType::FF100, nullptr, false);
-	game_over.label_continue_main->SetPosRespectParent(LEFT_CENTERED);
+	game_over.label_continue_main->SetPosRespectParent(CENTERED);
 }
 
 void m1MenuManager::DestroyGameOver()
