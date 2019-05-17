@@ -92,6 +92,7 @@ public:
 		FROZEN,
 		MEGA_EYE,
 		BABY_DRAKE,
+		BOMBERMAN,
 
 		NO_TYPE
 	};

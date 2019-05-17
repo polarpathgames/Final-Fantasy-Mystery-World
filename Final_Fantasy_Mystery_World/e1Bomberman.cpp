@@ -6,10 +6,12 @@ e1Bomberman::e1Bomberman(const int & x, const int & y) :e1Enemy(x,y)
 	name.assign("Bomberman");
 	enemy_type = EnemyType::BOMBERMAN;
 
+	CenterOnTile();
+
 	target_position = position;
 	initial_position = position;
 
-	InitStats();
+	e1Enemy::InitStats();
 }
 
 e1Bomberman::~e1Bomberman()
@@ -22,6 +24,7 @@ void e1Bomberman::PrepareBasicAttack()
 
 void e1Bomberman::FinishBasicAttack()
 {
+	to_delete = true;
 }
 
 void e1Bomberman::IdAnimToEnum()
