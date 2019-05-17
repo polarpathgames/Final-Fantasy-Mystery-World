@@ -520,7 +520,8 @@ void e1Player::ReadAttack()
 		App->audio->PlayFx(App->scene->fx_attack);
 		return;
 	}
-	if ((App->input->GetKeyDown(SDL_SCANCODE_1) || App->input->GetKeyRepeat(SDL_SCANCODE_1)) && App->globals.ability1_gained == true) {
+	if ((App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.HABILTY1) || App->input->GetControllerButtonDownOrRepeat(App->input->controller_Buttons.buttons_code.HABILTY1)) 
+		&& App->globals.ability1_gained == true) {
 		if (timer_ability1.IsRunning()) {
 			if (timer_ability1.ReadSec() >= time_to_wait_ability1) {
 				PrepareSpecialAttack1();
