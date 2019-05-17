@@ -49,6 +49,10 @@ e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 	fx_enemy_hit = App->audio->LoadFx("assets/audio/sfx/Enemy_hit.wav");
 	fx_dragon_attack = App->audio->LoadFx("assets/audio/sfx/Dragon_attack.wav");
 	fx_dragon_knockback = App->audio->LoadFx("assets/audio/sfx/Dragon_knockback.wav");
+	fx_ice_queen_hit = App->audio->LoadFx("assets/audio/sfx/Ice_Queen_hit.wav");
+	fx_ice_queen_tp = App->audio->LoadFx("assets/audio/sfx/Ice_Queen_tp.wav");
+	fx_ice_queen_summon = App->audio->LoadFx("assets/audio/sfx/Ice_Queen_summon.wav");
+	fx_frog_jump = App->audio->LoadFx("assets/audio/sfx/Frog_jump.wav");
 
 	
 }

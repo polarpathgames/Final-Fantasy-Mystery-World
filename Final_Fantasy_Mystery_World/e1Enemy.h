@@ -118,6 +118,10 @@ public:
 	Mix_Chunk* fx_enemy_hit;
 	Mix_Chunk* fx_dragon_attack;
 	Mix_Chunk* fx_dragon_knockback;
+	Mix_Chunk* fx_ice_queen_hit;
+	Mix_Chunk* fx_ice_queen_tp;
+	Mix_Chunk* fx_ice_queen_summon;
+	Mix_Chunk* fx_frog_jump;
 
 };
 

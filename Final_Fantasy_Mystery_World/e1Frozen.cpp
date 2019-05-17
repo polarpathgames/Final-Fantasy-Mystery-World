@@ -35,6 +35,7 @@ bool e1Frozen::PreUpdate()
 {
 	if (state != State::DEATH) {
 		if (phase == Phase::NORMAL && stats.live <= stats.max_live * 0.5F) {
+			App->audio->PlayFx(fx_ice_queen_hit);
 			phase = Phase::HARD;
 			tp_last_number_hit = times_hitted;
 			DoTeleport();
@@ -116,6 +117,7 @@ void e1Frozen::AfterSpecialAttack1()
 void e1Frozen::SummomBlueSlimes()
 {
 	if (!App->entity_manager->IsInEntitiesVector(slime_1)) {
+		App->audio->PlayFx(fx_ice_queen_summon);
 		if (App->map->IsWalkable(actual_tile + iPoint{ 0,1 }, false) && App->scene->player->actual_tile != actual_tile + iPoint{ 0,1 } && (slime_2 == nullptr || (slime_2 != nullptr &&slime_2->actual_tile != actual_tile + iPoint{ 0,1 }))) {
 			slime_1 = (e1BlueSlime*)App->entity_manager->CreateEntity(e1Entity::EntityType::BLUE_SLIME, App->map->MapToWorld(actual_tile.x, actual_tile.y + 1).x, App->map->MapToWorld(actual_tile.x, actual_tile.y + 1).y, "BlueSlime");
 			slime_1->turn_done = true;
@@ -192,6 +194,7 @@ void e1Frozen::DoTeleport()
 		tp_timer.Start();
 		drawable = false;
 		tp_done = true;
+		App->audio->PlayFx(fx_ice_queen_tp);
 		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,0,2,2 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
 	}
 	else {
