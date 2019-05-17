@@ -229,7 +229,7 @@ bool e1Drop::Update(float adt)
 {
 	BROFILER_CATEGORY("Drop Update", Profiler::Color::Yellow);
 
-	if (actual_tile == App->scene->player->actual_tile && moving == false) {
+	if (actual_tile == App->scene->player->actual_tile) {
 		switch (drop_type) {
 		case DropsType::GREEN_RUPEE:
 		case DropsType::BLUE_RUPEE:
