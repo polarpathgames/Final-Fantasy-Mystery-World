@@ -99,6 +99,8 @@ public:
 
 	bool Save(pugi::xml_node&) const;
 
+	void Draw(float dt);
+
 	virtual bool CleanUp();
 
 	void OnCollision(Collider* c2);
@@ -171,7 +173,7 @@ public:
 
 	void ReduceGold(const int &cost_gold);
 
-
+	virtual void SetAbility1TilesPos() {}
 
 	void AugmentGold(const int &plus_gold);
 		
@@ -189,6 +191,8 @@ public:
 
 	p2Timer timer_ability1;
 	float time_to_wait_ability1 = 1.f;
+	SDL_Texture* ability1_tile_tx = nullptr;
+	std::vector<iPoint> ability1_tiles;
 
 	float flash_time = 0.0F;
 	iPoint flash_position{ 0,0 };

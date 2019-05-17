@@ -39,6 +39,7 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
 	type = EntityType::PLAYER;
 	ground = App->tex->Load("assets/sprites/player_pos.png");
+	ability1_tile_tx = App->tex->Load("assets/sprites/Particles.png");
 	current_animation = &anim.IdleDownLeft;
 	direction = Direction::DOWN_LEFT;
 	Init();
@@ -67,7 +68,9 @@ void e1Player::Init()
 e1Player::~e1Player()
 {
 	App->tex->UnLoad(ground);
+	App->tex->UnLoad(ability1_tile_tx);
 	ground = nullptr;
+	ability1_tile_tx = nullptr;
 }
 
 bool e1Player::PreUpdate()
@@ -155,6 +158,18 @@ bool e1Player::Save(pugi::xml_node & node) const
 	p_globals.append_attribute("Tutorial_first_time") = (bool)App->globals.Tutorial_first_time;
 	p_globals.append_attribute("player_type") = (int)App->scene->player_type;
 	return true;
+}
+
+void e1Player::Draw(float dt)
+{
+	if (!ability1_tiles.empty()) {
+		for (std::vector<iPoint>::iterator item = ability1_tiles.begin(); item != ability1_tiles.end(); ++item) {
+			SDL_Rect rec = { 261,0,32,32 };
+			App->render->Blit(ability1_tile_tx, (*item).x+1, (*item).y-8, &rec, true);
+		}
+	}
+
+	e1Entity::Draw(dt);
 }
 
 bool e1Player::CleanUp()
@@ -526,10 +541,12 @@ void e1Player::ReadAttack()
 			if (timer_ability1.ReadSec() >= time_to_wait_ability1) {
 				PrepareSpecialAttack1();
 				timer_ability1.Stop();
+				ability1_tiles.clear();
 			}
 		}
 		else {
 			timer_ability1.Start();
+			SetAbility1TilesPos();
 		}
 
 		return;
