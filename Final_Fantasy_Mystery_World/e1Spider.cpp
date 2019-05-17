@@ -3,6 +3,7 @@
 #include "SDL/include/SDL.h"
 #include "App.h"
 #include "m1Map.h"
+#include "m1EntityManager.h"
 #include "m1Scene.h"
 #include "m1Audio.h"
 #include "e1Player.h"
@@ -60,11 +61,23 @@ bool e1Spider::PreUpdate()
 			App->scene->player->GetHitted(stats.basic_attack_damage);
 			is_awake = true;
 			if (player_tile == actual_tile + iPoint{ 0,1 }) {
-				App->easing_splines->CreateSpline(&App->scene->player->position.x, App->scene->player->position.x - App->map->data.tile_width, 500, EASE_OUT_QUINT, std::bind(&e1Player::SetPlayerIdle, App->scene->player));
-				App->easing_splines->CreateSpline(&App->scene->player->position.y, App->scene->player->position.y + App->map->data.tile_height, 500, EASE_OUT_QUINT);
-				App->scene->player->actual_tile += {0, 2};
-				App->scene->player->direction = Direction::UP_RIGHT;
-				App->scene->player->current_animation = &App->scene->player->anim.IdleUpRight;
+				if (App->entity_manager->IsWalkable(player_tile + iPoint{ 0,2 })) {
+					App->easing_splines->CreateSpline(&App->scene->player->position.x, App->scene->player->position.x - App->map->data.tile_width, 500, EASE_OUT_QUINT, std::bind(&e1Player::SetPlayerIdle, App->scene->player));
+					App->easing_splines->CreateSpline(&App->scene->player->position.y, App->scene->player->position.y + App->map->data.tile_height, 500, EASE_OUT_QUINT);
+					App->scene->player->actual_tile += {0, 2};
+					App->scene->player->direction = Direction::UP_RIGHT;
+					App->scene->player->current_animation = &App->scene->player->anim.IdleUpRight;
+				}
+				else if (App->entity_manager->IsWalkable(player_tile + iPoint{ 0,1 })) {
+					App->easing_splines->CreateSpline(&App->scene->player->position.x, App->scene->player->position.x - App->map->data.tile_width, 500, EASE_OUT_QUINT, std::bind(&e1Player::SetPlayerIdle, App->scene->player));
+					App->easing_splines->CreateSpline(&App->scene->player->position.y, App->scene->player->position.y + App->map->data.tile_height, 500, EASE_OUT_QUINT);
+					App->scene->player->actual_tile += {0, 2};
+					App->scene->player->direction = Direction::UP_RIGHT;
+					App->scene->player->current_animation = &App->scene->player->anim.IdleUpRight;
+				}
+				else {
+					App->scene->player->state = State::IDLE;
+				}
 			}
 			else if (player_tile == actual_tile + iPoint{ 0,-1 }) {
 				App->easing_splines->CreateSpline(&App->scene->player->position.x, App->scene->player->position.x + App->map->data.tile_width, 500, EASE_OUT_QUINT, std::bind(&e1Player::SetPlayerIdle, App->scene->player));
