@@ -233,6 +233,9 @@
     </ClCompile>
     <ClCompile Include="c1CutSceneFadeToBlack.cpp" />
     <ClCompile Include="c1CutSceneVibration.cpp" />
+    <ClCompile Include="e1AmazingDragon.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -493,6 +496,9 @@
     </ClInclude>
     <ClInclude Include="c1CutSceneFadeToBlack.h" />
     <ClInclude Include="c1CutSceneVibration.h" />
+    <ClInclude Include="e1AmazingDragon.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml">

@@ -91,6 +91,7 @@
     <ClCompile Include="c1CutSceneMoveEntity.cpp" />
     <ClCompile Include="c1CutsceneText.cpp" />
     <ClCompile Include="c1CutSceneVibration.cpp" />
+    <ClCompile Include="e1AmazingDragon.cpp" />
     <ClCompile Include="e1Archer.cpp" />
     <ClCompile Include="e1BabyDrake.cpp" />
     <ClCompile Include="e1BlueDog.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="c1CutSceneMoveEntity.h" />
     <ClInclude Include="c1CutSceneText.h" />
     <ClInclude Include="c1CutSceneVibration.h" />
+    <ClInclude Include="e1AmazingDragon.h" />
     <ClInclude Include="e1Archer.h" />
     <ClInclude Include="e1BabyDrake.h" />
     <ClInclude Include="e1BlueDog.h" />
