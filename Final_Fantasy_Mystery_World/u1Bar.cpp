@@ -145,7 +145,7 @@ void u1Bar::InnerDraw()
 	if (has_change && bar_type == UIType::EXPBAR) {
 		if (current_width > targe_width) {
 
-			current_width += 100 * App->GetDeltaTime();
+			current_width += 200 * App->GetDeltaTime();
 
 			if (current_width >= max_width) {
 				current_width = 0;
@@ -153,7 +153,7 @@ void u1Bar::InnerDraw()
 		}
 
 		else if (current_width < targe_width) {
-			current_width += 100 * App->GetDeltaTime();
+			current_width += 200 * App->GetDeltaTime();
 		}
 		else {
 			has_change = false;
@@ -163,10 +163,10 @@ void u1Bar::InnerDraw()
 
 	if (has_change && bar_type != UIType::EXPBAR) {
 		if (current_width > targe_width) {
-			current_width -= 100 * App->GetDeltaTime();
+			current_width -= 200 * App->GetDeltaTime();
 		}
 		else if (current_width < targe_width) {
-			current_width += 100 * App->GetDeltaTime();
+			current_width += 200 * App->GetDeltaTime();
 		}
 		else {
 			has_change = false;
