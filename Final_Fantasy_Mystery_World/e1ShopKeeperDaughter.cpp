@@ -8,8 +8,11 @@
 #include "m1Input.h"
 #include "m1FadeToBlack.h"
 #include "m1Scene.h"
+#include "m1GUI.h"
 #include "e1Player.h"
 #include "m1Render.h"
+#include "m1Window.h"
+#include "u1Image.h"
 
 e1ShopKeeperDaughter::e1ShopKeeperDaughter(const int &x, const int &y) : e1NPC(x, y)
 {
@@ -35,10 +38,39 @@ bool e1ShopKeeperDaughter::Update(float dt)
 {
 	if (App->map->quest_rooms != nullptr && App->map->quest_rooms->actual_room != nullptr && !App->entity_manager->ThereAreEnemies() && !App->cutscene_manager->is_executing) {
 		if (actual_tile.DistanceTo(App->scene->player->actual_tile) <= 1) {
+			if (!App->globals.CutSceneAfterBossTutorialPlayed) {
+				if (button_interact == nullptr) {
+
+					button_interact = App->gui->AddImage(0, 0, { 1524,2052,31,31 }, nullptr, App->gui->screen, true, false, false, false);
+
+					iPoint pos{ 0,0 };
+					pos.x = (int)(App->render->camera.x) + (App->scene->player->GetPosition().x) * (int)App->win->GetScale() - button_interact->section.w*0.5F;
+					pos.y = (int)(App->render->camera.y) + (App->scene->player->position.y) * (int)App->win->GetScale() - button_interact->section.h;
+
+					button_interact->SetPos(pos.x, pos.y);
+				}
+				else {
+					iPoint pos{ 0,0 };
+					pos.x = (int)(App->render->camera.x) + (App->scene->player->GetPosition().x) * (int)App->win->GetScale() - button_interact->section.w*0.5F;
+					pos.y = (int)(App->render->camera.y) + (App->scene->player->position.y) * (int)App->win->GetScale() - button_interact->section.h;
+					button_interact->SetPos(pos.x, pos.y);
+				}
+			}
+
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 				App->cutscene_manager->PlayCutscene("assets/xml/CutsceneAfterBossTutorial.xml");
 				App->globals.CutSceneAfterBossTutorialPlayed = true;
 				App->globals.CutSceneFinalRoomTutorialPlayed = true;
+				if (button_interact != nullptr) {
+					App->gui->DeleteUIElement((u1GUI*)button_interact);
+					button_interact = nullptr;
+				}
+			}
+		}
+		else {
+			if (button_interact != nullptr) {
+				App->gui->DeleteUIElement((u1GUI*)button_interact);
+				button_interact = nullptr;
 			}
 		}
 		if (App->globals.CutSceneAfterBossTutorialPlayed && !App->cutscene_manager->is_executing) {
