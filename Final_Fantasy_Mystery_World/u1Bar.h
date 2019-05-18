@@ -18,7 +18,7 @@ public:
 	int CalculateExpBar(int xp);
 	void InnerDraw();
 
-	void PrintBarNumbers();
+	void PrintBarNumbers(int addition = 0);
 
 public:
 
@@ -44,6 +44,6 @@ public:
 	int xpSinceLevelUp;
 	float percentageOfXP;
 	int barWidth;
-
+	int aux_quantity;
 };
 #endif

@@ -338,8 +338,8 @@ void e1Warrior::UpdateLevel()
 	App->menu_manager->hud.player_mana_bar->max_capacity = stats.max_mana;
 	App->menu_manager->hud.player_exp_bar->max_capacity = stats.max_xp;
 
-	App->menu_manager->hud.player_hp_bar->PrintBarNumbers();
-	App->menu_manager->hud.player_mana_bar->PrintBarNumbers();
+	App->menu_manager->hud.player_hp_bar->PrintBarNumbers(8);
+	App->menu_manager->hud.player_mana_bar->PrintBarNumbers(2);
 
 }
 

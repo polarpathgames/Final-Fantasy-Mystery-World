@@ -24400,6 +24400,7 @@
   <object id="973" name="water3" type="static" x="624" y="256" width="16" height="16"/>
   <object id="974" name="water3" type="static" x="704" y="352" width="16" height="16"/>
   <object id="975" name="water3" type="static" x="688" y="336" width="16" height="16"/>
-  <object id="980" name="portal" type="static" x="192" y="256" width="32" height="32"/>
+  <object id="980" name="NPC_DAUGHTER" type="static" x="434.667" y="417" width="15" height="15"/>
+
  </objectgroup>
 </map>
