@@ -10,6 +10,9 @@
 #include "m1Render.h"
 #include "m1Audio.h"
 #include "m1Fonts.h"
+#include "u1Bar.h"
+#include "u1Label.h"
+#include "m1MenuManager.h"
 
 e1AmazingDragon::e1AmazingDragon(const int & x, const int & y) : e1Enemy(x, y)
 {
@@ -35,6 +38,8 @@ e1AmazingDragon::e1AmazingDragon(const int & x, const int & y) : e1Enemy(x, y)
 	number_of_fire_balls = 2U;
 	turns_to_wait_before_attack_again = 4U;
 
+	/*megadrake_hp_bar = App->gui->AddBar(100, 80, stats.max_live, ENEMYBAR, (u1GUI*)App->menu_manager->hud.bg_hud, nullptr);
+	megadrake_label = App->gui->AddLabel(355, 20, "Mega Dragon", megadrake_hp_bar, BLACK, FontType::FF64, nullptr, false);*/
 
 	anim.BasicAttackDownLeft.loop = false;
 }
@@ -130,7 +135,11 @@ bool e1AmazingDragon::PreUpdate()
 
 bool e1AmazingDragon::Update(float dt)
 {
-
+	if (first_update == true && drawable == true) {
+		megadrake_hp_bar = App->gui->AddBar(100, 80, stats.max_live, ENEMYBAR, (u1GUI*)App->menu_manager->hud.bg_hud, nullptr);
+		megadrake_label = App->gui->AddLabel(355, 20, "Mega Dragon", megadrake_hp_bar, BLACK, FontType::FF64, nullptr, false);
+		first_update = false;
+	}
 	if (active) {
 
 
@@ -155,8 +164,9 @@ void e1AmazingDragon::GetHitted(const int & dmg)
 		state = State::DEATH;
 		current_animation = &anim.DeathDownLeft;
 		to_delete = true;
+		App->gui->DeleteUIElement(megadrake_hp_bar);
 	}
-
+	megadrake_hp_bar->UpdateBar(-dmg, ENEMYBAR);
 }
 
 void e1AmazingDragon::IdAnimToEnum()

@@ -20,6 +20,7 @@
 #include "m1Scene.h"
 #include "m1Window.h"
 #include "Brofiler/Brofiler.h"
+#include "e1AmazingDragon.h"
 #include <map>
 #include "p2Log.h"
 
@@ -637,6 +638,8 @@ void e1Enemy::Death()
 	if (enemy_type == EnemyType::BABY_DRAKE) {
 		App->gui->DeleteUIElement(drake_hp_bar);
 	}
+
+
 }
 
 void e1Enemy::GetHitted(const int & damage_taken)
@@ -659,6 +662,9 @@ void e1Enemy::GetHitted(const int & damage_taken)
 	if (enemy_type == EnemyType::BABY_DRAKE) {
 		drake_hp_bar->UpdateBar(-damage_taken, ENEMYBAR);
 	}
+
+
+
 	if (stats.live <= 0 || App->scene->player->god_mode) {
 		state = State::DEATH;
 		ChangeAnimation(direction, state);
