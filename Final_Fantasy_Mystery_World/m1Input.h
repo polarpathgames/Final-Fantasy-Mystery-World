@@ -41,9 +41,9 @@ struct ButtonsUsed {
 	int DIAGONALS;
 	int BASIC_ATTACK;
 	//int SHOW_SKILLS;
-	int HABILTY1;
-	int HABILITY2;
-	int HABILITY3;
+	int ABILTY1;
+	int ABILITY2;
+	int ABILITY3;
 	int INVENTORY;
 
 };
