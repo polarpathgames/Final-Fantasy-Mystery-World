@@ -101,11 +101,11 @@ public:
 	e1Player* player = nullptr;
 	PlayerType player_type = PlayerType::NONE;
 
-	int price_hp_potion = 75;
-	int price_mana_potion = 75;
-	int price_ability3 = 150;
-	int price_helmet = 275;
-	int price_ring = 275;
+	int price_hp_potion = 100;
+	int price_mana_potion = 100;
+	int price_ability3 = 175;
+	int price_helmet = 375;
+	int price_ring = 375;
 	int helmet_hp = 150;
 	int ring_mana = 100;
 
