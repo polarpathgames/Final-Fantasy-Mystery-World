@@ -1221,6 +1221,8 @@ void e1Player::Death()
 		App->map->CleanUp();
 		App->easing_splines->CleanUp();
 		App->entity_manager->DeleteEntitiesNoPlayer();
+		App->scene->player->AugmentLives(App->scene->player->stats.max_lives);
+		App->scene->player->AugmentMana(App->scene->player->stats.max_mana);
 		App->menu_manager->EnableHUD(false);
 		App->menu_manager->CreateGameOver();
 		App->scene->SetMenuState(StatesMenu::DIE_MENU);
