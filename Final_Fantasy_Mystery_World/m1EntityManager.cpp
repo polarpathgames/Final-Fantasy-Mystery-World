@@ -31,6 +31,7 @@
 #include "e1Enemy.h"
 #include "e1State.h"
 #include "e1Frozen.h"
+#include "e1Bomberman.h"
 #include <algorithm>
 #include "Brofiler/Brofiler.h"
 
@@ -273,7 +274,7 @@ void m1EntityManager::OnCollisionExit(Collider * c1, Collider * c2)
 e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
 	BROFILER_CATEGORY("CreateEntity", Profiler::Color::Blue);
-	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)22, "code needs update");
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)23, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
 
@@ -295,6 +296,7 @@ e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX
 	case e1Entity::EntityType::CASSIO: ret = DBG_NEW e1Cassio(PositionX, PositionY); break;
 	case e1Entity::EntityType::BABY_DRAKE: ret = DBG_NEW e1BabyDrake(PositionX, PositionY); break;
 	case e1Entity::EntityType::SUPER_PURPLE_FROG: ret = DBG_NEW e1SuperPurpleFrog(PositionX, PositionY); break;
+	case e1Entity::EntityType::BOMBERMAN: ret = DBG_NEW e1Bomberman(PositionX, PositionY); break;
 	case e1Entity::EntityType::PARTICLE: ret = DBG_NEW e1Particles(PositionX, PositionY); break;
 	//case e1Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
 	case e1Entity::EntityType::NPC: ret = DBG_NEW e1NPC(PositionX, PositionY); break;

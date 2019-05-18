@@ -290,7 +290,6 @@ void RoomManager::LoadRoom(const int & id)
 	}
 
 
-
 LoadColliders();
 UpdateMap();
 LoadEntities();
@@ -460,6 +459,9 @@ void RoomManager::LoadEntities()
 				}
 				else if ((*position)->ent_type == "Frozen") {
 					ent_type = e1Entity::EntityType::FROZEN;
+				}
+				else if ((*position)->ent_type == "Bomberman") {
+					ent_type = e1Entity::EntityType::BOMBERMAN;
 				}
 				App->entity_manager->CreateEntity(ent_type, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 				std::vector<MapIndicators*>::iterator item = actual_room->map_indicators.begin();
