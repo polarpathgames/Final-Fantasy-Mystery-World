@@ -154,6 +154,7 @@ void e1AmazingDragon::GetHitted(const int & dmg)
 	if (stats.live <= 0 || App->scene->player->god_mode) {
 		state = State::DEATH;
 		current_animation = &anim.DeathDownLeft;
+		to_delete = true;
 	}
 
 }

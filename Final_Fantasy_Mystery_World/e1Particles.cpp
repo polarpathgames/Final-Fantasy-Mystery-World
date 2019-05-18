@@ -353,6 +353,15 @@ void e1Particles::MoveArrow(float dt)
 		break;
 	}
 
+	if (to_delete) {
+		e1DynamicEntity* dragon = (e1DynamicEntity*)App->entity_manager->FindEntity("AmazingDragon");
+		if (dragon != nullptr) {
+			if (dragon->actual_tile == arrow_tile) {
+				dragon->GetHitted(App->scene->player->stats.attack_power_ability_1);
+			}
+		}
+	}
+
 }
 
 void e1Particles::LookForEnemyCollision()
