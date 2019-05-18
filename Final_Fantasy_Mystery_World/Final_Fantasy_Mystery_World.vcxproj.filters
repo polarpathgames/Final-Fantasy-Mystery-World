@@ -236,7 +236,9 @@
     <ClCompile Include="e1AmazingDragon.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="e1Bomberman.cpp" />
+    <ClCompile Include="e1Bomberman.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -500,7 +502,9 @@
     <ClInclude Include="e1AmazingDragon.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="e1Bomberman.h" />
+    <ClInclude Include="e1Bomberman.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml">

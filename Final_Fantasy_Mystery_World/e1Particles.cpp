@@ -572,15 +572,19 @@ void e1Particles::MoveAmazingFireBall(float dt)
 
 void e1Particles::CollisionAmazingBall()
 {
-
+	bool collided = false;
 	std::vector<iPoint>::iterator item = amazing_fire_ball_attack_range.begin();
 	for (; item != amazing_fire_ball_attack_range.end(); ++item) {
 		if ((*item) == App->scene->player->actual_tile) {
 			App->scene->player->GetHitted(60);
+			collided = true;
 			break;
 		}
 	}
-
+	if (!collided) {
+		iPoint pos = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+		App->entity_manager->CreateEntity(e1Entity::EntityType::BOMBERMAN, pos.x, pos.y, "");
+	}
 }
 
 void e1Particles::MoveIceStake(float dt)
