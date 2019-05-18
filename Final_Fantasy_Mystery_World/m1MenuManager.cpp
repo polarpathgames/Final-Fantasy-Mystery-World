@@ -914,14 +914,12 @@ void m1MenuManager::CreateGameOver()
 	game_over.game_over_panel = App->gui->AddImage(0, 0, { 1024, 0, 1024, 768 }, nullptr, App->gui->screen, true, false, false, false);
 	game_over.game_over_panel->SetPosRespectParent(CENTERED);
 
-	game_over.button_continue_lobby = App->gui->AddButton(150, 500, { 0,0,150,50 }, { 0,0,150,50 }, { 0,0,150,50 }, App->scene, game_over.game_over_panel, false, false, true, true);
-	game_over.label_continue_lobby = App->gui->AddLabel(0, 0, "Continue", game_over.button_continue_lobby, WHITE, FontType::FF100, nullptr, false);
-	game_over.label_continue_lobby->SetPosRespectParent(CENTERED);
+	game_over.button_continue_lobby = App->gui->AddButton(150, 500, { 0,0,130,50 }, { 0,0,130,50 }, { 0,0,130,50 }, App->scene, game_over.game_over_panel, false, false, true, true);
+	game_over.label_continue_lobby = App->gui->AddLabel(0, -31, "Continue", game_over.button_continue_lobby, WHITE, FontType::FF100, nullptr, false);
 
+	game_over.button_return_main = App->gui->AddButton(610, 500, { 1850,1637,270,60 }, { 1850,1637,270,50 }, { 1850,1637,270,50 }, App->scene, game_over.game_over_panel, false, false, true, true);
+	game_over.label_continue_main = App->gui->AddLabel(0, -31, "Return Main Menu", game_over.button_return_main, WHITE, FontType::FF100, nullptr, false);
 
-	game_over.button_return_main = App->gui->AddButton(610, 500, { 1850,1637,260,60 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->scene, game_over.game_over_panel, false, false, true, true);
-	game_over.label_continue_main = App->gui->AddLabel(0, 0, "Return Main Menu", game_over.button_return_main, WHITE, FontType::FF100, nullptr, false);
-	game_over.label_continue_main->SetPosRespectParent(CENTERED);
 }
 
 void m1MenuManager::DestroyGameOver()
