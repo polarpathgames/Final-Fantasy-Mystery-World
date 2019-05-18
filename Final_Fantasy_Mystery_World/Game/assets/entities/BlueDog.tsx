@@ -7,8 +7,8 @@
   <property name="ratio_blue_rupee" type="int" value="30"/>
   <property name="ratio_gold_rupee" type="int" value="1"/>
   <property name="ratio_green_rupee" type="int" value="50"/>
-  <property name="ratio_poti_hp" type="int" value="20"/>
-  <property name="ratio_poti_mana" type="int" value="21"/>
+  <property name="ratio_poti_hp" type="int" value="99"/>
+  <property name="ratio_poti_mana" type="int" value="98"/>
   <property name="ratio_red_rupee" type="int" value="10"/>
   <property name="ratio_rupee" type="int" value="60"/>
  </properties>

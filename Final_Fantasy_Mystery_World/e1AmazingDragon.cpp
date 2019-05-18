@@ -33,9 +33,9 @@ e1AmazingDragon::e1AmazingDragon(const int & x, const int & y) : e1Enemy(x, y)
 	drawable = false;
 
 	turns_to_wait_after_fire_ball = 2U;
-	waves_before_recover_energy = 4U;
+	waves_before_recover_energy = 3U;
 	turns_recovering_energy = 12U;
-	number_of_fire_balls = 8U;
+	number_of_fire_balls = 4U;
 	turns_to_wait_before_attack_again = 8U;
 
 	/*megadrake_hp_bar = App->gui->AddBar(100, 80, stats.max_live, ENEMYBAR, (u1GUI*)App->menu_manager->hud.bg_hud, nullptr);
