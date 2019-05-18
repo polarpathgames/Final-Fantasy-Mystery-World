@@ -392,9 +392,9 @@ bool m1Scene::Update(float dt)
 			App->menu_manager->DestroyControls();
 			menu_state = StatesMenu::OPTIONS_MENU;
 		}
-		if (control_to_change != nullptr && !control_to_change->Update()) {
-			delete control_to_change;
-			control_to_change = nullptr;
+		if (App->menu_manager->control_to_change != nullptr && !App->menu_manager->control_to_change->Update()) {
+			delete App->menu_manager->control_to_change;
+			App->menu_manager->control_to_change = nullptr;
 		}
 		break;
 	}
@@ -605,7 +605,7 @@ bool m1Scene::Interact(u1GUI* interact)
 	bool ret = true;
 	switch (menu_state) {
 	case StatesMenu::GO_TO_QUEST_MENU:
-		if (interact == App->menu_manager->quest.go_to_quest_button) {
+		if (interact == App->menu_manager->quest.tutorial_button) {
 			App->audio->PlayFx(fx_ability_warrior);
 		
 			App->menu_manager->DestroyGoToQuestMenu();

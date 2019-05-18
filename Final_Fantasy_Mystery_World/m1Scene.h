@@ -101,8 +101,6 @@ public:
 	e1Player* player = nullptr;
 	PlayerType player_type = PlayerType::NONE;
 
-	ChangeControls * control_to_change = nullptr;
-
 	int price_hp_potion = 75;
 	int price_mana_potion = 75;
 	int price_ability3 = 150;
