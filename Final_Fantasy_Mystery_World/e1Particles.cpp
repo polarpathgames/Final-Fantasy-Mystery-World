@@ -64,7 +64,7 @@ bool e1Particles::Update(float dt)
 		iPoint pos = App->map->MapToWorld(actual_tile.x, actual_tile.y);
 		SDL_Rect rect{ 2664,4659,120,90 };
 		rect = { 2657,4660,64,40 };
-		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), pos.x - 10, pos.y - 12, &rect, true);
+		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), pos.x - 13, pos.y - 11, &rect, true);
 		break; }
 	default:
 		break;
