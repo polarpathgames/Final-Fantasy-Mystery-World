@@ -1363,6 +1363,7 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		DestroyCongratualtions();
 		App->entity_manager->Disable();
 		App->main_menu->Enable();
+		ret = false;
 	}
 	return ret;
 }

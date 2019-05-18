@@ -552,9 +552,6 @@
     <Xml Include="Game\assets\xml\CutsceneHomeSleep2.xml">
       <Filter>Cutscenes\XML</Filter>
     </Xml>
-    <Xml Include="Game\assets\xml\CutsceneLobbyQuest3.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
     <Xml Include="Game\assets\xml\CutsceneDrakeQuest3.xml">
       <Filter>Cutscenes\XML</Filter>
     </Xml>
