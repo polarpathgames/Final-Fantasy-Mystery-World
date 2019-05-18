@@ -28,7 +28,7 @@ e1AmazingDragon::e1AmazingDragon(const int & x, const int & y) : e1Enemy(x, y)
 	initial_position = position;
 	position.x -= 35;
 	position.y += 62;
-	InitStats();
+	e1Enemy::InitStats();
 	allow_turn = false;
 	drawable = false;
 

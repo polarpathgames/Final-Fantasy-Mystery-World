@@ -38,7 +38,7 @@ e1BabyDrake::e1BabyDrake(const int & x, const int & y) : e1Enemy(x, y)
 	drake_name_label = App->gui->AddLabel(355, 20, "Ancient Dragon", drake_hp_bar, BLACK, FontType::FF64, nullptr, false);
 	
 
-	InitStats();
+	e1Enemy::InitStats();
 }
 
 e1BabyDrake::~e1BabyDrake()
