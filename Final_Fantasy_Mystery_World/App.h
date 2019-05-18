@@ -56,6 +56,7 @@ struct GlobalGameAdvances
 	bool treasure_quest3_opened = false;
 	bool CutSceneHomeToSleeQuest3 = false;
 	bool sleep2 = false;
+	bool CutsceneFinalGame = false;
 	std::string player_name;
 
 	void Reset() {
@@ -82,6 +83,7 @@ struct GlobalGameAdvances
 		quest2_rocks_cave_destroyed = false;
 		CutSceneQueenQuest2 = false;
 		CutSceneFinalRoomQuest2 = false;
+		CutsceneFinalGame = false;
 	}
 
 };
