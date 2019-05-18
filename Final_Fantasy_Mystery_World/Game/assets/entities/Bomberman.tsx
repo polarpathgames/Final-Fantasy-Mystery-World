@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.2.3" name="bombs" tilewidth="32" tileheight="38" tilecount="84" columns="12">
  <properties>
-  <property name="attack_power" type="int" value="35"/>
-  <property name="experience" type="int" value="300"/>
-  <property name="live" type="int" value="450"/>
-  <property name="ratio_blue_rupee" type="int" value="30"/>
-  <property name="ratio_gold_rupee" type="int" value="1"/>
-  <property name="ratio_green_rupee" type="int" value="50"/>
-  <property name="ratio_poti_hp" type="int" value="20"/>
-  <property name="ratio_poti_mana" type="int" value="21"/>
-  <property name="ratio_red_rupee" type="int" value="10"/>
-  <property name="ratio_rupee" type="int" value="60"/>
+  <property name="attack_power" type="int" value="40"/>
+  <property name="experience" type="int" value="10"/>
+  <property name="live" type="int" value="200"/>
+  <property name="ratio_blue_rupee" type="int" value="1"/>
+  <property name="ratio_gold_rupee" type="int" value="3"/>
+  <property name="ratio_green_rupee" type="int" value="2"/>
+  <property name="ratio_poti_hp" type="int" value="4"/>
+  <property name="ratio_poti_mana" type="int" value="5"/>
+  <property name="ratio_red_rupee" type="int" value="0"/>
+  <property name="ratio_rupee" type="int" value="1"/>
  </properties>
  <image source="../sprites/bombs.png" width="384" height="266"/>
  <tile id="0">

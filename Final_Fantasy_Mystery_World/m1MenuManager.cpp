@@ -746,13 +746,13 @@ void m1MenuManager::CreateShopMenu()
 		shop.shop_button_sword = App->gui->AddButton(32, 165, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item3->clip_zone, { 2061,2464,681,149 }, { -57,142 });
 		shop.shop_button_sword->SetFocus(FocusType::CLASSIC_FOCUS);
 	}
-	shop.shop_sword_label = App->gui->AddLabel(102, 156, std::string("x " + std::to_string(App->scene->price_ability3)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
+	shop.shop_sword_label = App->gui->AddLabel(102, 156, std::string("x" + std::to_string(App->scene->price_ability3)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
 	
 	
 	if (!App->globals.helmet_bought) {
 		shop.shop_background_item4 = App->gui->AddImage(38, 241, { 1050,2116,161,61 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 		shop.shop_helmet_image = App->gui->AddImage(46, 247, { 1127, 1952, 48, 48 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
-		shop.shop_helmet_label = App->gui->AddLabel(102, 234, std::string("x " + std::to_string(App->scene->price_helmet)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
+		shop.shop_helmet_label = App->gui->AddLabel(102, 234, std::string("x" + std::to_string(App->scene->price_helmet)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
 		shop.shop_coin4 = App->gui->AddImage(160, 253, { 1024, 1952, 34, 34 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 		shop.shop_button_helmet = App->gui->AddButton(32, 245, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item4->clip_zone, { 2061,2000,681,149 }, { -57,62 });
 		shop.shop_button_helmet->SetFocus(FocusType::CLASSIC_FOCUS);
@@ -760,7 +760,7 @@ void m1MenuManager::CreateShopMenu()
 	else {
 		shop.shop_background_item4 = App->gui->AddImage(38, 241, { 2751,1821,161,61 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 	//	shop.shop_helmet_image = App->gui->AddImage(46, 247, { 1127, 1952, 48, 48 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
-		shop.shop_helmet_label = App->gui->AddLabel(102, 234, std::string("x " + std::to_string(App->scene->price_helmet)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
+		shop.shop_helmet_label = App->gui->AddLabel(102, 234, std::string("x" + std::to_string(App->scene->price_helmet)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
 	//	shop.shop_coin4 = App->gui->AddImage(160, 253, { 1024, 1952, 34, 34 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 		shop.shop_button_helmet = App->gui->AddButton(32, 245, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item4->clip_zone, { 2061,2000,681,149 }, { -57,62 });
 		shop.shop_button_helmet->SetFocus(FocusType::CLASSIC_FOCUS);

@@ -2,7 +2,7 @@
 <tileset version="1.2" tiledversion="1.2.2" name="nagas" tilewidth="29" tileheight="34" tilecount="72" columns="12">
  <grid orientation="orthogonal" width="33" height="40"/>
  <properties>
-  <property name="attack_power" type="int" value="50"/>
+  <property name="attack_power" type="int" value="75"/>
   <property name="experience" type="int" value="50"/>
   <property name="live" type="int" value="100"/>
   <property name="ratio_blue_rupee" type="int" value="30"/>
