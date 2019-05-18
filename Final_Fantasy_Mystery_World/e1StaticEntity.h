@@ -80,6 +80,7 @@ public:
 		WATER3,
 		LAVA,
 		PORTAL,
+		PORTAL_ENTER,
 
 		UNKNOWN
 	};

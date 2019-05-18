@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="66" height="60" tilewidth="32" tileheight="16" infinite="0" nextlayerid="38" nextobjectid="981">
+
+<map version="1.2" tiledversion="1.2.3" orientation="isometric" renderorder="right-down" width="66" height="60" tilewidth="32" tileheight="16" infinite="0" nextlayerid="38" nextobjectid="982">
+
  <properties>
   <property name="movement" type="int" value="1"/>
  </properties>
@@ -24401,5 +24403,7 @@
   <object id="974" name="water3" type="static" x="704" y="352" width="16" height="16"/>
   <object id="975" name="water3" type="static" x="688" y="336" width="16" height="16"/>
   <object id="980" name="NPC_DAUGHTER" type="static" x="434.667" y="417" width="15" height="15"/>
+  <object id="981" name="portal_enter" type="static" x="192" y="256" width="32" height="32"/>
+
  </objectgroup>
 </map>
