@@ -56,9 +56,9 @@ bool m1MainMenu::Start()
 bool m1MainMenu::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateMainMenu", Profiler::Color::Aqua);
-	if (App->scene->control_to_change != nullptr && !App->scene->control_to_change->Update()) {
-		delete App->scene->control_to_change;
-		App->scene->control_to_change = nullptr;
+	if (App->menu_manager->control_to_change != nullptr && !App->menu_manager->control_to_change->Update()) {
+		delete App->menu_manager->control_to_change;
+		App->menu_manager->control_to_change = nullptr;
 	}
 	return true;
 }

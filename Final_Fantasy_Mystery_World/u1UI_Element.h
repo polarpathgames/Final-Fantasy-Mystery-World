@@ -102,7 +102,7 @@ public:
 	std::list<u1GUI*> childs;
 
 	Element_Event current_state = Element_Event::NONE;
-	iPoint last_mouse;
+	iPoint last_mouse = { 0,0 };
 
 	SDL_Rect* clip_zone = nullptr;
 
