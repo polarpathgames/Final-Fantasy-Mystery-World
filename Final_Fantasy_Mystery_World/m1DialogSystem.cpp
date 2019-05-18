@@ -421,6 +421,9 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->fade_to_black->FadeToBlack(Maps::LOBBY);
 				   App->globals.ice_queen_killed = true;
 				   break;
+			   case 6: //Quest 3 beginning
+				 
+				   break;
 			   case 30: //old statue tutorial diagonal
 				   App->menu_manager->CreateHelpDiagonalMenu();
 				   App->scene->SetMenuState(StatesMenu::HELP_DIAGONAL_MENU);

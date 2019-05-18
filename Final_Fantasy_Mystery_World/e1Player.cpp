@@ -212,6 +212,9 @@ void e1Player::OnCollisionEnter(Collider * c2)
 	if (c2->type == COLLIDER_QUEST_ICE) {
 		App->dialog->PerformDialogue(10);
 	}
+	if (c2->type == COLLIDER_BED) {
+		App->dialog->PerformDialogue(12);
+	}
 }
 
 void e1Player::OnCollisionExit(Collider * c2)
