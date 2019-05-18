@@ -19,6 +19,7 @@
 #include "m1Cutscene.h"
 #include "m1EntityManager.h"
 #include "m1Map.h"
+#include "m1FadeToBlack.h"
 #include "e1Player.h"
 #include "m1Render.h"
 
@@ -1147,6 +1148,15 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		App->ChangePause();
 		pause.Reset();
 		App->main_menu->Enable();
+		ret = false;
+	}
+	if (interaction == pause.button_abort_quest) {
+		App->fade_to_black->FadeToBlack(Maps::HOME);
+		DestroyPauseMenu();
+		if (App->GetPause())
+			App->ChangePause();
+		App->scene->menu_state = StatesMenu::NO_MENU;
+		EnableHUD(false);
 		ret = false;
 	}
 	if (interaction == pause.button_options)
