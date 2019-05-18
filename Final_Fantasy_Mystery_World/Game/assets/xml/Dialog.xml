@@ -94,6 +94,12 @@
       <option line="No" nextnode="1" karma="0" tag="0"/>
     </node>
   </dialogtree>
+  <dialogtree treeid="12" karma="0" tag="0" rect_x="1751" rect_y="3090" rect_w="122" rect_h="131">
+    <node line="Do you want to sleep?" id="0" karma="0" tag="0">
+      <option line="Yes" nextnode="1" karma="0" tag="6"/>
+      <option line="No" nextnode="1" karma="0" tag="0"/>
+    </node>
+  </dialogtree>
   <dialogtree treeid="13" karma="0" tag="0" rect_x="1751" rect_y="3090" rect_w="122" rect_h="131">
     <node line="Are you sure you want to go to the Fire Mountains?" id="0" karma="0" tag="0">
       <option line="Yes" nextnode="1" karma="0" tag="7"/>

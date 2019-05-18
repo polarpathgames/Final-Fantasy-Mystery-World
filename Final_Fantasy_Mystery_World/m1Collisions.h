@@ -82,7 +82,8 @@ public:
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, m1Module* callback = nullptr);
 	bool DeleteCollider(Collider* col);
 
-
+	std::vector<Collider*> GetColliders();
+	/*std::vector<Collider*> Setcollider();*/
 	void DebugDraw();
 
 private:

@@ -5,6 +5,7 @@
 #include "m1DialogSystem.h"
 #include "m1Cutscene.h"
 #include "m1Scene.h"
+#include "m1Collisions.h"
 #include "e1Player.h"
 #include "m1Window.h"
 #include "App.h"
@@ -432,9 +433,18 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->globals.ice_queen_killed = true;
 				   break;
 			   case 6: //Quest 3 beginning
+			   {
 				   App->cutscene_manager->PlayCutscene("assets/xml/CutsceneHomeSleep2.xml");
 				   App->map->lobby_state = LobbyState::NIGHT_LOBBY;
+				   //std::vector<Collider*> collider = App->collision->GetColliders();
+				   //std::vector<Collider*>::iterator item = collider.begin();
+				   //for (; item != collider.end(); ++item)
+				   //{
+					  // if ((*item)->type == COLLIDER_TYPE::COLLIDER_BED)
+						 //  App->collision->DeleteCollider((*item));
+				   //}
 				   break;
+			   }				  
 			   case 7: //Quest 3 Portal				   
 				   App->fade_to_black->FadeToBlack(Maps::FINAL_QUEST, 2.0F);
 				   break;
