@@ -12,6 +12,9 @@ m1Collision::m1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_SHOP] = true;
 	matrix[COLLIDER_SHOP][COLLIDER_PLAYER] = true;
 
+	matrix[COLLIDER_PLAYER][COLLIDER_QUEST_FIRE] = true;
+	matrix[COLLIDER_QUEST_FIRE][COLLIDER_PLAYER] = true;
+
 	matrix[COLLIDER_PLAYER][COLLIDER_QUEST_ICE] = true;
 	matrix[COLLIDER_QUEST_ICE][COLLIDER_PLAYER] = true;
 
@@ -243,4 +246,9 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 			rect.x + rect.w > r.x &&
 			rect.y < r.y + r.h &&
 			rect.h + rect.y > r.y);
+}
+
+std::vector<Collider*> m1Collision::GetColliders()
+{
+	return colliders;
 }

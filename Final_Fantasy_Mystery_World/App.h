@@ -54,10 +54,14 @@ struct GlobalGameAdvances
 	bool ice_queen_killed = false;
 	bool treasure_boss_opened = false;
 	bool treasure_quest3_opened = false;
+	bool CutSceneHomeToSleeQuest3 = false;
+	bool sleep2 = false;
+	bool CutsceneFinalGame = false;
 	std::string player_name;
 
 	void Reset() {
 		ice_queen_killed = false;
+		sleep2 = false;
 		CutSceneHomeToSleepQuest2 = false;
 		CutSceneLobbyQuest2Finish = false;
 		treasure_quest2_opened = false;
@@ -68,6 +72,7 @@ struct GlobalGameAdvances
 		CutSceneMiddleRoomTutorialPlayed = false;
 		CutSceneAfterBossTutorialPlayed = false;
 		CutSceneLobbyExplain = false;
+		CutSceneHomeToSleeQuest3 = false;
 		Tutorial_first_time = true;
 		ability1_gained = false;
 		ability2_gained = false;
@@ -78,6 +83,7 @@ struct GlobalGameAdvances
 		quest2_rocks_cave_destroyed = false;
 		CutSceneQueenQuest2 = false;
 		CutSceneFinalRoomQuest2 = false;
+		CutsceneFinalGame = false;
 	}
 
 };

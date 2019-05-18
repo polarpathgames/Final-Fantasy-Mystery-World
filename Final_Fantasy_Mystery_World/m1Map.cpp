@@ -52,6 +52,7 @@ bool m1Map::Awake(pugi::xml_node& config)
 	shop_map.assign(config.child("maps").child("shop_map").text().as_string());
 	lobby_map.assign(config.child("maps").child("lobby_map").text().as_string());
 	lobby_ice.assign(config.child("maps").child("lobby_ice").text().as_string());
+	lobby_night.assign(config.child("maps").child("lobby_night").text().as_string());
 	home_map.assign(config.child("maps").child("home_map").text().as_string());
 
 	debug_map.assign(config.child("start_map").attribute("map").as_string());
@@ -681,6 +682,9 @@ bool m1Map::ChangeMap(Maps type)
 			break;
 		case LobbyState::ICE_LOBBY:
 			Load(lobby_ice.data());
+			break;
+		case LobbyState::NIGHT_LOBBY:
+			Load(lobby_night.data());
 			break;
 		}
 		actual_map = Maps::LOBBY;

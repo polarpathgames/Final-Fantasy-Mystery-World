@@ -43,6 +43,11 @@ c1CutsceneEntity::c1CutsceneEntity(int pos_x, int pos_y, std::string name)
 			}
 		}
 	}
+	else if (strcmp(name.data(), "baby_dragon") == 0) {
+		entity_c = App->entity_manager->CreateEntity(e1Entity::EntityType::BABY_DRAKE, pos_x, pos_y, name);
+		entity_c->allow_turn = false;
+		static_cast<e1DynamicEntity*>(entity_c)->state = State::SLEEPING;
+	}
 	App->cutscene_manager->ent = entity_c;
 }
 
