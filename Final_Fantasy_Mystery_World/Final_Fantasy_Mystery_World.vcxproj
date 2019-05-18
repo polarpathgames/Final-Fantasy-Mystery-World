@@ -95,6 +95,7 @@
     <ClCompile Include="e1BabyDrake.cpp" />
     <ClCompile Include="e1BlueDog.cpp" />
     <ClCompile Include="e1BlueSlime.cpp" />
+    <ClCompile Include="e1Bomberman.cpp" />
     <ClCompile Include="e1CarnivorousPlant.cpp" />
     <ClCompile Include="e1Cassio.cpp" />
     <ClCompile Include="e1Drop.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="e1BabyDrake.h" />
     <ClInclude Include="e1BlueDog.h" />
     <ClInclude Include="e1BlueSlime.h" />
+    <ClInclude Include="e1Bomberman.h" />
     <ClInclude Include="e1CarnivorousPlant.h" />
     <ClInclude Include="e1Cassio.h" />
     <ClInclude Include="e1Drop.h" />
