@@ -440,6 +440,15 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->map->lobby_state = LobbyState::NORMAL_LOBBY;
 				   App->fade_to_black->FadeToBlack(Maps::LOBBY);
 				   App->globals.ice_queen_killed = true;
+				   for (; item != entities.end(); ++item) {
+					   if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::STATIC && static_cast<e1StaticEntity*>(*item)->static_type == e1StaticEntity::Type::PORTAL) {
+						   static_cast<e1StaticEntity*>(*item)->interacting_state = e1StaticEntity::InteractingStates::NONE;
+						   if (static_cast<e1StaticEntity*>(*item)->button_interact != nullptr) {
+							   static_cast<e1StaticEntity*>(*item)->button_interact->to_delete = true;
+						   }
+						   break;
+					   }
+				   }
 				   break;
 			   case 6: //Quest 3 beginning
 			   {
