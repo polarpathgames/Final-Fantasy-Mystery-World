@@ -433,14 +433,14 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->scene->SetMenuState(StatesMenu::HELP_ATTACK_MENU);
 				   break;
 			   case 90: //old statue tutorial ATTACK
-				   App->menu_manager->CreateHelpAbilityMenu();
+				   App->menu_manager->CreateHelpAbilityMenu(AbilityType::ABILITY1);
 				   App->scene->SetMenuState(StatesMenu::HELP_ABILITY_MENU);
 				   break;
 			   case 43: // go to quest 2 in lobby ice
 				   App->fade_to_black->FadeToBlack(Maps::QUEST2, 2.0F);
 				   break;
 			   case 190: //old statue tutorial ATTACK
-				   App->menu_manager->CreateHelpAbilityMenu(AbilityType::ABILITY1);
+				   App->menu_manager->CreateHelpAbilityMenu(AbilityType::FLASH);
 				   App->scene->SetMenuState(StatesMenu::HELP_ABILITY_MENU);
 				   break;
 			   default:
