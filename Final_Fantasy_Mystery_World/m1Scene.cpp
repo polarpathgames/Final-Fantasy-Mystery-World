@@ -521,7 +521,19 @@ void m1Scene::CreateEntities()
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
-				else if ((*position)->ent_type == "default" && (App->map->last_map == Maps::TUTORIAL || App->map->last_map == Maps::QUEST2)) {
+				else if ((*position)->ent_type == "default" && App->map->last_map == Maps::TUTORIAL) {
+					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->Init();
+					player->CenterPlayerInTile();
+					App->render->CenterCameraOnPlayer(player->position);
+				}
+				else if ((*position)->ent_type == "default2" && App->map->last_map == Maps::QUEST2) {
+					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->Init();
+					player->CenterPlayerInTile();
+					App->render->CenterCameraOnPlayer(player->position);
+				}
+				else if ((*position)->ent_type == "default3" && App->map->last_map == Maps::FINAL_QUEST) {
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->Init();
 					player->CenterPlayerInTile();
