@@ -658,6 +658,20 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 	}
+	else if (strcmp(name, "portal_enter") == 0) {
+		static_type = e1StaticEntity::Type::PORTAL;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1630,142,43,67 });
+		idle->PushBack({ 1673,142,43,67 });
+		idle->PushBack({ 1716,142,43,67 });
+		idle->PushBack({ 1759,142,43,67 });
+		idle->speed = 7;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
 	}
