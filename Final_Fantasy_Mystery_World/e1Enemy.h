@@ -128,6 +128,9 @@ public:
 	u1Bar* icequeen_hp_bar = nullptr;
 	u1Label* icequeen_label = nullptr;
 
+	u1Bar* drake_hp_bar = nullptr;
+	u1Label* drake_name_label = nullptr;
+
 };
 
 

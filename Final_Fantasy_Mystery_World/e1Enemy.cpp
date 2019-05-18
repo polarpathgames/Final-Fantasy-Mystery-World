@@ -633,6 +633,10 @@ void e1Enemy::Death()
 	if (enemy_type == EnemyType::FROZEN) {
 		App->gui->DeleteUIElement(icequeen_hp_bar);
 	}
+
+	if (enemy_type == EnemyType::BABY_DRAKE) {
+		App->gui->DeleteUIElement(drake_hp_bar);
+	}
 }
 
 void e1Enemy::GetHitted(const int & damage_taken)
@@ -650,6 +654,10 @@ void e1Enemy::GetHitted(const int & damage_taken)
 	if (enemy_type == EnemyType::FROZEN) {
 		
 		icequeen_hp_bar->UpdateBar(-damage_taken, ENEMYBAR);
+	}
+
+	if (enemy_type == EnemyType::BABY_DRAKE) {
+		drake_hp_bar->UpdateBar(-damage_taken, ENEMYBAR);
 	}
 	if (stats.live <= 0 || App->scene->player->god_mode) {
 		state = State::DEATH;

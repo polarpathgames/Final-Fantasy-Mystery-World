@@ -30,8 +30,6 @@ public:
 
 private:
 	iPoint particle_position = { 0,0 };
-	u1Bar* boss_hp_bar = nullptr;
-	u1Label* boss_name_label = nullptr;
 
 	float lerp_translation = 0.f;
 	float lerp_by = 0.02f;
