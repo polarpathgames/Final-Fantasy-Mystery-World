@@ -33,6 +33,7 @@ public:
 	uint waves_before_recover_energy = 0U;
 	uint turns_recovering_energy = 0U;
 	uint number_of_fire_balls = 0U;
+	uint turns_to_wait_before_attack_again = 0U;
 
 	uint auxiliar_turn_count = 0U;
 	uint auxiliar_attack_count = 0U;
