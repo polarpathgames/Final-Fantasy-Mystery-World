@@ -290,7 +290,6 @@ void RoomManager::LoadRoom(const int & id)
 	}
 
 
-
 LoadColliders();
 UpdateMap();
 LoadEntities();

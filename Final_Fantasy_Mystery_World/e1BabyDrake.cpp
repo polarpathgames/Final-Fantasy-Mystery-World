@@ -30,7 +30,7 @@ e1BabyDrake::e1BabyDrake(const int & x, const int & y) : e1Enemy(x, y)
 	target_position = position;
 	initial_position = position;
 	boss_hp_bar = App->gui->AddBar(100, 80, 100, ENEMYBAR, App->menu_manager->hud.bg_hud, nullptr);
-	boss_name_label = App->gui->AddLabel(355, 20, "Dragon Desire", boss_hp_bar, BLACK, FontType::FF64, nullptr, false);
+	boss_name_label = App->gui->AddLabel(355, 20, "Ancient Dragon", boss_hp_bar, BLACK, FontType::FF64, nullptr, false);
 
 	InitStats();
 }
