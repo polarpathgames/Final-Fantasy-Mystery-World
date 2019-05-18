@@ -70,7 +70,7 @@ void u1Bar::UpdateBar(int quantity, UIType bar_type)
 {
 	if (empty_bar != nullptr)
 	{
-		if(bar_type == UIType::HPBAR || bar_type == UIType::MANABAR || bar_type == UIType::SKIPBAR || bar_type == UIType::ENEMYBAR)
+		if(bar_type == UIType::HPBAR || bar_type == UIType::MANABAR || bar_type == UIType::SKIPBAR || bar_type == UIType::ENEMYBAR || bar_type == UIType::DRAGONBAR)
 			targe_width = CalculateBar(quantity);
 		
 		else {
@@ -85,7 +85,7 @@ void u1Bar::UpdateBar(int quantity, UIType bar_type)
 		}
 		
 	}
-	if (bar_type != SKIPBAR && bar_type != UIType::EXPBAR && bar_type != UIType::ENEMYBAR)
+	if (bar_type != SKIPBAR && bar_type != UIType::EXPBAR && bar_type != UIType::ENEMYBAR&& bar_type != UIType::DRAGONBAR)
 		PrintBarNumbers();
 }
 

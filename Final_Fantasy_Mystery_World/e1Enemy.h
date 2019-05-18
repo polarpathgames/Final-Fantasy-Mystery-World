@@ -18,7 +18,7 @@ class e1Enemy : public e1DynamicEntity
 public:
 
 	struct EnemyStats {
-		int max_live = 100;
+		int max_live = 500;
 		int live = 100;
 		int basic_attack_damage = 25;
 		int special_attack_damage = 20;
@@ -132,6 +132,9 @@ public:
 
 	u1Bar* drake_hp_bar = nullptr;
 	u1Label* drake_name_label = nullptr;
+
+	u1Bar* megadrake_hp_bar = nullptr;
+	u1Label* megadrake_label = nullptr;
 
 };
 
