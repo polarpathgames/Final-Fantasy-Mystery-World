@@ -1021,7 +1021,7 @@ void m1MenuManager::CreateHelpAbilityMenu(AbilityType type)
 		break;
 	case AbilityType::FLASH:
 		help_ability = App->gui->AddImage(0, 0, { 0,0,0,0 }, nullptr, App->gui->screen, false, false, false, false);
-		App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, help_ability, true, false, false, false);
+		App->gui->AddImage(0, 0, { 0,4024,1024,768 }, nullptr, help_ability, true, false, false, false);
 		break;
 	case AbilityType::ABILITY3:
 		break;
