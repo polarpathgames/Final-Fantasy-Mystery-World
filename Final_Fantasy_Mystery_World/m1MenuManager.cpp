@@ -643,11 +643,12 @@ void m1MenuManager::CreatePauseMenu()
 		pause.label_main_menu = App->gui->AddLabel(0, 0, "Return to main menu", pause.button_main_menu, BLACK, FontType::FF48, nullptr, false);
 		pause.label_main_menu->SetPosRespectParent(CENTERED);
 
-		//if (App->map->actual_map == Maps::LOBBY || App->map->actual_map == Maps::SHOP || App->map->actual_map == Maps::HOME)
-		pause.button_abort_quest = App->gui->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, false, false);
-		//else
-		//	pause.button_abort_quest = App->gui->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true, true);
-
+		if (App->map->actual_map == Maps::LOBBY || App->map->actual_map == Maps::SHOP || App->map->actual_map == Maps::HOME || App->globals.Tutorial_first_time) {
+			pause.button_abort_quest = App->gui->AddButton(50, 250, { 2456,1087,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, false, false);
+		}
+		else {
+			pause.button_abort_quest = App->gui->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
+		}
 
 		pause.label_abort_quest = App->gui->AddLabel(0, 0, "Abort quest", pause.button_abort_quest, BLACK, FontType::FF48, nullptr, false);
 		pause.label_abort_quest->SetPosRespectParent(CENTERED);
