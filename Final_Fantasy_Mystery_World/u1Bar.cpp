@@ -180,7 +180,7 @@ void u1Bar::InnerDraw()
 	}
 }
 
-void u1Bar::PrintBarNumbers()
+void u1Bar::PrintBarNumbers(int addition)
 {
 	if (bar_numbers_label != nullptr)
 		App->gui->DeleteUIElement(bar_numbers_label);
@@ -188,7 +188,10 @@ void u1Bar::PrintBarNumbers()
 	if (current_quantity < 0)
 		current_quantity = 0;
 
-	std::string bar_nums_str = std::to_string(current_quantity) + "/" + std::to_string(max_capacity);
+	
+	aux_quantity = current_quantity + addition;
+
+	std::string bar_nums_str = std::to_string(aux_quantity) + "/" + std::to_string(max_capacity);
 
 	bar_numbers_label = App->gui->AddLabel(100, 5, bar_nums_str.c_str(), filled_bar, BLACK, FontType::FF32, App->scene, false);
 
