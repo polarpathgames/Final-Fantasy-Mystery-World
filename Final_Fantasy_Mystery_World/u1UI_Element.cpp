@@ -236,6 +236,7 @@ void u1GUI::SetClipZone(const SDL_Rect & clip_zone)
 	this->clip_zone->y = clip_zone.y;
 	this->clip_zone->h = clip_zone.h;
 	this->clip_zone->w = clip_zone.w;
+	new_clip = true;
 
 }
 

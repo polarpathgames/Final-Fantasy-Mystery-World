@@ -48,7 +48,7 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 	tile_anim.PushBack({ 261,0,32,32 });
 	tile_anim.PushBack({ 261,32,32,32 });
 	tile_anim.PushBack({ 261,64,32,32 });
-	tile_anim.speed = 0.7f;
+	tile_anim.speed = 5.f;
 	tile_anim.loop = false;
 }
 
@@ -171,8 +171,8 @@ bool e1Player::Save(pugi::xml_node & node) const
 void e1Player::Draw(float dt)
 {
 	if (!ability1_tiles.empty()) {
+		tile_anim.GetCurrentFrame(dt);
 		for (std::vector<iPoint>::iterator item = ability1_tiles.begin(); item != ability1_tiles.end(); ++item) {
-			tile_anim.GetCurrentFrame(dt);
 			App->render->Blit(ability1_tile_tx, (*item).x+1, (*item).y-8, &tile_anim.GetFrame(tile_anim.current_frame), true);
 		}
 	}
@@ -378,6 +378,13 @@ void e1Player::ReadPlayerInput()
 	if (state == State::BEFORE_FLASH) {
 		LookFlash();
 	}
+	if (state == State::FLASHING && (!App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.ABILITY2) && !App->input->GetKeyDownOrRepeat(App->input->controller_Buttons.buttons_code.ABILITY2))) {
+		if (drawable) {
+			state = State::IDLE;
+			timer_ability1.Stop();
+			ability1_tiles.clear();
+		}
+	}
 }
 
 void e1Player::ReadPlayerMovementInQuest()
@@ -549,7 +556,7 @@ void e1Player::ReadAttack()
 		App->audio->PlayFx(App->scene->fx_attack);
 		return;
 	}
-	if ((App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.HABILTY1) || App->input->GetControllerButtonDownOrRepeat(App->input->controller_Buttons.buttons_code.HABILTY1)) 
+	if ((App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.ABILTY1) || App->input->GetControllerButtonDownOrRepeat(App->input->controller_Buttons.buttons_code.ABILTY1))
 		&& App->globals.ability1_gained == true) {
 		if (timer_ability1.IsRunning()) {
 			if (timer_ability1.ReadSec() >= time_to_wait_ability1) {
@@ -1220,6 +1227,8 @@ void e1Player::Death()
 		App->map->CleanUp();
 		App->easing_splines->CleanUp();
 		App->entity_manager->DeleteEntitiesNoPlayer();
+		App->scene->player->AugmentLives(App->scene->player->stats.max_lives);
+		App->scene->player->AugmentMana(App->scene->player->stats.max_mana);
 		App->menu_manager->EnableHUD(false);
 		App->menu_manager->CreateGameOver();
 		App->scene->SetMenuState(StatesMenu::DIE_MENU);
@@ -1299,39 +1308,43 @@ void e1Player::QuestControls()
 	
 	if ((App->map->quest_rooms != nullptr &&App->map->quest_rooms->actual_room->room_type != RoomType::FOUNTAIN) || App->fast_start) {
 		player_input.pressing_SPACE = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
-		player_input.pressing_1 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILTY1) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILTY1) == KEY_DOWN;
-		player_input.pressing_2 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILITY2) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILITY2) == KEY_DOWN;
-		player_input.pressing_3 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILITY3) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILITY3) == KEY_DOWN;
+		player_input.pressing_1 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.ABILTY1) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.ABILTY1) == KEY_DOWN;
+		player_input.pressing_2 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.ABILITY2) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.ABILITY2) == KEY_DOWN;
+		player_input.pressing_3 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.ABILITY3) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.ABILITY3) == KEY_DOWN;
 	}
 
 	if (!player_input.pressing_shift) {
-		App->menu_manager->ChangeCompass(false);
-		if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
-			player_input.pressing_S = true;
-		}
-		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1) {
-			player_input.pressing_D = true;
-		}
-		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1) {
-			player_input.pressing_W = true;
-		}
-		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
-			player_input.pressing_A = true;
+		if (state != State::MENU) {
+			App->menu_manager->ChangeCompass(false);
+			if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
+				player_input.pressing_S = true;
+			}
+			else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1) {
+				player_input.pressing_D = true;
+			}
+			else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1) {
+				player_input.pressing_W = true;
+			}
+			else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
+				player_input.pressing_A = true;
+			}
 		}
 	}
 	else {
-		App->menu_manager->ChangeCompass(true);
-		if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) {
-			player_input.pressing_S = true;
-		}
-		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1) {
-			player_input.pressing_D = true;
-		}
-		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1) {
-			player_input.pressing_W = true;
-		}
-		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
-			player_input.pressing_A = true;
+		if (state != State::MENU) {
+			App->menu_manager->ChangeCompass(true);
+			if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) {
+				player_input.pressing_S = true;
+			}
+			else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1) {
+				player_input.pressing_D = true;
+			}
+			else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1) {
+				player_input.pressing_W = true;
+			}
+			else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
+				player_input.pressing_A = true;
+			}
 		}
 	}
 	
@@ -1341,7 +1354,6 @@ void e1Player::QuestControls()
 void e1Player::LookFlash()
 {
 
-	state = State::FLASHING;
 	iPoint next_pos{ 0,0 };
 	switch (direction) {
 	case Direction::DOWN_LEFT:
@@ -1371,20 +1383,36 @@ void e1Player::LookFlash()
 	}
 
 	if (App->map->IsWalkable(next_pos, false) && !IsEnemyInThatPosition(next_pos)) {
-		drawable = false;
+		ability1_tiles.push_back(App->map->MapToWorld(next_pos.x, next_pos.y));
+		state = State::FLASHING;
+		tile_anim.Reset();
 		flash_position = next_pos;
-		flash_time = SDL_GetTicks();
-		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{0,-10}, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
+		timer_ability1.Start();
 	}
-	else
-		state = State::IDLE;
+	else state = State::IDLE;
 
 }
 
 void e1Player::Flashing()
 {
+	if (drawable) {
+		if (timer_ability1.IsRunning()) {
+			if (timer_ability1.ReadSec() > 0.7f) {
+				drawable = false;
+				timer_ability1.Stop();
+				flash_time = SDL_GetTicks();
+				App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
+			}
+		}
+		else {
+			state = State::IDLE;
 
-	if (flash_time < SDL_GetTicks() - 500) {
+		}
+	}
+	
+
+	if (drawable == false && flash_time < SDL_GetTicks() - 500) {
+		ability1_tiles.clear();
 		actual_tile = flash_position;
 		App->audio->PlayFx(App->scene->fx_flash);
 		state = State::AFTER_FLASH;

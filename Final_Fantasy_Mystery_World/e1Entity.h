@@ -91,7 +91,9 @@ public:
 		CASSIO,
 		FROZEN,
 		MEGA_EYE,
+		AMAZING_DRAGON,
 		BABY_DRAKE,
+		BOMBERMAN,
 
 		NO_TYPE
 	};

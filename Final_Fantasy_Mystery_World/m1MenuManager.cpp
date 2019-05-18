@@ -331,10 +331,10 @@ void m1MenuManager::CreateControls()
 	controls.keyboard.label_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
 	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_basic_attack);
 
-	//controls.keyboard.button_abilities = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
-	//controls.keyboard.label_to_show_how_abilities = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.SHOW_SKILLS, controls.keyboard.button_abilities, BLACK, FontType::FF32, nullptr, false);
-	//controls.keyboard.label_to_show_how_abilities->SetPosRespectParent(CENTERED);
-	//App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_abilities);
+	controls.keyboard.button_abilities = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
+	controls.keyboard.label_to_show_how_abilities = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.FAST_SKILLS, controls.keyboard.button_abilities, BLACK, FontType::FF32, nullptr, false);
+	controls.keyboard.label_to_show_how_abilities->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_abilities);
 
 	controls.keyboard.button_ability1 = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_abilities->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
 	controls.keyboard.label_to_show_how_ability1 = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.ABILITY1, controls.keyboard.button_ability1, BLACK, FontType::FF32, nullptr, false);
@@ -342,12 +342,12 @@ void m1MenuManager::CreateControls()
 	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_ability1);
 
 	controls.keyboard.button_ability2 = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_ability1->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
-	controls.keyboard.label_to_show_how_ability2 = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.ABILITY1, controls.keyboard.button_ability2, BLACK, FontType::FF32, nullptr, false);
+	controls.keyboard.label_to_show_how_ability2 = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.ABILITY2, controls.keyboard.button_ability2, BLACK, FontType::FF32, nullptr, false);
 	controls.keyboard.label_to_show_how_ability2->SetPosRespectParent(CENTERED);
 	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_ability2);
 
 	controls.keyboard.button_ability3 = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_ability2->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
-	controls.keyboard.label_to_show_how_ability3 = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.ABILITY1, controls.keyboard.button_ability3, BLACK, FontType::FF32, nullptr, false);
+	controls.keyboard.label_to_show_how_ability3 = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.ABILITY3, controls.keyboard.button_ability3, BLACK, FontType::FF32, nullptr, false);
 	controls.keyboard.label_to_show_how_ability3->SetPosRespectParent(CENTERED);
 	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_ability3);
 
@@ -412,10 +412,10 @@ void m1MenuManager::CreateControls()
 	controls.controller.Clabel_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
 	App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_basic_attack);
 
-	//controls.controller.Cbutton_abilities = App->gui->AddButton(controller_offset_x, controls.controller.Cbutton_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
-	//controls.controller.Clabel_to_show_how_abilities = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.SHOW_SKILLS, controls.controller.Cbutton_abilities, BLACK, FontType::FF32, nullptr, false);
-	//controls.controller.Clabel_to_show_how_abilities->SetPosRespectParent(CENTERED);
-	//App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_abilities);
+	controls.controller.Cbutton_abilities = App->gui->AddButton(controller_offset_x, controls.controller.Cbutton_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
+	controls.controller.Clabel_to_show_how_abilities = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.FAST_SKILLS, controls.controller.Cbutton_abilities, BLACK, FontType::FF32, nullptr, false);
+	controls.controller.Clabel_to_show_how_abilities->SetPosRespectParent(CENTERED);
+	App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_abilities);
 
 	controls.controller.Cbutton_ability1 = App->gui->AddButton(controller_offset_x, controls.controller.Cbutton_abilities->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
 	controls.controller.Clabel_to_show_how_ability1 = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.ABILITY1, controls.controller.Cbutton_ability1, BLACK, FontType::FF32, nullptr, false);
@@ -423,12 +423,12 @@ void m1MenuManager::CreateControls()
 	App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_ability1);
 
 	controls.controller.Cbutton_ability2 = App->gui->AddButton(controller_offset_x, controls.controller.Cbutton_ability1->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
-	controls.controller.Clabel_to_show_how_ability2 = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.ABILITY1, controls.controller.Cbutton_ability2, BLACK, FontType::FF32, nullptr, false);
+	controls.controller.Clabel_to_show_how_ability2 = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.ABILITY2, controls.controller.Cbutton_ability2, BLACK, FontType::FF32, nullptr, false);
 	controls.controller.Clabel_to_show_how_ability2->SetPosRespectParent(CENTERED);
 	App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_ability2);
 
 	controls.controller.Cbutton_ability3 = App->gui->AddButton(controller_offset_x, controls.controller.Cbutton_ability2->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
-	controls.controller.Clabel_to_show_how_ability3 = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.ABILITY1, controls.controller.Cbutton_ability3, BLACK, FontType::FF32, nullptr, false);
+	controls.controller.Clabel_to_show_how_ability3 = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.ABILITY3, controls.controller.Cbutton_ability3, BLACK, FontType::FF32, nullptr, false);
 	controls.controller.Clabel_to_show_how_ability3->SetPosRespectParent(CENTERED);
 	App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_ability3);
 
@@ -914,14 +914,12 @@ void m1MenuManager::CreateGameOver()
 	game_over.game_over_panel = App->gui->AddImage(0, 0, { 1024, 0, 1024, 768 }, nullptr, App->gui->screen, true, false, false, false);
 	game_over.game_over_panel->SetPosRespectParent(CENTERED);
 
-	game_over.button_continue_lobby = App->gui->AddButton(150, 500, { 0,0,150,50 }, { 0,0,150,50 }, { 0,0,150,50 }, App->scene, game_over.game_over_panel, false, false, true, true);
-	game_over.label_continue_lobby = App->gui->AddLabel(0, 0, "Continue", game_over.button_continue_lobby, WHITE, FontType::FF100, nullptr, false);
-	game_over.label_continue_lobby->SetPosRespectParent(CENTERED);
+	game_over.button_continue_lobby = App->gui->AddButton(150, 500, { 0,0,130,50 }, { 0,0,130,50 }, { 0,0,130,50 }, App->scene, game_over.game_over_panel, false, false, true, true);
+	game_over.label_continue_lobby = App->gui->AddLabel(0, -31, "Continue", game_over.button_continue_lobby, WHITE, FontType::FF100, nullptr, false);
 
+	game_over.button_return_main = App->gui->AddButton(610, 500, { 1850,1637,270,60 }, { 1850,1637,270,50 }, { 1850,1637,270,50 }, App->scene, game_over.game_over_panel, false, false, true, true);
+	game_over.label_continue_main = App->gui->AddLabel(0, -31, "Return Main Menu", game_over.button_return_main, WHITE, FontType::FF100, nullptr, false);
 
-	game_over.button_return_main = App->gui->AddButton(610, 500, { 1850,1637,260,60 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->scene, game_over.game_over_panel, false, false, true, true);
-	game_over.label_continue_main = App->gui->AddLabel(0, 0, "Return Main Menu", game_over.button_return_main, WHITE, FontType::FF100, nullptr, false);
-	game_over.label_continue_main->SetPosRespectParent(CENTERED);
 }
 
 void m1MenuManager::DestroyGameOver()
@@ -954,27 +952,55 @@ void m1MenuManager::DestroyHelpAttackMenu()
 	EnableHUD(true);
 }
 
-void m1MenuManager::CreateHelpAbilityMenu(bool flash)
+void m1MenuManager::CreateHelpAbilityMenu(AbilityType type)
 {
 	App->audio->PlayFx(App->scene->fx_ability_screen);
-	switch (App->scene->player_type) {
-	case PlayerType::WARRIOR:
-	if (!flash)
-		help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
-	else if (flash)
-		help_ability = App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+
+	u1GUI* image = nullptr;
+	u1GUI* text1 = nullptr;
+	u1GUI* text2 = nullptr;
+
+	switch (type)
+	{
+	case AbilityType::ABILITY1:
+		help_ability = App->gui->AddImage(0, 0, { 0,0,0,0 }, nullptr, App->gui->screen, false, false, false, false);
+		image = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, help_ability, true, false, false, false);
+
+		switch (App->scene->player_type)
+		{
+		case PlayerType::WARRIOR:
+			text1 = App->gui->AddLabel(0, 0, "Warrior turns on its own axis damaging", image, WHITE, FontType::PMIX24, nullptr, false);
+			text2 = App->gui->AddLabel(0, 0, "all enemies around", text1, WHITE, FontType::PMIX24, nullptr, false);
+			break;
+		case PlayerType::ARCHER:
+			text1 = App->gui->AddLabel(0, 0, "Archer throws a sharp arrow", image, WHITE, FontType::PMIX24, nullptr, false);
+			text2 = App->gui->AddLabel(0, 0, "damaging 3 tiles straight", text1, WHITE, FontType::PMIX24, nullptr, false);
+			break;
+		case PlayerType::MAGE:
+			text1 = App->gui->AddLabel(0, 0, "Mage throws 3 powerful fireballs", image, WHITE, FontType::PMIX24, nullptr, false);
+			text2 = App->gui->AddLabel(0, 0, "damaging 3 tiles", text1, WHITE, FontType::PMIX24, nullptr, false);
+			break;
+		}
+
+		if (text1 != nullptr) {
+			text1->SetPosRespectParent(Position_Type::CENTERED);
+			text1->position.y += 130;
+			text2->SetPosRespectParent(Position_Type::CENTERED);
+			text2->position.y += text1->section.h + 5;
+		}
+
+		text1 = App->gui->AddLabel(0, 0, "It can also disintegrate objects", image, WHITE, FontType::PMIX24, nullptr, false);
+		text1->SetPosRespectParent(Position_Type::CENTERED);
+		text1->position.y += 220;
+
 		break;
-	case PlayerType::MAGE:
-		if (!flash)
-			help_ability = App->gui->AddImage(0, 0, { 2048,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
-		else if (flash)
-			help_ability = App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+	case AbilityType::FLASH:
+		help_ability = App->gui->AddImage(0, 0, { 0,0,0,0 }, nullptr, App->gui->screen, false, false, false, false);
+		App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, help_ability, true, false, false, false);
 		break;
-	case PlayerType::ARCHER:
-		if (!flash)
-			help_ability = App->gui->AddImage(0, 0, { 0,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
-		else if (flash)
-			help_ability = App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+	case AbilityType::ABILITY3:
+		break;
+	default:
 		break;
 	}
 }
@@ -982,6 +1008,7 @@ void m1MenuManager::CreateHelpAbilityMenu(bool flash)
 void m1MenuManager::DestroyHelpAbilityMenu()
 {
 	App->gui->DeleteUIElement(help_ability);
+	help_ability = nullptr;
 	EnableHUD(true);
 }
 

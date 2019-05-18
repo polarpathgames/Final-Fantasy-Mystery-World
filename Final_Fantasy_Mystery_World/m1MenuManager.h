@@ -560,7 +560,6 @@ struct UI_debugscreen {
 	u1Label* entities_label = nullptr;
 };
 
-
 struct UI_game_over {
 	u1Image* game_over_panel = nullptr;
 
@@ -580,6 +579,13 @@ struct UI_HUD {
 	u1Image* diagonal_compass = nullptr; 	//Compass
 	u1Image* vertical_compass = nullptr;	//Compass
 };
+
+enum class AbilityType {
+	ABILITY1,
+	FLASH,
+	ABILITY3
+};
+
 class m1MenuManager :public m1Module {
 
 public:
@@ -635,7 +641,7 @@ public:
 	void CreateHelpAttackMenu();
 	void DestroyHelpAttackMenu();
 
-	void CreateHelpAbilityMenu(bool flash = false);
+	void CreateHelpAbilityMenu(AbilityType type);
 	void DestroyHelpAbilityMenu();
 
 	void CreateHUD();

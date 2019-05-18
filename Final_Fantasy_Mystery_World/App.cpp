@@ -198,10 +198,6 @@ bool Application::Update()
 	if (ret == true)
 		ret = PostUpdate();
 
-	if (input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
-		capactivated = !capactivated;
-	}
-
 	FinishUpdate();
 	return ret;
 }

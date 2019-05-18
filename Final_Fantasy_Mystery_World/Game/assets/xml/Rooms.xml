@@ -208,7 +208,7 @@
       <location>Quest2_Boss.tmx</location>
       <door active="true"></door>
       <id num="8"></id>
-      <type>paceful</type>
+      <type>boss</type>
       <music>assets/audio/music/23.Final Fantasy TA - Prison.ogg.ogg</music>
     </room>
   </final_quest>
@@ -216,9 +216,11 @@
 
   <debug>
     <room>
-      <location>debug.tmx</location>
+      <location>Quest2_Boss.tmx</location>
+      <door active="true"></door>
       <id num="1"></id>
-      <type>boss</type>
+      <type>paceful</type>
+      <music>assets/audio/music/23.Final Fantasy TA - Prison.ogg.ogg</music>
     </room>
   </debug>
 </room_manager>

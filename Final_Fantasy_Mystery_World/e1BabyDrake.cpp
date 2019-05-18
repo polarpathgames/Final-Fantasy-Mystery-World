@@ -5,11 +5,18 @@
 #include "App.h"
 #include "m1Audio.h"
 #include "m1Map.h"
+#include "u1Bar.h"
+#include "u1Image.h"
 #include "m1ParticleManager.h"
 #include "m1EntityManager.h"
 #include "p1Follow.h"
 #include "p2Math.h"
+#include "m1MenuManager.h"
 #include "m1FadeToBlack.h"
+#include "u1Label.h"
+#include "m1Render.h"
+#include "m1Window.h"
+#include "p2Log.h"
 #include "Brofiler/Brofiler.h"
 
 e1BabyDrake::e1BabyDrake(const int & x, const int & y) : e1Enemy(x, y)
@@ -25,15 +32,21 @@ e1BabyDrake::e1BabyDrake(const int & x, const int & y) : e1Enemy(x, y)
 
 	target_position = position;
 	initial_position = position;
+	
+	drake_hp_bar = App->gui->AddBar(100, 80, stats.max_live, ENEMYBAR, App->menu_manager->hud.bg_hud, nullptr);
+	
+	drake_name_label = App->gui->AddLabel(355, 20, "Ancient Dragon", drake_hp_bar, BLACK, FontType::FF64, nullptr, false);
+	
 
-	InitStats();
+	e1Enemy::InitStats();
 }
 
 e1BabyDrake::~e1BabyDrake()
 {
 	if (fire_particle != nullptr)
 		App->particles->DeleteFollow_p(fire_particle);
-
+	drake_hp_bar->to_delete = true;
+	drake_name_label->to_delete = true;
 }
 
 void e1BabyDrake::PrepareDistanceAttack()

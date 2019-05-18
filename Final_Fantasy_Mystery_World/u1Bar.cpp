@@ -42,6 +42,14 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 		filled_bar = App->gui->AddImage(2, 1, { 1371, 3217, 369, 8 }, App->scene, empty_bar, false, false, false, false); // this is filled
 		empty_bar->drawable = true;
 	}
+
+	if (type == ENEMYBAR) 
+	{
+		max_width = 812;
+		current_width = max_width;
+		empty_bar = App->gui->AddImage(x, y, { 2121, 88, 816, 20 }, App->scene, parent, false, false, false, false);
+		filled_bar = App->gui->AddImage(2, 2, { 2123, 55, 812, 16 }, App->scene, empty_bar, false, false, false, false);
+	}
 	if (type == SKIPBAR)
 	{
 		current_quantity = 0;
@@ -62,7 +70,7 @@ void u1Bar::UpdateBar(int quantity, UIType bar_type)
 {
 	if (empty_bar != nullptr)
 	{
-		if(bar_type == UIType::HPBAR || bar_type == UIType::MANABAR || bar_type == UIType::SKIPBAR)
+		if(bar_type == UIType::HPBAR || bar_type == UIType::MANABAR || bar_type == UIType::SKIPBAR || bar_type == UIType::ENEMYBAR || bar_type == UIType::DRAGONBAR)
 			targe_width = CalculateBar(quantity);
 		
 		else {
@@ -77,7 +85,7 @@ void u1Bar::UpdateBar(int quantity, UIType bar_type)
 		}
 		
 	}
-	if (bar_type != SKIPBAR && bar_type != UIType::EXPBAR)
+	if (bar_type != SKIPBAR && bar_type != UIType::EXPBAR && bar_type != UIType::ENEMYBAR&& bar_type != UIType::DRAGONBAR)
 		PrintBarNumbers();
 }
 
@@ -139,7 +147,7 @@ void u1Bar::InnerDraw()
 
 			current_width += 100 * App->GetDeltaTime();
 
-			if (current_width == max_width) {
+			if (current_width >= max_width) {
 				current_width = 0;
 			}
 		}

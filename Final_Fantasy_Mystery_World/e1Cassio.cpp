@@ -162,28 +162,28 @@ void e1Cassio::IdAnimToEnum()
 		case 52:
 			data.animations[i].animType = AnimationState::ABILITY_DOWN_RIGHT_1;
 			break;
-		case 644:
+		case 72:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;
-		case 72:
+		case 84:
 			data.animations[i].animType = AnimationState::DEATH_UP_LEFT;
 			break;
-		case 80:
+		case 77:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
 			break;
 		case 88:
 			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
 			break;
-		case 65:
+		case 73:
 			data.animations[i].animType = AnimationState::DEATH_DOWN;
 			break;
-		case 646:
+		case 85:
 			data.animations[i].animType = AnimationState::DEATH_LEFT;
 			break;
-		case 81:
+		case 90:
 			data.animations[i].animType = AnimationState::DEATH_RIGHT;
 			break;
-		case 89:
+		case 91:
 			data.animations[i].animType = AnimationState::DEATH_UP;
 			break;
 		}

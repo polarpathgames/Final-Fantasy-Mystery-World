@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextobjectid="254">
+<map version="1.2" tiledversion="1.2.3" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="254">
  <tileset firstgid="1" name="ques2_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques2_tileset.png" width="688" height="290"/>
  </tileset>
  <tileset firstgid="379" name="ques1_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques1_tileset.png" width="688" height="290"/>
  </tileset>
- <layer name="Floor" width="40" height="40">
+ <layer id="1" name="Floor" width="40" height="40" locked="1">
   <data>
    <tile/>
    <tile/>
@@ -1610,7 +1610,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Wall" width="40" height="40">
+ <layer id="2" name="Wall" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -3214,7 +3214,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Shadow" width="40" height="40">
+ <layer id="3" name="Shadow" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -4818,7 +4818,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Door Open" width="40" height="40">
+ <layer id="4" name="Door Open" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -6422,7 +6422,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Enviorment" width="40" height="40">
+ <layer id="5" name="Enviorment" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -8026,7 +8026,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Collider" width="40" height="40">
+ <layer id="6" name="Collider" width="40" height="40">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -8814,10 +8814,10 @@
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
+   <tile gid="385"/>
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile/>
@@ -9094,7 +9094,7 @@
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
-   <tile/>
+   <tile gid="385"/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile/>
@@ -9634,7 +9634,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup name="Static animation objects">
+ <objectgroup id="7" name="Static animation objects" visible="0">
   <object id="63" name="treasure_quest3" type="static" x="384" y="320" width="32" height="32"/>
   <object id="64" name="lava" type="static" x="352" y="352" width="16" height="16"/>
   <object id="65" name="lava" type="static" x="352" y="336" width="16" height="16"/>
@@ -9823,17 +9823,15 @@
   <object id="248" name="lava" type="static" x="240" y="368" width="16" height="16"/>
   <object id="249" name="lava" type="static" x="231.727" y="254.818" width="16" height="16"/>
  </objectgroup>
- <objectgroup color="#ffff7f" name="entities">
+ <objectgroup color="#ffff7f" id="8" name="entities">
   <object id="52" name="player" type="nextB" x="544" y="352" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="250" name="InstaGoldRuppe" type="static" x="432" y="352" width="16" height="16"/>
-  <object id="251" name="InstaRedRuppe" type="static" x="432" y="336" width="16" height="16"/>
-  <object id="253" name="InstaGoldRuppe" type="static" x="432" y="320" width="16" height="16"/>
+  <object id="250" name="InstaGoldRuppe" type="static" x="352" y="272" width="16" height="16"/>
  </objectgroup>
- <objectgroup name="colliders">
+ <objectgroup id="9" name="colliders">
   <object id="62" name="room_collider" type="lastB" x="560" y="352" width="16.1904" height="16.5606">
    <properties>
     <property name="next_id" type="int" value="4"/>

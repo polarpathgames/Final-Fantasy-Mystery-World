@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="93">
+<map version="1.2" tiledversion="1.2.3" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="131">
  <tileset firstgid="1" name="ques1_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques1_tileset.png" width="688" height="290"/>
  </tileset>
@@ -506,53 +506,13 @@
    <tile gid="303"/>
    <tile gid="303"/>
    <tile gid="303"/>
-   <tile gid="264"/>
-   <tile gid="303"/>
-   <tile gid="304"/>
-   <tile gid="303"/>
-   <tile gid="304"/>
-   <tile gid="303"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile gid="303"/>
    <tile gid="303"/>
    <tile gid="304"/>
    <tile gid="303"/>
+   <tile gid="304"/>
    <tile gid="303"/>
-   <tile gid="303"/>
-   <tile gid="303"/>
-   <tile gid="303"/>
-   <tile gid="303"/>
-   <tile gid="303"/>
-   <tile gid="303"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -584,11 +544,51 @@
    <tile/>
    <tile gid="303"/>
    <tile gid="303"/>
+   <tile gid="304"/>
+   <tile gid="303"/>
+   <tile gid="303"/>
+   <tile gid="303"/>
+   <tile gid="303"/>
+   <tile gid="303"/>
    <tile gid="303"/>
    <tile gid="303"/>
    <tile gid="303"/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="303"/>
+   <tile gid="303"/>
+   <tile gid="303"/>
+   <tile gid="303"/>
+   <tile gid="303"/>
+   <tile gid="304"/>
+   <tile gid="304"/>
    <tile gid="303"/>
    <tile gid="303"/>
    <tile gid="304"/>
@@ -2150,9 +2150,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="286"/>
-   <tile gid="285"/>
-   <tile gid="307"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2190,9 +2190,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="305"/>
-   <tile gid="348"/>
-   <tile gid="306"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -6882,7 +6882,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="344"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6921,9 +6920,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="343"/>
    <tile/>
-   <tile gid="365"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6962,7 +6959,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="364"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8023,7 +8023,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="7" name="Collider" width="40" height="40" visible="0">
+ <layer id="7" name="Collider" width="40" height="40">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -8570,8 +8570,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="7"/>
+   <tile gid="7"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8611,8 +8611,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="7"/>
-   <tile gid="7"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -9632,16 +9632,8 @@
   </data>
  </layer>
  <objectgroup id="8" name="Static animation objects">
-  <object id="70" name="treasure" type="static" x="320" y="176" width="32" height="32"/>
-  <object id="71" name="blue_fire" type="static" x="256" y="96" width="32" height="32"/>
+  <object id="70" name="treasure_boss" type="static" x="336" y="192" width="32" height="32"/>
   <object id="72" name="blue_fire" type="static" x="304" y="96" width="32" height="32"/>
-  <object id="73" name="blue_fire" type="static" x="288" y="112" width="32" height="32"/>
-  <object id="74" name="blue_fire" type="static" x="304" y="144" width="32" height="32"/>
-  <object id="75" name="blue_fire" type="static" x="352" y="144" width="32" height="32"/>
-  <object id="77" name="blue_fire" type="static" x="320" y="208" width="32" height="32"/>
-  <object id="78" name="blue_fire" type="static" x="336" y="208" width="32" height="32"/>
-  <object id="79" name="blue_fire" type="static" x="352" y="208" width="32" height="32"/>
-  <object id="80" name="blue_fire" type="static" x="352" y="192" width="32" height="32"/>
   <object id="81" name="white_rock" type="static" x="240" y="368" width="32" height="32"/>
   <object id="82" name="white_rock" type="static" x="240" y="272" width="32" height="32"/>
   <object id="83" name="white_rock" type="static" x="320" y="304" width="32" height="32"/>
@@ -9649,7 +9641,29 @@
   <object id="85" name="white_rock" type="static" x="384" y="368" width="32" height="32"/>
   <object id="86" name="white_rock" type="static" x="432" y="272" width="32" height="32"/>
   <object id="90" x="251" y="381"/>
-  <object id="91" name="portal" type="static" x="201.636" y="280.545" width="35.75" height="38.75"/>
+  <object id="91" name="portal" type="static" x="176" y="272" width="35.75" height="38.75"/>
+  <object id="93" name="blue_fire" type="static" x="288" y="96" width="32" height="32"/>
+  <object id="95" name="blue_fire" type="static" x="272" y="96" width="32" height="32"/>
+  <object id="97" name="blue_fire" type="static" x="304" y="128" width="32" height="32"/>
+  <object id="98" name="blue_fire" type="static" x="320" y="128" width="32" height="32"/>
+  <object id="100" name="blue_fire" type="static" x="336" y="128" width="32" height="32"/>
+  <object id="102" name="blue_fire" type="static" x="128" y="160" width="32" height="32"/>
+  <object id="103" name="blue_fire" type="static" x="144" y="128" width="32" height="32"/>
+  <object id="104" name="blue_fire" type="static" x="160" y="112" width="32" height="32"/>
+  <object id="105" name="blue_fire" type="static" x="176" y="96" width="32" height="32"/>
+  <object id="106" name="blue_fire" type="static" x="192" y="80" width="32" height="32"/>
+  <object id="107" name="blue_fire" type="static" x="208" y="64" width="32" height="32"/>
+  <object id="108" name="blue_fire" type="static" x="128" y="192" width="32" height="32"/>
+  <object id="109" name="blue_fire" type="static" x="128" y="224" width="32" height="32"/>
+  <object id="111" name="blue_fire" type="static" x="128" y="256" width="32" height="32"/>
+  <object id="113" name="blue_fire" type="static" x="128" y="288" width="32" height="32"/>
+  <object id="117" name="blue_fire" type="static" x="320" y="64" width="32" height="32"/>
+  <object id="119" name="blue_fire" type="static" x="336" y="80" width="32" height="32"/>
+  <object id="121" name="blue_fire" type="static" x="352" y="96" width="32" height="32"/>
+  <object id="123" name="blue_fire" type="static" x="368" y="112" width="32" height="32"/>
+  <object id="125" name="blue_fire" type="static" x="384" y="128" width="32" height="32"/>
+  <object id="127" name="blue_fire" type="static" x="400" y="144" width="32" height="32"/>
+  <object id="130" name="blue_fire" type="static" x="416" y="160" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="9" name="entities">
   <object id="53" name="enemy" type="Frozen" x="352" y="256" width="15.9688" height="16.0156"/>
