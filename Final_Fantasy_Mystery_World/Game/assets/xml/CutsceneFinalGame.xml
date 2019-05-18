@@ -1,0 +1,10 @@
+<cutscenes>
+  <actions>
+    <cutscene action="fade">
+      <time start="100" duration="100" fade="10"/>
+    </cutscene>
+  </actions>
+  <elements>
+  </elements>
+
+</cutscenes>
