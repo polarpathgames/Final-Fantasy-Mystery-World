@@ -121,6 +121,19 @@ bool m1Scene::PreUpdate()
 {
 	BROFILER_CATEGORY("PreUpdateScene", Profiler::Color::Orange);
 
+	if (App->input->GetKeyDown(SDL_SCANCODE_1)) {
+		if (App->menu_manager->help_ability != nullptr)
+			App->menu_manager->DestroyHelpAbilityMenu();
+		else
+			App->menu_manager->CreateHelpAbilityMenu(AbilityType::ABILITY1);
+	}
+	if (App->input->GetKeyDown(SDL_SCANCODE_2)) {
+		if (App->menu_manager->help_ability != nullptr)
+			App->menu_manager->DestroyHelpAbilityMenu();
+		else
+			App->menu_manager->CreateHelpAbilityMenu(AbilityType::FLASH);
+	}
+
 	return true;
 }
 
