@@ -61,11 +61,26 @@
       <option line="" nextnode="2" karma="0" tag="0"/>
     </node>
     <node line="Do you want to sleep?" id="2" karma="0" tag="0">
-      <option line="Yes" nextnode="4" karma="-1" tag="4"/>
-      <option line="Not now" nextnode="4" karma="0" tag="0"/>
+      <option line="Yes" nextnode="9" karma="-1" tag="4"/>
+      <option line="Not now" nextnode="9" karma="0" tag="0"/>
     </node>
-    <node line="Thanks for helping the town to destroy the Evil Queen, we are so gratefull." id="3" karma="-1" tag="0">
-      <option line="" nextnode="3" karma="0" tag="0"/>
+    <node line="The ice queen has frozen the town. " id="3" karma="-1" tag="0">
+      <option line="" nextnode="4" karma="0" tag="0"/>
+    </node>
+    <node line="She wants to make this town part of his domain, " id="4" karma="0" tag="0">
+      <option line="" nextnode="5" karma="0" tag="0"/>
+    </node>
+    <node line="and if nobody prevents it all Forks will become soon " id="5" karma="0" tag="0">
+      <option line="" nextnode="6" karma="0" tag="0"/>
+    </node>
+    <node line="in an icy landscape." id="6" karma="0" tag="0">
+      <option line="" nextnode="7" karma="0" tag="0"/>
+    </node>
+    <node line="Please, PLAYERNAME help us to recover the town," id="7" karma="0" tag="0">
+      <option line="" nextnode="8" karma="0" tag="0"/>
+    </node>
+    <node line="and defeat the Queen of Ice." id="8" karma="0" tag="0">
+      <option line="" nextnode="9" karma="0" tag="0"/>
     </node>
   </dialogtree>
   <dialogtree treeid="8" karma="0" tag="0" rect_x="746" rect_y="3090" rect_w="97" rect_h="130">
