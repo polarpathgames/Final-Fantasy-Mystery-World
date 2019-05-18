@@ -636,6 +636,10 @@ void RoomManager::PlayCutScene()
 		{
 			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
 		}
+		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneDrakeQuest3.xml") == 0)
+		{
+			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
+		}
 	}
 		
 }
@@ -882,7 +886,7 @@ void RoomManager::UpdateRoomEvents()
 		/*App->fade_to_black->FadeToBlack(Maps::LOBBY);*/
 	}
 	if (actual_room != nullptr && actual_room->active && !App->entity_manager->ThereAreEnemies() && actual_room->room_type == RoomType::BOSS && App->map->actual_map == Maps::FINAL_QUEST && !App->globals.CutsceneFinalGame) {
-		App->cutscene_manager->PlayCutscene("CutsceneFinalGame.xml");
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneFinalGame.xml");
 		App->globals.CutsceneFinalGame = true;
 		/*App->fade_to_black->FadeToBlack(Maps::LOBBY);*/
 	}

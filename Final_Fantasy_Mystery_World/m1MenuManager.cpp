@@ -1358,6 +1358,12 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		options.label_music_value->SetText(std::string(std::to_string(App->audio->volume)).data());
 		options.label_general_value->SetText(std::string(std::to_string(App->audio->volume_general)).data());
 	}
+	else if (interaction == congrats.button_return) {
+		App->audio->PlayFx(App->main_menu->fx_push_button_return);
+		DestroyCongratualtions();
+		App->entity_manager->Disable();
+		App->main_menu->Enable();
+	}
 	return ret;
 }
 
@@ -1754,4 +1760,17 @@ void UI_inventory::SetClipInInventory()
 	mana_potion_button->interactable = true;
 	mana_potion_button->allow_focus = true;
 	App->gui->FocusButton(hp_potion_button);
+}
+
+void m1MenuManager::CreateCongratualtions()
+{
+	congrats.bg_hud = App->gui->AddImage(0, 0, { 0, 768, 1024,768 },nullptr, App->gui->screen, true, false, false, false);
+	congrats.button_return = App->gui->AddButton(824, 693, {0,0, 75,25}, { 0,0, 75,25 }, { 0,0, 75,25 }, this, congrats.bg_hud, false, false, true, true);
+	congrats.label_return = App->gui->AddLabel(824, 668, "Return", congrats.bg_hud, BLACK, FontType::FF64, nullptr, false);
+}
+
+void m1MenuManager::DestroyCongratualtions()
+{
+	App->gui->DeleteUIElement(congrats.bg_hud);
+	congrats.bg_hud = nullptr;
 }

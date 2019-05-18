@@ -718,6 +718,12 @@ struct UI_HUD {
 	u1Image* vertical_compass = nullptr;	//Compass
 };
 
+struct UI_CONGRATUALTIONS {
+	u1Image* bg_hud = nullptr;
+	u1Button* button_return = nullptr;
+	u1Label* label_return = nullptr;
+};
+
 enum class AbilityType {
 	ABILITY1,
 	FLASH,
@@ -799,7 +805,8 @@ public:
 	void CreateBigInventory();
 	void DestroyBigInventory();
 
-
+	void CreateCongratualtions();
+	void DestroyCongratualtions();
 
 public:
 	UI_main_menu	main_menu;
@@ -816,6 +823,7 @@ public:
 	UI_debugscreen	debug_screen;
 	UI_game_over	game_over;
 	UI_HUD			hud;
+	UI_CONGRATUALTIONS congrats;
 	//god mode
 	u1Label* god_text = nullptr;
 	// help diagonal

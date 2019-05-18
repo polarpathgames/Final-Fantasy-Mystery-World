@@ -210,6 +210,7 @@
       <id num="8"></id>
       <type>boss</type>
       <music>assets/audio/music/23.Final Fantasy TA - Prison.ogg.ogg</music>
+      <cut_scene>assets/xml/CutsceneDrakeQuest3.xml</cut_scene>
     </room>
   </final_quest>
 
