@@ -416,6 +416,15 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->gui->AddImage(900, 650, { 0,0,0,0 }, nullptr, App->gui->screen, true, false, false, false, anim);
 				   App->scene->player->BlockControls(false);
 				   App->SaveGame("save_game.xml");
+				   for (; item != entities.end(); ++item) {
+					   if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::STATIC && static_cast<e1StaticEntity*>(*item)->static_type == e1StaticEntity::Type::FEATHER) {
+						   static_cast<e1StaticEntity*>(*item)->interacting_state = e1StaticEntity::InteractingStates::NONE;
+						   if (static_cast<e1StaticEntity*>(*item)->button_interact != nullptr) {
+							   static_cast<e1StaticEntity*>(*item)->button_interact->to_delete = true;
+						   }
+						   break;
+					   }
+				   }
 				   break;
 			   }
 			   case 4: //Checking if player has gone to the shop
