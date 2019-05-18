@@ -30,19 +30,37 @@
     <ClCompile Include="c1CutsceneText.cpp">
       <Filter>Cutscenes</Filter>
     </ClCompile>
+    <ClCompile Include="e1Archer.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1BlueDog.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1CarnivorousPlant.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
     <ClCompile Include="e1Drop.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="e1DynamicEntity.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="e1Enemy.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
     <ClCompile Include="e1Entity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Mage.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="e1NPC.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="e1Particles.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Player.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="e1Rock.cpp">
@@ -52,6 +70,12 @@
       <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="e1StaticEntity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1StrangeFrog.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Warrior.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="m1Audio.cpp">
@@ -174,11 +198,20 @@
     <ClCompile Include="u1UI_Element.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="e1BlueSlime.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
     <ClCompile Include="e1State.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1SuperPurpleFrog.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="u1VerticalSlider.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Cassio.cpp">
+      <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="p2Math.h">
       <Filter>Tools</Filter>
@@ -186,60 +219,24 @@
     <ClCompile Include="p2Math.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
-    <ClCompile Include="c1CutSceneFadeToBlack.cpp">
-      <Filter>Cutscenes</Filter>
-    </ClCompile>
-    <ClCompile Include="c1CutSceneVibration.cpp">
-      <Filter>Cutscenes</Filter>
-    </ClCompile>
-    <ClCompile Include="e1BabyDrake.cpp">
-      <Filter>Entities\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="e1BlueDog.cpp">
-      <Filter>Entities\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="e1BlueSlime.cpp">
-      <Filter>Entities\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="e1CarnivorousPlant.cpp">
-      <Filter>Entities\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="e1Cassio.cpp">
-      <Filter>Entities\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="e1Enemy.cpp">
-      <Filter>Entities\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="e1Frozen.cpp">
-      <Filter>Entities\Enemies</Filter>
+      <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="e1MegaEye.cpp">
-      <Filter>Entities\Enemies</Filter>
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1BabyDrake.cpp">
+      <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="e1Spider.cpp">
-      <Filter>Entities\Enemies</Filter>
+      <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="e1StrangeFrog.cpp">
-      <Filter>Entities\Enemies</Filter>
+    <ClCompile Include="c1CutSceneFadeToBlack.cpp" />
+    <ClCompile Include="c1CutSceneVibration.cpp" />
+    <ClCompile Include="e1AmazingDragon.cpp">
+      <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="e1SuperPurpleFrog.cpp">
-      <Filter>Entities\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="e1Archer.cpp">
-      <Filter>Entities\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="e1Mage.cpp">
-      <Filter>Entities\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="e1Player.cpp">
-      <Filter>Entities\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="e1Warrior.cpp">
-      <Filter>Entities\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="e1Bomberman.cpp">
-      <Filter>Entities\Enemies</Filter>
-    </ClCompile>
+    <ClCompile Include="e1Bomberman.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -276,19 +273,37 @@
     <ClInclude Include="c1CutSceneText.h">
       <Filter>Cutscenes</Filter>
     </ClInclude>
+    <ClInclude Include="e1Archer.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1BlueDog.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1CarnivorousPlant.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
     <ClInclude Include="e1Drop.h">
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="e1DynamicEntity.h">
       <Filter>Entities</Filter>
     </ClInclude>
+    <ClInclude Include="e1Enemy.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
     <ClInclude Include="e1Entity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Mage.h">
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="e1NPC.h">
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="e1Particles.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Player.h">
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="e1Rock.h">
@@ -298,6 +313,12 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="e1StaticEntity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1StrangeFrog.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Warrior.h">
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="m1Audio.h">
@@ -447,66 +468,39 @@
     <ClInclude Include="resource.h">
       <Filter>Misc</Filter>
     </ClInclude>
+    <ClInclude Include="e1BlueSlime.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
     <ClInclude Include="e1State.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1SuperPurpleFrog.h">
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="u1VerticalSlider.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="c1CutSceneVibration.h">
-      <Filter>Cutscenes</Filter>
-    </ClInclude>
-    <ClInclude Include="c1CutSceneFadeToBlack.h">
-      <Filter>Cutscenes</Filter>
-    </ClInclude>
-    <ClInclude Include="e1BabyDrake.h">
-      <Filter>Entities\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="e1BlueDog.h">
-      <Filter>Entities\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="e1BlueSlime.h">
-      <Filter>Entities\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="e1CarnivorousPlant.h">
-      <Filter>Entities\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="e1Cassio.h">
-      <Filter>Entities\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="e1Enemy.h">
-      <Filter>Entities\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="e1Frozen.h">
-      <Filter>Entities\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="e1MegaEye.h">
-      <Filter>Entities\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="e1Spider.h">
-      <Filter>Entities\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="e1StrangeFrog.h">
-      <Filter>Entities\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="e1SuperPurpleFrog.h">
-      <Filter>Entities\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="e1Archer.h">
-      <Filter>Entities\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="e1Mage.h">
-      <Filter>Entities\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="e1Player.h">
-      <Filter>Entities\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="e1Warrior.h">
-      <Filter>Entities\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="e1Bomberman.h">
       <Filter>Entities</Filter>
     </ClInclude>
+    <ClInclude Include="e1Frozen.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1MegaEye.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1BabyDrake.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Spider.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneFadeToBlack.h" />
+    <ClInclude Include="c1CutSceneVibration.h" />
+    <ClInclude Include="e1AmazingDragon.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Bomberman.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml">
@@ -548,9 +542,7 @@
     <Xml Include="Game\assets\xml\CutsceneQueenQuest2.xml">
       <Filter>Cutscenes\XML</Filter>
     </Xml>
-    <Xml Include="Game\assets\xml\CutsceneLobbyQuest2.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneLobbyQuest2.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\assets\entities\CarnivorousPlant.tsx">
@@ -596,12 +588,6 @@
     </Filter>
     <Filter Include="XML">
       <UniqueIdentifier>{2a59bcdf-ca59-4955-b34f-1d0d7db89dc5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Entities\Enemies">
-      <UniqueIdentifier>{9135a936-ed39-47d5-b028-096d1540be28}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Entities\Player">
-      <UniqueIdentifier>{5a051ee2-45a4-40b8-a931-936f74ca4aa0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

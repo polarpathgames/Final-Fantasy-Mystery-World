@@ -9,6 +9,9 @@
 #include "e1Player.h"
 #include "m1Input.h"
 #include "p2Log.h"
+#include "m1EntityManager.h"
+#include "e1Enemy.h"
+#include "e1AmazingDragon.h"
 #include "m1Cutscene.h"
 #include "m1DialogSystem.h"
 #include "App.h"
@@ -67,9 +70,20 @@ bool m1FadeToBlack::PostUpdate()
 			if (is_quest && App->map->quest_rooms != nullptr) {
 				App->map->quest_rooms->LoadRoom(App->map->quest_rooms->actual_room->id);
 			}
-			if (map_to_change == Maps::TUTORIAL && !App->cutscene_manager->is_executing) //Maybe this will break something, if it does, i'm sorry Att: Ivan
+			//if (map_to_change == Maps::TUTORIAL && !App->cutscene_manager->is_executing) //Maybe this will break something, if it does, i'm sorry Att: Ivan
 				//App->menu_manager->ShowHUD(true);
-
+			if (vibration) {
+				std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+				std::vector<e1Entity*>::iterator item = entities.begin();
+				for (; item != entities.end(); ++item) {
+					if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY && static_cast<e1Enemy*>(*item)->enemy_type == e1Enemy::EnemyType::AMAZING_DRAGON) {
+						(*item)->drawable = true;
+						(*item)->allow_turn = true;
+						static_cast<e1AmazingDragon*>(*item)->active = true;
+						break;
+					}
+				}
+			}
 			total_time += total_time;
 			start_time = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;

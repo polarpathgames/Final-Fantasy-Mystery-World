@@ -3,6 +3,7 @@
 #include "m1Map.h"
 #include "m1EntityManager.h"
 #include "m1Window.h"
+#include "m1Input.h"
 #include "m1GUI.h"
 #include "e1DynamicEntity.h"
 #include "m1Render.h"
@@ -34,6 +35,10 @@ e1Particles::~e1Particles()
 
 bool e1Particles::PreUpdate()
 {
+	if (particle_type == ParticleType::AMAZING_DRAGON_FIRE_BALL) {
+		MoveAmazingFireBall(App->GetDeltaTime());
+	}
+
 	return true;
 }
 
@@ -54,6 +59,12 @@ bool e1Particles::Update(float dt)
 		break; }
 	case e1Particles::ParticleType::THUNDERBOLT: {
 		MoveIceStake(dt);
+		break; }
+	case e1Particles::ParticleType::AMAZING_DRAGON_FIRE_BALL: {
+		iPoint pos = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+		SDL_Rect rect{ 2664,4659,120,90 };
+		rect = { 2657,4660,64,40 };
+		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), pos.x - 13, pos.y - 11, &rect, true);
 		break; }
 	default:
 		break;
@@ -77,10 +88,17 @@ void e1Particles::Draw(float dt)
 	}
 	else {
 		e1Entity::Draw(dt);
+		if (App->debug && particle_type == ParticleType::AMAZING_DRAGON_FIRE_BALL) {
+			std::vector<iPoint>::iterator item = amazing_fire_ball_attack_range.begin();
+			for (; item != amazing_fire_ball_attack_range.end(); ++item) {
+				iPoint pos = App->map->MapToWorld((*item).x, (*item).y);
+				App->render->Blit(App->scene->player->ground, pos.x + 1, pos.y - 8, NULL, true);
+			}
+		}
 	}
 }
 
-void e1Particles::SetParticle(const ParticleType & particle_type, const Direction & dir)
+void e1Particles::SetParticle(const ParticleType & particle_type, const Direction & dir, const uint&turns)
 {
 	BROFILER_CATEGORY("SetParticle Entity", Profiler::Color::Yellow);
 
@@ -103,6 +121,10 @@ void e1Particles::SetParticle(const ParticleType & particle_type, const Directio
 	case ParticleType::THUNDERBOLT:
 		name.assign("thunderbolt");
 		SetThunderbolt();
+		break;
+	case ParticleType::AMAZING_DRAGON_FIRE_BALL:
+		name.assign("amazing dragon fire ball");
+		SetAmazingDragonFireBall(turns);
 		break;
 	default:
 		break;
@@ -331,6 +353,15 @@ void e1Particles::MoveArrow(float dt)
 		break;
 	}
 
+	if (to_delete) {
+		e1DynamicEntity* dragon = (e1DynamicEntity*)App->entity_manager->FindEntity("AmazingDragon");
+		if (dragon != nullptr) {
+			if (dragon->actual_tile == arrow_tile) {
+				dragon->GetHitted(App->scene->player->stats.attack_power_ability_1);
+			}
+		}
+	}
+
 }
 
 void e1Particles::LookForEnemyCollision()
@@ -486,6 +517,70 @@ void e1Particles::SetThunderbolt()
 	size.create(current_animation->GetCurrentFrame(0.f).w, current_animation->GetCurrentFrame(0.f).h);
 
 	pivot.create(0, 50);
+}
+
+void e1Particles::SetAmazingDragonFireBall(const uint & turns)
+{
+	allow_turn = true;
+
+	this->turns = turns;
+	velocity.y = 160;
+	position.y -= FIREBALL_ELEVATED_POS;
+	position.x -= 7;
+
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ -1,-1 });
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ 1,1 });
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ -1,1 });
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ 1,-1 });
+	amazing_fire_ball_attack_range.push_back(actual_tile);
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ 0,1 });
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ 0,-1 });
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ 1,0 });
+	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ -1,0 });
+
+	anim.GoDown.PushBack({ 47,55,52,64 });
+	anim.GoDown.PushBack({ 99,55,52,64 });
+	anim.GoDown.PushBack({ 151,55,52,64 });
+	anim.GoDown.PushBack({ 203,55,52,64 });
+	anim.GoDown.speed = 3.0f;
+	current_animation = &anim.GoDown;
+
+	SetPivot(11, 2800);
+	size.create(20, 20);
+}
+
+void e1Particles::MoveAmazingFireBall(float dt)
+{
+	if (turns == 0) {
+		position.y += floor(velocity.y * dt);
+		iPoint pos = App->map->WorldToMap(position.x, position.y + 50);
+		if (pos == actual_tile + iPoint{ 1,1 }) {
+			to_delete = true;
+			turn_done = true;
+			CollisionAmazingBall();
+			App->render->CameraTremble(0.63F, 1.9F);
+			App->input->ControllerVibration(0.5F, 200);
+		}
+	}
+	else {
+		--turns;
+		turn_done = true;
+	}
+
+
+}
+
+void e1Particles::CollisionAmazingBall()
+{
+
+	std::vector<iPoint>::iterator item = amazing_fire_ball_attack_range.begin();
+	for (; item != amazing_fire_ball_attack_range.end(); ++item) {
+		if ((*item) == App->scene->player->actual_tile) {
+			App->scene->player->GetHitted(60);
+			break;
+		}
+	}
+
 }
 
 void e1Particles::MoveIceStake(float dt)
