@@ -3,6 +3,7 @@
 #include "m1Map.h"
 #include "m1EntityManager.h"
 #include "m1Window.h"
+#include "m1Input.h"
 #include "m1GUI.h"
 #include "e1DynamicEntity.h"
 #include "m1Render.h"
@@ -547,6 +548,9 @@ void e1Particles::MoveAmazingFireBall(float dt)
 		if (pos == actual_tile + iPoint{ 1,1 }) {
 			to_delete = true;
 			turn_done = true;
+			CollisionAmazingBall();
+			App->render->CameraTremble(0.63F, 1.9F);
+			App->input->ControllerVibration(0.5F, 200);
 		}
 	}
 	else {
@@ -554,6 +558,19 @@ void e1Particles::MoveAmazingFireBall(float dt)
 		turn_done = true;
 	}
 
+
+}
+
+void e1Particles::CollisionAmazingBall()
+{
+
+	std::vector<iPoint>::iterator item = amazing_fire_ball_attack_range.begin();
+	for (; item != amazing_fire_ball_attack_range.end(); ++item) {
+		if ((*item) == App->scene->player->actual_tile) {
+			App->scene->player->GetHitted(60);
+			break;
+		}
+	}
 
 }
 

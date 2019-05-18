@@ -55,6 +55,7 @@ private:
 
 	void SetAmazingDragonFireBall(const uint& turns);
 	void MoveAmazingFireBall(float dt);
+	void CollisionAmazingBall();
 
 public:
 
