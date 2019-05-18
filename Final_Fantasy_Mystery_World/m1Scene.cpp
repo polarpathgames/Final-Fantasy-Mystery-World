@@ -658,7 +658,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			if (player->stats.num_hp_potions >= 1) {
 				App->audio->PlayFx(fx_potion);
 				--player->stats.num_hp_potions;
-				player->AugmentLives(75);
+				player->AugmentLives(200);
 				App->menu_manager->inventory.hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
 				App->menu_manager->DeletePotionMenu();
 				menu_state = StatesMenu::INVENTORY_MENU;
@@ -671,7 +671,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			if (player->stats.num_mana_potions >= 1) {
 				App->audio->PlayFx(fx_potion);
 				--player->stats.num_mana_potions;
-				player->AugmentMana(100);
+				player->AugmentMana(200);
 				App->menu_manager->inventory.mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
 				App->menu_manager->DeletePotionMenu();
 				menu_state = StatesMenu::INVENTORY_MENU;
