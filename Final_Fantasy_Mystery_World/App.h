@@ -57,6 +57,7 @@ struct GlobalGameAdvances
 	bool CutSceneHomeToSleeQuest3 = false;
 	bool sleep2 = false;
 	bool CutsceneFinalGame = false;
+	bool CutsceneFinalFinalGame = false;
 	std::string player_name;
 
 	void Reset() {
@@ -84,6 +85,7 @@ struct GlobalGameAdvances
 		CutSceneQueenQuest2 = false;
 		CutSceneFinalRoomQuest2 = false;
 		CutsceneFinalGame = false;
+		CutsceneFinalFinalGame = false;
 	}
 
 };

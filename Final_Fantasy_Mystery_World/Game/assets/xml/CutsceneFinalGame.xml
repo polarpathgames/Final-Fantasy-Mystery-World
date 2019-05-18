@@ -1,7 +1,7 @@
 <cutscenes>
   <actions>
     <cutscene action="fade">
-      <time start="100" duration="100" fade="10"/>
+      <time start="100" duration="100" fade="8"/>
     </cutscene>
   </actions>
   <elements>
