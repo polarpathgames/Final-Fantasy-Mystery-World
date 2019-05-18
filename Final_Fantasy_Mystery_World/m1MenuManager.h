@@ -641,7 +641,7 @@ public:
 	void CreateHelpAttackMenu();
 	void DestroyHelpAttackMenu();
 
-	void CreateHelpAbilityMenu(AbilityType type = AbilityType::ABILITY1);
+	void CreateHelpAbilityMenu(AbilityType type);
 	void DestroyHelpAbilityMenu();
 
 	void CreateHUD();
