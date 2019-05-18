@@ -954,27 +954,51 @@ void m1MenuManager::DestroyHelpAttackMenu()
 	EnableHUD(true);
 }
 
-void m1MenuManager::CreateHelpAbilityMenu(bool flash)
+void m1MenuManager::CreateHelpAbilityMenu(AbilityType type)
 {
 	App->audio->PlayFx(App->scene->fx_ability_screen);
-	switch (App->scene->player_type) {
-	case PlayerType::WARRIOR:
-	if (!flash)
-		help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
-	else if (flash)
-		help_ability = App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+	u1GUI* image = nullptr;
+	u1GUI* text1 = nullptr;
+	u1GUI* text2 = nullptr;
+	switch (type)
+	{
+	case AbilityType::ABILITY1:
+		help_ability = App->gui->AddImage(0, 0, { 0,0,0,0 }, nullptr, App->gui->screen, false, false, false, false);
+		image = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, help_ability, true, false, false, false);
+		switch (App->scene->player_type)
+		{
+		case PlayerType::WARRIOR:
+			text1 = App->gui->AddLabel(0, 0, "Warrior turns on its own axis damaging", image, WHITE, FontType::PMIX24, nullptr, false);
+			text1->SetPosRespectParent(Position_Type::CENTERED);
+			text1->position.y += 130;
+			text2 = App->gui->AddLabel(0, 0, "all enemies around", text1, WHITE, FontType::PMIX24, nullptr, false);
+			text2->SetPosRespectParent(Position_Type::CENTERED);
+			text2->position.y += text1->section.h + 5;
+			break;
+		case PlayerType::ARCHER:
+			text1 = App->gui->AddLabel(0, 0, "Archer throws a sharp arrow", image, WHITE, FontType::PMIX24, nullptr, false);
+			text1->SetPosRespectParent(Position_Type::CENTERED);
+			text1->position.y += 130;
+			text2 = App->gui->AddLabel(0, 0, "damaging 3 tiles straight", text1, WHITE, FontType::PMIX24, nullptr, false);
+			text2->SetPosRespectParent(Position_Type::CENTERED);
+			text2->position.y += text1->section.h + 5;
+			break;
+		case PlayerType::MAGE:
+			text1 = App->gui->AddLabel(0, 0, "Mage throws 3 powerful fireballs", image, WHITE, FontType::PMIX24, nullptr, false);
+			text1->SetPosRespectParent(Position_Type::CENTERED);
+			text1->position.y += 130;
+			text2 = App->gui->AddLabel(0, 0, "damaging 3 tiles", text1, WHITE, FontType::PMIX24, nullptr, false);
+			text2->SetPosRespectParent(Position_Type::CENTERED);
+			text2->position.y += text1->section.h + 5;
+			break;
+		}
 		break;
-	case PlayerType::MAGE:
-		if (!flash)
-			help_ability = App->gui->AddImage(0, 0, { 2048,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
-		else if (flash)
-			help_ability = App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+	case AbilityType::FLASH:
+		App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, help_ability , true, false, false, false);
 		break;
-	case PlayerType::ARCHER:
-		if (!flash)
-			help_ability = App->gui->AddImage(0, 0, { 0,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
-		else if (flash)
-			help_ability = App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+	case AbilityType::ABILITY3:
+		break;
+	default:
 		break;
 	}
 }
@@ -982,6 +1006,7 @@ void m1MenuManager::CreateHelpAbilityMenu(bool flash)
 void m1MenuManager::DestroyHelpAbilityMenu()
 {
 	App->gui->DeleteUIElement(help_ability);
+	help_ability = nullptr;
 	EnableHUD(true);
 }
 

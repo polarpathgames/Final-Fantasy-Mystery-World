@@ -373,7 +373,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			   case 33: { // take flash
 				   App->globals.ability2_gained = true;
 				   App->scene->player->BlockControls(true);
-				   App->menu_manager->CreateHelpAbilityMenu(true);
+				   App->menu_manager->CreateHelpAbilityMenu(AbilityType::FLASH);
 				  // App->menu_manager->ShowHUD(false);
 				   App->scene->SetMenuState(StatesMenu::FIRSTABILITY_MENU);
 				   std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
@@ -440,7 +440,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->fade_to_black->FadeToBlack(Maps::QUEST2, 2.0F);
 				   break;
 			   case 190: //old statue tutorial ATTACK
-				   App->menu_manager->CreateHelpAbilityMenu(true);
+				   App->menu_manager->CreateHelpAbilityMenu(AbilityType::ABILITY1);
 				   App->scene->SetMenuState(StatesMenu::HELP_ABILITY_MENU);
 				   break;
 			   default:
