@@ -10,14 +10,14 @@ e1AmazingDragon::e1AmazingDragon(const int & x, const int & y) : e1Enemy(x, y)
 	name.assign("AmazingDragon");
 	enemy_type = EnemyType::AMAZING_DRAGON;
 
-	SetPivot(110, 170);
+	SetPivot(30, 55);
 
 	CenterOnTile();
 
 	target_position = position;
 	initial_position = position;
-	position.x += 20;
-	position.y += 160;
+	position.x -= 35;
+	position.y += 62;
 	InitStats();
 	allow_turn = false;
 	drawable = false;
