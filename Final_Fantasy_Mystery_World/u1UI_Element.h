@@ -107,7 +107,7 @@ public:
 	SDL_Rect* clip_zone = nullptr;
 
 	FocusType focus_type = FocusType::NONE;
-
+	bool new_clip = false;
 private:
 	UIType type = NON;
 
@@ -115,7 +115,7 @@ private:
 
 	std::list<m1Module*> listeners;
 
-	bool new_clip = false;
+
 };
 
 

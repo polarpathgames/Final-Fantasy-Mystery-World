@@ -20,6 +20,8 @@ public:
 	void CheckSpecialAttack1Efects(const int & damage);
 
 	void UpdateLevel();
+
+	void SetAbility1TilesPos();
 };
 
 

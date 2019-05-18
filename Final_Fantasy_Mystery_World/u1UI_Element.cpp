@@ -215,8 +215,10 @@ SDL_Rect* u1GUI::GetGlobalRect()
 	if (parent != nullptr) {
 		draw_offset.x = position.x;
 		draw_offset.y = position.y;
-		for (u1GUI* p = parent; p != nullptr; p = p->parent) {
-			draw_offset += p->position;
+		if (parent != nullptr) {
+			for (u1GUI* p = parent; p != nullptr; p = p->parent) {
+				draw_offset += p->position;
+			}
 		}
 		global_rect = { draw_offset.x,draw_offset.y,section.w,section.h };
 		return &global_rect;
@@ -226,20 +228,15 @@ SDL_Rect* u1GUI::GetGlobalRect()
 
 void u1GUI::SetClipZone(const SDL_Rect & clip_zone)
 {
-	if (this->clip_zone == nullptr) {
-		new_clip = true;
-		this->clip_zone = new SDL_Rect();
-		this->clip_zone->x = clip_zone.x;
-		this->clip_zone->y = clip_zone.y;
-		this->clip_zone->h = clip_zone.h;
-		this->clip_zone->w = clip_zone.w;
-	}
-	else {
-		this->clip_zone->x = clip_zone.x;
-		this->clip_zone->y = clip_zone.y;
-		this->clip_zone->h = clip_zone.h;
-		this->clip_zone->w = clip_zone.w;
-	}
+	if (this->clip_zone != nullptr)
+		delete this->clip_zone;
+
+	this->clip_zone = new SDL_Rect();
+	this->clip_zone->x = clip_zone.x;
+	this->clip_zone->y = clip_zone.y;
+	this->clip_zone->h = clip_zone.h;
+	this->clip_zone->w = clip_zone.w;
+
 }
 
 void u1GUI::ResetClipZone()

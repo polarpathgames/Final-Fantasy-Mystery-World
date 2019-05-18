@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextobjectid="89">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="93">
  <tileset firstgid="1" name="ques1_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques1_tileset.png" width="688" height="290"/>
  </tileset>
- <layer name="Floor" width="40" height="40">
+ <layer id="1" name="Floor" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -1607,7 +1607,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Wall" width="40" height="40">
+ <layer id="2" name="Wall" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -3211,7 +3211,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Shadow" width="40" height="40">
+ <layer id="3" name="Shadow" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -4815,7 +4815,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Door Open" width="40" height="40">
+ <layer id="5" name="Door Open" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -6419,7 +6419,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Enviorment" width="40" height="40">
+ <layer id="6" name="Enviorment" width="40" height="40">
   <data>
    <tile/>
    <tile/>
@@ -6882,6 +6882,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="344"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6920,9 +6921,10 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="343"/>
    <tile/>
+   <tile gid="365"/>
    <tile/>
-   <tile gid="26"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6960,9 +6962,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="364"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8023,7 +8023,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Collider" width="40" height="40" visible="0">
+ <layer id="7" name="Collider" width="40" height="40" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -9631,7 +9631,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup name="Static animation objects">
+ <objectgroup id="8" name="Static animation objects">
   <object id="70" name="treasure" type="static" x="320" y="176" width="32" height="32"/>
   <object id="71" name="blue_fire" type="static" x="256" y="96" width="32" height="32"/>
   <object id="72" name="blue_fire" type="static" x="304" y="96" width="32" height="32"/>
@@ -9648,17 +9648,18 @@
   <object id="84" name="white_rock" type="static" x="288" y="224" width="32" height="32"/>
   <object id="85" name="white_rock" type="static" x="384" y="368" width="32" height="32"/>
   <object id="86" name="white_rock" type="static" x="432" y="272" width="32" height="32"/>
-  <object id="88" name="treasure_boss" type="static" x="336" y="192" width="32" height="32"/>
+  <object id="90" x="251" y="381"/>
+  <object id="91" name="portal" type="static" x="201.636" y="280.545" width="35.75" height="38.75"/>
  </objectgroup>
- <objectgroup color="#ffff7f" name="entities">
-  <object id="53" name="enemy" type="Frozen" x="352" y="272" width="15.9688" height="16.0156"/>
+ <objectgroup color="#ffff7f" id="9" name="entities">
+  <object id="53" name="enemy" type="Frozen" x="352" y="256" width="15.9688" height="16.0156"/>
   <object id="60" name="player" type="nextA" x="352" y="400" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="colliders">
+ <objectgroup id="10" name="colliders">
   <object id="10" name="room_collider" type="lastA" x="352" y="416" width="16.1904" height="15.0341">
    <properties>
     <property name="next_id" type="int" value="11"/>

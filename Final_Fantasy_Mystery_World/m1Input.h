@@ -132,6 +132,10 @@ public:
 	{
 		return keyboard[id] == KEY_REPEAT;
 	}
+	bool GetKeyDownOrRepeat(int id) const
+	{
+		return keyboard[id] == KEY_DOWN || keyboard[id] == KEY_REPEAT;
+	}
 	bool GetKeyUp(int id) const
 	{
 		return keyboard[id] == KEY_UP;
@@ -151,6 +155,9 @@ public:
 	}
 	bool GetControllerButtonRepeat(int id)const {
 		return controller_buttons[id] == KEY_REPEAT;
+	}
+	bool GetControllerButtonDownOrRepeat(int id)const {
+		return controller_buttons[id] == KEY_DOWN || controller_buttons[id] == KEY_REPEAT;
 	}
 	bool GetControllerButtonUp(int id)const {
 		return controller_buttons[id] == KEY_UP;
