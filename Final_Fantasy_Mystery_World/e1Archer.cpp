@@ -265,8 +265,8 @@ void e1Archer::UpdateLevel()
 	App->menu_manager->hud.player_mana_bar->max_capacity = stats.max_mana;
 	App->menu_manager->hud.player_exp_bar->max_capacity = stats.max_xp;
 
-	App->menu_manager->hud.player_hp_bar->PrintBarNumbers();
-	App->menu_manager->hud.player_mana_bar->PrintBarNumbers();
+	App->menu_manager->hud.player_hp_bar->PrintBarNumbers(5);
+	App->menu_manager->hud.player_mana_bar->PrintBarNumbers(5);
 }
 
 void e1Archer::SetAbility1TilesPos()

@@ -1,0 +1,18 @@
+<cutscenes>
+  <actions>
+    <cutscene action="fade">
+      <time start="550" duration="100" fade="8"/>
+    </cutscene>
+    <cutscene action="vibration">
+      <time start="7700" duration="300"/>
+    </cutscene>
+    <cutscene action="vibration">
+      <time start="8000" duration="300"/>
+    </cutscene>
+    <cutscene action="vibration">
+      <time start="8350" duration="1800"/>
+    </cutscene>
+  </actions>
+  <elements>
+  </elements>
+</cutscenes>

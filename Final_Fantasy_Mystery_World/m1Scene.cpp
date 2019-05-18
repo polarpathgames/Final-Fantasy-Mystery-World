@@ -570,6 +570,9 @@ void m1Scene::CreateEntities()
 			else if ((*position)->properties.FindNameValue("bed") && App->globals.CutSceneLobbyQuest2Finish) {
 				App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x,App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_BED, nullptr);
 			}
+			else if ((*position)->properties.FindNameValue("quest3")) {
+				App->collision->AddCollider({ App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x,App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y,(*position)->coll_width, (*position)->coll_height }, COLLIDER_QUEST_FIRE, nullptr);
+			}
 		}
 		else {
 			LOG("There isn't any entity with name %s and type %s", (*position)->name.data(), (*position)->ent_type.data());
@@ -590,6 +593,11 @@ void m1Scene::ShitFunctionJAJA()
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyQuest2.xml");
 		App->globals.CutSceneLobbyQuest2Finish = true;
 	}
+	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && !App->globals.CutSceneHomeToSleeQuest3 && App->map->actual_map == Maps::LOBBY && App->globals.CutSceneHomeToSleepQuest2 == true && App->globals.CutSceneLobbyQuest2Finish) {
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyQuest3.xml");
+		App->globals.CutSceneHomeToSleeQuest3 = true;
+	}
+
 }
 
 bool m1Scene::Interact(u1GUI* interact)

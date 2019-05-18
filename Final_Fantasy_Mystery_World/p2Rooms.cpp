@@ -289,18 +289,17 @@ void RoomManager::LoadRoom(const int & id)
 		}
 	}
 
+	LoadColliders();
+	UpdateMap();
+	LoadEntities();
+	PlacePlayer();
+	PlayMusic();
+	PlayCutScene();
 
-LoadColliders();
-UpdateMap();
-LoadEntities();
-PlacePlayer();
-PlayMusic();
-PlayCutScene();
-
-// Properties
-if (actual_room->properties.GetValue("blizzard") == 1) {
-	App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "blizzard");
-}
+	// Properties
+	if (actual_room->properties.GetValue("blizzard") == 1) {
+		App->entity_manager->CreateEntity(e1Entity::EntityType::EVENT, 0, 0, "blizzard");
+	}
 
 }
 
@@ -385,19 +384,19 @@ void RoomManager::LoadEntities()
 				e1StaticEntity* treasure = (e1StaticEntity*)App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 				if ((*position)->name == "treasure_1") {
 					if ((App->globals.treasure_quest2_opened)) {
-						treasure->frame = { 0,0,0,0 };
+						treasure->frame = { 301,137 ,35,32 };
 						treasure->interacting_state = e1StaticEntity::InteractingStates::NONE;
 					}
 				}
 				else if ((*position)->name == "treasure_boss") {
 					if ((App->globals.treasure_boss_opened)) {
-						treasure->frame = { 0,0,0,0 };
+						treasure->frame = { 335,137 ,35,32 };
 						treasure->interacting_state = e1StaticEntity::InteractingStates::NONE;
 					}
 				}
 				else if ((*position)->name == "treasure_quest3") {
 					if ((App->globals.treasure_quest3_opened)) {
-						treasure->frame = { 0,0,0,0 };
+						treasure->frame = { 301,137 ,35,32 };
 						treasure->interacting_state = e1StaticEntity::InteractingStates::NONE;
 					}
 				}
@@ -456,6 +455,9 @@ void RoomManager::LoadEntities()
 				}
 				else if ((*position)->ent_type == "BabyDrake") {
 					ent_type = e1Entity::EntityType::BABY_DRAKE;
+				}
+				else if ((*position)->ent_type == "AmazingDragon") {
+					ent_type = e1Entity::EntityType::AMAZING_DRAGON;
 				}
 				else if ((*position)->ent_type == "Frozen") {
 					ent_type = e1Entity::EntityType::FROZEN;
@@ -877,6 +879,11 @@ void RoomManager::UpdateRoomEvents()
 	}
 	if (actual_room != nullptr && actual_room->active && !App->entity_manager->ThereAreEnemies() && actual_room->room_type == RoomType::BOSS && App->map->actual_map == Maps::QUEST2) {
 		App->globals.ice_queen_killed = true;
+		/*App->fade_to_black->FadeToBlack(Maps::LOBBY);*/
+	}
+	if (actual_room != nullptr && actual_room->active && !App->entity_manager->ThereAreEnemies() && actual_room->room_type == RoomType::BOSS && App->map->actual_map == Maps::FINAL_QUEST && !App->globals.CutsceneFinalGame) {
+		App->cutscene_manager->PlayCutscene("CutsceneFinalGame.xml");
+		App->globals.CutsceneFinalGame = true;
 		/*App->fade_to_black->FadeToBlack(Maps::LOBBY);*/
 	}
 }
