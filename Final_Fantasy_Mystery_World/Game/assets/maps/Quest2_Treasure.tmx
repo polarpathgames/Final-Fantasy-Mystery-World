@@ -2437,8 +2437,8 @@
    <tile gid="28"/>
    <tile gid="28"/>
    <tile/>
-   <tile gid="9"/>
-   <tile gid="52"/>
+   <tile/>
+   <tile/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="28"/>
@@ -2477,8 +2477,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="9"/>
-   <tile gid="72"/>
+   <tile/>
+   <tile/>
    <tile gid="9"/>
    <tile gid="43"/>
    <tile gid="28"/>
@@ -2517,8 +2517,8 @@
    <tile gid="28"/>
    <tile gid="28"/>
    <tile/>
-   <tile gid="50"/>
-   <tile gid="51"/>
+   <tile/>
+   <tile/>
    <tile gid="9"/>
    <tile/>
    <tile gid="28"/>
@@ -8858,9 +8858,9 @@
    <tile gid="7"/>
    <tile/>
    <tile/>
-   <tile gid="7"/>
    <tile/>
    <tile/>
+   <tile/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
@@ -8938,9 +8938,9 @@
    <tile gid="7"/>
    <tile/>
    <tile/>
-   <tile gid="7"/>
    <tile/>
    <tile/>
+   <tile/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
@@ -9014,7 +9014,7 @@
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
-   <tile gid="7"/>
+   <tile/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
@@ -9634,8 +9634,8 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="7" name="Static animation objects" visible="0">
-  <object id="63" name="treasure_quest3" type="static" x="384" y="320" width="32" height="32"/>
+ <objectgroup id="7" name="Static animation objects">
+  <object id="63" name="treasure_quest3" type="static" x="400" y="320" width="32" height="32"/>
   <object id="64" name="lava" type="static" x="352" y="352" width="16" height="16"/>
   <object id="65" name="lava" type="static" x="352" y="336" width="16" height="16"/>
   <object id="66" name="lava" type="static" x="368" y="352" width="16" height="16"/>

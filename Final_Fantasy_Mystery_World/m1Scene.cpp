@@ -392,9 +392,9 @@ bool m1Scene::Update(float dt)
 			App->menu_manager->DestroyControls();
 			menu_state = StatesMenu::OPTIONS_MENU;
 		}
-		if (control_to_change != nullptr && !control_to_change->Update()) {
-			delete control_to_change;
-			control_to_change = nullptr;
+		if (App->menu_manager->control_to_change != nullptr && !App->menu_manager->control_to_change->Update()) {
+			delete App->menu_manager->control_to_change;
+			App->menu_manager->control_to_change = nullptr;
 		}
 		break;
 	}
@@ -521,7 +521,19 @@ void m1Scene::CreateEntities()
 					player->CenterPlayerInTile();
 					App->render->CenterCameraOnPlayer(player->position);
 				}
-				else if ((*position)->ent_type == "default" && (App->map->last_map == Maps::TUTORIAL || App->map->last_map == Maps::QUEST2)) {
+				else if ((*position)->ent_type == "default" && App->map->last_map == Maps::TUTORIAL) {
+					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->Init();
+					player->CenterPlayerInTile();
+					App->render->CenterCameraOnPlayer(player->position);
+				}
+				else if ((*position)->ent_type == "default2" && App->map->last_map == Maps::QUEST2) {
+					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
+					player->Init();
+					player->CenterPlayerInTile();
+					App->render->CenterCameraOnPlayer(player->position);
+				}
+				else if ((*position)->ent_type == "default3" && App->map->last_map == Maps::FINAL_QUEST) {
 					player->position.create(App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y);
 					player->Init();
 					player->CenterPlayerInTile();
@@ -613,7 +625,7 @@ bool m1Scene::Interact(u1GUI* interact)
 	bool ret = true;
 	switch (menu_state) {
 	case StatesMenu::GO_TO_QUEST_MENU:
-		if (interact == App->menu_manager->quest.go_to_quest_button) {
+		if (interact == App->menu_manager->quest.tutorial_button) {
 			App->audio->PlayFx(fx_ability_warrior);
 		
 			App->menu_manager->DestroyGoToQuestMenu();
@@ -654,7 +666,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			if (player->stats.num_hp_potions >= 1) {
 				App->audio->PlayFx(fx_potion);
 				--player->stats.num_hp_potions;
-				player->AugmentLives(75);
+				player->AugmentLives(200);
 				App->menu_manager->inventory.hp_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_hp_potions)).data());
 				App->menu_manager->DeletePotionMenu();
 				menu_state = StatesMenu::INVENTORY_MENU;
@@ -667,7 +679,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			if (player->stats.num_mana_potions >= 1) {
 				App->audio->PlayFx(fx_potion);
 				--player->stats.num_mana_potions;
-				player->AugmentMana(100);
+				player->AugmentMana(200);
 				App->menu_manager->inventory.mana_potion_label->SetText(std::string("x " + std::to_string(player->stats.num_mana_potions)).data());
 				App->menu_manager->DeletePotionMenu();
 				menu_state = StatesMenu::INVENTORY_MENU;

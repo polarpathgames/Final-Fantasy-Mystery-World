@@ -80,6 +80,7 @@ public:
 		WATER3,
 		LAVA,
 		PORTAL,
+		PORTAL_ENTER,
 
 		UNKNOWN
 	};
@@ -117,6 +118,7 @@ public:
 	Type static_type = Type::UNKNOWN;
 	InteractingStates interacting_state = InteractingStates::NONE;
 	bool drunk = false;
+	u1Image* button_interact = nullptr;
 private:
 	
 	
@@ -125,7 +127,7 @@ private:
 	
 	int max_distance_to_interact = 0; // distance in tiles
 
-	u1Image* button_interact = nullptr;
+
 
 };
 

@@ -19,6 +19,7 @@
 #include "m1Cutscene.h"
 #include "m1EntityManager.h"
 #include "m1Map.h"
+#include "m1FadeToBlack.h"
 #include "e1Player.h"
 #include "m1Render.h"
 
@@ -446,11 +447,12 @@ void m1MenuManager::CreateControls()
 
 void m1MenuManager::DestroyControls()
 {
-	App->scene->control_to_change = nullptr;
+	control_to_change = nullptr;
 	App->gui->DeleteUIElement(controls.controls_panel);
 
 	App->scene->labels_control.clear();
 	App->scene->Clabels_control.clear();
+	controls.Reset();
 }
 
 void m1MenuManager::CreateNameMenu()
@@ -513,13 +515,35 @@ void m1MenuManager::DestroyNameMenu()
 void m1MenuManager::CreateGoToQuestMenu()
 {
 	App->audio->PlayFx(App->gui->fx_inventory);
-	quest.go_to_quest_panel = App->gui->AddImage(100, 70, { 1878, 1536, 170, 101 }, nullptr, App->gui->screen, true, false, false, false);
 
-	quest.go_to_quest_button = App->gui->AddButton(30, 18, { 0, 0, 120, 20 }, { 0, 0, 120, 20 }, { 0, 0, 120, 20 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
-	quest.go_to_quest_label = App->gui->AddLabel(50, -5, "Tutorial", quest.go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
+	if (App->globals.ice_queen_killed) {
+		quest.go_to_quest_panel = App->gui->AddImage(100, 70, { 2454, 782, 170, 150 }, nullptr, App->gui->screen, true, false, false, false);
+	}
+	else {
+		quest.go_to_quest_panel = App->gui->AddImage(100, 70, { 1878, 1536, 170, 101 }, nullptr, App->gui->screen, true, false, false, false);
+	}
 
-	quest.cancel_quest_button = App->gui->AddButton(40, 65, { 0, 0, 80, 20 }, { 0, 0, 80, 20 }, { 0, 0, 80, 20 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
-	quest.cancel_quest_label = App->gui->AddLabel(50, 38, "Cancel", quest.go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
+	int x = 25;
+	int y = 10;
+
+	quest.tutorial_button = App->gui->AddButton(x, y, { 0, 0, 120, 30 }, { 0, 0, 120, 40 }, { 0, 0, 120, 40 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
+	quest.tutorial_label = App->gui->AddLabel(0, 0, "Forest", quest.tutorial_button, BLACK, FontType::FF64, nullptr, false);
+	quest.tutorial_label->SetPosRespectParent(Position_Type::CENTERED);
+	quest.tutorial_label->position.y -= 5;
+
+	if (App->globals.ice_queen_killed) {
+		y += quest.tutorial_button->section.h+20;
+		quest.quest2_button = App->gui->AddButton(x,y, { 0, 0, 120, 30 }, { 0, 0, 120, 40 }, { 0, 0, 120, 40 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
+		quest.quest2_label = App->gui->AddLabel(0, 0, "Ice Mountains", quest.quest2_button, BLACK, FontType::FF64, nullptr, false);
+		quest.quest2_label->SetPosRespectParent(Position_Type::CENTERED);
+		quest.quest2_label->position.y -= 5;
+	}
+
+	y += quest.tutorial_button->section.h+20;
+	quest.cancel_quest_button = App->gui->AddButton(x, y, { 0, 0, 120, 30 }, { 0, 0, 120, 40 }, { 0, 0, 120, 40 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
+	quest.cancel_quest_label = App->gui->AddLabel(0, 0, "Cancel", quest.cancel_quest_button, BLACK, FontType::FF64, nullptr, false);
+	quest.cancel_quest_label->SetPosRespectParent(Position_Type::CENTERED);
+	quest.cancel_quest_label->position.y -= 5;
 
 	App->scene->player->BlockControls(true);
 }
@@ -620,11 +644,12 @@ void m1MenuManager::CreatePauseMenu()
 		pause.label_main_menu = App->gui->AddLabel(0, 0, "Return to main menu", pause.button_main_menu, BLACK, FontType::FF48, nullptr, false);
 		pause.label_main_menu->SetPosRespectParent(CENTERED);
 
-		//if (App->map->actual_map == Maps::LOBBY || App->map->actual_map == Maps::SHOP || App->map->actual_map == Maps::HOME)
-		pause.button_abort_quest = App->gui->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, false, false);
-		//else
-		//	pause.button_abort_quest = App->gui->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause_panel, true, false, true, true);
-
+		if (App->map->actual_map == Maps::LOBBY || App->map->actual_map == Maps::SHOP || App->map->actual_map == Maps::HOME || App->globals.Tutorial_first_time) {
+			pause.button_abort_quest = App->gui->AddButton(50, 250, { 2456,1087,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, false, false);
+		}
+		else {
+			pause.button_abort_quest = App->gui->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
+		}
 
 		pause.label_abort_quest = App->gui->AddLabel(0, 0, "Abort quest", pause.button_abort_quest, BLACK, FontType::FF48, nullptr, false);
 		pause.label_abort_quest->SetPosRespectParent(CENTERED);
@@ -722,13 +747,13 @@ void m1MenuManager::CreateShopMenu()
 		shop.shop_button_sword = App->gui->AddButton(32, 165, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item3->clip_zone, { 2061,2464,681,149 }, { -57,142 });
 		shop.shop_button_sword->SetFocus(FocusType::CLASSIC_FOCUS);
 	}
-	shop.shop_sword_label = App->gui->AddLabel(102, 156, std::string("x " + std::to_string(App->scene->price_ability3)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
+	shop.shop_sword_label = App->gui->AddLabel(102, 156, std::string("x" + std::to_string(App->scene->price_ability3)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
 	
 	
 	if (!App->globals.helmet_bought) {
 		shop.shop_background_item4 = App->gui->AddImage(38, 241, { 1050,2116,161,61 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 		shop.shop_helmet_image = App->gui->AddImage(46, 247, { 1127, 1952, 48, 48 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
-		shop.shop_helmet_label = App->gui->AddLabel(102, 234, std::string("x " + std::to_string(App->scene->price_helmet)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
+		shop.shop_helmet_label = App->gui->AddLabel(102, 234, std::string("x" + std::to_string(App->scene->price_helmet)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
 		shop.shop_coin4 = App->gui->AddImage(160, 253, { 1024, 1952, 34, 34 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 		shop.shop_button_helmet = App->gui->AddButton(32, 245, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item4->clip_zone, { 2061,2000,681,149 }, { -57,62 });
 		shop.shop_button_helmet->SetFocus(FocusType::CLASSIC_FOCUS);
@@ -736,7 +761,7 @@ void m1MenuManager::CreateShopMenu()
 	else {
 		shop.shop_background_item4 = App->gui->AddImage(38, 241, { 2751,1821,161,61 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 	//	shop.shop_helmet_image = App->gui->AddImage(46, 247, { 1127, 1952, 48, 48 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
-		shop.shop_helmet_label = App->gui->AddLabel(102, 234, std::string("x " + std::to_string(App->scene->price_helmet)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
+		shop.shop_helmet_label = App->gui->AddLabel(102, 234, std::string("x" + std::to_string(App->scene->price_helmet)).data(), shop.shop_item_zone, BLACK, FontType::FF64, nullptr, false, 0u, false, { 0,0,0,0 }, shop.shop_zone->GetGlobalRect());
 	//	shop.shop_coin4 = App->gui->AddImage(160, 253, { 1024, 1952, 34, 34 }, nullptr, shop.shop_item_zone, true, false, false, false, nullptr, shop.shop_zone->GetGlobalRect());
 		shop.shop_button_helmet = App->gui->AddButton(32, 245, { 0,0,180,50 }, { 0,0,180,50 }, { 0,0,180,50 }, App->scene, shop.shop_item_zone, false, false, true, true, { 0,0 }, shop.shop_background_item4->clip_zone, { 2061,2000,681,149 }, { -57,62 });
 		shop.shop_button_helmet->SetFocus(FocusType::CLASSIC_FOCUS);
@@ -996,7 +1021,7 @@ void m1MenuManager::CreateHelpAbilityMenu(AbilityType type)
 		break;
 	case AbilityType::FLASH:
 		help_ability = App->gui->AddImage(0, 0, { 0,0,0,0 }, nullptr, App->gui->screen, false, false, false, false);
-		App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, help_ability, true, false, false, false);
+		App->gui->AddImage(0, 0, { 0,4024,1024,768 }, nullptr, help_ability, true, false, false, false);
 		break;
 	case AbilityType::ABILITY3:
 		break;
@@ -1125,6 +1150,15 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		App->main_menu->Enable();
 		ret = false;
 	}
+	if (interaction == pause.button_abort_quest) {
+		App->fade_to_black->FadeToBlack(Maps::HOME);
+		DestroyPauseMenu();
+		if (App->GetPause())
+			App->ChangePause();
+		App->scene->menu_state = StatesMenu::NO_MENU;
+		EnableHUD(false);
+		ret = false;
+	}
 	if (interaction == pause.button_options)
 	{
 		CreateOptions();
@@ -1142,86 +1176,86 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		DestroyControls();
 		ret = false;
 	}
-	/*else if (interaction == button_up) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_up, &App->input->keyboard_buttons.buttons_code.UP, &App->input->keyboard_buttons.buttons_char.UP, false);
+	else if (interaction == controls.keyboard.button_up) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_up, &App->input->keyboard_buttons.buttons_code.UP, &App->input->keyboard_buttons.buttons_char.UP, false);
 	}
-	else if (interaction == button_right) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_right, &App->input->keyboard_buttons.buttons_code.RIGHT, &App->input->keyboard_buttons.buttons_char.RIGHT, false);
+	else if (interaction == controls.keyboard.button_right) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_right, &App->input->keyboard_buttons.buttons_code.RIGHT, &App->input->keyboard_buttons.buttons_char.RIGHT, false);
 	}
-	else if (interaction == button_left) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_left, &App->input->keyboard_buttons.buttons_code.LEFT, &App->input->keyboard_buttons.buttons_char.LEFT, false);
+	else if (interaction == controls.keyboard.button_left) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_left, &App->input->keyboard_buttons.buttons_code.LEFT, &App->input->keyboard_buttons.buttons_char.LEFT, false);
 	}
-	else if (interaction == button_down) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_down, &App->input->keyboard_buttons.buttons_code.DOWN, &App->input->keyboard_buttons.buttons_char.DOWN, false);
+	else if (interaction == controls.keyboard.button_down) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_down, &App->input->keyboard_buttons.buttons_code.DOWN, &App->input->keyboard_buttons.buttons_char.DOWN, false);
 	}
-	else if (interaction == button_diagonals) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_diagonals, &App->input->keyboard_buttons.buttons_code.DIAGONALS, &App->input->keyboard_buttons.buttons_char.DIAGONALS, false);
+	else if (interaction == controls.keyboard.button_diagonals) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_diagonals, &App->input->keyboard_buttons.buttons_code.DIAGONALS, &App->input->keyboard_buttons.buttons_char.DIAGONALS, false);
 	}
-	else if (interaction == button_direction_up) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_up, &App->input->keyboard_buttons.buttons_code.DIRECTION_UP, &App->input->keyboard_buttons.buttons_char.DIRECTION_UP, false);
+	else if (interaction == controls.keyboard.button_direction_up) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_direction_up, &App->input->keyboard_buttons.buttons_code.DIRECTION_UP, &App->input->keyboard_buttons.buttons_char.DIRECTION_UP, false);
 	}
-	else if (interaction == button_direction_right) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_right, &App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT, &App->input->keyboard_buttons.buttons_char.DIRECCTION_RIGHT, false);
+	else if (interaction == controls.keyboard.button_direction_right) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_direction_right, &App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT, &App->input->keyboard_buttons.buttons_char.DIRECCTION_RIGHT, false);
 	}
-	else if (interaction == button_direction_left) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_left, &App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT, &App->input->keyboard_buttons.buttons_char.DIRECTION_LEFT, false);
+	else if (interaction == controls.keyboard.button_direction_left) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_direction_left, &App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT, &App->input->keyboard_buttons.buttons_char.DIRECTION_LEFT, false);
 	}
-	else if (interaction == button_direction_down) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_down, &App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN, &App->input->keyboard_buttons.buttons_char.DIRECCTION_DOWN, false);
+	else if (interaction == controls.keyboard.button_direction_down) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_direction_down, &App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN, &App->input->keyboard_buttons.buttons_char.DIRECCTION_DOWN, false);
 	}
-	else if (interaction == button_basic_attack) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_basic_attack, &App->input->keyboard_buttons.buttons_code.BASIC_ATTACK, &App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, false);
+	else if (interaction == controls.keyboard.button_basic_attack) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_basic_attack, &App->input->keyboard_buttons.buttons_code.BASIC_ATTACK, &App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, false);
 	}
-	else if (interaction == Cbutton_direction_up) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_up, &App->input->controller_Buttons.buttons_code.DIRECTION_UP, &App->input->controller_Buttons.buttons_char.DIRECTION_UP, true);
+	else if (interaction == controls.controller.Cbutton_direction_up) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_direction_up, &App->input->controller_Buttons.buttons_code.DIRECTION_UP, &App->input->controller_Buttons.buttons_char.DIRECTION_UP, true);
 	}
-	else if (interaction == Cbutton_direction_right) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_right, &App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT, &App->input->controller_Buttons.buttons_char.DIRECCTION_RIGHT, true);
+	else if (interaction == controls.controller.Cbutton_direction_right) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_direction_right, &App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT, &App->input->controller_Buttons.buttons_char.DIRECCTION_RIGHT, true);
 	}
-	else if (interaction == Cbutton_direction_left) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_left, &App->input->controller_Buttons.buttons_code.DIRECTION_LEFT, &App->input->controller_Buttons.buttons_char.DIRECTION_LEFT, true);
+	else if (interaction == controls.controller.Cbutton_direction_left) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_direction_left, &App->input->controller_Buttons.buttons_code.DIRECTION_LEFT, &App->input->controller_Buttons.buttons_char.DIRECTION_LEFT, true);
 	}
-	else if (interaction == Cbutton_direction_down) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_down, &App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN, &App->input->controller_Buttons.buttons_char.DIRECCTION_DOWN, true);
+	else if (interaction == controls.controller.Cbutton_direction_down) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_direction_down, &App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN, &App->input->controller_Buttons.buttons_char.DIRECCTION_DOWN, true);
 	}
-	else if (interaction == Cbutton_diagonals) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_diagonals, &App->input->controller_Buttons.buttons_code.DIAGONALS, &App->input->controller_Buttons.buttons_char.DIAGONALS, true);
+	else if (interaction == controls.controller.Cbutton_diagonals) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_diagonals, &App->input->controller_Buttons.buttons_code.DIAGONALS, &App->input->controller_Buttons.buttons_char.DIAGONALS, true);
 	}
-	else if (interaction == Cbutton_basic_attack) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_basic_attack, &App->input->controller_Buttons.buttons_code.BASIC_ATTACK, &App->input->controller_Buttons.buttons_char.BASIC_ATTACK, true);
-	}*/
+	else if (interaction == controls.controller.Cbutton_basic_attack) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_basic_attack, &App->input->controller_Buttons.buttons_code.BASIC_ATTACK, &App->input->controller_Buttons.buttons_char.BASIC_ATTACK, true);
+	}
 
 	//OPTIONS ======================================================================================================================================
 

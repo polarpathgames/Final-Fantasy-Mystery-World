@@ -640,14 +640,37 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		max_distance_to_interact = 1;
 	}
 	else if (strcmp(name, "portal") == 0) {
-		frame = { 1078,159,42,64 };
-		SetPivot(frame.w*0.5F, frame.h*0.8F);
-		size.create(frame.w, frame.h);
-		static_type = e1StaticEntity::Type::PORTAL;
+		
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
 		actual_tile += {3, 3};
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 		max_distance_to_interact = 1;
+		static_type = e1StaticEntity::Type::PORTAL;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1630,142,43,67 });
+		idle->PushBack({ 1673,142,43,67 });
+		idle->PushBack({ 1716,142,43,67 });
+		idle->PushBack({ 1759,142,43,67 });
+		idle->speed = 7;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+	}
+	else if (strcmp(name, "portal_enter") == 0) {
+		static_type = e1StaticEntity::Type::PORTAL;
+		has_animation = true;
+		idle = DBG_NEW Animation();
+		current_animation = idle;
+		idle->PushBack({ 1630,142,43,67 });
+		idle->PushBack({ 1673,142,43,67 });
+		idle->PushBack({ 1716,142,43,67 });
+		idle->PushBack({ 1759,142,43,67 });
+		idle->speed = 7;
+		frame = idle->frames[0];
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
 	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
@@ -785,14 +808,14 @@ bool e1StaticEntity::Update(float dt)
 				interacting_state = InteractingStates::NONE;
 			}
 			else if (frame == SDL_Rect{ 195,137, 35, 32 }) {
-				App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 20, 5, 0, 0, 0, 100);
+				App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 5, 5, 30, 70, 0, 0);
 				App->scene->player->BlockControls(false);
 				App->globals.treasure_boss_opened = true;
 				frame = { 335,137 ,35,32 }; // need to put open treasure sprite
 				interacting_state = InteractingStates::NONE;
 			}
 			else if (frame == SDL_Rect{ 230,184, 35, 32 }) {
-				App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 20, 5, 0, 0, 0, 100);
+				App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 20, 5, 0, 0, 50, 50);
 				App->scene->player->BlockControls(false);
 				App->globals.treasure_quest3_opened = true;
 				frame = { 301,137 ,35,32 }; // need to put open treasure sprite
