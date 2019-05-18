@@ -148,7 +148,7 @@ void m1Input::DefaultControls()
 	keyboard_buttons.buttons_code.ABILTY1 = SDL_SCANCODE_1;
 	keyboard_buttons.buttons_code.ABILITY2 = SDL_SCANCODE_2;
 	keyboard_buttons.buttons_code.ABILITY3 = SDL_SCANCODE_3;
-	//keyboard_buttons.buttons_code.SHOW_SKILLS = SDL_SCANCODE_V;
+	keyboard_buttons.buttons_code.FAST_SKILLS = SDL_SCANCODE_V;
 	keyboard_buttons.buttons_code.INVENTORY = SDL_SCANCODE_E;
 
 	keyboard_buttons.buttons_char.BASIC_ATTACK = "G";
@@ -164,7 +164,7 @@ void m1Input::DefaultControls()
 	keyboard_buttons.buttons_char.ABILITY1 = "1";
 	keyboard_buttons.buttons_char.ABILITY2 = "2";
 	keyboard_buttons.buttons_char.ABILITY3 = "3";
-	//keyboard_buttons.buttons_char.SHOW_SKILLS = "V";
+	keyboard_buttons.buttons_char.FAST_SKILLS = "V";
 	keyboard_buttons.buttons_char.INVENTORY = "E";
 
 	controller_Buttons.buttons_code.BASIC_ATTACK = SDL_CONTROLLER_BUTTON_A;
@@ -176,7 +176,7 @@ void m1Input::DefaultControls()
 	controller_Buttons.buttons_code.ABILTY1 = SDL_CONTROLLER_BUTTON_X;
 	controller_Buttons.buttons_code.ABILITY2 = SDL_CONTROLLER_BUTTON_B;
 	controller_Buttons.buttons_code.ABILITY3 = SDL_CONTROLLER_BUTTON_Y;
-	//controller_Buttons.buttons_code.SHOW_SKILLS = SDL_CONTROLLER_BUTTON_LEFTSHOULDER;
+	controller_Buttons.buttons_code.FAST_SKILLS = SDL_CONTROLLER_BUTTON_LEFTSTICK;
 	controller_Buttons.buttons_code.INVENTORY = SDL_CONTROLLER_BUTTON_RIGHTSHOULDER;
 
 	controller_Buttons.buttons_char.BASIC_ATTACK = "A";
@@ -192,7 +192,7 @@ void m1Input::DefaultControls()
 	controller_Buttons.buttons_char.ABILITY1 = "X";
 	controller_Buttons.buttons_char.ABILITY3 = "Y";
 	controller_Buttons.buttons_char.ABILITY2 = "B";
-	//controller_Buttons.buttons_char.SHOW_SKILLS = "LB";
+	controller_Buttons.buttons_char.FAST_SKILLS = "LB";
 	controller_Buttons.buttons_char.INVENTORY = "RB";
 }
 
