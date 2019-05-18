@@ -15,6 +15,8 @@
 #include "m1Cutscene.h"
 #include "m1DialogSystem.h"
 #include "App.h"
+#include "u1Bar.h"
+#include "u1Label.h"
 #include "m1MenuManager.h"
 #include "m1Map.h"
 
@@ -78,6 +80,7 @@ bool m1FadeToBlack::PostUpdate()
 				for (; item != entities.end(); ++item) {
 					if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY && static_cast<e1Enemy*>(*item)->enemy_type == e1Enemy::EnemyType::AMAZING_DRAGON) {
 						(*item)->drawable = true;
+					
 						(*item)->allow_turn = true;
 						static_cast<e1AmazingDragon*>(*item)->active = true;
 						break;
