@@ -446,7 +446,7 @@ void m1MenuManager::CreateControls()
 
 void m1MenuManager::DestroyControls()
 {
-	App->scene->control_to_change = nullptr;
+	control_to_change = nullptr;
 	App->gui->DeleteUIElement(controls.controls_panel);
 
 	App->scene->labels_control.clear();
@@ -1144,86 +1144,86 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		DestroyControls();
 		ret = false;
 	}
-	/*else if (interaction == button_up) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_up, &App->input->keyboard_buttons.buttons_code.UP, &App->input->keyboard_buttons.buttons_char.UP, false);
+	else if (interaction == controls.keyboard.button_up) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_up, &App->input->keyboard_buttons.buttons_code.UP, &App->input->keyboard_buttons.buttons_char.UP, false);
 	}
-	else if (interaction == button_right) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_right, &App->input->keyboard_buttons.buttons_code.RIGHT, &App->input->keyboard_buttons.buttons_char.RIGHT, false);
+	else if (interaction == controls.keyboard.button_right) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_right, &App->input->keyboard_buttons.buttons_code.RIGHT, &App->input->keyboard_buttons.buttons_char.RIGHT, false);
 	}
-	else if (interaction == button_left) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_left, &App->input->keyboard_buttons.buttons_code.LEFT, &App->input->keyboard_buttons.buttons_char.LEFT, false);
+	else if (interaction == controls.keyboard.button_left) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_left, &App->input->keyboard_buttons.buttons_code.LEFT, &App->input->keyboard_buttons.buttons_char.LEFT, false);
 	}
-	else if (interaction == button_down) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_down, &App->input->keyboard_buttons.buttons_code.DOWN, &App->input->keyboard_buttons.buttons_char.DOWN, false);
+	else if (interaction == controls.keyboard.button_down) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_down, &App->input->keyboard_buttons.buttons_code.DOWN, &App->input->keyboard_buttons.buttons_char.DOWN, false);
 	}
-	else if (interaction == button_diagonals) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_diagonals, &App->input->keyboard_buttons.buttons_code.DIAGONALS, &App->input->keyboard_buttons.buttons_char.DIAGONALS, false);
+	else if (interaction == controls.keyboard.button_diagonals) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_diagonals, &App->input->keyboard_buttons.buttons_code.DIAGONALS, &App->input->keyboard_buttons.buttons_char.DIAGONALS, false);
 	}
-	else if (interaction == button_direction_up) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_up, &App->input->keyboard_buttons.buttons_code.DIRECTION_UP, &App->input->keyboard_buttons.buttons_char.DIRECTION_UP, false);
+	else if (interaction == controls.keyboard.button_direction_up) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_direction_up, &App->input->keyboard_buttons.buttons_code.DIRECTION_UP, &App->input->keyboard_buttons.buttons_char.DIRECTION_UP, false);
 	}
-	else if (interaction == button_direction_right) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_right, &App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT, &App->input->keyboard_buttons.buttons_char.DIRECCTION_RIGHT, false);
+	else if (interaction == controls.keyboard.button_direction_right) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_direction_right, &App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT, &App->input->keyboard_buttons.buttons_char.DIRECCTION_RIGHT, false);
 	}
-	else if (interaction == button_direction_left) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_left, &App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT, &App->input->keyboard_buttons.buttons_char.DIRECTION_LEFT, false);
+	else if (interaction == controls.keyboard.button_direction_left) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_direction_left, &App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT, &App->input->keyboard_buttons.buttons_char.DIRECTION_LEFT, false);
 	}
-	else if (interaction == button_direction_down) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_direction_down, &App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN, &App->input->keyboard_buttons.buttons_char.DIRECCTION_DOWN, false);
+	else if (interaction == controls.keyboard.button_direction_down) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_direction_down, &App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN, &App->input->keyboard_buttons.buttons_char.DIRECCTION_DOWN, false);
 	}
-	else if (interaction == button_basic_attack) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(label_to_show_how_basic_attack, &App->input->keyboard_buttons.buttons_code.BASIC_ATTACK, &App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, false);
+	else if (interaction == controls.keyboard.button_basic_attack) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_basic_attack, &App->input->keyboard_buttons.buttons_code.BASIC_ATTACK, &App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, false);
 	}
-	else if (interaction == Cbutton_direction_up) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_up, &App->input->controller_Buttons.buttons_code.DIRECTION_UP, &App->input->controller_Buttons.buttons_char.DIRECTION_UP, true);
+	else if (interaction == controls.controller.Cbutton_direction_up) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_direction_up, &App->input->controller_Buttons.buttons_code.DIRECTION_UP, &App->input->controller_Buttons.buttons_char.DIRECTION_UP, true);
 	}
-	else if (interaction == Cbutton_direction_right) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_right, &App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT, &App->input->controller_Buttons.buttons_char.DIRECCTION_RIGHT, true);
+	else if (interaction == controls.controller.Cbutton_direction_right) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_direction_right, &App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT, &App->input->controller_Buttons.buttons_char.DIRECCTION_RIGHT, true);
 	}
-	else if (interaction == Cbutton_direction_left) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_left, &App->input->controller_Buttons.buttons_code.DIRECTION_LEFT, &App->input->controller_Buttons.buttons_char.DIRECTION_LEFT, true);
+	else if (interaction == controls.controller.Cbutton_direction_left) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_direction_left, &App->input->controller_Buttons.buttons_code.DIRECTION_LEFT, &App->input->controller_Buttons.buttons_char.DIRECTION_LEFT, true);
 	}
-	else if (interaction == Cbutton_direction_down) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_direction_down, &App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN, &App->input->controller_Buttons.buttons_char.DIRECCTION_DOWN, true);
+	else if (interaction == controls.controller.Cbutton_direction_down) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_direction_down, &App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN, &App->input->controller_Buttons.buttons_char.DIRECCTION_DOWN, true);
 	}
-	else if (interaction == Cbutton_diagonals) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_diagonals, &App->input->controller_Buttons.buttons_code.DIAGONALS, &App->input->controller_Buttons.buttons_char.DIAGONALS, true);
+	else if (interaction == controls.controller.Cbutton_diagonals) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_diagonals, &App->input->controller_Buttons.buttons_code.DIAGONALS, &App->input->controller_Buttons.buttons_char.DIAGONALS, true);
 	}
-	else if (interaction == Cbutton_basic_attack) {
-		if (App->scene->control_to_change != nullptr)
-			delete App->scene->control_to_change;
-		App->scene->control_to_change = DBG_NEW ChangeControls(Clabel_to_show_how_basic_attack, &App->input->controller_Buttons.buttons_code.BASIC_ATTACK, &App->input->controller_Buttons.buttons_char.BASIC_ATTACK, true);
-	}*/
+	else if (interaction == controls.controller.Cbutton_basic_attack) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_basic_attack, &App->input->controller_Buttons.buttons_code.BASIC_ATTACK, &App->input->controller_Buttons.buttons_char.BASIC_ATTACK, true);
+	}
 
 	//OPTIONS ======================================================================================================================================
 

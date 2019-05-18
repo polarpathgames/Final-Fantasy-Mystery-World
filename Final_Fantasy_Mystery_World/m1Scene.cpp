@@ -392,9 +392,9 @@ bool m1Scene::Update(float dt)
 			App->menu_manager->DestroyControls();
 			menu_state = StatesMenu::OPTIONS_MENU;
 		}
-		if (control_to_change != nullptr && !control_to_change->Update()) {
-			delete control_to_change;
-			control_to_change = nullptr;
+		if (App->menu_manager->control_to_change != nullptr && !App->menu_manager->control_to_change->Update()) {
+			delete App->menu_manager->control_to_change;
+			App->menu_manager->control_to_change = nullptr;
 		}
 		break;
 	}

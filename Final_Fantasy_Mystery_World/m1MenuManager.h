@@ -12,6 +12,8 @@ class u1ChButton;
 class u1VerticalSlider;
 class u1Bar;
 
+class ChangeControls;
+
 struct EaseSplineInfo;
 
 struct UI_input {
@@ -690,5 +692,7 @@ public:
 	u1Image* im_skipper = nullptr;
 	u1Label* lb_skipper = nullptr;
 	u1Bar* br_skipper = nullptr;
+
+	ChangeControls * control_to_change = nullptr;
 };
 #endif // !__M1MENUMANAGER_H__
