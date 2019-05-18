@@ -303,7 +303,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		has_animation = true;
 		idle = DBG_NEW Animation();
 		current_animation = idle;
-		idle->PushBack({ 1215,27,16,28 });
+		idle->PushBack({ 1216,28,16,28 });
 		frame = idle->frames[0];
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
