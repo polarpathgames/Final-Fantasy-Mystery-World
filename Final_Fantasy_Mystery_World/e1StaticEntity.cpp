@@ -808,14 +808,14 @@ bool e1StaticEntity::Update(float dt)
 				interacting_state = InteractingStates::NONE;
 			}
 			else if (frame == SDL_Rect{ 195,137, 35, 32 }) {
-				App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 20, 5, 0, 0, 0, 100);
+				App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 5, 5, 30, 70, 0, 0);
 				App->scene->player->BlockControls(false);
 				App->globals.treasure_boss_opened = true;
 				frame = { 335,137 ,35,32 }; // need to put open treasure sprite
 				interacting_state = InteractingStates::NONE;
 			}
 			else if (frame == SDL_Rect{ 230,184, 35, 32 }) {
-				App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 20, 5, 0, 0, 0, 100);
+				App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 20, 5, 0, 0, 50, 50);
 				App->scene->player->BlockControls(false);
 				App->globals.treasure_quest3_opened = true;
 				frame = { 301,137 ,35,32 }; // need to put open treasure sprite
