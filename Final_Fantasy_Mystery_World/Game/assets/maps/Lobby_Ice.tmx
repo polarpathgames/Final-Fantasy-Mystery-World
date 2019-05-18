@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="66" height="60" tilewidth="32" tileheight="16" infinite="0" nextlayerid="38" nextobjectid="980">
+<map version="1.2" tiledversion="1.2.3" orientation="isometric" renderorder="right-down" width="66" height="60" tilewidth="32" tileheight="16" infinite="0" nextlayerid="38" nextobjectid="981">
  <properties>
   <property name="movement" type="int" value="1"/>
  </properties>
@@ -23817,7 +23817,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="26" name="collider" visible="0">
+ <objectgroup id="26" name="collider">
   <object id="88" name="collider" x="624.818" y="373.91" width="11.6818" height="4.5">
    <properties>
     <property name="home" type="int" value="0"/>
@@ -23874,7 +23874,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ffff7f" id="6" name="player" visible="0">
+ <objectgroup color="#ffff7f" id="6" name="player">
   <object id="5" name="player" type="default" x="496" y="688" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
@@ -23891,7 +23891,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="27" name="Static objects" visible="0">
+ <objectgroup id="27" name="Static objects">
   <object id="31" name="plant2_quest1" type="static" x="320" y="352" width="32" height="32"/>
   <object id="34" name="plant_quest1" type="static" x="688" y="624" width="32" height="32"/>
   <object id="44" name="plant2_quest1" type="static" x="368" y="528" width="32" height="32"/>
@@ -24337,9 +24337,7 @@
   <object id="901" name="water" type="static" x="688" y="160" width="16" height="16"/>
   <object id="902" name="water" type="static" x="720" y="192" width="16" height="16"/>
   <object id="903" name="water" type="static" x="736" y="208" width="16" height="16"/>
-  <object id="906" name="fire_wall_right" type="static" x="240" y="240" width="32" height="32"/>
-  <object id="907" name="fire_wall_left" type="static" x="240" y="320" width="32" height="32"/>
-  <object id="908" name="blue_fire" type="static" x="192" y="304" width="32" height="32"/>
+  <object id="908" name="blue_fire" type="static" x="192" y="288" width="32" height="32"/>
   <object id="909" name="blue_fire" type="static" x="192" y="224" width="32" height="32"/>
   <object id="910" name="plant_quest1" type="static" x="688" y="448" width="32" height="32"/>
   <object id="911" name="plant_quest1" type="static" x="560" y="512" width="32" height="32"/>
@@ -24402,5 +24400,6 @@
   <object id="973" name="water3" type="static" x="624" y="256" width="16" height="16"/>
   <object id="974" name="water3" type="static" x="704" y="352" width="16" height="16"/>
   <object id="975" name="water3" type="static" x="688" y="336" width="16" height="16"/>
+  <object id="980" name="portal" type="static" x="192" y="256" width="32" height="32"/>
  </objectgroup>
 </map>
