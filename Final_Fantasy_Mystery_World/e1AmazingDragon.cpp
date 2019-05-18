@@ -24,8 +24,11 @@ e1AmazingDragon::e1AmazingDragon(const int & x, const int & y) : e1Enemy(x, y)
 
 	turns_to_wait_after_fire_ball = 2U;
 	waves_before_recover_energy = 3U;
-	turns_recovering_energy = 5U;
+	turns_recovering_energy = 10U;
 	number_of_fire_balls = 2U;
+	turns_to_wait_before_attack_again = 4U;
+
+
 	anim.BasicAttackDownLeft.loop = false;
 }
 
@@ -59,10 +62,14 @@ bool e1AmazingDragon::PreUpdate()
 				current_animation = &anim.GoDownLeft;
 				turn_done = true;
 			}
-			else {
+			else if (auxiliar_turn_count == turns_to_wait_before_attack_again) {
 				current_animation = &anim.BasicAttackDownLeft;
 				dragon_states = AmazingDragonStates::ATTACK;
 				time.Start();
+			}
+			else {
+				turn_done = true;
+				++auxiliar_turn_count;
 			}
 		break; }
 		case e1AmazingDragon::AmazingDragonStates::ATTACK: {
@@ -85,6 +92,7 @@ bool e1AmazingDragon::PreUpdate()
 				turn_done = true;
 				dragon_states = AmazingDragonStates::WAIT_FIRE_BALLS;
 				current_animation = &anim.IdleDownLeft;
+				auxiliar_turn_count = 0U;
 				anim.BasicAttackDownLeft.Reset();
 			}
 			break; }
