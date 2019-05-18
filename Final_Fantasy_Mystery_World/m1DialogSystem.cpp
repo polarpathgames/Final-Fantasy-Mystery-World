@@ -370,6 +370,10 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->map->quest_rooms->actual_room->fountain_drunk = true;
 				   App->menu_manager->EnableHUD(true);
 				   break;
+			   case 3: //Fountain drunk
+				   App->menu_manager->EnableHUD(true);
+				   App->scene->player->BlockControls(false);
+				   break;
 			   case 33: { // take flash
 				   App->globals.ability2_gained = true;
 				   App->scene->player->BlockControls(true);

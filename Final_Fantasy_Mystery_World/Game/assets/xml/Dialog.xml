@@ -21,7 +21,7 @@
       <option line="Recover mana." nextnode="3" karma="-1" tag="-2"/>
   </node>
     <node line="It seems that the fountain hasn't power." id="2" karma="-1" tag="0">
-      <option line="" nextnode ="3" karma="0" tag="0"/>
+      <option line="" nextnode ="3" karma="0" tag="3"/>
     </node>
   </dialogtree>
   <dialogtree treeid="2" karma="0" tag="0" rect_x="975" rect_y="3091" rect_w="112" rect_h="131">
