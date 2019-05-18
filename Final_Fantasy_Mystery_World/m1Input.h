@@ -40,10 +40,10 @@ struct ButtonsUsed {
 	int DIRECCTION_RIGHT;
 	int DIAGONALS;
 	int BASIC_ATTACK;
-	//int SHOW_SKILLS;
-	int HABILTY1;
-	int HABILITY2;
-	int HABILITY3;
+	int FAST_SKILLS;
+	int ABILTY1;
+	int ABILITY2;
+	int ABILITY3;
 	int INVENTORY;
 
 };
@@ -59,7 +59,7 @@ struct ButtonChar {
 	char* DIRECTION_LEFT = nullptr;
 	char* DIRECCTION_RIGHT = nullptr;
 	char* DIAGONALS = nullptr;
-	//char* SHOW_SKILLS = nullptr;
+	char* FAST_SKILLS = nullptr;
 	char* BASIC_ATTACK = nullptr;
 	char* ABILITY1 = nullptr;
 	char* ABILITY2 = nullptr;

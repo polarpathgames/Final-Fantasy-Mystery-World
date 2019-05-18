@@ -209,6 +209,11 @@ bool m1Scene::Update(float dt)
 		App->menu_manager->GodModeIndicator(App->scene->player->god_mode);
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	{
+		player->GetHitted(50);
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {
 		App->fade_to_black->FadeToBlack(Maps::LOBBY);
 		App->menu_manager->EnableHUD(false);

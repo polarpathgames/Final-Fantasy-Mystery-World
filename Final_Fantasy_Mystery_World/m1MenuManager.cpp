@@ -331,10 +331,10 @@ void m1MenuManager::CreateControls()
 	controls.keyboard.label_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
 	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_basic_attack);
 
-	//controls.keyboard.button_abilities = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
-	//controls.keyboard.label_to_show_how_abilities = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.SHOW_SKILLS, controls.keyboard.button_abilities, BLACK, FontType::FF32, nullptr, false);
-	//controls.keyboard.label_to_show_how_abilities->SetPosRespectParent(CENTERED);
-	//App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_abilities);
+	controls.keyboard.button_abilities = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
+	controls.keyboard.label_to_show_how_abilities = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.FAST_SKILLS, controls.keyboard.button_abilities, BLACK, FontType::FF32, nullptr, false);
+	controls.keyboard.label_to_show_how_abilities->SetPosRespectParent(CENTERED);
+	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_abilities);
 
 	controls.keyboard.button_ability1 = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_abilities->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
 	controls.keyboard.label_to_show_how_ability1 = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.ABILITY1, controls.keyboard.button_ability1, BLACK, FontType::FF32, nullptr, false);
@@ -342,12 +342,12 @@ void m1MenuManager::CreateControls()
 	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_ability1);
 
 	controls.keyboard.button_ability2 = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_ability1->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
-	controls.keyboard.label_to_show_how_ability2 = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.ABILITY1, controls.keyboard.button_ability2, BLACK, FontType::FF32, nullptr, false);
+	controls.keyboard.label_to_show_how_ability2 = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.ABILITY2, controls.keyboard.button_ability2, BLACK, FontType::FF32, nullptr, false);
 	controls.keyboard.label_to_show_how_ability2->SetPosRespectParent(CENTERED);
 	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_ability2);
 
 	controls.keyboard.button_ability3 = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_ability2->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
-	controls.keyboard.label_to_show_how_ability3 = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.ABILITY1, controls.keyboard.button_ability3, BLACK, FontType::FF32, nullptr, false);
+	controls.keyboard.label_to_show_how_ability3 = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.ABILITY3, controls.keyboard.button_ability3, BLACK, FontType::FF32, nullptr, false);
 	controls.keyboard.label_to_show_how_ability3->SetPosRespectParent(CENTERED);
 	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_ability3);
 
@@ -412,10 +412,10 @@ void m1MenuManager::CreateControls()
 	controls.controller.Clabel_to_show_how_basic_attack->SetPosRespectParent(CENTERED);
 	App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_basic_attack);
 
-	//controls.controller.Cbutton_abilities = App->gui->AddButton(controller_offset_x, controls.controller.Cbutton_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
-	//controls.controller.Clabel_to_show_how_abilities = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.SHOW_SKILLS, controls.controller.Cbutton_abilities, BLACK, FontType::FF32, nullptr, false);
-	//controls.controller.Clabel_to_show_how_abilities->SetPosRespectParent(CENTERED);
-	//App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_abilities);
+	controls.controller.Cbutton_abilities = App->gui->AddButton(controller_offset_x, controls.controller.Cbutton_basic_attack->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
+	controls.controller.Clabel_to_show_how_abilities = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.FAST_SKILLS, controls.controller.Cbutton_abilities, BLACK, FontType::FF32, nullptr, false);
+	controls.controller.Clabel_to_show_how_abilities->SetPosRespectParent(CENTERED);
+	App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_abilities);
 
 	controls.controller.Cbutton_ability1 = App->gui->AddButton(controller_offset_x, controls.controller.Cbutton_abilities->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
 	controls.controller.Clabel_to_show_how_ability1 = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.ABILITY1, controls.controller.Cbutton_ability1, BLACK, FontType::FF32, nullptr, false);
@@ -423,12 +423,12 @@ void m1MenuManager::CreateControls()
 	App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_ability1);
 
 	controls.controller.Cbutton_ability2 = App->gui->AddButton(controller_offset_x, controls.controller.Cbutton_ability1->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
-	controls.controller.Clabel_to_show_how_ability2 = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.ABILITY1, controls.controller.Cbutton_ability2, BLACK, FontType::FF32, nullptr, false);
+	controls.controller.Clabel_to_show_how_ability2 = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.ABILITY2, controls.controller.Cbutton_ability2, BLACK, FontType::FF32, nullptr, false);
 	controls.controller.Clabel_to_show_how_ability2->SetPosRespectParent(CENTERED);
 	App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_ability2);
 
 	controls.controller.Cbutton_ability3 = App->gui->AddButton(controller_offset_x, controls.controller.Cbutton_ability2->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
-	controls.controller.Clabel_to_show_how_ability3 = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.ABILITY1, controls.controller.Cbutton_ability3, BLACK, FontType::FF32, nullptr, false);
+	controls.controller.Clabel_to_show_how_ability3 = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.ABILITY3, controls.controller.Cbutton_ability3, BLACK, FontType::FF32, nullptr, false);
 	controls.controller.Clabel_to_show_how_ability3->SetPosRespectParent(CENTERED);
 	App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_ability3);
 

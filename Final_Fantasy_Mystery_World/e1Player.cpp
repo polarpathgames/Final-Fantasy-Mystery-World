@@ -372,7 +372,7 @@ void e1Player::ReadPlayerInput()
 	if (state == State::BEFORE_FLASH) {
 		LookFlash();
 	}
-	if (state == State::FLASHING && (!App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.HABILITY2) && !App->input->GetKeyDownOrRepeat(App->input->controller_Buttons.buttons_code.HABILITY2))) {
+	if (state == State::FLASHING && (!App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.ABILITY2) && !App->input->GetKeyDownOrRepeat(App->input->controller_Buttons.buttons_code.ABILITY2))) {
 		if (drawable) {
 			state = State::IDLE;
 			timer_ability1.Stop();
@@ -550,7 +550,7 @@ void e1Player::ReadAttack()
 		App->audio->PlayFx(App->scene->fx_attack);
 		return;
 	}
-	if ((App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.HABILTY1) || App->input->GetControllerButtonDownOrRepeat(App->input->controller_Buttons.buttons_code.HABILTY1))
+	if ((App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.ABILTY1) || App->input->GetControllerButtonDownOrRepeat(App->input->controller_Buttons.buttons_code.ABILTY1))
 		&& App->globals.ability1_gained == true) {
 		if (timer_ability1.IsRunning()) {
 			if (timer_ability1.ReadSec() >= time_to_wait_ability1) {
@@ -1221,6 +1221,8 @@ void e1Player::Death()
 		App->map->CleanUp();
 		App->easing_splines->CleanUp();
 		App->entity_manager->DeleteEntitiesNoPlayer();
+		App->scene->player->AugmentLives(App->scene->player->stats.max_lives);
+		App->scene->player->AugmentMana(App->scene->player->stats.max_mana);
 		App->menu_manager->EnableHUD(false);
 		App->menu_manager->CreateGameOver();
 		App->scene->SetMenuState(StatesMenu::DIE_MENU);
@@ -1300,39 +1302,43 @@ void e1Player::QuestControls()
 	
 	if ((App->map->quest_rooms != nullptr &&App->map->quest_rooms->actual_room->room_type != RoomType::FOUNTAIN) || App->fast_start) {
 		player_input.pressing_SPACE = App->input->GetKey(App->input->keyboard_buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.BASIC_ATTACK) == KEY_DOWN;
-		player_input.pressing_1 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILTY1) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILTY1) == KEY_DOWN;
-		player_input.pressing_2 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILITY2) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILITY2) == KEY_DOWN;
-		player_input.pressing_3 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.HABILITY3) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.HABILITY3) == KEY_DOWN;
+		player_input.pressing_1 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.ABILTY1) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.ABILTY1) == KEY_DOWN;
+		player_input.pressing_2 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.ABILITY2) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.ABILITY2) == KEY_DOWN;
+		player_input.pressing_3 = App->input->GetKey(App->input->keyboard_buttons.buttons_code.ABILITY3) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.ABILITY3) == KEY_DOWN;
 	}
 
 	if (!player_input.pressing_shift) {
-		App->menu_manager->ChangeCompass(false);
-		if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
-			player_input.pressing_S = true;
-		}
-		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1) {
-			player_input.pressing_D = true;
-		}
-		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1) {
-			player_input.pressing_W = true;
-		}
-		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
-			player_input.pressing_A = true;
+		if (state != State::MENU) {
+			App->menu_manager->ChangeCompass(false);
+			if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
+				player_input.pressing_S = true;
+			}
+			else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1) {
+				player_input.pressing_D = true;
+			}
+			else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1) {
+				player_input.pressing_W = true;
+			}
+			else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
+				player_input.pressing_A = true;
+			}
 		}
 	}
 	else {
-		App->menu_manager->ChangeCompass(true);
-		if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) {
-			player_input.pressing_S = true;
-		}
-		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1) {
-			player_input.pressing_D = true;
-		}
-		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1) {
-			player_input.pressing_W = true;
-		}
-		else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
-			player_input.pressing_A = true;
+		if (state != State::MENU) {
+			App->menu_manager->ChangeCompass(true);
+			if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) {
+				player_input.pressing_S = true;
+			}
+			else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == 1) {
+				player_input.pressing_D = true;
+			}
+			else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == -1) {
+				player_input.pressing_W = true;
+			}
+			else if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
+				player_input.pressing_A = true;
+			}
 		}
 	}
 	

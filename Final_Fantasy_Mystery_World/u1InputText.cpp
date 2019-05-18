@@ -78,7 +78,8 @@ void u1InputText::InnerDraw()
 	pos.y = (box.h - (int)HEIGHT)*0.5F;
 	pos += draw_offset;
 
-	App->render->Blit(texture, pos.x, pos.y, NULL, false, SDL_FLIP_NONE, 0.0F);
+	if (texture != nullptr)
+		App->render->Blit(texture, pos.x, pos.y, NULL, false, SDL_FLIP_NONE, 0.0F);
 
 	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), pos.x + width_, pos.y + HEIGHT*0.4F, &(cursor->GetCurrentFrame(App->GetDeltaTime())), false, SDL_FLIP_NONE, 0.0F);
 }
