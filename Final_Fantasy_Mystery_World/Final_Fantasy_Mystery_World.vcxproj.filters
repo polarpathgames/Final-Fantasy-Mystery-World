@@ -549,12 +549,6 @@
     <Xml Include="Game\assets\xml\CutsceneLobbyQuest2.xml">
       <Filter>Cutscenes\XML</Filter>
     </Xml>
-    <Xml Include="Game\assets\xml\CutsceneHomeSleep2.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneLobbyQuest3.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\assets\entities\CarnivorousPlant.tsx">
