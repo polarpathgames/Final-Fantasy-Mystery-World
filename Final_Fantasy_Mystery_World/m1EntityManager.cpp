@@ -275,7 +275,7 @@ void m1EntityManager::OnCollisionExit(Collider * c1, Collider * c2)
 e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX, int PositionY, std::string name)
 {
 	BROFILER_CATEGORY("CreateEntity", Profiler::Color::Blue);
-	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)23, "code needs update");
+	static_assert(e1Entity::EntityType::NO_TYPE == (e1Entity::EntityType)24, "code needs update");
 	e1Entity* ret = nullptr;
 	switch (type) {
 

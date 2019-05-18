@@ -30,10 +30,10 @@ e1BabyDrake::e1BabyDrake(const int & x, const int & y) : e1Enemy(x, y)
 	target_position = position;
 	initial_position = position;
 	
-	if (App->map->quest_rooms->actual_room->room_type == RoomType::BOSS) {
+
 		drake_hp_bar = App->gui->AddBar(100, 80, stats.max_live, ENEMYBAR, App->menu_manager->hud.bg_hud, nullptr);
 		drake_name_label = App->gui->AddLabel(355, 20, "Ancient Dragon", drake_hp_bar, BLACK, FontType::FF64, nullptr, false);
-	}
+
 
 	InitStats();
 }
@@ -42,7 +42,8 @@ e1BabyDrake::~e1BabyDrake()
 {
 	if (fire_particle != nullptr)
 		App->particles->DeleteFollow_p(fire_particle);
-
+	drake_hp_bar->to_delete = true;
+	drake_name_label->to_delete = true;
 }
 
 void e1BabyDrake::PrepareDistanceAttack()
