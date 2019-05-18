@@ -78,6 +78,9 @@ bool m1DialogSystem::PerformDialogue(int tr_id)
 	bool ret = true;
 	treeid = tr_id;
 
+	if (App->cutscene_manager->is_executing)
+		return false;
+
 	if (dialogTrees.empty())
 		LOG("TreeEmpty");
 	if (firstupdate)
