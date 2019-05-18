@@ -39,9 +39,17 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 {
 	type = EntityType::PLAYER;
 	ground = App->tex->Load("assets/sprites/player_pos.png");
+	ability1_tile_tx = App->tex->Load("assets/sprites/Particles.png");
 	current_animation = &anim.IdleDownLeft;
 	direction = Direction::DOWN_LEFT;
 	Init();
+
+	timer_ability1.Stop();
+	tile_anim.PushBack({ 261,0,32,32 });
+	tile_anim.PushBack({ 261,32,32,32 });
+	tile_anim.PushBack({ 261,64,32,32 });
+	tile_anim.speed = 5.f;
+	tile_anim.loop = false;
 }
 
 void e1Player::Init()
@@ -60,12 +68,15 @@ void e1Player::Init()
 		movement_type = Movement_Type::InQuest;
 
 	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (m1Module*)App->entity_manager);
+
 }
 
 e1Player::~e1Player()
 {
 	App->tex->UnLoad(ground);
+	App->tex->UnLoad(ability1_tile_tx);
 	ground = nullptr;
+	ability1_tile_tx = nullptr;
 }
 
 bool e1Player::PreUpdate()
@@ -74,12 +85,6 @@ bool e1Player::PreUpdate()
 
 	if (!block_controls)
 		ReadPlayerInput();
-
-	//debug
-
-	if (App->input->GetKeyDown(SDL_SCANCODE_R)) {
-		App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 30, 5);
-	}
 
 	return true;
 }
@@ -95,7 +100,6 @@ bool e1Player::Update(float dt)
 
 	if (coll != nullptr)
 		coll->SetPos(position.x + pivot.x/2 - 2, position.y + 20);
-
 
 	return true;
 }
@@ -161,6 +165,18 @@ bool e1Player::Save(pugi::xml_node & node) const
 	return true;
 }
 
+void e1Player::Draw(float dt)
+{
+	if (!ability1_tiles.empty()) {
+		tile_anim.GetCurrentFrame(dt);
+		for (std::vector<iPoint>::iterator item = ability1_tiles.begin(); item != ability1_tiles.end(); ++item) {
+			App->render->Blit(ability1_tile_tx, (*item).x+1, (*item).y-8, &tile_anim.GetFrame(tile_anim.current_frame), true);
+		}
+	}
+
+	e1Entity::Draw(dt);
+}
+
 bool e1Player::CleanUp()
 {
 	App->tex->UnLoad(ground);
@@ -195,6 +211,9 @@ void e1Player::OnCollisionEnter(Collider * c2)
 	}
 	if (c2->type == COLLIDER_QUEST_ICE) {
 		App->dialog->PerformDialogue(10);
+	}
+	if (c2->type == COLLIDER_BED) {
+		App->dialog->PerformDialogue(12);
 	}
 }
 
@@ -352,6 +371,13 @@ void e1Player::ReadPlayerInput()
 	}
 	if (state == State::BEFORE_FLASH) {
 		LookFlash();
+	}
+	if (state == State::FLASHING && (!App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.HABILITY2) && !App->input->GetKeyDownOrRepeat(App->input->controller_Buttons.buttons_code.HABILITY2))) {
+		if (drawable) {
+			state = State::IDLE;
+			timer_ability1.Stop();
+			ability1_tiles.clear();
+		}
 	}
 }
 
@@ -524,10 +550,29 @@ void e1Player::ReadAttack()
 		App->audio->PlayFx(App->scene->fx_attack);
 		return;
 	}
-	if (player_input.pressing_1 && App->globals.ability1_gained == true) {
-		PrepareSpecialAttack1();
+	if ((App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.HABILTY1) || App->input->GetControllerButtonDownOrRepeat(App->input->controller_Buttons.buttons_code.HABILTY1))
+		&& App->globals.ability1_gained == true) {
+		if (timer_ability1.IsRunning()) {
+			if (timer_ability1.ReadSec() >= time_to_wait_ability1) {
+				PrepareSpecialAttack1();
+				timer_ability1.Stop();
+				ability1_tiles.clear();
+			}
+		}
+		else {
+			timer_ability1.Start();
+			tile_anim.Reset();
+			SetAbility1TilesPos();
+		}
+
 		return;
 	}
+	else if (timer_ability1.IsRunning()) {
+		timer_ability1.Stop();
+		ability1_tiles.clear();
+		state = State::IDLE;
+	}
+
 	if (player_input.pressing_3 && App->globals.ability3_gained == true) {
 		App->audio->PlayFx(App->scene->fx_ability3);
 		PrepareSpecialAttack2();
@@ -1297,7 +1342,6 @@ void e1Player::QuestControls()
 void e1Player::LookFlash()
 {
 
-	state = State::FLASHING;
 	iPoint next_pos{ 0,0 };
 	switch (direction) {
 	case Direction::DOWN_LEFT:
@@ -1327,20 +1371,36 @@ void e1Player::LookFlash()
 	}
 
 	if (App->map->IsWalkable(next_pos, false) && !IsEnemyInThatPosition(next_pos)) {
-		drawable = false;
+		ability1_tiles.push_back(App->map->MapToWorld(next_pos.x, next_pos.y));
+		state = State::FLASHING;
+		tile_anim.Reset();
 		flash_position = next_pos;
-		flash_time = SDL_GetTicks();
-		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{0,-10}, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
+		timer_ability1.Start();
 	}
-	else
-		state = State::IDLE;
+	else state = State::IDLE;
 
 }
 
 void e1Player::Flashing()
 {
+	if (drawable) {
+		if (timer_ability1.IsRunning()) {
+			if (timer_ability1.ReadSec() > 0.7f) {
+				drawable = false;
+				timer_ability1.Stop();
+				flash_time = SDL_GetTicks();
+				App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
+			}
+		}
+		else {
+			state = State::IDLE;
 
-	if (flash_time < SDL_GetTicks() - 500) {
+		}
+	}
+	
+
+	if (drawable == false && flash_time < SDL_GetTicks() - 500) {
+		ability1_tiles.clear();
 		actual_tile = flash_position;
 		App->audio->PlayFx(App->scene->fx_flash);
 		state = State::AFTER_FLASH;

@@ -6,7 +6,10 @@
 #include "m1EntityManager.h"
 #include "m1Audio.h"
 #include "e1State.h"
+#include "u1Bar.h"
+#include "u1Label.h"
 #include "p2Log.h"
+#include "m1MenuManager.h"
 #include "e1BlueSlime.h"
 #include "Brofiler/Brofiler.h"
 
@@ -25,6 +28,13 @@ e1Frozen::e1Frozen(const int& x, const int& y) :e1Enemy(x, y)
 	tp_number_hit = tp_number_hit_phase1;
 
 	tp_timer.Stop();
+
+	if(App->map->quest_rooms->actual_room->room_type == RoomType::BOSS){
+		icequeen_hp_bar = App->gui->AddBar(100, 80, stats.max_live, ENEMYBAR, (u1GUI*)App->menu_manager->hud.bg_hud, nullptr);
+		icequeen_label = App->gui->AddLabel(355, 20, "Ice Queen", icequeen_hp_bar, BLACK, FontType::FF64, nullptr, false);
+	}
+
+	
 }
 
 e1Frozen::~e1Frozen()

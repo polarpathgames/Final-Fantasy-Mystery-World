@@ -236,6 +236,7 @@
     <ClCompile Include="e1AmazingDragon.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="e1Bomberman.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -499,6 +500,7 @@
     <ClInclude Include="e1AmazingDragon.h">
       <Filter>Entities</Filter>
     </ClInclude>
+    <ClInclude Include="e1Bomberman.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml">
@@ -540,6 +542,7 @@
     <Xml Include="Game\assets\xml\CutsceneQueenQuest2.xml">
       <Filter>Cutscenes\XML</Filter>
     </Xml>
+    <Xml Include="Game\assets\xml\CutsceneLobbyQuest2.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\assets\entities\CarnivorousPlant.tsx">

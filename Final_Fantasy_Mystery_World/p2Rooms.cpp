@@ -289,8 +289,6 @@ void RoomManager::LoadRoom(const int & id)
 		}
 	}
 
-
-
 	LoadColliders();
 	UpdateMap();
 	LoadEntities();
@@ -463,6 +461,9 @@ void RoomManager::LoadEntities()
 				}
 				else if ((*position)->ent_type == "Frozen") {
 					ent_type = e1Entity::EntityType::FROZEN;
+				}
+				else if ((*position)->ent_type == "Bomberman") {
+					ent_type = e1Entity::EntityType::BOMBERMAN;
 				}
 				App->entity_manager->CreateEntity(ent_type, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 				std::vector<MapIndicators*>::iterator item = actual_room->map_indicators.begin();
@@ -873,8 +874,12 @@ void RoomManager::UpdateRoomEvents()
 		}
 	}
 
-	if (actual_room != nullptr && actual_room->active && !App->entity_manager->ThereAreEnemies() && actual_room->room_type == RoomType::BOSS && !App->globals.Tutorial_first_time) {
+	if (actual_room != nullptr && actual_room->active && !App->entity_manager->ThereAreEnemies() && actual_room->room_type == RoomType::BOSS && !App->globals.Tutorial_first_time && App->map->actual_map == Maps::TUTORIAL) {
 		App->fade_to_black->FadeToBlack(Maps::LOBBY);
+	}
+	if (actual_room != nullptr && actual_room->active && !App->entity_manager->ThereAreEnemies() && actual_room->room_type == RoomType::BOSS && App->map->actual_map == Maps::QUEST2) {
+		App->globals.ice_queen_killed = true;
+		/*App->fade_to_black->FadeToBlack(Maps::LOBBY);*/
 	}
 }
 

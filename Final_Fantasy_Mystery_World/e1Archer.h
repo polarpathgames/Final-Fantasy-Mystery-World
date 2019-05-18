@@ -21,6 +21,8 @@ public:
 
 	void UpdateLevel();
 
+	void SetAbility1TilesPos();
+
 public:
 
 	e1Particles * arrow = nullptr;

@@ -32,6 +32,7 @@
 #include "e1Enemy.h"
 #include "e1State.h"
 #include "e1Frozen.h"
+#include "e1Bomberman.h"
 #include <algorithm>
 #include "Brofiler/Brofiler.h"
 
@@ -297,6 +298,7 @@ e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX
 	case e1Entity::EntityType::CASSIO: ret = DBG_NEW e1Cassio(PositionX, PositionY); break;
 	case e1Entity::EntityType::BABY_DRAKE: ret = DBG_NEW e1BabyDrake(PositionX, PositionY); break;
 	case e1Entity::EntityType::SUPER_PURPLE_FROG: ret = DBG_NEW e1SuperPurpleFrog(PositionX, PositionY); break;
+	case e1Entity::EntityType::BOMBERMAN: ret = DBG_NEW e1Bomberman(PositionX, PositionY); break;
 	case e1Entity::EntityType::PARTICLE: ret = DBG_NEW e1Particles(PositionX, PositionY); break;
 	//case e1Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
 	case e1Entity::EntityType::NPC: ret = DBG_NEW e1NPC(PositionX, PositionY); break;
@@ -368,16 +370,49 @@ void m1EntityManager::DeleteEntity(e1Entity* entity_to_delete)
 
 }
 
-void m1EntityManager::SpawnRupees(const int & x, const int & y, const int & number, const int & range)
+void m1EntityManager::SpawnRupees(const int & x, const int & y, const int & number, const int & range, const int & gold_per, const int & red_per, const int& blue_per, const int & green_per)
 {
 	BROFILER_CATEGORY("SpawnRupees", Profiler::Color::BlueViolet);
 	e1Drop* drop = nullptr;
 	iPoint destination = { 0,0 };
 	std::vector<iPoint> positions;
+	int random_rupee = 0;
+	int gold = 0;
+
+	std::vector<std::pair<int,const char*>> per;
+	per.push_back(std::make_pair(gold_per, "gold_rupee"));
+	per.push_back(std::make_pair(red_per, "red_rupee"));
+	per.push_back(std::make_pair(blue_per, "blue_rupee"));
+	per.push_back(std::make_pair(green_per, "green_rupee"));
+	std::sort(per.begin(), per.end());
+	std::vector<std::pair<int, const char*>>::iterator per_item = per.begin();
+	int value = 0;
+	while (per_item+1 != per.end()) {
+		value = (*per_item).first;
+		(*(++per_item)).first += value;
+	}
+	per_item = per.begin();
+
 	if (FindFreeTileAround({ x,y }, range, &positions))
 		for (int i = 0; i < number; ++i) {
-			drop = (e1Drop*)CreateEntity(e1Entity::EntityType::DROP, x, y, "green_rupee");
-			int gold = App->random.Generate(25, 100);
+			random_rupee = App->random.Generate(1, per.back().first);
+			if (IN_RANGE(random_rupee, 0, (*per_item).first)) {
+				drop = (e1Drop*)CreateEntity(e1Entity::EntityType::DROP, x, y, (*per_item).second);
+				gold = App->random.Generate(300, 400);
+			}
+			else if (IN_RANGE(random_rupee, (*per_item).first, (*++per_item).first)) {
+				drop = (e1Drop*)CreateEntity(e1Entity::EntityType::DROP, x, y, (*per_item).second);
+				gold = App->random.Generate(90, 110);
+			}
+			else if (IN_RANGE(random_rupee, (*per_item).first, (*++per_item).first)) {
+				drop = (e1Drop*)CreateEntity(e1Entity::EntityType::DROP, x, y, (*per_item).second);
+				gold = App->random.Generate(45, 65);
+			}
+			else if (IN_RANGE(random_rupee, (*per_item).first, (*++per_item).first)) {
+				drop = (e1Drop*)CreateEntity(e1Entity::EntityType::DROP, x, y, (*per_item).second);
+				gold = App->random.Generate(15, 25);
+			}
+			
 			drop->SetGold(gold);
 			destination = positions[App->random.Generate(0, positions.size() - 1)];
 			std::vector<iPoint>::iterator item = positions.begin();
@@ -387,8 +422,6 @@ void m1EntityManager::SpawnRupees(const int & x, const int & y, const int & numb
 					break;
 				}
 			}
-			LOG("%i",positions.size());
-			LOG("%i %i", destination.x,destination.y);
 			drop->moving_pos = drop->actual_tile = destination;
 			destination = App->map->MapToWorldCentered(destination.x, destination.y) - drop->pivot;
 			App->easing_splines->CreateSpline(&drop->position.x, destination.x + App->map->data.tile_width / 2, 2000, TypeSpline::EASE, std::bind(&e1Drop::FinishSpline, drop));
@@ -396,6 +429,7 @@ void m1EntityManager::SpawnRupees(const int & x, const int & y, const int & numb
 				1000, TypeSpline::EASE_OUT_CUBIC, std::bind(&e1Drop::SetSplineToFall, drop));
 			drop->moving = true;
 			if (positions.empty()) break;
+			per_item = per.begin();
 		}
 }
 
@@ -405,7 +439,6 @@ bool m1EntityManager::FindFreeTileAround(const iPoint & tile, const uint & range
 	bool ret = false;
 	for (uint i = 0; i <= 2 * range; i++) {
 		for (uint j = 0; j <= 2 * range; j++) {
-			LOG("%i %i", destination_tile.x, destination_tile.y);
 			if (destination_tile != tile)
 				if (IsWalkable(destination_tile))
 					list_to_fill->push_back(destination_tile);

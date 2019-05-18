@@ -373,7 +373,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			   case 33: { // take flash
 				   App->globals.ability2_gained = true;
 				   App->scene->player->BlockControls(true);
-				   App->menu_manager->CreateHelpAbilityMenu(true);
+				   App->menu_manager->CreateHelpAbilityMenu(AbilityType::FLASH);
 				  // App->menu_manager->ShowHUD(false);
 				   App->scene->SetMenuState(StatesMenu::FIRSTABILITY_MENU);
 				   std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
@@ -416,6 +416,14 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->globals.CutSceneHomeToSleepQuest2 = true;
 				   //App->scene->player->BlockControls(false);
 				   break;
+			   case 5: //Portal Dialog Quest 2
+				   App->map->lobby_state = LobbyState::NORMAL_LOBBY;
+				   App->fade_to_black->FadeToBlack(Maps::LOBBY);
+				   App->globals.ice_queen_killed = true;
+				   break;
+			   case 6: //Quest 3 beginning
+				 
+				   break;
 			   case 30: //old statue tutorial diagonal
 				   App->menu_manager->CreateHelpDiagonalMenu();
 				   App->scene->SetMenuState(StatesMenu::HELP_DIAGONAL_MENU);
@@ -425,14 +433,14 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->scene->SetMenuState(StatesMenu::HELP_ATTACK_MENU);
 				   break;
 			   case 90: //old statue tutorial ATTACK
-				   App->menu_manager->CreateHelpAbilityMenu();
+				   App->menu_manager->CreateHelpAbilityMenu(AbilityType::ABILITY1);
 				   App->scene->SetMenuState(StatesMenu::HELP_ABILITY_MENU);
 				   break;
 			   case 43: // go to quest 2 in lobby ice
 				   App->fade_to_black->FadeToBlack(Maps::QUEST2, 2.0F);
 				   break;
 			   case 190: //old statue tutorial ATTACK
-				   App->menu_manager->CreateHelpAbilityMenu(true);
+				   App->menu_manager->CreateHelpAbilityMenu(AbilityType::FLASH);
 				   App->scene->SetMenuState(StatesMenu::HELP_ABILITY_MENU);
 				   break;
 			   default:

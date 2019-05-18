@@ -15,6 +15,9 @@ m1Collision::m1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_QUEST_ICE] = true;
 	matrix[COLLIDER_QUEST_ICE][COLLIDER_PLAYER] = true;
 
+	matrix[COLLIDER_PLAYER][COLLIDER_BED] = true;
+	matrix[COLLIDER_BED][COLLIDER_PLAYER] = true;
+
 	matrix[COLLIDER_PLAYER][COLLIDER_HOME] = true;
 	matrix[COLLIDER_HOME][COLLIDER_PLAYER] = true;
 

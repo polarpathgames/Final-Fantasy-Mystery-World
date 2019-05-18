@@ -571,10 +571,10 @@ void m1MenuManager::CreatePotionMenu(u1GUI* potion_button)
 	{
 		potion.potion_panel = App->gui->AddImage(inventory.inventory_panel->section.w + 14, inventory.inventory_panel->section.h/2 - 20, { 1878, 1536, 170, 101 }, nullptr, inventory.inventory_panel, true, false, false, false);
 
-		potion.use_hp_button = App->gui->AddButton(30, 0, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, App->scene, potion.potion_panel, false, false, true, true);
+		potion.use_hp_button = App->gui->AddButton(45, 20, { 0, 0, 40, 25 }, { 0, 0,40, 25 }, { 0, 0, 40, 25 }, App->scene, potion.potion_panel, false, false, true, true);
 		potion.use_label = App->gui->AddLabel(50, -5, "Use", potion.potion_panel, BLACK, FontType::FF64, nullptr, false);
 
-		potion.cancel_button = App->gui->AddButton(30, 43, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, { 10, 10, 60, 50 }, App->scene, potion.potion_panel, false, false, true, true);
+		potion.cancel_button = App->gui->AddButton(48, 60, { 10, 10, 60, 25 }, { 10, 10, 60, 25 }, { 10, 10, 60, 25 }, App->scene, potion.potion_panel, false, false, true, true);
 		potion.cancel_label = App->gui->AddLabel(50, 38, "Cancel", potion.potion_panel, BLACK, FontType::FF64, nullptr, false);
 
 		App->gui->FocusButton(potion.use_hp_button);
@@ -914,14 +914,14 @@ void m1MenuManager::CreateGameOver()
 	game_over.game_over_panel = App->gui->AddImage(0, 0, { 1024, 0, 1024, 768 }, nullptr, App->gui->screen, true, false, false, false);
 	game_over.game_over_panel->SetPosRespectParent(CENTERED);
 
-	game_over.button_continue_lobby = App->gui->AddButton(150, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->scene, game_over.game_over_panel, false, false, true, true);
+	game_over.button_continue_lobby = App->gui->AddButton(150, 500, { 0,0,150,50 }, { 0,0,150,50 }, { 0,0,150,50 }, App->scene, game_over.game_over_panel, false, false, true, true);
 	game_over.label_continue_lobby = App->gui->AddLabel(0, 0, "Continue", game_over.button_continue_lobby, WHITE, FontType::FF100, nullptr, false);
-	game_over.label_continue_lobby->SetPosRespectParent(LEFT_CENTERED);
+	game_over.label_continue_lobby->SetPosRespectParent(CENTERED);
 
 
-	game_over.button_return_main = App->gui->AddButton(610, 500, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->scene, game_over.game_over_panel, false, false, true, true);
+	game_over.button_return_main = App->gui->AddButton(610, 500, { 1850,1637,260,60 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->scene, game_over.game_over_panel, false, false, true, true);
 	game_over.label_continue_main = App->gui->AddLabel(0, 0, "Return Main Menu", game_over.button_return_main, WHITE, FontType::FF100, nullptr, false);
-	game_over.label_continue_main->SetPosRespectParent(LEFT_CENTERED);
+	game_over.label_continue_main->SetPosRespectParent(CENTERED);
 }
 
 void m1MenuManager::DestroyGameOver()
@@ -954,27 +954,55 @@ void m1MenuManager::DestroyHelpAttackMenu()
 	EnableHUD(true);
 }
 
-void m1MenuManager::CreateHelpAbilityMenu(bool flash)
+void m1MenuManager::CreateHelpAbilityMenu(AbilityType type)
 {
 	App->audio->PlayFx(App->scene->fx_ability_screen);
-	switch (App->scene->player_type) {
-	case PlayerType::WARRIOR:
-	if (!flash)
-		help_ability = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
-	else if (flash)
-		help_ability = App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+
+	u1GUI* image = nullptr;
+	u1GUI* text1 = nullptr;
+	u1GUI* text2 = nullptr;
+
+	switch (type)
+	{
+	case AbilityType::ABILITY1:
+		help_ability = App->gui->AddImage(0, 0, { 0,0,0,0 }, nullptr, App->gui->screen, false, false, false, false);
+		image = App->gui->AddImage(0, 0, { 0,4792,1024,768 }, nullptr, help_ability, true, false, false, false);
+
+		switch (App->scene->player_type)
+		{
+		case PlayerType::WARRIOR:
+			text1 = App->gui->AddLabel(0, 0, "Warrior turns on its own axis damaging", image, WHITE, FontType::PMIX24, nullptr, false);
+			text2 = App->gui->AddLabel(0, 0, "all enemies around", text1, WHITE, FontType::PMIX24, nullptr, false);
+			break;
+		case PlayerType::ARCHER:
+			text1 = App->gui->AddLabel(0, 0, "Archer throws a sharp arrow", image, WHITE, FontType::PMIX24, nullptr, false);
+			text2 = App->gui->AddLabel(0, 0, "damaging 3 tiles straight", text1, WHITE, FontType::PMIX24, nullptr, false);
+			break;
+		case PlayerType::MAGE:
+			text1 = App->gui->AddLabel(0, 0, "Mage throws 3 powerful fireballs", image, WHITE, FontType::PMIX24, nullptr, false);
+			text2 = App->gui->AddLabel(0, 0, "damaging 3 tiles", text1, WHITE, FontType::PMIX24, nullptr, false);
+			break;
+		}
+
+		if (text1 != nullptr) {
+			text1->SetPosRespectParent(Position_Type::CENTERED);
+			text1->position.y += 130;
+			text2->SetPosRespectParent(Position_Type::CENTERED);
+			text2->position.y += text1->section.h + 5;
+		}
+
+		text1 = App->gui->AddLabel(0, 0, "It can also disintegrate objects", image, WHITE, FontType::PMIX24, nullptr, false);
+		text1->SetPosRespectParent(Position_Type::CENTERED);
+		text1->position.y += 220;
+
 		break;
-	case PlayerType::MAGE:
-		if (!flash)
-			help_ability = App->gui->AddImage(0, 0, { 2048,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
-		else if (flash)
-			help_ability = App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+	case AbilityType::FLASH:
+		help_ability = App->gui->AddImage(0, 0, { 0,0,0,0 }, nullptr, App->gui->screen, false, false, false, false);
+		App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, help_ability, true, false, false, false);
 		break;
-	case PlayerType::ARCHER:
-		if (!flash)
-			help_ability = App->gui->AddImage(0, 0, { 0,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
-		else if (flash)
-			help_ability = App->gui->AddImage(0, 0, { 1024,7096,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+	case AbilityType::ABILITY3:
+		break;
+	default:
 		break;
 	}
 }
@@ -982,6 +1010,7 @@ void m1MenuManager::CreateHelpAbilityMenu(bool flash)
 void m1MenuManager::DestroyHelpAbilityMenu()
 {
 	App->gui->DeleteUIElement(help_ability);
+	help_ability = nullptr;
 	EnableHUD(true);
 }
 
