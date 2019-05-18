@@ -63,7 +63,7 @@ bool e1Particles::Update(float dt)
 	case e1Particles::ParticleType::AMAZING_DRAGON_FIRE_BALL: {
 		iPoint pos = App->map->MapToWorld(actual_tile.x, actual_tile.y);
 		SDL_Rect rect{ 2664,4659,120,90 };
-		rect = { 2664,4659,54,40 };
+		rect = { 2657,4660,64,40 };
 		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), pos.x - 10, pos.y - 12, &rect, true);
 		break; }
 	default:
