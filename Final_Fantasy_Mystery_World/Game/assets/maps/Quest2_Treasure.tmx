@@ -9829,9 +9829,7 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="250" name="InstaGoldRuppe" type="static" x="432" y="352" width="16" height="16"/>
-  <object id="251" name="InstaRedRuppe" type="static" x="432" y="336" width="16" height="16"/>
-  <object id="253" name="InstaGoldRuppe" type="static" x="432" y="320" width="16" height="16"/>
+  <object id="250" name="InstaGoldRuppe" type="static" x="352" y="272" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="9" name="colliders">
   <object id="62" name="room_collider" type="lastB" x="560" y="352" width="16.1904" height="16.5606">
