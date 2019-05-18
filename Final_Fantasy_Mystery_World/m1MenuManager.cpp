@@ -513,13 +513,35 @@ void m1MenuManager::DestroyNameMenu()
 void m1MenuManager::CreateGoToQuestMenu()
 {
 	App->audio->PlayFx(App->gui->fx_inventory);
-	quest.go_to_quest_panel = App->gui->AddImage(100, 70, { 1878, 1536, 170, 101 }, nullptr, App->gui->screen, true, false, false, false);
 
-	quest.go_to_quest_button = App->gui->AddButton(30, 18, { 0, 0, 120, 20 }, { 0, 0, 120, 20 }, { 0, 0, 120, 20 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
-	quest.go_to_quest_label = App->gui->AddLabel(50, -5, "Tutorial", quest.go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
+	if (App->globals.ice_queen_killed) {
+		quest.go_to_quest_panel = App->gui->AddImage(100, 70, { 2454, 782, 170, 150 }, nullptr, App->gui->screen, true, false, false, false);
+	}
+	else {
+		quest.go_to_quest_panel = App->gui->AddImage(100, 70, { 1878, 1536, 170, 101 }, nullptr, App->gui->screen, true, false, false, false);
+	}
 
-	quest.cancel_quest_button = App->gui->AddButton(40, 65, { 0, 0, 80, 20 }, { 0, 0, 80, 20 }, { 0, 0, 80, 20 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
-	quest.cancel_quest_label = App->gui->AddLabel(50, 38, "Cancel", quest.go_to_quest_panel, BLACK, FontType::FF64, nullptr, false);
+	int x = 25;
+	int y = 10;
+
+	quest.tutorial_button = App->gui->AddButton(x, y, { 0, 0, 120, 30 }, { 0, 0, 120, 40 }, { 0, 0, 120, 40 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
+	quest.tutorial_label = App->gui->AddLabel(0, 0, "Forest", quest.tutorial_button, BLACK, FontType::FF64, nullptr, false);
+	quest.tutorial_label->SetPosRespectParent(Position_Type::CENTERED);
+	quest.tutorial_label->position.y -= 5;
+
+	if (App->globals.ice_queen_killed) {
+		y += quest.tutorial_button->section.h+20;
+		quest.quest2_button = App->gui->AddButton(x,y, { 0, 0, 120, 30 }, { 0, 0, 120, 40 }, { 0, 0, 120, 40 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
+		quest.quest2_label = App->gui->AddLabel(0, 0, "Ice Mountains", quest.quest2_button, BLACK, FontType::FF64, nullptr, false);
+		quest.quest2_label->SetPosRespectParent(Position_Type::CENTERED);
+		quest.quest2_label->position.y -= 5;
+	}
+
+	y += quest.tutorial_button->section.h+20;
+	quest.cancel_quest_button = App->gui->AddButton(x, y, { 0, 0, 120, 30 }, { 0, 0, 120, 40 }, { 0, 0, 120, 40 }, App->scene, quest.go_to_quest_panel, false, false, true, true);
+	quest.cancel_quest_label = App->gui->AddLabel(0, 0, "Cancel", quest.cancel_quest_button, BLACK, FontType::FF64, nullptr, false);
+	quest.cancel_quest_label->SetPosRespectParent(Position_Type::CENTERED);
+	quest.cancel_quest_label->position.y -= 5;
 
 	App->scene->player->BlockControls(true);
 }

@@ -499,10 +499,18 @@ struct UI_potion {
 	}
 };
 
-struct UI_quest {
+struct UI_quest{
 	u1Image* go_to_quest_panel = nullptr;
-	u1Button* go_to_quest_button = nullptr;
-	u1Label* go_to_quest_label = nullptr;
+	
+	u1Button* tutorial_button = nullptr;
+	u1Label* tutorial_label = nullptr;
+
+	u1Button* quest2_button = nullptr;
+	u1Label* quest2_label = nullptr;
+
+	u1Button* quest3_button = nullptr;
+	u1Label* quest3_label = nullptr;
+	
 	u1Button* cancel_quest_button = nullptr;
 	u1Label* cancel_quest_label = nullptr;
 };

@@ -597,7 +597,7 @@ bool m1Scene::Interact(u1GUI* interact)
 	bool ret = true;
 	switch (menu_state) {
 	case StatesMenu::GO_TO_QUEST_MENU:
-		if (interact == App->menu_manager->quest.go_to_quest_button) {
+		if (interact == App->menu_manager->quest.tutorial_button) {
 			App->audio->PlayFx(fx_ability_warrior);
 		
 			App->menu_manager->DestroyGoToQuestMenu();
