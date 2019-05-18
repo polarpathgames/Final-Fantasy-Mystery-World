@@ -2,7 +2,14 @@
 #include "App.h"
 #include "m1EntityManager.h"
 #include "e1Player.h"
+#include "m1Map.h"
+#include "m1GUI.h"
 #include "e1Particles.h"
+#include "u1UI_Element.h"
+#include "m1Window.h"
+#include "m1Render.h"
+#include "m1Audio.h"
+#include "m1Fonts.h"
 
 e1AmazingDragon::e1AmazingDragon(const int & x, const int & y) : e1Enemy(x, y)
 {
@@ -48,6 +55,8 @@ bool e1AmazingDragon::PreUpdate()
 				auxiliar_turn_count = 0U;
 				dragon_states = AmazingDragonStates::IDLE;
 				current_animation = &anim.IdleDownLeft;
+				App->map->data.no_walkables.pop_back();
+				actual_tile = { 1000,1000 };
 				turn_done = true;
 			}
 			else {
@@ -61,6 +70,8 @@ bool e1AmazingDragon::PreUpdate()
 				dragon_states = AmazingDragonStates::WEAK;
 				current_animation = &anim.GoDownLeft;
 				turn_done = true;
+				App->map->data.no_walkables.push_back(iPoint{ 22,14 });
+				actual_tile = { 22,15 };
 			}
 			else if (auxiliar_turn_count == turns_to_wait_before_attack_again) {
 				current_animation = &anim.BasicAttackDownLeft;
@@ -131,6 +142,20 @@ bool e1AmazingDragon::Update(float dt)
 
 void e1AmazingDragon::GetHitted(const int & dmg)
 {
+
+	stats.live -= dmg;
+	times_hitted++;
+	iPoint pos{ 0,0 };
+	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 5) * (int)App->win->GetScale();
+	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
+	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(dmg).data(), App->gui->screen, RED, FontType::PMIX24);
+	state = State::IDLE;
+	App->audio->PlayFx(fx_enemy_hit);
+	if (stats.live <= 0 || App->scene->player->god_mode) {
+		state = State::DEATH;
+		current_animation = &anim.DeathDownLeft;
+	}
+
 }
 
 void e1AmazingDragon::IdAnimToEnum()
@@ -145,6 +170,9 @@ void e1AmazingDragon::IdAnimToEnum()
 			break;
 		case 12:
 			data.animations[i].animType = AnimationState::WALKING_DOWN_LEFT;
+			break;
+		case 10:
+			data.animations[i].animType = AnimationState::DEATH_DOWN_LEFT;
 			break;
 		}
 	}

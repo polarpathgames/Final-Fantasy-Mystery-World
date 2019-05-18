@@ -4,7 +4,7 @@
  <properties>
   <property name="attack_power" type="int" value="30"/>
   <property name="experience" type="int" value="50"/>
-  <property name="live" type="int" value="100"/>
+  <property name="live" type="int" value="400"/>
   <property name="ratio_blue_rupee" type="int" value="20"/>
   <property name="ratio_gold_rupee" type="int" value="1"/>
   <property name="ratio_green_rupee" type="int" value="50"/>
@@ -49,6 +49,11 @@
    <frame tileid="8" duration="170"/>
    <frame tileid="9" duration="170"/>
    <frame tileid="10" duration="170"/>
+   <frame tileid="10" duration="170"/>
+  </animation>
+ </tile>
+ <tile id="10">
+  <animation>
    <frame tileid="10" duration="170"/>
   </animation>
  </tile>
