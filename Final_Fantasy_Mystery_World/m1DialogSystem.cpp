@@ -39,14 +39,7 @@ bool m1DialogSystem::Start()
 bool m1DialogSystem::Update(float dt)
 {
 	bool ret = true;
-		
-	if (App->map->lobby_state == LobbyState::NIGHT_LOBBY) {
-		if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black)
-			black = true;
-
-		if(black == true)
-			App->render->DrawQuad({ 0, 0, App->render->camera.w,  App->render->camera.h }, 0, 0, 0, 230, true, false);
-	}
+	
 		
 
 	return ret;
@@ -435,14 +428,8 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 			   case 6: //Quest 3 beginning
 			   {
 				   App->cutscene_manager->PlayCutscene("assets/xml/CutsceneHomeSleep2.xml");
+				   App->globals.sleep2 = true;
 				   App->map->lobby_state = LobbyState::NIGHT_LOBBY;
-				   //std::vector<Collider*> collider = App->collision->GetColliders();
-				   //std::vector<Collider*>::iterator item = collider.begin();
-				   //for (; item != collider.end(); ++item)
-				   //{
-					  // if ((*item)->type == COLLIDER_TYPE::COLLIDER_BED)
-						 //  App->collision->DeleteCollider((*item));
-				   //}
 				   break;
 			   }				  
 			   case 7: //Quest 3 Portal				   

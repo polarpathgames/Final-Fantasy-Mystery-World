@@ -218,7 +218,7 @@ void e1Player::OnCollisionEnter(Collider * c2)
 	if (c2->type == COLLIDER_QUEST_FIRE) {
 		App->dialog->PerformDialogue(13);
 	}
-	if (c2->type == COLLIDER_BED) {
+	if (c2->type == COLLIDER_BED && !App->globals.sleep2) {
 		App->dialog->PerformDialogue(12);
 	}
 }
