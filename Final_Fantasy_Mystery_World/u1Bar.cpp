@@ -147,7 +147,7 @@ void u1Bar::InnerDraw()
 
 			current_width += 100 * App->GetDeltaTime();
 
-			if (current_width == max_width) {
+			if (current_width >= max_width) {
 				current_width = 0;
 			}
 		}

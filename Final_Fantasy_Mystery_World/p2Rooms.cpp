@@ -384,19 +384,19 @@ void RoomManager::LoadEntities()
 				e1StaticEntity* treasure = (e1StaticEntity*)App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
 				if ((*position)->name == "treasure_1") {
 					if ((App->globals.treasure_quest2_opened)) {
-						treasure->frame = { 0,0,0,0 };
+						treasure->frame = { 301,137 ,35,32 };
 						treasure->interacting_state = e1StaticEntity::InteractingStates::NONE;
 					}
 				}
 				else if ((*position)->name == "treasure_boss") {
 					if ((App->globals.treasure_boss_opened)) {
-						treasure->frame = { 0,0,0,0 };
+						treasure->frame = { 335,137 ,35,32 };
 						treasure->interacting_state = e1StaticEntity::InteractingStates::NONE;
 					}
 				}
 				else if ((*position)->name == "treasure_quest3") {
 					if ((App->globals.treasure_quest3_opened)) {
-						treasure->frame = { 0,0,0,0 };
+						treasure->frame = { 301,137 ,35,32 };
 						treasure->interacting_state = e1StaticEntity::InteractingStates::NONE;
 					}
 				}
