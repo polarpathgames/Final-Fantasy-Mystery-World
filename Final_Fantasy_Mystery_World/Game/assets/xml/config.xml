@@ -40,6 +40,7 @@
     <maps>
       <lobby_map>Lobby.tmx</lobby_map>
       <lobby_ice>Lobby_Ice.tmx</lobby_ice>
+      <lobby_night>Lobby_Night.tmx</lobby_night>
       <shop_map>Shop.tmx</shop_map>
       <home_map>Home.tmx</home_map>
     </maps>

@@ -10,6 +10,7 @@
 #include "App.h"
 #include "m1Input.h"
 #include "m1Map.h"
+#include "m1Render.h"
 #include "u1Label.h"
 #include "e1StaticEntity.h"
 #include "u1Button.h"
@@ -38,6 +39,15 @@ bool m1DialogSystem::Update(float dt)
 {
 	bool ret = true;
 		
+	if (App->map->lobby_state == LobbyState::NIGHT_LOBBY) {
+		if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black)
+			black = true;
+
+		if(black == true)
+			App->render->DrawQuad({ 0, 0, App->render->camera.w,  App->render->camera.h }, 0, 0, 0, 230, true, false);
+	}
+		
+
 	return ret;
 }
 
@@ -422,7 +432,11 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->globals.ice_queen_killed = true;
 				   break;
 			   case 6: //Quest 3 beginning
-				 
+				   App->cutscene_manager->PlayCutscene("assets/xml/CutsceneHomeSleep2.xml");
+				   App->map->lobby_state = LobbyState::NIGHT_LOBBY;
+				   break;
+			   case 7: //Quest 3 Portal				   
+				   App->fade_to_black->FadeToBlack(Maps::FINAL_QUEST, 2.0F);
 				   break;
 			   case 30: //old statue tutorial diagonal
 				   App->menu_manager->CreateHelpDiagonalMenu();

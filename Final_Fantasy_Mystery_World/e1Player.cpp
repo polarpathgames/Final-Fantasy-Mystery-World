@@ -101,6 +101,9 @@ bool e1Player::Update(float dt)
 	if (coll != nullptr)
 		coll->SetPos(position.x + pivot.x/2 - 2, position.y + 20);
 
+	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyQuest3.xml");
+
 	return true;
 }
 
@@ -211,6 +214,9 @@ void e1Player::OnCollisionEnter(Collider * c2)
 	}
 	if (c2->type == COLLIDER_QUEST_ICE) {
 		App->dialog->PerformDialogue(10);
+	}
+	if (c2->type == COLLIDER_QUEST_FIRE) {
+		App->dialog->PerformDialogue(13);
 	}
 	if (c2->type == COLLIDER_BED) {
 		App->dialog->PerformDialogue(12);
