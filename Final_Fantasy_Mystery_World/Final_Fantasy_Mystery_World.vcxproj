@@ -263,11 +263,15 @@
     <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="Game\assets\xml\CutsceneDrakeQuest3.xml" />
+    <Xml Include="Game\assets\xml\CutsceneFinalGame.xml" />
     <Xml Include="Game\assets\xml\CutsceneFinalRoom.xml">
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="Game\assets\xml\CutsceneFinalRoomQuest2.xml" />
     <Xml Include="Game\assets\xml\CutsceneHomeSleep.xml" />
+    <Xml Include="Game\assets\xml\CutsceneHomeSleep2.xml" />
+    <Xml Include="Game\assets\xml\CutsceneLobbyCredits.xml" />
     <Xml Include="Game\assets\xml\CutsceneLobbyQuest2.xml" />
     <Xml Include="Game\assets\xml\CutsceneLobbyTutorial.xml" />
     <Xml Include="Game\assets\xml\CutsceneMiddleRoom.xml" />
