@@ -319,6 +319,74 @@ struct UI_controls_keyboard{
 	u1Label* label_ability3 = nullptr;
 	u1Label* label_to_show_how_ability3 = nullptr;
 
+	void Reset() {
+		keyboard = nullptr;
+
+		button_basic_attack = nullptr;
+		label_basic_attack = nullptr;
+		label_to_show_how_basic_attack = nullptr;
+
+		button_up = nullptr;
+		label_up = nullptr;
+		label_to_show_how_up = nullptr;
+
+		button_right = nullptr;
+		label_right = nullptr;
+		label_to_show_how_right = nullptr;
+
+		button_left = nullptr;
+		label_left = nullptr;
+		label_to_show_how_left = nullptr;
+
+		button_down = nullptr;
+		label_down = nullptr;
+		label_to_show_how_down = nullptr;
+
+		button_diagonals = nullptr;
+		label_diagonals = nullptr;
+		label_to_show_how_diagonals = nullptr;
+
+		button_direction_up = nullptr;
+		label_direction_up = nullptr;
+		label_to_show_how_direction_up = nullptr;
+
+		button_direction_right = nullptr;
+		label_direction_right = nullptr;
+		label_to_show_how_direction_right = nullptr;
+
+		button_direction_left = nullptr;
+		label_direction_left = nullptr;
+		label_to_show_how_direction_left = nullptr;
+
+		button_direction_down = nullptr;
+		label_direction_down = nullptr;
+		label_to_show_how_direction_down = nullptr;
+
+		button_inventory = nullptr;
+		label_inventory = nullptr;
+		label_to_show_how_inventory = nullptr;
+
+		button_interact = nullptr;
+		label_interact = nullptr;
+		label_to_show_how_interact = nullptr;
+
+		button_abilities = nullptr;
+		label_abilities = nullptr;
+		label_to_show_how_abilities = nullptr;
+
+		button_ability1 = nullptr;
+		label_ability1 = nullptr;
+		label_to_show_how_ability1 = nullptr;
+
+		button_ability2 = nullptr;
+		label_ability2 = nullptr;
+		label_to_show_how_ability2 = nullptr;
+
+		button_ability3 = nullptr;
+		label_ability3 = nullptr;
+		label_to_show_how_ability3 = nullptr;
+	}
+
 };
 
 struct UI_controls_controller {
@@ -371,6 +439,58 @@ struct UI_controls_controller {
 
 	u1Button* Cbutton_ability3 = nullptr;
 	u1Label* Clabel_to_show_how_ability3 = nullptr;
+
+	void Reset() {
+		controller = nullptr;
+
+		Cbutton_direction_up = nullptr;
+		Clabel_to_show_how_direction_up = nullptr;
+
+		Cbutton_direction_right = nullptr;
+		Clabel_to_show_how_direction_right = nullptr;
+
+		Cbutton_direction_left = nullptr;
+		Clabel_to_show_how_direction_left = nullptr;
+
+		Cbutton_direction_down = nullptr;
+		Clabel_to_show_how_direction_down = nullptr;
+
+		Cbutton_diagonals = nullptr;
+		Clabel_to_show_how_diagonals = nullptr;
+
+		Cbutton_basic_attack = nullptr;
+		Clabel_to_show_how_basic_attack = nullptr;
+
+		Cbutton_up = nullptr;
+		Clabel_to_show_how_up = nullptr;
+
+		Cbutton_right = nullptr;
+		Clabel_to_show_how_right = nullptr;
+
+		Cbutton_left = nullptr;
+		Clabel_to_show_how_left = nullptr;
+
+		Cbutton_down = nullptr;
+		Clabel_to_show_how_down = nullptr;
+
+		Cbutton_inventory = nullptr;
+		Clabel_to_show_how_inventory = nullptr;
+
+		Cbutton_interact = nullptr;
+		Clabel_to_show_how_interact = nullptr;
+
+		Cbutton_abilities = nullptr;
+		Clabel_to_show_how_abilities = nullptr;
+
+		Cbutton_ability1 = nullptr;
+		Clabel_to_show_how_ability1 = nullptr;
+
+		Cbutton_ability2 = nullptr;
+		Clabel_to_show_how_ability2 = nullptr;
+
+		Cbutton_ability3 = nullptr;
+		Clabel_to_show_how_ability3 = nullptr;
+	}
 };
 
 struct UI_controls {
@@ -381,6 +501,14 @@ struct UI_controls {
 
 	u1Button* button_retun_to_options = nullptr;
 	u1Label* label_return_to_options = nullptr;
+
+	void Reset() {
+		controls_panel = nullptr;
+		button_retun_to_options = nullptr;
+		label_return_to_options = nullptr;
+		keyboard.Reset();
+		controller.Reset();
+	}
 };
 
 struct UI_select_champ {

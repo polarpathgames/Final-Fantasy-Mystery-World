@@ -451,6 +451,7 @@ void m1MenuManager::DestroyControls()
 
 	App->scene->labels_control.clear();
 	App->scene->Clabels_control.clear();
+	controls.Reset();
 }
 
 void m1MenuManager::CreateNameMenu()
