@@ -25,7 +25,7 @@ e1AmazingDragon::e1AmazingDragon(const int & x, const int & y) : e1Enemy(x, y)
 	turns_to_wait_after_fire_ball = 2U;
 	waves_before_recover_energy = 3U;
 	turns_recovering_energy = 5U;
-	number_of_fire_balls = 5U;
+	number_of_fire_balls = 2U;
 	anim.BasicAttackDownLeft.loop = false;
 }
 
@@ -62,13 +62,14 @@ bool e1AmazingDragon::PreUpdate()
 			else {
 				current_animation = &anim.BasicAttackDownLeft;
 				dragon_states = AmazingDragonStates::ATTACK;
+				time.Start();
 			}
 		break; }
 		case e1AmazingDragon::AmazingDragonStates::ATTACK: {
-			if (current_animation->Finished()) {
+			if (1000 < time.Read()) {
 				++auxiliar_attack_count;
 				std::vector<iPoint> random_pos;
-				App->entity_manager->FindFreeTileAround(App->scene->player->actual_tile, 8, &random_pos);
+				App->entity_manager->FindFreeTileAround(App->scene->player->actual_tile, 4, &random_pos);
 				for (uint i = 0; i < number_of_fire_balls; ++i) {
 					iPoint pos = random_pos[App->random.Generate(0, random_pos.size() - 1)];
 					e1Particles* fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, pos.x, pos.y, "");

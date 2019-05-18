@@ -37,6 +37,8 @@ public:
 	uint auxiliar_turn_count = 0U;
 	uint auxiliar_attack_count = 0U;
 
+	p2Timer time;
+
 };
 
 #endif // !_E1AMAZINGDRAGON_H_
