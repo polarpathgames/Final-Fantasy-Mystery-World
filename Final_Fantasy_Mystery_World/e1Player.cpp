@@ -1226,6 +1226,7 @@ void e1Player::Death()
 		App->audio->PlayFx(App->scene->fx_die);
 		App->map->CleanUp();
 		App->easing_splines->CleanUp();
+		App->gui->DeleteHitPointLabels();
 		App->entity_manager->DeleteEntitiesNoPlayer();
 		App->scene->player->AugmentLives(App->scene->player->stats.max_lives);
 		App->scene->player->AugmentMana(App->scene->player->stats.max_mana);
