@@ -13,10 +13,10 @@
       <time start="6100" type="change" text="I think its time to return to our world friend."/>
     </cutscene>
     <cutscene action="move_camera">
-      <time start="7100" duration="4000" origin_x="794" origin_y="-951"  speed="0.007" destination_x ="794"  destination_y="3000" stop_goal="true"/>
+      <time start="7100" duration="8000" origin_x="794" origin_y="-951"  speed="0.001" destination_x ="794"  destination_y="3000" stop_goal="true"/>
     </cutscene>
     <cutscene action="fade">
-      <time start="11000" duration="100" fade="6"/>
+      <time start="18000" duration="100" fade="6"/>
     </cutscene>
     <cutscene action="delete_entity" entity="best_friend">
       <time start="10000" duration="100"/>
