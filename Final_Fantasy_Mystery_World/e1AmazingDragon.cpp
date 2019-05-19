@@ -37,7 +37,7 @@ e1AmazingDragon::e1AmazingDragon(const int & x, const int & y) : e1Enemy(x, y)
 	turns_recovering_energy = 12U;
 	number_of_fire_balls = 4U;
 	turns_to_wait_before_attack_again = 8U;
-
+	auxiliar_turn_count = turns_to_wait_before_attack_again;
 	/*megadrake_hp_bar = App->gui->AddBar(100, 80, stats.max_live, ENEMYBAR, (u1GUI*)App->menu_manager->hud.bg_hud, nullptr);
 	megadrake_label = App->gui->AddLabel(355, 20, "Mega Dragon", megadrake_hp_bar, BLACK, FontType::FF64, nullptr, false);*/
 
@@ -122,13 +122,15 @@ bool e1AmazingDragon::PreUpdate()
 				if (std::find(item.begin(), item.end(), (e1Entity*)fire_ball) == item.end()) {
 					waiting_fire_balls = false;
 					auxiliar_turn_count = 0U;
+					turn_done = true;
 					dragon_states = AmazingDragonStates::IDLE;
 				}
 			}
 			else {
 				++auxiliar_turn_count;
+				turn_done = true;
 			}
-			turn_done = true;
+
 			break;
 		case e1AmazingDragon::AmazingDragonStates::NONE:
 			break;
