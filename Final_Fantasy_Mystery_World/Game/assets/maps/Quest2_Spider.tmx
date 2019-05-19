@@ -9631,7 +9631,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="7" name="Static animation objects" visible="0">
+ <objectgroup id="7" name="Static animation objects">
   <object id="62" name="plant2_quest1" type="static" x="400" y="240" width="32" height="32"/>
   <object id="63" name="plant2_quest1" type="static" x="368" y="400" width="32" height="32"/>
   <object id="65" name="grey_rock" type="static" x="416" y="352" width="32" height="32"/>
