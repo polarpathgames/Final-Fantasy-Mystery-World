@@ -35,6 +35,18 @@ e1Particles::~e1Particles()
 
 bool e1Particles::PreUpdate()
 {
+	if (particle_type == ParticleType::AMAZING_DRAGON_FIRE_BALL) {
+		if (turns == 0) {
+			allow_turn = false;
+			turn_done = true;
+			drawable = true;
+		}
+		else {
+			--turns;
+			turn_done = true;
+		}
+
+	}
 	return true;
 }
 
@@ -57,11 +69,12 @@ bool e1Particles::Update(float dt)
 		MoveIceStake(dt);
 		break; }
 	case e1Particles::ParticleType::AMAZING_DRAGON_FIRE_BALL: {
-		MoveAmazingFireBall(App->GetDeltaTime());
-		/*iPoint pos = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+		if (turns == 0)
+			MoveAmazingFireBall(App->GetDeltaTime());
+		iPoint pos = App->map->MapToWorld(actual_tile.x, actual_tile.y);
 		SDL_Rect rect{ 2664,4659,120,90 };
 		rect = { 2657,4660,64,40 };
-		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), pos.x - 13, pos.y - 11, &rect, true);*/
+		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), pos.x - 13, pos.y - 11, &rect, true);
 		break; }
 	default:
 		break;
@@ -518,6 +531,7 @@ void e1Particles::SetThunderbolt()
 
 void e1Particles::SetAmazingDragonFireBall(const uint & turns)
 {
+	allow_turn = true;
 	this->turns = turns;
 	velocity.y = 160;
 	position.y -= FIREBALL_ELEVATED_POS;
