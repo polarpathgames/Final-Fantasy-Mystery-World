@@ -37,6 +37,8 @@ e1Frozen::e1Frozen(const int& x, const int& y) :e1Enemy(x, y)
 
 e1Frozen::~e1Frozen()
 {
+	if (icequeen_hp_bar != nullptr)
+		icequeen_hp_bar->to_delete = true;
 }
 
 bool e1Frozen::PreUpdate()
