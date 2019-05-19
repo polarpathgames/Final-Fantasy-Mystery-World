@@ -882,10 +882,6 @@ void RoomManager::UpdateRoomEvents()
 	if (actual_room != nullptr && actual_room->active && !App->entity_manager->ThereAreEnemies() && actual_room->room_type == RoomType::BOSS && !App->globals.Tutorial_first_time && App->map->actual_map == Maps::TUTORIAL) {
 		App->fade_to_black->FadeToBlack(Maps::LOBBY);
 	}
-	if (actual_room != nullptr && actual_room->active && !App->entity_manager->ThereAreEnemies() && actual_room->room_type == RoomType::BOSS && App->map->actual_map == Maps::QUEST2) {
-		App->globals.ice_queen_killed = true;
-		/*App->fade_to_black->FadeToBlack(Maps::LOBBY);*/
-	}
 	if (actual_room != nullptr && actual_room->active && !App->entity_manager->ThereAreEnemies() && actual_room->room_type == RoomType::BOSS && App->map->actual_map == Maps::FINAL_QUEST && !App->globals.CutsceneFinalGame && App->scene->player->state == State::IDLE) {
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneFinalGame.xml");
 		App->globals.CutsceneFinalGame = true;
