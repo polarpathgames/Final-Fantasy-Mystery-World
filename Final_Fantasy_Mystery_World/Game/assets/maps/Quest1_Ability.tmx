@@ -4822,9 +4822,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="4" name="Static objects" visible="0">
-  <object id="23" name="fire_floor" type="static" x="336" y="304" width="32" height="32"/>
-  <object id="24" name="fire_floor" type="static" x="336" y="240" width="32" height="32"/>
+ <objectgroup id="4" name="Static objects">
   <object id="27" name="fire_wall_special1" type="static" x="144" y="272" width="32" height="32"/>
   <object id="29" name="fire_wall_special2" type="static" x="160" y="208" width="32" height="32"/>
   <object id="30" name="ability_base" type="static" x="272" y="288" width="32" height="32"/>
