@@ -825,6 +825,7 @@ bool e1StaticEntity::Update(float dt)
 				App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 20, 5, 0, 0, 0, 100);
 				App->scene->player->BlockControls(false);
 				App->globals.treasure_quest2_opened = true;
+				App->menu_manager->EnableHUD(true);
 				frame = { 301,137 ,35,32 }; // need to put open treasure sprite
 				interacting_state = InteractingStates::NONE;
 			}
@@ -832,6 +833,7 @@ bool e1StaticEntity::Update(float dt)
 				App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 5, 5, 30, 70, 0, 0);
 				App->scene->player->BlockControls(false);
 				App->globals.treasure_boss_opened = true;
+				App->menu_manager->EnableHUD(true);
 				frame = { 335,137 ,35,32 }; // need to put open treasure sprite
 				interacting_state = InteractingStates::NONE;
 			}
@@ -839,6 +841,7 @@ bool e1StaticEntity::Update(float dt)
 				App->entity_manager->SpawnRupees(actual_tile.x, actual_tile.y, 20, 5, 0, 0, 50, 50);
 				App->scene->player->BlockControls(false);
 				App->globals.treasure_quest3_opened = true;
+				App->menu_manager->EnableHUD(true);
 				frame = { 301,137 ,35,32 }; // need to put open treasure sprite
 				interacting_state = InteractingStates::NONE;
 			}
