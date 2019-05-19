@@ -36,7 +36,7 @@ e1AmazingDragon::e1AmazingDragon(const int & x, const int & y) : e1Enemy(x, y)
 	waves_before_recover_energy = 3U;
 	turns_recovering_energy = 12U;
 	number_of_fire_balls = 4U;
-	turns_to_wait_before_attack_again = 8U;
+	turns_to_wait_before_attack_again = 4U;
 	auxiliar_turn_count = turns_to_wait_before_attack_again;
 	/*megadrake_hp_bar = App->gui->AddBar(100, 80, stats.max_live, ENEMYBAR, (u1GUI*)App->menu_manager->hud.bg_hud, nullptr);
 	megadrake_label = App->gui->AddLabel(355, 20, "Mega Dragon", megadrake_hp_bar, BLACK, FontType::FF64, nullptr, false);*/
@@ -95,7 +95,7 @@ bool e1AmazingDragon::PreUpdate()
 				turn_done = true;
 				dragon_states = AmazingDragonStates::WAIT_FIRE_BALLS;
 				std::vector<iPoint> random_pos;
-				App->entity_manager->FindFreeTileAround(App->scene->player->actual_tile, 4, &random_pos);
+				App->entity_manager->FindFreeTileAround(App->scene->player->actual_tile, 3, &random_pos);
 				for (uint i = 0; i < number_of_fire_balls; ++i) {
 					iPoint pos = random_pos[App->random.Generate(0, random_pos.size() - 1)];
 					fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, pos.x, pos.y, "");
@@ -119,12 +119,10 @@ bool e1AmazingDragon::PreUpdate()
 		case e1AmazingDragon::AmazingDragonStates::WAIT_FIRE_BALLS:
 			if (turns_to_wait_after_fire_ball == auxiliar_turn_count) {
 				std::vector<e1Entity*> item = App->entity_manager->GetEntities();
-				if (std::find(item.begin(), item.end(), (e1Entity*)fire_ball) == item.end()) {
-					waiting_fire_balls = false;
-					auxiliar_turn_count = 0U;
-					turn_done = true;
-					dragon_states = AmazingDragonStates::IDLE;
-				}
+				waiting_fire_balls = false;
+				auxiliar_turn_count = 0U;
+				turn_done = true;
+				dragon_states = AmazingDragonStates::IDLE;
 			}
 			else {
 				++auxiliar_turn_count;
