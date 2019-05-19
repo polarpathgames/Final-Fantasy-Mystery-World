@@ -48,6 +48,7 @@ struct GlobalGameAdvances
 	bool ring_bought = false;
 	bool shop_gone = false;
 	bool CutSceneHomeToSleepQuest2 = false;
+	bool drake_killed = false;
 	bool quest2_rocks_cave_destroyed = false;
 	bool CutSceneQueenQuest2 = false;
 	bool CutSceneFinalRoomQuest2 = false;
@@ -81,6 +82,7 @@ struct GlobalGameAdvances
 		ability3_gained = false;
 		helmet_bought = false;
 		ring_bought = false;
+		drake_killed = false;
 		shop_gone = false;
 		quest2_rocks_cave_destroyed = false;
 		CutSceneQueenQuest2 = false;
