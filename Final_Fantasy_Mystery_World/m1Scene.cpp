@@ -644,6 +644,15 @@ bool m1Scene::Interact(u1GUI* interact)
 			menu_state = StatesMenu::NO_MENU;
 			ret = false;
 		}
+		if (interact == App->menu_manager->quest.quest2_button) {
+			App->audio->PlayFx(fx_ability_warrior);
+
+			App->menu_manager->DestroyGoToQuestMenu();
+			App->fade_to_black->FadeToBlack(Maps::QUEST2);
+			menu_state = StatesMenu::NO_MENU;
+			App->menu_manager->EnableHUD(true);
+			ret = false;
+		}
 		if (interact != nullptr && interact != App->menu_manager->quest.cancel_quest_button) {
 			App->audio->PlayFx(fx_potion_menu);
 		}
