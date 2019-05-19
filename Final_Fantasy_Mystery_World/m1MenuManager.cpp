@@ -1712,11 +1712,13 @@ void m1MenuManager::DestroyFountainBars()
 
 void UI_inventory::ChangeInventory(bool item)
 {
-	if (item && inventory_panel->position.x > 0) {
-		spline_move_inventory = App->easing_splines->CreateSpline(&inventory_panel->position.x, inventory_panel->position.x - 356, 700, TypeSpline::EASE, std::bind(&UI_inventory::ResetSplineInventory, App->menu_manager->inventory));
-	}
-	else if (inventory_panel->position.x < 0 && !item) {
-		spline_move_inventory = App->easing_splines->CreateSpline(&inventory_panel->position.x, inventory_panel->position.x + 356, 700, TypeSpline::EASE, std::bind(&UI_inventory::ResetSplineInventory, App->menu_manager->inventory));
+	if (inventory_panel != nullptr) {
+		if (item && inventory_panel->position.x > 0) {
+			spline_move_inventory = App->easing_splines->CreateSpline(&inventory_panel->position.x, inventory_panel->position.x - 356, 700, TypeSpline::EASE, std::bind(&UI_inventory::ResetSplineInventory, App->menu_manager->inventory));
+		}
+		else if (inventory_panel->position.x < 0 && !item) {
+			spline_move_inventory = App->easing_splines->CreateSpline(&inventory_panel->position.x, inventory_panel->position.x + 356, 700, TypeSpline::EASE, std::bind(&UI_inventory::ResetSplineInventory, App->menu_manager->inventory));
+		}
 	}
 }
 
