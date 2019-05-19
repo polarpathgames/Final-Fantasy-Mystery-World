@@ -20,7 +20,7 @@ protected:
 	SDL_Texture*	texture = nullptr;
 	SDL_Color		color = { 255,255,255,255 };
 	std::string		text;
-	Color			color_type;
+	Color			color_type = Color::BLACK;
 	float time = 0;
 	int alpha = 255;
 };
