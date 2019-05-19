@@ -81,6 +81,7 @@ public:
 		LAVA,
 		PORTAL,
 		PORTAL_ENTER,
+		BEST_FRIEND,
 
 		UNKNOWN
 	};

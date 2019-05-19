@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-down" width="66" height="60" tilewidth="32" tileheight="16" infinite="0" nextlayerid="37" nextobjectid="908">
+<map version="1.2" tiledversion="1.2.3" orientation="isometric" renderorder="right-down" width="66" height="60" tilewidth="32" tileheight="16" infinite="0" nextlayerid="37" nextobjectid="908">
  <properties>
   <property name="movement" type="int" value="1"/>
  </properties>
@@ -19916,7 +19916,7 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="907" name="player" type="default3" x="496" y="688" width="15.9688" height="16.0156">
+  <object id="907" name="player" type="default3" x="416.5" y="527.5" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>

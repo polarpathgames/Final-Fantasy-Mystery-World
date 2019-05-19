@@ -672,6 +672,15 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		SetPivot(frame.w*0.5F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 	}
+	else if (strcmp(name, "best_friend") == 0) {
+		static_type = e1StaticEntity::Type::BEST_FRIEND;
+		frame = { 1299,29,16,28 };
+		SetPivot(frame.w*0.5F, frame.h*0.8F);
+		size.create(frame.w, frame.h);
+		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
+		position.x += 8;
+		position.y -= 16;
+	}
 	else {
 		LOG("Doesn't have any entity with name %s", name);
 	}
