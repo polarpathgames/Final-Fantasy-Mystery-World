@@ -592,6 +592,10 @@ void e1Player::ReadAttack()
 	if (player_input.pressing_SPACE) {
 		PrepareBasicAttack();
 		App->audio->PlayFx(App->scene->fx_attack);
+		if (timer_ability1.IsRunning() || !ability1_tiles.empty()) {
+			timer_ability1.Stop();
+			ability1_tiles.clear();
+		}
 		return;
 	}
 	if ((App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.ABILTY1) || App->input->GetControllerButtonDownOrRepeat(App->input->controller_Buttons.buttons_code.ABILTY1))
@@ -604,9 +608,14 @@ void e1Player::ReadAttack()
 			}
 		}
 		else {
-			timer_ability1.Start();
-			tile_anim.Reset();
-			SetAbility1TilesPos();
+			if (App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.FAST_SKILLS) || App->input->GetControllerButtonDownOrRepeat(App->input->controller_Buttons.buttons_code.FAST_SKILLS)) {
+				PrepareSpecialAttack1();
+			}
+			else {
+				timer_ability1.Start();
+				tile_anim.Reset();
+				SetAbility1TilesPos();
+			}
 		}
 
 		return;
@@ -1438,17 +1447,24 @@ void e1Player::Flashing()
 {
 	if ((App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.ABILITY2) || App->input->GetControllerButtonDownOrRepeat(App->input->controller_Buttons.buttons_code.ABILITY2)) || drawable == false) {
 		if (drawable) {
-			if (timer_ability1.IsRunning()) {
-				if (timer_ability1.ReadSec() > 0.7f) {
-					drawable = false;
-					timer_ability1.Stop();
-					flash_time = SDL_GetTicks();
-					App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
-				}
+			if (App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.FAST_SKILLS) || App->input->GetControllerButtonDownOrRepeat(App->input->controller_Buttons.buttons_code.FAST_SKILLS)) {
+				drawable = false;
+				timer_ability1.Stop();
+				flash_time = SDL_GetTicks();
+				App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
 			}
 			else {
-				state = State::IDLE;
-
+				if (timer_ability1.IsRunning()) {
+					if (timer_ability1.ReadSec() > 0.7f) {
+						drawable = false;
+						timer_ability1.Stop();
+						flash_time = SDL_GetTicks();
+						App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
+					}
+				}
+				else {
+					state = State::IDLE;
+				}
 			}
 		}
 
