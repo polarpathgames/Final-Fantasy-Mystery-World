@@ -117,26 +117,26 @@ public:
 
 	//SFX
 
-	Mix_Chunk* fx_laser;
+	Mix_Chunk* fx_laser = nullptr;
 	bool laser_play_fx = true;
-	Mix_Chunk* fx_enemy_hit;
-	Mix_Chunk* fx_dragon_attack;
-	Mix_Chunk* fx_dragon_knockback;
-	Mix_Chunk* fx_ice_queen_hit;
-	Mix_Chunk* fx_ice_queen_tp;
-	Mix_Chunk* fx_ice_queen_summon;
-	Mix_Chunk* fx_frog_jump;
-	Mix_Chunk* fx_poison_cassio;
-	Mix_Chunk* fx_plant_hit;
-	Mix_Chunk* fx_wake_up;
-	Mix_Chunk* fx_claw_cassio;
-	Mix_Chunk* fx_drake_throw;
-	Mix_Chunk* fx_fireball_ancient_dragon;
-	Mix_Chunk* fx_ancient_drake_weak;
-	Mix_Chunk* fx_ancient_drake_dead;
-	Mix_Chunk* fx_ancient_drake_hit;
-	Mix_Chunk* fx_bomberman_attack;
-	Mix_Chunk* fx_laser_mega_eye;
+	Mix_Chunk* fx_enemy_hit = nullptr;
+	Mix_Chunk* fx_dragon_attack = nullptr;
+	Mix_Chunk* fx_dragon_knockback = nullptr;
+	Mix_Chunk* fx_ice_queen_hit = nullptr;
+	Mix_Chunk* fx_ice_queen_tp = nullptr;
+	Mix_Chunk* fx_ice_queen_summon = nullptr;
+	Mix_Chunk* fx_frog_jump = nullptr;
+	Mix_Chunk* fx_poison_cassio = nullptr;
+	Mix_Chunk* fx_plant_hit = nullptr;
+	Mix_Chunk* fx_wake_up = nullptr;
+	Mix_Chunk* fx_claw_cassio = nullptr;
+	Mix_Chunk* fx_drake_throw = nullptr;
+	Mix_Chunk* fx_fireball_ancient_dragon = nullptr;
+	Mix_Chunk* fx_ancient_drake_weak = nullptr;
+	Mix_Chunk* fx_ancient_drake_dead = nullptr;
+	Mix_Chunk* fx_ancient_drake_hit = nullptr;
+	Mix_Chunk* fx_bomberman_attack = nullptr;
+	Mix_Chunk* fx_laser_mega_eye = nullptr;
 
 	u1Bar* icequeen_hp_bar = nullptr;
 	u1Label* icequeen_label = nullptr;

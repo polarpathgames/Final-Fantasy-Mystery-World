@@ -28,6 +28,8 @@ void e1Bomberman::PrepareBasicAttack()
 void e1Bomberman::FinishBasicAttack()
 {
 	to_delete = true;
+	drawable = false;
+	turn_done = true;
 }
 
 void e1Bomberman::IdAnimToEnum()
