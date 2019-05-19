@@ -735,22 +735,22 @@ int e1Enemy::CalculateDrop()
 		if ((*item) + i_dont_really_know_how_to_name_this_variable_love_me_guys >= rupee_percentage) {
 			if ((*item) == ratio_green_rupee) {
 				drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "green_rupee");
-				drop->SetGold(App->random.Generate(15, 25));
+				drop->SetGold(App->random.Generate(GOLD_RUPEE_GREEN));
 				App->map->quest_rooms->AddDrop(actual_tile, drop->drop_type);
 			}
 			else if ((*item) == ratio_blue_rupee) {
 				drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "blue_rupee");
-				drop->SetGold(App->random.Generate(45, 65));
+				drop->SetGold(App->random.Generate(GOLD_RUPEE_BLUE));
 				App->map->quest_rooms->AddDrop(actual_tile, drop->drop_type);
 			}
 			else if ((*item) == ratio_red_rupee) {
 				drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "red_rupee");
-				drop->SetGold(App->random.Generate(90, 110));
+				drop->SetGold(App->random.Generate(GOLD_RUPEE_RED));
 				App->map->quest_rooms->AddDrop(actual_tile, drop->drop_type);
 			}
 			else if ((*item) == ratio_gold_rupee) {
 				drop = (e1Drop*)App->entity_manager->CreateEntity(e1Entity::EntityType::DROP, actual_tile.x, actual_tile.y, "gold_rupee");
-				drop->SetGold(App->random.Generate(300, 400));
+				drop->SetGold(App->random.Generate(GOLD_RUPEE_YELLOW));
 				App->map->quest_rooms->AddDrop(actual_tile, drop->drop_type);
 			}
 			break;

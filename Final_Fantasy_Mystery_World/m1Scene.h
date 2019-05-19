@@ -7,6 +7,13 @@
 #include "SDL_mixer/include/SDL_mixer.h"
 #include "p2Animation.h"
 
+#define GOLD_RUPEE_GREEN 10, 20
+#define GOLD_RUPEE_BLUE 30, 40
+#define GOLD_RUPEE_RED 50, 70
+#define GOLD_RUPEE_YELLOW 80, 100
+
+
+
 enum class StatesMenu {
 	NO_MENU,
 	PAUSE_MENU,
