@@ -324,6 +324,8 @@ bool m1Scene::Update(float dt)
 			//App->menu_manager->ShowHUD(true);
 			player->BlockControls(true);
 			App->menu_manager->EnableHUD(true);
+			App->menu_manager->hud.diagonal_compass->drawable = true;
+			App->menu_manager->hud.vertical_compass->drawable = false;
 			menu_state = StatesMenu::PAUSE_MENU;
 		}
 		break;
