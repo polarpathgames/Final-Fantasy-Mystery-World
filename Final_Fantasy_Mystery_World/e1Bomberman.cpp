@@ -1,4 +1,6 @@
 #include "e1Bomberman.h"
+#include "App.h"
+#include "m1Audio.h"
 
 e1Bomberman::e1Bomberman(const int & x, const int & y) :e1Enemy(x,y)
 {
@@ -20,6 +22,7 @@ e1Bomberman::~e1Bomberman()
 
 void e1Bomberman::PrepareBasicAttack()
 {
+	App->audio->PlayFx(fx_bomberman_attack);
 }
 
 void e1Bomberman::FinishBasicAttack()
