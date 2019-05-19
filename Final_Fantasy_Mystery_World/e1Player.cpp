@@ -604,9 +604,14 @@ void e1Player::ReadAttack()
 			}
 		}
 		else {
-			timer_ability1.Start();
-			tile_anim.Reset();
-			SetAbility1TilesPos();
+			if (App->input->GetKeyDownOrRepeat(SDL_SCANCODE_P)) {
+				PrepareSpecialAttack1();
+			}
+			else {
+				timer_ability1.Start();
+				tile_anim.Reset();
+				SetAbility1TilesPos();
+			}
 		}
 
 		return;
