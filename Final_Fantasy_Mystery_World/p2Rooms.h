@@ -124,6 +124,7 @@ public:
 private:
 
 	u1Image * map_background = nullptr;
+	u1Image * map_mini_zone = nullptr;
 	u1Image * map_zone = nullptr;
 	u1Image * player_pos = nullptr;
 	bool map_active = false;

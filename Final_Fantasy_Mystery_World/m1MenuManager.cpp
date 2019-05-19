@@ -957,7 +957,6 @@ void m1MenuManager::CreateHelpDiagonalMenu()
 {
 	App->audio->PlayFx(App->scene->fx_ability_screen);
 	help_diagonal = App->gui->AddImage(0, 0, { 0,6329,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
-
 }
 
 void m1MenuManager::DestroyHelpDiagonalMenu()
