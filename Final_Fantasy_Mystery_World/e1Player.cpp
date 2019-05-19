@@ -1217,16 +1217,10 @@ void e1Player::Death()
 	BROFILER_CATEGORY("Player Death", Profiler::Color::Yellow);
 
 	if (current_animation->Finished() && death_time <= SDL_GetTicks() - 1000) {
-		std::list<u1GUI*> list = App->gui->GetUIList();
-		std::list<u1GUI*>::iterator item = list.begin();
-		for (; item != list.end(); ++item) {
-			if ((*item) != nullptr && (*item)->GetType() == HIT_POINT_LABEL)
-				(*item)->to_delete = true;
-		}
+
 		App->audio->PlayFx(App->scene->fx_die);
 		App->map->CleanUp();
 		App->easing_splines->CleanUp();
-		App->gui->DeleteHitPointLabels();
 		App->entity_manager->DeleteEntitiesNoPlayer();
 		App->scene->player->AugmentLives(App->scene->player->stats.max_lives);
 		App->scene->player->AugmentMana(App->scene->player->stats.max_mana);
@@ -1236,6 +1230,15 @@ void e1Player::Death()
 		state = State::MENU;
 		stats.live = stats.max_lives;
 		stats.mana = stats.max_mana;
+		std::list<u1GUI*>::iterator item = App->gui->ui_list.begin();
+		while (item != App->gui->ui_list.end()) {
+			if ((*item) != nullptr && (*item)->GetType() == HIT_POINT_LABEL) {
+				App->gui->DeleteUIElement((*item));
+				++item;
+			}
+			else
+				++item;
+		}
 	}
 }
 

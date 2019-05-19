@@ -113,7 +113,7 @@ private:
 	SDL_Rect			square_focus_img[4] = { 0,0,0,0 };
 	SDL_Rect			classic_focus_img = { 0,0,0,0 };
 	bool				using_mouse = true;
-	std::list<u1GUI*>	ui_list;
+
 
 	SDL_Rect			cursor_rect;
 	iPoint				cursor_position;
@@ -121,7 +121,7 @@ private:
 	bool				show_cursor = true;
 
 public:
-
+	std::list<u1GUI*>	ui_list;
 	u1GUI * screen = nullptr;
 	bool debug_ui = false;
 
