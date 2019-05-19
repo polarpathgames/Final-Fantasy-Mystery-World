@@ -979,6 +979,8 @@ void m1MenuManager::CreateHelpAbilityMenu(AbilityType type)
 	u1GUI* image = nullptr;
 	u1GUI* text1 = nullptr;
 	u1GUI* text2 = nullptr;
+	
+	EnableHUD(false);
 
 	switch (type)
 	{
