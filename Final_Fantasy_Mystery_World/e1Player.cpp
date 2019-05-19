@@ -1436,36 +1436,44 @@ void e1Player::LookFlash()
 
 void e1Player::Flashing()
 {
-	if (drawable) {
-		if (timer_ability1.IsRunning()) {
-			if (timer_ability1.ReadSec() > 0.7f) {
-				drawable = false;
-				timer_ability1.Stop();
-				flash_time = SDL_GetTicks();
-				App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
+	if (App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.ABILITY2) || drawable == false || App->input->GetKeyDownOrRepeat(App->input->controller_Buttons.buttons_code.ABILITY2)) {
+		if (drawable) {
+			if (timer_ability1.IsRunning()) {
+				if (timer_ability1.ReadSec() > 0.7f) {
+					drawable = false;
+					timer_ability1.Stop();
+					flash_time = SDL_GetTicks();
+					App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
+				}
+			}
+			else {
+				state = State::IDLE;
+
 			}
 		}
-		else {
-			state = State::IDLE;
 
+
+		if (drawable == false && flash_time < SDL_GetTicks() - 500) {
+			ability1_tiles.clear();
+			actual_tile = flash_position;
+			App->audio->PlayFx(App->scene->fx_flash);
+			state = State::AFTER_FLASH;
+			drawable = true;
+			position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+			movement_count = { 0,0 };
+			CenterPlayerInTile();
+			App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
+			target_position = position;
+			initial_position = position;
+			flash_time = SDL_GetTicks();
 		}
 	}
-	
-
-	if (drawable == false && flash_time < SDL_GetTicks() - 500) {
-		ability1_tiles.clear();
-		actual_tile = flash_position;
-		App->audio->PlayFx(App->scene->fx_flash);
-		state = State::AFTER_FLASH;
+	else {
+		state = State::IDLE;
 		drawable = true;
-		position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
-		movement_count = { 0,0 };
-		CenterPlayerInTile();
-		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
-		target_position = position;
-		initial_position = position;
-		flash_time = SDL_GetTicks();
+		ability1_tiles.clear();
 	}
+
 
 }
 
