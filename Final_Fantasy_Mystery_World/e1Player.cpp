@@ -1271,7 +1271,7 @@ void e1Player::Death()
 		while (item != App->gui->ui_list.end()) {
 			if ((*item) != nullptr && (*item)->GetType() == HIT_POINT_LABEL) {
 				App->gui->DeleteUIElement((*item));
-				++item;
+				item = App->gui->ui_list.begin();
 			}
 			else
 				++item;
