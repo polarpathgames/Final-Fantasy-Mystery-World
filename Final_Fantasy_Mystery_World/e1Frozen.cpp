@@ -33,8 +33,6 @@ e1Frozen::e1Frozen(const int& x, const int& y) :e1Enemy(x, y)
 		icequeen_hp_bar = App->gui->AddBar(100, 80, stats.max_live, ENEMYBAR, (u1GUI*)App->menu_manager->hud.bg_hud, nullptr);
 		icequeen_label = App->gui->AddLabel(355, 20, "Ice Queen", icequeen_hp_bar, BLACK, FontType::FF64, nullptr, false);
 	}
-
-	
 }
 
 e1Frozen::~e1Frozen()

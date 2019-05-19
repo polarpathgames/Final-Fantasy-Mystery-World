@@ -398,21 +398,26 @@ void m1EntityManager::SpawnRupees(const int & x, const int & y, const int & numb
 			random_rupee = App->random.Generate(1, per.back().first);
 			if (IN_RANGE(random_rupee, 0, (*per_item).first)) {
 				drop = (e1Drop*)CreateEntity(e1Entity::EntityType::DROP, x, y, (*per_item).second);
-				gold = App->random.Generate(GOLD_RUPEE_YELLOW);
 			}
 			else if (IN_RANGE(random_rupee, (*per_item).first, (*++per_item).first)) {
 				drop = (e1Drop*)CreateEntity(e1Entity::EntityType::DROP, x, y, (*per_item).second);
-				gold = App->random.Generate(GOLD_RUPEE_RED);
 			}
 			else if (IN_RANGE(random_rupee, (*per_item).first, (*++per_item).first)) {
 				drop = (e1Drop*)CreateEntity(e1Entity::EntityType::DROP, x, y, (*per_item).second);
-				gold = App->random.Generate(GOLD_RUPEE_BLUE);
 			}
 			else if (IN_RANGE(random_rupee, (*per_item).first, (*++per_item).first)) {
 				drop = (e1Drop*)CreateEntity(e1Entity::EntityType::DROP, x, y, (*per_item).second);
-				gold = App->random.Generate(GOLD_RUPEE_GREEN);
 			}
 			
+			if ((*per_item).second == "gold_rupee")
+				gold = App->random.Generate(GOLD_RUPEE_YELLOW);
+			else if ((*per_item).second == "red_rupee")
+				gold = App->random.Generate(GOLD_RUPEE_RED);
+			else if ((*per_item).second == "green_rupee")
+				gold = App->random.Generate(GOLD_RUPEE_GREEN);
+			else if ((*per_item).second == "blue_rupee")
+				gold = App->random.Generate(GOLD_RUPEE_BLUE);
+
 			drop->SetGold(gold);
 			destination = positions[App->random.Generate(0, positions.size() - 1)];
 			std::vector<iPoint>::iterator item = positions.begin();
