@@ -102,7 +102,7 @@ bool e1Player::Update(float dt)
 		coll->SetPos(position.x + pivot.x/2 - 2, position.y + 20);
 
 	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
-		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyCredits.xml");
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneDrakeQuest3.xml");
 
 	return true;
 }
