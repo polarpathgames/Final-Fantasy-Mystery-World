@@ -1265,6 +1265,8 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		else if (App->scene->active) {
 			CreatePauseMenu();
 			EnableHUD(true);
+			hud.diagonal_compass->drawable = true;
+			hud.vertical_compass->drawable = false;
 			App->scene->SetMenuState(StatesMenu::PAUSE_MENU);
 		}
 
