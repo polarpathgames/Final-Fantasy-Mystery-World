@@ -1243,23 +1243,19 @@ const bool e1Player::MultipleButtons(const Input * input)
 
 void e1Player::GetHitted(const int & damage_taken)
 {
+	if (App->scene->menu_state != StatesMenu::DIE_MENU) {
+		App->input->ControllerVibration(0.1F, 100);
+		App->render->CameraTremble(0.33F, 1.9F);
+		if (!god_mode)
+			ReduceLives(damage_taken);
 
-	App->input->ControllerVibration(0.1F, 100);
-	App->render->CameraTremble(0.33F, 1.9F);
-	if(!god_mode)
-		ReduceLives(damage_taken);
-
-	if (stats.live <= 0) {
-		App->entity_manager->entity_turn = this;
-		state = State::DEATH;
-		ChangeAnimation(direction, state);
-		death_time = SDL_GetTicks();
-		
+		if (stats.live <= 0) {
+			App->entity_manager->entity_turn = this;
+			state = State::DEATH;
+			ChangeAnimation(direction, state);
+			death_time = SDL_GetTicks();
+		}
 	}
-
-	
-
-
 }
 
 void e1Player::Death()
