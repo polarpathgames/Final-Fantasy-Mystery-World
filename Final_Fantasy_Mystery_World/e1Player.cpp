@@ -1254,7 +1254,7 @@ void e1Player::Death()
 {
 	BROFILER_CATEGORY("Player Death", Profiler::Color::Yellow);
 
-	if (current_animation->Finished() && death_time <= SDL_GetTicks() - 1000) {
+	if (current_animation->Finished() && death_time <= SDL_GetTicks() - 1000 && state == State::DEATH) {
 		App->audio->PlayFx(App->scene->fx_die);
 		App->map->CleanUp();
 		App->easing_splines->CleanUp();
