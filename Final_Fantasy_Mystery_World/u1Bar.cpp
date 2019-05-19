@@ -11,52 +11,48 @@
 #include "p2Log.h"
 
 u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* parent, m1Module* callback) :u1GUI(BAR, x, y, parent, {0, 0, 0, 0}, true, false, false, false)
+ , bar_type(type), max_capacity(max_capacity), current_quantity(max_capacity)
 {
-	bar_type = type;
-
-	this->max_capacity = max_capacity;
-	current_quantity = max_capacity;
-
 	if (type == HPBAR)
 	{
 		current_width = max_width;
-		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, parent, false, false, false, false);
-		filled_bar = App->gui->AddImage(7, 5, { 1405, 3149, 172, 10 }, App->scene, empty_bar, false, false, false, false);
+		empty_bar = App->gui->AddImage(0, 0, { 1400, 3104, 185, 25 }, nullptr, this, false, false, false, false);
+		filled_bar = App->gui->AddImage(7, 5, { 1405, 3149, 172, 10 }, nullptr, empty_bar, false, false, false, false);
 		PrintBarNumbers();
 	}
 
-	if (type == MANABAR)
+	else if (type == MANABAR)
 	{
 		current_width = max_width;
-		empty_bar = App->gui->AddImage(x, y, { 1400, 3104, 185, 25 }, App->scene, parent, false, false, false, false);
-		filled_bar = App->gui->AddImage(7, 5, { 1405, 3185, 172, 10 }, App->scene, empty_bar, false, false, false, false);
+		empty_bar = App->gui->AddImage(0, 0, { 1400, 3104, 185, 25 }, nullptr, this, false, false, false, false);
+		filled_bar = App->gui->AddImage(7, 5, { 1405, 3185, 172, 10 }, nullptr, empty_bar, false, false, false, false);
 		PrintBarNumbers();
 	}
 
-	if (type == EXPBAR)
+	else if (type == EXPBAR)
 	{
 		current_width = 0;
 		current_quantity = 0;
 		max_width = 372;
-		empty_bar = App->gui->AddImage(x, y, { 1374, 3237, 372, 11 }, App->scene, parent, false, false, false, false); // this is empty
-		filled_bar = App->gui->AddImage(2, 1, { 1371, 3217, 369, 8 }, App->scene, empty_bar, false, false, false, false); // this is filled
+		empty_bar = App->gui->AddImage(0, 0, { 1374, 3237, 372, 11 }, nullptr, this, false, false, false, false); // this is empty
+		filled_bar = App->gui->AddImage(2, 1, { 1371, 3217, 369, 8 }, nullptr, empty_bar, false, false, false, false); // this is filled
 		empty_bar->drawable = true;
 	}
 
-	if (type == ENEMYBAR) 
+	else if (type == ENEMYBAR) 
 	{
 		max_width = 812;
 		current_width = max_width;
-		empty_bar = App->gui->AddImage(x, y, { 2121, 88, 816, 20 }, App->scene, parent, false, false, false, false);
-		filled_bar = App->gui->AddImage(2, 2, { 2123, 55, 812, 16 }, App->scene, empty_bar, false, false, false, false);
+		empty_bar = App->gui->AddImage(0, 0, { 2121, 88, 816, 20 }, nullptr, this, false, false, false, false);
+		filled_bar = App->gui->AddImage(2, 2, { 2123, 55, 812, 16 }, nullptr, empty_bar, false, false, false, false);
 	}
-	if (type == SKIPBAR)
+	else if (type == SKIPBAR)
 	{
 		current_quantity = 0;
 		current_width = 0;
 		max_width = 33;
-		empty_bar = App->gui->AddImage(x, y, { 1486,2111,33,31 }, nullptr, parent, true, false, false, false);
-		filled_bar = App->gui->AddImage(x, y, { 1418,2111,0,34 }, nullptr, empty_bar, true, false, false, false);
+		empty_bar = App->gui->AddImage(0, 0, { 1486,2111,33,31 }, nullptr, this, true, false, false, false);
+		filled_bar = App->gui->AddImage(0, 0, { 1418,2111,0,34 }, nullptr, empty_bar, true, false, false, false);
 	}
 
 	

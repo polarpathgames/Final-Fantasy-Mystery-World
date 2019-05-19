@@ -919,6 +919,9 @@ public:
 	void CreateBigInventory();
 	void DestroyBigInventory();
 
+	void CreateFountainBars();
+	void DestroyFountainBars();
+
 	void CreateCongratualtions();
 	void DestroyCongratualtions();
 
@@ -950,6 +953,8 @@ public:
 	u1Image* im_skipper = nullptr;
 	u1Label* lb_skipper = nullptr;
 	u1Bar* br_skipper = nullptr;
+
+	u1Image* fountain_panel = nullptr;
 
 	ChangeControls * control_to_change = nullptr;
 };

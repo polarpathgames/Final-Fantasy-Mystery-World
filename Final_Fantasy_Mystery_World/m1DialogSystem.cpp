@@ -115,10 +115,9 @@ bool m1DialogSystem::PerformDialogue(int tr_id)
 		}
 		waiting_input = !waiting_input;
 		BlitDialog(); // Print the dialog in the screen
-	}	
+	}
 
 	App->scene->player->BlockControls(true);
-	App->menu_manager->EnableHUD(false);
 
 	return ret;
 }

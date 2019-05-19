@@ -27,7 +27,7 @@ public:
 	u1Image* aux_bar = nullptr;
 	u1Label* bar_numbers_label = nullptr;
 	e1Entity* entity = nullptr;
-	UIType bar_type;
+	UIType bar_type = UIType::NON;
 	int max_capacity = 0;
 	int current_quantity = 0;
 
@@ -37,13 +37,13 @@ public:
 	bool has_change = false;
 	bool got_xp = false;
 
-	int currentXP; // current_quantity
-	int lastLevelXP;
-	int nextLevelXP;
-	int xpBetweenLevels;
-	int xpSinceLevelUp;
-	float percentageOfXP;
-	int barWidth;
-	int aux_quantity;
+	int currentXP = 0; // current_quantity
+	int lastLevelXP = 0;
+	int nextLevelXP = 0;
+	int xpBetweenLevels = 0;
+	int xpSinceLevelUp = 0;
+	float percentageOfXP = 0.f;
+	int barWidth = 0;
+	int aux_quantity = 0;
 };
 #endif

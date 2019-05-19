@@ -60,7 +60,7 @@ public:
 	virtual void PreUpdateElement() {};
 	virtual bool CleanUp();
 
-	void SetPos(const int &x, const int &y);
+	virtual void SetPos(const int &x, const int &y);
 
 	UIType GetType()const;
 	int GetPriority() const;
