@@ -592,6 +592,10 @@ void e1Player::ReadAttack()
 	if (player_input.pressing_SPACE) {
 		PrepareBasicAttack();
 		App->audio->PlayFx(App->scene->fx_attack);
+		if (timer_ability1.IsRunning() || !ability1_tiles.empty()) {
+			timer_ability1.Stop();
+			ability1_tiles.clear();
+		}
 		return;
 	}
 	if ((App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.ABILTY1) || App->input->GetControllerButtonDownOrRepeat(App->input->controller_Buttons.buttons_code.ABILTY1))
@@ -604,7 +608,7 @@ void e1Player::ReadAttack()
 			}
 		}
 		else {
-			if (App->input->GetKeyDownOrRepeat(SDL_SCANCODE_P)) {
+			if (App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.FAST_SKILLS) || App->input->GetControllerButtonDownOrRepeat(App->input->controller_Buttons.buttons_code.FAST_SKILLS)) {
 				PrepareSpecialAttack1();
 			}
 			else {

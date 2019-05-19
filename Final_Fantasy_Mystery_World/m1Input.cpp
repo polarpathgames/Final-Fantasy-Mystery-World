@@ -176,7 +176,7 @@ void m1Input::DefaultControls()
 	controller_Buttons.buttons_code.ABILTY1 = SDL_CONTROLLER_BUTTON_X;
 	controller_Buttons.buttons_code.ABILITY2 = SDL_CONTROLLER_BUTTON_B;
 	controller_Buttons.buttons_code.ABILITY3 = SDL_CONTROLLER_BUTTON_Y;
-	controller_Buttons.buttons_code.FAST_SKILLS = SDL_CONTROLLER_BUTTON_LEFTSTICK;
+	controller_Buttons.buttons_code.FAST_SKILLS = SDL_CONTROLLER_BUTTON_LEFTSHOULDER;
 	controller_Buttons.buttons_code.INVENTORY = SDL_CONTROLLER_BUTTON_RIGHTSHOULDER;
 
 	controller_Buttons.buttons_char.BASIC_ATTACK = "A";
