@@ -769,6 +769,12 @@ bool e1StaticEntity::Update(float dt)
 					//App->menu_manager->ShowHUD(false);
 					App->gui->DeleteUIElement((u1GUI*)button_interact);
 					button_interact = nullptr;
+					App->scene->player->BlockControls(true);
+					App->menu_manager->EnableHUD(false);
+
+					if (static_type == Type::FOUNTAIN || static_type == Type::QUEST_FOUNTAIN) {
+						App->menu_manager->CreateFountainBars();
+					}
 				}
 			}
 			
@@ -785,6 +791,10 @@ bool e1StaticEntity::Update(float dt)
 		interacting_state = InteractingStates::WAITING_INTERACTION;
 		//if (static_type != Type::HELP1 && static_type != Type::HELP2 && static_type != Type::HELP3 && static_type != Type::FLASH_INFO)
 			//App->menu_manager->ShowHUD(true);
+
+		if (static_type == Type::FOUNTAIN || static_type == Type::QUEST_FOUNTAIN) {
+			App->menu_manager->DestroyFountainBars();
+		}
 	}
 
 	if (interacting_state == InteractingStates::INTERACTING) {
