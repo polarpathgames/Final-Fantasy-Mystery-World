@@ -94,7 +94,7 @@ bool e1Player::Update(float dt)
 	BROFILER_CATEGORY("Player Update", Profiler::Color::Yellow);
 
 	PerformActions(dt);
-	LOG("MANA: %i", stats.mana);
+
 	if (App->debug)
 		App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
