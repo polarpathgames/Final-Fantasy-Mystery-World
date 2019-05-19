@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.2.2" name="BlueDog" tilewidth="45" tileheight="42" tilecount="108" columns="12">
  <properties>
-  <property name="attack_power" type="int" value="50"/>
+  <property name="attack_power" type="int" value="30"/>
   <property name="experience" type="int" value="300"/>
-  <property name="live" type="int" value="450"/>
+  <property name="live" type="int" value="400"/>
   <property name="ratio_blue_rupee" type="int" value="30"/>
   <property name="ratio_gold_rupee" type="int" value="1"/>
   <property name="ratio_green_rupee" type="int" value="50"/>
