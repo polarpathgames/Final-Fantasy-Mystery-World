@@ -84,22 +84,10 @@ bool m1EntityManager::PreUpdate()
 	}
 
 	// Turn system ============================================================
-	if (entity_turn == nullptr || entity_turn->turn_done) {
-		item = std::find(entities.begin(), entities.end(), entity_turn);
-		bool changed = false;
-		for (; item != entities.end(); ++item) {
-			if ((*item) != nullptr && entity_turn != *item && (*item)->allow_turn) {
-				changed = true;
-				if (entity_turn != nullptr) {
-					entity_turn->turn_done = false;
-					entity_turn->turn_count++;
-				}
-				entity_turn = *item;
-				break;
-			}
-		}
-		if (!changed) {
-			item = entities.begin();
+	if (turns_active) {
+		if (entity_turn == nullptr || entity_turn->turn_done) {
+			item = std::find(entities.begin(), entities.end(), entity_turn);
+			bool changed = false;
 			for (; item != entities.end(); ++item) {
 				if ((*item) != nullptr && entity_turn != *item && (*item)->allow_turn) {
 					changed = true;
@@ -111,23 +99,38 @@ bool m1EntityManager::PreUpdate()
 					break;
 				}
 			}
+			if (!changed) {
+				item = entities.begin();
+				for (; item != entities.end(); ++item) {
+					if ((*item) != nullptr && entity_turn != *item && (*item)->allow_turn) {
+						changed = true;
+						if (entity_turn != nullptr) {
+							entity_turn->turn_done = false;
+							entity_turn->turn_count++;
+						}
+						entity_turn = *item;
+						break;
+					}
+				}
+			}
+			if (!changed) {
+				if (entity_turn != nullptr) {
+					entity_turn->turn_done = false;
+					entity_turn->turn_count++;
+				}
+			}
 		}
-		if (!changed) {
-			if (entity_turn != nullptr) {
-				entity_turn->turn_done = false;
-				entity_turn->turn_count++;
+		else {
+			entity_turn->PreUpdate();
+			item = entities.begin();
+			for (; item != entities.end(); ++item) {
+				if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY && static_cast<e1DynamicEntity*>(*item)->state != State::WALKING && App->scene->player->turn_done && !(*item)->turn_done && (*item)->allow_turn && !static_cast<e1Enemy*>(*item)->IsPlayerNextTile()) {
+					(*item)->PreUpdate();
+				}
 			}
 		}
 	}
-	else {
-		entity_turn->PreUpdate();
-		item = entities.begin();
-		for (; item != entities.end(); ++item) {
-			if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY && static_cast<e1DynamicEntity*>(*item)->state != State::WALKING && App->scene->player->turn_done && !(*item)->turn_done && (*item)->allow_turn && !static_cast<e1Enemy*>(*item)->IsPlayerNextTile()) {
-				(*item)->PreUpdate();
-			}
-		}
-	}
+	
 
 	//====================================================================
 

@@ -72,6 +72,7 @@ public:
 
 	uint entities_drawn = 0u;
 	e1Entity* entity_turn = nullptr;
+	bool turns_active = true;
 private:
 
 	

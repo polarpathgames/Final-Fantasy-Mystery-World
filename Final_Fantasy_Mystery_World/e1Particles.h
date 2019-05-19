@@ -3,7 +3,7 @@
 
 #define MAX_ARROW 4
 #define FIREBALL_ELEVATED_POS 190
-
+#define AMAZING_FIREBALL_ELEVATED_POS 290
 #include "e1DynamicEntity.h"
 
 #include <list>

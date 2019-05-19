@@ -3,6 +3,8 @@
 
 #include "e1Enemy.h"
 
+class e1Particles;
+
 class e1AmazingDragon : public e1Enemy {
 
 public:
@@ -40,6 +42,9 @@ public:
 	uint auxiliar_attack_count = 0U;
 
 	p2Timer time;
+
+	e1Particles* fire_ball = nullptr;
+	bool waiting_fire_balls = false;
 
 };
 
