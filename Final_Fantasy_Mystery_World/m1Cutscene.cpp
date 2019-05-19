@@ -18,6 +18,7 @@
 #include "c1CutSceneVibration.h"
 #include "c1CutsceneText.h"
 #include "c1CutSceneFadeToBlack.h"
+#include "m1DialogSystem.h"
 #include "c1CutsceneImage.h"
 #include "c1CutSceneDeleteEntity.h"
 #include "c1CutSceneAddAudio.h"
@@ -269,6 +270,7 @@ void m1CutScene::ClearCutscene()
 	elements.clear();
 	App->menu_manager->EnableHUD(true);
 	App->scene->player->BlockControls(false);
+	App->dialog->end_dial = true;
 }
 
 double m1CutScene::GetTimer()

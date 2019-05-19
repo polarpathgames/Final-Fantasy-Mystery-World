@@ -826,6 +826,7 @@ bool e1StaticEntity::Update(float dt)
 				App->scene->player->BlockControls(false);
 				App->globals.treasure_quest2_opened = true;
 				App->menu_manager->EnableHUD(true);
+				App->dialog->end_dial = true;
 				frame = { 301,137 ,35,32 }; // need to put open treasure sprite
 				interacting_state = InteractingStates::NONE;
 			}
@@ -834,6 +835,7 @@ bool e1StaticEntity::Update(float dt)
 				App->scene->player->BlockControls(false);
 				App->globals.treasure_boss_opened = true;
 				App->menu_manager->EnableHUD(true);
+				App->dialog->end_dial = true;
 				frame = { 335,137 ,35,32 }; // need to put open treasure sprite
 				interacting_state = InteractingStates::NONE;
 			}
@@ -842,6 +844,7 @@ bool e1StaticEntity::Update(float dt)
 				App->scene->player->BlockControls(false);
 				App->globals.treasure_quest3_opened = true;
 				App->menu_manager->EnableHUD(true);
+				App->dialog->end_dial = true;
 				frame = { 301,137 ,35,32 }; // need to put open treasure sprite
 				interacting_state = InteractingStates::NONE;
 			}
