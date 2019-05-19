@@ -8,6 +8,8 @@
 
 #include <list>
 
+#include "p2Timer.h"
+
 class e1Particles : public e1DynamicEntity {
 
 public:
@@ -79,6 +81,7 @@ public:
 
 	std::vector<iPoint> amazing_fire_ball_attack_range;
 	uint turns = 0U;
+	p2Timer time_to_delete;
 
 };
 

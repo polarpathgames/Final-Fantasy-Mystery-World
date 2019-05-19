@@ -6,6 +6,7 @@
 #include "m1Input.h"
 #include "m1GUI.h"
 #include "e1DynamicEntity.h"
+#include "p2Timer.h"
 #include "m1Render.h"
 #include "e1Rock.h"
 #include "e1Player.h"
@@ -166,6 +167,7 @@ void e1Particles::SetParticle(const ParticleType & particle_type, const Directio
 
 void e1Particles::SetArrow()
 {
+	time_to_delete.Start();
 	arrow_tile = actual_tile;
 	velocity.x = 160;
 	velocity.y = 80;
@@ -384,6 +386,10 @@ void e1Particles::MoveArrow(float dt)
 	default:
 		break;
 	}
+
+	if (time_to_delete.Read() >= 1000)
+		to_delete = true;
+
 
 	if (to_delete) {
 		e1DynamicEntity* dragon = (e1DynamicEntity*)App->entity_manager->FindEntity("AmazingDragon");
