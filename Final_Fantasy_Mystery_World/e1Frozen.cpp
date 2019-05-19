@@ -38,7 +38,7 @@ e1Frozen::e1Frozen(const int& x, const int& y) :e1Enemy(x, y)
 e1Frozen::~e1Frozen()
 {
 	if (icequeen_hp_bar != nullptr)
-		icequeen_hp_bar->to_delete = true;
+		App->gui->DeleteUIElement(icequeen_hp_bar);
 }
 
 bool e1Frozen::PreUpdate()
