@@ -83,7 +83,7 @@
       <option line="" nextnode="9" karma="0" tag="0"/>
     </node>
   </dialogtree>
-  <dialogtree treeid="8" karma="0" tag="0" rect_x="746" rect_y="3090" rect_w="97" rect_h="130">
+  <dialogtree treeid="8" karma="0" tag="0" rect_x="0" rect_y="0" rect_w="0" rect_h="0">
     <node line="The object seems to have an incredible power." id="0" karma="0" tag="0">
       <option line="" nextnode="1" karma="0" tag="0"/>
     </node>
@@ -97,25 +97,25 @@
       <option line="Examine" nextnode="1" karma="0" tag="190"/>
     </node>
   </dialogtree>
-  <dialogtree treeid="10" karma="0" tag="0" rect_x="1751" rect_y="3090" rect_w="122" rect_h="131">
+  <dialogtree treeid="10" karma="0" tag="0" rect_x="0" rect_y="0" rect_w="0" rect_h="0">
     <node line="Are you sure you want to go to the Ice Mountains?" id="0" karma="0" tag="0">
       <option line="Yes" nextnode="1" karma="0" tag="43"/>
       <option line="No" nextnode="1" karma="0" tag="0"/>
     </node>
   </dialogtree>
-  <dialogtree treeid="11" karma="0" tag="0" rect_x="1751" rect_y="3090" rect_w="122" rect_h="131">
+  <dialogtree treeid="11" karma="0" tag="0" rect_x="0" rect_y="0" rect_w="0" rect_h="0">
     <node line="Do you want to return to Forks?" id="0" karma="0" tag="0">
       <option line="Yes" nextnode="1" karma="0" tag="5"/>
       <option line="No" nextnode="1" karma="0" tag="0"/>
     </node>
   </dialogtree>
-  <dialogtree treeid="12" karma="0" tag="0" rect_x="1751" rect_y="3090" rect_w="122" rect_h="131">
+  <dialogtree treeid="12" karma="0" tag="0" rect_x="0" rect_y="0" rect_w="0" rect_h="0">
     <node line="Do you want to sleep?" id="0" karma="0" tag="0">
       <option line="Yes" nextnode="1" karma="0" tag="6"/>
       <option line="No" nextnode="1" karma="0" tag="0"/>
     </node>
   </dialogtree>
-  <dialogtree treeid="13" karma="0" tag="0" rect_x="1751" rect_y="3090" rect_w="122" rect_h="131">
+  <dialogtree treeid="13" karma="0" tag="0" rect_x="0" rect_y="0" rect_w="0" rect_h="0">
     <node line="Are you sure you want to go to the Fire Mountains?" id="0" karma="0" tag="0">
       <option line="Yes" nextnode="1" karma="0" tag="7"/>
       <option line="No" nextnode="1" karma="0" tag="0"/>
