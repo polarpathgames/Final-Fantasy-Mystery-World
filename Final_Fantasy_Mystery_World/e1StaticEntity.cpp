@@ -6,6 +6,7 @@
 #include "m1Audio.h"
 #include "m1Map.h"
 #include "e1Player.h"
+#include "m1Cutscene.h"
 #include "m1DialogSystem.h"
 #include "m1Scene.h"
 #include "m1Audio.h"
@@ -756,7 +757,7 @@ bool e1StaticEntity::Update(float dt)
 						button_interact = nullptr;
 					}
 				}
-				else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+				else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !App->cutscene_manager->is_executing || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN && !App->cutscene_manager->is_executing) {
 					App->scene->player->state = State::IDLE;
 					App->easing_splines->CleanUp();
 					App->scene->player->BlockControls(true);
