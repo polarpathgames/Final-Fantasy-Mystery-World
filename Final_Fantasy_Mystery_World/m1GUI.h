@@ -115,8 +115,8 @@ private:
 	bool				using_mouse = true;
 
 
-	SDL_Rect			cursor_rect;
-	iPoint				cursor_position;
+	SDL_Rect			cursor_rect = { 0,0,0,0 };
+	iPoint				cursor_position = { 0,0 };
 	iPoint				cursor_offset = {-12, -3};
 	bool				show_cursor = true;
 
@@ -127,9 +127,9 @@ public:
 
 	// SFX
 
-	Mix_Chunk* fx_pause;
-	Mix_Chunk* fx_focus;
-	Mix_Chunk* fx_inventory;
+	Mix_Chunk* fx_pause = nullptr;
+	Mix_Chunk* fx_focus = nullptr;
+	Mix_Chunk* fx_inventory = nullptr;
 
 
 

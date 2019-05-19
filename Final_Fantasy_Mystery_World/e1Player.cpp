@@ -121,6 +121,7 @@ bool e1Player::Load(pugi::xml_node & node)
 	stats.level = p_stats.attribute("level").as_int();
 	stats.attack_power_ability_1 = p_stats.attribute("attack_power_ability_1").as_int();
 	stats.attack_power_ability_3 = p_stats.attribute("attack_power_ability_3").as_int();
+	App->map->lobby_state = (LobbyState)p_stats.attribute("lobby_state").as_int();
 	App->main_menu->entity_type = (EntityType)p_stats.attribute("entity_type").as_int();
 	pugi::xml_node p_globals = node.child("globals");
 	App->globals.player_name = p_globals.attribute("player_name").as_string();
@@ -132,6 +133,24 @@ bool e1Player::Load(pugi::xml_node & node)
 	App->globals.CutSceneMiddleRoomTutorialPlayed = p_globals.attribute("CutSceneMiddleRoomTutorialPlayed").as_bool();
 	App->globals.CutSceneTutorialGirlEscapingPlayed = p_globals.attribute("CutSceneTutorialGirlEscapingPlayed").as_bool();
 	App->globals.Tutorial_first_time = p_globals.attribute("Tutorial_first_time").as_bool();
+	App->globals.CutSceneLobbyQuest2Finish = p_globals.attribute("CutSceneLobbyQuest2Finish").as_bool();
+	App->globals.CutSceneLobbyCredits = p_globals.attribute("CutSceneLobbyCredits").as_bool();
+	App->globals.ability3_gained = p_globals.attribute("ability3_gained").as_bool();
+	App->globals.helmet_bought = p_globals.attribute("helmet_bought").as_bool();
+	App->globals.ring_bought = p_globals.attribute("ring_bought").as_bool();
+	App->globals.shop_gone = p_globals.attribute("shop_gone").as_bool();
+	App->globals.CutSceneHomeToSleepQuest2 = p_globals.attribute("CutSceneHomeToSleepQuest2").as_bool();
+	App->globals.quest2_rocks_cave_destroyed = p_globals.attribute("quest2_rocks_cave_destroyed").as_bool();
+	App->globals.CutSceneQueenQuest2 = p_globals.attribute("CutSceneQueenQuest2").as_bool();
+	App->globals.CutSceneFinalRoomQuest2 = p_globals.attribute("CutSceneFinalRoomQuest2").as_bool();
+	App->globals.treasure_quest2_opened = p_globals.attribute("treasure_quest2_opened").as_bool();
+	App->globals.ice_queen_killed = p_globals.attribute("ice_queen_killed").as_bool();
+	App->globals.treasure_boss_opened = p_globals.attribute("treasure_boss_opened").as_bool();
+	App->globals.treasure_quest3_opened = p_globals.attribute("treasure_quest3_opened").as_bool();
+	App->globals.CutSceneHomeToSleeQuest3 = p_globals.attribute("CutSceneHomeToSleeQuest3").as_bool();
+	App->globals.sleep2 = p_globals.attribute("sleep2").as_bool();
+	App->globals.CutsceneFinalGame = p_globals.attribute("CutsceneFinalGame").as_bool();
+	App->globals.CutsceneFinalFinalGame = p_globals.attribute("CutsceneFinalFinalGame").as_bool();
 	App->scene->player_type = (PlayerType)p_globals.attribute("player_type").as_bool();
 	App->scene->player->Init();
 	App->scene->player->CenterPlayerInTile();
@@ -154,6 +173,7 @@ bool e1Player::Save(pugi::xml_node & node) const
 	p_stats.append_attribute("attack_power_ability_1") = (int)stats.attack_power_ability_1;
 	p_stats.append_attribute("attack_power_ability_3") = (int)stats.attack_power_ability_3;
 	p_stats.append_attribute("entity_type") = (int)App->main_menu->entity_type;
+	p_stats.append_attribute("lobby_state") = (int)App->map->lobby_state;
 	pugi::xml_node p_globals = node.append_child("globals");
 	p_globals.append_attribute("player_name") = App->globals.player_name.data();
 	p_globals.append_attribute("ability1_gained") = (bool)App->globals.ability1_gained;
@@ -165,6 +185,24 @@ bool e1Player::Save(pugi::xml_node & node) const
 	p_globals.append_attribute("CutSceneTutorialGirlEscapingPlayed") = (bool)App->globals.CutSceneTutorialGirlEscapingPlayed;
 	p_globals.append_attribute("Tutorial_first_time") = (bool)App->globals.Tutorial_first_time;
 	p_globals.append_attribute("player_type") = (int)App->scene->player_type;
+	p_globals.append_attribute("CutSceneLobbyQuest2Finish") = (bool)App->globals.CutSceneLobbyQuest2Finish;
+	p_globals.append_attribute("CutSceneLobbyCredits") = (bool)App->globals.CutSceneLobbyCredits;
+	p_globals.append_attribute("ability3_gained") = (bool)App->globals.ability3_gained;
+	p_globals.append_attribute("helmet_bought") = (bool)App->globals.helmet_bought;
+	p_globals.append_attribute("ring_bought") = (bool)App->globals.ring_bought;
+	p_globals.append_attribute("shop_gone") = (bool)App->globals.shop_gone;
+	p_globals.append_attribute("CutSceneHomeToSleepQuest2") = (bool)App->globals.CutSceneHomeToSleepQuest2;
+	p_globals.append_attribute("quest2_rocks_cave_destroyed") = (bool)App->globals.quest2_rocks_cave_destroyed;
+	p_globals.append_attribute("CutSceneQueenQuest2") = (bool)App->globals.CutSceneQueenQuest2;
+	p_globals.append_attribute("CutSceneFinalRoomQuest2") = (bool)App->globals.CutSceneFinalRoomQuest2;
+	p_globals.append_attribute("treasure_quest2_opened") = (bool)App->globals.treasure_quest2_opened;
+	p_globals.append_attribute("ice_queen_killed") = (bool)App->globals.ice_queen_killed;
+	p_globals.append_attribute("treasure_boss_opened") = (bool)App->globals.treasure_boss_opened;
+	p_globals.append_attribute("treasure_quest3_opened") = (bool)App->globals.treasure_quest3_opened;
+	p_globals.append_attribute("CutSceneHomeToSleeQuest3") = (bool)App->globals.CutSceneHomeToSleeQuest3;
+	p_globals.append_attribute("sleep2") = (bool)App->globals.sleep2;
+	p_globals.append_attribute("CutsceneFinalGame") = (bool)App->globals.CutsceneFinalGame;
+	p_globals.append_attribute("CutsceneFinalFinalGame") = (bool)App->globals.CutsceneFinalFinalGame;
 	return true;
 }
 
@@ -1217,7 +1255,6 @@ void e1Player::Death()
 	BROFILER_CATEGORY("Player Death", Profiler::Color::Yellow);
 
 	if (current_animation->Finished() && death_time <= SDL_GetTicks() - 1000) {
-
 		App->audio->PlayFx(App->scene->fx_die);
 		App->map->CleanUp();
 		App->easing_splines->CleanUp();
@@ -1399,42 +1436,35 @@ void e1Player::LookFlash()
 
 void e1Player::Flashing()
 {
-	if (App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.ABILITY2) || drawable == false || App->input->GetKeyDownOrRepeat(App->input->controller_Buttons.buttons_code.ABILITY2)) {
-		if (drawable) {
-			if (timer_ability1.IsRunning()) {
-				if (timer_ability1.ReadSec() > 0.7f) {
-					drawable = false;
-					timer_ability1.Stop(); 
-					flash_time = SDL_GetTicks();
-					App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
-				}
-			}
-			else {
-				state = State::IDLE;
-
+	if (drawable) {
+		if (timer_ability1.IsRunning()) {
+			if (timer_ability1.ReadSec() > 0.7f) {
+				drawable = false;
+				timer_ability1.Stop();
+				flash_time = SDL_GetTicks();
+				App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
 			}
 		}
+		else {
+			state = State::IDLE;
 
-
-		if (drawable == false && flash_time < SDL_GetTicks() - 500) {
-			ability1_tiles.clear();
-			actual_tile = flash_position;
-			App->audio->PlayFx(App->scene->fx_flash);
-			state = State::AFTER_FLASH;
-			drawable = true;
-			position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
-			movement_count = { 0,0 };
-			CenterPlayerInTile();
-			App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
-			target_position = position;
-			initial_position = position;
-			flash_time = SDL_GetTicks();
 		}
 	}
-	else {
-		state = State::IDLE;
-		drawable = true;
+	
+
+	if (drawable == false && flash_time < SDL_GetTicks() - 500) {
 		ability1_tiles.clear();
+		actual_tile = flash_position;
+		App->audio->PlayFx(App->scene->fx_flash);
+		state = State::AFTER_FLASH;
+		drawable = true;
+		position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+		movement_count = { 0,0 };
+		CenterPlayerInTile();
+		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
+		target_position = position;
+		initial_position = position;
+		flash_time = SDL_GetTicks();
 	}
 
 }
