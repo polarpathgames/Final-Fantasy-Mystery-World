@@ -582,6 +582,19 @@ bool m1GUI::CheckCollision(int x, int y, u1GUI *item)
 	return false;
 }
 
+void m1GUI::DeleteHitPointLabels()
+{
+	for (std::list<u1GUI*>::iterator item = ui_list.begin(); item != ui_list.end(); ++item) {
+		if ((*item)->GetType() == UIType::HIT_POINT_LABEL) {
+			DeleteUIElement(*item);
+			*item = nullptr;
+			item = ui_list.begin();
+		}
+	}
+
+	ui_list.remove(nullptr);
+}
+
 bool m1GUI::ShowCursor(bool enable)
 {
 	return show_cursor = using_mouse = enable;

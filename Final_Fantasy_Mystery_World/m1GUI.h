@@ -97,6 +97,8 @@ public:
 	bool GetElemOnMouse(int x, int y, u1GUI* & element);
 	bool CheckCollision(int x, int y, u1GUI* item);
 
+	void DeleteHitPointLabels();
+
 	bool ShowCursor(bool enable);
 	const u1GUI* GetFocus();
 

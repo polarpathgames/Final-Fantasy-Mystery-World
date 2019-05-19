@@ -736,6 +736,7 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->ChangePause();		
 			App->main_menu->Enable();
 			App->menu_manager->DestroyHUD();
+			App->map->lobby_state = LobbyState::NORMAL_LOBBY;
 			App->scene->SetMenuState(StatesMenu::NO_MENU);
 			ret = false;
 		}
