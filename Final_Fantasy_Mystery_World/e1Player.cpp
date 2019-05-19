@@ -415,6 +415,7 @@ void e1Player::ReadPlayerInput()
 	}
 	if (state == State::BEFORE_FLASH) {
 		LookFlash();
+		
 	}
 	if (state == State::FLASHING && (!App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.ABILITY2) && App->input->GetKeyDownOrRepeat(App->input->controller_Buttons.buttons_code.ABILITY2))) {
 		if (drawable) {
@@ -655,6 +656,9 @@ void e1Player::InitStats()
 		}
 		else if (strcmp((*item)->GetName(), "cost_mana_special_attack") == 0) {
 			stats.cost_mana_special_attack1 = (*item)->GetValue();
+		}
+		else if (strcmp((*item)->GetName(), "cost_mana_special_attack2") == 0) {
+			stats.cost_mana_special_attack2 = (*item)->GetValue();
 		}
 		else if (strcmp((*item)->GetName(), "cost_mana_special_attack3") == 0) {
 			stats.cost_mana_special_attack3 = (*item)->GetValue();
@@ -1473,6 +1477,10 @@ void e1Player::Flashing()
 			ability1_tiles.clear();
 			actual_tile = flash_position;
 			App->audio->PlayFx(App->scene->fx_flash);
+			/*if (stats.mana - stats.cost_mana_special_attack3 >= 0) {
+				if (!god_mode)
+					ReduceMana(stats.cost_mana_special_attack2);
+			}*/
 			state = State::AFTER_FLASH;
 			drawable = true;
 			position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
