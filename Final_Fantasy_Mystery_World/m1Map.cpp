@@ -35,7 +35,7 @@ bool m1Map::Start()
 	mus_shop = App->audio->LoadMusic("assets/audio/music/4.Final Fantasy TA - Magic Beast Farm.ogg");
 	mus_lobby = App->audio->LoadMusic("assets/audio/music/10.Final Fantasy TA - Different World Ivalice.ogg");
 	mus_lobby_ice = App->audio->LoadMusic("assets/audio/music/13.Final Fantasy TA - Walking In Ivalice.ogg");
-	mus_lobby_night = App->audio->LoadMusic("assets/audio/music/13.Final Fantasy TA - Walking In Ivalice.ogg");
+	mus_lobby_night = App->audio->LoadMusic("assets/audio/music/27.Final Fantasy TA - Battle Of Hope.ogg");
 
 	if (App->fast_start) {
 		ChangeMap(Maps::DEBUG);
@@ -687,6 +687,7 @@ bool m1Map::ChangeMap(Maps type)
 			Load(lobby_ice.data());
 			break;
 		case LobbyState::NIGHT_LOBBY:
+			App->audio->PlayMusic(mus_lobby_night, 5);
 			Load(lobby_night.data());
 			break;
 		}
