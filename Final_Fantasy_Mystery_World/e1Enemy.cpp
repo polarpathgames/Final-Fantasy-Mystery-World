@@ -56,6 +56,17 @@ e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 	fx_ice_queen_tp = App->audio->LoadFx("assets/audio/sfx/Ice_Queen_tp.wav");
 	fx_ice_queen_summon = App->audio->LoadFx("assets/audio/sfx/Ice_Queen_summon.wav");
 	fx_frog_jump = App->audio->LoadFx("assets/audio/sfx/Frog_jump.wav");
+	fx_poison_cassio = App->audio->LoadFx("assets/audio/sfx/poison_cassio.wav");
+	fx_claw_cassio = App->audio->LoadFx("assets/audio/sfx/claw_cassio.wav");
+	fx_plant_hit = App->audio->LoadFx("assets/audio/sfx/plant_hit.wav");
+	fx_drake_throw = App->audio->LoadFx("assets/audio/sfx/drake_throw.wav");
+	fx_fireball_ancient_dragon = App->audio->LoadFx("assets/audio/sfx/fireball_ancient_dragon.wav");
+	fx_ancient_drake_weak = App->audio->LoadFx("assets/audio/sfx/ancient_drake_weak.wav");
+	fx_ancient_drake_dead = App->audio->LoadFx("assets/audio/sfx/ancient_drake_dead.wav");
+	fx_ancient_drake_hit = App->audio->LoadFx("assets/audio/sfx/ancient_drake_hit.wav");
+	fx_bomberman_attack = App->audio->LoadFx("assets/audio/sfx/bomberman_attack.wav");
+	fx_wake_up = App->audio->LoadFx("assets/audio/sfx/wake_up.wav");
+	fx_laser_mega_eye = App->audio->LoadFx("assets/audio/sfx/laser_mega_eye.wav");
 
 	
 }
@@ -142,6 +153,7 @@ bool e1Enemy::PreUpdate()
 		break;
 	case State::SLEEPING:
 		if (IsPlayerNextTile()) {
+			App->audio->PlayFx(fx_wake_up);
 			state = State::IDLE;
 			LookToPlayer();
 			ChangeAnimation(direction, state);
