@@ -46,9 +46,7 @@ e1BabyDrake::~e1BabyDrake()
 	if (fire_particle != nullptr)
 		App->particles->DeleteFollow_p(fire_particle);
 	if (drake_hp_bar != nullptr)
-		drake_hp_bar->to_delete = true;
-	if (drake_name_label != nullptr)
-		drake_name_label->to_delete = true;
+		App->gui->DeleteUIElement(drake_hp_bar);
 }
 
 void e1BabyDrake::PrepareDistanceAttack()
