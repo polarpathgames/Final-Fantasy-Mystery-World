@@ -583,7 +583,38 @@ struct UI_inventory {
 	void ChangeInventory(bool item);
 	void ResetSplineInventory();
 	void SetClipInInventory();
-};
+
+	void Reset() {
+		inventory_panel = nullptr;
+		inventory_panel2 = nullptr;
+		inventory_background = nullptr;
+		hp_potion_image = nullptr;
+		hp_potion_button = nullptr;
+		mana_potion_image = nullptr;
+		mana_potion_button = nullptr;
+		coin_image = nullptr;
+		player_name = nullptr;
+		hp_potion_label = nullptr;
+		mana_potion_label = nullptr;
+		money_label = nullptr;
+		level_name_label = nullptr;
+		level_number_label = nullptr;
+		exp_name_label = nullptr;
+		exp_number_label = nullptr;
+		player_image = nullptr;
+		first_ability = nullptr;
+		flash = nullptr;
+		shop_ability = nullptr;
+		item_helmet = nullptr;
+		item_ring = nullptr;
+		button_first_ability = nullptr;
+		button_flash = nullptr;
+		button_shop_ability = nullptr;
+		button_item_helmet = nullptr;
+		button_item_ring = nullptr;
+		spline_move_inventory = nullptr;
+	}
+}; // reset
 
 struct UI_pause_menu {
 	u1Image* pause_panel = nullptr;
@@ -641,6 +672,18 @@ struct UI_quest{
 	
 	u1Button* cancel_quest_button = nullptr;
 	u1Label* cancel_quest_label = nullptr;
+
+	void Reset() {
+		go_to_quest_panel = nullptr;
+		tutorial_button = nullptr;
+		tutorial_label = nullptr;
+		quest2_button = nullptr;
+		quest2_label = nullptr;
+		quest3_button = nullptr;
+		quest3_label = nullptr;
+		cancel_quest_button = nullptr;
+		cancel_quest_label = nullptr;
+	}
 };
 
 struct UI_shop {
@@ -683,6 +726,41 @@ struct UI_shop {
 	u1VerticalSlider* shop_vertical_slider = nullptr;
 	u1Image* shop_zone = nullptr;
 	u1Image* shop_item_zone = nullptr;
+
+	void Reset() {
+		shop_panel = nullptr;
+		shop_label = nullptr;
+		button_close_shop = nullptr;
+		label_close_shop = nullptr;
+		shop_background_item1 = nullptr;
+		shop_button_hp_potion = nullptr;
+		shop_hp_potion_image = nullptr;
+		shop_hp_potion_label = nullptr;
+		shop_coin1 = nullptr;
+		shop_background_item2 = nullptr;
+		shop_button_mana_potion = nullptr;
+		shop_mana_potion_image = nullptr;
+		shop_mana_potion_label = nullptr;
+		shop_coin2 = nullptr;
+		shop_background_item3 = nullptr;
+		shop_button_sword = nullptr;
+		shop_sword_image = nullptr;
+		shop_sword_label = nullptr;
+		shop_coin3 = nullptr;
+		shop_background_item4 = nullptr;
+		shop_button_helmet = nullptr;
+		shop_helmet_image = nullptr;
+		shop_helmet_label = nullptr;
+		shop_coin4 = nullptr;
+		shop_background_item5 = nullptr;
+		shop_button_ring = nullptr;
+		shop_ring_image = nullptr;
+		shop_ring_label = nullptr;
+		shop_coin5 = nullptr;
+		shop_vertical_slider = nullptr;
+		shop_zone = nullptr;
+		shop_item_zone = nullptr;
+	}
 };
 
 struct UI_debugscreen {
@@ -696,6 +774,18 @@ struct UI_debugscreen {
 	u1Label* player_label = nullptr;
 	u1Label* mouse_label = nullptr;
 	u1Label* entities_label = nullptr;
+
+	void Reset() {
+		debug_screen = nullptr;
+		project_name_label = nullptr;
+		version_label = nullptr;
+		fps_label = nullptr;
+		textures_label = nullptr;
+		map_label = nullptr;
+		player_label = nullptr;
+		mouse_label = nullptr;
+		entities_label = nullptr;
+	}
 };
 
 struct UI_game_over {
@@ -709,10 +799,8 @@ struct UI_game_over {
 
 	void Reset() {
 		game_over_panel = nullptr;
-
 		button_continue_lobby = nullptr;
 		label_continue_lobby = nullptr;
-
 		button_return_main = nullptr;
 		label_continue_main = nullptr;
 	}
@@ -726,12 +814,28 @@ struct UI_HUD {
 	u1Bar* player_exp_bar = nullptr;
 	u1Image* diagonal_compass = nullptr; 	//Compass
 	u1Image* vertical_compass = nullptr;	//Compass
+
+	void Reset() {
+		bg_hud = nullptr;
+		player_hud_image = nullptr;
+		player_hp_bar = nullptr;
+		player_mana_bar = nullptr;
+		player_exp_bar = nullptr;
+		diagonal_compass = nullptr; 	//Compass
+		vertical_compass = nullptr;	//Compass
+	}
 };
 
 struct UI_CONGRATUALTIONS {
 	u1Image* bg_hud = nullptr;
 	u1Button* button_return = nullptr;
 	u1Label* label_return = nullptr;
+
+	void Reset() {
+		bg_hud = nullptr;
+		button_return = nullptr;
+		label_return = nullptr;
+	}
 };
 
 enum class AbilityType {

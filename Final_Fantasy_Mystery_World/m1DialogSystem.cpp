@@ -333,7 +333,6 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->menu_manager->CreateShopMenu();
 				   App->scene->SetMenuState(StatesMenu::SHOP_MENU);
 				   App->globals.shop_gone = true;
-				   dialogTrees[7]->karma = 0;
 				   break;
 			   case -2: //FOUNTAIN MANA
 				   App->scene->player->AugmentMana(100);

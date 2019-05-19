@@ -120,9 +120,9 @@ void m1MenuManager::CreateSelectChamp()
 
 	select_champ.select_champ_panel = App->gui->AddImage(0, 0, { 1024, 3256, 1024, 768 }, App->main_menu, App->gui->screen, true, false, false, false);
 	
-	select_champ.warrior_image = App->gui->AddImage(500, 153, { 1052, 4079, 327, 358 }, App->main_menu, select_champ.select_champ_panel, true, false, false, false);
-	select_champ.archer_image = App->gui->AddImage(580, 135, { 1681, 4050, 244, 400 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
-	select_champ.mage_image = App->gui->AddImage(580, 160, { 1414, 4079, 218, 363 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
+	select_champ.warrior_image = App->gui->AddImage(500, 153, { 1047, 4063, 327, 362 }, App->main_menu, select_champ.select_champ_panel, true, false, false, false);
+	select_champ.archer_image = App->gui->AddImage(580, 120, { 1687, 4052, 233, 402 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
+	select_champ.mage_image = App->gui->AddImage(578, 160, { 1404, 4077, 218, 364 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
 
 	select_champ.warrior_info = App->gui->AddImage(490, 550, { 2118, 3306, 318, 141 }, App->main_menu, select_champ.select_champ_panel, true, false, false, false);
 	select_champ.archer_info = App->gui->AddImage(490, 550, { 2118, 3570, 318, 141 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
@@ -552,6 +552,7 @@ void m1MenuManager::DestroyGoToQuestMenu()
 {
 
 	App->gui->DeleteUIElement(quest.go_to_quest_panel);
+	quest.Reset();
 
 	App->scene->player->BlockControls(false);
 }
@@ -586,6 +587,7 @@ void m1MenuManager::DestroyInventory()
 {
 	App->gui->DeleteUIElement(inventory.inventory_panel);
 	App->gui->ShowCursor(false);
+	inventory.Reset();
 	//menu_state = StatesMenu::NO_MENU;
 }
 
@@ -839,6 +841,7 @@ void m1MenuManager::DestroyShopMenu()
 	App->scene->player->BlockControls(false);
 	App->gui->DeleteUIElement(shop.shop_panel);
 	DestroyInventory();
+	shop.Reset();
 	//menu_state = StatesMenu::NO_MENU;
 }
 
@@ -875,16 +878,7 @@ void m1MenuManager::DestroyDebugScreen()
 {
 	App->gui->DeleteUIElement(debug_screen.debug_screen);
 
-	debug_screen.debug_screen = nullptr;
-
-	debug_screen.project_name_label = nullptr;
-	debug_screen.version_label = nullptr;
-	debug_screen.fps_label = nullptr;
-	debug_screen.textures_label = nullptr;
-	debug_screen.map_label = nullptr;
-	debug_screen.player_label = nullptr;
-	debug_screen.mouse_label = nullptr;
-	debug_screen.entities_label = nullptr;
+	debug_screen.Reset();
 }
 
 void m1MenuManager::UpdateDebugScreen()
@@ -1063,6 +1057,7 @@ void m1MenuManager::DestroyHUD()
 {
 	App->gui->DeleteUIElement(hud.bg_hud);
 	hud.bg_hud = nullptr;
+	hud.Reset();
 }
 
 
@@ -1693,6 +1688,7 @@ void m1MenuManager::CreateBigInventory()
 void m1MenuManager::DestroyBigInventory()
 {
 	App->gui->DeleteUIElement(inventory.inventory_background);
+	inventory.Reset();
 }
 
 
@@ -1775,4 +1771,5 @@ void m1MenuManager::DestroyCongratualtions()
 {
 	App->gui->DeleteUIElement(congrats.bg_hud);
 	congrats.bg_hud = nullptr;
+	congrats.Reset();
 }
