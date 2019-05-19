@@ -1436,7 +1436,7 @@ void e1Player::LookFlash()
 
 void e1Player::Flashing()
 {
-	if (App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.ABILITY2) || drawable == false || App->input->GetKeyDownOrRepeat(App->input->controller_Buttons.buttons_code.ABILITY2)) {
+	if ((App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.ABILITY2) || App->input->GetControllerButtonDownOrRepeat(App->input->controller_Buttons.buttons_code.ABILITY2)) || drawable == false) {
 		if (drawable) {
 			if (timer_ability1.IsRunning()) {
 				if (timer_ability1.ReadSec() > 0.7f) {
@@ -1471,6 +1471,7 @@ void e1Player::Flashing()
 	else {
 		state = State::IDLE;
 		drawable = true;
+		timer_ability1.Stop();
 		ability1_tiles.clear();
 	}
 
