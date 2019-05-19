@@ -472,7 +472,7 @@ void e1Particles::MoveFireBall(float dt)
 {
 	iPoint pos = App->map->WorldToMap(position.x, position.y + 20);
 
-	if (pos == fireball_tile_objective) {
+	if (fireball_tile_objective.x <= pos.x && fireball_tile_objective.y <= pos.y) {
 		FireBallExplosionCollision();
 		to_delete = true;
 	}
