@@ -1,7 +1,7 @@
 <cutscenes>
   <actions>
     <cutscene action="move_entity" entity="player">
-      <time start="100" duration="500" speed_x="-160" speed_y="-80"/>
+      <time start="100" duration="300" speed_x="-160" speed_y="-80"/>
     </cutscene>
     <cutscene action="fade">
       <time start="550" duration="100" fade="6"/>
