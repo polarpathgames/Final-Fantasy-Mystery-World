@@ -323,6 +323,7 @@ bool m1Scene::Update(float dt)
 			App->menu_manager->DestroyOptions();
 			//App->menu_manager->ShowHUD(true);
 			player->BlockControls(true);
+			App->menu_manager->EnableHUD(true);
 			menu_state = StatesMenu::PAUSE_MENU;
 		}
 		break;
