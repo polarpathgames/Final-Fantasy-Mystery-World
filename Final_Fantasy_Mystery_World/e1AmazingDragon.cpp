@@ -101,31 +101,33 @@ bool e1AmazingDragon::PreUpdate()
 			// TODO App->audio->PlayFx(fx_fireball_ancient_dragon);
 			break; }
 		case e1AmazingDragon::AmazingDragonStates::WAIT_FIRE_BALLS:
-			if (turns_to_wait_after_fire_ball == auxiliar_turn_count && !waiting_fire_balls) {
-				std::vector<iPoint> random_pos;
-				App->entity_manager->FindFreeTileAround(App->scene->player->actual_tile, 4, &random_pos);
-				for (uint i = 0; i < number_of_fire_balls; ++i) {
-					iPoint pos = random_pos[App->random.Generate(0, random_pos.size() - 1)];
-					fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, pos.x, pos.y, "");
-					fire_ball->SetParticle(e1Particles::ParticleType::AMAZING_DRAGON_FIRE_BALL, direction, turns_to_wait_after_fire_ball);
-					App->audio->PlayFx(fx_drake_throw);
-					std::vector<iPoint>::iterator item = random_pos.begin();
-					for (; item != random_pos.end(); ++item) {
-						if ((*item) == pos) {
-							random_pos.erase(item);
-							break;
+			if (turns_to_wait_after_fire_ball == auxiliar_turn_count) {
+				if (!waiting_fire_balls) {
+					std::vector<iPoint> random_pos;
+					App->entity_manager->FindFreeTileAround(App->scene->player->actual_tile, 4, &random_pos);
+					for (uint i = 0; i < number_of_fire_balls; ++i) {
+						iPoint pos = random_pos[App->random.Generate(0, random_pos.size() - 1)];
+						fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, pos.x, pos.y, "");
+						fire_ball->SetParticle(e1Particles::ParticleType::AMAZING_DRAGON_FIRE_BALL, direction, turns_to_wait_after_fire_ball);
+						App->audio->PlayFx(fx_drake_throw);
+						std::vector<iPoint>::iterator item = random_pos.begin();
+						for (; item != random_pos.end(); ++item) {
+							if ((*item) == pos) {
+								random_pos.erase(item);
+								break;
+							}
 						}
 					}
+					waiting_fire_balls = true;
 				}
-				waiting_fire_balls = true;
-			}
-			else if (turns_to_wait_after_fire_ball == auxiliar_turn_count && waiting_fire_balls) {
-				std::vector<e1Entity*> item = App->entity_manager->GetEntities();
-				if (std::find(item.begin(), item.end(), (e1Entity*)fire_ball) == item.end()) {
-					turn_done = true;
-					waiting_fire_balls = false;
-					auxiliar_turn_count = 0U;
-					dragon_states = AmazingDragonStates::IDLE;
+				else if (waiting_fire_balls) {
+					std::vector<e1Entity*> item = App->entity_manager->GetEntities();
+					if (std::find(item.begin(), item.end(), (e1Entity*)fire_ball) == item.end()) {
+						turn_done = true;
+						waiting_fire_balls = false;
+						auxiliar_turn_count = 0U;
+						dragon_states = AmazingDragonStates::IDLE;
+					}
 				}
 			}
 			else {
