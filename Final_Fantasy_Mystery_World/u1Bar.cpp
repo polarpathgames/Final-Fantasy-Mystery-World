@@ -59,7 +59,6 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 }
 
 u1Bar::~u1Bar() {
-	bar_numbers_label = nullptr;
 }
 
 void u1Bar::UpdateBar(int quantity, UIType bar_type)

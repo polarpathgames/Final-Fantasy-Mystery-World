@@ -173,7 +173,7 @@ bool m1Scene::Update(float dt)
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !App->fade_to_black->IsFading()) {
 		if (App->map->actual_map != Maps::SHOP && App->map->actual_map != Maps::NONE && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::LOBBY) {
 			if (App->input->GetKey(SDL_SCANCODE_LSHIFT)) {
 				App->map->quest_rooms->ChangeRoom(COLLIDER_TYPE::COLLIDER_NEXT_B, true);
@@ -184,7 +184,7 @@ bool m1Scene::Update(float dt)
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !App->fade_to_black->IsFading()) {
 		if (App->map->actual_map != Maps::SHOP && App->map->actual_map != Maps::NONE && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::LOBBY) {
 			if (App->input->GetKey(SDL_SCANCODE_LSHIFT)) {
 				App->map->quest_rooms->ChangeRoom(COLLIDER_TYPE::COLLIDER_LAST_B, true);

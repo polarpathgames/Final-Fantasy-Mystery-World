@@ -46,6 +46,8 @@ e1AmazingDragon::e1AmazingDragon(const int & x, const int & y) : e1Enemy(x, y)
 
 e1AmazingDragon::~e1AmazingDragon()
 {
+	if (megadrake_hp_bar != nullptr)
+		App->gui->DeleteUIElement(megadrake_hp_bar);
 }
 
 bool e1AmazingDragon::PreUpdate()

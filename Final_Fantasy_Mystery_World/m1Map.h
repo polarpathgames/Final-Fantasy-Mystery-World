@@ -185,6 +185,8 @@ private:
 
 	Mix_Music* mus_shop = nullptr;
 	Mix_Music* mus_lobby = nullptr;
+	Mix_Music* mus_lobby_ice = nullptr;
+	Mix_Music* mus_lobby_night = nullptr;
 	Mix_Music* mus_home = nullptr;
 };
 
