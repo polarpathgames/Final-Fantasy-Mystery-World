@@ -19911,7 +19911,7 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="906" name="player" type="default2" x="256" y="320" width="15.9688" height="16.0156">
+  <object id="906" name="player" type="default2" x="400" y="400" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
    </properties>
