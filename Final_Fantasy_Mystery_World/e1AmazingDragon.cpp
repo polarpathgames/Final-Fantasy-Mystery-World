@@ -100,7 +100,7 @@ bool e1AmazingDragon::PreUpdate()
 					iPoint pos = random_pos[App->random.Generate(0, random_pos.size() - 1)];
 					fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, pos.x, pos.y, "");
 					fire_ball->SetParticle(e1Particles::ParticleType::AMAZING_DRAGON_FIRE_BALL, direction, turns_to_wait_after_fire_ball);
-					fire_ball->drawable = false;
+					//fire_ball->drawable = false;
 					App->audio->PlayFx(fx_drake_throw);
 					std::vector<iPoint>::iterator item = random_pos.begin();
 					for (; item != random_pos.end(); ++item) {

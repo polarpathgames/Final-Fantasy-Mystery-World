@@ -37,9 +37,28 @@ bool e1Particles::PreUpdate()
 {
 	if (particle_type == ParticleType::AMAZING_DRAGON_FIRE_BALL) {
 		if (turns == 0) {
+			/*int cont = 0;
+			std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
+			std::vector<e1Entity*>::iterator item = entities.begin();
+			for (; item != entities.end(); ++item) {
+				if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::PARTICLE && static_cast<e1Particles*>(*item)->particle_type == ParticleType::AMAZING_DRAGON_FIRE_BALL && (*item)->allow_turn) {
+					++cont;
+				}
+			}*/
 			allow_turn = false;
 			turn_done = true;
 			drawable = true;
+		
+			
+		/*	item = entities.begin();
+			if (cont == 1) {
+				for (; item != entities.end(); ++item) {
+					if ((*item) != nullptr && (*item)->type == e1Entity::EntityType::ENEMY && static_cast<e1Enemy*>(*item)->enemy_type == e1Enemy::EnemyType::AMAZING_DRAGON) {
+						App->entity_manager->AssignEntityTurn((*item));
+						break;
+					}
+				}
+			}*/
 		}
 		else {
 			--turns;
@@ -533,8 +552,8 @@ void e1Particles::SetAmazingDragonFireBall(const uint & turns)
 {
 	allow_turn = true;
 	this->turns = turns;
-	velocity.y = 160;
-	position.y -= FIREBALL_ELEVATED_POS;
+	velocity.y = 220;
+	position.y -= AMAZING_FIREBALL_ELEVATED_POS;
 	position.x -= 7;
 
 	amazing_fire_ball_attack_range.push_back(actual_tile + iPoint{ -1,-1 });
