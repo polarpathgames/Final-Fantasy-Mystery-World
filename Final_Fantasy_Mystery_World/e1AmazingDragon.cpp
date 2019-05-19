@@ -73,6 +73,7 @@ bool e1AmazingDragon::PreUpdate()
 			if (auxiliar_attack_count == waves_before_recover_energy) {
 				auxiliar_attack_count = 0U;
 				dragon_states = AmazingDragonStates::WEAK;
+				App->audio->PlayFx(fx_ancient_drake_weak);
 				current_animation = &anim.GoDownLeft;
 				turn_done = true;
 				App->map->data.no_walkables.push_back(iPoint{ 22,14 });
@@ -97,6 +98,7 @@ bool e1AmazingDragon::PreUpdate()
 					iPoint pos = random_pos[App->random.Generate(0, random_pos.size() - 1)];
 					e1Particles* fire_ball = (e1Particles*)App->entity_manager->CreateEntity(e1Entity::EntityType::PARTICLE, pos.x, pos.y, "");
 					fire_ball->SetParticle(e1Particles::ParticleType::AMAZING_DRAGON_FIRE_BALL, direction, turns_to_wait_after_fire_ball);
+					App->audio->PlayFx(fx_drake_throw);
 					std::vector<iPoint>::iterator item = random_pos.begin();
 					for (; item != random_pos.end(); ++item) {
 						if ((*item) == pos) {
@@ -111,6 +113,7 @@ bool e1AmazingDragon::PreUpdate()
 				auxiliar_turn_count = 0U;
 				anim.BasicAttackDownLeft.Reset();
 			}
+			// TODO App->audio->PlayFx(fx_fireball_ancient_dragon);
 			break; }
 		case e1AmazingDragon::AmazingDragonStates::WAIT_FIRE_BALLS:
 			if (turns_to_wait_after_fire_ball == auxiliar_turn_count) {
@@ -151,6 +154,7 @@ bool e1AmazingDragon::Update(float dt)
 
 void e1AmazingDragon::GetHitted(const int & dmg)
 {
+	App->audio->PlayFx(fx_ancient_drake_hit);
 
 	stats.live -= dmg;
 	times_hitted++;
@@ -162,6 +166,7 @@ void e1AmazingDragon::GetHitted(const int & dmg)
 	App->audio->PlayFx(fx_enemy_hit);
 	if (stats.live <= 0 || App->scene->player->god_mode) {
 		state = State::DEATH;
+		App->audio->PlayFx(fx_ancient_drake_dead);
 		current_animation = &anim.DeathDownLeft;
 		to_delete = true;
 		App->gui->DeleteUIElement(megadrake_hp_bar);
