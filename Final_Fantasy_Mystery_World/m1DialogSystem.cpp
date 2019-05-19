@@ -396,6 +396,10 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 					   }
 				   }
 				   break; }
+			   case 900:
+				   App->menu_manager->EnableHUD(true);
+				   App->scene->player->BlockControls(false);
+				   break;
 			   case -3://SAVE FUNCTION
 			   {
 				   //Save function

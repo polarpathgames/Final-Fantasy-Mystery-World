@@ -89,7 +89,7 @@
     </node>
     <node line="Do you want to take it?" id="1" karma="0" tag="0">
       <option line="Yes" nextnode="3" karma="0" tag="33"/>
-      <option line="No" nextnode="3" karma="0" tag="0"/>
+      <option line="No" nextnode="3" karma="0" tag="900"/>
     </node>
   </dialogtree>
   <dialogtree treeid="9" karma="0" tag="0" rect_x="1751" rect_y="3090" rect_w="122" rect_h="131">

@@ -173,7 +173,7 @@ void e1Cassio::IdAnimToEnum()
 		case 77:
 			data.animations[i].animType = AnimationState::DEATH_DOWN_RIGHT;
 			break;
-		case 88:
+		case 89:
 			data.animations[i].animType = AnimationState::DEATH_UP_RIGHT;
 			break;
 		case 73:
