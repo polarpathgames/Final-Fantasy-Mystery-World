@@ -101,8 +101,7 @@ bool e1Player::Update(float dt)
 	if (coll != nullptr)
 		coll->SetPos(position.x + pivot.x/2 - 2, position.y + 20);
 
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
-		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyCredits.xml");
+
 
 	return true;
 }
@@ -1272,6 +1271,7 @@ void e1Player::Death()
 		App->scene->player->AugmentMana(App->scene->player->stats.max_mana);
 		App->menu_manager->EnableHUD(false);
 		App->menu_manager->CreateGameOver();
+		App->menu_manager->DestroyDebugScreen();
 		App->scene->SetMenuState(StatesMenu::DIE_MENU);
 		state = State::MENU;
 		stats.live = stats.max_lives;
