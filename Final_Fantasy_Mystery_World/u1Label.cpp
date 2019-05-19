@@ -29,8 +29,10 @@ u1Label::u1Label(const int & pos_x, const int & pos_y, const char * txt, const C
 u1Label::~u1Label()
 {
 	text.clear();
-	App->tex->UnLoad(texture);
-	texture = nullptr;
+	if (texture != nullptr) {
+		App->tex->UnLoad(texture);
+		texture = nullptr;
+	}
 }
 
 void u1Label::InnerDraw()
