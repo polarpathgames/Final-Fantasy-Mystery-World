@@ -121,6 +121,7 @@ bool e1Player::Load(pugi::xml_node & node)
 	stats.level = p_stats.attribute("level").as_int();
 	stats.attack_power_ability_1 = p_stats.attribute("attack_power_ability_1").as_int();
 	stats.attack_power_ability_3 = p_stats.attribute("attack_power_ability_3").as_int();
+	App->map->lobby_state = (LobbyState)p_stats.attribute("lobby_state").as_int();
 	App->main_menu->entity_type = (EntityType)p_stats.attribute("entity_type").as_int();
 	pugi::xml_node p_globals = node.child("globals");
 	App->globals.player_name = p_globals.attribute("player_name").as_string();
@@ -172,6 +173,7 @@ bool e1Player::Save(pugi::xml_node & node) const
 	p_stats.append_attribute("attack_power_ability_1") = (int)stats.attack_power_ability_1;
 	p_stats.append_attribute("attack_power_ability_3") = (int)stats.attack_power_ability_3;
 	p_stats.append_attribute("entity_type") = (int)App->main_menu->entity_type;
+	p_stats.append_attribute("lobby_state") = (int)App->map->lobby_state;
 	pugi::xml_node p_globals = node.append_child("globals");
 	p_globals.append_attribute("player_name") = App->globals.player_name.data();
 	p_globals.append_attribute("ability1_gained") = (bool)App->globals.ability1_gained;
@@ -1262,7 +1264,6 @@ void e1Player::Death()
 		App->audio->PlayFx(App->scene->fx_die);
 		App->map->CleanUp();
 		App->easing_splines->CleanUp();
-		App->gui->DeleteHitPointLabels();
 		App->entity_manager->DeleteEntitiesNoPlayer();
 		App->scene->player->AugmentLives(App->scene->player->stats.max_lives);
 		App->scene->player->AugmentMana(App->scene->player->stats.max_mana);
@@ -1432,42 +1433,35 @@ void e1Player::LookFlash()
 
 void e1Player::Flashing()
 {
-	if (App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.ABILITY2) || drawable == false || App->input->GetKeyDownOrRepeat(App->input->controller_Buttons.buttons_code.ABILITY2)) {
-		if (drawable) {
-			if (timer_ability1.IsRunning()) {
-				if (timer_ability1.ReadSec() > 0.7f) {
-					drawable = false;
-					timer_ability1.Stop(); 
-					flash_time = SDL_GetTicks();
-					App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
-				}
-			}
-			else {
-				state = State::IDLE;
-
+	if (drawable) {
+		if (timer_ability1.IsRunning()) {
+			if (timer_ability1.ReadSec() > 0.7f) {
+				drawable = false;
+				timer_ability1.Stop();
+				flash_time = SDL_GetTicks();
+				App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
 			}
 		}
+		else {
+			state = State::IDLE;
 
-
-		if (drawable == false && flash_time < SDL_GetTicks() - 500) {
-			ability1_tiles.clear();
-			actual_tile = flash_position;
-			App->audio->PlayFx(App->scene->fx_flash);
-			state = State::AFTER_FLASH;
-			drawable = true;
-			position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
-			movement_count = { 0,0 };
-			CenterPlayerInTile();
-			App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
-			target_position = position;
-			initial_position = position;
-			flash_time = SDL_GetTicks();
 		}
 	}
-	else {
-		state = State::IDLE;
-		drawable = true;
+	
+
+	if (drawable == false && flash_time < SDL_GetTicks() - 500) {
 		ability1_tiles.clear();
+		actual_tile = flash_position;
+		App->audio->PlayFx(App->scene->fx_flash);
+		state = State::AFTER_FLASH;
+		drawable = true;
+		position = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+		movement_count = { 0,0 };
+		CenterPlayerInTile();
+		App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-10 }, { 0,4,2,0 }, RANDOM, { 20,20 }, { 40,10 }, { 15,5 }, P_NON, 200, 5);
+		target_position = position;
+		initial_position = position;
+		flash_time = SDL_GetTicks();
 	}
 
 }
