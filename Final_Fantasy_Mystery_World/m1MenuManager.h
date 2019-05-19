@@ -706,6 +706,16 @@ struct UI_game_over {
 
 	u1Button* button_return_main = nullptr;
 	u1Label* label_continue_main = nullptr;
+
+	void Reset() {
+		game_over_panel = nullptr;
+
+		button_continue_lobby = nullptr;
+		label_continue_lobby = nullptr;
+
+		button_return_main = nullptr;
+		label_continue_main = nullptr;
+	}
 };
 
 struct UI_HUD {

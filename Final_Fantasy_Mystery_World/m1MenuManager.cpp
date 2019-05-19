@@ -950,6 +950,7 @@ void m1MenuManager::CreateGameOver()
 void m1MenuManager::DestroyGameOver()
 {
 	App->gui->DeleteUIElement(game_over.game_over_panel);
+	game_over.Reset();
 }
 
 void m1MenuManager::CreateHelpDiagonalMenu()
