@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-up" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="46">
+<map version="1.2" tiledversion="1.2.2" orientation="isometric" renderorder="right-up" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="48">
  <properties>
   <property name="movement" type="int" value="1"/>
  </properties>
@@ -4845,6 +4845,16 @@
    </properties>
   </object>
   <object id="43" name="collider" x="333.792" y="401.542" width="10.75" height="13.5833">
+   <properties>
+    <property name="bed" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="46" name="collider" x="336" y="384" width="10.75" height="13.5833">
+   <properties>
+    <property name="bed" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="47" name="collider" x="336" y="368" width="10.75" height="13.5833">
    <properties>
     <property name="bed" type="int" value="0"/>
    </properties>
