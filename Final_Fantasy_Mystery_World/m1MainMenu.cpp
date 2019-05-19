@@ -45,6 +45,7 @@ bool m1MainMenu::Start()
 
 	mus_main_menu = App->audio->LoadMusic("assets/audio/music/1.Final Fantasy TA - Main Theme.ogg");
 	mus_credits = App->audio->LoadMusic("assets/audio/music/41.Final Fantasy TA - A Place We Should Return To.ogg");
+	mus_congrats = App->audio->LoadMusic("assets/audio/music/17.Final Fantasy TA - Undefeated Heart.ogg");
 	mus_selection = App->audio->LoadMusic("assets/audio/music/34.Final Fantasy TA - Confusion.ogg");
 
 	App->menu_manager->CreateMainMenu();

@@ -378,7 +378,7 @@ void e1Player::ReadPlayerInput()
 	if (state == State::BEFORE_FLASH) {
 		LookFlash();
 	}
-	if (state == State::FLASHING && (!App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.ABILITY2) && !App->input->GetKeyDownOrRepeat(App->input->controller_Buttons.buttons_code.ABILITY2))) {
+	if (state == State::FLASHING && (!App->input->GetKeyDownOrRepeat(App->input->keyboard_buttons.buttons_code.ABILITY2) && App->input->GetKeyDownOrRepeat(App->input->controller_Buttons.buttons_code.ABILITY2))) {
 		if (drawable) {
 			state = State::IDLE;
 			timer_ability1.Stop();

@@ -126,6 +126,17 @@ public:
 	Mix_Chunk* fx_ice_queen_tp;
 	Mix_Chunk* fx_ice_queen_summon;
 	Mix_Chunk* fx_frog_jump;
+	Mix_Chunk* fx_poison_cassio;
+	Mix_Chunk* fx_plant_hit;
+	Mix_Chunk* fx_wake_up;
+	Mix_Chunk* fx_claw_cassio;
+	Mix_Chunk* fx_drake_throw;
+	Mix_Chunk* fx_fireball_ancient_dragon;
+	Mix_Chunk* fx_ancient_drake_weak;
+	Mix_Chunk* fx_ancient_drake_dead;
+	Mix_Chunk* fx_ancient_drake_hit;
+	Mix_Chunk* fx_bomberman_attack;
+	Mix_Chunk* fx_laser_mega_eye;
 
 	u1Bar* icequeen_hp_bar = nullptr;
 	u1Label* icequeen_label = nullptr;

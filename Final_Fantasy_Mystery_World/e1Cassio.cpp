@@ -35,6 +35,7 @@ e1Cassio::~e1Cassio()
 
 void e1Cassio::PrepareDistanceAttack()
 {
+	App->audio->PlayFx(fx_poison_cassio);
 	particle_position = position;
 	lerp_translation = 0.f;
 	poison_particle = App->particles->CreateFollow(nullptr, &particle_position, { 2,6,2,2 }, { 10,10 }, { 15,5 }, 4, 60, true, false, { 0,5 });
@@ -47,6 +48,7 @@ bool e1Cassio::IsSpecialAttack1Finished()
 
 void e1Cassio::AfterSpecialAttack1()
 {
+	App->audio->PlayFx(fx_claw_cassio);
 	lerp_translation = 0.f;
 	App->particles->DeleteFollow_p(poison_particle);
 	poison_particle = nullptr;

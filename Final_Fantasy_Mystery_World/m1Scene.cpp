@@ -99,6 +99,7 @@ bool m1Scene::Start()
 	fx_ability3 = App->audio->LoadFx("assets/audio/sfx/Ability3.wav");
 	fx_ability3_hit = App->audio->LoadFx("assets/audio/sfx/Ability3_hit.wav");
 	fx_burn = App->audio->LoadFx("assets/audio/sfx/burn.wav");
+	fx_poison = App->audio->LoadFx("assets/audio/sfx/posion.wav");
 	fx_pick_up_poti = App->audio->LoadFx("assets/audio/sfx/pick_up_poti.wav");
   
 	mus_game_over = App->audio->LoadMusic("assets/audio/music/35.Final Fantasy TA - Judge.ogg");

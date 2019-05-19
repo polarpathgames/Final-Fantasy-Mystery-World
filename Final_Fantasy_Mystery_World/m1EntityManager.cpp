@@ -398,19 +398,19 @@ void m1EntityManager::SpawnRupees(const int & x, const int & y, const int & numb
 			random_rupee = App->random.Generate(1, per.back().first);
 			if (IN_RANGE(random_rupee, 0, (*per_item).first)) {
 				drop = (e1Drop*)CreateEntity(e1Entity::EntityType::DROP, x, y, (*per_item).second);
-				gold = App->random.Generate(300, 400);
+				gold = App->random.Generate(GOLD_RUPEE_YELLOW);
 			}
 			else if (IN_RANGE(random_rupee, (*per_item).first, (*++per_item).first)) {
 				drop = (e1Drop*)CreateEntity(e1Entity::EntityType::DROP, x, y, (*per_item).second);
-				gold = App->random.Generate(90, 110);
+				gold = App->random.Generate(GOLD_RUPEE_RED);
 			}
 			else if (IN_RANGE(random_rupee, (*per_item).first, (*++per_item).first)) {
 				drop = (e1Drop*)CreateEntity(e1Entity::EntityType::DROP, x, y, (*per_item).second);
-				gold = App->random.Generate(45, 65);
+				gold = App->random.Generate(GOLD_RUPEE_BLUE);
 			}
 			else if (IN_RANGE(random_rupee, (*per_item).first, (*++per_item).first)) {
 				drop = (e1Drop*)CreateEntity(e1Entity::EntityType::DROP, x, y, (*per_item).second);
-				gold = App->random.Generate(15, 25);
+				gold = App->random.Generate(GOLD_RUPEE_GREEN);
 			}
 			
 			drop->SetGold(gold);

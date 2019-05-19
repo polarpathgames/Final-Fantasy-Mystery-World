@@ -22,6 +22,7 @@ public:
 	Mix_Chunk* fx_push_button_return;
 
 	Mix_Music* mus_main_menu;
+	Mix_Music* mus_congrats;
 	Mix_Music* mus_credits;
 	Mix_Music* mus_selection;
 	e1Entity::EntityType entity_type;

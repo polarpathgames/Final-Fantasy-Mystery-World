@@ -3,15 +3,15 @@
  <grid orientation="orthogonal" width="45" height="42"/>
  <properties>
   <property name="attack_power" type="int" value="30"/>
-  <property name="experience" type="int" value="50"/>
-  <property name="live" type="int" value="400"/>
-  <property name="ratio_blue_rupee" type="int" value="20"/>
-  <property name="ratio_gold_rupee" type="int" value="1"/>
-  <property name="ratio_green_rupee" type="int" value="50"/>
-  <property name="ratio_poti_hp" type="int" value="20"/>
-  <property name="ratio_poti_mana" type="int" value="21"/>
-  <property name="ratio_red_rupee" type="int" value="5"/>
-  <property name="ratio_rupee" type="int" value="60"/>
+  <property name="experience" type="int" value="1000"/>
+  <property name="live" type="int" value="2000"/>
+  <property name="ratio_blue_rupee" type="int" value="0"/>
+  <property name="ratio_gold_rupee" type="int" value="50"/>
+  <property name="ratio_green_rupee" type="int" value="1"/>
+  <property name="ratio_poti_hp" type="int" value="0"/>
+  <property name="ratio_poti_mana" type="int" value="0"/>
+  <property name="ratio_red_rupee" type="int" value="50"/>
+  <property name="ratio_rupee" type="int" value="100"/>
  </properties>
  <image source="../sprites/drake2.png" width="428" height="308"/>
  <tile id="0">

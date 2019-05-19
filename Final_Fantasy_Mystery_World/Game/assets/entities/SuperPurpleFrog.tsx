@@ -3,7 +3,7 @@
  <properties>
   <property name="attack_power" type="int" value="30"/>
   <property name="experience" type="int" value="40"/>
-  <property name="live" type="int" value="200"/>
+  <property name="live" type="int" value="250"/>
   <property name="ratio_blue_rupee" type="int" value="30"/>
   <property name="ratio_gold_rupee" type="int" value="1"/>
   <property name="ratio_green_rupee" type="int" value="50"/>

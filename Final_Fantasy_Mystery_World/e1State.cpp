@@ -109,6 +109,7 @@ bool e1State::PreUpdate()
 					if (target != nullptr) {
 						static_cast<e1DynamicEntity*>(target)->GetHitted(damage);
 						(*particle_fire.begin())->active = true;
+						App->audio->PlayFx(App->scene->fx_poison);
 					}
 					number_hit++;
 					break;

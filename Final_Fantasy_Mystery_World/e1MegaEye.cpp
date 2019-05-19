@@ -33,7 +33,7 @@ e1MegaEye::~e1MegaEye()
 
 void e1MegaEye::PrepareDistanceAttack()
 {
-
+	App->audio->PlayFx(fx_laser_mega_eye);
 }
 
 void e1MegaEye::PrepareBasicAttack() {

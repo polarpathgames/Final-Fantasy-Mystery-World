@@ -1765,6 +1765,7 @@ void UI_inventory::SetClipInInventory()
 
 void m1MenuManager::CreateCongratualtions()
 {
+	App->audio->PlayMusic(App->main_menu->mus_congrats, 0);
 	congrats.bg_hud = App->gui->AddImage(0, 0, { 0, 768, 1024,768 },nullptr, App->gui->screen, true, false, false, false);
 	congrats.button_return = App->gui->AddButton(824, 693, {0,0, 75,25}, { 0,0, 75,25 }, { 0,0, 75,25 }, this, congrats.bg_hud, false, false, true, true);
 	congrats.label_return = App->gui->AddLabel(824, 668, "Return", congrats.bg_hud, BLACK, FontType::FF64, nullptr, false);
