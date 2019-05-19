@@ -606,7 +606,7 @@ void m1Scene::ShitFunctionJAJA()
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyQuest2.xml");
 		App->globals.CutSceneLobbyQuest2Finish = true;
 	}
-	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && !App->globals.CutSceneHomeToSleeQuest3 && App->map->actual_map == Maps::LOBBY && App->globals.CutSceneHomeToSleepQuest2 == true && App->globals.CutSceneLobbyQuest2Finish) {
+	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && !App->globals.CutSceneHomeToSleeQuest3 && App->map->actual_map == Maps::LOBBY && App->globals.CutSceneHomeToSleepQuest2 == true && App->globals.CutSceneLobbyQuest2Finish && App->map->last_map == Maps::HOME && App->globals.sleep2) {
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyQuest3.xml");
 		App->globals.CutSceneHomeToSleeQuest3 = true;
 	}
@@ -642,6 +642,15 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			App->menu_manager->DestroyGoToQuestMenu();
 			menu_state = StatesMenu::NO_MENU;
+			ret = false;
+		}
+		if (interact == App->menu_manager->quest.quest2_button) {
+			App->audio->PlayFx(fx_ability_warrior);
+
+			App->menu_manager->DestroyGoToQuestMenu();
+			App->fade_to_black->FadeToBlack(Maps::QUEST2);
+			menu_state = StatesMenu::NO_MENU;
+			App->menu_manager->EnableHUD(true);
 			ret = false;
 		}
 		if (interact != nullptr && interact != App->menu_manager->quest.cancel_quest_button) {
