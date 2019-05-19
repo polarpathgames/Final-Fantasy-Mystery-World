@@ -1272,6 +1272,7 @@ void e1Player::Death()
 		App->scene->player->AugmentMana(App->scene->player->stats.max_mana);
 		App->menu_manager->EnableHUD(false);
 		App->menu_manager->CreateGameOver();
+		App->menu_manager->DestroyDebugScreen();
 		App->scene->SetMenuState(StatesMenu::DIE_MENU);
 		state = State::MENU;
 		stats.live = stats.max_lives;

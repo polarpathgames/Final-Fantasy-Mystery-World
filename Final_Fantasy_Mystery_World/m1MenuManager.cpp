@@ -876,9 +876,10 @@ void m1MenuManager::CreateDebugScreen()
 
 void m1MenuManager::DestroyDebugScreen()
 {
-	App->gui->DeleteUIElement(debug_screen.debug_screen);
-
-	debug_screen.Reset();
+	if (debug_screen.debug_screen != nullptr) {
+		App->gui->DeleteUIElement(debug_screen.debug_screen);
+		debug_screen.Reset();
+	}
 }
 
 void m1MenuManager::UpdateDebugScreen()
