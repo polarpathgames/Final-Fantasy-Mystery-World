@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="31">
+<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="33">
  <properties>
   <property name="next_id" type="int" value="6"/>
  </properties>
@@ -4826,6 +4826,8 @@
   <object id="27" name="fire_wall_special1" type="static" x="144" y="272" width="32" height="32"/>
   <object id="29" name="fire_wall_special2" type="static" x="160" y="208" width="32" height="32"/>
   <object id="30" name="ability_base" type="static" x="272" y="288" width="32" height="32"/>
+  <object id="31" name="fire_floor" type="static" x="368" y="336" width="32" height="32"/>
+  <object id="32" name="fire_floor" type="static" x="368" y="272" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff7f" id="5" name="entities">
   <properties>

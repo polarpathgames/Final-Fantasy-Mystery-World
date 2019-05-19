@@ -5,6 +5,7 @@
 #include "m1Scene.h"
 #include "e1Player.h"
 #include "m1Audio.h"
+#include "m1Input.h"
 
 e1Rock::e1Rock(const int &x, const int &y, const char* name) : e1StaticEntity(x, y, name)
 {
@@ -77,6 +78,7 @@ void e1Rock::GetHitted()
 {
 	if (!hitted) {
 		App->render->CameraTremble(0.59F, 1.3F);
+		App->input->ControllerVibration(0.5F, 300);
 		App->audio->PlayFx(App->scene->fx_rock);
 		has_animation = true;
 		idle = DBG_NEW Animation();
