@@ -39,6 +39,7 @@ struct GlobalGameAdvances
 	bool CutSceneAfterBossTutorialPlayed = false;
 	bool CutSceneLobbyExplain = false;
 	bool CutSceneLobbyQuest2Finish = false;
+	bool CutSceneLobbyCredits = false;
 	bool Tutorial_first_time = true;
 	bool ability1_gained = false;
 	bool ability2_gained = false;
@@ -86,6 +87,7 @@ struct GlobalGameAdvances
 		CutSceneFinalRoomQuest2 = false;
 		CutsceneFinalGame = false;
 		CutsceneFinalFinalGame = false;
+		CutSceneLobbyCredits = false;
 	}
 
 };

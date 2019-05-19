@@ -62,7 +62,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		CenterOnTile();
-		gold = App->random.Generate(15, 25);
+		gold = App->random.Generate(GOLD_RUPEE_GREEN);
 		is_insta_ruppe = true;
 	}
 	else if (strcmp(name, "blue_rupee") == 0) {
@@ -103,7 +103,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		CenterOnTile();
-		gold = App->random.Generate(45, 65);
+		gold = App->random.Generate(GOLD_RUPEE_BLUE);
 		is_insta_ruppe = true;
 	}
 	else if (strcmp(name, "red_rupee") == 0) {
@@ -144,7 +144,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		CenterOnTile();
-		gold = App->random.Generate(90, 110);
+		gold = App->random.Generate(GOLD_RUPEE_RED);
 		is_insta_ruppe = true;
 	}
 	else if (strcmp(name, "gold_rupee") == 0) {
@@ -185,7 +185,7 @@ e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity
 		SetPivot(frame.w*0.35F, frame.h*0.8F);
 		size.create(frame.w, frame.h);
 		CenterOnTile();
-		gold = App->random.Generate(300, 400);
+		gold = App->random.Generate(GOLD_RUPEE_YELLOW);
 		is_insta_ruppe = true;
 	}
 	else if (strcmp(name, "ability1") == 0 && App->globals.ability1_gained == false) {

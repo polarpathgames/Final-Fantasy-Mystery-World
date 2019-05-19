@@ -610,14 +610,17 @@ void m1Scene::ShitFunctionJAJA()
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyQuest3.xml");
 		App->globals.CutSceneHomeToSleeQuest3 = true;
 	}
-	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && App->globals.CutsceneFinalGame && !App->globals.CutsceneFinalFinalGame || App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
-		/*App->map->lobby_state = LobbyState::NORMAL_LOBBY;
-		App->map->ChangeMap(Maps::LOBBY);*/
+	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && App->globals.CutsceneFinalGame && !App->globals.CutsceneFinalFinalGame) {
+		App->map->lobby_state = LobbyState::NORMAL_LOBBY;
+		App->map->ChangeMap(Maps::LOBBY);
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyCredits.xml");
+		App->globals.CutsceneFinalFinalGame = true;	
+	}
+	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && App->globals.CutsceneFinalFinalGame && !App->globals.CutSceneLobbyCredits) {		
 		App->map->Disable();
 		App->menu_manager->DestroyHUD();
 		App->menu_manager->CreateCongratualtions();
-		App->globals.CutsceneFinalFinalGame = true;
-	/*	App->cutscene_manager->PlayCutscene("assets/xml/CutsceneCredits.xml");*/
+		App->globals.CutSceneLobbyCredits = true;
 	}
 }
 
