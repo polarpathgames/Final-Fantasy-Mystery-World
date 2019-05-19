@@ -35,10 +35,6 @@ e1Particles::~e1Particles()
 
 bool e1Particles::PreUpdate()
 {
-	if (particle_type == ParticleType::AMAZING_DRAGON_FIRE_BALL) {
-		MoveAmazingFireBall(App->GetDeltaTime());
-	}
-
 	return true;
 }
 
@@ -61,10 +57,11 @@ bool e1Particles::Update(float dt)
 		MoveIceStake(dt);
 		break; }
 	case e1Particles::ParticleType::AMAZING_DRAGON_FIRE_BALL: {
-		iPoint pos = App->map->MapToWorld(actual_tile.x, actual_tile.y);
+		MoveAmazingFireBall(App->GetDeltaTime());
+		/*iPoint pos = App->map->MapToWorld(actual_tile.x, actual_tile.y);
 		SDL_Rect rect{ 2664,4659,120,90 };
 		rect = { 2657,4660,64,40 };
-		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), pos.x - 13, pos.y - 11, &rect, true);
+		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), pos.x - 13, pos.y - 11, &rect, true);*/
 		break; }
 	default:
 		break;
@@ -521,8 +518,6 @@ void e1Particles::SetThunderbolt()
 
 void e1Particles::SetAmazingDragonFireBall(const uint & turns)
 {
-	allow_turn = true;
-
 	this->turns = turns;
 	velocity.y = 160;
 	position.y -= FIREBALL_ELEVATED_POS;
@@ -551,23 +546,14 @@ void e1Particles::SetAmazingDragonFireBall(const uint & turns)
 
 void e1Particles::MoveAmazingFireBall(float dt)
 {
-	if (turns == 0) {
-		position.y += floor(velocity.y * dt);
-		iPoint pos = App->map->WorldToMap(position.x, position.y + 50);
-		if (pos == actual_tile + iPoint{ 1,1 }) {
-			to_delete = true;
-			turn_done = true;
-			CollisionAmazingBall();
-			App->render->CameraTremble(0.63F, 1.9F);
-			App->input->ControllerVibration(0.5F, 200);
-		}
+	position.y += floor(velocity.y * dt);
+	iPoint pos = App->map->WorldToMap(position.x, position.y + 50);
+	if (pos == actual_tile + iPoint{ 1,1 }) {
+		to_delete = true;
+		CollisionAmazingBall();
+		App->render->CameraTremble(0.63F, 1.9F);
+		App->input->ControllerVibration(0.5F, 200);
 	}
-	else {
-		--turns;
-		turn_done = true;
-	}
-
-
 }
 
 void e1Particles::CollisionAmazingBall()
