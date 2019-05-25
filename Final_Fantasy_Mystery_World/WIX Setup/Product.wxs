@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+   <!-- TODO 1: Customize primary setup parameters of the product -->
+	<Product Id="*" Name="Final Fantasy: Mystery World" Language="1033" Version="0.9.4" Manufacturer="Polar Path Games" UpgradeCode="e159f201-712d-4777-b961-d78b125bd2d1">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes" />
+    
+    
+<!-- ICON FRAGMENT-->  
+    
+    <!-- TODO 4: Implement Control Panel Icon + Shortcut Icons. -->
+    <Icon Id="icon.ico" SourceFile="assets\ff_icon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+    
+    
+<!-- UI DIALOG FRAGMENT-->
+    
+    <!-- TODO 5: Add UI Dialog theme (installDir). -->
+   <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <UIRef Id="WixUI_InstallDir" />
+    
+    <!-- TODO 6: Customize UI Dialog theme with bmp files. -->
+    <!--<WixVariable Id="WixUIBannerBmp" Value="assets\ui_background.bmp" />-->
+    <WixVariable Id="WixUIDialogBmp" Value="assets\ui_background.bmp" />
+    
+    <!-- TODO 7: Add Microsoft Software License into UI Dialog. -->
+     <WixVariable Id="WixUILicenseRtf" Value="assets\License.rtf" />
+      
+<!-- FEATURE FRAGMENT-->
+		<Feature Id="ProductFeature" Title="WIX_Setup" Level="1">
+			
+      <!-- TODO 1: Add .exe project file from Release directory of the game. -->
+      <ComponentRef Id="Final_Fantasy_Mystery_World.exe"/>
+      <!-- TODO 2: Add Start Menu Shortcut. -->
+      <ComponentRef Id="StartMenuShortcut" />
+      <!-- TODO 3: Add Desktop Shortcut. -->
+      <ComponentRef Id="DesktopShortcut" />
+      <!-- TODO 8: Decomment Heat Component Ref. -->
+      <ComponentGroupRef Id="HeatGenerated" /> 
+		</Feature>
+  
+ 
+  
+	</Product>
+  
+  
+   
+  
+<!-- DIRECTORY SYSTEM FRAGMENT-->
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="Final Fantasy Mystery World" />
+        
+      <!-- TODO 2: Add Start Menu Shortcut. -->
+         <Directory Id="ProgramMenuFolder">
+                <Directory Id="ApplicationProgramsFolder" Name="Final Fantasy Mystery World"/>
+         </Directory>
+      
+      <!-- TODO 3: Add Desktop Shortcut. -->
+        <Directory Id="DesktopFolder" Name="Final Fantasy Mystery World" />
+      
+			</Directory>
+		</Directory>
+    
+  
+	</Fragment>
+
+  
+	
+<!-- SHORTCUT COMPONENTS FRAGMENT-->
+<Fragment>
+  <!-- TODO 2: Add Start Menu Shortcut. -->
+   <DirectoryRef Id="ApplicationProgramsFolder">
+       <Component Id="StartMenuShortcut" Guid="19769afe-ec61-4fdc-9538-42c25a6e8fc8">
+          <Shortcut Id="ApplicationStartMenuShortcut" 
+                 Name="Final Fantasy Mystery World" 
+                 Description="bla bla bla description"
+                 Target="[#Final_Fantasy_Mystery_World.exe]"
+                 WorkingDirectory="INSTALLFOLDER"
+                 Icon = "icon.ico"/>  <!-- TODO 4: Implement Control Panel Icon + Shortcut Icons. -->
+          <RemoveFolder Id="RemoveProgramsFolder" On="uninstall"/>
+          <RegistryValue Root="HKCU" Key="Software\MyCompany\MyApplicationName" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+       </Component>
+   </DirectoryRef>
+   
+   <!-- TODO 3: Add Desktop Shortcut. -->
+  <DirectoryRef Id="DesktopFolder">
+       <Component Id="DesktopShortcut" Guid="5694ea64-2b00-4584-a671-d26134c1de38">
+          <Shortcut Id="ApplicationDesktopShortcut" 
+                 Name="Final Fantasy Mystery World" 
+                 Description="bla bla bla description"
+                 Target="[#Final_Fantasy_Mystery_World.exe]"
+                 WorkingDirectory="INSTALLFOLDER"
+                 Icon = "icon.ico"/>  <!-- TODO 4: Implement Control Panel Icon + Shortcut Icons. -->
+          <RemoveFolder Id="RemoveDesktopFolder" On="uninstall"/>
+          <RegistryValue Root="HKCU" Key="Software\MyCompany\MyApplicationName" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+       </Component>
+   </DirectoryRef>
+
+ </Fragment>
+      
+     
+      
+<!-- PROJECT FILES AND COMPONENTS FRAGMENT-->     
+<Fragment>
+      
+      
+  
+   <!-- TODO 1: Add .exe project file from Release directory of the game. -->
+       <DirectoryRef Id="INSTALLFOLDER">
+            <Component Id="Final_Fantasy_Mystery_World.exe" Guid="4b886816-febd-4e5c-a87f-923960027d5c">
+                <File Id="Final_Fantasy_Mystery_World.exe" Source="..\Release\Final Fantasy Mystery World.exe" KeyPath="yes" Checksum="yes" />
+            </Component> 
+       
+
+       </DirectoryRef>
+  
+</Fragment>
+
+</Wix>
