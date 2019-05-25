@@ -22,8 +22,8 @@
     <UIRef Id="WixUI_InstallDir" />
     
     <!-- TODO 6: Customize UI Dialog theme with bmp files. -->
-    <WixVariable Id="WixUIBannerBmp" Value="assets\ui_background.bmp" />
-    <WixVariable Id="WixUIDialogBmp" Value="assets\ui_background.bmp" />
+    <!--<WixVariable Id="WixUIBannerBmp" Value="assets\ui_background.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="assets\ui_background.bmp" /> -->
     
     <!-- TODO 7: Add Microsoft Software License into UI Dialog. -->
      <WixVariable Id="WixUILicenseRtf" Value="assets\License.rtf" />
@@ -112,7 +112,7 @@
    <!-- TODO 1: Add .exe project file from Release directory of the game. -->
        <DirectoryRef Id="INSTALLFOLDER">
             <Component Id="Final_Fantasy_Mystery_World.exe" Guid="4b886816-febd-4e5c-a87f-923960027d5c">
-                <File Id="Final_Fantasy_Mystery_World.exe" Source="..\Release\Final_Fantasy_Mystery_World.exe" KeyPath="yes" Checksum="yes" />
+                <File Id="Final_Fantasy_Mystery_World.exe" Source="..\Release\Final Fantasy Mystery World.exe" KeyPath="yes" Checksum="yes" />
             </Component> 
        
 
