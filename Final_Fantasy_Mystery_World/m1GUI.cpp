@@ -499,24 +499,26 @@ bool m1GUI::DeleteUIElement(u1GUI * element)
 void m1GUI::BFS(std::list<u1GUI*>& visited, u1GUI * elem)
 {
 	BROFILER_CATEGORY("BFS", Profiler::Color::Orange);
-
 	if (elem != nullptr) {
-		std::queue<u1GUI*> frontier;
-		u1GUI* item = nullptr;
-		visited.push_back(elem);					//Add from we want to start to visited and frontier list
-		frontier.push(elem);
-		while (frontier.empty() == false) {
-			if ((item = frontier.front()) != nullptr) {			//Pop las item of array
-				frontier.pop();
-				if(item->childs.front() != nullptr && item->childs.empty() == false)
-					for (std::list<u1GUI*>::iterator it = item->childs.begin(); it != item->childs.end(); ++it) { //iterate for all childs of node
-						if (std::find(visited.begin(),visited.end(),*it) == visited.end()) {	//if child is not on visited list we added on it and on prontier to search its childs
-							frontier.push(*it);
-							visited.push_back(*it);
+		for (uint i = 0; i < (uint)BlitPriorityUI::MAX_BLIT_TYPE; ++i) {
+			std::queue<u1GUI*> frontier;
+			u1GUI* item = nullptr;
+			visited.push_back(elem);					//Add from we want to start to visited and frontier list
+			frontier.push(elem);
+			while (frontier.empty() == false) {
+				if ((item = frontier.front()) != nullptr) {			//Pop las item of array
+					frontier.pop();
+					if (item->childs.front() != nullptr && item->childs.empty() == false)
+						for (std::list<u1GUI*>::iterator it = item->childs.begin(); it != item->childs.end(); ++it) { //iterate for all childs of node
+							if (std::find(visited.begin(), visited.end(), *it) == visited.end()) {	//if child is not on visited list we added on it and on prontier to search its childs
+								if ((*it)->blit_priority == (BlitPriorityUI)i) {
+									frontier.push(*it);
+									visited.push_back(*it);
+								}
+							}
 						}
-					}
+				}
 			}
-
 		}
 	}
 }

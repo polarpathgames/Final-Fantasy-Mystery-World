@@ -248,3 +248,13 @@ void u1GUI::ResetClipZone()
 		clip_zone = nullptr;
 	}
 }
+
+void u1GUI::SetBlitPriority(const BlitPriorityUI & priority)
+{
+	if (parent != nullptr) {
+		for (u1GUI* p = parent; p != nullptr; p = p->parent) {
+			p->blit_priority = priority;
+		}
+	}
+	blit_priority = priority;
+}

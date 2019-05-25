@@ -9,6 +9,15 @@
 #include "p2Defs.h"
 #include "p2Point.h"
 
+
+enum class BlitPriorityUI {
+	FIRST_BLIT,
+	NORMAL_BLIT,
+	LAST_BLIT,
+	MAX_BLIT_TYPE
+
+};
+
 enum UIType
 {
 	IMAGE,

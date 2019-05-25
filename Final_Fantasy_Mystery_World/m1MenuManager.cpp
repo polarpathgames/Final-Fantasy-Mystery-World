@@ -637,6 +637,7 @@ void m1MenuManager::CreatePauseMenu()
 		pause.pause_panel = App->gui->AddImage(0, 0, { 1252,1536,313,428 }, nullptr, App->gui->screen, true, false, false, false);
 		pause.pause_panel->SetPosRespectParent(CENTERED);
 		pause.pause_panel->SetPos(pause.pause_panel->GetLocalPosition().x, -1000);
+		pause.pause_panel->SetBlitPriority(BlitPriorityUI::LAST_BLIT);
 
 		pause.button_resume = App->gui->AddButton(50, 50, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
 		pause.label_resume = App->gui->AddLabel(0, 0, "Continue", pause.button_resume, BLACK, FontType::FF48, nullptr, false);
