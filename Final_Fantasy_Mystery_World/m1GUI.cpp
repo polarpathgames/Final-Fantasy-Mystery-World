@@ -500,10 +500,10 @@ void m1GUI::BFS(std::list<u1GUI*>& visited, u1GUI * elem)
 {
 	BROFILER_CATEGORY("BFS", Profiler::Color::Orange);
 	if (elem != nullptr) {
+		visited.push_back(elem);					//Add from we want to start to visited and frontier list
 		for (uint i = 0; i < (uint)BlitPriorityUI::MAX_BLIT_TYPE; ++i) {
 			std::queue<u1GUI*> frontier;
 			u1GUI* item = nullptr;
-			visited.push_back(elem);					//Add from we want to start to visited and frontier list
 			frontier.push(elem);
 			while (frontier.empty() == false) {
 				if ((item = frontier.front()) != nullptr) {			//Pop las item of array

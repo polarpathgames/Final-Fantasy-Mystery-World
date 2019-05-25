@@ -248,17 +248,13 @@ void u1GUI::SetBlitPriority(const BlitPriorityUI & priority)
 {
 
 	if (!childs.empty()) {
-		std::list<u1GUI*>::iterator item = childs.begin();
-		for (; item != childs.end(); ++item) {
-			std::list<u1GUI*>::iterator item2 = (*item)->childs.begin();
-			for (; item2 != (*item)->childs.end(); ++item2) {
-				if ((*item2) != nullptr)
-					(*item2)->blit_priority = priority;
-			}
+		std::list<u1GUI*> child_list;
+		App->gui->BFS(child_list, this);
+		std::list<u1GUI*>::iterator item = child_list.begin();
+		for (; item != child_list.end(); ++item) {
 			if ((*item) != nullptr)
 				(*item)->blit_priority = priority;
 		}
 	}
-
 	blit_priority = priority;
 }
