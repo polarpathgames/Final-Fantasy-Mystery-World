@@ -1,43 +1,27 @@
-#include "p2Defs.h"
+#include "m1Scene.h"
 #include "p2Log.h"
 #include "App.h"
-#include "m1GUI.h"
-#include "u1VerticalSlider.h"
-#include "m1Collisions.h"
-#include "m1DialogSystem.h"
-#include "m1EasingSplines.h"
 #include "m1Audio.h"
-#include <iostream>
-#include <memory>
-#include "p2ChangeControls.h"
-#include "m1Render.h"
-#include "u1InputText.h"
-#include <functional>
-#include "m1FadeToBlack.h"
-#include "m1Window.h"
-#include "m1Map.h"
-#include "e1Player.h"
 #include "m1EntityManager.h"
-#include "m1Scene.h"
-#include "m1MainMenu.h"
-#include "e1Particles.h"
-#include <string>
-#include "m1Cutscene.h"
-#include "u1UI_Element.h"
-#include "u1Button.h"
-#include "u1Label.h"
-#include "u1Image.h"
-#include "u1Bar.h"
-#include "p2Rooms.h"
-#include "u1Slider.h"
-#include "u1CheckBox.h"
-#include "m1Audio.h"
-#include "Brofiler/Brofiler.h"
-#include "m1Input.h"
-#include "m1Textures.h"
-#include "e1Drop.h"
-#include "m1Textures.h"
+#include "m1Map.h"
 #include "m1MenuManager.h"
+#include "m1GUI.h"
+#include "m1Input.h"
+#include "e1Player.h"
+#include "m1FadeToBlack.h"
+#include "m1Collisions.h"
+#include "m1MenuManager.h"
+#include "m1Cutscene.h"
+#include "u1Button.h"
+#include "u1Image.h"
+#include "u1VerticalSlider.h"
+#include "u1Bar.h"
+#include "m1MainMenu.h"
+#include "m1DialogSystem.h"
+#include "m1Window.h"
+#include "m1Render.h"
+
+#include "Brofiler/Brofiler.h"
 
 m1Scene::m1Scene() : m1Module()
 {
@@ -231,15 +215,6 @@ bool m1Scene::Update(float dt)
 		App->fade_to_black->FadeToBlack(Maps::FINAL_QUEST);
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_KP_1) == KEY_DOWN) {
-		App->win->scale = 1;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_KP_2) == KEY_DOWN) {
-		App->win->scale = 2;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_KP_3) == KEY_DOWN) {
-		App->win->scale = 3;
-	}
 	App->map->Draw();
 	
 	switch (menu_state) {

@@ -2,6 +2,7 @@
 #define __M1MENUMANAGER_H__
 
 #include "m1Module.h"
+#include "p2ChangeControls.h"
 
 class u1InputText;
 class u1Image;

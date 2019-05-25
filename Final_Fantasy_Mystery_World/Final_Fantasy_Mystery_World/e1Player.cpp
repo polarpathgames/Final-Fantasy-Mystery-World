@@ -1,38 +1,26 @@
 #include "e1Player.h"
-#include "m1Input.h"
 #include "App.h"
-#include "m1Render.h"
-#include "p2Log.h"
-#include "m1Cutscene.h"
-#include "App.h"
-#include "m1DialogSystem.h"
 #include "m1Textures.h"
-#include "e1Enemy.h"
-#include "e1State.h"
-#include "m1Audio.h"
-#include "m1Map.h"
-#include "e1Warrior.h"
-#include "e1Archer.h"
-#include "e1Mage.h"
 #include "m1EntityManager.h"
 #include "m1Map.h"
-#include "m1Window.h"
-#include "m1GUI.h"
-#include "m1Pathfinding.h"
 #include "m1Collisions.h"
-#include "m1Scene.h"
-#include "m1FadeToBlack.h"
-#include "m1Scene.h"
-#include "u1Label.h"
-#include "u1Button.h"
-#include "u1Bar.h"
-#include <string>
-#include "u1UI_Element.h"
-#include "Brofiler/Brofiler.h"
-#include "m1EasingSplines.h"
-#include "m1MenuManager.h"
+#include "m1Render.h"
 #include "m1MainMenu.h"
-#include "m1ParticleManager.h"
+#include "m1FadeToBlack.h"
+#include "m1MenuManager.h"
+#include "m1Scene.h"
+#include "m1Cutscene.h"
+#include "m1DialogSystem.h"
+#include "m1Input.h"
+#include "m1Audio.h"
+#include "m1GUI.h"
+#include "m1MenuManager.h"
+#include "m1Window.h"
+#include "u1Label.h"
+#include "u1Bar.h"
+
+#include "Brofiler/Brofiler.h"
+
 
 
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
@@ -1276,23 +1264,15 @@ void e1Player::Death()
 		state = State::MENU;
 		stats.live = stats.max_lives;
 		stats.mana = stats.max_mana;
-		std::list<u1GUI*>::iterator item = App->gui->ui_list.begin();
-		while (item != App->gui->ui_list.end()) {
-			if ((*item) != nullptr && (*item)->GetType() == HIT_POINT_LABEL) {
-				App->gui->DeleteUIElement((*item));
-				item = App->gui->ui_list.begin();
-			}
-			else
-				++item;
-		}
+		App->gui->DeleteHitPointLabels();
 	}
 }
 
 void e1Player::DestroySkills()
 {
-	App->gui->DeleteUIElement(upper_button);
-	App->gui->DeleteUIElement(right_button);
-	App->gui->DeleteUIElement(left_button);
+	App->gui->DeleteUIElement((u1GUI*)upper_button);
+	App->gui->DeleteUIElement((u1GUI*)right_button);
+	App->gui->DeleteUIElement((u1GUI*)left_button);
 
 	has_skills = false;
 }
@@ -1611,19 +1591,19 @@ void e1Player::ReduceGold(const int & cost_gold)
 void e1Player::CreateSkills()
 {
 	upper_button = App->gui->AddButton(684, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, App->gui->screen, true, false, false, false);
-	upper_skill_button = App->gui->AddLabel(0, 0, "X", upper_button, BLACK, FontType::FF32, nullptr, false);
+	upper_skill_button = App->gui->AddLabel(0, 0, "X", (u1GUI*)upper_button, BLACK, FontType::FF32, nullptr, false);
 	upper_skill_button->SetPos(35, -10);
 	upper_skill_label = App->gui->AddLabel(0, 0, "Attack 1", upper_skill_button, BLACK, FontType::FF32, nullptr, false);
 	upper_skill_label->SetPos(30, 0);
 
 	right_button = App->gui->AddButton(790, 680, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, App->gui->screen, true, false, false, false);
-	right_skill_button = App->gui->AddLabel(0, 0, "Y", right_button, BLACK, FontType::FF32, nullptr, false);
+	right_skill_button = App->gui->AddLabel(0, 0, "Y", (u1GUI*)right_button, BLACK, FontType::FF32, nullptr, false);
 	right_skill_button->SetPos(35, -10);
 	right_skill_label = App->gui->AddLabel(0, 0, "Attack 2", right_skill_button, BLACK, FontType::FF32, nullptr, false);
 	right_skill_label->SetPos(30, 0);
 
 	left_button = App->gui->AddButton(590, 680, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, App->gui->screen, true, false, false, false);
-	left_skill_button = App->gui->AddLabel(0, 0, "B", left_button, BLACK, FontType::FF32, nullptr, false);
+	left_skill_button = App->gui->AddLabel(0, 0, "B", (u1GUI*)left_button, BLACK, FontType::FF32, nullptr, false);
 	left_skill_button->SetPos(35, -10);
 	left_skill_label = App->gui->AddLabel(0, 0, "Attack 3", left_skill_button, BLACK, FontType::FF32, nullptr, false);
 	left_skill_label->SetPos(30, 0);

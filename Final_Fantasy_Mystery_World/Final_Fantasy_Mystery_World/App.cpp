@@ -1,24 +1,18 @@
-#include <iostream> 
-#include <sstream> 
-#include <list>
-#include <string>
+#include "App.h"
 #include "p2Defs.h"
 #include "p2Log.h"
-#include "SDL/include/SDL.h"
 #include "m1Window.h"
 #include "m1Input.h"
 #include "m1Cutscene.h"
 #include "m1Render.h"
 #include "m1Textures.h"
 #include "m1Audio.h"
-#include "App.h"
 #include "m1Scene.h"
 #include "m1GUI.h"
 #include "m1Map.h"
 #include "m1Collisions.h"
 #include "m1Fonts.h"
 #include "m1MainMenu.h"
-#include "p2Point.h"
 #include "m1EasingSplines.h"
 #include "m1EntityManager.h"
 #include "m1FadeToBlack.h"
@@ -284,6 +278,10 @@ bool Application::PreUpdate()
 		}
 
 		ret = (*item)->PreUpdate();
+
+		if (ret == false) {
+			LOG("Module %s failed PreUpdate", (*item)->name.data());
+		}
 	}
 
 
@@ -308,6 +306,10 @@ bool Application::DoUpdate()
 		}
 		
 		ret = (*item)->Update(dt);
+
+		if (ret == false) {
+			LOG("Module %s failed Update", (*item)->name.data());
+		}
 	}
 
 	return ret;
@@ -331,6 +333,10 @@ bool Application::PostUpdate()
 		}
 
 		ret = (*item)->PostUpdate();
+
+		if (ret == false) {
+			LOG("Module %s failed PostUpdate", (*item)->name.data());
+		}
 	}
 
 	return ret;
@@ -351,6 +357,10 @@ bool Application::CleanUp()
 	{
 		if (*item != NULL) {
 			ret = (*item)->CleanUp();
+
+			if (ret == false) {
+				LOG("Module %s failed ClenUp", (*item)->name.data());
+			}
 		}
 		++item;
 	}
@@ -524,9 +534,4 @@ bool Application::GetInventory()
 bool Application::ChangeInventory()
 {
 	return is_inventory = !is_inventory;
-}
-
-float Application::GetDt()
-{
-	return dt;
 }

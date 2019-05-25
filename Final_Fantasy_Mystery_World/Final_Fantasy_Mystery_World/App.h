@@ -7,7 +7,6 @@
 #include "p2Timer.h"
 #include "PugiXml\src\pugixml.hpp"
 #include <list>
-#include <string>
 #include "p2Random.h"
 
 // Modules
@@ -178,13 +177,6 @@ private:
 
 public:
 
-	//GetDt
-	float GetDt();
-
-
-
-public:
-
 	// Modules
 	m1Window *			win = nullptr;
 	m1Input*			input = nullptr;
@@ -231,16 +223,16 @@ private:
 	std::string				config_name;
 
 	p2PerfTimer				ptimer;
-	uint64					frame_count = 0;
+	uint64					frame_count = 0u;
 	p2Timer					startup_time;
 	p2Timer					frame_time;
 	p2Timer					last_sec_frame_time;
-	uint32					last_sec_frame_count = 0;
-	uint32					prev_last_sec_frame_count = 0;
-	uint16_t				framerate_cap;
+	uint32					last_sec_frame_count = 0u;
+	uint32					prev_last_sec_frame_count = 0u;
+	uint16_t				framerate_cap = 0u;
 	float					avg_fps = 0.0f;
 	uint32					frames_on_last_update = 0u;
-	float					dt;
+	float					dt = 0.f;
 };
 
 extern Application* App;
