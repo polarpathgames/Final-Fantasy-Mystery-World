@@ -1,0 +1,36 @@
+<cutscenes>
+  <actions>
+    <cutscene action="move_camera">
+      <time start="100" duration="2500" origin_x="794" origin_y="-951"  speed="0.001" destination_x ="794"  destination_y="-951" stop_goal="true"/>
+    </cutscene>
+    <cutscene action="modify_text" name="dialog">
+      <time start="1100" type="change" text="Thanks for rescue me from the claws of the Ancient Dragon."/>
+    </cutscene>
+    <cutscene action="move_camera">
+      <time start="2100" duration="2500" origin_x="794" origin_y="-951"  speed="0.001" destination_x ="794"  destination_y="-951" stop_goal="true"/>
+    </cutscene>
+    <cutscene action="modify_text" name="dialog">
+      <time start="6100" type="change" text="I think its time to return to our world friend."/>
+    </cutscene>
+    <cutscene action="move_camera">
+      <time start="7100" duration="8000" origin_x="794" origin_y="-951"  speed="0.001" destination_x ="794"  destination_y="3000" stop_goal="true"/>
+    </cutscene>
+    <cutscene action="fade">
+      <time start="18000" duration="100" fade="6"/>
+    </cutscene>
+    <cutscene action="delete_entity" entity="best_friend">
+      <time start="10000" duration="100"/>
+    </cutscene>
+  <cutscene action="delete_entity" entity="daughter">
+    <time start="10300" duration="100"/>
+  </cutscene>
+   
+  </actions>
+  <elements>
+    <element type="image" name ="dialog_image" pos_x="160" pos_y="567" rect_x="0" rect_y="3090" rect_w="704" rect_h="162" active="true"/>
+    <element type="image" name ="face_image" pos_x ="170" pos_y="588" rect_x="2788" rect_y="2930" rect_w="106" rect_h="130" active="true"/>
+    <element type="text" name ="dialog" pos_x="282" pos_y="600" txt="..." active="true"/>
+    <element type="entity" name="daughter" pos_x="-120" pos_y="457"/>
+    <element type="entity" name="best_friend" pos_x="-126" pos_y="445"/>
+  </elements>
+</cutscenes>

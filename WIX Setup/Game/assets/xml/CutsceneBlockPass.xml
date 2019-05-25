@@ -1,0 +1,34 @@
+<cutscenes>
+  <actions>
+    <cutscene action="modify_image" name="dialog_image">
+      <time start ="1500" type="activate"/>
+    </cutscene>
+    <cutscene action="modify_image" name="face_image">
+      <time start ="1500" type="activate"/>
+    </cutscene>
+    <cutscene action="modify_text" name="dialog">
+      <time start ="1500" type="activate"/>
+    </cutscene>
+    <cutscene action="modify_text" name="dialog">
+      <time start ="2500" type="change" text="Go Away! It is very dengerous to cross this bridge"/>
+    </cutscene>
+    <cutscene action="move_entity" entity="player">
+      <time start="3000" duration="200" speed_x="160" speed_y="-80"/>
+    </cutscene>
+    <cutscene action="modify_image" name="dialog_image">
+      <time start ="0" type="deactivate"/>
+    </cutscene>
+    <cutscene action="modify_text" name="dialog">
+      <time start ="0" type="deactivate"/>
+    </cutscene>
+
+
+  </actions>
+  <elements>
+    <element type="image" name ="dialog_image" pos_x="160" pos_y="567" rect_x="0" rect_y="3090" rect_w="704" rect_h="162" active="true"/>
+    <element type="image" name ="face_image" pos_x ="168" pos_y="586" rect_x="1087" rect_y="3090" rect_w="105" rect_h="131" active="true"/>
+    <element type="text" name ="dialog" pos_x="282" pos_y="600" txt="Stand there! Where did you think you are going?" active="true"/>
+    <element type="entity" name="player" pos_x="0" pos_y="0"/>
+  </elements>
+
+</cutscenes>

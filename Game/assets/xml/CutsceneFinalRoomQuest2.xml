@@ -1,0 +1,24 @@
+<cutscenes>
+  <actions>
+    <cutscene action="move_camera">
+      <time start="200" duration="2000" origin_x="650" origin_y="-687"  speed="0.007" destination_x ="410"  destination_y="-567" stop_goal="true"/>
+    </cutscene>
+    <cutscene action="modify_text" name="dialog">
+      <time start ="3300" type="change" text="Who are you?"/>
+    </cutscene>
+    <cutscene action="modify_text" name="dialog">
+      <time start ="6300" type="change" text="Have you come to kill me?"/>
+    </cutscene>
+    <cutscene action="modify_text" name="dialog">
+      <time start ="8300" type="change" text="Many have tried but nobody has left alive."/>
+    </cutscene>
+    <cutscene action="move_camera">
+      <time start="8500" duration="2000" origin_x="410" origin_y="-567"  speed="0.007" destination_x ="650"  destination_y="-687" stop_goal="true"/>
+    </cutscene>
+  </actions>
+  <elements>
+    <element type="image" name ="dialog_image" pos_x="160" pos_y="567" rect_x="0" rect_y="3090" rect_w="704" rect_h="162" active="true"/>
+    <element type="image" name ="face_image" pos_x ="170" pos_y="588" rect_x="2683" rect_y="2937" rect_w="83" rect_h="130" active="true"/>
+    <element type="text" name ="dialog" pos_x="282" pos_y="600" txt="..." active="true"/>
+  </elements>
+</cutscenes>
