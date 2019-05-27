@@ -6,6 +6,7 @@
 #include "e1Entity.h"
 #include <vector>
 
+enum class Direction;
 
 class m1EntityManager : public m1Module
 {
@@ -64,6 +65,8 @@ public:
 	// Finds a random tile in border range
 	iPoint FindRandomFreeTileOnRange(const iPoint & tile, const uint & range);
 	bool IsWalkable(const iPoint & start_tile);
+
+	void CheckForBarrelsAndSnowMan(const iPoint &act_tile, const Direction &direction);
 
 	const std::vector<e1Entity*> GetEntities();
 	const std::vector<SDL_Texture*> GetTextures();
