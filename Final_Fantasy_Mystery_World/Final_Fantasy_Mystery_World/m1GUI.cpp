@@ -586,15 +586,15 @@ bool m1GUI::CheckCollision(int x, int y, u1GUI *item)
 
 void m1GUI::DeleteHitPointLabels()
 {
-	for (std::list<u1GUI*>::iterator item = ui_list.begin(); item != ui_list.end(); ++item) {
-		if ((*item)->GetType() == UIType::HIT_POINT_LABEL) {
-			DeleteUIElement(*item);
-			*item = nullptr;
-			item = ui_list.begin();
+	std::list<u1GUI*>::iterator item = App->gui->ui_list.begin();
+	while (item != App->gui->ui_list.end()) {
+		if ((*item) != nullptr && (*item)->GetType() == HIT_POINT_LABEL) {
+			App->gui->DeleteUIElement((*item));
+			item = App->gui->ui_list.begin();
 		}
+		else
+			++item;
 	}
-
-	ui_list.remove(nullptr);
 }
 
 bool m1GUI::ShowCursor(bool enable)

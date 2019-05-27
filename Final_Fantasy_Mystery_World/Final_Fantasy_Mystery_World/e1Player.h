@@ -1,11 +1,8 @@
 #ifndef __Player_H__
 #define __Player_H__
 
-#include "p2Animation.h"
-#include "p2Point.h"
 #include "e1DynamicEntity.h"
 #include "p2Timer.h"
-#include <vector>
 
 class u1GUI;
 class u1Button;
@@ -137,8 +134,6 @@ public:
 	void PrepareSpecialAttack2();
 
 	void SpecialAttack2();
-
-	void CheckForBarrelsAndSnowMan();
 
 	void CheckBasicSpecialAttack2Effects();
 

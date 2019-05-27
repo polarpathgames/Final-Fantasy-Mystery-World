@@ -146,7 +146,7 @@ bool m1Render::PostUpdate()
 		}
 
 		// decay trauma
-		trauma -= App->GetDt() * traumaDecay * (trauma + 0.3f);
+		trauma -= App->GetDeltaTime() * traumaDecay * (trauma + 0.3f);
 	}
 	else // update preshake pos
 	{

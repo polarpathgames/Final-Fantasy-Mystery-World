@@ -695,6 +695,72 @@ bool m1EntityManager::ThereIsEntity(const char * name)
 	return ret;
 }
 
+void m1EntityManager::CheckForBarrelsAndSnowMan(const iPoint &act_tile, const Direction &direction)
+{
+	std::vector<e1Entity*>::const_iterator item = entities.begin();
+
+	for (; item != entities.end(); ++item) {
+		if ((*item) != nullptr) {
+			if ((*item)->type == e1Entity::EntityType::STATIC) {
+				bool has_succeeded = false;
+				e1StaticEntity* ent = (e1StaticEntity*)*item;
+				if (ent->static_type == e1StaticEntity::Type::BREAKABLE_ROCK && (static_cast<e1Rock*>(ent)->rock_type == RockType::BREAKABLE_BARREL || static_cast<e1Rock*>(ent)->rock_type == RockType::BREAKABLE_SNOWMAN)) {
+					iPoint origin = act_tile;
+					iPoint destination = (*item)->actual_tile;
+
+					switch (direction) {
+					case Direction::DOWN:
+						origin += {1, 1};
+						if (destination == origin)
+							has_succeeded = true;
+						break;
+					case Direction::UP:
+						origin += {-1, -1};
+						if (destination == origin)
+							has_succeeded = true;
+						break;
+					case Direction::LEFT:
+						origin += {-1, 1};
+						if (destination == origin)
+							has_succeeded = true;
+						break;
+					case Direction::RIGHT:
+						origin += {1, -1};
+						if (destination == origin)
+							has_succeeded = true;
+						break;
+					case Direction::DOWN_LEFT:
+						origin += {0, 1};
+						if (destination == origin)
+							has_succeeded = true;
+						break;
+					case Direction::DOWN_RIGHT:
+						origin += {1, 0};
+						if (destination == origin)
+							has_succeeded = true;
+						break;
+					case Direction::UP_LEFT:
+						origin += {-1, 0};
+						if (destination == origin)
+							has_succeeded = true;
+						break;
+					case Direction::UP_RIGHT:
+						origin += {0, -1};
+						if (destination == origin)
+							has_succeeded = true;
+						break;
+					}
+
+					if (has_succeeded) {
+						static_cast<e1Rock*>(*item)->GetHitted();
+					}
+				}
+
+			}
+		}
+	}
+}
+
 e1Entity * m1EntityManager::FindEntity(e1Entity::EntityType type)
 {
 	e1Entity* ret = nullptr;

@@ -1,39 +1,26 @@
 #include "e1Player.h"
-#include "m1Input.h"
 #include "App.h"
-#include "m1Render.h"
-#include "p2Log.h"
-#include "m1Cutscene.h"
-#include "App.h"
-#include "m1DialogSystem.h"
 #include "m1Textures.h"
-#include "e1Enemy.h"
-#include "e1Rock.h"
-#include "e1State.h"
-#include "m1Audio.h"
-#include "m1Map.h"
-#include "e1Warrior.h"
-#include "e1Archer.h"
-#include "e1Mage.h"
 #include "m1EntityManager.h"
 #include "m1Map.h"
-#include "m1Window.h"
-#include "m1GUI.h"
-#include "m1Pathfinding.h"
 #include "m1Collisions.h"
-#include "m1Scene.h"
-#include "m1FadeToBlack.h"
-#include "m1Scene.h"
-#include "u1Label.h"
-#include "u1Button.h"
-#include "u1Bar.h"
-#include <string>
-#include "u1UI_Element.h"
-#include "Brofiler/Brofiler.h"
-#include "m1EasingSplines.h"
-#include "m1MenuManager.h"
+#include "m1Render.h"
 #include "m1MainMenu.h"
-#include "m1ParticleManager.h"
+#include "m1FadeToBlack.h"
+#include "m1MenuManager.h"
+#include "m1Scene.h"
+#include "m1Cutscene.h"
+#include "m1DialogSystem.h"
+#include "m1Input.h"
+#include "m1Audio.h"
+#include "m1GUI.h"
+#include "m1MenuManager.h"
+#include "m1Window.h"
+#include "u1Label.h"
+#include "u1Bar.h"
+
+#include "Brofiler/Brofiler.h"
+
 
 
 e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
@@ -798,7 +785,7 @@ void e1Player::BasicAttack()
 			break;
 		}
 		CheckBasicAttackEffects(e1Entity::EntityType::ENEMY, direction, stats.attack_power);
-		CheckForBarrelsAndSnowMan();
+		App->entity_manager->CheckForBarrelsAndSnowMan(actual_tile, direction);
 		state = State::AFTER_ATTACK;
 		ChangeAnimation(direction, state);
 		time_attack = SDL_GetTicks();
@@ -894,77 +881,6 @@ void e1Player::SpecialAttack2()
 		time_attack = SDL_GetTicks();
 		App->audio->PlayFx(App->scene->fx_ability3_hit);
 	}
-}
-
-void e1Player::CheckForBarrelsAndSnowMan()
-{
-	std::vector<e1Entity*> entities = App->entity_manager->GetEntities();
-	std::vector<e1Entity*>::const_iterator item = entities.begin();
-
-	for (; item != entities.end(); ++item) {
-		if ((*item) != nullptr) {
-			if ((*item)->type == e1Entity::EntityType::STATIC) {
-				bool has_succeeded = false;
-				e1StaticEntity* ent = (e1StaticEntity*)*item;
-				if (ent->static_type == e1StaticEntity::Type::BREAKABLE_ROCK && (static_cast<e1Rock*>(ent)->rock_type == RockType::BREAKABLE_BARREL || static_cast<e1Rock*>(ent)->rock_type == RockType::BREAKABLE_SNOWMAN)) {
-					iPoint origin = actual_tile;
-					iPoint destination = (*item)->actual_tile;
-
-					switch (direction) {
-					case Direction::DOWN:
-						origin += {1, 1};
-						if (destination == origin)
-							has_succeeded = true;
-						break;
-					case Direction::UP:
-						origin += {-1, -1};
-						if (destination == origin)
-							has_succeeded = true;
-						break;
-					case Direction::LEFT:
-						origin += {-1, 1};
-						if (destination == origin)
-							has_succeeded = true;
-						break;
-					case Direction::RIGHT:
-						origin += {1, -1};
-						if (destination == origin)
-							has_succeeded = true;
-						break;
-					case Direction::DOWN_LEFT:
-						origin += {0, 1};
-						if (destination == origin)
-							has_succeeded = true;
-						break;
-					case Direction::DOWN_RIGHT:
-						origin += {1, 0};
-						if (destination == origin)
-							has_succeeded = true;
-						break;
-					case Direction::UP_LEFT:
-						origin += {-1, 0};
-						if (destination == origin)
-							has_succeeded = true;
-						break;
-					case Direction::UP_RIGHT:
-						origin += {0, -1};
-						if (destination == origin)
-							has_succeeded = true;
-						break;
-					}
-
-					if (has_succeeded) {
-						e1Rock* enemy_attacked = (e1Rock*)(*item);
-						enemy_attacked->GetHitted();
-					}
-				}
-
-			}
-		}
-	}
-
-
-
 }
 
 void e1Player::CheckBasicSpecialAttack2Effects()
@@ -1349,23 +1265,15 @@ void e1Player::Death()
 		state = State::MENU;
 		stats.live = stats.max_lives;
 		stats.mana = stats.max_mana;
-		std::list<u1GUI*>::iterator item = App->gui->ui_list.begin();
-		while (item != App->gui->ui_list.end()) {
-			if ((*item) != nullptr && (*item)->GetType() == HIT_POINT_LABEL) {
-				App->gui->DeleteUIElement((*item));
-				item = App->gui->ui_list.begin();
-			}
-			else
-				++item;
-		}
+		App->gui->DeleteHitPointLabels();
 	}
 }
 
 void e1Player::DestroySkills()
 {
-	App->gui->DeleteUIElement(upper_button);
-	App->gui->DeleteUIElement(right_button);
-	App->gui->DeleteUIElement(left_button);
+	App->gui->DeleteUIElement((u1GUI*)upper_button);
+	App->gui->DeleteUIElement((u1GUI*)right_button);
+	App->gui->DeleteUIElement((u1GUI*)left_button);
 
 	has_skills = false;
 }
@@ -1684,19 +1592,19 @@ void e1Player::ReduceGold(const int & cost_gold)
 void e1Player::CreateSkills()
 {
 	upper_button = App->gui->AddButton(684, 600, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, App->gui->screen, true, false, false, false);
-	upper_skill_button = App->gui->AddLabel(0, 0, "X", upper_button, BLACK, FontType::FF32, nullptr, false);
+	upper_skill_button = App->gui->AddLabel(0, 0, "X", (u1GUI*)upper_button, BLACK, FontType::FF32, nullptr, false);
 	upper_skill_button->SetPos(35, -10);
 	upper_skill_label = App->gui->AddLabel(0, 0, "Attack 1", upper_skill_button, BLACK, FontType::FF32, nullptr, false);
 	upper_skill_label->SetPos(30, 0);
 
 	right_button = App->gui->AddButton(790, 680, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, App->gui->screen, true, false, false, false);
-	right_skill_button = App->gui->AddLabel(0, 0, "Y", right_button, BLACK, FontType::FF32, nullptr, false);
+	right_skill_button = App->gui->AddLabel(0, 0, "Y", (u1GUI*)right_button, BLACK, FontType::FF32, nullptr, false);
 	right_skill_button->SetPos(35, -10);
 	right_skill_label = App->gui->AddLabel(0, 0, "Attack 2", right_skill_button, BLACK, FontType::FF32, nullptr, false);
 	right_skill_label->SetPos(30, 0);
 
 	left_button = App->gui->AddButton(590, 680, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, nullptr, App->gui->screen, true, false, false, false);
-	left_skill_button = App->gui->AddLabel(0, 0, "B", left_button, BLACK, FontType::FF32, nullptr, false);
+	left_skill_button = App->gui->AddLabel(0, 0, "B", (u1GUI*)left_button, BLACK, FontType::FF32, nullptr, false);
 	left_skill_button->SetPos(35, -10);
 	left_skill_label = App->gui->AddLabel(0, 0, "Attack 3", left_skill_button, BLACK, FontType::FF32, nullptr, false);
 	left_skill_label->SetPos(30, 0);

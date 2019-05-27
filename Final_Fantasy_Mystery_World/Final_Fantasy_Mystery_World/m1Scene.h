@@ -2,10 +2,8 @@
 #define __m1SCENE_H__
 
 #include "m1Module.h"
-#include "p2ChangeControls.h"
 #include <list>
 #include "SDL_mixer/include/SDL_mixer.h"
-#include "p2Animation.h"
 
 #define GOLD_RUPEE_GREEN 10, 20
 #define GOLD_RUPEE_BLUE 30, 40
@@ -122,38 +120,38 @@ public:
 
 public:
 
-    Mix_Chunk* fx_writting;
-	Mix_Chunk* fx_attack;
-	Mix_Chunk* fx_frog_attack;
-	Mix_Chunk* fx_plant_attack;
-    Mix_Chunk* fx_dog_attack;
-	Mix_Chunk* fx_ability_warrior;
-    Mix_Chunk* fx_ability_mage;
-	Mix_Chunk* fx_ability_mage_prepare;
-	Mix_Chunk* fx_ability_archer;
-	Mix_Chunk* fx_ability_no_mana;
-	Mix_Chunk* fx_ability_screen;
-	Mix_Chunk* fx_drop_pick_up;
-	Mix_Chunk* fx_door_enter;
-	Mix_Chunk* fx_potion;
-	Mix_Chunk* fx_denegated_potion;
-	Mix_Chunk* fx_potion_menu;
-    Mix_Chunk* fx_flash;
-	Mix_Chunk* fx_die;
-	Mix_Chunk* fx_rock;
-	Mix_Chunk* fx_kill_enemy;
-	Mix_Chunk* fx_no_money;
-	Mix_Chunk* fx_controller_conection;
-	Mix_Chunk* fx_surprise;
-	Mix_Chunk* fx_buy;
-	Mix_Chunk* fx_buy_special;
-	Mix_Chunk* fx_ability3;
-	Mix_Chunk* fx_ability3_hit;
-	Mix_Chunk* fx_burn;
-	Mix_Chunk* fx_poison;
-	Mix_Chunk* fx_pick_up_poti;
+    Mix_Chunk* fx_writting = nullptr;
+	Mix_Chunk* fx_attack = nullptr;
+	Mix_Chunk* fx_frog_attack = nullptr;
+	Mix_Chunk* fx_plant_attack = nullptr;
+    Mix_Chunk* fx_dog_attack = nullptr;
+	Mix_Chunk* fx_ability_warrior = nullptr;
+    Mix_Chunk* fx_ability_mage = nullptr;
+	Mix_Chunk* fx_ability_mage_prepare = nullptr;
+	Mix_Chunk* fx_ability_archer = nullptr;
+	Mix_Chunk* fx_ability_no_mana = nullptr;
+	Mix_Chunk* fx_ability_screen = nullptr;
+	Mix_Chunk* fx_drop_pick_up = nullptr;
+	Mix_Chunk* fx_door_enter = nullptr;
+	Mix_Chunk* fx_potion = nullptr;
+	Mix_Chunk* fx_denegated_potion = nullptr;
+	Mix_Chunk* fx_potion_menu = nullptr;
+    Mix_Chunk* fx_flash = nullptr;
+	Mix_Chunk* fx_die = nullptr;
+	Mix_Chunk* fx_rock = nullptr;
+	Mix_Chunk* fx_kill_enemy = nullptr;
+	Mix_Chunk* fx_no_money = nullptr;
+	Mix_Chunk* fx_controller_conection = nullptr;
+	Mix_Chunk* fx_surprise = nullptr;
+	Mix_Chunk* fx_buy = nullptr;
+	Mix_Chunk* fx_buy_special = nullptr;
+	Mix_Chunk* fx_ability3 = nullptr;
+	Mix_Chunk* fx_ability3_hit = nullptr;
+	Mix_Chunk* fx_burn = nullptr;
+	Mix_Chunk* fx_poison = nullptr;
+	Mix_Chunk* fx_pick_up_poti = nullptr;
 
-	Mix_Music* mus_game_over;
+	Mix_Music* mus_game_over = nullptr;
 
 	bool close_shop = false;
 };
