@@ -49,7 +49,7 @@ bool m1DialogSystem::Update(float dt)
  				npc_text->SetText(actual_text.data());
 			}
 		}
-		if ((text_button.empty() && actual_text.size() == hole_text.size()) || (App->input->GetKeyDown(SDL_SCANCODE_SPACE) && text_button.empty() && actual_text.size() > 2)) {
+		if ((text_button.empty() && actual_text.size() == hole_text.size()) || ((App->input->GetKeyDown(SDL_SCANCODE_SPACE) || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A)) && text_button.empty() && actual_text.size() > 2)) {
 			int space = 0;
 			for (int i = 0; i < currentNode->dialogOptions.size(); i++)
 			{
