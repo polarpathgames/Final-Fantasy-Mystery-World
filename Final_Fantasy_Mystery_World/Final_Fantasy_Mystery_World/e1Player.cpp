@@ -785,6 +785,7 @@ void e1Player::BasicAttack()
 			break;
 		}
 		CheckBasicAttackEffects(e1Entity::EntityType::ENEMY, direction, stats.attack_power);
+		App->entity_manager->CheckForBarrelsAndSnowMan(actual_tile, direction);
 		state = State::AFTER_ATTACK;
 		ChangeAnimation(direction, state);
 		time_attack = SDL_GetTicks();

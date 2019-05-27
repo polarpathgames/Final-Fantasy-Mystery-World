@@ -81,6 +81,10 @@ private:
 
 	u1Image* dialog_panel = nullptr;
 	u1Image* char_face = nullptr;
+
+	std::string actual_text;
+	std::string hole_text;
+	float text_speed = 0.0f;
 };
 
 #endif

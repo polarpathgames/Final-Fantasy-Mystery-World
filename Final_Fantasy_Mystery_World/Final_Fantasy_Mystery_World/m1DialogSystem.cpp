@@ -40,6 +40,31 @@ bool m1DialogSystem::Update(float dt)
 {
 	bool ret = true;
 	
+	if (!end_dial) {
+		if (strcmp(actual_text.data(), hole_text.data()) != 0) {
+			text_speed += 50 * dt;
+			if (text_speed >= 1.0F) {
+				text_speed = 0.0F;
+				actual_text.resize(actual_text.size() + 1, hole_text[actual_text.size()]);
+ 				npc_text->SetText(actual_text.data());
+			}
+		}
+		if ((text_button.empty() && actual_text.size() == hole_text.size()) || ((App->input->GetKeyDown(SDL_SCANCODE_SPACE) || App->input->GetControllerButtonDown(SDL_CONTROLLER_BUTTON_A)) && text_button.empty() && actual_text.size() > 2)) {
+			int space = 0;
+			for (int i = 0; i < currentNode->dialogOptions.size(); i++)
+			{
+				u1Button* but = App->gui->AddButton(0, space += 30, { 0,0,30,50 }, { 0,0,30,50 }, { 0,0,30,50 }, this, npc_text, false, false, true, true);
+				but->SetFocus(FocusType::CLASSIC_FOCUS);
+				text_button.push_back(but);
+				player_text.push_back(App->gui->AddLabel(0, 0, currentNode->dialogOptions[i]->text.c_str(), text_button[i], BLACK, FontType::FF48, this, false));
+			}
+			if (actual_text.size() != hole_text.size()) {
+				actual_text.resize(hole_text.size());
+				actual_text = hole_text;
+				npc_text->SetText(actual_text.data());
+			}
+		}
+	}
 		
 
 	return ret;
@@ -128,16 +153,12 @@ void m1DialogSystem::BlitDialog()
 
 	dialog_panel = App->gui->AddImage(App->win->width*0.5f - 352, App->win->height - 199, {0, 3090,704,162}, this, App->gui->screen, true, false, false, false);
 	char_face = App->gui->AddImage(8, 20, dialogTrees[treeid]->face, this, dialog_panel, true, false, false, false);
-	npc_text = App->gui->AddLabel(App->win->width * 0.5f, App->win->height-50, currentNode->text.c_str(), dialog_panel, BLACK, FontType::FF48,this, false);
+	actual_text = currentNode->text[0];
+	hole_text = currentNode->text;
+	npc_text = App->gui->AddLabel(App->win->width * 0.5f, App->win->height-50, currentNode->text.data(), dialog_panel, BLACK, FontType::FF48,this, false);
 	npc_text->SetPosRespectParent(CENTERED_UP, 35);
-	int space = 0;
-	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
-	{
-		u1Button* but = App->gui->AddButton(0, space += 30, { 0,0,30,50 }, { 0,0,30,50 }, { 0,0,30,50 }, this, npc_text, false, false, true, true);
-		but->SetFocus(FocusType::CLASSIC_FOCUS);
-		text_button.push_back(but);
-		player_text.push_back(App->gui->AddLabel(0, 0, currentNode->dialogOptions[i]->text.c_str(), text_button[i], BLACK, FontType::FF48, this, false));
-	}
+	npc_text->SetText(actual_text.data());
+
 }
 
 void m1DialogSystem::DeleteText()
@@ -161,6 +182,8 @@ void m1DialogSystem::DeleteText()
 	char_face = nullptr;
 	App->gui->DeleteUIElement(dialog_panel);
 	dialog_panel = nullptr;
+	actual_text.clear();
+	hole_text.clear();
 }
 
 bool m1DialogSystem::CompareKarma()

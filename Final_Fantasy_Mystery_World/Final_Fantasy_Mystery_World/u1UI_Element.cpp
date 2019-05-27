@@ -173,11 +173,6 @@ UIType u1GUI::GetType() const
 	return type;
 }
 
-int u1GUI::GetPriority() const
-{
-	return priority;
-}
-
 iPoint u1GUI::GetGlobalPosition() const
 {
 	return draw_offset;
@@ -247,4 +242,19 @@ void u1GUI::ResetClipZone()
 		delete clip_zone;
 		clip_zone = nullptr;
 	}
+}
+
+void u1GUI::SetBlitPriority(const BlitPriorityUI & priority)
+{
+
+	if (!childs.empty()) {
+		std::list<u1GUI*> child_list;
+		App->gui->BFS(child_list, this);
+		std::list<u1GUI*>::iterator item = child_list.begin();
+		for (; item != child_list.end(); ++item) {
+			if ((*item) != nullptr)
+				(*item)->blit_priority = priority;
+		}
+	}
+	blit_priority = priority;
 }

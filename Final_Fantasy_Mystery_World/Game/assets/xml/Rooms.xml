@@ -114,7 +114,7 @@
       <location>Quest1_UseTeleport.tmx</location>
       <id num="7"></id>
       <type>paceful</type>
-      <music>assets/audio/music/2.Final Fantasy TA - Snow Dancing In The Schoolyard.ogg.ogg</music>
+      <music>assets/audio/music/2.Final Fantasy TA - Snow Dancing In The Schoolyard.ogg</music>
       <properties>
         <property name="blizzard" value="1"/>
       </properties>

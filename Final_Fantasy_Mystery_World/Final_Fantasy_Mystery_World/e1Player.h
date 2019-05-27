@@ -135,6 +135,8 @@ public:
 
 	void SpecialAttack2();
 
+	void CheckForBarrelsAndSnowMan();
+
 	void CheckBasicSpecialAttack2Effects();
 
 	void PerformMovementInLobby(float dt); // Do the movement in lobby
