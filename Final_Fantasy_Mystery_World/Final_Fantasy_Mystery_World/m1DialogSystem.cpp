@@ -40,6 +40,16 @@ bool m1DialogSystem::Update(float dt)
 {
 	bool ret = true;
 	
+	if (!end_dial) {
+		if (strcmp(actual_text.data(), hole_text.data()) != 0) {
+			text_speed += 0.4F;
+			if (text_speed >= 1.0F) {
+				text_speed = 0.0F;
+				actual_text.resize(actual_text.size() + 1, hole_text[actual_text.size()]);
+ 				npc_text->SetText(actual_text.data());
+			}
+		}
+	}
 		
 
 	return ret;
@@ -114,6 +124,7 @@ bool m1DialogSystem::PerformDialogue(int tr_id)
 			currentNode->text.replace(currentNode->text.find("PLAYERNAME"), 10, App->globals.player_name);
 		}
 		waiting_input = !waiting_input;
+		actual_text.clear();
 		BlitDialog(); // Print the dialog in the screen
 	}
 
@@ -128,8 +139,11 @@ void m1DialogSystem::BlitDialog()
 
 	dialog_panel = App->gui->AddImage(App->win->width*0.5f - 352, App->win->height - 199, {0, 3090,704,162}, this, App->gui->screen, true, false, false, false);
 	char_face = App->gui->AddImage(8, 20, dialogTrees[treeid]->face, this, dialog_panel, true, false, false, false);
-	npc_text = App->gui->AddLabel(App->win->width * 0.5f, App->win->height-50, currentNode->text.c_str(), dialog_panel, BLACK, FontType::FF48,this, false);
+	actual_text = currentNode->text[0];
+	hole_text = currentNode->text;
+	npc_text = App->gui->AddLabel(App->win->width * 0.5f, App->win->height-50, currentNode->text.data(), dialog_panel, BLACK, FontType::FF48,this, false);
 	npc_text->SetPosRespectParent(CENTERED_UP, 35);
+	npc_text->SetText(actual_text.data());
 	int space = 0;
 	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
 	{
