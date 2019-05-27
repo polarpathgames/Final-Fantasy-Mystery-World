@@ -66,7 +66,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fonts);
 	AddModule(collision);
 	AddModule(particles);
-
+	
 	AddModule(entity_manager);
 	AddModule(gui);
 	AddModule(dialog);
