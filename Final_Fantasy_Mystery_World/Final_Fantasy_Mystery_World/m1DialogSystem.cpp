@@ -42,7 +42,7 @@ bool m1DialogSystem::Update(float dt)
 	
 	if (!end_dial) {
 		if (strcmp(actual_text.data(), hole_text.data()) != 0) {
-			text_speed += 0.4F;
+			text_speed += 50 * dt;
 			if (text_speed >= 1.0F) {
 				text_speed = 0.0F;
 				actual_text.resize(actual_text.size() + 1, hole_text[actual_text.size()]);
