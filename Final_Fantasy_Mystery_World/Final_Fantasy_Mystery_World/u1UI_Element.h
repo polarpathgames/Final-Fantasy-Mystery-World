@@ -63,7 +63,6 @@ public:
 	virtual void SetPos(const int &x, const int &y);
 
 	UIType GetType()const;
-	int GetPriority() const;
 	iPoint GetGlobalPosition() const;
 	iPoint GetLocalPosition() const;
 	void SetPosRespectParent(Position_Type, const int& margin = 0);
@@ -79,6 +78,7 @@ public:
 
 	void SetClipZone(const SDL_Rect& clip_zone);
 	void ResetClipZone();
+	void SetBlitPriority(const BlitPriorityUI & priority);
 
 public:
 	iPoint position = { 0,0 };
@@ -108,12 +108,12 @@ public:
 
 	FocusType focus_type = FocusType::NONE;
 	bool new_clip = false;
+	BlitPriorityUI blit_priority = BlitPriorityUI::NORMAL_BLIT;
 private:
 	UIType type = NON;
 
-	int priority = 0;
-
 	std::list<m1Module*> listeners;
+
 
 
 };
