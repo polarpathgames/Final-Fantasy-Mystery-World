@@ -61,6 +61,28 @@ bool m1MainMenu::Update(float dt)
 		delete App->menu_manager->control_to_change;
 		App->menu_manager->control_to_change = nullptr;
 	}
+
+	//Christian forgive me pls. Att: Ivan
+	if (App->menu_manager->credits.button_credits_return_menu != nullptr && App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+		App->audio->PlayFx(fx_push_button_return);
+		App->menu_manager->CreateMainMenu();
+		App->menu_manager->DestroyCredits();
+	}
+	if (App->menu_manager->options.button_retun_options != nullptr && App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+		App->audio->PlayFx(App->main_menu->fx_push_button_return);
+		App->menu_manager->DestroyOptions();
+		App->menu_manager->CreateMainMenu();
+	}
+	if (App->menu_manager->controls.button_retun_to_options != nullptr && App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+		App->menu_manager->CreateOptions();
+		App->scene->SetMenuState(StatesMenu::OPTIONS_MENU);
+		App->menu_manager->DestroyControls();
+	}
+	if (App->menu_manager->select_champ.return_select_champ_button != nullptr && App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+		App->menu_manager->CreateMainMenu();
+		App->menu_manager->DestroySelectChamp();
+		App->audio->PlayFx(fx_push_button_return);
+	}
 	return true;
 }
 
