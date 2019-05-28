@@ -3,6 +3,7 @@
 #include "m1Textures.h"
 #include "m1Render.h"
 #include "m1Scene.h"
+#include "m1Map.h"
 #include "m1Audio.h"
 #include "m1EntityManager.h"
 
@@ -80,6 +81,11 @@ e1State::~e1State()
 
 bool e1State::PreUpdate()
 {
+	if (App->map->quest_rooms->actual_room->room_type == RoomType::BOSS && !App->entity_manager->ThereAreEnemies() && state == EventStates::BLIZZARD)
+	{
+		to_delete = true;
+		state = EventStates::NONE;
+	}
 	if (!doing_effect) {
 		turn_count++;
 		if (turn_count >= turn_effect) {
