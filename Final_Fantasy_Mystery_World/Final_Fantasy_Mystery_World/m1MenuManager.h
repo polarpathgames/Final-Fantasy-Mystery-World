@@ -564,10 +564,6 @@ struct UI_inventory {
 	u1Label* hp_potion_label = nullptr;
 	u1Label* mana_potion_label = nullptr;
 	u1Label* money_label = nullptr;
-	u1Label* level_name_label = nullptr;
-	u1Label* level_number_label = nullptr;
-	u1Label* exp_name_label = nullptr;
-	u1Label* exp_number_label = nullptr;
 	u1Image* player_image = nullptr;
 	u1Image* first_ability = nullptr;
 	u1Image* flash = nullptr;
@@ -598,10 +594,6 @@ struct UI_inventory {
 		hp_potion_label = nullptr;
 		mana_potion_label = nullptr;
 		money_label = nullptr;
-		level_name_label = nullptr;
-		level_number_label = nullptr;
-		exp_name_label = nullptr;
-		exp_number_label = nullptr;
 		player_image = nullptr;
 		first_ability = nullptr;
 		flash = nullptr;
