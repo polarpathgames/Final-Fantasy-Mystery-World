@@ -335,8 +335,7 @@ void m1VideoPlayer::OpenStreamComponent(int stream_index)
 
 bool m1VideoPlayer::Pause()
 {
-	if (!playing)
-		return false;
+
 
 	paused = !paused;
 
