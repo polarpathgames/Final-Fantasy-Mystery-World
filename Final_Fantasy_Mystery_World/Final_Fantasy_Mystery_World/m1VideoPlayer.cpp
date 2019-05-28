@@ -285,10 +285,6 @@ void m1VideoPlayer::OpenStreamComponent(int stream_index)
 			dst_w, dst_h, AVPixelFormat::AV_PIX_FMT_YUV420P,
 			SWS_BILINEAR, NULL, NULL, NULL);
 
-		//Create texture where we will output the video.
-		texture = SDL_CreateTexture(App->render->renderer, SDL_PIXELFORMAT_YV12, SDL_TEXTUREACCESS_STREAMING,
-			dst_w, dst_h);
-
 		video.pktqueue.Init();
 
 		break;
@@ -415,6 +411,16 @@ void m1VideoPlayer::DecodeVideo()
 		0, video.frame->height, video.converted_frame->data, video.converted_frame->linesize);
 
 	//Update video texture
+
+	if (texture == nullptr) {
+		uint dst_w, dst_h;
+		App->win->GetWindowSize(dst_w, dst_h);
+
+		//Create texture where we will output the video.
+		texture = SDL_CreateTexture(App->render->renderer, SDL_PIXELFORMAT_YV12, SDL_TEXTUREACCESS_STREAMING,
+			dst_w, dst_h);
+	}
+
 	SDL_UpdateYUVTexture(texture, nullptr, video.converted_frame->data[0], video.converted_frame->linesize[0], video.converted_frame->data[1],
 		video.converted_frame->linesize[1], video.converted_frame->data[2], video.converted_frame->linesize[2]);
 
