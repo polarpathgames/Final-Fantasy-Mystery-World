@@ -646,7 +646,7 @@ e1StaticEntity::e1StaticEntity(int x, int y, const char * name):e1Entity(x,y)
 		actual_tile = { App->map->WorldToMap(position.x,position.y).x,App->map->WorldToMap(position.x,position.y).y };
 		actual_tile += {3, 3};
 		interacting_state = InteractingStates::WAITING_INTERACTION;
-		max_distance_to_interact = 1;
+		max_distance_to_interact = 2;
 		static_type = e1StaticEntity::Type::PORTAL;
 		has_animation = true;
 		idle = DBG_NEW Animation();
@@ -752,7 +752,7 @@ bool e1StaticEntity::Update(float dt)
 					pos.y = (int)(App->render->camera.y) + (App->scene->player->position.y) * (int)App->win->GetScale() - button_interact->section.h;
 					button_interact->SetPos(pos.x, pos.y);
 				}
-				if ((static_type == Type::TREASURE || static_type == Type::PORTAL) && App->entity_manager->ThereAreEnemies()) {
+				if ((static_type == Type::TREASURE) && App->entity_manager->ThereAreEnemies()) {
 					if (button_interact != nullptr) {
 						App->gui->DeleteUIElement((u1GUI*)button_interact);
 						button_interact = nullptr;
