@@ -239,6 +239,9 @@
     <ClCompile Include="e1Bomberman.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="m1VideoPlayer.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -504,6 +507,9 @@
     </ClInclude>
     <ClInclude Include="e1Bomberman.h">
       <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="m1VideoPlayer.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

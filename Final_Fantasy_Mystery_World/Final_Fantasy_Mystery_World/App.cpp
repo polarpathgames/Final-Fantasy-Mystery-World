@@ -8,6 +8,7 @@
 #include "m1Textures.h"
 #include "m1Audio.h"
 #include "m1Scene.h"
+#include "m1VideoPlayer.h"
 #include "m1GUI.h"
 #include "m1Map.h"
 #include "m1Collisions.h"
@@ -46,6 +47,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	cutscene_manager = DBG_NEW m1CutScene();
 	particles = DBG_NEW m1ParticleManager();
 	menu_manager = DBG_NEW m1MenuManager();
+	video_player = DBG_NEW m1VideoPlayer();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -68,6 +70,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(easing_splines);
 	AddModule(cutscene_manager);
 	AddModule(menu_manager);
+	AddModule(video_player);
 
 	// render last to swap buffer
 	AddModule(render);
