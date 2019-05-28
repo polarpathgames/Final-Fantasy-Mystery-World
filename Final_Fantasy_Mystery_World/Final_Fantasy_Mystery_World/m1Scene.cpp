@@ -637,15 +637,19 @@ bool m1Scene::Interact(u1GUI* interact)
 		break;
 	case StatesMenu::INVENTORY_MENU:
 		if (interact == App->menu_manager->inventory.hp_potion_button) {
-			App->menu_manager->DeletePotionMenu();
-			App->menu_manager->CreatePotionMenu(App->menu_manager->inventory.hp_potion_button);
-			menu_state = StatesMenu::POTION_MENU;
+			if (App->map->actual_map != Maps::LOBBY && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::SHOP) {
+				App->menu_manager->DeletePotionMenu();
+				App->menu_manager->CreatePotionMenu(App->menu_manager->inventory.hp_potion_button);
+				menu_state = StatesMenu::POTION_MENU;
+			}		
 			ret = false;
 		}
 		if (interact == App->menu_manager->inventory.mana_potion_button) {
-			App->menu_manager->DeletePotionMenu();
-			App->menu_manager->CreatePotionMenu(App->menu_manager->inventory.mana_potion_button);
-			menu_state = StatesMenu::POTION_MENU;
+			if (App->map->actual_map != Maps::LOBBY && App->map->actual_map != Maps::HOME && App->map->actual_map != Maps::SHOP) {
+				App->menu_manager->DeletePotionMenu();
+				App->menu_manager->CreatePotionMenu(App->menu_manager->inventory.mana_potion_button);
+				menu_state = StatesMenu::POTION_MENU;
+			}
 			ret = false;
 		}
 		if (interact != nullptr) {

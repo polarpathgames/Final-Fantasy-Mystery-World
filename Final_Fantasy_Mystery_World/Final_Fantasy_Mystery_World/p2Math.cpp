@@ -1,5 +1,4 @@
 #include "p2Math.h"
-#include "p2Point.h"
 #include <math.h>
 
 
