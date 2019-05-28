@@ -64,6 +64,13 @@ bool m1MainMenu::Update(float dt)
 	return true;
 }
 
+bool m1MainMenu::CleanUp()
+{
+	App->gui->DeleteAllUIElements();
+	App->audio->CleanUp();
+	return true;
+}
+
 bool m1MainMenu::Interact(u1GUI* interaction)
 {
 	bool ret = true;

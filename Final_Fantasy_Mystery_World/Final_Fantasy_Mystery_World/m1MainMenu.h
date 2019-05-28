@@ -14,6 +14,7 @@ public:
 	bool Awake();
 	bool Start();
 	bool Update(float dt);
+	bool CleanUp();
 
 	bool Interact(u1GUI* interaction);
 
