@@ -199,6 +199,11 @@ bool m1FadeToBlack::FadeToBlack(Maps type, float time)
 		want_to_change_map = true;
 		map_to_change = type;
 		is_quest = false;
+		if (map_to_change == Maps::HOME && App->map->actual_map != Maps::LOBBY)
+		{
+				App->scene->player->AugmentLives(App->scene->player->stats.max_lives);
+				App->scene->player->AugmentMana(App->scene->player->stats.max_mana);
+		}
 		ret = true;
 	}
 
