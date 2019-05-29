@@ -572,15 +572,7 @@ void m1MenuManager::CreateInventory()
 	inventory.mana_potion_label = App->gui->AddLabel(50, -10, std::string("x " + std::to_string(App->scene->player->stats.num_mana_potions)).data(), inventory.mana_potion_image, BLACK, FontType::FF64, nullptr, false);
 
 	inventory.coin_image = App->gui->AddImage(45, 225, { 1024, 1952, 34, 34 }, App->scene, inventory.inventory_panel, true, false, false, false);
-	inventory.money_label = App->gui->AddLabel(50, -20, std::string("x " + std::to_string(App->scene->player->stats.gold)).data(), inventory.coin_image, BLACK, FontType::FF64, nullptr, false);
-
-	inventory.level_name_label = App->gui->AddLabel(76, 267, "Level:", inventory.inventory_panel, BLACK, FontType::FF64, nullptr, false);
-	inventory.level_number_label = App->gui->AddLabel(65, 0, std::string("x " + std::to_string(App->scene->player->stats.level)).data(), inventory.level_name_label, BLACK, FontType::FF64, nullptr, false);
-
-	inventory.exp_name_label = App->gui->AddLabel(55, 307, "Exp:", inventory.inventory_panel, BLACK, FontType::FF64, nullptr, false);
-	inventory.exp_number_label = App->gui->AddLabel(50, 0, std::string(std::to_string(App->scene->player->stats.xp) + "/" + std::to_string(App->scene->player->stats.max_xp)).data(), inventory.exp_name_label, BLACK, FontType::FF64, nullptr, false);
-
-	
+	inventory.money_label = App->gui->AddLabel(50, -20, std::string("x " + std::to_string(App->scene->player->stats.gold)).data(), inventory.coin_image, BLACK, FontType::FF64, nullptr, false);	
 }
 
 void m1MenuManager::DestroyInventory()

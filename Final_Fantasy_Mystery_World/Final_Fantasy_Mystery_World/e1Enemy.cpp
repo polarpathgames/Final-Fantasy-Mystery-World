@@ -645,6 +645,7 @@ void e1Enemy::Death()
 
 	if (enemy_type == EnemyType::FROZEN) {
 		App->gui->DeleteUIElement(icequeen_hp_bar);
+		App->entity_manager->CreateEntity(e1Entity::EntityType::STATIC, -94, 213, "portal");
 	}
 
 	if (enemy_type == EnemyType::BABY_DRAKE) {

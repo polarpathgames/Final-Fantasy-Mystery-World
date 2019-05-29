@@ -594,7 +594,7 @@ void m1Scene::ShitFunctionJAJA()
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyCredits.xml");
 		App->globals.CutsceneFinalFinalGame = true;	
 	}
-	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && App->globals.CutsceneFinalFinalGame && !App->globals.CutSceneLobbyCredits) {		
+	if (!App->cutscene_manager->is_executing && App->globals.CutsceneFinalFinalGame && !App->globals.CutSceneLobbyCredits) {		
 		App->map->Disable();
 		App->menu_manager->DestroyHUD();
 		App->menu_manager->CreateCongratualtions();
@@ -636,13 +636,13 @@ bool m1Scene::Interact(u1GUI* interact)
 		}
 		break;
 	case StatesMenu::INVENTORY_MENU:
-		if (interact == App->menu_manager->inventory.hp_potion_button) {
+		if (interact == App->menu_manager->inventory.hp_potion_button && App->map->quest_rooms != nullptr) {
 			App->menu_manager->DeletePotionMenu();
 			App->menu_manager->CreatePotionMenu(App->menu_manager->inventory.hp_potion_button);
-			menu_state = StatesMenu::POTION_MENU;
+			menu_state = StatesMenu::POTION_MENU;		
 			ret = false;
 		}
-		if (interact == App->menu_manager->inventory.mana_potion_button) {
+		if (interact == App->menu_manager->inventory.mana_potion_button && App->map->quest_rooms != nullptr) {
 			App->menu_manager->DeletePotionMenu();
 			App->menu_manager->CreatePotionMenu(App->menu_manager->inventory.mana_potion_button);
 			menu_state = StatesMenu::POTION_MENU;
