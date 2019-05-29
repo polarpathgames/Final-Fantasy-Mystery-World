@@ -1346,7 +1346,7 @@ void e1Player::QuestControls()
 
 	if (!player_input.pressing_shift) {
 		if (state != State::MENU) {
-			App->menu_manager->ChangeCompass(false);
+			//App->menu_manager->ChangeCompass(false);
 			if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
 				player_input.pressing_S = true;
 			}
@@ -1363,7 +1363,7 @@ void e1Player::QuestControls()
 	}
 	else {
 		if (state != State::MENU) {
-			App->menu_manager->ChangeCompass(true);
+			//App->menu_manager->ChangeCompass(true);
 			if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) {
 				player_input.pressing_S = true;
 			}

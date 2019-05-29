@@ -814,8 +814,8 @@ struct UI_HUD {
 		player_hp_bar = nullptr;
 		player_mana_bar = nullptr;
 		player_exp_bar = nullptr;
-		diagonal_compass = nullptr; 	//Compass
-		vertical_compass = nullptr;	//Compass
+		//diagonal_compass = nullptr; 	//Compass
+		//vertical_compass = nullptr;	//Compass
 	}
 };
 
@@ -899,7 +899,7 @@ public:
 	void DestroyHUD();
 	void EnableHUD(bool enable);
 
-	void ChangeCompass(bool shift_pressed);
+	//void ChangeCompass(bool shift_pressed);
 
 	void SkipMenu(bool is_cutscene);
 

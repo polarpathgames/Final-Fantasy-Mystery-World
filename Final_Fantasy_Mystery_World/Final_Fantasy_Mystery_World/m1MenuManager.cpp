@@ -626,31 +626,31 @@ void m1MenuManager::DeletePotionMenu()
 void m1MenuManager::CreatePauseMenu()
 {
 	if (pause.pause_panel == nullptr) {
-		pause.pause_panel = App->gui->AddImage(0, 0, { 1252,1536,313,428 }, nullptr, App->gui->screen, true, false, false, false);
+		pause.pause_panel = App->gui->AddImage(0, 0, { 2698,481,314,428 }, nullptr, App->gui->screen, true, false, false, false);
 		pause.pause_panel->SetPosRespectParent(CENTERED);
 		pause.pause_panel->SetPos(pause.pause_panel->GetLocalPosition().x, -1000);
 		
 
-		pause.button_resume = App->gui->AddButton(50, 50, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
+		pause.button_resume = App->gui->AddButton(55, 45, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
 		pause.label_resume = App->gui->AddLabel(0, 0, "Continue", pause.button_resume, BLACK, FontType::FF48, nullptr, false);
 		pause.label_resume->SetPosRespectParent(CENTERED);
 
-		pause.button_main_menu = App->gui->AddButton(50, 350, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
+		pause.button_main_menu = App->gui->AddButton(55, 340, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
 		pause.label_main_menu = App->gui->AddLabel(0, 0, "Return to main menu", pause.button_main_menu, BLACK, FontType::FF48, nullptr, false);
 		pause.label_main_menu->SetPosRespectParent(CENTERED);
 
 		if (App->map->actual_map == Maps::LOBBY || App->map->actual_map == Maps::SHOP || App->map->actual_map == Maps::HOME || App->globals.Tutorial_first_time) {
-			pause.button_abort_quest = App->gui->AddButton(50, 250, { 2456,1087,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, false, false);
+			pause.button_abort_quest = App->gui->AddButton(55, 240, { 2456,1087,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, false, false);
 		}
 		else {
-			pause.button_abort_quest = App->gui->AddButton(50, 250, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
+			pause.button_abort_quest = App->gui->AddButton(55, 240, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
 		}
 
 		pause.label_abort_quest = App->gui->AddLabel(0, 0, "Abort quest", pause.button_abort_quest, BLACK, FontType::FF48, nullptr, false);
 		pause.label_abort_quest->SetPosRespectParent(CENTERED);
 
 
-		pause.button_options = App->gui->AddButton(50, 150, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
+		pause.button_options = App->gui->AddButton(55, 140, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
 		pause.label_options = App->gui->AddLabel(0, 0, "Options", pause.button_options, BLACK, FontType::FF48, nullptr, false);
 		pause.label_options->SetPosRespectParent(CENTERED);
 		pause.pause_panel->SetBlitPriority(BlitPriorityUI::LAST_BLIT);
@@ -799,8 +799,8 @@ void m1MenuManager::EnableHUD(bool show_or_hide) {
 			hud.player_hud_image->drawable = show_or_hide;
 			hud.player_hp_bar->drawable = show_or_hide;
 			hud.player_mana_bar->drawable = show_or_hide;
-			hud.diagonal_compass->drawable = show_or_hide;
-			hud.vertical_compass->drawable = show_or_hide;
+			/*hud.diagonal_compass->drawable = show_or_hide;
+			hud.vertical_compass->drawable = show_or_hide;*/
 			hud.player_hp_bar->bar_numbers_label->drawable = show_or_hide;
 			hud.player_mana_bar->bar_numbers_label->drawable = show_or_hide;
 			hud.player_exp_bar->drawable = show_or_hide;
@@ -1029,24 +1029,24 @@ void m1MenuManager::DestroyHelpAbilityMenu()
 
 void m1MenuManager::CreateHUD()
 {
-	hud.bg_hud = App->gui->AddImage(0, 0, { 1024, 2304, 1024, 768 }, nullptr, App->gui->screen, true, false, false, false);
-	hud.diagonal_compass = App->gui->AddImage(925, 675, { 1876, 3084, 88, 74 }, this, hud.bg_hud, true, false, false, false);
-	hud.vertical_compass = App->gui->AddImage(925, 670, { 1949, 3159, 82, 86 }, this, hud.bg_hud, false, false, false, false);
+	hud.bg_hud = App->gui->AddImage(45, 630, { 2117, 158, 284, 105 }, nullptr, App->gui->screen, true, false, false, false);
+	//hud.diagonal_compass = App->gui->AddImage(925, 675, { 1876, 3084, 88, 74 }, this, hud.bg_hud, true, false, false, false);
+	//hud.vertical_compass = App->gui->AddImage(925, 670, { 1949, 3159, 82, 86 }, this, hud.bg_hud, false, false, false, false);
 
 	switch (App->scene->player_type) {
 	case PlayerType::WARRIOR:
-		hud.player_hud_image = App->gui->AddImage(28, 653, { 1163,4079,76,98 }, nullptr, hud.bg_hud, true, false, false, false);
+		hud.player_hud_image = App->gui->AddImage(18, 18, { 2135,462,51,53 }, nullptr, hud.bg_hud, true, false, false, false);
 		break;
 	case PlayerType::ARCHER:
-		hud.player_hud_image = App->gui->AddImage(28, 653, { 1740,4088,76,98 }, nullptr, hud.bg_hud, true, false, false, false);
+		hud.player_hud_image = App->gui->AddImage(21, 20, { 2229,464,51,53 }, nullptr, hud.bg_hud, true, false, false, false);
 		break;
 	case PlayerType::MAGE:
-		hud.player_hud_image = App->gui->AddImage(28, 653, { 1458,4084,76,98 }, nullptr, hud.bg_hud, true, false, false, false);
+		hud.player_hud_image = App->gui->AddImage(21, 20, { 2322,464,51,53 }, nullptr, hud.bg_hud, true, false, false, false);
 		break;
 	}
-	hud.player_hp_bar = App->gui->AddBar(215, 662,App->scene->player->stats.max_lives, HPBAR, hud.bg_hud, nullptr);
-	hud.player_mana_bar = App->gui->AddBar(215, 700, App->scene->player->stats.max_mana, MANABAR, hud.bg_hud, nullptr);
-	hud.player_exp_bar = App->gui->AddBar(8, 626, App->scene->player->stats.max_xp, EXPBAR, hud.bg_hud, nullptr);
+	hud.player_hp_bar = App->gui->AddBar(121, 8,App->scene->player->stats.max_lives, HPBAR, hud.bg_hud, nullptr);
+	hud.player_mana_bar = App->gui->AddBar(121, 66, App->scene->player->stats.max_mana, MANABAR, hud.bg_hud, nullptr);
+	hud.player_exp_bar = App->gui->AddBar(80, 95, App->scene->player->stats.max_xp, EXPBAR, hud.bg_hud, nullptr);
 }
 
 void m1MenuManager::DestroyHUD()
@@ -1057,29 +1057,30 @@ void m1MenuManager::DestroyHUD()
 }
 
 
-void m1MenuManager::ChangeCompass(bool shift_pressed)
-{
+//void m1MenuManager::ChangeCompass(bool shift_pressed)
+//{
+//
+//	if (shift_pressed)
+//	{
+//		hud.vertical_compass->drawable = true;
+//		hud.diagonal_compass->drawable = false;
+//	}
+//
+//	else
+//	{
+//		if (App->cutscene_manager->is_executing == true)
+//		{
+//			hud.diagonal_compass->drawable = false;
+//			hud.vertical_compass->drawable = false;
+//		}
+//		else
+//		{
+//			hud.diagonal_compass->drawable = true;
+//			hud.vertical_compass->drawable = false;
+//		}
+//	}
+//}
 
-	if (shift_pressed)
-	{
-		hud.vertical_compass->drawable = true;
-		hud.diagonal_compass->drawable = false;
-	}
-
-	else
-	{
-		if (App->cutscene_manager->is_executing == true)
-		{
-			hud.diagonal_compass->drawable = false;
-			hud.vertical_compass->drawable = false;
-		}
-		else
-		{
-			hud.diagonal_compass->drawable = true;
-			hud.vertical_compass->drawable = false;
-		}
-	}
-}
 void m1MenuManager::GodModeIndicator(bool is_god_mode)
 {
 	if (is_god_mode)
