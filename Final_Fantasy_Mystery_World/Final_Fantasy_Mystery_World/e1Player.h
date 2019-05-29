@@ -179,6 +179,8 @@ public:
 
 	void UpdateExperience(int experience);
 
+	void UpdateLevelLabel(int current_level = 0);
+
 	virtual void UpdateLevel(){}
 
 public:

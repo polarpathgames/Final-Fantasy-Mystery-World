@@ -1648,4 +1648,18 @@ void e1Player::UpdateExperience(int experience) {
 		stats.xp = 0;
 		UpdateLevel();
 	}
+
+
+}
+
+void e1Player::UpdateLevelLabel(int current_level) {
+
+	if (App->menu_manager->hud.level_label != nullptr) {
+		App->gui->DeleteUIElement(App->menu_manager->hud.level_label);
+	}
+
+
+	std::string level_string = std::to_string(stats.level);
+
+	App->menu_manager->hud.level_label = App->gui->AddLabel(30, 20, level_string.c_str(), (u1GUI*)App->menu_manager->hud.bg_hud, BLACK, FontType::FF32, App->scene, false);
 }
