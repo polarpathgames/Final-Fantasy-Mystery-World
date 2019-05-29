@@ -4,6 +4,7 @@
 #include "m1Module.h"
 #include "SDL_mixer/include/SDL_mixer.h"
 #include "e1Entity.h"
+#include "p2Timer.h"
 
 class m1MainMenu : public m1Module
 {
@@ -31,5 +32,6 @@ public:
 
 	std::string video_path;
 	bool intro_played = false;
+	p2Timer video_start;
 };
 #endif

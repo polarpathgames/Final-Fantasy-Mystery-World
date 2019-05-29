@@ -45,6 +45,14 @@ bool m1Audio::Awake(pugi::xml_node& config)
 
 	}
 
+	
+	return ret;
+}
+
+bool m1Audio::Start()
+{
+	bool ret = true;
+
 	SDL_Init(0);
 
 	if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
@@ -75,6 +83,7 @@ bool m1Audio::Awake(pugi::xml_node& config)
 
 
 	Mix_VolumeMusic(volume);
+
 	return ret;
 }
 

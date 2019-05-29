@@ -43,6 +43,8 @@ bool m1MainMenu::Awake(pugi::xml_node& config)
 bool m1MainMenu::Start()
 {
 	if (intro_played) {
+		App->audio->Enable();
+
 		fx_push_button = App->audio->LoadFx("assets/audio/sfx/MainMenu_Confirm_Selection.wav");
 		fx_push_button_return = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Message.wav");
 
@@ -57,7 +59,7 @@ bool m1MainMenu::Start()
 	else {
 		App->video_player->PlayVideo(video_path.data());
 	}
-
+	
 	return true;
 }
 
@@ -65,9 +67,9 @@ bool m1MainMenu::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateMainMenu", Profiler::Color::Aqua);
 
-	if (!App->video_player->playing && !intro_played) {
-		Start();
+	if (!intro_played && !App->video_player->playing) {
 		intro_played = true;
+		Start();
 	}
 
 	if (App->menu_manager->control_to_change != nullptr && !App->menu_manager->control_to_change->Update()) {
