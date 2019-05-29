@@ -132,6 +132,7 @@ bool Application::Awake()
 			scene->active = false;
 			map->active = false;
 			entity_manager->active = false;
+			audio->active = false;
 		}
 	}
 

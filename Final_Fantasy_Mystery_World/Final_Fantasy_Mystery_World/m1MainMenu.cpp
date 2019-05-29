@@ -19,6 +19,7 @@
 #include "u1Image.h"
 #include "u1ChButton.h"
 #include "u1UI_Element.h"
+#include "m1VideoPlayer.h"
 #include "Brofiler/Brofiler.h"
 #include <shellapi.h>
 #include "m1Audio.h"
@@ -32,31 +33,40 @@ m1MainMenu::m1MainMenu()
 
 m1MainMenu::~m1MainMenu(){}
 
-bool m1MainMenu::Awake()
+bool m1MainMenu::Awake(pugi::xml_node& config)
 {
+	video_path.assign(config.child("video_intro").attribute("path").as_string());
+
 	return true;
 }
 
 bool m1MainMenu::Start()
 {
+	if (intro_played) {
+		App->audio->Enable();
+
+		fx_push_button = App->audio->LoadFx("assets/audio/sfx/MainMenu_Confirm_Selection.wav");
+		fx_push_button_return = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Message.wav");
+
+		mus_main_menu = App->audio->LoadMusic("assets/audio/music/1.Final Fantasy TA - Main Theme.ogg");
+		mus_credits = App->audio->LoadMusic("assets/audio/music/41.Final Fantasy TA - A Place We Should Return To.ogg");
+		mus_congrats = App->audio->LoadMusic("assets/audio/music/17.Final Fantasy TA - Undefeated Heart.ogg");
+		mus_selection = App->audio->LoadMusic("assets/audio/music/34.Final Fantasy TA - Confusion.ogg");
+
+		App->menu_manager->CreateMainMenu();
+		App->audio->PlayMusic(mus_main_menu, 5);
+	}
+	else {
+		App->video_player->PlayVideo(video_path.data(), VIDEO_INTRO_ID, 0.5f);
+	}
 	
-	fx_push_button = App->audio->LoadFx("assets/audio/sfx/MainMenu_Confirm_Selection.wav");
-	fx_push_button_return = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Message.wav");
-
-	mus_main_menu = App->audio->LoadMusic("assets/audio/music/1.Final Fantasy TA - Main Theme.ogg");
-	mus_credits = App->audio->LoadMusic("assets/audio/music/41.Final Fantasy TA - A Place We Should Return To.ogg");
-	mus_congrats = App->audio->LoadMusic("assets/audio/music/17.Final Fantasy TA - Undefeated Heart.ogg");
-	mus_selection = App->audio->LoadMusic("assets/audio/music/34.Final Fantasy TA - Confusion.ogg");
-
-	App->menu_manager->CreateMainMenu();
-	App->audio->PlayMusic(mus_main_menu, 5);
-
 	return true;
 }
 
 bool m1MainMenu::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateMainMenu", Profiler::Color::Aqua);
+
 	if (App->menu_manager->control_to_change != nullptr && !App->menu_manager->control_to_change->Update()) {
 		delete App->menu_manager->control_to_change;
 		App->menu_manager->control_to_change = nullptr;
@@ -83,13 +93,16 @@ bool m1MainMenu::Update(float dt)
 		App->menu_manager->DestroySelectChamp();
 		App->audio->PlayFx(fx_push_button_return);
 	}
+
 	return true;
 }
 
 bool m1MainMenu::CleanUp()
 {
 	App->gui->DeleteAllUIElements();
-	App->audio->CleanUp();
+	App->audio->ClearMusic();
+	App->audio->ClearFx();
+
 	return true;
 }
 
