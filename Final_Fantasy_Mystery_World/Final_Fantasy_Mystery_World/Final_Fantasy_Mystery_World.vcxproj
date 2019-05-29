@@ -258,6 +258,7 @@
     <ClInclude Include="u1VerticalSlider.h" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="..\Game\assets\xml\config.xml" />
     <Xml Include="Game\assets\xml\config.xml">
       <SubType>Designer</SubType>
     </Xml>

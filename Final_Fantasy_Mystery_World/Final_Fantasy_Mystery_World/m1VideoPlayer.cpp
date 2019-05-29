@@ -143,7 +143,7 @@ bool m1VideoPlayer::Update(float dt)
 	//DEBUG INPUTS
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
 		App->main_menu->Disable();
-		PlayVideo("assets/videos/World of Warcraft Wrath of the Lich King Intro Trailer.mp4");
+		PlayVideo("assets/videos/Intro.mp4");
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		Pause();
