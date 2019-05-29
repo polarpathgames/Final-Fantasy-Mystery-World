@@ -56,6 +56,9 @@ bool m1MainMenu::Start()
 		App->menu_manager->CreateMainMenu();
 		App->audio->PlayMusic(mus_main_menu, 5);
 	}
+	else {
+		App->video_player->PlayVideo(video_path.data(), VIDEO_INTRO_ID, 0.5f);
+	}
 	
 	return true;
 }
@@ -63,21 +66,6 @@ bool m1MainMenu::Start()
 bool m1MainMenu::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateMainMenu", Profiler::Color::Aqua);
-
-	if (!intro_played) {
-		if (video_start.IsRunning()) {
-			if (video_start.ReadSec() > 0.5f) {
-				App->video_player->PlayVideo(video_path.data());
-				video_start.Stop();
-			}
-		}
-		if (!video_start.IsRunning()) {
-			if (!App->video_player->playing) {
-				intro_played = true;
-				Start();
-			}
-		}
-	}
 
 	if (App->menu_manager->control_to_change != nullptr && !App->menu_manager->control_to_change->Update()) {
 		delete App->menu_manager->control_to_change;
