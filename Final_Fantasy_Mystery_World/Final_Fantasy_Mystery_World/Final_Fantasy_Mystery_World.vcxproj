@@ -259,9 +259,6 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\assets\xml\config.xml" />
-    <Xml Include="Game\assets\xml\config.xml">
-      <SubType>Designer</SubType>
-    </Xml>
     <Xml Include="Game\assets\xml\CutsceneAbility2Quest2.xml" />
     <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml">
       <SubType>Designer</SubType>

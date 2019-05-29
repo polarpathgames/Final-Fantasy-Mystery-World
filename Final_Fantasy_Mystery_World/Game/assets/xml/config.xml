@@ -35,6 +35,10 @@
     <font file="8-BIT WONDER.ttf" size="50"/>
   </fonts>
 
+  <main_menu>
+    <video_intro path="assets/videos/Intro.mp4"/>
+  </main_menu>
+
   <map>
     <folder>assets/maps/</folder>
     <maps>

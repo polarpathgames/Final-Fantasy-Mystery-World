@@ -534,9 +534,6 @@
     <Xml Include="Game\assets\xml\Dialog.xml">
       <Filter>XML</Filter>
     </Xml>
-    <Xml Include="Game\assets\xml\config.xml">
-      <Filter>XML</Filter>
-    </Xml>
     <Xml Include="Game\assets\xml\Rooms.xml">
       <Filter>XML</Filter>
     </Xml>
