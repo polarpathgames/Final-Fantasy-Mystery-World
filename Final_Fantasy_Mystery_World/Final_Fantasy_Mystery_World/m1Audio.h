@@ -25,6 +25,10 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void ClearFx();
+
+	void ClearMusic();
+
 	// Play a music file
 	bool PlayMusic(Mix_Music* mus, float fade_time); //float fade_time = DEFAULT_MUSIC_FADE_TIME
 

@@ -26,6 +26,7 @@ public:
 	Mix_Music* mus_congrats = nullptr;
 	Mix_Music* mus_credits = nullptr;
 	Mix_Music* mus_selection = nullptr;
+
 	e1Entity::EntityType entity_type;
 
 	std::string video_path;

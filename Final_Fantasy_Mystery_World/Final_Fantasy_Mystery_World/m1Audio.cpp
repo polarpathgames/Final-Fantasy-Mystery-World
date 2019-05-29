@@ -84,27 +84,37 @@ bool m1Audio::CleanUp()
 	
 	LOG("Freeing sound FX, closing Mixer and Audio subsystem");
 
-	std::map < Mix_Music*,std::string>::iterator m = music.begin();
-	for (; m != music.end(); ++m) {
-		if ((*m).first != nullptr) {
-			Mix_FreeMusic((*m).first);
-		}
-	}
-	music.clear();
+	ClearMusic();
 
-	std::map<Mix_Chunk*,std::string>::iterator f = fx.begin();
-	for (; f != fx.end(); ++f) {
-		if ((*f).first != nullptr) {
-			Mix_FreeChunk((*f).first);
-		}
-	}
-	fx.clear();
+	ClearFx();
 
 	Mix_CloseAudio();
 	Mix_Quit();
 	SDL_QuitSubSystem(SDL_INIT_AUDIO);
 
 	return true;
+}
+
+void m1Audio::ClearFx()
+{
+	std::map<Mix_Chunk*, std::string>::iterator f = fx.begin();
+	for (; f != fx.end(); ++f) {
+		if ((*f).first != nullptr) {
+			Mix_FreeChunk((*f).first);
+		}
+	}
+	fx.clear();
+}
+
+void m1Audio::ClearMusic()
+{
+	std::map < Mix_Music*, std::string>::iterator m = music.begin();
+	for (; m != music.end(); ++m) {
+		if ((*m).first != nullptr) {
+			Mix_FreeMusic((*m).first);
+		}
+	}
+	music.clear();
 }
 
 // Play a music file
