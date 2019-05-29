@@ -1,6 +1,9 @@
 #ifndef _VIDEOPLAYER_H_
 #define _VIDEOPLAYER_H_
 
+#define VIDEO_INTRO_ID 1
+
+
 struct SDL_Texture;
 struct AVFormatContext;
 struct AVFrame;
@@ -12,6 +15,7 @@ struct AVPacket;
 struct AVPacketList;
 
 #include "m1Module.h"
+#include "p2Timer.h"
 
 struct PacketQueue {
 	AVPacketList *first_pkt = nullptr , *last_pkt = nullptr;
@@ -54,7 +58,7 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
-	int PlayVideo(std::string file_path);
+	int PlayVideo(std::string file_path, const int & id = 0,const float &delay_time = 0.0F);
 	bool Pause();
 	void CloseVideo();
 
@@ -64,6 +68,10 @@ public:
 private:
 	void OpenStreamComponent(int stream_index);
 	void DecodeVideo();
+
+	int PlayVideoNow();
+
+	void LogicAfterVideo();
 
 public:
 	StreamComponent audio;
@@ -88,6 +96,12 @@ private:
 	SwrContext* swr_context = nullptr;
 
 	SDL_Thread* parse_thread_id = nullptr;
+
+	bool play_video_with_delay = false;
+	p2Timer delay;
+	float delay_time = 0.0F;
+	int id_video = 0;
+
 };
 
 #endif

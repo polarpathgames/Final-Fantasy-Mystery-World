@@ -22,6 +22,7 @@ extern "C" {
 #include "m1Window.h"
 #include "p2Log.h"
 #include "m1VideoPlayer.h"
+#include "m1FadeToBlack.h"
 #include "m1MainMenu.h"
 
 #define DEFAULT_AUDIO_BUF_SIZE 1024
@@ -130,6 +131,9 @@ bool m1VideoPlayer::Awake(pugi::xml_node&)
 
 bool m1VideoPlayer::Start()
 {
+	PlayVideo(App->main_menu->video_path.data()); // cunde mil xd
+	CloseVideo(); // :D
+	PlayVideo(App->main_menu->video_path.data(), VIDEO_INTRO_ID, 200.0F);
 	return true;
 }
 
@@ -159,6 +163,14 @@ bool m1VideoPlayer::Update(float dt)
 	if (quit && audio.finished && video.finished)
 		CloseVideo();
 
+	if (play_video_with_delay && !playing) {
+		if (delay.Read() >= delay_time) {
+			PlayVideoNow();
+			play_video_with_delay = false;
+		}
+	}
+
+
 	return true;
 }
 
@@ -179,7 +191,7 @@ bool m1VideoPlayer::CleanUp()
 	return true;
 }
 
-int m1VideoPlayer::PlayVideo(std::string file_path)
+int m1VideoPlayer::PlayVideo(std::string file_path, const int &id, const float & delay_time)
 {
 	if (playing)
 	{
@@ -189,43 +201,19 @@ int m1VideoPlayer::PlayVideo(std::string file_path)
 
 	file = file_path;
 
-	//Open video file
-	if (avformat_open_input(&format, file.c_str(), NULL, NULL) != 0)
-	{
-		LOG("Error loading video file %s", file);
-		return -1;
+	if (id != 0)
+		id_video = id;
+	else
+		id_video = 0;
+
+	if (delay_time != 0.0F) {
+		play_video_with_delay = true;
+		delay.Start();
+		this->delay_time = delay_time;
+		return 0;
 	}
 
-	// Retrieve stream information
-	if (avformat_find_stream_info(format, NULL) <0)
-		return -1; // Couldn't find stream information
-
-	int video_stream = -1, audio_stream = -1;
-	// Find video and audio streams
-	for (int i = 0; i < format->nb_streams; i++)
-	{
-		if (format->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO && video_stream < 0)
-			video_stream = i;
-		else if (format->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_AUDIO && audio_stream < 0)
-			audio_stream = i;
-	}
-
-	if (video_stream == -1)
-		LOG("No video stream found");
-	else
-		OpenStreamComponent(video_stream); //Open video component
-
-	if (audio_stream == -1)
-		LOG("No audio stream found");
-	else
-		OpenStreamComponent(audio_stream); //Open audio component
-
-										   //Everything went fine
-	LOG("Video file loaded correctly, now playing: %s", file);
-	playing = true;
-	parse_thread_id = SDL_CreateThread(ReadThread, "ReadThread", this); //Start packet reading thread
-																		//TODO 4.1 Call SDL_AddTimer with 40 ms and our VideoCallback, also dont forget to send this as parameter.
-	SDL_AddTimer(40, (SDL_TimerCallback)VideoCallback, this); //First video callback
+	PlayVideoNow();
 }
 
 void m1VideoPlayer::OpenStreamComponent(int stream_index)
@@ -373,7 +361,7 @@ void m1VideoPlayer::CloseVideo()
 	audio_buf_index = 0;
 	audio_buf_size = 0;
 	quit = false;
-
+	LogicAfterVideo();
 	LOG("Video closed");
 }
 
@@ -461,6 +449,63 @@ void m1VideoPlayer::DecodeVideo()
 	//Prepare VideoCallback on ms
 	SDL_AddTimer((Uint32)(delay * 1000 + 0.5), (SDL_TimerCallback)VideoCallback, this);
 	av_packet_unref(&pkt);
+}
+
+int m1VideoPlayer::PlayVideoNow()
+{
+	//Open video file
+	if (avformat_open_input(&format, file.c_str(), NULL, NULL) != 0)
+	{
+		LOG("Error loading video file %s", file);
+		return -1;
+	}
+
+	// Retrieve stream information
+	if (avformat_find_stream_info(format, NULL) <0)
+		return -1; // Couldn't find stream information
+
+	int video_stream = -1, audio_stream = -1;
+	// Find video and audio streams
+	for (int i = 0; i < format->nb_streams; i++)
+	{
+		if (format->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO && video_stream < 0)
+			video_stream = i;
+		else if (format->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_AUDIO && audio_stream < 0)
+			audio_stream = i;
+	}
+
+	if (video_stream == -1)
+		LOG("No video stream found");
+	else
+		OpenStreamComponent(video_stream); //Open video component
+
+	if (audio_stream == -1)
+		LOG("No audio stream found");
+	else
+		OpenStreamComponent(audio_stream); //Open audio component
+
+										   //Everything went fine
+	LOG("Video file loaded correctly, now playing: %s", file);
+	playing = true;
+	parse_thread_id = SDL_CreateThread(ReadThread, "ReadThread", this); //Start packet reading thread
+																		//TODO 4.1 Call SDL_AddTimer with 40 ms and our VideoCallback, also dont forget to send this as parameter.
+	SDL_AddTimer(40, (SDL_TimerCallback)VideoCallback, this); //First video callback
+}
+
+void m1VideoPlayer::LogicAfterVideo()
+{
+
+	switch (id_video)
+	{
+	case VIDEO_INTRO_ID:
+		//App->main_menu->Enable();
+		App->fade_to_black->FadeToBlack(nullptr, (m1Module*)App->main_menu, 2.0F);
+		break;
+	default:
+		LOG("No id for this video");
+		break;
+	}
+
 }
 
 int m1VideoPlayer::DecodeAudio()
