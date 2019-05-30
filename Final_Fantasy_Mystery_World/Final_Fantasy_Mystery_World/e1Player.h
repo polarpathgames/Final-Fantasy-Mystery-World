@@ -212,6 +212,8 @@ public:
 	u1Label* left_skill_button = nullptr;
 	u1Label* left_skill_label = nullptr;
 
-
+	Animation * current_anim_arrow_move = nullptr;
+	Animation normal_arrow;
+	Animation diagonal_arrow;
 };
 #endif

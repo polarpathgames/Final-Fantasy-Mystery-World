@@ -217,7 +217,7 @@
 
   <debug>
     <room>
-      <location>Quest2_Boss.tmx</location>
+      <location>Tutorial_Movement.tmx</location>
       <door active="true"></door>
       <id num="1"></id>
       <type>paceful</type>

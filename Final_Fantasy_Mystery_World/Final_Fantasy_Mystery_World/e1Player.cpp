@@ -38,6 +38,14 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 	tile_anim.PushBack({ 261,64,32,32 });
 	tile_anim.speed = 5.f;
 	tile_anim.loop = false;
+
+	normal_arrow.PushBack({ 387,110,59,39 });
+	normal_arrow.PushBack({ 446,110,59,39 });
+	normal_arrow.PushBack({ 505,110,59,39 });
+	normal_arrow.PushBack({ 446,110,59,39 });
+	normal_arrow.speed = 3.f;
+
+	current_anim_arrow_move = &normal_arrow;
 }
 
 void e1Player::Init()
@@ -88,8 +96,10 @@ bool e1Player::Update(float dt)
 
 	if (coll != nullptr)
 		coll->SetPos(position.x + pivot.x/2 - 2, position.y + 20);
-
-
+	
+	if (movement_type == Movement_Type::InQuest) {
+		App->render->Blit(ability1_tile_tx, position.x + pivot.x - current_anim_arrow_move->GetFrame(1).w/2, position.y + pivot.y - current_anim_arrow_move->GetFrame(1).h / 2, &current_anim_arrow_move->GetCurrentFrame(dt), true);
+	}
 
 	return true;
 }
