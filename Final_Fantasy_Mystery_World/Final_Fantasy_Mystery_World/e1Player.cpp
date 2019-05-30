@@ -1359,7 +1359,6 @@ void e1Player::QuestControls()
 	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY) == 1;
 	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == 1;
 	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
-	//player_input.pressing_V = App->input->GetKey(App->input->keyboard_buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN;;
 	
 	player_input.pressing_UP_LEFT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY) == -1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;
 	player_input.pressing_UP_RIGHT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY) == -1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
@@ -1409,7 +1408,14 @@ void e1Player::QuestControls()
 		}
 	}
 	
-		
+	if (App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_DOWN || App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_TRIGGERRIGHT)) {
+		ChangeArrow(diagonal_arrow);
+	}
+	else if (App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_UP || App->input->GetAxisUp(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_TRIGGERRIGHT)) {
+		ChangeArrow(normal_arrow);
+	}
+
+
 }
 
 void e1Player::LookFlash()
