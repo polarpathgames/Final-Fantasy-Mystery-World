@@ -179,6 +179,8 @@ public:
 
 	void UpdateExperience(int experience);
 
+	void ChangeArrow(Animation & anim);
+
 	virtual void UpdateLevel(){}
 
 public:
@@ -212,6 +214,9 @@ public:
 	u1Label* left_skill_button = nullptr;
 	u1Label* left_skill_label = nullptr;
 
-
+	Animation * current_anim_arrow_move = nullptr;
+	Animation normal_arrow;
+	Animation diagonal_arrow;
+	p2Timer arrow_timer;
 };
 #endif

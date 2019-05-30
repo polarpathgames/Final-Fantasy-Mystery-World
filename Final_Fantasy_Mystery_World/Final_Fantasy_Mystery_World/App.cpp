@@ -127,6 +127,7 @@ bool Application::Awake()
 		if (fast_start == true) {
 			main_menu->active = false;
 			map->active = false;
+			video_player->active = false;
 		}
 		else {
 			scene->active = false;
