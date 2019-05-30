@@ -365,6 +365,13 @@ void m1VideoPlayer::CloseVideo()
 	audio_buf_index = 0;
 	audio_buf_size = 0;
 	quit = false;
+
+	if (skip_video_label != nullptr) {
+		skip_video_label->to_delete = true;
+		skip_video_label = nullptr;
+		skip_time.Stop();
+	}
+
 	LogicAfterVideo();
 	LOG("Video closed");
 }
@@ -517,6 +524,7 @@ void m1VideoPlayer::SkipVideo()
 	if (App->input->is_a_key_down && !skip_time.IsRunning()) {
 		skip_time.Start();
 		skip_video_label = App->gui->AddLabel(App->win->width - 270, App->win->height - 30, "Hold any button to skip", App->gui->screen, WHITE, FontType::PMIX16, nullptr, false);
+		time_started = skip_time.Read();
 	}
 	if (skip_video_label != nullptr) {
 		if (App->input->is_a_key_down && skip_time.Read() > 1000) {
@@ -525,13 +533,15 @@ void m1VideoPlayer::SkipVideo()
 			skip_time.Stop();
 			CloseVideo();
 		}
-		else if (!App->input->is_a_key_down && skip_time.Read() > 1000) {
+		else if (!App->input->is_a_key_down && time_started > 1000) {
 			skip_video_label->to_delete = true;
 			skip_video_label = nullptr;
 			skip_time.Stop();
 		}
+		else if (!App->input->is_a_key_down) {
+			skip_time.Start();
+		}
 	}
-
 }
 
 int m1VideoPlayer::DecodeAudio()
