@@ -179,6 +179,8 @@ public:
 
 	void UpdateExperience(int experience);
 
+	void ChangeArrow(Animation & anim);
+
 	virtual void UpdateLevel(){}
 
 public:
@@ -215,5 +217,6 @@ public:
 	Animation * current_anim_arrow_move = nullptr;
 	Animation normal_arrow;
 	Animation diagonal_arrow;
+	p2Timer arrow_timer;
 };
 #endif
