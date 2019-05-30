@@ -5,9 +5,9 @@
     <title>Final Fantasy: Mystery World</title>
     <organization>UPC</organization>
     <version>0.9.1</version>
-    <fast_start value="true"/>
+    <fast_start value="false"/>
   </app>
-
+ 
   <renderer>
     <vsync value="false"/>
   </renderer>
