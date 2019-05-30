@@ -31,7 +31,6 @@ public:
 	e1Entity::EntityType entity_type;
 
 	std::string video_path;
-	bool intro_played = false;
-	p2Timer video_start;
+
 };
 #endif

@@ -97,11 +97,16 @@ bool m1Audio::CleanUp()
 
 	ClearFx();
 
+	CloseSDLAudio();
+
+	return true;
+}
+
+void m1Audio::CloseSDLAudio()
+{
 	Mix_CloseAudio();
 	Mix_Quit();
 	SDL_QuitSubSystem(SDL_INIT_AUDIO);
-
-	return true;
 }
 
 void m1Audio::ClearFx()

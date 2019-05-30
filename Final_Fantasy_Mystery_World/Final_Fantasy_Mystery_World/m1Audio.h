@@ -27,6 +27,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void CloseSDLAudio();
+
 	void ClearFx();
 
 	void ClearMusic();

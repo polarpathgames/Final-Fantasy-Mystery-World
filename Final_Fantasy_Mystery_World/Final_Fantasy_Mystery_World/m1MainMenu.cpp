@@ -42,23 +42,16 @@ bool m1MainMenu::Awake(pugi::xml_node& config)
 
 bool m1MainMenu::Start()
 {
-	if (intro_played) {
-		App->audio->Enable();
+	fx_push_button = App->audio->LoadFx("assets/audio/sfx/MainMenu_Confirm_Selection.wav");
+	fx_push_button_return = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Message.wav");
 
-		fx_push_button = App->audio->LoadFx("assets/audio/sfx/MainMenu_Confirm_Selection.wav");
-		fx_push_button_return = App->audio->LoadFx("assets/audio/sfx/FFMW_SFX_Message.wav");
+	mus_main_menu = App->audio->LoadMusic("assets/audio/music/1.Final Fantasy TA - Main Theme.ogg");
+	mus_credits = App->audio->LoadMusic("assets/audio/music/41.Final Fantasy TA - A Place We Should Return To.ogg");
+	mus_congrats = App->audio->LoadMusic("assets/audio/music/17.Final Fantasy TA - Undefeated Heart.ogg");
+	mus_selection = App->audio->LoadMusic("assets/audio/music/34.Final Fantasy TA - Confusion.ogg");
 
-		mus_main_menu = App->audio->LoadMusic("assets/audio/music/1.Final Fantasy TA - Main Theme.ogg");
-		mus_credits = App->audio->LoadMusic("assets/audio/music/41.Final Fantasy TA - A Place We Should Return To.ogg");
-		mus_congrats = App->audio->LoadMusic("assets/audio/music/17.Final Fantasy TA - Undefeated Heart.ogg");
-		mus_selection = App->audio->LoadMusic("assets/audio/music/34.Final Fantasy TA - Confusion.ogg");
-
-		App->menu_manager->CreateMainMenu();
-		App->audio->PlayMusic(mus_main_menu, 5);
-	}
-	else {
-		App->video_player->PlayVideo(video_path.data(), VIDEO_INTRO_ID, 0.5f);
-	}
+	App->menu_manager->CreateMainMenu();
+	App->audio->PlayMusic(mus_main_menu, 5);
 	
 	return true;
 }

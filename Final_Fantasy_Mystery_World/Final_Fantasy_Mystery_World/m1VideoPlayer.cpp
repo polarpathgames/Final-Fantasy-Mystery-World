@@ -21,6 +21,7 @@ extern "C" {
 #include "m1Input.h"
 #include "m1Window.h"
 #include "p2Log.h"
+#include "m1Audio.h"
 #include "m1VideoPlayer.h"
 #include "m1FadeToBlack.h"
 #include "m1MainMenu.h"
@@ -131,8 +132,6 @@ bool m1VideoPlayer::Awake(pugi::xml_node&)
 
 bool m1VideoPlayer::Start()
 {
-	PlayVideo(App->main_menu->video_path.data()); // cunde mil xd
-	CloseVideo(); // :D
 	PlayVideo(App->main_menu->video_path.data(), VIDEO_INTRO_ID, 200.0F);
 	return true;
 }
@@ -146,7 +145,6 @@ bool m1VideoPlayer::Update(float dt)
 {
 	//DEBUG INPUTS
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
-		App->main_menu->Disable();
 		PlayVideo("assets/videos/Intro.mp4");
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
@@ -453,6 +451,7 @@ void m1VideoPlayer::DecodeVideo()
 
 int m1VideoPlayer::PlayVideoNow()
 {
+	App->audio->CloseSDLAudio();
 	//Open video file
 	if (avformat_open_input(&format, file.c_str(), NULL, NULL) != 0)
 	{
@@ -494,11 +493,10 @@ int m1VideoPlayer::PlayVideoNow()
 
 void m1VideoPlayer::LogicAfterVideo()
 {
-
+	App->audio->Enable();
 	switch (id_video)
 	{
 	case VIDEO_INTRO_ID:
-		App->main_menu->intro_played = true;
 		App->fade_to_black->FadeToBlack(nullptr, (m1Module*)App->main_menu, 2.0F);
 		break;
 	default:
