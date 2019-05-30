@@ -21,10 +21,14 @@ extern "C" {
 #include "m1Input.h"
 #include "m1Window.h"
 #include "p2Log.h"
+#include "m1GUI.h"
 #include "m1Audio.h"
 #include "m1VideoPlayer.h"
 #include "m1FadeToBlack.h"
 #include "m1MainMenu.h"
+#include "m1Fonts.h"
+#include "u1Label.h"
+#include "u1UI_Element.h"
 
 #define DEFAULT_AUDIO_BUF_SIZE 1024
 #define MAX_AUDIOQ_SIZE (5 * 256 * 1024)
@@ -168,7 +172,9 @@ bool m1VideoPlayer::Update(float dt)
 		}
 	}
 
-
+	if (playing) {
+		SkipVideo();
+	}
 	return true;
 }
 
@@ -502,6 +508,28 @@ void m1VideoPlayer::LogicAfterVideo()
 	default:
 		LOG("No id for this video");
 		break;
+	}
+
+}
+
+void m1VideoPlayer::SkipVideo()
+{
+	if (App->input->is_a_key_down && !skip_time.IsRunning()) {
+		skip_time.Start();
+		skip_video_label = App->gui->AddLabel(App->win->width - 270, App->win->height - 30, "Hold any button to skip", App->gui->screen, WHITE, FontType::PMIX16, nullptr, false);
+	}
+	if (skip_video_label != nullptr) {
+		if (App->input->is_a_key_down && skip_time.Read() > 1000) {
+			skip_video_label->to_delete = true;
+			skip_video_label = nullptr;
+			skip_time.Stop();
+			CloseVideo();
+		}
+		else if (!App->input->is_a_key_down && skip_time.Read() > 1000) {
+			skip_video_label->to_delete = true;
+			skip_video_label = nullptr;
+			skip_time.Stop();
+		}
 	}
 
 }

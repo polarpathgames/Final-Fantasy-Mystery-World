@@ -249,6 +249,7 @@ void m1Input::UpdateEvents(SDL_Event &event)
 			break;
 		case SDL_CONTROLLERBUTTONDOWN:
 				controller_buttons[event.cbutton.button] = KEY_DOWN;
+				is_a_key_down = true;
 			break;
 		case SDL_JOYDEVICEADDED:
 			if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) < 0)
@@ -262,7 +263,8 @@ void m1Input::UpdateEvents(SDL_Event &event)
 
 			break;
 		case SDL_CONTROLLERBUTTONUP:
-				controller_buttons[event.cbutton.button] = KEY_UP;
+			is_a_key_down = false;
+			controller_buttons[event.cbutton.button] = KEY_UP;
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 			mouse_buttons[event.button.button - 1] = KEY_DOWN;
@@ -271,15 +273,19 @@ void m1Input::UpdateEvents(SDL_Event &event)
 		case SDL_CONTROLLERAXISMOTION:
 			if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT && event.caxis.value > DEAD_ZONE) {
 				controller_buttons[event.cbutton.button] = KEY_DOWN;
+				is_a_key_down = true;
 			}
 			if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT && event.caxis.value < DEAD_ZONE) {
 				controller_buttons[event.cbutton.button] = KEY_UP;
+				is_a_key_down = false;
 			}
 			if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT && event.caxis.value > DEAD_ZONE) {
 				controller_buttons[event.cbutton.button] = KEY_DOWN;
+				is_a_key_down = true;
 			}
 			if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT && event.caxis.value < DEAD_ZONE) {
 				controller_buttons[event.cbutton.button] = KEY_UP;
+				is_a_key_down = false;
 			}
 			break;
 		case SDL_MOUSEBUTTONUP:
@@ -296,7 +302,12 @@ void m1Input::UpdateEvents(SDL_Event &event)
 			//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
 		}
 		break;
-
+		case SDL_KEYDOWN:
+			is_a_key_down = true;
+			break;
+		case SDL_KEYUP:
+			is_a_key_down = false;
+			break;
 		case SDL_CONTROLLERDEVICEADDED:
 		{
 			//Open the first available controller

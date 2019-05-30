@@ -64,13 +64,14 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(particles);
 	
 	AddModule(entity_manager);
+	AddModule(video_player);
 	AddModule(gui);
 	AddModule(dialog);
 	AddModule(fade_to_black);
 	AddModule(easing_splines);
 	AddModule(cutscene_manager);
 	AddModule(menu_manager);
-	AddModule(video_player);
+
 
 	// render last to swap buffer
 	AddModule(render);

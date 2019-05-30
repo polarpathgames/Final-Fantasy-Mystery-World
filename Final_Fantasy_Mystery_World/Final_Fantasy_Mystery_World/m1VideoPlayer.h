@@ -17,6 +17,8 @@ struct AVPacketList;
 #include "m1Module.h"
 #include "p2Timer.h"
 
+class u1Label;
+
 struct PacketQueue {
 	AVPacketList *first_pkt = nullptr, *last_pkt = nullptr;
 	int nb_packets;
@@ -72,7 +74,7 @@ private:
 	int PlayVideoNow();
 
 	void LogicAfterVideo();
-
+	void SkipVideo();
 public:
 	StreamComponent audio;
 	StreamComponent video;
@@ -101,6 +103,9 @@ private:
 	p2Timer delay;
 	float delay_time = 0.0F;
 	int id_video = 0;
+
+	u1Label* skip_video_label = nullptr;
+	p2Timer skip_time{false};
 
 };
 
