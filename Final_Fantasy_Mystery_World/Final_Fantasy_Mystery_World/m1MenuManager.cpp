@@ -107,12 +107,34 @@ void m1MenuManager::CreateCredits()
 	credits.button_twitter = App->gui->AddButton(430, 580, { 1850,1637,168,90 }, { 1850,1637,168,90 }, { 1850,1637,168,90 }, App->main_menu, credits.credits_panel, false, false, true, true);
 
 	credits.button_youtube = App->gui->AddButton(130, 580, { 1850,1637,168,90 }, { 1850,1637,168,90 }, { 1850,1637,168,90 }, App->main_menu, credits.credits_panel, false, false, true, true);
+
+	credits.button_collaborators = App->gui->AddButton(90, 687, { 1850,1677,200,45 }, { 1850,1677,200,45 }, { 1850,1677,200,45 }, App->main_menu, credits.credits_panel, false, false, true, true);
+	credits.label_collaborators = App->gui->AddLabel(0, 0, "Collaborators", credits.button_collaborators, WHITE, FontType::FF100, nullptr, false);
+	credits.label_collaborators->SetPosRespectParent(CENTERED);
+
+
 }
 
 void m1MenuManager::DestroyCredits()
 {
 	App->gui->DeleteUIElement(credits.credits_panel);
 	credits.Reset();
+}
+
+void m1MenuManager::CreateCollaborators()
+{
+	collaborators.collaborators_panel = App->gui->AddImage(0, 0, { 0, 7096, 1024, 768 }, App->main_menu, App->gui->screen, true, false, false, false);
+	collaborators.collaborators_panel->SetPosRespectParent(CENTERED);
+
+	collaborators.button_collaborators_return_credits = App->gui->AddButton(920, 727, { 1850,1637,70,25 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, collaborators.collaborators_panel, false, false, true, true);
+	collaborators.label_collaborators_return_credits = App->gui->AddLabel(0, -27, "Return", collaborators.button_collaborators_return_credits, WHITE, FontType::FF64, nullptr, false);
+
+}
+
+void m1MenuManager::DestroyCollaborators()
+{
+	App->gui->DeleteUIElement(collaborators.collaborators_panel);
+	collaborators.Reset();
 }
 
 void m1MenuManager::CreateSelectChamp()

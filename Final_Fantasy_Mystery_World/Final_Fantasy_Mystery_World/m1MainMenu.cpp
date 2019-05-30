@@ -231,13 +231,26 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 	else if (interaction == App->menu_manager->credits.button_ivan) {
 		ShellExecuteA(NULL, "open", "https://github.com/RoperoIvan", NULL, NULL, SW_SHOWNORMAL);
 	}
+	else if (interaction == App->menu_manager->credits.button_collaborators) {
+		App->audio->PlayFx(fx_push_button_return);
+		App->menu_manager->CreateCollaborators();
+		App->menu_manager->DestroyCredits();
+		ret = false;
+	}
 	else if (interaction == App->menu_manager->credits.button_credits_return_menu) {
 		App->audio->PlayFx(fx_push_button_return);
 		App->menu_manager->CreateMainMenu();
 		App->menu_manager->DestroyCredits();
 		ret = false;
 	}
+	// Collaborators ============================================================================================================
 
+	else if (interaction == App->menu_manager->collaborators.button_collaborators_return_credits) {
+		App->audio->PlayFx(fx_push_button_return);
+		App->menu_manager->CreateCredits();
+		App->menu_manager->DestroyCollaborators();
+		ret = false;
+	}
 
 	/*if (interaction != nullptr && interaction != button_credits_return_menu && interaction != new_game_button && interaction != button_retun_to_options && interaction != button_retun_options && interaction != button_warrior && interaction != button_mage && interaction != button_archer)
 		App->audio->PlayFx(fx_push_button);*/ // Create var in buttons to sound specific fx when click
