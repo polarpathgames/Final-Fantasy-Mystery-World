@@ -43,7 +43,7 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 	normal_arrow.PushBack({ 446,110,59,39 });
 	normal_arrow.PushBack({ 505,110,59,39 });
 	normal_arrow.PushBack({ 446,110,59,39 });
-	normal_arrow.speed = 3.f;
+	normal_arrow.speed = 6.f;
 
 	current_anim_arrow_move = &normal_arrow;
 }
