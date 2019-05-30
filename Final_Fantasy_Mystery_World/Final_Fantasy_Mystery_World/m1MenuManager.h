@@ -162,6 +162,9 @@ struct UI_credits {
 	u1Button* button_credits_return_menu = nullptr;
 	u1Label* label_credits_return_menu = nullptr;
 
+	u1Button* button_collaborators = nullptr;
+	u1Label* label_collaborators = nullptr;
+
 	void Reset() {
 		credits_panel = nullptr;
 		button_christian = nullptr;
@@ -186,6 +189,21 @@ struct UI_credits {
 		label_youtube = nullptr;
 		button_credits_return_menu = nullptr;
 		label_credits_return_menu = nullptr;
+		button_collaborators = nullptr;
+		label_collaborators = nullptr;
+
+	}
+};
+
+struct UI_collaborators {
+	u1Image* collaborators_panel = nullptr;
+
+	u1Button* button_collaborators_return_credits = nullptr;
+	u1Label* label_collaborators_return_credits = nullptr;
+
+	void Reset() {
+		collaborators_panel = nullptr;
+		button_collaborators_return_credits = nullptr;
 	}
 };
 
@@ -852,6 +870,9 @@ public:
 	void CreateCredits();
 	void DestroyCredits();
 
+	void CreateCollaborators();
+	void DestroyCollaborators();
+
 	void CreateSelectChamp();
 	void DestroySelectChamp();
 
@@ -922,6 +943,7 @@ public:
 	UI_main_menu	main_menu;
 	UI_options		options;
 	UI_credits		credits;
+	UI_collaborators collaborators;
 	UI_input		input;
 	UI_controls		controls;
 	UI_select_champ	select_champ;
