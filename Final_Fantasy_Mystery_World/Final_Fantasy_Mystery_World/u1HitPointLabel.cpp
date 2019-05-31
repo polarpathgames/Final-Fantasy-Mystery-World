@@ -16,7 +16,10 @@ u1HitPointLabel::u1HitPointLabel(const int & x, const int & y, const char* text,
 	time = SDL_GetTicks();
 	texture = App->fonts->Print(text, this->color, id_font);
 	App->fonts->CalcSize(text, section.w, section.h, id_font);
-
+	uint w = 0U, h = 0U;
+	App->tex->GetSize(texture, w, h);
+	change_size_rect.w = w;
+	change_size_rect.h = h;
 }
 
 u1HitPointLabel::~u1HitPointLabel()
@@ -105,5 +108,7 @@ void u1HitPointLabel::InnerDraw()
 		}
 		else to_delete = true;
 	}
-	App->render->Blit(texture, draw_offset.x, draw_offset.y, NULL, false, SDL_FLIP_NONE, 0.0F);
+	change_size_rect.w++;
+	change_size_rect.h++;
+	App->render->Blit(texture, draw_offset.x, draw_offset.y, &change_size_rect, false, SDL_FLIP_NONE, 0.0F);
 }
