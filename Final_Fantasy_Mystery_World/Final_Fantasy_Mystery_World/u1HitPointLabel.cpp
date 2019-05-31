@@ -108,7 +108,14 @@ void u1HitPointLabel::InnerDraw()
 		}
 		else to_delete = true;
 	}
-	change_size_rect.w++;
-	change_size_rect.h++;
+	if (update) {
+		change_size_rect.h += 1;
+		change_size_rect.w += 2;
+		position.x -= 1;
+		update = false;
+	}
+	else
+		update = true;
+
 	App->render->Blit(texture, draw_offset.x, draw_offset.y, &change_size_rect, false, SDL_FLIP_NONE, 0.0F);
 }

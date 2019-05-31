@@ -221,7 +221,6 @@
       <door active="true"></door>
       <id num="1"></id>
       <type>paceful</type>
-      <music>assets/audio/music/23.Final Fantasy TA - Prison.ogg</music>
     </room>
   </debug>
 </room_manager>

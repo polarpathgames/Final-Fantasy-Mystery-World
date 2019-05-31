@@ -24,6 +24,7 @@ protected:
 	float time = 0;
 	int alpha = 255;
 	SDL_Rect change_size_rect = { 0,0,0,0 };
+	bool update = true;
 };
 
 
