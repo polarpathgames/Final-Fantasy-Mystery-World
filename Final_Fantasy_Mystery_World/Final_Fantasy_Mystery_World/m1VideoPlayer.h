@@ -107,7 +107,7 @@ private:
 	u1Label* skip_video_label = nullptr;
 	p2Timer skip_time{false};
 	float time_started = 0.0F;
-
+	bool texture_created = false;
 };
 
 #endif
