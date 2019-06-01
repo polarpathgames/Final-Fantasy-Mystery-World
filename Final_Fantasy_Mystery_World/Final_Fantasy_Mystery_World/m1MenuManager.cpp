@@ -804,6 +804,7 @@ void m1MenuManager::EnableHUD(bool show_or_hide) {
 			hud.player_hp_bar->bar_numbers_label->drawable = show_or_hide;
 			hud.player_mana_bar->bar_numbers_label->drawable = show_or_hide;
 			hud.player_exp_bar->drawable = show_or_hide;
+			hud.level_label->drawable = show_or_hide;
 
 			// It is ugly but for now works
 			if (show_or_hide == true)
@@ -1029,6 +1030,7 @@ void m1MenuManager::DestroyHelpAbilityMenu()
 
 void m1MenuManager::CreateHUD()
 {
+
 	hud.bg_hud = App->gui->AddImage(45, 630, { 2117, 158, 284, 105 }, nullptr, App->gui->screen, true, false, false, false);
 	//hud.diagonal_compass = App->gui->AddImage(925, 675, { 1876, 3084, 88, 74 }, this, hud.bg_hud, true, false, false, false);
 	//hud.vertical_compass = App->gui->AddImage(925, 670, { 1949, 3159, 82, 86 }, this, hud.bg_hud, false, false, false, false);
@@ -1047,6 +1049,9 @@ void m1MenuManager::CreateHUD()
 	hud.player_hp_bar = App->gui->AddBar(121, 8,App->scene->player->stats.max_lives, HPBAR, hud.bg_hud, nullptr);
 	hud.player_mana_bar = App->gui->AddBar(121, 66, App->scene->player->stats.max_mana, MANABAR, hud.bg_hud, nullptr);
 	hud.player_exp_bar = App->gui->AddBar(80, 95, App->scene->player->stats.max_xp, EXPBAR, hud.bg_hud, nullptr);
+	hud.level_label = App->gui->AddLabel(65, 73, std::to_string(App->scene->player->stats.level).data(), hud.bg_hud, BLACK, FontType::FF32, App->scene, false);
+
+	
 }
 
 void m1MenuManager::DestroyHUD()

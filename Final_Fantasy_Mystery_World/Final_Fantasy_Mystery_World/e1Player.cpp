@@ -38,6 +38,7 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 	tile_anim.PushBack({ 261,64,32,32 });
 	tile_anim.speed = 5.f;
 	tile_anim.loop = false;
+
 }
 
 void e1Player::Init()
@@ -1649,7 +1650,7 @@ void e1Player::UpdateExperience(int experience) {
 		UpdateLevel();
 	}
 
-
+	UpdateLevelLabel(1);
 }
 
 void e1Player::UpdateLevelLabel(int current_level) {
@@ -1661,5 +1662,5 @@ void e1Player::UpdateLevelLabel(int current_level) {
 
 	std::string level_string = std::to_string(stats.level);
 
-	App->menu_manager->hud.level_label = App->gui->AddLabel(30, 20, level_string.c_str(), (u1GUI*)App->menu_manager->hud.bg_hud, BLACK, FontType::FF32, App->scene, false);
+	App->menu_manager->hud.level_label = App->gui->AddLabel(65, 73, level_string.c_str(), (u1GUI*)App->menu_manager->hud.bg_hud, BLACK, FontType::FF32, App->scene, false);
 }

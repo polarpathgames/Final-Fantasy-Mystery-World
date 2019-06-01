@@ -55,7 +55,6 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 		filled_bar = App->gui->AddImage(0, 0, { 1418,2111,0,34 }, nullptr, empty_bar, true, false, false, false);
 	}
 
-	
 }
 
 u1Bar::~u1Bar() {
@@ -191,4 +190,6 @@ void u1Bar::PrintBarNumbers(int addition)
 	bar_numbers_label = App->gui->AddLabel(39, -10, bar_nums_str.c_str(), filled_bar, WHITE, FontType::FF32, App->scene, false);
 
 }
+
+
 
