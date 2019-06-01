@@ -66,7 +66,9 @@ bool m1DialogSystem::Update(float dt)
 		}
 	}
 		
-
+	if (end_dial)
+		LOG("TRUEEEEEEEE");
+	else LOG("FALSEEEEEE");
 	return ret;
 }
 
@@ -143,7 +145,7 @@ bool m1DialogSystem::PerformDialogue(int tr_id)
 	}
 
 	App->scene->player->BlockControls(true);
-
+	end_dial = false;
 	return ret;
 }
 
