@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+  <npc name="dog" id="1">
+    <data>
+      <pivot x="" y=""/>
+      <init direction="1" anim="0"/>
+    </data>
+    <tsx path="assets/"/>
+    <animation id="">
+      <frame x="0" y="0" width="0" height="0"/>
+    </animation>
+    <move_type id="">
+      <move type="right" num_tiles="0"/>
+    </move_type>
+    <dialog_id>
+      <dialog id="0"/>
+    </dialog_id>
+    <interaction value="true"/>
+  </npc>
+</data>

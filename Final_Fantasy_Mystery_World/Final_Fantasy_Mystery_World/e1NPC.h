@@ -12,11 +12,12 @@ class e1NPC : public e1DynamicEntity
 public:
 	enum class NPCType {
 		DAUGHTER,
+		DOG,
 
-		NONE
+		NONE = -1
 	};
 
-	e1NPC(const int &x, const int &y);
+	e1NPC(const int &x, const int &y, const char* name);
 
 	virtual ~e1NPC();
 
@@ -34,6 +35,7 @@ public:
 	
 public:
 	NPCType npc_type = NPCType::NONE;
+	std::vector<uint> dialog_id;
 };
 
 

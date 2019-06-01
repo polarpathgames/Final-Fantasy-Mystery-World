@@ -126,6 +126,7 @@
     <ClCompile Include="e1Enemy.cpp" />
     <ClCompile Include="e1Entity.cpp" />
     <ClCompile Include="p2Math.cpp" />
+    <ClCompile Include="p2NPC.cpp" />
     <ClCompile Include="p2Rooms.cpp" />
     <ClCompile Include="e1SuperPurpleFrog.cpp" />
     <ClCompile Include="p2Math.h" />
@@ -208,6 +209,7 @@
     <ClInclude Include="p1Follow.h" />
     <ClInclude Include="p1Particle.h" />
     <ClInclude Include="p2ChangeControls.h" />
+    <ClInclude Include="p2NPC.h" />
     <ClInclude Include="p2Random.h" />
     <ClInclude Include="p2Rooms.h" />
     <ClInclude Include="e1SuperPurpleFrog.h" />
@@ -284,6 +286,7 @@
     <Xml Include="Game\assets\xml\Rooms.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="NPC.xml" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

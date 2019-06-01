@@ -303,8 +303,7 @@ e1Entity* m1EntityManager::CreateEntity(e1Entity::EntityType type, int PositionX
 	case e1Entity::EntityType::SUPER_PURPLE_FROG: ret = DBG_NEW e1SuperPurpleFrog(PositionX, PositionY); break;
 	case e1Entity::EntityType::BOMBERMAN: ret = DBG_NEW e1Bomberman(PositionX, PositionY); break;
 	case e1Entity::EntityType::PARTICLE: ret = DBG_NEW e1Particles(PositionX, PositionY); break;
-	//case e1Entity::EntityType::NPC: ret = new ent_NPC(PositionX, PositionY, name); break;
-	case e1Entity::EntityType::NPC: ret = DBG_NEW e1NPC(PositionX, PositionY); break;
+	case e1Entity::EntityType::NPC: ret = DBG_NEW e1NPC(PositionX, PositionY, name.data()); break;
 	case e1Entity::EntityType::DAUGHTER: ret = DBG_NEW e1ShopKeeperDaughter(PositionX, PositionY); break;
 	case e1Entity::EntityType::EVENT: ret = DBG_NEW e1State(PositionX, PositionY, name.data()); break;
 	default:

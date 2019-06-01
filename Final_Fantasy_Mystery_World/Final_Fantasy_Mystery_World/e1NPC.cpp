@@ -5,10 +5,12 @@
 #include "m1Audio.h"
 #include "m1EntityManager.h"
 #include "Brofiler/Brofiler.h"
+#include "p2NPC.h"
 #include <string>
 
-e1NPC::e1NPC(const int &x, const int &y) : e1DynamicEntity(x, y)
+e1NPC::e1NPC(const int &x, const int &y, const char* name) : e1DynamicEntity(x, y)
 {
+	LoadNPC(name);
 	type = e1Entity::EntityType::NPC;
 	current_animation = &anim.IdleDownLeft;
 	SetPivot(10, 30);

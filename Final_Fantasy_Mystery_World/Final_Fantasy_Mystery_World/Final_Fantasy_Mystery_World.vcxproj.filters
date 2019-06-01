@@ -242,6 +242,9 @@
     <ClCompile Include="m1VideoPlayer.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="p2NPC.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -511,6 +514,9 @@
     <ClInclude Include="m1VideoPlayer.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="p2NPC.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml">
@@ -571,6 +577,9 @@
       <Filter>XML</Filter>
     </Xml>
     <Xml Include="..\Game\assets\xml\Rooms.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="NPC.xml">
       <Filter>XML</Filter>
     </Xml>
   </ItemGroup>
