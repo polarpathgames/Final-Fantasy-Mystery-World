@@ -5,7 +5,7 @@
 #include "m1Audio.h"
 #include "m1EntityManager.h"
 #include "Brofiler/Brofiler.h"
-#include "p2NPC.h"
+#include "p2Log.h"
 #include <string>
 
 e1NPC::e1NPC(const int &x, const int &y, const char* name) : e1DynamicEntity(x, y)
@@ -16,6 +16,55 @@ e1NPC::e1NPC(const int &x, const int &y, const char* name) : e1DynamicEntity(x, 
 	SetPivot(10, 30);
 	allow_turn = false;
 	direction = Direction::DOWN_LEFT;
+}
+
+bool e1NPC::LoadNPC(const char * name)
+{
+	bool ret = true;
+
+	static pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("assets/xml/p2NPC.xml");
+
+	if (result == NULL)
+	{
+		LOG("Could not load map xml file p2NPC.xml. pugi error: %s", result.description());
+		ret = false;
+	}
+
+	if (ret) {
+		pugi::xml_node node = doc.child("data");
+		for (node = node.child("npc"); node; node = node.next_sibling()) {
+			if (strcmp(node.attribute("name").as_string(), name) == 0)
+				break;
+		}
+
+		if (!node) {
+			LOG("Node %s not found", name);
+			ret = false;
+		}
+		else {
+			if (node.child("tsx") != nullptr) {
+				LoadEntityData(node.child("tsx").attribute("path").as_string());
+			}
+			else {
+				pugi::xml_node n_anim = node.child("animation");
+				pugi::xml_node frame;
+				Animation temp_anim;
+				for (; n_anim; n_anim = n_anim.next_sibling()) {
+					for (frame = n_anim.child("frame"); frame; frame = frame.next_sibling()) {
+						temp_anim.PushBack(SDL_Rect{ frame.attribute("x").as_int(),frame.attribute("y").as_int(),
+							frame.attribute("width").as_int(), frame.attribute("height").as_int() });
+					}
+
+				}
+			}
+		}
+
+
+		doc.reset();
+	}
+
+	return ret;
 }
 
 e1NPC::~e1NPC()

@@ -21,6 +21,8 @@ public:
 
 	virtual ~e1NPC();
 
+	bool LoadNPC(const char* name);
+
 	virtual bool PreUpdate() { return true; };
 
 	virtual bool Update(float dt) { return true; };
