@@ -947,8 +947,11 @@ void m1MenuManager::UpdateDebugScreen()
 void m1MenuManager::CreateGameOver()
 {
 	App->audio->PlayMusic(App->scene->mus_game_over, 0.5);
-	game_over.game_over_panel = App->gui->AddImage(0, 0, { 1024, 0, 1024, 768 }, nullptr, App->gui->screen, true, false, false, false);
-	game_over.game_over_panel->SetPosRespectParent(CENTERED);
+	game_over.game_over_panel = App->gui->AddImage(0, 0, App->gui->screen->section, nullptr, App->gui->screen, false, false, false, false);
+
+	game_over.label_failed_quest = App->gui->AddLabel(0, 0, "You failed the quest!", game_over.game_over_panel, Color::RED, FontType::FF100, nullptr, false);
+	game_over.label_failed_quest->SetPosRespectParent(CENTERED);
+	game_over.label_failed_quest->position.y -= 100;
 
 	game_over.button_continue_lobby = App->gui->AddButton(150, 500, { 0,0,130,50 }, { 0,0,130,50 }, { 0,0,130,50 }, App->scene, game_over.game_over_panel, false, false, true, true);
 	game_over.label_continue_lobby = App->gui->AddLabel(0, -31, "Continue", game_over.button_continue_lobby, WHITE, FontType::FF100, nullptr, false);

@@ -802,6 +802,8 @@ struct UI_debugscreen {
 struct UI_game_over {
 	u1Image* game_over_panel = nullptr;
 
+	u1Label* label_failed_quest = nullptr;
+
 	u1Button* button_continue_lobby = nullptr;
 	u1Label* label_continue_lobby = nullptr;
 
@@ -810,6 +812,7 @@ struct UI_game_over {
 
 	void Reset() {
 		game_over_panel = nullptr;
+		label_failed_quest = nullptr;
 		button_continue_lobby = nullptr;
 		label_continue_lobby = nullptr;
 		button_return_main = nullptr;
