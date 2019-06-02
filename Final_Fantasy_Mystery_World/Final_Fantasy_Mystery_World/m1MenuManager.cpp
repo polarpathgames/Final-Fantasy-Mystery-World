@@ -821,8 +821,6 @@ void m1MenuManager::EnableHUD(bool show_or_hide) {
 			hud.player_hud_image->drawable = show_or_hide;
 			hud.player_hp_bar->drawable = show_or_hide;
 			hud.player_mana_bar->drawable = show_or_hide;
-			/*hud.diagonal_compass->drawable = show_or_hide;
-			hud.vertical_compass->drawable = show_or_hide;*/
 			hud.player_hp_bar->bar_numbers_label->drawable = show_or_hide;
 			hud.player_mana_bar->bar_numbers_label->drawable = show_or_hide;
 			hud.player_exp_bar->drawable = show_or_hide;
@@ -1057,23 +1055,21 @@ void m1MenuManager::CreateHUD()
 {
 
 	hud.bg_hud = App->gui->AddImage(45, 630, { 2113, 192, 284, 105 }, nullptr, App->gui->screen, true, false, false, false);
-	//hud.diagonal_compass = App->gui->AddImage(925, 675, { 1876, 3084, 88, 74 }, this, hud.bg_hud, true, false, false, false);
-	//hud.vertical_compass = App->gui->AddImage(925, 670, { 1949, 3159, 82, 86 }, this, hud.bg_hud, false, false, false, false);
 
 	switch (App->scene->player_type) {
 	case PlayerType::WARRIOR:
 		hud.player_hud_image = App->gui->AddImage(18, 18, { 2133,416,51,53 }, nullptr, hud.bg_hud, true, false, false, false);
 		break;
 	case PlayerType::ARCHER:
-		hud.player_hud_image = App->gui->AddImage(21, 20, { 2227,416,51,53 }, nullptr, hud.bg_hud, true, false, false, false);
+		hud.player_hud_image = App->gui->AddImage(18, 18, { 2227,418,51,53 }, nullptr, hud.bg_hud, true, false, false, false);
 		break;
 	case PlayerType::MAGE:
-		hud.player_hud_image = App->gui->AddImage(21, 20, { 2320,420,51,53 }, nullptr, hud.bg_hud, true, false, false, false);
+		hud.player_hud_image = App->gui->AddImage(18, 18, { 2320,418,51,53 }, nullptr, hud.bg_hud, true, false, false, false);
 		break;
 	}
 	hud.player_hp_bar = App->gui->AddBar(121, 8,App->scene->player->stats.max_lives, HPBAR, hud.bg_hud, nullptr);
 	hud.player_mana_bar = App->gui->AddBar(121, 66, App->scene->player->stats.max_mana, MANABAR, hud.bg_hud, nullptr);
-	hud.player_exp_bar = App->gui->AddBar(80, 95, App->scene->player->stats.max_xp, EXPBAR, hud.bg_hud, nullptr);
+	hud.player_exp_bar = App->gui->AddBar(60, 105, App->scene->player->stats.max_xp, EXPBAR, hud.bg_hud, nullptr);
 	hud.level_label = App->gui->AddLabel(65, 73, std::to_string(App->scene->player->stats.level).data(), hud.bg_hud, BLACK, FontType::FF32, App->scene, false);
 
 	
@@ -1085,31 +1081,6 @@ void m1MenuManager::DestroyHUD()
 	hud.bg_hud = nullptr;
 	hud.Reset();
 }
-
-
-//void m1MenuManager::ChangeCompass(bool shift_pressed)
-//{
-//
-//	if (shift_pressed)
-//	{
-//		hud.vertical_compass->drawable = true;
-//		hud.diagonal_compass->drawable = false;
-//	}
-//
-//	else
-//	{
-//		if (App->cutscene_manager->is_executing == true)
-//		{
-//			hud.diagonal_compass->drawable = false;
-//			hud.vertical_compass->drawable = false;
-//		}
-//		else
-//		{
-//			hud.diagonal_compass->drawable = true;
-//			hud.vertical_compass->drawable = false;
-//		}
-//	}
-//}
 
 void m1MenuManager::GodModeIndicator(bool is_god_mode)
 {
@@ -1292,8 +1263,6 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		else if (App->scene->active) {
 			CreatePauseMenu();
 			EnableHUD(true);
-			hud.diagonal_compass->drawable = true;
-			hud.vertical_compass->drawable = false;
 			App->scene->SetMenuState(StatesMenu::PAUSE_MENU);
 		}
 

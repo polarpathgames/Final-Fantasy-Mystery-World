@@ -826,8 +826,6 @@ struct UI_HUD {
 	u1Bar* player_hp_bar = nullptr;
 	u1Bar* player_mana_bar = nullptr;
 	u1Bar* player_exp_bar = nullptr;
-	u1Image* diagonal_compass = nullptr; 	//Compass
-	u1Image* vertical_compass = nullptr;	//Compass
 	u1Label* level_label = nullptr;
 
 	void Reset() {
@@ -837,8 +835,6 @@ struct UI_HUD {
 		player_mana_bar = nullptr;
 		player_exp_bar = nullptr;
 		level_label = nullptr;
-		//diagonal_compass = nullptr; 	//Compass
-		//vertical_compass = nullptr;	//Compass
 	}
 };
 
@@ -925,7 +921,6 @@ public:
 	void DestroyHUD();
 	void EnableHUD(bool enable);
 
-	//void ChangeCompass(bool shift_pressed);
 
 	void SkipMenu(bool is_cutscene);
 
