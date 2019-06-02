@@ -24,15 +24,28 @@ public:
 		NONE = -1
 	};
 
+	struct NPC_move {
+		int num_tiles = 0;
+		Direction direction = Direction::NONE;
+	};
+
 	e1NPC(const int &x, const int &y, const char* name);
 
 	virtual ~e1NPC();
 
 	bool LoadNPC(const char* name);
 
+	void LoadInteraction(pugi::xml_node &node);
+
+	void LoadMovement(pugi::xml_node &node);
+
+	void LoadBasicData(pugi::xml_node &node);
+
+	void LoadGraphics(pugi::xml_node &node);
+
 	virtual bool PreUpdate() { return true; };
 
-	virtual bool Update(float dt) { return true; };
+	virtual bool Update(float dt);
 
 	virtual bool PostUpdate() { return true; };
 
@@ -45,6 +58,12 @@ public:
 public:
 	NPCType npc_type = NPCType::NONE;
 	std::vector<uint> dialog_id;
+
+	MovementType move_type = MovementType::NONE;
+	std::vector<NPC_move> move_vector;
+
+	bool interactable = false;
+	bool look_to_player = false;
 };
 
 

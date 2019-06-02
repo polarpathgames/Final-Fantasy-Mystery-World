@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+  <npc name="dog" id="1"> <!--id = NPC type, to do some logic associated to that npc. Can found enum in Line 13 of e1NPC.h-->
+    <data>
+      <pivot x="0" y="0"/>
+      <init anim_id="4" direction="1" state="0"/>
+      <size width="16" height="28"/>
+    </data>
+    <!--tsx path="assets/"/-->
+    <animations texture="assets/sprites/MonteBlanc.png">
+      <animation id="4">  <!--enum from Line 21: e1Entity.h-->
+        <frame x="56" y="15" width="16" height="28"/>
+      </animation>
+    </animations>
+    <move_type id="2">
+      <move type="right" num_tiles="0"/>
+    </move_type>
+    <dialog_tree>
+      <dialog id="0"/>
+    </dialog_tree>
+    <interaction value="true" look_to_player="true"/>
+  </npc>
+</data>

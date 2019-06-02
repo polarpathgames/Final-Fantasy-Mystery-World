@@ -231,8 +231,6 @@
     <ClCompile Include="e1Spider.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="c1CutSceneFadeToBlack.cpp" />
-    <ClCompile Include="c1CutSceneVibration.cpp" />
     <ClCompile Include="e1AmazingDragon.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
@@ -241,6 +239,12 @@
     </ClCompile>
     <ClCompile Include="m1VideoPlayer.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneFadeToBlack.cpp">
+      <Filter>Cutscenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneVibration.cpp">
+      <Filter>Cutscenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -500,8 +504,6 @@
     <ClInclude Include="e1Spider.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="c1CutSceneFadeToBlack.h" />
-    <ClInclude Include="c1CutSceneVibration.h" />
     <ClInclude Include="e1AmazingDragon.h">
       <Filter>Entities</Filter>
     </ClInclude>
@@ -510,6 +512,12 @@
     </ClInclude>
     <ClInclude Include="m1VideoPlayer.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneVibration.h">
+      <Filter>Cutscenes</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneFadeToBlack.h">
+      <Filter>Cutscenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -530,12 +538,6 @@
     </Xml>
     <Xml Include="Game\assets\xml\CutsceneTutorial.xml">
       <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\Dialog.xml">
-      <Filter>XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\Rooms.xml">
-      <Filter>XML</Filter>
     </Xml>
     <Xml Include="Game\assets\xml\CutsceneAbility2Quest2.xml">
       <Filter>Cutscenes\XML</Filter>
@@ -570,10 +572,13 @@
     <Xml Include="..\Game\assets\xml\config.xml">
       <Filter>XML</Filter>
     </Xml>
+    <Xml Include="..\Game\assets\xml\Dialog.xml">
+      <Filter>XML</Filter>
+    </Xml>
     <Xml Include="..\Game\assets\xml\Rooms.xml">
       <Filter>XML</Filter>
     </Xml>
-    <Xml Include="NPC.xml">
+    <Xml Include="..\Game\assets\xml\NPC.xml">
       <Filter>XML</Filter>
     </Xml>
   </ItemGroup>
