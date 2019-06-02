@@ -179,7 +179,11 @@ public:
 
 	void UpdateExperience(int experience);
 
+
+	void UpdateLevelLabel(int current_level = 0);
+
 	void ChangeArrow(Animation & anim);
+
 
 	virtual void UpdateLevel(){}
 

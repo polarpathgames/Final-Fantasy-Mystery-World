@@ -144,7 +144,7 @@ bool e1AmazingDragon::PreUpdate()
 bool e1AmazingDragon::Update(float dt)
 {
 	if (first_update == true && drawable == true) {
-		megadrake_hp_bar = App->gui->AddBar(100, 80, stats.max_live, ENEMYBAR, (u1GUI*)App->menu_manager->hud.bg_hud, nullptr);
+		megadrake_hp_bar = App->gui->AddBar(50, -570, stats.max_live, ENEMYBAR, (u1GUI*)App->menu_manager->hud.bg_hud, nullptr);
 		megadrake_label = App->gui->AddLabel(355, 20, "Mega Dragon", megadrake_hp_bar, BLACK, FontType::FF64, nullptr, false);
 		first_update = false;
 	}
