@@ -8,7 +8,7 @@ class p2Timer
 public:
 
 	// Constructor
-	p2Timer();
+	p2Timer(bool start = true);
 
 	void Start();
 	uint32 Read() const;

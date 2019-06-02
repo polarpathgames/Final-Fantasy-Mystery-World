@@ -100,7 +100,8 @@ bool m1FadeToBlack::PostUpdate()
 		if (now >= total_time) {
 			current_step = fade_step::none;
 			App->dialog->end_dial = true;
-
+			to_disable = nullptr;
+			to_enable = nullptr;
 			vibration = false;
 			if (App->scene->player != nullptr && App->cutscene_manager->is_executing == false)
 				App->scene->player->BlockControls(false);

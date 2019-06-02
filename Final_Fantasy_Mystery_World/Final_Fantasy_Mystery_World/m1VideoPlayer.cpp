@@ -21,8 +21,14 @@ extern "C" {
 #include "m1Input.h"
 #include "m1Window.h"
 #include "p2Log.h"
+#include "m1GUI.h"
+#include "m1Audio.h"
 #include "m1VideoPlayer.h"
+#include "m1FadeToBlack.h"
 #include "m1MainMenu.h"
+#include "m1Fonts.h"
+#include "u1Label.h"
+#include "u1UI_Element.h"
 
 #define DEFAULT_AUDIO_BUF_SIZE 1024
 #define MAX_AUDIOQ_SIZE (5 * 256 * 1024)
@@ -130,6 +136,7 @@ bool m1VideoPlayer::Awake(pugi::xml_node&)
 
 bool m1VideoPlayer::Start()
 {
+	PlayVideo(App->main_menu->video_path.data(), VIDEO_INTRO_ID, 200.0F);
 	return true;
 }
 
@@ -142,8 +149,7 @@ bool m1VideoPlayer::Update(float dt)
 {
 	//DEBUG INPUTS
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
-		App->main_menu->Disable();
-		PlayVideo("assets/videos/World of Warcraft Wrath of the Lich King Intro Trailer.mp4");
+		PlayVideo("assets/videos/Intro.mp4");
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		Pause();
@@ -159,12 +165,22 @@ bool m1VideoPlayer::Update(float dt)
 	if (quit && audio.finished && video.finished)
 		CloseVideo();
 
+	if (play_video_with_delay && !playing) {
+		if (delay.Read() >= delay_time) {
+			PlayVideoNow();
+			play_video_with_delay = false;
+		}
+	}
+
+	if (playing) {
+		SkipVideo();
+	}
 	return true;
 }
 
 bool m1VideoPlayer::PostUpdate()
 {
-	if (playing)
+	if (playing && texture_created)
 	{
 		App->render->Blit(texture, 0, 0, nullptr);
 	}
@@ -179,7 +195,7 @@ bool m1VideoPlayer::CleanUp()
 	return true;
 }
 
-int m1VideoPlayer::PlayVideo(std::string file_path)
+int m1VideoPlayer::PlayVideo(std::string file_path, const int &id, const float & delay_time)
 {
 	if (playing)
 	{
@@ -189,43 +205,19 @@ int m1VideoPlayer::PlayVideo(std::string file_path)
 
 	file = file_path;
 
-	//Open video file
-	if (avformat_open_input(&format, file.c_str(), NULL, NULL) != 0)
-	{
-		LOG("Error loading video file %s", file);
-		return -1;
+	if (id != 0)
+		id_video = id;
+	else
+		id_video = 0;
+
+	if (delay_time != 0.0F) {
+		play_video_with_delay = true;
+		delay.Start();
+		this->delay_time = delay_time;
+		return 0;
 	}
 
-	// Retrieve stream information
-	if (avformat_find_stream_info(format, NULL) <0)
-		return -1; // Couldn't find stream information
-
-	int video_stream = -1, audio_stream = -1;
-	// Find video and audio streams
-	for (int i = 0; i < format->nb_streams; i++)
-	{
-		if (format->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO && video_stream < 0)
-			video_stream = i;
-		else if (format->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_AUDIO && audio_stream < 0)
-			audio_stream = i;
-	}
-
-	if (video_stream == -1)
-		LOG("No video stream found");
-	else
-		OpenStreamComponent(video_stream); //Open video component
-
-	if (audio_stream == -1)
-		LOG("No audio stream found");
-	else
-		OpenStreamComponent(audio_stream); //Open audio component
-
-										   //Everything went fine
-	LOG("Video file loaded correctly, now playing: %s", file);
-	playing = true;
-	parse_thread_id = SDL_CreateThread(ReadThread, "ReadThread", this); //Start packet reading thread
-																		//TODO 4.1 Call SDL_AddTimer with 40 ms and our VideoCallback, also dont forget to send this as parameter.
-	SDL_AddTimer(40, (SDL_TimerCallback)VideoCallback, this); //First video callback
+	PlayVideoNow();
 }
 
 void m1VideoPlayer::OpenStreamComponent(int stream_index)
@@ -369,11 +361,19 @@ void m1VideoPlayer::CloseVideo()
 
 	SDL_DestroyTexture(texture);
 	texture = nullptr;
+	texture_created = false;
 	SDL_CloseAudio();
 	audio_buf_index = 0;
 	audio_buf_size = 0;
 	quit = false;
 
+	if (skip_video_label != nullptr) {
+		skip_video_label->to_delete = true;
+		skip_video_label = nullptr;
+		skip_time.Stop();
+	}
+
+	LogicAfterVideo();
 	LOG("Video closed");
 }
 
@@ -420,9 +420,12 @@ void m1VideoPlayer::DecodeVideo()
 		texture = SDL_CreateTexture(App->render->renderer, SDL_PIXELFORMAT_YV12, SDL_TEXTUREACCESS_STREAMING,
 			dst_w, dst_h);
 	}
-
-	SDL_UpdateYUVTexture(texture, nullptr, video.converted_frame->data[0], video.converted_frame->linesize[0], video.converted_frame->data[1],
-		video.converted_frame->linesize[1], video.converted_frame->data[2], video.converted_frame->linesize[2]);
+	else {
+		texture_created = true;
+		SDL_UpdateYUVTexture(texture, nullptr, video.converted_frame->data[0], video.converted_frame->linesize[0], video.converted_frame->data[1],
+			video.converted_frame->linesize[1], video.converted_frame->data[2], video.converted_frame->linesize[2]);
+	}
+	
 
 	// TODO 5: Synching the video to the audio.
 	// First we need to get the PTS from the FRAME that we just received.
@@ -461,6 +464,88 @@ void m1VideoPlayer::DecodeVideo()
 	//Prepare VideoCallback on ms
 	SDL_AddTimer((Uint32)(delay * 1000 + 0.5), (SDL_TimerCallback)VideoCallback, this);
 	av_packet_unref(&pkt);
+}
+
+int m1VideoPlayer::PlayVideoNow()
+{
+	App->audio->CloseSDLAudio();
+	//Open video file
+	if (avformat_open_input(&format, file.c_str(), NULL, NULL) != 0)
+	{
+		LOG("Error loading video file %s", file);
+		return -1;
+	}
+
+	// Retrieve stream information
+	if (avformat_find_stream_info(format, NULL) < 0)
+		return -1; // Couldn't find stream information
+
+	int video_stream = -1, audio_stream = -1;
+	// Find video and audio streams
+	for (int i = 0; i < format->nb_streams; i++)
+	{
+		if (format->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO && video_stream < 0)
+			video_stream = i;
+		else if (format->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_AUDIO && audio_stream < 0)
+			audio_stream = i;
+	}
+
+	if (video_stream == -1)
+		LOG("No video stream found");
+	else
+		OpenStreamComponent(video_stream); //Open video component
+
+	if (audio_stream == -1)
+		LOG("No audio stream found");
+	else
+		OpenStreamComponent(audio_stream); //Open audio component
+
+										   //Everything went fine
+	LOG("Video file loaded correctly, now playing: %s", file);
+	playing = true;
+	parse_thread_id = SDL_CreateThread(ReadThread, "ReadThread", this); //Start packet reading thread
+																		//TODO 4.1 Call SDL_AddTimer with 40 ms and our VideoCallback, also dont forget to send this as parameter.
+	SDL_AddTimer(40, (SDL_TimerCallback)VideoCallback, this); //First video callback
+}
+
+void m1VideoPlayer::LogicAfterVideo()
+{
+	App->audio->Enable();
+	switch (id_video)
+	{
+	case VIDEO_INTRO_ID:
+		App->fade_to_black->FadeToBlack(nullptr, (m1Module*)App->main_menu, 2.0F);
+		break;
+	default:
+		LOG("No id for this video");
+		break;
+	}
+
+}
+
+void m1VideoPlayer::SkipVideo()
+{
+	if (App->input->is_a_key_down && !skip_time.IsRunning()) {
+		skip_time.Start();
+		skip_video_label = App->gui->AddLabel(App->win->width - 270, App->win->height - 30, "Hold any button to skip", App->gui->screen, WHITE, FontType::PMIX16, nullptr, false);
+		time_started = skip_time.Read();
+	}
+	if (skip_video_label != nullptr) {
+		if (App->input->is_a_key_down && skip_time.Read() > 1000) {
+			skip_video_label->to_delete = true;
+			skip_video_label = nullptr;
+			skip_time.Stop();
+			CloseVideo();
+		}
+		else if (!App->input->is_a_key_down && time_started > 1000) {
+			skip_video_label->to_delete = true;
+			skip_video_label = nullptr;
+			skip_time.Stop();
+		}
+		else if (!App->input->is_a_key_down) {
+			skip_time.Start();
+		}
+	}
 }
 
 int m1VideoPlayer::DecodeAudio()

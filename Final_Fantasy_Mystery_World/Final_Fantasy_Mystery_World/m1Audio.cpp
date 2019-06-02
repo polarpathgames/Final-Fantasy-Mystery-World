@@ -45,6 +45,14 @@ bool m1Audio::Awake(pugi::xml_node& config)
 
 	}
 
+	
+	return ret;
+}
+
+bool m1Audio::Start()
+{
+	bool ret = true;
+
 	SDL_Init(0);
 
 	if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
@@ -75,6 +83,7 @@ bool m1Audio::Awake(pugi::xml_node& config)
 
 
 	Mix_VolumeMusic(volume);
+
 	return ret;
 }
 
@@ -84,27 +93,42 @@ bool m1Audio::CleanUp()
 	
 	LOG("Freeing sound FX, closing Mixer and Audio subsystem");
 
-	std::map < Mix_Music*,std::string>::iterator m = music.begin();
-	for (; m != music.end(); ++m) {
-		if ((*m).first != nullptr) {
-			Mix_FreeMusic((*m).first);
-		}
-	}
-	music.clear();
+	ClearMusic();
 
-	std::map<Mix_Chunk*,std::string>::iterator f = fx.begin();
+	ClearFx();
+
+	CloseSDLAudio();
+
+	return true;
+}
+
+void m1Audio::CloseSDLAudio()
+{
+	Mix_CloseAudio();
+	Mix_Quit();
+	SDL_QuitSubSystem(SDL_INIT_AUDIO);
+}
+
+void m1Audio::ClearFx()
+{
+	std::map<Mix_Chunk*, std::string>::iterator f = fx.begin();
 	for (; f != fx.end(); ++f) {
 		if ((*f).first != nullptr) {
 			Mix_FreeChunk((*f).first);
 		}
 	}
 	fx.clear();
+}
 
-	Mix_CloseAudio();
-	Mix_Quit();
-	SDL_QuitSubSystem(SDL_INIT_AUDIO);
-
-	return true;
+void m1Audio::ClearMusic()
+{
+	std::map < Mix_Music*, std::string>::iterator m = music.begin();
+	for (; m != music.end(); ++m) {
+		if ((*m).first != nullptr) {
+			Mix_FreeMusic((*m).first);
+		}
+	}
+	music.clear();
 }
 
 // Play a music file

@@ -135,7 +135,7 @@
     <room>
       <location>Quest1_NewWorld.tmx</location>
       <id num="10"></id>
-      <music>assets/audio/music/26.Final Fantasy TA - Mewt.ogg.ogg</music>
+      <music>assets/audio/music/26.Final Fantasy TA - Mewt.ogg</music>
       <type>paceful</type>
     </room>
     <room>
@@ -209,7 +209,7 @@
       <door active="true"></door>
       <id num="8"></id>
       <type>boss</type>
-      <music>assets/audio/music/23.Final Fantasy TA - Prison.ogg.ogg</music>
+      <music>assets/audio/music/23.Final Fantasy TA - Prison.ogg</music>
       <cut_scene>assets/xml/CutsceneDrakeQuest3.xml</cut_scene>
     </room>
   </final_quest>
@@ -217,11 +217,10 @@
 
   <debug>
     <room>
-      <location>Quest2_Boss.tmx</location>
+      <location>Tutorial_Movement.tmx</location>
       <door active="true"></door>
       <id num="1"></id>
       <type>paceful</type>
-      <music>assets/audio/music/23.Final Fantasy TA - Prison.ogg.ogg</music>
     </room>
   </debug>
 </room_manager>

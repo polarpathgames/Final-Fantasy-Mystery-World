@@ -8,10 +8,12 @@
 #include "SDL/include/SDL_timer.h"
 
 // ---------------------------------------------
-p2Timer::p2Timer()
+p2Timer::p2Timer(bool start)
 {
-	Start();
-	running = true;
+	if (start) {
+		Start();
+		running = true;
+	}
 }
 
 // ---------------------------------------------

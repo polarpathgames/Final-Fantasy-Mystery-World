@@ -534,9 +534,6 @@
     <Xml Include="Game\assets\xml\Dialog.xml">
       <Filter>XML</Filter>
     </Xml>
-    <Xml Include="Game\assets\xml\config.xml">
-      <Filter>XML</Filter>
-    </Xml>
     <Xml Include="Game\assets\xml\Rooms.xml">
       <Filter>XML</Filter>
     </Xml>
@@ -569,6 +566,12 @@
     </Xml>
     <Xml Include="Game\assets\xml\CutsceneLobbyQuest3.xml">
       <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\config.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\Rooms.xml">
+      <Filter>XML</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@
     <version>0.9.1</version>
     <fast_start value="false"/>
   </app>
-
+ 
   <renderer>
     <vsync value="false"/>
   </renderer>
@@ -34,6 +34,10 @@
     <font file="pixelmix.ttf" size="64"/>
     <font file="8-BIT WONDER.ttf" size="50"/>
   </fonts>
+
+  <main_menu>
+    <video_intro path="assets/videos/Intro.mp4"/>
+  </main_menu>
 
   <map>
     <folder>assets/maps/</folder>

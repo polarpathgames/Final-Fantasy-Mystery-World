@@ -22,8 +22,16 @@ public:
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
 
+	bool Start();
+
 	// Called before quitting
 	bool CleanUp();
+
+	void CloseSDLAudio();
+
+	void ClearFx();
+
+	void ClearMusic();
 
 	// Play a music file
 	bool PlayMusic(Mix_Music* mus, float fade_time); //float fade_time = DEFAULT_MUSIC_FADE_TIME

@@ -188,6 +188,8 @@ public:
 	ControllerButtons controller_Buttons;
 	SDL_GameController* controller = nullptr;
 
+	bool is_a_key_down = false;
+
 	//Controler Haptic
 
 	SDL_Joystick *joystick;

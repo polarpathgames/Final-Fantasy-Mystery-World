@@ -39,6 +39,22 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 	tile_anim.speed = 5.f;
 	tile_anim.loop = false;
 
+
+
+	normal_arrow.PushBack({ 387,110,59,39 });
+	normal_arrow.PushBack({ 446,110,59,39 });
+	normal_arrow.PushBack({ 505,110,59,39 });
+	normal_arrow.PushBack({ 446,110,59,39 });
+	normal_arrow.speed = 6.f;
+
+	diagonal_arrow.PushBack({ 387,71,59,39 });
+	diagonal_arrow.PushBack({ 446,71,59,39 });
+	diagonal_arrow.PushBack({ 505,71,59,39 });
+	diagonal_arrow.PushBack({ 446,71,59,39 });
+	diagonal_arrow.speed = 6.f;
+
+	current_anim_arrow_move = &normal_arrow;
+
 }
 
 void e1Player::Init()
@@ -53,8 +69,10 @@ void e1Player::Init()
 
 	if (App->map->data.properties.GetValue("movement") == 1)
 		movement_type = Movement_Type::InLobby;
-	else
+	else {
 		movement_type = Movement_Type::InQuest;
+		arrow_timer.Start();
+	}
 
 	coll = App->collision->AddCollider(SDL_Rect{ 0,0,19,6 }, COLLIDER_PLAYER, (m1Module*)App->entity_manager);
 
@@ -89,8 +107,13 @@ bool e1Player::Update(float dt)
 
 	if (coll != nullptr)
 		coll->SetPos(position.x + pivot.x/2 - 2, position.y + 20);
-
-
+	
+	if (movement_type == Movement_Type::InQuest) {
+		if (arrow_timer.IsRunning() && arrow_timer.Read() < 1000)
+			App->render->Blit(ability1_tile_tx, position.x + pivot.x - current_anim_arrow_move->GetFrame(1).w / 2, position.y + pivot.y - current_anim_arrow_move->GetFrame(1).h / 2, &current_anim_arrow_move->GetCurrentFrame(dt), true);
+		else
+			arrow_timer.Stop();
+	}
 
 	return true;
 }
@@ -1175,37 +1198,46 @@ void e1Player::ChangeDirection()
 		if (player_input.pressing_I) {
 			direction = Direction::UP;
 			current_animation = &anim.IdleUp;
+			ChangeArrow(diagonal_arrow);
 		}
 		if (player_input.pressing_J) {
 			direction = Direction::LEFT;
 			current_animation = &anim.IdleLeft;
+			ChangeArrow(diagonal_arrow);
 		}
 		if (player_input.pressing_K) {
 			direction = Direction::DOWN;
 			current_animation = &anim.IdleDown;
+			ChangeArrow(diagonal_arrow);
 		}
 		if (player_input.pressing_L) {
 			direction = Direction::RIGHT;
 			current_animation = &anim.IdleRight;
+			ChangeArrow(diagonal_arrow);
 		}
 	}
 	else if (!player_input.pressing_shift) {
 		if (player_input.pressing_UP_LEFT) {
 			direction = Direction::UP_LEFT;
 			current_animation = &anim.IdleUpLeft;
+			ChangeArrow(normal_arrow);
 		}
 		if (player_input.pressing_DOWN_LEFT) {
 			direction = Direction::DOWN_LEFT;
 			current_animation = &anim.IdleDownLeft;
+			ChangeArrow(normal_arrow);
 		}
 		if (player_input.pressing_DOWN_RIGHT) {
 			direction = Direction::DOWN_RIGHT;
 			current_animation = &anim.IdleDownRight;
+			ChangeArrow(normal_arrow);
 		}
 		if (player_input.pressing_UP_RIGHT) {
 			direction = Direction::UP_RIGHT;
 			current_animation = &anim.IdleUpRight;
+			ChangeArrow(normal_arrow);
 		}
+		
 	}
 
 
@@ -1330,7 +1362,6 @@ void e1Player::QuestControls()
 	player_input.pressing_K = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_DOWN) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY) == 1;
 	player_input.pressing_L = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECCTION_RIGHT) == KEY_DOWN || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == 1;
 	player_input.pressing_shift = App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_REPEAT || App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
-	//player_input.pressing_V = App->input->GetKey(App->input->keyboard_buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.SHOW_SKILLS) == KEY_DOWN;;
 	
 	player_input.pressing_UP_LEFT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == -1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY) == -1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_LEFT) == KEY_DOWN;
 	player_input.pressing_UP_RIGHT = (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY) == -1) || App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIRECTION_UP) == KEY_DOWN || App->input->GetControllerButton(App->input->controller_Buttons.buttons_code.DIRECTION_UP) == KEY_DOWN;
@@ -1380,7 +1411,14 @@ void e1Player::QuestControls()
 		}
 	}
 	
-		
+	if (App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_DOWN || App->input->GetAxisDown(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_TRIGGERRIGHT)) {
+		ChangeArrow(diagonal_arrow);
+	}
+	else if (App->input->GetKey(App->input->keyboard_buttons.buttons_code.DIAGONALS) == KEY_UP || App->input->GetAxisUp(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_TRIGGERRIGHT)) {
+		ChangeArrow(normal_arrow);
+	}
+
+
 }
 
 void e1Player::LookFlash()
@@ -1663,4 +1701,11 @@ void e1Player::UpdateLevelLabel(int current_level) {
 	std::string level_string = std::to_string(stats.level);
 
 	App->menu_manager->hud.level_label = App->gui->AddLabel(65, 73, level_string.c_str(), (u1GUI*)App->menu_manager->hud.bg_hud, BLACK, FontType::FF32, App->scene, false);
+}
+
+void e1Player::ChangeArrow(Animation & anim)
+{
+	if (current_anim_arrow_move != &anim)
+		current_anim_arrow_move = &anim;
+	arrow_timer.Start();
 }
