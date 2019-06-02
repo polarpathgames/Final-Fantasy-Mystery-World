@@ -123,7 +123,7 @@ void m1MenuManager::DestroyCredits()
 
 void m1MenuManager::CreateCollaborators()
 {
-	collaborators.collaborators_panel = App->gui->AddImage(0, 0, { 0, 7096, 1024, 768 }, App->main_menu, App->gui->screen, true, false, false, false);
+	collaborators.collaborators_panel = App->gui->AddImage(0, 0, { 2047, 6328, 1024, 768 }, App->main_menu, App->gui->screen, true, false, false, false);
 	collaborators.collaborators_panel->SetPosRespectParent(CENTERED);
 
 	collaborators.button_collaborators_return_credits = App->gui->AddButton(920, 727, { 1850,1637,70,25 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, App->main_menu, collaborators.collaborators_panel, false, false, true, true);
@@ -970,7 +970,7 @@ void m1MenuManager::DestroyGameOver()
 void m1MenuManager::CreateHelpDiagonalMenu()
 {
 	App->audio->PlayFx(App->scene->fx_ability_screen);
-	help_diagonal = App->gui->AddImage(0, 0, { 0,6329,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+	help_diagonal = App->gui->AddImage(0, 0, { 1024,0,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
 }
 
 void m1MenuManager::DestroyHelpDiagonalMenu()
@@ -982,7 +982,7 @@ void m1MenuManager::DestroyHelpDiagonalMenu()
 void m1MenuManager::CreateHelpAttackMenu()
 {
 	App->audio->PlayFx(App->scene->fx_ability_screen);
-	help_attack = App->gui->AddImage(0, 0, { 1024,6329,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
+	help_attack = App->gui->AddImage(0, 0, { 1024,2304,1024,768 }, nullptr, App->gui->screen, true, false, false, false);
 }
 
 void m1MenuManager::DestroyHelpAttackMenu()
