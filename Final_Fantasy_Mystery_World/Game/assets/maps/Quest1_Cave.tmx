@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="68" height="67" tilewidth="32" tileheight="16" infinite="0" nextlayerid="78" nextobjectid="76">
+<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="68" height="67" tilewidth="32" tileheight="16" infinite="0" nextlayerid="78" nextobjectid="83">
  <tileset firstgid="1" name="ques1_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques1_tileset.png" width="688" height="290"/>
  </tileset>
@@ -23944,7 +23944,7 @@
    <tile gid="7"/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="380"/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
@@ -24026,8 +24026,8 @@
    <tile gid="380"/>
    <tile gid="380"/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="380"/>
+   <tile gid="380"/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
@@ -24135,12 +24135,12 @@
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
-   <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="380"/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
@@ -25713,12 +25713,12 @@
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
+   <tile gid="380"/>
+   <tile gid="380"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
@@ -25781,7 +25781,7 @@
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
-   <tile/>
+   <tile gid="380"/>
    <tile/>
    <tile/>
    <tile/>
@@ -27373,7 +27373,15 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="8" name="Static animation objects"/>
+ <objectgroup id="8" name="Static animation objects">
+  <object id="76" name="breakable_barrel" type="static" x="672" y="656" width="32" height="32"/>
+  <object id="77" name="breakable_barrel" type="static" x="656" y="672" width="32" height="32"/>
+  <object id="78" name="breakable_barrel" type="static" x="656" y="656" width="32" height="32"/>
+  <object id="79" name="breakable_barrel" type="static" x="512" y="288" width="32" height="32"/>
+  <object id="80" name="breakable_barrel" type="static" x="640" y="240" width="32" height="32"/>
+  <object id="81" name="breakable_barrel" type="static" x="864" y="256" width="32" height="32"/>
+  <object id="82" name="breakable_barrel" type="static" x="880" y="256" width="32" height="32"/>
+ </objectgroup>
  <objectgroup color="#ffff7f" id="9" name="entities">
   <object id="52" name="enemy" type="BlueSlime" x="720" y="768" width="15.9688" height="16.0156"/>
   <object id="59" name="player" type="nextB" x="624" y="800" width="15.9688" height="16.0156">
