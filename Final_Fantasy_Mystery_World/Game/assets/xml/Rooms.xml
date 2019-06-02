@@ -26,7 +26,6 @@
       <id num="4"></id>
       <music>assets/audio/music/20.Final Fantasy TA - Painful Battle.ogg</music>
       <type>combat</type>
-      <door active="true"></door>
     </room>
     <room>
       <location>Tutorial_Ability.tmx</location>
