@@ -128,11 +128,11 @@ void m1MenuManager::CreateSelectChamp()
 	select_champ.archer_info = App->gui->AddImage(490, 550, { 2118, 3570, 318, 141 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
 	select_champ.mage_info = App->gui->AddImage(490, 550, { 2118, 3822, 318, 141 }, App->main_menu, select_champ.select_champ_panel, false, false, false, false);
 
-	select_champ.button_warrior = App->gui->AddChButton(100, 250, { 1850,1637,198,50 }, { 1569,1688,198,50 }, { 1569,1756,198,50 }, App->main_menu, select_champ.select_champ_panel, PlayerType::WARRIOR, true, false, true, true);
+	select_champ.button_warrior = App->gui->AddChButton(100, 250, { 2751,490,198,47 }, { 2748,556,204,51 }, { 2754,632,198,47 }, App->main_menu, select_champ.select_champ_panel, PlayerType::WARRIOR, true, false, true, true);
 	select_champ.label_warrior = App->gui->AddLabel(65, -13, "Warrior", select_champ.button_warrior, BLACK, FontType::FF64, nullptr, false);
-	select_champ.button_archer = App->gui->AddChButton(100, 350, { 1850,1637,198,50 }, { 1569,1688,198,50 }, { 1569,1756,198,50 }, App->main_menu, select_champ.select_champ_panel, PlayerType::ARCHER, true, false, true, true);
+	select_champ.button_archer = App->gui->AddChButton(100, 350, { 2751,490,198,47 }, { 2748,556,204,51 }, { 2754,632,198,47 }, App->main_menu, select_champ.select_champ_panel, PlayerType::ARCHER, true, false, true, true);
 	select_champ.label_archer = App->gui->AddLabel(68, -13, "Archer", select_champ.button_archer, BLACK, FontType::FF64, nullptr, false);
-	select_champ.button_mage = App->gui->AddChButton(100, 450, { 1850,1637,198,50 }, { 1569,1688,198,50 }, { 1569,1756,198,50 }, App->main_menu, select_champ.select_champ_panel, PlayerType::MAGE, true, false, true, true);
+	select_champ.button_mage = App->gui->AddChButton(100, 450, { 2751,490,198,47 }, { 2748,556,204,51 }, { 2754,632,198,47 }, App->main_menu, select_champ.select_champ_panel, PlayerType::MAGE, true, false, true, true);
 	select_champ.label_mage = App->gui->AddLabel(75, -13, "Mage", select_champ.button_mage, BLACK, FontType::FF64, nullptr, false);
 
 	select_champ.button_warrior->AddElementsToShow(select_champ.warrior_image);
@@ -626,7 +626,7 @@ void m1MenuManager::DeletePotionMenu()
 void m1MenuManager::CreatePauseMenu()
 {
 	if (pause.pause_panel == nullptr) {
-		pause.pause_panel = App->gui->AddImage(0, 0, { 2698,481,314,428 }, nullptr, App->gui->screen, true, false, false, false);
+		pause.pause_panel = App->gui->AddImage(0, 0, { 2701,723,314,428 }, nullptr, App->gui->screen, true, false, false, false);
 		pause.pause_panel->SetPosRespectParent(CENTERED);
 		pause.pause_panel->SetPos(pause.pause_panel->GetLocalPosition().x, -1000);
 		
@@ -635,7 +635,7 @@ void m1MenuManager::CreatePauseMenu()
 		pause.label_resume = App->gui->AddLabel(0, 0, "Continue", pause.button_resume, BLACK, FontType::FF48, nullptr, false);
 		pause.label_resume->SetPosRespectParent(CENTERED);
 
-		pause.button_main_menu = App->gui->AddButton(55, 340, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
+		pause.button_main_menu = App->gui->AddButton(55, 335, { 1850,1637,198,50 }, { 1850,1637,198,50 }, { 1850,1637,198,50 }, this, pause.pause_panel, true, false, true, true);
 		pause.label_main_menu = App->gui->AddLabel(0, 0, "Return to main menu", pause.button_main_menu, BLACK, FontType::FF48, nullptr, false);
 		pause.label_main_menu->SetPosRespectParent(CENTERED);
 
@@ -1031,19 +1031,19 @@ void m1MenuManager::DestroyHelpAbilityMenu()
 void m1MenuManager::CreateHUD()
 {
 
-	hud.bg_hud = App->gui->AddImage(45, 630, { 2117, 158, 284, 105 }, nullptr, App->gui->screen, true, false, false, false);
+	hud.bg_hud = App->gui->AddImage(45, 630, { 2113, 192, 284, 105 }, nullptr, App->gui->screen, true, false, false, false);
 	//hud.diagonal_compass = App->gui->AddImage(925, 675, { 1876, 3084, 88, 74 }, this, hud.bg_hud, true, false, false, false);
 	//hud.vertical_compass = App->gui->AddImage(925, 670, { 1949, 3159, 82, 86 }, this, hud.bg_hud, false, false, false, false);
 
 	switch (App->scene->player_type) {
 	case PlayerType::WARRIOR:
-		hud.player_hud_image = App->gui->AddImage(18, 18, { 2135,462,51,53 }, nullptr, hud.bg_hud, true, false, false, false);
+		hud.player_hud_image = App->gui->AddImage(18, 18, { 2133,416,51,53 }, nullptr, hud.bg_hud, true, false, false, false);
 		break;
 	case PlayerType::ARCHER:
-		hud.player_hud_image = App->gui->AddImage(21, 20, { 2229,464,51,53 }, nullptr, hud.bg_hud, true, false, false, false);
+		hud.player_hud_image = App->gui->AddImage(21, 20, { 2227,416,51,53 }, nullptr, hud.bg_hud, true, false, false, false);
 		break;
 	case PlayerType::MAGE:
-		hud.player_hud_image = App->gui->AddImage(21, 20, { 2322,464,51,53 }, nullptr, hud.bg_hud, true, false, false, false);
+		hud.player_hud_image = App->gui->AddImage(21, 20, { 2320,420,51,53 }, nullptr, hud.bg_hud, true, false, false, false);
 		break;
 	}
 	hud.player_hp_bar = App->gui->AddBar(121, 8,App->scene->player->stats.max_lives, HPBAR, hud.bg_hud, nullptr);
