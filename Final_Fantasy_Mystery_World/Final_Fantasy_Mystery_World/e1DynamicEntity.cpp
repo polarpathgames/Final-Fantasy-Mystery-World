@@ -574,7 +574,7 @@ void e1DynamicEntity::CheckBasicAttackEffects(const e1Entity::EntityType & type,
 	}
 }
 
-void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks attacks)
+void e1DynamicEntity::ChangeAnimation(const Direction &dir, const State &states, Attacks attacks)
 {
 	switch (states) {
 	case State::AFTER_ATTACK: {
@@ -842,6 +842,160 @@ void e1DynamicEntity::ResetAnims()
 	anim.AbilityUp2.Reset();
 	anim.AbilityRight2.Reset();
 	
+}
+
+Animation* e1DynamicEntity::GetAnim(const AnimationState& anim_id) {
+	switch (anim_id)
+	{
+	case AnimationState::IDLE_UP:
+		return &anim.IdleUp;
+		break;
+	case AnimationState::IDLE_UP_LEFT:
+		return &anim.IdleUpLeft;
+		break;
+	case AnimationState::IDLE_UP_RIGHT:
+		return &anim.IdleUpRight;
+		break;
+	case AnimationState::IDLE_LEFT:
+		return &anim.IdleLeft;
+		break;
+	case AnimationState::IDLE_DOWN_LEFT:
+		return &anim.IdleDownLeft;
+		break;
+	case AnimationState::IDLE_DOWN:
+		return &anim.IdleDown;
+		break;
+	case AnimationState::IDLE_DOWN_RIGHT:
+		return &anim.IdleDownRight;
+		break;
+	case AnimationState::IDLE_RIGHT:
+		return &anim.IdleRight;
+		break;
+	case AnimationState::WALKING_UP:
+		return &anim.GoUp;
+		break;
+	case AnimationState::WALKING_UP_LEFT:
+		return &anim.GoUpLeft;
+		break;
+	case AnimationState::WALKING_UP_RIGHT:
+		return &anim.GoUpRight;
+		break;
+	case AnimationState::WALKING_LEFT:
+		return &anim.GoLeft;
+		break;
+	case AnimationState::WALKING_DOWN_LEFT:
+		return &anim.GoDownLeft;
+		break;
+	case AnimationState::WALKING_DOWN:
+		return &anim.GoDown;
+		break;
+	case AnimationState::WALKING_DOWN_RIGHT:
+		return &anim.GoDownRight;
+		break;
+	case AnimationState::WALKING_RIGHT:
+		return &anim.GoRight;
+		break;
+	case AnimationState::BASIC_ATTACK_UP:
+		return &anim.BasicAttackUp;
+		break;
+	case AnimationState::BASIC_ATTACK_UP_LEFT:
+		return &anim.BasicAttackUpLeft;
+		break;
+	case AnimationState::BASIC_ATTACK_UP_RIGHT:
+		return &anim.BasicAttackUpRight;
+		break;
+	case AnimationState::BASIC_ATTACK_LEFT:
+		return &anim.BasicAttackLeft;
+		break;
+	case AnimationState::BASIC_ATTACK_DOWN_LEFT:
+		return &anim.BasicAttackDownLeft;
+		break;
+	case AnimationState::BASIC_ATTACK_DOWN:
+		return &anim.BasicAttackDown;
+		break;
+	case AnimationState::BASIC_ATTACK_DOWN_RIGHT:
+		return &anim.BasicAttackDownRight;
+		break;
+	case AnimationState::BASIC_ATTACK_RIGHT:
+		return &anim.BasicAttackRight;
+		break;
+	case AnimationState::DEATH_UP:
+		return &anim.DeathUp;
+		break;
+	case AnimationState::DEATH_UP_LEFT:
+		return &anim.DeathUpLeft;
+		break;
+	case AnimationState::DEATH_UP_RIGHT:
+		return &anim.DeathUpRight;
+		break;
+	case AnimationState::DEATH_LEFT:
+		return &anim.DeathLeft;
+		break;
+	case AnimationState::DEATH_DOWN_LEFT:
+		return &anim.DeathDownLeft;
+		break;
+	case AnimationState::DEATH_DOWN:
+		return &anim.DeathDown;
+		break;
+	case AnimationState::DEATH_DOWN_RIGHT:
+		return &anim.DeathDownRight;
+		break;
+	case AnimationState::DEATH_RIGHT:
+		return &anim.DeathRight;
+		break;
+	case AnimationState::ABILITY_UP_1:
+		return &anim.AbilityUp1;
+		break;
+	case AnimationState::ABILITY_UP_LEFT_1:
+		return &anim.AbilityUpLeft1;
+		break;
+	case AnimationState::ABILITY_UP_RIGHT_1:
+		return &anim.AbilityUpRight1;
+		break;
+	case AnimationState::ABILITY_LEFT_1:
+		return &anim.AbilityLeft1;
+		break;
+	case AnimationState::ABILITY_DOWN_LEFT_1:
+		return &anim.AbilityDownLeft1;
+		break;
+	case AnimationState::ABILITY_DOWN_1:
+		return &anim.AbilityDown1;
+		break;
+	case AnimationState::ABILITY_DOWN_RIGHT_1:
+		return &anim.AbilityDownRight1;
+		break;
+	case AnimationState::ABILITY_RIGHT_1:
+		return &anim.AbilityRight1;
+		break;
+	case AnimationState::ABILITY_UP_2:
+		return &anim.AbilityUp2;
+		break;
+	case AnimationState::ABILITY_UP_LEFT_2:
+		return &anim.AbilityUpLeft2;
+		break;
+	case AnimationState::ABILITY_UP_RIGHT_2:
+		return &anim.AbilityUpRight2;
+		break;
+	case AnimationState::ABILITY_LEFT_2:
+		return &anim.AbilityLeft2;
+		break;
+	case AnimationState::ABILITY_DOWN_LEFT_2:
+		return &anim.AbilityDownLeft2;
+		break;
+	case AnimationState::ABILITY_DOWN_2:
+		return &anim.AbilityDown2;
+		break;
+	case AnimationState::ABILITY_DOWN_RIGHT_2:
+		return &anim.AbilityDownRight2;
+		break;
+	case AnimationState::ABILITY_RIGHT_2:
+		return &anim.AbilityRight2;
+		break;
+	default:
+		LOG("Any animation with id %i found", anim_id);
+		break;
+	}
+	return nullptr;
 }
 
 void e1DynamicEntity::ChangeAnimsInCutscene(const int & x, const int & y, const int & anim_num, int & pos_x, int & pos_y)

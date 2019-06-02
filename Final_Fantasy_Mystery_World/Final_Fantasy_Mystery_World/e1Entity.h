@@ -145,7 +145,6 @@ public:
 
 	pugi::xml_document	entity_file;
 	pugi::xml_node		config;
-	pugi::xml_node		node;
 
 	bool drawable = true;
 	bool allow_turn = false;

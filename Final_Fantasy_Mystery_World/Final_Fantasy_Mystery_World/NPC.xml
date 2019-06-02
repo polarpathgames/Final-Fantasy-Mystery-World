@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <data>
-  <npc name="dog" id="1">
+  <npc name="dog" id="1"> <!--id = NPC type, to do some logic associated to that npc. Can found enum in Line 13 of e1NPC.h-->
     <data>
       <pivot x="0" y="0"/>
-      <init direction="1" anim="0"/>
+      <init direction="1" state="0"/> <!--anim_id="0"-->
     </data>
     <tsx path="assets/"/>
-    <animation id="">
+    <animation id="0"> <!--enum from Line 21: e1Entity.h-->
       <frame x="0" y="0" width="0" height="0"/>
     </animation>
     <move_type id="0">

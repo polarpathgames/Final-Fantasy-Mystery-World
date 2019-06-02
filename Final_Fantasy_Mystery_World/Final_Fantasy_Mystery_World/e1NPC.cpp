@@ -22,6 +22,8 @@ bool e1NPC::LoadNPC(const char * name)
 {
 	bool ret = true;
 
+	this->name.assign(name);
+
 	static pugi::xml_document doc;
 	pugi::xml_parse_result result = doc.load_file("assets/xml/p2NPC.xml");
 
@@ -43,21 +45,37 @@ bool e1NPC::LoadNPC(const char * name)
 			ret = false;
 		}
 		else {
+
+			npc_type = (NPCType)node.attribute("id").as_int(-1);
+
 			if (node.child("tsx") != nullptr) {
 				LoadEntityData(node.child("tsx").attribute("path").as_string());
 			}
 			else {
 				pugi::xml_node n_anim = node.child("animation");
 				pugi::xml_node frame;
-				Animation temp_anim;
+				Animation* temp_anim = nullptr;
 				for (; n_anim; n_anim = n_anim.next_sibling()) {
+
+					temp_anim = GetAnim((AnimationState)n_anim.attribute("id").as_int());
+
 					for (frame = n_anim.child("frame"); frame; frame = frame.next_sibling()) {
-						temp_anim.PushBack(SDL_Rect{ frame.attribute("x").as_int(),frame.attribute("y").as_int(),
+						temp_anim->PushBack(SDL_Rect{ frame.attribute("x").as_int(),frame.attribute("y").as_int(),
 							frame.attribute("width").as_int(), frame.attribute("height").as_int() });
 					}
-
 				}
 			}
+
+			pugi::xml_node n_data = node.child("data");
+
+			if (n_data.child("init").attribute("anim_id") != nullptr) {
+				current_animation = GetAnim((AnimationState)n_data.child("init").attribute("anim_id").as_int(-1));
+			}
+			else {
+				ChangeAnimation((Direction)n_data.child("init").attribute("direction").as_int(-1), (State)n_data.child("init").attribute("state").as_int(-1));
+			}
+
+			
 		}
 
 

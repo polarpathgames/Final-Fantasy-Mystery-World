@@ -16,6 +16,13 @@ public:
 
 		NONE = -1
 	};
+	enum class MovementType {
+		STATIC,
+		RANDOM,
+		QUEUE,
+
+		NONE = -1
+	};
 
 	e1NPC(const int &x, const int &y, const char* name);
 

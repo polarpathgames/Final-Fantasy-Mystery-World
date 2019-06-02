@@ -14,11 +14,9 @@
 #include "m1Window.h"
 #include "u1Image.h"
 
-e1ShopKeeperDaughter::e1ShopKeeperDaughter(const int &x, const int &y) : e1NPC(x, y)
+e1ShopKeeperDaughter::e1ShopKeeperDaughter(const int &x, const int &y) : e1NPC(x, y, "ShopKeeperDaughter")
 {
 	LoadEntityData("assets/entities/Little_Girl.tsx");
-	name.assign("ShopKeeperDaughter");
-	npc_type = NPCType::DAUGHTER;
 	current_animation = &anim.IdleUpRight;
 	actual_tile = App->map->WorldToMap(position.x + 16, position.y + 38);
 	App->map->data.no_walkables.push_back(actual_tile + iPoint{ 0,-1 });
