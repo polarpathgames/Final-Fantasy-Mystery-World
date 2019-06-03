@@ -50,6 +50,8 @@ public:
 
 	virtual bool Update(float dt);
 
+	void Draw(float dt);
+
 	virtual bool PostUpdate() { return true; };
 
 	virtual bool Load(pugi::xml_node&);
@@ -67,6 +69,7 @@ public:
 	MovementType move_type = MovementType::NONE;
 	std::vector<NPC_move> move_vector;
 	iPoint destination = { 0,0 };
+	fPoint new_position = { 0.f,0.f };
 	std::vector<NPC_move>::const_iterator move_it;
 	float lerp_by = 0.f;
 
@@ -74,7 +77,6 @@ public:
 
 	bool interactable = false;
 	bool look_to_player = false;
-	bool start_run = false;
 };
 
 

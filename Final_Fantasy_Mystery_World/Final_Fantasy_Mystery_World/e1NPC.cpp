@@ -77,20 +77,16 @@ bool e1NPC::Update(float dt) {
 			}
 		}
 	}
-	if (App->input->GetKeyDown(SDL_SCANCODE_SPACE)) {
-		start_run = true;
-		initial_position = position;
-	}
-	if (move_type == MovementType::QUEUE && start_run) {
+
+	if (move_type == MovementType::QUEUE) {
 		if (position != destination || lerp_by < 1.0f) {
 			lerp_by += (*move_it).speed * dt;
-			position = lerp(initial_position, destination, lerp_by).AproximateToIntCast();
+			new_position = lerp(initial_position, destination, lerp_by);
+			position = new_position.AproximateToIntCast();
 		}
 		else {
-			LOG("Pos he llegao");
 			move_it++;
 			if (move_it == move_vector.end()) {
-				LOG("me vuelvo al principio del vector");
 				move_it = move_vector.begin();
 			}
 			lerp_by = 0.f;
@@ -100,6 +96,12 @@ bool e1NPC::Update(float dt) {
 	}
 
 	return true;
+}
+
+void e1NPC::Draw(float dt) {
+	if (drawable) {
+		App->render->Blit(data.tileset.texture, new_position.x, new_position.y, &(current_animation->GetCurrentFrame(dt)), true);
+	}
 }
 
 bool e1NPC::LoadNPC(const char * name)
