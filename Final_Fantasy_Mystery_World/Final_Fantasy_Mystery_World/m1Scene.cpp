@@ -296,11 +296,8 @@ bool m1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
 			App->menu_manager->CreatePauseMenu();
 			App->menu_manager->DestroyOptions();
-			//App->menu_manager->ShowHUD(true);
 			player->BlockControls(true);
 			App->menu_manager->EnableHUD(true);
-			App->menu_manager->hud.diagonal_compass->drawable = true;
-			App->menu_manager->hud.vertical_compass->drawable = false;
 			menu_state = StatesMenu::PAUSE_MENU;
 		}
 		break;

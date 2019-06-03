@@ -238,12 +238,12 @@ void e1Archer::UpdateLevel()
 {
 	App->audio->PlayFx(App->scene->fx_controller_conection);
 	stats.max_xp *= stats.level;
-	AugmentLives(stats.max_lives*0.3f, true);
-	AugmentMana(stats.max_mana*0.3f, true);
+	AugmentLives(stats.max_lives, true);
+	AugmentMana(stats.max_mana, true);
 	App->particles->CreateExplosion(nullptr, nullptr, GetPosition() + iPoint{ 0,-15 }, { 8,0,2,2 }, RANDOM, { 20,20 }, { 10,5 }, { 0,0 }, P_UP, 200, 4, { 0,-2 });
 
-	int mana = (int)stats.max_mana*0.3f;
-	int life = (int)stats.max_lives*0.3f;
+	int mana = (int)stats.max_mana;
+	int life = (int)stats.max_lives;
 
 	iPoint pos{ 0,0 };
 	pos.x = (int)(App->render->camera.x) + (position.x + pivot.x - 10) * (int)App->win->GetScale();

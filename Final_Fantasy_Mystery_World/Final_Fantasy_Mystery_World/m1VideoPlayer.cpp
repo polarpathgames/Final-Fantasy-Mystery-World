@@ -180,7 +180,7 @@ bool m1VideoPlayer::Update(float dt)
 
 bool m1VideoPlayer::PostUpdate()
 {
-	if (playing)
+	if (playing && texture_created)
 	{
 		App->render->Blit(texture, 0, 0, nullptr);
 	}
@@ -361,6 +361,7 @@ void m1VideoPlayer::CloseVideo()
 
 	SDL_DestroyTexture(texture);
 	texture = nullptr;
+	texture_created = false;
 	SDL_CloseAudio();
 	audio_buf_index = 0;
 	audio_buf_size = 0;
@@ -419,9 +420,12 @@ void m1VideoPlayer::DecodeVideo()
 		texture = SDL_CreateTexture(App->render->renderer, SDL_PIXELFORMAT_YV12, SDL_TEXTUREACCESS_STREAMING,
 			dst_w, dst_h);
 	}
-
-	SDL_UpdateYUVTexture(texture, nullptr, video.converted_frame->data[0], video.converted_frame->linesize[0], video.converted_frame->data[1],
-		video.converted_frame->linesize[1], video.converted_frame->data[2], video.converted_frame->linesize[2]);
+	else {
+		texture_created = true;
+		SDL_UpdateYUVTexture(texture, nullptr, video.converted_frame->data[0], video.converted_frame->linesize[0], video.converted_frame->data[1],
+			video.converted_frame->linesize[1], video.converted_frame->data[2], video.converted_frame->linesize[2]);
+	}
+	
 
 	// TODO 5: Synching the video to the audio.
 	// First we need to get the PTS from the FRAME that we just received.

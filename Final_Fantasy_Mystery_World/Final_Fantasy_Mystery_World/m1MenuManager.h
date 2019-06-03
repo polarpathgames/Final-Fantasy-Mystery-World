@@ -802,6 +802,8 @@ struct UI_debugscreen {
 struct UI_game_over {
 	u1Image* game_over_panel = nullptr;
 
+	u1Label* label_failed_quest = nullptr;
+
 	u1Button* button_continue_lobby = nullptr;
 	u1Label* label_continue_lobby = nullptr;
 
@@ -810,6 +812,7 @@ struct UI_game_over {
 
 	void Reset() {
 		game_over_panel = nullptr;
+		label_failed_quest = nullptr;
 		button_continue_lobby = nullptr;
 		label_continue_lobby = nullptr;
 		button_return_main = nullptr;
@@ -823,8 +826,7 @@ struct UI_HUD {
 	u1Bar* player_hp_bar = nullptr;
 	u1Bar* player_mana_bar = nullptr;
 	u1Bar* player_exp_bar = nullptr;
-	u1Image* diagonal_compass = nullptr; 	//Compass
-	u1Image* vertical_compass = nullptr;	//Compass
+	u1Label* level_label = nullptr;
 
 	void Reset() {
 		bg_hud = nullptr;
@@ -832,8 +834,7 @@ struct UI_HUD {
 		player_hp_bar = nullptr;
 		player_mana_bar = nullptr;
 		player_exp_bar = nullptr;
-		diagonal_compass = nullptr; 	//Compass
-		vertical_compass = nullptr;	//Compass
+		level_label = nullptr;
 	}
 };
 
@@ -920,7 +921,6 @@ public:
 	void DestroyHUD();
 	void EnableHUD(bool enable);
 
-	void ChangeCompass(bool shift_pressed);
 
 	void SkipMenu(bool is_cutscene);
 

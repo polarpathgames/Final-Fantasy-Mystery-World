@@ -39,6 +39,8 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 	tile_anim.speed = 5.f;
 	tile_anim.loop = false;
 
+
+
 	normal_arrow.PushBack({ 387,110,59,39 });
 	normal_arrow.PushBack({ 446,110,59,39 });
 	normal_arrow.PushBack({ 505,110,59,39 });
@@ -52,6 +54,7 @@ e1Player::e1Player(const int &x, const int &y) : e1DynamicEntity(x,y)
 	diagonal_arrow.speed = 6.f;
 
 	current_anim_arrow_move = &normal_arrow;
+
 }
 
 void e1Player::Init()
@@ -1375,7 +1378,6 @@ void e1Player::QuestControls()
 
 	if (!player_input.pressing_shift) {
 		if (state != State::MENU) {
-			App->menu_manager->ChangeCompass(false);
 			if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1 && App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX) == -1) {
 				player_input.pressing_S = true;
 			}
@@ -1392,7 +1394,6 @@ void e1Player::QuestControls()
 	}
 	else {
 		if (state != State::MENU) {
-			App->menu_manager->ChangeCompass(true);
 			if (App->input->GetAxisRaw(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTY) == 1) {
 				player_input.pressing_S = true;
 			}
@@ -1684,6 +1685,20 @@ void e1Player::UpdateExperience(int experience) {
 		stats.xp = 0;
 		UpdateLevel();
 	}
+
+	UpdateLevelLabel(1);
+}
+
+void e1Player::UpdateLevelLabel(int current_level) {
+
+	if (App->menu_manager->hud.level_label != nullptr) {
+		App->gui->DeleteUIElement(App->menu_manager->hud.level_label);
+	}
+
+
+	std::string level_string = std::to_string(stats.level);
+
+	App->menu_manager->hud.level_label = App->gui->AddLabel(65, 73, level_string.c_str(), (u1GUI*)App->menu_manager->hud.bg_hud, BLACK, FontType::FF32, App->scene, false);
 }
 
 void e1Player::ChangeArrow(Animation & anim)

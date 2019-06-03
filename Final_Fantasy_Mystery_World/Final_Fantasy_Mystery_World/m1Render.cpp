@@ -252,7 +252,7 @@ bool m1Render::Blit(SDL_Texture* texture, float x, float y, const SDL_Rect* sect
 
 	if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, flip) != 0)
 	{
-		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		//LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		ret = false;
 	}
 

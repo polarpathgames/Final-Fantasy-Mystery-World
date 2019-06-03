@@ -31,7 +31,7 @@ public:
 	int max_capacity = 0;
 	int current_quantity = 0;
 
-	int max_width = 172;
+	int max_width = 118;
 	int current_width = 0;
 	int targe_width = 0;
 	bool has_change = false;
