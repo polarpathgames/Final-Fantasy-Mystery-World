@@ -14,6 +14,7 @@
 #include "m1DialogSystem.h"
 #include "m1Map.h"
 #include "p2Math.h"
+#include "m1Cutscene.h"
 #include <string>
 
 e1NPC::e1NPC(const int &x, const int &y, const char* name) : e1DynamicEntity(x, y)
@@ -25,49 +26,55 @@ e1NPC::e1NPC(const int &x, const int &y, const char* name) : e1DynamicEntity(x, 
 
 bool e1NPC::Update(float dt) {
 
-	if (interactable && App->dialog->end_dial) {
-		if (GetPosition().DistanceTo(App->scene->player->GetPosition()) <= 50) { //distance
+	if (interactable && !App->cutscene_manager->is_executing) {
+		if (GetPosition().DistanceTo(App->scene->player->GetPosition()) <= 50) { //TODO: sustitute with local var in xml
 			if (App->scene->GetMenuState() == StatesMenu::NO_MENU) {
-				if (button_interact == nullptr) {
-					button_interact = App->gui->AddImage(0, 0, { 1524,2052,31,31 }, nullptr, App->gui->screen, true, false, false, false);
+				if (interacting == false) {
+					if (button_interact == nullptr) {
+						button_interact = App->gui->AddImage(0, 0, { 1524,2052,31,31 }, nullptr, App->gui->screen, true, false, false, false);
 
-					iPoint pos = App->gui->UIToGame({ App->scene->player->GetPosition().x, App->scene->player->position.y });
+						iPoint pos = App->gui->UIToGame({ App->scene->player->GetPosition().x, App->scene->player->position.y });
 
-					pos.x -= button_interact->section.w*0.5F;
-					pos.y -= button_interact->section.h;
+						pos.x -= button_interact->section.w*0.5F;
+						pos.y -= button_interact->section.h;
 
-					button_interact->SetPos(pos.x, pos.y);
-				}
-				else {
-					iPoint pos = App->gui->UIToGame({ App->scene->player->GetPosition().x, App->scene->player->position.y });
+						button_interact->SetPos(pos.x, pos.y);
+					}
+					else {
+						iPoint pos = App->gui->UIToGame({ App->scene->player->GetPosition().x, App->scene->player->position.y });
 
-					pos.x -= button_interact->section.w*0.5F;
-					pos.y -= button_interact->section.h;
+						pos.x -= button_interact->section.w*0.5F;
+						pos.y -= button_interact->section.h;
 
-					button_interact->SetPos(pos.x, pos.y);
+						button_interact->SetPos(pos.x, pos.y);
+					}
 				}
 
 				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
-					App->scene->player->state = State::IDLE;
-					App->scene->player->BlockControls(true);
-					//Look to player
 					if (!dialog_id.empty()) {
-						uint id = *dialog_id.begin();
-						App->dialog->PerformDialogue(id);
-						if (dialog_id.size() > 1)
-							dialog_id.pop_front();
-						App->dialog->end_dial = false;
-						if (button_interact != nullptr) {
+						if (interacting) {
+							if (App->dialog->end_dial)
+								interacting = false;
+						}
+						else {
+							App->scene->player->state = State::IDLE;
+							App->scene->player->BlockControls(true);
+							interacting = true;
+							App->dialog->end_dial = false;
+							App->audio->PlayFx(App->scene->fx_writting);
+							App->audio->PlayFx(App->scene->fx_writting);
 							App->gui->DeleteUIElement((u1GUI*)button_interact);
 							button_interact = nullptr;
+							//Look to player
+						}
+						if (interacting) {
+							uint id = *dialog_id.begin();
+							App->dialog->PerformDialogue(id);
+							if (dialog_id.size() > 1)
+								dialog_id.pop_front();
 						}
 					}
-					App->audio->PlayFx(App->scene->fx_writting);
-					App->audio->PlayFx(App->scene->fx_writting);
-					App->gui->DeleteUIElement((u1GUI*)button_interact);
-					button_interact = nullptr;
 				}
-
 			}
 		}
 		else {
@@ -78,7 +85,7 @@ bool e1NPC::Update(float dt) {
 		}
 	}
 
-	if (move_type == MovementType::QUEUE) {
+	if (move_type == MovementType::QUEUE && interacting == false) {
 		if (position != destination || lerp_by < 1.0f) {
 			lerp_by += (*move_it).speed * dt;
 			new_position = lerp(initial_position, destination, lerp_by);

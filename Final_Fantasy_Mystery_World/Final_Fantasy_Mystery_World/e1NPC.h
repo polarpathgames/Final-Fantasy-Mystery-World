@@ -76,6 +76,7 @@ public:
 	u1Image* button_interact = nullptr;
 
 	bool interactable = false;
+	bool interacting = false;
 	bool look_to_player = false;
 };
 
