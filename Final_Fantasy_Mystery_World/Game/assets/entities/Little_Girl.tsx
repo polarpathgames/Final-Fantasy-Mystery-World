@@ -5,6 +5,9 @@
   <properties>
    <property name="speed" type="int" value="7"/>
   </properties>
+  <objectgroup draworder="index">
+   <object id="1" name="pivot" x="10" y="30" width="1" height="1"/>
+  </objectgroup>
   <animation>
    <frame tileid="0" duration="100"/>
    <frame tileid="1" duration="100"/>
