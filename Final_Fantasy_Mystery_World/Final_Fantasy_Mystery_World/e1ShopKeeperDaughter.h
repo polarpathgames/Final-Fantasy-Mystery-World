@@ -13,6 +13,7 @@ public:
 	bool PreUpdate();
 
 	bool Update(float dt);
+	void Draw(float dt);
 	void IdAnimToEnum();
 
 private:

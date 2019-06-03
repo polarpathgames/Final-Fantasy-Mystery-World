@@ -78,6 +78,10 @@ bool e1ShopKeeperDaughter::Update(float dt)
 	return true;
 }
 
+void e1ShopKeeperDaughter::Draw(float dt) {
+	if (drawable)
+		App->render->Blit(data.tileset.texture, position.x, position.y, &(current_animation->GetCurrentFrame(dt)), true);
+}
 
 
 void e1ShopKeeperDaughter::IdAnimToEnum() //Assign every id animation to enum animation
