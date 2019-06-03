@@ -18,6 +18,6 @@
     <dialog_tree>
       <dialog id="0"/>
     </dialog_tree>
-    <interaction value="true" look_to_player="true"/>
+    <interaction value="true" look_to_player="1"/> <!--look_to_player id 0: no look | 1: look in 4 directions | 2: look in 8 directions-->
   </npc>
 </data>

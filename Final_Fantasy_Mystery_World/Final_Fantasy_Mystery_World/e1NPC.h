@@ -7,6 +7,8 @@
 #include "p2PerfTimer.h"
 #include <vector>
 
+class u1Image;
+
 class e1NPC : public e1DynamicEntity
 {
 public:
@@ -61,6 +63,8 @@ public:
 
 	MovementType move_type = MovementType::NONE;
 	std::vector<NPC_move> move_vector;
+
+	u1Image* button_interact = nullptr;
 
 	bool interactable = false;
 	bool look_to_player = false;

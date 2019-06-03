@@ -6,6 +6,11 @@
 #include "m1EntityManager.h"
 #include "Brofiler/Brofiler.h"
 #include "p2Log.h"
+#include "m1Scene.h"
+#include "e1Player.h"
+#include "m1GUI.h"
+#include "u1Image.h"
+#include "m1Input.h"
 #include <string>
 
 e1NPC::e1NPC(const int &x, const int &y, const char* name) : e1DynamicEntity(x, y)
@@ -16,6 +21,57 @@ e1NPC::e1NPC(const int &x, const int &y, const char* name) : e1DynamicEntity(x, 
 }
 
 bool e1NPC::Update(float dt) {
+
+	if (interactable) {
+		if (position.DistanceTo(App->scene->player->position) <= 1) { //distance
+			if (App->scene->GetMenuState() == StatesMenu::NO_MENU) {
+				if (button_interact == nullptr) {
+					button_interact = App->gui->AddImage(0, 0, { 1524,2052,31,31 }, nullptr, App->gui->screen, true, false, false, false);
+
+					iPoint pos = App->gui->UIToGame({ App->scene->player->GetPosition().x, App->scene->player->position.y });
+
+					pos.x -= button_interact->section.w*0.5F;
+					pos.y -= button_interact->section.h;
+
+					button_interact->SetPos(pos.x, pos.y);
+				}
+				else {
+					iPoint pos = App->gui->UIToGame({ App->scene->player->GetPosition().x, App->scene->player->position.y });
+
+					pos.x -= button_interact->section.w*0.5F;
+					pos.y -= button_interact->section.h;
+
+					button_interact->SetPos(pos.x, pos.y);
+				}
+
+				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN && !App->cutscene_manager->is_executing) {
+					App->scene->player->state = State::IDLE;
+					App->scene->player->BlockControls(true);
+					ChangeAnimation(player_pos);
+					App->audio->PlayFx(App->scene->fx_writting);
+					App->dialog->end_dial = false;
+					App->audio->PlayFx(App->scene->fx_writting);
+					//App->menu_manager->ShowHUD(false);
+					App->gui->DeleteUIElement((u1GUI*)button_interact);
+					button_interact = nullptr;
+					App->scene->player->BlockControls(true);
+					App->menu_manager->EnableHUD(false);
+
+					if (static_type == Type::FOUNTAIN || static_type == Type::QUEST_FOUNTAIN) {
+						App->menu_manager->CreateFountainBars();
+					}
+
+				}
+
+			}
+			else {
+				if (button_interact != nullptr) {
+					App->gui->DeleteUIElement((u1GUI*)button_interact);
+					button_interact = nullptr;
+				}
+			}
+		}
+	}
 
 	return true;
 }

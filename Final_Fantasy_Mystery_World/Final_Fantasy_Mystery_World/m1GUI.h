@@ -100,6 +100,8 @@ public:
 
 	void CreateScreen();
 
+	iPoint UIToGame(const iPoint& point);
+
 	bool DeleteUIElement(u1GUI * element);
 	void BFS(std::list<u1GUI *> &visited, u1GUI * elem);
 	bool DeleteAllUIElements();
