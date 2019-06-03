@@ -29,6 +29,7 @@ public:
 	struct NPC_move {
 		int num_tiles = 0;
 		Direction direction = Direction::NONE;
+		float speed = 0.f;
 	};
 
 	e1NPC(const int &x, const int &y, const char* name);
@@ -56,6 +57,8 @@ public:
 	virtual bool Save(pugi::xml_node&) const;
 
 	virtual bool CleanUp();
+
+	iPoint CalculateDestination(const Direction & dir, const int num_tiles);
 	
 public:
 	NPCType npc_type = NPCType::NONE;
@@ -63,11 +66,15 @@ public:
 
 	MovementType move_type = MovementType::NONE;
 	std::vector<NPC_move> move_vector;
+	iPoint destination = { 0,0 };
+	std::vector<NPC_move>::const_iterator move_it;
+	float lerp_by = 0.f;
 
 	u1Image* button_interact = nullptr;
 
 	bool interactable = false;
 	bool look_to_player = false;
+	bool start_run = false;
 };
 
 

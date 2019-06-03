@@ -13,7 +13,10 @@
       </animation>
     </animations>
     <move_type id="2">
-      <move type="right" num_tiles="0"/>
+      <move type="right" num_tiles="5" speed="0.6"/>
+      <move type="down" num_tiles="5" speed="0.6"/>
+      <move type="left" num_tiles="5" speed="0.6"/>
+      <move type="up" num_tiles="5" speed="0.6"/>
     </move_type>
     <dialog_tree>
       <dialog id="2"/>

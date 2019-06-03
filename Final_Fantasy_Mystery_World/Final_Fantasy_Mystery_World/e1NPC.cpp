@@ -12,6 +12,8 @@
 #include "u1Image.h"
 #include "m1Input.h"
 #include "m1DialogSystem.h"
+#include "m1Map.h"
+#include "p2Math.h"
 #include <string>
 
 e1NPC::e1NPC(const int &x, const int &y, const char* name) : e1DynamicEntity(x, y)
@@ -73,6 +75,27 @@ bool e1NPC::Update(float dt) {
 				App->gui->DeleteUIElement((u1GUI*)button_interact);
 				button_interact = nullptr;
 			}
+		}
+	}
+	if (App->input->GetKeyDown(SDL_SCANCODE_SPACE)) {
+		start_run = true;
+		initial_position = position;
+	}
+	if (move_type == MovementType::QUEUE && start_run) {
+		if (position != destination || lerp_by < 1.0f) {
+			lerp_by += (*move_it).speed * dt;
+			position = lerp(initial_position, destination, lerp_by).AproximateToIntCast();
+		}
+		else {
+			LOG("Pos he llegao");
+			move_it++;
+			if (move_it == move_vector.end()) {
+				LOG("me vuelvo al principio del vector");
+				move_it = move_vector.begin();
+			}
+			lerp_by = 0.f;
+			initial_position = position;
+			destination = CalculateDestination((*move_it).direction, (*move_it).num_tiles);
 		}
 	}
 
@@ -150,19 +173,49 @@ void e1NPC::LoadMovement(pugi::xml_node &node)
 			NPC_move tmp;
 
 			if (strcmp(dir, "right") == 0)
-				tmp.direction = Direction::RIGHT;
+				tmp.direction = Direction::DOWN_RIGHT;
 			else if (strcmp(dir, "left") == 0)
-				tmp.direction = Direction::LEFT;
+				tmp.direction = Direction::UP_LEFT;
 			else if (strcmp(dir, "up") == 0)
-				tmp.direction = Direction::UP;
+				tmp.direction = Direction::UP_RIGHT;
 			else if (strcmp(dir, "down") == 0)
-				tmp.direction = Direction::DOWN;
+				tmp.direction = Direction::DOWN_LEFT;
 
 			tmp.num_tiles = n_move.attribute("num_tiles").as_int();
+			tmp.speed = n_move.attribute("speed").as_float();
 
 			move_vector.push_back(tmp);
 		}
+		move_it = move_vector.begin();
+		if (move_it != move_vector.end()) {
+			CalculateDestination((*move_it).direction, (*move_it).num_tiles);
+		}
 	}
+}
+
+iPoint e1NPC::CalculateDestination(const Direction & dir, const int num_tiles)
+{
+	actual_tile = App->map->WorldToMap(position.x, position.y);
+	switch (dir)
+	{
+	case Direction::UP_LEFT:
+		destination = actual_tile + iPoint{ -1, 0 } * num_tiles;
+		break;
+	case Direction::DOWN_LEFT:
+		destination = actual_tile + iPoint{ 0, 1 } * num_tiles;
+		break;
+	case Direction::UP_RIGHT:
+		destination = actual_tile + iPoint{ 0, -1 } * num_tiles;
+		break;
+	case Direction::DOWN_RIGHT:
+		destination = actual_tile + iPoint{ 1, 0 } * num_tiles;
+		break;
+	default:
+		LOG("No direction found");
+		break;
+	}
+	destination = App->map->MapToWorldCentered(destination.x+1, destination.y+2) - pivot;
+	return destination;
 }
 
 void e1NPC::LoadBasicData(pugi::xml_node &node)
