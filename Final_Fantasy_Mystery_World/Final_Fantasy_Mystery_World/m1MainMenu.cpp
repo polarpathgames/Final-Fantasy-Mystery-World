@@ -149,6 +149,7 @@ bool m1MainMenu::Interact(u1GUI* interaction)
 			App->entity_manager->Enable();
 			App->map->Enable();
 			App->scene->Enable();
+			App->map->lobby_state = LobbyState::NORMAL_LOBBY;
 			App->map->ChangeMap(Maps::TUTORIAL);
 			App->scene->player->Init();
 			App->scene->player->CenterPlayerInTile();
