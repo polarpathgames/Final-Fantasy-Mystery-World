@@ -6,8 +6,9 @@
       <init anim_id="4" direction="1" state="0"/>
       <size width="16" height="28"/>
       <distance_to_interact value="50"/>
+      <is_quest value="false"/>
     </data>
-    <!--tsx path="assets/"/-->
+    <tsx path="assets/entities/BabyDrake.tsx"/>
     <animations texture="assets/sprites/MonteBlanc.png">
       <animation id="4">  <!--enum from Line 21: e1Entity.h-->
         <frame x="56" y="15" width="16" height="28"/>

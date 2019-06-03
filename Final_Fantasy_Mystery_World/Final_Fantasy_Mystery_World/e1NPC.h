@@ -48,6 +48,8 @@ public:
 
 	virtual bool Update(float dt);
 
+	void DoMovement(float dt);
+
 	void DestroyInteractionButton();
 
 	void CreateInteractionButton();
@@ -73,6 +75,7 @@ public:
 	bool interactable = false;
 	bool interacting = false;
 	bool look_to_player = false;
+	bool is_quest_npc = false;
 };
 
 

@@ -27,61 +27,67 @@ e1NPC::e1NPC(const int &x, const int &y, const char* name) : e1DynamicEntity(x, 
 bool e1NPC::Update(float dt) {
 
 	if (interactable && !App->cutscene_manager->is_executing) {
-		if (GetPosition().DistanceTo(App->scene->player->GetPosition()) <= distance_to_interact) {
-			if (App->scene->GetMenuState() == StatesMenu::NO_MENU) {
-				if (interacting == false) {
-					CreateInteractionButton();
-				}
-				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
-					if (!dialog_id.empty()) {
-						if (interacting) {
-							if (App->dialog->end_dial)
-								interacting = false;
-						}
-						else {
-							App->scene->player->state = State::IDLE;
-							App->scene->player->BlockControls(true);
-							interacting = true;
-							App->dialog->end_dial = false;
-							App->audio->PlayFx(App->scene->fx_writting);
-							App->audio->PlayFx(App->scene->fx_writting);
-							DestroyInteractionButton();
-							//Look to player
-						}
-						if (interacting) {
-							uint id = *dialog_id.begin();
-							App->dialog->PerformDialogue(id);
-							if (dialog_id.size() > 1)
-								dialog_id.pop_front();
+		if (!is_quest_npc || (App->map->quest_rooms != nullptr && App->map->quest_rooms->actual_room != nullptr && !App->entity_manager->ThereAreEnemies())) {
+			if (GetPosition().DistanceTo(App->scene->player->GetPosition()) <= distance_to_interact) {
+				if (App->scene->GetMenuState() == StatesMenu::NO_MENU) {
+					if (interacting == false) {
+						CreateInteractionButton();
+					}
+					if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+						if (!dialog_id.empty()) {
+							if (interacting) {
+								if (App->dialog->end_dial)
+									interacting = false;
+							}
+							else {
+								App->scene->player->state = State::IDLE;
+								App->scene->player->BlockControls(true);
+								interacting = true;
+								App->dialog->end_dial = false;
+								App->audio->PlayFx(App->scene->fx_writting);
+								DestroyInteractionButton();
+								//Look to player
+							}
+							if (interacting) {
+								uint id = *dialog_id.begin();
+								App->dialog->PerformDialogue(id);
+								if (dialog_id.size() > 1)
+									dialog_id.pop_front();
+							}
 						}
 					}
 				}
 			}
-		}
-		else {
-			DestroyInteractionButton();
+			else {
+				DestroyInteractionButton();
+			}
 		}
 	}
 
 	if (move_type == MovementType::QUEUE && interacting == false) {
-		if (position != destination || lerp_by < 1.0f) {
-			lerp_by += (*move_it).speed * dt;
-			new_position = lerp(initial_position, destination, lerp_by);
-			position = new_position.AproximateToIntCast();
-		}
-		else {
-			move_it++;
-			if (move_it == move_vector.end()) {
-				move_it = move_vector.begin();
-			}
-			lerp_by = 0.f;
-			initial_position = position;
-			destination = CalculateDestination((*move_it).direction, (*move_it).num_tiles);
-			ChangeAnimation((*move_it).direction, State::WALKING);
-		}
+		DoMovement(dt);
 	}
 
 	return true;
+}
+
+void e1NPC::DoMovement(float dt)
+{
+	if (position != destination || lerp_by < 1.0f) {
+		lerp_by += (*move_it).speed * dt;
+		new_position = lerp(initial_position, destination, lerp_by);
+		position = new_position.AproximateToIntCast();
+	}
+	else {
+		move_it++;
+		if (move_it == move_vector.end()) {
+			move_it = move_vector.begin();
+		}
+		lerp_by = 0.f;
+		initial_position = position;
+		destination = CalculateDestination((*move_it).direction, (*move_it).num_tiles);
+		ChangeAnimation((*move_it).direction, State::WALKING);
+	}
 }
 
 void e1NPC::DestroyInteractionButton()
@@ -213,7 +219,7 @@ void e1NPC::LoadMovement(pugi::xml_node &node)
 
 iPoint e1NPC::CalculateDestination(const Direction & dir, const int num_tiles)
 {
-	actual_tile = App->map->WorldToMap(position.x, position.y);
+	actual_tile = App->map->WorldToMap(GetPosition().x, GetPosition().y);
 	switch (dir)
 	{
 	case Direction::UP_LEFT:
@@ -232,7 +238,7 @@ iPoint e1NPC::CalculateDestination(const Direction & dir, const int num_tiles)
 		LOG("No direction found");
 		break;
 	}
-	destination = App->map->MapToWorldCentered(destination.x+1, destination.y+2) - pivot;
+	destination = App->map->MapToWorldCentered(destination.x-1, destination.y) - pivot;
 	return destination;
 }
 
@@ -254,6 +260,7 @@ void e1NPC::LoadBasicData(pugi::xml_node &node)
 
 	size.create(n_data.child("size").attribute("width").as_int(), n_data.child("size").attribute("height").as_int());
 	distance_to_interact = n_data.child("distance_to_interact").attribute("value").as_int();
+	is_quest_npc = n_data.child("is_quest").attribute("value").as_bool("false");
 }
 
 void e1NPC::LoadGraphics(pugi::xml_node &node)

@@ -39,7 +39,7 @@ bool m1DialogSystem::Start()
 bool m1DialogSystem::Update(float dt)
 {
 	bool ret = true;
-	LOG("%i", end_dial);
+
 	if (!end_dial) {
 		if (strcmp(actual_text.data(), hole_text.data()) != 0) {
 			text_speed += 50 * dt;

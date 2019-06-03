@@ -34,7 +34,6 @@ bool e1ShopKeeperDaughter::PreUpdate()
 
 bool e1ShopKeeperDaughter::Update(float dt)
 {
-	if (App->map->quest_rooms != nullptr && App->map->quest_rooms->actual_room != nullptr && !App->entity_manager->ThereAreEnemies() && !App->cutscene_manager->is_executing) {
 		if (actual_tile.DistanceTo(App->scene->player->actual_tile) <= 1) {
 			if (!App->globals.CutSceneAfterBossTutorialPlayed) {
 				CreateInteractionButton();
@@ -53,7 +52,6 @@ bool e1ShopKeeperDaughter::Update(float dt)
 		if (App->globals.CutSceneAfterBossTutorialPlayed && !App->cutscene_manager->is_executing) {
 			App->fade_to_black->FadeToBlack(Maps::LOBBY);
 		}
-	}
 	return true;
 }
 
