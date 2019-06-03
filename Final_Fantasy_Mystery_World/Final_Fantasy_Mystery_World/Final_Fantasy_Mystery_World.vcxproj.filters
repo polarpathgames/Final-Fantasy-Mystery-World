@@ -592,6 +592,9 @@
     <None Include="Game\assets\entities\Warrior.tsx">
       <Filter>Entities\XML</Filter>
     </None>
+    <None Include="..\Game\assets\entities\Little_Girl.tsx">
+      <Filter>Entities\XML</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cutscenes">

@@ -27,29 +27,11 @@ e1NPC::e1NPC(const int &x, const int &y, const char* name) : e1DynamicEntity(x, 
 bool e1NPC::Update(float dt) {
 
 	if (interactable && !App->cutscene_manager->is_executing) {
-		if (GetPosition().DistanceTo(App->scene->player->GetPosition()) <= 50) { //TODO: sustitute with local var in xml
+		if (GetPosition().DistanceTo(App->scene->player->GetPosition()) <= distance_to_interact) {
 			if (App->scene->GetMenuState() == StatesMenu::NO_MENU) {
 				if (interacting == false) {
-					if (button_interact == nullptr) {
-						button_interact = App->gui->AddImage(0, 0, { 1524,2052,31,31 }, nullptr, App->gui->screen, true, false, false, false);
-
-						iPoint pos = App->gui->UIToGame({ App->scene->player->GetPosition().x, App->scene->player->position.y });
-
-						pos.x -= button_interact->section.w*0.5F;
-						pos.y -= button_interact->section.h;
-
-						button_interact->SetPos(pos.x, pos.y);
-					}
-					else {
-						iPoint pos = App->gui->UIToGame({ App->scene->player->GetPosition().x, App->scene->player->position.y });
-
-						pos.x -= button_interact->section.w*0.5F;
-						pos.y -= button_interact->section.h;
-
-						button_interact->SetPos(pos.x, pos.y);
-					}
+					CreateInteractionButton();
 				}
-
 				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 					if (!dialog_id.empty()) {
 						if (interacting) {
@@ -63,8 +45,7 @@ bool e1NPC::Update(float dt) {
 							App->dialog->end_dial = false;
 							App->audio->PlayFx(App->scene->fx_writting);
 							App->audio->PlayFx(App->scene->fx_writting);
-							App->gui->DeleteUIElement((u1GUI*)button_interact);
-							button_interact = nullptr;
+							DestroyInteractionButton();
 							//Look to player
 						}
 						if (interacting) {
@@ -78,10 +59,7 @@ bool e1NPC::Update(float dt) {
 			}
 		}
 		else {
-			if (button_interact != nullptr) {
-				App->gui->DeleteUIElement((u1GUI*)button_interact);
-				button_interact = nullptr;
-			}
+			DestroyInteractionButton();
 		}
 	}
 
@@ -99,10 +77,41 @@ bool e1NPC::Update(float dt) {
 			lerp_by = 0.f;
 			initial_position = position;
 			destination = CalculateDestination((*move_it).direction, (*move_it).num_tiles);
+			ChangeAnimation((*move_it).direction, State::WALKING);
 		}
 	}
 
 	return true;
+}
+
+void e1NPC::DestroyInteractionButton()
+{
+	if (button_interact != nullptr) {
+		App->gui->DeleteUIElement((u1GUI*)button_interact);
+		button_interact = nullptr;
+	}
+}
+
+void e1NPC::CreateInteractionButton()
+{
+	if (button_interact == nullptr) {
+		button_interact = App->gui->AddImage(0, 0, { 1524,2052,31,31 }, nullptr, App->gui->screen, true, false, false, false);
+
+		iPoint pos = App->gui->UIToGame({ App->scene->player->GetPosition().x, App->scene->player->position.y });
+
+		pos.x -= button_interact->section.w*0.5F;
+		pos.y -= button_interact->section.h;
+
+		button_interact->SetPos(pos.x, pos.y);
+	}
+	else {
+		iPoint pos = App->gui->UIToGame({ App->scene->player->GetPosition().x, App->scene->player->position.y });
+
+		pos.x -= button_interact->section.w*0.5F;
+		pos.y -= button_interact->section.h;
+
+		button_interact->SetPos(pos.x, pos.y);
+	}
 }
 
 void e1NPC::Draw(float dt) {
@@ -244,6 +253,7 @@ void e1NPC::LoadBasicData(pugi::xml_node &node)
 	SetPivot(n_data.child("pivot").attribute("x").as_int(), n_data.child("pivot").attribute("y").as_int());
 
 	size.create(n_data.child("size").attribute("width").as_int(), n_data.child("size").attribute("height").as_int());
+	distance_to_interact = n_data.child("distance_to_interact").attribute("value").as_int();
 }
 
 void e1NPC::LoadGraphics(pugi::xml_node &node)
@@ -269,20 +279,6 @@ void e1NPC::LoadGraphics(pugi::xml_node &node)
 
 e1NPC::~e1NPC()
 {
+	if (button_interact != nullptr)
+		App->gui->DeleteUIElement(button_interact);
 }
-
-bool e1NPC::Load(pugi::xml_node &)
-{
-	return true;
-}
-
-bool e1NPC::Save(pugi::xml_node &) const
-{
-	return true;
-}
-
-bool e1NPC::CleanUp()
-{
-	return true;
-}
-

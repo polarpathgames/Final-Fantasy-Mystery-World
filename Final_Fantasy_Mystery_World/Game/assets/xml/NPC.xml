@@ -5,6 +5,7 @@
       <pivot x="8" y="25"/>
       <init anim_id="4" direction="1" state="0"/>
       <size width="16" height="28"/>
+      <distance_to_interact value="50"/>
     </data>
     <!--tsx path="assets/"/-->
     <animations texture="assets/sprites/MonteBlanc.png">

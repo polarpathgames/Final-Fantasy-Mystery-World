@@ -14,9 +14,5 @@ public:
 
 	bool Update(float dt);
 	void Draw(float dt);
-	void IdAnimToEnum();
-
-private:
-	u1Image* button_interact = nullptr;
 };
 #endif 

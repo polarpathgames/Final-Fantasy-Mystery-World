@@ -34,7 +34,7 @@ public:
 
 	e1NPC(const int &x, const int &y, const char* name);
 
-	virtual ~e1NPC();
+	~e1NPC();
 
 	bool LoadNPC(const char* name);
 
@@ -46,19 +46,13 @@ public:
 
 	void LoadGraphics(pugi::xml_node &node);
 
-	virtual bool PreUpdate() { return true; };
-
 	virtual bool Update(float dt);
 
+	void DestroyInteractionButton();
+
+	void CreateInteractionButton();
+
 	void Draw(float dt);
-
-	virtual bool PostUpdate() { return true; };
-
-	virtual bool Load(pugi::xml_node&);
-
-	virtual bool Save(pugi::xml_node&) const;
-
-	virtual bool CleanUp();
 
 	iPoint CalculateDestination(const Direction & dir, const int num_tiles);
 	
@@ -74,6 +68,7 @@ public:
 	float lerp_by = 0.f;
 
 	u1Image* button_interact = nullptr;
+	int distance_to_interact = 0;
 
 	bool interactable = false;
 	bool interacting = false;

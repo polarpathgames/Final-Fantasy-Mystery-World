@@ -154,6 +154,7 @@ bool e1Entity::LoadEntityData(const char* file) {
 		data.animations[i].FrameCount(_node.child("animation").child("frame"));
 		data.animations[i].frames = DBG_NEW SDL_Rect[data.animations[i].num_frames];
 		data.animations[i].id = _node.attribute("id").as_uint();
+		data.animations[i].animType = (AnimationState)_node.attribute("type").as_int(-1);
 		data.animations[i].speed = _node.child("properties").child("property").attribute("value").as_int(6);
 		_node = _node.next_sibling("tile");
 	}
@@ -170,14 +171,14 @@ bool e1Entity::LoadEntityData(const char* file) {
 		_node = _node.next_sibling("tile");
 	}
 	//LOG all animation information
-	for (uint i = 0; i < data.num_animations; ++i) {
+	/*for (uint i = 0; i < data.num_animations; ++i) {
 		LOG("Animation %i--------", data.animations[i].id);
 		for (uint j = 0; j < data.animations[i].num_frames; ++j) {
 			LOG("frame %i x: %i y: %i w: %i h: %i",
 				j, data.animations[i].frames[j].x, data.animations[i].frames[j].y,
 				data.animations[i].frames[j].w, data.animations[i].frames[j].h);
 		}
-	}
+	}*/
 
 	//Load data
 	LoadProperties(entity_file.child("tileset").child("properties").child("property")); //Load properties

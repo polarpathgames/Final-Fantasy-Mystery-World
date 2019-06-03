@@ -290,6 +290,7 @@
     <Image Include="Game\assets\ff_icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Game\assets\entities\Little_Girl.tsx" />
     <None Include="Game\assets\entities\CarnivorousPlant.tsx" />
     <None Include="Game\assets\entities\Enemy.tsx" />
     <None Include="Game\assets\entities\Warrior.tsx" />
