@@ -11,6 +11,7 @@
 #include "m1GUI.h"
 #include "u1Image.h"
 #include "m1Input.h"
+#include "m1DialogSystem.h"
 #include <string>
 
 e1NPC::e1NPC(const int &x, const int &y, const char* name) : e1DynamicEntity(x, y)
@@ -22,8 +23,8 @@ e1NPC::e1NPC(const int &x, const int &y, const char* name) : e1DynamicEntity(x, 
 
 bool e1NPC::Update(float dt) {
 
-	if (interactable) {
-		if (position.DistanceTo(App->scene->player->position) <= 1) { //distance
+	if (interactable && App->dialog->end_dial) {
+		if (GetPosition().DistanceTo(App->scene->player->GetPosition()) <= 50) { //distance
 			if (App->scene->GetMenuState() == StatesMenu::NO_MENU) {
 				if (button_interact == nullptr) {
 					button_interact = App->gui->AddImage(0, 0, { 1524,2052,31,31 }, nullptr, App->gui->screen, true, false, false, false);
@@ -44,31 +45,33 @@ bool e1NPC::Update(float dt) {
 					button_interact->SetPos(pos.x, pos.y);
 				}
 
-				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN && !App->cutscene_manager->is_executing) {
+				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 					App->scene->player->state = State::IDLE;
 					App->scene->player->BlockControls(true);
-					ChangeAnimation(player_pos);
+					//Look to player
+					if (!dialog_id.empty()) {
+						uint id = *dialog_id.begin();
+						App->dialog->PerformDialogue(id);
+						if (dialog_id.size() > 1)
+							dialog_id.pop_front();
+						App->dialog->end_dial = false;
+						if (button_interact != nullptr) {
+							App->gui->DeleteUIElement((u1GUI*)button_interact);
+							button_interact = nullptr;
+						}
+					}
 					App->audio->PlayFx(App->scene->fx_writting);
-					App->dialog->end_dial = false;
 					App->audio->PlayFx(App->scene->fx_writting);
-					//App->menu_manager->ShowHUD(false);
 					App->gui->DeleteUIElement((u1GUI*)button_interact);
 					button_interact = nullptr;
-					App->scene->player->BlockControls(true);
-					App->menu_manager->EnableHUD(false);
-
-					if (static_type == Type::FOUNTAIN || static_type == Type::QUEST_FOUNTAIN) {
-						App->menu_manager->CreateFountainBars();
-					}
-
 				}
 
 			}
-			else {
-				if (button_interact != nullptr) {
-					App->gui->DeleteUIElement((u1GUI*)button_interact);
-					button_interact = nullptr;
-				}
+		}
+		else {
+			if (button_interact != nullptr) {
+				App->gui->DeleteUIElement((u1GUI*)button_interact);
+				button_interact = nullptr;
 			}
 		}
 	}

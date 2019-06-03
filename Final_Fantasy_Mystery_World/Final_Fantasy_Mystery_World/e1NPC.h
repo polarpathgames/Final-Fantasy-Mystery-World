@@ -59,7 +59,7 @@ public:
 	
 public:
 	NPCType npc_type = NPCType::NONE;
-	std::vector<uint> dialog_id;
+	std::list<uint> dialog_id;
 
 	MovementType move_type = MovementType::NONE;
 	std::vector<NPC_move> move_vector;
