@@ -55,6 +55,19 @@ bool e1NPC::Update(float dt) {
 									dialog_id.pop_front();
 							}
 						}
+						DoInteraction();
+						state = State::IDLE;
+						if (has_directions) {
+							int tmp = (int)App->scene->player->direction;
+							if (tmp >= 4) {
+								tmp -= 4;
+							}
+							else {
+								tmp += 4;
+							}
+							direction = (Direction)tmp;
+						}
+						ChangeAnimation(direction, state);
 					}
 				}
 			}
@@ -65,7 +78,9 @@ bool e1NPC::Update(float dt) {
 	}
 
 	if (move_type == MovementType::QUEUE && interacting == false) {
+		state = State::WALKING;
 		DoMovement(dt);
+		ChangeAnimation((*move_it).direction, state);
 	}
 
 	return true;
@@ -86,7 +101,20 @@ void e1NPC::DoMovement(float dt)
 		lerp_by = 0.f;
 		initial_position = position;
 		destination = CalculateDestination((*move_it).direction, (*move_it).num_tiles);
-		ChangeAnimation((*move_it).direction, State::WALKING);
+	}
+}
+
+void e1NPC::DoInteraction() {
+	switch (npc_type)
+	{
+	case e1NPC::NPCType::DAUGHTER:
+		break;
+	case e1NPC::NPCType::DOG:
+		break;
+	case e1NPC::NPCType::NONE:
+		break;
+	default:
+		break;
 	}
 }
 
@@ -261,6 +289,7 @@ void e1NPC::LoadBasicData(pugi::xml_node &node)
 	size.create(n_data.child("size").attribute("width").as_int(), n_data.child("size").attribute("height").as_int());
 	distance_to_interact = n_data.child("distance_to_interact").attribute("value").as_int();
 	is_quest_npc = n_data.child("is_quest").attribute("value").as_bool("false");
+	has_directions = n_data.child("has_directions").attribute("value").as_bool();
 }
 
 void e1NPC::LoadGraphics(pugi::xml_node &node)

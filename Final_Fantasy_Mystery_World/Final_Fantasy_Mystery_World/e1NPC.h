@@ -49,6 +49,7 @@ public:
 	virtual bool Update(float dt);
 
 	void DoMovement(float dt);
+	void DoInteraction();
 
 	void DestroyInteractionButton();
 
@@ -71,6 +72,7 @@ public:
 
 	u1Image* button_interact = nullptr;
 	int distance_to_interact = 0;
+	bool has_directions = false;
 
 	bool interactable = false;
 	bool interacting = false;

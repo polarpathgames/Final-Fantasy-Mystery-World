@@ -7,6 +7,7 @@
       <size width="16" height="28"/>
       <distance_to_interact value="50"/>
       <is_quest value="false"/>
+      <has_directions value="true"/>
     </data>
     <tsx path="assets/entities/BabyDrake.tsx"/>
     <animations texture="assets/sprites/MonteBlanc.png">
