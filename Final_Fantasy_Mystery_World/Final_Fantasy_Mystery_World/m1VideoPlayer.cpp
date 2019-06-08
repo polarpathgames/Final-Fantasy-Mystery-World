@@ -458,7 +458,6 @@ void m1VideoPlayer::DecodeVideo()
 	static char title[256];
 	sprintf_s(title, 256, " Video seconds: %.2f Audio seconds: %.2f Calculated delay %.2f",
 		video.clock*av_q2d(video.stream->time_base), audio.clock*av_q2d(audio.stream->time_base), delay);
-	App->win->SetTitle(title);
 
 
 	//Prepare VideoCallback on ms
