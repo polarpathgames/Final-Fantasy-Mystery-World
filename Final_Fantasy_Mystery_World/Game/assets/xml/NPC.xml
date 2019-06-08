@@ -5,24 +5,26 @@
       <pivot x="8" y="25"/>
       <init anim_id="4" direction="1" state="0"/>
       <size width="16" height="28"/>
-      <distance_to_interact value="50"/>
+      <distance_to_interact value="50"/> <!--50 by default-->
       <is_quest value="false"/>
       <has_directions value="true"/>
     </data>
+    <!--to load graphis you can use a tsx file from Tiled like all other entities-->
     <tsx path="assets/entities/BabyDrake.tsx"/>
+    <!--or you can do it manually-->
     <animations texture="assets/sprites/MonteBlanc.png">
       <animation id="4">  <!--enum from Line 21: e1Entity.h-->
         <frame x="56" y="15" width="16" height="28"/>
       </animation>
     </animations>
-    <move_type id="2">
+    <move_type id="2"> <!--0: to not move | 1: to move random(not implemented) | 2: to make a queue of movements-->
       <move type="right" num_tiles="5" speed="0.6"/>
       <move type="down" num_tiles="5" speed="0.6"/>
       <move type="left" num_tiles="5" speed="0.6"/>
       <move type="up" num_tiles="5" speed="0.6"/>
     </move_type>
     <dialog_tree>
-      <dialog id="2"/>
+      <dialog id="2"/> <!--You can add dialog you want from dialog system. The last you push will be the dialog that will have when player use all dialogs-->
     </dialog_tree>
     <interaction value="true" look_to_player="1"/> <!--look_to_player id 0: no look | 1: look in 4 directions | 2: look in 8 directions-->
   </npc>
