@@ -805,6 +805,37 @@ void e1DynamicEntity::ChangeAnimation(const Direction &dir, const State &states,
 			break;
 		}
 	} break;
+	case State::WALKING: {
+		switch (dir) {
+		case Direction::DOWN:
+			current_animation = &anim.GoDown;
+			break;
+		case Direction::UP:
+			current_animation = &anim.GoUp;
+			break;
+		case Direction::RIGHT:
+			current_animation = &anim.GoRight;
+			break;
+		case Direction::LEFT:
+			current_animation = &anim.GoLeft;
+			break;
+		case Direction::UP_RIGHT:
+			current_animation = &anim.GoUpRight;
+			break;
+		case Direction::DOWN_RIGHT:
+			current_animation = &anim.GoDownRight;
+			break;
+		case Direction::DOWN_LEFT:
+			current_animation = &anim.GoDownLeft;
+			break;
+		case Direction::UP_LEFT:
+			current_animation = &anim.GoUpLeft;
+			break;
+		default:
+			LOG("No direction type found");
+			break;
+		}
+	} break;
 	default:
 		LOG("No state type found");
 		break;
