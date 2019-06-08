@@ -6,6 +6,7 @@
       <id num="1"></id>
       <type>paceful</type>
       <music>assets/audio/music/6.Final Fantasy TA - Unhideable Anxiety.ogg</music>
+      <cut_scene>assets/xml/CutsceneBegin.xml</cut_scene>
     </room>
     <room>
       <location>Tutorial_Diagonal.tmx</location>
