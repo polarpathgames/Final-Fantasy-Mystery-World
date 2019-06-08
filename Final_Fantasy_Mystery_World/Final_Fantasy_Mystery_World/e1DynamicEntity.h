@@ -102,6 +102,8 @@ public:
 
 	void ChangeAnimation(const Direction &dir, const State &states, Attacks attacks = Attacks::NONE);
 
+	void LookTo(const iPoint & tile);
+
 	void ResetAnims();
 
 	void ChangeAnimsInCutscene(const int &x, const int &y, const int & anim_num, int &pos_x, int &pos_y);
