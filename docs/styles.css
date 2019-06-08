@@ -31,7 +31,7 @@ body {
       text-decoration: underline;
   }
   
-  header .logo a {
+  header nav ul li.logo a {
     background-image: url("logo.png");
     background-size: 150px;
     background-repeat: no-repeat;
