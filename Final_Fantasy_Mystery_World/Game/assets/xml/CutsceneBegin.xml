@@ -1,0 +1,19 @@
+<cutscenes>
+  <actions>
+    <cutscene action="move_camera">
+      <time start="0" duration="3000" origin_x="602" origin_y="-855"  speed="0.006" destination_x ="218"  destination_y="-663" stop_goal="true"/>
+    </cutscene>
+    <cutscene action="modify_image" name="mystery">
+      <time start ="4500" type="activate"/>
+    </cutscene>
+     <cutscene action="modify_image" name="mystery">
+      <time start ="5500" type="deactivate"/>
+    </cutscene>
+   <cutscene action="move_camera">
+      <time start="6000" duration="3000" origin_x="218" origin_y="-663"  speed="0.005" destination_x ="410"  destination_y="-759" stop_goal="true"/>
+    </cutscene>
+  </actions>
+  <elements>
+    <element type="image" name ="mystery" pos_x ="320" pos_y="440" rect_x="1882" rect_y="3196" rect_w="52" rect_h="53" active="false"/>
+  </elements>
+</cutscenes>
