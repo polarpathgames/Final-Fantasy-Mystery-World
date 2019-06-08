@@ -1,0 +1,9 @@
+<cutscenes>
+  <actions>
+    <cutscene action="move_camera">
+      <time start="0" duration="10000" origin_x="890" origin_y="-807"  speed="0.007" destination_x ="650"  destination_y="-687" stop_goal="true" from_player="true"/>
+    </cutscene>
+  </actions>
+  <elements>
+  </elements>
+</cutscenes>

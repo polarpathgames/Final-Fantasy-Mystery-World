@@ -66,9 +66,6 @@ bool m1DialogSystem::Update(float dt)
 		}
 	}
 		
-	if (end_dial)
-		LOG("TRUEEEEEEEE");
-	else LOG("FALSEEEEEE");
 	return ret;
 }
 

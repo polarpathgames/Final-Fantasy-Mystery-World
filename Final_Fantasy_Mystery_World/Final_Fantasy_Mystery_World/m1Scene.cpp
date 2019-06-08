@@ -585,6 +585,10 @@ void m1Scene::ShitFunctionJAJA()
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyQuest3.xml");
 		App->globals.CutSceneHomeToSleeQuest3 = true;
 	}
+	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && App->globals.CutsceneDrake3 &&!App->globals.CutsceneLittleDrake) {
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLittleDrake.xml");
+		App->globals.CutsceneLittleDrake = true;
+	}
 	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && App->globals.CutsceneFinalGame && !App->globals.CutsceneFinalFinalGame) {
 		App->map->lobby_state = LobbyState::NORMAL_LOBBY;
 		App->map->ChangeMap(Maps::LOBBY);

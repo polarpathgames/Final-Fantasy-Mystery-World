@@ -260,6 +260,8 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\assets\xml\config.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneBegin.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneLittleDrake.xml" />
     <Xml Include="..\Game\assets\xml\Rooms.xml" />
     <Xml Include="Game\assets\xml\CutsceneAbility2Quest2.xml" />
     <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml">
@@ -282,9 +284,6 @@
     <Xml Include="Game\assets\xml\CutsceneTutorial.xml" />
     <Xml Include="Game\assets\xml\Dialog.xml" />
     <Xml Include="Game\assets\xml\CutsceneBlockPass.xml" />
-    <Xml Include="Game\assets\xml\Rooms.xml">
-      <SubType>Designer</SubType>
-    </Xml>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
