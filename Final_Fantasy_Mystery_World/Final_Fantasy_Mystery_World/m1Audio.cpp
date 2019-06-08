@@ -27,14 +27,14 @@ bool m1Audio::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	//load config var
-	// THIS IN CONFIG.XML
-	volume = 30;
-	volume_fx = 100;
-	max_volume = 100;
-	default_music_fade_time = 0.5F;
-	volume_change_ratio = 10;
-	mute = false;
-	volume_general = 100;
+	volume = config.child("volume").attribute("value").as_uint();
+	volume_fx = config.child("volume_fx").attribute("value").as_uint();
+	max_volume = config.child("max_volume").attribute("value").as_uint();
+	default_music_fade_time = config.child("default_music_fade_time").attribute("value").as_float();
+	volume_change_ratio = config.child("volume_change_ratio").attribute("value").as_uint();
+	mute = config.child("mute").attribute("value").as_bool();
+	volume_general = config.child("volume_general").attribute("value").as_uint();
+
 	if (mute)
 	{
 		Mix_VolumeMusic(0);
@@ -42,9 +42,7 @@ bool m1Audio::Awake(pugi::xml_node& config)
 	else
 	{
 		Mix_VolumeMusic(volume);
-
 	}
-
 	
 	return ret;
 }

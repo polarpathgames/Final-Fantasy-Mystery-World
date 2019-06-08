@@ -574,7 +574,7 @@ void e1DynamicEntity::CheckBasicAttackEffects(const e1Entity::EntityType & type,
 	}
 }
 
-void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks attacks)
+void e1DynamicEntity::ChangeAnimation(const Direction &dir, const State &states, Attacks attacks)
 {
 	switch (states) {
 	case State::AFTER_ATTACK: {
@@ -805,14 +805,147 @@ void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks att
 			break;
 		}
 	} break;
+	case State::WALKING: {
+		switch (dir) {
+		case Direction::DOWN:
+			current_animation = &anim.GoDown;
+			break;
+		case Direction::UP:
+			current_animation = &anim.GoUp;
+			break;
+		case Direction::RIGHT:
+			current_animation = &anim.GoRight;
+			break;
+		case Direction::LEFT:
+			current_animation = &anim.GoLeft;
+			break;
+		case Direction::UP_RIGHT:
+			current_animation = &anim.GoUpRight;
+			break;
+		case Direction::DOWN_RIGHT:
+			current_animation = &anim.GoDownRight;
+			break;
+		case Direction::DOWN_LEFT:
+			current_animation = &anim.GoDownLeft;
+			break;
+		case Direction::UP_LEFT:
+			current_animation = &anim.GoUpLeft;
+			break;
+		default:
+			LOG("No direction type found");
+			break;
+		}
+	} break;
 	default:
 		LOG("No state type found");
 		break;
 	}
+}
 
+void e1DynamicEntity::LookTo(const iPoint &tile) {
+	iPoint distance = tile - actual_tile;
 
+	if (abs(distance.x) == abs(distance.y)) {
+		if (distance.x > 0) {
+			if (distance.y > 0) {
+				direction = Direction::DOWN;
+			}
+			else if (distance.y < 0) {
+				direction = Direction::RIGHT;
+			}
+		}
+		if (distance.x < 0) {
+			if (distance.y > 0) {
+				direction = Direction::LEFT;
+			}
+			else if (distance.y < 0) {
+				direction = Direction::UP;
+			}
+		}
+	}
 
+	else if (distance.x == 0) {
+		if (distance.y < 0) {
+			direction = Direction::UP_RIGHT;
+		}
+		else if (distance.y > 0) {
+			direction = Direction::DOWN_LEFT;
+		}
+	}
 
+	else if (distance.y == 0) {
+		if (distance.x < 0) {
+			direction = Direction::UP_LEFT;
+		}
+		else if (distance.x > 0) {
+			direction = Direction::DOWN_RIGHT;
+		}
+	}
+
+	else {
+		if (distance.x > 0) {
+			if (distance.y > 0) {
+				if (distance.y > distance.x) {
+					direction = Direction::DOWN_LEFT;
+				}
+				else {
+					direction = Direction::DOWN_RIGHT;
+				}
+			}
+			else {
+				if (abs(distance.y) > distance.x) {
+					direction = Direction::UP_RIGHT;
+				}
+				else {
+					direction = Direction::DOWN_RIGHT;
+				}
+			}
+		}
+		else if (distance.x < 0) {
+			if (distance.y > 0) {
+				if (distance.y > abs(distance.x)) {
+					direction = Direction::DOWN_LEFT;
+				}
+				else {
+					direction = Direction::UP_LEFT;
+				}
+			}
+			else {
+				if (distance.y > distance.x) {
+					direction = Direction::UP_LEFT;
+				}
+				else {
+					direction = Direction::UP_RIGHT;
+				}
+			}
+		}
+	}
+	/*float degree = atan2f(distance.y, distance.x);
+
+	if (degree == 90.0f) {
+		direction = Direction::DOWN_LEFT;
+	}
+	else if (degree == -90.0f) {
+		direction = Direction::UP_RIGHT;
+	}
+	else if (degree == 0.0f) {
+		direction = Direction::DOWN_RIGHT;
+	}
+	else if (degree == -180.0f) {
+		direction = Direction::UP_LEFT;
+	}
+	else if (IN_RANGE(degree, 90, 0)) {
+		direction = Direction::DOWN;
+	}
+	else if (IN_RANGE(degree, 0, -90)) {
+		direction = Direction::DOWN;
+	}
+	else if (IN_RANGE(degree, 90, 0)) {
+		direction = Direction::DOWN;
+	else if (IN_RANGE(degree, 90, 0)) {
+		direction = Direction::DOWN;
+	}
+	}*/
 }
 
 void e1DynamicEntity::ResetAnims()

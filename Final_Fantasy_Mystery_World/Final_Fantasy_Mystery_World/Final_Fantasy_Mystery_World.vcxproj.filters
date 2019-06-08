@@ -513,65 +513,65 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneBlockPass.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneFinalRoom.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneLobbyTutorial.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneMiddleRoom.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneTutorial.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
     <Xml Include="Game\assets\xml\Dialog.xml">
       <Filter>XML</Filter>
     </Xml>
     <Xml Include="Game\assets\xml\Rooms.xml">
       <Filter>XML</Filter>
     </Xml>
-    <Xml Include="Game\assets\xml\CutsceneAbility2Quest2.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneFinalRoomQuest2.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneHomeSleep.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneQueenQuest2.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneLobbyQuest2.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneHomeSleep2.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneDrakeQuest3.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneFinalGame.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneLobbyCredits.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneLobbyQuest3.xml">
-      <Filter>Cutscenes\XML</Filter>
-    </Xml>
     <Xml Include="..\Game\assets\xml\config.xml">
       <Filter>XML</Filter>
     </Xml>
     <Xml Include="..\Game\assets\xml\Rooms.xml">
       <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\CutsceneDrakeQuest3.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\CutsceneFinalGame.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\CutsceneFinalRoom.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\CutsceneFinalRoomQuest2.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\CutsceneHomeSleep.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\CutsceneHomeSleep2.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\CutsceneLobbyCredits.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\CutsceneLobbyQuest2.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\CutsceneLobbyQuest3.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\CutsceneLobbyTutorial.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\CutsceneMiddleRoom.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\CutsceneQueenQuest2.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\CutsceneTutorial.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\CutsceneAbility2Quest2.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\CutsceneAfterBossTutorial.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\CutsceneBlockPass.xml">
+      <Filter>Cutscenes\XML</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>
