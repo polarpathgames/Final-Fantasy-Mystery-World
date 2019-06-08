@@ -14,7 +14,7 @@ enum class Attacks {
 };
 
 enum class Direction {
-	UP, DOWN, RIGHT, LEFT, UP_LEFT, DOWN_LEFT, UP_RIGHT, DOWN_RIGHT, NONE
+	UP, UP_RIGHT, RIGHT, DOWN_RIGHT,DOWN,DOWN_LEFT,LEFT,UP_LEFT, NONE = -1
 };
 
 struct animation {
