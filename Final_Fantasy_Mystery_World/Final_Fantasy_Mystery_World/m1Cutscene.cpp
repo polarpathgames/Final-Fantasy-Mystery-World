@@ -78,63 +78,7 @@ bool m1CutScene::LoadCutscene(std::string path)
 	{
 		ret = true;
 
-		c1CutsceneAction* cutscene_action = nullptr;
-
-		for (pugi::xml_node cutscene_action_node = cutscene_file.first_child().child("actions").child("cutscene"); cutscene_action_node; cutscene_action_node = cutscene_action_node.next_sibling())
-		{
-			std::string action = cutscene_action_node.attribute("action").as_string();
-
-			uint start = cutscene_action_node.child("time").attribute("start").as_uint();
-			uint duration = cutscene_action_node.child("time").attribute("duration").as_uint();
-
-			if (action == "move_camera")
-			{
-				cutscene_action = DBG_NEW c1CutsceneMoveCamera(start, duration, 
-					cutscene_action_node.child("time").attribute("origin_x").as_int(App->render->camera.x), cutscene_action_node.child("time").attribute("origin_y").as_int(App->render->camera.y),
-					cutscene_action_node.child("time").attribute("destination_x").as_int(-1 * (App->scene->player->position.x - App->render->camera.w * 0.5F)), cutscene_action_node.child("time").attribute("destination_y").as_int(-1*(App->scene->player->position.y + App->render->camera.h * 0.5F)),
-					cutscene_action_node.child("time").attribute("speed").as_float(), cutscene_action_node.child("time").attribute("stop_goal").as_bool(false));
-			}
-			else if (action == "move_entity")
-			{
-				cutscene_action = DBG_NEW c1CutsceneMoveEntity(start, duration,
-					cutscene_action_node.child("time").attribute("speed_x").as_float(), cutscene_action_node.child("time").attribute("speed_y").as_float(),
-					cutscene_action_node.attribute("entity").as_string());
-			}
-			else if (action == "modify_text")
-			{
-				cutscene_action = DBG_NEW c1CutsceneModifyText(start, duration,
-					cutscene_action_node.attribute("name").as_string(),
-					cutscene_action_node.child("time").attribute("type").as_string(),
-					cutscene_action_node.child("time").attribute("text").as_string());
-			}
-			else if (action == "modify_image")
-			{
-				cutscene_action = DBG_NEW c1CutsceneModifyImage(start, duration,
-					cutscene_action_node.attribute("name").as_string(),
-					cutscene_action_node.child("time").attribute("type").as_string());
-			}
-			else if (action == "delete_entity")
-			{
-				cutscene_action = DBG_NEW c1CutSceneDeleteEntity(start, duration, cutscene_action_node.attribute("entity").as_string());
-
-			}
-			else if (action == "vibration")
-			{
-				cutscene_action = DBG_NEW c1CutsceneVibration(start, duration);
-			}
-			else if (action == "fade")
-			{
-				cutscene_action = DBG_NEW c1CutsceneFadeToBlack(start, duration, cutscene_action_node.child("time").attribute("fade").as_float());
-			}
-			else if (action == "add_audio")
-			{
-				cutscene_action = DBG_NEW c1CutSceneAddAudio(start, duration, cutscene_action_node.attribute("entity").as_string(), cutscene_action_node.attribute("path").as_string());
-			}
-			actions.push_back(cutscene_action);
-		}
-
 		c1CutsceneElement* cutscene_element = nullptr;
-
 
 		for (pugi::xml_node cutscene_element_node = cutscene_file.first_child().child("elements").child("element"); cutscene_element_node; cutscene_element_node = cutscene_element_node.next_sibling())
 		{
@@ -171,6 +115,62 @@ bool m1CutScene::LoadCutscene(std::string path)
 
 			cutscene_element->active = cutscene_element_node.attribute("active").as_bool(true);
 			elements.insert(std::pair <std::string, c1CutsceneElement*>(name, cutscene_element));
+		}
+
+		c1CutsceneAction* cutscene_action = nullptr;
+
+		for (pugi::xml_node cutscene_action_node = cutscene_file.first_child().child("actions").child("cutscene"); cutscene_action_node; cutscene_action_node = cutscene_action_node.next_sibling())
+		{
+			std::string action = cutscene_action_node.attribute("action").as_string();
+
+			uint start = cutscene_action_node.child("time").attribute("start").as_uint();
+			uint duration = cutscene_action_node.child("time").attribute("duration").as_uint();
+
+			if (action == "move_camera")
+			{
+				cutscene_action = DBG_NEW c1CutsceneMoveCamera(start, duration, 
+					cutscene_action_node.child("time").attribute("origin_x").as_int(App->render->camera.x), cutscene_action_node.child("time").attribute("origin_y").as_int(App->render->camera.y),
+					cutscene_action_node.child("time").attribute("destination_x").as_int(-1 * (App->scene->player->position.x - App->render->camera.w * 0.5F)), cutscene_action_node.child("time").attribute("destination_y").as_int(-1*(App->scene->player->position.y + App->render->camera.h * 0.5F)),
+					cutscene_action_node.child("time").attribute("speed").as_float(), cutscene_action_node.child("time").attribute("stop_goal").as_bool(false));
+			}
+			else if (action == "move_entity")
+			{
+				cutscene_action = DBG_NEW c1CutsceneMoveEntity(start, duration,
+					cutscene_action_node.child("time").attribute("speed_x").as_float(), cutscene_action_node.child("time").attribute("speed_y").as_float(),
+					cutscene_action_node.attribute("entity").as_string(), 
+					(Direction)cutscene_action_node.child("time").attribute("init_direction").as_int(-1), (Direction)cutscene_action_node.child("time").attribute("end_direction").as_int(-1));
+			}
+			else if (action == "modify_text")
+			{
+				cutscene_action = DBG_NEW c1CutsceneModifyText(start, duration,
+					cutscene_action_node.attribute("name").as_string(),
+					cutscene_action_node.child("time").attribute("type").as_string(),
+					cutscene_action_node.child("time").attribute("text").as_string());
+			}
+			else if (action == "modify_image")
+			{
+				cutscene_action = DBG_NEW c1CutsceneModifyImage(start, duration,
+					cutscene_action_node.attribute("name").as_string(),
+					cutscene_action_node.child("time").attribute("type").as_string());
+			}
+			else if (action == "delete_entity")
+			{
+				cutscene_action = DBG_NEW c1CutSceneDeleteEntity(start, duration, cutscene_action_node.attribute("entity").as_string());
+
+			}
+			else if (action == "vibration")
+			{
+				cutscene_action = DBG_NEW c1CutsceneVibration(start, duration);
+			}
+			else if (action == "fade")
+			{
+				cutscene_action = DBG_NEW c1CutsceneFadeToBlack(start, duration, cutscene_action_node.child("time").attribute("fade").as_float());
+			}
+			else if (action == "add_audio")
+			{
+				cutscene_action = DBG_NEW c1CutSceneAddAudio(start, duration, cutscene_action_node.attribute("entity").as_string(), cutscene_action_node.attribute("path").as_string());
+			}
+			actions.push_back(cutscene_action);
 		}
 	}
 

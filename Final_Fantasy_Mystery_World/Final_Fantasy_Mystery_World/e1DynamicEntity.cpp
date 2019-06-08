@@ -574,7 +574,7 @@ void e1DynamicEntity::CheckBasicAttackEffects(const e1Entity::EntityType & type,
 	}
 }
 
-void e1DynamicEntity::ChangeAnimation(Direction &dir, State &states, Attacks attacks)
+void e1DynamicEntity::ChangeAnimation(const Direction &dir, const State &states, Attacks attacks)
 {
 	switch (states) {
 	case State::AFTER_ATTACK: {

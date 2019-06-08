@@ -100,7 +100,7 @@ public:
 
 	void CheckBasicAttackEffects(const e1Entity::EntityType &type, const Direction & direction, const int &attack_damage);
 
-	void ChangeAnimation(Direction &dir, State &states, Attacks attacks = Attacks::NONE);
+	void ChangeAnimation(const Direction &dir, const State &states, Attacks attacks = Attacks::NONE);
 
 	void ResetAnims();
 
