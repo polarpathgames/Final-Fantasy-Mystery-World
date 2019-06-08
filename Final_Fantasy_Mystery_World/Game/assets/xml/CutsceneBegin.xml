@@ -3,6 +3,9 @@
     <cutscene action="move_camera">
       <time start="0" duration="3000" origin_x="602" origin_y="-855"  speed="0.006" destination_x ="218"  destination_y="-663" stop_goal="true"/>
     </cutscene>
+    <cutscene action="move_entity" entity="player">
+      <time start="1000" duration="1000" speed_x="0" speed_y="0" init_direction="1"/>
+    </cutscene>
     <cutscene action="modify_image" name="mystery">
       <time start ="4500" type="activate"/>
     </cutscene>
@@ -15,5 +18,6 @@
   </actions>
   <elements>
     <element type="image" name ="mystery" pos_x ="320" pos_y="440" rect_x="1882" rect_y="3196" rect_w="52" rect_h="53" active="false"/>
+    <element type="entity" name="player" pos_x="0" pos_y="0"/>
   </elements>
 </cutscenes>
