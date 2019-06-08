@@ -101,7 +101,9 @@ bool m1MainMenu::Update(float dt)
 
 bool m1MainMenu::CleanUp()
 {
-	App->gui->DeleteAllUIElements();
+	if (!App->ClosingGame())
+		App->gui->DeleteAllUIElements();
+	
 	App->audio->ClearMusic();
 	App->audio->ClearFx();
 

@@ -142,6 +142,7 @@ public:
 
 	//Exit
 	void QuitGame();
+	inline bool ClosingGame() {	return quit_game; }
 
 	bool GetPause();
 	bool ChangePause();
