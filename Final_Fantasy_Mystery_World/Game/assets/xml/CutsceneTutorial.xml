@@ -7,7 +7,7 @@
       <time start="3500" duration="1000" origin_x="-22" origin_y="-687"  speed="0.007" destination_x ="248"  destination_y="-789" stop_goal="true"/>
     </cutscene>
     <cutscene action="move_entity" entity="daughter">
-      <time start="4500" duration="650" speed_x="-160" speed_y="80"/>
+      <time start="4500" duration="650" speed_x="-160" speed_y="80" init_direction="-1" end_direction="-1"/>
     </cutscene>
     <cutscene action="add_audio" entity="daughter" path="assets/audio/sfx/MC_Shield.wav">
     </cutscene>
