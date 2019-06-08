@@ -530,7 +530,8 @@ bool m1GUI::DeleteAllUIElements()
 	ret = DeleteUIElement(screen);
 	screen = nullptr;
 	SDL_assert(ui_list.size() == 0);
-	CreateScreen();
+	if (!App->ClosingGame())
+		CreateScreen();
 	focus = nullptr;
 
 	return ret;
