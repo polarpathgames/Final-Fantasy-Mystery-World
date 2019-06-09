@@ -853,7 +853,8 @@ struct UI_CONGRATUALTIONS {
 enum class AbilityType {
 	ABILITY1,
 	FLASH,
-	ABILITY3
+	ABILITY3,
+	LB_USE_ABILITY
 };
 
 class m1MenuManager :public m1Module {

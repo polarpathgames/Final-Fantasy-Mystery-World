@@ -493,7 +493,7 @@ bool m1DialogSystem::Interact(u1GUI* interaction)
 				   App->scene->SetMenuState(StatesMenu::HELP_ATTACK_MENU);
 				   break;
 			   case 90: //old statue tutorial ATTACK
-				   App->menu_manager->CreateHelpAbilityMenu(AbilityType::ABILITY1);
+				   App->menu_manager->CreateHelpAbilityMenu(AbilityType::LB_USE_ABILITY);
 				   App->scene->SetMenuState(StatesMenu::HELP_ABILITY_MENU);
 				   break;
 			   case 43: // go to quest 2 in lobby ice
