@@ -63,7 +63,6 @@ struct GlobalGameAdvances
 	bool CutsceneBegin = false;
 	bool CutsceneLittleDrake = false;
 	bool CutsceneDrake3 = false;
-	bool Ability3PanelShowed = false;
 	std::string player_name;
 
 	void Reset() {
@@ -97,7 +96,6 @@ struct GlobalGameAdvances
 		CutsceneBegin = false;
 		CutsceneLittleDrake = false;
 		CutsceneDrake3 = false;
-		Ability3PanelShowed = false;
 	}
 
 };

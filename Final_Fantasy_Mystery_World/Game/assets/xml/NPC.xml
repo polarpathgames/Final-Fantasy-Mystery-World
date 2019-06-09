@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+  <npc name="dog" id="1"> <!--id = NPC type, to do some logic associated to that npc. Can found enum in Line 13 of e1NPC.h-->
+    <data>
+      <pivot x="8" y="25"/>
+      <init anim_id="4" direction="1" state="0"/>
+      <size width="16" height="28"/>
+      <distance_to_interact value="50"/> <!--50 by default-->
+      <is_quest value="false"/>
+      <has_directions value="true"/>
+    </data>
+    <!--to load graphis you can use a tsx file from Tiled like all other entities-->
+    <tsx path="assets/entities/BabyDrake.tsx"/>
+    <!--or you can do it manually-->
+    <animations texture="assets/sprites/MonteBlanc.png">
+      <animation id="4">  <!--enum from Line 21: e1Entity.h-->
+        <frame x="56" y="15" width="16" height="28"/>
+      </animation>
+    </animations>
+    <move_type id="2"> <!--0: to not move | 1: to move random(not implemented) | 2: to make a queue of movements-->
+      <move type="right" num_tiles="5" speed="0.6"/>
+      <move type="down" num_tiles="5" speed="0.6"/>
+      <move type="left" num_tiles="5" speed="0.6"/>
+      <move type="up" num_tiles="5" speed="0.6"/>
+    </move_type>
+    <dialog_tree>
+      <dialog id="14"/> <!--You can add dialog you want from dialog system. The last you push will be the dialog that will have when player use all dialogs-->
+    </dialog_tree>
+    <interaction value="true" look_to_player="1"/> <!--look_to_player id 0: no look | 1: look in 4 directions | 2: look in 8 directions-->
+  </npc>
+
+  <npc name="mufi" id="2">                                                                                 <!--MUFI-->
+    <!--id = NPC type, to do some logic associated to that npc. Can found enum in Line 13 of e1NPC.h-->
+    <data>
+      <pivot x="8" y="25"/>
+      <init anim_id="4" direction="1" state="0"/>
+      <size width="16" height="28"/>
+      <distance_to_interact value="50"/>
+      <!--50 by default-->
+      <is_quest value="false"/>
+      <has_directions value="true"/>
+    </data>
+    <!--to load graphis you can use a tsx file from Tiled like all other entities-->
+    <tsx path="assets/entities/BabyDrake.tsx"/>
+    <!--or you can do it manually-->
+    <animations texture="assets/sprites/MonteBlanc.png">
+      <animation id="4">
+        <!--enum from Line 21: e1Entity.h-->
+        <frame x="56" y="15" width="16" height="28"/>
+      </animation>
+    </animations>
+    <move_type id="2">
+      <!--0: to not move | 1: to move random(not implemented) | 2: to make a queue of movements-->
+      <move type="right" num_tiles="5" speed="0.6"/>
+      <move type="down" num_tiles="5" speed="0.6"/>
+      <move type="left" num_tiles="5" speed="0.6"/>
+      <move type="up" num_tiles="5" speed="0.6"/>
+    </move_type>
+    <dialog_tree>
+      <dialog id="15"/>
+      <!--You can add dialog you want from dialog system. The last you push will be the dialog that will have when player use all dialogs-->
+    </dialog_tree>
+    <interaction value="true" look_to_player="1"/>
+    <!--look_to_player id 0: no look | 1: look in 4 directions | 2: look in 8 directions-->
+  </npc>
+
+  <npc name="wise" id="3">                                                                                    <!--WISE-->
+    <!--id = NPC type, to do some logic associated to that npc. Can found enum in Line 13 of e1NPC.h-->
+    <data>
+      <pivot x="8" y="25"/>
+      <init anim_id="4" direction="1" state="0"/>
+      <size width="16" height="28"/>
+      <distance_to_interact value="50"/>
+      <!--50 by default-->
+      <is_quest value="false"/>
+      <has_directions value="true"/>
+    </data>
+    <!--to load graphis you can use a tsx file from Tiled like all other entities-->
+    <!--or you can do it manually-->
+    <animations texture="assets/sprites/wise.png">
+      <animation id="4">
+        <!--enum from Line 21: e1Entity.h-->
+        <frame x="56" y="15" width="16" height="28"/>
+      </animation>
+    </animations>
+    <move_type id="0">
+      <!--0: to not move | 1: to move random(not implemented) | 2: to make a queue of movements-->
+      <move type="right" num_tiles="5" speed="0.6"/>
+      <move type="down" num_tiles="5" speed="0.6"/>
+      <move type="left" num_tiles="5" speed="0.6"/>
+      <move type="up" num_tiles="5" speed="0.6"/>
+    </move_type>
+    <dialog_tree>
+      <dialog id="21"/>
+      <!--You can add dialog you want from dialog system. The last you push will be the dialog that will have when player use all dialogs-->
+    </dialog_tree>
+    <interaction value="true" look_to_player="1"/>
+    <!--look_to_player id 0: no look | 1: look in 4 directions | 2: look in 8 directions-->
+  </npc>
+
+  <npc name="snowman_hater" id="4">                                                                               <!--SNOWMAN_HATER-->
+    <!--id = NPC type, to do some logic associated to that npc. Can found enum in Line 13 of e1NPC.h-->
+    <data>
+      <pivot x="8" y="25"/>
+      <init anim_id="4" direction="1" state="0"/>
+      <size width="16" height="28"/>
+      <distance_to_interact value="50"/>
+      <!--50 by default-->
+      <is_quest value="false"/>
+      <has_directions value="true"/>
+    </data>
+    <!--to load graphis you can use a tsx file from Tiled like all other entities-->
+    <tsx path="assets/entities/BabyDrake.tsx"/>
+    <!--or you can do it manually-->
+    <animations texture="assets/sprites/MonteBlanc.png">
+      <animation id="4">
+        <!--enum from Line 21: e1Entity.h-->
+        <frame x="56" y="15" width="16" height="28"/>
+      </animation>
+    </animations>
+    <move_type id="0">
+      <!--0: to not move | 1: to move random(not implemented) | 2: to make a queue of movements-->
+      <move type="right" num_tiles="5" speed="0.6"/>
+      <move type="down" num_tiles="5" speed="0.6"/>
+      <move type="left" num_tiles="5" speed="0.6"/>
+      <move type="up" num_tiles="5" speed="0.6"/>
+    </move_type>
+    <dialog_tree>
+      <dialog id="16"/>
+      <!--You can add dialog you want from dialog system. The last you push will be the dialog that will have when player use all dialogs-->
+    </dialog_tree>
+    <interaction value="true" look_to_player="1"/>
+    <!--look_to_player id 0: no look | 1: look in 4 directions | 2: look in 8 directions-->
+  </npc>
+
+  <npc name="worried_man" id="5">                                                                     <!--WORRIED_MAN-->
+    <!--id = NPC type, to do some logic associated to that npc. Can found enum in Line 13 of e1NPC.h-->
+    <data>
+      <pivot x="8" y="25"/>
+      <init anim_id="4" direction="1" state="0"/>
+      <size width="16" height="28"/>
+      <distance_to_interact value="50"/>
+      <!--50 by default-->
+      <is_quest value="false"/>
+      <has_directions value="true"/>
+    </data>
+    <!--to load graphis you can use a tsx file from Tiled like all other entities-->
+    <tsx path="assets/entities/BabyDrake.tsx"/>
+    <!--or you can do it manually-->
+    <animations texture="assets/sprites/MonteBlanc.png">
+      <animation id="4">
+        <!--enum from Line 21: e1Entity.h-->
+        <frame x="56" y="15" width="16" height="28"/>
+      </animation>
+    </animations>
+    <move_type id="2">
+      <!--0: to not move | 1: to move random(not implemented) | 2: to make a queue of movements-->
+      <move type="right" num_tiles="3" speed="0.6"/>
+      <move type="left" num_tiles="3" speed="0.6"/>
+    </move_type>
+    <dialog_tree>
+      <dialog id="17"/>
+      <!--You can add dialog you want from dialog system. The last you push will be the dialog that will have when player use all dialogs-->
+    </dialog_tree>
+    <interaction value="true" look_to_player="1"/>
+    <!--look_to_player id 0: no look | 1: look in 4 directions | 2: look in 8 directions-->
+  </npc>
+
+  <npc name="casual_villager" id="6">                                                                       <!--CASUAL_VILLAGER-->
+    <!--id = NPC type, to do some logic associated to that npc. Can found enum in Line 13 of e1NPC.h-->
+    <data>
+      <pivot x="8" y="25"/>
+      <init anim_id="4" direction="1" state="0"/>
+      <size width="16" height="28"/>
+      <distance_to_interact value="50"/>
+      <!--50 by default-->
+      <is_quest value="false"/>
+      <has_directions value="true"/>
+    </data>
+    <!--to load graphis you can use a tsx file from Tiled like all other entities-->
+    <tsx path="assets/entities/BabyDrake.tsx"/>
+    <!--or you can do it manually-->
+    <animations texture="assets/sprites/MonteBlanc.png">
+      <animation id="4">
+        <!--enum from Line 21: e1Entity.h-->
+        <frame x="56" y="15" width="16" height="28"/>
+      </animation>
+    </animations>
+    <move_type id="0">
+      <!--0: to not move | 1: to move random(not implemented) | 2: to make a queue of movements-->
+      <move type="right" num_tiles="5" speed="0.6"/>
+      <move type="down" num_tiles="5" speed="0.6"/>
+      <move type="left" num_tiles="5" speed="0.6"/>
+      <move type="up" num_tiles="5" speed="0.6"/>
+    </move_type>
+    <dialog_tree>
+      <dialog id="19"/>
+      <!--You can add dialog you want from dialog system. The last you push will be the dialog that will have when player use all dialogs-->
+    </dialog_tree>
+    <interaction value="true" look_to_player="1"/>
+    <!--look_to_player id 0: no look | 1: look in 4 directions | 2: look in 8 directions-->
+  </npc>
+
+  <npc name="casual_villager2" id="7">                                                                     <!--CASUAL_VILLAGER2-->
+    <!--id = NPC type, to do some logic associated to that npc. Can found enum in Line 13 of e1NPC.h-->
+    <data>
+      <pivot x="8" y="25"/>
+      <init anim_id="4" direction="1" state="0"/>
+      <size width="16" height="28"/>
+      <distance_to_interact value="50"/>
+      <!--50 by default-->
+      <is_quest value="false"/>
+      <has_directions value="true"/>
+    </data>
+    <!--to load graphis you can use a tsx file from Tiled like all other entities-->
+    <tsx path="assets/entities/BabyDrake.tsx"/>
+    <!--or you can do it manually-->
+    <animations texture="assets/sprites/MonteBlanc.png">
+      <animation id="4">
+        <!--enum from Line 21: e1Entity.h-->
+        <frame x="56" y="15" width="16" height="28"/>
+      </animation>
+    </animations>
+    <move_type id="0">
+      <!--0: to not move | 1: to move random(not implemented) | 2: to make a queue of movements-->
+      <move type="right" num_tiles="5" speed="0.6"/>
+      <move type="down" num_tiles="5" speed="0.6"/>
+      <move type="left" num_tiles="5" speed="0.6"/>
+      <move type="up" num_tiles="5" speed="0.6"/>
+    </move_type>
+    <dialog_tree>
+      <dialog id="18"/>
+      <!--You can add dialog you want from dialog system. The last you push will be the dialog that will have when player use all dialogs-->
+    </dialog_tree>
+    <interaction value="true" look_to_player="1"/>
+    <!--look_to_player id 0: no look | 1: look in 4 directions | 2: look in 8 directions-->
+  </npc>
+
+  <npc name="casual_villager3" id="8">                                                                    <!--CASUAL_VILLAGER3-->
+    <!--id = NPC type, to do some logic associated to that npc. Can found enum in Line 13 of e1NPC.h-->
+    <data>
+      <pivot x="8" y="25"/>
+      <init anim_id="4" direction="1" state="0"/>
+      <size width="16" height="28"/>
+      <distance_to_interact value="50"/>
+      <!--50 by default-->
+      <is_quest value="false"/>
+      <has_directions value="true"/>
+    </data>
+    <!--to load graphis you can use a tsx file from Tiled like all other entities-->
+    <tsx path="assets/entities/BabyDrake.tsx"/>
+    <!--or you can do it manually-->
+    <animations texture="assets/sprites/MonteBlanc.png">
+      <animation id="4">
+        <!--enum from Line 21: e1Entity.h-->
+        <frame x="56" y="15" width="16" height="28"/>
+      </animation>
+    </animations>
+    <move_type id="0">
+      <!--0: to not move | 1: to move random(not implemented) | 2: to make a queue of movements-->
+      <move type="right" num_tiles="5" speed="0.6"/>
+      <move type="down" num_tiles="5" speed="0.6"/>
+      <move type="left" num_tiles="5" speed="0.6"/>
+      <move type="up" num_tiles="5" speed="0.6"/>
+    </move_type>
+    <dialog_tree>
+      <dialog id="20"/>
+      <!--You can add dialog you want from dialog system. The last you push will be the dialog that will have when player use all dialogs-->
+    </dialog_tree>
+    <interaction value="true" look_to_player="1"/>
+    <!--look_to_player id 0: no look | 1: look in 4 directions | 2: look in 8 directions-->
+  </npc>
+
+  <npc name="polar_knight" id="9">                                                                    <!--POLAR KNIGHT-->
+    <!--id = NPC type, to do some logic associated to that npc. Can found enum in Line 13 of e1NPC.h-->
+    <data>
+      <pivot x="8" y="25"/>
+      <init anim_id="4" direction="1" state="0"/>
+      <size width="16" height="28"/>
+      <distance_to_interact value="50"/>
+      <!--50 by default-->
+      <is_quest value="true"/>
+      <has_directions value="true"/>
+    </data>
+    <!--to load graphis you can use a tsx file from Tiled like all other entities-->
+    <tsx path="assets/entities/BabyDrake.tsx"/>
+    <!--or you can do it manually-->
+    <animations texture="assets/sprites/MonteBlanc.png">
+      <animation id="4">
+        <!--enum from Line 21: e1Entity.h-->
+        <frame x="56" y="15" width="16" height="28"/>
+      </animation>
+    </animations>
+    <move_type id="0">
+      <!--0: to not move | 1: to move random(not implemented) | 2: to make a queue of movements-->
+      <move type="right" num_tiles="5" speed="0.6"/>
+      <move type="down" num_tiles="5" speed="0.6"/>
+      <move type="left" num_tiles="5" speed="0.6"/>
+      <move type="up" num_tiles="5" speed="0.6"/>
+    </move_type>
+    <dialog_tree>
+      <dialog id="21"/>
+      <!--You can add dialog you want from dialog system. The last you push will be the dialog that will have when player use all dialogs-->
+    </dialog_tree>
+    <interaction value="true" look_to_player="1"/>
+    <!--look_to_player id 0: no look | 1: look in 4 directions | 2: look in 8 directions-->
+  </npc>
+</data>

@@ -121,6 +121,99 @@
       <option line="No" nextnode="1" karma="0" tag="0"/>
     </node>
   </dialogtree>
+  <dialogtree treeid="14" karma="0" tag="0" rect_x="975" rect_y="3091" rect_w="112" rect_h="131">
+    <node line="Guau guauuuu guau wohaa bazzinga" id="0" karma="0" tag="0">
+      <option line="" nextnode="1" karma="0" tag="0"/>
+    </node>
+  </dialogtree>
+  <dialogtree treeid="15" karma="0" tag="0" rect_x="975" rect_y="3091" rect_w="112" rect_h="131">
+    <node line="Ministers are chosen by the Prime Minister from the members of the House of Commons and House of Lords" id="0" karma="0" tag="0">
+      <option line="" nextnode="1" karma="0" tag="0"/>
+    </node>
+    <node line="What the fucking fuck am I saying? I’m a cat *purrs*..." id="1" karma="0" tag="0">
+      <option line="" nextnode="2" karma="0" tag="0"/>
+    </node>
+  </dialogtree>
+  <dialogtree treeid="16" karma="0" tag="0" rect_x="975" rect_y="3091" rect_w="112" rect_h="131">
+    <node line="Hell god, what the freaking heck are those ice balls called “snow man”??" id="0" karma="0" tag="0">
+      <option line="" nextnode="1" karma="0" tag="0"/>
+    </node>
+    <node line="Help me out destroying all of them, I will give you a reward, I promise." id="1" karma="0" tag="0">
+      <option line="" nextnode="2" karma="0" tag="0"/>
+    </node>
+    <node line="They are situated on the ice mountains, obviously." id="1" karma="0" tag="0">
+      <option line="" nextnode="3" karma="0" tag="0"/>
+    </node>
+  </dialogtree>
+  <dialogtree treeid="17" karma="0" tag="0" rect_x="975" rect_y="3091" rect_w="112" rect_h="131">
+    <node line="Where’s my trumpet I need my trumpet." id="0" karma="0" tag="0">
+      <option line="" nextnode="1" karma="0" tag="0"/>
+    </node>
+    <node line="Oh, hello there! Could you find my trumpet and take it back?" id="1" karma="0" tag="0">
+      <option line="" nextnode="2" karma="0" tag="0"/>
+    </node>
+  </dialogtree>
+  <dialogtree treeid="18" karma="0" tag="0" rect_x="975" rect_y="3091" rect_w="112" rect_h="131">
+    <node line="I want to be your pet, please." id="0" karma="0" tag="0">
+      <option line="" nextnode="1" karma="0" tag="0"/>
+    </node>
+    <node line="My lord, i want to serve you" id="1" karma="0" tag="0">
+      <option line="" nextnode="2" karma="0" tag="0"/>
+    </node>
+    <node line="I can do whatever you want." id="1" karma="0" tag="0">
+      <option line="" nextnode="3" karma="0" tag="0"/>
+    </node>
+    <node line="Pet me." id="1" karma="0" tag="0">
+      <option line="" nextnode="4" karma="0" tag="0"/>
+    </node>
+    <node line="Pet me please." id="1" karma="0" tag="0">
+      <option line="" nextnode="5" karma="0" tag="0"/>
+    </node>
+  </dialogtree>
+  <dialogtree treeid="19" karma="0" tag="0" rect_x="975" rect_y="3091" rect_w="112" rect_h="131">
+    <node line="My life is a lie, like this place, like this world." id="0" karma="0" tag="0">
+      <option line="" nextnode="1" karma="0" tag="0"/>
+    </node>
+    <node line="You all live in Matrix." id="0" karma="0" tag="0">
+      <option line="" nextnode="2" karma="0" tag="0"/>
+    </node>
+  </dialogtree>
+  <dialogtree treeid="20" karma="0" tag="0" rect_x="975" rect_y="3091" rect_w="112" rect_h="131">
+    <node line="I’m a dragon, the most dangerous creature in Final Fantasy world." id="0" karma="0" tag="0">
+      <option line="" nextnode="1" karma="0" tag="0"/>
+    </node>
+    <node line="Okay… it’s a mask..." id="1" karma="0" tag="0">
+      <option line="" nextnode="2" karma="0" tag="0"/>
+    </node>
+  </dialogtree>
+  <dialogtree treeid="21" karma="0" tag="0" rect_x="975" rect_y="3091" rect_w="112" rect_h="131">
+    <node line="These are wise words, PLAYERNAME, that have not lost any of their truth. " id="0" karma="0" tag="0">
+      <option line="" nextnode="1" karma="0" tag="0"/>
+    </node>
+    <node line="You died: DEATHNUM times" id="1" karma="0" tag="0">
+      <option line="" nextnode="2" karma="0" tag="0"/>
+    </node>
+    <node line="You killed: KILLNUM enemies" id="1" karma="0" tag="0">
+      <option line="" nextnode="3" karma="0" tag="0"/>
+    </node>
+    <node line="You earned: MONEYNUM rupees" id="1" karma="0" tag="0">
+      <option line="" nextnode="4" karma="0" tag="0"/>
+    </node>
+  </dialogtree>
+  <dialogtree treeid="21" karma="0" tag="0" rect_x="975" rect_y="3091" rect_w="112" rect_h="131">
+    <node line="Greattings traveler, be careful of this place. " id="0" karma="0" tag="0">
+      <option line="" nextnode="1" karma="0" tag="0"/>
+    </node>
+    <node line="I will give you an advice… " id="1" karma="0" tag="0">
+      <option line="" nextnode="2" karma="0" tag="0"/>
+    </node>
+    <node line="Barrels could give you healthy juice if you break them!" id="1" karma="0" tag="0">
+      <option line="" nextnode="3" karma="0" tag="0"/>
+    </node>
+    <node line="GIT GUD!" id="1" karma="0" tag="0">
+      <option line="" nextnode="3" karma="0" tag="0"/>
+    </node>
+  </dialogtree>
 </dialogue>
 <!-- Dialogue Tree example -->
 

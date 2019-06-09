@@ -16,7 +16,6 @@ public:
 
 	int CalculateBar(int quantity);
 	int CalculateExpBar(int xp);
-	int CalculateSkillBar(int quantity);
 	void InnerDraw();
 
 	void PrintBarNumbers(int addition = 0);
@@ -33,11 +32,8 @@ public:
 	int current_quantity = 0;
 
 	int max_width = 118;
-	int max_height = 0; // vertical skill bar
 	int current_width = 0;
-	int current_height = 0; // verticla skill bar
 	int targe_width = 0;
-	int targe_height = 0; // vertical skill bar
 	bool has_change = false;
 	bool got_xp = false;
 

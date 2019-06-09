@@ -4,7 +4,7 @@
       <time start="100" duration="2500" origin_x="-472" origin_y="-1053"  speed="0.007" destination_x ="152"  destination_y="-741" stop_goal="true"/>
     </cutscene>
       <cutscene action="move_entity" entity="daughter">
-      <time start="3000" duration="100" speed_x="0" speed_y="0" init_direction="3"/>
+      <time start="3000" duration="100" speed_x="0" speed_y="0" init_direction="5"/>
     </cutscene>
      <cutscene action="move_entity" entity="daughter">
       <time start="3100" duration="200" speed_x="0" speed_y="0"/>

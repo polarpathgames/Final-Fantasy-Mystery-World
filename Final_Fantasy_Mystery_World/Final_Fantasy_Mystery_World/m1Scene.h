@@ -80,7 +80,7 @@ public:
 	// Called each loop iteration
 	bool Update(float dt);
 
-	void UpdateCutscenesDone();
+	void ShitFunctionJAJA();
 
 	// Called before all Updates
 	bool PostUpdate();
@@ -154,8 +154,6 @@ public:
 	Mix_Music* mus_game_over = nullptr;
 
 	bool close_shop = false;
-
-	int snowman_count = 0;
 };
 
 #endif // __j1SCENE_H__
