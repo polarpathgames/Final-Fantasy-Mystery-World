@@ -219,7 +219,7 @@ section ul.list-releases li.last-release{
 }
 
 section ul li.last-release h4{
-  color:rgb(177, 215, 246);
+  color:white;
 }
 
 section ul.list-releases li a, section div div a.download_link{
