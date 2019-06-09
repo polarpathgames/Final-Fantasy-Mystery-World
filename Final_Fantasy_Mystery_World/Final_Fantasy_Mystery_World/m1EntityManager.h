@@ -66,7 +66,7 @@ public:
 	iPoint FindRandomFreeTileOnRange(const iPoint & tile, const uint & range);
 	bool IsWalkable(const iPoint & start_tile);
 
-	void CheckForBarrelsAndSnowMan(const iPoint &act_tile, const Direction &direction);
+	bool CheckForBarrelsAndSnowMan(const iPoint &act_tile, const Direction &direction);
 
 	const std::vector<e1Entity*> GetEntities();
 	const std::vector<SDL_Texture*> GetTextures();

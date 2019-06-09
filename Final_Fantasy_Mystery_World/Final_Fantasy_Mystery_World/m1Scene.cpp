@@ -113,6 +113,9 @@ bool m1Scene::PreUpdate()
 bool m1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Aqua);
+	/*if (App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT) {
+		App->menu_manager->hud.ability_bar->UpdateBar(300 * dt, UIType::SKILLBAR);
+	}*/
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
 		if (App->menu_manager->debug_screen.debug_screen == nullptr) {
@@ -378,7 +381,14 @@ bool m1Scene::Update(float dt)
 	if (App->menu_manager->debug_screen.debug_screen != nullptr) {
 		App->menu_manager->UpdateDebugScreen();
 	}
-	ShitFunctionJAJA();
+	if (App->menu_manager->help_ability != nullptr && player->block_controls) {
+		if (App->input->GetAnyMovementKey() || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.ABILITY3) || App->input->GetKeyDown(SDL_SCANCODE_ESCAPE)) {
+			App->menu_manager->DestroyHelpAbilityMenu();
+			App->menu_manager->EnableHUD(false);
+			player->BlockControls(false);
+		}
+	}
+	UpdateCutscenesDone();
 
 	return true;
 }
@@ -537,10 +547,7 @@ void m1Scene::CreateEntities()
 		else if ((*position)->name == "npc") {
 			if ((*position)->ent_type == "Daughter") {
 				App->entity_manager->CreateEntity(e1Entity::EntityType::DAUGHTER, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
-			}
-			else {
-				App->entity_manager->CreateEntity(e1Entity::EntityType::NPC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->ent_type);
-			}
+			}			
 		}
 		else if ((*position)->name == "collider") { // COLLIDERS
 			if ((*position)->properties.FindNameValue("shop")) {
@@ -573,7 +580,7 @@ void m1Scene::CreateEntities()
 
 
 
-void m1Scene::ShitFunctionJAJA()
+void m1Scene::UpdateCutscenesDone()
 {
 	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && !App->globals.CutSceneLobbyExplain && App->map->actual_map == Maps::LOBBY) {
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyTutorial.xml");

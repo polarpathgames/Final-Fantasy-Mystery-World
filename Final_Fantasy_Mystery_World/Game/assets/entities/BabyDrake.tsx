@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.3" name="Slime" tilewidth="35" tileheight="39" tilecount="96" columns="12">
+<tileset version="1.2" tiledversion="1.2.2" name="Slime" tilewidth="35" tileheight="39" tilecount="96" columns="12">
  <grid orientation="orthogonal" width="45" height="42"/>
  <properties>
   <property name="attack_power" type="int" value="30"/>
@@ -14,7 +14,7 @@
   <property name="ratio_rupee" type="int" value="98"/>
  </properties>
  <image source="../sprites/drake.png" width="420" height="312"/>
- <tile id="0" type="12">
+ <tile id="0">
   <properties>
    <property name="speed" type="int" value="6"/>
   </properties>
@@ -25,12 +25,12 @@
    <frame tileid="1" duration="170"/>
   </animation>
  </tile>
- <tile id="2" type="4">
+ <tile id="2">
   <animation>
    <frame tileid="1" duration="170"/>
   </animation>
  </tile>
- <tile id="3" type="9">
+ <tile id="3">
   <properties>
    <property name="speed" type="int" value="6"/>
   </properties>
@@ -41,12 +41,12 @@
    <frame tileid="4" duration="170"/>
   </animation>
  </tile>
- <tile id="5" type="1">
+ <tile id="5">
   <animation>
    <frame tileid="3" duration="170"/>
   </animation>
  </tile>
- <tile id="6" type="14">
+ <tile id="6">
   <properties>
    <property name="speed" type="int" value="6"/>
   </properties>
@@ -57,12 +57,12 @@
    <frame tileid="8" duration="170"/>
   </animation>
  </tile>
- <tile id="8" type="6">
+ <tile id="8">
   <animation>
    <frame tileid="6" duration="170"/>
   </animation>
  </tile>
- <tile id="9" type="10">
+ <tile id="9">
   <properties>
    <property name="speed" type="int" value="6"/>
   </properties>
@@ -73,12 +73,12 @@
    <frame tileid="10" duration="170"/>
   </animation>
  </tile>
- <tile id="11" type="2">
+ <tile id="11">
   <animation>
    <frame tileid="10" duration="170"/>
   </animation>
  </tile>
- <tile id="12" type="13">
+ <tile id="12">
   <properties>
    <property name="speed" type="int" value="6"/>
   </properties>
@@ -89,12 +89,12 @@
    <frame tileid="14" duration="170"/>
   </animation>
  </tile>
- <tile id="14" type="5">
+ <tile id="14">
   <animation>
    <frame tileid="12" duration="170"/>
   </animation>
  </tile>
- <tile id="15" type="8">
+ <tile id="15">
   <properties>
    <property name="speed" type="int" value="6"/>
   </properties>
@@ -105,12 +105,12 @@
    <frame tileid="17" duration="170"/>
   </animation>
  </tile>
- <tile id="17" type="0">
+ <tile id="17">
   <animation>
    <frame tileid="15" duration="170"/>
   </animation>
  </tile>
- <tile id="18" type="15">
+ <tile id="18">
   <properties>
    <property name="speed" type="int" value="6"/>
   </properties>
@@ -126,7 +126,7 @@
    <frame tileid="18" duration="170"/>
   </animation>
  </tile>
- <tile id="21" type="11">
+ <tile id="21">
   <properties>
    <property name="speed" type="int" value="6"/>
   </properties>
@@ -137,7 +137,7 @@
    <frame tileid="23" duration="170"/>
   </animation>
  </tile>
- <tile id="23" type="3">
+ <tile id="23">
   <animation>
    <frame tileid="21" duration="170"/>
   </animation>

@@ -14,7 +14,7 @@ enum class Attacks {
 };
 
 enum class Direction {
-	UP, UP_RIGHT, RIGHT, DOWN_RIGHT, DOWN, DOWN_LEFT, LEFT, UP_LEFT, NONE = -1
+	UP, UP_RIGHT, RIGHT, DOWN_RIGHT,DOWN,DOWN_LEFT,LEFT,UP_LEFT, NONE = -1
 };
 
 struct animation {
@@ -102,7 +102,6 @@ public:
 
 	void ChangeAnimation(const Direction &dir, const State &states, Attacks attacks = Attacks::NONE);
 
-	Animation* GetAnim(const AnimationState& anim);
 	void LookTo(const iPoint & tile);
 
 	void ResetAnims();

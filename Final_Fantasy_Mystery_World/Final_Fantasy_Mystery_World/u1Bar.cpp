@@ -55,6 +55,18 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 		filled_bar = App->gui->AddImage(0, 0, { 1418,2111,0,34 }, nullptr, empty_bar, true, false, false, false);
 	}
 
+	else if (type == SKILLBAR)
+	{
+		current_quantity = 0;
+		current_width = 0;
+		current_height = 0;
+		max_width = 11;
+		max_height = 56;
+		/*empty_bar = App->gui->AddImage(0, 0, { 2725, 197, 13, 58 }, nullptr, this, true, false, false, false);*/
+		empty_bar = App->gui->AddImage(0, 0, { 2707, 198, 11, 56 }, nullptr, this, false, false, false, false);  // In reality is FILLED
+		filled_bar = App->gui->AddImage(0, 0, { 2726, 198, 11, 56 }, nullptr, empty_bar, false, false, false, false); // In reality is EMPTY
+	}
+
 }
 
 u1Bar::~u1Bar() {
@@ -64,8 +76,14 @@ void u1Bar::UpdateBar(int quantity, UIType bar_type)
 {
 	if (empty_bar != nullptr)
 	{
-		if(bar_type == UIType::HPBAR || bar_type == UIType::MANABAR || bar_type == UIType::SKIPBAR || bar_type == UIType::ENEMYBAR || bar_type == UIType::DRAGONBAR)
+		if (bar_type == UIType::HPBAR || bar_type == UIType::MANABAR || bar_type == UIType::SKIPBAR || bar_type == UIType::ENEMYBAR || bar_type == UIType::DRAGONBAR /*|| bar_type == UIType::SKILLBAR*/)
 			targe_width = CalculateBar(quantity);
+
+		else if (bar_type == UIType::SKILLBAR)
+		{
+			empty_bar->drawable = false;
+			targe_height = CalculateSkillBar(quantity);
+		}
 		
 		else {
 			empty_bar->drawable = false;
@@ -77,9 +95,13 @@ void u1Bar::UpdateBar(int quantity, UIType bar_type)
 		if (targe_width != current_width) {
 			has_change = true;
 		}
+
+		if (targe_height != current_height) {
+			has_change = true;
+		}
 		
 	}
-	if (bar_type != SKIPBAR && bar_type != UIType::EXPBAR && bar_type != UIType::ENEMYBAR&& bar_type != UIType::DRAGONBAR)
+	if (bar_type != SKIPBAR && bar_type != UIType::EXPBAR && bar_type != UIType::ENEMYBAR&& bar_type != UIType::DRAGONBAR && bar_type != UIType::SKILLBAR)
 		PrintBarNumbers();
 }
 
@@ -104,6 +126,31 @@ int u1Bar::CalculateBar(int quantity)
 
 	return new_width;
 
+}
+
+int u1Bar::CalculateSkillBar(int quantity)
+{
+	int new_height = current_height;
+	int new_quantity = (current_quantity + quantity);
+	current_quantity += quantity;
+
+	LOG("CURRENT HEIGHT: %i", current_height);
+	LOG("TARGE HEIGHT: %i", targe_height);
+
+	if (max_capacity != 0)
+		new_height = (new_quantity * max_height) / max_capacity;
+
+	if (current_quantity <= 0) {
+		current_quantity = 0;
+		return 0;
+	}
+
+	if (current_quantity >= max_capacity) {
+		current_quantity = max_capacity;
+		return max_height;
+	}
+
+	return new_height;
 }
 
 int u1Bar::CalculateExpBar(int xp)
@@ -155,7 +202,24 @@ void u1Bar::InnerDraw()
 		filled_bar->section.w = current_width;
 	}
 
-	if (has_change && bar_type != UIType::EXPBAR) {
+	if (has_change && bar_type == UIType::SKILLBAR) {
+		if (current_height > targe_height) {
+			current_height -= 100 * App->GetDeltaTime();
+
+		/*	if (current_height <=0) {
+				current_height = max_height;
+			}*/
+		}
+		else if (current_height < targe_height) {
+			current_height += 100 * App->GetDeltaTime();
+		}
+		else {
+			has_change = false;
+		}
+		filled_bar->section.h = current_height;
+	}
+
+	if (has_change && bar_type != UIType::EXPBAR && bar_type != UIType::SKILLBAR) {
 		if (current_width > targe_width) {
 			current_width -= 100 * App->GetDeltaTime();
 		}
