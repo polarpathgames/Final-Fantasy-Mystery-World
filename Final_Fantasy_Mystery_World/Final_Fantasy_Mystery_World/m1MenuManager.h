@@ -826,7 +826,8 @@ struct UI_HUD {
 	u1Bar* player_hp_bar = nullptr;
 	u1Bar* player_mana_bar = nullptr;
 	u1Bar* player_exp_bar = nullptr;
-	u1Bar* ability_bar = nullptr;
+	u1Bar* ability1_bar = nullptr;
+	u1Bar* ability2_bar = nullptr;
 	u1Label* level_label = nullptr;
 	u1Image* skill_1 = nullptr;
 	u1Image* skill_2 = nullptr;

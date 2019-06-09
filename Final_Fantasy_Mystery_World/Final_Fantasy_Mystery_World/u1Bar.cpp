@@ -64,7 +64,7 @@ u1Bar::u1Bar(const int &x, const int &y, int max_capacity, UIType type, u1GUI* p
 		max_height = 56;
 		/*empty_bar = App->gui->AddImage(0, 0, { 2725, 197, 13, 58 }, nullptr, this, true, false, false, false);*/
 		empty_bar = App->gui->AddImage(0, 0, { 2707, 198, 11, 56 }, nullptr, this, false, false, false, false);  // In reality is FILLED
-		filled_bar = App->gui->AddImage(0, 0, { 2726, 198, 11, 56 }, nullptr, empty_bar, true, false, false, false); // In reality is EMPTY
+		filled_bar = App->gui->AddImage(0, 0, { 2726, 198, 11, 56 }, nullptr, empty_bar, false, false, false, false); // In reality is EMPTY
 	}
 
 }

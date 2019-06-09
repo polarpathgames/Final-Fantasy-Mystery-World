@@ -824,15 +824,16 @@ void m1MenuManager::EnableHUD(bool show_or_hide) {
 			hud.player_hp_bar->bar_numbers_label->drawable = show_or_hide;
 			hud.player_mana_bar->bar_numbers_label->drawable = show_or_hide;
 			hud.player_exp_bar->drawable = show_or_hide;
-			hud.ability_bar->drawable = show_or_hide;
 			hud.level_label->drawable = show_or_hide;
 
 			if (App->globals.ability1_gained == true) {
 				hud.skill_1->drawable = show_or_hide;
+				hud.ability1_bar->drawable = show_or_hide;
 			}
 
 			if (App->globals.ability2_gained == true) {
 				hud.skill_2->drawable = show_or_hide;
+				hud.ability2_bar->drawable = show_or_hide;
 			}
 			
 			if (App->globals.ability3_gained == true) {
@@ -1089,7 +1090,10 @@ void m1MenuManager::CreateHUD()
 	hud.player_hp_bar = App->gui->AddBar(121, 8,App->scene->player->stats.max_lives, HPBAR, hud.bg_hud, nullptr);
 	hud.player_mana_bar = App->gui->AddBar(121, 66, App->scene->player->stats.max_mana, MANABAR, hud.bg_hud, nullptr);
 	hud.player_exp_bar = App->gui->AddBar(60, 105, App->scene->player->stats.max_xp, EXPBAR, hud.bg_hud, nullptr);
-	hud.ability_bar = App->gui->AddBar(-20, 0, 200, UIType::SKILLBAR, hud.skill_1, nullptr);
+	hud.ability1_bar = App->gui->AddBar(-20, 0, 200, UIType::SKILLBAR, hud.skill_1, nullptr);
+	hud.ability1_bar->drawable = false;
+	hud.ability2_bar = App->gui->AddBar(-20, 0, 200, UIType::SKILLBAR, hud.skill_2, nullptr);
+	hud.ability2_bar->drawable = false;
 	hud.level_label = App->gui->AddLabel(65, 73, std::to_string(App->scene->player->stats.level).data(), hud.bg_hud, BLACK, FontType::FF32, App->scene, false);
 
 }
