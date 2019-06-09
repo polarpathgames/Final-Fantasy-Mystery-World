@@ -641,6 +641,12 @@ void RoomManager::PlayCutScene()
 		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneDrakeQuest3.xml") == 0)
 		{
 			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
+			App->globals.CutsceneDrake3 = true;
+		}
+		else if (strcmp(actual_room->cutscene_location.data(), "assets/xml/CutsceneBegin.xml") == 0 && !App->globals.CutsceneBegin)
+		{
+			App->cutscene_manager->PlayCutscene(actual_room->cutscene_location.data());
+			App->globals.CutsceneBegin = true;
 		}
 	}
 		

@@ -1052,6 +1052,23 @@ void m1MenuManager::CreateHelpAbilityMenu(AbilityType type)
 		App->gui->AddImage(0, 0, { 0,4024,1024,768 }, nullptr, help_ability, true, false, false, false);
 		break;
 	case AbilityType::ABILITY3:
+		help_ability = App->gui->AddImage(0, 0, { 0,0,0,0 }, nullptr, App->gui->screen, false, false, false, false);
+		switch (App->scene->player_type)
+		{
+		case PlayerType::WARRIOR:
+			App->gui->AddImage(0, 0, { 2048,4792,1024,768 }, nullptr, help_ability, true, false, false, false);
+			break;
+		case PlayerType::ARCHER:
+			App->gui->AddImage(0, 0, { 0,1536,1024,768 }, nullptr, help_ability, true, false, false, false);
+			break;
+		case PlayerType::MAGE:
+			App->gui->AddImage(0, 0, { 2048,5560,1024,768 }, nullptr, help_ability, true, false, false, false);
+			break;
+		}
+		break;
+	case AbilityType::LB_USE_ABILITY:
+		help_ability = App->gui->AddImage(0, 0, { 0,0,0,0 }, nullptr, App->gui->screen, false, false, false, false);
+		App->gui->AddImage(0, 0, { 0,6329,1024,768 }, nullptr, help_ability, true, false, false, false);
 		break;
 	default:
 		break;

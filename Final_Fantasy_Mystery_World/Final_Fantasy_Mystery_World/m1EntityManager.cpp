@@ -695,7 +695,7 @@ bool m1EntityManager::ThereIsEntity(const char * name)
 	return ret;
 }
 
-void m1EntityManager::CheckForBarrelsAndSnowMan(const iPoint &act_tile, const Direction &direction)
+bool m1EntityManager::CheckForBarrelsAndSnowMan(const iPoint &act_tile, const Direction &direction)
 {
 	std::vector<e1Entity*>::const_iterator item = entities.begin();
 
@@ -753,12 +753,15 @@ void m1EntityManager::CheckForBarrelsAndSnowMan(const iPoint &act_tile, const Di
 
 					if (has_succeeded) {
 						static_cast<e1Rock*>(*item)->GetHitted();
+						if (static_cast<e1Rock*>(*item)->rock_type == RockType::BREAKABLE_SNOWMAN)
+							return true;
 					}
 				}
 
 			}
 		}
 	}
+	return false;
 }
 
 e1Entity * m1EntityManager::FindEntity(e1Entity::EntityType type)

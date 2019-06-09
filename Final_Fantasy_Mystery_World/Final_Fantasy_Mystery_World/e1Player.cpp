@@ -198,6 +198,7 @@ bool e1Player::Load(pugi::xml_node & node)
 	App->globals.sleep2 = p_globals.attribute("sleep2").as_bool();
 	App->globals.CutsceneFinalGame = p_globals.attribute("CutsceneFinalGame").as_bool();
 	App->globals.CutsceneFinalFinalGame = p_globals.attribute("CutsceneFinalFinalGame").as_bool();
+	App->globals.CutsceneBegin = p_globals.attribute("CutsceneBegin").as_bool();
 	App->scene->player_type = (PlayerType)p_globals.attribute("player_type").as_bool();
 	App->scene->player->Init();
 	App->scene->player->CenterPlayerInTile();
@@ -250,6 +251,7 @@ bool e1Player::Save(pugi::xml_node & node) const
 	p_globals.append_attribute("sleep2") = (bool)App->globals.sleep2;
 	p_globals.append_attribute("CutsceneFinalGame") = (bool)App->globals.CutsceneFinalGame;
 	p_globals.append_attribute("CutsceneFinalFinalGame") = (bool)App->globals.CutsceneFinalFinalGame;
+	p_globals.append_attribute("CutsceneBegin") = (bool)App->globals.CutsceneBegin;
 	return true;
 }
 
@@ -845,7 +847,8 @@ void e1Player::BasicAttack()
 			break;
 		}
 		CheckBasicAttackEffects(e1Entity::EntityType::ENEMY, direction, stats.attack_power);
-		App->entity_manager->CheckForBarrelsAndSnowMan(actual_tile, direction);
+		if (App->entity_manager->CheckForBarrelsAndSnowMan(actual_tile, direction))
+			App->scene->snowman_count++;
 		state = State::AFTER_ATTACK;
 		ChangeAnimation(direction, state);
 		time_attack = SDL_GetTicks();

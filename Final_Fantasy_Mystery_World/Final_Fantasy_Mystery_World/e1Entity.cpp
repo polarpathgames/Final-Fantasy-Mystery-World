@@ -170,14 +170,14 @@ bool e1Entity::LoadEntityData(const char* file) {
 		_node = _node.next_sibling("tile");
 	}
 	//LOG all animation information
-	for (uint i = 0; i < data.num_animations; ++i) {
+	/*for (uint i = 0; i < data.num_animations; ++i) {
 		LOG("Animation %i--------", data.animations[i].id);
 		for (uint j = 0; j < data.animations[i].num_frames; ++j) {
 			LOG("frame %i x: %i y: %i w: %i h: %i",
 				j, data.animations[i].frames[j].x, data.animations[i].frames[j].y,
 				data.animations[i].frames[j].w, data.animations[i].frames[j].h);
 		}
-	}
+	}*/
 
 	//Load data
 	LoadProperties(entity_file.child("tileset").child("properties").child("property")); //Load properties

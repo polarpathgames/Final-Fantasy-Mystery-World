@@ -60,6 +60,10 @@ struct GlobalGameAdvances
 	bool sleep2 = false;
 	bool CutsceneFinalGame = false;
 	bool CutsceneFinalFinalGame = false;
+	bool CutsceneBegin = false;
+	bool CutsceneLittleDrake = false;
+	bool CutsceneDrake3 = false;
+	bool Ability3PanelShowed = false;
 	std::string player_name;
 
 	void Reset() {
@@ -90,6 +94,10 @@ struct GlobalGameAdvances
 		CutsceneFinalGame = false;
 		CutsceneFinalFinalGame = false;
 		CutSceneLobbyCredits = false;
+		CutsceneBegin = false;
+		CutsceneLittleDrake = false;
+		CutsceneDrake3 = false;
+		Ability3PanelShowed = false;
 	}
 
 };
@@ -136,6 +144,7 @@ public:
 
 	//Exit
 	void QuitGame();
+	inline bool ClosingGame() {	return quit_game; }
 
 	bool GetPause();
 	bool ChangePause();

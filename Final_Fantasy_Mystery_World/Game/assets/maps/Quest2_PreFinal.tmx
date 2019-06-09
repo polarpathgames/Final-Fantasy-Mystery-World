@@ -5520,9 +5520,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="37"/>
    <tile/>
-   <tile gid="59"/>
+   <tile gid="279"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -5560,10 +5560,10 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="278"/>
    <tile/>
-   <tile gid="58"/>
+   <tile gid="300"/>
    <tile/>
-   <tile gid="80"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5601,10 +5601,10 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="299"/>
    <tile/>
-   <tile gid="79"/>
+   <tile gid="321"/>
    <tile/>
-   <tile gid="101"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5642,8 +5642,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="320"/>
    <tile/>
-   <tile gid="100"/>
+   <tile gid="342"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5682,9 +5683,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="341"/>
    <tile/>
-   <tile/>
-   <tile gid="121"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8029,7 +8029,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="6" name="Collider" width="40" height="40">
+ <layer id="6" name="Collider" width="40" height="40" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -9637,7 +9637,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="7" name="Static animation objects">
+ <objectgroup id="7" name="Static animation objects" visible="0">
   <object id="69" name="breakable_barrel" type="static" x="368" y="224" width="32" height="32"/>
   <object id="70" name="lava" type="static" x="368" y="400" width="16" height="16"/>
   <object id="71" name="lava" type="static" x="368" y="416" width="16" height="16"/>

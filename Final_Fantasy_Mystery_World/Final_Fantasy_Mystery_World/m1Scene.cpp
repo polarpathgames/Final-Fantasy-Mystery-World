@@ -381,7 +381,14 @@ bool m1Scene::Update(float dt)
 	if (App->menu_manager->debug_screen.debug_screen != nullptr) {
 		App->menu_manager->UpdateDebugScreen();
 	}
-	ShitFunctionJAJA();
+	if (App->menu_manager->help_ability != nullptr && player->block_controls) {
+		if (App->input->GetAnyMovementKey() || App->input->GetControllerButtonDown(App->input->controller_Buttons.buttons_code.ABILITY3) || App->input->GetKeyDown(SDL_SCANCODE_ESCAPE)) {
+			App->menu_manager->DestroyHelpAbilityMenu();
+			App->menu_manager->EnableHUD(false);
+			player->BlockControls(false);
+		}
+	}
+	UpdateCutscenesDone();
 
 	return true;
 }
@@ -573,7 +580,7 @@ void m1Scene::CreateEntities()
 
 
 
-void m1Scene::ShitFunctionJAJA()
+void m1Scene::UpdateCutscenesDone()
 {
 	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && !App->globals.CutSceneLobbyExplain && App->map->actual_map == Maps::LOBBY) {
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyTutorial.xml");
@@ -587,6 +594,10 @@ void m1Scene::ShitFunctionJAJA()
 	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && !App->globals.CutSceneHomeToSleeQuest3 && App->map->actual_map == Maps::LOBBY && App->globals.CutSceneHomeToSleepQuest2 == true && App->globals.CutSceneLobbyQuest2Finish && App->map->last_map == Maps::HOME && App->globals.sleep2) {
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyQuest3.xml");
 		App->globals.CutSceneHomeToSleeQuest3 = true;
+	}
+	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && App->globals.CutsceneDrake3 &&!App->globals.CutsceneLittleDrake) {
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLittleDrake.xml");
+		App->globals.CutsceneLittleDrake = true;
 	}
 	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && App->globals.CutsceneFinalGame && !App->globals.CutsceneFinalFinalGame) {
 		App->map->lobby_state = LobbyState::NORMAL_LOBBY;
