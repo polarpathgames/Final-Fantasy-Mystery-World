@@ -101,6 +101,13 @@ bool e1Player::Update(float dt)
 	BROFILER_CATEGORY("Player Update", Profiler::Color::Yellow);
 
 	PerformActions(dt);
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT)
+	{
+		App->menu_manager->hud.ability_bar->UpdateBar(-300 * dt, UIType::SKILLBAR);
+	}
+
+	else
+		App->menu_manager->hud.ability_bar->UpdateBar(300 * dt, UIType::SKILLBAR);
 
 	if (App->debug)
 		App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
@@ -397,6 +404,7 @@ void e1Player::ReadPlayerInput()
 		}
 		else if (player_input.pressing_SPACE || (player_input.pressing_1 && App->globals.ability1_gained == true) || (player_input.pressing_3 && App->globals.ability3_gained)) {
 			state = State::BEFORE_ATTACK;
+			
 		}
 		else if (player_input.pressing_2 && App->globals.ability2_gained == true) {
 			state = State::BEFORE_FLASH;

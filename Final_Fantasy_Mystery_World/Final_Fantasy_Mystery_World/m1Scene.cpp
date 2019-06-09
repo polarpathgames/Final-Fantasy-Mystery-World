@@ -113,7 +113,10 @@ bool m1Scene::PreUpdate()
 bool m1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Aqua);
-	
+	/*if (App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT) {
+		App->menu_manager->hud.ability_bar->UpdateBar(300 * dt, UIType::SKILLBAR);
+	}*/
+
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
 		if (App->menu_manager->debug_screen.debug_screen == nullptr) {
 			App->menu_manager->CreateDebugScreen();
