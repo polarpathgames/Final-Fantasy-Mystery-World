@@ -547,7 +547,10 @@ void m1Scene::CreateEntities()
 		else if ((*position)->name == "npc") {
 			if ((*position)->ent_type == "Daughter") {
 				App->entity_manager->CreateEntity(e1Entity::EntityType::DAUGHTER, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->name);
-			}			
+			}
+			else {
+				App->entity_manager->CreateEntity(e1Entity::EntityType::NPC, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).x, App->map->TiledToWorld((*position)->coll_x, (*position)->coll_y).y, (*position)->ent_type);
+			}
 		}
 		else if ((*position)->name == "collider") { // COLLIDERS
 			if ((*position)->properties.FindNameValue("shop")) {
