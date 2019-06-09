@@ -15,6 +15,15 @@ public:
 	enum class NPCType {
 		DAUGHTER,
 		DOG,
+		MUFI,
+		SNOWMAN_HATER,
+		WISE,
+		WORRIED_MAN,
+		CASUAL_VILLAGER,
+		CASUAL_VILLAGER2,
+		CASUAL_VILLAGER3,
+		POLAR_KNIGHT,
+
 
 		NONE = -1
 	};

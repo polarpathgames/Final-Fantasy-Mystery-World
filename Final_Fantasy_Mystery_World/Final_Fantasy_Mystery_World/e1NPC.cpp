@@ -111,6 +111,22 @@ void e1NPC::DoInteraction() {
 		break;
 	case e1NPC::NPCType::DOG:
 		break;
+	case e1NPC::NPCType::MUFI:
+		break;
+	case e1NPC::NPCType::WISE:
+		break;
+	case e1NPC::NPCType::SNOWMAN_HATER:
+		break;
+	case e1NPC::NPCType::WORRIED_MAN:
+		break;
+	case e1NPC::NPCType::CASUAL_VILLAGER:
+		break;
+	case e1NPC::NPCType::CASUAL_VILLAGER2:
+		break;
+	case e1NPC::NPCType::CASUAL_VILLAGER3:
+		break;
+	case e1NPC::NPCType::POLAR_KNIGHT:
+		break;
 	case e1NPC::NPCType::NONE:
 		break;
 	default:
