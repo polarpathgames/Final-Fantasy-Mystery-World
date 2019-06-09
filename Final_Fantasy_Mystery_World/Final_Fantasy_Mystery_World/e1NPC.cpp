@@ -306,6 +306,7 @@ void e1NPC::LoadBasicData(pugi::xml_node &node)
 	distance_to_interact = n_data.child("distance_to_interact").attribute("value").as_int();
 	is_quest_npc = n_data.child("is_quest").attribute("value").as_bool("false");
 	has_directions = n_data.child("has_directions").attribute("value").as_bool();
+	new_position = position.AproximateToFloat();
 }
 
 void e1NPC::LoadGraphics(pugi::xml_node &node)
