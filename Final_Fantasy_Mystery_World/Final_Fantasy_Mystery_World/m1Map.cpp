@@ -179,6 +179,9 @@ iPoint m1Map::MapToWorldCentered(int x, int y) const
 		ret.x = x; ret.y = y;
 	}
 
+	ret.x += data.tile_width * 0.5F;
+	ret.y += data.tile_height * 0.5F;
+
 	return ret;
 }
 

@@ -154,6 +154,8 @@ public:
 	Mix_Music* mus_game_over = nullptr;
 
 	bool close_shop = false;
+
+	int snowman_count = 0;
 };
 
 #endif // __j1SCENE_H__
