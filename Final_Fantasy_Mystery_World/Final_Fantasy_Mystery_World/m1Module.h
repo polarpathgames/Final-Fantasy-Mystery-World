@@ -25,6 +25,9 @@ public:
 	m1Module() : active(false)
 	{}
 
+	virtual ~m1Module()
+	{}
+
 	void Init()
 	{
 		active = true;

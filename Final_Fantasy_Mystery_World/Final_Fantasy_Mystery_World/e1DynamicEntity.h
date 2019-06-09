@@ -103,6 +103,7 @@ public:
 	void ChangeAnimation(const Direction &dir, const State &states, Attacks attacks = Attacks::NONE);
 
 	Animation* GetAnim(const AnimationState& anim);
+	void LookTo(const iPoint & tile);
 
 	void ResetAnims();
 

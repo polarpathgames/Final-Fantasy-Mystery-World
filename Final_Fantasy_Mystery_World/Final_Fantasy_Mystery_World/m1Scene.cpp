@@ -588,6 +588,10 @@ void m1Scene::ShitFunctionJAJA()
 		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLobbyQuest3.xml");
 		App->globals.CutSceneHomeToSleeQuest3 = true;
 	}
+	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && App->globals.CutsceneDrake3 &&!App->globals.CutsceneLittleDrake) {
+		App->cutscene_manager->PlayCutscene("assets/xml/CutsceneLittleDrake.xml");
+		App->globals.CutsceneLittleDrake = true;
+	}
 	if (App->fade_to_black->current_step == App->fade_to_black->fade_from_black && !App->cutscene_manager->is_executing && App->globals.CutsceneFinalGame && !App->globals.CutsceneFinalFinalGame) {
 		App->map->lobby_state = LobbyState::NORMAL_LOBBY;
 		App->map->ChangeMap(Maps::LOBBY);
@@ -710,10 +714,10 @@ bool m1Scene::Interact(u1GUI* interact)
 			App->audio->PlayFx(App->main_menu->fx_push_button_return);
 			App->menu_manager->DestroyGameOver();
 			App->entity_manager->Disable();
+			App->menu_manager->DestroyHUD();
 			App->map->Disable();
 			App->ChangePause();		
 			App->main_menu->Enable();
-			App->menu_manager->DestroyHUD();
 			App->map->lobby_state = LobbyState::NORMAL_LOBBY;
 			App->scene->SetMenuState(StatesMenu::NO_MENU);
 			ret = false;

@@ -87,11 +87,21 @@ bool m1MainMenu::Update(float dt)
 		App->audio->PlayFx(fx_push_button_return);
 	}
 
+	if (App->menu_manager->input.button_A != nullptr) {
+		if (App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) {
+			App->menu_manager->input.input_text->DeleteText();
+		}
+		if (App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
+			App->gui->FocusButton(App->menu_manager->input.button_okay);
+		}
+	}
+
 	return true;
 }
 
 bool m1MainMenu::CleanUp()
 {
+
 	App->gui->DeleteAllUIElements();
 	App->audio->ClearMusic();
 	App->audio->ClearFx();

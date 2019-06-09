@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="254">
+<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="254">
  <tileset firstgid="1" name="ques2_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques2_tileset.png" width="688" height="290"/>
  </tileset>
@@ -9014,7 +9014,7 @@
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
-   <tile/>
+   <tile gid="385"/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
@@ -9634,7 +9634,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="7" name="Static animation objects">
+ <objectgroup id="7" name="Static animation objects" visible="0">
   <object id="63" name="treasure_quest3" type="static" x="400" y="320" width="32" height="32"/>
   <object id="64" name="lava" type="static" x="352" y="352" width="16" height="16"/>
   <object id="65" name="lava" type="static" x="352" y="336" width="16" height="16"/>

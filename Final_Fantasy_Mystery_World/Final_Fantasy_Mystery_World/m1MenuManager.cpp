@@ -1039,6 +1039,10 @@ void m1MenuManager::CreateHelpAbilityMenu(AbilityType type)
 		break;
 	case AbilityType::ABILITY3:
 		break;
+	case AbilityType::LB_USE_ABILITY:
+		help_ability = App->gui->AddImage(0, 0, { 0,0,0,0 }, nullptr, App->gui->screen, false, false, false, false);
+		App->gui->AddImage(0, 0, { 0,6329,1024,768 }, nullptr, help_ability, true, false, false, false);
+		break;
 	default:
 		break;
 	}
@@ -1693,8 +1697,8 @@ void m1MenuManager::CreateFountainBars()
 {
 	fountain_panel = App->gui->AddImage(0, 0, { 2459,953,201,72 }, nullptr, App->gui->screen, true, false, false, false);
 	fountain_panel->SetPosRespectParent(Position_Type::CENTERED_UP, 20);
-	hud.player_hp_bar->SetPos(fountain_panel->position.x + 10, fountain_panel->position.y + 10);
-	hud.player_mana_bar->SetPos(fountain_panel->position.x + 10, hud.player_hp_bar->position.y + 25);
+	hud.player_hp_bar->SetPos(fountain_panel->position.x, fountain_panel->position.y - 615);
+	hud.player_mana_bar->SetPos(fountain_panel->position.x, hud.player_hp_bar->position.y + 25);
 
 	hud.player_hp_bar->drawable = true;
 	hud.player_mana_bar->drawable = true;
@@ -1704,8 +1708,8 @@ void m1MenuManager::DestroyFountainBars()
 {
 	fountain_panel->to_delete = true;
 
-	hud.player_hp_bar->SetPos(215, 662);
-	hud.player_mana_bar->SetPos(215, 700);
+	hud.player_hp_bar->SetPos(121, 8);
+	hud.player_mana_bar->SetPos(121, 66);
 }
 
 void UI_inventory::ChangeInventory(bool item)
