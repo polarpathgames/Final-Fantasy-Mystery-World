@@ -34,10 +34,10 @@ enum UIType
 	INPUT_BOX,
 	HIT_POINT_LABEL,
 	SKIPBAR,
-	SKILLBAR,
 	VERTICAL_SLIDER,
+	SKILLBAR,
 
-	NON,
+	NON
 };
 
 enum class FocusType {
@@ -100,6 +100,8 @@ public:
 	u1VerticalSlider* AddVerticalSlider(const int &x, const int &y, const SDL_Rect &rect, const SDL_Rect &idle, const SDL_Rect &hover, const SDL_Rect &push, u1GUI* parent, int * position, const int &moving_distance, m1Module* callback = nullptr);
 
 	void CreateScreen();
+
+	iPoint UIToGame(const iPoint& point);
 
 	bool DeleteUIElement(u1GUI * element);
 	void BFS(std::list<u1GUI *> &visited, u1GUI * elem);
