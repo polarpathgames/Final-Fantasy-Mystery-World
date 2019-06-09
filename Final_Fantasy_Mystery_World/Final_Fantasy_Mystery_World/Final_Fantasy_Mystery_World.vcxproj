@@ -68,7 +68,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <UseFullPaths>false</UseFullPaths>
       <ShowIncludes>false</ShowIncludes>
       <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -77,6 +77,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -259,29 +260,30 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\assets\xml\config.xml" />
-    <Xml Include="..\Game\assets\xml\Dialog.xml" />
-    <Xml Include="..\Game\assets\xml\NPC.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneBegin.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneLittleDrake.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneAbility2Quest2.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneAfterBossTutorial.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneBlockPass.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneDrakeQuest3.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneFinalGame.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneFinalRoom.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneFinalRoomQuest2.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneHomeSleep.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneHomeSleep2.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneLobbyCredits.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneLobbyQuest2.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneLobbyQuest3.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneLobbyTutorial.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneMiddleRoom.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneQueenQuest2.xml" />
+    <Xml Include="..\Game\assets\xml\CutsceneTutorial.xml" />
     <Xml Include="..\Game\assets\xml\Rooms.xml" />
-    <Xml Include="Game\assets\xml\CutsceneAbility2Quest2.xml" />
-    <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml">
-      <SubType>Designer</SubType>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneDrakeQuest3.xml" />
-    <Xml Include="Game\assets\xml\CutsceneFinalGame.xml" />
-    <Xml Include="Game\assets\xml\CutsceneFinalRoom.xml">
-      <SubType>Designer</SubType>
-    </Xml>
-    <Xml Include="Game\assets\xml\CutsceneFinalRoomQuest2.xml" />
-    <Xml Include="Game\assets\xml\CutsceneHomeSleep.xml" />
-    <Xml Include="Game\assets\xml\CutsceneHomeSleep2.xml" />
-    <Xml Include="Game\assets\xml\CutsceneLobbyCredits.xml" />
-    <Xml Include="Game\assets\xml\CutsceneLobbyQuest2.xml" />
-    <Xml Include="Game\assets\xml\CutsceneLobbyQuest3.xml" />
-    <Xml Include="Game\assets\xml\CutsceneLobbyTutorial.xml" />
-    <Xml Include="Game\assets\xml\CutsceneMiddleRoom.xml" />
-    <Xml Include="Game\assets\xml\CutsceneQueenQuest2.xml" />
-    <Xml Include="Game\assets\xml\CutsceneTutorial.xml" />
+    <Xml Include="Game\assets\xml\Dialog.xml" />
     <Xml Include="Game\assets\xml\CutsceneBlockPass.xml" />
+    <Xml Include="Game\assets\xml\Rooms.xml">
+      <SubType>Designer</SubType>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
@@ -290,7 +292,6 @@
     <Image Include="Game\assets\ff_icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Game\assets\entities\Little_Girl.tsx" />
     <None Include="Game\assets\entities\CarnivorousPlant.tsx" />
     <None Include="Game\assets\entities\Enemy.tsx" />
     <None Include="Game\assets\entities\Warrior.tsx" />
