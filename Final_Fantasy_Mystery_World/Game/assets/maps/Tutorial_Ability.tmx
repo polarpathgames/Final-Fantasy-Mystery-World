@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="isometric" renderorder="right-down" width="40" height="50" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="107">
+<map version="1.2" tiledversion="1.2.0" orientation="isometric" renderorder="right-down" width="40" height="50" tilewidth="32" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="107">
  <properties>
   <property name="movement" type="int" value="0"/>
  </properties>
@@ -6774,11 +6774,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="35"/>
+   <tile gid="43"/>
    <tile/>
-   <tile gid="60"/>
+   <tile gid="68"/>
    <tile/>
-   <tile gid="244"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6815,11 +6814,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="59"/>
    <tile/>
-   <tile gid="84"/>
-   <tile gid="244"/>
+   <tile gid="67"/>
    <tile/>
+   <tile gid="92"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6856,11 +6854,11 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="83"/>
    <tile/>
-   <tile gid="108"/>
    <tile/>
+   <tile gid="91"/>
    <tile/>
+   <tile gid="116"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6897,9 +6895,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="107"/>
    <tile/>
    <tile/>
+   <tile gid="115"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6938,7 +6936,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="131"/>
+   <tile/>
+   <tile/>
+   <tile gid="139"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8778,9 +8778,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="37"/>
+   <tile gid="45"/>
    <tile/>
-   <tile gid="62"/>
+   <tile gid="70"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8819,9 +8819,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="61"/>
+   <tile gid="69"/>
    <tile/>
-   <tile gid="86"/>
+   <tile gid="94"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8860,9 +8860,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="85"/>
+   <tile gid="93"/>
    <tile/>
-   <tile gid="110"/>
+   <tile gid="118"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8901,7 +8901,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="109"/>
+   <tile gid="117"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8942,7 +8942,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="133"/>
+   <tile gid="141"/>
    <tile/>
    <tile/>
    <tile/>
@@ -12047,7 +12047,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="7" name="Collider" width="40" height="50">
+ <layer id="7" name="Collider" width="40" height="50" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
