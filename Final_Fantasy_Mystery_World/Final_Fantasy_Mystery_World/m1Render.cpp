@@ -205,7 +205,7 @@ void m1Render::ResetViewPort()
 }
 
 // Blit to screen
-bool m1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool apply_scale, SDL_RendererFlip flip, float speed, const SDL_Rect* clip_zone,double angle, int pivot_x, int pivot_y) const
+bool m1Render::Blit(SDL_Texture* texture, float x, float y, const SDL_Rect* section, bool apply_scale, SDL_RendererFlip flip, float speed, const SDL_Rect* clip_zone,double angle, int pivot_x, int pivot_y) const
 {
 	bool ret = true;
 	uint scale = App->win->GetScale();
@@ -216,8 +216,8 @@ bool m1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 
 	SDL_Rect rect;
 	if (apply_scale) {
-		rect.x = (int)(camera.x * speed) + x * scale;
-		rect.y = (int)(camera.y * speed) + y * scale;
+		rect.x = (int)(camera.x * speed) + (int)(x * (float)scale);
+		rect.y = (int)(camera.y * speed) + (int)(y * (float)scale);
 	}
 	else {
 		rect.x = x;
