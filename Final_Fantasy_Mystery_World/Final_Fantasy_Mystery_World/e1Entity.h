@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __ENTITY_H__
 #define __ENTITY_H__
 
@@ -16,7 +15,7 @@ struct SDL_Texture;
 struct Collider;
 
 enum class State {
-	IDLE, WALKING, BEFORE_ATTACK, ATTACKING, AFTER_ATTACK, DEATH, MENU, SLEEPING, BEFORE_FLASH, FLASHING, AFTER_FLASH, NONE
+	IDLE, WALKING, BEFORE_ATTACK, ATTACKING, AFTER_ATTACK, DEATH, MENU, SLEEPING, BEFORE_FLASH, FLASHING, AFTER_FLASH,NONE
 };
 
 enum class AnimationState {
@@ -28,7 +27,7 @@ enum class AnimationState {
 	ABILITY_UP_1, ABILITY_UP_LEFT_1, ABILITY_UP_RIGHT_1, ABILITY_LEFT_1, ABILITY_DOWN_LEFT_1, ABILITY_DOWN_1, ABILITY_DOWN_RIGHT_1, ABILITY_RIGHT_1,
 	ABILITY_UP_2, ABILITY_UP_LEFT_2, ABILITY_UP_RIGHT_2, ABILITY_LEFT_2, ABILITY_DOWN_LEFT_2, ABILITY_DOWN_2, ABILITY_DOWN_RIGHT_2, ABILITY_RIGHT_2,
 
-	NONE = -1
+	NONE
 };
 
 
@@ -146,6 +145,7 @@ public:
 
 	pugi::xml_document	entity_file;
 	pugi::xml_node		config;
+	pugi::xml_node		node;
 
 	bool drawable = true;
 	bool allow_turn = false;

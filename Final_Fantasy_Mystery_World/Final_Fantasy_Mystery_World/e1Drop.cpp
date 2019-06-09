@@ -10,6 +10,7 @@
 #include "Brofiler/Brofiler.h"
 #include "m1Render.h"
 #include "m1Map.h"
+#include "u1Image.h"
 #include "m1MenuManager.h"
 
 e1Drop::e1Drop(const int & x, const int & y, const char * name) : e1StaticEntity(x,y,name)

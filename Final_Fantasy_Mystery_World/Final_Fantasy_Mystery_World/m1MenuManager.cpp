@@ -826,11 +826,25 @@ void m1MenuManager::EnableHUD(bool show_or_hide) {
 			hud.player_exp_bar->drawable = show_or_hide;
 			hud.level_label->drawable = show_or_hide;
 
+			if (App->globals.ability1_gained == true) {
+				hud.skill_1->drawable = show_or_hide;
+				hud.ability1_bar->drawable = show_or_hide;
+			}
+
+			if (App->globals.ability2_gained == true) {
+				hud.skill_2->drawable = show_or_hide;
+				hud.ability2_bar->drawable = show_or_hide;
+			}
+			
+			if (App->globals.ability3_gained == true) {
+				hud.skill_3->drawable = show_or_hide;
+			}
+
 			// It is ugly but for now works
 			if (show_or_hide == true)
 			{
 				hud.player_exp_bar->empty_bar->drawable = true;
-
+			
 				if (hud.player_exp_bar->got_xp)
 					hud.player_exp_bar->filled_bar->drawable = true;
 
@@ -1038,6 +1052,19 @@ void m1MenuManager::CreateHelpAbilityMenu(AbilityType type)
 		App->gui->AddImage(0, 0, { 0,4024,1024,768 }, nullptr, help_ability, true, false, false, false);
 		break;
 	case AbilityType::ABILITY3:
+		help_ability = App->gui->AddImage(0, 0, { 0,0,0,0 }, nullptr, App->gui->screen, false, false, false, false);
+		switch (App->scene->player_type)
+		{
+		case PlayerType::WARRIOR:
+			App->gui->AddImage(0, 0, { 2048,4792,1024,768 }, nullptr, help_ability, true, false, false, false);
+			break;
+		case PlayerType::ARCHER:
+			App->gui->AddImage(0, 0, { 0,1536,1024,768 }, nullptr, help_ability, true, false, false, false);
+			break;
+		case PlayerType::MAGE:
+			App->gui->AddImage(0, 0, { 2048,5560,1024,768 }, nullptr, help_ability, true, false, false, false);
+			break;
+		}
 		break;
 	case AbilityType::LB_USE_ABILITY:
 		help_ability = App->gui->AddImage(0, 0, { 0,0,0,0 }, nullptr, App->gui->screen, false, false, false, false);
@@ -1060,23 +1087,32 @@ void m1MenuManager::CreateHUD()
 
 	hud.bg_hud = App->gui->AddImage(45, 630, { 2113, 192, 284, 105 }, nullptr, App->gui->screen, true, false, false, false);
 
+	hud.skill_1 = App->gui->AddImage(905, -330, { 2751, 197, 49, 70 }, nullptr, hud.bg_hud, false, false, false, false);
+	hud.skill_2 = App->gui->AddImage(-12, 90, { 2740, 290, 63, 66 }, nullptr, hud.skill_1, false, false, false, false);
+
 	switch (App->scene->player_type) {
 	case PlayerType::WARRIOR:
 		hud.player_hud_image = App->gui->AddImage(18, 18, { 2133,416,51,53 }, nullptr, hud.bg_hud, true, false, false, false);
+		hud.skill_3 = App->gui->AddImage(-6, 90, { 2746, 386, 68, 61 }, nullptr, hud.skill_2, false, false, false, false);
 		break;
 	case PlayerType::ARCHER:
 		hud.player_hud_image = App->gui->AddImage(18, 18, { 2227,418,51,53 }, nullptr, hud.bg_hud, true, false, false, false);
+		hud.skill_3 = App->gui->AddImage(4, 90, { 2914, 388, 52, 58 }, nullptr, hud.skill_2, false, false, false, false);
 		break;
 	case PlayerType::MAGE:
 		hud.player_hud_image = App->gui->AddImage(18, 18, { 2320,418,51,53 }, nullptr, hud.bg_hud, true, false, false, false);
+		hud.skill_3 = App->gui->AddImage(-3, 90, { 2829, 385, 61, 62 }, nullptr, hud.skill_2, false, false, false, false);
 		break;
 	}
 	hud.player_hp_bar = App->gui->AddBar(121, 8,App->scene->player->stats.max_lives, HPBAR, hud.bg_hud, nullptr);
 	hud.player_mana_bar = App->gui->AddBar(121, 66, App->scene->player->stats.max_mana, MANABAR, hud.bg_hud, nullptr);
 	hud.player_exp_bar = App->gui->AddBar(60, 105, App->scene->player->stats.max_xp, EXPBAR, hud.bg_hud, nullptr);
+	hud.ability1_bar = App->gui->AddBar(-20, 0, 200, UIType::SKILLBAR, hud.skill_1, nullptr);
+	hud.ability1_bar->drawable = false;
+	hud.ability2_bar = App->gui->AddBar(-20, 0, 200, UIType::SKILLBAR, hud.skill_2, nullptr);
+	hud.ability2_bar->drawable = false;
 	hud.level_label = App->gui->AddLabel(65, 73, std::to_string(App->scene->player->stats.level).data(), hud.bg_hud, BLACK, FontType::FF32, App->scene, false);
 
-	
 }
 
 void m1MenuManager::DestroyHUD()
