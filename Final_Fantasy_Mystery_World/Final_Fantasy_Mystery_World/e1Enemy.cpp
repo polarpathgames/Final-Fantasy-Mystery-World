@@ -73,7 +73,6 @@ e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 
 e1Enemy::~e1Enemy()
 {
-	App->particles->CreateExplosion(nullptr, nullptr, GetPosition(), { 2,2,2,2 }, RANDOM, { 20,20 }, { 10,5 }, { 1,3 }, P_RANDOM , 200, 4, { 0.f,-2.f });
 }
 
 void e1Enemy::InitStats()
@@ -562,7 +561,6 @@ void e1Enemy::GetHitted(const int & damage_taken)
 	pos.y = (int)(App->render->camera.y) + position.y * (int)App->win->GetScale();
 	App->gui->AddHitPointLabel(pos.x, pos.y, std::to_string(damage_taken).data(), App->gui->screen,RED, FontType::PMIX24);
 	state = State::IDLE;
-	App->particles->CreateExplosion(nullptr, nullptr, GetPosition() - iPoint{0, (int)(size.y * 0.5F)}, SDL_Rect{ 6,0,2,2 }, RANDOM, iPoint(20, 20), iPoint(20, 8), fPoint(200, -60), P_RANDOM_X, 30, 1);
 	App->audio->PlayFx(fx_enemy_hit);
 
 	if (enemy_type == EnemyType::FROZEN) {

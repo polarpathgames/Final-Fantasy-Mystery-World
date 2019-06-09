@@ -459,6 +459,15 @@ void m1GUI::CreateScreen()
 	}
 }
 
+iPoint m1GUI::UIToGame(const iPoint & point)
+{
+	iPoint pos{ 0,0 };
+	pos.x = (int)(App->render->camera.x) + (point.x) * (int)App->win->GetScale();
+	pos.y = (int)(App->render->camera.y) + (point.y) * (int)App->win->GetScale();
+
+	return pos;
+}
+
 bool m1GUI::DeleteUIElement(u1GUI * element)
 {
 	if (element != nullptr) {

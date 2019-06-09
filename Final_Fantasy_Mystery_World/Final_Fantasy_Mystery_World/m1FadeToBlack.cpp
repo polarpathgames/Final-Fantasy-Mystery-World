@@ -105,11 +105,6 @@ bool m1FadeToBlack::PostUpdate()
 			vibration = false;
 			if (App->scene->player != nullptr && App->cutscene_manager->is_executing == false)
 				App->scene->player->BlockControls(false);
-			if (map_to_change == Maps::LOBBY && App->globals.ability3_gained && !App->globals.Ability3PanelShowed) {
-				App->globals.Ability3PanelShowed = true;
-				App->menu_manager->CreateHelpAbilityMenu(AbilityType::ABILITY3);
-				App->scene->player->BlockControls(true);
-			}
 		}
 			
 	} break;

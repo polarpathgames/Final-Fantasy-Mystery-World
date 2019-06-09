@@ -102,12 +102,6 @@ bool e1Player::Update(float dt)
 
 	PerformActions(dt);
 
-	UpdateSkill1Bar(dt);
-	//-------------------------------------------
-	UpdateSkill2Bar(dt);
-	
-
-
 	if (App->debug)
 		App->render->Blit(ground, App->map->MapToWorld(actual_tile.x, actual_tile.y).x + 1, App->map->MapToWorld(actual_tile.x, actual_tile.y).y - 8, NULL, true);
 
@@ -122,36 +116,6 @@ bool e1Player::Update(float dt)
 	}
 
 	return true;
-}
-
-void e1Player::UpdateSkill1Bar(float dt)
-{
-	if ((App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT && App->globals.ability1_gained == true && state == State::BEFORE_ATTACK) || 
-		(App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_X) == KEY_REPEAT && App->globals.ability1_gained == true && state == State::BEFORE_ATTACK))
-	{
-		App->menu_manager->hud.ability1_bar->UpdateBar(-300 * dt, UIType::SKILLBAR);
-	}
-
-	else if (state == State::AFTER_ATTACK)
-		App->menu_manager->hud.ability1_bar->UpdateBar(300 * dt, UIType::SKILLBAR);
-
-	else
-		App->menu_manager->hud.ability1_bar->UpdateBar(300 * dt, UIType::SKILLBAR);
-}
-
-void e1Player::UpdateSkill2Bar(float dt)
-{
-	if ((App->input->GetKey(SDL_SCANCODE_2) == KEY_REPEAT && App->globals.ability2_gained == true && state == State::FLASHING) || 
-		(App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_B) == KEY_REPEAT && App->globals.ability2_gained == true && state == State::FLASHING))
-	{
-		App->menu_manager->hud.ability2_bar->UpdateBar(-300 * dt, UIType::SKILLBAR);
-	}
-
-	else if (state == State::AFTER_FLASH)
-		App->menu_manager->hud.ability2_bar->UpdateBar(300 * dt, UIType::SKILLBAR);
-
-	else
-		App->menu_manager->hud.ability2_bar->UpdateBar(300 * dt, UIType::SKILLBAR);
 }
 
 bool e1Player::Load(pugi::xml_node & node)
@@ -847,8 +811,7 @@ void e1Player::BasicAttack()
 			break;
 		}
 		CheckBasicAttackEffects(e1Entity::EntityType::ENEMY, direction, stats.attack_power);
-		if (App->entity_manager->CheckForBarrelsAndSnowMan(actual_tile, direction))
-			App->scene->snowman_count++;
+		App->entity_manager->CheckForBarrelsAndSnowMan(actual_tile, direction);
 		state = State::AFTER_ATTACK;
 		ChangeAnimation(direction, state);
 		time_attack = SDL_GetTicks();

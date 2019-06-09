@@ -93,10 +93,6 @@ public:
 
 	bool Update(float dt);
 
-	void UpdateSkill1Bar(float dt);
-
-	void UpdateSkill2Bar(float dt);
-
 	bool Load(pugi::xml_node&);
 
 	bool Save(pugi::xml_node&) const;
