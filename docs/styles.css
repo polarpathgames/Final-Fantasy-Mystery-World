@@ -220,7 +220,7 @@ section ul li.last-release h4{
   color: #5e5e5e;
 }
 
-section ul li a, section div div a.download_link{
+section ul.list-releases li a, section div div a.download_link{
   text-decoration: none;
   background: rgb(78, 181, 216);
   color: white;
@@ -348,7 +348,6 @@ section.member{
   background: lightblue;
   margin: 20px 20px 0 20px;
   padding: 2em 3em;
-
 }
 
 section.member h1{
@@ -362,16 +361,21 @@ section.member img{
 }
 
 section.member ul{
-  background: rgb(211, 238, 247);
-  height: 27.5%;
-  min-width: 50%;
   position: absolute;
   font-size: 1.5em;
-  top: 10.5em;
+  top: 9em;
   left: 14em;
   line-height: 3em;
   padding-top: 2em;
   padding-left: 2em;
+}
+
+@media screen and (max-width:712px){
+  section.member ul{
+    position: initial;
+      padding-top: 0;
+      padding-left: 0;
+  }
 }
 
 section.work{
@@ -385,6 +389,24 @@ section.work h2{
   font-size: 28px;
   text-align: left;
 }
+
+section.work img{
+  display: block;
+  margin: auto;
+}
+
+@media screen and (max-width:1395px){
+  section.work img{
+  width: 100%;
+  height: auto;
+  }
+}
+
+section ul li a.github{
+  text-decoration: none;
+}
+
+/* IMAGE GALLERY SLIDER */
 
 section.container{
   margin: 0 auto;
