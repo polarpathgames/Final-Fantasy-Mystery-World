@@ -116,6 +116,9 @@ void e1NPC::DoInteraction() {
 	case e1NPC::NPCType::WISE:
 		break;
 	case e1NPC::NPCType::SNOWMAN_HATER:
+		if (App->scene->snowman_count >= 3) {
+
+		}
 		break;
 	case e1NPC::NPCType::WORRIED_MAN:
 		break;
