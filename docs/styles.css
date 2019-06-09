@@ -33,14 +33,14 @@ body {
   
   header .logo a {
     background-image: url("logo.png");
-    background-size: 150px;
+    background-size: 180px;
     background-repeat: no-repeat;
     display: inline-block;
-    height: 150px;
+    height: 180px;
     position: relative;
     text-indent: -9999999px;
-    top: -50px;
-    width: 150px;
+    top: -65px;
+    width: 180px;
   }
 
   nav ul {
