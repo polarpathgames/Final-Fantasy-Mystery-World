@@ -1,0 +1,633 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="c1CutSceneAddAudio.cpp">
+      <Filter>Cutscenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneDeleteEntity.cpp">
+      <Filter>Cutscenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneEntity.cpp">
+      <Filter>Cutscenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneImage.cpp">
+      <Filter>Cutscenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneModifyimage.cpp">
+      <Filter>Cutscenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneModifyText.cpp">
+      <Filter>Cutscenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutsceneMoveCamera.cpp">
+      <Filter>Cutscenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneMoveEntity.cpp">
+      <Filter>Cutscenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutsceneText.cpp">
+      <Filter>Cutscenes</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Archer.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1BlueDog.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1CarnivorousPlant.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Drop.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1DynamicEntity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Enemy.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Entity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Mage.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1NPC.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Particles.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Player.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Rock.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1ShopKeeperDaughter.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1StaticEntity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1StrangeFrog.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Warrior.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Audio.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Collisions.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Cutscene.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1DialogSystem.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1EasingSplines.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1EntityManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1FadeToBlack.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Fonts.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1GUI.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Input.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1MainMenu.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Map.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1MenuManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1ParticleManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Pathfinding.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Render.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Scene.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Textures.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="m1Window.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="p1Explosion.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="p1Fire.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="p1Firework.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="p1Follow.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="p1Particle.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="p2ChangeControls.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="p2Log.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="p2PerfTimer.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="p2Rooms.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="p2Timer.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="PugiXml\src\pugixml.cpp">
+      <Filter>Tools\pugi</Filter>
+    </ClCompile>
+    <ClCompile Include="u1Bar.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="u1Button.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="u1ChButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="u1CheckBox.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="u1HitPointLabel.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="u1Image.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="u1InputText.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="u1Label.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="u1Slider.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="u1UI_Element.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="e1BlueSlime.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1State.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1SuperPurpleFrog.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="u1VerticalSlider.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Cassio.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="p2Math.h">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="p2Math.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Frozen.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1MegaEye.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1BabyDrake.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Spider.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneFadeToBlack.cpp" />
+    <ClCompile Include="c1CutSceneVibration.cpp" />
+    <ClCompile Include="e1AmazingDragon.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="e1Bomberman.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="m1VideoPlayer.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App.h" />
+    <ClInclude Include="c1CutSceneAction.h">
+      <Filter>Cutscenes</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneAddAudio.h">
+      <Filter>Cutscenes</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneDeleteEntity.h">
+      <Filter>Cutscenes</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneElement.h">
+      <Filter>Cutscenes</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneEntity.h">
+      <Filter>Cutscenes</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneImage.h">
+      <Filter>Cutscenes</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneModifyimage.h">
+      <Filter>Cutscenes</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneModifyText.h">
+      <Filter>Cutscenes</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutsceneMoveCamera.h">
+      <Filter>Cutscenes</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneMoveEntity.h">
+      <Filter>Cutscenes</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneText.h">
+      <Filter>Cutscenes</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Archer.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1BlueDog.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1CarnivorousPlant.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Drop.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1DynamicEntity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Enemy.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Entity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Mage.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1NPC.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Particles.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Player.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Rock.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1ShopKeeperDaughter.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1StaticEntity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1StrangeFrog.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Warrior.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Audio.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Collisions.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Cutscene.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1DialogSystem.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1EasingSplines.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1EntityManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1FadeToBlack.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Fonts.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1GUI.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Input.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1MainMenu.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Map.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1MenuManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Module.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1ParticleManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Pathfinding.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Render.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Scene.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Textures.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="m1Window.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="p1Explosion.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="p1Fire.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="p1Firework.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="p1Follow.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="p1Particle.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Animation.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2ChangeControls.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Defs.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Line.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Log.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2PerfTimer.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Point.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Properties.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Random.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Rooms.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Timer.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="PugiXml\src\pugiconfig.hpp">
+      <Filter>Tools\pugi</Filter>
+    </ClInclude>
+    <ClInclude Include="PugiXml\src\pugixml.hpp">
+      <Filter>Tools\pugi</Filter>
+    </ClInclude>
+    <ClInclude Include="u1Bar.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="u1Button.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="u1ChButton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="u1CheckBox.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="u1HitPointLabel.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="u1Image.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="u1InputText.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="u1Label.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="u1Slider.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="u1UI_Element.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="e1BlueSlime.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1State.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1SuperPurpleFrog.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="u1VerticalSlider.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Cassio.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Frozen.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1MegaEye.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1BabyDrake.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Spider.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneFadeToBlack.h" />
+    <ClInclude Include="c1CutSceneVibration.h" />
+    <ClInclude Include="e1AmazingDragon.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="e1Bomberman.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="m1VideoPlayer.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Game\assets\xml\CutsceneAfterBossTutorial.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneBlockPass.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneFinalRoom.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneLobbyTutorial.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneMiddleRoom.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneTutorial.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\Dialog.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\Rooms.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneAbility2Quest2.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneFinalRoomQuest2.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneHomeSleep.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneQueenQuest2.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneLobbyQuest2.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneHomeSleep2.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneDrakeQuest3.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneFinalGame.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneLobbyCredits.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="Game\assets\xml\CutsceneLobbyQuest3.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\config.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="..\Game\assets\xml\Rooms.xml">
+      <Filter>XML</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Game\assets\entities\CarnivorousPlant.tsx">
+      <Filter>Entities\XML</Filter>
+    </None>
+    <None Include="Game\assets\entities\Enemy.tsx">
+      <Filter>Entities\XML</Filter>
+    </None>
+    <None Include="Game\assets\entities\Warrior.tsx">
+      <Filter>Entities\XML</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Cutscenes">
+      <UniqueIdentifier>{f8fad84e-b669-4be0-bb9e-1e5c18f3e703}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cutscenes\XML">
+      <UniqueIdentifier>{3cdc7a44-8bb4-462d-b18e-ed9a1ddcea1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{83d7014b-dd78-47d2-9714-83367c54b2f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\XML">
+      <UniqueIdentifier>{a6cef6fb-4096-44d6-ae0c-b266459d94f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules">
+      <UniqueIdentifier>{cdf0cc49-cd68-492c-a92b-38429d287d31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particles">
+      <UniqueIdentifier>{39203567-46a0-453a-9417-1ce9830592e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{af69a06a-902c-4039-a1f8-d7c5f2c64a85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools\pugi">
+      <UniqueIdentifier>{967fb523-44fd-498e-8e36-80856f17ecda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{57850b87-70a7-4a52-b6b1-86916374b113}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc">
+      <UniqueIdentifier>{c1dc3a66-f1c6-417e-ad6f-9cb44749bac2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XML">
+      <UniqueIdentifier>{2a59bcdf-ca59-4955-b34f-1d0d7db89dc5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon.rc">
+      <Filter>Misc</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Game\assets\ff_icon.ico">
+      <Filter>Misc</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

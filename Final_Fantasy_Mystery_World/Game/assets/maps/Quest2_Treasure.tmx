@@ -3,7 +3,10 @@
  <tileset firstgid="1" name="ques2_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques2_tileset.png" width="688" height="290"/>
  </tileset>
- <layer id="1" name="Floor" width="40" height="40">
+ <tileset firstgid="379" name="ques1_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
+  <image source="ques1_tileset.png" width="688" height="290"/>
+ </tileset>
+ <layer id="1" name="Floor" width="40" height="40" locked="1">
   <data>
    <tile/>
    <tile/>
@@ -2434,8 +2437,8 @@
    <tile gid="28"/>
    <tile gid="28"/>
    <tile/>
-   <tile gid="9"/>
-   <tile gid="52"/>
+   <tile/>
+   <tile/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="28"/>
@@ -2474,8 +2477,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="9"/>
-   <tile gid="72"/>
+   <tile/>
+   <tile/>
    <tile gid="9"/>
    <tile gid="43"/>
    <tile gid="28"/>
@@ -2514,8 +2517,8 @@
    <tile gid="28"/>
    <tile gid="28"/>
    <tile/>
-   <tile gid="50"/>
-   <tile gid="51"/>
+   <tile/>
+   <tile/>
    <tile gid="9"/>
    <tile/>
    <tile gid="28"/>
@@ -7204,9 +7207,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="190"/>
    <tile/>
-   <tile gid="212"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7245,10 +7246,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="211"/>
    <tile/>
-   <tile gid="233"/>
    <tile/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7286,7 +7286,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="232"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8811,10 +8814,10 @@
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
+   <tile gid="385"/>
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile/>
@@ -8935,9 +8938,9 @@
    <tile gid="7"/>
    <tile/>
    <tile/>
-   <tile gid="7"/>
    <tile/>
    <tile/>
+   <tile/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
@@ -9011,10 +9014,10 @@
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
+   <tile gid="385"/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
-   <tile gid="7"/>
    <tile/>
    <tile/>
    <tile/>
@@ -9091,7 +9094,7 @@
    <tile gid="7"/>
    <tile gid="7"/>
    <tile gid="7"/>
-   <tile/>
+   <tile gid="385"/>
    <tile gid="7"/>
    <tile gid="7"/>
    <tile/>
@@ -9631,8 +9634,8 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="7" name="Static animation objects">
-  <object id="63" name="treasure" type="static" x="384" y="320" width="32" height="32"/>
+ <objectgroup id="7" name="Static animation objects" visible="0">
+  <object id="63" name="treasure_quest3" type="static" x="400" y="320" width="32" height="32"/>
   <object id="64" name="lava" type="static" x="352" y="352" width="16" height="16"/>
   <object id="65" name="lava" type="static" x="352" y="336" width="16" height="16"/>
   <object id="66" name="lava" type="static" x="368" y="352" width="16" height="16"/>
@@ -9826,9 +9829,7 @@
     <property name="free_movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="250" name="InstaGoldRuppe" type="static" x="432" y="352" width="16" height="16"/>
-  <object id="251" name="InstaRedRuppe" type="static" x="432" y="336" width="16" height="16"/>
-  <object id="253" name="InstaGoldRuppe" type="static" x="432" y="320" width="16" height="16"/>
+  <object id="250" name="InstaGoldRuppe" type="static" x="352" y="272" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="9" name="colliders">
   <object id="62" name="room_collider" type="lastB" x="560" y="352" width="16.1904" height="16.5606">

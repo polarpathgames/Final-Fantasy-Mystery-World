@@ -8023,7 +8023,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="6" name="Collider" width="40" height="40">
+ <layer id="6" name="Collider" width="40" height="40" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -9643,7 +9643,7 @@
   <object id="57" name="rock_elevation" type="static" x="512" y="224" width="32" height="32"/>
   <object id="58" name="rocks_door" type="static" x="289" y="305.125" width="47" height="46.875"/>
  </objectgroup>
- <objectgroup color="#ffff7f" id="8" name="entities">
+ <objectgroup color="#ffff7f" id="8" name="entities" visible="0">
   <object id="5" name="player" type="default" x="432" y="416" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
@@ -9660,7 +9660,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="9" name="colliders">
+ <objectgroup id="9" name="colliders" visible="0">
   <object id="10" name="room_collider" type="nextA" x="432" y="224" width="16.1904" height="15.0341">
    <properties>
     <property name="next_id" type="int" value="2"/>
