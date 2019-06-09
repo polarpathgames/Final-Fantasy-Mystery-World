@@ -1,5 +1,5 @@
 body {
-    background: rgb(0, 114, 114);
+    background: rgb(218, 234, 253);
     margin: 0;
     padding: 0;
   }
@@ -11,7 +11,7 @@ body {
   /* HEADER */
   
   header {
-    background-color: darkcyan;
+    background-color: rgb(12, 132, 187);
     height: 120px;
     padding: 20px;
     text-align: center;
@@ -70,7 +70,7 @@ body {
   /* FOOTER */
   
   footer {
-    background: darkcyan;
+    background-color: rgb(12, 132, 187);
     color: white;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 16px;
@@ -122,7 +122,7 @@ body {
   /* SECTION*/
 
   section h2{
-    color:white;
+    color:rgb(228, 123, 4);
     text-align: center;
   }
 
@@ -149,7 +149,7 @@ body {
   }
 
 section.game_description,section.team{
-  background: rgb(64, 78, 138);
+  background: rgb(212, 76, 22);
   color: whitesmoke;
   font-size: 18px;
   margin: 20px;
@@ -158,7 +158,7 @@ section.game_description,section.team{
 }
 
 section h1.video_title{
-  background: rgb(90, 110, 197);
+  background: rgb(224, 107, 61);
   color: whitesmoke;
   font-size: 24px;
   margin: 0% 20px;
@@ -166,7 +166,7 @@ section h1.video_title{
 }
 
 section div.videos{
-  background: rgb(90, 110, 197);
+  background: rgb(224, 107, 61);
   margin: 20px;
   margin-top:0%;
   padding: 5px 20px 20px 20px;
@@ -189,19 +189,21 @@ section div.videos figure iframe {
   height: 200px;
 }
 
+/* FEATURES */
+
 section ul.list-releases{
   padding-left: 0;
   margin: 20px 20%;
   font-family: sintony,Arial;
   color: black;
-  background-color: rgb(195, 229, 240);
+  background-color: rgb(247, 141, 100);
 }
 
 section ul.list-releases li{
   display: block;
   padding: 10px 15px;
   margin-bottom: -1px;
-  border: 2px solid gray;
+  border: 2px solid rgb(129, 191, 241);
   min-height: 85px;
   font-size: 16px;
 }
@@ -210,14 +212,14 @@ section ul.list-releases li.last-release{
   display: block;
   padding: 10px 15px;
   margin-bottom: -1px;
-  border: 2px solid gray;
+  border: 2px solid rgb(129, 191, 241);
   min-height: 85px;
   font-size: 16px;
-  background: rgb(171, 255, 171);
+  background: rgb(255, 102, 0);;
 }
 
 section ul li.last-release h4{
-  color: #5e5e5e;
+  color:rgb(177, 215, 246);
 }
 
 section ul.list-releases li a, section div div a.download_link{
@@ -235,7 +237,7 @@ section ul.list-releases li a, section div div a.download_link{
 
 section.members {
   font-size: 18px;
-  background:rgb(195, 240, 255);
+  background:rgb(255, 145, 94);
   color: black;
   padding: 20px;
   display: flex;
@@ -345,19 +347,19 @@ section div div h2{
 /* MEMBER */
 
 section.member{
-  background: lightblue;
+  background: rgb(255, 175, 129);
   margin: 20px 20px 0 20px;
   padding: 2em 3em;
 }
 
 section.member h1{
-  color: darkslateblue;
+  color: white;
 }
 
 section.member img{
   width: 250px;
   height:300px;
-  border: 1px solid white;
+  border: 1px solid rgb(255, 255, 255);
 }
 
 section.member ul{
@@ -379,7 +381,7 @@ section.member ul{
 }
 
 section.work{
-  background: rgb(131, 201, 224);
+  background: lightblue;
   margin: 5px 20px 20px 20px;
   padding: 2em;
   font-size: 18px;
@@ -388,6 +390,7 @@ section.work{
 section.work h2{
   font-size: 28px;
   text-align: left;
+  color: rgb(9, 98, 139);
 }
 
 section.work img{
