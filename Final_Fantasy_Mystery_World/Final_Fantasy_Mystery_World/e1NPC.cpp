@@ -34,6 +34,7 @@ bool e1NPC::Update(float dt) {
 						CreateInteractionButton();
 					}
 					if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetControllerButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
+						DoInteraction();
 						if (!dialog_id.empty()) {
 							if (interacting) {
 								if (App->dialog->end_dial)
@@ -55,7 +56,6 @@ bool e1NPC::Update(float dt) {
 									dialog_id.pop_front();
 							}
 						}
-						DoInteraction();
 						state = State::IDLE;
 						if (has_directions) {
 							int tmp = (int)App->scene->player->direction;
@@ -116,8 +116,10 @@ void e1NPC::DoInteraction() {
 	case e1NPC::NPCType::WISE:
 		break;
 	case e1NPC::NPCType::SNOWMAN_HATER:
-		if (App->scene->snowman_count >= 3) {
-
+		if (App->scene->snowman_count >= 3 && snow_reward) {
+			iPoint tile = App->map->WorldToMap(GetPosition().x, GetPosition().y);
+			App->entity_manager->SpawnRupees(tile.x, tile.y, 50, 10, 10, 20, 50, 20);
+			snow_reward = true;
 		}
 		break;
 	case e1NPC::NPCType::WORRIED_MAN:

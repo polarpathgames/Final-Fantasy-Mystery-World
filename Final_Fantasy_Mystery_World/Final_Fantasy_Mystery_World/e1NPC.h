@@ -85,6 +85,7 @@ public:
 
 	bool interactable = false;
 	bool interacting = false;
+	bool snow_reward = false;
 	bool look_to_player = false;
 	bool is_quest_npc = false;
 };
