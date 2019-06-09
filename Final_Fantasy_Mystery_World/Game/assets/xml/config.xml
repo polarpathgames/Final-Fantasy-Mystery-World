@@ -9,7 +9,7 @@
   </app>
  
   <renderer>
-    <vsync value="false"/>
+    <vsync value="true"/>
   </renderer>
 
   <window>
@@ -38,6 +38,16 @@
   <main_menu>
     <video_intro path="assets/videos/Intro.mp4"/>
   </main_menu>
+
+  <audio>
+    <volume value="30"/>
+    <volume_fx value="100"/>
+    <max_volume value="100"/>
+    <default_music_fade_time value="0.5"/>
+    <volume_change_ratio value="10"/>
+    <mute value="false"/>
+    <volume_general value="100"/>
+  </audio>
 
   <map>
     <folder>assets/maps/</folder>
