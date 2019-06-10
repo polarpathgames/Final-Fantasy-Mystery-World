@@ -1290,6 +1290,16 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 			delete control_to_change;
 		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_basic_attack, &App->input->controller_Buttons.buttons_code.BASIC_ATTACK, &App->input->controller_Buttons.buttons_char.BASIC_ATTACK, true);
 	}
+	else if (interaction == controls.controller.Cbutton_inventory) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_inventory, &App->input->controller_Buttons.buttons_code.INVENTORY, &App->input->controller_Buttons.buttons_char.INVENTORY, true);
+	}
+	else if (interaction == controls.keyboard.button_inventory) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_inventory, &App->input->keyboard_buttons.buttons_code.INVENTORY, &App->input->keyboard_buttons.buttons_char.INVENTORY, false);
+	}
 
 	//OPTIONS ======================================================================================================================================
 
