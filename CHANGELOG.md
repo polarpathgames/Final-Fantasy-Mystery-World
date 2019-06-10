@@ -15,6 +15,7 @@ Added:
 - Studio video
 - Initial game video
 - Map legend
+- Charge ability bar
 
 Changed:
 --------

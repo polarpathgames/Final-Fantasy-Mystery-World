@@ -20,6 +20,7 @@ Added:
 - Studio video
 - Initial game video
 - Map legend
+- Charge ability bar
 
 Changed:
 --------
@@ -112,8 +113,10 @@ Oriol Capdevila [OriolCS2](https://github.com/OriolCS2)
   - X: ability 1
   - Select: minimap
 
+
 ### Debug keys:
-- Z/X: change scale
+
+- Z/X: Change scale
 - 6: go to the lobby
 - 7: go to tutorial map
 - 8: go to quest 1

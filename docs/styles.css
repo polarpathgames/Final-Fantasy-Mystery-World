@@ -308,18 +308,18 @@ section.team img {
 
 /* POP UP*/
 
-#modal095:target,#modal094:target,#modal093:target, #modal092:target, #modal091:target, #modal090:target, #modal082:target, #modal081:target, #modal080:target, #modal071:target, #modal070:target, 
-#modal061:target,#modal060:target, #modal053:target, #modal052:target, #modal051:target, #modal050:target, #modal041:target, #modal040:target, #modal031:target, #modal030:target, #modal021:target, 
-#modal020:target,#modal010:target {
-  opacity: 1;
-  visibility: visible;
+#modal096:target, #modal095:target, #modal094:target, #modal093:target, #modal092:target, #modal091:target, #modal090:target, #modal082:target, #modal081:target, #modal080:target, #modal071:target, #modal070:target,
+#modal061:target, #modal060:target, #modal053:target, #modal052:target, #modal051:target, #modal050:target, #modal041:target, #modal040:target, #modal031:target, #modal030:target, #modal021:target,
+#modal020:target, #modal010:target {
+    opacity: 1;
+    visibility: visible;
 }
 
-#modal095:target .popup, #modal094:target .popup,#modal093:target .popup, #modal092:target .popup, #modal091:target .popup, #modal090:target .popup, #modal082:target .popup, #modal081:target .popup, 
+#modal096:target .popup, #modal095:target .popup, #modal094:target .popup, #modal093:target .popup, #modal092:target .popup, #modal091:target .popup, #modal090:target .popup, #modal082:target .popup, #modal081:target .popup,
 #modal080:target .popup, #modal071:target .popup, #modal070:target .popup, #modal061:target .popup, #modal060:target .popup, #modal053:target .popup, #modal052:target .popup, #modal051:target .popup,
 #modal050:target .popup, #modal041:target .popup, #modal040:target .popup, #modal031:target .popup, #modal030:target .popup, #modal021:target .popup, #modal020:target .popup, #modal010:target .popup {
-  opacity: 1;
-  visibility: visible;
+    opacity: 1;
+    visibility: visible;
 }
 
 .background{
