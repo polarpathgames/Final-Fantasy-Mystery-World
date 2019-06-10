@@ -291,12 +291,11 @@ void m1MenuManager::CreateControls()
 	controls.keyboard.label_direction_left = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 7, "Look Left", controls.controls_panel, BLACK, FontType::FF48, nullptr, false);
 	controls.keyboard.label_direction_down = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 8, "Look Down", controls.controls_panel, BLACK, FontType::FF48, nullptr, false);
 	controls.keyboard.label_basic_attack = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 9, "Basic Attack", controls.controls_panel, BLACK, FontType::FF48, nullptr, false);
-	controls.keyboard.label_abilities = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 10, "Show Abilities", controls.controls_panel, BLACK, FontType::FF48, nullptr, false);
+	controls.keyboard.label_abilities = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 10, "Fast Cast", controls.controls_panel, BLACK, FontType::FF48, nullptr, false);
 	controls.keyboard.label_ability1 = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 11, "Ability 1", controls.controls_panel, BLACK, FontType::FF48, nullptr, false);
 	controls.keyboard.label_ability2 = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 12, "Ability 2", controls.controls_panel, BLACK, FontType::FF48, nullptr, false);
 	controls.keyboard.label_ability3 = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 13, "Ability 3", controls.controls_panel, BLACK, FontType::FF48, nullptr, false);
-	controls.keyboard.label_interact = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 14, "Interact", controls.controls_panel, BLACK, FontType::FF48, nullptr, false);
-	controls.keyboard.label_inventory = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 15, "Inventory", controls.controls_panel, BLACK, FontType::FF48, nullptr, false);
+	controls.keyboard.label_inventory = App->gui->AddLabel(actions_offset_x, first_control_y + offset_between_y * 14, "Inventory", controls.controls_panel, BLACK, FontType::FF48, nullptr, false);
 
 	// KEYBOARD
 	int keyboard_offset_x = actions_offset_x + 150;
@@ -374,12 +373,7 @@ void m1MenuManager::CreateControls()
 	controls.keyboard.label_to_show_how_ability3->SetPosRespectParent(CENTERED);
 	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_ability3);
 
-	controls.keyboard.button_interact = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_ability3->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
-	controls.keyboard.label_to_show_how_interact = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.BASIC_ATTACK, controls.keyboard.button_interact, BLACK, FontType::FF32, nullptr, false);
-	controls.keyboard.label_to_show_how_interact->SetPosRespectParent(CENTERED);
-	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_interact);
-
-	controls.keyboard.button_inventory = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_interact->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
+	controls.keyboard.button_inventory = App->gui->AddButton(keyboard_offset_x, controls.keyboard.button_ability3->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
 	controls.keyboard.label_to_show_how_inventory = App->gui->AddLabel(0, 0, App->input->keyboard_buttons.buttons_char.INVENTORY, controls.keyboard.button_inventory, BLACK, FontType::FF32, nullptr, false);
 	controls.keyboard.label_to_show_how_inventory->SetPosRespectParent(CENTERED);
 	App->scene->labels_control.push_back(controls.keyboard.label_to_show_how_inventory);
@@ -455,12 +449,7 @@ void m1MenuManager::CreateControls()
 	controls.controller.Clabel_to_show_how_ability3->SetPosRespectParent(CENTERED);
 	App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_ability3);
 
-	controls.controller.Cbutton_interact = App->gui->AddButton(controller_offset_x, controls.controller.Cbutton_ability3->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
-	controls.controller.Clabel_to_show_how_interact = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.BASIC_ATTACK, controls.controller.Cbutton_interact, BLACK, FontType::FF32, nullptr, false);
-	controls.controller.Clabel_to_show_how_interact->SetPosRespectParent(CENTERED);
-	App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_interact);
-
-	controls.controller.Cbutton_inventory = App->gui->AddButton(controller_offset_x, controls.controller.Cbutton_interact->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
+	controls.controller.Cbutton_inventory = App->gui->AddButton(controller_offset_x, controls.controller.Cbutton_ability3->position.y + offset_between_y, button_rect, button_rect, button_rect, this, controls.controls_panel, true, false, true, true);
 	controls.controller.Clabel_to_show_how_inventory = App->gui->AddLabel(0, 0, App->input->controller_Buttons.buttons_char.INVENTORY, controls.controller.Cbutton_inventory, BLACK, FontType::FF32, nullptr, false);
 	controls.controller.Clabel_to_show_how_inventory->SetPosRespectParent(CENTERED);
 	App->scene->Clabels_control.push_back(controls.controller.Clabel_to_show_how_inventory);
@@ -1299,6 +1288,46 @@ bool m1MenuManager::Interact(u1GUI * interaction)
 		if (control_to_change != nullptr)
 			delete control_to_change;
 		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_inventory, &App->input->keyboard_buttons.buttons_code.INVENTORY, &App->input->keyboard_buttons.buttons_char.INVENTORY, false);
+	}
+	else if (interaction == controls.controller.Cbutton_ability1) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_ability1, &App->input->controller_Buttons.buttons_code.ABILTY1, &App->input->controller_Buttons.buttons_char.ABILITY1, true);
+	}
+	else if (interaction == controls.keyboard.button_ability1) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_ability1, &App->input->keyboard_buttons.buttons_code.ABILTY1, &App->input->keyboard_buttons.buttons_char.ABILITY1, false);
+	}
+	else if (interaction == controls.controller.Cbutton_ability2) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_ability2, &App->input->controller_Buttons.buttons_code.ABILITY2, &App->input->controller_Buttons.buttons_char.ABILITY2, true);
+	}
+	else if (interaction == controls.keyboard.button_ability2) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_ability2, &App->input->keyboard_buttons.buttons_code.ABILITY2, &App->input->keyboard_buttons.buttons_char.ABILITY2, false);
+	}
+	else if (interaction == controls.controller.Cbutton_ability3) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_ability3, &App->input->controller_Buttons.buttons_code.ABILITY3, &App->input->controller_Buttons.buttons_char.ABILITY3, true);
+	}
+	else if (interaction == controls.keyboard.button_ability3) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_ability3, &App->input->keyboard_buttons.buttons_code.ABILITY3, &App->input->keyboard_buttons.buttons_char.ABILITY3, false);
+	}
+	else if (interaction == controls.controller.Cbutton_abilities) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.controller.Clabel_to_show_how_abilities, &App->input->controller_Buttons.buttons_code.FAST_SKILLS, &App->input->controller_Buttons.buttons_char.FAST_SKILLS, true);
+	}
+	else if (interaction == controls.keyboard.button_abilities) {
+		if (control_to_change != nullptr)
+			delete control_to_change;
+		control_to_change = DBG_NEW ChangeControls(controls.keyboard.label_to_show_how_abilities, &App->input->keyboard_buttons.buttons_code.FAST_SKILLS, &App->input->keyboard_buttons.buttons_char.FAST_SKILLS, false);
 	}
 
 	//OPTIONS ======================================================================================================================================
