@@ -182,7 +182,8 @@ bool m1VideoPlayer::PostUpdate()
 {
 	if (playing && texture_created)
 	{
-		App->render->Blit(texture, 0, 0, nullptr);
+		if (time_to_start < SDL_GetTicks() - 200)
+			App->render->Blit(texture, 0, 0, nullptr);
 	}
 	return true;
 }
@@ -503,7 +504,7 @@ int m1VideoPlayer::PlayVideoNow()
 	LOG("Video file loaded correctly, now playing: %s", file);
 	playing = true;
 	parse_thread_id = SDL_CreateThread(ReadThread, "ReadThread", this); //Start packet reading thread
-																		//TODO 4.1 Call SDL_AddTimer with 40 ms and our VideoCallback, also dont forget to send this as parameter.
+	time_to_start = SDL_GetTicks();																	//TODO 4.1 Call SDL_AddTimer with 40 ms and our VideoCallback, also dont forget to send this as parameter.
 	SDL_AddTimer(40, (SDL_TimerCallback)VideoCallback, this); //First video callback
 }
 
