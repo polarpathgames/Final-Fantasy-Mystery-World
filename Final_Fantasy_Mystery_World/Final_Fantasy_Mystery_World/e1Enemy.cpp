@@ -73,7 +73,8 @@ e1Enemy::e1Enemy(const int &x, const int &y) : e1DynamicEntity(x,y)
 
 e1Enemy::~e1Enemy()
 {
-	App->particles->CreateExplosion(nullptr, nullptr, GetPosition(), { 2,2,2,2 }, RANDOM, { 20,20 }, { 10,5 }, { 1,3 }, P_RANDOM , 200, 4, { 0.f,-2.f });
+	if (state == State::DEATH)
+		App->particles->CreateExplosion(nullptr, nullptr, GetPosition(), { 2,2,2,2 }, RANDOM, { 20,20 }, { 10,5 }, { 1,3 }, P_RANDOM, 200, 4, { 0.f,-2.f });
 }
 
 void e1Enemy::InitStats()
