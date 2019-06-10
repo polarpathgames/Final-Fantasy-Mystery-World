@@ -308,7 +308,7 @@ void e1Drop::SetGold(const int & gold)
 void e1Drop::FinishSpline()
 {
 	moving = false;
-	actual_tile = moving_pos;
+	actual_tile = moving_pos + iPoint(1,0);
 }
 
 void e1Drop::SetSplineToFall() {

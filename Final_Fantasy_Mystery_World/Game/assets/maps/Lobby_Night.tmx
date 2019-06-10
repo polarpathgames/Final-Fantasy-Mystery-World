@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="isometric" renderorder="right-down" width="66" height="60" tilewidth="32" tileheight="16" infinite="0" nextlayerid="37" nextobjectid="919">
+<map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="right-down" width="66" height="60" tilewidth="32" tileheight="16" infinite="0" nextobjectid="919">
  <properties>
   <property name="movement" type="int" value="1"/>
  </properties>
@@ -29,7 +29,7 @@
  <tileset firstgid="685" name="ques1_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques1_tileset.png" width="688" height="290"/>
  </tileset>
- <layer id="32" name="Floor" width="66" height="60">
+ <layer name="Floor" width="66" height="60">
   <data>
    <tile/>
    <tile/>
@@ -3993,7 +3993,7 @@
    <tile gid="454"/>
   </data>
  </layer>
- <layer id="33" name="Wall" width="66" height="60">
+ <layer name="Wall" width="66" height="60">
   <data>
    <tile gid="362"/>
    <tile gid="362"/>
@@ -7957,7 +7957,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="34" name="Enviorment" width="66" height="60">
+ <layer name="Enviorment" width="66" height="60">
   <data>
    <tile/>
    <tile/>
@@ -10160,8 +10160,8 @@
    <tile gid="441"/>
    <tile/>
    <tile/>
-   <tile gid="66"/>
-   <tile gid="67"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -10227,7 +10227,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="68"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -10378,8 +10378,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="66"/>
-   <tile gid="67"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -10445,7 +10445,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="68"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -10560,8 +10560,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="66"/>
-   <tile gid="67"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -10627,7 +10627,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="68"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -11921,7 +11921,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="36" name="ICE" width="66" height="60">
+ <layer name="ICE" width="66" height="60">
   <data>
    <tile/>
    <tile/>
@@ -15885,7 +15885,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="35" name="Colliders" width="66" height="60">
+ <layer name="Colliders" width="66" height="60" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -19853,7 +19853,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="26" name="collider">
+ <objectgroup name="collider" visible="0">
   <object id="88" name="collider" x="624.818" y="373.91" width="11.6818" height="4.5">
    <properties>
     <property name="home" type="int" value="0"/>
@@ -19922,7 +19922,7 @@
   </object>
   <object id="918" x="493.25" y="712.75"/>
  </objectgroup>
- <objectgroup color="#ffff7f" id="6" name="player">
+ <objectgroup color="#ffff7f" name="player" visible="0">
   <object id="5" name="player" type="default" x="496" y="688" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
@@ -19939,7 +19939,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="27" name="Static objects">
+ <objectgroup name="Static objects" visible="0">
   <object id="30" name="flower" type="static" x="368.227" y="352.136" width="32" height="32"/>
   <object id="31" name="flower" type="static" x="432" y="368" width="32" height="32"/>
   <object id="32" name="flower" type="static" x="416" y="304" width="32" height="32"/>

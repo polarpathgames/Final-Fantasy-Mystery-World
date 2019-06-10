@@ -1312,6 +1312,7 @@ void e1Player::GetHitted(const int & damage_taken)
 
 		if (stats.live <= 0) {
 			App->entity_manager->entity_turn = this;
+			turn_done = false;
 			state = State::DEATH;
 			ChangeAnimation(direction, state);
 			death_time = SDL_GetTicks();
