@@ -21,7 +21,7 @@ body {
     z-index:1;
     height: 50px;
   }
-  
+
   header {
     background-color: rgb(12, 132, 187);
     height: 120px;
@@ -279,6 +279,9 @@ section ul.list-releases li a, section div div a.download_link{
   line-height: 2;
   border-radius: 4px;
   float: right !important;
+}
+section div div a.download_link{
+  margin: 20px;
 }
 
 /* FEATURES */
