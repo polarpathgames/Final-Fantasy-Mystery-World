@@ -101,7 +101,16 @@
     is between camera edges. We use this in the draw map and in entities, only tiles in camera will blit and only entities in camera will be sorted and blitted. All this explication 
     is explained with more detail in the research web page, with examples and profiling tests.
     <h3>Static Entities</h3>
+    There were a problem with map objects and sprite ordering. Our map is loaded by tiles and can not be sorted with entities. So, I have to implement a technique to create map objects in 
+    Tiled that will oper like entities that will make nothing. In order to do that, you can create rectangles as a objects in Tiled and assign a name and a type, so if you want to create,
+    for example a tree, you must put as type the "static" word, and in name "tree". Later, in the static entity class you have to put an "if" comparing the name with "tree" and set all its 
+    information. The system allows to create objects with animation, particles and interaction with its logic behind.
     <h3>Texture Manager</h3>
+    Loading a lot of textures makes the program to run slowly and fill the memory considerably. The first problem we had, was that every entity loaded a texture, in cases that we had same
+    enemies or more than one static entities, we had seen that they could use only one texture and share with the entities that had the same texture. What have I done was creating a number 
+    attached to every texture that measures the number of objects that need that texture. If a texture is loaded, program will search if exist a texture with that path, if succeed, will
+    return the pointer of that texture and add one to the dependence texture, if not succeed will load a new texture with dependence 0. When a texture is deleted, will check if the dependence
+    is 0, if not, won't delete the texture and subtracts one to the dependence number.
     <h3>On Collision System</h3>
     <h3>Memory Leaks</h3>
     <h3>Particle System</h3>
