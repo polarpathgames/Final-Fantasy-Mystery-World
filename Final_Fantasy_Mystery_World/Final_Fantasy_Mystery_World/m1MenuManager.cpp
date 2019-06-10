@@ -648,6 +648,7 @@ void m1MenuManager::DeletePotionMenu()
 void m1MenuManager::CreatePauseMenu()
 {
 	if (pause.pause_panel == nullptr) {
+		App->gui->DeleteHitPointLabels();
 		pause.pause_panel = App->gui->AddImage(0, 0, { 2701,723,314,428 }, nullptr, App->gui->screen, true, false, false, false);
 		pause.pause_panel->SetPosRespectParent(CENTERED);
 		pause.pause_panel->SetPos(pause.pause_panel->GetLocalPosition().x, -1000);
