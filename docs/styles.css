@@ -152,7 +152,7 @@ section.game_description,section.team{
   background: rgb(212, 76, 22);
   color: whitesmoke;
   font-size: 18px;
-  margin: 20px;
+  margin:  20px;
   margin-bottom: 0%;
   padding: 20px;
 }
@@ -175,6 +175,7 @@ section div.videos{
   flex-direction: row;
   flex-wrap: wrap;
 }
+
 
 section div.videos figure {
   margin: auto;
@@ -280,6 +281,29 @@ section.team img {
   width: 400px;
   float: right;
   margin-left: 40px;
+}
+
+
+@media screen and (min-width: 958px){
+  section.game_description,section.team{
+    margin:  20px 200px;
+    margin-bottom: 0%;
+  }
+
+  section h1.video_title{
+    margin: 0% 200px;
+  }
+
+  section div.videos{
+    margin: 200px;
+    margin-bottom: 20px;
+    margin-top:0%;
+  }
+  section.members {
+    margin: 200px;
+    margin-top: 0%;
+    margin-bottom: 20px;
+  }
 }
 
 /* POP UP*/

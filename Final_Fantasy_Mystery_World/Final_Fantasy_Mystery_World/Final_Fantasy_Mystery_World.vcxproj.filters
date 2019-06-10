@@ -231,8 +231,6 @@
     <ClCompile Include="e1Spider.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="c1CutSceneFadeToBlack.cpp" />
-    <ClCompile Include="c1CutSceneVibration.cpp" />
     <ClCompile Include="e1AmazingDragon.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
@@ -241,6 +239,12 @@
     </ClCompile>
     <ClCompile Include="m1VideoPlayer.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneFadeToBlack.cpp">
+      <Filter>Cutscenes</Filter>
+    </ClCompile>
+    <ClCompile Include="c1CutSceneVibration.cpp">
+      <Filter>Cutscenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -500,8 +504,6 @@
     <ClInclude Include="e1Spider.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="c1CutSceneFadeToBlack.h" />
-    <ClInclude Include="c1CutSceneVibration.h" />
     <ClInclude Include="e1AmazingDragon.h">
       <Filter>Entities</Filter>
     </ClInclude>
@@ -510,6 +512,12 @@
     </ClInclude>
     <ClInclude Include="m1VideoPlayer.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneVibration.h">
+      <Filter>Cutscenes</Filter>
+    </ClInclude>
+    <ClInclude Include="c1CutSceneFadeToBlack.h">
+      <Filter>Cutscenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -579,6 +587,9 @@
     <Xml Include="..\Game\assets\xml\CutsceneLittleDrake.xml">
       <Filter>Cutscenes\XML</Filter>
     </Xml>
+    <Xml Include="Game\assets\xml\CutsceneBlockPass.xml">
+      <Filter>Cutscenes\XML</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\assets\entities\CarnivorousPlant.tsx">
@@ -589,6 +600,39 @@
     </None>
     <None Include="Game\assets\entities\Warrior.tsx">
       <Filter>Entities\XML</Filter>
+    </None>
+    <None Include="..\..\docs\enric-perez-rifa.html">
+      <Filter>web</Filter>
+    </None>
+    <None Include="..\..\docs\index.html">
+      <Filter>web</Filter>
+    </None>
+    <None Include="..\..\docs\ivan-ropero-garcia.html">
+      <Filter>web</Filter>
+    </None>
+    <None Include="..\..\docs\lluis-moreu-farran.html">
+      <Filter>web</Filter>
+    </None>
+    <None Include="..\..\docs\marc-galvez-llorens.html">
+      <Filter>web</Filter>
+    </None>
+    <None Include="..\..\docs\nadine-gutierrez-pociño.html">
+      <Filter>web</Filter>
+    </None>
+    <None Include="..\..\docs\oriol-capdevila-salinas.html">
+      <Filter>web</Filter>
+    </None>
+    <None Include="..\..\docs\styles.css">
+      <Filter>web</Filter>
+    </None>
+    <None Include="..\..\docs\team.html">
+      <Filter>web</Filter>
+    </None>
+    <None Include="..\..\docs\christian-martinez-de-la-rosa.html">
+      <Filter>web</Filter>
+    </None>
+    <None Include="..\..\docs\download.html">
+      <Filter>web</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -624,6 +668,9 @@
     </Filter>
     <Filter Include="XML">
       <UniqueIdentifier>{2a59bcdf-ca59-4955-b34f-1d0d7db89dc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="web">
+      <UniqueIdentifier>{54918c3f-2712-409c-86ad-4e164f785f5f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
