@@ -114,8 +114,7 @@ Oriol Capdevila [OriolCS2](https://github.com/OriolCS2)
 
 
 ### Debug keys:
-
-- 1/2/3: Change zoom
+- Z/X: change scale
 - 6: go to the lobby
 - 7: go to tutorial map
 - 8: go to quest 1
