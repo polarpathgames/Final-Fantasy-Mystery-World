@@ -17,8 +17,8 @@
 </header>
 
 <section class="member">
-    <h1>Christian Martínez de la Rosa</h1>
-    <img src="members/CHRISTIAN_wapo.jpg" alt="Christian Martínez de la Rosa">
+    <h1>Christian MartÃ­nez de la Rosa</h1>
+    <img src="members/CHRISTIAN_wapo.jpg" alt="Christian Martï¿½nez de la Rosa">
     <div class="container_member">
         <ul>
             <li>
@@ -39,11 +39,51 @@
 
 <section class="work">
     <h2>My work</h2>
+    As a team lead, my work was to guide the team to the right direction and to keep the team together.
+    Also, inside the project, I have mainly worked in code, specifically in data structure and data management.
     </br>
-    I've done nothing.
+    In general, I have had meetings with the <a href="lluis-moreu-farran.html">manager</a> in order to create the team meeting points, 
+    to know the deviation of the team and prevent possible risks.
     </br>
+    </br>
+    As I said, I focused in code, now I will explain some features I have implemented.
+    <h3>UI System</h3>
+    I have implemented the base of the UI System. The system works with a list of UI elements and has implemented a BFS algorithm to go through it. To get the input, 
+    the game travel for the UI list from the childs to the parent, to paint the UI, it travels inversely. The system includes the base UI elements:
+    <h4>Image</h4>
+    Image UI is the simplest element. Is a section of the atlas UI texture and, also, can be a sequence of frames, creating an animation.
+    <h4>Button</h4>
+    The Button UI has integrated the three main states: idle, on hover and click. Moreover, has a system of listeners to set logic when button is pushed. In addition, I
+    have created the logic of focus to move between buttons.
+    <h4>Label</h4>
+    The Label element is a little more complex. First, has basic parameters like text, color and font, and automatically the program calculates the size it occupies on the screen. 
+    In addition, it has a warp parameter that will cut the phrases to fit in the warp zone. Also, it has the posibility to set a background. You can choose a color and a
+    alpha value and the program will paint the background behind the label, it is usefull in cases that you need readability.
+    <h3>Font System</h3>
+    In relation with the UI System, I have created a system to load fonts. We had the problem that for every label we created, a font was opened, so if we created 10 labels with the 
+    same font and size, the program will open 10 equal fonts. In order to solve that, I have created a system that only open a font if there is not any equal opened before. To make
+    it more readability, I had set a few fonts with default sizes we will use in a xml file. Every time that a label is created, it will find if there is a font with that
+    characteristics and if it exist, will return that font pointer. Font can be searched by name(string) or by id(enum) we have declared.
+    <h3>Properties</h3>
+    <h3>Load Entities From Tiled</h3>
+    <h3>Sprite Ordering</h3>
+    <h3>Camera Culling</h3>
+    <h3>Static Entities</h3>
+    <h3>On Collision System</h3>
+    <h3>Memory Leaks</h3>
+    <h3>Particle System</h3>
+    <h3>Debug Screen</h3>
+    <h3>Input Improve</h3>
+    <h3>Math helper</h3>
+    <h3>Improve Cutscene Manager</h3>
+    <h3>NPC System</h3>
+    <h3>State System</h3>
+    <h3>Boss Quest 2: Ice Queen</h3>
+    <h3>Rupees Spawn</h3>
+    <h3>Abilities visual rework</h3>
+    <h3>Installer</h3>
+    
 </section>
-
 <footer>
     <ul>
         <li class="github"><a href="https://github.com/polarpathgames/Final-Fantasy-Mystery-World">Github Logo</a></li>
