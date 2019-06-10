@@ -20,6 +20,9 @@
 e1NPC::e1NPC(const int &x, const int &y, const char* name) : e1DynamicEntity(x, y)
 {
 	LoadNPC(name);
+	new_position.create(x, y);
+	destination = position;
+	initial_position = position;
 	type = e1Entity::EntityType::NPC;
 	allow_turn = false;
 }

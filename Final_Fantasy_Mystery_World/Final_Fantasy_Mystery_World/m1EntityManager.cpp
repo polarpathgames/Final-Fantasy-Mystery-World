@@ -624,6 +624,7 @@ bool m1EntityManager::Load(pugi::xml_node& load)
 	App->scene->player->actual_tile.x += 1;
 	App->scene->player->actual_tile.y += 1;
 	App->scene->player->CenterOnTile();
+	App->globals.Ability3PanelShowed = true;
 	
 	return ret;
 }

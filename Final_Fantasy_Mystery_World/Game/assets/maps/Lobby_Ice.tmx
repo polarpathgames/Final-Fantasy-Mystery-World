@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="isometric" renderorder="right-down" width="66" height="60" tilewidth="32" tileheight="16" infinite="0" nextlayerid="42" nextobjectid="982">
+<map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="right-down" width="66" height="60" tilewidth="32" tileheight="16" infinite="0" nextobjectid="982">
  <properties>
   <property name="movement" type="int" value="1"/>
  </properties>
@@ -29,7 +29,7 @@
  <tileset firstgid="685" name="ques1_tileset" tilewidth="32" tileheight="16" tilecount="378" columns="21">
   <image source="ques1_tileset.png" width="688" height="290"/>
  </tileset>
- <layer id="32" name="Floor" width="66" height="60">
+ <layer name="Floor" width="66" height="60">
   <data>
    <tile/>
    <tile/>
@@ -3993,7 +3993,7 @@
    <tile gid="454"/>
   </data>
  </layer>
- <layer id="41" name="Wall" width="66" height="60">
+ <layer name="Wall" width="66" height="60">
   <data>
    <tile gid="987"/>
    <tile gid="987"/>
@@ -7957,7 +7957,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="40" name="Enviorment" width="66" height="60">
+ <layer name="Enviorment" width="66" height="60">
   <data>
    <tile/>
    <tile/>
@@ -11921,7 +11921,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="35" name="Colliders" width="66" height="60" visible="0">
+ <layer name="Colliders" width="66" height="60" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -15889,7 +15889,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="26" name="collider">
+ <objectgroup name="collider">
   <object id="88" name="collider" x="624.818" y="373.91" width="11.6818" height="4.5">
    <properties>
     <property name="home" type="int" value="0"/>
@@ -15946,7 +15946,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ffff7f" id="6" name="player">
+ <objectgroup color="#ffff7f" name="player">
   <object id="5" name="player" type="default" x="496" y="688" width="15.9688" height="16.0156">
    <properties>
     <property name="free_movement" type="bool" value="false"/>
@@ -15963,7 +15963,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="27" name="Static objects">
+ <objectgroup name="Static objects">
   <object id="31" name="plant2_quest1" type="static" x="320" y="352" width="32" height="32"/>
   <object id="34" name="plant_quest1" type="static" x="688" y="624" width="32" height="32"/>
   <object id="44" name="plant2_quest1" type="static" x="368" y="528" width="32" height="32"/>
@@ -15983,7 +15983,6 @@
   <object id="99" name="house2" type="static" x="608" y="480" width="106.458" height="98.78"/>
   <object id="120" name="floor" type="static" x="608" y="224" width="16.625" height="14.875"/>
   <object id="121" name="floor" type="static" x="640" y="240" width="16.625" height="14.875"/>
-  <object id="128" name="NPC1" type="static" x="528" y="416" width="15.5" height="15.5"/>
   <object id="129" x="416.5" y="507.5"/>
   <object id="130" x="418.5" y="513.5"/>
   <object id="131" x="430.5" y="527.5"/>
