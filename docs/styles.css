@@ -11,6 +11,17 @@ body {
   
   /* HEADER */
   
+  
+  header.scroll_navbar{
+    background-color: rgb(12, 132, 187);
+    padding: 20px;
+    text-align: center;
+    position:sticky;
+    top:0;
+    z-index:1;
+    height: 50px;
+  }
+  
   header {
     background-color: rgb(12, 132, 187);
     height: 120px;
@@ -22,13 +33,18 @@ body {
     z-index: 9;
   }
 
-  header.scroll_navbar{
-    position:sticky;
-    top:0;
-    z-index:1;
-    height: 50px;
-  }
   
+  
+  header.scroll_navbar a{
+     color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-left: 30px;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+
   header a {
     color: white;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -39,15 +55,24 @@ body {
     font-size: 19px;
   }
 
-  header.scroll_navbar a{
-    margin-top: 20px;
-    font-size: 16px;
-  }
 
   a:hover {
       text-decoration: underline;
   }
   
+  
+  header.scroll_navbar .logo a{
+    background-image: url("logo.png");
+    background-size: 100px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    text-indent: -9999999px;
+    top: -40px;
+  }
+
   header .logo a {
     background-image: url("logo.png");
     background-size: 180px;
@@ -60,12 +85,6 @@ body {
     width: 180px;
   }
 
-  header.scroll_navbar .logo a{
-    background-size: 100px;
-    width: 100px;
-    height: 100px;
-    top: -40px;
-  }
 
   nav ul {
     margin: 0;
