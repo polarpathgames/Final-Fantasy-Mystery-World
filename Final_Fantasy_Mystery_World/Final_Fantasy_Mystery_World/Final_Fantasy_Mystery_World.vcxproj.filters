@@ -590,6 +590,9 @@
     <Xml Include="Game\assets\xml\CutsceneBlockPass.xml">
       <Filter>Cutscenes\XML</Filter>
     </Xml>
+    <Xml Include="..\Game\assets\xml\NPC.xml">
+      <Filter>XML</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\assets\entities\CarnivorousPlant.tsx">

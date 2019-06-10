@@ -59,11 +59,13 @@
     <h3>UI System</h3>
     I have implemented the base of the UI System. The system works with a list of UI elements and has implemented a BFS algorithm to go through it. To get the input, 
     the game travel for the UI list from the childs to the parent, to paint the UI, it travels inversely. The system includes the base UI elements:
+    <img src="images/christian/pause_menu.png" alt="pause menu">
     <h4>Image</h4>
     Image UI is the simplest element. Is a section of the atlas UI texture and, also, can be a sequence of frames, creating an animation.
     <h4>Button</h4>
     The Button UI has integrated three main states: idle, on hover and click. Moreover, it has a system of listeners to set logic when button is pressed. In addition, I
     have created the logic of focus to move between buttons.
+    <img src="images/christian/Button.gif" alt="button gif">
     <h4>Label</h4>
     The Label element is a little more complex. First, it has basic parameters like text, color and font, and automatically the program calculates the size it occupies on the screen. 
     In addition, it has a warp parameter that will cut the phrases to fit in the warp zone. Also, it has the possibility to set a background. You can choose a color and an
@@ -73,6 +75,7 @@
     same font and size, the program will open 10 equal fonts. In order to solve that, I have created a system that only open a font if there is not any equal opened before. To make
     it more readability, I had set a few fonts with default sizes we will use in a xml file. Every time that a label is created, it will find if there is a font with that
     characteristics and if it exist, will return that font pointer. Font can be searched by name(string) or by id(enum) we have declared.
+    <img src="images/christian/fonts.png" alt="fonts">
     <h3>Properties</h3>
     In order to save important data from some things, like entities, map, etc. I have created a class that can save information and is self-administered. It consist in two templates classes, 
     the first one contain the name of the property and the value. The second one, contains a list of properties and some methods to organize the properties. The methods are to create
@@ -112,14 +115,39 @@
     return the pointer of that texture and add one to the dependence texture, if not succeed will load a new texture with dependence 0. When a texture is deleted, will check if the dependence
     is 0, if not, won't delete the texture and subtracts one to the dependence number.
     <h3>On Collision System</h3>
+    I created a three different types of collision: OnCollisionEnter, OnCollisionStay and OnCollisionLeave. That differentation helps to only do logic when enter in a trigger, leave or
+    keeps colliding.
     <h3>Memory Leaks</h3>
+    In order to avoid memory leaks I just used Visual Studio facilities in <a href="https://docs.microsoft.com/en-us/visualstudio/debugger/finding-memory-leaks-using-the-crt-library?view=vs-2015">this</a> 
+    guide to know memory leaks and solve them.
     <h3>Particle System</h3>
+    To create a better expierence I implemented a particle system. I start from an other student research you can find 
+    <a href="https://github.com/elliotjb/Particle-System-by-ElliotJB">here</a>. I modified a little that system. Also, I created all particles found in the game.
+    <img src="images/christian/fountain_particles.gif" alt="particles fountain"><img src="images/christian/flash_particles.gif" alt="particles flash">
     <h3>Debug Screen</h3>
-    <h3>Input Improve</h3>
+    In order to know some basic game info without stopping the game using breakpoints or creating logs, I created a Debug Screen.
+    <img src="images/christian/debug_screen.png" alt="debug screen">
+    As we can see, there is some basic info. First we can see fps and delta time. Also, displays the camera position. In other rectangle appears the number of textures used in the main scene.
+    In the map info. It appears the number of layers that contains the map, number of tilesets, an identificator of map type, size and tiles are rendering with the camera culling.
+
+    In entities info we can the number of entities(including the static entities) and the entities drawn. Also appears the info of the player. <br>In addition, it shows the 
+    mouse position and ui selected
     <h3>Math helper</h3>
+    To help in some operations I created some functions to do it. Mainly, it contains basic interpolation functions to move objects using lerp. Other function is to make conversion factors
+    of angles.
     <h3>Improve Cutscene Manager</h3>
+    Once one member implemented Cutscene Manager from other student that you can find <a href="https://alexmg99.github.io/Cutscene-Manager-Research/">here</a>, I improved some things in
+    order to speed up the work of creating cutscenes. First I modified the camera event to set the initial position, last position and the speed and the program will move the camera with
+    a lerp. I also implement a feature in xml file that if you don't put any initial position, te program will set the position the camera was before. If you don't set any destination, the 
+    camera will move to the center of the player. 
     <h3>NPC System</h3>
+    To create Npcs easily I have created a system that loads npcs info from a xml file. It allows some data given by different forms. Can set graphics by tsx as entities or manually setting
+    the frames and animations. Also, you can set a route that will follow. Also allows some dialog trees to use in the dialog system created by 
+    <a href="https://roperoivan.github.io/Dialogue-System/">Iván Ropero</a>.
     <h3>State System</h3>
+    We have a mechanic of poisoned, burned and there is a blizzard. To make it easy, that works as entities attached to other entities to make it damage. Also, some of them have particles. All 
+    of them are entities because the game is turn-based and the events have to make something in every some turns.
+    
     <h3>Boss Quest 2: Ice Queen</h3>
     <h3>Rupees Spawn</h3>
     <h3>Abilities visual rework</h3>
