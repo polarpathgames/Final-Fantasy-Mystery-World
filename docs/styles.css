@@ -175,7 +175,7 @@ body {
     position: relative;
     left:50%;
     transform:translate(-50%);
-    background-image:url('https://cdn02.nintendo-europe.com/media/images/06_screenshots/games_5/virtual_console_wii_u_3/wiiuvc_finalfantasytacticsadvance/WiiUVC_FinalFantasyTacticsAdvance_05.jpg');
+    background-image:url('https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/docs/images/Foto1.jpg');
     background-size: 640px 400px;
     background-repeat: no-repeat;
     box-shadow: 1px 2px 10px 5px white;
@@ -183,11 +183,11 @@ body {
   } 
 
   @keyframes slider{
-    0%{ background-image:url('https://cdn02.nintendo-europe.com/media/images/06_screenshots/games_5/virtual_console_wii_u_3/wiiuvc_finalfantasytacticsadvance/WiiUVC_FinalFantasyTacticsAdvance_05.jpg');
+    0%{ background-image:url('https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/docs/images/Foto1.jpg');
     background-size : 640px 400px; }
-    33%{ background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2rOMKHp9_swVOq9aaxpuwZfrgUlOFEDKrveE3bANB6xiwbaKi');
+    33%{ background-image: url('https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/docs/images/Foto2.jpg');
     background-size : 640px 400px; }
-    66%{ background-image: url('https://i.kinja-img.com/gawker-media/image/upload/s--5jKcnZeY--/c_scale,f_auto,fl_progressive,q_80,w_800/18ah62mtx9ajwjpg.jpg');
+    66%{ background-image: url('https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/docs/images/Foto3.jpg');
     background-size : 640px 400px; }
   }
 
