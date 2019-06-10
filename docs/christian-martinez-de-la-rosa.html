@@ -15,7 +15,16 @@
         </ul>
     </nav>
 </header>
-
+<header class="scroll_navbar">
+<nav>
+    <ul>
+        <li><a href="team.html">About Us</a></li>                
+        <li class="mobile"><a href="download.html">Download</a></li>
+        <li class="logo"><a href="index.html">PolarPath Logo</a></li>
+        <li class="desktop"><a href="download.html">Download</a></li>
+    </ul>
+</nav>
+</header>
 <section class="member">
     <h1>Christian Martínez de la Rosa</h1>
     <img src="members/CHRISTIAN_wapo.jpg" alt="Christian Martínez de la Rosa">
@@ -53,12 +62,12 @@
     <h4>Image</h4>
     Image UI is the simplest element. Is a section of the atlas UI texture and, also, can be a sequence of frames, creating an animation.
     <h4>Button</h4>
-    The Button UI has integrated the three main states: idle, on hover and click. Moreover, has a system of listeners to set logic when button is pushed. In addition, I
+    The Button UI has integrated three main states: idle, on hover and click. Moreover, it has a system of listeners to set logic when button is pressed. In addition, I
     have created the logic of focus to move between buttons.
     <h4>Label</h4>
-    The Label element is a little more complex. First, has basic parameters like text, color and font, and automatically the program calculates the size it occupies on the screen. 
-    In addition, it has a warp parameter that will cut the phrases to fit in the warp zone. Also, it has the posibility to set a background. You can choose a color and a
-    alpha value and the program will paint the background behind the label, it is usefull in cases that you need readability.
+    The Label element is a little more complex. First, it has basic parameters like text, color and font, and automatically the program calculates the size it occupies on the screen. 
+    In addition, it has a warp parameter that will cut the phrases to fit in the warp zone. Also, it has the possibility to set a background. You can choose a color and an
+    alpha value and the program will paint the background behind the label, it is useful in cases that you need readability.
     <h3>Font System</h3>
     In relation with the UI System, I have created a system to load fonts. We had the problem that for every label we created, a font was opened, so if we created 10 labels with the 
     same font and size, the program will open 10 equal fonts. In order to solve that, I have created a system that only open a font if there is not any equal opened before. To make
@@ -68,7 +77,7 @@
     In order to save important data from some things, like entities, map, etc. I have created a class that can save information and is self-administered. It consist in two templates classes, 
     the first one contain the name of the property and the value. The second one, contains a list of properties and some methods to organize the properties. The methods are to create
     a property and added to the list, get the value of the property by the name and can  pass a default value if the property with that name is not found. Other methods are thinked to 
-    given a name it returns if exist a property with the same name and false if not, the last method cleans the property list. 
+    given a name it returns if a property exists with the same name and false if not, the last method cleans the property list. 
     You can find the file <a href="https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/Final_Fantasy_Mystery_World/Final_Fantasy_Mystery_World/p2Properties.h">here</a>.
     <h3>Load Entities From Tiled</h3>
     Creating the information of all entities is a heavy and slowly task. In order to speed up the mechanism I have created a system that loads entity data from a xml file. In this case,
