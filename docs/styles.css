@@ -175,7 +175,7 @@ body {
     position: relative;
     left:50%;
     transform:translate(-50%);
-    background-image:url('https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/docs/images/Foto1.jpg');
+    background-image:url('images/Foto1.jpg');
     background-size: 640px 400px;
     background-repeat: no-repeat;
     box-shadow: 1px 2px 10px 5px white;
@@ -183,11 +183,11 @@ body {
   } 
 
   @keyframes slider{
-    0%{ background-image:url('https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/docs/images/Foto1.jpg');
+    0%{ background-image:url('images/Foto1.jpg');
     background-size : 640px 400px; }
-    33%{ background-image: url('https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/docs/images/Foto2.jpg');
+    33%{ background-image: url('images/Foto2.jpg');
     background-size : 640px 400px; }
-    66%{ background-image: url('https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/docs/images/Foto3.jpg');
+    66%{ background-image: url('images/Foto3.jpg');
     background-size : 640px 400px; }
   }
 
@@ -339,6 +339,9 @@ section.team img {
   section.game_description,section.team{
     margin:  20px 200px;
     margin-bottom: 0%;
+  }
+
+  section.team{
     margin-top: 100px;
   }
 
