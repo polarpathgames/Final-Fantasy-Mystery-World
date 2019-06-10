@@ -176,22 +176,6 @@ section div.videos{
   flex-wrap: wrap;
 }
 
-@media screen and (min-width: 958px){
-  section.game_description,section.team{
-    margin:  20px 200px;
-    margin-bottom: 0%;
-  }
-
-  section h1.video_title{
-    margin: 0% 200px;
-  }
-
-  section div.videos{
-    margin: 200px;
-    margin-bottom: 20px;
-    margin-top:0%;
-  }
-}
 
 section div.videos figure {
   margin: auto;
@@ -297,6 +281,29 @@ section.team img {
   width: 400px;
   float: right;
   margin-left: 40px;
+}
+
+
+@media screen and (min-width: 958px){
+  section.game_description,section.team{
+    margin:  20px 200px;
+    margin-bottom: 0%;
+  }
+
+  section h1.video_title{
+    margin: 0% 200px;
+  }
+
+  section div.videos{
+    margin: 200px;
+    margin-bottom: 20px;
+    margin-top:0%;
+  }
+  section.members {
+    margin: 200px;
+    margin-top: 0%;
+    margin-bottom: 20px;
+  }
 }
 
 /* POP UP*/
