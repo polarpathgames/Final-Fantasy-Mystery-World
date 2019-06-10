@@ -457,6 +457,7 @@ section.member ul{
     position: initial;
       padding-top: 0;
       padding-left: 0;
+      line-height: 2.5em;
   }
 }
 
