@@ -148,13 +148,13 @@ bool m1VideoPlayer::PreUpdate()
 bool m1VideoPlayer::Update(float dt)
 {
 	//DEBUG INPUTS
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
+	/*if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
 		PlayVideo("assets/videos/Intro.mp4");
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		Pause();
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-		CloseVideo();
+		CloseVideo();*/
 
 	//Update texture
 	if (refresh)
@@ -514,6 +514,9 @@ void m1VideoPlayer::LogicAfterVideo()
 	{
 	case VIDEO_INTRO_ID:
 		App->fade_to_black->FadeToBlack(nullptr, (m1Module*)App->main_menu, 2.0F);
+		break;
+	case 2:
+		App->main_menu->StartNewGame();
 		break;
 	default:
 		LOG("No id for this video");

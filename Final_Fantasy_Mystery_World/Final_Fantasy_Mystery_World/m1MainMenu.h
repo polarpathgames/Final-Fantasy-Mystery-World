@@ -19,6 +19,8 @@ public:
 
 	bool Interact(u1GUI* interaction);
 
+	void StartNewGame();
+
 public:
 	Mix_Chunk* fx_push_button = nullptr;
 	Mix_Chunk* fx_push_button_return = nullptr;
