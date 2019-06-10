@@ -6,6 +6,7 @@ body {
 
   section{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-top: 100px;
   }
   
   /* HEADER */
@@ -15,9 +16,17 @@ body {
     height: 120px;
     padding: 20px;
     text-align: center;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: 9;
+  }
+
+  header.scroll_navbar{
     position:sticky;
     top:0;
-    z-index: 9;
+    z-index:1;
+    height: 50px;
   }
   
   header a {
@@ -28,6 +37,11 @@ body {
     margin-top: 40px;
     margin-left: 30px;
     font-size: 19px;
+  }
+
+  header.scroll_navbar a{
+    margin-top: 20px;
+    font-size: 16px;
   }
 
   a:hover {
@@ -44,6 +58,13 @@ body {
     text-indent: -9999999px;
     top: -65px;
     width: 180px;
+  }
+
+  header.scroll_navbar .logo a{
+    background-size: 100px;
+    width: 100px;
+    height: 100px;
+    top: -40px;
   }
 
   nav ul {
@@ -193,6 +214,10 @@ section div.videos figure iframe {
   height: 200px;
 }
 
+section.video_gallery{
+  margin-top: 0;
+}
+
 /* FEATURES */
 
 section ul.list-releases{
@@ -275,6 +300,7 @@ figcaption{
 section.team{
   min-height: 300px;
   line-height: 1.5em;
+  margin-top: 100px;
 }
 
 section.team img {
@@ -291,6 +317,7 @@ section.team img {
   section.game_description,section.team{
     margin:  20px 200px;
     margin-bottom: 0%;
+    margin-top: 100px;
   }
 
   section h1.video_title{
@@ -377,6 +404,7 @@ section.member{
   background: rgb(255, 175, 129);
   margin: 20px 20px 0 20px;
   padding: 2em 3em;
+  margin-top: 100px;
 }
 
 section.member h1{
