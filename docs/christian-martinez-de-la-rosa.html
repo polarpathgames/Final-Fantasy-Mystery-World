@@ -18,7 +18,7 @@
 
 <section class="member">
     <h1>Christian Martínez de la Rosa</h1>
-    <img src="members/CHRISTIAN_wapo.jpg" alt="Christian Mart�nez de la Rosa">
+    <img src="members/CHRISTIAN_wapo.jpg" alt="Christian Martínez de la Rosa">
     <div class="container_member">
         <ul>
             <li>
@@ -65,10 +65,34 @@
     it more readability, I had set a few fonts with default sizes we will use in a xml file. Every time that a label is created, it will find if there is a font with that
     characteristics and if it exist, will return that font pointer. Font can be searched by name(string) or by id(enum) we have declared.
     <h3>Properties</h3>
+    In order to save important data from some things, like entities, map, etc. I have created a class that can save information and is self-administered. It consist in two templates classes, 
+    the first one contain the name of the property and the value. The second one, contains a list of properties and some methods to organize the properties. The methods are to create
+    a property and added to the list, get the value of the property by the name and can  pass a default value if the property with that name is not found. Other methods are thinked to 
+    given a name it returns if exist a property with the same name and false if not, the last method cleans the property list. 
+    You can find the file <a href="https://github.com/polarpathgames/Final-Fantasy-Mystery-World/blob/master/Final_Fantasy_Mystery_World/Final_Fantasy_Mystery_World/p2Properties.h">here</a>.
     <h3>Load Entities From Tiled</h3>
-    <h3>Sprite Ordering</h3>
-    <h3>Camera Culling</h3>
+    Creating the information of all entities is a heavy and slowly task. In order to speed up the mechanism I have created a system that loads entity data from a xml file. In this case,
+    I have used <a href="https://www.mapeditor.org/">Tiled</a>, a map editor, to work comfortably. The latest versions of Tiled allows to work with tilesets and has some interesting 
+    functionalities. This is an example of what a spritesheet is seen in Tiled and the exportation in a .tsx file, that has the same behavior that a .xml version.
+    <img src="images/christian/tsx.png" width="1500" alt="a tsx file seen in Tiled and raw">
+    Here we have some basi data like tile size, number of tiles, the path of the image and custom properties that will be loaded with the Properties class mentioned before. Also,
+    every tile has more space to set more data. Here we can see an example:
+    <img src="images/christian/tile_info.png" alt="basic info of one tile in the spritesheet">
+    Each tile has an ID number and a type. Also has properties and can hold an animation. In our case we have set a type number equals to the id enum of our animation states, so when
+    we load the entity, the animations are setted automatically. In addition, each tile that has an animation attached, has a property to set the animation speed.
+    <h3>Research</h3>
+    In the project 2 subject, every student has to do a research on a topic. I choose Sprite Ordering and Camera Culling to do a research of it. You can find full information of the project
+    <a href="https://christt105.github.io/Sprite_Ordering_and_Camera_Culling_Personal_Research/">here</a>. I recommend seeing that project that contains much  more information of that 
+    topics that this web page.
+    <h4>Sprite Ordering</h4>
+    In summary, the system works with entities and order the vector by the Y position on the screen. In order to make a good logic of sprite ordering, the system works with a pivot that you
+    can set where you want. Also, that pivot can be setted in Tiled, you only have to put a quad with the name "pivot" in the first tile and the program will set it directly.
+    <h4>Camera Culling</h4>
+    In relation to the previous topic, sorting a vector is very expensive. In order to optimize sorting and bliting I have applied a camera culling. That system checks if a entity or a tile
+    is between camera edges. We use this in the draw map and in entities, only tiles in camera will blit and only entities in camera will be sorted and blitted. All this explication 
+    is explained with more detail in the research web page, with examples and profiling tests.
     <h3>Static Entities</h3>
+    <h3>Texture Manager</h3>
     <h3>On Collision System</h3>
     <h3>Memory Leaks</h3>
     <h3>Particle System</h3>
