@@ -99,6 +99,7 @@
     <h4>Sprite Ordering</h4>
     In summary, the system works with entities and order the vector by the Y position on the screen. In order to make a good logic of sprite ordering, the system works with a pivot that you
     can set where you want. Also, that pivot can be setted in Tiled, you only have to put a quad with the name "pivot" in the first tile and the program will set it directly.
+    <img src="images/christian/sprite_ordering.gif" alt="sprite ordering">
     <h4>Camera Culling</h4>
     In relation to the previous topic, sorting a vector is very expensive. In order to optimize sorting and bliting I have applied a camera culling. That system checks if a entity or a tile
     is between camera edges. We use this in the draw map and in entities, only tiles in camera will blit and only entities in camera will be sorted and blitted. All this explication 
@@ -108,6 +109,7 @@
     Tiled that will oper like entities that will make nothing. In order to do that, you can create rectangles as a objects in Tiled and assign a name and a type, so if you want to create,
     for example a tree, you must put as type the "static" word, and in name "tree". Later, in the static entity class you have to put an "if" comparing the name with "tree" and set all its 
     information. The system allows to create objects with animation, particles and interaction with its logic behind.
+    <img src="images/christian/static_entity1.png" alt="static entity1"><img src="images/christian/static_entity2.png" alt="static entity2"><img src="images/christian/static_entity3.gif" alt="static entity3">
     <h3>Texture Manager</h3>
     Loading a lot of textures makes the program to run slowly and fill the memory considerably. The first problem we had, was that every entity loaded a texture, in cases that we had same
     enemies or more than one static entities, we had seen that they could use only one texture and share with the entities that had the same texture. What have I done was creating a number 
@@ -139,7 +141,7 @@
     Once one member implemented Cutscene Manager from other student that you can find <a href="https://alexmg99.github.io/Cutscene-Manager-Research/">here</a>, I improved some things in
     order to speed up the work of creating cutscenes. First I modified the camera event to set the initial position, last position and the speed and the program will move the camera with
     a lerp. I also implement a feature in xml file that if you don't put any initial position, te program will set the position the camera was before. If you don't set any destination, the 
-    camera will move to the center of the player. 
+    camera will move to the center of the player. In other cases, I have implemented a direction of start and end of an entity, because before only can change the direction moving the entity.
     <h3>NPC System</h3>
     To create Npcs easily I have created a system that loads npcs info from a xml file. It allows some data given by different forms. Can set graphics by tsx as entities or manually setting
     the frames and animations. Also, you can set a route that will follow. Also allows some dialog trees to use in the dialog system created by 
@@ -147,9 +149,18 @@
     <h3>State System</h3>
     We have a mechanic of poisoned, burned and there is a blizzard. To make it easy, that works as entities attached to other entities to make it damage. Also, some of them have particles. All 
     of them are entities because the game is turn-based and the events have to make something in every some turns.
-    
+    <img src="images/christian/poison_state.gif" alt="poison state"> <img src="images/christian/blizzard_state.gif" alt="blizzard event">
     <h3>Boss Quest 2: Ice Queen</h3>
+    <img src="images/christian/Ice_queen_idle.gif" alt="ice queen idle">
+    I made the second boss that is located in the second quest. Before doing that, I improved the enemies logic. The Ice Queen has two different phases. The first one, attacks from far and
+    when you approach her and do her some damage, she teleports to other destination.
+    <img src="images/christian/ice_queen_range.gif" alt="superpower"><img src="images/christian/ice_queen_basic.gif" alt="basic">
+    <img src="images/christian/ice_queen_flash.gif" alt="flash">
+    When she is half or fewer of life, starts the second phase. In that phase, she teleports frequently and
+    invokes two slimes that hit you. Also, invokes a blizzard permanently.
+    <img src="images/christian/ice_queen_blizzard.gif" alt="blizzard">
     <h3>Rupees Spawn</h3>
+    
     <h3>Abilities visual rework</h3>
     <h3>Installer</h3>
     
