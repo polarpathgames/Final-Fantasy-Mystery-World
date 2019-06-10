@@ -2,6 +2,205 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0] - 10/06/2019
+
+Added: 
+--------
+- Barrels and Snowmans destruction animations
+- Progressive text display
+- New HUD
+- Movement arrows
+- VideoPlayer
+- 3D logo
+- Studio video
+- Initial game video
+- Map legend
+
+Changed:
+--------
+- Barrels and Snowmans can be destroyed by the basic attack
+- Portal shows up after defeating boss
+- Helper screen can exit with ESC
+- Blizzard disappear when the boss die
+- Credits screen
+
+Removed: 
+--------
+- Compass
+- Old HUD
+
+Fixed: 
+--------
+- #465 If you are the archer or mage you can't sleep to active cutscene to go to quest 3
+- #476 This monster goes through walls
+- #482 In some menus, button B does not return
+- #483 Player can drink potions in Lobby
+- #485 When enters in a room that has the doors closed, the doors close before entering
+- #486 When skips last cutscene, does not display final screen and you are blocked in lobby
+- #487 Sometimes when deactives hud still blitting hp numbers
+- #492 If you abort mission it doesn't heal you
+- #500 New Game
+- #503 Visual HP and MP bars
+
+## [0.9.4] - 19/05/2019
+
+Added: 
+--------
+
+Changed:
+--------
+
+Removed: 
+--------
+
+Fixed: 
+--------
+- Fixed ability mage and archer
+- Fixed ability menu
+
+## [0.9.3] - 19/05/2019
+
+Added: 
+--------
+
+Changed:
+--------
+- Fire balls boss drake 3
+
+Removed: 
+--------
+
+Fixed: 
+--------
+- Fixed cutscenes in boss 3 when player died
+- Fixed crash in boss 3 when player died
+- Fixed cutscenes in boss 2 when player died
+- Fixed crash in boss 2 when player died
+- Fixed chests interactions 
+
+## [0.9.2] - 19/05/2019
+
+Added: 
+--------
+- Shortcut abilities
+
+
+Changed:
+--------
+- Faces in tps interactions
+- Last Cutscene
+- Return from quest 2 cutscene
+
+Removed: 
+--------
+- 
+
+Fixed: 
+--------
+- #447 When gets Ability 2, displays girl photo
+- #470 First Fountain in Quest 2
+- You cannot interact with entities when fading
+
+## [0.9.1] - 19/05/2019
+
+Added: 
+--------
+- Faces in cutscenes added
+- Fxs added
+- Portal added
+
+Changed:
+--------
+- Lobby Map
+- Lobby Ice Map
+- Lobby Night Map
+- Grammar dialog and cutscenes
+- Characters images
+- Save n load
+- Balancing
+- Treasure
+
+Removed: 
+--------
+- 
+
+Fixed: 
+--------
+- #378 Focus in dialogs is too little
+- #380 When you die the player appear with the death animation when revived
+- #383 The save game icon appears more than once when you save the game multiple times in a short period
+- #387 The game crashes when the controls button is hitted.
+- #400 If you die the health bar doesn't update to full bar
+- #433 Go over closed door
+- #434 Incorrect traduction on fountain
+- #435 UI dissappeared after going to the fountain
+- #437 Bars, compass and character image blit front ability screen.
+- #445 Tutorial screen wrong
+- #446 More screen fails
+- #451 Guard helmet Visual Bug
+- #462 If skip cutscene to go to sleep in the middle you are aground
+- #463 You can interact while theres a cutscene
+
+## [0.9.0] - 18/05/2019
+
+Added: 
+--------
+- Boss 3
+- All cutscenes
+- Menu congratulations
+- All enemies
+- Musics and fxs
+- Bosses health bars
+
+Changed:
+--------
+
+
+Removed: 
+--------
+
+Fixed: 
+--------
+- #410 If the player open the inventory when recieving last thit the inventory stays in screen
+- #415 If you die poisoned the sprite remains green once you revive
+- #432 Incorrect traduction
+
+
+## [0.8.2] - 17/05/2019
+
+Added: 
+--------
+- Bomber enemy
+- Poison visual effects
+- Boss 2
+- Minimap Icons
+- First Phase Boss 3
+- Fire State
+- Lobby at night
+- Water/Lava Animations
+- Shop items bought
+- Cutscenes Quest 2
+- Rupees explosion 
+
+Changed:
+--------
+- Correct focus image
+- Minimap
+- Resize buttons
+
+Removed: 
+--------
+- Old gold bag
+
+Fixed: 
+--------
+- #379 If an enemy kills you the game crashes 
+- #385 Extra room drawn in the fountain room
+- #391 If the player dies with a lot of enemies close the game crashes
+- #393 The compass doesn't disappear when return to lobby from quest2
+- #397 If you go to the quest 2 or 3 from the lobby, the HUD doesn't show up
+
+
 ## [0.8.0] - 12/05/2019
 
 Added: 

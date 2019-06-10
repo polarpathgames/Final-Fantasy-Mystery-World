@@ -1,35 +1,52 @@
 ﻿# Final Fantasy: Mystery World
 
-Final Fantasy Mystery World v.0.8.0
+Final Fantasy Mystery World v.1.0.0
 
 ## Description
 
+Final Fantasy Mystery World is a dungeon crawler rpg with microturns, where you have
+to follow the main history branch. Your objective is save your friend from the claws
+of a misterious monster that has kidnapped him in the world of Final Fantasy, there you
+will also have to save the villagers that live there.
+
 Added: 
 --------
-- Quest 3 rooms with colliders
-- Exp bar
-- Loop quest 3
-- Bat enemy
+- Barrels and Snowmans destruction animations
+- Progressive text display
+- New HUD
+- Movement arrows
+- VideoPlayer
+- 3D logo
+- Studio video
+- Initial game video
+- Map legend
 
 Changed:
 --------
-- Inventory
-- Experience
+- Barrels and Snowmans can be destroyed by the basic attack
+- Portal shows up after defeating boss
+- Helper screen can exit with ESC
+- Blizzard disappear when the boss die
+- Credits screen
+ 
 
 Removed: 
 --------
-- Old inventory
+- Compass
+- Old HUD
 
 Fixed: 
 --------
-- #333 The rectangle of the worktop is too large
-- #335 The game doesn't return the player to the lobby once you go to the map for a second time
-- #341 Game crash when return to main menu and use the B button in controller
-- #381 The fx are a little bit behind than they should
-- #382 The game crashes when you try to make the load
-- #386 The spawn of the player when return to the lobby from quest is wrong
-- #388 The statues dialogs are wrong picked
-- #390 The arrow ability disappear too soon
+- #465 If you are the archer or mage you can't sleep to active cutscene to go to quest 3
+- #476 This monster goes through walls
+- #482 In some menus, button B does not return
+- #483 Player can drink potions in Lobby
+- #485 When enters in a room that has the doors closed, the doors close before entering
+- #486 When skips last cutscene, does not display final screen and you are blocked in lobby
+- #487 Sometimes when deactives hud still blitting hp numbers
+- #492 If you abort mission it doesn't heal you
+- #500 New Game
+- #503 Visual HP and MP bars
 
 ## Links
 
@@ -37,7 +54,7 @@ Github repository: https://github.com/polarpathgames/Final-Fantasy-Mystery-World
 
 Github organization: https://github.com/polarpathgames/
 
-Changelist: (web)
+WebPage: https://polarpathgames.github.io/Final-Fantasy-Mystery-World/index.html
 
 Trello: https://trello.com/b/GLsm2JdT/final-fantasy-mistery-world
 
@@ -75,23 +92,26 @@ Oriol Capdevila [OriolCS2](https://github.com/OriolCS2)
   - WASD: move the player
   - LSHIFT: change to a diagonally movement
   - ARROWS: change direction
-  - V: show abilities menu
   - SPACEBAR: attack/interact
-  - F: ability
-  - H: flash
+  - 1: ability
+  - 2: flash
+  - 3: steal health ability
   - E: inventory
+  - V: shortcut ability
 
 - Controller:
   
   - LEFT JOYSTICK: move the player
   - RT: change to a diagonally movement
   - DPAD / RIGHT JOYSTICK: change direction
-  - LB: show abilities menu
+  - LB: Shortcut ability
   - RB: Inventory
   - A: attack/interact
   - B: flash
+  - Y: steal health ability
   - X: ability 1
- 
+  - Select: minimap
+
 
 ### Debug keys:
 
@@ -108,8 +128,8 @@ Oriol Capdevila [OriolCS2](https://github.com/OriolCS2)
 - F3: Map grid
 - F8: Controller vibration
 - F10: God Mode
-- F6: Change rooms
-- F7: Go to last rooms
+- F6: Change to the right room / SHIFT + F6: Change to the left room
+- F7: Go to last right room / SHIFT + F7: Change to the left room
 
 
 ## Instructions to execute
@@ -120,9 +140,6 @@ Oriol Capdevila [OriolCS2](https://github.com/OriolCS2)
 
 3.- Execute Final Fantasy Mystery World.exe
 
-## Innovation 
-
-What's original about the game
 
 ## Who made what
 
@@ -130,7 +147,12 @@ Who -> What
 
 ## Artist references
 
-(what) ripped by [who](web) ,from (original game).
+Music by Square Enix from the game FF Tactics: Advance for GBA
+Art by Square Enix Enix from the game FF Tactics: Advance for GBA
+FX by Square Enix Enix from the game FF Tactics: Advance for GBA
+FX by Nintendo from Pokemon Rescue Team for Nintendo DS
+FX by Nintendo from Zelda
+FX 
 
 ## License
 
