@@ -15,6 +15,9 @@ body {
     height: 120px;
     padding: 20px;
     text-align: center;
+    position:sticky;
+    top:0;
+    z-index: 9;
   }
   
   header a {
