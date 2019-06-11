@@ -603,3 +603,8 @@ input#i3:checked ~ .nav #dot3{
     height: 12px;
 	}
 }
+
+section.work video{
+  display: block;
+  margin:auto;
+}
